@@ -23,3 +23,5 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-21 09:17 | DOC-002 | Completed | [Root folder available](2026-10-21-0917-codex-doc-002-completed.md) |
 | 2026-10-21 09:18 | DOC-003 | Started | [Split board into message files](2026-10-21-0918-codex-doc-003-started.md) |
 | 2026-10-21 09:20 | DOC-003 | Completed | [One file per message](2026-10-21-0920-codex-doc-003-completed.md) |
+| 2026-10-21 09:24 | REF-001 | Started | [Specialize the repository to Lift-RS](2026-10-21-0924-codex-ref-001-started.md) |
+| 2026-10-21 09:31 | REF-001 | Completed | [Lift-RS specialization completed](2026-10-21-0931-codex-ref-001-completed.md) |

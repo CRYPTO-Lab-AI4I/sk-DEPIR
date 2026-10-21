@@ -1,13 +1,26 @@
-# sk-DEPIR: Secret-Key Doubly Efficient Private Information Retrieval
+# sk-DEPIR: Lifted Reed-Solomon Secret-Key PIR
 
-Implementation of secret-key Doubly Efficient PIR (sk-DEPIR) schemes based on permuted smooth LDCs. It contains two client constructions:
+This repository implements the **Lift-RS online construction** from the accompanying [paper](sk_DEPIR.pdf), *Doubly-Efficient Secret-Key PIR with Low Storage Overhead*. It is being prepared as a readable, documented, and auditable open-source library. The paper also describes a Reed-Muller construction decoded along concatenated curves; that protocol is outside this repository's scope.
 
-- **sk-PIR based on curve-lifted RS with curve decoding (Lift-RS)** - The LDC is the curve-lifted `(q-2,q)` Reed-Solomon code. The decoder queries the other `q-1` points on a degree-`t` curve through the requested location.
-- **sk-PIR based on RM with concatenated-curve decoding (RM-Conc)** - The LDC is a standard Reed-Muller code. The decoder uses an outer degree-`t` curve over an extension field and inner degree-`(e-1)` curves over the base field.
+The client follows the permuted smooth-code blueprint: it queries the other `q-1` points on a degree-`t` curve through the requested location, using a secret permutation and masks. The Go implementation is `pir.LiftedRS`. `pir.NewPIR` remains as a compatibility alias for `pir.NewLiftedRS`.
 
-This repository is being prepared as a documented, reviewable open-source library. Contributors and collaborating agents must follow [AGENTS.md](AGENTS.md), record every change on the [message board](message-board/README.md), and use the [experiment conventions](experiments/README.md) for new measurements. Check this README with every change so it continues to describe the actual implementation.
+Contributors and collaborating agents must follow [AGENTS.md](AGENTS.md), record every change in the [message board](message-board/README.md), and use the [experiment conventions](experiments/README.md) for new measurements. Check this README with every change.
 
-The Go implementations are named `LiftedRS` and `RMConc`. Both satisfy the common `PIR` interface in `pir/pir_api.go`, including decoding:
+## Implementation status and limits
+
+The online query and decode path supports locality `ℓ=q-1`, dimensions `m=2` and `m=3`, prime fields, and the listed binary extension fields. `Params.Q`, `Params.K`, and `Params.M` denote the field size `q`, curve degree `t`, and database dimension `m`. Production `Query` and `QueryLocal` append 128 dummy positions, so the transmitted query length is `L=(q-1)+128`.
+
+**There is no integrated Lift-RS encoder.** `LiftedRS.Encode` calls the external Reed-Muller encoder (`RMEncoding`) as a testing placeholder. `encoding/rme.cpp` contains an experimental `LRSE2D` helper, but the encoder command protocol does not select it. Encoder-backed tests therefore validate the Lift-RS online protocol only on compatible RM codewords. They do not establish Lift-RS encoding, rate, storage overhead, or encoding time.
+
+Other limits to account for when using or reviewing the code:
+
+- General locality `ℓ` is not implemented. The decoder uses the full-field sum identity for `ℓ=q-1`; supporting other localities requires retaining curve parameters and interpolating over the field.
+- Curve sampling, dummy positions, and shuffling use Go's `math/rand`. A production security implementation needs a cryptographic randomness source.
+- Local end-to-end tests replace the HTTP server with file-backed evaluation. `TestQueryFromServer` is a network smoke test; it skips when the configured server is unavailable and does not compare decoded values with an expected database.
+
+## API
+
+`LiftedRS` satisfies the `PIR` interface in [`pir/pir_api.go`](pir/pir_api.go):
 
 ```go
 type PIR interface {
@@ -19,229 +32,64 @@ type PIR interface {
 }
 ```
 
-`Params.Q`, `Params.K`, and `Params.M` denote the field size `q`, curve degree `t`, and database dimension `m`. `Params.D` is the RM degree bound `d` used by RM-Conc; `NewRMConc` interprets zero as the default `d=q-2`.
+Use `NewLiftedRS(params)` for new code. `Gen` creates ephemeral keys; `GenFromConfig` loads keys from `config.json`. Call `Close` when an encoder process has been started. `QueryLocal` is available for local tests and benchmarks.
 
-`NewPIR` is retained as a compatibility alias for `NewLiftedRS`. New code should call `NewLiftedRS` or `NewRMConc` explicitly.
+## Requirements and build
 
-## Implementation status and relaxations
+- Go 1.21.6
+- A C++17 compiler for the preferred external RM encoder, or Julia 1.10+ for its fallback. Julia dependencies are recorded in `encoding/Project.toml` and `encoding/Manifest.toml`.
 
-The online algorithms and the offline encoders do not have the same completeness. In particular, **there is no integrated Lift-RS encoder**. `encoding/rme.cpp` retains an experimental `LRSE2D` helper for future work, but the encoder command protocol never selects it and `LiftedRS.Encode` calls RMEncoding instead.
-
-| Construction | Query generation and decode | `Encode` method | End-to-end correctness coverage | Main relaxation or gap |
-|---|---|---|---|---|
-| Lift-RS (`LiftedRS`) | Implemented for the specialization `ℓ=q-1`, with `m=2,3`; prime fields and the listed `GF(2^n)` fields | Calls the shared **RMEncoding** wrapper | Prime-field tests call `Encode`; a separate `GF(16)` test uses a directly evaluated low-degree codeword | General locality `ℓ` and a genuine Lift-RS encoder are not implemented. The RM-encoded placeholder validates the online protocol only on codewords that also satisfy the Lift-RS curve restriction; it does not validate Lift-RS encoding, rate, storage overhead, or encoding time. |
-| RM-Conc (`RMConc`) | General supported parameters are implemented for `m=3`, `e=2`, `q=2^n`, and configurable `1 <= d <= q-1`, using `s=dt+1` and `r=d+1` | Also calls the shared **RMEncoding** wrapper | A `GF(16)` end-to-end test directly evaluates a genuine degree-2 RM codeword, then runs permutation, masking, query generation, local server evaluation, and decode | The external encoder paths follow prime-modulus/prime-field conventions and do not share this repository's `GF(2^n)` element representation. Consequently, there is currently no compatible RM-Conc end-to-end test that calls `Encode`. |
-
-Shared implementation choices and limitations:
-
-- `NewRMConc` uses `d=q-2` when `Params.D` is zero. Other supported `d` values can be selected explicitly and are tested.
-- The manuscript locality `ℓ` counts genuine LDC positions only. Production `Query` and `QueryLocal` calls append 128 dummy positions, so their transmitted query length is `L=ℓ+128`.
-- The extension degree is fixed to `e=2`; higher extension degrees from the manuscript are not implemented.
-- RM-Conc currently supports only three-dimensional databases and binary extension base fields.
-- Curve sampling, dummy positions, and shuffling use Go's `math/rand`. This is adequate for experiments and benchmarks but is not a cryptographic randomness source. A production security implementation must use a CSPRNG.
-- Local end-to-end tests replace the HTTP server with file-backed query evaluation. `TestQueryFromServer` separately exercises the network path, but it is a smoke test and does not compare decoded values with an expected database.
-
-## Future work
-
-The Lift-RS construction is defined for general locality `ℓ`, but the current implementation supports only the optimized `ℓ=q-1` case: it queries every point on the base-field curve except the point corresponding to the requested location and uses the resulting full-field sum identity for decoding, avoiding the need for general interpolation. Supporting general `ℓ` requires retaining the selected curve parameters and target parameter with each query, then performing general interpolation over either a prime field or `GF(2^n)`. The product-tree interpolation machinery currently used by RM-Conc can be refactored behind field-generic arithmetic and reused for this purpose.
-
-RM-Conc already supports general `d` within its implemented scope (`m=3`, `e=2`, and `q=2^n`): query generation and decoding derive and use all `s=dt+1` outer blocks and `r=d+1` inner points. Extending RM-Conc beyond that scope, particularly to other extension degrees `e`, remains future work.
-
-## Requirements
-
-- **Go 1.21.6**
-- A **C++17 compiler** to build the preferred external RM encoder, or **Julia 1.10+** for its fallback implementation
-  - Julia dependencies are recorded in `encoding/Project.toml` and `encoding/Manifest.toml`.
-
-The external encoder is not needed for the direct `GF(16)` end-to-end tests or the online query/decode benchmarks. It is required by `BenchmarkEncode` and by the two end-to-end tests whose names contain `WithRMEncoding`.
-
-## Building
+On macOS 26, Go 1.21.6 compiled this checkout but its generated test binary failed to load (`missing LC_UUID`). The current test suite was verified with Go 1.27.1 on that platform.
 
 ```bash
 go build ./...
-```
-
-To use the shared RMEncoding path and run the complete test suite, build the C++ encoder (or install the Julia fallback):
-
-```bash
 make -C encoding rme
-```
-
-## Running tests
-
-Tests are in `pir/pir_api_test.go`, `pir/pir_test.go`, `pir/db_test.go`, and the `utils` package. Run from the repository root:
-
-```bash
 go test ./...
 ```
 
-### End-to-end and integration-test coverage
+The external encoder is needed by `BenchmarkEncode` and the tests whose names contain `WithRMEncoding`. The direct `GF(16)` online end-to-end test and online query/decode benchmarks do not need it. Encoder-backed tests write `input/db.csv`, `output/matrix.csv`, `input/example_db.csv`, and `output/example_matrix.csv`.
 
-| Test | Construction | Calls `Encode`? | Database/codeword used | Server path | What it establishes |
-|---|---|---:|---|---|---|
-| `TestLiftedRSWithRMEncodingEndToEnd` | Lift-RS online path | Yes | Degree-2 RM codeword over prime field `F_31`, used as a Lift-RS-compatible placeholder | Local CSV | Exhaustively checks all `q^2` codeword locations through query and decode. It does **not** test a Lift-RS encoder. |
-| `TestLiftedRSWithRMEncodingEndToEndFromConfigKey` | Lift-RS online path | Yes | Degree-3 RM codeword over `F_31`, with keys loaded from `config.json` | Local CSV | Same online check using configured keys. It writes the example input/output CSV files while running; it still does not test a Lift-RS encoder. |
-| `TestLiftedRSEndToEndWithGF2nCodeword` | Lift-RS online path | No | Directly evaluated degree-2 polynomial over `GF(16)` whose curve restrictions have degree below `q-1` | Temporary local CSV | Tests binary-field curve generation, permutation, masking, dummy handling, and decode. No offline encoder is exercised. |
-| `TestRMConcEndToEndWithGF2nCodeword` | RM-Conc | No | Directly evaluated genuine degree-2 RM codeword over `GF(16)` | Temporary local CSV | Tests the production variable-`d` query and fast-weight decode path at selected locations. No external encoder or HTTP server is exercised. |
-| `TestQueryFromServer` | Lift-RS online path | No | Assumes a compatible database is already served | HTTP | Network smoke test only; it skips when the configured server is unavailable and does not assert the decoded values. |
+## Test coverage
 
-Additional component tests compare the fast outer interpolation weights with the retained `O(s^2)` reference implementation, exercise arbitrary inner evaluation points and the full-outer-field sum shortcut, and verify that RM-Conc uses `s=dt+1` outer blocks and `r=d+1` inner points for `e=2`.
+| Test | Codeword | Server path | What it establishes |
+|---|---|---|---|
+| `TestLiftedRSWithRMEncodingEndToEnd` | Degree-2 RM codeword over `F_31`, used as a Lift-RS-compatible placeholder | Local CSV | Exhaustive query/decode check at all `q²` locations; does not test a Lift-RS encoder. |
+| `TestLiftedRSWithRMEncodingEndToEndFromConfigKey` | Degree-3 RM codeword over `F_31`, with keys loaded from `config.json` | Local CSV | Same online check using configured keys; writes example CSV files. |
+| `TestLiftedRSEndToEndWithGF2nCodeword` | Directly evaluated degree-2 polynomial over `GF(16)` | Temporary local CSV | Binary-field curve generation, permutation, masking, dummy handling, and decode; no offline encoder. |
+| `TestQueryFromServer` | Assumes a compatible database is served | HTTP | Network smoke test only; may skip and does not assert decoded values. |
 
-The encoder-backed tests write `input/db.csv`, `output/matrix.csv`, `input/example_db.csv`, and `output/example_matrix.csv`. Build `encoding/rme` first, or install the Julia fallback, before running the complete suite. The direct online tests do not require either encoder.
+Tests are in `pir/` and `utils/`. Run them from the repository root with `go test ./...`.
 
 ## Benchmarks
 
-Most benchmarks are in `pir/pir_test.go`; the fast-versus-reference interpolation benchmark is in `utils/gf2n_ext_poly_test.go`. The benchmark groups deliberately isolate client components rather than running a database server end to end.
-
-| Benchmark group | Timed work | Deliberately excluded or simplified |
-|---|---|---|
-| `BenchmarkEncode` | External RMEncoding plus secret permutation and masking, for a small prime-field instance | This is **RM encoding**, even though `NewPIR` selects the Lift-RS online construction. It is not a Lift-RS encoding benchmark. File I/O and the external process are included. |
-| `BenchmarkQueryGenLiftedRS2D`, `BenchmarkQueryGen3D_t5`, `BenchmarkQueryGen3D_t6`, `BenchmarkQueryGenLiftedRS3D_q13_t7` | Curve generation, secret permutation, 128 dummy positions, and shuffle | No database encoding, server evaluation, response transfer, or network. Prime-field and binary-field cases use different field implementations. |
-| Corresponding `BenchmarkDecode...` groups | Lookup of genuine positions in a shuffled query, mask removal, and client combination | Responses are random mock values. Query generation, server work, network, and correctness checking are outside the timed loop. |
-| `BenchmarkQueryGenConcRM3D` | Outer-curve sampling/evaluation, all `ℓ=sr` inner projections, 128 dummy samples, and fast outer-weight precomputation | Uses `d=q-2`, `e=2`; streams positions into a checksum instead of allocating the transmitted query. It does **not** apply the secret permutation, materialize/shuffle the query, contact a server, or encode a database. |
-| `BenchmarkDecodeConcRM3D` | Direct `φ^-1` processing of all `s` blocks plus the outer weighted sum | Uses small parameters (`q=16,d=3` and `q=256,d=5`) and random mock blocks. Outer weights are prepared before timing. It excludes query lookup, dummy removal, mask removal, server/network work, and large Table 2 parameters. |
-| `BenchmarkLagrangeWeightsAt0Implementations` | Fast product-tree weight generation versus the retained `O(s^2)` reference | Isolated arithmetic microbenchmark; not a complete query or decode benchmark. |
-
-Several older microbenchmarks remain in `pir/pir_test.go`; some explicitly use `noiseCount=0`. Use the named LiftedRS groups below when measuring the current 128-dummy online path.
-
-Run the principal client benchmarks from the repository root:
+The benchmarks in [`pir/pir_test.go`](pir/pir_test.go) isolate client components; they are not end-to-end server measurements. Named Lift-RS query groups include curve generation, secret permutation, 128 dummy positions, and shuffle. Corresponding decode groups use mock responses and exclude query generation, server work, and the network. Older microbenchmarks remain and some explicitly use `noiseCount=0`; use the named Lift-RS groups to measure the current online path.
 
 ```bash
-go test ./pir -bench 'Benchmark(QueryGenLiftedRS2D|DecodeLiftedRS2D|QueryGen3D_t5|Decode3D_t5|QueryGenConcRM3D|DecodeConcRM3D)' -run '^$'
+go test ./pir -run '^$' -bench 'Benchmark(QueryGenLiftedRS2D|DecodeLiftedRS2D|QueryGen3D_t5|Decode3D_t5|QueryGen3D_t6|Decode3D_t6)'
 ```
 
-Run the shared RMEncoding benchmark separately only when an external encoder is available:
+For encoding with the external RM placeholder:
 
 ```bash
 go test ./pir -run '^$' -bench BenchmarkEncode
 ```
 
-### Lift-RS query generation
+`BenchmarkEncode` includes file I/O, RM encoding, secret permutation, and masking. It is **not** a Lift-RS encoding benchmark. Database-size labels in query benchmarks are parameter-derived estimates that assume a near-rate-one Lift-RS storage regime; they are not measurements from an implemented Lift-RS encoder. New performance claims belong in linked reports under [`experiments/`](experiments/).
 
-```bash
-go test ./pir -run '^$' -bench BenchmarkQueryGenLiftedRS2D    # m=2, prime + GF(2^n)
-go test ./pir -run '^$' -bench BenchmarkQueryGen3D_t5         # m=3, t=5
-go test ./pir -run '^$' -bench BenchmarkQueryGen3D_t6         # m=3, t=6
-go test ./pir -run '^$' -bench BenchmarkQueryGenLiftedRS3D_q13_t7 # m=3, q=2^13, t=7
-```
+## Field arithmetic and configuration
 
-These groups append 128 dummy positions and shuffle all `L=(q-1)+128` positions. In the manuscript's notation, `ℓ=q-1` is the LDC locality and `L=ℓ+128` is the transmitted length used here. Labels that show database sizes assume the near-rate-one Lift-RS storage regime; they are parameter-derived estimates, not measurements from an implemented Lift-RS encoder.
+- `utils/gf2n.go` implements `GF(2^n)` with log/exp tables for degrees 4, 8, 12, 13, 14, 16, 17, 18, and 20.
+- `utils/curve_generation.go` implements prime-field curve generation and `GF(2^n)` curve generation for the online Lift-RS path.
+- `config.json` stores base64-encoded permutator and encryptor keys, a permutator tweak, and a server URL. The configuration helper fills in and persists missing key fields; `Gen` creates ephemeral in-memory keys.
 
-### Lift-RS decoding
+## Project structure
 
-```bash
-go test ./pir -run '^$' -bench BenchmarkDecodeLiftedRS2D # m=2, prime + GF(2^n)
-go test ./pir -run '^$' -bench BenchmarkDecode3D_t5  # m=3, t=5
-go test ./pir -run '^$' -bench BenchmarkDecode3D_t6  # m=3, t=6
-```
-
-The timed decode loop builds a lookup from shuffled positions to mock responses, recovers the `q-1` genuine responses, removes their masks, and performs the field combination. It does not verify a database value during benchmarking.
-
-### RM-Conc — Query Generation
-
-Generates the query positions for RM-Conc over `GF(q²)^3`. For RM degree `d` and extension degree `e=2`, Figure 4 uses
-
-- `s = dt+1` outer evaluation points;
-- `r = d(e-1)+1 = d+1` inner base-field points per outer point; and
-- locality `ℓ = sr`, excluding dummy queries.
-
-The production transmitted query has `L=ℓ+128` positions. At the default `d=q-2`, we have `r=q-1`, `s=(q-2)t+1`, and `ℓ=s(q-1)`. The benchmark uses precisely this default-`d` case, but streams the genuine and dummy positions into a checksum. It therefore measures their generation without the otherwise prohibitive query allocation, secret permutation, and shuffle.
-
-```bash
-go test ./pir -run '^$' -bench BenchmarkQueryGenConcRM3D -benchtime=1x -timeout=300s
-```
-
-This benchmark is slow for large parameters (see table below) because it must stream all ℓ query positions. Increase `-timeout` as needed.
-
-### RM-Conc — Decoding
-
-```bash
-go test ./pir -run '^$' -bench BenchmarkDecodeConcRM3D -benchtime=100x
-```
-
-Production decoding uses all `s=dt+1` outer blocks, not only `t+1`. It first applies the inner inverse map `φ^-1` to each block of `r=d+1` responses and then evaluates the degree-at-most-`dt` outer polynomial at zero. General-`d` inner interpolation costs `O(sr^2)`. The default `d=q-2` case compactly records the one omitted base-field point per block and interpolates in `O(sq)`; the full-base-field special case `d=q-1`, where `r=q`, also costs `O(sq)`. Outer interpolation normally uses query-time precomputed weights and costs `O(s)` online. When `s=q²-1`, query generation instead enumerates every nonzero element of `GF(q²)` and omits the nodes and weights; decoding uses the characteristic-two identity `f(0)=Σ_{z∈GF(q²)*}f(z)` for `deg(f)≤q²-2`.
-
-The permanent decode benchmark uses smaller variable-`d` instances so it can be run repeatedly. The full Table 2 parameter set has also been measured with the same `DecodeConcRM` arithmetic by making every outer entry reference one representative mock response block. This avoids retaining a 67-103 GB synthetic answer while still executing all `s*r` inner-decoding operations and the outer weighted sum. The measured decode excludes response construction, permutation lookup, dummy filtering, mask removal, server work, network transfer, and query-time interpolation-weight preparation.
-
-### Recorded RM-Conc Table 2 timings
-
-The following one-shot (`-benchtime=1x`) measurements were taken on this checkout on an Apple M5 Pro with 18 CPU cores and 48 GB of memory, running macOS 26.6.2 and Go 1.27.1. Each entry is `query generation + client answer decoding`; all values are seconds. The obsolete column is transcribed from the manuscript table for comparison.
-
-These are historical measurements recorded before the repository adopted per-experiment reports and exact-run scripts. The benchmark commands above identify the current benchmark groups, but no committed script captures the exact runs that produced this table. Treat these numbers as provenance-limited until they are rerun and reported under `experiments/`.
-
-| `(q,m,t)` | New parameters `d=q-2` | Old parameters `d=q-1` | Obsolete manuscript value |
-|---|---:|---:|---:|
-| `(2^12,3,6)` | `1.285 + 0.181` | `2.069 + 0.116` | `0.188 + 0.1171` |
-| `(2^13,3,6)` | `3.853 + 0.728` | `6.435 + 0.476` | `0.721 + 0.4769` |
-| `(2^14,3,6)` | `11.803 + 3.205` | `14.276 + 2.279` | `2.750 + 2.231` |
-| `(2^16,3,6)` | `118.684 + 77.755` | `158.333 + 47.255` | `45.200 + 46.850` |
-| `(2^12,3,4)` | `0.621 + 0.124` | `1.039 + 0.078` | `0.125 + 0.0779` |
-| `(2^13,3,4)` | `1.860 + 0.500` | `3.287 + 0.316` | `0.489 + 0.3176` |
-| `(2^14,3,4)` | `6.045 + 2.163` | `11.107 + 1.493` | `1.867 + 1.482` |
-| `(2^16,3,4)` | `60.666 + 51.394` | `129.111 + 31.475` | `30.600 + 31.050` |
-
-The old-parameter decode measurements closely reproduce the obsolete decode values, which validates the mock arithmetic benchmark. The new `d=q-2` decoder is about 1.56-1.60 times slower because `PhiInvMissing` performs more field operations per response than the full-field `PhiInv` shortcut.
-
-The query columns are not a controlled measurement of the parameter change alone: the current `d=q-2` checksum path parallelizes outer blocks across `GOMAXPROCS`, while the `d=q-1` path is sequential. Both query columns are valid measurements of their current implementations, but their difference combines parameters and implementation strategy. The much larger current query times relative to the manuscript remain unexplained; the manuscript likely used a narrower or different query-generation timing boundary.
-
-## Parameter Configuration
-
-Parameters are defined in `pir/pir_test.go`. To evaluate different field sizes or curve degrees, edit the relevant `params` table at the top of the benchmark group. Key parameters:
-
-| Symbol | Meaning |
-|--------|---------|
-| `n` | GF(2^n) field degree |
-| `q = 2^n` | Field size |
-| `t` | Outer curve degree |
-| `m` | Database dimension (2 = matrix, 3 = cube) |
-| `d` | RM polynomial degree bound (`q-2` by default) |
-| `e` | Extension degree (fixed to 2 in this implementation) |
-| `s = dt + 1` | Number of outer curve evaluation points |
-| `r = d(e-1)+1 = d+1` | Inner evaluation points per outer point |
-| `ℓ = s·r` | Manuscript locality: non-dummy query positions |
-| `L = ℓ+128` | Total transmitted query positions in this implementation |
-
-### Representative default-`d` RM-Conc parameter sizes
-
-| n | q | t | d | s | r | ℓ |
-|---|---:|---:|---:|---:|---:|---:|
-| 13 | 8192 | 7 | 8190 | 57331 | 8191 | 469,598,221 |
-| 14 | 16384 | 6 | 16382 | 98293 | 16383 | 1,610,334,219 |
-| 16 | 65536 | 5 | 65534 | 327671 | 65535 | 21,473,918,985 |
-| 16 | 65536 | 6 | 65534 | 393205 | 65535 | 25,768,689,675 |
-
-These are default-`d` sizes, not stored timing claims. Re-run the benchmarks on the target machine for current measurements. Query generation is dominated by producing `ℓ=sr` positions. Default `d=q-2` decoding uses the compact omitted-point `O(sq)` path; explicit `d=q-1` uses the full-field `O(sq)` shortcut.
-
-Additional parameter selections are defined in `paramsConcRM3D` in `pir/pir_test.go`.
-
-## Field Arithmetic
-
-- **`utils/gf2n.go`** — GF(2^n) via log/exp tables. Supported degrees: 4, 8, 12, 13, 14, 16, 17, 18, 20.
-- **`utils/gf2n_ext.go`** — GF(q²) = GF(q)[β]/(β²+β+C) degree-2 extension; C is chosen automatically with Tr(C)=1.
-- **`utils/gf2n_ext_poly.go`** — polynomial operations used by fast outer interpolation-weight precomputation. The original `O(s²)` implementation remains available as a reference.
-
-## Configuration File
-
-`config.json` stores base64-encoded keys for the permutator and encryptor (used in the offline encoding and online query phases):
-
-```json
-{
-  "encryptorKey": "<base64>",
-  "permutatorKey": "<base64>",
-  "permutatorTweak": "<base64>",
-  "serverUrl": "http://..."
-}
-```
-
-`GenFromConfig` loads these values. The configuration helper fills in and persists missing key fields; `Gen` instead creates ephemeral in-memory keys.
-
-## Project Structure
-
-```
-pir/          — common PIR API, LiftedRS, RMConc, and RMEncoding wrapper
-utils/        — field arithmetic, curve generation, permutation, masks, and matrix I/O
-encoding/     — Offline RM encoder (Julia + C++)
-input/        — Example database CSVs
-output/       — Encoded matrix CSVs
-server/       — Server-side query handler (Julia)
+```text
+pir/            Go Lift-RS client API, tests, benchmarks, and RM encoder wrapper
+utils/          Field arithmetic, curve generation, permutation, masks, and matrix I/O
+encoding/       External RM encoder (C++ and Julia), currently a Lift-RS testing placeholder
+server/         Julia HTTP query handler
+input/, output/ Example CSV data and generated matrix locations
+experiments/    Scripts, reports, and results for new measurements
+message-board/  One file per agent message, with an index in README.md
 ```

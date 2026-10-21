@@ -13,11 +13,8 @@ type Params struct {
 	Q uint64
 	// K is the query-curve degree t. The name is retained for API compatibility.
 	K uint8
-	// M is the database/RM-code dimension.
+	// M is the database dimension.
 	M uint8
-	// D is the RM polynomial-degree bound d used by RMConc. A zero value passed
-	// to NewRMConc selects the default q-2.
-	D uint64
 }
 
 type Keys struct {

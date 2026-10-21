@@ -2,10 +2,8 @@ package pir
 
 import (
 	"bytes"
-	"encoding/csv"
 	"fmt"
 	"io"
-	"math"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -18,10 +16,10 @@ import (
 const rmEncodingIntermediate = "../output/inter.csv"
 
 // The external encoder protocol writes through a fixed intermediate file.
-// Serialize all RMEncoder instances so two constructions cannot overwrite it.
+// Serialize all RMEncoder instances so concurrent encodes cannot overwrite it.
 var rmEncodingProcessMu sync.Mutex
 
-// RMEncoder owns the external RMEncoding process used by both constructions.
+// RMEncoder owns the external RMEncoding process used as a Lift-RS testing placeholder.
 type RMEncoder struct {
 	mu     sync.Mutex
 	cmd    *exec.Cmd
@@ -44,9 +42,6 @@ func (e *RMEncoder) Encode(input, output string, params Params, core *pirCore) (
 
 	if core.permutator == nil || core.encryptor == nil {
 		return nil, fmt.Errorf("PIR keys are not initialized; call Gen or GenFromConfig first")
-	}
-	if err := validateRMEncodingDegree(input, params); err != nil {
-		return nil, err
 	}
 	if e.cmd == nil {
 		if err := e.start(); err != nil {
@@ -83,55 +78,6 @@ func rmEncodingIntermediatePath() string {
 		return filepath.Join("output", "inter.csv")
 	}
 	return rmEncodingIntermediate
-}
-
-// validateRMEncodingDegree ensures that the degree inferred by the external
-// systematic encoder fits the degree bound used to size RMConc queries. A
-// smaller inferred degree is harmless because RM(D) contains all lower-degree
-// codewords; a larger one would require more than D*t+1 interpolation blocks.
-func validateRMEncodingDegree(input string, params Params) error {
-	if params.D == 0 {
-		return nil
-	}
-	file, err := os.Open(input)
-	if err != nil {
-		return fmt.Errorf("open RMEncoding input: %w", err)
-	}
-	defer file.Close()
-	record, err := csv.NewReader(file).Read()
-	if err != nil {
-		return fmt.Errorf("read RMEncoding input: %w", err)
-	}
-	degree, err := rmDegreeForMessageLength(len(record), int(params.M))
-	if err != nil {
-		return err
-	}
-	if degree > params.D {
-		return fmt.Errorf("RMEncoding input requires degree %d, exceeding configured degree d=%d", degree, params.D)
-	}
-	return nil
-}
-
-func rmDegreeForMessageLength(messageLength, dimension int) (uint64, error) {
-	if messageLength < 1 {
-		return 0, fmt.Errorf("RMEncoding input message is empty")
-	}
-	if dimension < 1 {
-		return 0, fmt.Errorf("RMEncoding dimension must be positive, got %d", dimension)
-	}
-	for degree := uint64(1); ; degree++ {
-		count := uint64(1)
-		for i := 1; i <= dimension; i++ {
-			factor := degree + uint64(i)
-			if count > math.MaxUint64/factor {
-				return 0, fmt.Errorf("RMEncoding monomial count overflows for dimension %d", dimension)
-			}
-			count = count * factor / uint64(i)
-		}
-		if count >= uint64(messageLength) {
-			return degree, nil
-		}
-	}
 }
 
 // Close stops the lazily started RMEncoding process.

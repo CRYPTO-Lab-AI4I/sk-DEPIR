@@ -48,7 +48,7 @@ the paper's constructions, the implemented behavior, and experimental shortcuts.
 
 ## Repository map
 
-- `pir/`: Go client API, Lift-RS and RM-Conc protocols, and RM encoder wrapper.
+- `pir/`: Go client API, Lift-RS protocol, and RM encoder testing placeholder.
 - `utils/`: finite-field arithmetic, curves, permutation, masking, and I/O.
 - `encoding/`: external RM encoders in C++ and Julia.
 - `server/`: Julia HTTP query handler.

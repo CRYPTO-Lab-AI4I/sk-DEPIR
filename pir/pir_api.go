@@ -16,7 +16,6 @@ type QueryResult struct {
 	Values        []int
 	Query         []int
 	RealPositions []int
-	Auxiliary     any
 }
 
 // ClientQuery captures the shuffled query positions and the private real positions.
@@ -51,7 +50,7 @@ type pirCore struct {
 }
 
 // NewPIR creates a Lifted-RS instance. It is retained for backwards
-// compatibility; new code should use NewLiftedRS or NewRMConc explicitly.
+// compatibility; new code should use NewLiftedRS explicitly.
 func NewPIR(params Params) *LiftedRS {
 	return NewLiftedRS(params)
 }
