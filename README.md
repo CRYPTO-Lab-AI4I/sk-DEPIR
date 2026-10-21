@@ -5,6 +5,8 @@ Implementation of secret-key Doubly Efficient PIR (sk-DEPIR) schemes based on pe
 - **sk-PIR based on curve-lifted RS with curve decoding (Lift-RS)** - The LDC is the curve-lifted `(q-2,q)` Reed-Solomon code. The decoder queries the other `q-1` points on a degree-`t` curve through the requested location.
 - **sk-PIR based on RM with concatenated-curve decoding (RM-Conc)** - The LDC is a standard Reed-Muller code. The decoder uses an outer degree-`t` curve over an extension field and inner degree-`(e-1)` curves over the base field.
 
+This repository is being prepared as a documented, reviewable open-source library. Contributors and collaborating agents must follow [AGENTS.md](AGENTS.md), record every change on the [message board](message-board/README.md), and use the [experiment conventions](experiments/README.md) for new measurements. Check this README with every change so it continues to describe the actual implementation.
+
 The Go implementations are named `LiftedRS` and `RMConc`. Both satisfy the common `PIR` interface in `pir/pir_api.go`, including decoding:
 
 ```go
@@ -164,6 +166,8 @@ The permanent decode benchmark uses smaller variable-`d` instances so it can be 
 ### Recorded RM-Conc Table 2 timings
 
 The following one-shot (`-benchtime=1x`) measurements were taken on this checkout on an Apple M5 Pro with 18 CPU cores and 48 GB of memory, running macOS 26.6.2 and Go 1.27.1. Each entry is `query generation + client answer decoding`; all values are seconds. The obsolete column is transcribed from the manuscript table for comparison.
+
+These are historical measurements recorded before the repository adopted per-experiment reports and exact-run scripts. The benchmark commands above identify the current benchmark groups, but no committed script captures the exact runs that produced this table. Treat these numbers as provenance-limited until they are rerun and reported under `experiments/`.
 
 | `(q,m,t)` | New parameters `d=q-2` | Old parameters `d=q-1` | Obsolete manuscript value |
 |---|---:|---:|---:|
