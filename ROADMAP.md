@@ -1,0 +1,119 @@
+# Roadmap to TRL 5
+
+The current target is a usable, validated Lift-RS client and preprocessing
+library. TRL 5 is a planning target, not a claim about the present implementation
+or a formal certification. TRL 6 may be considered later if needed.
+
+The server is a storage I/O endpoint: it returns the records at the positions
+requested by the client. Implement preprocessing, query generation, and client
+decoding. Define the storage I/O contract and use simple readers in tests and
+examples; server-side protocol computation and a production server are outside
+this roadmap.
+
+## Ordered milestones
+
+Complete the correctness foundations before optimizing or promising a stable
+public API. Check off items only when linked code, documentation, and verification
+evidence support completion. Record each work item on the
+[message board](message-board/README.md).
+
+### 1. Specify the supported construction
+
+- [ ] Document the paper-to-code correspondence, assumptions, and supported
+  parameters. Initially retain locality `ell=q-1`; general locality is optional.
+- [ ] Specify message capacity, record representation, padding, field-element
+  encoding, coordinate order, and the mapping from requested records to codeword
+  positions.
+- [ ] Choose and document the initial supported field/dimension combinations,
+  parameter validation, and limitations. Do not equate 128 dummy positions with
+  a demonstrated security level.
+
+Acceptance: preprocessing and client implementations can be reviewed against
+one explicit specification, including the data and key lifecycle.
+
+### 2. Complete the correctness foundation
+
+- [ ] Implement and integrate a genuine Lift-RS reference encoder. Keep the RM
+  placeholder clearly identified until the replacement is validated.
+- [ ] Test retrieval from original records through preprocessing, storage reads,
+  and decoding, including Lift-RS codewords beyond the current low-degree RM
+  test subset.
+- [ ] Add independent small test vectors and exhaustive small-instance checks
+  for the supported parameter combinations.
+- [ ] Use cryptographic randomness for curve sampling, dummy positions, and
+  shuffling. Isolate deterministic randomness to explicit test support.
+- [ ] Make tests self-contained, with temporary files and no dependency on a
+  running server or changes to tracked examples.
+
+Acceptance: a fresh checkout reproduces genuine Lift-RS retrieval, with evidence
+covering each supported configuration and clear limits on security claims.
+
+### 3. Design usable client and preprocessing APIs
+
+- [ ] Separate preprocessing, query generation, and decoding responsibilities.
+- [ ] Separate public query positions from private per-query decoding state.
+- [ ] Decouple client algorithms from HTTP, CSV, and implicit configuration
+  writes; document the request/response storage I/O contract.
+- [ ] Return errors for invalid parameters, malformed responses, and I/O failures;
+  define cancellation, ownership, cleanup, and concurrency behavior.
+- [ ] Define a versioned encoded-database format and metadata that detect
+  incompatible parameters or mismatched client/database configurations.
+- [ ] Remove fixed intermediate filenames, working-directory assumptions, and
+  implicit external-program discovery from the public interface.
+
+Acceptance: an external application can preprocess a database and retrieve a
+record using its own storage reader without modifying library internals.
+
+### 4. Organize and package the library
+
+- [ ] Establish a Go module path suitable for external imports and review
+  dependencies, licensing, and attribution.
+- [ ] Keep public client and preprocessing packages small; split `utils` into
+  internal packages with clear responsibilities, such as fields, code
+  construction, permutation, masking, and record layout.
+- [ ] Choose the maintained preprocessing backend and document its build
+  requirements. Retain other languages/backends only for an explicit purpose.
+- [ ] Put small fixtures under `testdata/`, user examples under `examples/`,
+  design/specification documents under `docs/`, and optional CLI code under
+  `cmd/`. Move or remove the existing server demo as appropriate to the I/O scope.
+- [ ] Keep experiment scripts, reports, and results together under `experiments/`
+  using the existing [conventions](experiments/README.md).
+
+Acceptance: developers can install, build, test, and understand the repository
+without relying on the authors' workstation layout.
+
+### 5. Validate a developer release
+
+- [ ] Add CI for supported platforms and toolchains, including native
+  preprocessing where applicable, formatting, static checks, and tests.
+- [ ] Exercise invalid inputs, malformed responses, boundary parameters, and
+  concurrent use where supported; use fuzzing and race checks where relevant.
+- [ ] Provide a complete example from an external consumer module, API comments,
+  installation instructions, format documentation, and known limitations.
+- [ ] Add contribution and security-reporting guidance, release notes, citation
+  information, and a documented versioning policy.
+- [ ] Produce a reproducible integration report for a representative use case
+  with stated parameters and environment, covering both preprocessing and the
+  online client. Obtain review by someone outside the implementation work.
+
+Acceptance: the documented workflow succeeds in a separate application and a
+representative integration environment, and another developer can reproduce the
+evidence. Any unsupported cases remain explicit.
+
+## Deferred until a decision to pursue TRL 6
+
+Large-scale external-memory preprocessing, advanced streaming and recovery,
+specialized parallel/vectorized kernels, broad performance tuning, and large
+database performance campaigns are deferred. Fix resource problems that prevent
+the TRL 5 workflow from functioning, and preserve existing optimizations where
+they remain correct and understandable.
+
+Independent production security qualification, a stable 1.0 commitment, and
+sustained operational deployment require additional evidence beyond this target.
+
+## Current starting point
+
+The repository has a Lift-RS online prototype and passing tests for its current
+scope. It still uses an RM encoder placeholder and experimental randomness.
+See the [README](README.md) for the implementation status. The first development
+work item is milestone 1: specify the supported construction and data mapping.

@@ -6,6 +6,8 @@ The client follows the permuted smooth-code blueprint: it queries the other `q-1
 
 Contributors and collaborating agents must follow [AGENTS.md](AGENTS.md), record every change in the [message board](message-board/README.md), and use the [experiment conventions](experiments/README.md) for new measurements. Check this README with every change.
 
+The current development target is **TRL 5**: a usable, validated client and preprocessing library. The [roadmap](ROADMAP.md) gives the ordered tasks and acceptance criteria. Storage is treated as a plain I/O endpoint returning requested records; server-side protocol computation is outside the scope. TRL 6 scaling and advanced optimization work is deferred for a later decision.
+
 ## Implementation status and limits
 
 The online query and decode path supports locality `ℓ=q-1`, dimensions `m=2` and `m=3`, prime fields, and the listed binary extension fields. `Params.Q`, `Params.K`, and `Params.M` denote the field size `q`, curve degree `t`, and database dimension `m`. Production `Query` and `QueryLocal` append 128 dummy positions, so the transmitted query length is `L=(q-1)+128`.

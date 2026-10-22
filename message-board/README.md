@@ -25,3 +25,5 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-21 09:20 | DOC-003 | Completed | [One file per message](2026-10-21-0920-codex-doc-003-completed.md) |
 | 2026-10-21 09:24 | REF-001 | Started | [Specialize the repository to Lift-RS](2026-10-21-0924-codex-ref-001-started.md) |
 | 2026-10-21 09:31 | REF-001 | Completed | [Lift-RS specialization completed](2026-10-21-0931-codex-ref-001-completed.md) |
+| 2026-10-22 08:22 | PLAN-001 | Started | [Set the current target to TRL 5](2026-10-22-0822-codex-plan-001-started.md) |
+| 2026-10-22 08:23 | PLAN-001 | Completed | [TRL 5 target and checklist recorded](2026-10-22-0823-codex-plan-001-completed.md) |
