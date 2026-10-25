@@ -124,3 +124,8 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-25 23:31 | DOC-048 | Started | [Normalize calculation CSV before publication](2026-10-25-2331-codex-doc-048-started.md) |
 | 2026-10-25 23:31 | DOC-048 | Completed | [CSV normalized and full diff verified](2026-10-25-2331-codex-doc-048-completed.md) |
 | 2026-10-25 23:31 | DOC-047 | Publication | [Commit and push receipt](2026-10-25-2331-codex-doc-047-publication.md) |
+| 2026-10-25 23:36 | DOC-049 | Started | [Reference encoder documentation checkpoint](2026-10-25-2336-codex-doc-049-started.md) |
+| 2026-10-25 23:37 | DOC-049 | Completed | [Reference encoder checkpoint established](2026-10-25-2337-codex-doc-049-completed.md) |
+| 2026-10-25 23:37 | REF-002 | Started | [Small systematic Lift-RS encoder](2026-10-25-2337-codex-ref-002-started.md) |
+| 2026-10-25 23:43 | REF-002 | Completed | [Small systematic Lift-RS encoder implemented](2026-10-25-2343-codex-ref-002-completed.md) |
+| 2026-10-25 23:52 | REF-003 | Started | [Publish small reference encoder](2026-10-25-2352-codex-ref-003-started.md) |

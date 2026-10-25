@@ -14,8 +14,9 @@ this roadmap.
 
 1. Specify the encoder contract and input layout; sketch catalogue fields and
    analytical costs only.
-2. Implement a small, correct Lift-RS reference encoder. Establish its dimension,
-   construct a systematic information set, and verify small-instance retrieval.
+2. Implement generator-matrix code preprocessing and systematic message encoding
+   for small Lift-RS instances. Verify the dimension, information set, codeword
+   constraints, and exhaustive tiny-instance retrieval before the application wrapper.
 3. Build the parameter planner using verified capacities, distinguishing them
    from paper and empirical estimates.
 4. Optimize preprocessing for useful configurations identified by the planner.
@@ -53,8 +54,11 @@ one explicit specification, including the data and key lifecycle.
 
 ### 2. Complete the correctness foundation
 
-- [ ] Implement and integrate a genuine Lift-RS reference encoder. Keep the RM
-  placeholder clearly identified until the replacement is validated.
+- [x] Implement bounded generator-matrix preprocessing and systematic encoding,
+  with [independent tests](encoding/liftrs/reference_test.go) and
+  [online retrieval checks](pir/liftrs_reference_test.go).
+- [ ] Integrate genuine Lift-RS encoding into the application workflow. Keep the
+  existing file-based RM placeholder clearly identified until replaced.
 - [ ] Test retrieval from original records through preprocessing, storage reads,
   and decoding, including Lift-RS codewords beyond the current low-degree RM
   test subset.
@@ -133,10 +137,14 @@ sustained operational deployment require additional evidence beyond this target.
 
 ## Current starting point
 
-The repository has a Lift-RS online prototype and passing tests for its current
-scope. It still uses an RM encoder placeholder and experimental randomness.
-See the [README](README.md) for the implementation status. The next development work item is the
-[small reference encoder](docs/encoder-contract.md#small-reference-encoder): implement
-monomial classification, deterministic code preprocessing, systematic encoding,
-and exhaustive tiny-instance checks. Use small fields explicitly as test fixtures;
-they do not inherit the initial catalogue's security claims.
+The repository has a bounded [Lift-RS reference encoder](encoding/liftrs/README.md)
+with independent tiny-instance tests and online retrieval integration. This implements
+code preprocessing and non-cryptographic encoding. The existing file-based API
+still uses its RM placeholder and the online client uses experimental randomness.
+See the [README](README.md) for current limitations.
+
+The next implementation work is to adapt and verify the cryptographic encoding
+boundary using genuine codewords, then build the application wrapper around supplied
+plans. A faster encoder is required before the `s=8..20` catalogue can be encoded;
+the small reference provides comparison vectors for that work. Small test fields
+do not inherit the catalogue's security claims.

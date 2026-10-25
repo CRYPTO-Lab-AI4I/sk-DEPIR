@@ -70,7 +70,7 @@ queries and responses. Keep agreed contracts distinct from implemented capabilit
 
 - `pir/`: Go client API, Lift-RS protocol, and RM encoder testing placeholder.
 - `utils/`: finite-field arithmetic, curves, permutation, masking, and I/O.
-- `encoding/`: external RM encoders in C++ and Julia.
+- `encoding/`: external RM placeholders in C++/Julia and the `liftrs/` Go reference encoder.
 - `server/`: Julia HTTP query handler.
 - `input/` and `output/`: example CSV data and generated matrix locations.
 - `message-board/`: one file per agent message, with `README.md` as its index.

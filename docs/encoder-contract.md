@@ -72,8 +72,13 @@ encoding. Report whether encoding measurements reuse an existing artifact.
 
 ### Small reference encoder
 
-Use a deterministic implementation first: enumerate exponent tuples, classify
-monomials using the paper's membership criterion, and evaluate the accepted
+The bounded implementation is [encoding/liftrs](../encoding/liftrs/README.md).
+`Preprocess(Spec)` constructs reusable code data; `Code.Encode(message)` applies
+it to field elements. These are the first implementations of code preprocessing
+and non-cryptographic encoding, before the application wrapper.
+
+The deterministic method enumerates exponent tuples, classifies
+monomials using the paper's membership criterion, and evaluates the accepted
 monomials to form a generator matrix `G` with `K` rows and `N` columns. Verify
 membership independently on exhaustive tiny instances.
 
@@ -87,10 +92,13 @@ row `j` maps to the `j`-th pivot column and encoding is message-vector multiplic
 
 Keep this dense artifact in memory, reusable across messages with the same code.
 Check dimensions and allocation sizes before constructing it; reject instances
-outside an explicit reference-implementation size limit. Its matrix size is `K*N`
-field elements, so this is a correctness reference rather than a scaling strategy.
+outside the reference limit `N <= 256`. The backend uses field degrees 2, 3,
+and 4 as correctness fixtures, with evaluation dimensions 2 or 3 where they fit.
+Its matrix size is `K*N` field elements, so this is a correctness reference rather than a scaling strategy.
 A persistent artifact format is unnecessary for the first implementation; add one
-when an encoder needs cached setup. These are planned methods, not existing code.
+when an encoder needs cached setup. See the package documentation for supported
+combinations, the API example, and tests. The application wrapper and larger
+field configurations remain to be implemented.
 
 ## Non-cryptographic encoding
 
@@ -109,7 +117,7 @@ evaluation grid is not automatically suitable. The paper gives an interpolating 
 [Theorem 4.3](../paper.pdf#page=31) and the encoding steps on [page
 32](../paper.pdf#page=32).
 
-**Existing code:** `LiftedRS.Encode` in [pir-lifted.go](../pir/pir-lifted.go) calls the
+**Existing file-based API:** `LiftedRS.Encode` in [pir-lifted.go](../pir/pir-lifted.go) calls the
 [RM encoder wrapper](../pir/rm_encoder.go), a testing placeholder. The unused `LRSE2D`
 helper in [rme.cpp](../encoding/rme.cpp) is not an implementation of this binary-field
 systematic encoder or its preprocessing.
@@ -147,8 +155,11 @@ reproduce the input, generated codewords satisfy the code constraints, and permu
 masking, and retrieval recover the original input. Use independent small vectors and
 exhaustive small-instance retrieval checks. The existing
 `TestLiftedRSEndToEndWithGF2nCodeword` in [pir_api_test.go](../pir/pir_api_test.go)
-checks the online path on a directly evaluated codeword; the RM-backed tests in
-[pir_test.go](../pir/pir_test.go) do not verify the planned Lift-RS encoder.
+checks the online path on a directly evaluated codeword. The new
+[reference encoder tests](../encoding/liftrs/reference_test.go) check genuine
+systematic encoding; [online integration](../pir/liftrs_reference_test.go)
+retrieves every systematic position of a lifted codeword beyond RM. The RM-backed tests in
+[pir_test.go](../pir/pir_test.go) do not verify this Lift-RS encoder.
 
 The initial `(s, m, t)` targets are in [parameter planning](parameter-planning.md).
 
@@ -157,14 +168,16 @@ membership; [Theorem 4.3](../paper.pdf#page=31) supplies an interpolating set; [
 4.2 and the encoding steps](../paper.pdf#page=32) describe randomized degree-set
 preprocessing and systematic encoding through interpolation and evaluation.
 
-**Next implementation:** build and validate the small reference method above,
-including its explicit size limit. The paper's faster method remains a later
-backend: it needs an extension-field isomorphism, interpolation/evaluation
-algorithms, and validation of randomized degree-set preprocessing. Those choices
-should follow evidence from the reference encoder rather than block it.
+**Reference implementation status:** the bounded dense method above is implemented
+and independently tested on tiny fields. It establishes the correctness baseline
+for future backends and wrapper integration. It does not implement the paper's
+fast encoder or support the initial `s=8..20` catalogue. The faster method needs
+an extension-field isomorphism, interpolation/evaluation algorithms, and validation
+of randomized degree-set preprocessing; evaluate those against the reference.
 
-**Remaining cryptographic decisions:** select and review the concrete permutation,
-field-mask generation, and optional master-key derivation suite. For the first
+**Cryptographic follow-up:** review and adapt the existing AES-based permutation
+and masking components to this contract, including binary-field masks and separation
+across encodings. Select optional master-key derivation only when needed. For the first
 integration, independently generated per-database masking keys suffice; HKDF is
 optional. Generate fresh masking keys on re-encoding and retain them separately
 from coordinate metadata. Key generation and online sampling must use Go's

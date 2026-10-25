@@ -12,7 +12,7 @@ The current development target is **TRL 5**: a usable, validated client and prep
 
 The online query and decode path supports locality `ℓ=q-1`, dimensions `m=2` and `m=3`, prime fields, and the listed binary extension fields. `Params.Q`, `Params.K`, and `Params.M` denote the field size `q`, curve degree `t`, and database dimension `m`. Production `Query` and `QueryLocal` append 128 dummy positions, so the transmitted query length is `L=(q-1)+128`.
 
-**There is no integrated Lift-RS encoder.** `LiftedRS.Encode` calls the external Reed-Muller encoder (`RMEncoding`) as a testing placeholder. `encoding/rme.cpp` contains an experimental `LRSE2D` helper, but the encoder command protocol does not select it. Encoder-backed tests therefore validate the Lift-RS online protocol only on compatible RM codewords. They do not establish Lift-RS encoding, rate, storage overhead, or encoding time.
+**A standalone small Lift-RS encoder is available in [encoding/liftrs](encoding/liftrs/README.md).** It provides reusable generator-matrix preprocessing and systematic field-element encoding for correctness fixtures over GF(4), GF(8), and GF(16), with at most 256 codeword positions. These are not the target security configurations. **The existing file-based API has no integrated Lift-RS encoder.** `LiftedRS.Encode` calls the external Reed-Muller encoder (`RMEncoding`) as a testing placeholder. `encoding/rme.cpp` contains an experimental `LRSE2D` helper, but the encoder command protocol does not select it. RM-backed tests therefore validate the Lift-RS online protocol only on compatible RM codewords. They do not establish Lift-RS encoding, rate, storage overhead, or encoding time.
 
 Other limits to account for when using or reviewing the code:
 
@@ -41,7 +41,7 @@ Use `NewLiftedRS(params)` for new code. `Gen` creates ephemeral keys; `GenFromCo
 - Go 1.21.6
 - A C++17 compiler for the preferred external RM encoder, or Julia 1.10+ for its fallback. Julia dependencies are recorded in `encoding/Project.toml` and `encoding/Manifest.toml`.
 
-On macOS 26, Go 1.21.6 compiled this checkout but its generated test binary failed to load (`missing LC_UUID`). The current test suite was verified with Go 1.27.1 on that platform.
+On macOS 26, Go 1.21.6 compiled this checkout but its generated test binary failed to load (`missing LC_UUID`). The current suite, including the reference encoder, was verified with Go 1.27.3 on that platform.
 
 ```bash
 go build ./...
@@ -49,7 +49,7 @@ make -C encoding rme
 go test ./...
 ```
 
-The external encoder is needed by `BenchmarkEncode` and the tests whose names contain `WithRMEncoding`. The direct `GF(16)` online end-to-end test and online query/decode benchmarks do not need it. Encoder-backed tests write `input/db.csv`, `output/matrix.csv`, `input/example_db.csv`, and `output/example_matrix.csv`.
+The external encoder is needed by `BenchmarkEncode` and the tests whose names contain `WithRMEncoding`. The direct `GF(16)` online end-to-end test and online query/decode benchmarks do not need it. RM-backed tests write `input/db.csv`, `output/matrix.csv`, `input/example_db.csv`, and `output/example_matrix.csv`.
 
 ## Test coverage
 
@@ -58,9 +58,10 @@ The external encoder is needed by `BenchmarkEncode` and the tests whose names co
 | `TestLiftedRSWithRMEncodingEndToEnd` | Degree-2 RM codeword over `F_31`, used as a Lift-RS-compatible placeholder | Local CSV | Exhaustive query/decode check at all `q²` locations; does not test a Lift-RS encoder. |
 | `TestLiftedRSWithRMEncodingEndToEndFromConfigKey` | Degree-3 RM codeword over `F_31`, with keys loaded from `config.json` | Local CSV | Same online check using configured keys; writes example CSV files. |
 | `TestLiftedRSEndToEndWithGF2nCodeword` | Directly evaluated degree-2 polynomial over `GF(16)` | Temporary local CSV | Binary-field curve generation, permutation, masking, dummy handling, and decode; no offline encoder. |
+| `TestReferenceLiftedRSEncoderOnlineRecovery` | Genuine systematic GF(16) Lift-RS codeword beyond degree-7 RM | In-memory reads | Generator-matrix encoding and online retrieval at every systematic position. |
 | `TestQueryFromServer` | Assumes a compatible database is served | HTTP | Network smoke test only; may skip and does not assert decoded values. |
 
-Tests are in `pir/` and `utils/`. Run them from the repository root with `go test ./...`.
+Tests are in `pir/`, `utils/`, and `encoding/liftrs/`. The [reference package tests](encoding/liftrs/reference_test.go) include exhaustive tiny-instance curve and message checks and a runnable API example. Run them from the repository root with `go test ./...`.
 
 ## Benchmarks
 
@@ -76,7 +77,7 @@ For encoding with the external RM placeholder:
 go test ./pir -run '^$' -bench BenchmarkEncode
 ```
 
-`BenchmarkEncode` includes file I/O, RM encoding, secret permutation, and masking. It is **not** a Lift-RS encoding benchmark. Database-size labels in query benchmarks are parameter-derived estimates that assume a near-rate-one Lift-RS storage regime; they are not measurements from an implemented Lift-RS encoder. New performance claims belong in linked reports under [`experiments/`](experiments/).
+`BenchmarkEncode` includes file I/O, RM encoding, secret permutation, and masking. It is **not** a Lift-RS encoding benchmark. Database-size labels in query benchmarks are parameter-derived estimates that assume a near-rate-one Lift-RS storage regime; they are not measurements from the small reference encoder or a scalable Lift-RS backend. New performance claims belong in linked reports under [`experiments/`](experiments/).
 
 ## Field arithmetic and configuration
 
@@ -86,9 +87,9 @@ The [protocol I/O contract](docs/protocol-io.md) describes querying every PIR da
 
 The target catalogue includes binary extension fields `GF(2^s)` for every integer `s` from 8 through 20, initially with `m=2` and the [bounded-sample parameter profile](docs/parameter-planning.md#configuration-catalogue); prime fields are outside the current scope. Application records must be at least as wide as the largest PIR record in the supported catalogue; packing is outside the current scope.
 
-The [planner design](docs/parameter-planning.md) describes joint selection of submatrix dimensions, code parameters, and query-sharing groups, including total storage and communication costs. Encoding-time and memory estimates may accompany plans but do not influence partition selection. The next implementation step is the [small deterministic reference encoder](docs/encoder-contract.md#small-reference-encoder), with exhaustive tiny-instance checks, before the planner.
+The [planner design](docs/parameter-planning.md) describes joint selection of submatrix dimensions, code parameters, and query-sharing groups, including total storage and communication costs. Encoding-time and memory estimates may accompany plans but do not influence partition selection. The [small deterministic reference encoder](encoding/liftrs/README.md) now supplies the correctness baseline. Wrapper and scalable-backend work can use it before the planner is implemented.
 
-The planner returns candidate plans with empirical rate estimates, exact calculated rates where capacities are verified, and linked encoding evidence. The [application encoder](docs/encoder-contract.md#application-encoding) consumes a selected plan, partitions and pads the input, converts it to field elements, and invokes the non-cryptographic and cryptographic PIR encoders for each database. [Code preprocessing](docs/encoder-contract.md#code-preprocessing) takes only code specifications and produces reusable encoding information, independently of any database. These boundaries are planned, not yet implemented.
+The planner returns candidate plans with empirical rate estimates, exact calculated rates where capacities are verified, and linked encoding evidence. The [application encoder](docs/encoder-contract.md#application-encoding) consumes a selected plan, partitions and pads the input, converts it to field elements, and invokes the non-cryptographic and cryptographic PIR encoders for each database. [Code preprocessing](docs/encoder-contract.md#code-preprocessing) takes only code specifications and produces reusable encoding information, independently of any database. The reference package implements code preprocessing and non-cryptographic encoding; the planner, application wrapper, and packed-format adapters remain planned.
 
 - `utils/gf2n.go` implements `GF(2^n)` with log/exp tables for degrees 4, 8, 12, 13, 14, 16, 17, 18, and 20.
 - Degrees 9, 10, 11, 15, and 19 remain to be implemented for the target range. Terabyte-scale application databases are a parameter-planning target, not a verified implementation capability.
@@ -100,7 +101,7 @@ The planner returns candidate plans with empirical rate estimates, exact calcula
 ```text
 pir/            Go Lift-RS client API, tests, benchmarks, and RM encoder wrapper
 utils/          Field arithmetic, curve generation, permutation, masks, and matrix I/O
-encoding/       External RM encoder (C++ and Julia), currently a Lift-RS testing placeholder
+encoding/       External RM placeholder (C++/Julia) and liftrs/ Go reference encoder
 server/         Julia HTTP query handler
 input/, output/ Example CSV data and generated matrix locations
 experiments/    Scripts, reports, and results for new measurements
