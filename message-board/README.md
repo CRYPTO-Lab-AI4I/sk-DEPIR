@@ -123,3 +123,4 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-25 23:30 | DOC-047 | Completed | [Routine decisions resolved; publication ready](2026-10-25-2330-codex-doc-047-completed.md) |
 | 2026-10-25 23:31 | DOC-048 | Started | [Normalize calculation CSV before publication](2026-10-25-2331-codex-doc-048-started.md) |
 | 2026-10-25 23:31 | DOC-048 | Completed | [CSV normalized and full diff verified](2026-10-25-2331-codex-doc-048-completed.md) |
+| 2026-10-25 23:31 | DOC-047 | Publication | [Commit and push receipt](2026-10-25-2331-codex-doc-047-publication.md) |
