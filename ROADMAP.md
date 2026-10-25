@@ -10,6 +10,21 @@ decoding. Define the storage I/O contract and use simple readers in tests and
 examples; server-side protocol computation and a production server are outside
 this roadmap.
 
+## Implementation sequence
+
+1. Specify the encoder contract and input layout; sketch catalogue fields and
+   analytical costs only.
+2. Implement a small, correct Lift-RS reference encoder. Establish its dimension,
+   construct a systematic information set, and verify small-instance retrieval.
+3. Build the parameter planner using verified capacities, distinguishing them
+   from paper and empirical estimates.
+4. Optimize preprocessing for useful configurations identified by the planner.
+
+A complete planner or broad benchmark campaign must not delay the reference
+encoder. Small-instance validation does not establish large-instance resource
+feasibility. See the [encoder requirements](docs/encoder-contract.md) and
+[planner design](docs/parameter-planning.md).
+
 ## Ordered milestones
 
 Complete the correctness foundations before optimizing or promising a stable
@@ -18,6 +33,11 @@ evidence support completion. Record each work item on the
 [message board](message-board/README.md).
 
 ### 1. Specify the supported construction
+
+Accepted decisions: [polynomial-basis binary fields and submatrix input layout](docs/data-representation.md).
+The design specifies bit packing, metadata conventions, initial candidate parameters,
+and a deterministic small reference method. These contracts still need implementation
+and validation; the concrete cryptographic suite and scalable encoder backend remain open.
 
 - [ ] Document the paper-to-code correspondence, assumptions, and supported
   parameters. Initially retain locality `ell=q-1`; general locality is optional.
@@ -115,5 +135,8 @@ sustained operational deployment require additional evidence beyond this target.
 
 The repository has a Lift-RS online prototype and passing tests for its current
 scope. It still uses an RM encoder placeholder and experimental randomness.
-See the [README](README.md) for the implementation status. The first development
-work item is milestone 1: specify the supported construction and data mapping.
+See the [README](README.md) for the implementation status. The next development work item is the
+[small reference encoder](docs/encoder-contract.md#small-reference-encoder): implement
+monomial classification, deterministic code preprocessing, systematic encoding,
+and exhaustive tiny-instance checks. Use small fields explicitly as test fixtures;
+they do not inherit the initial catalogue's security claims.

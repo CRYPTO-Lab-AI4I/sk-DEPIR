@@ -3,7 +3,7 @@
 ## Project goal
 
 Turn this academic implementation of the secret-key PIR protocols in
-[`sk_DEPIR.pdf`](sk_DEPIR.pdf) into an open-source library that developers can
+[`paper.pdf`](paper.pdf) into an open-source library that developers can
 understand and use. Prioritize clear APIs, readable code, thorough documentation,
 and changes that are easy to review and audit. Preserve the distinction between
 the paper's constructions, the implemented behavior, and experimental shortcuts.
@@ -16,6 +16,13 @@ and advanced optimization work until the user chooses to pursue it. Document
 current limitations and do not describe the target as already achieved.
 
 ## Rules for every contributor and agent
+
+Follow the [data representation conventions](docs/data-representation.md) for
+field representation, record layout, and mask separation, the
+[encoder requirements](docs/encoder-contract.md) for
+codeword encoding and cryptographic encoding, and the
+[protocol I/O contract](docs/protocol-io.md) for
+queries and responses. Keep agreed contracts distinct from implemented capabilities.
 
 1. **Track every change.** Read the shared
    [message board](message-board/README.md) for every work item. Create one
@@ -32,6 +39,12 @@ current limitations and do not describe the target as already achieved.
    code, and updates to relevant design or user documentation. Keep comments
    accurate and explain invariants and security assumptions rather than restating
    syntax. Do not submit undocumented code.
+   Write documentation that is precise and explanatory without being lengthy.
+   Introduce context before details, define terms consistently, and avoid repeating
+   requirements. Keep brief alternatives in parentheses when that is sufficient.
+   Apply editing feedback to similar passages throughout the document, not only
+   the selected sentence. Remove obvious qualifiers and unnecessary terminology
+   while preserving technical distinctions and security requirements.
 3. **Make experiments reproducible.** Put each new experiment in its own
    `experiments/<descriptive-name>/` directory. Include a runnable script,
    a `report.md`, and results or a durable link to them. The report must link to

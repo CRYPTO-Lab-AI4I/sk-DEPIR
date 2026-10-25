@@ -1,6 +1,6 @@
 # sk-DEPIR: Lifted Reed-Solomon Secret-Key PIR
 
-This repository implements the **Lift-RS online construction** from the accompanying [paper](sk_DEPIR.pdf), *Doubly-Efficient Secret-Key PIR with Low Storage Overhead*. It is being prepared as a readable, documented, and auditable open-source library. The paper also describes a Reed-Muller construction decoded along concatenated curves; that protocol is outside this repository's scope.
+This repository implements the **Lift-RS online construction** from the accompanying [paper](paper.pdf), *Doubly-Efficient Secret-Key PIR with Low Storage Overhead*. It is being prepared as a readable, documented, and auditable open-source library. The paper also describes a Reed-Muller construction decoded along concatenated curves; that protocol is outside this repository's scope.
 
 The client follows the permuted smooth-code blueprint: it queries the other `q-1` points on a degree-`t` curve through the requested location, using a secret permutation and masks. The Go implementation is `pir.LiftedRS`. `pir.NewPIR` remains as a compatibility alias for `pir.NewLiftedRS`.
 
@@ -80,7 +80,18 @@ go test ./pir -run '^$' -bench BenchmarkEncode
 
 ## Field arithmetic and configuration
 
+The agreed [data representation conventions](docs/data-representation.md) specify how an application matrix is partitioned into submatrices, each forming a PIR database with one field element per record and separate mask domains. The [encoder requirements](docs/encoder-contract.md) separate non-cryptographic codeword encoding from cryptographic permutation and masking. The planned format uses little-endian bit packing and a versioned JSON manifest; preprocessing and format adapters remain to be implemented.
+
+The [protocol I/O contract](docs/protocol-io.md) describes querying every PIR database through compatible query-sharing groups, storage responses, and client reconstruction. Query-sharing groups reuse client query generation; the client sends the positions separately for each PIR database, and communication counts every copy. Storage only serves the reads explicitly requested by the client.
+
+The target catalogue includes binary extension fields `GF(2^s)` for every integer `s` from 8 through 20, initially with `m=2` and the [bounded-sample parameter profile](docs/parameter-planning.md#configuration-catalogue); prime fields are outside the current scope. Application records must be at least as wide as the largest PIR record in the supported catalogue; packing is outside the current scope.
+
+The [planner design](docs/parameter-planning.md) describes joint selection of submatrix dimensions, code parameters, and query-sharing groups, including total storage and communication costs. Encoding-time and memory estimates may accompany plans but do not influence partition selection. The next implementation step is the [small deterministic reference encoder](docs/encoder-contract.md#small-reference-encoder), with exhaustive tiny-instance checks, before the planner.
+
+The planner returns candidate plans with empirical rate estimates, exact calculated rates where capacities are verified, and linked encoding evidence. The [application encoder](docs/encoder-contract.md#application-encoding) consumes a selected plan, partitions and pads the input, converts it to field elements, and invokes the non-cryptographic and cryptographic PIR encoders for each database. [Code preprocessing](docs/encoder-contract.md#code-preprocessing) takes only code specifications and produces reusable encoding information, independently of any database. These boundaries are planned, not yet implemented.
+
 - `utils/gf2n.go` implements `GF(2^n)` with log/exp tables for degrees 4, 8, 12, 13, 14, 16, 17, 18, and 20.
+- Degrees 9, 10, 11, 15, and 19 remain to be implemented for the target range. Terabyte-scale application databases are a parameter-planning target, not a verified implementation capability.
 - `utils/curve_generation.go` implements prime-field curve generation and `GF(2^n)` curve generation for the online Lift-RS path.
 - `config.json` stores base64-encoded permutator and encryptor keys, a permutator tweak, and a server URL. The configuration helper fills in and persists missing key fields; `Gen` creates ephemeral in-memory keys.
 
@@ -93,5 +104,6 @@ encoding/       External RM encoder (C++ and Julia), currently a Lift-RS testing
 server/         Julia HTTP query handler
 input/, output/ Example CSV data and generated matrix locations
 experiments/    Scripts, reports, and results for new measurements
+docs/           Construction and data representation specifications
 message-board/  One file per agent message, with an index in README.md
 ```
