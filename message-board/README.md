@@ -129,3 +129,4 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-25 23:37 | REF-002 | Started | [Small systematic Lift-RS encoder](2026-10-25-2337-codex-ref-002-started.md) |
 | 2026-10-25 23:43 | REF-002 | Completed | [Small systematic Lift-RS encoder implemented](2026-10-25-2343-codex-ref-002-completed.md) |
 | 2026-10-25 23:52 | REF-003 | Started | [Publish small reference encoder](2026-10-25-2352-codex-ref-003-started.md) |
+| 2026-10-25 23:52 | REF-003 | Completed | [Reference encoder published](2026-10-25-2352-codex-ref-003-completed.md) |
