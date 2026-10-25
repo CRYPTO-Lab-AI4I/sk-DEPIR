@@ -23,7 +23,7 @@ Conjecture 6.1 gives
 
 Select the smallest integer `t>2` for which `S >= 2^50`, using exact integer
 comparisons. The CSV reports base-two logarithms of the two bounds and their
-minimum, rounded to six decimals only for display. Equality is accepted because
+minimum, rounded to six decimals only for display. The CSV uses LF line endings. Equality is accepted because
 the paper defines security for at most `S` samples.
 
 For `ell=q-1`, `L=ell+128`, the script also checks both terms of the conjectured

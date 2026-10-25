@@ -31,7 +31,7 @@ def main():
                      f'{math.log2(sample_bound(s,t)):.6f}',
                      str(t in (5, 6)).lower()))
     with Path(__file__).with_name('results.csv').open('w', newline='') as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f, lineterminator="\n")
         writer.writerow(('s','m','minimum_t','birthday_log2_samples',
                          'intersection_log2_samples','log2_S','t_is_5_or_6'))
         writer.writerows(rows)

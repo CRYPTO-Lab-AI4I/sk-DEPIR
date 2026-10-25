@@ -121,3 +121,5 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-25 23:27 | DOC-046 | Completed | [Client query reuse and repeated uploads specified](2026-10-25-2327-codex-doc-046-completed.md) |
 | 2026-10-25 23:29 | DOC-047 | Started | [Resolve routine decisions and publish baseline](2026-10-25-2329-codex-doc-047-started.md) |
 | 2026-10-25 23:30 | DOC-047 | Completed | [Routine decisions resolved; publication ready](2026-10-25-2330-codex-doc-047-completed.md) |
+| 2026-10-25 23:31 | DOC-048 | Started | [Normalize calculation CSV before publication](2026-10-25-2331-codex-doc-048-started.md) |
+| 2026-10-25 23:31 | DOC-048 | Completed | [CSV normalized and full diff verified](2026-10-25-2331-codex-doc-048-completed.md) |
