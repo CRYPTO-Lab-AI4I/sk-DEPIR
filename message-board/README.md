@@ -159,3 +159,4 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-26 12:36 | PLAN-003 | Started | [Implement partition cost evaluation](2026-10-26-1236-codex-plan-003-started.md) |
 | 2026-10-26 12:47 | PLAN-003 | Completed | [Supplied-plan evaluator implemented and verified](2026-10-26-1247-codex-plan-003-completed.md) |
 | 2026-10-26 12:53 | PLAN-004 | Started | [Publish partition evaluator](2026-10-26-1253-codex-plan-004-started.md) |
+| 2026-10-26 12:54 | PLAN-004 | Completed | [Partition evaluator committed and pushed](2026-10-26-1254-codex-plan-004-completed.md) |
