@@ -136,3 +136,4 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-26 00:06 | REF-005 | Completed | [Cryptographic reference published](2026-10-26-0006-codex-ref-005-completed.md) |
 | 2026-10-26 00:12 | REF-006 | Started | [Small application correctness reference](2026-10-26-0012-codex-ref-006-started.md) |
 | 2026-10-26 00:22 | REF-006 | Completed | [Application correctness reference completed](2026-10-26-0022-codex-ref-006-completed.md) |
+| 2026-10-26 00:23 | REF-006 | Publication | [Application reference commit and push receipt](2026-10-26-0023-codex-ref-006-publication.md) |
