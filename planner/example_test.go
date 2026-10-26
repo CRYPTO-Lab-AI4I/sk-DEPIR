@@ -35,3 +35,25 @@ func ExampleEvaluate() {
 	// 64 1048 524
 	// 0.1875 false
 }
+
+func ExampleGreedy() {
+	file, err := os.Open("../pirconfig/testdata/reference.json")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	catalogue, err := pirconfig.Load(file)
+	if err != nil {
+		panic(err)
+	}
+	// Correctness fixture only; use the target requirements for actual profiles.
+	plan, result, err := planner.Greedy(7, 4, catalogue, planner.Requirements{})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(len(plan.RowBlocks), len(plan.Databases), result.DatabaseCount)
+	fmt.Println(result.Costs.StorageBits, result.Costs.UploadBits, result.Costs.DownloadBits)
+	// Output:
+	// 2 0 4
+	// 128 2096 1048
+}

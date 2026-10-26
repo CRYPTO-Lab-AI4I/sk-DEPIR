@@ -1,6 +1,6 @@
-// Package planner evaluates application-to-PIR partition plans using documented
-// configuration capacities. It does not search for partitions, preprocess codes,
-// encode databases, or generate queries. Estimated capacities support provisional
+// Package planner evaluates application-to-PIR partition plans and constructs
+// greedy row-block partitions using documented configuration capacities. It never
+// preprocesses codes, encodes databases, or generates queries. Estimated capacities support provisional
 // planning; mathematical and backend validation remain separate prerequisites.
 package planner
 
@@ -13,13 +13,16 @@ import (
 
 // Plan describes a version-1 application layout. Databases must be in ascending
 // (row_start,column_start,row_end,column_end) order and cover the matrix exactly
-// once. RecordBits must be at least the largest s in the supplied catalogue.
+// once. Alternatively, RowBlocks implicitly slice each full-width row block into
+// field-sized columns. Supply exactly one representation. RecordBits must be at
+// least the largest s in the supplied catalogue.
 // This is public planning data, not a stored-database manifest or secret state.
 type Plan struct {
 	FormatVersion int        `json:"format_version"`
 	Rows          uint64     `json:"rows"`
 	RecordBits    uint64     `json:"record_bits"`
-	Databases     []Database `json:"databases"`
+	Databases     []Database `json:"databases,omitempty"`
+	RowBlocks     []RowBlock `json:"row_blocks,omitempty"`
 }
 
 // Database assigns a half-open application rectangle to one catalogue entry.
@@ -31,6 +34,18 @@ type Database struct {
 	ColumnStart     uint64 `json:"column_start"`
 	RowEnd          uint64 `json:"row_end"`
 	ColumnEnd       uint64 `json:"column_end"`
+	ConfigurationID string `json:"configuration_id"`
+	Group           uint64 `json:"group"`
+}
+
+// RowBlock represents adjacent vertical PIR databases covering all application
+// columns for [RowStart,RowEnd). For field width s, column slice j is
+// [j*s,min((j+1)*s,RecordBits)). Each slice remains a separate database with its
+// own masks and full address upload. This is metadata compression, not query or
+// storage compression. Row blocks must cover all rows in increasing order.
+type RowBlock struct {
+	RowStart        uint64 `json:"row_start"`
+	RowEnd          uint64 `json:"row_end"`
 	ConfigurationID string `json:"configuration_id"`
 	Group           uint64 `json:"group"`
 }
@@ -75,6 +90,7 @@ type ConfigurationUse struct {
 // Even a nonprovisional result does not verify backend availability or security.
 // Returned evidence is copied; changes do not alter the supplied catalogue.
 type Evaluation struct {
+	DatabaseCount        uint64             `json:"database_count"`
 	Costs                Costs              `json:"costs"`
 	EffectiveStorageRate float64            `json:"effective_storage_rate"`
 	SecurityBits         uint32             `json:"security_bits"`
@@ -86,13 +102,13 @@ type Evaluation struct {
 // Evaluate validates a supplied plan and calculates its cost. It accepts known
 // estimated capacities, rejects unknown ones, and does not mutate either input.
 // All products and totals must fit uint64. Coverage checks use O(D^2) time for
-// D rectangles. Allocations hold plan/catalogue metadata and copied evidence;
+// D explicit rectangles or compact row blocks. Allocations hold metadata and copied evidence;
 // no per-application-row or per-bit allocation is performed.
 func Evaluate(plan Plan, catalogue *pirconfig.Catalogue, requirements Requirements) (*Evaluation, error) {
 	if err := catalogue.Validate(); err != nil {
 		return nil, fmt.Errorf("planner: %w", err)
 	}
-	if plan.FormatVersion != 1 || plan.Rows == 0 || plan.RecordBits == 0 || len(plan.Databases) == 0 {
+	if plan.FormatVersion != 1 || plan.Rows == 0 || plan.RecordBits == 0 || (len(plan.Databases) == 0 && len(plan.RowBlocks) == 0) {
 		return nil, fmt.Errorf("planner: require format_version 1 and nonempty application dimensions and databases")
 	}
 	configurations := make(map[string]*pirconfig.Configuration, len(catalogue.Configurations))
@@ -107,6 +123,10 @@ func Evaluate(plan Plan, catalogue *pirconfig.Catalogue, requirements Requiremen
 	if plan.RecordBits < uint64(maxWidth) {
 		return nil, fmt.Errorf("planner: record_bits must be at least catalogue field width %d", maxWidth)
 	}
+	regions, err := planRegions(plan, configurations)
+	if err != nil {
+		return nil, err
+	}
 	applicationBits, err := multiply(plan.Rows, plan.RecordBits)
 	if err != nil {
 		return nil, fmt.Errorf("planner: application bits: %w", err)
@@ -115,11 +135,12 @@ func Evaluate(plan Plan, catalogue *pirconfig.Catalogue, requirements Requiremen
 	used := make(map[string]bool)
 	groups := []string{}
 	var covered uint64
-	for i, p := range plan.Databases {
+	for i, region := range regions {
+		p := region.bounds
 		if p.RowStart >= p.RowEnd || p.RowEnd > plan.Rows || p.ColumnStart >= p.ColumnEnd || p.ColumnEnd > plan.RecordBits {
 			return nil, fmt.Errorf("planner: database %d: rectangle is empty or out of bounds", i)
 		}
-		if i > 0 && !less(plan.Databases[i-1], p) {
+		if i > 0 && !less(regions[i-1].bounds, p) {
 			return nil, fmt.Errorf("planner: database %d: coordinates must be unique and in canonical order", i)
 		}
 		c := configurations[p.ConfigurationID]
@@ -129,7 +150,7 @@ func Evaluate(plan Plan, catalogue *pirconfig.Catalogue, requirements Requiremen
 		if c.Capacity.Status == "unknown" {
 			return nil, fmt.Errorf("planner: configuration %s has unknown capacity", c.ID)
 		}
-		if p.RowEnd-p.RowStart > *c.Capacity.K || p.ColumnEnd-p.ColumnStart > uint64(c.Code.S) {
+		if p.RowEnd-p.RowStart > *c.Capacity.K || region.sliceWidth > uint64(c.Code.S) {
 			return nil, fmt.Errorf("planner: database %d: rectangle exceeds configuration capacity or field width", i)
 		}
 		if c.Security.ComputationalBits < requirements.MinSecurityBits || c.Security.Log2Samples < requirements.Log2Samples {
@@ -144,7 +165,8 @@ func Evaluate(plan Plan, catalogue *pirconfig.Catalogue, requirements Requiremen
 		if groups[int(p.Group)] != c.ID {
 			return nil, fmt.Errorf("planner: group %d requires the same catalogue configuration", p.Group)
 		}
-		for _, other := range plan.Databases[:i] {
+		for _, previous := range regions[:i] {
+			other := previous.bounds
 			rowOverlap := p.RowStart < other.RowEnd && other.RowStart < p.RowEnd
 			if rowOverlap && p.ColumnStart < other.ColumnEnd && other.ColumnStart < p.ColumnEnd {
 				return nil, fmt.Errorf("planner: database %d overlaps another rectangle", i)
@@ -160,25 +182,17 @@ func Evaluate(plan Plan, catalogue *pirconfig.Catalogue, requirements Requiremen
 		if err := accumulate(&covered, area); err != nil {
 			return nil, fmt.Errorf("planner: covered area: %w", err)
 		}
-		// Every database receives its own full list, including within a sharing group.
-		// Since N is a power of two, bits.Len64(N-1) is exactly ceil(log2 N).
-		for _, term := range []struct {
-			total *uint64
-			a, b  uint64
-			name  string
-		}{
-			{&result.Costs.StorageBits, c.Capacity.N, uint64(c.Code.S), "storage"},
-			{&result.Costs.UploadBits, c.Query.Length, uint64(bits.Len64(c.Capacity.N - 1)), "upload"},
-			{&result.Costs.DownloadBits, c.Query.Length, uint64(c.Code.S), "download"},
-		} {
-			value, err := multiply(term.a, term.b)
-			if err == nil {
-				err = accumulate(term.total, value)
-			}
-			if err != nil {
-				return nil, fmt.Errorf("planner: %s bits: %w", term.name, err)
-			}
+		blockCosts, err := databaseCosts(c, region.count)
+		if err == nil {
+			result.Costs, err = addModelCosts(result.Costs, blockCosts)
 		}
+		if err != nil {
+			return nil, fmt.Errorf("planner: %w", err)
+		}
+		if err := accumulate(&result.DatabaseCount, region.count); err != nil {
+			return nil, fmt.Errorf("planner: database count: %w", err)
+		}
+
 		if !used[c.ID] {
 			used[c.ID] = true
 			security := c.Security
@@ -200,10 +214,7 @@ func Evaluate(plan Plan, catalogue *pirconfig.Catalogue, requirements Requiremen
 	if covered != applicationBits {
 		return nil, fmt.Errorf("planner: partition leaves application entries uncovered")
 	}
-	result.Costs.CommunicationBits = result.Costs.UploadBits
-	if err := accumulate(&result.Costs.CommunicationBits, result.Costs.DownloadBits); err != nil {
-		return nil, fmt.Errorf("planner: communication bits: %w", err)
-	}
+
 	for _, limit := range []struct {
 		value, max uint64
 		name       string
@@ -257,4 +268,35 @@ func copyEvidence(evidence []pirconfig.Evidence) []pirconfig.Evidence {
 		}
 	}
 	return copied
+}
+
+// A region spans either one explicit rectangle or all column slices of a block.
+// Geometry uses the complete span; sliceWidth validates each represented database.
+type layoutRegion struct {
+	bounds     Database
+	count      uint64
+	sliceWidth uint64
+}
+
+func planRegions(plan Plan, configurations map[string]*pirconfig.Configuration) ([]layoutRegion, error) {
+	if len(plan.Databases) > 0 && len(plan.RowBlocks) > 0 {
+		return nil, fmt.Errorf("planner: choose exactly one of databases and row_blocks")
+	}
+	regions := make([]layoutRegion, 0, len(plan.Databases)+len(plan.RowBlocks))
+	for _, d := range plan.Databases {
+		regions = append(regions, layoutRegion{bounds: d, count: 1, sliceWidth: d.ColumnEnd - d.ColumnStart})
+	}
+	for _, b := range plan.RowBlocks {
+		c := configurations[b.ConfigurationID]
+		if c == nil {
+			return nil, fmt.Errorf("planner: unknown configuration %q", b.ConfigurationID)
+		}
+		width := uint64(c.Code.S)
+		count := plan.RecordBits / width
+		if plan.RecordBits%width != 0 {
+			count++
+		}
+		regions = append(regions, layoutRegion{bounds: Database{RowStart: b.RowStart, RowEnd: b.RowEnd, ColumnEnd: plan.RecordBits, ConfigurationID: b.ConfigurationID, Group: b.Group}, count: count, sliceWidth: width})
+	}
+	return regions, nil
 }

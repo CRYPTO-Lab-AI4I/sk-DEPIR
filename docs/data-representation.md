@@ -42,7 +42,8 @@ encoder](encoder-contract.md#application-encoding) applies the selected plan to 
 input database. The [small application reference](../encoding/appref/README.md)
 executes these transformations on supplied fixture plans; it does not optimize them.
 The [plan evaluator](../planner/README.md) validates supplied partitions and calculates
-their costs; automatic partition selection is not yet implemented.
+their costs. The [greedy planner](../planner/README.md#greedy-planning) constructs
+row-aligned partitions; general supplied partitions remain supported.
 
 ## Indexing
 
@@ -145,6 +146,14 @@ Retain the application matrix dimensions and, for each submatrix:
   the application database.
 - Its PIR configuration and padded dimensions, including the field polynomial.
 - Its query-sharing group.
+
+Planner output may represent a homogeneous full-width row block compactly, with its
+row range, configuration ID, and group. Its vertical slices are implicit at multiples
+of the field width, with the last slice truncated to the application width. Each
+slice still identifies a separate PIR database by its full row/column coordinates
+and requires separate masking material. The compact planner representation is not
+an implemented stored-database manifest or a change to the packed bit layout.
+
 
 The ranges determine the local PIR index and the position of each returned part in the
 application record. Comparing the original and padded dimensions identifies which zero

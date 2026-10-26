@@ -28,3 +28,6 @@ claim there to its experiment report.
   security-profile selection, not rate measurements.
 - [Lift-RS rates](liftrs-rates/report.md): uniform monomial sampling for all 13 PIR
   configurations, with reproducible counts and confidence intervals.
+
+- [Greedy planner costs](greedy-costs/report.md): logical storage and per-record
+  traffic for a 24-case application/record-size grid, with complete compact plans.

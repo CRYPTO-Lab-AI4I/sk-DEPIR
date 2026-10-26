@@ -4,7 +4,7 @@ The proposed planner selects code parameters and an [input layout](data-represen
 together. It is separate from the [application encoder](encoder-contract.md#application-encoding):
 it produces plans, not encoded data. The [PIR configuration catalogue and loader](../pirconfig/README.md)
 and [supplied-plan evaluator](../planner/README.md) are implemented. Automatic
-partition selection remains to be implemented.
+partition selection is implemented as a [greedy heuristic](../planner/README.md#greedy-planning).
 No default field has been selected; the initial security profile is specified below.
 Development order is in [ROADMAP.md](../ROADMAP.md#implementation-sequence).
 
@@ -187,7 +187,26 @@ Coverage checks operate on rectangles, not an application-sized matrix. The curr
 pairwise checks are quadratic in the number of rectangles.
 
 This evaluator does not generate or rank plans, invoke preprocessing, or establish
-backend availability. The selection procedure below is the remaining planner work.
+backend availability. The greedy planner below generates plans and invokes it.
+
+## Greedy partitioner
+
+[planner.Greedy](../planner/greedy.go) implements row-aligned partitioning with
+one-step lookahead. At each row position, try every eligible configuration, slice
+that block vertically, and score it together with a greedy completion. The
+completion fills the largest-fitting capacities and uses the cheapest covering
+configuration for the last remainder. Score repeated blocks in aggregate. Choose
+minimum full-plan storage, breaking ties by total communication; enforce all cost
+and security limits. Estimated capacities remain provisional.
+
+The returned plan represents column slices implicitly in full-width row blocks.
+The evaluator counts every database and query copy without expanding them. General
+explicit partitions remain supported. Homogeneous row blocks simplify grouping by
+configuration ID but restrict the search space. No global or row-block optimality
+is claimed; `ErrNoPlan` means no feasible completion was found by this heuristic.
+The [cost-grid report](../experiments/greedy-costs/report.md) records its current costs.
+
+The broader selection procedure below describes possible future search strategies.
 
 ## Selection procedure and output
 

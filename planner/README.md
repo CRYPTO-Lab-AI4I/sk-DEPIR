@@ -1,9 +1,9 @@
-# Partition cost evaluator
+# Greedy planner and partition evaluator
 
-This package evaluates a supplied application-to-PIR partition against the
-[PIR configuration catalogue](../pirconfig/README.md). It validates the layout and
-calculates logical storage and communication. Partition search remains to be
-implemented; the evaluator never preprocesses codes, encodes data, or generates queries.
+This package constructs greedy row-block partitions and evaluates supplied general
+partitions against the [PIR configuration catalogue](../pirconfig/README.md). It
+calculates logical storage and communication without preprocessing codes, encoding
+data, or generating queries. Greedy planning is a heuristic, not an optimality claim.
 
 ## API
 
@@ -28,10 +28,46 @@ databases using one query-sharing group. The evaluator returns 64 storage bits,
 1,048 upload bits and 524 download bits per record retrieval, with effective rate
 `12/64 = 0.1875`. The example makes no cryptographic security claim.
 
+## Greedy planning
+
+```go
+plan, result, err := planner.Greedy(rows, recordBits, catalogue, planner.Requirements{
+    MinSecurityBits: 100,
+    Log2Samples:     50,
+})
+```
+
+For each next row block, `Greedy` tries every eligible configuration, covers up to
+its capacity, and scores that block plus a greedy completion of the remainder.
+The completion repeatedly fills the largest-fitting row capacity, batching repeated
+blocks using division, and covers the last remainder with the cheapest covering
+configuration. Candidates must satisfy the full-plan budgets. Choose minimum total
+storage, breaking ties by total upload plus download, then greater next-block height
+and configuration ID. Recompute lookahead after each chosen block. Catalogue order
+does not affect the result. Unknown capacities and insufficient security profiles
+are excluded; estimated capacities produce provisional plans.
+
+The result uses compact `RowBlocks`: each covers all application columns and implies
+`ceil(recordBits/s)` separate PIR databases. Slice `j` has columns
+`[j*s,min((j+1)*s,recordBits))`. Only row blocks are allocated, even for millions of
+column slices. `Evaluation.DatabaseCount` counts all physical PIR databases. This
+compression changes metadata only: each database still has its own masks and full
+address upload. Group databases by configuration ID across all blocks; row ranges
+are identical within a block and disjoint between blocks.
+
+For `B` selected blocks and `C` configurations, lookahead costs `O(B*C^2)`, followed
+by `O(B^2)` compact evaluation. Memory holds block/catalogue metadata, not one entry
+per column slice. Time and output still grow with the number of row blocks.
+`ErrNoPlan` means this heuristic found no feasible completion, not proof that no
+partition exists. It searches homogeneous row blocks and does not promise even the
+optimum within that restricted family. Encoding resource measurements do not affect
+selection. The [cost-grid experiment](../experiments/greedy-costs/report.md) reports
+24 application-size/record-size combinations.
+
 ## Plans and validation
 
-A `Plan` has `FormatVersion: 1`, application `Rows` and `RecordBits`, and a list of
-`Database` rectangles. Each rectangle gives half-open row/column bounds, a catalogue
+A `Plan` has `FormatVersion: 1`, application `Rows` and `RecordBits`, and exactly one of a list of
+`Database` rectangles or compact `RowBlocks`. Each rectangle gives half-open row/column bounds, a catalogue
 `ConfigurationID`, and a query-sharing `Group`. Its coordinates identify it within
 the application. These Go types have JSON tags for reviewing planning data; they
 are not a durable stored-database manifest or a strict JSON-loading API.
@@ -59,9 +95,10 @@ are not a durable stored-database manifest or a strict JSON-loading API.
 
 Coverage uses pairwise overlap checks followed by an area check. Disjoint rectangles
 inside the application cover it exactly once iff their summed area equals its area.
-Checks are quadratic in rectangle count, with no allocation proportional to record
-count or application bits. Very large numbers of rectangles may need a future sweep
-algorithm; large application coordinates alone do not cause large allocations.
+Checks are quadratic in explicit rectangle count, or in row-block count for compact
+plans. Implicit slices are validated and costed in aggregate. There is no allocation
+proportional to application bits or the implicit slice count. Very large explicit
+partitions may need a future sweep algorithm.
 
 ## Cost model and evidence
 
@@ -97,5 +134,8 @@ go test -race ./planner
 mixed fields, security constraints, general partitions, group compatibility,
 provisional evidence, ownership, concurrency, and overflow. They compare model
 storage and read counts with actual [application-reference](../encoding/appref/README.md)
-encoding/retrieval. A two-block target plan tests terabyte-scale coordinates using
+encoding/retrieval. [Greedy tests](greedy_test.go) compare small plans with a largest-fitting baseline
+and an exact dynamic-programming lower bound, check deterministic choices and budgets,
+and compare compact plans with fully expanded evaluation. A 10 MB record test counts
+ten million databases without expanding them. A two-block target plan tests terabyte-scale coordinates using
 estimated capacities, without encoding a database of that size.

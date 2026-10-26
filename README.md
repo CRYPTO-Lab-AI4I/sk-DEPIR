@@ -102,7 +102,10 @@ confidence intervals and the four matching paper estimates retained. Target-size
 encoding support is not claimed. A JSON Schema and consistency checks distinguish
 estimates from verified capacities. The [plan evaluator](planner/README.md) validates
 supplied partitions and calculates their logical storage/communication costs.
-Automatic partition selection remains to be implemented.
+The [greedy planner](planner/README.md#greedy-planning) uses one-step lookahead to
+construct compact row-block plans. It is deterministic and does not claim optimality.
+The [cost-grid report](experiments/greedy-costs/report.md) covers 1 GB through 1 TB
+with 1 KB through 10 MB records; these are model calculations, not encoded databases.
 
 The [rate estimator](cmd/pir-rate/README.md) samples monomials using a deterministic
 membership test that supports `s=2..20` without field arithmetic or generator
@@ -110,7 +113,7 @@ matrices. This does not extend the small encoder's supported sizes.
 
 The PIR configuration catalogue includes binary extension fields `GF(2^s)` for every integer `s` from 8 through 20, initially with `m=2` and the [bounded-sample parameter profile](docs/parameter-planning.md#configuration-catalogue); prime fields are outside the current scope. Application records must be at least as wide as the largest PIR record in the supported catalogue; packing is outside the current scope.
 
-The [planner design](docs/parameter-planning.md) describes joint selection of submatrix dimensions, code parameters, and query-sharing groups, including total storage and communication costs. Encoding-time and memory estimates may accompany plans but do not influence partition selection. The [small deterministic reference encoder](encoding/liftrs/README.md) now supplies the correctness baseline. The evaluator uses catalogue evidence without running either encoder; the partition search remains separate.
+The [planner design](docs/parameter-planning.md) describes joint selection of submatrix dimensions, code parameters, and query-sharing groups, including total storage and communication costs. Encoding-time and memory estimates may accompany plans but do not influence partition selection. The [small deterministic reference encoder](encoding/liftrs/README.md) now supplies the correctness baseline. The evaluator and greedy planner use catalogue evidence without running either encoder.
 
 The [application encoder](docs/encoder-contract.md#application-encoding) consumes a selected plan, partitions and pads the input, converts it to field elements, and invokes the non-cryptographic and cryptographic PIR encoders for each database; [appref](encoding/appref/README.md) implements this workflow only as a bounded reference. [Code preprocessing](docs/encoder-contract.md#code-preprocessing) takes only code specifications and produces reusable encoding information, independently of any database. Durable manifest/key persistence and large-instance backends remain separate work.
 
@@ -123,7 +126,7 @@ The [application encoder](docs/encoder-contract.md#application-encoding) consume
 
 ```text
 pirconfig/      JSON configuration catalogue, schema, Go loader, and validation tests
-planner/        Supplied-partition validation and logical storage/communication costs
+planner/        Greedy row-block partitioning, validation, and logical cost evaluation
 cmd/pir-rate/   Monomial-sampling Lift-RS rate estimator
 pir/            Go Lift-RS client API, tests, benchmarks, and RM encoder wrapper
 utils/          Field arithmetic, curve generation, permutation, masks, and matrix I/O

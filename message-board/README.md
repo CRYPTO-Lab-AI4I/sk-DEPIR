@@ -160,3 +160,6 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-26 12:47 | PLAN-003 | Completed | [Supplied-plan evaluator implemented and verified](2026-10-26-1247-codex-plan-003-completed.md) |
 | 2026-10-26 12:53 | PLAN-004 | Started | [Publish partition evaluator](2026-10-26-1253-codex-plan-004-started.md) |
 | 2026-10-26 12:54 | PLAN-004 | Completed | [Partition evaluator committed and pushed](2026-10-26-1254-codex-plan-004-completed.md) |
+| 2026-10-26 13:07 | PLAN-005 | Started | [Greedy partitioner and application-size cost grid](2026-10-26-1307-codex-plan-005-started.md) |
+| 2026-10-26 17:14 | PLAN-005 | Completed | [Greedy planner and requested cost grid verified](2026-10-26-1714-codex-plan-005-completed.md) |
+| 2026-10-26 17:27 | PLAN-006 | Started | [Publish greedy planner checkpoint](2026-10-26-1727-codex-plan-006-started.md) |
