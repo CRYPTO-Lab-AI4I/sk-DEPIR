@@ -25,9 +25,9 @@ positions := code.SystematicPositions()
 // word[positions[j]] == message[j]. A PIR query for message j targets positions[j].
 ```
 
-Import `rme/encoding/liftrs` within the current module. The runnable
+Import `github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs`. The runnable
 [example](example_test.go) demonstrates the complete preprocessing/encoding call
-sequence. The module still needs an external import path before a developer release.
+sequence.
 
 ## Supported reference instances
 

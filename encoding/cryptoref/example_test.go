@@ -3,8 +3,8 @@ package cryptoref_test
 import (
 	"fmt"
 
-	"rme/encoding/cryptoref"
-	"rme/encoding/liftrs"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/cryptoref"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs"
 )
 
 func ExampleMasker_Encode() {

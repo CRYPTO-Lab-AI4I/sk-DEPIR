@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math/bits"
 
-	"rme/utils"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils"
 )
 
 // LiftedRS implements PIR using the lifted Reed-Solomon construction.

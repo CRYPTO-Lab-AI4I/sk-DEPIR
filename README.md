@@ -26,6 +26,11 @@ Other limits to account for when using or reviewing the code:
 
 ## API
 
+The Go module is `github.com/CRYPTO-Lab-AI4I/sk-DEPIR`. Import the client as
+`github.com/CRYPTO-Lab-AI4I/sk-DEPIR/pir`; preprocessing and configuration packages
+use the same module prefix. Reed–Muller names identify only the retained testing
+placeholder.
+
 `LiftedRS` satisfies the `PIR` interface in [`pir/pir_api.go`](pir/pir_api.go):
 
 ```go

@@ -6,9 +6,10 @@ import (
 	"math/bits"
 	"math/rand"
 	"net/http"
-	"rme/utils"
 	"testing"
 	"time"
+
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils"
 )
 
 // *************************************************************************************

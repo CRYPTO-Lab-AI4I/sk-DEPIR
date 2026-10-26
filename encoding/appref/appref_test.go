@@ -9,7 +9,7 @@ import (
 	"sync"
 	"testing"
 
-	"rme/encoding/liftrs"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs"
 )
 
 func fixturePlan() Plan {

@@ -100,8 +100,9 @@ record using its own storage reader without modifying library internals.
 
 ### 4. Organize and package the library
 
-- [ ] Establish a Go module path suitable for external imports and review
-  dependencies, licensing, and attribution.
+- [x] Use the repository module path `github.com/CRYPTO-Lab-AI4I/sk-DEPIR`
+  for external imports.
+- [ ] Review dependencies, licensing, and attribution.
 - [ ] Keep public client and preprocessing packages small; split `utils` into
   internal packages with clear responsibilities, such as fields, code
   construction, permutation, masking, and record layout.

@@ -45,6 +45,10 @@ queries and responses. Keep agreed contracts distinct from implemented capabilit
    Apply editing feedback to similar passages throughout the document, not only
    the selected sentence. Remove obvious qualifiers and unnecessary terminology
    while preserving technical distinctions and security requirements.
+   Name files, directories, and APIs concisely by their contents or responsibility.
+   Include enough context to identify what they contain (for example, PIR
+   configurations). Keep maturity and implementation status in metadata or
+   documentation; avoid vague names such as `candidates` without an identified subject.
 3. **Make experiments reproducible.** Put each new experiment in its own
    `experiments/<descriptive-name>/` directory. Include a runnable script,
    a `report.md`, and results or a durable link to them. The report must link to

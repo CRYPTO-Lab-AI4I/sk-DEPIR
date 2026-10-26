@@ -63,7 +63,7 @@ Omit absent optional fields; explicit `null` is rejected.
 
 ## Go loading
 
-Import `rme/pirconfig` within the current module:
+Import `github.com/CRYPTO-Lab-AI4I/sk-DEPIR/pirconfig`:
 
 ```go
 file, err := os.Open("pirconfig/configs_catalogue.json")

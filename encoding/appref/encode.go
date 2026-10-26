@@ -3,7 +3,7 @@ package appref
 import (
 	"fmt"
 
-	"rme/encoding/cryptoref"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/cryptoref"
 )
 
 // Encode validates and executes a supplied plan. Each input record occupies

@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"fmt"
 
-	"rme/utils"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils"
 )
 
 // Params contains the public construction parameters.

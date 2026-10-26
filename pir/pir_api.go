@@ -8,7 +8,7 @@ import (
 	"math/rand"
 	"net/http"
 
-	"rme/utils"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils"
 )
 
 // QueryResult bundles the server response values with the query and private positions.

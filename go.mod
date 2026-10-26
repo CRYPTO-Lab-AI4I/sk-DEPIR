@@ -1,4 +1,4 @@
-module rme
+module github.com/CRYPTO-Lab-AI4I/sk-DEPIR
 
 go 1.21.6
 

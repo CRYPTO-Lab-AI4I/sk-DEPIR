@@ -11,7 +11,7 @@ import (
 	"crypto/rand"
 	"fmt"
 
-	"rme/utils"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils"
 )
 
 // MaxLength bounds the in-memory permutation and stored codeword fixtures.

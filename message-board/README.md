@@ -146,3 +146,8 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-26 09:37 | CAT-004 | Started | [Name and publish the PIR configuration catalogue](2026-10-26-0937-codex-cat-004-started.md) |
 | 2026-10-26 09:38 | CAT-004 | Completed | [PIR configuration naming verified for publication](2026-10-26-0938-codex-cat-004-completed.md) |
 | 2026-10-26 09:39 | CAT-004 | Publication | [PIR configuration catalogue commit and push receipt](2026-10-26-0939-codex-cat-004-publication.md) |
+| 2026-10-26 09:40 | DOC-050 | Started | [Record naming convention](2026-10-26-0940-codex-doc-050-started.md) |
+| 2026-10-26 09:40 | DOC-050 | Completed | [Naming convention recorded](2026-10-26-0940-codex-doc-050-completed.md) |
+| 2026-10-26 09:43 | REF-007 | Started | [Replace the RM-derived Go module namespace](2026-10-26-0943-codex-ref-007-started.md) |
+| 2026-10-26 09:44 | REF-007 | Completed | [Secret-key PIR module namespace established](2026-10-26-0944-codex-ref-007-completed.md) |
+| 2026-10-26 11:51 | REF-008 | Started | [Publish module namespace and naming rule](2026-10-26-1151-codex-ref-008-started.md) |

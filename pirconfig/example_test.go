@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"rme/pirconfig"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/pirconfig"
 )
 
 func ExampleLoad() {

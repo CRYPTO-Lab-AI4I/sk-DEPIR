@@ -4,7 +4,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"rme/utils"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils"
 )
 
 func TestLiftedRSDecodeThroughPIRInterface(t *testing.T) {

@@ -5,8 +5,8 @@ import (
 	"context"
 	"fmt"
 
-	"rme/encoding/appref"
-	"rme/encoding/liftrs"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/appref"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs"
 )
 
 func ExampleEncode() {

@@ -2,8 +2,9 @@ package pir
 
 import (
 	"math/rand"
-	"rme/utils"
 	"time"
+
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils"
 )
 
 // FakeDB writes n uniformly sampled values in [0,q) for tests and benchmarks.

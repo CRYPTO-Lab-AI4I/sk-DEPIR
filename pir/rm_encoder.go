@@ -10,7 +10,7 @@ import (
 	"strings"
 	"sync"
 
-	"rme/utils"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils"
 )
 
 const rmEncodingIntermediate = "../output/inter.csv"

@@ -3,8 +3,8 @@ package pir
 import (
 	"testing"
 
-	"rme/encoding/liftrs"
-	"rme/utils"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils"
 )
 
 // Exercise the real online client at every systematic position of a genuine

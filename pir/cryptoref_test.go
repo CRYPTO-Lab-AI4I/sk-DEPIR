@@ -3,9 +3,9 @@ package pir
 import (
 	"testing"
 
-	"rme/encoding/cryptoref"
-	"rme/encoding/liftrs"
-	"rme/utils"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/cryptoref"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils"
 )
 
 // Feed genuine Lift-RS messages through the new XOR-mask stage and the existing

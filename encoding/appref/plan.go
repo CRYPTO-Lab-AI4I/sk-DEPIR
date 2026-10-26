@@ -7,8 +7,8 @@ package appref
 import (
 	"fmt"
 
-	"rme/encoding/cryptoref"
-	"rme/encoding/liftrs"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/cryptoref"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs"
 )
 
 // These bounds keep both application coverage checks and dense code fixtures
