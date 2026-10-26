@@ -151,3 +151,4 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-26 09:43 | REF-007 | Started | [Replace the RM-derived Go module namespace](2026-10-26-0943-codex-ref-007-started.md) |
 | 2026-10-26 09:44 | REF-007 | Completed | [Secret-key PIR module namespace established](2026-10-26-0944-codex-ref-007-completed.md) |
 | 2026-10-26 11:51 | REF-008 | Started | [Publish module namespace and naming rule](2026-10-26-1151-codex-ref-008-started.md) |
+| 2026-10-26 11:52 | REF-008 | Completed | [Module namespace committed and pushed](2026-10-26-1152-codex-ref-008-completed.md) |
