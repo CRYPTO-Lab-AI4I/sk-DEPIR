@@ -7,7 +7,10 @@ representation](data-representation.md) for the submatrix layout and masks.
 The single-database protocol is given in [Figure 5](../paper.pdf#page=33), with the
 Lift-RS instantiation in [Section 5.2](../paper.pdf#page=34). The grouping and
 reconstruction rules below extend it to the library's application layout; they are not
-yet implemented by the single-database API.
+yet implemented by the legacy single-database API. The
+[small application reference](../encoding/appref/README.md) implements fixed
+participation, repeated byte-range reads, unmasking, and record reconstruction
+for supplied tiny-instance layouts.
 
 ## Query groups and participation
 

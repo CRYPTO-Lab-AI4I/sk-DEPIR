@@ -16,10 +16,12 @@ The online query and decode path supports locality `ℓ=q-1`, dimensions `m=2` a
 
 A separate [small cryptographic reference](encoding/cryptoref/README.md) permutes codewords and applies storage-position XOR masks using the existing AES helpers. It tests independent masking keys, re-encoding, and genuine-codeword retrieval. Its in-memory architecture is a correctness reference; it does not select a production API or streaming design.
 
+The [small application reference](encoding/appref/README.md) now executes manually supplied submatrix plans, pads and packs records, invokes both reference stages, and reconstructs through ordinary byte-range reads. It completes the small correctness pipeline; it does not choose a large-instance architecture or implement the automatic planner.
+
 Other limits to account for when using or reviewing the code:
 
 - General locality `ℓ` is not implemented. The decoder uses the full-field sum identity for `ℓ=q-1`; supporting other localities requires retaining curve parameters and interpolating over the field.
-- Curve sampling, dummy positions, and shuffling use Go's `math/rand`. A production security implementation needs a cryptographic randomness source.
+- The legacy Go client uses `math/rand` for curve sampling, dummy positions, and shuffling. A production security implementation needs a cryptographic randomness source.
 - Local end-to-end tests replace the HTTP server with file-backed evaluation. `TestQueryFromServer` is a network smoke test; it skips when the configured server is unavailable and does not compare decoded values with an expected database.
 
 ## API
@@ -64,7 +66,7 @@ The external encoder is needed by `BenchmarkEncode` and the tests whose names co
 | `TestCryptographicReferenceLiftedRSRecovery` | Genuine systematic GF(16) Lift-RS codewords | In-memory reads | XOR masking, shared permutation, independent database/re-encoding keys, and recovery with repeated curve positions. |
 | `TestQueryFromServer` | Assumes a compatible database is served | HTTP | Network smoke test only; may skip and does not assert decoded values. |
 
-Tests are in `pir/`, `utils/`, `encoding/liftrs/`, and `encoding/cryptoref/`. The [reference package tests](encoding/liftrs/reference_test.go) include exhaustive tiny-instance curve and message checks and a runnable API example. Run them from the repository root with `go test ./...`.
+Tests are in `pir/`, `utils/`, `encoding/liftrs/`, `encoding/cryptoref/`, and `encoding/appref/`. The [reference package tests](encoding/liftrs/reference_test.go) include exhaustive tiny-instance curve and message checks and a runnable API example. Run them from the repository root with `go test ./...`.
 
 ## Benchmarks
 
@@ -84,7 +86,7 @@ go test ./pir -run '^$' -bench BenchmarkEncode
 
 ## Field arithmetic and configuration
 
-The agreed [data representation conventions](docs/data-representation.md) specify how an application matrix is partitioned into submatrices, each forming a PIR database with one field element per record and separate mask domains. The [encoder requirements](docs/encoder-contract.md) separate non-cryptographic codeword encoding from cryptographic permutation and masking. The planned format uses little-endian bit packing and a versioned JSON manifest; preprocessing and format adapters remain to be implemented.
+The agreed [data representation conventions](docs/data-representation.md) specify how an application matrix is partitioned into submatrices, each forming a PIR database with one field element per record and separate mask domains. The [encoder requirements](docs/encoder-contract.md) separate non-cryptographic codeword encoding from cryptographic permutation and masking. The format conventions use little-endian bit packing and a versioned JSON manifest. The small wrapper implements packed reads; durable manifests and the large-instance workflow remain to be implemented.
 
 The [protocol I/O contract](docs/protocol-io.md) describes querying every PIR database through compatible query-sharing groups, storage responses, and client reconstruction. Query-sharing groups reuse client query generation; the client sends the positions separately for each PIR database, and communication counts every copy. Storage only serves the reads explicitly requested by the client.
 
@@ -92,7 +94,7 @@ The target catalogue includes binary extension fields `GF(2^s)` for every intege
 
 The [planner design](docs/parameter-planning.md) describes joint selection of submatrix dimensions, code parameters, and query-sharing groups, including total storage and communication costs. Encoding-time and memory estimates may accompany plans but do not influence partition selection. The [small deterministic reference encoder](encoding/liftrs/README.md) now supplies the correctness baseline. Wrapper and scalable-backend work can use it before the planner is implemented.
 
-The planner returns candidate plans with empirical rate estimates, exact calculated rates where capacities are verified, and linked encoding evidence. The [application encoder](docs/encoder-contract.md#application-encoding) consumes a selected plan, partitions and pads the input, converts it to field elements, and invokes the non-cryptographic and cryptographic PIR encoders for each database. [Code preprocessing](docs/encoder-contract.md#code-preprocessing) takes only code specifications and produces reusable encoding information, independently of any database. The reference packages implement code preprocessing, non-cryptographic encoding, and a small cryptographic encoding test pipeline; the planner, application wrapper, and packed-format adapters remain planned.
+The planner returns candidate plans with empirical rate estimates, exact calculated rates where capacities are verified, and linked encoding evidence. The [application encoder](docs/encoder-contract.md#application-encoding) consumes a selected plan, partitions and pads the input, converts it to field elements, and invokes the non-cryptographic and cryptographic PIR encoders for each database; [appref](encoding/appref/README.md) implements this workflow only as a bounded reference. [Code preprocessing](docs/encoder-contract.md#code-preprocessing) takes only code specifications and produces reusable encoding information, independently of any database. The reference packages implement code preprocessing, non-cryptographic encoding, cryptographic encoding, and a small application wrapper with packed byte-range reads. Automatic planning, durable manifest/key persistence, and large-instance backends remain separate work.
 
 - `utils/gf2n.go` implements `GF(2^n)` with log/exp tables for degrees 4, 8, 12, 13, 14, 16, 17, 18, and 20.
 - Degrees 9, 10, 11, 15, and 19 remain to be implemented for the target range. Terabyte-scale application databases are a parameter-planning target, not a verified implementation capability.
@@ -104,7 +106,7 @@ The planner returns candidate plans with empirical rate estimates, exact calcula
 ```text
 pir/            Go Lift-RS client API, tests, benchmarks, and RM encoder wrapper
 utils/          Field arithmetic, curve generation, permutation, masks, and matrix I/O
-encoding/       External RM placeholder (C++/Julia), liftrs/ and cryptoref/ test backends
+encoding/       External RM placeholder and liftrs/, cryptoref/, appref/ reference backends
 server/         Julia HTTP query handler
 input/, output/ Example CSV data and generated matrix locations
 experiments/    Scripts, reports, and results for new measurements

@@ -39,7 +39,8 @@ or gaps.
 A [planner](parameter-planning.md) proposes one or more such partitions and estimates
 their storage and communication costs. An [application
 encoder](encoder-contract.md#application-encoding) applies the selected plan to the
-input database.
+input database. The [small application reference](../encoding/appref/README.md)
+executes these transformations on supplied fixture plans; it does not optimize them.
 
 ## Indexing
 

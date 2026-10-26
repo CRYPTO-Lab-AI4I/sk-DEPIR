@@ -134,3 +134,5 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-26 00:05 | REF-004 | Completed | [Small cryptographic reference implemented](2026-10-26-0005-codex-ref-004-completed.md) |
 | 2026-10-26 00:06 | REF-005 | Started | [Publish cryptographic reference](2026-10-26-0006-codex-ref-005-started.md) |
 | 2026-10-26 00:06 | REF-005 | Completed | [Cryptographic reference published](2026-10-26-0006-codex-ref-005-completed.md) |
+| 2026-10-26 00:12 | REF-006 | Started | [Small application correctness reference](2026-10-26-0012-codex-ref-006-started.md) |
+| 2026-10-26 00:22 | REF-006 | Completed | [Application correctness reference completed](2026-10-26-0022-codex-ref-006-completed.md) |

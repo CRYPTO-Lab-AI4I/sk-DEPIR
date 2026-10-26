@@ -19,7 +19,8 @@ this roadmap.
    constraints, and exhaustive tiny-instance retrieval before the application wrapper.
 3. Test a small cryptographic encoding pipeline on genuine codewords. Use its
    behavior as a reference; do not impose its in-memory API on large-scale backends.
-4. Build the small application wrapper using supplied plans before automatic planning.
+4. Use the small application wrapper with supplied plans to validate input
+   conversion and end-to-end reconstruction before automatic planning.
 5. Build the parameter planner using verified capacities, distinguishing them
    from paper and empirical estimates.
 6. Implement faster preprocessing for useful configurations identified by the planner.
@@ -62,7 +63,9 @@ one explicit specification, including the data and key lifecycle.
   [online retrieval checks](pir/liftrs_reference_test.go).
 - [x] Add a bounded [cryptographic reference](encoding/cryptoref/README.md) and
   [retrieval tests](pir/cryptoref_test.go) using separate encoding keys and XOR masks.
-- [ ] Integrate genuine Lift-RS encoding into the application workflow. Keep the
+- [x] Complete a bounded [application correctness reference](encoding/appref/README.md)
+  with [supplied-plan reconstruction tests](encoding/appref/appref_test.go).
+- [ ] Integrate genuine Lift-RS encoding into the maintained large-instance application workflow. Keep the
   existing file-based RM placeholder clearly identified until replaced.
 - [ ] Test retrieval from original records through preprocessing, storage reads,
   and decoding, including Lift-RS codewords beyond the current low-degree RM
@@ -151,7 +154,10 @@ See the [README](README.md) for current limitations.
 A separate [cryptographic reference](encoding/cryptoref/README.md) now tests
 permutation, XOR masks, fresh encoding keys, and genuine-codeword retrieval on
 small instances. Its in-memory implementation does not constrain the future
-large-scale API or storage strategy. The next work is the small application
-wrapper around supplied plans. A faster encoder is required before the `s=8..20` catalogue can be encoded;
+large-scale API or storage strategy. The
+[small application reference](encoding/appref/README.md) now completes this
+correctness pipeline for supplied plans and ordinary packed reads. Automatic
+planning and durable persistence remain separate tasks. A faster encoder is
+required before the `s=8..20` catalogue can be encoded;
 the small reference provides comparison vectors for that work. Small test fields
 do not inherit the catalogue's security claims.

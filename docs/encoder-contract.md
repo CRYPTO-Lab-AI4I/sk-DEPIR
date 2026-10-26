@@ -16,6 +16,13 @@ encoder.
 
 ## Application encoding
 
+[encoding/appref](../encoding/appref/README.md) implements this workflow as a
+bounded correctness reference using supplied plans. It generates fresh keys
+internally, returns the public plan separately from private client state, and
+supports packed ordinary reads. The planned general API may accept explicit
+key material. Durable manifest/key persistence is not part of this reference;
+its in-memory API does not constrain large-scale backends.
+
 **Input:** the application database, a selected partition plan, and the key material
 needed for cryptographic encoding.
 
@@ -74,8 +81,8 @@ encoding. Report whether encoding measurements reuse an existing artifact.
 
 The bounded implementation is [encoding/liftrs](../encoding/liftrs/README.md).
 `Preprocess(Spec)` constructs reusable code data; `Code.Encode(message)` applies
-it to field elements. These are the first implementations of code preprocessing
-and non-cryptographic encoding, before the application wrapper.
+it to field elements. These are the first reference implementations of code preprocessing
+and non-cryptographic encoding, now used by the small application wrapper.
 
 The deterministic method enumerates exponent tuples, classifies
 monomials using the paper's membership criterion, and evaluates the accepted
@@ -97,8 +104,8 @@ and 4 as correctness fixtures, with evaluation dimensions 2 or 3 where they fit.
 Its matrix size is `K*N` field elements, so this is a correctness reference rather than a scaling strategy.
 A persistent artifact format is unnecessary for the first implementation; add one
 when an encoder needs cached setup. See the package documentation for supported
-combinations, the API example, and tests. The application wrapper and larger
-field configurations remain to be implemented.
+combinations, the API example, and tests. The [small application wrapper](../encoding/appref/README.md) uses these fixtures;
+larger field configurations remain to be implemented.
 
 ## Non-cryptographic encoding
 
