@@ -1,0 +1,116 @@
+# PIR configuration catalogue
+
+The catalogue records Lift-RS code configurations for parameter planning. A partition
+plan references configuration IDs and specifies application submatrices and
+query-sharing groups; it is separate from this catalogue.
+
+[configs_catalogue.json](configs_catalogue.json) contains all agreed `s=8..20`, `m=2` candidates, with
+curve degrees and security evidence from the [bounded-sample calculation](../experiments/bounded-sample-parameters/report.md).
+[Table 1](../paper.pdf#page=64) supplies rounded rate estimates for four matching
+configurations (`s=12,15,18,20`). [Table 3](../paper.pdf#page=66) gives more precise
+rates for the matching `s=15,t=5` and `s=18,t=5` configurations; these refine the
+point estimates while retaining both sources. All four entries have
+`capacity.status: "estimated"` and paper evidence. Table 3 gives no sampling counts
+or uncertainty intervals, so none are asserted. The other nine capacities remain unknown. All target entries
+are **not supported for encoding**. An estimated dimension obtained from a rounded
+paper rate is not an exact message dimension.
+The [tiny fixture](testdata/reference.json) has verified `K=5`, `N=16` over GF(4),
+backed by the [reference encoder tests](../encoding/liftrs/reference_test.go).
+It makes no security claim and is not part of the target security profile.
+
+## Format
+
+Documents use [JSON Schema draft 2020-12](schema.json), `version: 1`, and
+`construction: "curve-lifted-rs-qminus1"`: restrictions to degree-at-most-`t` curves
+have reduced degree at most `q-2`. Field elements use the agreed polynomial basis.
+All links inside JSON are relative to the repository root (or durable URLs).
+
+| Field | Meaning |
+|---|---|
+| `id` | Stable, descriptive configuration name, unique within the catalogue |
+| `encoding_status` | `candidate` or `supported`; separate from capacity evidence |
+| `code` | `s`, `m`, `t`, and the field polynomial's coefficient bitmask when selected |
+| `capacity` | `status`, encoded length `n`, and message dimension `k` and code `rate` when known |
+| `query` | `q-1` curve positions, fixed dummy count, total `length`, and dummy rule |
+| `security` | Conjectured computational bits, base-two sample-budget exponent, assumptions, and evidence |
+| `encoder` | Implementation, code-preprocessing method, and supporting evidence, when available |
+| `measurements` | Optional resource observations with explicit stage, units, and evidence |
+
+Unknown capacity omits `k` and `rate`. Estimated capacity records a rounded integer
+point estimate `k` and `rate=k/n`. For paper estimates, the evidence states the
+reported rate and conversion `k=round(reported_rate*n)`. Monte Carlo evidence additionally records the
+sampling method, sample count, confidence level, and lower/upper rate bounds. These
+estimates can guide planning but cannot establish encoding capacity. Verified
+capacity needs encoding or reference-test evidence. Declared encoding support also
+requires a selected field polynomial and an encoder implementation.
+
+Evidence kinds are `paper`, `analytical`, `monte_carlo`, `encoding`, `reference_test`,
+and `measurement`. Every claim links to its source through `reference`; analytical
+calculations, experiments, and measurements also require `script` and `results`.
+New experiments must follow the [experiment conventions](../experiments/README.md).
+Use the report to record revision, environment, methodology, and limitations.
+
+`rate` means `k/n`, excluding application padding, metadata, and byte alignment.
+Measured `stored_bytes` is separate. Resource quantities are `elapsed_seconds`,
+`peak_bytes`, `artifact_bytes`, and `stored_bytes`. Their stage distinguishes reusable
+`code_preprocessing` from per-database `database_encoding`. These observations do
+not influence partition selection.
+
+Version 1 accepts `s=2..20`, `m=2..3`, including tiny fixtures. Integer fields are
+unsigned JSON numbers; use an integer-preserving parser. The target `m=2` dimensions
+fit exactly in binary64, but some permitted `m=3` dimensions and capacities may not.
+Omit absent optional fields; explicit `null` is rejected.
+
+## Go loading
+
+Import `rme/pirconfig` within the current module:
+
+```go
+file, err := os.Open("pirconfig/configs_catalogue.json")
+if err != nil {
+    return err
+}
+defer file.Close()
+configs, err := pirconfig.Load(file)
+if err != nil {
+    return err
+}
+// Inspect configs.Configurations; unknown capacities cannot yet size partitions.
+```
+
+The [runnable example](example_test.go) loads the PIR configuration catalogue. `Load` rejects
+unknown or duplicate keys, missing required fields, nulls, and trailing JSON. It
+also checks unique IDs, `n=2^(s*m)`, `rate=k/n`, query lengths, polynomial
+irreducibility, uncertainty intervals, and evidence requirements. `Validate` checks
+in-memory documents after construction or modification. Returned data belongs to
+the caller; validate it again after changes.
+
+Loading never runs preprocessing or encoding, executes scripts, or opens evidence
+links. Validation checks consistency, not the truth of evidence or security claims.
+The application encoder must check the referenced backend supports the chosen code.
+For untrusted input, bound the input size before calling `Load`.
+
+## Verification and remaining work
+
+```sh
+go test ./catalogue
+go test -race ./catalogue
+```
+
+[Tests](catalogue_test.go) compare the target profile with its documented CSV and
+verify the tiny fixture against the actual encoder. They exercise malformed JSON,
+arithmetic errors, unsupported capacity claims, Monte Carlo metadata, and resource
+measurements. Synthetic test estimates are not experimental results.
+
+Optional schema checks use Python and `jsonschema==4.25.1`:
+
+```sh
+python3 -m venv /tmp/sk-depir-pirconfig-schema-env
+/tmp/sk-depir-pirconfig-schema-env/bin/pip install jsonschema==4.25.1
+/tmp/sk-depir-pirconfig-schema-env/bin/python pirconfig/schema_test.py
+```
+
+Schema validation checks document structure and status-dependent requirements;
+the Go loader additionally checks mathematical consistency. Neither is an encoder
+registry. Cost evaluation, partition search, capacity estimation experiments, and
+target-size encoding remain to be implemented. See the [planner design](../docs/parameter-planning.md).

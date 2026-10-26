@@ -120,7 +120,7 @@ of the requested record.
 ## PIR record representation
 
 Each PIR record is one element of a binary extension field `GF(2^s)`, represented by `s`
-bits. The target catalogue includes every integer `s` from 8 through 20. A submatrix
+bits. The PIR configuration catalogue includes every integer `s` from 8 through 20. A submatrix
 assigned to this field therefore has at most `s` data columns; append zero columns to
 reach `s` when necessary. Wider portions of an application record are represented by
 additional submatrices. Prime fields are outside the current scope.

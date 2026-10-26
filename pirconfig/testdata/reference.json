@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "construction": "curve-lifted-rs-qminus1",
+  "configurations": [
+    {
+      "id": "fixture-s02-m2-t2",
+      "encoding_status": "supported",
+      "code": {
+        "s": 2,
+        "m": 2,
+        "t": 2,
+        "polynomial": 7
+      },
+      "capacity": {
+        "status": "verified",
+        "n": 16,
+        "k": 5,
+        "rate": 0.3125,
+        "evidence": [
+          {
+            "kind": "reference_test",
+            "reference": "encoding/liftrs/reference_test.go"
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 3,
+        "dummy_positions": 128,
+        "length": 131,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 0,
+        "log2_samples": 0,
+        "assumptions": "Correctness fixture only; no cryptographic security claim.",
+        "evidence": [
+          {
+            "kind": "reference_test",
+            "reference": "encoding/liftrs/reference_test.go"
+          }
+        ]
+      },
+      "encoder": {
+        "implementation": "encoding/liftrs",
+        "preprocessing": "Dense monomial evaluation and deterministic systematic Gaussian elimination",
+        "evidence": [
+          {
+            "kind": "reference_test",
+            "reference": "encoding/liftrs/reference_test.go"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -68,6 +68,7 @@ queries and responses. Keep agreed contracts distinct from implemented capabilit
 
 ## Repository map
 
+- `pirconfig/`: JSON configuration catalogue, schema, and Go loading/validation.
 - `pir/`: Go client API, Lift-RS protocol, and RM encoder testing placeholder.
 - `utils/`: finite-field arithmetic, curves, permutation, masking, and I/O.
 - `encoding/`: external RM placeholders in C++/Julia and the `liftrs/`, `cryptoref/`, and `appref/` Go correctness references.

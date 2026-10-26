@@ -137,3 +137,11 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-26 00:12 | REF-006 | Started | [Small application correctness reference](2026-10-26-0012-codex-ref-006-started.md) |
 | 2026-10-26 00:22 | REF-006 | Completed | [Application correctness reference completed](2026-10-26-0022-codex-ref-006-completed.md) |
 | 2026-10-26 00:23 | REF-006 | Publication | [Application reference commit and push receipt](2026-10-26-0023-codex-ref-006-publication.md) |
+| 2026-10-26 09:19 | CAT-001 | Started | [JSON configuration catalogue](2026-10-26-0919-codex-cat-001-started.md) |
+| 2026-10-26 09:29 | CAT-001 | Completed | [JSON catalogue implemented and verified](2026-10-26-0929-codex-cat-001-completed.md) |
+| 2026-10-26 09:32 | CAT-002 | Started | [Include paper capacity estimates](2026-10-26-0932-codex-cat-002-started.md) |
+| 2026-10-26 09:33 | CAT-002 | Completed | [Paper capacity estimates recorded](2026-10-26-0933-codex-cat-002-completed.md) |
+| 2026-10-26 09:35 | CAT-003 | Started | [Reconcile Table 3 rate evidence](2026-10-26-0935-codex-cat-003-started.md) |
+| 2026-10-26 09:36 | CAT-003 | Completed | [Table 3 estimates incorporated](2026-10-26-0936-codex-cat-003-completed.md) |
+| 2026-10-26 09:37 | CAT-004 | Started | [Name and publish the PIR configuration catalogue](2026-10-26-0937-codex-cat-004-started.md) |
+| 2026-10-26 09:38 | CAT-004 | Completed | [PIR configuration naming verified for publication](2026-10-26-0938-codex-cat-004-completed.md) |

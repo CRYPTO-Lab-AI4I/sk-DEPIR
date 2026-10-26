@@ -66,7 +66,7 @@ The external encoder is needed by `BenchmarkEncode` and the tests whose names co
 | `TestCryptographicReferenceLiftedRSRecovery` | Genuine systematic GF(16) Lift-RS codewords | In-memory reads | XOR masking, shared permutation, independent database/re-encoding keys, and recovery with repeated curve positions. |
 | `TestQueryFromServer` | Assumes a compatible database is served | HTTP | Network smoke test only; may skip and does not assert decoded values. |
 
-Tests are in `pir/`, `utils/`, `encoding/liftrs/`, `encoding/cryptoref/`, and `encoding/appref/`. The [reference package tests](encoding/liftrs/reference_test.go) include exhaustive tiny-instance curve and message checks and a runnable API example. Run them from the repository root with `go test ./...`.
+Tests are in `pirconfig/`, `pir/`, `utils/`, `encoding/liftrs/`, `encoding/cryptoref/`, and `encoding/appref/`. The [reference package tests](encoding/liftrs/reference_test.go) include exhaustive tiny-instance curve and message checks and a runnable API example. Run them from the repository root with `go test ./...`.
 
 ## Benchmarks
 
@@ -90,7 +90,14 @@ The agreed [data representation conventions](docs/data-representation.md) specif
 
 The [protocol I/O contract](docs/protocol-io.md) describes querying every PIR database through compatible query-sharing groups, storage responses, and client reconstruction. Query-sharing groups reuse client query generation; the client sends the positions separately for each PIR database, and communication counts every copy. Storage only serves the reads explicitly requested by the client.
 
-The target catalogue includes binary extension fields `GF(2^s)` for every integer `s` from 8 through 20, initially with `m=2` and the [bounded-sample parameter profile](docs/parameter-planning.md#configuration-catalogue); prime fields are outside the current scope. Application records must be at least as wide as the largest PIR record in the supported catalogue; packing is outside the current scope.
+The versioned [PIR configuration catalogue](pirconfig/README.md) and Go loader are implemented. Its
+[configuration entries](pirconfig/configs_catalogue.json) record the agreed security profile and four
+matching paper rate estimates from Tables 1 and 3; the remaining capacities are unknown. Target-size
+encoding support is not claimed. A JSON Schema and consistency
+checks distinguish candidates, empirical estimates, and verified capacities. Cost
+evaluation and automatic partition selection remain to be implemented.
+
+The PIR configuration catalogue includes binary extension fields `GF(2^s)` for every integer `s` from 8 through 20, initially with `m=2` and the [bounded-sample parameter profile](docs/parameter-planning.md#configuration-catalogue); prime fields are outside the current scope. Application records must be at least as wide as the largest PIR record in the supported catalogue; packing is outside the current scope.
 
 The [planner design](docs/parameter-planning.md) describes joint selection of submatrix dimensions, code parameters, and query-sharing groups, including total storage and communication costs. Encoding-time and memory estimates may accompany plans but do not influence partition selection. The [small deterministic reference encoder](encoding/liftrs/README.md) now supplies the correctness baseline. Wrapper and scalable-backend work can use it before the planner is implemented.
 
@@ -104,6 +111,7 @@ The planner returns candidate plans with empirical rate estimates, exact calcula
 ## Project structure
 
 ```text
+pirconfig/      JSON configuration catalogue, schema, Go loader, and validation tests
 pir/            Go Lift-RS client API, tests, benchmarks, and RM encoder wrapper
 utils/          Field arithmetic, curve generation, permutation, masks, and matrix I/O
 encoding/       External RM placeholder and liftrs/, cryptoref/, appref/ reference backends

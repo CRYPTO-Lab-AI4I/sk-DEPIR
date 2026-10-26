@@ -1,0 +1,468 @@
+{
+  "version": 1,
+  "construction": "curve-lifted-rs-qminus1",
+  "configurations": [
+    {
+      "id": "binary-s08-m2-t8",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 8,
+        "m": 2,
+        "t": 8
+      },
+      "capacity": {
+        "status": "unknown",
+        "n": 65536
+      },
+      "query": {
+        "curve_positions": 255,
+        "dummy_positions": 128,
+        "length": 383,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s09-m2-t7",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 9,
+        "m": 2,
+        "t": 7
+      },
+      "capacity": {
+        "status": "unknown",
+        "n": 262144
+      },
+      "query": {
+        "curve_positions": 511,
+        "dummy_positions": 128,
+        "length": 639,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s10-m2-t6",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 10,
+        "m": 2,
+        "t": 6
+      },
+      "capacity": {
+        "status": "unknown",
+        "n": 1048576
+      },
+      "query": {
+        "curve_positions": 1023,
+        "dummy_positions": 128,
+        "length": 1151,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s11-m2-t6",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 11,
+        "m": 2,
+        "t": 6
+      },
+      "capacity": {
+        "status": "unknown",
+        "n": 4194304
+      },
+      "query": {
+        "curve_positions": 2047,
+        "dummy_positions": 128,
+        "length": 2175,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s12-m2-t6",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 12,
+        "m": 2,
+        "t": 6
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 16777216,
+        "k": 1962934,
+        "rate": 0.11699998378753662,
+        "evidence": [
+          {
+            "kind": "paper",
+            "reference": "paper.pdf#page=64",
+            "method": "Table 1, bounded 2^50-sample setting, Lifted RS column: reported rounded code rate 0.117. Estimate k=round(0.117*n); catalogue rate=k/n. This does not recover the exact message dimension."
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 4095,
+        "dummy_positions": 128,
+        "length": 4223,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s13-m2-t5",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 13,
+        "m": 2,
+        "t": 5
+      },
+      "capacity": {
+        "status": "unknown",
+        "n": 67108864
+      },
+      "query": {
+        "curve_positions": 8191,
+        "dummy_positions": 128,
+        "length": 8319,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s14-m2-t5",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 14,
+        "m": 2,
+        "t": 5
+      },
+      "capacity": {
+        "status": "unknown",
+        "n": 268435456
+      },
+      "query": {
+        "curve_positions": 16383,
+        "dummy_positions": 128,
+        "length": 16511,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s15-m2-t5",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 15,
+        "m": 2,
+        "t": 5
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 1073741824,
+        "k": 217325345,
+        "rate": 0.2023999998345971,
+        "evidence": [
+          {
+            "kind": "paper",
+            "reference": "paper.pdf#page=64",
+            "method": "Table 1, bounded 2^50-sample setting, Lifted RS column: rounded code rate 0.2. Retained as supporting evidence; the point estimate uses the more precise matching Table 3 rate."
+          },
+          {
+            "kind": "paper",
+            "reference": "paper.pdf#page=66",
+            "method": "Table 3, m=2, q=2^15, t=5: reported empirical code rate 0.2024. Estimate k=round(0.2024*n); catalogue rate=k/n. The table does not report sample count or uncertainty; no confidence interval is asserted."
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 32767,
+        "dummy_positions": 128,
+        "length": 32895,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s16-m2-t5",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 16,
+        "m": 2,
+        "t": 5
+      },
+      "capacity": {
+        "status": "unknown",
+        "n": 4294967296
+      },
+      "query": {
+        "curve_positions": 65535,
+        "dummy_positions": 128,
+        "length": 65663,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s17-m2-t5",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 17,
+        "m": 2,
+        "t": 5
+      },
+      "capacity": {
+        "status": "unknown",
+        "n": 17179869184
+      },
+      "query": {
+        "curve_positions": 131071,
+        "dummy_positions": 128,
+        "length": 131199,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s18-m2-t5",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 18,
+        "m": 2,
+        "t": 5
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 68719476736,
+        "k": 16265900143,
+        "rate": 0.23669999999401625,
+        "evidence": [
+          {
+            "kind": "paper",
+            "reference": "paper.pdf#page=64",
+            "method": "Table 1, bounded 2^50-sample setting, Lifted RS column: rounded code rate 0.237. Retained as supporting evidence; the point estimate uses the more precise matching Table 3 rate."
+          },
+          {
+            "kind": "paper",
+            "reference": "paper.pdf#page=66",
+            "method": "Table 3, m=2, q=2^18, t=5: reported empirical code rate 0.2367. Estimate k=round(0.2367*n); catalogue rate=k/n. The table does not report sample count or uncertainty; no confidence interval is asserted."
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 262143,
+        "dummy_positions": 128,
+        "length": 262271,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s19-m2-t5",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 19,
+        "m": 2,
+        "t": 5
+      },
+      "capacity": {
+        "status": "unknown",
+        "n": 274877906944
+      },
+      "query": {
+        "curve_positions": 524287,
+        "dummy_positions": 128,
+        "length": 524415,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s20-m2-t5",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 20,
+        "m": 2,
+        "t": 5
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 1099511627776,
+        "k": 284773511594,
+        "rate": 0.25900000000001455,
+        "evidence": [
+          {
+            "kind": "paper",
+            "reference": "paper.pdf#page=64",
+            "method": "Table 1, bounded 2^50-sample setting, Lifted RS column: reported rounded code rate 0.259. Estimate k=round(0.259*n); catalogue rate=k/n. This does not recover the exact message dimension."
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 1048575,
+        "dummy_positions": 128,
+        "length": 1048703,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    }
+  ]
+}

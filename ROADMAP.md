@@ -28,7 +28,9 @@ this roadmap.
 A complete planner or broad benchmark campaign must not delay the reference
 encoder. Small-instance validation does not establish large-instance resource
 feasibility. See the [encoder requirements](docs/encoder-contract.md) and
-[planner design](docs/parameter-planning.md).
+[planner design](docs/parameter-planning.md). The [PIR configuration catalogue and loader](pirconfig/README.md)
+are available, including four paper rate estimates; target capacity verification,
+cost evaluation, and partition search remain open.
 
 ## Ordered milestones
 
