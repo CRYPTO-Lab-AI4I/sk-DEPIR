@@ -155,3 +155,4 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-26 11:56 | EXP-001 | Started | [Estimate Lift-RS rates across PIR configurations](2026-10-26-1156-codex-exp-001-started.md) |
 | 2026-10-26 12:08 | EXP-001 | Completed | [All PIR configuration rates estimated and reproduced](2026-10-26-1208-codex-exp-001-completed.md) |
 | 2026-10-26 12:24 | EXP-002 | Started | [Publish Lift-RS rate estimates](2026-10-26-1224-codex-exp-002-started.md) |
+| 2026-10-26 12:25 | EXP-002 | Completed | [Rate estimator and results committed and pushed](2026-10-26-1225-codex-exp-002-completed.md) |
