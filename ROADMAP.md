@@ -17,9 +17,12 @@ this roadmap.
 2. Implement generator-matrix code preprocessing and systematic message encoding
    for small Lift-RS instances. Verify the dimension, information set, codeword
    constraints, and exhaustive tiny-instance retrieval before the application wrapper.
-3. Build the parameter planner using verified capacities, distinguishing them
+3. Test a small cryptographic encoding pipeline on genuine codewords. Use its
+   behavior as a reference; do not impose its in-memory API on large-scale backends.
+4. Build the small application wrapper using supplied plans before automatic planning.
+5. Build the parameter planner using verified capacities, distinguishing them
    from paper and empirical estimates.
-4. Optimize preprocessing for useful configurations identified by the planner.
+6. Implement faster preprocessing for useful configurations identified by the planner.
 
 A complete planner or broad benchmark campaign must not delay the reference
 encoder. Small-instance validation does not establish large-instance resource
@@ -57,6 +60,8 @@ one explicit specification, including the data and key lifecycle.
 - [x] Implement bounded generator-matrix preprocessing and systematic encoding,
   with [independent tests](encoding/liftrs/reference_test.go) and
   [online retrieval checks](pir/liftrs_reference_test.go).
+- [x] Add a bounded [cryptographic reference](encoding/cryptoref/README.md) and
+  [retrieval tests](pir/cryptoref_test.go) using separate encoding keys and XOR masks.
 - [ ] Integrate genuine Lift-RS encoding into the application workflow. Keep the
   existing file-based RM placeholder clearly identified until replaced.
 - [ ] Test retrieval from original records through preprocessing, storage reads,
@@ -143,8 +148,10 @@ code preprocessing and non-cryptographic encoding. The existing file-based API
 still uses its RM placeholder and the online client uses experimental randomness.
 See the [README](README.md) for current limitations.
 
-The next implementation work is to adapt and verify the cryptographic encoding
-boundary using genuine codewords, then build the application wrapper around supplied
-plans. A faster encoder is required before the `s=8..20` catalogue can be encoded;
+A separate [cryptographic reference](encoding/cryptoref/README.md) now tests
+permutation, XOR masks, fresh encoding keys, and genuine-codeword retrieval on
+small instances. Its in-memory implementation does not constrain the future
+large-scale API or storage strategy. The next work is the small application
+wrapper around supplied plans. A faster encoder is required before the `s=8..20` catalogue can be encoded;
 the small reference provides comparison vectors for that work. Small test fields
 do not inherit the catalogue's security claims.

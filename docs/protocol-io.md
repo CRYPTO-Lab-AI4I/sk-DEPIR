@@ -61,7 +61,11 @@ the [layout reconstruction rules](data-representation.md#query).
 
 The existing `decodeIndividualResponse` in [pir_api.go](../pir/pir_api.go) checks
 response counts, selects real positions, unmasks, and combines values. It does not
-implement all validation or application reconstruction required here.
+implement all validation or application reconstruction required here. The separate
+[cryptographic reference](../encoding/cryptoref/README.md) supplies XOR unmasking;
+its [retrieval test](../pir/cryptoref_test.go) combines values with curve-point
+multiplicity after ordinary storage reads. This is a small test pipeline, not
+a selected large-scale I/O architecture.
 
 ## Storage adapter and errors
 

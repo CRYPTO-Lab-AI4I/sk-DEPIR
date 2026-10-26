@@ -127,6 +127,11 @@ systematic encoder or its preprocessing.
 See the paper's [Figure 5](../paper.pdf#page=33) for masking and [Definition
 5.2](../paper.pdf#page=34) for code permutation.
 
+[encoding/cryptoref](../encoding/cryptoref/README.md) implements this behavior for
+small in-memory fixtures. Its permutation table and codeword slices are a
+correctness oracle only. Future streaming or external-memory implementations may
+use different storage, processing strategies, and APIs.
+
 **Input:** the codeword, a permutation key, and the PIR database encoding's masking key.
 
 **Output:** the stored database encoding, obtained by permuting the codeword positions
@@ -136,16 +141,20 @@ mask's position identifier. The client reverses the mask before codeword decodin
 
 Apply the [mask-separation
 rules](data-representation.md#identification-and-mask-separation). Keep cryptographic
-randomness separate from coordinate identifiers; the concrete key-derivation and
-randomness formats remain open. Databases sharing a query must also meet the
+randomness separate from coordinate identifiers. The reference key and mask
+formats are documented in its package; future backend formats and optional
+master-key derivation remain separate decisions. Databases sharing a query must also meet the
 [compatibility rules](data-representation.md#query-sharing-groups). This stage preserves
 the codeword's length and field-element width. It may be streamed with the first stage,
 but its behavior and measurements remain distinct.
 
-**Existing code:** `permuteAndEncryptMatrix` in [pir_api.go](../pir/pir_api.go) uses
+**Legacy code:** `permuteAndEncryptMatrix` in [pir_api.go](../pir/pir_api.go) uses
 [Permutator](../utils/permutator.go) and [Encryptor](../utils/encryptor.go). These are
 prototype components; the current slice/index mask interface does not implement the
-planned separation across PIR databases and re-encodings.
+planned separation across PIR databases and re-encodings. The separate reference
+stage uses its mask-value helper with XOR, a shared permutation per group, and
+fresh independent masking keys per database encoding; it does not call the
+legacy integer-modulus Encrypt/Decrypt methods.
 
 ## Verification and open decisions
 
@@ -175,12 +184,14 @@ fast encoder or support the initial `s=8..20` catalogue. The faster method needs
 an extension-field isomorphism, interpolation/evaluation algorithms, and validation
 of randomized degree-set preprocessing; evaluate those against the reference.
 
-**Cryptographic follow-up:** review and adapt the existing AES-based permutation
-and masking components to this contract, including binary-field masks and separation
-across encodings. Select optional master-key derivation only when needed. For the first
-integration, independently generated per-database masking keys suffice; HKDF is
-optional. Generate fresh masking keys on re-encoding and retain them separately
+**Cryptographic reference status:** the bounded stage now tests permutation, XOR
+masks at storage positions, independent database keys, and fresh masks on
+re-encoding. See its [unit tests](../encoding/cryptoref/reference_test.go) and
+[genuine-codeword retrieval test](../pir/cryptoref_test.go). The existing custom
+permutation still needs cryptographic review. A large-scale implementation is
+not selected by this reference. Independently generated masking keys suffice for
+these fixtures; optional master-key derivation remains separate. Generate fresh masking keys on re-encoding and retain them separately
 from coordinate metadata. Key generation and online sampling must use Go's
-[`crypto/rand`](https://pkg.go.dev/crypto/rand); deterministic sources belong only in explicit tests. The current
-custom permutation and integer-modulus masks are prototype code, not a selected
-binary-field cryptographic suite.
+[`crypto/rand`](https://pkg.go.dev/crypto/rand); deterministic sources belong only
+in explicit tests. The legacy integer-additive masking remains separate. These
+fixture tests do not qualify the reference or the custom permutation for production.

@@ -3,7 +3,8 @@
 This pure-Go package implements code preprocessing and systematic encoding for
 small curve-lifted Reed-Solomon codes with locality `q-1`. It takes field elements
 directly; the application wrapper owns partitioning, padding, and bit conversion.
-There is no permutation, masking, storage access, or secret state here.
+There is no permutation, masking, storage access, or secret state here. The
+separate [cryptographic reference](../cryptoref/README.md) can consume its codewords.
 
 ```go
 code, err := liftrs.Preprocess(liftrs.Spec{
