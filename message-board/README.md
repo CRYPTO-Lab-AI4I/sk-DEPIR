@@ -145,3 +145,4 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-26 09:36 | CAT-003 | Completed | [Table 3 estimates incorporated](2026-10-26-0936-codex-cat-003-completed.md) |
 | 2026-10-26 09:37 | CAT-004 | Started | [Name and publish the PIR configuration catalogue](2026-10-26-0937-codex-cat-004-started.md) |
 | 2026-10-26 09:38 | CAT-004 | Completed | [PIR configuration naming verified for publication](2026-10-26-0938-codex-cat-004-completed.md) |
+| 2026-10-26 09:39 | CAT-004 | Publication | [PIR configuration catalogue commit and push receipt](2026-10-26-0939-codex-cat-004-publication.md) |
