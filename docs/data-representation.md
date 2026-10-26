@@ -41,6 +41,8 @@ their storage and communication costs. An [application
 encoder](encoder-contract.md#application-encoding) applies the selected plan to the
 input database. The [small application reference](../encoding/appref/README.md)
 executes these transformations on supplied fixture plans; it does not optimize them.
+The [plan evaluator](../planner/README.md) validates supplied partitions and calculates
+their costs; automatic partition selection is not yet implemented.
 
 ## Indexing
 

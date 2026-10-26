@@ -156,3 +156,6 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-26 12:08 | EXP-001 | Completed | [All PIR configuration rates estimated and reproduced](2026-10-26-1208-codex-exp-001-completed.md) |
 | 2026-10-26 12:24 | EXP-002 | Started | [Publish Lift-RS rate estimates](2026-10-26-1224-codex-exp-002-started.md) |
 | 2026-10-26 12:25 | EXP-002 | Completed | [Rate estimator and results committed and pushed](2026-10-26-1225-codex-exp-002-completed.md) |
+| 2026-10-26 12:36 | PLAN-003 | Started | [Implement partition cost evaluation](2026-10-26-1236-codex-plan-003-started.md) |
+| 2026-10-26 12:47 | PLAN-003 | Completed | [Supplied-plan evaluator implemented and verified](2026-10-26-1247-codex-plan-003-completed.md) |
+| 2026-10-26 12:53 | PLAN-004 | Started | [Publish partition evaluator](2026-10-26-1253-codex-plan-004-started.md) |

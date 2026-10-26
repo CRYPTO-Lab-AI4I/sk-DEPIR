@@ -3,7 +3,8 @@
 The proposed planner selects code parameters and an [input layout](data-representation.md)
 together. It is separate from the [application encoder](encoder-contract.md#application-encoding):
 it produces plans, not encoded data. The [PIR configuration catalogue and loader](../pirconfig/README.md)
-are implemented; cost evaluation and partition selection remain to be implemented.
+and [supplied-plan evaluator](../planner/README.md) are implemented. Automatic
+partition selection remains to be implemented.
 No default field has been selected; the initial security profile is specified below.
 Development order is in [ROADMAP.md](../ROADMAP.md#implementation-sequence).
 
@@ -169,6 +170,24 @@ backend request headers, byte-range alignment, and other transport overheads mus
 be added for actual remote-storage traffic. The minimal logical address width
 `ceil(log2(N_g))` in this model is distinct from the library's uint64 position
 representation; count actual serialized widths in any adapter-specific report.
+
+## Evaluating a supplied plan
+
+The implemented [planner.Evaluate](../planner/README.md) validates a supplied
+partition and calculates the model above. It accepts estimated capacities and marks
+such plans provisional; unknown capacities are rejected. Requirements specify the
+minimum catalogue security profile and optional storage/upload/download bit limits.
+All arithmetic is checked for `uint64` overflow. The result retains used capacity
+and security evidence; encoding-time and memory measurements have no effect.
+
+A query-sharing group references one catalogue configuration ID. This fixes its
+padded dimensions and code/query conventions; equivalent aliases are not merged.
+The [row-range conditions](data-representation.md#query-sharing-groups) still apply.
+Coverage checks operate on rectangles, not an application-sized matrix. The current
+pairwise checks are quadratic in the number of rectangles.
+
+This evaluator does not generate or rank plans, invoke preprocessing, or establish
+backend availability. The selection procedure below is the remaining planner work.
 
 ## Selection procedure and output
 

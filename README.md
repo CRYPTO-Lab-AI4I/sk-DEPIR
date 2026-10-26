@@ -71,7 +71,7 @@ The external encoder is needed by `BenchmarkEncode` and the tests whose names co
 | `TestCryptographicReferenceLiftedRSRecovery` | Genuine systematic GF(16) Lift-RS codewords | In-memory reads | XOR masking, shared permutation, independent database/re-encoding keys, and recovery with repeated curve positions. |
 | `TestQueryFromServer` | Assumes a compatible database is served | HTTP | Network smoke test only; may skip and does not assert decoded values. |
 
-Tests are in `cmd/pir-rate/`, `pirconfig/`, `pir/`, `utils/`, `encoding/liftrs/`, `encoding/cryptoref/`, and `encoding/appref/`. The [reference package tests](encoding/liftrs/reference_test.go) include exhaustive tiny-instance curve and message checks and a runnable API example. Run them from the repository root with `go test ./...`.
+Tests are in `planner/`, `cmd/pir-rate/`, `pirconfig/`, `pir/`, `utils/`, `encoding/liftrs/`, `encoding/cryptoref/`, and `encoding/appref/`. The [reference package tests](encoding/liftrs/reference_test.go) include exhaustive tiny-instance curve and message checks and a runnable API example. Run them from the repository root with `go test ./...`.
 
 ## Benchmarks
 
@@ -100,8 +100,9 @@ implemented. All 13 [configuration entries](pirconfig/configs_catalogue.json) ha
 [reproducible Monte Carlo rate estimates](experiments/liftrs-rates/report.md), with
 confidence intervals and the four matching paper estimates retained. Target-size
 encoding support is not claimed. A JSON Schema and consistency checks distinguish
-estimates from verified capacities. Cost evaluation and automatic partition
-selection remain to be implemented.
+estimates from verified capacities. The [plan evaluator](planner/README.md) validates
+supplied partitions and calculates their logical storage/communication costs.
+Automatic partition selection remains to be implemented.
 
 The [rate estimator](cmd/pir-rate/README.md) samples monomials using a deterministic
 membership test that supports `s=2..20` without field arithmetic or generator
@@ -109,9 +110,9 @@ matrices. This does not extend the small encoder's supported sizes.
 
 The PIR configuration catalogue includes binary extension fields `GF(2^s)` for every integer `s` from 8 through 20, initially with `m=2` and the [bounded-sample parameter profile](docs/parameter-planning.md#configuration-catalogue); prime fields are outside the current scope. Application records must be at least as wide as the largest PIR record in the supported catalogue; packing is outside the current scope.
 
-The [planner design](docs/parameter-planning.md) describes joint selection of submatrix dimensions, code parameters, and query-sharing groups, including total storage and communication costs. Encoding-time and memory estimates may accompany plans but do not influence partition selection. The [small deterministic reference encoder](encoding/liftrs/README.md) now supplies the correctness baseline. Wrapper and scalable-backend work can use it before the planner is implemented.
+The [planner design](docs/parameter-planning.md) describes joint selection of submatrix dimensions, code parameters, and query-sharing groups, including total storage and communication costs. Encoding-time and memory estimates may accompany plans but do not influence partition selection. The [small deterministic reference encoder](encoding/liftrs/README.md) now supplies the correctness baseline. The evaluator uses catalogue evidence without running either encoder; the partition search remains separate.
 
-The planner returns candidate plans with empirical rate estimates, exact calculated rates where capacities are verified, and linked encoding evidence. The [application encoder](docs/encoder-contract.md#application-encoding) consumes a selected plan, partitions and pads the input, converts it to field elements, and invokes the non-cryptographic and cryptographic PIR encoders for each database; [appref](encoding/appref/README.md) implements this workflow only as a bounded reference. [Code preprocessing](docs/encoder-contract.md#code-preprocessing) takes only code specifications and produces reusable encoding information, independently of any database. The reference packages implement code preprocessing, non-cryptographic encoding, cryptographic encoding, and a small application wrapper with packed byte-range reads. Automatic planning, durable manifest/key persistence, and large-instance backends remain separate work.
+The [application encoder](docs/encoder-contract.md#application-encoding) consumes a selected plan, partitions and pads the input, converts it to field elements, and invokes the non-cryptographic and cryptographic PIR encoders for each database; [appref](encoding/appref/README.md) implements this workflow only as a bounded reference. [Code preprocessing](docs/encoder-contract.md#code-preprocessing) takes only code specifications and produces reusable encoding information, independently of any database. Durable manifest/key persistence and large-instance backends remain separate work.
 
 - `utils/gf2n.go` implements `GF(2^n)` with log/exp tables for degrees 4, 8, 12, 13, 14, 16, 17, 18, and 20.
 - Degrees 9, 10, 11, 15, and 19 remain to be implemented for the target range. Terabyte-scale application databases are a parameter-planning target, not a verified implementation capability.
@@ -122,6 +123,7 @@ The planner returns candidate plans with empirical rate estimates, exact calcula
 
 ```text
 pirconfig/      JSON configuration catalogue, schema, Go loader, and validation tests
+planner/        Supplied-partition validation and logical storage/communication costs
 cmd/pir-rate/   Monomial-sampling Lift-RS rate estimator
 pir/            Go Lift-RS client API, tests, benchmarks, and RM encoder wrapper
 utils/          Field arithmetic, curve generation, permutation, masks, and matrix I/O

@@ -31,7 +31,8 @@ feasibility. See the [encoder requirements](docs/encoder-contract.md) and
 [planner design](docs/parameter-planning.md). The [PIR configuration catalogue and loader](pirconfig/README.md)
 are available, with [Monte Carlo rate estimates](experiments/liftrs-rates/report.md)
 for all 13 target configurations and supporting paper values. Target capacity
-verification, cost evaluation, and partition search remain open.
+verification and partition search remain open. The [supplied-plan evaluator](planner/README.md)
+now validates layouts and calculates the logical cost model without running encoders.
 
 ## Ordered milestones
 

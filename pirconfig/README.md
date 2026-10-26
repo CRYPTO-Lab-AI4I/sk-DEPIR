@@ -113,5 +113,6 @@ python3 -m venv /tmp/sk-depir-pirconfig-schema-env
 
 Schema validation checks document structure and status-dependent requirements;
 the Go loader additionally checks mathematical consistency. Neither is an encoder
-registry. Cost evaluation, partition search, and target-size encoding remain to be
-implemented. See the [planner design](../docs/parameter-planning.md).
+registry. The [plan evaluator](../planner/README.md) consumes this catalogue for
+capacity checks, cost calculations, and copied provenance. Partition search and
+target-size encoding remain to be implemented. See the [planner design](../docs/parameter-planning.md).
