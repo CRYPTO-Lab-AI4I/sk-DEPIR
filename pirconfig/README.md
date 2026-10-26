@@ -4,16 +4,16 @@ The catalogue records Lift-RS code configurations for parameter planning. A part
 plan references configuration IDs and specifies application submatrices and
 query-sharing groups; it is separate from this catalogue.
 
-[configs_catalogue.json](configs_catalogue.json) contains all agreed `s=8..20`, `m=2` candidates, with
-curve degrees and security evidence from the [bounded-sample calculation](../experiments/bounded-sample-parameters/report.md).
-[Table 1](../paper.pdf#page=64) supplies rounded rate estimates for four matching
-configurations (`s=12,15,18,20`). [Table 3](../paper.pdf#page=66) gives more precise
-rates for the matching `s=15,t=5` and `s=18,t=5` configurations; these refine the
-point estimates while retaining both sources. All four entries have
-`capacity.status: "estimated"` and paper evidence. Table 3 gives no sampling counts
-or uncertainty intervals, so none are asserted. The other nine capacities remain unknown. All target entries
-are **not supported for encoding**. An estimated dimension obtained from a rounded
-paper rate is not an exact message dimension.
+[configs_catalogue.json](configs_catalogue.json) contains all agreed `s=8..20`, `m=2`
+configurations. Every capacity has a Monte Carlo estimate from the
+[rate experiment](../experiments/liftrs-rates/report.md), with sample count,
+confidence interval, and reproducible evidence. The four matching paper estimates
+from [Table 1](../paper.pdf#page=64) and [Table 3](../paper.pdf#page=66) remain as
+supporting sources. The security profile comes from the separate
+[bounded-sample calculation](../experiments/bounded-sample-parameters/report.md).
+All target entries remain unsupported for encoding: an estimated dimension is not
+an exact message dimension verified by an encoder.
+
 The [tiny fixture](testdata/reference.json) has verified `K=5`, `N=16` over GF(4),
 backed by the [reference encoder tests](../encoding/liftrs/reference_test.go).
 It makes no security claim and is not part of the target security profile.
@@ -38,7 +38,8 @@ All links inside JSON are relative to the repository root (or durable URLs).
 
 Unknown capacity omits `k` and `rate`. Estimated capacity records a rounded integer
 point estimate `k` and `rate=k/n`. For paper estimates, the evidence states the
-reported rate and conversion `k=round(reported_rate*n)`. Monte Carlo evidence additionally records the
+reported rate and conversion `k=round(reported_rate*n)`. The current catalogue uses
+`k=round(n*good/samples)` from the new experiment as its point estimate. Monte Carlo evidence additionally records the
 sampling method, sample count, confidence level, and lower/upper rate bounds. These
 estimates can guide planning but cannot establish encoding capacity. Verified
 capacity needs encoding or reference-test evidence. Declared encoding support also
@@ -75,7 +76,7 @@ configs, err := pirconfig.Load(file)
 if err != nil {
     return err
 }
-// Inspect configs.Configurations; unknown capacities cannot yet size partitions.
+// Use estimated capacities for provisional plans; verify capacity before encoding.
 ```
 
 The [runnable example](example_test.go) loads the PIR configuration catalogue. `Load` rejects
@@ -112,5 +113,5 @@ python3 -m venv /tmp/sk-depir-pirconfig-schema-env
 
 Schema validation checks document structure and status-dependent requirements;
 the Go loader additionally checks mathematical consistency. Neither is an encoder
-registry. Cost evaluation, partition search, capacity estimation experiments, and
-target-size encoding remain to be implemented. See the [planner design](../docs/parameter-planning.md).
+registry. Cost evaluation, partition search, and target-size encoding remain to be
+implemented. See the [planner design](../docs/parameter-planning.md).

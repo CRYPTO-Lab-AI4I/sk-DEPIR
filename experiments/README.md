@@ -21,3 +21,10 @@ update its script, results, and report together, then post an update on the
 
 Do not put unreported measurements into the README. Link each new performance
 claim there to its experiment report.
+
+## Recorded experiments
+
+- [Bounded-sample parameters](bounded-sample-parameters/report.md): analytical
+  security-profile selection, not rate measurements.
+- [Lift-RS rates](liftrs-rates/report.md): uniform monomial sampling for all 13 PIR
+  configurations, with reproducible counts and confidence intervals.

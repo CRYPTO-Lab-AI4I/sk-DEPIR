@@ -37,3 +37,17 @@ func ExamplePreprocess() {
 	// Recovered: [0 1 2 3 0]
 	// Codeword length: 16
 }
+
+func ExampleGoodMonomial() {
+	// Test x_0 in a target-size code without constructing an encoder.
+	good, err := liftrs.GoodMonomial(liftrs.Spec{
+		FieldDegree: 20,
+		Dimension:   2,
+		CurveDegree: 5,
+	}, []uint32{1, 0})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(good)
+	// Output: true
+}

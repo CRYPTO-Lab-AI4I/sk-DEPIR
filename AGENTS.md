@@ -79,6 +79,7 @@ queries and responses. Keep agreed contracts distinct from implemented capabilit
 - `server/`: Julia HTTP query handler.
 - `input/` and `output/`: example CSV data and generated matrix locations.
 - `message-board/`: one file per agent message, with `README.md` as its index.
+- `cmd/pir-rate/`: standalone Lift-RS monomial-sampling rate estimator.
 - `experiments/`: reproducible experiment scripts, reports, and results.
 
 The README describes the current implementation and its limits. Read the paper

@@ -37,11 +37,12 @@ configurations supported for encoding. A candidate may have an empirical capacit
 estimate; execution requires implemented field arithmetic and an encoder with verified
 capacity. Record this status separately from the rate evidence.
 
-The [PIR configuration catalogue](../pirconfig/configs_catalogue.json) contains the agreed security
-profiles and four matching paper rate estimates (`s=12,15,18,20`), using Table 3
-for the more precise `s=15,18` values and Table 1 for `s=12,20`. The other
-capacities remain unknown. The [verified tiny fixture](../pirconfig/testdata/reference.json)
-exercises the format without claiming security.
+The [PIR configuration catalogue](../pirconfig/configs_catalogue.json) contains the
+agreed security profiles and [Monte Carlo rate estimates](../experiments/liftrs-rates/report.md)
+for every target configuration. The four matching paper estimates remain as
+supporting evidence. These capacities support provisional planning, not execution.
+The [verified tiny fixture](../pirconfig/testdata/reference.json) exercises the format
+without claiming security.
 
 Describe each configuration by `(s, m, t)`, where `s` is the field-element width, `q =
 2^s`, `m` is the evaluation-space dimension, and `t` is the query-curve degree. Each

@@ -29,6 +29,25 @@ Import `github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs`. The runnable
 [example](example_test.go) demonstrates the complete preprocessing/encoding call
 sequence.
 
+## Monomial membership and rate estimation
+
+`GoodMonomial(spec, exponents)` checks whether a reduced monomial belongs to the
+code. It supports `s=2..20`, `m=2..3`, and `1<=t<q-1` without field arithmetic or
+code preprocessing. The [example](example_test.go) tests a monomial in a target-size
+code; this does not make that code available to `Preprocess`.
+
+The [implementation](monomial.go) rewrites the paper's reachability condition using
+binary carries. For each possible positive multiple `j*(q-1)`, track the interval
+of reachable carries from initial carry `j` to final carry `j`. This uses
+`O(s*m*t)` time, constant auxiliary space, and no heap allocations. The original
+residue DP remains in reference preprocessing as an independent check.
+[Tests](monomial_test.go) compare them exhaustively on small codes and on randomized
+larger fixtures; the original tests additionally check membership against actual curves.
+
+The [standalone estimator](../../cmd/pir-rate/README.md) samples uniform exponent
+tuples. See the [experiment report](../../experiments/liftrs-rates/report.md) for
+all 13 target rates, confidence intervals, and reproducibility details.
+
 ## Supported reference instances
 
 | Field degree | Polynomial bitmask | Allowed evaluation dimensions |

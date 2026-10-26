@@ -152,3 +152,6 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-26 09:44 | REF-007 | Completed | [Secret-key PIR module namespace established](2026-10-26-0944-codex-ref-007-completed.md) |
 | 2026-10-26 11:51 | REF-008 | Started | [Publish module namespace and naming rule](2026-10-26-1151-codex-ref-008-started.md) |
 | 2026-10-26 11:52 | REF-008 | Completed | [Module namespace committed and pushed](2026-10-26-1152-codex-ref-008-completed.md) |
+| 2026-10-26 11:56 | EXP-001 | Started | [Estimate Lift-RS rates across PIR configurations](2026-10-26-1156-codex-exp-001-started.md) |
+| 2026-10-26 12:08 | EXP-001 | Completed | [All PIR configuration rates estimated and reproduced](2026-10-26-1208-codex-exp-001-completed.md) |
+| 2026-10-26 12:24 | EXP-002 | Started | [Publish Lift-RS rate estimates](2026-10-26-1224-codex-exp-002-started.md) |

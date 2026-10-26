@@ -5,6 +5,7 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"math"
 	"os"
@@ -49,6 +50,15 @@ func TestReferenceEvidence(t *testing.T) {
 	}
 }
 
+type rateObservation struct {
+	ID         string  `json:"id"`
+	Good       uint64  `json:"good"`
+	Samples    uint64  `json:"samples"`
+	LowerRate  float64 `json:"lower_rate"`
+	UpperRate  float64 `json:"upper_rate"`
+	Confidence float64 `json:"confidence"`
+}
+
 func TestTargetProfile(t *testing.T) {
 	f, err := os.Open("configs_catalogue.json")
 	if err != nil {
@@ -71,6 +81,27 @@ func TestTargetProfile(t *testing.T) {
 	if len(c.Configurations) != 13 || len(rows) != 14 {
 		t.Fatal("missing target degrees")
 	}
+	raw, err := os.ReadFile("../experiments/liftrs-rates/results.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var observed struct {
+		Estimates []rateObservation `json:"estimates"`
+	}
+	if err := json.Unmarshal(raw, &observed); err != nil {
+		t.Fatal(err)
+	}
+	measurements := make(map[string]rateObservation)
+	for _, result := range observed.Estimates {
+		if result.Samples == 0 || result.Good > result.Samples {
+			t.Fatal("invalid recorded sample count")
+		}
+		measurements[result.ID] = result
+	}
+	if len(measurements) != len(c.Configurations) {
+		t.Fatal("recorded estimates do not cover the catalogue")
+	}
+
 	for i, entry := range c.Configurations {
 		s, _ := strconv.Atoi(rows[i+1][0])
 		degree, _ := strconv.Atoi(rows[i+1][2])
@@ -80,27 +111,42 @@ func TestTargetProfile(t *testing.T) {
 		if entry.EncodingStatus != "candidate" || entry.Encoder != nil {
 			t.Fatal("target implies unsupported encoding")
 		}
-		// Table 1 supplies s=12,20; Table 3 refines the matching s=15,18 rates.
-		paperRates := map[int]float64{12: .117, 15: .2024, 18: .2367, 20: .259}
-		if rate, ok := paperRates[s]; ok {
-			wantK := uint64(math.Round(rate * float64(entry.Capacity.N)))
-			if entry.Capacity.Status != "estimated" || entry.Capacity.K == nil || *entry.Capacity.K != wantK || entry.Capacity.Rate == nil || *entry.Capacity.Rate != float64(wantK)/float64(entry.Capacity.N) {
-				t.Fatal("paper estimate missing or incorrectly transcribed")
-			}
-			evidence := entry.Capacity.Evidence
-			wantCount := 1
-			if s == 15 || s == 18 {
-				wantCount = 2
-			}
-			if len(evidence) != wantCount || evidence[0].Kind != "paper" || evidence[0].Reference != "paper.pdf#page=64" || evidence[0].Method == "" {
-				t.Fatal("paper estimate lacks source or rounding method")
-			}
-			if wantCount == 2 && (evidence[1].Kind != "paper" || evidence[1].Reference != "paper.pdf#page=66" || evidence[1].Method == "") {
-				t.Fatal("more precise Table 3 evidence missing")
-			}
-		} else if entry.Capacity.Status != "unknown" || entry.Capacity.K != nil {
-			t.Fatal("capacity asserted without a matching paper row")
+		if entry.Capacity.Status != "estimated" || entry.Capacity.K == nil || entry.Capacity.Rate == nil {
+			t.Fatal("target lacks empirical capacity estimate")
 		}
+		evidence := entry.Capacity.Evidence
+		foundMC := false
+		var paperPages []string
+		for _, source := range evidence {
+			if source.Kind == "paper" {
+				paperPages = append(paperPages, source.Reference)
+			}
+			if source.Kind == "monte_carlo" {
+				foundMC = true
+				measured, ok := measurements[entry.ID]
+				if !ok || source.Reference != "experiments/liftrs-rates/report.md" || source.Script != "experiments/liftrs-rates/run.py" || source.Results != "experiments/liftrs-rates/results.json" || source.MonteCarlo == nil {
+					t.Fatal("empirical evidence missing or not reproducible")
+				}
+				wantK := (measured.Good*entry.Capacity.N + measured.Samples/2) / measured.Samples
+				if *entry.Capacity.K != wantK || *entry.Capacity.Rate != float64(wantK)/float64(entry.Capacity.N) || source.MonteCarlo.Samples != measured.Samples || source.MonteCarlo.LowerRate != measured.LowerRate || source.MonteCarlo.UpperRate != measured.UpperRate || source.MonteCarlo.Confidence != measured.Confidence {
+					t.Fatal("catalogue does not match recorded rate experiment")
+				}
+			}
+		}
+		if !foundMC {
+			t.Fatal("missing Monte Carlo evidence")
+		}
+		wantPages := []string{}
+		if s == 12 || s == 15 || s == 18 || s == 20 {
+			wantPages = append(wantPages, "paper.pdf#page=64")
+		}
+		if s == 15 || s == 18 {
+			wantPages = append(wantPages, "paper.pdf#page=66")
+		}
+		if fmt.Sprint(paperPages) != fmt.Sprint(wantPages) {
+			t.Fatal("paper evidence was lost")
+		}
+
 		if entry.Security.ComputationalBits != 100 || entry.Security.Log2Samples != 50 {
 			t.Fatal("wrong initial security profile")
 		}
