@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the fixed 24-case greedy-plan cost grid; no database is encoded.
+"""Run the fixed 21-case greedy-plan cost grid; no database is encoded.
 
 Uses the checked-in configuration snapshot, builds the Go driver, and writes
 results.json and summary.csv beside this script. See report.md for methodology.
@@ -38,8 +38,14 @@ def main():
         completed = subprocess.run([executable, "-catalogue", str(snapshot)],
                                    cwd=ROOT, check=True, capture_output=True, text=True)
     result = json.loads(completed.stdout)
+    assert len(result["scenarios"]) == 21
+    assert all(case["application_bytes"] // case["record_bytes"] >= 5000
+               for case in result["scenarios"])
+    assert any(case["application_bytes"] // case["record_bytes"] == 5000
+               for case in result["scenarios"])
     result["experiment"] = {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "minimum_application_records": 5000,
         "base_revision": subprocess.check_output(
             ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
         "working_tree_dirty": bool(subprocess.check_output(
@@ -73,7 +79,7 @@ def main():
                 "provisional": evaluation["provisional"],
                 "row_configurations": ";".join(b["configuration_id"] for b in plan["row_blocks"]),
             })
-    print("Wrote 24 scenarios to results.json and summary.csv")
+    print(f"Wrote {len(result['scenarios'])} scenarios to results.json and summary.csv")
 
 
 if __name__ == "__main__":

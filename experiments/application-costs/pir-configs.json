@@ -1,0 +1,673 @@
+{
+  "version": 1,
+  "construction": "curve-lifted-rs-qminus1",
+  "configurations": [
+    {
+      "id": "binary-s08-m2-t8",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 8,
+        "m": 2,
+        "t": 8
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 65536,
+        "k": 3117,
+        "rate": 0.0475616455078125,
+        "evidence": [
+          {
+            "kind": "monte_carlo",
+            "reference": "experiments/liftrs-rates/report.md",
+            "script": "experiments/liftrs-rates/run.py",
+            "results": "experiments/liftrs-rates/results.json",
+            "method": "Uniform exponent tuples with replacement; exact binary-carry monomial test. Go math/rand.NewSource with the per-code seed in results.json. Two-sided Hoeffding interval; 99% simultaneous confidence across all 13 configurations under the independent uniform sampling model. Point capacity k=round(n*good/samples).",
+            "monte_carlo": {
+              "samples": 1000000,
+              "confidence": 0.9992307692307693,
+              "lower_rate": 0.045582165321564914,
+              "upper_rate": 0.04954783467843509
+            }
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 255,
+        "dummy_positions": 128,
+        "length": 383,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s09-m2-t7",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 9,
+        "m": 2,
+        "t": 7
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 262144,
+        "k": 17118,
+        "rate": 0.06529998779296875,
+        "evidence": [
+          {
+            "kind": "monte_carlo",
+            "reference": "experiments/liftrs-rates/report.md",
+            "script": "experiments/liftrs-rates/run.py",
+            "results": "experiments/liftrs-rates/results.json",
+            "method": "Uniform exponent tuples with replacement; exact binary-carry monomial test. Go math/rand.NewSource with the per-code seed in results.json. Two-sided Hoeffding interval; 99% simultaneous confidence across all 13 configurations under the independent uniform sampling model. Point capacity k=round(n*good/samples).",
+            "monte_carlo": {
+              "samples": 1000000,
+              "confidence": 0.9992307692307693,
+              "lower_rate": 0.06331716532156491,
+              "upper_rate": 0.06728283467843509
+            }
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 511,
+        "dummy_positions": 128,
+        "length": 639,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s10-m2-t6",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 10,
+        "m": 2,
+        "t": 6
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 1048576,
+        "k": 103952,
+        "rate": 0.0991363525390625,
+        "evidence": [
+          {
+            "kind": "monte_carlo",
+            "reference": "experiments/liftrs-rates/report.md",
+            "script": "experiments/liftrs-rates/run.py",
+            "results": "experiments/liftrs-rates/results.json",
+            "method": "Uniform exponent tuples with replacement; exact binary-carry monomial test. Go math/rand.NewSource with the per-code seed in results.json. Two-sided Hoeffding interval; 99% simultaneous confidence across all 13 configurations under the independent uniform sampling model. Point capacity k=round(n*good/samples).",
+            "monte_carlo": {
+              "samples": 1000000,
+              "confidence": 0.9992307692307693,
+              "lower_rate": 0.09715316532156491,
+              "upper_rate": 0.10111883467843509
+            }
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 1023,
+        "dummy_positions": 128,
+        "length": 1151,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s11-m2-t6",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 11,
+        "m": 2,
+        "t": 6
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 4194304,
+        "k": 453002,
+        "rate": 0.10800409317016602,
+        "evidence": [
+          {
+            "kind": "monte_carlo",
+            "reference": "experiments/liftrs-rates/report.md",
+            "script": "experiments/liftrs-rates/run.py",
+            "results": "experiments/liftrs-rates/results.json",
+            "method": "Uniform exponent tuples with replacement; exact binary-carry monomial test. Go math/rand.NewSource with the per-code seed in results.json. Two-sided Hoeffding interval; 99% simultaneous confidence across all 13 configurations under the independent uniform sampling model. Point capacity k=round(n*good/samples).",
+            "monte_carlo": {
+              "samples": 1000000,
+              "confidence": 0.9992307692307693,
+              "lower_rate": 0.10602116532156491,
+              "upper_rate": 0.10998683467843509
+            }
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 2047,
+        "dummy_positions": 128,
+        "length": 2175,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s12-m2-t6",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 12,
+        "m": 2,
+        "t": 6
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 16777216,
+        "k": 1964713,
+        "rate": 0.11710602045059204,
+        "evidence": [
+          {
+            "kind": "paper",
+            "reference": "paper.pdf#page=64",
+            "method": "Table 1, bounded 2^50-sample setting, Lifted RS column: reported rounded code rate 0.117. Paper-derived k would be round(0.117*n); paper-derived rate=k/n. This does not recover the exact message dimension."
+          },
+          {
+            "kind": "monte_carlo",
+            "reference": "experiments/liftrs-rates/report.md",
+            "script": "experiments/liftrs-rates/run.py",
+            "results": "experiments/liftrs-rates/results.json",
+            "method": "Uniform exponent tuples with replacement; exact binary-carry monomial test. Go math/rand.NewSource with the per-code seed in results.json. Two-sided Hoeffding interval; 99% simultaneous confidence across all 13 configurations under the independent uniform sampling model. Point capacity k=round(n*good/samples).",
+            "monte_carlo": {
+              "samples": 1000000,
+              "confidence": 0.9992307692307693,
+              "lower_rate": 0.11512316532156491,
+              "upper_rate": 0.11908883467843509
+            }
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 4095,
+        "dummy_positions": 128,
+        "length": 4223,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s13-m2-t5",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 13,
+        "m": 2,
+        "t": 5
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 67108864,
+        "k": 11955914,
+        "rate": 0.1781570017337799,
+        "evidence": [
+          {
+            "kind": "monte_carlo",
+            "reference": "experiments/liftrs-rates/report.md",
+            "script": "experiments/liftrs-rates/run.py",
+            "results": "experiments/liftrs-rates/results.json",
+            "method": "Uniform exponent tuples with replacement; exact binary-carry monomial test. Go math/rand.NewSource with the per-code seed in results.json. Two-sided Hoeffding interval; 99% simultaneous confidence across all 13 configurations under the independent uniform sampling model. Point capacity k=round(n*good/samples).",
+            "monte_carlo": {
+              "samples": 1000000,
+              "confidence": 0.9992307692307693,
+              "lower_rate": 0.1761741653215649,
+              "upper_rate": 0.1801398346784351
+            }
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 8191,
+        "dummy_positions": 128,
+        "length": 8319,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s14-m2-t5",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 14,
+        "m": 2,
+        "t": 5
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 268435456,
+        "k": 51209164,
+        "rate": 0.1907690018415451,
+        "evidence": [
+          {
+            "kind": "monte_carlo",
+            "reference": "experiments/liftrs-rates/report.md",
+            "script": "experiments/liftrs-rates/run.py",
+            "results": "experiments/liftrs-rates/results.json",
+            "method": "Uniform exponent tuples with replacement; exact binary-carry monomial test. Go math/rand.NewSource with the per-code seed in results.json. Two-sided Hoeffding interval; 99% simultaneous confidence across all 13 configurations under the independent uniform sampling model. Point capacity k=round(n*good/samples).",
+            "monte_carlo": {
+              "samples": 1000000,
+              "confidence": 0.9992307692307693,
+              "lower_rate": 0.1887861653215649,
+              "upper_rate": 0.1927518346784351
+            }
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 16383,
+        "dummy_positions": 128,
+        "length": 16511,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s15-m2-t5",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 15,
+        "m": 2,
+        "t": 5
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 1073741824,
+        "k": 216920545,
+        "rate": 0.20202300045639277,
+        "evidence": [
+          {
+            "kind": "paper",
+            "reference": "paper.pdf#page=64",
+            "method": "Table 1, bounded 2^50-sample setting, Lifted RS column: rounded code rate 0.2. Retained as supporting evidence; the point estimate uses the more precise matching Table 3 rate."
+          },
+          {
+            "kind": "paper",
+            "reference": "paper.pdf#page=66",
+            "method": "Table 3, m=2, q=2^15, t=5: reported empirical code rate 0.2024. Paper-derived k would be round(0.2024*n); paper-derived rate=k/n. The table does not report sample count or uncertainty; no confidence interval is asserted."
+          },
+          {
+            "kind": "monte_carlo",
+            "reference": "experiments/liftrs-rates/report.md",
+            "script": "experiments/liftrs-rates/run.py",
+            "results": "experiments/liftrs-rates/results.json",
+            "method": "Uniform exponent tuples with replacement; exact binary-carry monomial test. Go math/rand.NewSource with the per-code seed in results.json. Two-sided Hoeffding interval; 99% simultaneous confidence across all 13 configurations under the independent uniform sampling model. Point capacity k=round(n*good/samples).",
+            "monte_carlo": {
+              "samples": 1000000,
+              "confidence": 0.9992307692307693,
+              "lower_rate": 0.2000401653215649,
+              "upper_rate": 0.2040058346784351
+            }
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 32767,
+        "dummy_positions": 128,
+        "length": 32895,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s16-m2-t5",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 16,
+        "m": 2,
+        "t": 5
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 4294967296,
+        "k": 919440829,
+        "rate": 0.21407400001771748,
+        "evidence": [
+          {
+            "kind": "monte_carlo",
+            "reference": "experiments/liftrs-rates/report.md",
+            "script": "experiments/liftrs-rates/run.py",
+            "results": "experiments/liftrs-rates/results.json",
+            "method": "Uniform exponent tuples with replacement; exact binary-carry monomial test. Go math/rand.NewSource with the per-code seed in results.json. Two-sided Hoeffding interval; 99% simultaneous confidence across all 13 configurations under the independent uniform sampling model. Point capacity k=round(n*good/samples).",
+            "monte_carlo": {
+              "samples": 1000000,
+              "confidence": 0.9992307692307693,
+              "lower_rate": 0.21209116532156488,
+              "upper_rate": 0.2160568346784351
+            }
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 65535,
+        "dummy_positions": 128,
+        "length": 65663,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s17-m2-t5",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 17,
+        "m": 2,
+        "t": 5
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 17179869184,
+        "k": 3870933765,
+        "rate": 0.22531800001161173,
+        "evidence": [
+          {
+            "kind": "monte_carlo",
+            "reference": "experiments/liftrs-rates/report.md",
+            "script": "experiments/liftrs-rates/run.py",
+            "results": "experiments/liftrs-rates/results.json",
+            "method": "Uniform exponent tuples with replacement; exact binary-carry monomial test. Go math/rand.NewSource with the per-code seed in results.json. Two-sided Hoeffding interval; 99% simultaneous confidence across all 13 configurations under the independent uniform sampling model. Point capacity k=round(n*good/samples).",
+            "monte_carlo": {
+              "samples": 1000000,
+              "confidence": 0.9992307692307693,
+              "lower_rate": 0.2233351653215649,
+              "upper_rate": 0.2273008346784351
+            }
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 131071,
+        "dummy_positions": 128,
+        "length": 131199,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s18-m2-t5",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 18,
+        "m": 2,
+        "t": 5
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 68719476736,
+        "k": 16298885492,
+        "rate": 0.23717999999644235,
+        "evidence": [
+          {
+            "kind": "paper",
+            "reference": "paper.pdf#page=64",
+            "method": "Table 1, bounded 2^50-sample setting, Lifted RS column: rounded code rate 0.237. Retained as supporting evidence; the point estimate uses the more precise matching Table 3 rate."
+          },
+          {
+            "kind": "paper",
+            "reference": "paper.pdf#page=66",
+            "method": "Table 3, m=2, q=2^18, t=5: reported empirical code rate 0.2367. Paper-derived k would be round(0.2367*n); paper-derived rate=k/n. The table does not report sample count or uncertainty; no confidence interval is asserted."
+          },
+          {
+            "kind": "monte_carlo",
+            "reference": "experiments/liftrs-rates/report.md",
+            "script": "experiments/liftrs-rates/run.py",
+            "results": "experiments/liftrs-rates/results.json",
+            "method": "Uniform exponent tuples with replacement; exact binary-carry monomial test. Go math/rand.NewSource with the per-code seed in results.json. Two-sided Hoeffding interval; 99% simultaneous confidence across all 13 configurations under the independent uniform sampling model. Point capacity k=round(n*good/samples).",
+            "monte_carlo": {
+              "samples": 1000000,
+              "confidence": 0.9992307692307693,
+              "lower_rate": 0.2351971653215649,
+              "upper_rate": 0.2391628346784351
+            }
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 262143,
+        "dummy_positions": 128,
+        "length": 262271,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s19-m2-t5",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 19,
+        "m": 2,
+        "t": 5
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 274877906944,
+        "k": 68331898887,
+        "rate": 0.2485899999992398,
+        "evidence": [
+          {
+            "kind": "monte_carlo",
+            "reference": "experiments/liftrs-rates/report.md",
+            "script": "experiments/liftrs-rates/run.py",
+            "results": "experiments/liftrs-rates/results.json",
+            "method": "Uniform exponent tuples with replacement; exact binary-carry monomial test. Go math/rand.NewSource with the per-code seed in results.json. Two-sided Hoeffding interval; 99% simultaneous confidence across all 13 configurations under the independent uniform sampling model. Point capacity k=round(n*good/samples).",
+            "monte_carlo": {
+              "samples": 1000000,
+              "confidence": 0.9992307692307693,
+              "lower_rate": 0.2466071653215649,
+              "upper_rate": 0.2505728346784351
+            }
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 524287,
+        "dummy_positions": 128,
+        "length": 524415,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "binary-s20-m2-t5",
+      "encoding_status": "candidate",
+      "code": {
+        "s": 20,
+        "m": 2,
+        "t": 5
+      },
+      "capacity": {
+        "status": "estimated",
+        "n": 1099511627776,
+        "k": 286146801617,
+        "rate": 0.2602489999999307,
+        "evidence": [
+          {
+            "kind": "paper",
+            "reference": "paper.pdf#page=64",
+            "method": "Table 1, bounded 2^50-sample setting, Lifted RS column: reported rounded code rate 0.259. Paper-derived k would be round(0.259*n); paper-derived rate=k/n. This does not recover the exact message dimension."
+          },
+          {
+            "kind": "monte_carlo",
+            "reference": "experiments/liftrs-rates/report.md",
+            "script": "experiments/liftrs-rates/run.py",
+            "results": "experiments/liftrs-rates/results.json",
+            "method": "Uniform exponent tuples with replacement; exact binary-carry monomial test. Go math/rand.NewSource with the per-code seed in results.json. Two-sided Hoeffding interval; 99% simultaneous confidence across all 13 configurations under the independent uniform sampling model. Point capacity k=round(n*good/samples).",
+            "monte_carlo": {
+              "samples": 1000000,
+              "confidence": 0.9992307692307693,
+              "lower_rate": 0.25826616532156493,
+              "upper_rate": 0.2622318346784351
+            }
+          }
+        ]
+      },
+      "query": {
+        "curve_positions": 1048575,
+        "dummy_positions": 128,
+        "length": 1048703,
+        "dummy_rule": "fixed_count_uniform_positions"
+      },
+      "security": {
+        "computational_bits": 100,
+        "log2_samples": 50,
+        "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
+        "evidence": [
+          {
+            "kind": "analytical",
+            "reference": "experiments/bounded-sample-parameters/report.md",
+            "script": "experiments/bounded-sample-parameters/run.py",
+            "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -103,15 +103,37 @@ encoding support is not claimed. A JSON Schema and consistency checks distinguis
 estimates from verified capacities. The [plan evaluator](planner/README.md) validates
 supplied partitions and calculates their logical storage/communication costs.
 The [greedy planner](planner/README.md#greedy-planning) uses one-step lookahead to
-construct compact row-block plans. It is deterministic and does not claim optimality.
+construct compact row-block plans. `GreedyApplication` additionally searches split/stack
+logical widths and optional small full-download suffixes bounded by a configurable
+download ratio (default 1). These are planning APIs, not new encoder backends.
+Selection is deterministic and does not claim optimality.
+[`SearchTradeoffs`](planner/README.md#storage-and-communication-tradeoffs) returns
+bounded storage/communication alternatives, including whole-download baselines,
+using capacity-ordered batches, with explicit frontier, state and count truncation
+flags. Repeated row blocks use compact metadata without reducing physical traffic. Feasible completed greedy
+baselines retain equal-or-better witnesses through approximation and display selection;
+protected witnesses can increase the returned option count. Communication rate means
+requested record bits divided by upload plus download; higher is better.
+The separate [cost-grid DP](planner/README.md#cost-indexed-dynamic-programming) uses
+rounded storage/communication cells rather than sampled row states. Its
+[dp-costs experiment](experiments/dp-costs/report.md) records the same qualifying workload
+grid, explicit numerical windows, and a comparison table. It has no global approximation
+guarantee and currently rejects separate upload/download budgets.
+Default cost grids omit workloads with fewer than **5,000 application records**,
+leaving 21 specifications in the [tradeoff grid](experiments/tradeoff-costs/report.md).
+This filters evaluation workloads, not the planner API or correctness fixtures.
 The [cost-grid report](experiments/greedy-costs/report.md) covers 1 GB through 1 TB
-with 1 KB through 10 MB records; these are model calculations, not encoded databases.
+with 1 KB through 10 MB records for the unsliced baseline; these are model calculations, not encoded databases.
+The [updated width-search grid](experiments/application-costs/report.md) records the
+new planner and indexed-only alternatives. Full-download limits use a shared
+reference across logical widths; storage-first choices can still incur large indexed
+communication for highly fragmented records.
 
 The [rate estimator](cmd/pir-rate/README.md) samples monomials using a deterministic
 membership test that supports `s=2..20` without field arithmetic or generator
 matrices. This does not extend the small encoder's supported sizes.
 
-The PIR configuration catalogue includes binary extension fields `GF(2^s)` for every integer `s` from 8 through 20, initially with `m=2` and the [bounded-sample parameter profile](docs/parameter-planning.md#configuration-catalogue); prime fields are outside the current scope. Application records must be at least as wide as the largest PIR record in the supported catalogue; packing is outside the current scope.
+The PIR configuration catalogue includes binary extension fields `GF(2^s)` for every integer `s` from 8 through 20, initially with `m=2` and the [bounded-sample parameter profile](docs/parameter-planning.md#configuration-catalogue); prime fields are outside the current scope. For indexed layouts, application records must be at least as wide as the largest PIR record in the supported catalogue; packing is outside the current scope.
 
 The [planner design](docs/parameter-planning.md) describes joint selection of submatrix dimensions, code parameters, and query-sharing groups, including total storage and communication costs. Encoding-time and memory estimates may accompany plans but do not influence partition selection. The [small deterministic reference encoder](encoding/liftrs/README.md) now supplies the correctness baseline. The evaluator and greedy planner use catalogue evidence without running either encoder.
 
@@ -126,7 +148,7 @@ The [application encoder](docs/encoder-contract.md#application-encoding) consume
 
 ```text
 pirconfig/      JSON configuration catalogue, schema, Go loader, and validation tests
-planner/        Greedy row-block partitioning, validation, and logical cost evaluation
+planner/        Bounded tradeoff search, greedy partitioning, validation, and cost evaluation
 cmd/pir-rate/   Monomial-sampling Lift-RS rate estimator
 pir/            Go Lift-RS client API, tests, benchmarks, and RM encoder wrapper
 utils/          Field arithmetic, curve generation, permutation, masks, and matrix I/O

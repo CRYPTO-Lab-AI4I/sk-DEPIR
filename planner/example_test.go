@@ -57,3 +57,76 @@ func ExampleGreedy() {
 	// 2 0 4
 	// 128 2096 1048
 }
+
+func ExampleGreedyApplication() {
+	file, err := os.Open("../pirconfig/testdata/reference.json")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	catalogue, err := pirconfig.Load(file)
+	if err != nil {
+		panic(err)
+	}
+	// A tiny fixture: keep at most four residual bits without code expansion.
+	plan, result, err := planner.GreedyApplication(6, 4, catalogue, planner.Requirements{}, planner.ApplicationOptions{
+		LogicalRecordBits: []uint64{4}, AllowFullDownload: true,
+		MaxFullDownloadBits: 4, // optional absolute cap in addition to default ratio 1
+	})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(plan.LogicalRecordBits, result.FullDownloadBits)
+	fmt.Println(result.Costs.StorageBits, result.Costs.UploadBits, result.Costs.DownloadBits)
+	// Output:
+	// 4 4
+	// 68 1048 528
+}
+
+func ExampleSearchTradeoffs() {
+	file, err := os.Open("../pirconfig/testdata/reference.json")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	catalogue, err := pirconfig.Load(file)
+	if err != nil {
+		panic(err)
+	}
+	result, err := planner.SearchTradeoffs(3, 4, catalogue, planner.Requirements{}, planner.TradeoffOptions{MaxFrontier: 16, MaxStates: 64})
+	if err != nil {
+		panic(err)
+	}
+	// This tiny correctness fixture communicates less by downloading everything.
+	// Actual target inputs can return several storage/communication alternatives.
+	fmt.Println(len(result.Alternatives), result.Alternatives[0].Evaluation.FullDownloadOnly)
+	fmt.Printf("%.3f\n", result.Alternatives[0].Evaluation.CommunicationRate)
+	indices, err := result.RepresentativeIndices(3)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(indices)
+	// Output:
+	// 1 true
+	// 0.333
+	// [0]
+}
+
+func ExampleSearchDPCosts() {
+	file, err := os.Open("../pirconfig/testdata/reference.json")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	catalogue, err := pirconfig.Load(file)
+	if err != nil {
+		panic(err)
+	}
+	result, err := planner.SearchDPCosts(3, 4, catalogue, planner.Requirements{}, planner.DPCostOptions{})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(len(result.Alternatives), result.Alternatives[0].Evaluation.FullDownloadOnly)
+	// Output:
+	// 1 true
+}

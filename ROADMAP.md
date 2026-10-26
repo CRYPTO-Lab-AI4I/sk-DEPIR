@@ -33,7 +33,12 @@ are available, with [Monte Carlo rate estimates](experiments/liftrs-rates/report
 for all 13 target configurations and supporting paper values. Target capacity
 verification remains open. The [greedy planner and evaluator](planner/README.md)
 now construct row-block plans and calculate the logical cost model without running
-encoders. General or optimal partition search is not implemented.
+encoders. Logical split/stack width search and ratio-bounded full-download suffix
+planning are implemented; automatic execution of those application plans remains open.
+Capacity-ordered batched Pareto search over row-block choices is implemented with reported approximation
+limits. A separate rounded cost-grid DP is available for comparison; its numerical windows
+and approximation limits are reported. General rearrangement or globally optimal
+partition search is not implemented.
 
 ## Ordered milestones
 

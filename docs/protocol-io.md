@@ -14,7 +14,7 @@ for supplied tiny-instance layouts.
 
 ## Query groups and participation
 
-For each application-record request, generate one position list per
+For each logical-fragment request, generate one position list per
 [query-sharing group](data-representation.md#query-sharing-groups). For a group
 `g`, the list contains `L_g` positions, including dummy positions that hide the curve.
 The client sends a separate copy of the list for each PIR database in the group.
@@ -39,6 +39,17 @@ separation.
 [curve generation](../utils/curve_generation.go) and `PrepareQuerySequenceWithNoise` in
 [pir_api.go](../pir/pir_api.go). The latter appends and shuffles dummy positions using
 `math/rand`; this is a prototype path, not a cryptographically secure sampler.
+
+For a split/stack plan, perform the same fixed number `f=ceil(A/W)` of logical
+lookups for every application-record request, including cover reads in every indexed
+group. Each full-download piece is read entirely once per application request,
+regardless of relevance; reuse those bytes locally across fragments. Do not assume
+caching across requests. Fixed whole-piece reads need no indexed address list;
+range descriptors, byte rounding, and transport overhead must still be counted by adapters.
+The sample limit counts protocol queries: each indexed group consumes `f` samples per
+application request. The existing reference wrapper does not automatically consume
+`ApplicationPlan` or implement its full-download mode; [planner tests](../planner/application_test.go)
+exercise fragment mapping and indexed retrieval through that reference.
 
 ## Storage response
 

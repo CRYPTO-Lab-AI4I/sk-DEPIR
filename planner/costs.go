@@ -81,3 +81,17 @@ func withinBudgets(c Costs, r Requirements) bool {
 func cheaper(a, b Costs) bool {
 	return a.StorageBits < b.StorageBits || (a.StorageBits == b.StorageBits && a.CommunicationBits < b.CommunicationBits)
 }
+
+// repeatTraffic scales indexed PIR queries while leaving stored data unchanged.
+func repeatTraffic(c Costs, queries uint64) (Costs, error) {
+	var err error
+	c.UploadBits, err = multiply(c.UploadBits, queries)
+	if err != nil {
+		return Costs{}, fmt.Errorf("upload bits: %w", err)
+	}
+	c.DownloadBits, err = multiply(c.DownloadBits, queries)
+	if err != nil {
+		return Costs{}, fmt.Errorf("download bits: %w", err)
+	}
+	return finishCommunication(c)
+}

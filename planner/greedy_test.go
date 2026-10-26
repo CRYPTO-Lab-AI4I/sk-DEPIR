@@ -68,14 +68,23 @@ func expandSmall(t *testing.T, p Plan, c *pirconfig.Catalogue) Plan {
 	}
 	for _, b := range p.RowBlocks {
 		s := widths[b.ConfigurationID]
-		for col := uint64(0); col < p.RecordBits; col += s {
-			end := col + s
-			if end > p.RecordBits {
-				end = p.RecordBits
+		repeat := b.Repeat
+		if repeat == 0 {
+			repeat = 1
+		}
+		height := (b.RowEnd - b.RowStart) / repeat
+		for index := uint64(0); index < repeat; index++ {
+			row := b.RowStart + index*height
+			for col := uint64(0); col < p.RecordBits; col += s {
+				end := col + s
+				if end > p.RecordBits {
+					end = p.RecordBits
+				}
+				explicit.Databases = append(explicit.Databases, Database{RowStart: row, RowEnd: row + height, ColumnStart: col, ColumnEnd: end, ConfigurationID: b.ConfigurationID, Group: b.Group})
 			}
-			explicit.Databases = append(explicit.Databases, Database{RowStart: b.RowStart, RowEnd: b.RowEnd, ColumnStart: col, ColumnEnd: end, ConfigurationID: b.ConfigurationID, Group: b.Group})
 		}
 	}
+
 	return explicit
 }
 

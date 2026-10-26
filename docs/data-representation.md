@@ -22,18 +22,33 @@ paper uses this field-element input model in [Section 5.1](../paper.pdf#page=33)
 submatrix layout below is a library design choice.
 
 Application records must be at least as large as the largest PIR record size in the
-supported catalogue. Reject inputs that do not meet this requirement. Packing multiple
-application records into a PIR record is outside the current scope.
+supported catalogue for layouts containing encoded PIR databases. Full-download-only
+layouts need no field padding. Packing multiple application records into a PIR record
+is outside the current scope.
+
+## Logical record layout
+
+Before partitioning, records may be split into fixed-width fragments and stacked as
+logical rows. For `n` application records of `A` bits, choose logical width `W <= A`
+and let `f = ceil(A/W)`. The logical matrix has `n*f` rows and `W` columns.
+Application record `j`, fragment `i`, maps to logical row `j*f+i` and source bits
+`[i*W, min((i+1)*W,A))`; zero-pad the final fragment. With `W=A`, the matrix is unchanged.
+This rearrangement lets large application records use higher-capacity configurations.
+
+Partitioning, local indices, and query-sharing conditions below refer to this logical
+matrix. Retrieve its `f` fragments to reconstruct one application record. The
+[application planner](../planner/README.md#application-width-search) searches widths;
+`ApplicationPlan.Fragment` exposes the mapping without copying data.
 
 ## Partitioning the application database
 
 To fit supported PIR configurations and reduce storage and communication overhead,
-divide the application matrix into submatrices. Their dimensions may differ, and row
+divide the logical matrix into submatrices. Their dimensions may differ, and row
 boundaries need not align across different column portions. Each submatrix becomes a
 separate PIR database; append zero rows and columns to fit its selected configuration.
 Padding contributes to storage overhead.
 
-The submatrices must cover every application matrix entry exactly once, without overlaps
+The submatrices must cover every logical matrix entry exactly once, without overlaps
 or gaps.
 
 A [planner](parameter-planning.md) proposes one or more such partitions and estimates
@@ -48,7 +63,7 @@ row-aligned partitions; general supplied partitions remain supported.
 ## Indexing
 
 Use zero-based indices and half-open ranges: `[a, b)` includes `a` and excludes `b`. A
-submatrix starting at row `a` maps application row `j` to row `j-a` within that PIR
+submatrix starting at logical row `a` maps logical row `j` to row `j-a` within that PIR
 database (its *local PIR index*).
 
 The existing [matrix coordinate helpers](../pir/db.go) and [flattened-index
@@ -57,7 +72,7 @@ this application-to-PIR mapping.
 
 ## Encoding
 
-Each PIR database undergoes two encodings: a non-cryptographic encoding that produces a
+Each encoded PIR database undergoes two encodings: a non-cryptographic encoding that produces a
 systematic codeword (preserving input elements at designated positions), followed by a
 cryptographic encoding that permutes and masks it. Their inputs and outputs are defined
 in the [encoder requirements](encoder-contract.md), with paper and implementation
@@ -77,9 +92,9 @@ PIR databases are eligible to form a *query-sharing group* when:
    field representation, code parameters, padded dimensions, mapping from PIR
    row indices to codeword positions, and query-generation
    procedure, including the dummy-position count.
-2. **Compatible row ranges:** for every application row `j`, all group members
+2. **Compatible row ranges:** for every logical row `j`, all group members
    containing part of that row must map it to the same PIR row index. Under the
-   mapping `j-a`, this means every pair of original row ranges must either be
+   mapping `j-a`, this means every pair of unpadded logical row ranges must either be
    disjoint or have the same starting row. Their ending rows may differ.
 
 For example, `[0,100)` and `[100,200)` satisfy the row-range condition, as do `[0,100)`
@@ -100,7 +115,7 @@ exposes relations between their data. Keys may be derived from a master key usin
 with distinct database context labels.
 
 Identify each PIR database by its submatrix's row and column ranges within the
-application database.
+logical matrix, scoped to its application plan.
 
 Associate each PIR database encoding with separate cryptographic material for masking.
 Re-encoding must not reuse masks from a previous encoding, even if the submatrix
@@ -108,14 +123,25 @@ coordinates are unchanged. The key-derivation and randomness formats belong to t
 [cryptographic encoder](encoder-contract.md#cryptographic-encoding) and remain to be
 specified.
 
+### Full-download databases
+
+A trivial PIR database stores a submatrix without Lift-RS expansion. Fetch its entire
+contents once on every application-record retrieval, whether or not it contains a
+requested fragment. It has no code configuration or query-sharing group. Keep its
+mask material separate just as for encoded databases; downloading everything removes
+the need for a secret permutation. These are planning and I/O requirements, not a new
+implemented cryptographic backend. Selection rules are in [parameter planning](parameter-planning.md#bounded-tradeoff-search);
+the tradeoff API treats full downloads as ordinary costed choices.
+
 ## Query
 
-An application record may span several PIR databases. Each submatrix's row and column
+Each logical fragment may span several PIR databases. Each submatrix's row and column
 boundaries determine whether it contains part of the record, the local PIR index, and
-where that part belongs in the application record.
+where that part belongs in the logical fragment.
 
-Reconstruct the application record by removing padding from the decoded PIR records and
-joining the relevant pieces in their original column order. [Protocol
+Reconstruct each logical fragment by removing PIR padding and joining its column pieces.
+Join fragments in order and remove final-fragment padding to recover the application
+record. [Protocol
 I/O](protocol-io.md#query-groups-and-participation) specifies how to query every
 query-sharing group with fixed participation and handle responses that contain no part
 of the requested record.
@@ -140,23 +166,28 @@ all parties use the same representation. That file also implements `GF2n.Add` an
 
 ## Layout metadata and serialization
 
-Retain the application matrix dimensions and, for each submatrix:
+Retain original application dimensions, logical width and fragment mapping, and, for
+each submatrix:
 
 - Its half-open row and column ranges before padding, which identify it within
-  the application database.
-- Its PIR configuration and padded dimensions, including the field polynomial.
-- Its query-sharing group.
+  the logical matrix.
+- Whether it is a full-download piece; otherwise its PIR configuration and padded
+  dimensions, including the field polynomial.
+- Its query-sharing group for encoded PIR databases.
 
 Planner output may represent a homogeneous full-width row block compactly, with its
 row range, configuration ID, and group. Its vertical slices are implicit at multiples
-of the field width, with the last slice truncated to the application width. Each
+of the field width, with the last slice truncated to the logical width. Each
 slice still identifies a separate PIR database by its full row/column coordinates
 and requires separate masking material. The compact planner representation is not
 an implemented stored-database manifest or a change to the packed bit layout.
+A compact row block may also give `repeat`: divide its row range into that many equal
+consecutive blocks, each with the same configuration and column slices (zero means one).
+Each physical repetition has separate coordinate identifiers and masks. Store a shorter
+final padded block separately; full-download pieces do not repeat.
 
-
-The ranges determine the local PIR index and the position of each returned part in the
-application record. Comparing the original and padded dimensions identifies which zero
+The ranges locate returned pieces within logical fragments; the fragment mapping
+places them within the application record. Comparing the logical and padded dimensions identifies which zero
 rows and columns to discard. Secret keys are not public metadata.
 
 Each PIR record occupies `s` bits when tightly packed, regardless of the integer type
@@ -165,7 +196,7 @@ packing.
 
 Application rows retain their input order. Within a row, column `8*k+b` is
 bit `b` of byte `k`, with bit 0 the least significant bit. For a submatrix
-starting at application column `c`, its column `c+i` becomes coefficient bit `i`
+starting at logical column `c`, its column `c+i` becomes coefficient bit `i`
 of the PIR field element. Append padding at the ends of rows and columns.
 
 Store each PIR database's encoded field elements in codeword-position order.
@@ -176,11 +207,14 @@ per-element byte padding. Zero unused high bits in the last byte. The file has
 pack as the three bytes `01 02 00` (hexadecimal).
 
 Use a UTF-8 JSON manifest with integer `format_version: 1`. It records application
-row count and record width in bits, and a list of PIR databases in lexicographic
+row count and record width in bits, the logical width and mapping when reshaped,
+and a list of PIR databases in lexicographic
 order of `(row_start, column_start, row_end, column_end)`. Each entry records these
 half-open ranges, its configuration (including `s`, `m`, `t`, `K`, `N`, polynomial,
 coordinate/systematic mapping convention, and cryptographic suite when selected),
-and a query-sharing group number. Number groups from zero in first-occurrence order
+and a query-sharing group number for indexed databases. Full-download entries instead
+identify that mode and store their tightly packed matrix bits without code expansion.
+Number groups from zero in first-occurrence order
 in that list. Keep secret material separately. Reject unknown format versions or
 unsupported configurations; format version 1 describes the layout conventions and
 does not imply an implemented or validated cryptographic suite.

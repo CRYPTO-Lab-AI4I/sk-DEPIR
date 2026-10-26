@@ -15,7 +15,8 @@ import (
 // (row_start,column_start,row_end,column_end) order and cover the matrix exactly
 // once. Alternatively, RowBlocks implicitly slice each full-width row block into
 // field-sized columns. Supply exactly one representation. RecordBits must be at
-// least the largest s in the supplied catalogue.
+// least the largest s in the supplied catalogue for indexed plans. ApplicationPlan
+// permits narrower logical fragments; full-only layouts need no field padding.
 // This is public planning data, not a stored-database manifest or secret state.
 type Plan struct {
 	FormatVersion int        `json:"format_version"`
@@ -28,8 +29,11 @@ type Plan struct {
 // Database assigns a half-open application rectangle to one catalogue entry.
 // Group numbers start at zero in first-occurrence order. All members of a group
 // reference the same configuration ID, fixing its padded/code/query conventions.
-// Their row ranges must be disjoint or have the same start.
+// Their row ranges must be disjoint or have the same start. DownloadAll instead
+// stores the rectangle without code expansion and reads it entirely per lookup;
+// ConfigurationID must be empty and Group zero.
 type Database struct {
+	DownloadAll     bool   `json:"download_all,omitempty"`
 	RowStart        uint64 `json:"row_start"`
 	ColumnStart     uint64 `json:"column_start"`
 	RowEnd          uint64 `json:"row_end"`
@@ -43,7 +47,13 @@ type Database struct {
 // [j*s,min((j+1)*s,RecordBits)). Each slice remains a separate database with its
 // own masks and full address upload. This is metadata compression, not query or
 // storage compression. Row blocks must cover all rows in increasing order.
+// DownloadAll represents one full-width identity-storage piece, without slicing;
+// ConfigurationID must be empty and Group zero.
 type RowBlock struct {
+	// Repeat represents equally tall consecutive blocks; zero means one.
+	// Only indexed blocks may repeat. Padding may shorten a separate final block.
+	Repeat          uint64 `json:"repeat,omitempty"`
+	DownloadAll     bool   `json:"download_all,omitempty"`
 	RowStart        uint64 `json:"row_start"`
 	RowEnd          uint64 `json:"row_end"`
 	ConfigurationID string `json:"configuration_id"`
@@ -88,10 +98,17 @@ type ConfigurationUse struct {
 // a rounded floating-point application/storage ratio. Provisional means at least
 // one used capacity is estimated or its encoder is not declared supported.
 // Even a nonprovisional result does not verify backend availability or security.
+// CommunicationRate is record bits divided by upload plus download per lookup.
+// FullDownloadBits is full-piece storage/download, read once per original lookup.
+// FullDownloadOnly means no indexed security profile applies; zero security fields
+// then do not describe a computational privacy limit.
 // Returned evidence is copied; changes do not alter the supplied catalogue.
 type Evaluation struct {
+	FullDownloadBits     uint64             `json:"full_download_bits,omitempty"`
+	FullDownloadOnly     bool               `json:"full_download_only"`
 	DatabaseCount        uint64             `json:"database_count"`
 	Costs                Costs              `json:"costs"`
+	CommunicationRate    float64            `json:"communication_rate"`
 	EffectiveStorageRate float64            `json:"effective_storage_rate"`
 	SecurityBits         uint32             `json:"security_bits"`
 	Log2Samples          uint32             `json:"log2_samples"`
@@ -105,6 +122,12 @@ type Evaluation struct {
 // D explicit rectangles or compact row blocks. Allocations hold metadata and copied evidence;
 // no per-application-row or per-bit allocation is performed.
 func Evaluate(plan Plan, catalogue *pirconfig.Catalogue, requirements Requirements) (*Evaluation, error) {
+	return evaluate(plan, catalogue, requirements, true, 1)
+}
+
+// queries is the fixed number of logical lookups per application retrieval.
+// Full-download pieces are read only once; indexed PIR traffic repeats queries times.
+func evaluate(plan Plan, catalogue *pirconfig.Catalogue, requirements Requirements, enforceWidth bool, queries uint64) (*Evaluation, error) {
 	if err := catalogue.Validate(); err != nil {
 		return nil, fmt.Errorf("planner: %w", err)
 	}
@@ -120,7 +143,18 @@ func Evaluate(plan Plan, catalogue *pirconfig.Catalogue, requirements Requiremen
 			maxWidth = c.Code.S
 		}
 	}
-	if plan.RecordBits < uint64(maxWidth) {
+	indexed := false
+	for _, d := range plan.Databases {
+		if !d.DownloadAll {
+			indexed = true
+		}
+	}
+	for _, b := range plan.RowBlocks {
+		if !b.DownloadAll {
+			indexed = true
+		}
+	}
+	if enforceWidth && indexed && plan.RecordBits < uint64(maxWidth) {
 		return nil, fmt.Errorf("planner: record_bits must be at least catalogue field width %d", maxWidth)
 	}
 	regions, err := planRegions(plan, configurations)
@@ -131,7 +165,7 @@ func Evaluate(plan Plan, catalogue *pirconfig.Catalogue, requirements Requiremen
 	if err != nil {
 		return nil, fmt.Errorf("planner: application bits: %w", err)
 	}
-	result := &Evaluation{Costs: Costs{ApplicationBits: applicationBits}}
+	result := &Evaluation{Costs: Costs{ApplicationBits: applicationBits}, FullDownloadOnly: true}
 	used := make(map[string]bool)
 	groups := []string{}
 	var covered uint64
@@ -144,34 +178,41 @@ func Evaluate(plan Plan, catalogue *pirconfig.Catalogue, requirements Requiremen
 			return nil, fmt.Errorf("planner: database %d: coordinates must be unique and in canonical order", i)
 		}
 		c := configurations[p.ConfigurationID]
-		if c == nil {
-			return nil, fmt.Errorf("planner: database %d: unknown configuration %q", i, p.ConfigurationID)
+		if p.DownloadAll {
+			if p.ConfigurationID != "" || p.Group != 0 {
+				return nil, fmt.Errorf("planner: full-download pieces do not use a code or query-sharing group")
+			}
+		} else {
+			if c == nil {
+				return nil, fmt.Errorf("planner: database %d: unknown configuration %q", i, p.ConfigurationID)
+			}
+			if c.Capacity.Status == "unknown" {
+				return nil, fmt.Errorf("planner: configuration %s has unknown capacity", c.ID)
+			}
+			if region.rowHeight > *c.Capacity.K || region.sliceWidth > uint64(c.Code.S) {
+				return nil, fmt.Errorf("planner: database %d: rectangle exceeds configuration capacity or field width", i)
+			}
+			if c.Security.ComputationalBits < requirements.MinSecurityBits || c.Security.Log2Samples < requirements.Log2Samples {
+				return nil, fmt.Errorf("planner: configuration %s does not meet the requested security profile", c.ID)
+			}
+			if p.Group > uint64(len(groups)) {
+				return nil, fmt.Errorf("planner: query-sharing groups must be numbered in first-occurrence order")
+			}
+			if p.Group == uint64(len(groups)) {
+				groups = append(groups, c.ID)
+			}
+			if groups[int(p.Group)] != c.ID {
+				return nil, fmt.Errorf("planner: group %d requires the same catalogue configuration", p.Group)
+			}
 		}
-		if c.Capacity.Status == "unknown" {
-			return nil, fmt.Errorf("planner: configuration %s has unknown capacity", c.ID)
-		}
-		if p.RowEnd-p.RowStart > *c.Capacity.K || region.sliceWidth > uint64(c.Code.S) {
-			return nil, fmt.Errorf("planner: database %d: rectangle exceeds configuration capacity or field width", i)
-		}
-		if c.Security.ComputationalBits < requirements.MinSecurityBits || c.Security.Log2Samples < requirements.Log2Samples {
-			return nil, fmt.Errorf("planner: configuration %s does not meet the requested security profile", c.ID)
-		}
-		if p.Group > uint64(len(groups)) {
-			return nil, fmt.Errorf("planner: query-sharing groups must be numbered in first-occurrence order")
-		}
-		if p.Group == uint64(len(groups)) {
-			groups = append(groups, c.ID)
-		}
-		if groups[int(p.Group)] != c.ID {
-			return nil, fmt.Errorf("planner: group %d requires the same catalogue configuration", p.Group)
-		}
+
 		for _, previous := range regions[:i] {
 			other := previous.bounds
 			rowOverlap := p.RowStart < other.RowEnd && other.RowStart < p.RowEnd
 			if rowOverlap && p.ColumnStart < other.ColumnEnd && other.ColumnStart < p.ColumnEnd {
 				return nil, fmt.Errorf("planner: database %d overlaps another rectangle", i)
 			}
-			if p.Group == other.Group && rowOverlap && p.RowStart != other.RowStart {
+			if !p.DownloadAll && !other.DownloadAll && p.Group == other.Group && rowOverlap && p.RowStart != other.RowStart {
 				return nil, fmt.Errorf("planner: group %d has incompatible row ranges", p.Group)
 			}
 		}
@@ -182,7 +223,20 @@ func Evaluate(plan Plan, catalogue *pirconfig.Catalogue, requirements Requiremen
 		if err := accumulate(&covered, area); err != nil {
 			return nil, fmt.Errorf("planner: covered area: %w", err)
 		}
-		blockCosts, err := databaseCosts(c, region.count)
+		var blockCosts Costs
+		if p.DownloadAll {
+			blockCosts = Costs{StorageBits: area, DownloadBits: area, CommunicationBits: area}
+			if err := accumulate(&result.FullDownloadBits, area); err != nil {
+				return nil, fmt.Errorf("planner: full-download bits: %w", err)
+			}
+		} else {
+			result.FullDownloadOnly = false
+			blockCosts, err = databaseCosts(c, region.count)
+			if err == nil {
+				blockCosts, err = repeatTraffic(blockCosts, queries)
+			}
+		}
+
 		if err == nil {
 			result.Costs, err = addModelCosts(result.Costs, blockCosts)
 		}
@@ -193,7 +247,7 @@ func Evaluate(plan Plan, catalogue *pirconfig.Catalogue, requirements Requiremen
 			return nil, fmt.Errorf("planner: database count: %w", err)
 		}
 
-		if !used[c.ID] {
+		if !p.DownloadAll && !used[c.ID] {
 			used[c.ID] = true
 			security := c.Security
 			security.Evidence = copyEvidence(security.Evidence)
@@ -205,7 +259,7 @@ func Evaluate(plan Plan, catalogue *pirconfig.Catalogue, requirements Requiremen
 				result.Log2Samples = c.Security.Log2Samples
 			}
 		}
-		if c.Capacity.Status != "verified" || c.EncodingStatus != "supported" {
+		if !p.DownloadAll && (c.Capacity.Status != "verified" || c.EncodingStatus != "supported") {
 			result.Provisional = true
 		}
 	}
@@ -227,6 +281,7 @@ func Evaluate(plan Plan, catalogue *pirconfig.Catalogue, requirements Requiremen
 			return nil, fmt.Errorf("planner: %s cost %d bits exceeds limit %d", limit.name, limit.value, limit.max)
 		}
 	}
+	result.CommunicationRate = float64(plan.RecordBits) / float64(result.Costs.CommunicationBits)
 	result.EffectiveStorageRate = float64(applicationBits) / float64(result.Costs.StorageBits)
 	return result, nil
 }
@@ -276,6 +331,7 @@ type layoutRegion struct {
 	bounds     Database
 	count      uint64
 	sliceWidth uint64
+	rowHeight  uint64
 }
 
 func planRegions(plan Plan, configurations map[string]*pirconfig.Configuration) ([]layoutRegion, error) {
@@ -284,19 +340,48 @@ func planRegions(plan Plan, configurations map[string]*pirconfig.Configuration) 
 	}
 	regions := make([]layoutRegion, 0, len(plan.Databases)+len(plan.RowBlocks))
 	for _, d := range plan.Databases {
-		regions = append(regions, layoutRegion{bounds: d, count: 1, sliceWidth: d.ColumnEnd - d.ColumnStart})
+		regions = append(regions, layoutRegion{bounds: d, count: 1, sliceWidth: d.ColumnEnd - d.ColumnStart, rowHeight: d.RowEnd - d.RowStart})
 	}
 	for _, b := range plan.RowBlocks {
+		if b.DownloadAll {
+			if b.Repeat > 1 {
+				return nil, fmt.Errorf("planner: full-download blocks cannot repeat")
+			}
+			regions = append(regions, layoutRegion{bounds: Database{DownloadAll: true, RowStart: b.RowStart, RowEnd: b.RowEnd, ColumnEnd: plan.RecordBits, ConfigurationID: b.ConfigurationID, Group: b.Group}, count: 1, sliceWidth: plan.RecordBits})
+			continue
+		}
 		c := configurations[b.ConfigurationID]
 		if c == nil {
 			return nil, fmt.Errorf("planner: unknown configuration %q", b.ConfigurationID)
+		}
+		repeat := b.Repeat
+		if repeat == 0 {
+			repeat = 1
+		}
+		if b.RowEnd <= b.RowStart || (b.RowEnd-b.RowStart)%repeat != 0 {
+			return nil, fmt.Errorf("planner: repeated row block requires equal positive heights")
+		}
+		height := (b.RowEnd - b.RowStart) / repeat
+		if height == 0 {
+			return nil, fmt.Errorf("planner: repeated row block height must be positive")
 		}
 		width := uint64(c.Code.S)
 		count := plan.RecordBits / width
 		if plan.RecordBits%width != 0 {
 			count++
 		}
-		regions = append(regions, layoutRegion{bounds: Database{RowStart: b.RowStart, RowEnd: b.RowEnd, ColumnEnd: plan.RecordBits, ConfigurationID: b.ConfigurationID, Group: b.Group}, count: count, sliceWidth: width})
+		count, err := multiply(count, repeat)
+		if err != nil {
+			return nil, err
+		}
+		regions = append(regions, layoutRegion{rowHeight: height, bounds: Database{RowStart: b.RowStart, RowEnd: b.RowEnd, ColumnEnd: plan.RecordBits, ConfigurationID: b.ConfigurationID, Group: b.Group}, count: count, sliceWidth: minWidth(width, plan.RecordBits)})
 	}
 	return regions, nil
+}
+
+func minWidth(a, b uint64) uint64 {
+	if a < b {
+		return a
+	}
+	return b
 }

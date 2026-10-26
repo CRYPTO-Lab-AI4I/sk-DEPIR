@@ -1,8 +1,19 @@
 # Greedy planner: application-size cost grid
 
+This is the **unsliced `Greedy` baseline**, not the later `GreedyApplication` width
+search or full-download policy. Its original computational sources were published in
+commit `8b322b8`; The default grid has since been filtered to at least 5,000 records and regenerated;
+costs for retained scenarios remain unchanged. The original API preserves these
+costs, while current runs have different source hashes and additional result fields.
+
+Default application workloads require **at least 5,000 records**. This report and
+its regenerated results now contain 21 qualifying cases; scenarios below that threshold
+were removed from the grid. This workload filter does not restrict the planner API or
+tiny correctness fixtures. Costs for retained scenarios are unchanged.
+
 ## Sources and reproduction
 
-This experiment calculates logical costs for the agreed 24 application/record-size
+This experiment calculates logical costs for the agreed 21 application/record-size
 combinations. It does not allocate, encode, upload, or retrieve these databases.
 
 - Script: [run.py](run.py); Go driver: [main.go](main.go).
@@ -85,12 +96,9 @@ integer bit counts.
 |---|---|---:|---:|---:|---:|
 | 1 GB | 1 KB | 9.446 | 11.011 | 5.505 | 10.587% |
 | 1 GB | 10 KB | 10.486 | 23.020 | 11.510 | 9.537% |
-| 1 GB | 1 MB | 65.536 | 766.000 | 383.000 | 1.526% |
-| 1 GB | 10 MB | 655.360 | 7,660.000 | 3,830.000 | 0.153% |
 | 20 GB | 1 KB | 134.352 | 33.309 | 16.655 | 14.886% |
 | 20 GB | 10 KB | 173.679 | 117.685 | 58.842 | 11.516% |
 | 20 GB | 1 MB | 327.680 | 2,044.000 | 1,022.000 | 6.104% |
-| 20 GB | 10 MB | 655.360 | 7,660.000 | 3,830.000 | 3.052% |
 | 50 GB | 1 KB | 268.704 | 33.055 | 16.528 | 18.608% |
 | 50 GB | 10 KB | 439.767 | 340.272 | 170.136 | 11.370% |
 | 50 GB | 1 MB | 786.432 | 3,834.000 | 1,917.000 | 6.358% |
@@ -110,13 +118,9 @@ integer bit counts.
 
 ## Interpretation and limitations
 
-Large records create many parallel PIR databases. Compact metadata makes the
-planning computation manageable but does not remove their communication. For
-example, a 1 GB database of 10 MB records has only 100 rows; the smallest eligible
-configuration has estimated capacity 3,117 rows. Its ten million column slices
-therefore incur substantial zero-row padding: modeled storage is 655.36 GB, upload
-7.66 GB, and download 3.83 GB per retrieval. The identical cost for 20 GB with
-10 MB records results from fitting into that same single row-block configuration.
+Large records create many parallel PIR databases. Compact metadata makes planning
+manageable but does not remove their communication. Padding within supported code
+capacities can still increase storage and communication for the retained workloads.
 
 Storage-first ranking can prefer a small storage saving despite substantially
 higher communication. Padding boundaries and configuration changes can also make

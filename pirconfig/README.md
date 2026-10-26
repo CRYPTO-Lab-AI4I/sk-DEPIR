@@ -115,4 +115,10 @@ Schema validation checks document structure and status-dependent requirements;
 the Go loader additionally checks mathematical consistency. Neither is an encoder
 registry. The [plan evaluator](../planner/README.md) consumes this catalogue for
 capacity checks, cost calculations, and copied provenance. The [greedy planner](../planner/README.md#greedy-planning)
-selects row-block plans from known capacities. Target-size encoding remains to be implemented. See the [planner design](../docs/parameter-planning.md).
+selects row-block plans from known capacities, with application logical-width search
+and optional ratio-bounded full-download suffixes. Target-size encoding remains to be implemented. See the [planner design](../docs/parameter-planning.md).
+
+The [bounded tradeoff search](../planner/README.md#storage-and-communication-tradeoffs)
+uses the same catalogue evidence and returns storage/communication alternatives with
+approximation flags. Communication rate is requested record bits divided by total
+upload plus download per lookup.

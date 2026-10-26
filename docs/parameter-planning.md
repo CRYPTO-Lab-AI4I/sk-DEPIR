@@ -4,7 +4,8 @@ The proposed planner selects code parameters and an [input layout](data-represen
 together. It is separate from the [application encoder](encoder-contract.md#application-encoding):
 it produces plans, not encoded data. The [PIR configuration catalogue and loader](../pirconfig/README.md)
 and [supplied-plan evaluator](../planner/README.md) are implemented. Automatic
-partition selection is implemented as a [greedy heuristic](../planner/README.md#greedy-planning).
+partition search includes [bounded tradeoff search](../planner/README.md#storage-and-communication-tradeoffs)
+and a [single-choice greedy heuristic](../planner/README.md#greedy-planning).
 No default field has been selected; the initial security profile is specified below.
 Development order is in [ROADMAP.md](../ROADMAP.md#implementation-sequence).
 
@@ -13,16 +14,18 @@ Development order is in [ROADMAP.md](../ROADMAP.md#implementation-sequence).
 **Inputs:** application-record count and size, desired security level, and optional
 limits on encoded storage and upload/download.
 
-**Objective:** choose a [partition into PIR databases](data-representation.md) that
-minimizes total encoded storage while meeting the desired security level and storage
-and communication limits. Use total communication to break ties, and report alternatives when storage and
-communication trade off.
+**Objective:** find storage–communication tradeoffs for [partitions into PIR databases](data-representation.md)
+that meet the security and any supplied cost limits. Retain nondominated alternatives:
+none should have both higher storage and higher total communication than another
+feasible candidate. Users can inspect choices before setting communication limits.
+The single-choice greedy API instead minimizes storage with communication as a tie-break.
 
 **Output:** one or more partition plans. Each contains the submatrix partition, a
-configuration for each PIR database drawn from the [configuration
+configuration for each encoded PIR database drawn from the [configuration
 catalogue](#configuration-catalogue), [query-sharing
 groups](data-representation.md#query-sharing-groups) (databases using one query), the
-effective storage rate (application bits divided by stored bits), and storage and
+effective storage rate (application bits divided by stored bits), communication rate
+(requested application-record bits divided by upload plus download per lookup), and storage and
 communication costs. Optional encoding-time and memory estimates are informational
 outputs only: they do not affect eligibility, ranking, or tie-breaking between
 partitions. Distinguish estimates, exact calculations, and measured results,
@@ -130,8 +133,9 @@ representation](data-representation.md). The single-database read/response model
 from [Figure 5](../paper.pdf#page=33); the sums below account for the library's
 partitioned layout.
 
-Let the application matrix contain `n` records of `A` bits each. For each PIR database
-`d`, define:
+Let the application matrix contain `n` records of `A` bits each. The following sums
+first describe the identity logical layout; split/stack adjustments follow below.
+For each encoded PIR database `d`, define:
 
 | Symbol | Meaning |
 |---|---|
@@ -154,6 +158,14 @@ tightly packed field elements, and explicit-address queries:
 | Total encoded storage `S` | `sum_d N_d*s_d` |
 | Download per application-record retrieval `D` | `sum_g L_g * sum_(d in g) s_d` |
 | Upload per application-record retrieval `U` | `sum_g J_g*L_g*ceil(log2(N_g))` |
+
+With logical width `W`, let `f=ceil(A/W)`. Apply the sums to the logical matrix
+`(n*f) x W` to obtain indexed storage `S_P`, upload `U_P`, and download `D_P` per
+logical lookup. If full-download pieces contain `T` bits in total, costs per original
+application lookup are `S=S_P+T`, `U=f*U_P`, and `D=f*D_P+T`.
+Full pieces have identity storage and no index-dependent upload; fixed read descriptors
+and framing remain excluded. Fetch them once per original lookup. The partition area
+is `n*f*W`, but the rate numerator remains `n*A`, excluding fragment padding.
 
 The effective storage rate is `n*A/S`; unlike catalogue code rate `K/N`, it includes
 partitioning and padding. Download counts every database, including irrelevant
@@ -204,20 +216,90 @@ The evaluator counts every database and query copy without expanding them. Gener
 explicit partitions remain supported. Homogeneous row blocks simplify grouping by
 configuration ID but restrict the search space. No global or row-block optimality
 is claimed; `ErrNoPlan` means no feasible completion was found by this heuristic.
-The [cost-grid report](../experiments/greedy-costs/report.md) records its current costs.
+The [cost-grid report](../experiments/greedy-costs/report.md) records the unsliced baseline costs.
 
 The broader selection procedure below describes possible future search strategies.
+
+## Application width search
+
+`GreedyApplication` tries the original width plus requested logical widths, or, by
+default, all catalogue field widths and powers of two starting at 8 bits up to the
+original width. For each width it runs the same row-block heuristic, charging indexed
+traffic for all fragments. Choose minimum storage, then total communication, then
+larger width for exact ties. This expands the search without arbitrary rearrangement
+or an optimality guarantee. `EvaluateApplication` validates the mapping and costs.
+
+Full-download suffixes are opt-in through `AllowFullDownload`. Set
+`FullDownloadRatio` to bound their aggregate bits by a multiple of download from the
+encoded parts, per original lookup. Zero selects the default **1**: added full-download
+traffic cannot exceed encoded download. If there are no encoded parts, compare with
+the indexed-only largest-fitting baseline for that width instead. A baseline is required.
+Additionally cap full-download bits against `FullDownloadRatio` times the lowest
+indexed download among no-full greedy plans over **all** searched widths, including
+the original width. Compute this common reference using the security requirements
+but without cost budgets, so changing width cannot inflate its own allowance.
+`MaxFullDownloadBits` optionally adds an absolute cap; storage/upload/download budgets
+still apply. Thus unrestricted identity storage cannot automatically win on storage.
+The heuristic considers at most one terminal full-download row block, not arbitrary
+collections of full pieces. Ratio checks constrain selection, not supplied-plan validity.
+
+The `2^50` limit counts protocol queries. With `f` fragments, each indexed group uses
+`f` queries per application lookup, so at most `floor(2^50/f)` such lookups fit that
+sample budget. Full-only layouts need no indexed-query security profile.
+No new execution backend or large-instance support is implied by these planner APIs.
+
+## Bounded tradeoff search
+
+[`SearchTradeoffs`](../planner/README.md#storage-and-communication-tradeoffs) processes
+configurations in descending capacity order. Choose a batch of full blocks for each
+configuration, then pass remaining rows to smaller configurations. This removes
+redundant permutations of disjoint full blocks without discarding small residual codes.
+A final padded block may use any configuration, or the suffix may be downloaded whole.
+
+Prune only plans with the same remaining rows at the same configuration stage.
+Default limits are 32 frontier points, 256 total live partial plans per stage, 8 count
+choices per transition, and 256 constructed blocks per greedy baseline. If all count
+choices fit, enumerate them; otherwise sample zero, one, filling counts and powers
+of two near either endpoint. State overflow samples remaining-row keys and cost endpoints.
+Repeated blocks have compact metadata, but every physical database still contributes
+storage and traffic. See the API guide for validation and precise limit semantics.
+
+The result reports frontier, state, count and baseline truncation. There is no row-boundary
+admission cap in this search. Approximation can miss better or feasible plans; no global
+or multiplicative guarantee is claimed. Completed feasible baselines bypass lossy
+reduction and retain equal-or-better witnesses. Output and display targets may be
+exceeded to preserve them. The [tradeoff report](../experiments/tradeoff-costs/report.md)
+records the revised method and retains the previous boundary-search results for comparison.
+
+Communication rate is `A/(U+D)` for one original record of `A` bits; higher is better.
+It is not `(U+D)/A`, and not communication divided by total database size. Whole-database
+download of `n` records has rate `1/n`. Present rate alongside actual per-lookup bytes,
+storage, and approximation flags rather than requiring a rate constraint upfront.
+
+## Cost-indexed DP alternative
+
+[`SearchDPCosts`](../planner/README.md#cost-indexed-dynamic-programming) instead records
+maximum row coverage by rounded storage/communication coordinates. Binary groups
+represent all full-block multiplicities, followed by an exact padded or full-download
+completion. This changes the search approximation, not layout semantics or cost formulas.
+
+DP uses explicit per-width numerical windows, with a grid per communication scale.
+Results retain exact bits, grid units and item/transition counts. Defaults are 64 cells
+per axis; the [dp-costs report](../experiments/dp-costs/report.md) uses 128. Cost rounding
+and finite exploration windows can still miss superior plans; an item-wise additive
+rounding bound is not a global approximation theorem. Completed greedy witnesses stay
+protected. Separate upload/download budgets are rejected in the initial two-cost API.
 
 ## Selection procedure and output
 
 1. Enumerate catalogue configurations, submatrix partitions, and query-sharing
    groups. Check the [grouping conditions](data-representation.md#query-sharing-groups)
-   for every application row before accepting the query-sharing groups. Reject
+   for every logical row before accepting the query-sharing groups. Reject
    layouts that fail coverage, capacity, compatibility, the desired security
    level, or storage and communication limits; label estimate-based plans provisional.
 2. Compute total storage and communication. Remove choices that are no better
-   in either metric and worse in at least one. Rank the remaining plans by the
-   stated objective.
+   in either metric and worse in at least one. Return the remaining tradeoffs; apply a storage-first ranking only after
+   the caller selects communication constraints or explicitly requests that policy.
 3. Optionally attach encoding-time and memory estimates from existing measurements
    to the selected plans, without changing the selection. Separate reusable code
    setup from per-database encoding and state whether setup is already available.

@@ -38,6 +38,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 2256,
         "costs": {
           "application_bits": 8000000000,
@@ -46,6 +47,7 @@
           "download_bits": 44042800,
           "communication_bits": 132128400
         },
+        "communication_rate": 6.054716472764372e-05,
         "effective_storage_rate": 0.10586970652822492,
         "security_bits": 100,
         "log2_samples": 50,
@@ -137,6 +139,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 8000,
         "costs": {
           "application_bits": 8000000000,
@@ -145,6 +148,7 @@
           "download_bits": 92080000,
           "communication_bits": 276240000
         },
+        "communication_rate": 0.0002896032435563278,
         "effective_storage_rate": 0.095367431640625,
         "security_bits": 100,
         "log2_samples": 50,
@@ -166,138 +170,6 @@
                   "confidence": 0.9992307692307693,
                   "lower_rate": 0.09715316532156491,
                   "upper_rate": 0.10111883467843509
-                }
-              }
-            ],
-            "security": {
-              "computational_bits": 100,
-              "log2_samples": 50,
-              "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
-              "evidence": [
-                {
-                  "kind": "analytical",
-                  "reference": "experiments/bounded-sample-parameters/report.md",
-                  "script": "experiments/bounded-sample-parameters/run.py",
-                  "results": "experiments/bounded-sample-parameters/results.csv"
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "application_bytes": 1000000000,
-      "record_bytes": 1000000,
-      "plan": {
-        "format_version": 1,
-        "rows": 1000,
-        "record_bits": 8000000,
-        "row_blocks": [
-          {
-            "row_start": 0,
-            "row_end": 1000,
-            "configuration_id": "binary-s08-m2-t8",
-            "group": 0
-          }
-        ]
-      },
-      "evaluation": {
-        "database_count": 1000000,
-        "costs": {
-          "application_bits": 8000000000,
-          "storage_bits": 524288000000,
-          "upload_bits": 6128000000,
-          "download_bits": 3064000000,
-          "communication_bits": 9192000000
-        },
-        "effective_storage_rate": 0.0152587890625,
-        "security_bits": 100,
-        "log2_samples": 50,
-        "provisional": true,
-        "configurations": [
-          {
-            "id": "binary-s08-m2-t8",
-            "capacity_status": "estimated",
-            "encoding_status": "candidate",
-            "capacity_evidence": [
-              {
-                "kind": "monte_carlo",
-                "reference": "experiments/liftrs-rates/report.md",
-                "script": "experiments/liftrs-rates/run.py",
-                "results": "experiments/liftrs-rates/results.json",
-                "method": "Uniform exponent tuples with replacement; exact binary-carry monomial test. Go math/rand.NewSource with the per-code seed in results.json. Two-sided Hoeffding interval; 99% simultaneous confidence across all 13 configurations under the independent uniform sampling model. Point capacity k=round(n*good/samples).",
-                "monte_carlo": {
-                  "samples": 1000000,
-                  "confidence": 0.9992307692307693,
-                  "lower_rate": 0.045582165321564914,
-                  "upper_rate": 0.04954783467843509
-                }
-              }
-            ],
-            "security": {
-              "computational_bits": 100,
-              "log2_samples": 50,
-              "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
-              "evidence": [
-                {
-                  "kind": "analytical",
-                  "reference": "experiments/bounded-sample-parameters/report.md",
-                  "script": "experiments/bounded-sample-parameters/run.py",
-                  "results": "experiments/bounded-sample-parameters/results.csv"
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "application_bytes": 1000000000,
-      "record_bytes": 10000000,
-      "plan": {
-        "format_version": 1,
-        "rows": 100,
-        "record_bits": 80000000,
-        "row_blocks": [
-          {
-            "row_start": 0,
-            "row_end": 100,
-            "configuration_id": "binary-s08-m2-t8",
-            "group": 0
-          }
-        ]
-      },
-      "evaluation": {
-        "database_count": 10000000,
-        "costs": {
-          "application_bits": 8000000000,
-          "storage_bits": 5242880000000,
-          "upload_bits": 61280000000,
-          "download_bits": 30640000000,
-          "communication_bits": 91920000000
-        },
-        "effective_storage_rate": 0.00152587890625,
-        "security_bits": 100,
-        "log2_samples": 50,
-        "provisional": true,
-        "configurations": [
-          {
-            "id": "binary-s08-m2-t8",
-            "capacity_status": "estimated",
-            "encoding_status": "candidate",
-            "capacity_evidence": [
-              {
-                "kind": "monte_carlo",
-                "reference": "experiments/liftrs-rates/report.md",
-                "script": "experiments/liftrs-rates/run.py",
-                "results": "experiments/liftrs-rates/results.json",
-                "method": "Uniform exponent tuples with replacement; exact binary-carry monomial test. Go math/rand.NewSource with the per-code seed in results.json. Two-sided Hoeffding interval; 99% simultaneous confidence across all 13 configurations under the independent uniform sampling model. Point capacity k=round(n*good/samples).",
-                "monte_carlo": {
-                  "samples": 1000000,
-                  "confidence": 0.9992307692307693,
-                  "lower_rate": 0.045582165321564914,
-                  "upper_rate": 0.04954783467843509
                 }
               }
             ],
@@ -341,6 +213,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 1232,
         "costs": {
           "application_bits": 160000000000,
@@ -349,6 +222,7 @@
           "download_bits": 133237104,
           "communication_bits": 399711312
         },
+        "communication_rate": 2.0014444825119185e-05,
         "effective_storage_rate": 0.14886274918928727,
         "security_bits": 100,
         "log2_samples": 50,
@@ -425,6 +299,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 34445,
         "costs": {
           "application_bits": 160000000000,
@@ -433,6 +308,7 @@
           "download_bits": 470738170,
           "communication_bits": 1412214510
         },
+        "communication_rate": 5.664861777974509e-05,
         "effective_storage_rate": 0.11515506650808319,
         "security_bits": 100,
         "log2_samples": 50,
@@ -568,6 +444,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 1888889,
         "costs": {
           "application_bits": 160000000000,
@@ -576,6 +453,7 @@
           "download_bits": 8176000639,
           "communication_bits": 24528001917
         },
+        "communication_rate": 0.00032615783491338185,
         "effective_storage_rate": 0.06103515014648499,
         "security_bits": 100,
         "log2_samples": 50,
@@ -651,72 +529,6 @@
       }
     },
     {
-      "application_bytes": 20000000000,
-      "record_bytes": 10000000,
-      "plan": {
-        "format_version": 1,
-        "rows": 2000,
-        "record_bits": 80000000,
-        "row_blocks": [
-          {
-            "row_start": 0,
-            "row_end": 2000,
-            "configuration_id": "binary-s08-m2-t8",
-            "group": 0
-          }
-        ]
-      },
-      "evaluation": {
-        "database_count": 10000000,
-        "costs": {
-          "application_bits": 160000000000,
-          "storage_bits": 5242880000000,
-          "upload_bits": 61280000000,
-          "download_bits": 30640000000,
-          "communication_bits": 91920000000
-        },
-        "effective_storage_rate": 0.030517578125,
-        "security_bits": 100,
-        "log2_samples": 50,
-        "provisional": true,
-        "configurations": [
-          {
-            "id": "binary-s08-m2-t8",
-            "capacity_status": "estimated",
-            "encoding_status": "candidate",
-            "capacity_evidence": [
-              {
-                "kind": "monte_carlo",
-                "reference": "experiments/liftrs-rates/report.md",
-                "script": "experiments/liftrs-rates/run.py",
-                "results": "experiments/liftrs-rates/results.json",
-                "method": "Uniform exponent tuples with replacement; exact binary-carry monomial test. Go math/rand.NewSource with the per-code seed in results.json. Two-sided Hoeffding interval; 99% simultaneous confidence across all 13 configurations under the independent uniform sampling model. Point capacity k=round(n*good/samples).",
-                "monte_carlo": {
-                  "samples": 1000000,
-                  "confidence": 0.9992307692307693,
-                  "lower_rate": 0.045582165321564914,
-                  "upper_rate": 0.04954783467843509
-                }
-              }
-            ],
-            "security": {
-              "computational_bits": 100,
-              "log2_samples": 50,
-              "assumptions": "Paper Conjecture 6.1, bounded-sample setting with distinguishing advantage 1/e; documented masking and query rules. Not implementation security validation.",
-              "evidence": [
-                {
-                  "kind": "analytical",
-                  "reference": "experiments/bounded-sample-parameters/report.md",
-                  "script": "experiments/bounded-sample-parameters/run.py",
-                  "results": "experiments/bounded-sample-parameters/results.csv"
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
       "application_bytes": 50000000000,
       "record_bytes": 1000,
       "plan": {
@@ -733,6 +545,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 572,
         "costs": {
           "application_bits": 400000000000,
@@ -741,6 +554,7 @@
           "download_bits": 132220088,
           "communication_bits": 396660264
         },
+        "communication_rate": 2.016839276847756e-05,
         "effective_storage_rate": 0.1860784364866091,
         "security_bits": 100,
         "log2_samples": 50,
@@ -859,6 +673,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 92547,
         "costs": {
           "application_bits": 400000000000,
@@ -867,6 +682,7 @@
           "download_bits": 1361088751,
           "communication_bits": 4083266253
         },
+        "communication_rate": 1.9592158591476497e-05,
         "effective_storage_rate": 0.11369667940230144,
         "security_bits": 100,
         "log2_samples": 50,
@@ -1074,6 +890,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 2666667,
         "costs": {
           "application_bits": 400000000000,
@@ -1082,6 +899,7 @@
           "download_bits": 15336001917,
           "communication_bits": 46008005751
         },
+        "communication_rate": 0.00017388278125543655,
         "effective_storage_rate": 0.06357827981313169,
         "security_bits": 100,
         "log2_samples": 50,
@@ -1146,6 +964,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 20000000,
         "costs": {
           "application_bits": 400000000000,
@@ -1154,6 +973,7 @@
           "download_bits": 61280000000,
           "communication_bits": 183840000000
         },
+        "communication_rate": 0.0004351610095735422,
         "effective_storage_rate": 0.03814697265625,
         "security_bits": 100,
         "log2_samples": 50,
@@ -1218,6 +1038,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 1144,
         "costs": {
           "application_bits": 800000000000,
@@ -1226,6 +1047,7 @@
           "download_bits": 264440176,
           "communication_bits": 793320528
         },
+        "communication_rate": 1.008419638423878e-05,
         "effective_storage_rate": 0.1860784364866091,
         "security_bits": 100,
         "log2_samples": 50,
@@ -1284,6 +1106,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 6154,
         "costs": {
           "application_bits": 800000000000,
@@ -1292,6 +1115,7 @@
           "download_bits": 665536638,
           "communication_bits": 1996609914
         },
+        "communication_rate": 4.006791684196756e-05,
         "effective_storage_rate": 0.14900788674130802,
         "security_bits": 100,
         "log2_samples": 50,
@@ -1350,6 +1174,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 800000,
         "costs": {
           "application_bits": 800000000000,
@@ -1358,6 +1183,7 @@
           "download_bits": 9208000000,
           "communication_bits": 27624000000
         },
+        "communication_rate": 0.0002896032435563278,
         "effective_storage_rate": 0.095367431640625,
         "security_bits": 100,
         "log2_samples": 50,
@@ -1434,6 +1260,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 40000000,
         "costs": {
           "application_bits": 800000000000,
@@ -1442,6 +1269,7 @@
           "download_bits": 122560000000,
           "communication_bits": 367680000000
         },
+        "communication_rate": 0.0002175805047867711,
         "effective_storage_rate": 0.03814697265625,
         "security_bits": 100,
         "log2_samples": 50,
@@ -1554,6 +1382,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 7068,
         "costs": {
           "application_bits": 4000000000000,
@@ -1562,6 +1391,7 @@
           "download_bits": 811836871,
           "communication_bits": 2435510613
         },
+        "communication_rate": 3.284732144995995e-06,
         "effective_storage_rate": 0.19899651970372517,
         "security_bits": 100,
         "log2_samples": 50,
@@ -1866,6 +1696,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 5715,
         "costs": {
           "application_bits": 4000000000000,
@@ -1874,6 +1705,7 @@
           "download_bits": 1321045110,
           "communication_bits": 3963135330
         },
+        "communication_rate": 2.0186037906507726e-05,
         "effective_storage_rate": 0.1862412347687496,
         "security_bits": 100,
         "log2_samples": 50,
@@ -1950,6 +1782,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 3393940,
         "costs": {
           "application_bits": 4000000000000,
@@ -1958,6 +1791,7 @@
           "download_bits": 32736008442,
           "communication_bits": 98208025326
         },
+        "communication_rate": 8.145973787217618e-05,
         "effective_storage_rate": 0.10038673646563448,
         "security_bits": 100,
         "log2_samples": 50,
@@ -2061,6 +1895,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 26666667,
         "costs": {
           "application_bits": 4000000000000,
@@ -2069,6 +1904,7 @@
           "download_bits": 153360001917,
           "communication_bits": 460080005751
         },
+        "communication_rate": 0.0001738828008172492,
         "effective_storage_rate": 0.06357828696568808,
         "security_bits": 100,
         "log2_samples": 50,
@@ -2217,6 +2053,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 12400,
         "costs": {
           "application_bits": 8000000000000,
@@ -2225,6 +2062,7 @@
           "download_bits": 942304454,
           "communication_bits": 2826913362
         },
+        "communication_rate": 2.8299416980859e-06,
         "effective_storage_rate": 0.21070264458880056,
         "security_bits": 100,
         "log2_samples": 50,
@@ -2525,6 +2363,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 11430,
         "costs": {
           "application_bits": 8000000000000,
@@ -2533,6 +2372,7 @@
           "download_bits": 2642090220,
           "communication_bits": 7926270660
         },
+        "communication_rate": 1.0093018953253863e-05,
         "effective_storage_rate": 0.1862412347687496,
         "security_bits": 100,
         "log2_samples": 50,
@@ -2603,6 +2443,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 2254546,
         "costs": {
           "application_bits": 8000000000000,
@@ -2611,6 +2452,7 @@
           "download_bits": 44008013050,
           "communication_bits": 132024039150
         },
+        "communication_rate": 6.059502535678935e-05,
         "effective_storage_rate": 0.10596377761276857,
         "security_bits": 100,
         "log2_samples": 50,
@@ -2702,6 +2544,7 @@
         ]
       },
       "evaluation": {
+        "full_download_only": false,
         "database_count": 8000000,
         "costs": {
           "application_bits": 8000000000000,
@@ -2710,6 +2553,7 @@
           "download_bits": 92080000000,
           "communication_bits": 276240000000
         },
+        "communication_rate": 0.0002896032435563278,
         "effective_storage_rate": 0.095367431640625,
         "security_bits": 100,
         "log2_samples": 50,
@@ -2753,19 +2597,20 @@
     }
   ],
   "experiment": {
-    "timestamp_utc": "2026-10-26T17:09:12.572536+00:00",
-    "base_revision": "e559398b4544eb0b826289a83e92cbdf85f09443",
+    "timestamp_utc": "2026-10-26T19:01:33.579061+00:00",
+    "minimum_application_records": 5000,
+    "base_revision": "8b322b83ddd566a2becd2b38d59793b26d91678d",
     "working_tree_dirty": true,
     "source_sha256": {
       "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
       "go.sum": "6b5b9bf04b57c04dc22dc13596e0c5862856f95c24ca23931bb0545736f6ef76",
-      "planner/evaluate.go": "908588bc10d711098eb8266a1707dd54f96675d818cf981a898c04ae6b23f0c5",
-      "planner/costs.go": "1428502f124e2acd97f42a571df00e409fdfb92458a7ff142d6e05c22f17d490",
-      "planner/greedy.go": "1e6a4677195e1927c5edc9305e82ed36c7f5ec1eacea67025ae7f9148603061d",
+      "planner/evaluate.go": "735728b4c7efdb4aa1e0adc0f849f8dc0ccccd86cffa1f0c48b16a3c264f977e",
+      "planner/costs.go": "a0de414986cd62882d48e7f0a084292bb0b74928687170880df87466887f2e6b",
+      "planner/greedy.go": "060f2c043f865887822870233b4c88f5126aecb2982f0368aaa26225bde306ed",
       "pirconfig/catalogue.go": "9eb849c0607b12b9bea5454b3a3387d5302dfbf64c1207c32ebe4fd9b6de14d3",
       "pirconfig/json.go": "836a3fb6ed819ee4ca73b3038dd9828bc5a911f26932f358bb4c4f4b70edd5e6",
-      "experiments/greedy-costs/main.go": "4dc81e5164f8dcbbbe7407f6c7fabd9f9fe71bc47a9501573ba7b6ce1234cdd4",
-      "experiments/greedy-costs/run.py": "96882401d3bc791400788d8b40dbfd2414467b563f4245a898abac794a8300fa"
+      "experiments/greedy-costs/main.go": "d9dab615c949c07229fcbd6e581553638af7154fcf7f12e2976f1dab91e047ab",
+      "experiments/greedy-costs/run.py": "1febebfabb725a098894b06021192a12cb1ac4d8d18e9cf6be0a1f33802f753d"
     },
     "input": "experiments/greedy-costs/pir-configs.json",
     "catalogue_sha256": "5c9eab0ec0866e5068ec659383d72e6f1d1b8b78f72c78ac72df5f3fa50c877e",

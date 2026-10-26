@@ -163,3 +163,24 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-26 13:07 | PLAN-005 | Started | [Greedy partitioner and application-size cost grid](2026-10-26-1307-codex-plan-005-started.md) |
 | 2026-10-26 17:14 | PLAN-005 | Completed | [Greedy planner and requested cost grid verified](2026-10-26-1714-codex-plan-005-completed.md) |
 | 2026-10-26 17:27 | PLAN-006 | Started | [Publish greedy planner checkpoint](2026-10-26-1727-codex-plan-006-started.md) |
+| 2026-10-26 17:28 | PLAN-006 | Completed | [Greedy checkpoint committed and pushed](2026-10-26-1728-codex-plan-006-completed.md) |
+| 2026-10-26 17:28 | PLAN-007 | Started | [Logical record slicing and full-download pieces](2026-10-26-1728-codex-plan-007-started.md) |
+| 2026-10-26 17:47 | PLAN-007 | Completed | [Logical width search and bounded full downloads verified](2026-10-26-1747-codex-plan-007-completed.md) |
+| 2026-10-26 17:50 | EXP-003 | Started | [Run updated application planning grid](2026-10-26-1750-codex-exp-003-started.md) |
+| 2026-10-26 17:53 | PLAN-008 | Started | [Correct full-download comparison across logical widths](2026-10-26-1753-codex-plan-008-started.md) |
+| 2026-10-26 17:55 | PLAN-008 | Completed | [Shared download reference corrected and tested](2026-10-26-1755-codex-plan-008-completed.md) |
+| 2026-10-26 17:55 | EXP-003 | Completed | [Updated 24-case grid reproduced with corrected limits](2026-10-26-1755-codex-exp-003-completed.md) |
+| 2026-10-26 18:17 | PLAN-009 | Started | [Bounded storage/communication tradeoff search](2026-10-26-1817-codex-plan-009-started.md) |
+| 2026-10-26 18:23 | EXP-004 | Started | [Bounded tradeoffs for the 24 application specifications](2026-10-26-1823-codex-exp-004-started.md) |
+| 2026-10-26 18:26 | PLAN-009 | Completed | [Bounded tradeoff search and communication rate verified](2026-10-26-1826-codex-plan-009-completed.md) |
+| 2026-10-26 18:26 | EXP-004 | Completed | [Tradeoffs for all 24 specifications reproduced](2026-10-26-1826-codex-exp-004-completed.md) |
+| 2026-10-26 18:39 | PLAN-010 | Started | [Protect greedy baselines and display witnesses](2026-10-26-1839-codex-plan-010-started.md) |
+| 2026-10-26 18:43 | PLAN-010 | Completed | [Baseline and display non-regression verified for all 24 cases](2026-10-26-1843-codex-plan-010-completed.md) |
+| 2026-10-26 18:59 | EXP-005 | Started | [Filter default application workloads to at least 5,000 records](2026-10-26-1859-codex-exp-005-started.md) |
+| 2026-10-26 19:01 | EXP-005 | Completed | [Default grids and reports filtered to at least 5,000 records](2026-10-26-1901-codex-exp-005-completed.md) |
+| 2026-10-26 20:14 | PLAN-011 | Started | [Capacity-ordered batched search and updated cost grid](2026-10-26-2014-codex-plan-011-started.md) |
+| 2026-10-26 20:23 | PLAN-011 | Completed | [Batched search, compact repetitions, and updated grid verified](2026-10-26-2023-codex-plan-011-completed.md) |
+| 2026-10-26 20:30 | PLAN-012 | Started | [Cost-grid DP and separate dp-costs experiment](2026-10-26-2030-codex-plan-012-started.md) |
+| 2026-10-26 20:41 | PLAN-012 | Completed | [Independent cost-grid DP and 21-case comparison verified](2026-10-26-2041-codex-plan-012-completed.md) |
+| 2026-10-26 21:06 | PLAN-013 | Started | [Publish planner and cost-DP checkpoint](2026-10-26-2106-codex-plan-013-started.md) |
+| 2026-10-26 21:07 | PLAN-013 | Completed | [Checkpoint verified for commit and push](2026-10-26-2107-codex-plan-013-completed.md) |

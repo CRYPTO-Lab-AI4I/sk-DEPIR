@@ -29,6 +29,10 @@ type results struct {
 	Scenarios    []scenario           `json:"scenarios"`
 }
 
+// Minimum workload size for the default application cost grid; correctness fixtures
+// and the planner API remain able to handle smaller inputs.
+const minApplicationRecords uint64 = 5000
+
 func main() {
 	path := flag.String("catalogue", "experiments/greedy-costs/pir-configs.json", "fixed catalogue snapshot")
 	flag.Parse()
@@ -52,6 +56,9 @@ func run(path string) error {
 	output := results{Version: 1, Units: "Decimal GB=10^9 bytes, TB=10^12 bytes; KB=10^3 bytes, MB=10^6 bytes. Costs are logical bits; upload/download are per application-record retrieval.", GoVersion: runtime.Version(), GOOS: runtime.GOOS, GOARCH: runtime.GOARCH, Requirements: requirements}
 	for _, size := range []uint64{1_000_000_000, 20_000_000_000, 50_000_000_000, 100_000_000_000, 500_000_000_000, 1_000_000_000_000} {
 		for _, record := range []uint64{1000, 10000, 1000000, 10000000} {
+			if size/record < minApplicationRecords {
+				continue
+			}
 			if size%record != 0 {
 				return fmt.Errorf("application size is not divisible by record size")
 			}

@@ -36,14 +36,23 @@ preprocessing](#code-preprocessing) and check the plan against its verified capa
 If an empirical capacity estimate does not fit, report the mismatch; do not silently
 change the plan or select another one.
 
-Extract the planned submatrices and identify them by their application coordinates. For
-each submatrix, append zero rows and columns to the selected PIR dimensions and convert
+First apply the plan's [logical record mapping](data-representation.md#logical-record-layout),
+if present: split records into fragments, stack them as logical rows, and zero-pad
+final fragments. Extract the planned submatrices and identify them by logical
+coordinates scoped to the plan. The current reference accepts direct layouts; it
+does not automatically execute `ApplicationPlan` reshaping or full-download entries.
+For each encoded submatrix, append zero rows and columns to the selected PIR dimensions and convert
 each row into a field element using the [representation
 conventions](data-representation.md#pir-record-representation). Pass the resulting
 message to the non-cryptographic encoder, then pass its codeword to the cryptographic
 encoder. Supply shared permutation keys and separate masking keys according to the
 [representation rules](data-representation.md#encoding). The application encoder
 executes the selected layout; it does not optimize the partition.
+
+Full-download pieces bypass code preprocessing and Lift-RS expansion. Store their
+matrix bits without expansion, using separate mask material where masked storage is
+required; no secret permutation is needed. This specifies the boundary, not an
+implemented full-download cryptographic suite.
 
 Each PIR encoder processes one PIR database and knows nothing about application matrix
 boundaries or the other submatrices. Application-level query orchestration and
