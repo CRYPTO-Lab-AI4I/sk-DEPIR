@@ -1,0 +1,83 @@
+File: bench-47aa849206f1f53f
+Type: cpu
+Time: 2026-10-28 22:47:16 CET
+Duration: 156.65s, Total samples = 145.75s (93.04%)
+Showing nodes accounting for 145.30s, 99.69% of 145.75s total
+Dropped 41 nodes (cum <= 0.73s)
+----------------------------------------------------------+-------------
+      flat  flat%   sum%        cum   cum%   calls calls% + context 	 	 
+----------------------------------------------------------+-------------
+                                           143.04s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_apply
+   143.04s 98.14% 98.14%    143.04s 98.14%                | runtime.cgocall
+----------------------------------------------------------+-------------
+                                             1.21s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.QuadraticField.Mul (inline)
+     1.20s  0.82% 98.96%      1.21s  0.83%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.BinaryField.Mul
+----------------------------------------------------------+-------------
+                                           145.32s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*CPPCyclicEncoder).EncodeWithStats
+     0.58s   0.4% 99.36%    145.32s 99.70%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*CyclicEncoder).Encode
+                                            83.40s 57.39% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).apply
+                                            60.65s 41.74% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.polyMulLow
+                                             0.69s  0.47% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.orbitField.mul
+----------------------------------------------------------+-------------
+                                             1.55s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.orbitField.mul
+     0.33s  0.23% 99.59%      1.55s  1.06%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.QuadraticField.Mul
+                                             1.21s 78.06% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.BinaryField.Mul (inline)
+----------------------------------------------------------+-------------
+                                                1s 59.17% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*polynomialProducts).multiply
+                                             0.69s 40.83% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*CyclicEncoder).Encode
+     0.14s 0.096% 99.68%      1.69s  1.16%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.orbitField.mul
+                                             1.55s 91.72% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.QuadraticField.Mul
+----------------------------------------------------------+-------------
+                                            60.65s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.polyMulLow
+     0.01s 0.0069% 99.69%     60.65s 41.61%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*polynomialProducts).multiply
+                                            59.64s 98.33% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).applySubspace
+                                                1s  1.65% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.orbitField.mul
+----------------------------------------------------------+-------------
+                                           143.04s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*meteredCPP).apply
+         0     0% 99.69%    143.04s 98.14%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply
+                                           143.04s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply.func1 (inline)
+----------------------------------------------------------+-------------
+                                           143.04s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply (inline)
+         0     0% 99.69%    143.04s 98.14%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply.func1
+                                           143.04s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_apply
+----------------------------------------------------------+-------------
+                                           143.04s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply.func1
+         0     0% 99.69%    143.04s 98.14%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_apply
+                                           143.04s   100% |   runtime.cgocall
+----------------------------------------------------------+-------------
+                                           145.32s   100% |   main.main.func3
+         0     0% 99.69%    145.32s 99.70%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*CPPCyclicEncoder).EncodeWithStats
+                                           145.32s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*CyclicEncoder).Encode
+----------------------------------------------------------+-------------
+                                            83.40s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*CyclicEncoder).Encode
+         0     0% 99.69%     83.40s 57.22%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).apply
+                                            83.40s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*meteredCPP).apply
+----------------------------------------------------------+-------------
+                                            59.64s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*polynomialProducts).multiply
+         0     0% 99.69%     59.64s 40.92%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).applySubspace
+                                            59.64s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*meteredCPP).apply
+----------------------------------------------------------+-------------
+                                            83.40s 58.31% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).apply
+                                            59.64s 41.69% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).applySubspace
+         0     0% 99.69%    143.04s 98.14%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*meteredCPP).apply
+                                           143.04s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply
+----------------------------------------------------------+-------------
+                                            60.65s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*CyclicEncoder).Encode
+         0     0% 99.69%     60.65s 41.61%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.polyMulLow
+                                            60.65s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*polynomialProducts).multiply
+----------------------------------------------------------+-------------
+                                           145.32s   100% |   runtime.main
+         0     0% 99.69%    145.32s 99.70%                | main.main
+                                           145.32s   100% |   main.phase
+----------------------------------------------------------+-------------
+                                           145.32s   100% |   main.phase
+         0     0% 99.69%    145.32s 99.70%                | main.main.func3
+                                           145.32s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*CPPCyclicEncoder).EncodeWithStats
+----------------------------------------------------------+-------------
+                                           145.32s   100% |   main.main
+         0     0% 99.69%    145.32s 99.70%                | main.phase
+                                           145.32s   100% |   main.main.func3
+----------------------------------------------------------+-------------
+         0     0% 99.69%    145.32s 99.70%                | runtime.main
+                                           145.32s   100% |   main.main
+----------------------------------------------------------+-------------

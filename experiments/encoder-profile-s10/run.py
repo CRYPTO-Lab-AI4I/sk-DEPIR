@@ -32,7 +32,7 @@ def main():
         hardware=inspect(['/usr/sbin/system_profiler','SPHardwareDataType','-detailLevel','mini'])
         hardware['stdout']='\n'.join(s for s in hardware['stdout'].splitlines() if any(k in s for k in ['Model Name:','Model Identifier:','Chip:','Total Number of Cores:','Memory:']))
         environment['hardware']=hardware
-    paths=sorted((ROOT/'encoding/liftrs-go').glob('*.go'))+[ROOT/'experiments/encoder-profile/main.go',HERE/'run.py',ROOT/'go.mod',ROOT/'go.sum']
+    paths=(sorted((ROOT/'encoding/liftrs-shared').rglob('*.go'))+list((ROOT/'encoding/liftrs-go').glob('*.go')))+[ROOT/'experiments/encoder-profile/main.go',HERE/'run.py',ROOT/'go.mod',ROOT/'go.sum']
     inputs=[INPUT/'results.json',INPUT/'artifacts/s10-m2-t6-basis.json',INPUT/'artifacts/s10-m2-t6-cyclic-fft.json']
     result={'timestamp_utc':datetime.now(timezone.utc).isoformat(),'revision':command(['git','rev-parse','HEAD']).strip(),
             'working_tree_dirty':bool(command(['git','status','--porcelain']).strip()),'environment':environment,

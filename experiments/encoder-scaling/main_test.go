@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared"
 	"math/rand"
 	"testing"
 )

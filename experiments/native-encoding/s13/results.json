@@ -1,0 +1,668 @@
+{
+  "timestamp_utc": "2026-10-28T21:37:32.099444+00:00",
+  "revision": "c13d034dd9d5938d5930f33f1cb9a069c55674ea",
+  "source_sha256": {
+    "encoding/liftrs-cpp/README.md": "31c16aa4e882d8ad6b523ee1282b15e27301dfe0ac2aa5b8641474a278fdecd9",
+    "encoding/liftrs-cpp/bench.cpp": "4138e83dc767f8fbfdecfceced31b600c2dd861413c3dd6c9d4e07367629cb23",
+    "encoding/liftrs-cpp/c_api.cpp": "3b76b3927cda0323bf67a2a9f67204c4370fe99ec7d36e5b121d356752dae849",
+    "encoding/liftrs-cpp/c_api.h": "643201ecaa1d1dfc3432491188bd6d7d6df863e44dcd19224131432caaf4be91",
+    "encoding/liftrs-cpp/c_api_test.cpp": "4e7b93a8250cdcbb482bfe7b3e22deeaa8a0e1a934a0a7db1a79b345c388349d",
+    "encoding/liftrs-cpp/plan.go": "24bba70b9180d3ff61128f8fa8375f26c6c03223c07b50b0faf8334e4a819303",
+    "encoding/liftrs-cpp/test.cpp": "3e69e2b4935375ee75e59551cd96948595ee14f11eb434c4d19cdf24321ed1e3",
+    "encoding/liftrs-cpp/transform.hpp": "f220d93ad376e8b3f857c7a83c284668f5095adb1ff77f3f2ed461cbbeff5b71",
+    "encoding/liftrs-go/binary_field.go": "e58ef0cb377b091c9ca895f518f64fee5622b65255d945db483248db879f371f",
+    "encoding/liftrs-go/binary_field_example_test.go": "d0f44b4854f1c540e601fc1a1a25fc0d0b65a37f3799c2a688c6a3a9e9fd74d0",
+    "encoding/liftrs-go/binary_field_test.go": "996838d45b0f2ec11d9732191a74bb4a5874b95a72496a98ffd8d53f1f8e39e8",
+    "encoding/liftrs-go/cpp_disabled.go": "955ba56be88677b9927474d354f39d382d803b85765403079af671a92c362cfd",
+    "encoding/liftrs-go/cpp_disabled_test.go": "8eb93205c80b50864c570210e35f6d3affa476123595c46c30d7d54db5b1e865",
+    "encoding/liftrs-go/cpp_enabled.go": "5f0fdd59e060015d9b60d5cfba6aea3411983f1df343e9216cadd11fde6a693f",
+    "encoding/liftrs-go/cpp_enabled_test.go": "db5a8e886c7f78823e45b9dbcb455902b6e2030b934365b4b50cf2c81603538c",
+    "encoding/liftrs-go/cpp_encoder.go": "13da56029d4cd51a228e8b16971bca3cf7da24f978d56e1b67d11f0c88e2a8d3",
+    "encoding/liftrs-go/cpp_example_test.go": "9a8ebf13efba9b7a045b09ecc3282d10c528651e07f894b59b4ca22d466c8a30",
+    "encoding/liftrs-go/example_test.go": "aa0c7448b7fe5f6231fbab31a0fc921934ccbacc2aa8a63170a1bdd06085a5d6",
+    "encoding/liftrs-go/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs-go/language_bench_test.go": "d78132c6d95929d0134008fc4e86b0a2bea9da94e89e302f02e3c3cca39b1994",
+    "encoding/liftrs-go/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs-go/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+    "encoding/liftrs-go/orbit.go": "e1f3e29dcae40d1ed1e0ac44f06d0e77938340a5bc85ac430866cf7dc69f02ad",
+    "encoding/liftrs-go/orbit_arithmetic.go": "8393001b357403435b617b4a294d9c0c9ad22e13fb7ff8c41112614e175569d3",
+    "encoding/liftrs-go/orbit_artifact.go": "29df02372de9111bd2be3290edfe9db92bb6ba3062279bcde8a14f45c404948d",
+    "encoding/liftrs-go/orbit_cache_example_test.go": "7992176943b9bfb24e2377091311a5f171b022150b003a4c019b3a5a00481cba",
+    "encoding/liftrs-go/orbit_cache_test.go": "3ed519e68cb0204d0f097fd8c951b794cf585ed6ba643b21f0964542cfd869ac",
+    "encoding/liftrs-go/orbit_constant.go": "abd6c2991fb844b865670945381c427dd2a2444da257f8c206bee09c0f0540fe",
+    "encoding/liftrs-go/orbit_constant_artifact_test.go": "99a6e390c1c571e16b846c778a1ae8c2cdbadcf408f58d3c41c21257dd853f09",
+    "encoding/liftrs-go/orbit_constant_test.go": "8d76001348c64a185d7c7451013f568a13cd62e703dfe84470308dd5aab5c6b2",
+    "encoding/liftrs-go/orbit_example_test.go": "21242e39de21c25f958697307b8c4838da3186e7f7c1e373b292734bfbecd7a7",
+    "encoding/liftrs-go/orbit_fft.go": "f58730ce95e19d59a50ac63430d3abcb7c4aaf20ce3d0f9c84d7f476753f47d9",
+    "encoding/liftrs-go/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+    "encoding/liftrs-go/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+    "encoding/liftrs-go/orbit_product_test.go": "c675c0dedba16763c3cf64c9a79e372e9698ec4b2c5a273d2883179b513ba3e7",
+    "encoding/liftrs-go/orbit_test.go": "e7a37a4106840f7bac56c92bd5d1b11c486bcea4dd2c4f3368eea5f80e3319bc",
+    "encoding/liftrs-go/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs-go/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+    "encoding/liftrs-go/s10_checkpoint_test.go": "3f606fc200b82ac3a7bfab79b8919d9af22997d419ba848ef6e11ef95255ceeb",
+    "experiments/native-encoding/main.go": "463a59def507494bb246bacd882dcec94a5652fc9784fdaa53e88589c432aa28",
+    "experiments/native-encoding/run.py": "17d073a95efffb09c752270aab4458fa57bfed537275dcfb5bbd7889a545c0e4",
+    "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
+    "go.sum": "6b5b9bf04b57c04dc22dc13596e0c5862856f95c24ca23931bb0545736f6ef76"
+  },
+  "cache_metadata": {
+    "bytes": 453243425,
+    "cache_limit_bytes": 2147483648,
+    "format": "cyclic-json-v1",
+    "k": 11926435,
+    "m": 2,
+    "n": 67108864,
+    "s": 13,
+    "sha256": "a2a3bcd5913d821c99d08ceca05d6c5d73ce2abe6e3987910c0dcf5dfe97eb22",
+    "source_manifest": "cf73604075109abe444534d3b003d7cc4d85ac7be45208d86edc81f3cf629ac3",
+    "t": 5
+  },
+  "cache_directory": "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/s13-m2-t5",
+  "cache_provenance": {
+    "revision": "0d94d4cd0d60c800d8f5f06d6076e1817494ed20",
+    "source_sha256": {
+      "encoding/liftrs/binary_field.go": "e58ef0cb377b091c9ca895f518f64fee5622b65255d945db483248db879f371f",
+      "encoding/liftrs/binary_field_example_test.go": "ebe64131fda2352f8cc21c213ccf868836b30ca5f068c914250ca55d5dee3962",
+      "encoding/liftrs/binary_field_test.go": "996838d45b0f2ec11d9732191a74bb4a5874b95a72496a98ffd8d53f1f8e39e8",
+      "encoding/liftrs/example_test.go": "7d0272b0ae860e856fc0f55c81ed5e1fbb08fbe5e12f2660ffe8c97ba8a29112",
+      "encoding/liftrs/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+      "encoding/liftrs/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+      "encoding/liftrs/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+      "encoding/liftrs/orbit.go": "e1f3e29dcae40d1ed1e0ac44f06d0e77938340a5bc85ac430866cf7dc69f02ad",
+      "encoding/liftrs/orbit_arithmetic.go": "8393001b357403435b617b4a294d9c0c9ad22e13fb7ff8c41112614e175569d3",
+      "encoding/liftrs/orbit_artifact.go": "29df02372de9111bd2be3290edfe9db92bb6ba3062279bcde8a14f45c404948d",
+      "encoding/liftrs/orbit_cache_example_test.go": "7992176943b9bfb24e2377091311a5f171b022150b003a4c019b3a5a00481cba",
+      "encoding/liftrs/orbit_cache_test.go": "3ed519e68cb0204d0f097fd8c951b794cf585ed6ba643b21f0964542cfd869ac",
+      "encoding/liftrs/orbit_constant.go": "abd6c2991fb844b865670945381c427dd2a2444da257f8c206bee09c0f0540fe",
+      "encoding/liftrs/orbit_constant_artifact_test.go": "99a6e390c1c571e16b846c778a1ae8c2cdbadcf408f58d3c41c21257dd853f09",
+      "encoding/liftrs/orbit_constant_test.go": "8d76001348c64a185d7c7451013f568a13cd62e703dfe84470308dd5aab5c6b2",
+      "encoding/liftrs/orbit_example_test.go": "ccadd8a9a724c9c756d36baf6638094a2e5ac985c2abd65267a0c82abd0ad7bf",
+      "encoding/liftrs/orbit_fft.go": "64985f9b058b44152cf6b54cce9f9e92ca668996fbd9bf5f4fc0838e28e894c3",
+      "encoding/liftrs/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+      "encoding/liftrs/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+      "encoding/liftrs/orbit_product_test.go": "c675c0dedba16763c3cf64c9a79e372e9698ec4b2c5a273d2883179b513ba3e7",
+      "encoding/liftrs/orbit_test.go": "e7a37a4106840f7bac56c92bd5d1b11c486bcea4dd2c4f3368eea5f80e3319bc",
+      "encoding/liftrs/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+      "encoding/liftrs/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+      "encoding/liftrs/s10_checkpoint_test.go": "3f606fc200b82ac3a7bfab79b8919d9af22997d419ba848ef6e11ef95255ceeb",
+      "experiments/encoder-profile-s13/main.go": "188a1b07b9d99275e774789125ec6abd3f23f76a9145697d945ac4ac8878ea0d",
+      "experiments/encoder-profile-s13/run.py": "0d6f3392747564741d4187ee85c9b0b84548319a749092abb5a2809fdc99b2e1",
+      "experiments/encoder-profile-s13/policy.json": "7f63a21dabf90ec2ca17d474654e597cc3c0e8cfbcb249dc0039f2fcb57a9178",
+      "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
+      "go.sum": "6b5b9bf04b57c04dc22dc13596e0c5862856f95c24ca23931bb0545736f6ef76"
+    }
+  },
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "go": "go version go1.27.3 darwin/arm64",
+    "cpu": "Apple M5 Pro",
+    "cpu_count": 18,
+    "memory_bytes": 51539607552,
+    "compiler": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin",
+    "storage": "local APFS workspace; existing warm-cache effects not controlled"
+  },
+  "policy": {
+    "repeats": 3,
+    "go_memory_guard_bytes": 12884901888,
+    "case_timeout_seconds": 7200,
+    "native_sample": true
+  },
+  "cases": {
+    "go": {
+      "command": [
+        "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/native-encoding/bench-47aa849206f1f53f",
+        "-backend",
+        "go",
+        "-s",
+        "13",
+        "-t",
+        "5",
+        "-repeats",
+        "3",
+        "-cache",
+        "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/s13-m2-t5",
+        "-profiles",
+        "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/native-encoding/s13/go",
+        "-memory-bytes",
+        "12884901888"
+      ],
+      "status": "completed",
+      "pid": 69596,
+      "returncode": 0,
+      "wall_seconds": 577.214623667,
+      "process_peak_rss_bytes": 2423062528,
+      "events": [
+        {
+          "event": "started",
+          "phase": "cache_load"
+        },
+        {
+          "allocated_bytes": 5345034104,
+          "baseline_heap_bytes": 354872,
+          "elapsed_ns": 4931362750,
+          "event": "phase",
+          "gc_cycles": 12,
+          "phase": "cache_load",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463394664,
+          "sampled_peak_heap_bytes": 2246135360,
+          "samples": 52
+        },
+        {
+          "backend": "go",
+          "event": "code",
+          "go_version": "go1.27.3",
+          "k": 11926435,
+          "m": 2,
+          "n": 67108864,
+          "s": 13,
+          "t": 5
+        },
+        {
+          "event": "started",
+          "phase": "encode_0"
+        },
+        {
+          "allocated_bytes": 862643992,
+          "baseline_heap_bytes": 738744048,
+          "elapsed_ns": 188339771792,
+          "event": "phase",
+          "gc_cycles": 1,
+          "phase": "encode_0",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463394664,
+          "sampled_peak_heap_bytes": 1327309784,
+          "samples": 1886
+        },
+        {
+          "backend": "go",
+          "event": "encode_stats",
+          "native": {
+            "native_calls": 0,
+            "transformed_elements": 0,
+            "native_call_ns": 0,
+            "native_kernel_ns": 0,
+            "interface_message_copy_bytes": 0
+          },
+          "repeat": 0
+        },
+        {
+          "event": "started",
+          "phase": "encode_1"
+        },
+        {
+          "allocated_bytes": 862864976,
+          "baseline_heap_bytes": 738747840,
+          "elapsed_ns": 190657321917,
+          "event": "phase",
+          "gc_cycles": 1,
+          "phase": "encode_1",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463411048,
+          "sampled_peak_heap_bytes": 1327297288,
+          "samples": 1909
+        },
+        {
+          "backend": "go",
+          "event": "encode_stats",
+          "native": {
+            "native_calls": 0,
+            "transformed_elements": 0,
+            "native_call_ns": 0,
+            "native_kernel_ns": 0,
+            "interface_message_copy_bytes": 0
+          },
+          "repeat": 1
+        },
+        {
+          "event": "started",
+          "phase": "encode_2"
+        },
+        {
+          "allocated_bytes": 862735240,
+          "baseline_heap_bytes": 738749400,
+          "elapsed_ns": 190863240875,
+          "event": "phase",
+          "gc_cycles": 1,
+          "phase": "encode_2",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463411048,
+          "sampled_peak_heap_bytes": 1327314272,
+          "samples": 1910
+        },
+        {
+          "backend": "go",
+          "event": "encode_stats",
+          "native": {
+            "native_calls": 0,
+            "transformed_elements": 0,
+            "native_call_ns": 0,
+            "native_kernel_ns": 0,
+            "interface_message_copy_bytes": 0
+          },
+          "repeat": 2
+        },
+        {
+          "canonical_sha256": "6120f0388f6035dd480e391b26ef93c04ed368a77f2f93c02f6d4f56b99a7b79",
+          "curve_checks": 16,
+          "event": "verified",
+          "k": 11926435,
+          "m": 2,
+          "n": 67108864,
+          "packed_bytes": 109051904,
+          "packed_sha256": "0b545a19ff25c1cdb26478ed2786c6ad76052f46c8a258bf11ad763c8f276980",
+          "packing_write_sync_ns": 700669834,
+          "s": 13,
+          "seed": 71,
+          "systematic_positions_checked": 11926435,
+          "t": 5,
+          "verification_ns": 596625250
+        }
+      ],
+      "phases": {
+        "cache_load": {
+          "allocated_bytes": 5345034104,
+          "baseline_heap_bytes": 354872,
+          "elapsed_ns": 4931362750,
+          "event": "phase",
+          "gc_cycles": 12,
+          "phase": "cache_load",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463394664,
+          "sampled_peak_heap_bytes": 2246135360,
+          "samples": 52
+        },
+        "encode_0": {
+          "allocated_bytes": 862643992,
+          "baseline_heap_bytes": 738744048,
+          "elapsed_ns": 188339771792,
+          "event": "phase",
+          "gc_cycles": 1,
+          "phase": "encode_0",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463394664,
+          "sampled_peak_heap_bytes": 1327309784,
+          "samples": 1886
+        },
+        "encode_1": {
+          "allocated_bytes": 862864976,
+          "baseline_heap_bytes": 738747840,
+          "elapsed_ns": 190657321917,
+          "event": "phase",
+          "gc_cycles": 1,
+          "phase": "encode_1",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463411048,
+          "sampled_peak_heap_bytes": 1327297288,
+          "samples": 1909
+        },
+        "encode_2": {
+          "allocated_bytes": 862735240,
+          "baseline_heap_bytes": 738749400,
+          "elapsed_ns": 190863240875,
+          "event": "phase",
+          "gc_cycles": 1,
+          "phase": "encode_2",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463411048,
+          "sampled_peak_heap_bytes": 1327314272,
+          "samples": 1910
+        }
+      },
+      "encoding_seconds": [
+        188.339771792,
+        190.657321917,
+        190.863240875
+      ],
+      "median_encoding_seconds": 190.657321917,
+      "verification": {
+        "canonical_sha256": "6120f0388f6035dd480e391b26ef93c04ed368a77f2f93c02f6d4f56b99a7b79",
+        "curve_checks": 16,
+        "event": "verified",
+        "k": 11926435,
+        "m": 2,
+        "n": 67108864,
+        "packed_bytes": 109051904,
+        "packed_sha256": "0b545a19ff25c1cdb26478ed2786c6ad76052f46c8a258bf11ad763c8f276980",
+        "packing_write_sync_ns": 700669834,
+        "s": 13,
+        "seed": 71,
+        "systematic_positions_checked": 11926435,
+        "t": 5,
+        "verification_ns": 596625250
+      },
+      "evidence_sha256": {
+        "encode_2.pprof": "41a0fbbdafaff4515c3591fb0b511cfd5870af7c89c7f915df2bb8ad19fa0ec0",
+        "encode_0.pprof": "5f483735301420d896d62298d7db380581c9fba6780b8db0abe8d618821c4296",
+        "cache_load-cum.txt": "7ef75bbea82b89ad18effbb075b214b3926d68fadde9c9fb365cf5a643f85245",
+        "sample-launch.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "encode_1.pprof": "de8d9f1787ede3f0b0c4c4cabbea1a81feec8739ae926fa7b92d6b99a5ba179c",
+        "encode_0-flat.txt": "eeede667f9be101621c7f73f335a48f2f2015de26cfa9ea03c845e1bd4eefe54",
+        "encode_1-flat.txt": "fea173debdfc40a7a944770ab91b126bf9a42037bf12f87aa3e53a0c026ee3dd",
+        "cache_load-tree.txt": "03163a6093047b625d50fe910acfcc2e3ebc14ef5a1ae5d4048b0e9cca68ce4d",
+        "encode_2-tree.txt": "dd16a4a9037fe3cfcb0ed3c761d48ea95cd333ec58754299b29c1c202716d6c8",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "events.jsonl": "6f085db1c250f31c3a6492c0e222a8da78dea578f25a7aa1c3ba89b32e7bfa89",
+        "cache_load.pprof": "49a45e6284c9470bda569404a7c033b10edf6e5bdc93e4e4120351637fe3d5b0",
+        "encode_2-cum.txt": "45f9e75cbffefca611f22ac52648bdd751574e8ef78e1f7ffd6cb92e199467e0",
+        "encode_1-tree.txt": "918eb37ba87e7680d11a6f9d2fa50fa188393f250ef234f646ddfc7508c0f8ea",
+        "encode_0-tree.txt": "70b631657ef7514911ef66c98a484783ed0312745ce125643cfae70d009825de",
+        "encode_0-cum.txt": "98b814d6e5daf4b25d6cc86127853b89a8bf0f450b9a702c39322386c5e1c358",
+        "encode_1-cum.txt": "89fa04ffac553ddacd6f915b24944ed150a1735f9e35a6dc12820a4d5a3031f7",
+        "cache_load-flat.txt": "3c862d923e5dc8a45b924cc2b61a7a69610d995e543e2638db68c03ee4be60ee",
+        "encode_2-flat.txt": "225bbef206f19d9506394fc8d4289f2f763fe0e04acdac88ac005c8c759852cf"
+      }
+    },
+    "go-cpp": {
+      "command": [
+        "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/native-encoding/bench-47aa849206f1f53f",
+        "-backend",
+        "cpp",
+        "-s",
+        "13",
+        "-t",
+        "5",
+        "-repeats",
+        "3",
+        "-cache",
+        "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/s13-m2-t5",
+        "-profiles",
+        "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/native-encoding/s13/go-cpp",
+        "-memory-bytes",
+        "12884901888"
+      ],
+      "status": "completed",
+      "pid": 69865,
+      "native_sample_command": [
+        "/usr/bin/sample",
+        "69865",
+        "20",
+        "10",
+        "-mayDie",
+        "-file",
+        "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/native-encoding/s13/go-cpp/cpu-sample.txt"
+      ],
+      "native_sample_returncode": 0,
+      "returncode": 0,
+      "wall_seconds": 470.677482917,
+      "process_peak_rss_bytes": 2423603200,
+      "events": [
+        {
+          "event": "started",
+          "phase": "cache_load"
+        },
+        {
+          "allocated_bytes": 5345038088,
+          "baseline_heap_bytes": 355032,
+          "elapsed_ns": 5045966666,
+          "event": "phase",
+          "gc_cycles": 12,
+          "phase": "cache_load",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463656808,
+          "sampled_peak_heap_bytes": 2179009400,
+          "samples": 53
+        },
+        {
+          "event": "started",
+          "phase": "native_init"
+        },
+        {
+          "allocated_bytes": 2585008,
+          "baseline_heap_bytes": 691026168,
+          "elapsed_ns": 155000,
+          "event": "phase",
+          "gc_cycles": 0,
+          "phase": "native_init",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463656808,
+          "sampled_peak_heap_bytes": 693611176,
+          "samples": 3
+        },
+        {
+          "event": "native_plan",
+          "info": {
+            "description_bytes": 131724,
+            "native_owned_bytes": 141904
+          }
+        },
+        {
+          "backend": "cpp",
+          "event": "code",
+          "go_version": "go1.27.3",
+          "k": 11926435,
+          "m": 2,
+          "n": 67108864,
+          "s": 13,
+          "t": 5
+        },
+        {
+          "event": "started",
+          "phase": "encode_0"
+        },
+        {
+          "allocated_bytes": 855163264,
+          "baseline_heap_bytes": 738747608,
+          "elapsed_ns": 156505441500,
+          "event": "phase",
+          "gc_cycles": 1,
+          "phase": "encode_0",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463673192,
+          "sampled_peak_heap_bytes": 1324538320,
+          "samples": 1567
+        },
+        {
+          "backend": "cpp",
+          "event": "encode_stats",
+          "native": {
+            "native_calls": 5,
+            "transformed_elements": 234881024,
+            "native_call_ns": 153856015168,
+            "native_kernel_ns": 153855968085,
+            "interface_message_copy_bytes": 0
+          },
+          "repeat": 0
+        },
+        {
+          "event": "started",
+          "phase": "encode_1"
+        },
+        {
+          "allocated_bytes": 855154872,
+          "baseline_heap_bytes": 738750616,
+          "elapsed_ns": 153409264917,
+          "event": "phase",
+          "gc_cycles": 1,
+          "phase": "encode_1",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463673192,
+          "sampled_peak_heap_bytes": 1324541560,
+          "samples": 1536
+        },
+        {
+          "backend": "cpp",
+          "event": "encode_stats",
+          "native": {
+            "native_calls": 5,
+            "transformed_elements": 234881024,
+            "native_call_ns": 150851742124,
+            "native_kernel_ns": 150851685168,
+            "interface_message_copy_bytes": 0
+          },
+          "repeat": 1
+        },
+        {
+          "event": "started",
+          "phase": "encode_2"
+        },
+        {
+          "allocated_bytes": 855161040,
+          "baseline_heap_bytes": 738750400,
+          "elapsed_ns": 152964972708,
+          "event": "phase",
+          "gc_cycles": 1,
+          "phase": "encode_2",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463689576,
+          "sampled_peak_heap_bytes": 1324541112,
+          "samples": 1532
+        },
+        {
+          "backend": "cpp",
+          "event": "encode_stats",
+          "native": {
+            "native_calls": 5,
+            "transformed_elements": 234881024,
+            "native_call_ns": 150398077665,
+            "native_kernel_ns": 150398031125,
+            "interface_message_copy_bytes": 0
+          },
+          "repeat": 2
+        },
+        {
+          "canonical_sha256": "6120f0388f6035dd480e391b26ef93c04ed368a77f2f93c02f6d4f56b99a7b79",
+          "curve_checks": 16,
+          "event": "verified",
+          "k": 11926435,
+          "m": 2,
+          "n": 67108864,
+          "packed_bytes": 109051904,
+          "packed_sha256": "0b545a19ff25c1cdb26478ed2786c6ad76052f46c8a258bf11ad763c8f276980",
+          "packing_write_sync_ns": 680269458,
+          "s": 13,
+          "seed": 71,
+          "systematic_positions_checked": 11926435,
+          "t": 5,
+          "verification_ns": 685737000
+        }
+      ],
+      "phases": {
+        "cache_load": {
+          "allocated_bytes": 5345038088,
+          "baseline_heap_bytes": 355032,
+          "elapsed_ns": 5045966666,
+          "event": "phase",
+          "gc_cycles": 12,
+          "phase": "cache_load",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463656808,
+          "sampled_peak_heap_bytes": 2179009400,
+          "samples": 53
+        },
+        "native_init": {
+          "allocated_bytes": 2585008,
+          "baseline_heap_bytes": 691026168,
+          "elapsed_ns": 155000,
+          "event": "phase",
+          "gc_cycles": 0,
+          "phase": "native_init",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463656808,
+          "sampled_peak_heap_bytes": 693611176,
+          "samples": 3
+        },
+        "encode_0": {
+          "allocated_bytes": 855163264,
+          "baseline_heap_bytes": 738747608,
+          "elapsed_ns": 156505441500,
+          "event": "phase",
+          "gc_cycles": 1,
+          "phase": "encode_0",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463673192,
+          "sampled_peak_heap_bytes": 1324538320,
+          "samples": 1567
+        },
+        "encode_1": {
+          "allocated_bytes": 855154872,
+          "baseline_heap_bytes": 738750616,
+          "elapsed_ns": 153409264917,
+          "event": "phase",
+          "gc_cycles": 1,
+          "phase": "encode_1",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463673192,
+          "sampled_peak_heap_bytes": 1324541560,
+          "samples": 1536
+        },
+        "encode_2": {
+          "allocated_bytes": 855161040,
+          "baseline_heap_bytes": 738750400,
+          "elapsed_ns": 152964972708,
+          "event": "phase",
+          "gc_cycles": 1,
+          "phase": "encode_2",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 2463689576,
+          "sampled_peak_heap_bytes": 1324541112,
+          "samples": 1532
+        }
+      },
+      "encoding_seconds": [
+        156.5054415,
+        153.409264917,
+        152.964972708
+      ],
+      "median_encoding_seconds": 153.409264917,
+      "verification": {
+        "canonical_sha256": "6120f0388f6035dd480e391b26ef93c04ed368a77f2f93c02f6d4f56b99a7b79",
+        "curve_checks": 16,
+        "event": "verified",
+        "k": 11926435,
+        "m": 2,
+        "n": 67108864,
+        "packed_bytes": 109051904,
+        "packed_sha256": "0b545a19ff25c1cdb26478ed2786c6ad76052f46c8a258bf11ad763c8f276980",
+        "packing_write_sync_ns": 680269458,
+        "s": 13,
+        "seed": 71,
+        "systematic_positions_checked": 11926435,
+        "t": 5,
+        "verification_ns": 685737000
+      },
+      "evidence_sha256": {
+        "encode_2.pprof": "08a87235cbc38467ab2b1d03be34819e0cc36af46df86f4285083ce9a2c9e497",
+        "native_init-cum.txt": "025c1f86ad5e69ec3eee114a687082bea947a7235b57fba2f0f6d6cdee6517df",
+        "encode_0.pprof": "4b3db302e3af31564dcedcc529e830603d16d2a483504c827943bf6a9c43701c",
+        "native_init.pprof": "f0ed6cdcc9765a50adaaf90436d8747b78d4a568307a7f66a5877215b8bc28a0",
+        "native_init-tree.txt": "7d1973e7ccaed3e39960a0257140b9c097c9d28cca8f44d16c9112674211fefd",
+        "cache_load-cum.txt": "c677adb7b9ab4c84032a2dac809cb7355a943a9d4f81e1a6c167da905ff1be1a",
+        "sample-launch.txt": "7c761983b971113701c6652aaa91111cb65a8fabcf060b0fba2ef6c2d340c38b",
+        "encode_1.pprof": "876013b33fd705e4443ef6c488012b0c37cf17d525a107c891cc9ee8233a99ae",
+        "encode_0-flat.txt": "a07c21f15e2aee33f89bb4b77d055be64c0f123dc1ad437eb04872cdb6ff34cf",
+        "encode_1-flat.txt": "bf1a03b589053b96a5f3917c68965dddfb2cb979e926fbc0371bd7b399fbce2b",
+        "cpu-sample.txt": "3378514bf4558fc0c6a95f2a884e73b37f2d9107f353bfb12420e388d81609eb",
+        "cache_load-tree.txt": "5d74c176ae1b3ade72d2f5657fb550656d683e445fef3e82f8a976e19cef86a5",
+        "encode_2-tree.txt": "7bb68d9925937471cbb1a8dfa61314493599464291300afe33d1546b81edfa43",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "events.jsonl": "ab3b2430390f6c709e0d92e94565132db5817658edf5096384d50f7ba096a18a",
+        "cache_load.pprof": "eca3415d5334d34063d94b75dfaa21fce6006d8a8787d149ecaa0d0794847fb0",
+        "native_init-flat.txt": "025c1f86ad5e69ec3eee114a687082bea947a7235b57fba2f0f6d6cdee6517df",
+        "encode_2-cum.txt": "4382f2e4eb052626eabbca22bfb3f507ab57d3fedcd408d3fe9129e493c6b166",
+        "encode_1-tree.txt": "1bfc8dec2e24f0cd5c9598c1f618051c55bc2ed3fb5e52cf73be929f23359176",
+        "encode_0-tree.txt": "670b3bdb22e2c32961dfdb24ae1daa79c8cb9c79d76df31d5f21f8b4887bd09a",
+        "encode_0-cum.txt": "184c76aab40fc90c84f083adfe12a619bf114fd32f4a0d6039c6239617b20f72",
+        "encode_1-cum.txt": "93889c933058c7f2477a5c7e39cf6ce9f8214de323a2f6ae2277483b3185265e",
+        "cache_load-flat.txt": "4e97d9bc992949c53d54a26a4b09ba564a5e92839723936c64bd1c9967d95421",
+        "encode_2-flat.txt": "f73e5cf47b8ae3c4081c7a9041049a93b582ca343efaaf4ff5e2d89fcdf05a29"
+      }
+    }
+  },
+  "status": "completed",
+  "build_command": [
+    "/tmp/sk-depir-go-toolchain/go/bin/go",
+    "build",
+    "-tags",
+    "liftrs_cpp",
+    "-o",
+    "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/native-encoding/bench-47aa849206f1f53f",
+    "./experiments/native-encoding"
+  ],
+  "binary": {
+    "path": ".cache/liftrs/native-encoding/bench-47aa849206f1f53f",
+    "sha256": "5b9d4236abf6fa2e21c02be2da2982fd6a9c032e112e938cf357b4bb154d1849"
+  },
+  "speedup": 1.2428018739295346
+}

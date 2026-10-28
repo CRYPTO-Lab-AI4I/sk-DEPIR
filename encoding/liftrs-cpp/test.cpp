@@ -1,3 +1,5 @@
+//go:build ignore
+
 // Independent carryless convolution/long division checks for the native port.
 #include "transform.hpp"
 #include <iostream>

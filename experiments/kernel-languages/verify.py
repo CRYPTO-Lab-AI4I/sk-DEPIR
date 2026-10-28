@@ -9,8 +9,8 @@ with (HERE/'verification.log').open('w') as log:
   log.write('$ '+' '.join(command)+'\n');log.flush();start=time.monotonic();r=subprocess.run(command,cwd=cwd,stdout=log,stderr=subprocess.STDOUT)
   checks.append({'command':command,'isolated_copy':cwd!=ROOT,'exit_code':r.returncode,'seconds':time.monotonic()-start});(HERE/'verification.json').write_text(json.dumps(checks,indent=2)+'\n')
   if r.returncode:raise SystemExit('check failed; see verification.log')
- run([args.go,'test','./encoding/liftrs-go','./pirconfig','./planner','-count=1'])
- run([args.go,'vet','./encoding/liftrs-go','./pirconfig','./planner'])
+ run([args.go,'test','./encoding/liftrs-shared','./pirconfig','./planner','-count=1'])
+ run([args.go,'vet','./encoding/liftrs-shared','./pirconfig','./planner'])
  with tempfile.TemporaryDirectory(prefix='depir-language-checks-') as directory:
   target=Path(directory)/'native-tests'
   run([args.cxx,'-std=c++17','-O1','-g','-fsanitize=address,undefined','-fno-omit-frame-pointer',str(ROOT/'encoding/liftrs-cpp/test.cpp'),'-o',str(target)])

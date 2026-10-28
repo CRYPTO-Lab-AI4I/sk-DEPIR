@@ -27,7 +27,7 @@ def main():
     cache.mkdir(parents=True,exist_ok=True)
     if not args.reuse_cache and (cache/'cyclic.json').exists():raise SystemExit('cache exists; reuse it or select a different experiment')
     policy=json.loads((HERE/'policy.json').read_text())
-    sources=sorted((ROOT/'encoding/liftrs-go').glob('*.go'))+[HERE/'main.go',HERE/'run.py',HERE/'policy.json',ROOT/'go.mod',ROOT/'go.sum']
+    sources=(sorted((ROOT/'encoding/liftrs-shared').rglob('*.go'))+list((ROOT/'encoding/liftrs-go').glob('*.go')))+[HERE/'main.go',HERE/'run.py',HERE/'policy.json',ROOT/'go.mod',ROOT/'go.sum']
     result={'timestamp_utc':datetime.now(timezone.utc).isoformat(),'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         'source_sha256':{str(p.relative_to(ROOT)):sha(p) for p in sources},'policy':policy,'environment':{'platform':platform.platform(),'python':platform.python_version(),'cpu_count':os.cpu_count(),'go':subprocess.check_output([args.go,'version'],text=True).strip()},'status':'running','reused_cache':args.reuse_cache,'cache_directory':str(cache.relative_to(ROOT))}
     def save():(output_dir/'results.json').write_text(json.dumps(result,indent=2)+'\n')

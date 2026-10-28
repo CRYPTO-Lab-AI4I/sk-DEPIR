@@ -1,0 +1,110 @@
+#!/usr/bin/env python3
+"""Compare complete Go/C++-transform encoding with identical retained Go setup."""
+import argparse, hashlib, json, os, platform, statistics, subprocess, time
+from datetime import datetime, timezone
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[2]
+HERE=Path(__file__).resolve().parent
+
+def sha(path):
+    h=hashlib.sha256()
+    with path.open('rb') as stream:
+        for block in iter(lambda:stream.read(1<<20),b''): h.update(block)
+    return h.hexdigest()
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--go',default='go')
+    parser.add_argument('--run-name',default='s13')
+    parser.add_argument('--s',type=int,default=13)
+    parser.add_argument('--t',type=int,default=5)
+    parser.add_argument('--repeats',type=int,default=3)
+    parser.add_argument('--cache',default='.cache/liftrs/s13-m2-t5')
+    parser.add_argument('--native-sample',action='store_true',help='sample own C++ encoding child on macOS')
+    args=parser.parse_args()
+    if not args.run_name or any(c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_' for c in args.run_name): raise SystemExit('invalid run name')
+    output=HERE/args.run_name
+    output.mkdir(exist_ok=False)
+    cache=ROOT/args.cache
+    metadata=json.loads((cache/'metadata.json').read_text())
+    assert sha(cache/'cyclic.json')==metadata['sha256']
+    sources=sorted(set((list((ROOT/'encoding/liftrs-shared').rglob('*.go'))+list((ROOT/'encoding/liftrs-go').glob('*.go')))+list((ROOT/'encoding/liftrs-cpp').glob('*.*'))+[HERE/'main.go',HERE/'run.py',ROOT/'go.mod',ROOT/'go.sum']))
+    result={'timestamp_utc':datetime.now(timezone.utc).isoformat(),'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
+        'source_sha256':{str(p.relative_to(ROOT)):sha(p) for p in sources if p.is_file()},'cache_metadata':metadata,
+        'cache_directory':str(cache),'cache_provenance':json.loads((cache/'provenance.json').read_text()),
+        'environment':{'platform':platform.platform(),'go':subprocess.check_output([args.go,'version'],text=True).strip(),'cpu':subprocess.check_output(['sysctl','-n','machdep.cpu.brand_string'],text=True).strip(),'cpu_count':os.cpu_count(),'memory_bytes':int(subprocess.check_output(['sysctl','-n','hw.memsize'],text=True)),'compiler':subprocess.check_output([os.environ.get('CXX','clang++'),'--version'],text=True).strip(),'storage':'local APFS workspace; existing warm-cache effects not controlled'},
+        'policy':{'repeats':args.repeats,'go_memory_guard_bytes':12<<30,'case_timeout_seconds':7200,'native_sample':args.native_sample},'cases':{},'status':'running'}
+    def save(): (output/'results.json').write_text(json.dumps(result,indent=2)+'\n')
+    save()
+    retained=ROOT/'.cache/liftrs/native-encoding'
+    retained.mkdir(parents=True,exist_ok=True)
+    identity=hashlib.sha256(json.dumps(result['source_sha256'],sort_keys=True).encode()).hexdigest()[:16]
+    binary=retained/('bench-'+identity)
+    build=[args.go,'build','-tags','liftrs_cpp','-o',str(binary),'./experiments/native-encoding']
+    with (output/'build.log').open('w') as log: subprocess.run(build,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True)
+    result['build_command']=build
+    result['binary']={'path':str(binary.relative_to(ROOT)),'sha256':sha(binary)}
+    save()
+    for mode,label in [('go','go'),('cpp','go-cpp')]:
+        directory=output/label
+        directory.mkdir()
+        command=[str(binary),'-backend',mode,'-s',str(args.s),'-t',str(args.t),'-repeats',str(args.repeats),'-cache',str(cache),'-profiles',str(directory),'-memory-bytes',str(12<<30)]
+        case={'command':command,'status':'running'}
+        result['cases'][label]=case
+        save()
+        sampler=None
+        with (directory/'events.jsonl').open('w') as stdout,(directory/'stderr.txt').open('w') as stderr,(directory/'sample-launch.txt').open('w') as samplelog:
+            process=subprocess.Popen(command,cwd=ROOT,stdout=stdout,stderr=stderr)
+            case['pid']=process.pid
+            started=time.monotonic(); last=started-60; seen=0
+            try:
+                while True:
+                    pid,status,usage=os.wait4(process.pid,os.WNOHANG)
+                    lines=(directory/'events.jsonl').read_text().splitlines(keepends=True)
+                    events=[json.loads(line) for line in lines if line.endswith('\n')]
+                    for event in events[seen:]:
+                        if event['event']=='started':
+                            print(label+': '+event['phase'],flush=True)
+                            if mode=='cpp' and event['phase']=='encode_0' and args.native_sample:
+                                samplecmd=['/usr/bin/sample',str(process.pid),'20','10','-mayDie','-file',str(directory/'cpu-sample.txt')]
+                                case['native_sample_command']=samplecmd
+                                sampler=subprocess.Popen(samplecmd,stdout=samplelog,stderr=subprocess.STDOUT)
+                        elif event['event']=='phase': print(label+': '+event['phase']+' '+str(round(event['elapsed_ns']/1e9,3))+'s',flush=True)
+                    seen=len(events)
+                    if pid: process.returncode=os.waitstatus_to_exitcode(status); break
+                    now=time.monotonic()
+                    if now-last>=60: print(label+': elapsed '+str(round(now-started))+'s',flush=True); last=now
+                    if now-started>7200: raise TimeoutError('two-hour case limit')
+                    time.sleep(.5)
+            except BaseException as error:
+                if process.returncode is None:
+                    process.kill();_,status,usage=os.wait4(process.pid,0);process.returncode=os.waitstatus_to_exitcode(status)
+                case.update(status='failed',error=repr(error),returncode=process.returncode)
+                save();raise
+            finally:
+                if sampler is not None: case['native_sample_returncode']=sampler.wait(timeout=60)
+            case.update(returncode=process.returncode,wall_seconds=time.monotonic()-started,process_peak_rss_bytes=usage.ru_maxrss*(1 if platform.system()=='Darwin' else 1024))
+        case['events']=[json.loads(line) for line in (directory/'events.jsonl').read_text().splitlines()]
+        case['status']='completed' if process.returncode==0 else 'failed'
+        save()
+        if process.returncode: raise SystemExit('child failed; partial evidence retained')
+        case['phases']={e['phase']:e for e in case['events'] if e['event']=='phase'}
+        case['encoding_seconds']=[e['elapsed_ns']/1e9 for name,e in case['phases'].items() if name.startswith('encode_')]
+        case['median_encoding_seconds']=statistics.median(case['encoding_seconds'])
+        verification=next(e for e in case['events'] if e['event']=='verified')
+        case['verification']=verification
+        assert verification['systematic_positions_checked']==metadata['k'] and verification['curve_checks']==16
+        if args.s==13 and args.t==5:
+            baseline=json.loads((ROOT/'experiments/cyclic-s13/results.json').read_text())['verification']
+            for key in ['canonical_sha256','packed_sha256']: assert verification[key]==baseline[key]
+        for profile in directory.glob('*.pprof'):
+            for label_suffix,options in [('flat',['-top']),('cum',['-top','-cum']),('tree',['-tree'])]:
+                with (directory/(profile.stem+'-'+label_suffix+'.txt')).open('w') as stream:
+                    subprocess.run([args.go,'tool','pprof',*options,str(binary),str(profile)],stdout=stream,stderr=subprocess.STDOUT,check=True)
+        case['evidence_sha256']={p.name:sha(p) for p in directory.iterdir() if p.is_file()}
+        save()
+    for key in ['canonical_sha256','packed_sha256']: assert result['cases']['go']['verification'][key]==result['cases']['go-cpp']['verification'][key]
+    result['speedup']=result['cases']['go']['median_encoding_seconds']/result['cases']['go-cpp']['median_encoding_seconds']
+    result['status']='completed';save()
+    print(json.dumps({'speedup':result['speedup'],'output':str(output)}),flush=True)
+if __name__=='__main__':main()

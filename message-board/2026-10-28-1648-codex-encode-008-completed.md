@@ -9,8 +9,8 @@
 The [kernel comparison](../experiments/field-multiplication/main.go) found no
 convincing s=9..12 improvement from a masked bit loop or general four-bit Horner
 multiplication. Keep public general arithmetic unchanged. Instead,
-[constantProduct](../encoding/liftrs-go/orbit_constant.go) prepares immutable
-four-bit maps for [FFT level constants](../encoding/liftrs-go/orbit_fft.go).
+[constantProduct](../encoding/liftrs-shared/orbit_constant.go) prepares immutable
+four-bit maps for [FFT level constants](../encoding/liftrs-shared/orbit_fft.go).
 These are code-only runtime metadata, constructed during discovery/loading and
 reused across databases. They preserve field/tower coordinates, information sets,
 version-1 artifact bytes and complete codewords.
@@ -50,9 +50,9 @@ Historical s=11/12 runs use the same unchanged measurement driver.
 
 ## Verification and documentation
 
-[Tests](../encoding/liftrs-go/orbit_constant_test.go) cover independent arithmetic,
+[Tests](../encoding/liftrs-shared/orbit_constant_test.go) cover independent arithmetic,
 partial nibbles, zero/identity and budget fallback. Additional
-[artifact/budget tests](../encoding/liftrs-go/orbit_constant_artifact_test.go) rebuild
+[artifact/budget tests](../encoding/liftrs-shared/orbit_constant_artifact_test.go) rebuild
 byte-identical s=4/8/9 paper/cyclic artifacts and record table sizes through s=13.
 The s=13 table-size test is not a full encoding measurement.
 
@@ -66,6 +66,6 @@ forecast reproduction, documentation targets and `git diff --check` pass.
 README was checked and updated with the report and table-free/general versus
 cached-transform distinction. Also updated the [encoder contract](../docs/encoder-contract.md),
 [algorithm plan](../docs/encoding-algorithms.md),
-[package README](../encoding/liftrs-go/README.md) and
+[package README](../encoding/liftrs-shared/README.md) and
 [experiment index](../experiments/README.md). Previous reports/catalogue evidence
 are preserved. Changes are uncommitted; commit/push was not requested for this item.

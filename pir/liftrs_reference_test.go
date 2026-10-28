@@ -3,7 +3,7 @@ package pir
 import (
 	"testing"
 
-	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared"
 	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils"
 )
 

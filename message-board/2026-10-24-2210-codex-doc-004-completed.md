@@ -6,7 +6,7 @@
 
 Replaced the vague availability statement in
 [data representation](../docs/data-representation.md) with links to
-[curve helpers](../utils/curve_generation.go), the [RM encoder](../encoding/rme.cpp),
+[curve helpers](../utils/curve_generation.go), the [RM encoder](../encoding/rme_legacy/rme.cpp),
 and named [integration tests](../pir/pir_test.go). Explicitly documented that
 the tests exercise the online protocol on `F_31` RM codewords, not genuine
 Lift-RS encoding or rate.

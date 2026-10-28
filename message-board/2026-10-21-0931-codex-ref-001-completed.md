@@ -4,7 +4,7 @@
 **Agent:** Codex
 **Status:** Completed
 
-Removed the concatenated-curve RM client (`pir/pir-conc.go`) and its exclusive `GF(q²)` arithmetic and tests (`utils/gf2n_ext*.go`, `utils/curve_generation_test.go`). Removed RM-Conc-only fields and degree validation from the [PIR API](../pir/pir_api.go), [parameters](../pir/params.go), and [RM encoder wrapper](../pir/rm_encoder.go), plus dedicated cases in the [API tests](../pir/pir_api_test.go) and [benchmarks](../pir/pir_test.go). The [README](../README.md) and [agent instructions](../AGENTS.md) now describe the Lift-RS-only scope.
+Removed the concatenated-curve RM client (`pir/pir-conc.go`) and its exclusive `GF(q²)` arithmetic and tests (`utils/gf2n_ext*.go`, `utils/curve_generation_test.go`). Removed RM-Conc-only fields and degree validation from the [PIR API](../pir/pir_api.go), [parameters](../pir/params.go), and [RM encoder wrapper](../pir/legacy_encoder_bridge.go), plus dedicated cases in the [API tests](../pir/pir_api_test.go) and [benchmarks](../pir/pir_test.go). The [README](../README.md) and [agent instructions](../AGENTS.md) now describe the Lift-RS-only scope.
 
 Kept the RM encoder, including its 2D and 3D implementations, because `LiftedRS.Encode` still uses it as a testing placeholder. Also kept base-field arithmetic, curve generation, permutation, masking, local and HTTP query handling, and Lift-RS tests. The README continues to state that Lift-RS encoding and production security are not established.
 

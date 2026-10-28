@@ -1,0 +1,86 @@
+$ /tmp/sk-depir-go-toolchain/go/bin/go test ./encoding/liftrs-shared ./encoding/liftrs-go
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	(cached)
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go	[no test files]
+$ /tmp/sk-depir-go-toolchain/go/bin/go test -tags liftrs_cpp ./encoding/liftrs-shared ./encoding/liftrs-cpp
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	(cached)
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp	[no test files]
+$ /tmp/sk-depir-go-toolchain/go/bin/go vet -tags liftrs_cpp ./encoding/... ./pir/...
+$ make -C encoding/rme_legacy -B rme
+/usr/bin/clang++ -O3 -std=c++17 -Wall -Wextra -o rme rme.cpp
+$ /tmp/sk-depir-go-toolchain/go/bin/go test ./...
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/cmd/pir-rate	0.552s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/appref	0.824s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/cryptoref	1.055s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	10.912s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/rme_legacy/process	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/application-costs	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/cyclic-scaling	2.161s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/dp-costs	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-comparison	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-profile	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-profile-s13	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-scaling	2.194s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/field-multiplication	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/greedy-costs	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/native-encoding	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/tablefree-encoding	1.674s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/tradeoff-costs	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/pir	3.652s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/pirconfig	2.645s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/planner	3.122s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils	3.254s
+$ /tmp/sk-depir-go-toolchain/go/bin/go test -tags liftrs_cpp ./...
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/cmd/pir-rate	0.391s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/appref	1.122s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/cryptoref	0.763s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	11.070s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/rme_legacy/process	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/application-costs	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/cyclic-scaling	1.808s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/dp-costs	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-comparison	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-profile	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-profile-s13	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-scaling	2.320s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/field-multiplication	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/greedy-costs	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/native-encoding	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/tablefree-encoding	1.952s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/tradeoff-costs	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/pir	2.773s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/pirconfig	3.553s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/planner	3.162s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils	3.294s
+$ /tmp/sk-depir-go-toolchain/go/bin/go run ./experiments/encoder-profile-s13 -s 4 -t 2 -cache /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-encoding-layout-pzvf5jkw/small-cache -profiles /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/encoding-layout/smoke-preparation -source-manifest encoding-layout
+$ /tmp/sk-depir-go-toolchain/go/bin/go build -tags liftrs_cpp -o /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-encoding-layout-pzvf5jkw/encoder ./experiments/native-encoding
+go: writing stat cache: open /Users/tmour/go/pkg/mod/cache/download/github.com/!c!r!y!p!t!o-!lab-!a!i4!i/sk-!d!e!p!i!r/@v/v0.0.0-20261028210407-c13d034dd9d5.info899486455.tmp: operation not permitted
+$ /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-encoding-layout-pzvf5jkw/encoder -backend go -s 4 -t 2 -repeats 1 -cache /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-encoding-layout-pzvf5jkw/small-cache -profiles /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/encoding-layout/smoke-go
+$ /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-encoding-layout-pzvf5jkw/encoder -backend cpp -s 4 -t 2 -repeats 1 -cache /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-encoding-layout-pzvf5jkw/small-cache -profiles /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/encoding-layout/smoke-cpp
+$ python3 experiments/native-encoding/analyze.py s13
+| Backend | Cache load (s) | Native init (s) | Encoding calls (s) | Median (s) | Whole-process peak RSS (GiB) |
+|---|---:|---:|---|---:|---:|
+| go | 4.931 | 0.000000 | 188.340, 190.657, 190.863 | 190.657 | 2.257 |
+| go-cpp | 5.046 | 0.000155 | 156.505, 153.409, 152.965 | 153.409 | 2.257 |
+Full-encoding median speedup: 1.2428x
+$ python3 experiments/kernel-languages/analyze.py
+# Go/C++ kernel and transform comparison
+
+Three repetitions, medians. Kernel times cover 134,217,728 element products per call; FFT times cover one forward transform. Allocation/input I/O/validation are excluded.
+
+| Work | Elements per batch | Go | C++ | C++ speedup |
+|---|---:|---:|---:|---:|
+| kernel base fixed | 262,144 | 0.3875 s | 0.1564 s | 2.48× |
+| kernel base fixed | 4,194,304 | 0.3790 s | 0.1593 s | 2.38× |
+| kernel base rotating | 262,144 | 0.3775 s | 0.1655 s | 2.28× |
+| kernel base rotating | 4,194,304 | 0.3902 s | 0.1598 s | 2.44× |
+| kernel extension fixed | 262,144 | 0.4711 s | 0.2881 s | 1.64× |
+| kernel extension fixed | 4,194,304 | 0.4794 s | 0.2884 s | 1.66× |
+| kernel extension rotating | 262,144 | 0.4848 s | 0.2855 s | 1.70× |
+| kernel extension rotating | 4,194,304 | 0.4819 s | 0.2888 s | 1.67× |
+| forward extension fixed | 1,048,576 | 0.6101 s | 0.5326 s | 1.15× |
+| forward extension fixed | 67,108,864 | 63.2141 s | 50.1112 s | 1.26× |

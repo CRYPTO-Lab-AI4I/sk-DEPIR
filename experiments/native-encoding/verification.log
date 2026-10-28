@@ -1,0 +1,50 @@
+$ /tmp/sk-depir-go-toolchain/go/bin/go test -tags liftrs_cpp ./encoding/liftrs-go ./encoding/liftrs-cpp -count=1
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go	10.184s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp	[no test files]
+$ /tmp/sk-depir-go-toolchain/go/bin/go test ./encoding/liftrs-go -run TestCPPOptionalBuild -count=1
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go	0.197s
+$ /tmp/sk-depir-go-toolchain/go/bin/go vet -tags liftrs_cpp ./encoding/liftrs-go ./encoding/liftrs-cpp
+$ /usr/bin/clang++ -std=c++17 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/c_api.cpp /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/c_api_test.cpp -o /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-native-checks-s9uvgq2_/c-api-check
+$ /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-native-checks-s9uvgq2_/c-api-check /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/language-s13/transform.bin
+C ABI shape/error/ownership and borrowed-buffer Horner/round-trip checks passed
+$ /tmp/sk-depir-go-toolchain/go/bin/go test ./...
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/cmd/pir-rate	0.298s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/appref	0.601s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/cryptoref	0.896s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go	11.541s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/application-costs	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/cyclic-scaling	1.507s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/dp-costs	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-comparison	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-profile	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-profile-s13	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-scaling	1.525s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/field-multiplication	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/greedy-costs	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/tablefree-encoding	2.206s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/tradeoff-costs	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/pir	3.854s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/pirconfig	2.352s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/planner	3.186s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils	3.440s
+$ /tmp/sk-depir-go-toolchain/go/bin/go test -tags liftrs_cpp ./...
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/cmd/pir-rate	0.369s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/appref	0.840s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/cryptoref	1.042s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go	11.029s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/application-costs	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/cyclic-scaling	1.919s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/dp-costs	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-comparison	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-profile	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-profile-s13	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-scaling	2.051s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/field-multiplication	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/greedy-costs	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/tablefree-encoding	2.426s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/tradeoff-costs	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/pir	2.780s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/pirconfig	2.939s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/planner	3.355s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils	3.604s

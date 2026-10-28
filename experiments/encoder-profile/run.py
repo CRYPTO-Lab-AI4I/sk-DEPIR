@@ -26,7 +26,7 @@ def main():
     args = parser.parse_args()
     if args.seconds <= 0:
         parser.error('--seconds must be positive')
-    sources = sorted((ROOT/'encoding/liftrs-go').glob('*.go')) + [OUT/'main.go', OUT/'run.py']
+    sources = (sorted((ROOT/'encoding/liftrs-shared').rglob('*.go'))+list((ROOT/'encoding/liftrs-go').glob('*.go'))) + [OUT/'main.go', OUT/'run.py']
     inputs = sorted((ROOT/'experiments/tablefree-encoding/artifacts').glob('s09-*.json'))
     result = {'timestamp_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
               'revision': command(['git', 'rev-parse', 'HEAD']).strip(),

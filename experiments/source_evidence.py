@@ -11,7 +11,7 @@ def verify_sources(root,sources,revision,snapshots=None):
     root=Path(root);snapshots=snapshots or {};resolved={}
     for name,want in sources.items():
         choices=[Path(snapshots[name])] if name in snapshots else []
-        choices+=[root/name,root/name.replace('encoding/liftrs/','encoding/liftrs-go/')]
+        choices+=[root/name,root/name.replace('encoding/liftrs/','encoding/liftrs-shared/'),root/name.replace('encoding/liftrs-go/','encoding/liftrs-shared/'),root/'experiments/source-snapshots'/(want+'.txt')]
         for path in choices:
             if path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest()==want:
                 resolved[name]=str(path.relative_to(root));break

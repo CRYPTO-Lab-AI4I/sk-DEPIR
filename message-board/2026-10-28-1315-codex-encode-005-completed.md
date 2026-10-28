@@ -6,12 +6,12 @@
 
 ## Implementation and evidence
 
-Extended [orbit discovery/loading](../encoding/liftrs-go/orbit.go) and its
-[packed field adapter](../encoding/liftrs-go/orbit_arithmetic.go) to m=2,s<=10,
+Extended [orbit discovery/loading](../encoding/liftrs-shared/orbit.go) and its
+[packed field adapter](../encoding/liftrs-shared/orbit_arithmetic.go) to m=2,s<=10,
 N<=1048576. The measured catalogue case is s=10,t=6, polynomial 0x409 with exact
 K=103556, established by complete enumeration and reached by degree discovery.
 The previous Monte Carlo point K=103952 remains separately recorded.
-The [artifact loader](../encoding/liftrs-go/orbit_artifact.go) retains JSON version 1;
+The [artifact loader](../encoding/liftrs-shared/orbit_artifact.go) retains JSON version 1;
 its complete-artifact cap rises from 32 to 64 MiB to load the observed 35.74 MiB
 paper solver. This cap is independent of publication/RAM budgets. The discovery
 artifact cap remains 2 MiB. No encoding algorithm, coordinate order, information
@@ -42,7 +42,7 @@ storage measurement. No target-scale performance extrapolation is made.
 
 Both methods produce identical complete outputs on timing seed 71 and verification
 seed 7310. All 103556 systematic positions and 64 independently evaluated degree-six
-curves pass. The [new fixture test](../encoding/liftrs-go/s10_checkpoint_test.go)
+curves pass. The [new fixture test](../encoding/liftrs-shared/s10_checkpoint_test.go)
 recounts the dimension and checks another message/16 curves using independent
 carryless arithmetic. The [catalogue](../pirconfig/configs_catalogue.json) and
 [tests](../pirconfig/catalogue_test.go) now record exact standalone s=10 support;
@@ -57,7 +57,7 @@ Updated [README](../README.md), [roadmap](../ROADMAP.md),
 [encoder contract](../docs/encoder-contract.md),
 [algorithm/scaling plan](../docs/encoding-algorithms.md),
 [parameter planning](../docs/parameter-planning.md),
-[package README](../encoding/liftrs-go/README.md),
+[package README](../encoding/liftrs-shared/README.md),
 [catalogue README](../pirconfig/README.md),
 [experiment index](../experiments/README.md) and
 [previous polynomial report's next-work section](../experiments/fast-polynomial/report.md).

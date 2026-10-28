@@ -1,0 +1,37 @@
+# Lift-RS kernels in C++
+
+Portable C++17 fixed-constant multiplication and additive-transform kernels for
+comparison with [liftrs-go](../liftrs-go/README.md). The optional binding integrates these transforms with the Go cyclic codeword
+encoder; it does not implement cryptographic or application encoding. `transform.hpp` follows the same field,
+tower coordinates, four-bit tables and recursion as Go. No vendor instructions,
+GPU stack or third-party runtime is required.
+
+[bench.cpp](bench.cpp) reads trusted versioned experiment fixtures and measures
+batched products or complete transforms. I/O, allocations and inverse validation
+are outside timed calls. The [language comparison](../../experiments/kernel-languages/report.md)
+records build flags, shared inputs, correctness checks, CPU-profile availability
+and measurements. The binary fixture format is internal to that experiment;
+large fixtures and matching binaries remain in the ignored local cache.
+
+## Optional Go integration
+
+Build Go callers with `CGO_ENABLED=1`, `-tags liftrs_cpp` and a C++17 compiler
+(`CXX=clang++` or `CXX=g++`). The compiler uses generic `-O3` code; there is no
+architecture-specific flag. See the [runnable API example](../liftrs-go/cpp_example_test.go).
+`WithCPPTransforms` imports immutable code-only metadata once into a native plan.
+Call `Close` to release it; concurrent encodings borrow distinct Go buffers, and
+`Close` waits for them. No Go pointer or database buffer is retained by C++.
+
+The [C ABI](c_api.h) performs one call per complete transform, borrowing a
+pointer-free `[]uint32` array without interface copies. Go keeps cached generator
+spectra, multiplication cutoffs, truncated Karatsuba, unequal blocking and
+overlap-add unchanged. Preprocessing and cache loading remain in Go. This tests
+the native FFT inside the actual encoder without replacing the remaining Go
+arithmetic. It is an experimental opt-in backend, not the default.
+
+[The full integration comparison](../../experiments/native-encoding/report.md)
+reports initialization, native metadata bytes, whole-encoding time and profiles.
+`CPPEncodeStats` counts transform calls, elements, native kernel time and the
+Go-observed boundary interval. Their difference also includes locks, validation
+and timing, so it is not a calibrated cgo-overhead benchmark. Native allocation
+is absent from Go heap statistics; process RSS is measured separately.

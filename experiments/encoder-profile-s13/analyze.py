@@ -38,7 +38,7 @@ def main():
                 texts[path.name]=sha(path)
             if phase in ['preparation','encode_0']:
                 path=directory/(phase+'-source.txt')
-                with path.open('w') as output:subprocess.run([args.go,'tool','pprof','-list','recurse|polyMul|constantProduct','-trim_path',str(ROOT/'encoding/liftrs'),'-source_path',str(ROOT/'encoding/liftrs-go'),str(binary),str(profile)],stdout=output,stderr=subprocess.STDOUT,check=True)
+                with path.open('w') as output:subprocess.run([args.go,'tool','pprof','-list','recurse|polyMul|constantProduct','-trim_path',str(ROOT/'encoding/liftrs'),'-source_path',str(ROOT/'encoding/liftrs-shared'),str(binary),str(profile)],stdout=output,stderr=subprocess.STDOUT,check=True)
                 texts[path.name]=sha(path)
             all_profiles[name+'/'+phase]={'profile':str(profile.relative_to(ROOT)),'sha256':sha(profile),'texts':texts,'cpu_rows':rows(directory/(phase+'-flat.txt'))}
     reused=json.loads((HERE/'reuse-01/results.json').read_text());cache=ROOT/reused['cache_directory']

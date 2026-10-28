@@ -1,0 +1,6 @@
+File: bench-47aa849206f1f53f
+Type: cpu
+Time: 2026-10-28 22:37:14 CET
+Duration: 200.43ms, Total samples = 0 
+Showing nodes accounting for 0, 0% of 0 total
+      flat  flat%   sum%        cum   cum%

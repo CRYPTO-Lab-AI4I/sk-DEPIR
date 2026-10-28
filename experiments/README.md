@@ -97,12 +97,22 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
   and inputs, batched kernels and full-size additive-transform comparison, with
   language-labelled implementations and preserved historical source evidence.
 
-## Language-labelled implementation paths
+- [Native transform integration](native-encoding/report.md): matched full cyclic
+  encoding using Go or batched C++ transforms, retained Go preprocessing, ownership
+  and interface accounting, full output checks and stage-specific profiles.
 
-The Go Lift-RS package moved from `encoding/liftrs/` to `encoding/liftrs-go/`;
-parallel C++ kernels live in `encoding/liftrs-cpp/`. Current imports and scripts
-use the new paths; historical source manifests, snapshot scripts and commands
-retain the measured paths/revisions. Markdown link targets follow the move.
-[source_evidence.py](source_evidence.py) verifies exact recorded bytes using the
-current/mapped path or matching committed blobs, including historically dirty
-working trees. It never rewrites measurement hashes.
+- [Encoding layout verification](encoding-layout/report.md): separated backend
+  builds, legacy compatibility, pre-move fixture hashes and historical evidence.
+
+## Encoding implementation paths
+
+The complete API, preprocessing and orchestration now live in
+`encoding/liftrs-shared/`, used by both backends. `encoding/liftrs-go/` contains
+Go-only transforms; `encoding/liftrs-cpp/` contains native transforms and binding.
+The [directory guide](../encoding/README.md) gives both execution commands. Active
+runners collect shared, field and backend source dependencies. Historical results,
+snapshot scripts and source hashes retain their original measured bytes/paths.
+[source_evidence.py](source_evidence.py) resolves current/moved paths,
+[content-addressed snapshots](source-snapshots/README.md) and Git history without
+rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
+`encoding/rme_legacy/` and are not Lift-RS performance evidence.

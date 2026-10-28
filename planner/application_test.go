@@ -9,7 +9,7 @@ import (
 	"testing"
 
 	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/appref"
-	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared"
 )
 
 func TestSplitStackStorageAndMapping(t *testing.T) {

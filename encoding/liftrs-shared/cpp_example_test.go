@@ -1,0 +1,31 @@
+//go:build liftrs_cpp && cgo
+
+package liftrs_test
+
+import (
+	"fmt"
+	liftrs "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared"
+	"math/rand"
+)
+
+func ExampleCyclicEncoder_WithCPPTransforms() {
+	basis, err := liftrs.DiscoverOrbit(liftrs.Spec{FieldDegree: 2, Dimension: 2, CurveDegree: 1}, liftrs.OrbitOptions{Random: rand.New(rand.NewSource(12))})
+	if err != nil {
+		panic(err)
+	}
+	source, err := basis.PrepareCyclicFFT() // Go code-only preprocessing (or load a cache).
+	if err != nil {
+		panic(err)
+	}
+	native, err := source.WithCPPTransforms() // Requires CGO_ENABLED=1 and -tags liftrs_cpp.
+	if err != nil {
+		panic(err)
+	}
+	defer native.Close()
+	word, err := native.Encode(make([]uint32, basis.Dimension()))
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(len(word))
+	// Output: 16
+}

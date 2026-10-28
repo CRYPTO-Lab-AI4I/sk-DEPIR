@@ -2,7 +2,7 @@
 
 This package completes the small-instance pipeline from application records to
 PIR encodings and back. It executes a supplied partition plan using
-[liftrs](../liftrs-go/README.md) and [cryptoref](../cryptoref/README.md).
+[liftrs](../liftrs-shared/README.md) and [cryptoref](../cryptoref/README.md).
 It provides a correctness oracle for future implementations, without selecting
 their streaming strategy, storage layout, memory use, or public API.
 

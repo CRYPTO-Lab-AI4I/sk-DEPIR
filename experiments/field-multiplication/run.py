@@ -12,7 +12,7 @@ def main():
     parser.add_argument('--go',default='go')
     parser.add_argument('--stage',choices=['kernels','scaling'],required=True)
     args=parser.parse_args()
-    sources=sorted((ROOT/'encoding/liftrs-go').glob('*.go'))+[HERE/'main.go',HERE/'run.py',ROOT/'experiments/cyclic-scaling/main.go',ROOT/'go.mod',ROOT/'go.sum']
+    sources=(sorted((ROOT/'encoding/liftrs-shared').rglob('*.go'))+list((ROOT/'encoding/liftrs-go').glob('*.go')))+[HERE/'main.go',HERE/'run.py',ROOT/'experiments/cyclic-scaling/main.go',ROOT/'go.mod',ROOT/'go.sum']
     result={'timestamp_utc':datetime.now(timezone.utc).isoformat(),'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         'source_sha256':{str(p.relative_to(ROOT)):digest(p) for p in sources},'environment':{'platform':platform.platform(),'cpu_count':os.cpu_count(),'python':platform.python_version(),'go':subprocess.check_output([args.go,'version'],text=True).strip()},'stage':args.stage}
     with tempfile.TemporaryDirectory(prefix='depir-mul-') as temp:

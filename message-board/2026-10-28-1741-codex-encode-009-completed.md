@@ -57,7 +57,7 @@ README was checked and updated. Also updated the [roadmap](../ROADMAP.md),
 [encoder contract](../docs/encoder-contract.md),
 [algorithm plan](../docs/encoding-algorithms.md),
 [parameter planning](../docs/parameter-planning.md),
-[package README](../encoding/liftrs-go/README.md),
+[package README](../encoding/liftrs-shared/README.md),
 [catalogue README](../pirconfig/README.md) and
 [experiment index](../experiments/README.md). Earlier cost-grid snapshots keep
 their original inputs and are not rerun by this work.

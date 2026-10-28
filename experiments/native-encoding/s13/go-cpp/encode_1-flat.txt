@@ -1,0 +1,25 @@
+File: bench-47aa849206f1f53f
+Type: cpu
+Time: 2026-10-28 22:49:53 CET
+Duration: 153.50s, Total samples = 146.64s (95.53%)
+Showing nodes accounting for 146.33s, 99.79% of 146.64s total
+Dropped 23 nodes (cum <= 0.73s)
+      flat  flat%   sum%        cum   cum%
+   144.08s 98.25% 98.25%    144.08s 98.25%  runtime.cgocall
+     1.54s  1.05% 99.30%      1.54s  1.05%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.BinaryField.Mul (inline)
+     0.43s  0.29% 99.60%      1.97s  1.34%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.QuadraticField.Mul
+     0.14s 0.095% 99.69%    146.34s 99.80%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*CyclicEncoder).Encode
+     0.14s 0.095% 99.79%      2.11s  1.44%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.orbitField.mul
+         0     0% 99.79%    144.08s 98.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply
+         0     0% 99.79%    144.08s 98.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply.func1 (inline)
+         0     0% 99.79%    144.08s 98.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_apply
+         0     0% 99.79%    146.34s 99.80%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*CPPCyclicEncoder).EncodeWithStats
+         0     0% 99.79%     83.40s 56.87%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).apply
+         0     0% 99.79%     60.68s 41.38%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).applySubspace
+         0     0% 99.79%    144.08s 98.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*meteredCPP).apply
+         0     0% 99.79%     61.66s 42.05%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*polynomialProducts).multiply
+         0     0% 99.79%     61.66s 42.05%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.polyMulLow
+         0     0% 99.79%    146.34s 99.80%  main.main
+         0     0% 99.79%    146.34s 99.80%  main.main.func3
+         0     0% 99.79%    146.34s 99.80%  main.phase
+         0     0% 99.79%    146.34s 99.80%  runtime.main

@@ -1,0 +1,215 @@
+{
+  "revision": "c13d034dd9d5938d5930f33f1cb9a069c55674ea",
+  "checks": [
+    {
+      "command": [
+        "/tmp/sk-depir-go-toolchain/go/bin/go",
+        "test",
+        "./encoding/liftrs-shared",
+        "./encoding/liftrs-go"
+      ],
+      "isolated_copy": false,
+      "exit_code": 0,
+      "elapsed_s": 0.156287875
+    },
+    {
+      "command": [
+        "/tmp/sk-depir-go-toolchain/go/bin/go",
+        "test",
+        "-tags",
+        "liftrs_cpp",
+        "./encoding/liftrs-shared",
+        "./encoding/liftrs-cpp"
+      ],
+      "isolated_copy": false,
+      "exit_code": 0,
+      "elapsed_s": 0.172528917
+    },
+    {
+      "command": [
+        "/tmp/sk-depir-go-toolchain/go/bin/go",
+        "vet",
+        "-tags",
+        "liftrs_cpp",
+        "./encoding/...",
+        "./pir/..."
+      ],
+      "isolated_copy": false,
+      "exit_code": 0,
+      "elapsed_s": 0.15953866700000002
+    },
+    {
+      "command": [
+        "make",
+        "-C",
+        "encoding/rme_legacy",
+        "-B",
+        "rme"
+      ],
+      "isolated_copy": true,
+      "exit_code": 0,
+      "elapsed_s": 0.8336866249999999
+    },
+    {
+      "command": [
+        "/tmp/sk-depir-go-toolchain/go/bin/go",
+        "test",
+        "./..."
+      ],
+      "isolated_copy": true,
+      "exit_code": 0,
+      "elapsed_s": 11.39659
+    },
+    {
+      "command": [
+        "/tmp/sk-depir-go-toolchain/go/bin/go",
+        "test",
+        "-tags",
+        "liftrs_cpp",
+        "./..."
+      ],
+      "isolated_copy": true,
+      "exit_code": 0,
+      "elapsed_s": 12.284424583000002
+    },
+    {
+      "command": [
+        "/tmp/sk-depir-go-toolchain/go/bin/go",
+        "run",
+        "./experiments/encoder-profile-s13",
+        "-s",
+        "4",
+        "-t",
+        "2",
+        "-cache",
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-encoding-layout-pzvf5jkw/small-cache",
+        "-profiles",
+        "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/encoding-layout/smoke-preparation",
+        "-source-manifest",
+        "encoding-layout"
+      ],
+      "isolated_copy": false,
+      "exit_code": 0,
+      "elapsed_s": 1.5249659589999993
+    },
+    {
+      "command": [
+        "/tmp/sk-depir-go-toolchain/go/bin/go",
+        "build",
+        "-tags",
+        "liftrs_cpp",
+        "-o",
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-encoding-layout-pzvf5jkw/encoder",
+        "./experiments/native-encoding"
+      ],
+      "isolated_copy": false,
+      "exit_code": 0,
+      "elapsed_s": 0.5375823329999996
+    },
+    {
+      "command": [
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-encoding-layout-pzvf5jkw/encoder",
+        "-backend",
+        "go",
+        "-s",
+        "4",
+        "-t",
+        "2",
+        "-repeats",
+        "1",
+        "-cache",
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-encoding-layout-pzvf5jkw/small-cache",
+        "-profiles",
+        "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/encoding-layout/smoke-go"
+      ],
+      "isolated_copy": false,
+      "exit_code": 0,
+      "elapsed_s": 0.7164708330000025
+    },
+    {
+      "command": [
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-encoding-layout-pzvf5jkw/encoder",
+        "-backend",
+        "cpp",
+        "-s",
+        "4",
+        "-t",
+        "2",
+        "-repeats",
+        "1",
+        "-cache",
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-encoding-layout-pzvf5jkw/small-cache",
+        "-profiles",
+        "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/encoding-layout/smoke-cpp"
+      ],
+      "isolated_copy": false,
+      "exit_code": 0,
+      "elapsed_s": 0.6173117500000025
+    },
+    {
+      "command": [
+        "python3",
+        "experiments/native-encoding/analyze.py",
+        "s13"
+      ],
+      "isolated_copy": false,
+      "exit_code": 0,
+      "elapsed_s": 0.22864524999999958
+    },
+    {
+      "command": [
+        "python3",
+        "experiments/kernel-languages/analyze.py"
+      ],
+      "isolated_copy": false,
+      "exit_code": 0,
+      "elapsed_s": 0.5558602499999985
+    }
+  ],
+  "status": "passed",
+  "source_sha256": {
+    "encoding/liftrs-cpp/plan.go": "24bba70b9180d3ff61128f8fa8375f26c6c03223c07b50b0faf8334e4a819303",
+    "encoding/liftrs-go/transform.go": "2f5d0b317f7a1307161bcf49ec0121d00fffc230b0add11646156fed047315fb",
+    "encoding/liftrs-shared/orbit_cache_example_test.go": "7992176943b9bfb24e2377091311a5f171b022150b003a4c019b3a5a00481cba",
+    "encoding/liftrs-shared/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+    "encoding/liftrs-shared/orbit.go": "e1f3e29dcae40d1ed1e0ac44f06d0e77938340a5bc85ac430866cf7dc69f02ad",
+    "encoding/liftrs-shared/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+    "encoding/liftrs-shared/binary_field.go": "5f867ee5e5b27511c906686bb7e7efc0c03e04736f46f76beaae4cf2636e4e32",
+    "encoding/liftrs-shared/orbit_example_test.go": "ddbee52aee098773429554707e2ff9d22d95a1c48bf570aea5e398b967d3b1e0",
+    "encoding/liftrs-shared/example_test.go": "a6cceac621a7330fdedce85b1531821385988750c7ed90da4912b1ac8e25283f",
+    "encoding/liftrs-shared/orbit_constant.go": "fe3c4ab745c3bb9544cdfa6c8e643e7b2017fdcabb3aea3ebdbd176afdbc4e66",
+    "encoding/liftrs-shared/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+    "encoding/liftrs-shared/orbit_constant_test.go": "59724bab255587ab5b6ff67780f6c78cdaa8c0393f820243970b64c534aedfb2",
+    "encoding/liftrs-shared/cpp_disabled.go": "955ba56be88677b9927474d354f39d382d803b85765403079af671a92c362cfd",
+    "encoding/liftrs-shared/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs-shared/orbit_constant_artifact_test.go": "99a6e390c1c571e16b846c778a1ae8c2cdbadcf408f58d3c41c21257dd853f09",
+    "encoding/liftrs-shared/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs-shared/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+    "encoding/liftrs-shared/cpp_example_test.go": "d584da75c6b23aa1c58d6d8ee809f663bad56b29cf73de53093ad090ddbceae9",
+    "encoding/liftrs-shared/cpp_disabled_test.go": "8eb93205c80b50864c570210e35f6d3affa476123595c46c30d7d54db5b1e865",
+    "encoding/liftrs-shared/language_bench_test.go": "d78132c6d95929d0134008fc4e86b0a2bea9da94e89e302f02e3c3cca39b1994",
+    "encoding/liftrs-shared/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs-shared/orbit_test.go": "e7a37a4106840f7bac56c92bd5d1b11c486bcea4dd2c4f3368eea5f80e3319bc",
+    "encoding/liftrs-shared/s10_checkpoint_test.go": "3f606fc200b82ac3a7bfab79b8919d9af22997d419ba848ef6e11ef95255ceeb",
+    "encoding/liftrs-shared/cpp_enabled.go": "5f0fdd59e060015d9b60d5cfba6aea3411983f1df343e9216cadd11fde6a693f",
+    "encoding/liftrs-shared/cpp_enabled_test.go": "db5a8e886c7f78823e45b9dbcb455902b6e2030b934365b4b50cf2c81603538c",
+    "encoding/liftrs-shared/orbit_artifact.go": "29df02372de9111bd2be3290edfe9db92bb6ba3062279bcde8a14f45c404948d",
+    "encoding/liftrs-shared/binary_field_example_test.go": "90bf8034574b11976cb77cc8f2f2fca98c403f90569f9c8dfcf63fba7abdf714",
+    "encoding/liftrs-shared/binary_field_test.go": "79c0df2f825074175b5d7a9b37cb881ce7c6cf01abab590d44c258c78f078e38",
+    "encoding/liftrs-shared/orbit_fft.go": "5ecd36d710ea78d5da1d90e2d3713372b4f25547aaab8073cb01cb231aea535f",
+    "encoding/liftrs-shared/cpp_encoder.go": "13da56029d4cd51a228e8b16971bca3cf7da24f978d56e1b67d11f0c88e2a8d3",
+    "encoding/liftrs-shared/orbit_cache_test.go": "3ed519e68cb0204d0f097fd8c951b794cf585ed6ba643b21f0964542cfd869ac",
+    "encoding/liftrs-shared/orbit_arithmetic.go": "4473448403b01d66291cdcf071ad3bd308ad58f2415dc479ca52461b7e0e55ad",
+    "encoding/liftrs-shared/orbit_product_test.go": "fe976bbabd5aa4de91f5fa035c9590568bbe04590bef085c09c07fd2d8c38d1a",
+    "encoding/liftrs-shared/field/binary.go": "ab162f7e65cd5fd7883fef2a261537c1dcbf9a6d92c98d86c05f81b68bae12fa",
+    "encoding/rme_legacy/process/process.go": "a2a301f7916be718fba108d3997185e99fe81d4ba8811a6cb5d3e207774828d4",
+    "encoding/appref/encode.go": "97cc1e21c3dd8391c64adb7c5703fbc5dcbe92af61c35e7edb0f43e5e3680c1e",
+    "encoding/appref/example_test.go": "33c8573e84257ee44e3e78b09536ac172876fc5d37ca628da2f573a10cc7247c",
+    "encoding/appref/plan.go": "33c987f3dcd2a6e1aeb64bc65a8c0043b3501997695717bc8f3cb28f16b89817",
+    "encoding/appref/appref_test.go": "67d084fd8e4ae5faab2df20f81a72071ada94b45f30da288bd2ddfeeac795c84",
+    "encoding/appref/retrieve.go": "b8074462fe85520b5b8fd8aa663360fc48214f8a885719b49c24cf39a91d8cd9",
+    "encoding/cryptoref/example_test.go": "2acb9daada4e96c3c6026c0970c64be96349ff3182e2c095fc99f9d6cce6d81d",
+    "encoding/cryptoref/reference_test.go": "fa768908595403d5d97e24541f52b3f04e841b7b53986a8a6be715bdf11c38a7",
+    "encoding/cryptoref/reference.go": "f340ad4639a78e1fc269e51418ad7e363e0bdabdc55d750b0d83c25c07055f00"
+  }
+}

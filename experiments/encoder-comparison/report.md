@@ -5,11 +5,11 @@
 Compare three implementations of the same exact curve-lifted code and the paper's
 information set: paper transposed-Vandermonde solving plus additive evaluation;
 cyclic polynomial encoding with Karatsuba; and cyclic encoding with a cached
-FFT generator spectrum. See [implementation and API](../../encoding/liftrs-go/README.md#paper-and-cyclic-encoders),
-[code](../../encoding/liftrs-go/orbit.go), [arithmetic](../../encoding/liftrs-go/orbit_arithmetic.go),
-[transforms](../../encoding/liftrs-go/orbit_fft.go), [polynomials](../../encoding/liftrs-go/orbit_polynomial.go),
-[artifact format](../../encoding/liftrs-go/orbit_artifact.go), and
-[independent correctness checks](../../encoding/liftrs-go/orbit_test.go).
+FFT generator spectrum. See [implementation and API](../../encoding/liftrs-shared/README.md#paper-and-cyclic-encoders),
+[code](../../encoding/liftrs-shared/orbit.go), [arithmetic](../../encoding/liftrs-shared/orbit_arithmetic.go),
+[transforms](../../encoding/liftrs-shared/orbit_fft.go), [polynomials](../../encoding/liftrs-shared/orbit_polynomial.go),
+[artifact format](../../encoding/liftrs-shared/orbit_artifact.go), and
+[independent correctness checks](../../encoding/liftrs-shared/orbit_test.go).
 These are measured CPU experiments, not Monte Carlo capacity estimates or paper timings.
 
 ## Reproduction and evidence

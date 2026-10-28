@@ -1,0 +1,99 @@
+[
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "test",
+      "-tags",
+      "liftrs_cpp",
+      "./encoding/liftrs-go",
+      "./encoding/liftrs-cpp",
+      "-count=1"
+    ],
+    "isolated_copy": false,
+    "env_overrides": {},
+    "exit_code": 0,
+    "seconds": 10.721099709
+  },
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "test",
+      "./encoding/liftrs-go",
+      "-run",
+      "TestCPPOptionalBuild",
+      "-count=1"
+    ],
+    "isolated_copy": false,
+    "env_overrides": {
+      "CGO_ENABLED": "0"
+    },
+    "exit_code": 0,
+    "seconds": 0.3348035409999994
+  },
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "vet",
+      "-tags",
+      "liftrs_cpp",
+      "./encoding/liftrs-go",
+      "./encoding/liftrs-cpp"
+    ],
+    "isolated_copy": false,
+    "env_overrides": {},
+    "exit_code": 0,
+    "seconds": 0.5032992089999997
+  },
+  {
+    "command": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O1",
+      "-g",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/c_api.cpp",
+      "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/c_api_test.cpp",
+      "-o",
+      "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-native-checks-s9uvgq2_/c-api-check"
+    ],
+    "isolated_copy": false,
+    "env_overrides": {},
+    "exit_code": 0,
+    "seconds": 0.999827999999999
+  },
+  {
+    "command": [
+      "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-native-checks-s9uvgq2_/c-api-check",
+      "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/language-s13/transform.bin"
+    ],
+    "isolated_copy": false,
+    "env_overrides": {},
+    "exit_code": 0,
+    "seconds": 0.3642563750000001
+  },
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "test",
+      "./..."
+    ],
+    "isolated_copy": true,
+    "env_overrides": {},
+    "exit_code": 0,
+    "seconds": 11.956294167
+  },
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "test",
+      "-tags",
+      "liftrs_cpp",
+      "./..."
+    ],
+    "isolated_copy": true,
+    "env_overrides": {},
+    "exit_code": 0,
+    "seconds": 12.168200958
+  }
+]

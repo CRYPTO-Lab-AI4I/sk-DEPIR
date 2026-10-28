@@ -8,7 +8,7 @@
 
 Committed/pushed prior profile results, monitor fix and optimization/hardware/
 language-label guidance as `0431f80` before this work. Renamed the existing Go
-implementation to [encoding/liftrs-go](../encoding/liftrs-go/README.md), retaining
+implementation to [encoding/liftrs-go](../encoding/liftrs-shared/README.md), retaining
 its declared `liftrs` package name, and added
 [encoding/liftrs-cpp](../encoding/liftrs-cpp/README.md). Current Go imports,
 examples, scripts, catalogue implementation paths and live Markdown targets now
@@ -21,7 +21,7 @@ and serialized cache format are unchanged.
 
 ## Implementation and measurements
 
-Added [Go opt-in fixture/benchmark helpers](../encoding/liftrs-go/language_bench_test.go),
+Added [Go opt-in fixture/benchmark helpers](../encoding/liftrs-shared/language_bench_test.go),
 [C++ kernels/FFT](../encoding/liftrs-cpp/transform.hpp),
 [native driver](../encoding/liftrs-cpp/bench.cpp) and
 [independent native tests](../encoding/liftrs-cpp/test.cpp).

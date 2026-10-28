@@ -1,3 +1,5 @@
+//go:build ignore
+
 // Standalone batched-kernel / complete-FFT comparison. Shared little-endian
 // fixtures come from the actual Go implementation; all file I/O is outside timing.
 #include "transform.hpp"

@@ -26,7 +26,7 @@ Linked the review from [README.md](../README.md) and the
 ## Evidence and verification
 
 Inspected full relevant pages 25, 31-32 of the local paper with pypdf, reference
-preprocessing in [reference.go](../encoding/liftrs-go/reference.go), and existing
+preprocessing in [reference.go](../encoding/liftrs-shared/reference.go), and existing
 [GF2n arithmetic](../utils/gf2n.go). Reviewed primary papers and implementation
 sources through web browsing. Local paper SHA256:
 `205571fe7afb594d82d461a900bf0a5e2e210b8c688260224dbc6a5d9f0b8076`.

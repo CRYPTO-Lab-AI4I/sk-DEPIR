@@ -59,7 +59,7 @@
         ]
       },
       "encoder": {
-        "implementation": "encoding/liftrs-go/orbit.go: DiscoverOrbit, PreparePaper, PrepareCyclic, PrepareCyclicFFT",
+        "implementation": "encoding/liftrs-shared/orbit.go: DiscoverOrbit, PreparePaper, PrepareCyclic, PrepareCyclicFFT",
         "preprocessing": "Database-independent exact dimension and certified degree support; public prepared artifacts with reusable solver constants or polynomials/spectrum. Load once per process/code; canonical omega-power information set. Bounded m=2,N<=65536.",
         "evidence": [
           {
@@ -129,7 +129,7 @@
         ]
       },
       "encoder": {
-        "implementation": "encoding/liftrs-go/orbit.go: DiscoverOrbit, PreparePaper, PrepareCyclicFFT",
+        "implementation": "encoding/liftrs-shared/orbit.go: DiscoverOrbit, PreparePaper, PrepareCyclicFFT",
         "preprocessing": "Table-free field arithmetic; exact dimension and certified degree support; complete public code-only artifacts loaded once and reused across databases. In-memory bounded backend, not integrated application execution.",
         "evidence": [
           {
@@ -199,7 +199,7 @@
         ]
       },
       "encoder": {
-        "implementation": "encoding/liftrs-go/orbit.go: DiscoverOrbit, PreparePaper, PrepareCyclicFFT",
+        "implementation": "encoding/liftrs-shared/orbit.go: DiscoverOrbit, PreparePaper, PrepareCyclicFFT",
         "preprocessing": "Table-free fields and hybrid polynomial products; exact dimension and certified degree support; complete public JSON code-only artifacts reused across databases. In-memory bounded backend, not integrated application execution.",
         "evidence": [
           {
@@ -269,7 +269,7 @@
         ]
       },
       "encoder": {
-        "implementation": "encoding/liftrs-go/orbit.go: DiscoverOrbit, PrepareCyclicFFT (in-memory)",
+        "implementation": "encoding/liftrs-shared/orbit.go: DiscoverOrbit, PrepareCyclicFFT (in-memory)",
         "preprocessing": "Code-only exact support discovery and cached cyclic preparation reused across databases. In-memory benchmark with resource guards; existing basis/complete JSON loader caps are unchanged and may reject larger serialized caches. No application-plan integration.",
         "evidence": [
           {
@@ -344,7 +344,7 @@
         ]
       },
       "encoder": {
-        "implementation": "encoding/liftrs-go/orbit.go: DiscoverOrbit, PrepareCyclicFFT (in-memory)",
+        "implementation": "encoding/liftrs-shared/orbit.go: DiscoverOrbit, PrepareCyclicFFT (in-memory)",
         "preprocessing": "Code-only exact support discovery and cached cyclic preparation reused across databases. In-memory benchmark with resource guards; existing basis/complete JSON loader caps are unchanged and may reject larger serialized caches. No application-plan integration.",
         "evidence": [
           {
@@ -414,7 +414,7 @@
         ]
       },
       "encoder": {
-        "implementation": "encoding/liftrs-go/orbit.go: DiscoverOrbit, PrepareCyclicFFT (in-memory)",
+        "implementation": "encoding/liftrs-shared/orbit.go: DiscoverOrbit, PrepareCyclicFFT (in-memory)",
         "preprocessing": "Code-only exact support discovery and cached cyclic preparation reused across databases. In-memory benchmark with two-hour timeout and 12 GiB Go-memory guard. Existing JSON loader caps remain unchanged; large-cache serialization/loading and application-plan integration were not measured.",
         "evidence": [
           {

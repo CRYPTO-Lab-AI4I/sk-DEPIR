@@ -17,17 +17,17 @@ def main():
     name=args.run_name or ('smoke' if args.smoke else 'comparison')
     if any(c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_' for c in name):raise SystemExit('invalid run name')
     directory=HERE/name;directory.mkdir(exist_ok=False)
-    sources=sorted((ROOT/'encoding/liftrs-go').glob('*.go'))+sorted((ROOT/'encoding/liftrs-cpp').glob('*.*'))+[HERE/'run.py',ROOT/'go.mod',ROOT/'go.sum']
+    sources=(sorted((ROOT/'encoding/liftrs-shared').rglob('*.go'))+list((ROOT/'encoding/liftrs-go').glob('*.go')))+sorted((ROOT/'encoding/liftrs-cpp').glob('*.*'))+[HERE/'run.py',ROOT/'go.mod',ROOT/'go.sum']
     result={'timestamp_utc':datetime.now(timezone.utc).isoformat(),'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source_sha256':{str(path.relative_to(ROOT)):sha(path) for path in sources},
         'environment':{'platform':platform.platform(),'cpu_count':os.cpu_count(),'go':subprocess.check_output([args.go,'version'],text=True).strip(),'cxx':subprocess.check_output([args.cxx,'--version'],text=True)},'cpp_flags':['-std=c++17','-O3','-g','-fno-omit-frame-pointer'],'cases':[]}
     def save():(directory/'results.json').write_text(json.dumps(result,indent=2)+'\n')
     save()
     if not (cache/'transform-input.bin').exists():
         env=dict(os.environ,PIR_LANGUAGE_FIXTURES=str(cache))
-        subprocess.run([args.go,'test','./encoding/liftrs-go','-run','^TestExportLanguageFixtures$','-count=1'],cwd=ROOT,env=env,check=True)
+        subprocess.run([args.go,'test','./encoding/liftrs-shared','-run','^TestExportLanguageFixtures$','-count=1'],cwd=ROOT,env=env,check=True)
     result['fixture_sha256']={p.name:sha(p) for p in cache.glob('*.bin')}
     go_binary=cache/('go-bench-'+name+'.test');cpp_binary=cache/('cpp-bench-'+name)
-    subprocess.run([args.go,'test','-c','-o',str(go_binary),'./encoding/liftrs-go'],cwd=ROOT,check=True)
+    subprocess.run([args.go,'test','-c','-o',str(go_binary),'./encoding/liftrs-shared'],cwd=ROOT,check=True)
     with (directory/'compiler.log').open('w') as log:
         subprocess.run([args.cxx,*result['cpp_flags'],'-Rpass=loop-vectorize','-Rpass-missed=loop-vectorize',str(ROOT/'encoding/liftrs-cpp/bench.cpp'),'-o',str(cpp_binary)],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True)
     result['binary_sha256']={str(x.relative_to(ROOT)):sha(x) for x in [go_binary,cpp_binary]};save()

@@ -26,7 +26,7 @@ The reference defines correctness behavior only. Its materialized map, in-memory
 codewords, layout, and API do not bind future streaming, chunked, or external-memory
 implementations. Updated [encoder contract](../docs/encoder-contract.md),
 [protocol references](../docs/protocol-io.md), [roadmap](../ROADMAP.md),
-[README](../README.md), [reference encoder documentation](../encoding/liftrs-go/README.md),
+[README](../README.md), [reference encoder documentation](../encoding/liftrs-shared/README.md),
 and [repository map](../AGENTS.md) accordingly. Next is the small application
 wrapper around supplied plans; catalogue-size encoding still needs a faster backend.
 

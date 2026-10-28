@@ -7,10 +7,10 @@
 
 ## Implementation
 
-Added [encoding/liftrs](../encoding/liftrs-go/README.md) with
-[preprocessing and encoding](../encoding/liftrs-go/reference.go), independent
-polynomial-basis [arithmetic](../encoding/liftrs-go/field.go), and a runnable
-[external-package example](../encoding/liftrs-go/example_test.go).
+Added [encoding/liftrs](../encoding/liftrs-shared/README.md) with
+[preprocessing and encoding](../encoding/liftrs-shared/reference.go), independent
+polynomial-basis [arithmetic](../encoding/liftrs-shared/field.go), and a runnable
+[external-package example](../encoding/liftrs-shared/example_test.go).
 Preprocess(Spec) enumerates good monomials, constructs the evaluation matrix,
 and performs deterministic Gauss-Jordan elimination. Code.Encode consumes exactly
 K field elements and returns an unmasked systematic codeword; the artifact can
@@ -25,7 +25,7 @@ LiftedRS.Encode still uses its clearly marked RM placeholder.
 
 ## Correctness evidence
 
-[Reference tests](../encoding/liftrs-go/reference_test.go) compare arithmetic with an
+[Reference tests](../encoding/liftrs-shared/reference_test.go) compare arithmetic with an
 independent carryless-convolution/long-division oracle and check every nonzero
 field element has an inverse. Monomial classification is compared against every
 curve over GF(4) at t=1/2 and GF(8) at t=1. The GF(4), t=2 fixture has a hardcoded

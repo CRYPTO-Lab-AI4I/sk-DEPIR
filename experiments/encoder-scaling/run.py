@@ -60,7 +60,7 @@ def main():
         assert len({x['encoding']['packed_sha256'] for x in methods})==1
         assert len({x['memory']['sha256'] for x in methods} | {verification['sha256']})==1
         assert all(x['encoding']['output_bytes']==1048576*10//8 for x in methods)
-    sources=sorted((ROOT/'encoding/liftrs-go').glob('*.go'))+[HERE/'main.go',HERE/'main_test.go',HERE/'run.py',ROOT/'experiments/tablefree-encoding/main.go',ROOT/'go.mod',ROOT/'go.sum']
+    sources=(sorted((ROOT/'encoding/liftrs-shared').rglob('*.go'))+list((ROOT/'encoding/liftrs-go').glob('*.go')))+[HERE/'main.go',HERE/'main_test.go',HERE/'run.py',ROOT/'experiments/tablefree-encoding/main.go',ROOT/'go.mod',ROOT/'go.sum']
     result={'timestamp_utc':datetime.now(timezone.utc).isoformat(),'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
             'working_tree_dirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip()),
             'environment':environment,'source_sha256':{str(p.relative_to(ROOT)):digest(p) for p in sources},

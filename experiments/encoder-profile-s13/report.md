@@ -45,7 +45,7 @@ provenance are recorded separately and the complete output must match baseline.
 
 A 2 GiB cache-file budget is separate from the 12 GiB process Go-memory guard and
 proposed public distribution budget. The opt-in
-[`LoadCyclicEncoderWithLimit`](../../encoding/liftrs-go/orbit_artifact.go) applies
+[`LoadCyclicEncoderWithLimit`](../../encoding/liftrs-shared/orbit_artifact.go) applies
 its byte limit to both complete JSON and embedded basis. Default standalone
 2/64 MiB caps remain unchanged. Input reads are capped independently and decoded
 memory is guarded; byte caps alone are not RAM bounds. Structural loader checks
@@ -73,10 +73,10 @@ cache reload, CPU-profile creation and a subsequent reuse-only run over a
 s=4,m=2,t=2 correctness fixture. Disposable tiny fixture files are not optimization
 targets; only that smoke test uses temporary caches/profiles.
 
-[Loader tests](../../encoding/liftrs-go/orbit_cache_test.go) check exact byte limits,
+[Loader tests](../../encoding/liftrs-shared/orbit_cache_test.go) check exact byte limits,
 negative/zero limits, default complete/basis caps, larger opt-in nested basis,
 malformed inputs and byte-identical round trips/encoding.
-[The public example](../../encoding/liftrs-go/orbit_cache_example_test.go) bounds
+[The public example](../../encoding/liftrs-shared/orbit_cache_example_test.go) bounds
 reads before loading. [Race checks](race.log) passed for the changed loader and
 existing mathematical package. No field/transform/encoding algorithm changes.
 

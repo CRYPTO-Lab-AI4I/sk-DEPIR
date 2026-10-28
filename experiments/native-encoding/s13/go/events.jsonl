@@ -1,0 +1,13 @@
+{"event":"started","phase":"cache_load"}
+{"allocated_bytes":5345034104,"baseline_heap_bytes":354872,"elapsed_ns":4931362750,"event":"phase","gc_cycles":12,"phase":"cache_load","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":2463394664,"sampled_peak_heap_bytes":2246135360,"samples":52}
+{"backend":"go","event":"code","go_version":"go1.27.3","k":11926435,"m":2,"n":67108864,"s":13,"t":5}
+{"event":"started","phase":"encode_0"}
+{"allocated_bytes":862643992,"baseline_heap_bytes":738744048,"elapsed_ns":188339771792,"event":"phase","gc_cycles":1,"phase":"encode_0","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":2463394664,"sampled_peak_heap_bytes":1327309784,"samples":1886}
+{"backend":"go","event":"encode_stats","native":{"native_calls":0,"transformed_elements":0,"native_call_ns":0,"native_kernel_ns":0,"interface_message_copy_bytes":0},"repeat":0}
+{"event":"started","phase":"encode_1"}
+{"allocated_bytes":862864976,"baseline_heap_bytes":738747840,"elapsed_ns":190657321917,"event":"phase","gc_cycles":1,"phase":"encode_1","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":2463411048,"sampled_peak_heap_bytes":1327297288,"samples":1909}
+{"backend":"go","event":"encode_stats","native":{"native_calls":0,"transformed_elements":0,"native_call_ns":0,"native_kernel_ns":0,"interface_message_copy_bytes":0},"repeat":1}
+{"event":"started","phase":"encode_2"}
+{"allocated_bytes":862735240,"baseline_heap_bytes":738749400,"elapsed_ns":190863240875,"event":"phase","gc_cycles":1,"phase":"encode_2","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":2463411048,"sampled_peak_heap_bytes":1327314272,"samples":1910}
+{"backend":"go","event":"encode_stats","native":{"native_calls":0,"transformed_elements":0,"native_call_ns":0,"native_kernel_ns":0,"interface_message_copy_bytes":0},"repeat":2}
+{"canonical_sha256":"6120f0388f6035dd480e391b26ef93c04ed368a77f2f93c02f6d4f56b99a7b79","curve_checks":16,"event":"verified","k":11926435,"m":2,"n":67108864,"packed_bytes":109051904,"packed_sha256":"0b545a19ff25c1cdb26478ed2786c6ad76052f46c8a258bf11ad763c8f276980","packing_write_sync_ns":700669834,"s":13,"seed":71,"systematic_positions_checked":11926435,"t":5,"verification_ns":596625250}

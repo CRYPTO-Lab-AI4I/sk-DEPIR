@@ -1,0 +1,479 @@
+{
+  "timestamp_utc": "2026-10-28T21:37:13.950162+00:00",
+  "revision": "c13d034dd9d5938d5930f33f1cb9a069c55674ea",
+  "source_sha256": {
+    "encoding/liftrs-cpp/README.md": "31c16aa4e882d8ad6b523ee1282b15e27301dfe0ac2aa5b8641474a278fdecd9",
+    "encoding/liftrs-cpp/bench.cpp": "4138e83dc767f8fbfdecfceced31b600c2dd861413c3dd6c9d4e07367629cb23",
+    "encoding/liftrs-cpp/c_api.cpp": "3b76b3927cda0323bf67a2a9f67204c4370fe99ec7d36e5b121d356752dae849",
+    "encoding/liftrs-cpp/c_api.h": "643201ecaa1d1dfc3432491188bd6d7d6df863e44dcd19224131432caaf4be91",
+    "encoding/liftrs-cpp/c_api_test.cpp": "4e7b93a8250cdcbb482bfe7b3e22deeaa8a0e1a934a0a7db1a79b345c388349d",
+    "encoding/liftrs-cpp/plan.go": "24bba70b9180d3ff61128f8fa8375f26c6c03223c07b50b0faf8334e4a819303",
+    "encoding/liftrs-cpp/test.cpp": "3e69e2b4935375ee75e59551cd96948595ee14f11eb434c4d19cdf24321ed1e3",
+    "encoding/liftrs-cpp/transform.hpp": "f220d93ad376e8b3f857c7a83c284668f5095adb1ff77f3f2ed461cbbeff5b71",
+    "encoding/liftrs-go/binary_field.go": "e58ef0cb377b091c9ca895f518f64fee5622b65255d945db483248db879f371f",
+    "encoding/liftrs-go/binary_field_example_test.go": "d0f44b4854f1c540e601fc1a1a25fc0d0b65a37f3799c2a688c6a3a9e9fd74d0",
+    "encoding/liftrs-go/binary_field_test.go": "996838d45b0f2ec11d9732191a74bb4a5874b95a72496a98ffd8d53f1f8e39e8",
+    "encoding/liftrs-go/cpp_disabled.go": "955ba56be88677b9927474d354f39d382d803b85765403079af671a92c362cfd",
+    "encoding/liftrs-go/cpp_disabled_test.go": "8eb93205c80b50864c570210e35f6d3affa476123595c46c30d7d54db5b1e865",
+    "encoding/liftrs-go/cpp_enabled.go": "5f0fdd59e060015d9b60d5cfba6aea3411983f1df343e9216cadd11fde6a693f",
+    "encoding/liftrs-go/cpp_enabled_test.go": "db5a8e886c7f78823e45b9dbcb455902b6e2030b934365b4b50cf2c81603538c",
+    "encoding/liftrs-go/cpp_encoder.go": "13da56029d4cd51a228e8b16971bca3cf7da24f978d56e1b67d11f0c88e2a8d3",
+    "encoding/liftrs-go/cpp_example_test.go": "9a8ebf13efba9b7a045b09ecc3282d10c528651e07f894b59b4ca22d466c8a30",
+    "encoding/liftrs-go/example_test.go": "aa0c7448b7fe5f6231fbab31a0fc921934ccbacc2aa8a63170a1bdd06085a5d6",
+    "encoding/liftrs-go/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs-go/language_bench_test.go": "d78132c6d95929d0134008fc4e86b0a2bea9da94e89e302f02e3c3cca39b1994",
+    "encoding/liftrs-go/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs-go/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+    "encoding/liftrs-go/orbit.go": "e1f3e29dcae40d1ed1e0ac44f06d0e77938340a5bc85ac430866cf7dc69f02ad",
+    "encoding/liftrs-go/orbit_arithmetic.go": "8393001b357403435b617b4a294d9c0c9ad22e13fb7ff8c41112614e175569d3",
+    "encoding/liftrs-go/orbit_artifact.go": "29df02372de9111bd2be3290edfe9db92bb6ba3062279bcde8a14f45c404948d",
+    "encoding/liftrs-go/orbit_cache_example_test.go": "7992176943b9bfb24e2377091311a5f171b022150b003a4c019b3a5a00481cba",
+    "encoding/liftrs-go/orbit_cache_test.go": "3ed519e68cb0204d0f097fd8c951b794cf585ed6ba643b21f0964542cfd869ac",
+    "encoding/liftrs-go/orbit_constant.go": "abd6c2991fb844b865670945381c427dd2a2444da257f8c206bee09c0f0540fe",
+    "encoding/liftrs-go/orbit_constant_artifact_test.go": "99a6e390c1c571e16b846c778a1ae8c2cdbadcf408f58d3c41c21257dd853f09",
+    "encoding/liftrs-go/orbit_constant_test.go": "8d76001348c64a185d7c7451013f568a13cd62e703dfe84470308dd5aab5c6b2",
+    "encoding/liftrs-go/orbit_example_test.go": "21242e39de21c25f958697307b8c4838da3186e7f7c1e373b292734bfbecd7a7",
+    "encoding/liftrs-go/orbit_fft.go": "f58730ce95e19d59a50ac63430d3abcb7c4aaf20ce3d0f9c84d7f476753f47d9",
+    "encoding/liftrs-go/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+    "encoding/liftrs-go/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+    "encoding/liftrs-go/orbit_product_test.go": "c675c0dedba16763c3cf64c9a79e372e9698ec4b2c5a273d2883179b513ba3e7",
+    "encoding/liftrs-go/orbit_test.go": "e7a37a4106840f7bac56c92bd5d1b11c486bcea4dd2c4f3368eea5f80e3319bc",
+    "encoding/liftrs-go/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs-go/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+    "encoding/liftrs-go/s10_checkpoint_test.go": "3f606fc200b82ac3a7bfab79b8919d9af22997d419ba848ef6e11ef95255ceeb",
+    "experiments/native-encoding/main.go": "463a59def507494bb246bacd882dcec94a5652fc9784fdaa53e88589c432aa28",
+    "experiments/native-encoding/run.py": "17d073a95efffb09c752270aab4458fa57bfed537275dcfb5bbd7889a545c0e4",
+    "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
+    "go.sum": "6b5b9bf04b57c04dc22dc13596e0c5862856f95c24ca23931bb0545736f6ef76"
+  },
+  "cache_metadata": {
+    "bytes": 1645,
+    "cache_limit_bytes": 2147483648,
+    "format": "cyclic-json-v1",
+    "k": 97,
+    "m": 2,
+    "n": 256,
+    "s": 4,
+    "sha256": "ad5c6237f664e50f9b0049e3149fcbb61cdd9e5a202a6d939780858607528aaa",
+    "source_manifest": "native-smoke",
+    "t": 2
+  },
+  "cache_directory": "/tmp/depir-native-smoke-cache",
+  "cache_provenance": {
+    "purpose": "s=4 t=2 native integration smoke fixture",
+    "source_sha256": {
+      "encoding/liftrs-go/orbit_cache_example_test.go": "7992176943b9bfb24e2377091311a5f171b022150b003a4c019b3a5a00481cba",
+      "encoding/liftrs-go/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+      "encoding/liftrs-go/orbit.go": "e1f3e29dcae40d1ed1e0ac44f06d0e77938340a5bc85ac430866cf7dc69f02ad",
+      "encoding/liftrs-go/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+      "encoding/liftrs-go/binary_field.go": "e58ef0cb377b091c9ca895f518f64fee5622b65255d945db483248db879f371f",
+      "encoding/liftrs-go/orbit_example_test.go": "21242e39de21c25f958697307b8c4838da3186e7f7c1e373b292734bfbecd7a7",
+      "encoding/liftrs-go/example_test.go": "aa0c7448b7fe5f6231fbab31a0fc921934ccbacc2aa8a63170a1bdd06085a5d6",
+      "encoding/liftrs-go/orbit_constant.go": "abd6c2991fb844b865670945381c427dd2a2444da257f8c206bee09c0f0540fe",
+      "encoding/liftrs-go/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+      "encoding/liftrs-go/orbit_constant_test.go": "8d76001348c64a185d7c7451013f568a13cd62e703dfe84470308dd5aab5c6b2",
+      "encoding/liftrs-go/cpp_disabled.go": "955ba56be88677b9927474d354f39d382d803b85765403079af671a92c362cfd",
+      "encoding/liftrs-go/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+      "encoding/liftrs-go/orbit_constant_artifact_test.go": "99a6e390c1c571e16b846c778a1ae8c2cdbadcf408f58d3c41c21257dd853f09",
+      "encoding/liftrs-go/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+      "encoding/liftrs-go/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+      "encoding/liftrs-go/cpp_example_test.go": "9a8ebf13efba9b7a045b09ecc3282d10c528651e07f894b59b4ca22d466c8a30",
+      "encoding/liftrs-go/cpp_disabled_test.go": "8eb93205c80b50864c570210e35f6d3affa476123595c46c30d7d54db5b1e865",
+      "encoding/liftrs-go/language_bench_test.go": "d78132c6d95929d0134008fc4e86b0a2bea9da94e89e302f02e3c3cca39b1994",
+      "encoding/liftrs-go/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+      "encoding/liftrs-go/orbit_test.go": "e7a37a4106840f7bac56c92bd5d1b11c486bcea4dd2c4f3368eea5f80e3319bc",
+      "encoding/liftrs-go/s10_checkpoint_test.go": "3f606fc200b82ac3a7bfab79b8919d9af22997d419ba848ef6e11ef95255ceeb",
+      "encoding/liftrs-go/cpp_enabled.go": "5f0fdd59e060015d9b60d5cfba6aea3411983f1df343e9216cadd11fde6a693f",
+      "encoding/liftrs-go/cpp_enabled_test.go": "db5a8e886c7f78823e45b9dbcb455902b6e2030b934365b4b50cf2c81603538c",
+      "encoding/liftrs-go/orbit_artifact.go": "29df02372de9111bd2be3290edfe9db92bb6ba3062279bcde8a14f45c404948d",
+      "encoding/liftrs-go/binary_field_example_test.go": "d0f44b4854f1c540e601fc1a1a25fc0d0b65a37f3799c2a688c6a3a9e9fd74d0",
+      "encoding/liftrs-go/binary_field_test.go": "996838d45b0f2ec11d9732191a74bb4a5874b95a72496a98ffd8d53f1f8e39e8",
+      "encoding/liftrs-go/orbit_fft.go": "f58730ce95e19d59a50ac63430d3abcb7c4aaf20ce3d0f9c84d7f476753f47d9",
+      "encoding/liftrs-go/cpp_encoder.go": "13da56029d4cd51a228e8b16971bca3cf7da24f978d56e1b67d11f0c88e2a8d3",
+      "encoding/liftrs-go/orbit_cache_test.go": "3ed519e68cb0204d0f097fd8c951b794cf585ed6ba643b21f0964542cfd869ac",
+      "encoding/liftrs-go/orbit_arithmetic.go": "8393001b357403435b617b4a294d9c0c9ad22e13fb7ff8c41112614e175569d3",
+      "encoding/liftrs-go/orbit_product_test.go": "c675c0dedba16763c3cf64c9a79e372e9698ec4b2c5a273d2883179b513ba3e7"
+    }
+  },
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "go": "go version go1.27.3 darwin/arm64",
+    "cpu": "Apple M5 Pro",
+    "cpu_count": 18,
+    "memory_bytes": 51539607552,
+    "compiler": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin",
+    "storage": "local APFS workspace; existing warm-cache effects not controlled"
+  },
+  "policy": {
+    "repeats": 1,
+    "go_memory_guard_bytes": 12884901888,
+    "case_timeout_seconds": 7200,
+    "native_sample": false
+  },
+  "cases": {
+    "go": {
+      "command": [
+        "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/native-encoding/bench-47aa849206f1f53f",
+        "-backend",
+        "go",
+        "-s",
+        "4",
+        "-t",
+        "2",
+        "-repeats",
+        "1",
+        "-cache",
+        "/tmp/depir-native-smoke-cache",
+        "-profiles",
+        "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/native-encoding/smoke/go",
+        "-memory-bytes",
+        "12884901888"
+      ],
+      "status": "completed",
+      "pid": 69477,
+      "returncode": 0,
+      "wall_seconds": 1.0119972920000002,
+      "process_peak_rss_bytes": 10928128,
+      "events": [
+        {
+          "event": "started",
+          "phase": "cache_load"
+        },
+        {
+          "allocated_bytes": 2062912,
+          "baseline_heap_bytes": 355144,
+          "elapsed_ns": 443375,
+          "event": "phase",
+          "gc_cycles": 0,
+          "phase": "cache_load",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 13977864,
+          "sampled_peak_heap_bytes": 2418056,
+          "samples": 3
+        },
+        {
+          "backend": "go",
+          "event": "code",
+          "go_version": "go1.27.3",
+          "k": 97,
+          "m": 2,
+          "n": 256,
+          "s": 4,
+          "t": 2
+        },
+        {
+          "event": "started",
+          "phase": "encode_0"
+        },
+        {
+          "allocated_bytes": 2010432,
+          "baseline_heap_bytes": 418256,
+          "elapsed_ns": 84000,
+          "event": "phase",
+          "gc_cycles": 0,
+          "phase": "encode_0",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 18499848,
+          "sampled_peak_heap_bytes": 2428688,
+          "samples": 3
+        },
+        {
+          "backend": "go",
+          "event": "encode_stats",
+          "native": {
+            "native_calls": 0,
+            "transformed_elements": 0,
+            "native_call_ns": 0,
+            "native_kernel_ns": 0,
+            "interface_message_copy_bytes": 0
+          },
+          "repeat": 0
+        },
+        {
+          "canonical_sha256": "4421d6289c0b7a6f994afd8293a31dd017213a41584c56121bb9d447ac1137d4",
+          "curve_checks": 16,
+          "event": "verified",
+          "k": 97,
+          "m": 2,
+          "n": 256,
+          "packed_bytes": 128,
+          "packed_sha256": "bd7ef77fc1fff8d78829594bc46fd9342833754a3367e10b6bc88fab901ca0ee",
+          "packing_write_sync_ns": 8823209,
+          "s": 4,
+          "seed": 71,
+          "systematic_positions_checked": 97,
+          "t": 2,
+          "verification_ns": 35584
+        }
+      ],
+      "phases": {
+        "cache_load": {
+          "allocated_bytes": 2062912,
+          "baseline_heap_bytes": 355144,
+          "elapsed_ns": 443375,
+          "event": "phase",
+          "gc_cycles": 0,
+          "phase": "cache_load",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 13977864,
+          "sampled_peak_heap_bytes": 2418056,
+          "samples": 3
+        },
+        "encode_0": {
+          "allocated_bytes": 2010432,
+          "baseline_heap_bytes": 418256,
+          "elapsed_ns": 84000,
+          "event": "phase",
+          "gc_cycles": 0,
+          "phase": "encode_0",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 18499848,
+          "sampled_peak_heap_bytes": 2428688,
+          "samples": 3
+        }
+      },
+      "encoding_seconds": [
+        8.4e-05
+      ],
+      "median_encoding_seconds": 8.4e-05,
+      "verification": {
+        "canonical_sha256": "4421d6289c0b7a6f994afd8293a31dd017213a41584c56121bb9d447ac1137d4",
+        "curve_checks": 16,
+        "event": "verified",
+        "k": 97,
+        "m": 2,
+        "n": 256,
+        "packed_bytes": 128,
+        "packed_sha256": "bd7ef77fc1fff8d78829594bc46fd9342833754a3367e10b6bc88fab901ca0ee",
+        "packing_write_sync_ns": 8823209,
+        "s": 4,
+        "seed": 71,
+        "systematic_positions_checked": 97,
+        "t": 2,
+        "verification_ns": 35584
+      },
+      "evidence_sha256": {
+        "encode_0.pprof": "2a3e67fe71da3d314778ab93c2ecbf7601b87fe524e826eaf26935ab528314e6",
+        "cache_load-cum.txt": "83a36c16ff6dd2dc262fa62b184eb39f6cbd3f37a68b73a1c7e366d2f54256e6",
+        "sample-launch.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "encode_0-flat.txt": "4362cb794dfa7364e41567f25b7c8693544ee8ad0a1d7ef0571ae71d4fa3c6ae",
+        "cache_load-tree.txt": "99b7f43454d33b701e1d2f3b0d724a87820b61558ab66146cc646e12304dc501",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "events.jsonl": "de721d971d5fdc6a1d5e87e73b2a923b1f02f6a8867300dcb60ae4ea661b11cd",
+        "cache_load.pprof": "989127773fa418ce106b3be478b0b1446d29664a2d34024e0e03dcefcbe7775b",
+        "encode_0-tree.txt": "878ea97462f1242a4e4f49eaedad1c7d397a43860edd2796b004a075049e6301",
+        "encode_0-cum.txt": "4362cb794dfa7364e41567f25b7c8693544ee8ad0a1d7ef0571ae71d4fa3c6ae",
+        "cache_load-flat.txt": "83a36c16ff6dd2dc262fa62b184eb39f6cbd3f37a68b73a1c7e366d2f54256e6"
+      }
+    },
+    "go-cpp": {
+      "command": [
+        "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/native-encoding/bench-47aa849206f1f53f",
+        "-backend",
+        "cpp",
+        "-s",
+        "4",
+        "-t",
+        "2",
+        "-repeats",
+        "1",
+        "-cache",
+        "/tmp/depir-native-smoke-cache",
+        "-profiles",
+        "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/native-encoding/smoke/go-cpp",
+        "-memory-bytes",
+        "12884901888"
+      ],
+      "status": "completed",
+      "pid": 69511,
+      "returncode": 0,
+      "wall_seconds": 1.009059916,
+      "process_peak_rss_bytes": 10813440,
+      "events": [
+        {
+          "event": "started",
+          "phase": "cache_load"
+        },
+        {
+          "allocated_bytes": 2062944,
+          "baseline_heap_bytes": 355032,
+          "elapsed_ns": 151167,
+          "event": "phase",
+          "gc_cycles": 0,
+          "phase": "cache_load",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 13453576,
+          "sampled_peak_heap_bytes": 2417976,
+          "samples": 3
+        },
+        {
+          "event": "started",
+          "phase": "native_init"
+        },
+        {
+          "allocated_bytes": 2011968,
+          "baseline_heap_bytes": 408752,
+          "elapsed_ns": 10208,
+          "event": "phase",
+          "gc_cycles": 0,
+          "phase": "native_init",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 14043400,
+          "sampled_peak_heap_bytes": 2420720,
+          "samples": 3
+        },
+        {
+          "event": "native_plan",
+          "info": {
+            "description_bytes": 2656,
+            "native_owned_bytes": 4376
+          }
+        },
+        {
+          "backend": "cpp",
+          "event": "code",
+          "go_version": "go1.27.3",
+          "k": 97,
+          "m": 2,
+          "n": 256,
+          "s": 4,
+          "t": 2
+        },
+        {
+          "event": "started",
+          "phase": "encode_0"
+        },
+        {
+          "allocated_bytes": 2011896,
+          "baseline_heap_bytes": 412680,
+          "elapsed_ns": 87417,
+          "event": "phase",
+          "gc_cycles": 0,
+          "phase": "encode_0",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 14043400,
+          "sampled_peak_heap_bytes": 2424576,
+          "samples": 3
+        },
+        {
+          "backend": "cpp",
+          "event": "encode_stats",
+          "native": {
+            "native_calls": 2,
+            "transformed_elements": 512,
+            "native_call_ns": 66875,
+            "native_kernel_ns": 64875,
+            "interface_message_copy_bytes": 0
+          },
+          "repeat": 0
+        },
+        {
+          "canonical_sha256": "4421d6289c0b7a6f994afd8293a31dd017213a41584c56121bb9d447ac1137d4",
+          "curve_checks": 16,
+          "event": "verified",
+          "k": 97,
+          "m": 2,
+          "n": 256,
+          "packed_bytes": 128,
+          "packed_sha256": "bd7ef77fc1fff8d78829594bc46fd9342833754a3367e10b6bc88fab901ca0ee",
+          "packing_write_sync_ns": 6353416,
+          "s": 4,
+          "seed": 71,
+          "systematic_positions_checked": 97,
+          "t": 2,
+          "verification_ns": 22500
+        }
+      ],
+      "phases": {
+        "cache_load": {
+          "allocated_bytes": 2062944,
+          "baseline_heap_bytes": 355032,
+          "elapsed_ns": 151167,
+          "event": "phase",
+          "gc_cycles": 0,
+          "phase": "cache_load",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 13453576,
+          "sampled_peak_heap_bytes": 2417976,
+          "samples": 3
+        },
+        "native_init": {
+          "allocated_bytes": 2011968,
+          "baseline_heap_bytes": 408752,
+          "elapsed_ns": 10208,
+          "event": "phase",
+          "gc_cycles": 0,
+          "phase": "native_init",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 14043400,
+          "sampled_peak_heap_bytes": 2420720,
+          "samples": 3
+        },
+        "encode_0": {
+          "allocated_bytes": 2011896,
+          "baseline_heap_bytes": 412680,
+          "elapsed_ns": 87417,
+          "event": "phase",
+          "gc_cycles": 0,
+          "phase": "encode_0",
+          "sample_period_ns": 100000000,
+          "sampled_peak_go_sys_bytes": 14043400,
+          "sampled_peak_heap_bytes": 2424576,
+          "samples": 3
+        }
+      },
+      "encoding_seconds": [
+        8.7417e-05
+      ],
+      "median_encoding_seconds": 8.7417e-05,
+      "verification": {
+        "canonical_sha256": "4421d6289c0b7a6f994afd8293a31dd017213a41584c56121bb9d447ac1137d4",
+        "curve_checks": 16,
+        "event": "verified",
+        "k": 97,
+        "m": 2,
+        "n": 256,
+        "packed_bytes": 128,
+        "packed_sha256": "bd7ef77fc1fff8d78829594bc46fd9342833754a3367e10b6bc88fab901ca0ee",
+        "packing_write_sync_ns": 6353416,
+        "s": 4,
+        "seed": 71,
+        "systematic_positions_checked": 97,
+        "t": 2,
+        "verification_ns": 22500
+      },
+      "evidence_sha256": {
+        "native_init-cum.txt": "9c9131a8b816d89254953bf23310b1f144b3139a59900ffb2a3d4b3f59e2d92c",
+        "encode_0.pprof": "00ce63c88c0a5b1a60837093e3050a14b84d2a348b7f2b2c10aa607d9e6cac68",
+        "native_init.pprof": "4784decd7a7ddfd2826d4cd4ecb7f252b1435640ba87622ada64b826b11824fd",
+        "native_init-tree.txt": "e7a5bf93e1df2d6bcfdc03ad4f530c540950e1c1e4dd9f92ae06fb855cae8be0",
+        "cache_load-cum.txt": "df12c32854d9f166c602dff917b9b3098cd4791ba7b82b3fbdd3e96def261455",
+        "sample-launch.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "encode_0-flat.txt": "df12c32854d9f166c602dff917b9b3098cd4791ba7b82b3fbdd3e96def261455",
+        "cache_load-tree.txt": "4b2e54267895754218fe37191807e5f57fc374b1e160eb8ad6bf0d21fda6a4f7",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "events.jsonl": "5c6fc35ecae2c8420ed19ed7a13cb2759345cd1cb9ac0f476fa149936bceb60e",
+        "cache_load.pprof": "e2eca5924bb3c6567ea66a22a6ac3eea2fd477ef43d8bf716e6581b2b8d8e867",
+        "native_init-flat.txt": "9c9131a8b816d89254953bf23310b1f144b3139a59900ffb2a3d4b3f59e2d92c",
+        "encode_0-tree.txt": "4b2e54267895754218fe37191807e5f57fc374b1e160eb8ad6bf0d21fda6a4f7",
+        "encode_0-cum.txt": "df12c32854d9f166c602dff917b9b3098cd4791ba7b82b3fbdd3e96def261455",
+        "cache_load-flat.txt": "df12c32854d9f166c602dff917b9b3098cd4791ba7b82b3fbdd3e96def261455"
+      }
+    }
+  },
+  "status": "completed",
+  "build_command": [
+    "/tmp/sk-depir-go-toolchain/go/bin/go",
+    "build",
+    "-tags",
+    "liftrs_cpp",
+    "-o",
+    "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/native-encoding/bench-47aa849206f1f53f",
+    "./experiments/native-encoding"
+  ],
+  "binary": {
+    "path": ".cache/liftrs/native-encoding/bench-47aa849206f1f53f",
+    "sha256": "5b9d4236abf6fa2e21c02be2da2982fd6a9c032e112e938cf357b4bb154d1849"
+  },
+  "speedup": 0.9609114931878239
+}

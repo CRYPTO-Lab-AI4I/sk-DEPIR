@@ -6,18 +6,18 @@
 
 ## Implementation
 
-Added the [hybrid product backend](../encoding/liftrs-go/orbit_product.go) and
-[tests/kernel benchmarks](../encoding/liftrs-go/orbit_product_test.go).
-[Variable-size subspace transforms](../encoding/liftrs-go/orbit_fft.go) multiply large
+Added the [hybrid product backend](../encoding/liftrs-shared/orbit_product.go) and
+[tests/kernel benchmarks](../encoding/liftrs-shared/orbit_product_test.go).
+[Variable-size subspace transforms](../encoding/liftrs-shared/orbit_fft.go) multiply large
 polynomials without requiring a full-field transform for every product. Products
 beyond one field domain use overlap-add; small products retain Karatsuba. Low
 products prune irrelevant recursive work, and unequal operands use balanced blocks
 below the FFT cutoff. FFT padding always covers the full local convolution to
 avoid aliasing high coefficients into the prefix.
 
-[Orbit setup and both encoders](../encoding/liftrs-go/orbit.go) reuse immutable
-transform constants through the [field adapter](../encoding/liftrs-go/orbit_arithmetic.go).
-[Newton inversion and division](../encoding/liftrs-go/orbit_polynomial.go) now request
+[Orbit setup and both encoders](../encoding/liftrs-shared/orbit.go) reuse immutable
+transform constants through the [field adapter](../encoding/liftrs-shared/orbit_arithmetic.go).
+[Newton inversion and division](../encoding/liftrs-shared/orbit_polynomial.go) now request
 low products where appropriate. Database-dependent buffers remain per call.
 No public API, artifact version, serialized bytes, code parameters, supported
 encoder size or information-set mapping changed.
@@ -44,7 +44,7 @@ not larger-instance projections or evidence of bounded-RAM feasibility.
 Updated [README](../README.md), [roadmap](../ROADMAP.md),
 [encoder contract](../docs/encoder-contract.md),
 [algorithm/scaling plan](../docs/encoding-algorithms.md),
-[package documentation](../encoding/liftrs-go/README.md) and
+[package documentation](../encoding/liftrs-shared/README.md) and
 [experiment index](../experiments/README.md). Appended successor links to the
 [table-free checkpoint](../experiments/tablefree-encoding/report.md) and
 [CPU-profile report](../experiments/encoder-profile/report.md); their measurements

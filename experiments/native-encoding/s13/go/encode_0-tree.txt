@@ -1,0 +1,107 @@
+File: bench-47aa849206f1f53f
+Type: cpu
+Time: 2026-10-28 22:37:37 CET
+Duration: 188.50s, Total samples = 169.13s (89.72%)
+Showing nodes accounting for 168.06s, 99.37% of 169.13s total
+Dropped 62 nodes (cum <= 0.85s)
+----------------------------------------------------------+-------------
+      flat  flat%   sum%        cum   cum%   calls calls% + context 	 	 
+----------------------------------------------------------+-------------
+                                            70.37s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).recurse
+    70.32s 41.58% 41.58%     70.37s 41.61%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.constantProduct.mul
+----------------------------------------------------------+-------------
+                                            46.67s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.QuadraticField.Mul (inline)
+    46.66s 27.59% 69.17%     46.67s 27.59%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.BinaryField.Mul
+----------------------------------------------------------+-------------
+                                            95.69s 59.13% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).apply
+                                            66.15s 40.87% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).applySubspace
+    31.60s 18.68% 87.85%    161.84s 95.69%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).recurse
+                                            70.37s 43.48% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.constantProduct.mul
+                                            58.51s 36.15% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.orbitField.mul
+                                             1.35s  0.83% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).offset (inline)
+----------------------------------------------------------+-------------
+                                            56.73s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.orbitField.mul
+    10.05s  5.94% 93.79%     56.73s 33.54%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.QuadraticField.Mul
+                                            46.67s 82.27% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.BinaryField.Mul (inline)
+----------------------------------------------------------+-------------
+                                             4.10s   100% |   runtime.semawakeup
+     4.10s  2.42% 96.22%      4.10s  2.42%                | runtime.pthread_cond_signal
+----------------------------------------------------------+-------------
+                                            58.51s 96.66% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).recurse
+                                             1.03s  1.70% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*CyclicEncoder).Encode
+                                             0.99s  1.64% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*polynomialProducts).multiply
+     3.79s  2.24% 98.46%     60.53s 35.79%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.orbitField.mul
+                                            56.73s 93.72% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.QuadraticField.Mul
+----------------------------------------------------------+-------------
+                                             1.35s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).recurse (inline)
+     1.35s   0.8% 99.26%      1.35s   0.8%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).offset
+----------------------------------------------------------+-------------
+                                           164.02s   100% |   main.main.func3
+     0.15s 0.089% 99.34%    164.02s 96.98%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*CyclicEncoder).Encode
+                                            95.69s 58.34% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).apply
+                                            67.14s 40.93% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.polyMulLow
+                                             1.03s  0.63% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.orbitField.mul
+----------------------------------------------------------+-------------
+                                             4.26s   100% |   runtime.wakep
+     0.03s 0.018% 99.36%      4.26s  2.52%                | runtime.startm
+                                             4.20s 98.59% |   runtime.notewakeup
+----------------------------------------------------------+-------------
+                                             4.21s   100% |   runtime.notewakeup
+     0.01s 0.0059% 99.37%      4.21s  2.49%                | runtime.semawakeup
+                                             4.10s 97.39% |   runtime.pthread_cond_signal
+----------------------------------------------------------+-------------
+                                            95.69s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*CyclicEncoder).Encode
+         0     0% 99.37%     95.69s 56.58%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).apply
+                                            95.69s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).recurse
+----------------------------------------------------------+-------------
+                                            66.15s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*polynomialProducts).multiply
+         0     0% 99.37%     66.15s 39.11%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).applySubspace
+                                            66.15s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).recurse
+----------------------------------------------------------+-------------
+                                            67.14s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.polyMulLow
+         0     0% 99.37%     67.14s 39.70%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*polynomialProducts).multiply
+                                            66.15s 98.53% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).applySubspace
+                                             0.99s  1.47% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.orbitField.mul
+----------------------------------------------------------+-------------
+                                            67.14s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*CyclicEncoder).Encode
+         0     0% 99.37%     67.14s 39.70%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.polyMulLow
+                                            67.14s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*polynomialProducts).multiply
+----------------------------------------------------------+-------------
+                                           164.02s   100% |   runtime.main
+         0     0% 99.37%    164.02s 96.98%                | main.main
+                                           164.02s   100% |   main.phase
+----------------------------------------------------------+-------------
+                                           164.02s   100% |   main.phase
+         0     0% 99.37%    164.02s 96.98%                | main.main.func3
+                                           164.02s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*CyclicEncoder).Encode
+----------------------------------------------------------+-------------
+                                           164.02s   100% |   main.main
+         0     0% 99.37%    164.02s 96.98%                | main.phase
+                                           164.02s   100% |   main.main.func3
+----------------------------------------------------------+-------------
+                                             4.95s   100% |   runtime.newstack (inline)
+         0     0% 99.37%      4.95s  2.93%                | runtime.gopreempt_m
+                                             4.95s   100% |   runtime.goschedImpl
+----------------------------------------------------------+-------------
+                                             4.95s   100% |   runtime.gopreempt_m
+         0     0% 99.37%      4.95s  2.93%                | runtime.goschedImpl
+                                             4.33s 87.47% |   runtime.wakep
+----------------------------------------------------------+-------------
+         0     0% 99.37%    164.02s 96.98%                | runtime.main
+                                           164.02s   100% |   main.main
+----------------------------------------------------------+-------------
+         0     0% 99.37%      4.93s  2.91%                | runtime.morestack
+                                             4.93s   100% |   runtime.newstack
+----------------------------------------------------------+-------------
+                                             4.93s 99.60% |   runtime.morestack
+         0     0% 99.37%      4.95s  2.93%                | runtime.newstack
+                                             4.95s   100% |   runtime.gopreempt_m (inline)
+----------------------------------------------------------+-------------
+                                             4.20s 99.76% |   runtime.startm
+         0     0% 99.37%      4.21s  2.49%                | runtime.notewakeup
+                                             4.21s   100% |   runtime.semawakeup
+----------------------------------------------------------+-------------
+                                             4.33s 99.77% |   runtime.goschedImpl
+         0     0% 99.37%      4.34s  2.57%                | runtime.wakep
+                                             4.26s 98.16% |   runtime.startm
+----------------------------------------------------------+-------------

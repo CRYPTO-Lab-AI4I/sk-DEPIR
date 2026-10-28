@@ -1,5 +1,14 @@
 # Roadmap to TRL 5
 
+Current checkpoint: the planned CPU kernel optimization phase is complete, and
+standalone encoding has been validated through s=13. The next activity is the
+[scaling design study](docs/encoding-algorithms.md#next-scaling-design-study),
+before further architecture-specific tuning. s=14 appears practical with a higher
+setup budget; s=15 is borderline for cached encoding and currently exceeds this
+host's memory for preprocessing. These are estimates, not validation or TRL 5
+completion; [measurement boundaries and assumptions](docs/encoding-algorithms.md#current-checkpoint-and-next-step)
+remain explicit.
+
 The current target is a usable, validated Lift-RS client and preprocessing
 library. TRL 5 is a planning target, not a claim about the present implementation
 or a formal certification. TRL 6 may be considered later if needed.
@@ -94,7 +103,7 @@ one explicit specification, including the data and key lifecycle.
 ### 2. Complete the correctness foundation
 
 - [x] Implement bounded generator-matrix preprocessing and systematic encoding,
-  with [independent tests](encoding/liftrs-go/reference_test.go) and
+  with [independent tests](encoding/liftrs-shared/reference_test.go) and
   [online retrieval checks](pir/liftrs_reference_test.go).
 - [x] Add a bounded [cryptographic reference](encoding/cryptoref/README.md) and
   [retrieval tests](pir/cryptoref_test.go) using separate encoding keys and XOR masks.
@@ -186,7 +195,7 @@ sustained operational deployment require additional evidence beyond this target.
 
 ## Current starting point
 
-The repository has a bounded [Lift-RS reference encoder](encoding/liftrs-go/README.md)
+The repository has a bounded [Lift-RS reference encoder](encoding/liftrs-shared/README.md)
 with independent tiny-instance tests and online retrieval integration. This implements
 code preprocessing and non-cryptographic encoding. The existing file-based API
 still uses its RM placeholder and the online client uses experimental randomness.

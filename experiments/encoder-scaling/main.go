@@ -16,7 +16,7 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared"
 )
 
 func check(err error) {

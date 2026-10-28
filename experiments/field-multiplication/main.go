@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared"
 	"math/rand"
 	"os"
 	"runtime"

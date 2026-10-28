@@ -88,7 +88,7 @@ encoding. Report whether encoding measurements reuse an existing artifact.
 
 ### Small reference encoder
 
-The bounded implementation is [encoding/liftrs-go](../encoding/liftrs-go/README.md).
+The bounded implementation is [encoding/liftrs-shared](../encoding/liftrs-shared/README.md).
 `Preprocess(Spec)` constructs reusable code data; `Code.Encode(message)` applies
 it to field elements. These are the first reference implementations of code preprocessing
 and non-cryptographic encoding, now used by the small application wrapper.
@@ -135,8 +135,8 @@ evaluation grid is not automatically suitable. The paper gives an interpolating 
 32](../paper.pdf#page=32).
 
 **Existing file-based API:** `LiftedRS.Encode` in [pir-lifted.go](../pir/pir-lifted.go) calls the
-[RM encoder wrapper](../pir/rm_encoder.go), a testing placeholder. The unused `LRSE2D`
-helper in [rme.cpp](../encoding/rme.cpp) is not an implementation of this binary-field
+[RM encoder wrapper](../pir/legacy_encoder_bridge.go), a testing placeholder. The unused `LRSE2D`
+helper in [rme.cpp](../encoding/rme_legacy/rme.cpp) is not an implementation of this binary-field
 systematic encoder or its preprocessing.
 
 ## Cryptographic encoding
@@ -182,7 +182,7 @@ masking, and retrieval recover the original input. Use independent small vectors
 exhaustive small-instance retrieval checks. The existing
 `TestLiftedRSEndToEndWithGF2nCodeword` in [pir_api_test.go](../pir/pir_api_test.go)
 checks the online path on a directly evaluated codeword. The new
-[reference encoder tests](../encoding/liftrs-go/reference_test.go) check genuine
+[reference encoder tests](../encoding/liftrs-shared/reference_test.go) check genuine
 systematic encoding; [online integration](../pir/liftrs_reference_test.go)
 retrieves every systematic position of a lifted codeword beyond RM. The RM-backed tests in
 [pir_test.go](../pir/pir_test.go) do not verify this Lift-RS encoder.
@@ -197,7 +197,7 @@ preprocessing and systematic encoding through interpolation and evaluation.
 **Reference implementation status:** the bounded dense method above is implemented
 and independently tested on tiny fields. It establishes the correctness baseline
 for future backends and wrapper integration. It does not implement the paper's
-fast encoder or support the initial `s=8..20` catalogue. The [bounded orbit backend](../encoding/liftrs-go/README.md#paper-and-cyclic-encoders)
+fast encoder or support the initial `s=8..20` catalogue. The [bounded orbit backend](../encoding/liftrs-shared/README.md#paper-and-cyclic-encoders)
 now implements the paper's information set, certified random degree discovery and
 paper/cyclic encoding in an experimental m=2,s=2..13 range (N<=67,108,864). Its additive transforms, prepared
 public artifacts and method-specific constants are independently tested against
@@ -243,7 +243,7 @@ prove the artifact describes the intended code. Stage-specific memory and realis
 packed/grouped output measurements are required by the
 [CPU scaling checkpoint](encoding-algorithms.md#step-3-scale-the-in-memory-cpu-encoder-through-s912).
 
-The [table-free field API](../encoding/liftrs-go/README.md#table-free-field-arithmetic)
+The [table-free field API](../encoding/liftrs-shared/README.md#table-free-field-arithmetic)
 now covers s=2..20 and quadratic extensions without cardinality-sized tables.
 The bounded encoder adapter separately remains limited to m=2,s<=13; its uint32
 packed coefficients and in-memory arrays must not be used for larger encodings.
@@ -287,3 +287,28 @@ and decoded RAM separately. [The profiled s=13 experiment](../experiments/encode
 retains a 432 MiB local cache with provenance/checksums, reloads it in 4.83 s
 and profiles encoding separately (186.35 s). Its output matches the baseline.
 This local cache policy does not raise the public distribution budget.
+
+
+### Optional native transform adapter
+
+`CyclicEncoder.WithCPPTransforms` in the [Go backend](../encoding/liftrs-shared/cpp_encoder.go)
+imports immutable code-only FFT metadata into a [C++ plan](../encoding/liftrs-cpp/README.md).
+It preserves the canonical output, information set, cached generator spectrum and
+all implemented polynomial multiplication strategies. Discovery, reusable
+preprocessing and artifact loading remain in Go. Whole borrowed buffers cross the
+ABI once per transform; C++ retains no database data or Go pointers. The adapter
+requires `Close`, waits for active calls before release, and leaves the source Go
+encoder usable. It is enabled explicitly with `-tags liftrs_cpp`; the Go backend
+remains the default. The [integration experiment](../experiments/native-encoding/report.md)
+separates initialization, call accounting, native memory and encoding profiles.
+
+
+### CPU checkpoint and scaling direction
+
+The current CPU kernel optimization phase is complete, with standalone in-memory
+encoding validated through s=13. Further optimization remains possible; it is
+paused in favor of the [scaling design study](encoding-algorithms.md#next-scaling-design-study).
+The [checkpoint](encoding-algorithms.md#current-checkpoint-and-next-step) distinguishes
+measured setup/encoding from s=14 feasibility estimates and s=15's borderline
+cached-encoding case. It does not claim s=14/15 support, completed TRL 5 or a
+large-instance backend. Keep profiling and reusable preprocessing for the study.

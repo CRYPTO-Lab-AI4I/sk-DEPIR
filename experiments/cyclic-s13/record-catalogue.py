@@ -16,7 +16,7 @@ evidence={'kind':'encoding','reference':'experiments/cyclic-s13/report.md','scri
 e['encoding_status']='supported';e['code']['polynomial']=0x201b
 e['capacity'].update(status='verified',k=c['k'],rate=c['k']/c['n'])
 e['capacity']['evidence']=[x for x in e['capacity']['evidence'] if x.get('results')!=evidence['results']]+[evidence]
-e['encoder']={'implementation':'encoding/liftrs-go/orbit.go: DiscoverOrbit, PrepareCyclicFFT (in-memory)',
+e['encoder']={'implementation':'encoding/liftrs-shared/orbit.go: DiscoverOrbit, PrepareCyclicFFT (in-memory)',
  'preprocessing':'Code-only exact support discovery and cached cyclic preparation reused across databases. In-memory benchmark with two-hour timeout and 12 GiB Go-memory guard. Existing JSON loader caps remain unchanged; large-cache serialization/loading and application-plan integration were not measured.','evidence':[evidence]}
 path.write_text(json.dumps(catalogue,indent=2)+'\n')
 print('Recorded exact standalone s=13 cyclic evidence; retained earlier Monte Carlo evidence.')

@@ -1,0 +1,293 @@
+Analysis of sampling bench-47aa849206f1f53f (pid 69865) every 10 milliseconds
+Process:         bench-47aa849206f1f53f [69865]
+Path:            /Users/USER/*/bench-47aa849206f1f53f
+Load Address:    0x102d0c000
+Identifier:      bench-47aa849206f1f53f
+Version:         0
+Code Type:       ARM64
+Platform:        macOS
+Parent Process:  Python [69574]
+Target Type:     live task
+
+Date/Time:       2026-10-28 22:47:16.471 +0100
+Launch Time:     2026-10-28 22:47:10.891 +0100
+OS Version:      macOS 26.6.2 (25G83)
+Report Version:  7
+Analysis Tool:   /usr/bin/sample
+
+Physical footprint:         1.1G
+Physical footprint (peak):  2.2G
+Idle exit:                  untracked
+----
+
+Call graph:
+    1811 Thread_30346598   DispatchQueue_1: com.apple.main-thread  (serial)
+    + 935 runtime.kevent_trampoline.abi0  (in bench-47aa849206f1f53f) + 40  [0x102d90048]
+    + ! 935 kevent  (in libsystem_kernel.dylib) + 8  [0x18679dfc4]
+    + 867 ???  (in <unknown binary>)  [0xd65f03c0]
+    + ! 867 runtime.asmcgocall.abi0  (in bench-47aa849206f1f53f) + 212  [0x102d8f164]
+    + !   867 runtime.pthread_cond_wait_trampoline.abi0  (in bench-47aa849206f1f53f) + 24  [0x102d90308]
+    + !     867 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    + !       867 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    + 2 runtime.asmcgocall.abi0  (in bench-47aa849206f1f53f) + 212  [0x102d8f164]
+    + ! 1 runtime.pthread_cond_signal_trampoline.abi0  (in bench-47aa849206f1f53f) + 20  [0x102d90364]
+    + ! : 1 pthread_cond_signal  (in libsystem_pthread.dylib) + 708  [0x1867daf88]
+    + ! :   1 __psynch_cvsignal  (in libsystem_kernel.dylib) + 8  [0x18679ca64]
+    + ! 1 runtime.pthread_cond_timedwait_relative_np_trampoline.abi0  (in bench-47aa849206f1f53f) + 28  [0x102d9033c]
+    + !   1 _pthread_cond_wait  (in libsystem_pthread.dylib) + 1024  [0x1867dc154]
+    + !     1 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    + 2 runtime.nanotime_trampoline.abi0  (in bench-47aa849206f1f53f) + 20  [0x102d8fdc4]
+    + ! 2 mach_absolute_time  (in libsystem_kernel.dylib) + 108  [0x18679810c]
+    + 1 runtime.(*timers).check  (in bench-47aa849206f1f53f) + 348  [0x102d7334c]
+    + 1 runtime.runqput  (in bench-47aa849206f1f53f) + 224  [0x102d628c0]
+    + 1 runtime.selectgo  (in bench-47aa849206f1f53f) + 1372  [0x102d6685c]
+    + 1 runtime.walltime_trampoline.abi0  (in bench-47aa849206f1f53f) + 24  [0x102d8fd98]
+    + ! 1 clock_gettime  (in libsystem_c.dylib) + 0  [0x186677d24]
+    + 1 runtime/pprof.profileWriter  (in bench-47aa849206f1f53f) + 84  [0x102e37c94]
+    +   1 runtime/pprof.readProfile  (in bench-47aa849206f1f53f) + 0  [0x102d86950]
+    1811 Thread_30346599
+    + 1810 runtime.asmcgocall.abi0  (in bench-47aa849206f1f53f) + 212  [0x102d8f164]
+    + ! 1776 runtime.pthread_cond_timedwait_relative_np_trampoline.abi0  (in bench-47aa849206f1f53f) + 28  [0x102d9033c]
+    + ! : 1775 _pthread_cond_wait  (in libsystem_pthread.dylib) + 1024  [0x1867dc154]
+    + ! : | 1775 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    + ! : 1 _pthread_cond_wait  (in libsystem_pthread.dylib) + 1120  [0x1867dc1b4]
+    + ! :   1 _pthread_mutex_firstfit_lock_slow  (in libsystem_pthread.dylib) + 216  [0x1867d68e0]
+    + ! :     1 _pthread_mutex_firstfit_lock_wait  (in libsystem_pthread.dylib) + 84  [0x1867d8e9c]
+    + ! :       1 __psynch_mutexwait  (in libsystem_kernel.dylib) + 8  [0x18679a9dc]
+    + ! 34 runtime.usleep_trampoline.abi0  (in bench-47aa849206f1f53f) + 20  [0x102d8ff84]
+    + !   34 usleep  (in libsystem_c.dylib) + 68  [0x186676bd8]
+    + !     34 nanosleep  (in libsystem_c.dylib) + 220  [0x186676cc0]
+    + !       34 __semwait_signal  (in libsystem_kernel.dylib) + 8  [0x18679b308]
+    + 1 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   1 runtime.asmcgocall.abi0  (in bench-47aa849206f1f53f) + 212  [0x102d8f164]
+    +     1 runtime.pthread_kill_trampoline.abi0  (in bench-47aa849206f1f53f) + 24  [0x102d903b8]
+    +       1 pthread_kill  (in libsystem_pthread.dylib) + 132  [0x1867db834]
+    1811 Thread_30346600
+    + 1811 runtime.asmcgocall.abi0  (in bench-47aa849206f1f53f) + 124  [0x102d8f10c]
+    +   1811 _cgo_8027bbb6ea79_Cfunc_liftrs_plan_apply  (in bench-47aa849206f1f53f) + 52  [0x102e52e58]
+    +     1811 liftrs_plan_apply  (in bench-47aa849206f1f53f) + 180  [0x102e53fac]
+    +       1652 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! 1501 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : 1364 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : | 1259 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : | + 1174 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : | + ! 1084 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : | + ! : 987 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : | + ! : | 857 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : | + ! : | + 717 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : | + ! : | + ! 582 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : | + ! : | + ! : 423 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : | + ! : | + ! : | 278 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : | + ! : | + ! : | + 170 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : | + ! : | + ! : | + ! 95 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : | + ! : | + ! : | + ! : 47 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : | + ! : | + ! : | + ! : | 22 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! : | + ! : | + ! : | + ! : | + 22 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 168,128,...  [0x102e5465c,0x102e54634,...]
+    +       ! : | + ! : | + ! : | + ! : | 17 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : | + ! : | + ! : | + ! : | + 10 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! : | + ! : | + ! : | + ! : | + ! 10 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 368,128,...  [0x102e54724,0x102e54634,...]
+    +       ! : | + ! : | + ! : | + ! : | + 6 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : | + ! : | + ! : | + ! : | + ! 5 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! : | + ! : | + ! : | + ! : | + ! : 5 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 328,272,...  [0x102e546fc,0x102e546c4,...]
+    +       ! : | + ! : | + ! : | + ! : | + ! 1 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+    +       ! : | + ! : | + ! : | + ! : | + !   1 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! : | + ! : | + ! : | + ! : | + !     1 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 368  [0x102e54724]
+    +       ! : | + ! : | + ! : | + ! : | + 1 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 424  [0x102e54298]
+    +       ! : | + ! : | + ! : | + ! : | 8 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 244,68,...  [0x102e541e4,0x102e54134,...]
+    +       ! : | + ! : | + ! : | + ! : 36 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! : | + ! : | + ! : | + ! : | 36 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 168,128,...  [0x102e5465c,0x102e54634,...]
+    +       ! : | + ! : | + ! : | + ! : 12 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 496,68,...  [0x102e542e0,0x102e54134,...]
+    +       ! : | + ! : | + ! : | + ! 61 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! : | + ! : | + ! : | + ! : 61 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 128,328,...  [0x102e54634,0x102e546fc,...]
+    +       ! : | + ! : | + ! : | + ! 14 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 424,624,...  [0x102e54298,0x102e54360,...]
+    +       ! : | + ! : | + ! : | + 86 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! : | + ! : | + ! : | + ! 86 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 128,328,...  [0x102e54634,0x102e546fc,...]
+    +       ! : | + ! : | + ! : | + 22 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 424,376,...  [0x102e54298,0x102e54268,...]
+    +       ! : | + ! : | + ! : | 110 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! : | + ! : | + ! : | + 110 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 128,168,...  [0x102e54634,0x102e5465c,...]
+    +       ! : | + ! : | + ! : | 35 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 424,328,...  [0x102e54298,0x102e54238,...]
+    +       ! : | + ! : | + ! : 119 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! : | + ! : | + ! : | 119 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 128,328,...  [0x102e54634,0x102e546fc,...]
+    +       ! : | + ! : | + ! : 40 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 424,376,...  [0x102e54298,0x102e54268,...]
+    +       ! : | + ! : | + ! 81 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! : | + ! : | + ! : 81 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 328,168,...  [0x102e546fc,0x102e5465c,...]
+    +       ! : | + ! : | + ! 54 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 424,244,...  [0x102e54298,0x102e541e4,...]
+    +       ! : | + ! : | + 83 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! : | + ! : | + ! 83 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 328,128,...  [0x102e546fc,0x102e54634,...]
+    +       ! : | + ! : | + 57 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 424,328,...  [0x102e54298,0x102e54238,...]
+    +       ! : | + ! : | 75 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! : | + ! : | + 75 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 328,156,...  [0x102e546fc,0x102e54650,...]
+    +       ! : | + ! : | 55 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 424,376,...  [0x102e54298,0x102e54268,...]
+    +       ! : | + ! : 51 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! : | + ! : | 51 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 328,184,...  [0x102e546fc,0x102e5466c,...]
+    +       ! : | + ! : 46 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 424,376,...  [0x102e54298,0x102e54268,...]
+    +       ! : | + ! 49 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 424,328,...  [0x102e54298,0x102e54238,...]
+    +       ! : | + ! 41 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! : | + !   41 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 184,328,...  [0x102e5466c,0x102e546fc,...]
+    +       ! : | + 53 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 424,328,...  [0x102e54298,0x102e54238,...]
+    +       ! : | + 32 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! : | +   32 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 128,328,...  [0x102e54634,0x102e546fc,...]
+    +       ! : | 74 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 424,328,...  [0x102e54298,0x102e54238,...]
+    +       ! : | 31 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! : |   31 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 184,128,...  [0x102e5466c,0x102e54634,...]
+    +       ! : 106 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 424,328,...  [0x102e54298,0x102e54238,...]
+    +       ! : 31 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       ! :   31 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 328,184,...  [0x102e546fc,0x102e5466c,...]
+    +       ! 131 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 424,328,...  [0x102e54298,0x102e54238,...]
+    +       ! 20 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +       !   20 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 156,128,...  [0x102e54650,0x102e54634,...]
+    +       149 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 424,328,...  [0x102e54298,0x102e54238,...]
+    +       10 liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+    +         10 liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 4,180,...  [0x102e545b8,0x102e54668,...]
+    1811 Thread_30346601
+    + 1811 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   1811 runtime.asmcgocall.abi0  (in bench-47aa849206f1f53f) + 212  [0x102d8f164]
+    +     1811 runtime.pthread_cond_wait_trampoline.abi0  (in bench-47aa849206f1f53f) + 24  [0x102d90308]
+    +       1811 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         1811 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    1811 Thread_30346602
+    + 1698 ???  (in <unknown binary>)  [0xd65f03c0]
+    + ! 1698 runtime.asmcgocall.abi0  (in bench-47aa849206f1f53f) + 212  [0x102d8f164]
+    + !   1698 runtime.pthread_cond_wait_trampoline.abi0  (in bench-47aa849206f1f53f) + 24  [0x102d90308]
+    + !     1698 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    + !       1698 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    + 113 runtime.kevent_trampoline.abi0  (in bench-47aa849206f1f53f) + 40  [0x102d90048]
+    +   113 kevent  (in libsystem_kernel.dylib) + 8  [0x18679dfc4]
+    1811 Thread_30346603
+    + 1811 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   1811 runtime.asmcgocall.abi0  (in bench-47aa849206f1f53f) + 212  [0x102d8f164]
+    +     1811 runtime.pthread_cond_wait_trampoline.abi0  (in bench-47aa849206f1f53f) + 24  [0x102d90308]
+    +       1811 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         1811 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    1811 Thread_30346604
+    + 1811 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   1811 runtime.asmcgocall.abi0  (in bench-47aa849206f1f53f) + 212  [0x102d8f164]
+    +     1811 runtime.pthread_cond_wait_trampoline.abi0  (in bench-47aa849206f1f53f) + 24  [0x102d90308]
+    +       1811 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         1811 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    1811 Thread_30346605
+    + 1811 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   1811 runtime.asmcgocall.abi0  (in bench-47aa849206f1f53f) + 212  [0x102d8f164]
+    +     1811 runtime.pthread_cond_wait_trampoline.abi0  (in bench-47aa849206f1f53f) + 24  [0x102d90308]
+    +       1811 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         1811 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    1811 Thread_30346606
+    + 1811 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   1811 runtime.asmcgocall.abi0  (in bench-47aa849206f1f53f) + 212  [0x102d8f164]
+    +     1811 runtime.pthread_cond_wait_trampoline.abi0  (in bench-47aa849206f1f53f) + 24  [0x102d90308]
+    +       1811 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         1811 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    1811 Thread_30346607
+    + 1058 ???  (in <unknown binary>)  [0xd65f03c0]
+    + ! 1058 runtime.asmcgocall.abi0  (in bench-47aa849206f1f53f) + 212  [0x102d8f164]
+    + !   1058 runtime.pthread_cond_wait_trampoline.abi0  (in bench-47aa849206f1f53f) + 24  [0x102d90308]
+    + !     1058 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    + !       1058 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    + 745 runtime.kevent_trampoline.abi0  (in bench-47aa849206f1f53f) + 40  [0x102d90048]
+    + ! 745 kevent  (in libsystem_kernel.dylib) + 8  [0x18679dfc4]
+    + 1 runtime.(*gcControllerState).releaseNextGCMarkWorker  (in bench-47aa849206f1f53f) + 124  [0x102d3d12c]
+    + 1 runtime.asmcgocall.abi0  (in bench-47aa849206f1f53f) + 212  [0x102d8f164]
+    + ! 1 runtime.pthread_cond_signal_trampoline.abi0  (in bench-47aa849206f1f53f) + 20  [0x102d90364]
+    + !   1 pthread_cond_signal  (in libsystem_pthread.dylib) + 736  [0x1867dafa4]
+    + !     1 __psynch_cvclrprepost  (in libsystem_kernel.dylib) + 8  [0x18679bbb8]
+    + 1 runtime.mapaccess2_fast64  (in bench-47aa849206f1f53f) + 36  [0x102d13e94]
+    + 1 runtime.mcall  (in bench-47aa849206f1f53f) + 84  [0x102d8d1e4]
+    + ! 1 runtime.park_m  (in bench-47aa849206f1f53f) + 572  [0x102d5c1bc]
+    + !   1 runtime.schedule  (in bench-47aa849206f1f53f) + 144  [0x102d5bd40]
+    + !     1 runtime.findRunnable  (in bench-47aa849206f1f53f) + 1328  [0x102d59f20]
+    + !       1 runtime.stealWork  (in bench-47aa849206f1f53f) + 452  [0x102d5b0e4]
+    + !         1 runtime.(*timers).check  (in bench-47aa849206f1f53f) + 348  [0x102d7334c]
+    + !           1 runtime.(*timers).run  (in bench-47aa849206f1f53f) + 284  [0x102d7355c]
+    + !             1 runtime.(*timer).unlockAndRun  (in bench-47aa849206f1f53f) + 628  [0x102d73834]
+    + !               1 time.sendTime  (in bench-47aa849206f1f53f) + 92  [0x102dae02c]
+    + !                 1 runtime.selectnbsend  (in bench-47aa849206f1f53f) + 36  [0x102d1ff24]
+    + !                   1 runtime.chansend  (in bench-47aa849206f1f53f) + 1312  [0x102d1ed60]
+    + !                     1 runtime.send  (in bench-47aa849206f1f53f) + 332  [0x102d1ef4c]
+    + !                       1 _.goready.func1  (in bench-47aa849206f1f53f) + 36  [0x102d7f894]
+    + !                         1 runtime.ready  (in bench-47aa849206f1f53f) + 280  [0x102d55a28]
+    + !                           1 runtime.runqput  (in bench-47aa849206f1f53f) + 16  [0x102d627f0]
+    + 1 runtime.nanotime1.abi0  (in bench-47aa849206f1f53f) + 36  [0x102d71814]
+    + ! 1 runtime.libcCall  (in bench-47aa849206f1f53f) + 0  [0x102d71dd0]
+    + 1 runtime.nanotime_trampoline.abi0  (in bench-47aa849206f1f53f) + 20  [0x102d8fdc4]
+    + ! 1 mach_absolute_time  (in libsystem_kernel.dylib) + 108  [0x18679810c]
+    + 1 runtime.newstack  (in bench-47aa849206f1f53f) + 640  [0x102d6cfe0]
+    + 1 runtime/pprof.profileWriter  (in bench-47aa849206f1f53f) + 52  [0x102e37c74]
+    1811 Thread_30346608
+    + 1811 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   1811 runtime.asmcgocall.abi0  (in bench-47aa849206f1f53f) + 212  [0x102d8f164]
+    +     1811 runtime.pthread_cond_wait_trampoline.abi0  (in bench-47aa849206f1f53f) + 24  [0x102d90308]
+    +       1811 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         1811 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    1811 Thread_30346745
+      1811 ???  (in <unknown binary>)  [0xd65f03c0]
+        1811 runtime.asmcgocall.abi0  (in bench-47aa849206f1f53f) + 212  [0x102d8f164]
+          1811 runtime.pthread_cond_wait_trampoline.abi0  (in bench-47aa849206f1f53f) + 24  [0x102d90308]
+            1811 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+              1811 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+
+Total number in stack (recursive counted multiple, when >=5):
+        19       liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f) + 0  [0x102e545b4]
+        19       liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 552  [0x102e54318]
+        18       liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 104  [0x102e54158]
+        17       liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f) + 0  [0x102e540f0]
+        14       runtime.asmcgocall.abi0  (in bench-47aa849206f1f53f) + 212  [0x102d8f164]
+        12       __psynch_cvwait  (in libsystem_kernel.dylib) + 0  [0x18679b504]
+        11       ???  (in <unknown binary>)  [0xd65f03c0]
+        10       _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+        10       runtime.pthread_cond_wait_trampoline.abi0  (in bench-47aa849206f1f53f) + 24  [0x102d90308]
+
+Sort by top of stack, same collapsed (when >= 5):
+        __psynch_cvwait  (in libsystem_kernel.dylib)        18076
+        kevent  (in libsystem_kernel.dylib)        1793
+        liftrs::Transform::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const  (in bench-47aa849206f1f53f)        906
+        liftrs::Field::mul(unsigned int, unsigned int) const  (in bench-47aa849206f1f53f)        905
+        __semwait_signal  (in libsystem_kernel.dylib)        34
+
+Binary Images:
+       0x102d0c000 -        0x102f8decf +bench-47aa849206f1f53f (0) <13F9BF14-F3D4-35AF-9CE5-23E32FA24960> /Users/*/bench-47aa849206f1f53f
+       0x186368000 -        0x1863bab4b  libobjc.A.dylib (951.7) <03BD9E32-CF0A-37B0-898A-3CE8DE06D842> /usr/lib/libobjc.A.dylib
+       0x1863bb000 -        0x1863efd58  libdyld.dylib (1387) <957F93B3-8805-39C7-9C51-EDD1715F550E> /usr/lib/system/libdyld.dylib
+       0x1863f0000 -        0x1864a34ff  dyld (1.0.0 - 1387) <74E52480-C2BD-3C8D-812D-95FE2B74A096> /usr/lib/dyld
+       0x1864a4000 -        0x1864a7228  libsystem_blocks.dylib (96) <E0AC1231-27AA-3A13-8FAC-41D5802B1F3C> /usr/lib/system/libsystem_blocks.dylib
+       0x1864a8000 -        0x1864fc55f  libxpc.dylib (3102.160.5) <33E44C2D-D65E-37A6-B85F-1A4CF524A050> /usr/lib/system/libxpc.dylib
+       0x1864fd000 -        0x18651d9ff  libsystem_trace.dylib (1861.160.4) <93F1DD8C-6CD9-32B9-B222-D23DA5D161B4> /usr/lib/system/libsystem_trace.dylib
+       0x18651e000 -        0x1865cc5f7  libcorecrypto.dylib (1922.160.10) <0642DDAD-4771-3C82-805C-E7C6701C1461> /usr/lib/system/libcorecrypto.dylib
+       0x1865cd000 -        0x18661d257  libsystem_malloc.dylib (812.160.5) <D969A907-3E43-3951-9365-8C2DB3812E9D> /usr/lib/system/libsystem_malloc.dylib
+       0x18661e000 -        0x18666523f  libdispatch.dylib (1542.160.2) <B2000CD5-F580-314A-A141-E036719D854E> /usr/lib/system/libdispatch.dylib
+       0x186666000 -        0x186668ffb  libsystem_featureflags.dylib (103) <FEE12F9C-344B-33B3-8EDD-283580EF1C67> /usr/lib/system/libsystem_featureflags.dylib
+       0x186669000 -        0x1866ea1e7  libsystem_c.dylib (1752.160.4) <D77CEB62-AFF6-3CEC-BA9B-4F057FBE2EB5> /usr/lib/system/libsystem_c.dylib
+       0x1866eb000 -        0x18677bae7  libc++.1.dylib (2100.43) <F0FD393C-15BC-3C75-A19D-897F7B225C78> /usr/lib/libc++.1.dylib
+       0x18677c000 -        0x18679675f  libc++abi.dylib (2100.43) <F38A9C58-22AB-3798-BBAE-8DCD9CC0CE27> /usr/lib/libc++abi.dylib
+       0x186797000 -        0x1867d42e7  libsystem_kernel.dylib (12377.161.14) <C6A4A4CB-92E6-3BAF-AAE0-E8306259209A> /usr/lib/system/libsystem_kernel.dylib
+       0x1867d5000 -        0x1867e1b3b  libsystem_pthread.dylib (539.100.4) <A373F0B0-9880-326A-88B4-DD8BE4E33072> /usr/lib/system/libsystem_pthread.dylib
+       0x1867e2000 -        0x1867ea963  libsystem_platform.dylib (375.120.2) <EDB83A19-EC17-32DE-9350-6145970A85D6> /usr/lib/system/libsystem_platform.dylib
+       0x1867eb000 -        0x18681a6eb  libsystem_info.dylib (600) <9B5FB84B-31AD-3EA7-8F89-8C700D369DC8> /usr/lib/system/libsystem_info.dylib
+       0x18a7b8000 -        0x18a7c1e5f  libsystem_darwin.dylib (1752.160.4) <8E07D22E-CE5A-38A0-B091-5B0338C326F5> /usr/lib/system/libsystem_darwin.dylib
+       0x18ac23000 -        0x18ac351b6  libsystem_notify.dylib (348.160.3) <15799128-6CBD-30D6-A2BB-B9D02B4470C0> /usr/lib/system/libsystem_notify.dylib
+       0x18cef4000 -        0x18cf0ef7b  libsystem_networkextension.dylib (2226.161.1) <9C7B1EEB-47BE-3791-93A9-CFC693CB9417> /usr/lib/system/libsystem_networkextension.dylib
+       0x18cf91000 -        0x18cfa8fdf  libsystem_asl.dylib (406) <54439739-33EE-3273-839F-CBA67D7F5CB1> /usr/lib/system/libsystem_asl.dylib
+       0x18eb4a000 -        0x18eb52387  libsystem_symptoms.dylib (2169.160.3) <229122B9-B8B1-3F2F-870E-8650AE3C4FB5> /usr/lib/system/libsystem_symptoms.dylib
+       0x192def000 -        0x192e275b7  libsystem_containermanager.dylib (725.160.3) <14B2A47F-19C8-392F-8FDB-FE8AE375DD41> /usr/lib/system/libsystem_containermanager.dylib
+       0x194201000 -        0x1942055d7  libsystem_configuration.dylib (1405.160.3) <D8D6280B-783D-3550-BDBA-2861AE40604F> /usr/lib/system/libsystem_configuration.dylib
+       0x194206000 -        0x19420c99f  libsystem_sandbox.dylib (2680.160.6) <54688162-B50D-3D31-A1E8-7B9766D3530D> /usr/lib/system/libsystem_sandbox.dylib
+       0x195861000 -        0x1958641fb  libquarantine.dylib (196.160.2) <EEE5AADB-52E1-3C4C-881A-70405770B1F1> /usr/lib/system/libquarantine.dylib
+       0x196000000 -        0x196006d03  libsystem_coreservices.dylib (191.5.1) <D4ACD2AC-5702-3C45-85A0-300B2C2D19E1> /usr/lib/system/libsystem_coreservices.dylib
+       0x19658f000 -        0x1965cca77  libsystem_m.dylib (3312.100.1) <B54FBE99-DB0B-32C7-ABDD-C2206DF606A4> /usr/lib/system/libsystem_m.dylib
+       0x1965ce000 -        0x1965d1527  libmacho.dylib (1387) <949131E5-BDA2-39BA-AA50-62651BB51802> /usr/lib/system/libmacho.dylib
+       0x1965eb000 -        0x1965f83a7  libcommonCrypto.dylib (600035) <3B110564-5278-3CB0-85F1-2CE8431FF935> /usr/lib/system/libcommonCrypto.dylib
+       0x1965f9000 -        0x196602ca3  libunwind.dylib (2100.2) <05FD0014-55B1-3B8A-A6BA-6C7A389C4123> /usr/lib/system/libunwind.dylib
+       0x19660b000 -        0x196615bef  libcopyfile.dylib (240.160.2.0.1) <D0009B8A-8ECC-3D56-9206-7E1839707F93> /usr/lib/system/libcopyfile.dylib
+       0x196616000 -        0x196619987  libcompiler_rt.dylib (103.3) <6FB345CA-7F5C-3263-A23F-143F7539FD8A> /usr/lib/system/libcompiler_rt.dylib
+       0x19661a000 -        0x19661e78b  libsystem_collections.dylib (1752.160.4) <C8160BD2-5941-3DC0-BB40-F8C2B8156EC4> /usr/lib/system/libsystem_collections.dylib
+       0x19661f000 -        0x1966224cf  libsystem_secinit.dylib (168.100.7) <ECABC024-8F02-374A-BB7E-29437CEA2ABD> /usr/lib/system/libsystem_secinit.dylib
+       0x196623000 -        0x196625bf7  libremovefile.dylib (85.100.6) <7460B5AE-469A-36A0-A7EC-6C7D69628E86> /usr/lib/system/libremovefile.dylib
+       0x196626000 -        0x196626f27  libkeymgr.dylib (31) <7E863FCA-F3FF-32C7-8A8C-F983E946AFC3> /usr/lib/system/libkeymgr.dylib
+       0x196627000 -        0x19662fe37  libsystem_dnssd.dylib (2881.160.4) <305F4398-E688-3384-B351-02D865EC8A04> /usr/lib/system/libsystem_dnssd.dylib
+       0x196630000 -        0x19663509b  libcache.dylib (95) <9CD7B1E1-3E47-339C-A193-2392E3E0ED23> /usr/lib/system/libcache.dylib
+       0x196636000 -        0x196637ce3  libSystem.B.dylib (1356) <4FED5EE2-5D3E-35B1-A170-9859C4B683BB> /usr/lib/libSystem.B.dylib
+       0x19a8c4000 -        0x19a8e019b  libresolv.9.dylib (96) <4AB71911-9300-30D4-88CF-D20EFD75ACE6> /usr/lib/libresolv.9.dylib
+       0x28a5f9000 -        0x28a600349  libRosetta.dylib (367.9) <0C7397C6-D747-31F2-8BC1-4096213BDE5C> /usr/lib/libRosetta.dylib
+       0x28c20c000 -        0x28c20fa4b  libsystem_darwindirectory.dylib (122) <971A4F65-493D-39F3-846D-0D33FA2769FD> /usr/lib/system/libsystem_darwindirectory.dylib
+       0x28c210000 -        0x28c21a39b  libsystem_eligibility.dylib (319.160.17) <750CA446-92EA-3A56-9A7B-CC0841686C50> /usr/lib/system/libsystem_eligibility.dylib
+       0x28c21b000 -        0x28c22288b  libsystem_sanitizers.dylib (26.1) <D88EC709-9AA8-3083-B22B-D3CB39678D71> /usr/lib/system/libsystem_sanitizers.dylib
+       0x28c223000 -        0x28c223bb7  libsystem_trial.dylib (474.2.18.2) <7194FF5B-A6C5-3D67-B00A-90209F10D603> /usr/lib/system/libsystem_trial.dylib

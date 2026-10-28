@@ -29,8 +29,8 @@ The recorded small [smoke results](smoke/results.json) use the
 [original runner snapshot](smoke/run-snapshot.py); the later runner names binaries
 per run so new measurements do not overwrite earlier binaries.
 
-Implementations are [liftrs-go](../../encoding/liftrs-go/README.md), with
-[opt-in private-kernel helpers](../../encoding/liftrs-go/language_bench_test.go),
+Implementations are [liftrs-go](../../encoding/liftrs-shared/README.md), with
+[opt-in private-kernel helpers](../../encoding/liftrs-shared/language_bench_test.go),
 and [liftrs-cpp](../../encoding/liftrs-cpp/README.md), with
 [transform.hpp](../../encoding/liftrs-cpp/transform.hpp) and
 [bench.cpp](../../encoding/liftrs-cpp/bench.cpp). The C++ side currently contains

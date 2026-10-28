@@ -1,0 +1,20 @@
+$ /tmp/sk-depir-go-toolchain/go/bin/go test ./encoding/liftrs-shared ./encoding/liftrs-go
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	10.212s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go	[no test files]
+$ /tmp/sk-depir-go-toolchain/go/bin/go test -tags liftrs_cpp ./encoding/liftrs-shared ./encoding/liftrs-cpp
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	(cached)
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp	[no test files]
+$ /tmp/sk-depir-go-toolchain/go/bin/go vet -tags liftrs_cpp ./encoding/... ./pir/...
+encoding/liftrs-shared/orbit_arithmetic.go:20:23: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.QuadraticElement struct literal uses unkeyed fields
+encoding/liftrs-shared/orbit_arithmetic.go:20:59: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.QuadraticElement struct literal uses unkeyed fields
+encoding/liftrs-shared/orbit_arithmetic.go:46:32: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.QuadraticElement struct literal uses unkeyed fields
+encoding/liftrs-shared/binary_field_test.go:35:9: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.QuadraticElement struct literal uses unkeyed fields
+encoding/liftrs-shared/binary_field_test.go:76:12: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.QuadraticElement struct literal uses unkeyed fields
+encoding/liftrs-shared/binary_field_test.go:76:36: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.QuadraticElement struct literal uses unkeyed fields
+encoding/liftrs-shared/binary_field_test.go:81:33: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.QuadraticElement struct literal uses unkeyed fields
+encoding/liftrs-shared/binary_field_test.go:114:13: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.QuadraticElement struct literal uses unkeyed fields
+encoding/liftrs-shared/binary_field_test.go:114:58: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.QuadraticElement struct literal uses unkeyed fields
+encoding/liftrs-shared/orbit_constant_test.go:41:46: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.QuadraticElement struct literal uses unkeyed fields
+encoding/liftrs-shared/orbit_constant_test.go:41:91: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.QuadraticElement struct literal uses unkeyed fields
+encoding/liftrs-shared/orbit_product_test.go:22:42: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.QuadraticElement struct literal uses unkeyed fields
+encoding/liftrs-shared/orbit_product_test.go:22:78: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.QuadraticElement struct literal uses unkeyed fields

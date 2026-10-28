@@ -5,10 +5,10 @@
 - Status: update
 
 Added explicit trusted-local JSON loading with
-[LoadCyclicEncoderWithLimit](../encoding/liftrs-go/orbit_artifact.go), including an
-internal [basis limit](../encoding/liftrs-go/orbit.go). Default 2/64 MiB caps and
-structural checks remain unchanged. New [tests](../encoding/liftrs-go/orbit_cache_test.go)
-and [example](../encoding/liftrs-go/orbit_cache_example_test.go) verify caps,
+[LoadCyclicEncoderWithLimit](../encoding/liftrs-shared/orbit_artifact.go), including an
+internal [basis limit](../encoding/liftrs-shared/orbit.go). Default 2/64 MiB caps and
+structural checks remain unchanged. New [tests](../encoding/liftrs-shared/orbit_cache_test.go)
+and [example](../encoding/liftrs-shared/orbit_cache_example_test.go) verify caps,
 malformed data, embedded bases, byte/encoding round trips and bounded reads.
 
 The [profile runner/report](../experiments/encoder-profile-s13/report.md) preserves

@@ -11,14 +11,14 @@ internal, test, and example imports under `pir/`, `encoding/appref/`,
 [pir/db.go](../pir/db.go) and [pir/pir_test.go](../pir/pir_test.go) consistently with
 standard-library/external-package grouping; protocol behavior is unchanged.
 
-Updated the [root README](../README.md), [reference encoder usage](../encoding/liftrs-go/README.md),
+Updated the [root README](../README.md), [reference encoder usage](../encoding/liftrs-shared/README.md),
 [PIR configuration usage](../pirconfig/README.md), and [roadmap](../ROADMAP.md).
 The README check is complete. The module-path milestone is now separate from
 outstanding dependency/licensing review. No dependency versions or sums changed.
 
 Remaining `rme` names identify the actual external Reed–Muller placeholder:
 `encoding/rme.cpp`, build targets and ignored binaries, and process discovery in
-[RMEncoder](../pir/rm_encoder.go). These remain accurate component names. Historical
+[RMEncoder](../pir/legacy_encoder_bridge.go). These remain accurate component names. Historical
 board commands retain their original module paths.
 
 Verification used Go 1.27.3 and `GOCACHE=/tmp/sk-depir-go-cache`:

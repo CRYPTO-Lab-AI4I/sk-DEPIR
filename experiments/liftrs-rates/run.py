@@ -19,8 +19,8 @@ ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
 SOURCES = [
     "go.mod", "go.sum", "cmd/pir-rate/main.go",
-    "encoding/liftrs-go/monomial.go", "encoding/liftrs-go/reference.go",
-    "encoding/liftrs-go/field.go", "pirconfig/catalogue.go", "pirconfig/json.go",
+    "encoding/liftrs-shared/monomial.go", "encoding/liftrs-shared/reference.go",
+    "encoding/liftrs-shared/field.go", "pirconfig/catalogue.go", "pirconfig/json.go",
     "experiments/liftrs-rates/run.py",
 ]
 

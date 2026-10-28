@@ -2,9 +2,68 @@
 
 Research checkpoint, 2026-10-27. This reviews exact systematic encoding for the
 catalogue's curve-lifted codes (`m=2`, `s=8..20`), not ordinary line-lifted or
-linearized Reed-Solomon codes. The [bounded implementation](../encoding/liftrs-go/README.md#paper-and-cyclic-encoders)
+linearized Reed-Solomon codes. The [bounded implementation](../encoding/liftrs-shared/README.md#paper-and-cyclic-encoders)
 and [CPU comparison](../experiments/encoder-comparison/report.md) now validate the
 main paper/cyclic paths; large-instance feasibility remains unverified. The [encoder contract](encoder-contract.md) remains authoritative.
+
+## Current checkpoint and next step
+
+The **current CPU kernel optimization phase is complete**. In-memory codeword
+encoding has been validated through **s=13**. This closes the present phase;
+it does not mean CPU optimization is exhausted or the complete TRL 5 library is
+finished. Additional lookup-table, recursion and parallel-kernel tuning is deferred
+until the large-instance execution design is chosen.
+
+The [native integration](../experiments/native-encoding/report.md) measures a
+153.41 s median at s=13, versus 190.66 s for Go, with identical complete output.
+Code preprocessing remains Go. Reusable preparation measured 29.4 minutes and
+5.34 GiB peak process RSS in the [s=13 first-use run](../experiments/cyclic-s13/report.md).
+Loading/encoding from the retained 432 MiB cache measured about 2.26 GiB peak RSS.
+These figures refer to different measurement boundaries. Directory separation
+[passed both backend checks](../experiments/encoding-layout/report.md); it did not
+rerun or replace the original timing measurements.
+
+**Larger-size expectations are unmeasured.** On the 48 GiB host, s=14 appears
+practical with an increased setup budget: approximately 12–13 minutes per encoding,
+10 GiB loading/encoding RAM, 3 hours and 23 GiB RAM to generate preprocessing.
+s=15 is borderline for encoding from an already available cache (roughly 55–63
+minutes and 41 GiB RAM, leaving little headroom). Its estimated 17-hour/97 GiB
+preprocessing does not fit this host; it needs memory improvements or a larger
+machine. Neither size is currently supported/validated. These are not admissions
+under the previous 12 GiB memory guard or two-hour case timeout.
+
+The estimates use N=2^(2s): encoding scales the s=13 native time by
+`4^(s-13)*(s/13)^p`, p=2..3 (scenarios, not confidence bounds). RAM scales the
+measured stage peak by `max(N/N13,K/K13)`, using catalogue-estimated K. Preparation
+uses the existing [growth model](../experiments/cyclic-scaling/run.py), re-anchored
+to measured s=13 preparation: the larger of `N/N13*(s/13)^3` and
+`K/K13*(log2(K)/log2(K13))^3*(s/13)`. Cache-size extrapolation is proportional to N
+(about 1.7 and 6.8 GiB JSON for s=14 and 15). Cache behavior, JSON digit widths and
+representation limits can change these estimates; distant extrapolations are
+particularly uncertain. Runtime, memory and persisted storage must be measured
+separately before claiming feasibility.
+
+### Next: scaling design study
+
+Before substantial further kernel tuning:
+
+1. Account for live arrays, preprocessing artifacts, memory passes and I/O at
+   s=16..20, including domain/coordinate widths and cached-spectrum storage.
+2. Examine blocked, streaming and external-memory variants of systematic
+   interpolation, polynomial multiplication and evaluation. Identify which steps
+   need global access and how to preserve the efficient information-set mapping.
+3. Compare commodity CPU/multicore and optional GPU execution within those designs,
+   including available RAM/device memory, transfers and storage bandwidth.
+4. Prototype uncertain operations at manageable sizes; measure stage-specific
+   memory and realistic I/O as well as time. Select the architecture before
+   investing in kernels specific to it.
+
+Reuse existing correctness oracles, caches, profiles and comparable baselines.
+Continue profiling during the broader optimization effort; do not delete retained
+preprocessing or disable profiling merely because this CPU phase has ended.
+The study is the next planned activity, not a completed analysis or an already
+selected backend. TRL 5 remains the target; larger deployment acceptance remains
+separate.
 
 ## 1. The paper's algorithm
 
@@ -113,7 +172,7 @@ There are two preprocessing routes to compare:
 The D-based route accepts an experimental m=2,s=2..13 range, with completed catalogue measurements through s=13 and checked against the
 paper path and dense oracle. The random-codeword gcd route is not implemented.
 Tests verify coordinate orientation, zero-coordinate extension and equality.
-The [current dense oracle](../encoding/liftrs-go/reference.go) chooses different
+The [current dense oracle](../encoding/liftrs-shared/reference.go) chooses different
 systematic positions; compare using a message extracted at its information set,
 not by feeding both encoders the same raw message and demanding identical words.
 
@@ -230,7 +289,7 @@ base-field elements instead of indexing log/exp tables of size `2^(2s)`.
 Use carryless multiplication and reduction; profile before adding CPU-specific
 kernels. Field arithmetic support alone does not enable encoding a full instance.
 
-The [hybrid polynomial backend](../encoding/liftrs-go/orbit_product.go) now provides
+The [hybrid polynomial backend](../encoding/liftrs-shared/orbit_product.go) now provides
 full and low-coefficient products using additive FFTs for large balanced inputs,
 pruned Karatsuba for smaller ones, and blocking for unequal lengths. Newton series
 inversion and reciprocal-based division use these products. FFT domains must fit
@@ -457,10 +516,9 @@ from separate runs and do not supply a single combined peak-RSS measurement.
 Fixed-constant multiplication accounts for 44.20% of encoding self CPU samples,
 base-field multiplication 26.48%, and transform recursion's own work 17.51%.
 Preparation shows 38.46%, 27.14% and 17.56%, respectively. These are sampled CPU
-shares, not wall-time fractions; cumulative call-tree shares overlap. The next
-candidate is reducing fixed-table lookup/loop overhead (compare unrolling and
-alternative row widths within a stated table-memory budget), then validate full
-encoding using retained preprocessing. No further optimization or speedup is
+shares, not wall-time fractions; cumulative call-tree shares overlap. At that checkpoint, possible follow-up work was reducing fixed-table lookup/loop
+overhead (unrolling and alternative row widths within a table-memory budget).
+Further tuning is now deferred pending the scaling design study above. No further optimization or speedup is
 claimed by this profile. Raw profiles, text views, checksums and the matching
 binary/cache locations are retained for later analysis.
 
@@ -473,5 +531,20 @@ forward transform measures 63.21 s in Go and 50.11 s in C++ (1.26× speedup), wi
 identical complete output and inverse recovery. This is a standalone dense FFT,
 not a full codeword encoder or measured FFI integration. Profiling coverage and
 implementation/compiler differences are documented; these results do not settle
-the language choice. Next evaluate a batched native transform in actual encoding,
-including ownership/interface and setup costs, before selecting a backend.
+the language choice. The optional [native integration](../experiments/native-encoding/report.md) now
+routes whole transforms through C++ inside the Go cyclic encoder. All implemented
+polynomial optimizations and cached spectra remain shared; preprocessing stays in
+Go. Its full-pipeline comparison separates initialization, native metadata and
+interface costs before a default-backend decision.
+
+
+The matched full s=13 integration gives profiled medians of 190.66 s for Go and
+153.41 s with C++ transforms (1.243×). Complete canonical and packed outputs match,
+with essentially unchanged 2.26 GiB process peak RSS. A 0.155 ms native plan import
+is separate from encoding; each encoding makes five whole-transform calls without
+interface buffer copies. Go preprocessing and all polynomial strategies remain
+shared. See the [integration report](../experiments/native-encoding/report.md) for
+repeats, source manifests, profiles, initialization and memory boundaries. Native
+transforms account for nearly all remaining measured encoding time; Go's
+`runtime.cgocall` profile attribution includes their work, not just ABI overhead.
+The backend remains opt-in while further tuning and portability are evaluated.

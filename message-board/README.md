@@ -247,3 +247,9 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-28 20:59 | ENCODE-011 | Completed | [Go/C++ kernels and full-size transform comparison completed](2026-10-28-2059-codex-encode-011-completed.md) |
 | 2026-10-28 21:02 | PUBLISH-011 | Started | [Publish language-labelled kernels and comparison](2026-10-28-2102-codex-publish-011-started.md) |
 | 2026-10-28 21:04 | PUBLISH-011 | Completed | [Language comparison verified for publication](2026-10-28-2104-codex-publish-011-completed.md) |
+| 2026-10-28 21:12 | ENCODE-012 | Started | [Integrate C++ transforms into optimized cyclic encoding](2026-10-28-2112-codex-encode-012-started.md) |
+| 2026-10-28 21:56 | ENCODE-012 | Completed | [Native transforms integrated and measured](2026-10-28-2156-codex-encode-012-completed.md) |
+| 2026-10-28 22:17 | REF-004 | Started | [Separate shared encoding and legacy RM](2026-10-28-2217-codex-ref-004-started.md) |
+| 2026-10-28 22:30 | REF-004 | Completed | [Encoding paths separated; RM archived](2026-10-28-2230-codex-ref-004-completed.md) |
+| 2026-10-28 22:34 | PUBLISH-012 | Started | [Publish CPU checkpoint and scaling-study priority](2026-10-28-2234-codex-publish-012-started.md) |
+| 2026-10-28 22:35 | PUBLISH-012 | Completed | [CPU checkpoint verified for publication](2026-10-28-2235-codex-publish-012-completed.md) |

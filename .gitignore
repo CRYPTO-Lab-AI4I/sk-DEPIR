@@ -1,8 +1,8 @@
 # Compiled binaries
-encoding/rme
-encoding/rme_st
-encoding/bench_encode
-encoding/bench_encode_st
+encoding/rme_legacy/rme
+encoding/rme_legacy/rme_st
+encoding/rme_legacy/bench_encode
+encoding/rme_legacy/bench_encode_st
 
 # Intermediate output files
 output/inter.csv

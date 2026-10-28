@@ -47,9 +47,17 @@ struct Transform {
    for(size_t j=0;j<half;j++){uint32_t v=data[half+j];for(size_t n=0;n+1<ts.size();n++)data[j+ts[n].degree]^=ts[n].product.mul(f,v);}
   }
  }
+ // Borrow a pointer-free caller buffer for this call; no allocation or retained
+ // message pointer. The immutable plan is shared across independent encodings.
+ void apply(uint32_t* data,size_t length,bool invert=false)const {
+  if(!data || !length || (length&(length-1)) || length>f.q)
+   throw std::runtime_error("invalid transform length");
+  unsigned level=0;
+  for(size_t n=length;n>1;n>>=1)level++;
+  recurse(data,length,level,0,invert);
+ }
  void apply(std::vector<uint32_t>& data,bool invert=false)const {
-  if(data.empty()||(data.size()&(data.size()-1))||data.size()>f.q)throw std::runtime_error("invalid transform length");
-  unsigned level=0;for(size_t n=data.size();n>1;n>>=1)level++;recurse(data.data(),data.size(),level,0,invert);
+  apply(data.data(),data.size(),invert);
  }
 };
 #if defined(__GNUC__) || defined(__clang__)

@@ -57,9 +57,9 @@ basis: these measurements do not establish whole-encoder gains there. Wrapper/
 inlining effects and the short repeated operand set limit kernel comparisons.
 Source-level masking alone is not a constant-time security claim.
 
-Instead, [constantProduct](../../encoding/liftrs-go/orbit_constant.go) prepares
+Instead, [constantProduct](../../encoding/liftrs-shared/orbit_constant.go) prepares
 four-bit rows for the GF(2)-linear map `x -> c*x`, preserving packed polynomial/
-tower coordinates. [Transforms](../../encoding/liftrs-go/orbit_fft.go) reuse these
+tower coordinates. [Transforms](../../encoding/liftrs-shared/orbit_fft.go) reuse these
 maps for sparse-polynomial coefficients, butterfly factors and their inverses.
 Changing recursion offsets and general products still use scalar arithmetic.
 Zero/identity maps allocate nothing. No full-field multiplication or log tables
@@ -74,7 +74,7 @@ serialized artifact fields. This is a CPU memory/cache tradeoff, not a change to
 the encoding algorithm's mathematical output. Input-dependent lookups do not
 provide constant-time arithmetic.
 
-Measured row-entry storage, recorded by [the budget tests](../../encoding/liftrs-go/orbit_constant_artifact_test.go)
+Measured row-entry storage, recorded by [the budget tests](../../encoding/liftrs-shared/orbit_constant_artifact_test.go)
 in [verification.log](verification.log), is 52.4 KiB combined at s=9, 64.1 KiB at
 s=10 and 89.6 KiB at s=11/12. The s=13 table-construction test uses 147.3 KiB;
 this is not an s=13 encoding benchmark. General tower-delta multiplication remains
@@ -146,10 +146,10 @@ record the commands, outcomes and durations:
 - Targeted liftrs/catalogue tests, including exhaustive small-field arithmetic,
   independent larger-field arithmetic, dense-oracle encoder comparisons and
   historical codeword fixtures.
-- [Constant-map tests](../../encoding/liftrs-go/orbit_constant_test.go) against
+- [Constant-map tests](../../encoding/liftrs-shared/orbit_constant_test.go) against
   independent carryless convolution/long division: base fields s=2..20, packed
   towers through s=13, partial nibbles, zero/identity and budget fallback.
-- [Artifact rebuild tests](../../encoding/liftrs-go/orbit_constant_artifact_test.go):
+- [Artifact rebuild tests](../../encoding/liftrs-shared/orbit_constant_artifact_test.go):
   byte-identical paper/cyclic-FFT artifacts at s=4,8,9; table-size checks through
   s=13. Existing loader/output tests include s=10.
 - All systematic symbols and 16 independent actual curves for every measured

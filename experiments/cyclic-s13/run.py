@@ -8,7 +8,7 @@ sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--go',default='go');args=parser.parse_args()
     policy=json.loads((HERE/'policy.json').read_text())
-    sources=sorted((ROOT/'encoding/liftrs-go').glob('*.go'))+[ROOT/'experiments/cyclic-scaling/main.go',HERE/'run.py',HERE/'policy.json',ROOT/'go.mod',ROOT/'go.sum']
+    sources=(sorted((ROOT/'encoding/liftrs-shared').rglob('*.go'))+list((ROOT/'encoding/liftrs-go').glob('*.go')))+[ROOT/'experiments/cyclic-scaling/main.go',HERE/'run.py',HERE/'policy.json',ROOT/'go.mod',ROOT/'go.sum']
     result={'timestamp_utc':datetime.now(timezone.utc).isoformat(),'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         'source_sha256':{str(p.relative_to(ROOT)):sha(p) for p in sources},'policy':policy,'environment':{'platform':platform.platform(),'python':platform.python_version(),'cpu_count':os.cpu_count(),'go':subprocess.check_output([args.go,'version'],text=True).strip()},'status':'running'}
     def save():(HERE/'results.json').write_text(json.dumps(result,indent=2)+'\n')

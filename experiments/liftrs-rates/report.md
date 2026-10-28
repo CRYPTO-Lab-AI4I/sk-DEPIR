@@ -14,9 +14,9 @@ The paper identifies rate with the fraction of good reduced monomials (Section
 - Results: [results.json](results.json), including integer counts, seeds, intervals,
   input/source SHA-256 hashes, compiler/platform, and sampling timings.
 - Estimator: [cmd/pir-rate](../../cmd/pir-rate/main.go).
-- Membership implementation: [monomial.go](../../encoding/liftrs-go/monomial.go).
-- Verification: [membership tests](../../encoding/liftrs-go/monomial_test.go),
-  [curve oracle tests](../../encoding/liftrs-go/reference_test.go), and
+- Membership implementation: [monomial.go](../../encoding/liftrs-shared/monomial.go).
+- Verification: [membership tests](../../encoding/liftrs-shared/monomial_test.go),
+  [curve oracle tests](../../encoding/liftrs-shared/reference_test.go), and
   [estimator tests](../../cmd/pir-rate/main_test.go).
 
 Base revision: `5400889e37e4e59c09f90a73a82cd3dda8947a59`, plus the uncommitted
