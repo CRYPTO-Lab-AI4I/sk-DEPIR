@@ -9,6 +9,11 @@ def sha(p):
     with p.open('rb') as file:
         for block in iter(lambda:file.read(1<<20),b''):h.update(block)
     return h.hexdigest()
+def describe_code(event):
+    # The profiling driver emits code metadata after cache loading, so discovery
+    # sample counts are deliberately not required here.
+    return f'exact K={event["k"]}, reused_cache={event.get("reused_cache", False)}'
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--go',default='go')
@@ -54,7 +59,7 @@ def main():
                     for event in events[reported:]:
                         if event['event']=='started':phase=event['phase'];phase_start=time.monotonic();print('starting '+phase,flush=True)
                         elif event['event']=='phase':print(f'{event["phase"]}: {event["elapsed_ns"]/1e9:.3f}s',flush=True)
-                        elif event['event']=='code':print(f'exact K={event["k"]}, samples={event["samples"]}',flush=True)
+                        elif event['event']=='code':print(describe_code(event),flush=True)
                     reported=len(events)
                     if pid:process.returncode=os.waitstatus_to_exitcode(status);break
                     now=time.monotonic()
@@ -65,6 +70,18 @@ def main():
                     if now-started>policy['case_timeout_seconds']:
                         process.kill();_,status,usage=os.wait4(process.pid,0);process.returncode=os.waitstatus_to_exitcode(status);timed_out=True;break
                     time.sleep(.5)
+            except BaseException as error:
+                if process.returncode is None:
+                    process.kill()
+                    _,status,usage=os.wait4(process.pid,0)
+                    process.returncode=os.waitstatus_to_exitcode(status)
+                complete=[json.loads(line) for line in events_path.read_text().splitlines(keepends=True) if line.endswith('\n')]
+                result.update(status='monitor_failed',monitor_error=repr(error),returncode=process.returncode,
+                    wall_seconds=time.monotonic()-started,process_peak_rss_bytes=usage.ru_maxrss*(1 if platform.system()=='Darwin' else 1024),
+                    events='events.jsonl',events_sha256=sha(events_path),stderr='stderr.txt',stderr_sha256=sha(error_path),progress='progress.jsonl',progress_sha256=sha(progress_path),
+                    phases={event['phase']:event for event in complete if event['event']=='phase'})
+                save()
+                raise
             finally:
                 if process.returncode is None:
                     process.kill()

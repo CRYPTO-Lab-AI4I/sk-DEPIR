@@ -1,0 +1,339 @@
+File: profile-bin-cf73604075109abe
+Type: cpu
+Time: 2026-10-28 20:15:36 CET
+Duration: 1.67s, Total samples = 1.22s (73.18%)
+Showing nodes accounting for 1.22s, 100% of 1.22s total
+Showing top 80 nodes out of 87
+----------------------------------------------------------+-------------
+      flat  flat%   sum%        cum   cum%   calls calls% + context 	 	 
+----------------------------------------------------------+-------------
+                                             0.30s 81.08% |   internal/strconv.AppendUint
+                                             0.03s  8.11% |   runtime.growslice
+                                             0.02s  5.41% |   bytes.Clone
+                                             0.02s  5.41% |   encoding/json/jsontext.(*encoderState).reformatValue
+     0.37s 30.33% 30.33%      0.37s 30.33%                | runtime.memmove
+----------------------------------------------------------+-------------
+                                             0.12s   100% |   crypto/internal/fips140/sha256.block
+     0.12s  9.84% 40.16%      0.12s  9.84%                | crypto/internal/fips140/sha256.blockSHA2
+----------------------------------------------------------+-------------
+                                             0.12s   100% |   encoding/json/v2.makeIntArshaler.func1 (inline)
+     0.12s  9.84% 50.00%      0.12s  9.84%                | reflect.Value.Int
+----------------------------------------------------------+-------------
+                                             0.12s   100% |   encoding/json/v2.makeSliceArshaler.func2
+     0.11s  9.02% 59.02%      0.12s  9.84%                | reflect.Value.Index
+                                             0.01s  8.33% |   reflect.flag.ro (inline)
+----------------------------------------------------------+-------------
+                                             0.57s   100% |   encoding/json/v2.makeSliceArshaler.func2
+     0.06s  4.92% 63.93%      0.57s 46.72%                | encoding/json/v2.makeUintArshaler.func1
+                                             0.42s 73.68% |   internal/strconv.AppendUint
+                                             0.04s  7.02% |   encoding/json/jsontext.(*encoderState).NeedFlush (inline)
+                                             0.03s  5.26% |   encoding/json/jsontext.stateMachine.MayAppendDelim (inline)
+                                             0.01s  1.75% |   encoding/json/jsontext.export.Encoder (inline)
+                                             0.01s  1.75% |   encoding/json/jsontext.stateEntry.NeedObjectName (inline)
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   encoding/json/jsontext.(*encoderState).reformatValue (inline)
+     0.05s  4.10% 68.03%      0.05s  4.10%                | encoding/json/internal/jsonwire.ConsumeSimpleNumber
+----------------------------------------------------------+-------------
+                                             0.03s 60.00% |   runtime.sysUsedOS
+                                             0.02s 40.00% |   runtime.sysUnusedOS
+     0.05s  4.10% 72.13%      0.05s  4.10%                | runtime.madvise
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   runtime.osyield
+     0.05s  4.10% 76.23%      0.05s  4.10%                | runtime.usleep
+----------------------------------------------------------+-------------
+                                             0.04s   100% |   encoding/json/v2.makeUintArshaler.func1 (inline)
+     0.04s  3.28% 79.51%      0.04s  3.28%                | encoding/json/jsontext.(*encoderState).NeedFlush
+----------------------------------------------------------+-------------
+                                             0.85s   100% |   encoding/json/v2.makeStructArshaler.func2
+     0.04s  3.28% 82.79%      0.85s 69.67%                | encoding/json/v2.makeSliceArshaler.func2
+                                             0.57s 67.06% |   encoding/json/v2.makeUintArshaler.func1
+                                             0.12s 14.12% |   encoding/json/v2.makeIntArshaler.func1
+                                             0.12s 14.12% |   reflect.Value.Index
+----------------------------------------------------------+-------------
+                                             0.04s   100% |   internal/strconv.AppendUint
+     0.04s  3.28% 86.07%      0.04s  3.28%                | internal/strconv.formatBase10
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   encoding/json/v2.makeUintArshaler.func1 (inline)
+     0.03s  2.46% 88.52%      0.03s  2.46%                | encoding/json/jsontext.stateMachine.MayAppendDelim
+----------------------------------------------------------+-------------
+                                             0.42s   100% |   encoding/json/v2.makeUintArshaler.func1
+     0.03s  2.46% 90.98%      0.42s 34.43%                | internal/strconv.AppendUint
+                                             0.30s 71.43% |   runtime.memmove
+                                             0.04s  9.52% |   internal/strconv.formatBase10
+                                             0.03s  7.14% |   runtime.growslice
+                                             0.01s  2.38% |   internal/strconv.numDigits (inline)
+                                             0.01s  2.38% |   internal/strconv.small (inline)
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   encoding/json/jsontext.(*encoderState).reformatArray (inline)
+     0.01s  0.82% 91.80%      0.01s  0.82%                | encoding/json/internal/jsonwire.ConsumeWhitespace
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   encoding/json/jsontext.(*encoderState).reformatValue
+     0.01s  0.82% 92.62%      0.10s  8.20%                | encoding/json/jsontext.(*encoderState).reformatArray
+                                             0.08s 80.00% |   encoding/json/jsontext.(*encoderState).reformatValue
+                                             0.01s 10.00% |   encoding/json/internal/jsonwire.ConsumeWhitespace (inline)
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   encoding/json/v2.makeUintArshaler.func1 (inline)
+     0.01s  0.82% 93.44%      0.01s  0.82%                | encoding/json/jsontext.export.Encoder
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   encoding/json/v2.makeUintArshaler.func1 (inline)
+     0.01s  0.82% 94.26%      0.01s  0.82%                | encoding/json/jsontext.stateEntry.NeedObjectName
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   internal/strconv.AppendUint (inline)
+     0.01s  0.82% 95.08%      0.01s  0.82%                | internal/strconv.numDigits
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   internal/strconv.AppendUint (inline)
+     0.01s  0.82% 95.90%      0.01s  0.82%                | internal/strconv.small
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   reflect.Value.Index (inline)
+     0.01s  0.82% 96.72%      0.01s  0.82%                | reflect.flag.ro
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.(*listHeadManual).pop (inline)
+     0.01s  0.82% 97.54%      0.01s  0.82%                | runtime.(*listHeadManual).getNode
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.growslice
+     0.01s  0.82% 98.36%      0.01s  0.82%                | runtime.memclrNoHeapPointers
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.semawakeup
+     0.01s  0.82% 99.18%      0.01s  0.82%                | runtime.pthread_cond_signal
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   internal/poll.ignoringEINTRIO
+     0.01s  0.82%   100%      0.01s  0.82%                | syscall.rawsyscalln
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   encoding/json/v2.Marshal (inline)
+         0     0%   100%      0.02s  1.64%                | bytes.Clone
+                                             0.02s   100% |   runtime.memmove
+----------------------------------------------------------+-------------
+                                             0.12s   100% |   crypto/sha256.Sum256
+         0     0%   100%      0.12s  9.84%                | crypto/internal/fips140/sha256.(*Digest).Write
+                                             0.12s   100% |   crypto/internal/fips140/sha256.block
+----------------------------------------------------------+-------------
+                                             0.12s   100% |   crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%      0.12s  9.84%                | crypto/internal/fips140/sha256.block
+                                             0.12s   100% |   crypto/internal/fips140/sha256.blockSHA2
+----------------------------------------------------------+-------------
+                                             0.12s   100% |   main.main.func3
+         0     0%   100%      0.12s  9.84%                | crypto/sha256.Sum256
+                                             0.12s   100% |   crypto/internal/fips140/sha256.(*Digest).Write
+----------------------------------------------------------+-------------
+                                             0.85s 87.63% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*CyclicEncoder).MarshalBinary (inline)
+                                             0.12s 12.37% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).MarshalBinary (inline)
+         0     0%   100%      0.97s 79.51%                | encoding/json.Marshal
+                                             0.97s   100% |   encoding/json/v2.Marshal
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   encoding/json/v2.makeMethodArshaler.func3 (inline)
+         0     0%   100%      0.10s  8.20%                | encoding/json/jsontext.(*Encoder).WriteValue
+                                             0.10s   100% |   encoding/json/jsontext.(*encoderState).WriteValue
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   encoding/json/jsontext.(*Encoder).WriteValue
+         0     0%   100%      0.10s  8.20%                | encoding/json/jsontext.(*encoderState).WriteValue
+                                             0.10s   100% |   encoding/json/jsontext.(*encoderState).reformatValue
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   encoding/json/jsontext.(*encoderState).reformatValue
+         0     0%   100%      0.10s  8.20%                | encoding/json/jsontext.(*encoderState).reformatObject
+                                             0.10s   100% |   encoding/json/jsontext.(*encoderState).reformatValue
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   encoding/json/jsontext.(*encoderState).WriteValue
+                                             0.10s   100% |   encoding/json/jsontext.(*encoderState).reformatObject
+                                             0.08s 80.00% |   encoding/json/jsontext.(*encoderState).reformatArray
+         0     0%   100%      0.10s  8.20%                | encoding/json/jsontext.(*encoderState).reformatValue
+                                             0.10s   100% |   encoding/json/jsontext.(*encoderState).reformatArray
+                                             0.10s   100% |   encoding/json/jsontext.(*encoderState).reformatObject
+                                             0.05s 50.00% |   encoding/json/internal/jsonwire.ConsumeSimpleNumber (inline)
+                                             0.02s 20.00% |   runtime.memmove
+                                             0.01s 10.00% |   runtime.growslice
+----------------------------------------------------------+-------------
+                                             0.97s   100% |   encoding/json.Marshal
+         0     0%   100%      0.97s 79.51%                | encoding/json/v2.Marshal
+                                             0.95s 97.94% |   encoding/json/v2.marshalEncode
+                                             0.02s  2.06% |   bytes.Clone (inline)
+----------------------------------------------------------+-------------
+                                             0.12s   100% |   encoding/json/v2.makeSliceArshaler.func2
+         0     0%   100%      0.12s  9.84%                | encoding/json/v2.makeIntArshaler.func1
+                                             0.12s   100% |   reflect.Value.Int (inline)
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   encoding/json/v2.makeStructArshaler.func2
+         0     0%   100%      0.10s  8.20%                | encoding/json/v2.makeMethodArshaler.func3
+                                             0.10s   100% |   encoding/json/jsontext.(*Encoder).WriteValue (inline)
+----------------------------------------------------------+-------------
+                                             0.95s   100% |   encoding/json/v2.marshalEncode
+         0     0%   100%      0.95s 77.87%                | encoding/json/v2.makeStructArshaler.func2
+                                             0.85s 89.47% |   encoding/json/v2.makeSliceArshaler.func2
+                                             0.10s 10.53% |   encoding/json/v2.makeMethodArshaler.func3
+----------------------------------------------------------+-------------
+                                             0.95s   100% |   encoding/json/v2.Marshal
+         0     0%   100%      0.95s 77.87%                | encoding/json/v2.marshalEncode
+                                             0.95s   100% |   encoding/json/v2.makeStructArshaler.func2
+----------------------------------------------------------+-------------
+                                             0.97s   100% |   main.main.func3
+         0     0%   100%      0.97s 79.51%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*CyclicEncoder).MarshalBinary
+                                             0.85s 87.63% |   encoding/json.Marshal (inline)
+                                             0.12s 12.37% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).MarshalBinary
+----------------------------------------------------------+-------------
+                                             0.12s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*CyclicEncoder).MarshalBinary
+         0     0%   100%      0.12s  9.84%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).MarshalBinary
+                                             0.12s   100% |   encoding/json.Marshal (inline)
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   os.(*File).write
+         0     0%   100%      0.01s  0.82%                | internal/poll.(*FD).Write
+                                             0.01s   100% |   internal/poll.ignoringEINTRIO (inline)
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   internal/poll.(*FD).Write (inline)
+         0     0%   100%      0.01s  0.82%                | internal/poll.ignoringEINTRIO
+                                             0.01s   100% |   syscall.rawsyscalln
+----------------------------------------------------------+-------------
+                                             1.10s   100% |   runtime.main
+         0     0%   100%      1.10s 90.16%                | main.main
+                                             1.10s   100% |   main.phase
+----------------------------------------------------------+-------------
+                                             1.10s   100% |   main.phase
+         0     0%   100%      1.10s 90.16%                | main.main.func3
+                                             0.97s 88.18% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*CyclicEncoder).MarshalBinary
+                                             0.12s 10.91% |   crypto/sha256.Sum256
+                                             0.01s  0.91% |   os.(*File).Write
+----------------------------------------------------------+-------------
+                                             1.10s   100% |   main.main
+         0     0%   100%      1.10s 90.16%                | main.phase
+                                             1.10s   100% |   main.main.func3
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   main.main.func3
+         0     0%   100%      0.01s  0.82%                | os.(*File).Write
+                                             0.01s   100% |   os.(*File).write (inline)
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   os.(*File).Write (inline)
+         0     0%   100%      0.01s  0.82%                | os.(*File).write
+                                             0.01s   100% |   internal/poll.(*FD).Write
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.mget
+         0     0%   100%      0.01s  0.82%                | runtime.(*listHeadManual).pop
+                                             0.01s   100% |   runtime.(*listHeadManual).getNode (inline)
+----------------------------------------------------------+-------------
+         0     0%   100%      0.03s  2.46%                | runtime.(*mheap).alloc.func1
+                                             0.03s   100% |   runtime.(*mheap).allocSpan
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   runtime.(*mheap).alloc.func1
+         0     0%   100%      0.03s  2.46%                | runtime.(*mheap).allocSpan
+                                             0.03s   100% |   runtime.sysUsed (inline)
+----------------------------------------------------------+-------------
+         0     0%   100%      0.02s  1.64%                | runtime.(*pageAlloc).scavenge.func1
+                                             0.02s   100% |   runtime.(*pageAlloc).scavengeOne
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   runtime.(*pageAlloc).scavenge.func1
+         0     0%   100%      0.02s  1.64%                | runtime.(*pageAlloc).scavengeOne
+                                             0.02s   100% |   runtime.sysUnused (inline)
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.schedule
+         0     0%   100%      0.01s  0.82%                | runtime.findRunnable
+                                             0.01s   100% |   runtime.gcstopm
+----------------------------------------------------------+-------------
+         0     0%   100%      0.04s  3.28%                | runtime.gcBgMarkWorker.func2
+                                             0.03s 75.00% |   runtime.gcDrainMarkWorkerDedicated (inline)
+                                             0.01s 25.00% |   runtime.gcDrainMarkWorkerIdle (inline)
+----------------------------------------------------------+-------------
+                                             0.03s 75.00% |   runtime.gcDrainMarkWorkerDedicated
+                                             0.01s 25.00% |   runtime.gcDrainMarkWorkerIdle
+         0     0%   100%      0.04s  3.28%                | runtime.gcDrain
+                                             0.04s   100% |   runtime.markroot
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   runtime.gcBgMarkWorker.func2 (inline)
+         0     0%   100%      0.03s  2.46%                | runtime.gcDrainMarkWorkerDedicated
+                                             0.03s   100% |   runtime.gcDrain
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.gcBgMarkWorker.func2 (inline)
+         0     0%   100%      0.01s  0.82%                | runtime.gcDrainMarkWorkerIdle
+                                             0.01s   100% |   runtime.gcDrain
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.findRunnable
+         0     0%   100%      0.01s  0.82%                | runtime.gcstopm
+                                             0.01s   100% |   runtime.lock (inline)
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   runtime.newstack (inline)
+         0     0%   100%      0.03s  2.46%                | runtime.gopreempt_m
+                                             0.03s   100% |   runtime.goschedImpl
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   runtime.gopreempt_m
+         0     0%   100%      0.03s  2.46%                | runtime.goschedImpl
+                                             0.02s 66.67% |   runtime.startm
+                                             0.01s 33.33% |   runtime.schedule
+----------------------------------------------------------+-------------
+                                             0.03s 75.00% |   internal/strconv.AppendUint
+                                             0.01s 25.00% |   encoding/json/jsontext.(*encoderState).reformatValue
+         0     0%   100%      0.04s  3.28%                | runtime.growslice
+                                             0.03s 75.00% |   runtime.memmove
+                                             0.01s 25.00% |   runtime.memclrNoHeapPointers
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.gcstopm (inline)
+         0     0%   100%      0.01s  0.82%                | runtime.lock
+                                             0.01s   100% |   runtime.lockWithRank (inline)
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.lockWithRank
+         0     0%   100%      0.01s  0.82%                | runtime.lock2
+                                             0.01s   100% |   runtime.osyield (inline)
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.lock (inline)
+         0     0%   100%      0.01s  0.82%                | runtime.lockWithRank
+                                             0.01s   100% |   runtime.lock2
+----------------------------------------------------------+-------------
+         0     0%   100%      1.10s 90.16%                | runtime.main
+                                             1.10s   100% |   main.main
+----------------------------------------------------------+-------------
+                                             0.04s   100% |   runtime.gcDrain
+         0     0%   100%      0.04s  3.28%                | runtime.markroot
+                                             0.04s   100% |   runtime.markroot.func1
+----------------------------------------------------------+-------------
+                                             0.04s   100% |   runtime.markroot
+         0     0%   100%      0.04s  3.28%                | runtime.markroot.func1
+                                             0.04s   100% |   runtime.suspendG
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.startm (inline)
+         0     0%   100%      0.01s  0.82%                | runtime.mget
+                                             0.01s   100% |   runtime.(*listHeadManual).pop
+----------------------------------------------------------+-------------
+         0     0%   100%      0.03s  2.46%                | runtime.morestack
+                                             0.03s   100% |   runtime.newstack
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   runtime.morestack
+         0     0%   100%      0.03s  2.46%                | runtime.newstack
+                                             0.03s   100% |   runtime.gopreempt_m (inline)
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.startm
+         0     0%   100%      0.01s  0.82%                | runtime.notewakeup
+                                             0.01s   100% |   runtime.semawakeup
+----------------------------------------------------------+-------------
+                                             0.04s 80.00% |   runtime.suspendG (inline)
+                                             0.01s 20.00% |   runtime.lock2 (inline)
+         0     0%   100%      0.05s  4.10%                | runtime.osyield
+                                             0.05s   100% |   runtime.usleep
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.goschedImpl
+         0     0%   100%      0.01s  0.82%                | runtime.schedule
+                                             0.01s   100% |   runtime.findRunnable
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.notewakeup
+         0     0%   100%      0.01s  0.82%                | runtime.semawakeup
+                                             0.01s   100% |   runtime.pthread_cond_signal
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   runtime.goschedImpl
+         0     0%   100%      0.02s  1.64%                | runtime.startm
+                                             0.01s 50.00% |   runtime.mget (inline)
+                                             0.01s 50.00% |   runtime.notewakeup
+----------------------------------------------------------+-------------
+                                             0.04s   100% |   runtime.markroot.func1
+         0     0%   100%      0.04s  3.28%                | runtime.suspendG
+                                             0.04s   100% |   runtime.osyield (inline)
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   runtime.(*pageAlloc).scavengeOne (inline)
+         0     0%   100%      0.02s  1.64%                | runtime.sysUnused
+                                             0.02s   100% |   runtime.sysUnusedOS (inline)
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   runtime.sysUnused (inline)
+         0     0%   100%      0.02s  1.64%                | runtime.sysUnusedOS
+                                             0.02s   100% |   runtime.madvise
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   runtime.(*mheap).allocSpan (inline)
+         0     0%   100%      0.03s  2.46%                | runtime.sysUsed
+                                             0.03s   100% |   runtime.sysUsedOS (inline)
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   runtime.sysUsed (inline)
+         0     0%   100%      0.03s  2.46%                | runtime.sysUsedOS
+                                             0.03s   100% |   runtime.madvise
+----------------------------------------------------------+-------------

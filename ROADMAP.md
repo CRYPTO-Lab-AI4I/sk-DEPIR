@@ -45,9 +45,10 @@ large-instance streaming or GPU backend. The detailed
 [five-step encoder plan](docs/encoding-algorithms.md#6-five-step-implementation-plan)
 starts with table-free extension arithmetic and an s=9 encoding checkpoint,
 then prioritizes CPU scaling measurements (now completed through s=13). Artifact-format cleanup
-is deferred unless size/loading costs obstruct those measurements. Bounded-RAM encoding
-and optional GPU acceleration are subsequent stages subject to this roadmap's
-TRL gates; this plan does not declare TRL 6 achieved or automatically expand scope.
+is deferred unless size/loading costs obstruct those measurements. Bounded-RAM,
+native-code, parallel and GPU approaches may be evaluated whenever they improve
+encoding; the step order and current Go backend are not settled. This does not
+declare TRL 6 acceptance achieved or change the PIR functionality.
 
 A complete planner or broad benchmark campaign must not delay the reference
 encoder. Small-instance validation does not establish large-instance resource
@@ -169,14 +170,16 @@ evidence. Any unsupported cases remain explicit.
 
 ## Deferred until a decision to pursue TRL 6
 
-Large-scale external-memory preprocessing, advanced streaming and recovery,
-specialized parallel/vectorized kernels, broad performance tuning, and large
-database performance campaigns are deferred. After the CPU checkpoints in the
-[five-step plan](docs/encoding-algorithms.md#6-five-step-implementation-plan), review
-measurements with the user before starting external-memory or GPU work. Distinguish
-resource fixes needed for a chosen TRL 5 use case from a decision to pursue TRL 6. Fix resource problems that prevent
-the TRL 5 workflow from functioning, and preserve existing optimizations where
-they remain correct and understandable.
+TRL 6 deployment validation, operational recovery and broader environment
+qualification remain deferred. Encoding optimization is not deferred solely
+because a technique appears in a later roadmap step. Language/compiler changes,
+parallel/vectorized kernels, memory/streaming strategies and CPU/GPU backends
+remain eligible when they can improve efficiency while preserving the agreed
+functionality. Compare them using the [encoding optimization priority](docs/encoding-algorithms.md#optimization-priority),
+including setup, throughput, memory, I/O and deployment costs. Benchmark on
+available local hardware and target commodity CPUs/GPUs; larger-scale machines
+may be necessary, but keep requirements as generic as practical. Resource work that
+enables the TRL 5 workload does not itself constitute a decision to claim TRL 6.
 
 Independent production security qualification, a stable 1.0 commitment, and
 sustained operational deployment require additional evidence beyond this target.

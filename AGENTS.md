@@ -14,9 +14,29 @@ preprocessing phases. Storage only returns requested records through an I/O
 interface; do not build server-side protocol computation. Optimizing upload
 through a storage layout that places same-position values from a query-sharing
 group together, and a client adapter that reads them with one address, is in scope.
-Keep this goal distinct from the currently implemented repeated-upload model. Defer TRL 6 scaling
-and advanced optimization work until the user chooses to pursue it. Document
-current limitations and do not describe the target as already achieved.
+Keep this goal distinct from the currently implemented repeated-upload model.
+TRL 6 acceptance remains deferred. Encoding efficiency improvements may be
+investigated within the current functional scope. Document current limitations
+and do not describe the target as already achieved.
+
+**Prioritize fast encoding.** No programming language, compiler, algorithm,
+hardware backend, data layout, memory strategy or parallelization scheme is
+settled. Evaluate alternatives whenever they could improve efficiency, including
+native-code and CPU/GPU approaches; do not restrict optimization to the current
+Go implementation or an earlier step ordering. Preserve correctness, the agreed
+PIR functionality and security requirements. Choose using reproducible kernel
+and end-to-end measurements, with reusable setup, memory and I/O accounted for.
+Keep the library usable on standard setups and implementations reviewable;
+report deployment costs rather than assuming the current architecture is best.
+
+**Target practical commodity hardware.** Benchmark on hardware actually available
+on this machine and respect the agreed experiment budgets. Target commodity CPU
+and GPU architectures; larger workloads may require more RAM, cores or GPU memory,
+but keep hardware/software requirements as generic as practical. Avoid making
+specialized hardware or unnecessary vendor-specific dependencies prerequisites.
+Evaluate architecture-specific acceleration by its measured benefit and deployment
+cost, retaining a practical generic path. Clearly label projections for unavailable
+hardware; do not present them as measurements.
 
 ## Rules for every contributor and agent
 
@@ -51,7 +71,10 @@ queries and responses. Keep agreed contracts distinct from implemented capabilit
    Name files, directories, and APIs concisely by their contents or responsibility.
    Include enough context to identify what they contain (for example, PIR
    configurations). Keep maturity and implementation status in metadata or
-   documentation; avoid vague names such as `candidates` without an identified subject.
+   documentation; avoid vague names such as `candidates` without an identified subject. When the same logic has implementations in multiple languages,
+   label both existing and new implementation directories with their languages
+   (for example, `liftrs-go` and `liftrs-cpp`) and update active references.
+   Preserve historical measurement/source provenance when moving code.
 3. **Make experiments reproducible.** Put each new experiment in its own
    `experiments/<descriptive-name>/` directory. Include a runnable script,
    a `report.md`, and results or a durable link to them. The report must link to

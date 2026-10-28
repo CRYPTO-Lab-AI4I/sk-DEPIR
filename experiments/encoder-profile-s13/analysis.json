@@ -1,0 +1,2210 @@
+{
+  "profiles": {
+    "setup/discovery": {
+      "profile": "experiments/encoder-profile-s13/setup/discovery.pprof",
+      "sha256": "688a7207213e05843e40661f742d245387f3adc3a157ee95b43121d96354cac5",
+      "texts": {
+        "discovery-flat.txt": "cd1abb5446818eec146088eea6e3fd5f1aad3501ce79dd723bdfdf0da5c4d7ca",
+        "discovery-cum.txt": "cd0d7acbb3d54366926ef514f90d42ded14087bc99943c02cb5ca88b34ca701a",
+        "discovery-tree.txt": "18845a5fdc62724ccea8d81952af552138388d15195d731644850865515a5480"
+      },
+      "cpu_rows": {
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.constantProduct.mul": {
+          "flat": "32.66s",
+          "flat_percent": 42.21,
+          "cumulative": "32.67s",
+          "cumulative_percent": 42.22
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.BinaryField.Mul (inline)": {
+          "flat": "17.67s",
+          "flat_percent": 22.84,
+          "cumulative": "17.68s",
+          "cumulative_percent": 22.85
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).recurse": {
+          "flat": "14.23s",
+          "flat_percent": 18.39,
+          "cumulative": "72.21s",
+          "cumulative_percent": 93.32
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.QuadraticField.Mul": {
+          "flat": "4.06s",
+          "flat_percent": 5.25,
+          "cumulative": "18.72s",
+          "cumulative_percent": 24.19
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul": {
+          "flat": "2.86s",
+          "flat_percent": 3.7,
+          "cumulative": "24.60s",
+          "cumulative_percent": 31.79
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.goodMonomialCarries": {
+          "flat": "1.55s",
+          "flat_percent": 2.0,
+          "cumulative": "1.56s",
+          "cumulative_percent": 2.02
+        },
+        "runtime.pthread_cond_signal": {
+          "flat": "1.09s",
+          "flat_percent": 1.41,
+          "cumulative": "1.09s",
+          "cumulative_percent": 1.41
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.DiscoverOrbit": {
+          "flat": "0.72s",
+          "flat_percent": 0.93,
+          "cumulative": "75.99s",
+          "cumulative_percent": 98.2
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).offset (inline)": {
+          "flat": "0.70s",
+          "flat_percent": 0.9,
+          "cumulative": "0.70s",
+          "cumulative_percent": 0.9
+        },
+        "runtime.mapassign_fast64": {
+          "flat": "0.36s",
+          "flat_percent": 0.47,
+          "cumulative": "0.53s",
+          "cumulative_percent": 0.68
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).validateSupport": {
+          "flat": "0.27s",
+          "flat_percent": 0.35,
+          "cumulative": "1.01s",
+          "cumulative_percent": 1.31
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.GoodMonomial": {
+          "flat": "0.05s",
+          "flat_percent": 0.065,
+          "cumulative": "1.61s",
+          "cumulative_percent": 2.08
+        },
+        "runtime.semawakeup": {
+          "flat": "0.01s",
+          "flat_percent": 0.013,
+          "cumulative": "1.10s",
+          "cumulative_percent": 1.42
+        },
+        "runtime.startm": {
+          "flat": "0.01s",
+          "flat_percent": 0.013,
+          "cumulative": "1.14s",
+          "cumulative_percent": 1.47
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).apply (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "72.21s",
+          "cumulative_percent": 93.32
+        },
+        "main.main": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "75.99s",
+          "cumulative_percent": 98.2
+        },
+        "main.main.func1": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "75.99s",
+          "cumulative_percent": 98.2
+        },
+        "main.phase": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "75.99s",
+          "cumulative_percent": 98.2
+        },
+        "runtime.gopreempt_m (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.27s",
+          "cumulative_percent": 1.64
+        },
+        "runtime.goschedImpl": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.27s",
+          "cumulative_percent": 1.64
+        },
+        "runtime.main": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "75.99s",
+          "cumulative_percent": 98.2
+        },
+        "runtime.morestack": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.27s",
+          "cumulative_percent": 1.64
+        },
+        "runtime.newstack": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.27s",
+          "cumulative_percent": 1.64
+        },
+        "runtime.notewakeup": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.10s",
+          "cumulative_percent": 1.42
+        },
+        "runtime.wakep": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.17s",
+          "cumulative_percent": 1.51
+        }
+      }
+    },
+    "setup/preparation": {
+      "profile": "experiments/encoder-profile-s13/setup/preparation.pprof",
+      "sha256": "9c33983ff490e78cd02f408731610ca380819244236e98433c10af7c0eb35258",
+      "texts": {
+        "preparation-flat.txt": "e4465a10e01aeabc95563c1752b698e06daefac1ab11b5d253a9fd4f23bed666",
+        "preparation-cum.txt": "9f3b3e9c771e242f308a26a8ac0f1deff6d9fa7f28fb066a994c891e373ef8ea",
+        "preparation-tree.txt": "aafbff5bf81d5d84de6f5022a6bf551115576bd5cd0084ba8cb4f83feef3b93f",
+        "preparation-source.txt": "633ad9e05bad6d1f7ff1dee16e2be3b36ea583b4a71e6ab6ae5c2927e9fb1a91"
+      },
+      "cpu_rows": {
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.constantProduct.mul": {
+          "flat": "624.05s",
+          "flat_percent": 38.46,
+          "cumulative": "624.74s",
+          "cumulative_percent": 38.51
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.BinaryField.Mul (inline)": {
+          "flat": "440.30s",
+          "flat_percent": 27.14,
+          "cumulative": "440.68s",
+          "cumulative_percent": 27.16
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).recurse": {
+          "flat": "284.83s",
+          "flat_percent": 17.56,
+          "cumulative": "1408.91s",
+          "cumulative_percent": 86.84
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.QuadraticField.Mul": {
+          "flat": "122.31s",
+          "flat_percent": 7.54,
+          "cumulative": "561.18s",
+          "cumulative_percent": 34.59
+        },
+        "runtime.madvise": {
+          "flat": "65.29s",
+          "flat_percent": 4.02,
+          "cumulative": "65.29s",
+          "cumulative_percent": 4.02
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul": {
+          "flat": "25.70s",
+          "flat_percent": 1.58,
+          "cumulative": "586.97s",
+          "cumulative_percent": 36.18
+        },
+        "runtime.pthread_cond_signal": {
+          "flat": "22.98s",
+          "flat_percent": 1.42,
+          "cumulative": "23.03s",
+          "cumulative_percent": 1.42
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).offset (inline)": {
+          "flat": "11.77s",
+          "flat_percent": 0.73,
+          "cumulative": "11.80s",
+          "cumulative_percent": 0.73
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*polynomialProducts).multiply": {
+          "flat": "5.82s",
+          "flat_percent": 0.36,
+          "cumulative": "1385.34s",
+          "cumulative_percent": 85.39
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.karatsuba": {
+          "flat": "1.49s",
+          "flat_percent": 0.092,
+          "cumulative": "74.16s",
+          "cumulative_percent": 4.57
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.karatsubaLow": {
+          "flat": "0.16s",
+          "flat_percent": 0.0099,
+          "cumulative": "78.70s",
+          "cumulative_percent": 4.85
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyInverse": {
+          "flat": "0.13s",
+          "flat_percent": 0.008,
+          "cumulative": "493.80s",
+          "cumulative_percent": 30.44
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PrepareCyclic": {
+          "flat": "0.10s",
+          "flat_percent": 0.0062,
+          "cumulative": "1478.44s",
+          "cumulative_percent": 91.12
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMulLow": {
+          "flat": "0.08s",
+          "flat_percent": 0.0049,
+          "cumulative": "1468.01s",
+          "cumulative_percent": 90.48
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.newProductTree": {
+          "flat": "0.04s",
+          "flat_percent": 0.0025,
+          "cumulative": "374.33s",
+          "cumulative_percent": 23.07
+        },
+        "runtime.semawakeup": {
+          "flat": "0.03s",
+          "flat_percent": 0.0018,
+          "cumulative": "23.46s",
+          "cumulative_percent": 1.45
+        },
+        "runtime.startm": {
+          "flat": "0.02s",
+          "flat_percent": 0.0012,
+          "cumulative": "23.49s",
+          "cumulative_percent": 1.45
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyDiv": {
+          "flat": "0.01s",
+          "flat_percent": 0.00062,
+          "cumulative": "1095.78s",
+          "cumulative_percent": 67.54
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMul (inline)": {
+          "flat": "0.01s",
+          "flat_percent": 0.00062,
+          "cumulative": "590.26s",
+          "cumulative_percent": 36.38
+        },
+        "runtime.(*mheap).allocSpan": {
+          "flat": "0.01s",
+          "flat_percent": 0.00062,
+          "cumulative": "66.83s",
+          "cumulative_percent": 4.12
+        },
+        "runtime.goschedImpl": {
+          "flat": "0.01s",
+          "flat_percent": 0.00062,
+          "cumulative": "25.53s",
+          "cumulative_percent": 1.57
+        },
+        "runtime.systemstack": {
+          "flat": "0.01s",
+          "flat_percent": 0.00062,
+          "cumulative": "68.77s",
+          "cumulative_percent": 4.24
+        },
+        "runtime.wakep": {
+          "flat": "0.01s",
+          "flat_percent": 0.00062,
+          "cumulative": "23.82s",
+          "cumulative_percent": 1.47
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PrepareCyclicFFT": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1527.18s",
+          "cumulative_percent": 94.13
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).apply (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "48.74s",
+          "cumulative_percent": 3.0
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).applySubspace": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1360.17s",
+          "cumulative_percent": 83.83
+        },
+        "main.main": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1527.18s",
+          "cumulative_percent": 94.13
+        },
+        "main.main.func2": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1527.18s",
+          "cumulative_percent": 94.13
+        },
+        "main.phase": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1527.18s",
+          "cumulative_percent": 94.13
+        },
+        "runtime.(*mheap).alloc.func1": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "66.83s",
+          "cumulative_percent": 4.12
+        },
+        "runtime.gopreempt_m (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "25.52s",
+          "cumulative_percent": 1.57
+        },
+        "runtime.main": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1527.18s",
+          "cumulative_percent": 94.13
+        },
+        "runtime.morestack": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "25.51s",
+          "cumulative_percent": 1.57
+        },
+        "runtime.newstack": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "25.52s",
+          "cumulative_percent": 1.57
+        },
+        "runtime.notewakeup": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "23.46s",
+          "cumulative_percent": 1.45
+        },
+        "runtime.sysUsed (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "65.24s",
+          "cumulative_percent": 4.02
+        },
+        "runtime.sysUsedOS (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "65.24s",
+          "cumulative_percent": 4.02
+        }
+      }
+    },
+    "setup/cache_save": {
+      "profile": "experiments/encoder-profile-s13/setup/cache_save.pprof",
+      "sha256": "dfde3090f0d3badabddb21a19ae68cd188128d3e5b6b485074bc1e0793d2243e",
+      "texts": {
+        "cache_save-flat.txt": "37c6666d8ef9ea0f66ee2486ebd1e68e8eaaef4d0b99cd0949c5072a4cabae93",
+        "cache_save-cum.txt": "ae6c08b86e0a7bec334d279b7a704f9898d9ae6da6c0ca385ee6e054b7531c88",
+        "cache_save-tree.txt": "9d187e48f164e1c53d1e6ba78fc054824630cfeec30c74c54a6f0a36d70b7fbe"
+      },
+      "cpu_rows": {
+        "runtime.memmove": {
+          "flat": "0.37s",
+          "flat_percent": 30.33,
+          "cumulative": "0.37s",
+          "cumulative_percent": 30.33
+        },
+        "crypto/internal/fips140/sha256.blockSHA2": {
+          "flat": "0.12s",
+          "flat_percent": 9.84,
+          "cumulative": "0.12s",
+          "cumulative_percent": 9.84
+        },
+        "reflect.Value.Int (inline)": {
+          "flat": "0.12s",
+          "flat_percent": 9.84,
+          "cumulative": "0.12s",
+          "cumulative_percent": 9.84
+        },
+        "reflect.Value.Index": {
+          "flat": "0.11s",
+          "flat_percent": 9.02,
+          "cumulative": "0.12s",
+          "cumulative_percent": 9.84
+        },
+        "encoding/json/v2.makeUintArshaler.func1": {
+          "flat": "0.06s",
+          "flat_percent": 4.92,
+          "cumulative": "0.57s",
+          "cumulative_percent": 46.72
+        },
+        "encoding/json/internal/jsonwire.ConsumeSimpleNumber (inline)": {
+          "flat": "0.05s",
+          "flat_percent": 4.1,
+          "cumulative": "0.05s",
+          "cumulative_percent": 4.1
+        },
+        "runtime.madvise": {
+          "flat": "0.05s",
+          "flat_percent": 4.1,
+          "cumulative": "0.05s",
+          "cumulative_percent": 4.1
+        },
+        "runtime.usleep": {
+          "flat": "0.05s",
+          "flat_percent": 4.1,
+          "cumulative": "0.05s",
+          "cumulative_percent": 4.1
+        },
+        "encoding/json/jsontext.(*encoderState).NeedFlush (inline)": {
+          "flat": "0.04s",
+          "flat_percent": 3.28,
+          "cumulative": "0.04s",
+          "cumulative_percent": 3.28
+        },
+        "encoding/json/v2.makeSliceArshaler.func2": {
+          "flat": "0.04s",
+          "flat_percent": 3.28,
+          "cumulative": "0.85s",
+          "cumulative_percent": 69.67
+        },
+        "internal/strconv.formatBase10": {
+          "flat": "0.04s",
+          "flat_percent": 3.28,
+          "cumulative": "0.04s",
+          "cumulative_percent": 3.28
+        },
+        "encoding/json/jsontext.stateMachine.MayAppendDelim (inline)": {
+          "flat": "0.03s",
+          "flat_percent": 2.46,
+          "cumulative": "0.03s",
+          "cumulative_percent": 2.46
+        },
+        "internal/strconv.AppendUint": {
+          "flat": "0.03s",
+          "flat_percent": 2.46,
+          "cumulative": "0.42s",
+          "cumulative_percent": 34.43
+        },
+        "encoding/json/internal/jsonwire.ConsumeWhitespace (inline)": {
+          "flat": "0.01s",
+          "flat_percent": 0.82,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "encoding/json/jsontext.(*encoderState).reformatArray": {
+          "flat": "0.01s",
+          "flat_percent": 0.82,
+          "cumulative": "0.10s",
+          "cumulative_percent": 8.2
+        },
+        "encoding/json/jsontext.export.Encoder (inline)": {
+          "flat": "0.01s",
+          "flat_percent": 0.82,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "encoding/json/jsontext.stateEntry.NeedObjectName (inline)": {
+          "flat": "0.01s",
+          "flat_percent": 0.82,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "internal/strconv.numDigits (inline)": {
+          "flat": "0.01s",
+          "flat_percent": 0.82,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "internal/strconv.small (inline)": {
+          "flat": "0.01s",
+          "flat_percent": 0.82,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "reflect.flag.ro (inline)": {
+          "flat": "0.01s",
+          "flat_percent": 0.82,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "runtime.(*listHeadManual).getNode (inline)": {
+          "flat": "0.01s",
+          "flat_percent": 0.82,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "runtime.memclrNoHeapPointers": {
+          "flat": "0.01s",
+          "flat_percent": 0.82,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "runtime.pthread_cond_signal": {
+          "flat": "0.01s",
+          "flat_percent": 0.82,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "syscall.rawsyscalln": {
+          "flat": "0.01s",
+          "flat_percent": 0.82,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "bytes.Clone (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.02s",
+          "cumulative_percent": 1.64
+        },
+        "crypto/internal/fips140/sha256.(*Digest).Write": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.12s",
+          "cumulative_percent": 9.84
+        },
+        "crypto/internal/fips140/sha256.block": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.12s",
+          "cumulative_percent": 9.84
+        },
+        "crypto/sha256.Sum256": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.12s",
+          "cumulative_percent": 9.84
+        },
+        "encoding/json.Marshal (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.97s",
+          "cumulative_percent": 79.51
+        },
+        "encoding/json/jsontext.(*Encoder).WriteValue (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.10s",
+          "cumulative_percent": 8.2
+        },
+        "encoding/json/jsontext.(*encoderState).WriteValue": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.10s",
+          "cumulative_percent": 8.2
+        },
+        "encoding/json/jsontext.(*encoderState).reformatObject": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.10s",
+          "cumulative_percent": 8.2
+        },
+        "encoding/json/jsontext.(*encoderState).reformatValue": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.10s",
+          "cumulative_percent": 8.2
+        },
+        "encoding/json/v2.Marshal": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.97s",
+          "cumulative_percent": 79.51
+        },
+        "encoding/json/v2.makeIntArshaler.func1": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.12s",
+          "cumulative_percent": 9.84
+        },
+        "encoding/json/v2.makeMethodArshaler.func3": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.10s",
+          "cumulative_percent": 8.2
+        },
+        "encoding/json/v2.makeStructArshaler.func2": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.95s",
+          "cumulative_percent": 77.87
+        },
+        "encoding/json/v2.marshalEncode": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.95s",
+          "cumulative_percent": 77.87
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*CyclicEncoder).MarshalBinary": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.97s",
+          "cumulative_percent": 79.51
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).MarshalBinary": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.12s",
+          "cumulative_percent": 9.84
+        },
+        "internal/poll.(*FD).Write": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "internal/poll.ignoringEINTRIO (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "main.main": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.10s",
+          "cumulative_percent": 90.16
+        },
+        "main.main.func3": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.10s",
+          "cumulative_percent": 90.16
+        },
+        "main.phase": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.10s",
+          "cumulative_percent": 90.16
+        },
+        "os.(*File).Write": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "os.(*File).write (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "runtime.(*listHeadManual).pop": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "runtime.(*mheap).alloc.func1": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 2.46
+        },
+        "runtime.(*mheap).allocSpan": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 2.46
+        },
+        "runtime.(*pageAlloc).scavenge.func1": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.02s",
+          "cumulative_percent": 1.64
+        },
+        "runtime.(*pageAlloc).scavengeOne": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.02s",
+          "cumulative_percent": 1.64
+        },
+        "runtime.findRunnable": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "runtime.gcBgMarkWorker.func2": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 3.28
+        },
+        "runtime.gcDrain": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 3.28
+        },
+        "runtime.gcDrainMarkWorkerDedicated (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 2.46
+        },
+        "runtime.gcDrainMarkWorkerIdle (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "runtime.gcstopm": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "runtime.gopreempt_m (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 2.46
+        },
+        "runtime.goschedImpl": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 2.46
+        },
+        "runtime.growslice": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 3.28
+        },
+        "runtime.lock (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "runtime.lock2": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "runtime.lockWithRank (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "runtime.main": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.10s",
+          "cumulative_percent": 90.16
+        },
+        "runtime.markroot": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 3.28
+        },
+        "runtime.markroot.func1": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 3.28
+        },
+        "runtime.mget (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "runtime.morestack": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 2.46
+        },
+        "runtime.newstack": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 2.46
+        },
+        "runtime.notewakeup": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "runtime.osyield (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.05s",
+          "cumulative_percent": 4.1
+        },
+        "runtime.schedule": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "runtime.semawakeup": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "runtime.startm": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.02s",
+          "cumulative_percent": 1.64
+        },
+        "runtime.suspendG": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 3.28
+        },
+        "runtime.sysUnused (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.02s",
+          "cumulative_percent": 1.64
+        },
+        "runtime.sysUnusedOS (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.02s",
+          "cumulative_percent": 1.64
+        },
+        "runtime.sysUsed (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 2.46
+        },
+        "runtime.sysUsedOS (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 2.46
+        },
+        "runtime.systemstack": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.09s",
+          "cumulative_percent": 7.38
+        },
+        "runtime.wakep": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.02s",
+          "cumulative_percent": 1.64
+        },
+        "strconv.AppendUint (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.42s",
+          "cumulative_percent": 34.43
+        },
+        "syscall.Write (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "syscall.syscall": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "syscall.syscalln": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        },
+        "syscall.write": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.01s",
+          "cumulative_percent": 0.82
+        }
+      }
+    },
+    "setup/cache_load": {
+      "profile": "experiments/encoder-profile-s13/setup/cache_load.pprof",
+      "sha256": "c4a5bb7dac0141fa3bd7f7839c1b3809f41198ef7b6f3bacfd2ee9f33d2cd05b",
+      "texts": {
+        "cache_load-flat.txt": "af8d2a2a0811db20d183f1b3b170ffbd96dbe330fc687abc0fa16b61968e0435",
+        "cache_load-cum.txt": "28e76d4f9527d97b64126951008d9b60d318bf5ca6f6e6be0412d34f10bdbef3",
+        "cache_load-tree.txt": "13f76e58798f2457af0bdd201437f05136531f21532d610cd72cc5cfede69134"
+      },
+      "cpu_rows": {
+        "encoding/json/jsontext.(*decoderState).consumeValue": {
+          "flat": "0.50s",
+          "flat_percent": 11.29,
+          "cumulative": "1.19s",
+          "cumulative_percent": 26.86
+        },
+        "encoding/json/internal/jsonwire.ConsumeSimpleNumber (inline)": {
+          "flat": "0.41s",
+          "flat_percent": 9.26,
+          "cumulative": "0.41s",
+          "cumulative_percent": 9.26
+        },
+        "runtime.mapassign_fast64": {
+          "flat": "0.39s",
+          "flat_percent": 8.8,
+          "cumulative": "0.59s",
+          "cumulative_percent": 13.32
+        },
+        "encoding/json/internal/jsonwire.ConsumeWhitespace (inline)": {
+          "flat": "0.33s",
+          "flat_percent": 7.45,
+          "cumulative": "0.33s",
+          "cumulative_percent": 7.45
+        },
+        "encoding/json/jsontext.(*decoderState).ReadValue": {
+          "flat": "0.27s",
+          "flat_percent": 6.09,
+          "cumulative": "0.75s",
+          "cumulative_percent": 16.93
+        },
+        "encoding/json/v2.makeUintArshaler.func2": {
+          "flat": "0.20s",
+          "flat_percent": 4.51,
+          "cumulative": "1.14s",
+          "cumulative_percent": 25.73
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).validateSupport": {
+          "flat": "0.19s",
+          "flat_percent": 4.29,
+          "cumulative": "1.04s",
+          "cumulative_percent": 23.48
+        },
+        "encoding/json/jsontext.(*decoderState).PeekKind": {
+          "flat": "0.18s",
+          "flat_percent": 4.06,
+          "cumulative": "0.38s",
+          "cumulative_percent": 8.58
+        },
+        "encoding/json/internal/jsonwire.ParseUint": {
+          "flat": "0.15s",
+          "flat_percent": 3.39,
+          "cumulative": "0.15s",
+          "cumulative_percent": 3.39
+        },
+        "reflect.Value.Index": {
+          "flat": "0.15s",
+          "flat_percent": 3.39,
+          "cumulative": "0.18s",
+          "cumulative_percent": 4.06
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.BinaryField.Mul (inline)": {
+          "flat": "0.13s",
+          "flat_percent": 2.93,
+          "cumulative": "0.13s",
+          "cumulative_percent": 2.93
+        },
+        "runtime.mapaccess2_fast64": {
+          "flat": "0.13s",
+          "flat_percent": 2.93,
+          "cumulative": "0.25s",
+          "cumulative_percent": 5.64
+        },
+        "crypto/internal/fips140/sha256.blockSHA2": {
+          "flat": "0.12s",
+          "flat_percent": 2.71,
+          "cumulative": "0.12s",
+          "cumulative_percent": 2.71
+        },
+        "internal/runtime/maps.probeSeq.next (inline)": {
+          "flat": "0.12s",
+          "flat_percent": 2.71,
+          "cumulative": "0.12s",
+          "cumulative_percent": 2.71
+        },
+        "encoding/json/jsontext.(*decoderState).consumeArray": {
+          "flat": "0.10s",
+          "flat_percent": 2.26,
+          "cumulative": "0.77s",
+          "cumulative_percent": 17.38
+        },
+        "encoding/json/jsontext.(*decodeBuffer).needMore (inline)": {
+          "flat": "0.09s",
+          "flat_percent": 2.03,
+          "cumulative": "0.09s",
+          "cumulative_percent": 2.03
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul": {
+          "flat": "0.09s",
+          "flat_percent": 2.03,
+          "cumulative": "0.24s",
+          "cumulative_percent": 5.42
+        },
+        "internal/runtime/maps.(*groupReference).key (inline)": {
+          "flat": "0.08s",
+          "flat_percent": 1.81,
+          "cumulative": "0.08s",
+          "cumulative_percent": 1.81
+        },
+        "internal/runtime/maps.ctrlGroupMatchEmpty (inline)": {
+          "flat": "0.08s",
+          "flat_percent": 1.81,
+          "cumulative": "0.08s",
+          "cumulative_percent": 1.81
+        },
+        "reflect.Value.SetUint": {
+          "flat": "0.08s",
+          "flat_percent": 1.81,
+          "cumulative": "0.15s",
+          "cumulative_percent": 3.39
+        },
+        "runtime.madvise": {
+          "flat": "0.08s",
+          "flat_percent": 1.81,
+          "cumulative": "0.08s",
+          "cumulative_percent": 1.81
+        },
+        "encoding/json/v2.makeSliceArshaler.func3": {
+          "flat": "0.07s",
+          "flat_percent": 1.58,
+          "cumulative": "1.97s",
+          "cumulative_percent": 44.47
+        },
+        "runtime.memmove": {
+          "flat": "0.06s",
+          "flat_percent": 1.35,
+          "cumulative": "0.06s",
+          "cumulative_percent": 1.35
+        },
+        "runtime.usleep": {
+          "flat": "0.05s",
+          "flat_percent": 1.13,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.13
+        },
+        "reflect.flag.kind (inline)": {
+          "flat": "0.04s",
+          "flat_percent": 0.9,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "runtime.pthread_cond_signal": {
+          "flat": "0.04s",
+          "flat_percent": 0.9,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "syscall.rawsyscalln": {
+          "flat": "0.04s",
+          "flat_percent": 0.9,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadCyclicEncoderLimit": {
+          "flat": "0.03s",
+          "flat_percent": 0.68,
+          "cumulative": "4.06s",
+          "cumulative_percent": 91.65
+        },
+        "reflect.flag.mustBeAssignable (inline)": {
+          "flat": "0.03s",
+          "flat_percent": 0.68,
+          "cumulative": "0.03s",
+          "cumulative_percent": 0.68
+        },
+        "reflect.flag.ro (inline)": {
+          "flat": "0.03s",
+          "flat_percent": 0.68,
+          "cumulative": "0.03s",
+          "cumulative_percent": 0.68
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.QuadraticField.Mul": {
+          "flat": "0.02s",
+          "flat_percent": 0.45,
+          "cumulative": "0.15s",
+          "cumulative_percent": 3.39
+        },
+        "encoding/json/jsontext.Value.Kind (inline)": {
+          "flat": "0.01s",
+          "flat_percent": 0.23,
+          "cumulative": "0.06s",
+          "cumulative_percent": 1.35
+        },
+        "encoding/json/v2.makeIntArshaler.func2": {
+          "flat": "0.01s",
+          "flat_percent": 0.23,
+          "cumulative": "0.13s",
+          "cumulative_percent": 2.93
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.newAdditiveTransform": {
+          "flat": "0.01s",
+          "flat_percent": 0.23,
+          "cumulative": "0.25s",
+          "cumulative_percent": 5.64
+        },
+        "runtime.mapaccess1_fast64": {
+          "flat": "0.01s",
+          "flat_percent": 0.23,
+          "cumulative": "0.26s",
+          "cumulative_percent": 5.87
+        },
+        "crypto/internal/fips140/sha256.(*Digest).Write": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.12s",
+          "cumulative_percent": 2.71
+        },
+        "crypto/internal/fips140/sha256.block": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.12s",
+          "cumulative_percent": 2.71
+        },
+        "crypto/sha256.Sum256": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.12s",
+          "cumulative_percent": 2.71
+        },
+        "encoding/json.Unmarshal (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "2.74s",
+          "cumulative_percent": 61.85
+        },
+        "encoding/json/jsontext.(*Decoder).PeekKind (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.38s",
+          "cumulative_percent": 8.58
+        },
+        "encoding/json/jsontext.(*Decoder).ReadValue (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.13
+        },
+        "encoding/json/jsontext.(*decoderState).CheckNextValue": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.72s",
+          "cumulative_percent": 16.25
+        },
+        "encoding/json/jsontext.(*decoderState).consumeObject": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.77s",
+          "cumulative_percent": 17.38
+        },
+        "encoding/json/v2.Unmarshal": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "2.74s",
+          "cumulative_percent": 61.85
+        },
+        "encoding/json/v2.makeMethodArshaler.func6": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.13
+        },
+        "encoding/json/v2.makeStructArshaler.func3": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "2.02s",
+          "cumulative_percent": 45.6
+        },
+        "encoding/json/v2.unmarshalDecode": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "2.74s",
+          "cumulative_percent": 61.85
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.LoadCyclicEncoderWithLimit (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "4.06s",
+          "cumulative_percent": 91.65
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadEncoderArtifactLimit": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "4.03s",
+          "cumulative_percent": 90.97
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadOrbitLimit": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.53s",
+          "cumulative_percent": 34.54
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.newOrbitBasis": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.25s",
+          "cumulative_percent": 5.64
+        },
+        "internal/poll.(*FD).Read": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "internal/poll.ignoringEINTRIO (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "internal/runtime/maps.ctrlGroup.matchEmpty (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.08s",
+          "cumulative_percent": 1.81
+        },
+        "io.(*LimitedReader).Read": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "io.ReadAll": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.13
+        },
+        "main.main": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "4.23s",
+          "cumulative_percent": 95.49
+        },
+        "main.main.func4": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "4.23s",
+          "cumulative_percent": 95.49
+        },
+        "main.phase": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "4.23s",
+          "cumulative_percent": 95.49
+        },
+        "os.(*File).Read": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "os.(*File).read (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "reflect.Value.Grow": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.07s",
+          "cumulative_percent": 1.58
+        },
+        "reflect.Value.grow": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.07s",
+          "cumulative_percent": 1.58
+        },
+        "reflect.growslice": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.07s",
+          "cumulative_percent": 1.58
+        },
+        "runtime.(*mheap).alloc.func1": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.08s",
+          "cumulative_percent": 1.81
+        },
+        "runtime.(*mheap).allocSpan": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.08s",
+          "cumulative_percent": 1.81
+        },
+        "runtime.findRunnable": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 0.68
+        },
+        "runtime.gcBgMarkWorker.func2": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 0.68
+        },
+        "runtime.gcDrain": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 0.68
+        },
+        "runtime.gcDrainMarkWorkerDedicated (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 0.68
+        },
+        "runtime.gopreempt_m (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.08s",
+          "cumulative_percent": 1.81
+        },
+        "runtime.goschedImpl": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.08s",
+          "cumulative_percent": 1.81
+        },
+        "runtime.growslice": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.07s",
+          "cumulative_percent": 1.58
+        },
+        "runtime.lock (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "runtime.lock2": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "runtime.lockWithRank (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "runtime.main": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "4.23s",
+          "cumulative_percent": 95.49
+        },
+        "runtime.morestack": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.08s",
+          "cumulative_percent": 1.81
+        },
+        "runtime.newstack": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.08s",
+          "cumulative_percent": 1.81
+        },
+        "runtime.notewakeup": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "runtime.osyield (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.13
+        },
+        "runtime.schedule": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 0.68
+        },
+        "runtime.semawakeup": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "runtime.startm": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "runtime.sysUsed (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.08s",
+          "cumulative_percent": 1.81
+        },
+        "runtime.sysUsedOS (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.08s",
+          "cumulative_percent": 1.81
+        },
+        "runtime.systemstack": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.11s",
+          "cumulative_percent": 2.48
+        },
+        "runtime.wakep": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.06s",
+          "cumulative_percent": 1.35
+        },
+        "syscall.Read (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "syscall.read": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "syscall.syscall": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        },
+        "syscall.syscalln": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.9
+        }
+      }
+    },
+    "reuse-01/cache_load": {
+      "profile": "experiments/encoder-profile-s13/reuse-01/cache_load.pprof",
+      "sha256": "38cb7a12e1c0340f0738799adb6dea2fbbedfa722a38f4745a1ebf94fb11aa57",
+      "texts": {
+        "cache_load-flat.txt": "cca88664c77f4c44cc69969b48b7deb8ed14654071ef263561584c1407568467",
+        "cache_load-cum.txt": "33886c1bd2cb6da847389ca4886c2df31c6f826b4f2837ec3852d48b863aad91",
+        "cache_load-tree.txt": "dde1c8b8282e6395bd35d318256bd113d74baa80bac29ecc80f35ef68aef8f9c"
+      },
+      "cpu_rows": {
+        "encoding/json/jsontext.(*decoderState).consumeValue": {
+          "flat": "0.46s",
+          "flat_percent": 10.85,
+          "cumulative": "1.06s",
+          "cumulative_percent": 25.0
+        },
+        "encoding/json/internal/jsonwire.ConsumeWhitespace (inline)": {
+          "flat": "0.39s",
+          "flat_percent": 9.2,
+          "cumulative": "0.39s",
+          "cumulative_percent": 9.2
+        },
+        "encoding/json/internal/jsonwire.ConsumeSimpleNumber (inline)": {
+          "flat": "0.35s",
+          "flat_percent": 8.25,
+          "cumulative": "0.35s",
+          "cumulative_percent": 8.25
+        },
+        "runtime.mapassign_fast64": {
+          "flat": "0.35s",
+          "flat_percent": 8.25,
+          "cumulative": "0.55s",
+          "cumulative_percent": 12.97
+        },
+        "reflect.Value.SetUint": {
+          "flat": "0.27s",
+          "flat_percent": 6.37,
+          "cumulative": "0.28s",
+          "cumulative_percent": 6.6
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).validateSupport": {
+          "flat": "0.24s",
+          "flat_percent": 5.66,
+          "cumulative": "1.04s",
+          "cumulative_percent": 24.53
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.newAdditiveTransform": {
+          "flat": "0.19s",
+          "flat_percent": 4.48,
+          "cumulative": "0.28s",
+          "cumulative_percent": 6.6
+        },
+        "encoding/json/v2.makeUintArshaler.func2": {
+          "flat": "0.17s",
+          "flat_percent": 4.01,
+          "cumulative": "1.05s",
+          "cumulative_percent": 24.76
+        },
+        "runtime.mapaccess2_fast64": {
+          "flat": "0.14s",
+          "flat_percent": 3.3,
+          "cumulative": "0.22s",
+          "cumulative_percent": 5.19
+        },
+        "runtime.pthread_cond_signal": {
+          "flat": "0.14s",
+          "flat_percent": 3.3,
+          "cumulative": "0.15s",
+          "cumulative_percent": 3.54
+        },
+        "crypto/internal/fips140/sha256.blockSHA2": {
+          "flat": "0.12s",
+          "flat_percent": 2.83,
+          "cumulative": "0.12s",
+          "cumulative_percent": 2.83
+        },
+        "encoding/json/internal/jsonwire.ParseUint": {
+          "flat": "0.12s",
+          "flat_percent": 2.83,
+          "cumulative": "0.12s",
+          "cumulative_percent": 2.83
+        },
+        "encoding/json/jsontext.(*decoderState).PeekKind": {
+          "flat": "0.12s",
+          "flat_percent": 2.83,
+          "cumulative": "0.30s",
+          "cumulative_percent": 7.08
+        },
+        "encoding/json/jsontext.(*decoderState).ReadValue": {
+          "flat": "0.11s",
+          "flat_percent": 2.59,
+          "cumulative": "0.50s",
+          "cumulative_percent": 11.79
+        },
+        "internal/runtime/maps.probeSeq.next (inline)": {
+          "flat": "0.11s",
+          "flat_percent": 2.59,
+          "cumulative": "0.11s",
+          "cumulative_percent": 2.59
+        },
+        "runtime.memmove": {
+          "flat": "0.10s",
+          "flat_percent": 2.36,
+          "cumulative": "0.10s",
+          "cumulative_percent": 2.36
+        },
+        "internal/runtime/maps.(*groupReference).key (inline)": {
+          "flat": "0.08s",
+          "flat_percent": 1.89,
+          "cumulative": "0.08s",
+          "cumulative_percent": 1.89
+        },
+        "reflect.Value.Index": {
+          "flat": "0.08s",
+          "flat_percent": 1.89,
+          "cumulative": "0.10s",
+          "cumulative_percent": 2.36
+        },
+        "internal/runtime/maps.ctrlGroupMatchEmpty (inline)": {
+          "flat": "0.06s",
+          "flat_percent": 1.42,
+          "cumulative": "0.06s",
+          "cumulative_percent": 1.42
+        },
+        "encoding/json/v2.makeSliceArshaler.func3": {
+          "flat": "0.05s",
+          "flat_percent": 1.18,
+          "cumulative": "1.70s",
+          "cumulative_percent": 40.09
+        },
+        "runtime.memclrNoHeapPointers": {
+          "flat": "0.05s",
+          "flat_percent": 1.18,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.18
+        },
+        "runtime.usleep": {
+          "flat": "0.05s",
+          "flat_percent": 1.18,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.18
+        },
+        "syscall.rawsyscalln": {
+          "flat": "0.05s",
+          "flat_percent": 1.18,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.18
+        },
+        "encoding/json/jsontext.(*decodeBuffer).needMore (inline)": {
+          "flat": "0.04s",
+          "flat_percent": 0.94,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.94
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.BinaryField.Mul (inline)": {
+          "flat": "0.04s",
+          "flat_percent": 0.94,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.94
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul": {
+          "flat": "0.04s",
+          "flat_percent": 0.94,
+          "cumulative": "0.09s",
+          "cumulative_percent": 2.12
+        },
+        "encoding/json/jsontext.(*decoderState).consumeArray": {
+          "flat": "0.03s",
+          "flat_percent": 0.71,
+          "cumulative": "0.72s",
+          "cumulative_percent": 16.98
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadCyclicEncoderLimit": {
+          "flat": "0.03s",
+          "flat_percent": 0.71,
+          "cumulative": "3.78s",
+          "cumulative_percent": 89.15
+        },
+        "runtime.mapaccess1_fast64": {
+          "flat": "0.03s",
+          "flat_percent": 0.71,
+          "cumulative": "0.25s",
+          "cumulative_percent": 5.9
+        },
+        "encoding/json/v2.makeIntArshaler.func2": {
+          "flat": "0.02s",
+          "flat_percent": 0.47,
+          "cumulative": "0.09s",
+          "cumulative_percent": 2.12
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.QuadraticField.Mul": {
+          "flat": "0.01s",
+          "flat_percent": 0.24,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.18
+        },
+        "runtime.newstack": {
+          "flat": "0.01s",
+          "flat_percent": 0.24,
+          "cumulative": "0.19s",
+          "cumulative_percent": 4.48
+        },
+        "crypto/internal/fips140/sha256.(*Digest).Write": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.12s",
+          "cumulative_percent": 2.83
+        },
+        "crypto/internal/fips140/sha256.block": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.12s",
+          "cumulative_percent": 2.83
+        },
+        "crypto/sha256.Sum256": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.12s",
+          "cumulative_percent": 2.83
+        },
+        "encoding/json.Unmarshal (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "2.43s",
+          "cumulative_percent": 57.31
+        },
+        "encoding/json/jsontext.(*Decoder).PeekKind (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.30s",
+          "cumulative_percent": 7.08
+        },
+        "encoding/json/jsontext.(*Decoder).ReadValue (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.94
+        },
+        "encoding/json/jsontext.(*decoderState).CheckNextValue": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.68s",
+          "cumulative_percent": 16.04
+        },
+        "encoding/json/jsontext.(*decoderState).consumeObject": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.72s",
+          "cumulative_percent": 16.98
+        },
+        "encoding/json/jsontext.Value.Kind (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.08s",
+          "cumulative_percent": 1.89
+        },
+        "encoding/json/v2.Unmarshal": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "2.43s",
+          "cumulative_percent": 57.31
+        },
+        "encoding/json/v2.makeMethodArshaler.func6": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.94
+        },
+        "encoding/json/v2.makeStructArshaler.func3": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.74s",
+          "cumulative_percent": 41.04
+        },
+        "encoding/json/v2.unmarshalDecode": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "2.43s",
+          "cumulative_percent": 57.31
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.LoadCyclicEncoderWithLimit (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "3.78s",
+          "cumulative_percent": 89.15
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadEncoderArtifactLimit": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "3.75s",
+          "cumulative_percent": 88.44
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadOrbitLimit": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.52s",
+          "cumulative_percent": 35.85
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.newOrbitBasis": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.28s",
+          "cumulative_percent": 6.6
+        },
+        "internal/poll.(*FD).Read": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.18
+        },
+        "internal/poll.ignoringEINTRIO (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.18
+        },
+        "internal/runtime/maps.ctrlGroup.matchEmpty (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.06s",
+          "cumulative_percent": 1.42
+        },
+        "io.(*LimitedReader).Read": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.18
+        },
+        "io.ReadAll": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.09s",
+          "cumulative_percent": 2.12
+        },
+        "main.main": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "3.99s",
+          "cumulative_percent": 94.1
+        },
+        "main.main.func4": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "3.99s",
+          "cumulative_percent": 94.1
+        },
+        "main.phase": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "3.99s",
+          "cumulative_percent": 94.1
+        },
+        "os.(*File).Read": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.18
+        },
+        "os.(*File).read (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.18
+        },
+        "reflect.Value.Grow": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.11s",
+          "cumulative_percent": 2.59
+        },
+        "reflect.Value.grow": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.11s",
+          "cumulative_percent": 2.59
+        },
+        "reflect.growslice": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.11s",
+          "cumulative_percent": 2.59
+        },
+        "runtime.(*mheap).alloc.func1": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 0.71
+        },
+        "runtime.(*mheap).allocSpan": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 0.71
+        },
+        "runtime.findRunnable": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 0.71
+        },
+        "runtime.gcBgMarkWorker.func2": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.94
+        },
+        "runtime.gcDrain": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.94
+        },
+        "runtime.gcDrainMarkWorkerDedicated (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.94
+        },
+        "runtime.gcstopm": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 0.71
+        },
+        "runtime.gopreempt_m (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.18s",
+          "cumulative_percent": 4.25
+        },
+        "runtime.goschedImpl": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.18s",
+          "cumulative_percent": 4.25
+        },
+        "runtime.growslice": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.11s",
+          "cumulative_percent": 2.59
+        },
+        "runtime.lock (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 0.71
+        },
+        "runtime.lock2": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 0.71
+        },
+        "runtime.lockWithRank (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 0.71
+        },
+        "runtime.main": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "3.99s",
+          "cumulative_percent": 94.1
+        },
+        "runtime.markroot": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.94
+        },
+        "runtime.markroot.func1": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.94
+        },
+        "runtime.morestack": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.18s",
+          "cumulative_percent": 4.25
+        },
+        "runtime.notewakeup": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.15s",
+          "cumulative_percent": 3.54
+        },
+        "runtime.osyield (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.18
+        },
+        "runtime.schedule": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.03s",
+          "cumulative_percent": 0.71
+        },
+        "runtime.semawakeup": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.15s",
+          "cumulative_percent": 3.54
+        },
+        "runtime.startm": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.15s",
+          "cumulative_percent": 3.54
+        },
+        "runtime.suspendG": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.04s",
+          "cumulative_percent": 0.94
+        },
+        "runtime.systemstack": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.07s",
+          "cumulative_percent": 1.65
+        },
+        "runtime.wakep": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.15s",
+          "cumulative_percent": 3.54
+        },
+        "syscall.Read (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.18
+        },
+        "syscall.read": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.18
+        },
+        "syscall.syscall": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.18
+        },
+        "syscall.syscalln": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "0.05s",
+          "cumulative_percent": 1.18
+        }
+      }
+    },
+    "reuse-01/encode_0": {
+      "profile": "experiments/encoder-profile-s13/reuse-01/encode_0.pprof",
+      "sha256": "57d2984a49c68aebb9ce97ee71e9e579ed7fd219b2a7b346e313797b382af42b",
+      "texts": {
+        "encode_0-flat.txt": "35d2d3b9d5c7d4cbfd0c43bf47c54adfb3b3a7cc37d9639bc9a47a276a6beaf4",
+        "encode_0-cum.txt": "25741f463e2d27a21c78be75271666350706cfffa2baa7d77d1f99d14078ed8d",
+        "encode_0-tree.txt": "7aa785cdd28b4bd81fc1297b810a43f410a1b1ba213bf79c82cb46d7001525e8",
+        "encode_0-source.txt": "145c1bc7f1d13204296284a63d13395939eec6bbad8d277f338b6b2d8177a85e"
+      },
+      "cpu_rows": {
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.constantProduct.mul": {
+          "flat": "74.40s",
+          "flat_percent": 44.2,
+          "cumulative": "74.58s",
+          "cumulative_percent": 44.31
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.BinaryField.Mul (inline)": {
+          "flat": "44.57s",
+          "flat_percent": 26.48,
+          "cumulative": "44.69s",
+          "cumulative_percent": 26.55
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).recurse": {
+          "flat": "29.47s",
+          "flat_percent": 17.51,
+          "cumulative": "164.41s",
+          "cumulative_percent": 97.67
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.QuadraticField.Mul": {
+          "flat": "14.15s",
+          "flat_percent": 8.41,
+          "cumulative": "58.85s",
+          "cumulative_percent": 34.96
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul": {
+          "flat": "2.36s",
+          "flat_percent": 1.4,
+          "cumulative": "61.21s",
+          "cumulative_percent": 36.36
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).offset (inline)": {
+          "flat": "1.24s",
+          "flat_percent": 0.74,
+          "cumulative": "1.24s",
+          "cumulative_percent": 0.74
+        },
+        "runtime.pthread_cond_signal": {
+          "flat": "1.07s",
+          "flat_percent": 0.64,
+          "cumulative": "1.08s",
+          "cumulative_percent": 0.64
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*CyclicEncoder).Encode": {
+          "flat": "0.06s",
+          "flat_percent": 0.036,
+          "cumulative": "166.66s",
+          "cumulative_percent": 99.01
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*polynomialProducts).multiply": {
+          "flat": "0.01s",
+          "flat_percent": 0.0059,
+          "cumulative": "68.10s",
+          "cumulative_percent": 40.46
+        },
+        "runtime.goschedImpl": {
+          "flat": "0.01s",
+          "flat_percent": 0.0059,
+          "cumulative": "1.39s",
+          "cumulative_percent": 0.83
+        },
+        "runtime.notewakeup": {
+          "flat": "0.01s",
+          "flat_percent": 0.0059,
+          "cumulative": "1.14s",
+          "cumulative_percent": 0.68
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).apply (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "97.33s",
+          "cumulative_percent": 57.82
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).applySubspace": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "67.08s",
+          "cumulative_percent": 39.85
+        },
+        "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMulLow": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "68.10s",
+          "cumulative_percent": 40.46
+        },
+        "main.main": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "166.66s",
+          "cumulative_percent": 99.01
+        },
+        "main.main.func5": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "166.66s",
+          "cumulative_percent": 99.01
+        },
+        "main.phase": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "166.66s",
+          "cumulative_percent": 99.01
+        },
+        "runtime.gopreempt_m (inline)": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.39s",
+          "cumulative_percent": 0.83
+        },
+        "runtime.main": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "166.66s",
+          "cumulative_percent": 99.01
+        },
+        "runtime.morestack": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.39s",
+          "cumulative_percent": 0.83
+        },
+        "runtime.newstack": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.39s",
+          "cumulative_percent": 0.83
+        },
+        "runtime.semawakeup": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.13s",
+          "cumulative_percent": 0.67
+        },
+        "runtime.startm": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.14s",
+          "cumulative_percent": 0.68
+        },
+        "runtime.wakep": {
+          "flat": "0",
+          "flat_percent": 0.0,
+          "cumulative": "1.21s",
+          "cumulative_percent": 0.72
+        }
+      }
+    }
+  },
+  "cache_verified": true,
+  "baseline_match": true
+}

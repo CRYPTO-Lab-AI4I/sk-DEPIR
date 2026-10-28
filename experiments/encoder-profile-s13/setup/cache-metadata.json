@@ -1,0 +1,12 @@
+{
+  "bytes": 453243425,
+  "cache_limit_bytes": 2147483648,
+  "format": "cyclic-json-v1",
+  "k": 11926435,
+  "m": 2,
+  "n": 67108864,
+  "s": 13,
+  "sha256": "a2a3bcd5913d821c99d08ceca05d6c5d73ce2abe6e3987910c0dcf5dfe97eb22",
+  "source_manifest": "cf73604075109abe444534d3b003d7cc4d85ac7be45208d86edc81f3cf629ac3",
+  "t": 5
+}

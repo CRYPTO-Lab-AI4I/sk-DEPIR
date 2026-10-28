@@ -235,3 +235,11 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-28 18:36 | PUBLISH-009 | Completed | [s=13 checkpoint and standing profiling policy verified](2026-10-28-1836-codex-publish-009-completed.md) |
 | 2026-10-28 18:34 | ENCODE-010 | Started | [Profile s=13 and retain reloadable preprocessing](2026-10-28-1834-codex-encode-010-started.md) |
 | 2026-10-28 18:43 | ENCODE-010 | Update | [Profile/cache harness verified before long run](2026-10-28-1843-codex-encode-010-checkpoint.md) |
+| 2026-10-28 19:16 | ENCODE-010 | Update | [s=13 cache retained; resume after logger fix](2026-10-28-1916-codex-encode-010-cache-saved.md) |
+| 2026-10-28 20:02 | ENCODE-010 | Completed | [s=13 profiles and retained cache completed](2026-10-28-2002-codex-encode-010-completed.md) |
+| 2026-10-28 20:08 | DOC-054 | Started | [Make encoding efficiency the implementation priority](2026-10-28-2008-codex-doc-054-started.md) |
+| 2026-10-28 20:10 | DOC-054 | Completed | [Encoding optimization choices explicitly remain open](2026-10-28-2010-codex-doc-054-completed.md) |
+| 2026-10-28 20:12 | DOC-055 | Started | [Constrain optimization to practical commodity hardware](2026-10-28-2012-codex-doc-055-started.md) |
+| 2026-10-28 20:13 | DOC-055 | Completed | [Commodity hardware and local resource constraints recorded](2026-10-28-2013-codex-doc-055-completed.md) |
+| 2026-10-28 20:15 | PUBLISH-010 | Started | [Publish profiles and priorities before language comparison](2026-10-28-2015-codex-publish-010-started.md) |
+| 2026-10-28 20:19 | PUBLISH-010 | Completed | [Profile checkpoint verified for publication](2026-10-28-2019-codex-publish-010-completed.md) |

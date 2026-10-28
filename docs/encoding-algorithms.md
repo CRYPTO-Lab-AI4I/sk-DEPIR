@@ -192,9 +192,35 @@ GPU feasibility remain unverified.
 Prioritize the cached-FFT cyclic encoder for further development, retaining the
 paper encoder as a correctness and performance baseline. Keep the same information
 set, field conventions and codeword outputs. The following steps are planned,
-not implemented support for the larger configurations. Complete the CPU and
-moderate-instance checkpoints first; external-memory and GPU work are later stages,
-subject to the [roadmap's scope and TRL gates](../ROADMAP.md).
+not implemented support for the larger configurations. Their order is a working
+sequence that can change when measurements favor an alternative. Encoding
+efficiency evaluations remain in scope without declaring a higher TRL achieved.
+
+### Optimization priority
+
+The goal is fast encoding with unchanged PIR functionality and correctness.
+No language, compiler, algorithm, hardware backend, layout, memory strategy or
+parallelization scheme is settled. The current Go implementation and step order
+are baselines, not constraints on alternatives. Consider CPU/GPU and native-code
+options whenever measurements justify investigating them, rather than waiting
+for a particular step. Preserve standard-setup usability and report deployment
+and maintenance costs alongside speed, memory and I/O.
+
+Hardware choice is constrained by practical deployment: measure using what is
+available on this machine, within the agreed resource budgets, and target
+commodity CPUs/GPUs. More RAM, cores or GPU memory are acceptable at larger
+scales, while hardware/software requirements should stay as generic as practical.
+Architecture-specific acceleration must justify its deployment cost and preserve
+a practical generic path. Specialized hardware is not the default solution;
+unavailable-hardware projections must remain distinct from measurements.
+
+Before substantial Go-specific kernel tuning, compare equivalent batched Go and
+C++ kernels with identical constants, inputs and memory budgets. Measure complete
+FFT/encoding stages for promising variants, including any interface overhead.
+Rust or other implementations remain eligible; no native backend is selected by
+this plan. Reuse retained preprocessing and keep CPU profiles enabled during
+optimization. Earlier step/scope gates do not exclude this evaluation; TRL 5
+functionality and acceptance requirements still apply.
 
 ### Step 1: Remove full-extension-field arithmetic tables
 
@@ -291,10 +317,9 @@ satisfy these future resource/layout acceptance checks.
 
 ### Step 4: Implement encoding with bounded RAM
 
-**Decision gate:** after Step 3, use its resource measurements to decide with the
-user whether bounded-RAM work is necessary for the selected TRL 5 use case or
-whether to pursue the larger TRL 6 scaling effort. This plan does not itself
-activate the deferred work in the roadmap.
+**Decision gate:** use resource measurements to choose bounded-RAM techniques
+when they enable or improve the target encoding workload. They may be evaluated
+alongside other optimizations; TRL 6 deployment acceptance remains a separate goal.
 
 Introduce a configurable memory budget and disk-backed working arrays. Specify
 block schedules for transforms, polynomial multiplication and coordinate
@@ -311,9 +336,11 @@ the in-memory backend. Large-instance runs follow only after that check.
 
 ### Step 5: Add optional GPU acceleration where justified
 
-**Decision gate:** after CPU profiling, present expected gains and deployment/
-maintenance costs to the user before choosing a GPU backend and expanding the
-current optimization scope. No GPU vendor or native dependency is selected here.
+**Decision gate:** use profiling and measured comparisons to choose whether GPU
+acceleration improves encoding enough to justify deployment/maintenance costs.
+GPU evaluation is eligible alongside CPU/native alternatives under the priority
+above; it need not wait until every preceding step is complete. No GPU vendor or
+native dependency is selected here.
 
 Keep code descriptions, artifacts and outputs compatible with the CPU path.
 Accelerate arithmetic batches and transform blocks, transferring sufficiently
@@ -382,7 +409,7 @@ the later s=13 measurement below supersedes its exclusion for that configuration
 The API's s<=13 bound permits resource-limited experiments; it is not a guarantee
 for arbitrary instances or large serialized caches. After this broader baseline,
 optimize the measured arithmetic/transform bottlenecks and repeat the scaling
-comparison. External-memory/GPU work remains subject to the agreed scope gate.
+comparison. Hardware and memory strategies follow the optimization priority above.
 
 ### Portable fixed-constant multiplication
 
@@ -415,5 +442,24 @@ First use is 33.94 min and whole-case peak RSS 5.34 GiB. All systematic symbols,
 output. This measures one codeword using in-memory caches, not application-plan
 execution, large-cache loading or larger paper-encoder performance. Historical
 one-hour policies and forecast results are preserved; current evidence reaches
-the adapter's s<=13 bound. Further scaling remains subject to resource measurement
-and the external-memory/GPU scope gate.
+the adapter's s<=13 bound. Further scaling and hardware choices require measured
+resource evidence under the optimization priority above.
+
+### s=13 profiling and retained cache
+
+The [profiles](../experiments/encoder-profile-s13/report.md) now cover reusable
+preparation and encoding. A monitor failure after cache loading interrupted the
+first run; a reuse-only run completed encoding from the saved cache. No repeated
+preparation was needed. The 432 MiB local JSON cache reloads in 4.83 s; profiled
+encoding takes 186.35 s with identical complete output. Setup and encoding come
+from separate runs and do not supply a single combined peak-RSS measurement.
+
+Fixed-constant multiplication accounts for 44.20% of encoding self CPU samples,
+base-field multiplication 26.48%, and transform recursion's own work 17.51%.
+Preparation shows 38.46%, 27.14% and 17.56%, respectively. These are sampled CPU
+shares, not wall-time fractions; cumulative call-tree shares overlap. The next
+candidate is reducing fixed-table lookup/loop overhead (compare unrolling and
+alternative row widths within a stated table-memory budget), then validate full
+encoding using retained preprocessing. No further optimization or speedup is
+claimed by this profile. Raw profiles, text views, checksums and the matching
+binary/cache locations are retained for later analysis.

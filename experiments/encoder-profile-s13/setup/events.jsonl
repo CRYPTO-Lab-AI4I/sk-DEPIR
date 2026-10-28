@@ -1,0 +1,12 @@
+{"event":"started","phase":"discovery"}
+{"allocated_bytes":2212568104,"baseline_heap_bytes":345168,"cpu_profile":"/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/encoder-profile-s13/setup/discovery.pprof","elapsed_ns":85109340000,"event":"phase","gc_cycles":12,"phase":"discovery","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":1027308024,"sampled_peak_heap_bytes":967623136,"samples":853}
+{"event":"started","phase":"preparation"}
+{"allocated_bytes":17154892424,"baseline_heap_bytes":99114352,"cpu_profile":"/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/encoder-profile-s13/setup/preparation.pprof","elapsed_ns":1784863037583,"event":"phase","gc_cycles":22,"phase":"preparation","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":7795714680,"sampled_peak_heap_bytes":4939929752,"samples":17852}
+{"event":"started","phase":"cache_save"}
+{"event":"cache_saved","metadata":{"bytes":453243425,"cache_limit_bytes":2147483648,"format":"cyclic-json-v1","k":11926435,"m":2,"n":67108864,"s":13,"sha256":"a2a3bcd5913d821c99d08ceca05d6c5d73ce2abe6e3987910c0dcf5dfe97eb22","source_manifest":"cf73604075109abe444534d3b003d7cc4d85ac7be45208d86edc81f3cf629ac3","t":5},"path":"/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/s13-m2-t5/cyclic.json"}
+{"allocated_bytes":2907905104,"baseline_heap_bytes":636048432,"cpu_profile":"/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/encoder-profile-s13/setup/cache_save.pprof","elapsed_ns":1498146167,"event":"phase","gc_cycles":3,"phase":"cache_save","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":7795714680,"sampled_peak_heap_bytes":2581239272,"samples":17}
+{"event":"started","phase":"cache_load"}
+{"bytes":453243425,"event":"cache_loaded","path":"/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/s13-m2-t5/cyclic.json","sha256":"a2a3bcd5913d821c99d08ceca05d6c5d73ce2abe6e3987910c0dcf5dfe97eb22"}
+{"allocated_bytes":5344991328,"baseline_heap_bytes":470434336,"cpu_profile":"/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/encoder-profile-s13/setup/cache_load.pprof","elapsed_ns":4863674167,"event":"phase","gc_cycles":6,"phase":"cache_load","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":7795714680,"sampled_peak_heap_bytes":2246170552,"samples":50}
+{"event":"code","go_version":"go1.27.3","k":11926435,"m":2,"n":67108864,"reused_cache":false,"s":13,"t":5}
+{"event":"started","phase":"encode_0"}

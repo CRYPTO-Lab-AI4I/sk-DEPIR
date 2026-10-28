@@ -1,0 +1,32 @@
+File: profile-bin-cf73604075109abe
+Type: cpu
+Time: 2026-10-28 19:44:26 CET
+Duration: 85.25s, Total samples = 77.38s (90.77%)
+Showing nodes accounting for 76.24s, 98.53% of 77.38s total
+Dropped 83 nodes (cum <= 0.39s)
+      flat  flat%   sum%        cum   cum%
+     0.72s  0.93%  0.93%     75.99s 98.20%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.DiscoverOrbit
+         0     0%  0.93%     75.99s 98.20%  main.main
+         0     0%  0.93%     75.99s 98.20%  main.main.func1
+         0     0%  0.93%     75.99s 98.20%  main.phase
+         0     0%  0.93%     75.99s 98.20%  runtime.main
+         0     0%  0.93%     72.21s 93.32%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).apply (inline)
+    14.23s 18.39% 19.32%     72.21s 93.32%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).recurse
+    32.66s 42.21% 61.53%     32.67s 42.22%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.constantProduct.mul
+     2.86s  3.70% 65.22%     24.60s 31.79%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul
+     4.06s  5.25% 70.47%     18.72s 24.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.QuadraticField.Mul
+    17.67s 22.84% 93.31%     17.68s 22.85%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.BinaryField.Mul (inline)
+     0.05s 0.065% 93.37%      1.61s  2.08%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.GoodMonomial
+     1.55s  2.00% 95.37%      1.56s  2.02%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.goodMonomialCarries
+         0     0% 95.37%      1.27s  1.64%  runtime.gopreempt_m (inline)
+         0     0% 95.37%      1.27s  1.64%  runtime.goschedImpl
+         0     0% 95.37%      1.27s  1.64%  runtime.morestack
+         0     0% 95.37%      1.27s  1.64%  runtime.newstack
+         0     0% 95.37%      1.17s  1.51%  runtime.wakep
+     0.01s 0.013% 95.39%      1.14s  1.47%  runtime.startm
+         0     0% 95.39%      1.10s  1.42%  runtime.notewakeup
+     0.01s 0.013% 95.40%      1.10s  1.42%  runtime.semawakeup
+     1.09s  1.41% 96.81%      1.09s  1.41%  runtime.pthread_cond_signal
+     0.27s  0.35% 97.16%      1.01s  1.31%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).validateSupport
+     0.70s   0.9% 98.06%      0.70s   0.9%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).offset (inline)
+     0.36s  0.47% 98.53%      0.53s  0.68%  runtime.mapassign_fast64

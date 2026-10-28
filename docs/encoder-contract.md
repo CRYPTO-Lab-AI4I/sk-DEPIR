@@ -258,8 +258,9 @@ K=1965739. The subsequent [s=13 measurement](../experiments/cyclic-s13/report.md
 adds exact K=11926435, 29.42 min reusable preparation, 185.15 s median encoding
 and 5.34 GiB peak process RSS. It uses a two-hour timeout; one hour is a ballpark,
 not a hard first-use limit. The s>=14 resource/correctness checkpoints remain
-open. Large caches were not serialized, and current JSON loader byte caps remain
-separate limitations.
+open. That unprofiled checkpoint did not serialize large caches; default JSON
+loader caps remain separate limitations. The later profile experiment below
+retains and reloads an s=13 cache through an explicit local limit.
 
 The bounded CPU backend now caches four-bit multiplication maps for repeated FFT
 constants, with at most 256 KiB of table entries per transform. Construction is
@@ -283,5 +284,6 @@ The cyclic JSON loader now offers `LoadCyclicEncoderWithLimit` for explicitly
 bounded trusted local caches larger than the default limits. The opt-in byte cap
 also applies to the embedded basis; defaults remain unchanged. Bound file reads
 and decoded RAM separately. [The profiled s=13 experiment](../experiments/encoder-profile-s13/report.md)
-retains local cache provenance/checksums and measures save/load separately from
-encoding. This local cache policy does not raise the public distribution budget.
+retains a 432 MiB local cache with provenance/checksums, reloads it in 4.83 s
+and profiles encoding separately (186.35 s). Its output matches the baseline.
+This local cache policy does not raise the public distribution budget.

@@ -122,8 +122,8 @@ The [s=13 cyclic benchmark](../../experiments/cyclic-s13/report.md) adds exact
 K=11926435,N=67108864 at t=5, with three encodings and final-output systematic,
 independent-curve and packed-readback checks. First use is 33.94 min, preparation
 29.42 min and median encoding 185.15 s, with 5.34 GiB whole-case peak RSS.
-It uses a two-hour case timeout and the same memory guard; large-cache JSON loading
-is still unmeasured.
+It uses a two-hour case timeout and the same memory guard. That unprofiled run
+did not measure large-cache JSON loading; the later profiling run below does.
 
 ### Reusable preprocessing and database encoding
 
@@ -257,3 +257,8 @@ are distinct from public artifact distribution. The
 [s=13 profiling runner](../../experiments/encoder-profile-s13/report.md) retains
 cache checksums/provenance under ignored `.cache/liftrs/` and can profile encoding
 again with `--reuse-cache`, without repeating discovery/preparation.
+
+The completed profile checkpoint retains a 432 MiB s=13 cache and reloads it in
+4.83 s. Encoding from the reloaded cache takes 186.35 s under CPU sampling and
+matches the complete unprofiled output. See the report for separate setup/reuse
+runs, resource observations and raw CPU profiles.

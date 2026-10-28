@@ -8,7 +8,14 @@ Contributors and collaborating agents must follow [AGENTS.md](AGENTS.md), record
 [retain preprocessing and CPU profiles](experiments/README.md#profiling-and-preprocessing-retention)
 by default; keep large local caches outside Git and report instrumentation overhead.
 
-The current development target is **TRL 5**: a usable, validated client and preprocessing library. The [roadmap](ROADMAP.md) gives the ordered tasks and acceptance criteria. Storage is treated as a plain I/O endpoint returning requested records; server-side protocol computation is outside the scope. TRL 6 scaling and advanced optimization work is deferred for a later decision.
+The current development target is **TRL 5**: a usable, validated client and preprocessing library. The [roadmap](ROADMAP.md) gives the ordered tasks and acceptance criteria. Storage is treated as a plain I/O endpoint returning requested records; server-side protocol computation is outside the scope. TRL 6 acceptance is deferred; evaluating encoding-efficiency improvements remains in scope.
+
+Fast encoding is an explicit priority. Language, compiler, algorithms, hardware,
+layout and parallelism remain open choices; select improvements through measured
+comparisons while preserving PIR functionality, correctness and usability on
+standard setups. Target commodity CPUs and GPUs and measure on locally available
+hardware. Larger workloads may need larger machines, but hardware/software
+requirements should remain as generic as practical.
 
 ## Implementation status and limits
 
@@ -51,9 +58,11 @@ The [s=13 benchmark](experiments/cyclic-s13/report.md), run with a two-hour
 allowance, adds exact K=11926435 at t=5: 29.42 min reusable preparation,
 185.15 s median encoding and 5.34 GiB whole-case peak RSS. First use is 33.94 min;
 application integration remains unmeasured. The subsequent
-[profiled s=13 run](experiments/encoder-profile-s13/report.md) is being prepared to
-retain a local reloadable cache; its instrumentation/cache results are separate
-from this unprofiled baseline.
+[profiled s=13 runs](experiments/encoder-profile-s13/report.md) retain a 432 MiB
+local cache, reload it in 4.83 s and encode in 186.35 s, with identical output.
+CPU profiles identify fixed-constant multiplication as the largest remaining
+self-time share. Profiled/cache measurements are separate from this unprofiled
+baseline; large local files stay outside Git.
 
 A separate [small cryptographic reference](encoding/cryptoref/README.md) permutes codewords and applies storage-position XOR masks using the existing AES helpers. It tests independent masking keys, re-encoding, and genuine-codeword retrieval. Its in-memory architecture is a correctness reference; it does not select a production API or streaming design.
 

@@ -1,0 +1,354 @@
+File: profile-bin-54529a127297371f
+Type: cpu
+Time: 2026-10-28 20:17:38 CET
+Duration: 4.98s, Total samples = 4.24s (85.16%)
+Showing nodes accounting for 4.05s, 95.52% of 4.24s total
+Dropped 32 nodes (cum <= 0.02s)
+Showing top 80 nodes out of 91
+----------------------------------------------------------+-------------
+      flat  flat%   sum%        cum   cum%   calls calls% + context 	 	 
+----------------------------------------------------------+-------------
+                                             0.72s 67.92% |   encoding/json/jsontext.(*decoderState).consumeObject
+                                             0.68s 64.15% |   encoding/json/jsontext.(*decoderState).CheckNextValue
+                                             0.50s 47.17% |   encoding/json/jsontext.(*decoderState).consumeArray
+                                             0.38s 35.85% |   encoding/json/jsontext.(*decoderState).ReadValue
+     0.46s 10.85% 10.85%      1.06s 25.00%                | encoding/json/jsontext.(*decoderState).consumeValue
+                                             0.72s 67.92% |   encoding/json/jsontext.(*decoderState).consumeArray
+                                             0.72s 67.92% |   encoding/json/jsontext.(*decoderState).consumeObject
+                                             0.35s 33.02% |   encoding/json/internal/jsonwire.ConsumeSimpleNumber (inline)
+                                             0.01s  0.94% |   encoding/json/jsontext.(*decodeBuffer).needMore (inline)
+                                             0.01s  0.94% |   runtime.newstack
+----------------------------------------------------------+-------------
+                                             0.17s 43.59% |   encoding/json/jsontext.(*decoderState).consumeArray (inline)
+                                             0.14s 35.90% |   encoding/json/jsontext.(*decoderState).PeekKind (inline)
+                                             0.08s 20.51% |   encoding/json/jsontext.Value.Kind (inline)
+     0.39s  9.20% 20.05%      0.39s  9.20%                | encoding/json/internal/jsonwire.ConsumeWhitespace
+----------------------------------------------------------+-------------
+                                             0.35s   100% |   encoding/json/jsontext.(*decoderState).consumeValue (inline)
+     0.35s  8.25% 28.30%      0.35s  8.25%                | encoding/json/internal/jsonwire.ConsumeSimpleNumber
+----------------------------------------------------------+-------------
+                                             0.55s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).validateSupport
+     0.35s  8.25% 36.56%      0.55s 12.97%                | runtime.mapassign_fast64
+                                             0.11s 20.00% |   internal/runtime/maps.probeSeq.next (inline)
+                                             0.07s 12.73% |   internal/runtime/maps.(*groupReference).key (inline)
+----------------------------------------------------------+-------------
+                                             0.28s   100% |   encoding/json/v2.makeUintArshaler.func2
+     0.27s  6.37% 42.92%      0.28s  6.60%                | reflect.Value.SetUint
+----------------------------------------------------------+-------------
+                                             1.04s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadOrbitLimit
+     0.24s  5.66% 48.58%      1.04s 24.53%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).validateSupport
+                                             0.55s 52.88% |   runtime.mapassign_fast64
+                                             0.25s 24.04% |   runtime.mapaccess1_fast64
+----------------------------------------------------------+-------------
+                                             0.28s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.newOrbitBasis
+     0.19s  4.48% 53.07%      0.28s  6.60%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.newAdditiveTransform
+                                             0.09s 32.14% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul
+----------------------------------------------------------+-------------
+                                             1.05s   100% |   encoding/json/v2.makeSliceArshaler.func3
+     0.17s  4.01% 57.08%      1.05s 24.76%                | encoding/json/v2.makeUintArshaler.func2
+                                             0.42s 40.00% |   encoding/json/jsontext.(*decoderState).ReadValue
+                                             0.28s 26.67% |   reflect.Value.SetUint
+                                             0.10s  9.52% |   encoding/json/internal/jsonwire.ParseUint
+                                             0.08s  7.62% |   encoding/json/jsontext.Value.Kind (inline)
+----------------------------------------------------------+-------------
+                                             0.22s   100% |   runtime.mapaccess1_fast64
+     0.14s  3.30% 60.38%      0.22s  5.19%                | runtime.mapaccess2_fast64
+                                             0.06s 27.27% |   internal/runtime/maps.ctrlGroup.matchEmpty (inline)
+                                             0.01s  4.55% |   internal/runtime/maps.(*groupReference).key (inline)
+----------------------------------------------------------+-------------
+                                             0.15s   100% |   runtime.notewakeup
+     0.14s  3.30% 63.68%      0.15s  3.54%                | runtime.pthread_cond_signal
+----------------------------------------------------------+-------------
+                                             0.12s   100% |   crypto/internal/fips140/sha256.block
+     0.12s  2.83% 66.51%      0.12s  2.83%                | crypto/internal/fips140/sha256.blockSHA2
+----------------------------------------------------------+-------------
+                                             0.10s 83.33% |   encoding/json/v2.makeUintArshaler.func2
+                                             0.02s 16.67% |   encoding/json/v2.makeIntArshaler.func2
+     0.12s  2.83% 69.34%      0.12s  2.83%                | encoding/json/internal/jsonwire.ParseUint
+----------------------------------------------------------+-------------
+                                             0.30s   100% |   encoding/json/jsontext.(*Decoder).PeekKind
+     0.12s  2.83% 72.17%      0.30s  7.08%                | encoding/json/jsontext.(*decoderState).PeekKind
+                                             0.14s 46.67% |   encoding/json/internal/jsonwire.ConsumeWhitespace (inline)
+                                             0.01s  3.33% |   encoding/json/jsontext.(*decodeBuffer).needMore (inline)
+----------------------------------------------------------+-------------
+                                             0.42s 84.00% |   encoding/json/v2.makeUintArshaler.func2
+                                             0.04s  8.00% |   encoding/json/jsontext.(*Decoder).ReadValue
+                                             0.04s  8.00% |   encoding/json/v2.makeIntArshaler.func2
+     0.11s  2.59% 74.76%      0.50s 11.79%                | encoding/json/jsontext.(*decoderState).ReadValue
+                                             0.38s 76.00% |   encoding/json/jsontext.(*decoderState).consumeValue
+----------------------------------------------------------+-------------
+                                             0.11s   100% |   runtime.mapassign_fast64 (inline)
+     0.11s  2.59% 77.36%      0.11s  2.59%                | internal/runtime/maps.probeSeq.next
+----------------------------------------------------------+-------------
+                                             0.08s 80.00% |   runtime.growslice
+                                             0.02s 20.00% |   io.ReadAll
+     0.10s  2.36% 79.72%      0.10s  2.36%                | runtime.memmove
+----------------------------------------------------------+-------------
+                                             0.07s 87.50% |   runtime.mapassign_fast64 (inline)
+                                             0.01s 12.50% |   runtime.mapaccess2_fast64 (inline)
+     0.08s  1.89% 81.60%      0.08s  1.89%                | internal/runtime/maps.(*groupReference).key
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   encoding/json/v2.makeSliceArshaler.func3
+     0.08s  1.89% 83.49%      0.10s  2.36%                | reflect.Value.Index
+----------------------------------------------------------+-------------
+                                             0.06s   100% |   internal/runtime/maps.ctrlGroup.matchEmpty (inline)
+     0.06s  1.42% 84.91%      0.06s  1.42%                | internal/runtime/maps.ctrlGroupMatchEmpty
+----------------------------------------------------------+-------------
+                                             1.70s   100% |   encoding/json/v2.makeStructArshaler.func3
+     0.05s  1.18% 86.08%      1.70s 40.09%                | encoding/json/v2.makeSliceArshaler.func3
+                                             1.05s 61.76% |   encoding/json/v2.makeUintArshaler.func2
+                                             0.30s 17.65% |   encoding/json/jsontext.(*Decoder).PeekKind (inline)
+                                             0.11s  6.47% |   reflect.Value.Grow
+                                             0.10s  5.88% |   reflect.Value.Index
+                                             0.09s  5.29% |   encoding/json/v2.makeIntArshaler.func2
+----------------------------------------------------------+-------------
+                                             0.03s 60.00% |   runtime.growslice
+                                             0.02s 40.00% |   io.ReadAll
+     0.05s  1.18% 87.26%      0.05s  1.18%                | runtime.memclrNoHeapPointers
+----------------------------------------------------------+-------------
+                                             0.03s 60.00% |   runtime.markroot.func1
+                                             0.02s 40.00% |   runtime.lock2
+     0.05s  1.18% 88.44%      0.05s  1.18%                | runtime.usleep
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   internal/poll.ignoringEINTRIO
+     0.05s  1.18% 89.62%      0.05s  1.18%                | syscall.rawsyscalln
+----------------------------------------------------------+-------------
+                                             0.02s 50.00% |   encoding/json/jsontext.(*decoderState).consumeArray (inline)
+                                             0.01s 25.00% |   encoding/json/jsontext.(*decoderState).PeekKind (inline)
+                                             0.01s 25.00% |   encoding/json/jsontext.(*decoderState).consumeValue (inline)
+     0.04s  0.94% 90.57%      0.04s  0.94%                | encoding/json/jsontext.(*decodeBuffer).needMore
+----------------------------------------------------------+-------------
+                                             0.04s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.QuadraticField.Mul (inline)
+     0.04s  0.94% 91.51%      0.04s  0.94%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.BinaryField.Mul
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.newAdditiveTransform
+     0.04s  0.94% 92.45%      0.09s  2.12%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul
+                                             0.05s 55.56% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.QuadraticField.Mul
+----------------------------------------------------------+-------------
+                                             0.72s   100% |   encoding/json/jsontext.(*decoderState).consumeValue
+     0.03s  0.71% 93.16%      0.72s 16.98%                | encoding/json/jsontext.(*decoderState).consumeArray
+                                             0.50s 69.44% |   encoding/json/jsontext.(*decoderState).consumeValue
+                                             0.17s 23.61% |   encoding/json/internal/jsonwire.ConsumeWhitespace (inline)
+                                             0.02s  2.78% |   encoding/json/jsontext.(*decodeBuffer).needMore (inline)
+----------------------------------------------------------+-------------
+                                             3.78s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.LoadCyclicEncoderWithLimit
+     0.03s  0.71% 93.87%      3.78s 89.15%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadCyclicEncoderLimit
+                                             3.75s 99.21% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadEncoderArtifactLimit
+----------------------------------------------------------+-------------
+                                             0.25s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).validateSupport
+     0.03s  0.71% 94.58%      0.25s  5.90%                | runtime.mapaccess1_fast64
+                                             0.22s 88.00% |   runtime.mapaccess2_fast64
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   encoding/json/v2.makeSliceArshaler.func3
+     0.02s  0.47% 95.05%      0.09s  2.12%                | encoding/json/v2.makeIntArshaler.func2
+                                             0.04s 44.44% |   encoding/json/jsontext.(*decoderState).ReadValue
+                                             0.02s 22.22% |   encoding/json/internal/jsonwire.ParseUint
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul
+     0.01s  0.24% 95.28%      0.05s  1.18%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.QuadraticField.Mul
+                                             0.04s 80.00% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.BinaryField.Mul (inline)
+----------------------------------------------------------+-------------
+                                             0.18s 94.74% |   runtime.morestack
+                                             0.01s  5.26% |   encoding/json/jsontext.(*decoderState).consumeValue
+     0.01s  0.24% 95.52%      0.19s  4.48%                | runtime.newstack
+                                             0.18s 94.74% |   runtime.gopreempt_m (inline)
+----------------------------------------------------------+-------------
+                                             0.12s   100% |   crypto/sha256.Sum256
+         0     0% 95.52%      0.12s  2.83%                | crypto/internal/fips140/sha256.(*Digest).Write
+                                             0.12s   100% |   crypto/internal/fips140/sha256.block
+----------------------------------------------------------+-------------
+                                             0.12s   100% |   crypto/internal/fips140/sha256.(*Digest).Write
+         0     0% 95.52%      0.12s  2.83%                | crypto/internal/fips140/sha256.block
+                                             0.12s   100% |   crypto/internal/fips140/sha256.blockSHA2
+----------------------------------------------------------+-------------
+                                             0.12s   100% |   main.main.func4
+         0     0% 95.52%      0.12s  2.83%                | crypto/sha256.Sum256
+                                             0.12s   100% |   crypto/internal/fips140/sha256.(*Digest).Write
+----------------------------------------------------------+-------------
+                                             2.23s 91.77% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadEncoderArtifactLimit (inline)
+                                             0.20s  8.23% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadOrbitLimit (inline)
+         0     0% 95.52%      2.43s 57.31%                | encoding/json.Unmarshal
+                                             2.43s   100% |   encoding/json/v2.Unmarshal
+----------------------------------------------------------+-------------
+                                             0.30s   100% |   encoding/json/v2.makeSliceArshaler.func3 (inline)
+         0     0% 95.52%      0.30s  7.08%                | encoding/json/jsontext.(*Decoder).PeekKind
+                                             0.30s   100% |   encoding/json/jsontext.(*decoderState).PeekKind
+----------------------------------------------------------+-------------
+                                             0.04s   100% |   encoding/json/v2.makeMethodArshaler.func6 (inline)
+         0     0% 95.52%      0.04s  0.94%                | encoding/json/jsontext.(*Decoder).ReadValue
+                                             0.04s   100% |   encoding/json/jsontext.(*decoderState).ReadValue
+----------------------------------------------------------+-------------
+                                             0.68s   100% |   encoding/json/v2.unmarshalDecode
+         0     0% 95.52%      0.68s 16.04%                | encoding/json/jsontext.(*decoderState).CheckNextValue
+                                             0.68s   100% |   encoding/json/jsontext.(*decoderState).consumeValue
+----------------------------------------------------------+-------------
+                                             0.72s   100% |   encoding/json/jsontext.(*decoderState).consumeValue
+         0     0% 95.52%      0.72s 16.98%                | encoding/json/jsontext.(*decoderState).consumeObject
+                                             0.72s   100% |   encoding/json/jsontext.(*decoderState).consumeValue
+----------------------------------------------------------+-------------
+                                             0.08s   100% |   encoding/json/v2.makeUintArshaler.func2 (inline)
+         0     0% 95.52%      0.08s  1.89%                | encoding/json/jsontext.Value.Kind
+                                             0.08s   100% |   encoding/json/internal/jsonwire.ConsumeWhitespace (inline)
+----------------------------------------------------------+-------------
+                                             2.43s   100% |   encoding/json.Unmarshal
+         0     0% 95.52%      2.43s 57.31%                | encoding/json/v2.Unmarshal
+                                             2.43s   100% |   encoding/json/v2.unmarshalDecode
+----------------------------------------------------------+-------------
+                                             0.04s   100% |   encoding/json/v2.makeStructArshaler.func3
+         0     0% 95.52%      0.04s  0.94%                | encoding/json/v2.makeMethodArshaler.func6
+                                             0.04s   100% |   encoding/json/jsontext.(*Decoder).ReadValue (inline)
+----------------------------------------------------------+-------------
+                                             1.74s   100% |   encoding/json/v2.unmarshalDecode
+         0     0% 95.52%      1.74s 41.04%                | encoding/json/v2.makeStructArshaler.func3
+                                             1.70s 97.70% |   encoding/json/v2.makeSliceArshaler.func3
+                                             0.04s  2.30% |   encoding/json/v2.makeMethodArshaler.func6
+----------------------------------------------------------+-------------
+                                             2.43s   100% |   encoding/json/v2.Unmarshal
+         0     0% 95.52%      2.43s 57.31%                | encoding/json/v2.unmarshalDecode
+                                             1.74s 71.60% |   encoding/json/v2.makeStructArshaler.func3
+                                             0.68s 27.98% |   encoding/json/jsontext.(*decoderState).CheckNextValue
+----------------------------------------------------------+-------------
+                                             3.78s   100% |   main.main.func4 (inline)
+         0     0% 95.52%      3.78s 89.15%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.LoadCyclicEncoderWithLimit
+                                             3.78s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadCyclicEncoderLimit
+----------------------------------------------------------+-------------
+                                             3.75s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadCyclicEncoderLimit
+         0     0% 95.52%      3.75s 88.44%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadEncoderArtifactLimit
+                                             2.23s 59.47% |   encoding/json.Unmarshal (inline)
+                                             1.52s 40.53% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadOrbitLimit
+----------------------------------------------------------+-------------
+                                             1.52s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadEncoderArtifactLimit
+         0     0% 95.52%      1.52s 35.85%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadOrbitLimit
+                                             1.04s 68.42% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).validateSupport
+                                             0.28s 18.42% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.newOrbitBasis
+                                             0.20s 13.16% |   encoding/json.Unmarshal (inline)
+----------------------------------------------------------+-------------
+                                             0.28s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.loadOrbitLimit
+         0     0% 95.52%      0.28s  6.60%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.newOrbitBasis
+                                             0.28s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.newAdditiveTransform
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   os.(*File).read
+         0     0% 95.52%      0.05s  1.18%                | internal/poll.(*FD).Read
+                                             0.05s   100% |   internal/poll.ignoringEINTRIO (inline)
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   internal/poll.(*FD).Read (inline)
+         0     0% 95.52%      0.05s  1.18%                | internal/poll.ignoringEINTRIO
+                                             0.05s   100% |   syscall.rawsyscalln
+----------------------------------------------------------+-------------
+                                             0.06s   100% |   runtime.mapaccess2_fast64 (inline)
+         0     0% 95.52%      0.06s  1.42%                | internal/runtime/maps.ctrlGroup.matchEmpty
+                                             0.06s   100% |   internal/runtime/maps.ctrlGroupMatchEmpty (inline)
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   io.ReadAll
+         0     0% 95.52%      0.05s  1.18%                | io.(*LimitedReader).Read
+                                             0.05s   100% |   os.(*File).Read
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   main.main.func4
+         0     0% 95.52%      0.09s  2.12%                | io.ReadAll
+                                             0.05s 55.56% |   io.(*LimitedReader).Read
+                                             0.02s 22.22% |   runtime.memclrNoHeapPointers
+                                             0.02s 22.22% |   runtime.memmove
+----------------------------------------------------------+-------------
+                                             3.99s   100% |   runtime.main
+         0     0% 95.52%      3.99s 94.10%                | main.main
+                                             3.99s   100% |   main.phase
+----------------------------------------------------------+-------------
+                                             3.99s   100% |   main.phase
+         0     0% 95.52%      3.99s 94.10%                | main.main.func4
+                                             3.78s 94.74% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.LoadCyclicEncoderWithLimit (inline)
+                                             0.12s  3.01% |   crypto/sha256.Sum256
+                                             0.09s  2.26% |   io.ReadAll
+----------------------------------------------------------+-------------
+                                             3.99s   100% |   main.main
+         0     0% 95.52%      3.99s 94.10%                | main.phase
+                                             3.99s   100% |   main.main.func4
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   io.(*LimitedReader).Read
+         0     0% 95.52%      0.05s  1.18%                | os.(*File).Read
+                                             0.05s   100% |   os.(*File).read (inline)
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   os.(*File).Read (inline)
+         0     0% 95.52%      0.05s  1.18%                | os.(*File).read
+                                             0.05s   100% |   internal/poll.(*FD).Read
+----------------------------------------------------------+-------------
+                                             0.11s   100% |   encoding/json/v2.makeSliceArshaler.func3
+         0     0% 95.52%      0.11s  2.59%                | reflect.Value.Grow
+                                             0.11s   100% |   reflect.Value.grow
+----------------------------------------------------------+-------------
+                                             0.11s   100% |   reflect.Value.Grow
+         0     0% 95.52%      0.11s  2.59%                | reflect.Value.grow
+                                             0.11s   100% |   reflect.growslice
+----------------------------------------------------------+-------------
+                                             0.11s   100% |   reflect.Value.grow
+         0     0% 95.52%      0.11s  2.59%                | reflect.growslice
+                                             0.11s   100% |   runtime.growslice
+----------------------------------------------------------+-------------
+         0     0% 95.52%      0.03s  0.71%                | runtime.(*mheap).alloc.func1
+                                             0.03s   100% |   runtime.(*mheap).allocSpan
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   runtime.(*mheap).alloc.func1
+         0     0% 95.52%      0.03s  0.71%                | runtime.(*mheap).allocSpan
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   runtime.goschedImpl
+         0     0% 95.52%      0.03s  0.71%                | runtime.findRunnable
+                                             0.03s   100% |   runtime.gcstopm
+----------------------------------------------------------+-------------
+         0     0% 95.52%      0.04s  0.94%                | runtime.gcBgMarkWorker.func2
+                                             0.04s   100% |   runtime.gcDrainMarkWorkerDedicated (inline)
+----------------------------------------------------------+-------------
+                                             0.04s   100% |   runtime.gcDrainMarkWorkerDedicated
+         0     0% 95.52%      0.04s  0.94%                | runtime.gcDrain
+                                             0.04s   100% |   runtime.markroot
+----------------------------------------------------------+-------------
+                                             0.04s   100% |   runtime.gcBgMarkWorker.func2 (inline)
+         0     0% 95.52%      0.04s  0.94%                | runtime.gcDrainMarkWorkerDedicated
+                                             0.04s   100% |   runtime.gcDrain
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   runtime.findRunnable
+         0     0% 95.52%      0.03s  0.71%                | runtime.gcstopm
+                                             0.03s   100% |   runtime.lock (inline)
+----------------------------------------------------------+-------------
+                                             0.18s   100% |   runtime.newstack (inline)
+         0     0% 95.52%      0.18s  4.25%                | runtime.gopreempt_m
+                                             0.18s   100% |   runtime.goschedImpl
+----------------------------------------------------------+-------------
+                                             0.18s   100% |   runtime.gopreempt_m
+         0     0% 95.52%      0.18s  4.25%                | runtime.goschedImpl
+                                             0.15s 83.33% |   runtime.notewakeup
+                                             0.03s 16.67% |   runtime.findRunnable
+----------------------------------------------------------+-------------
+                                             0.11s   100% |   reflect.growslice
+         0     0% 95.52%      0.11s  2.59%                | runtime.growslice
+                                             0.08s 72.73% |   runtime.memmove
+                                             0.03s 27.27% |   runtime.memclrNoHeapPointers
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   runtime.gcstopm (inline)
+         0     0% 95.52%      0.03s  0.71%                | runtime.lock
+                                             0.03s   100% |   runtime.lockWithRank (inline)
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   runtime.lockWithRank
+         0     0% 95.52%      0.03s  0.71%                | runtime.lock2
+                                             0.02s 66.67% |   runtime.usleep
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   runtime.lock (inline)
+         0     0% 95.52%      0.03s  0.71%                | runtime.lockWithRank
+                                             0.03s   100% |   runtime.lock2
+----------------------------------------------------------+-------------
+         0     0% 95.52%      3.99s 94.10%                | runtime.main
+                                             3.99s   100% |   main.main
+----------------------------------------------------------+-------------
+                                             0.04s   100% |   runtime.gcDrain
+         0     0% 95.52%      0.04s  0.94%                | runtime.markroot
+                                             0.04s   100% |   runtime.markroot.func1
+----------------------------------------------------------+-------------
+                                             0.04s   100% |   runtime.markroot
+         0     0% 95.52%      0.04s  0.94%                | runtime.markroot.func1
+                                             0.03s 75.00% |   runtime.usleep
+----------------------------------------------------------+-------------
+         0     0% 95.52%      0.18s  4.25%                | runtime.morestack
+                                             0.18s   100% |   runtime.newstack
+----------------------------------------------------------+-------------
+                                             0.15s   100% |   runtime.goschedImpl
+         0     0% 95.52%      0.15s  3.54%                | runtime.notewakeup
+                                             0.15s   100% |   runtime.pthread_cond_signal
+----------------------------------------------------------+-------------

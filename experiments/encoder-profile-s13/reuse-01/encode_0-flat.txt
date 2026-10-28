@@ -1,0 +1,31 @@
+File: profile-bin-54529a127297371f
+Type: cpu
+Time: 2026-10-28 20:17:43 CET
+Duration: 186.50s, Total samples = 168.33s (90.26%)
+Showing nodes accounting for 167.35s, 99.42% of 168.33s total
+Dropped 27 nodes (cum <= 0.84s)
+      flat  flat%   sum%        cum   cum%
+    74.40s 44.20% 44.20%     74.58s 44.31%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.constantProduct.mul
+    44.57s 26.48% 70.68%     44.69s 26.55%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.BinaryField.Mul (inline)
+    29.47s 17.51% 88.18%    164.41s 97.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).recurse
+    14.15s  8.41% 96.59%     58.85s 34.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.QuadraticField.Mul
+     2.36s  1.40% 97.99%     61.21s 36.36%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul
+     1.24s  0.74% 98.73%      1.24s  0.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).offset (inline)
+     1.07s  0.64% 99.36%      1.08s  0.64%  runtime.pthread_cond_signal
+     0.06s 0.036% 99.40%    166.66s 99.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*CyclicEncoder).Encode
+     0.01s 0.0059% 99.41%     68.10s 40.46%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*polynomialProducts).multiply
+     0.01s 0.0059% 99.41%      1.39s  0.83%  runtime.goschedImpl
+     0.01s 0.0059% 99.42%      1.14s  0.68%  runtime.notewakeup
+         0     0% 99.42%     97.33s 57.82%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).apply (inline)
+         0     0% 99.42%     67.08s 39.85%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).applySubspace
+         0     0% 99.42%     68.10s 40.46%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMulLow
+         0     0% 99.42%    166.66s 99.01%  main.main
+         0     0% 99.42%    166.66s 99.01%  main.main.func5
+         0     0% 99.42%    166.66s 99.01%  main.phase
+         0     0% 99.42%      1.39s  0.83%  runtime.gopreempt_m (inline)
+         0     0% 99.42%    166.66s 99.01%  runtime.main
+         0     0% 99.42%      1.39s  0.83%  runtime.morestack
+         0     0% 99.42%      1.39s  0.83%  runtime.newstack
+         0     0% 99.42%      1.13s  0.67%  runtime.semawakeup
+         0     0% 99.42%      1.14s  0.68%  runtime.startm
+         0     0% 99.42%      1.21s  0.72%  runtime.wakep

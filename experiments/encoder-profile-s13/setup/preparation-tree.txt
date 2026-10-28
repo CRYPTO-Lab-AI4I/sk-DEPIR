@@ -1,0 +1,171 @@
+File: profile-bin-cf73604075109abe
+Type: cpu
+Time: 2026-10-28 19:45:51 CET
+Duration: 1785.07s, Total samples = 1622.46s (90.89%)
+Showing nodes accounting for 1605.16s, 98.93% of 1622.46s total
+Dropped 177 nodes (cum <= 8.11s)
+----------------------------------------------------------+-------------
+      flat  flat%   sum%        cum   cum%   calls calls% + context 	 	 
+----------------------------------------------------------+-------------
+                                           624.74s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).recurse
+   624.05s 38.46% 38.46%    624.74s 38.51%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.constantProduct.mul
+----------------------------------------------------------+-------------
+                                           438.75s 99.56% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.QuadraticField.Mul (inline)
+                                             1.85s  0.42% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PrepareCyclic (inline)
+   440.30s 27.14% 65.60%    440.68s 27.16%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.BinaryField.Mul
+----------------------------------------------------------+-------------
+                                          1360.17s 96.54% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).applySubspace
+                                            48.74s  3.46% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).apply
+   284.83s 17.56% 83.16%   1408.91s 86.84%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).recurse
+                                           624.74s 44.34% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.constantProduct.mul
+                                           487.11s 34.57% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul
+                                            11.80s  0.84% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).offset (inline)
+----------------------------------------------------------+-------------
+                                           561.18s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul
+   122.31s  7.54% 90.69%    561.18s 34.59%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.QuadraticField.Mul
+                                           438.75s 78.18% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.BinaryField.Mul (inline)
+----------------------------------------------------------+-------------
+                                            65.24s 99.92% |   runtime.sysUsedOS
+    65.29s  4.02% 94.72%     65.29s  4.02%                | runtime.madvise
+----------------------------------------------------------+-------------
+                                           487.11s 82.99% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).recurse
+                                            68.84s 11.73% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.karatsuba
+                                            18.71s  3.19% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*polynomialProducts).multiply
+                                             5.13s  0.87% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PrepareCyclic
+                                             3.64s  0.62% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.karatsubaLow
+                                             3.44s  0.59% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMulLow
+    25.70s  1.58% 96.30%    586.97s 36.18%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul
+                                           561.18s 95.61% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.QuadraticField.Mul
+----------------------------------------------------------+-------------
+                                            23.03s   100% |   runtime.semawakeup
+    22.98s  1.42% 97.72%     23.03s  1.42%                | runtime.pthread_cond_signal
+----------------------------------------------------------+-------------
+                                            11.80s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).recurse (inline)
+    11.77s  0.73% 98.44%     11.80s  0.73%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).offset
+----------------------------------------------------------+-------------
+                                          1385.34s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMulLow
+     5.82s  0.36% 98.80%   1385.34s 85.39%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*polynomialProducts).multiply
+                                          1360.17s 98.18% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).applySubspace
+                                            18.71s  1.35% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul
+----------------------------------------------------------+-------------
+                                            74.16s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.karatsubaLow
+     1.49s 0.092% 98.90%     74.16s  4.57%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.karatsuba
+                                            68.84s 92.83% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul
+----------------------------------------------------------+-------------
+                                            78.70s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMulLow
+     0.16s 0.0099% 98.91%     78.70s  4.85%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.karatsubaLow
+                                            74.16s 94.23% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.karatsuba
+                                             3.64s  4.63% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul
+----------------------------------------------------------+-------------
+                                           493.80s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyDiv
+     0.13s 0.008% 98.91%    493.80s 30.44%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyInverse
+                                           493.54s 99.95% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMulLow
+----------------------------------------------------------+-------------
+                                          1478.44s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PrepareCyclicFFT
+     0.10s 0.0062% 98.92%   1478.44s 91.12%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PrepareCyclic
+                                          1095.78s 74.12% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyDiv
+                                           374.33s 25.32% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.newProductTree
+                                             5.13s  0.35% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul
+                                             1.85s  0.13% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.BinaryField.Mul (inline)
+----------------------------------------------------------+-------------
+                                           590.25s 40.21% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMul
+                                           493.54s 33.62% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyInverse
+                                           384.22s 26.17% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyDiv
+     0.08s 0.0049% 98.92%   1468.01s 90.48%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMulLow
+                                          1385.34s 94.37% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*polynomialProducts).multiply
+                                            78.70s  5.36% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.karatsubaLow
+                                             3.44s  0.23% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul
+----------------------------------------------------------+-------------
+                                           374.33s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PrepareCyclic
+     0.04s 0.0025% 98.93%    374.33s 23.07%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.newProductTree
+                                           372.60s 99.54% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMul (inline)
+----------------------------------------------------------+-------------
+                                            23.46s   100% |   runtime.notewakeup
+     0.03s 0.0018% 98.93%     23.46s  1.45%                | runtime.semawakeup
+                                            23.03s 98.17% |   runtime.pthread_cond_signal
+----------------------------------------------------------+-------------
+                                            23.49s   100% |   runtime.wakep
+     0.02s 0.0012% 98.93%     23.49s  1.45%                | runtime.startm
+                                            23.42s 99.70% |   runtime.notewakeup
+----------------------------------------------------------+-------------
+                                          1095.78s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PrepareCyclic
+     0.01s 0.00062% 98.93%   1095.78s 67.54%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyDiv
+                                           493.80s 45.06% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyInverse
+                                           384.22s 35.06% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMulLow
+                                           217.66s 19.86% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMul (inline)
+----------------------------------------------------------+-------------
+                                           372.60s 63.12% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.newProductTree (inline)
+                                           217.66s 36.88% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyDiv (inline)
+     0.01s 0.00062% 98.93%    590.26s 36.38%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMul
+                                           590.25s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMulLow
+----------------------------------------------------------+-------------
+                                            66.83s   100% |   runtime.(*mheap).alloc.func1
+     0.01s 0.00062% 98.93%     66.83s  4.12%                | runtime.(*mheap).allocSpan
+                                            65.24s 97.62% |   runtime.sysUsed (inline)
+----------------------------------------------------------+-------------
+                                            25.52s   100% |   runtime.gopreempt_m
+     0.01s 0.00062% 98.93%     25.53s  1.57%                | runtime.goschedImpl
+                                            23.73s 92.95% |   runtime.wakep
+----------------------------------------------------------+-------------
+     0.01s 0.00062% 98.93%     68.77s  4.24%                | runtime.systemstack
+                                            66.83s 97.18% |   runtime.(*mheap).alloc.func1
+----------------------------------------------------------+-------------
+                                            23.73s 99.62% |   runtime.goschedImpl
+     0.01s 0.00062% 98.93%     23.82s  1.47%                | runtime.wakep
+                                            23.49s 98.61% |   runtime.startm
+----------------------------------------------------------+-------------
+                                          1527.18s   100% |   main.main.func2
+         0     0% 98.93%   1527.18s 94.13%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PrepareCyclicFFT
+                                          1478.44s 96.81% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PrepareCyclic
+                                            48.74s  3.19% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).apply (inline)
+----------------------------------------------------------+-------------
+                                            48.74s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PrepareCyclicFFT (inline)
+         0     0% 98.93%     48.74s  3.00%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).apply
+                                            48.74s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).recurse
+----------------------------------------------------------+-------------
+                                          1360.17s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*polynomialProducts).multiply
+         0     0% 98.93%   1360.17s 83.83%                | github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).applySubspace
+                                          1360.17s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).recurse
+----------------------------------------------------------+-------------
+                                          1527.18s   100% |   runtime.main
+         0     0% 98.93%   1527.18s 94.13%                | main.main
+                                          1527.18s   100% |   main.phase
+----------------------------------------------------------+-------------
+                                          1527.18s   100% |   main.phase
+         0     0% 98.93%   1527.18s 94.13%                | main.main.func2
+                                          1527.18s   100% |   github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PrepareCyclicFFT
+----------------------------------------------------------+-------------
+                                          1527.18s   100% |   main.main
+         0     0% 98.93%   1527.18s 94.13%                | main.phase
+                                          1527.18s   100% |   main.main.func2
+----------------------------------------------------------+-------------
+                                            66.83s   100% |   runtime.systemstack
+         0     0% 98.93%     66.83s  4.12%                | runtime.(*mheap).alloc.func1
+                                            66.83s   100% |   runtime.(*mheap).allocSpan
+----------------------------------------------------------+-------------
+                                            25.52s   100% |   runtime.newstack (inline)
+         0     0% 98.93%     25.52s  1.57%                | runtime.gopreempt_m
+                                            25.52s   100% |   runtime.goschedImpl
+----------------------------------------------------------+-------------
+         0     0% 98.93%   1527.18s 94.13%                | runtime.main
+                                          1527.18s   100% |   main.main
+----------------------------------------------------------+-------------
+         0     0% 98.93%     25.51s  1.57%                | runtime.morestack
+                                            25.51s   100% |   runtime.newstack
+----------------------------------------------------------+-------------
+                                            25.51s   100% |   runtime.morestack
+         0     0% 98.93%     25.52s  1.57%                | runtime.newstack
+                                            25.52s   100% |   runtime.gopreempt_m (inline)
+----------------------------------------------------------+-------------
+                                            23.42s 99.83% |   runtime.startm
+         0     0% 98.93%     23.46s  1.45%                | runtime.notewakeup
+                                            23.46s   100% |   runtime.semawakeup
+----------------------------------------------------------+-------------
+                                            65.24s   100% |   runtime.(*mheap).allocSpan (inline)
+         0     0% 98.93%     65.24s  4.02%                | runtime.sysUsed
+                                            65.24s   100% |   runtime.sysUsedOS (inline)
+----------------------------------------------------------+-------------
+                                            65.24s   100% |   runtime.sysUsed (inline)
+         0     0% 98.93%     65.24s  4.02%                | runtime.sysUsedOS
+                                            65.24s   100% |   runtime.madvise
+----------------------------------------------------------+-------------

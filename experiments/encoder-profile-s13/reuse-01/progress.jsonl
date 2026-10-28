@@ -1,0 +1,4 @@
+{"elapsed_seconds": 0.001065417000000013, "phase": "starting", "phase_elapsed_seconds": 0.001065417000000013}
+{"elapsed_seconds": 60.009263625, "phase": "encode_0", "phase_elapsed_seconds": 53.898832708}
+{"elapsed_seconds": 120.04074445799999, "phase": "encode_0", "phase_elapsed_seconds": 113.930313541}
+{"elapsed_seconds": 180.54586516700002, "phase": "encode_0", "phase_elapsed_seconds": 174.43543425000001}

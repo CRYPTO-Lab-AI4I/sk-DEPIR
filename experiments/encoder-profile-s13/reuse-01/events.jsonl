@@ -1,0 +1,7 @@
+{"event":"started","phase":"cache_load"}
+{"bytes":453243425,"event":"cache_loaded","path":"/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/s13-m2-t5/cyclic.json","sha256":"a2a3bcd5913d821c99d08ceca05d6c5d73ce2abe6e3987910c0dcf5dfe97eb22"}
+{"allocated_bytes":5345028208,"baseline_heap_bytes":346736,"cpu_profile":"/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/encoder-profile-s13/reuse-01/cache_load.pprof","elapsed_ns":4833972625,"event":"phase","gc_cycles":12,"phase":"cache_load","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":2462837608,"sampled_peak_heap_bytes":2111767472,"samples":50}
+{"event":"code","go_version":"go1.27.3","k":11926435,"m":2,"n":67108864,"reused_cache":true,"s":13,"t":5}
+{"event":"started","phase":"encode_0"}
+{"allocated_bytes":862578456,"baseline_heap_bytes":738730168,"cpu_profile":"/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/encoder-profile-s13/reuse-01/encode_0.pprof","elapsed_ns":186351688209,"event":"phase","gc_cycles":1,"phase":"encode_0","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":2462853992,"sampled_peak_heap_bytes":1327329184,"samples":1866}
+{"canonical_sha256":"6120f0388f6035dd480e391b26ef93c04ed368a77f2f93c02f6d4f56b99a7b79","curve_checks":16,"event":"verified","k":11926435,"m":2,"n":67108864,"packed_bytes":109051904,"packed_sha256":"0b545a19ff25c1cdb26478ed2786c6ad76052f46c8a258bf11ad763c8f276980","packing_write_sync_ns":675082666,"s":13,"seed":71,"systematic_positions_checked":11926435,"t":5,"verification_ns":660386833}

@@ -1,0 +1,82 @@
+Total: 168.33s
+ROUTINE ======================== github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).recurse in /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs/orbit_fft.go
+    29.47s    449.20s (flat, cum) 266.86% of Total
+     200ms      200ms     96:func (a *additiveTransform) recurse(buf []uint32, level int, offset uint32, inverse bool) {
+      60ms       60ms     97:	if level == 0 {
+      30ms       30ms     98:		return
+         .          .     99:	}
+     330ms      330ms    100:	k, half := level-1, len(buf)/2
+         .      1.24s    101:	c := a.offset(k, offset)
+     510ms      510ms    102:	terms := a.terms[k][:len(a.terms[k])-1] // omit the monic leading term
+         .          .    103:	if !inverse {
+     1.54s      1.55s    104:		for i := len(buf) - 1; i >= half; i-- {
+     140ms      140ms    105:			v := buf[i]
+     5.31s      5.31s    106:			for _, t := range terms {
+     7.45s     46.82s    107:				buf[i-half+t.degree] ^= t.product.mul(a.f, v)
+         .          .    108:			}
+         .          .    109:		}
+     300ms      300ms    110:		for j := 0; j < half; j++ {
+     360ms      360ms    111:			v := buf[half+j]
+     310ms     33.35s    112:			left := buf[j] ^ a.f.mul(c, v)
+         .          .    113:			buf[j] = left
+     570ms      4.15s    114:			buf[half+j] = left ^ a.deltaProducts[k].mul(a.f, v)
+         .          .    115:		}
+         .          .    116:	}
+     1.09s    143.02s    117:	a.recurse(buf[:half], k, offset, inverse)
+      40ms    142.91s    118:	a.recurse(buf[half:], k, offset^uint32(half), inverse)
+      20ms       20ms    119:	if inverse {
+     490ms      490ms    120:		for j := 0; j < half; j++ {
+     450ms      3.60s    121:			v := a.inverseProducts[k].mul(a.f, buf[j]^buf[half+j])
+      10ms        26s    122:			buf[j] ^= a.f.mul(c, v)
+      70ms       70ms    123:			buf[half+j] = v
+         .          .    124:		}
+         .          .    125:		// Ascending j preserves each quotient coefficient before lower-degree terms
+         .          .    126:		// from later coefficients add into its already-consumed slot.
+     1.42s      1.43s    127:		for j := 0; j < half; j++ {
+      40ms       40ms    128:			v := buf[half+j]
+     5.06s      5.07s    129:			for _, t := range terms {
+     3.54s     32.07s    130:				buf[j+t.degree] ^= t.product.mul(a.f, v)
+         .          .    131:			}
+         .          .    132:		}
+         .          .    133:	}
+     130ms      130ms    134:}
+ROUTINE ======================== github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.constantProduct.mul in /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs/orbit_constant.go
+    74.40s     74.58s (flat, cum) 44.31% of Total
+    18.43s     18.48s     42:func (p constantProduct) mul(f orbitField, x uint32) uint32 {
+         .          .     43:	if p.coefficient == 0 {
+         .          .     44:		return 0
+         .          .     45:	}
+     1.78s      1.78s     46:	if p.coefficient == 1 {
+        2s      2.01s     47:		return x
+         .          .     48:	}
+     370ms      370ms     49:	if len(p.rows) == 0 {
+         .          .     50:		return f.mul(p.coefficient, x)
+         .          .     51:	}
+         .          .     52:	var y uint32
+     5.68s      5.69s     53:	for j := 0; j < len(p.rows); j += 16 {
+    41.27s     41.38s     54:		y ^= p.rows[j+int(x&15)]
+     360ms      360ms     55:		x >>= 4
+         .          .     56:	}
+     4.51s      4.51s     57:	return y
+         .          .     58:}
+ROUTINE ======================== github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMulLow in /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs/orbit_product.go
+         0     68.10s (flat, cum) 40.46% of Total
+         .          .     58:func polyMulLow(f orbitField, a, b []uint32, limit int) []uint32 {
+         .          .     59:	if len(a) == 0 || len(b) == 0 || limit <= 0 {
+         .          .     60:		return nil
+         .          .     61:	}
+         .          .     62:	limit = minInt(limit, len(a)+len(b)-1)
+         .          .     63:	a = a[:minInt(len(a), limit)]
+         .          .     64:	b = b[:minInt(len(b), limit)]
+         .          .     65:	largest := len(a)
+         .          .     66:	if len(b) > largest {
+         .          .     67:		largest = len(b)
+         .          .     68:	}
+         .          .     69:	smallest := minInt(len(a), len(b))
+         .          .     70:	if f.products != nil && smallest >= f.products.cutoff && smallest >= 24 {
+         .     68.10s     71:		return f.products.multiply(a, b, limit)
+         .          .     72:	}
+         .          .     73:	// Split very unequal operands before invoking balanced kernels. Otherwise a
+         .          .     74:	// short divisor can force padding to a huge FFT or Karatsuba domain. Each
+         .          .     75:	// block needs only O(len(short)) scratch, and blocks beyond limit are skipped.
+         .          .     76:	if smallest >= 24 && largest > 2*smallest {
