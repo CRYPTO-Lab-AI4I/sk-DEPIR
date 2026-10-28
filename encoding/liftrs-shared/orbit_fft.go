@@ -51,6 +51,14 @@ func newAdditiveTransform(f orbitField) *additiveTransform {
 		}
 		p = next
 	}
+	return finishAdditiveTransform(a)
+}
+
+// finishAdditiveTransform shares table budgets and execution views between dense
+// and experimental sparse setup, preserving table order and native descriptions.
+func finishAdditiveTransform(a *additiveTransform) *additiveTransform {
+	f := a.f
+	levels := len(a.terms)
 	// Only level constants are cached, not the changing recursion offsets. The
 	// aggregate budget includes the row data of both coefficient and butterfly
 	// products; exhausted budgets fall back to scalar multiplication.

@@ -1,7 +1,8 @@
 # Historical measured source snapshots
 
 Files are named `<sha256>.txt` and contain exact source bytes from the uncommitted
-native-integration measurements before directory separation. They are evidence,
+native-integration measurements before directory separation, and first scaling
+probe measurements before additional validation checks. They are evidence,
 not active implementations. The `.txt` extension prevents Go/C++ tools from
 building duplicate historical packages. `experiments/source_evidence.py` resolves
 current paths, moved paths, these content-addressed snapshots and Git history

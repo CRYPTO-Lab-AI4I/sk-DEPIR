@@ -1,0 +1,55 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:23:51 CET
+Duration: 400.50ms, Total samples = 220ms (54.93%)
+Showing nodes accounting for 220ms, 100% of 220ms total
+      flat  flat%   sum%        cum   cum%
+         0     0%     0%      170ms 77.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CPPCyclicEncoder).Encode (inline)
+         0     0%     0%      170ms 77.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CPPCyclicEncoder).EncodeWithStats
+         0     0%     0%      170ms 77.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CyclicEncoder).Encode
+         0     0%     0%      170ms 77.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe
+         0     0%     0%      170ms 77.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func2
+         0     0%     0%      170ms 77.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.scalingNativeProbe
+         0     0%     0%      170ms 77.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.scalingNativeProbe.func2
+         0     0%     0%      170ms 77.27%  testing.tRunner
+         0     0%     0%      160ms 72.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply
+         0     0%     0%      160ms 72.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply.func1 (inline)
+         0     0%     0%      160ms 72.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_apply
+         0     0%     0%      160ms 72.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0%     0%      160ms 72.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*meteredCPP).apply
+     160ms 72.73% 72.73%      160ms 72.73%  runtime.cgocall
+         0     0% 72.73%       30ms 13.64%  runtime.findRunnable
+         0     0% 72.73%       30ms 13.64%  runtime.schedule
+      30ms 13.64% 86.36%       30ms 13.64%  runtime.usleep
+         0     0% 86.36%       20ms  9.09%  runtime.gcstopm
+         0     0% 86.36%       20ms  9.09%  runtime.gopreempt_m (inline)
+         0     0% 86.36%       20ms  9.09%  runtime.goschedImpl
+         0     0% 86.36%       20ms  9.09%  runtime.lock (inline)
+         0     0% 86.36%       20ms  9.09%  runtime.lock2
+         0     0% 86.36%       20ms  9.09%  runtime.lockWithRank (inline)
+         0     0% 86.36%       20ms  9.09%  runtime.morestack
+         0     0% 86.36%       20ms  9.09%  runtime.newstack
+         0     0% 86.36%       20ms  9.09%  runtime.osyield (inline)
+         0     0% 86.36%       20ms  9.09%  runtime.systemstack
+         0     0% 86.36%       10ms  4.55%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+         0     0% 86.36%       10ms  4.55%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+         0     0% 86.36%       10ms  4.55%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0% 86.36%       10ms  4.55%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+      10ms  4.55% 90.91%       10ms  4.55%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+         0     0% 90.91%       10ms  4.55%  runtime.(*mheap).alloc.func1
+         0     0% 90.91%       10ms  4.55%  runtime.(*mheap).allocSpan
+      10ms  4.55% 95.45%       10ms  4.55%  runtime.madvise
+         0     0% 95.45%       10ms  4.55%  runtime.mcall
+         0     0% 95.45%       10ms  4.55%  runtime.notewakeup
+         0     0% 95.45%       10ms  4.55%  runtime.park_m
+      10ms  4.55%   100%       10ms  4.55%  runtime.pthread_cond_signal
+         0     0%   100%       10ms  4.55%  runtime.runqgrab
+         0     0%   100%       10ms  4.55%  runtime.runqsteal
+         0     0%   100%       10ms  4.55%  runtime.semawakeup
+         0     0%   100%       10ms  4.55%  runtime.startTheWorld.func1
+         0     0%   100%       10ms  4.55%  runtime.startTheWorldWithSema
+         0     0%   100%       10ms  4.55%  runtime.startm
+         0     0%   100%       10ms  4.55%  runtime.stealWork
+         0     0%   100%       10ms  4.55%  runtime.sysUsed (inline)
+         0     0%   100%       10ms  4.55%  runtime.sysUsedOS (inline)
+         0     0%   100%       10ms  4.55%  runtime.wakep

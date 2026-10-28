@@ -1,0 +1,34 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:23:42 CET
+Duration: 200.58ms, Total samples = 80ms (39.88%)
+Showing nodes accounting for 80ms, 100% of 80ms total
+      flat  flat%   sum%        cum   cum%
+      50ms 62.50% 62.50%       60ms 75.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newAdditiveTransform
+      10ms 12.50% 75.00%       10ms 12.50%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+      10ms 12.50% 87.50%       10ms 12.50%  runtime.pthread_cond_signal
+      10ms 12.50%   100%       10ms 12.50%  runtime.usleep
+         0     0%   100%       60ms 75.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe
+         0     0%   100%       60ms 75.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func2
+         0     0%   100%       60ms 75.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func3
+         0     0%   100%       10ms 12.50%  runtime.(*gcControllerState).enlistWorker
+         0     0%   100%       10ms 12.50%  runtime.findRunnable
+         0     0%   100%       10ms 12.50%  runtime.gcBgMarkWorker.func2
+         0     0%   100%       10ms 12.50%  runtime.gcDrain
+         0     0%   100%       10ms 12.50%  runtime.gcDrainMarkWorkerDedicated (inline)
+         0     0%   100%       10ms 12.50%  runtime.gcstopm
+         0     0%   100%       10ms 12.50%  runtime.gopreempt_m (inline)
+         0     0%   100%       10ms 12.50%  runtime.goschedImpl
+         0     0%   100%       10ms 12.50%  runtime.lock (inline)
+         0     0%   100%       10ms 12.50%  runtime.lock2
+         0     0%   100%       10ms 12.50%  runtime.lockWithRank (inline)
+         0     0%   100%       10ms 12.50%  runtime.morestack
+         0     0%   100%       10ms 12.50%  runtime.newstack
+         0     0%   100%       10ms 12.50%  runtime.notewakeup
+         0     0%   100%       10ms 12.50%  runtime.osyield (inline)
+         0     0%   100%       10ms 12.50%  runtime.schedule
+         0     0%   100%       10ms 12.50%  runtime.semawakeup
+         0     0%   100%       10ms 12.50%  runtime.startm
+         0     0%   100%       10ms 12.50%  runtime.systemstack
+         0     0%   100%       10ms 12.50%  runtime.wakep
+         0     0%   100%       60ms 75.00%  testing.tRunner

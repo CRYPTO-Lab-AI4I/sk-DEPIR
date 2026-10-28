@@ -1,0 +1,86 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:23:46 CET
+Duration: 2.50s, Total samples = 2.30s (91.90%)
+Showing nodes accounting for 2.24s, 97.39% of 2.30s total
+Dropped 17 nodes (cum <= 0.01s)
+      flat  flat%   sum%        cum   cum%
+     0.98s 42.61% 42.61%      0.98s 42.61%  runtime.usleep
+     0.23s 10.00% 52.61%      0.23s 10.00%  runtime.madvise
+     0.18s  7.83% 60.43%      0.18s  7.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     0.17s  7.39% 67.83%      0.17s  7.39%  runtime.kevent
+     0.10s  4.35% 72.17%      0.41s 17.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     0.10s  4.35% 76.52%      0.10s  4.35%  runtime.procyieldAsm
+     0.09s  3.91% 80.43%      0.09s  3.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Product.Mul
+     0.08s  3.48% 83.91%      0.24s 10.43%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.07s  3.04% 86.96%      0.07s  3.04%  runtime.pthread_kill
+     0.05s  2.17% 89.13%      0.19s  8.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).Recurse
+     0.05s  2.17% 91.30%      0.05s  2.17%  runtime.pthread_cond_signal
+     0.04s  1.74% 93.04%      0.04s  1.74%  runtime.pthread_cond_timedwait_relative_np
+     0.03s  1.30% 94.35%      0.05s  2.17%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Field.mul
+     0.03s  1.30% 95.65%      0.06s  2.61%  runtime.mallocgcSmallNoscan
+     0.03s  1.30% 96.96%      0.03s  1.30%  runtime.pthread_cond_wait
+     0.01s  0.43% 97.39%      1.09s 47.39%  runtime.lock2
+         0     0% 97.39%      0.60s 26.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclic
+         0     0% 97.39%      0.60s 26.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclicFFT
+         0     0% 97.39%      0.19s  8.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0% 97.39%      0.19s  8.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+         0     0% 97.39%      0.60s 26.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe
+         0     0% 97.39%      0.60s 26.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func2
+         0     0% 97.39%      0.60s 26.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func6
+         0     0% 97.39%      0.41s 17.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+         0     0% 97.39%      0.60s 26.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyDiv
+         0     0% 97.39%      0.22s  9.57%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyInverse
+         0     0% 97.39%      0.19s  8.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+         0     0% 97.39%      0.60s 26.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0% 97.39%      0.02s  0.87%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+         0     0% 97.39%      0.07s  3.04%  runtime.(*gcControllerState).enlistWorker
+         0     0% 97.39%      0.23s 10.00%  runtime.(*mheap).alloc.func1
+         0     0% 97.39%      0.23s 10.00%  runtime.(*mheap).allocSpan
+         0     0% 97.39%      1.12s 48.70%  runtime.findRunnable
+         0     0% 97.39%      0.02s  0.87%  runtime.forEachP.func1
+         0     0% 97.39%      0.02s  0.87%  runtime.forEachPInternal
+         0     0% 97.39%      0.02s  0.87%  runtime.gcBgMarkWorker
+         0     0% 97.39%      0.07s  3.04%  runtime.gcBgMarkWorker.func2
+         0     0% 97.39%      0.07s  3.04%  runtime.gcDrain
+         0     0% 97.39%      0.07s  3.04%  runtime.gcDrainMarkWorkerDedicated (inline)
+         0     0% 97.39%      0.13s  5.65%  runtime.gcStart.func4
+         0     0% 97.39%      1.10s 47.83%  runtime.gcstopm
+         0     0% 97.39%      1.12s 48.70%  runtime.gopreempt_m (inline)
+         0     0% 97.39%      1.12s 48.70%  runtime.goschedImpl
+         0     0% 97.39%      1.09s 47.39%  runtime.lock (inline)
+         0     0% 97.39%      1.09s 47.39%  runtime.lockWithRank (inline)
+         0     0% 97.39%      0.03s  1.30%  runtime.mPark (inline)
+         0     0% 97.39%      0.02s  0.87%  runtime.mProf_Malloc
+         0     0% 97.39%      0.06s  2.61%  runtime.makeslice
+         0     0% 97.39%      0.06s  2.61%  runtime.mallocgc
+         0     0% 97.39%      0.03s  1.30%  runtime.mcall
+         0     0% 97.39%      1.12s 48.70%  runtime.morestack
+         0     0% 97.39%      0.17s  7.39%  runtime.netpoll
+         0     0% 97.39%      1.12s 48.70%  runtime.newstack
+         0     0% 97.39%      0.03s  1.30%  runtime.notesleep
+         0     0% 97.39%      0.04s  1.74%  runtime.notetsleep
+         0     0% 97.39%      0.04s  1.74%  runtime.notetsleep_internal
+         0     0% 97.39%      0.04s  1.74%  runtime.notewakeup
+         0     0% 97.39%      0.98s 42.61%  runtime.osyield (inline)
+         0     0% 97.39%      0.03s  1.30%  runtime.park_m
+         0     0% 97.39%      0.07s  3.04%  runtime.preemptM
+         0     0% 97.39%      0.07s  3.04%  runtime.preemptone
+         0     0% 97.39%      0.10s  4.35%  runtime.procyield (inline)
+         0     0% 97.39%      0.02s  0.87%  runtime.profilealloc
+         0     0% 97.39%      1.13s 49.13%  runtime.schedule
+         0     0% 97.39%      0.07s  3.04%  runtime.semasleep
+         0     0% 97.39%      0.05s  2.17%  runtime.semawakeup
+         0     0% 97.39%      0.07s  3.04%  runtime.signalM (inline)
+         0     0% 97.39%      0.03s  1.30%  runtime.startTheWorld.func1
+         0     0% 97.39%      0.17s  7.39%  runtime.startTheWorldWithSema
+         0     0% 97.39%      0.03s  1.30%  runtime.startm
+         0     0% 97.39%      0.02s  0.87%  runtime.stkbucket
+         0     0% 97.39%      0.04s  1.74%  runtime.stopTheWorld.func1
+         0     0% 97.39%      0.04s  1.74%  runtime.stopTheWorldWithSema
+         0     0% 97.39%      0.03s  1.30%  runtime.stopm
+         0     0% 97.39%      0.23s 10.00%  runtime.sysUsed (inline)
+         0     0% 97.39%      0.23s 10.00%  runtime.sysUsedOS (inline)
+         0     0% 97.39%      0.54s 23.48%  runtime.systemstack
+         0     0% 97.39%      0.04s  1.74%  runtime.wakep
+         0     0% 97.39%      0.60s 26.09%  testing.tRunner

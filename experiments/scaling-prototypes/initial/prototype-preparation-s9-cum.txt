@@ -1,0 +1,117 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:23:49 CET
+Duration: 1.70s, Total samples = 1.55s (91.10%)
+Showing nodes accounting for 1.55s, 100% of 1.55s total
+      flat  flat%   sum%        cum   cum%
+         0     0%     0%      0.55s 35.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclicScalingPrototype
+         0     0%     0%      0.55s 35.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe
+         0     0%     0%      0.55s 35.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func2
+         0     0%     0%      0.55s 35.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func7
+         0     0%     0%      0.55s 35.48%  testing.tRunner
+     0.15s  9.68%  9.68%      0.53s 34.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+         0     0%  9.68%      0.53s 34.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+         0     0%  9.68%      0.53s 34.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0%  9.68%      0.53s 34.19%  runtime.schedule
+         0     0%  9.68%      0.52s 33.55%  runtime.findRunnable
+         0     0%  9.68%      0.50s 32.26%  runtime.lock (partial-inline)
+         0     0%  9.68%      0.50s 32.26%  runtime.lock2
+         0     0%  9.68%      0.50s 32.26%  runtime.lockWithRank (inline)
+         0     0%  9.68%      0.49s 31.61%  runtime.goschedImpl
+         0     0%  9.68%      0.48s 30.97%  runtime.gopreempt_m (inline)
+         0     0%  9.68%      0.48s 30.97%  runtime.morestack
+         0     0%  9.68%      0.48s 30.97%  runtime.newstack
+         0     0%  9.68%      0.45s 29.03%  runtime.gcstopm
+         0     0%  9.68%      0.43s 27.74%  runtime.systemstack
+     0.39s 25.16% 34.84%      0.39s 25.16%  runtime.usleep
+         0     0% 34.84%      0.38s 24.52%  runtime.osyield (inline)
+     0.08s  5.16% 40.00%      0.33s 21.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0% 40.00%      0.30s 19.35%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyInverse
+     0.26s 16.77% 56.77%      0.26s 16.77%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+         0     0% 56.77%      0.23s 14.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+         0     0% 56.77%      0.20s 12.90%  runtime.(*mheap).alloc.func1
+         0     0% 56.77%      0.19s 12.26%  runtime.(*mheap).allocSpan
+     0.19s 12.26% 69.03%      0.19s 12.26%  runtime.madvise
+         0     0% 69.03%      0.18s 11.61%  runtime.sysUsed (inline)
+         0     0% 69.03%      0.18s 11.61%  runtime.sysUsedOS (inline)
+         0     0% 69.03%      0.16s 10.32%  runtime.gcStart.func4
+     0.16s 10.32% 79.35%      0.16s 10.32%  runtime.kevent
+         0     0% 79.35%      0.16s 10.32%  runtime.netpoll
+         0     0% 79.35%      0.16s 10.32%  runtime.startTheWorldWithSema
+         0     0% 79.35%      0.12s  7.74%  runtime.procyield (inline)
+     0.12s  7.74% 87.10%      0.12s  7.74%  runtime.procyieldAsm
+         0     0% 87.10%      0.09s  5.81%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rootProduct
+         0     0% 87.10%      0.09s  5.81%  runtime.mcall
+         0     0% 87.10%      0.08s  5.16%  runtime.park_m
+         0     0% 87.10%      0.05s  3.23%  runtime.mPark (inline)
+         0     0% 87.10%      0.05s  3.23%  runtime.makeslice
+         0     0% 87.10%      0.05s  3.23%  runtime.mallocgc
+     0.03s  1.94% 89.03%      0.05s  3.23%  runtime.mallocgcSmallNoscan
+         0     0% 89.03%      0.05s  3.23%  runtime.notesleep
+     0.05s  3.23% 92.26%      0.05s  3.23%  runtime.pthread_cond_wait
+         0     0% 92.26%      0.05s  3.23%  runtime.semasleep
+         0     0% 92.26%      0.05s  3.23%  runtime.stopm
+         0     0% 92.26%      0.03s  1.94%  runtime.(*mheap).freeSpan (inline)
+         0     0% 92.26%      0.03s  1.94%  runtime.(*mheap).freeSpan.func1
+         0     0% 92.26%      0.03s  1.94%  runtime.(*sweepLocked).sweep
+         0     0% 92.26%      0.03s  1.94%  runtime.bgsweep
+         0     0% 92.26%      0.03s  1.94%  runtime.forEachP.func1
+         0     0% 92.26%      0.03s  1.94%  runtime.forEachPInternal
+         0     0% 92.26%      0.03s  1.94%  runtime.preemptM
+         0     0% 92.26%      0.03s  1.94%  runtime.preemptall
+         0     0% 92.26%      0.03s  1.94%  runtime.preemptone
+     0.03s  1.94% 94.19%      0.03s  1.94%  runtime.pthread_kill
+         0     0% 94.19%      0.03s  1.94%  runtime.signalM (inline)
+         0     0% 94.19%      0.02s  1.29%  runtime.(*mheap).freeSpanLocked
+         0     0% 94.19%      0.02s  1.29%  runtime.(*pageAlloc).free
+         0     0% 94.19%      0.02s  1.29%  runtime.(*pageAlloc).update
+         0     0% 94.19%      0.02s  1.29%  runtime.sweepone
+     0.01s  0.65% 94.84%      0.01s  0.65%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).Recurse
+         0     0% 94.84%      0.01s  0.65%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0% 94.84%      0.01s  0.65%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.inv
+         0     0% 94.84%      0.01s  0.65%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Inverse
+         0     0% 94.84%      0.01s  0.65%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Pow
+         0     0% 94.84%      0.01s  0.65%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Inverse
+     0.01s  0.65% 95.48%      0.01s  0.65%  internal/runtime/atomic.(*UnsafePointer).Load (inline)
+         0     0% 95.48%      0.01s  0.65%  runtime.(*gcControllerState).assignWaitingGCWorker
+         0     0% 95.48%      0.01s  0.65%  runtime.(*gcControllerState).findRunnableGCWorker
+         0     0% 95.48%      0.01s  0.65%  runtime.(*gcWork).empty
+         0     0% 95.48%      0.01s  0.65%  runtime.(*mcache).nextFree
+         0     0% 95.48%      0.01s  0.65%  runtime.(*mcache).refill
+         0     0% 95.48%      0.01s  0.65%  runtime.(*mcentral).cacheSpan
+         0     0% 95.48%      0.01s  0.65%  runtime.(*mcentral).grow
+         0     0% 95.48%      0.01s  0.65%  runtime.(*mheap).alloc
+         0     0% 95.48%      0.01s  0.65%  runtime.(*mheap).initSpan
+         0     0% 95.48%      0.01s  0.65%  runtime.(*mheap).reclaim
+         0     0% 95.48%      0.01s  0.65%  runtime.(*mheap).reclaimChunk
+     0.01s  0.65% 96.13%      0.01s  0.65%  runtime.(*mspan).init
+     0.01s  0.65% 96.77%      0.01s  0.65%  runtime.(*pageAlloc).chunkOf (inline)
+         0     0% 96.77%      0.01s  0.65%  runtime.(*pageAlloc).scavenge.func1
+         0     0% 96.77%      0.01s  0.65%  runtime.(*pageAlloc).scavengeOne
+     0.01s  0.65% 97.42%      0.01s  0.65%  runtime.(*pallocBits).summarize
+         0     0% 97.42%      0.01s  0.65%  runtime.(*spanQueue).chainEmpty (inline)
+         0     0% 97.42%      0.01s  0.65%  runtime.(*spanQueue).empty (inline)
+     0.01s  0.65% 98.06%      0.01s  0.65%  runtime.freeDeadSpanSPMCs
+         0     0% 98.06%      0.01s  0.65%  runtime.gcBgMarkWorker
+         0     0% 98.06%      0.01s  0.65%  runtime.gcBgMarkWorker.func2
+         0     0% 98.06%      0.01s  0.65%  runtime.gcDrain
+         0     0% 98.06%      0.01s  0.65%  runtime.gcDrainMarkWorkerDedicated (inline)
+         0     0% 98.06%      0.01s  0.65%  runtime.gcShouldScheduleWorker
+         0     0% 98.06%      0.01s  0.65%  runtime.gosched_m
+         0     0% 98.06%      0.01s  0.65%  runtime.mProf_Malloc
+     0.01s  0.65% 98.71%      0.01s  0.65%  runtime.newBucket
+         0     0% 98.71%      0.01s  0.65%  runtime.notewakeup
+         0     0% 98.71%      0.01s  0.65%  runtime.profilealloc
+     0.01s  0.65% 99.35%      0.01s  0.65%  runtime.pthread_cond_signal
+         0     0% 99.35%      0.01s  0.65%  runtime.resetspinning
+         0     0% 99.35%      0.01s  0.65%  runtime.runqgrab
+         0     0% 99.35%      0.01s  0.65%  runtime.runqsteal
+         0     0% 99.35%      0.01s  0.65%  runtime.scanObject
+         0     0% 99.35%      0.01s  0.65%  runtime.semawakeup
+         0     0% 99.35%      0.01s  0.65%  runtime.startm
+         0     0% 99.35%      0.01s  0.65%  runtime.stealWork
+         0     0% 99.35%      0.01s  0.65%  runtime.stkbucket
+         0     0% 99.35%      0.01s  0.65%  runtime.sysUnused (inline)
+         0     0% 99.35%      0.01s  0.65%  runtime.sysUnusedOS (inline)
+     0.01s  0.65%   100%      0.01s  0.65%  runtime.typePointers.next
+         0     0%   100%      0.01s  0.65%  runtime.wakep

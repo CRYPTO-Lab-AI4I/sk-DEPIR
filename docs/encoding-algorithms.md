@@ -43,19 +43,23 @@ representation limits can change these estimates; distant extrapolations are
 particularly uncertain. Runtime, memory and persisted storage must be measured
 separately before claiming feasibility.
 
-### Scaling study: steps 1–2 complete
+### Scaling study: resource audit and first prototypes complete
 
 The [five-step scaling study](encoding-scaling.md) uses the native-backed encoder
 as baseline and starting implementation. Its source-linked resource accounting
-and execution-design comparison are complete; prototypes and hardware calibration
-remain planned. The [analytical model](../experiments/encoding-resources/report.md)
+and execution-design comparison are complete. The first
+[step-3 probe round](../experiments/scaling-prototypes/report.md) now validates the
+uncertain algebra/ordering and workspace reuse; throughput and hardware calibration
+remain open. The [analytical model](../experiments/encoding-resources/report.md)
 separates array payloads from measured RSS, identifies avoidable dense setup and
 retained-tree costs, and accounts for width/padding transitions. It refines the
 resource discussion above; it is not a new benchmark or a memory guarantee.
 
-Next implement focused step-3 probes: sparse setup/root-only cyclic preparation,
-a lean online plan with bounded workspaces, and an exact general-basis tiled
-transform/output schedule. Start locally; use measured prototypes to select a
+The opt-in prototypes preserve constants/P/G/spectra and complete codewords,
+including the original s=13 hash. Sparse setup removes dense construction arrays;
+the matrix probe establishes general-basis forward/inverse and output ordering.
+Next replace scalar disk calls with blocked transfers and measure large preparation
+scratch lifetimes and fresh minimal-loader memory before hardware selection. Start locally; use measured prototypes to select a
 larger CPU/GPU machine only if needed. No default backend or higher resource
 budget is selected. Reuse existing oracles, caches, profiles and comparable
 baselines; continue profiling during the broader optimization effort.

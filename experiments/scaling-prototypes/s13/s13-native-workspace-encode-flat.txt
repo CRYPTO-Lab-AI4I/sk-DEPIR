@@ -1,0 +1,22 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:26:25 CET
+Duration: 153.51s, Total samples = 145.02s (94.47%)
+Showing nodes accounting for 144.72s, 99.79% of 145.02s total
+Dropped 28 nodes (cum <= 0.73s)
+      flat  flat%   sum%        cum   cum%
+   142.42s 98.21% 98.21%    142.42s 98.21%  runtime.cgocall
+     1.56s  1.08% 99.28%      1.56s  1.08%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     0.42s  0.29% 99.57%      1.98s  1.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.17s  0.12% 99.69%    144.72s 99.79%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).Encode
+     0.15s   0.1% 99.79%      2.13s  1.47%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0% 99.79%    142.42s 98.21%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply
+         0     0% 99.79%    142.42s 98.21%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply.func1 (inline)
+         0     0% 99.79%    142.42s 98.21%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_apply
+         0     0% 99.79%     82.77s 57.07%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0% 99.79%     59.65s 41.13%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0% 99.79%    142.42s 98.21%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*meteredCPP).apply
+         0     0% 99.79%    144.72s 99.79%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingS13
+         0     0% 99.79%    144.72s 99.79%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingS13.func1
+         0     0% 99.79%    144.72s 99.79%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingS13.func5
+         0     0% 99.79%    144.72s 99.79%  testing.tRunner

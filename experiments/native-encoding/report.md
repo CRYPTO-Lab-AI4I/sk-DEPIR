@@ -48,7 +48,7 @@ runtime/GC and profiling threads.
 ```sh
 GOCACHE=/tmp/sk-depir-go-cache CXX=/usr/bin/clang++ \
   python3 experiments/native-encoding/run.py \
-  --go /tmp/sk-depir-go-toolchain/go/bin/go --run-name s13 --native-sample
+  --go /tmp/sk-depir-go-toolchain/go/bin/go --run-name s13 --backend both --native-sample
 python3 experiments/native-encoding/analyze.py s13
 ```
 
@@ -200,3 +200,30 @@ pre-move runs; exact dirty-worktree sources are retained in
 [content-addressed snapshots](../source-snapshots/README.md). The
 [layout checks](../encoding-layout/report.md) validate small pre-move hashes and
 both build paths without repeating these large timing runs.
+
+
+## Current command defaults
+
+The current runner defaults to `--backend cpp`; it compiles `liftrs_cpp` and runs
+only C++ transforms. Select `--backend go` for a pure-Go build, or `--backend both`
+for the matched comparison above. Original result files remain the historical
+comparison; changing the command default does not rerun or relabel them. Binaries
+are retained separately by source hash **and backend selection** to prevent an
+explicit Go build from overwriting a native binary's profiling evidence.
+
+Root `make encode` invokes this runner; `make test` enables native tests.
+`make encode BACKEND=go` and `make test-go` keep Go explicit. The driver itself now
+also defaults to C++; direct use requires `-profiles NEW_DIRECTORY` and rejects
+existing CPU profiles. The API remains unchanged. Shared `Encode` does not silently
+change backend; command drivers select `WithCPPTransforms` explicitly.
+
+[Native-default smoke](default-cpp-smoke-02/results.json) and
+[cgo-disabled explicit-Go smoke](explicit-go-smoke-02/results.json) verify actual
+backend selection on the retained s=4 fixture. They reproduce the original smoke
+hashes and retain profiles. Timings are tiny correctness checks, not new performance
+claims. Initial command checks stopped before encoding when the profile guard also
+rejected runner metadata files; [native](default-cpp-smoke/results.json) and
+[Go](explicit-go-smoke/results.json) partial results are preserved. The guard now
+checks existing CPU profiles rather than unrelated log/metadata files. Measured
+failed-build source bytes are content-addressed snapshots. Root native/Go full-suite
+checks are recorded in [command checks](../scaling-prototypes/command-checks.json).

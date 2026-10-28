@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "command": "go test -race -tags liftrs_cpp ./encoding/liftrs-shared -run TestScaling|ExampleOrbitBasis_PrepareCyclicScalingPrototype -count=1",
+      "evidence": "race.log",
+      "outcome": "passed; Go race detector does not instrument C++"
+    },
+    {
+      "command": "python3 experiments/scaling-prototypes/analyze.py initial",
+      "outcome": "passed: source/binary/cache/profile/evidence hashes and assertions"
+    },
+    {
+      "command": "python3 experiments/scaling-prototypes/analyze.py s13",
+      "outcome": "passed: complete baseline hash and 11926435 systematic positions"
+    },
+    {
+      "command": "git diff --check",
+      "outcome": "passed"
+    },
+    {
+      "check": "changed-document local file targets",
+      "outcome": "passed"
+    }
+  ],
+  "full_suites": "initial/results.json and s13/results.json include default/tagged full-suite commands/outcomes in isolated copies",
+  "final_source_sha256": {
+    "encoding/liftrs-shared/scaling_probe_disabled_test.go": "f0b7664e2c02a43f0fafa2baf0c0c000dec7e881961f1628e910370ccf35313d",
+    "encoding/liftrs-shared/scaling_probe_native_test.go": "d021160a5bc86021fcb7ba7364e33718afc194242ac7f9835e8d4947c7394f3e",
+    "encoding/liftrs-shared/scaling_experimental.go": "48f7cac0b12430dd58e28914d98e204275abb9bb0f2cc90ff591a247df9ef9e1",
+    "encoding/liftrs-shared/scaling_example_test.go": "f75a521ad436692946d51204b04f005c9b425aadd3a423c9dafb0e948372ffa1",
+    "encoding/liftrs-shared/scaling_s13_test.go": "3df25c122eaa1d9a857ee0fa13aad3ab69a3372b3e3a7a2bd064b396a496f7a5",
+    "encoding/liftrs-shared/scaling_probe_test.go": "29ac7fcf6ab79b1bf2bda6e5a17af0dddc83ce805f0926aaf07dfdcd06ec4ec4",
+    "encoding/liftrs-shared/scaling_matrix_test.go": "8eb66e784d0f341d01c79883200c46f1c298e00335725850d71cbf8e28df271b",
+    "encoding/liftrs-shared/scaling_experimental_test.go": "caf810c346b0637fe9f7b0e037e2a69e2813be568f139e98f5937ff15160b814",
+    "encoding/liftrs-shared/scaling_online_file_test.go": "09b62ea103e8f773f0114b01bac9041f0b6be9c2d492071d340d7d9bc27746a4",
+    "encoding/liftrs-shared/orbit_fft.go": "98b0471e9fc95a192cc082a190b4d2ff0f5c9f6898a813446e8d428381fbada0"
+  }
+}

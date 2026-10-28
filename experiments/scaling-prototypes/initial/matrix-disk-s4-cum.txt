@@ -1,0 +1,21 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:23:53 CET
+Duration: 200.57ms, Total samples = 10ms ( 4.99%)
+Showing nodes accounting for 10ms, 100% of 10ms total
+      flat  flat%   sum%        cum   cum%
+         0     0%     0%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*scalingDisk).put
+         0     0%     0%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe
+         0     0%     0%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func11
+         0     0%     0%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func2
+         0     0%     0%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.matrixDisk
+         0     0%     0%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.matrixDisk.func2
+         0     0%     0%       10ms   100%  internal/poll.(*FD).Pwrite
+         0     0%     0%       10ms   100%  os.(*File).WriteAt
+         0     0%     0%       10ms   100%  os.(*File).pwrite (inline)
+         0     0%     0%       10ms   100%  syscall.Pwrite (inline)
+         0     0%     0%       10ms   100%  syscall.pwrite
+      10ms   100%   100%       10ms   100%  syscall.rawsyscalln
+         0     0%   100%       10ms   100%  syscall.syscall6
+         0     0%   100%       10ms   100%  syscall.syscalln
+         0     0%   100%       10ms   100%  testing.tRunner

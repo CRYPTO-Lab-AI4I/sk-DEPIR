@@ -1,0 +1,20 @@
+[
+  {
+    "command": [
+      "make",
+      "test",
+      "GO=/tmp/sk-depir-go-toolchain/go/bin/go"
+    ],
+    "isolated_copy": true,
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "make",
+      "test-go",
+      "GO=/tmp/sk-depir-go-toolchain/go/bin/go"
+    ],
+    "isolated_copy": true,
+    "exit_code": 0
+  }
+]

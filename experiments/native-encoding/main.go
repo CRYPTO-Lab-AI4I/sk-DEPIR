@@ -152,12 +152,20 @@ func main() {
 	t := flag.Int("t", 5, "curve degree")
 	repeats := flag.Int("repeats", 3, "database encodings")
 	memory := flag.Uint64("memory-bytes", 12<<30, "maximum observed Go runtime memory")
-	mode := flag.String("backend", "go", "go or cpp transforms")
-	profiles := flag.String("profiles", "experiments/native-encoding/go", "CPU profile directory")
+	mode := flag.String("backend", "cpp", "go or cpp transforms")
+	profiles := flag.String("profiles", "", "new CPU profile directory (required)")
 	cache := flag.String("cache", ".cache/liftrs/s13-m2-t5", "retained preprocessing directory")
 	flag.Parse()
 	if *mode != "go" && *mode != "cpp" {
 		panic("invalid transform backend")
+	}
+	if *profiles == "" {
+		panic("-profiles must name a fresh directory")
+	}
+	existing, err := filepath.Glob(filepath.Join(*profiles, "*.pprof"))
+	check(err)
+	if len(existing) > 0 {
+		panic("profile directory already contains CPU profiles; preserve prior profiles")
 	}
 	profileDirectory = *profiles
 	check(os.MkdirAll(profileDirectory, 0755))

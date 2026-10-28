@@ -23,8 +23,12 @@ encoding reaches **s=13**. Further tuning remains possible. The next priority is
 covering memory, preprocessing storage, blocked/external-memory algorithms and
 commodity CPU/GPU execution before architecture-specific tuning. Steps 1–2 now
 provide a [source-based resource model](experiments/encoding-resources/report.md)
-and candidate comparison; step 3 will test the uncertain operations. Counts are
-analytical payload scenarios, not measured RAM or implemented larger-size support. On the current
+and candidate comparison. [Step-3 prototypes](experiments/scaling-prototypes/report.md)
+now validate sparse setup, lean cyclic preparation, reusable online workspaces and
+exact disk-backed matrix/output mappings. One s=13 native workspace encoding matches
+the complete baseline hash in 153.37 s; these opt-in probes do not change defaults
+or establish larger-instance practicality. The resource model counts remain
+analytical payload scenarios rather than measured RAM bounds. On the current
 48 GiB host, **s=14 appears practical with a larger setup budget**; **s=15 is
 borderline for encoding from an existing cache**, while its estimated preprocessing
 exceeds host memory. These are unmeasured expectations, not supported configurations;
@@ -109,6 +113,27 @@ type PIR interface {
 Use `NewLiftedRS(params)` for new code. `Gen` creates ephemeral keys; `GenFromConfig` loads keys from `config.json`. Call `Close` when an encoder process has been started. `QueryLocal` is available for local tests and benchmarks.
 
 ## Requirements and build
+
+Standard project commands prefer C++ transforms:
+
+```sh
+make test                         # enables -tags liftrs_cpp
+make encode                       # builds native support and selects C++
+make encode BACKEND=go             # explicit Go encoding
+make encode BACKEND=both           # explicit comparison, only when needed
+make test-go                      # pure-Go build, CGO_ENABLED=0
+```
+
+`make encode` reuses the retained s=13 preprocessing and writes a fresh profiled
+experiment run; see [requirements and evidence](experiments/native-encoding/report.md).
+These are command defaults, not an encoder API change. The shared `Encode` method
+and explicit `WithCPPTransforms` adapter are unchanged. Go remains the reference;
+experimental scaling algorithms remain opt-in. C++ commands require cgo and a
+C++17 compiler; ordinary `go test ./...` retains Go's normal untagged behavior.
+Legacy RM tests in the full suite also need their archived native binary; both
+Make test targets build it. Tests write CSV fixtures, so use an isolated checkout
+when preserving local generated/example files matters.
+
 
 - Go 1.21.6
 - The standalone Go Lift-RS path needs no native compiler. The optional C++

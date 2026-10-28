@@ -1,0 +1,103 @@
+$ /tmp/sk-depir-go-toolchain/go/bin/go test -c -tags liftrs_cpp -o /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/scaling-step3/aa698cd561e17385/probe ./encoding/liftrs-shared
+$ /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/scaling-step3/aa698cd561e17385/probe -test.run ^TestScalingProbe$ -test.v
+=== RUN   TestScalingProbe
+    scaling_probe_test.go:98: dense-setup-s8 568.417µs
+    scaling_probe_test.go:98: sparse-setup-s8 377.083µs
+    scaling_probe_test.go:98: dense-setup-s9 2.368292ms
+    scaling_probe_test.go:98: sparse-setup-s9 617.333µs
+    scaling_probe_test.go:98: dense-setup-s10 7.792084ms
+    scaling_probe_test.go:98: sparse-setup-s10 2.018333ms
+    scaling_probe_test.go:98: dense-setup-s11 27.4525ms
+    scaling_probe_test.go:98: sparse-setup-s11 1.493042ms
+    scaling_probe_test.go:98: dense-setup-s12 92.106458ms
+    scaling_probe_test.go:98: sparse-setup-s12 1.685417ms
+    scaling_probe_test.go:98: dense-setup-s13 357.848917ms
+    scaling_probe_test.go:98: sparse-setup-s13 1.878292ms
+    scaling_probe_test.go:98: sparse-setup-s14 3.489792ms
+    scaling_probe_test.go:98: sparse-setup-s15 6.085208ms
+    scaling_probe_test.go:98: discovery-s8 31.822792ms
+    scaling_probe_test.go:98: baseline-preparation-s8 285.347583ms
+    scaling_probe_test.go:98: prototype-preparation-s8 126.370125ms
+    scaling_probe_test.go:98: cache-save-s8 2.57125ms
+    scaling_probe_test.go:98: online-save-s8 3.793792ms
+    scaling_probe_test.go:98: online-load-s8 2.249959ms
+    scaling_probe_test.go:98: native-plan-s8 35.416µs
+    scaling_probe_test.go:98: baseline-native-encode-s8 41.060459ms
+    scaling_probe_test.go:98: workspace-allocation-s8 8.125µs
+    scaling_probe_test.go:98: workspace-native-encode-s8-r0 42.44675ms
+    scaling_probe_test.go:98: workspace-native-encode-s8-r1 54.445042ms
+    scaling_probe_test.go:98: workspace-native-encode-s8-r2 44.005917ms
+    scaling_probe_test.go:98: discovery-s9 151.233667ms
+    scaling_probe_test.go:98: baseline-preparation-s9 2.334198958s
+    scaling_probe_test.go:98: prototype-preparation-s9 1.559604208s
+    scaling_probe_test.go:98: cache-save-s9 7.928833ms
+    scaling_probe_test.go:98: online-save-s9 5.575625ms
+    scaling_probe_test.go:98: online-load-s9 4.558042ms
+    scaling_probe_test.go:98: native-plan-s9 41.666µs
+    scaling_probe_test.go:98: baseline-native-encode-s9 226.203917ms
+    scaling_probe_test.go:98: workspace-allocation-s9 10.625µs
+    scaling_probe_test.go:98: workspace-native-encode-s9-r0 247.127709ms
+    scaling_probe_test.go:98: workspace-native-encode-s9-r1 225.388084ms
+    scaling_probe_test.go:98: workspace-native-encode-s9-r2 230.924292ms
+    scaling_probe_test.go:98: matrix-disk-s4 26.734375ms
+    scaling_probe_test.go:98: routing-s4 8.58575ms
+--- PASS: TestScalingProbe (13.37s)
+PASS
+$ /tmp/sk-depir-go-toolchain/go/bin/go test -tags liftrs_cpp ./encoding/liftrs-shared -run TestScaling -count=1
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	1.078s
+$ /tmp/sk-depir-go-toolchain/go/bin/go test ./encoding/liftrs-shared -run TestScaling -count=1
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	1.107s
+$ /tmp/sk-depir-go-toolchain/go/bin/go vet -tags liftrs_cpp ./encoding/...
+$ make -C encoding/rme_legacy rme
+make: `rme' is up to date.
+$ /tmp/sk-depir-go-toolchain/go/bin/go test ./...
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/cmd/pir-rate	0.284s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/appref	0.583s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/cryptoref	0.794s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	11.176s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/rme_legacy/process	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/application-costs	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/cyclic-scaling	1.504s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/dp-costs	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-comparison	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-profile	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-profile-s13	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-scaling	1.774s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoding-resources	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/field-multiplication	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/greedy-costs	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/native-encoding	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/tablefree-encoding	1.526s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/tradeoff-costs	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/pir	3.236s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/pirconfig	2.444s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/planner	2.291s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils	2.820s
+$ /tmp/sk-depir-go-toolchain/go/bin/go test -tags liftrs_cpp ./...
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/cmd/pir-rate	0.402s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/appref	0.728s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/cryptoref	1.055s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	11.448s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/rme_legacy/process	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/application-costs	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/cyclic-scaling	1.802s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/dp-costs	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-comparison	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-profile	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-profile-s13	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoder-scaling	1.969s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoding-resources	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/field-multiplication	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/greedy-costs	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/native-encoding	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/tablefree-encoding	2.268s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/tradeoff-costs	[no test files]
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/pir	2.655s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/pirconfig	3.179s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/planner	3.029s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/utils	3.427s

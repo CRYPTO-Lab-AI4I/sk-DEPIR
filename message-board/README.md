@@ -257,3 +257,7 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-28 22:59 | SCALE-001 | Completed | [Resource audit and scaling designs completed](2026-10-28-2259-codex-scale-001-completed.md) |
 | 2026-10-28 23:03 | PUBLISH-013 | Started | [Publish resource and scaling design study](2026-10-28-2303-codex-publish-013-started.md) |
 | 2026-10-28 23:03 | PUBLISH-013 | Completed | [Scaling study verified for publication](2026-10-28-2303-codex-publish-013-completed.md) |
+| 2026-10-28 23:14 | SCALE-002 | Started | [Implement step-3 scaling probes](2026-10-28-2314-codex-scale-002-started.md) |
+| 2026-10-28 23:33 | SCALE-002 | Completed | [Step-3 scaling prototypes validated](2026-10-28-2333-codex-scale-002-completed.md) |
+| 2026-10-28 23:42 | PUBLISH-014 | Started | [Prefer native commands and publish step-3 probes](2026-10-28-2342-codex-publish-014-started.md) |
+| 2026-10-28 23:46 | PUBLISH-014 | Completed | [Native command defaults verified for publication](2026-10-28-2346-codex-publish-014-completed.md) |

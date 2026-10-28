@@ -1,0 +1,46 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:23:42 CET
+Duration: 500.60ms, Total samples = 340ms (67.92%)
+Showing nodes accounting for 340ms, 100% of 340ms total
+      flat  flat%   sum%        cum   cum%
+     250ms 73.53% 73.53%      290ms 85.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newAdditiveTransform
+      30ms  8.82% 82.35%       40ms 11.76%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+      20ms  5.88% 88.24%       20ms  5.88%  runtime.usleep
+      10ms  2.94% 91.18%       10ms  2.94%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+      10ms  2.94% 94.12%       10ms  2.94%  runtime.madvise
+      10ms  2.94% 97.06%       10ms  2.94%  runtime.pthread_cond_wait
+      10ms  2.94%   100%       10ms  2.94%  runtime.pthread_kill
+         0     0%   100%      290ms 85.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe
+         0     0%   100%      290ms 85.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func2
+         0     0%   100%      290ms 85.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func3
+         0     0%   100%       10ms  2.94%  runtime.(*gcControllerState).enlistWorker
+         0     0%   100%       10ms  2.94%  runtime.(*mheap).alloc.func1
+         0     0%   100%       10ms  2.94%  runtime.(*mheap).allocSpan
+         0     0%   100%       30ms  8.82%  runtime.findRunnable
+         0     0%   100%       10ms  2.94%  runtime.gcBgMarkWorker.func2
+         0     0%   100%       10ms  2.94%  runtime.gcDrain
+         0     0%   100%       10ms  2.94%  runtime.gcDrainMarkWorkerDedicated (inline)
+         0     0%   100%       20ms  5.88%  runtime.gcstopm
+         0     0%   100%       20ms  5.88%  runtime.gopreempt_m (inline)
+         0     0%   100%       20ms  5.88%  runtime.goschedImpl
+         0     0%   100%       20ms  5.88%  runtime.lock (inline)
+         0     0%   100%       20ms  5.88%  runtime.lock2
+         0     0%   100%       20ms  5.88%  runtime.lockWithRank (inline)
+         0     0%   100%       10ms  2.94%  runtime.mPark (inline)
+         0     0%   100%       10ms  2.94%  runtime.mcall
+         0     0%   100%       20ms  5.88%  runtime.morestack
+         0     0%   100%       20ms  5.88%  runtime.newstack
+         0     0%   100%       10ms  2.94%  runtime.notesleep
+         0     0%   100%       20ms  5.88%  runtime.osyield (inline)
+         0     0%   100%       10ms  2.94%  runtime.park_m
+         0     0%   100%       10ms  2.94%  runtime.preemptM
+         0     0%   100%       10ms  2.94%  runtime.preemptone
+         0     0%   100%       30ms  8.82%  runtime.schedule
+         0     0%   100%       10ms  2.94%  runtime.semasleep
+         0     0%   100%       10ms  2.94%  runtime.signalM (inline)
+         0     0%   100%       10ms  2.94%  runtime.stopm
+         0     0%   100%       10ms  2.94%  runtime.sysUsed (inline)
+         0     0%   100%       10ms  2.94%  runtime.sysUsedOS (inline)
+         0     0%   100%       20ms  5.88%  runtime.systemstack
+         0     0%   100%      290ms 85.29%  testing.tRunner

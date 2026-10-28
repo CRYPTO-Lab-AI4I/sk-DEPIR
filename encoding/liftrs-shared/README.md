@@ -300,3 +300,28 @@ shared by both paths. `EncodeWithStats` exposes per-encoding boundary accounting
 `Close` releases native code metadata after active encodings finish.
 The current native plan importer accepts field degrees 2–13; larger native
 instances remain unvalidated.
+
+## Scaling experiments (opt-in)
+
+The [step-3 prototypes](../../experiments/scaling-prototypes/report.md) add
+`PrepareCyclicScalingPrototype`, which uses sparse transform setup, root-only
+Frobenius-paired multiplication and reciprocal-based G construction. It verifies
+P·G and preserves the original information set and artifact format. Default
+preparation remains unchanged. This is not a bounded-memory setup implementation;
+roots/factors, division/products and discovery still need resource work.
+
+`ScalingPlan` constructs minimal online P/spectrum state, omitting G/support.
+`NewWorkspace` provides a reusable arena, aliasing prefix work with the final
+convolution buffer; the final canonical output remains separately allocated.
+Use a separate workspace per concurrent call. `ResidentBytes` and `Bytes` count
+array payload, not RAM. The [example](scaling_example_test.go) shows the Go path.
+The native executor is exercised by the opt-in package experiment; there is no
+new public native-workspace API or supported streaming loader. High-rate cases
+whose full prefix convolution exceeds the transform domain are rejected by this
+prototype; the ordinary encoder retains overlap-add support.
+
+The minimal binary loader, general-basis matrix transform, Taylor/inverse and
+bucket routing are **test-only prototypes**. The file layout is not a public
+artifact format and requires an independently trusted digest/code provenance.
+External execution currently uses scalar disk calls and Go tile kernels. It tests
+exact decomposition, not high-throughput I/O or a full native external encoder.

@@ -1,0 +1,35 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:28:58 CET
+Duration: 808.64ms, Total samples = 600ms (74.20%)
+Showing nodes accounting for 600ms, 100% of 600ms total
+      flat  flat%   sum%        cum   cum%
+         0     0%     0%      570ms 95.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingS13
+         0     0%     0%      570ms 95.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingS13.func1
+     160ms 26.67% 26.67%      570ms 95.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingS13.func6
+         0     0% 26.67%      570ms 95.00%  testing.tRunner
+      10ms  1.67% 28.33%      300ms 50.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+      30ms  5.00% 33.33%      290ms 48.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     260ms 43.33% 76.67%      260ms 43.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+         0     0% 76.67%       90ms 15.00%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0% 76.67%       90ms 15.00%  crypto/internal/fips140/sha256.block
+      90ms 15.00% 91.67%       90ms 15.00%  crypto/internal/fips140/sha256.blockSHA2
+         0     0% 91.67%       30ms  5.00%  runtime.gopreempt_m (inline)
+         0     0% 91.67%       30ms  5.00%  runtime.goschedImpl
+         0     0% 91.67%       30ms  5.00%  runtime.morestack
+         0     0% 91.67%       30ms  5.00%  runtime.newstack
+         0     0% 91.67%       30ms  5.00%  runtime.notewakeup
+      30ms  5.00% 96.67%       30ms  5.00%  runtime.pthread_cond_signal
+         0     0% 96.67%       30ms  5.00%  runtime.semawakeup
+         0     0% 96.67%       30ms  5.00%  runtime.startm
+         0     0% 96.67%       30ms  5.00%  runtime.wakep
+      10ms  1.67% 98.33%       10ms  1.67%  encoding/binary.littleEndian.PutUint32 (inline)
+         0     0% 98.33%       10ms  1.67%  internal/runtime/atomic.(*Pointer[go.shape.struct { runtime.spanSetBlockHeader2; runtime.spans [512]runtime.atomicMSpanPointer }]).Load (inline)
+      10ms  1.67%   100%       10ms  1.67%  internal/runtime/atomic.(*UnsafePointer).Load (inline)
+         0     0%   100%       10ms  1.67%  runtime.(*mcache).nextFree
+         0     0%   100%       10ms  1.67%  runtime.(*mcache).refill
+         0     0%   100%       10ms  1.67%  runtime.(*mcentral).cacheSpan
+         0     0%   100%       10ms  1.67%  runtime.(*spanSet).pop
+         0     0%   100%       10ms  1.67%  runtime.convTstring
+         0     0%   100%       10ms  1.67%  runtime.mallocgc
+         0     0%   100%       10ms  1.67%  runtime.mallocgcSmallScanNoHeaderSC2

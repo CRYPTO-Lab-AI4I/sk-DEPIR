@@ -41,3 +41,13 @@ The public encoder import moved from `encoding/liftrs-go` to
 `encoding/liftrs-shared`; `liftrs-go` now names only Go execution kernels. Artifacts
 and retained preprocessing do not change format. Historical performance results
 retain their original source manifests; see [source snapshots](../experiments/source-snapshots/README.md).
+
+## Standard command defaults
+
+From the repository root, `make test` enables `liftrs_cpp`; `make encode` builds
+that tag **and selects C++ execution** in the profiling runner. Use
+`make encode BACKEND=go` or `make test-go` for explicit Go, and
+`make encode BACKEND=both` only for a requested comparison. The Go-only encoding
+command does not compile C++ transforms (full legacy tests still build RM).
+This does not change the shared encoder API or promote scaling prototypes.
+`GO`, `PYTHON`, `CXX` and `RUN_NAME` can be set on Make's command line.

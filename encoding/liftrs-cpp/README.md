@@ -28,7 +28,8 @@ pointer-free `[]uint32` array without interface copies. Go keeps cached generato
 spectra, multiplication cutoffs, truncated Karatsuba, unequal blocking and
 overlap-add unchanged. Preprocessing and cache loading remain in Go. This tests
 the native FFT inside the actual encoder without replacing the remaining Go
-arithmetic. It is an experimental opt-in backend, not the default.
+arithmetic. The adapter remains explicit in the API; standard Make commands now select it
+by default. Go execution remains selectable.
 
 [The full integration comparison](../../experiments/native-encoding/report.md)
 reports initialization, native metadata bytes, whole-encoding time and profiles.
@@ -51,3 +52,15 @@ CGO_ENABLED=1 CXX=clang++ go test -tags liftrs_cpp \
 
 The [encoding overview](../README.md) contrasts this with the compiler-free Go
 path. No RM code is used by these kernels; it is archived in `../rme_legacy/`.
+
+The [scaling prototypes](../../experiments/scaling-prototypes/report.md) exercise
+this same native executor with minimal online state and a reusable shared-code
+workspace. C++ transform code is unchanged. Sparse preparation remains Go, and
+the new disk-backed matrix/Taylor probe uses Go subtransforms while its generalized
+basis/offset semantics are validated; it is not yet a C++ tiled backend.
+
+
+Standard root commands `make test` and `make encode` enable native support;
+`make encode` also selects C++ execution. `BACKEND=go` selects the reference path.
+No caller API or preprocessing default has changed; enabling the build tag alone
+still does not replace explicit adapter construction in arbitrary Go callers.

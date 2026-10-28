@@ -18,7 +18,7 @@ an application layout can invoke several such encodings and reuse code-only setu
 |---|---|---|---|
 | 1. Resource accounting | Audit arrays, lifetimes, widths, accesses and preprocessing/output costs at s=13..20 | Source-linked inventory and reproducible analytical model | Complete: source audit/model |
 | 2. Execution designs | Compare blocked in-memory and external-memory transforms/products, selective preprocessing and spectrum choices | Concrete candidates, cost models and explicit unresolved dependencies | Complete: candidates/gates |
-| 3. Focused prototypes | Implement uncertain operations at manageable sizes under constrained RAM; compare with the existing code | Verified decompositions and measured memory/I/O, not just timings | Planned |
+| 3. Focused prototypes | Implement uncertain operations at manageable sizes under constrained RAM; compare with the existing code | Verified decompositions and measured memory/I/O, not just timings | Prototype round complete; performance gates open |
 | 4. Local calibration | Measure useful-core scaling, sustained storage and compute/I/O overlap; assess GPU suitability | Calibrated resource model and reasons for any larger hardware test | Planned |
 | 5. Design selection | Select from measured evidence; integrate and validate progressively at s=13,14,15 when budgets permit | Canonical outputs, measured resource use and next hardware recommendation | Planned |
 
@@ -95,8 +95,8 @@ cache effects and the output scatter. No new CPU-time prediction is made here.
 1. **Setup currently allocates dense arrays to construct sparse constants.**
    S_(k+1)=S_k²+delta_k·S_k is linearized: only powers of two occur. Updating its
    nonzero coefficients directly can remove the N-sized setup arrays without
-   changing field coordinates or transform output. This is a proposed fix, not
-   implemented by this study.
+   changing field coordinates or transform output. The opt-in step-3 sparse
+   constructor now verifies this; default constructors still use dense setup.
 2. **The cyclic product tree retains information it will discard.** Logical tree
    coefficients satisfy C(1)=2 and C(K)=K+1+C(floor(K/2))+C(ceil(K/2)); node headers
    are 72 bytes on this host. At s=15, coefficients plus headers alone account for
@@ -107,7 +107,8 @@ cache effects and the output scatter. No new CPU-time prediction is made here.
    the spectrum, K, fields and the coordinate generator. A separately validated
    online plan can omit G/support, retaining the full artifact for provenance and
    independent verification. This needs an explicit API/artifact design; existing
-   loaders and validation are not silently weakened.
+   loaders and validation are not silently weakened. Step 3 now tests a minimal
+   online plan and internal binary file; it has not selected a public file format.
 4. **Domain widths and prefix padding have discontinuities.** s=16 needs wider
    cardinality/size accounting (N=2^32); s>=17 needs >32-bit packed extension
    elements. The s=20 point capacity gives L=N rather than N/2. At s=19 the Monte
@@ -194,11 +195,11 @@ A relevant construction is the general-basis Algorithm 1 in
 expansion in a subspace polynomial followed by column and row additive transforms.
 Its arbitrary ordered basis avoids assuming our fields have a full Cantor basis.
 An inverse, exact coordinate ordering, Taylor-expansion memory/I/O and file schedule
-must be implemented and checked here. The current plan builder assumes the
+are now checked by the small Go matrix/Taylor/file prototype. The current native plan builder assumes the
 canonical packed basis, and native Apply starts at zero; matrix subtransforms need
 arbitrary ordered-basis/affine-offset plan semantics and validated output ordering.
-A tile API alone is insufficient. The publication is not evidence that our
-external-memory encoder already exists. Its specialized Cantor timings do not
+A tile API alone is insufficient. The scalar-I/O correctness probe is not yet
+a practical external-memory encoder. Its specialized Cantor timings do not
 predict this implementation's speed.
 
 [Bailey's external-memory FFT](https://www.davidhbailey.com/dhbpapers/fftq.pdf)
@@ -273,5 +274,18 @@ The first focused probes should be:
    full and prefix products, followed by tiled canonical output routing. Count
    every byte read/written and temporary file before extrapolating larger cases.
 
-These are proposed prototypes. Steps 1–2 of the study are complete as an audited
-model and candidate comparison; steps 3–5 remain unimplemented.
+The [step-3 probe report](../experiments/scaling-prototypes/report.md) now records
+these prototypes and their measured limits. Sparse constants match through s=13
+and setup alone is exercised at s=14/15. Root-only paired preparation, reciprocal
+G and minimal binary online state preserve P/G/spectra/words on bounded fixtures.
+A native reusable workspace matches the complete s=13 baseline hash in 153.37 s.
+The matrix forward/inverse, disk convolution and canonical bucket routing are
+correct on small cases; scalar I/O is not a practical external backend yet.
+
+Steps 1–2 and this step-3 correctness/probe round are complete. Before extrapolating
+or selecting hardware, implement blocked I/O for Taylor/column stages, measure
+large preparation scratch/GC lifetimes and a minimal-loader-only process peak,
+and port general-basis/affine tile semantics into native execution as needed.
+The old default constructors remain unchanged. No s=14/15 encoding, public binary
+format, RAM bound or full native external-memory encoder is claimed. Steps 4–5
+remain open; the throughput/resource gates identified by step 3 must be met.

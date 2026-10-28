@@ -1,0 +1,39 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:23:46 CET
+Duration: 300.51ms, Total samples = 140ms (46.59%)
+Showing nodes accounting for 140ms, 100% of 140ms total
+      flat  flat%   sum%        cum   cum%
+      90ms 64.29% 64.29%       90ms 64.29%  runtime.usleep
+      20ms 14.29% 78.57%       20ms 14.29%  runtime.pthread_cond_wait
+      10ms  7.14% 85.71%       20ms 14.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).Recurse
+      10ms  7.14% 92.86%       10ms  7.14%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Product.Mul
+      10ms  7.14%   100%       10ms  7.14%  runtime.madvise
+         0     0%   100%       20ms 14.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0%   100%       20ms 14.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.DiscoverOrbit
+         0     0%   100%       20ms 14.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe
+         0     0%   100%       20ms 14.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func2
+         0     0%   100%       20ms 14.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func5
+         0     0%   100%       10ms  7.14%  runtime.(*mheap).alloc.func1
+         0     0%   100%       10ms  7.14%  runtime.(*mheap).allocSpan
+         0     0%   100%      110ms 78.57%  runtime.findRunnable
+         0     0%   100%       90ms 64.29%  runtime.gcstopm
+         0     0%   100%       90ms 64.29%  runtime.gopreempt_m (inline)
+         0     0%   100%       90ms 64.29%  runtime.goschedImpl
+         0     0%   100%       90ms 64.29%  runtime.lock (inline)
+         0     0%   100%       90ms 64.29%  runtime.lock2
+         0     0%   100%       90ms 64.29%  runtime.lockWithRank (inline)
+         0     0%   100%       20ms 14.29%  runtime.mPark (inline)
+         0     0%   100%       20ms 14.29%  runtime.mcall
+         0     0%   100%       90ms 64.29%  runtime.morestack
+         0     0%   100%       90ms 64.29%  runtime.newstack
+         0     0%   100%       20ms 14.29%  runtime.notesleep
+         0     0%   100%       90ms 64.29%  runtime.osyield (inline)
+         0     0%   100%       20ms 14.29%  runtime.park_m
+         0     0%   100%      110ms 78.57%  runtime.schedule
+         0     0%   100%       20ms 14.29%  runtime.semasleep
+         0     0%   100%       20ms 14.29%  runtime.stopm
+         0     0%   100%       10ms  7.14%  runtime.sysUsed (inline)
+         0     0%   100%       10ms  7.14%  runtime.sysUsedOS (inline)
+         0     0%   100%       10ms  7.14%  runtime.systemstack
+         0     0%   100%       20ms 14.29%  testing.tRunner

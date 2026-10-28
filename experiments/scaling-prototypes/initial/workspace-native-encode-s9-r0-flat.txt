@@ -1,0 +1,31 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:23:52 CET
+Duration: 400.84ms, Total samples = 220ms (54.88%)
+Showing nodes accounting for 220ms, 100% of 220ms total
+      flat  flat%   sum%        cum   cum%
+     210ms 95.45% 95.45%      210ms 95.45%  runtime.cgocall
+      10ms  4.55%   100%       10ms  4.55%  runtime.usleep
+         0     0%   100%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply
+         0     0%   100%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply.func1 (inline)
+         0     0%   100%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_apply
+         0     0%   100%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).Encode
+         0     0%   100%      140ms 63.64%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0%   100%       70ms 31.82%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0%   100%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*meteredCPP).apply
+         0     0%   100%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe
+         0     0%   100%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func2
+         0     0%   100%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.scalingNativeProbe
+         0     0%   100%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.scalingNativeProbe.func4
+         0     0%   100%       10ms  4.55%  runtime.findRunnable
+         0     0%   100%       10ms  4.55%  runtime.gcstopm
+         0     0%   100%       10ms  4.55%  runtime.gopreempt_m (inline)
+         0     0%   100%       10ms  4.55%  runtime.goschedImpl
+         0     0%   100%       10ms  4.55%  runtime.lock (inline)
+         0     0%   100%       10ms  4.55%  runtime.lock2
+         0     0%   100%       10ms  4.55%  runtime.lockWithRank (inline)
+         0     0%   100%       10ms  4.55%  runtime.morestack
+         0     0%   100%       10ms  4.55%  runtime.newstack
+         0     0%   100%       10ms  4.55%  runtime.osyield (inline)
+         0     0%   100%       10ms  4.55%  runtime.schedule
+         0     0%   100%      210ms 95.45%  testing.tRunner

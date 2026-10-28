@@ -1,0 +1,59 @@
+[
+  {
+    "allocated_bytes": 5345066000,
+    "cache_bytes": 453243425,
+    "elapsed_ns": 5021765125,
+    "go_sys_bytes": 2463832920,
+    "heap_after_bytes": 1569329752,
+    "heap_before_bytes": 387160,
+    "phase": "s13-load-original",
+    "sha256": "a2a3bcd5913d821c99d08ceca05d6c5d73ce2abe6e3987910c0dcf5dfe97eb22"
+  },
+  {
+    "allocated_bytes": 318949928,
+    "elapsed_ns": 11238833,
+    "go_sys_bytes": 2463832920,
+    "heap_after_bytes": 1010029600,
+    "heap_before_bytes": 691079672,
+    "native_bytes": 141904,
+    "phase": "s13-online-plan",
+    "plan_payload_bytes": 316141200
+  },
+  {
+    "allocated_bytes": 318141864,
+    "elapsed_ns": 1911250,
+    "go_sys_bytes": 2463832920,
+    "heap_after_bytes": 682768336,
+    "heap_before_bytes": 364626472,
+    "input_payload_bytes": 47705740,
+    "phase": "s13-workspace",
+    "workspace_payload_bytes": 316141196
+  },
+  {
+    "allocated_bytes": 270584944,
+    "elapsed_ns": 153373675959,
+    "go_sys_bytes": 2463832920,
+    "heap_after_bytes": 951344664,
+    "heap_before_bytes": 680772792,
+    "native": {
+      "native_calls": 5,
+      "transformed_elements": 234881024,
+      "native_call_ns": 150793307501,
+      "native_kernel_ns": 150793244376,
+      "interface_message_copy_bytes": 0
+    },
+    "output_payload_bytes": 268435456,
+    "phase": "s13-native-workspace-encode"
+  },
+  {
+    "allocated_bytes": 2078504,
+    "canonical_sha256": "6120f0388f6035dd480e391b26ef93c04ed368a77f2f93c02f6d4f56b99a7b79",
+    "elapsed_ns": 633311375,
+    "go_sys_bytes": 2463832920,
+    "heap_after_bytes": 951290880,
+    "heap_before_bytes": 949212376,
+    "matches_original_baseline": true,
+    "phase": "s13-verify",
+    "systematic_positions": 11926435
+  }
+]

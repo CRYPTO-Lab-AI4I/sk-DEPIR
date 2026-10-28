@@ -1,0 +1,63 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:23:44 CET
+Duration: 300.55ms, Total samples = 130ms (43.25%)
+Showing nodes accounting for 130ms, 100% of 130ms total
+      flat  flat%   sum%        cum   cum%
+         0     0%     0%       60ms 46.15%  runtime.systemstack
+         0     0%     0%       40ms 30.77%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe
+         0     0%     0%       40ms 30.77%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func2
+         0     0%     0%       40ms 30.77%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func7
+         0     0%     0%       40ms 30.77%  testing.tRunner
+         0     0%     0%       30ms 23.08%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclicScalingPrototype
+         0     0%     0%       30ms 23.08%  runtime.findRunnable
+         0     0%     0%       30ms 23.08%  runtime.gcStart.func4
+         0     0%     0%       30ms 23.08%  runtime.gopreempt_m (inline)
+         0     0%     0%       30ms 23.08%  runtime.goschedImpl
+      30ms 23.08% 23.08%       30ms 23.08%  runtime.kevent
+         0     0% 23.08%       30ms 23.08%  runtime.morestack
+         0     0% 23.08%       30ms 23.08%  runtime.netpoll
+         0     0% 23.08%       30ms 23.08%  runtime.newstack
+         0     0% 23.08%       30ms 23.08%  runtime.schedule
+         0     0% 23.08%       30ms 23.08%  runtime.startTheWorldWithSema
+      10ms  7.69% 30.77%       20ms 15.38%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+         0     0% 30.77%       20ms 15.38%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+         0     0% 30.77%       20ms 15.38%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0% 30.77%       20ms 15.38%  runtime.(*mheap).alloc.func1
+         0     0% 30.77%       20ms 15.38%  runtime.(*mheap).allocSpan
+         0     0% 30.77%       20ms 15.38%  runtime.gcstopm
+         0     0% 30.77%       20ms 15.38%  runtime.lock (inline)
+         0     0% 30.77%       20ms 15.38%  runtime.lock2
+         0     0% 30.77%       20ms 15.38%  runtime.lockWithRank (inline)
+      20ms 15.38% 46.15%       20ms 15.38%  runtime.madvise
+         0     0% 46.15%       20ms 15.38%  runtime.osyield (inline)
+         0     0% 46.15%       20ms 15.38%  runtime.semasleep
+         0     0% 46.15%       20ms 15.38%  runtime.sysUsed (inline)
+         0     0% 46.15%       20ms 15.38%  runtime.sysUsedOS (inline)
+      20ms 15.38% 61.54%       20ms 15.38%  runtime.usleep
+         0     0% 61.54%       10ms  7.69%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).Recurse
+         0     0% 61.54%       10ms  7.69%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Field.mul
+         0     0% 61.54%       10ms  7.69%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0% 61.54%       10ms  7.69%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyInverse
+         0     0% 61.54%       10ms  7.69%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+      10ms  7.69% 69.23%       10ms  7.69%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+         0     0% 69.23%       10ms  7.69%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+      10ms  7.69% 76.92%       10ms  7.69%  internal/runtime/atomic.(*UnsafePointer).Load (inline)
+         0     0% 76.92%       10ms  7.69%  reflect.DeepEqual
+      10ms  7.69% 84.62%       10ms  7.69%  reflect.Value.Index
+         0     0% 84.62%       10ms  7.69%  reflect.deepValueEqual
+         0     0% 84.62%       10ms  7.69%  runtime.gcStart.func2
+         0     0% 84.62%       10ms  7.69%  runtime.mPark (inline)
+         0     0% 84.62%       10ms  7.69%  runtime.mProf_Malloc
+         0     0% 84.62%       10ms  7.69%  runtime.makeslice
+         0     0% 84.62%       10ms  7.69%  runtime.mallocgc
+         0     0% 84.62%       10ms  7.69%  runtime.mallocgcSmallNoscan
+         0     0% 84.62%       10ms  7.69%  runtime.notesleep
+         0     0% 84.62%       10ms  7.69%  runtime.notetsleep
+         0     0% 84.62%       10ms  7.69%  runtime.notetsleep_internal
+         0     0% 84.62%       10ms  7.69%  runtime.profilealloc
+      10ms  7.69% 92.31%       10ms  7.69%  runtime.pthread_cond_timedwait_relative_np
+      10ms  7.69%   100%       10ms  7.69%  runtime.pthread_cond_wait
+         0     0%   100%       10ms  7.69%  runtime.stkbucket
+         0     0%   100%       10ms  7.69%  runtime.stopTheWorldWithSema
+         0     0%   100%       10ms  7.69%  runtime.stopm

@@ -1,0 +1,6 @@
+File: bench-2e2067a100643268-go
+Type: cpu
+Time: 2026-10-29 00:44:05 CET
+Duration: 200.69ms, Total samples = 0 
+Showing nodes accounting for 0, 0% of 0 total
+      flat  flat%   sum%        cum   cum%

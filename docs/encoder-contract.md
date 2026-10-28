@@ -298,8 +298,8 @@ all implemented polynomial multiplication strategies. Discovery, reusable
 preprocessing and artifact loading remain in Go. Whole borrowed buffers cross the
 ABI once per transform; C++ retains no database data or Go pointers. The adapter
 requires `Close`, waits for active calls before release, and leaves the source Go
-encoder usable. It is enabled explicitly with `-tags liftrs_cpp`; the Go backend
-remains the default. The [integration experiment](../experiments/native-encoding/report.md)
+encoder usable. It is enabled explicitly with `-tags liftrs_cpp`; the Go API remains explicit, while standard command runners select C++
+by default. The [integration experiment](../experiments/native-encoding/report.md)
 separates initialization, call accounting, native memory and encoding profiles.
 
 
@@ -318,7 +318,15 @@ The [scaling resource audit and design comparison](encoding-scaling.md) complete
 study steps 1–2. They distinguish live payload counts from RSS, identify sparse
 constant construction and root-only cyclic product preparation as candidate
 improvements, and preserve systematic/canonical output requirements for tiled
-execution. None of these candidate changes is implemented yet. Step 3 must verify
-constants, polynomials, complete codewords and actual memory/I/O before admission
-of larger workloads. Large optional spectra remain separate from moderately
+execution. Step 3 now verifies opt-in prototypes below; larger-case memory and
+throughput remain gates before admission of larger workloads. Large optional spectra remain separate from moderately
 sized public preprocessing distribution.
+
+
+The [step-3 prototypes](../experiments/scaling-prototypes/report.md) now provide
+opt-in sparse/paired cyclic preparation and explicit reusable online workspaces.
+They preserve the information set and original complete s=13 codeword. The
+sectioned minimal loader and matrix/Taylor/output-routing experiments are test-only;
+no public artifact validation or default backend changes. RAM/throughput guarantees,
+large preparation, native generalized tiles and cryptographic/grouped output remain
+separate acceptance work.

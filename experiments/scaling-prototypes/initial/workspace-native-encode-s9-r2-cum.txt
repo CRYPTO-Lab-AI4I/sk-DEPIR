@@ -1,0 +1,25 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:23:52 CET
+Duration: 400.58ms, Total samples = 220ms (54.92%)
+Showing nodes accounting for 220ms, 100% of 220ms total
+      flat  flat%   sum%        cum   cum%
+         0     0%     0%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply
+         0     0%     0%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply.func1 (inline)
+         0     0%     0%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_apply
+         0     0%     0%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).Encode
+         0     0%     0%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*meteredCPP).apply
+         0     0%     0%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe
+         0     0%     0%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingProbe.func2
+         0     0%     0%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.scalingNativeProbe
+         0     0%     0%      210ms 95.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.scalingNativeProbe.func4
+     210ms 95.45% 95.45%      210ms 95.45%  runtime.cgocall
+         0     0% 95.45%      210ms 95.45%  testing.tRunner
+         0     0% 95.45%      160ms 72.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0% 95.45%       50ms 22.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0% 95.45%       10ms  4.55%  runtime.exitsyscall.func3
+         0     0% 95.45%       10ms  4.55%  runtime.exitsyscallTryGetP
+         0     0% 95.45%       10ms  4.55%  runtime.notewakeup
+      10ms  4.55%   100%       10ms  4.55%  runtime.pthread_cond_signal
+         0     0%   100%       10ms  4.55%  runtime.semawakeup
+         0     0%   100%       10ms  4.55%  runtime.systemstack

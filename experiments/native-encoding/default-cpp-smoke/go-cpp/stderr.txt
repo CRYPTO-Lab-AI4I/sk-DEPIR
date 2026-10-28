@@ -1,0 +1,5 @@
+panic: profile directory is not empty; preserve prior profiles
+
+goroutine 1 [running]:
+main.main()
+	/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/native-encoding/main.go:169 +0x1d2c

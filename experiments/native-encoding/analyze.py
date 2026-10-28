@@ -38,8 +38,10 @@ def main():
             if data['policy']['native_sample']:assert case['native_sample_returncode']==0
         phases=case['phases']
         rows.append(f'| {label} | {phases["cache_load"]["elapsed_ns"]/1e9:.3f} | {phases.get("native_init",{}).get("elapsed_ns",0)/1e9:.6f} | '+', '.join(f'{x:.3f}' for x in times)+f' | {statistics.median(times):.3f} | {case["process_peak_rss_bytes"]/2**30:.3f} |')
-    for key in ['canonical_sha256','packed_sha256']:
-        assert data['cases']['go']['verification'][key]==data['cases']['go-cpp']['verification'][key]
+    if 'go' in data['cases'] and 'go-cpp' in data['cases']:
+        for key in ['canonical_sha256','packed_sha256']:
+            assert data['cases']['go']['verification'][key]==data['cases']['go-cpp']['verification'][key]
     (run/'table.md').write_text('\n'.join(rows)+'\n')
-    print('\n'.join(rows));print(f'Full-encoding median speedup: {data["speedup"]:.4f}x')
+    print('\n'.join(rows))
+    if 'speedup' in data:print(f'Full-encoding median speedup: {data["speedup"]:.4f}x')
 if __name__=='__main__':main()

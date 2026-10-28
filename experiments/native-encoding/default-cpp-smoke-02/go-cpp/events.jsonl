@@ -1,0 +1,10 @@
+{"event":"started","phase":"cache_load"}
+{"allocated_bytes":2067616,"baseline_heap_bytes":355096,"elapsed_ns":304667,"event":"phase","gc_cycles":0,"phase":"cache_load","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":13453576,"sampled_peak_heap_bytes":2422712,"samples":3}
+{"event":"started","phase":"native_init"}
+{"allocated_bytes":2010680,"baseline_heap_bytes":412048,"elapsed_ns":20375,"event":"phase","gc_cycles":0,"phase":"native_init","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":14043400,"sampled_peak_heap_bytes":2422728,"samples":3}
+{"event":"native_plan","info":{"description_bytes":2656,"native_owned_bytes":4376}}
+{"backend":"cpp","event":"code","go_version":"go1.27.3","k":97,"m":2,"n":256,"s":4,"t":2}
+{"event":"started","phase":"encode_0"}
+{"allocated_bytes":2011848,"baseline_heap_bytes":414496,"elapsed_ns":132125,"event":"phase","gc_cycles":0,"phase":"encode_0","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":14305544,"sampled_peak_heap_bytes":2426344,"samples":3}
+{"backend":"cpp","event":"encode_stats","native":{"native_calls":2,"transformed_elements":512,"native_call_ns":103375,"native_kernel_ns":101459,"interface_message_copy_bytes":0},"repeat":0}
+{"canonical_sha256":"4421d6289c0b7a6f994afd8293a31dd017213a41584c56121bb9d447ac1137d4","curve_checks":16,"event":"verified","k":97,"m":2,"n":256,"packed_bytes":128,"packed_sha256":"bd7ef77fc1fff8d78829594bc46fd9342833754a3367e10b6bc88fab901ca0ee","packing_write_sync_ns":6417875,"s":4,"seed":71,"systematic_positions_checked":97,"t":2,"verification_ns":30208}

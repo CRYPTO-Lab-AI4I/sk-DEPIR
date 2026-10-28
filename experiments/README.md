@@ -108,6 +108,10 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
   preparation, packed-cache and I/O scenarios for the scaling study; no new
   encoding/RSS measurement or larger-size implementation.
 
+- [Scaling prototypes](scaling-prototypes/report.md): sparse setup, paired cyclic
+  preparation, lean online files/workspaces, exact matrix/Taylor and canonical
+  routing probes, with profiled s=13 hash validation and explicit I/O limitations.
+
 ## Encoding implementation paths
 
 The complete API, preprocessing and orchestration now live in

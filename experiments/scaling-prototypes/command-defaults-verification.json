@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "checks": [
+    "make test and make test-go full suites in isolated copy: command-checks.json",
+    "default C++ and explicit CGO_ENABLED=0 Go tiny encoding runs: native-encoding reports",
+    "CGO_ENABLED=0 native-runner early rejection before output creation",
+    "original native s13 and step3 initial/s13 evidence analyzers",
+    "Python syntax and tagged driver vet",
+    "current documentation file links and diff whitespace"
+  ],
+  "encoder_api_changed": false,
+  "large_baseline_rerun": false
+}

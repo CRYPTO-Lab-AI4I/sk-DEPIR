@@ -15,6 +15,7 @@ def sha(path):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--go',default='go')
+    parser.add_argument('--backend',choices=['cpp','go','both'],default='cpp',help='C++ by default; select go or both explicitly')
     parser.add_argument('--run-name',default='s13')
     parser.add_argument('--s',type=int,default=13)
     parser.add_argument('--t',type=int,default=5)
@@ -22,6 +23,8 @@ def main():
     parser.add_argument('--cache',default='.cache/liftrs/s13-m2-t5')
     parser.add_argument('--native-sample',action='store_true',help='sample own C++ encoding child on macOS')
     args=parser.parse_args()
+    if args.backend!='go' and subprocess.check_output([args.go,'env','CGO_ENABLED'],text=True).strip()!='1':
+        raise SystemExit('C++ execution requires CGO_ENABLED=1; select --backend go for pure Go')
     if not args.run_name or any(c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_' for c in args.run_name): raise SystemExit('invalid run name')
     output=HERE/args.run_name
     output.mkdir(exist_ok=False)
@@ -32,20 +35,21 @@ def main():
     result={'timestamp_utc':datetime.now(timezone.utc).isoformat(),'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         'source_sha256':{str(p.relative_to(ROOT)):sha(p) for p in sources if p.is_file()},'cache_metadata':metadata,
         'cache_directory':str(cache),'cache_provenance':json.loads((cache/'provenance.json').read_text()),
-        'environment':{'platform':platform.platform(),'go':subprocess.check_output([args.go,'version'],text=True).strip(),'cpu':subprocess.check_output(['sysctl','-n','machdep.cpu.brand_string'],text=True).strip(),'cpu_count':os.cpu_count(),'memory_bytes':int(subprocess.check_output(['sysctl','-n','hw.memsize'],text=True)),'compiler':subprocess.check_output([os.environ.get('CXX','clang++'),'--version'],text=True).strip(),'storage':'local APFS workspace; existing warm-cache effects not controlled'},
-        'policy':{'repeats':args.repeats,'go_memory_guard_bytes':12<<30,'case_timeout_seconds':7200,'native_sample':args.native_sample},'cases':{},'status':'running'}
+        'environment':{'platform':platform.platform(),'go':subprocess.check_output([args.go,'version'],text=True).strip(),'cpu':subprocess.check_output(['sysctl','-n','machdep.cpu.brand_string'],text=True).strip(),'cpu_count':os.cpu_count(),'memory_bytes':int(subprocess.check_output(['sysctl','-n','hw.memsize'],text=True)),'compiler':subprocess.check_output([os.environ.get('CXX','clang++'),'--version'],text=True).strip() if args.backend!='go' else 'not used (pure Go)','storage':'local APFS workspace; existing warm-cache effects not controlled'},
+        'policy':{'repeats':args.repeats,'go_memory_guard_bytes':12<<30,'case_timeout_seconds':7200,'native_sample':args.native_sample,'backend':args.backend},'cases':{},'status':'running'}
     def save(): (output/'results.json').write_text(json.dumps(result,indent=2)+'\n')
     save()
     retained=ROOT/'.cache/liftrs/native-encoding'
     retained.mkdir(parents=True,exist_ok=True)
     identity=hashlib.sha256(json.dumps(result['source_sha256'],sort_keys=True).encode()).hexdigest()[:16]
-    binary=retained/('bench-'+identity)
-    build=[args.go,'build','-tags','liftrs_cpp','-o',str(binary),'./experiments/native-encoding']
+    binary=retained/('bench-'+identity+'-'+args.backend)
+    build=[args.go,'build']+(['-tags','liftrs_cpp'] if args.backend!='go' else [])+['-o',str(binary),'./experiments/native-encoding']
     with (output/'build.log').open('w') as log: subprocess.run(build,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True)
     result['build_command']=build
     result['binary']={'path':str(binary.relative_to(ROOT)),'sha256':sha(binary)}
     save()
-    for mode,label in [('go','go'),('cpp','go-cpp')]:
+    modes=[('go','go'),('cpp','go-cpp')] if args.backend=='both' else [(args.backend,'go' if args.backend=='go' else 'go-cpp')]
+    for mode,label in modes:
         directory=output/label
         directory.mkdir()
         command=[str(binary),'-backend',mode,'-s',str(args.s),'-t',str(args.t),'-repeats',str(args.repeats),'-cache',str(cache),'-profiles',str(directory),'-memory-bytes',str(12<<30)]
@@ -103,8 +107,9 @@ def main():
                     subprocess.run([args.go,'tool','pprof',*options,str(binary),str(profile)],stdout=stream,stderr=subprocess.STDOUT,check=True)
         case['evidence_sha256']={p.name:sha(p) for p in directory.iterdir() if p.is_file()}
         save()
-    for key in ['canonical_sha256','packed_sha256']: assert result['cases']['go']['verification'][key]==result['cases']['go-cpp']['verification'][key]
-    result['speedup']=result['cases']['go']['median_encoding_seconds']/result['cases']['go-cpp']['median_encoding_seconds']
+    if args.backend=='both':
+        for key in ['canonical_sha256','packed_sha256']: assert result['cases']['go']['verification'][key]==result['cases']['go-cpp']['verification'][key]
+        result['speedup']=result['cases']['go']['median_encoding_seconds']/result['cases']['go-cpp']['median_encoding_seconds']
     result['status']='completed';save()
-    print(json.dumps({'speedup':result['speedup'],'output':str(output)}),flush=True)
+    print(json.dumps({'speedup':result.get('speedup'),'output':str(output)}),flush=True)
 if __name__=='__main__':main()

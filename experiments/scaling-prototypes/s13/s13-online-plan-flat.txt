@@ -1,0 +1,12 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:26:24 CET
+Duration: 202.53ms, Total samples = 10ms ( 4.94%)
+Showing nodes accounting for 10ms, 100% of 10ms total
+      flat  flat%   sum%        cum   cum%
+      10ms   100%   100%       10ms   100%  runtime.memmove
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CyclicEncoder).ScalingPlan
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingS13
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingS13.func1
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingS13.func3
+         0     0%   100%       10ms   100%  testing.tRunner
