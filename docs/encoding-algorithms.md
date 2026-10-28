@@ -213,6 +213,13 @@ multiplication/division for reusable preprocessing and the paper baseline.
 Measure these operations separately before extrapolating whole-encoder runtime.
 Changing field arithmetic alone does not make either complete pipeline quasi-linear.
 
+The [s=9 CPU profiles](../experiments/encoder-profile/report.md) attribute about
+75% of cyclic encoding samples to FFTs and 18% to the prefix multiplication;
+base-field multiplication is a common hotspot. Keep fast polynomial multiplication
+and field-kernel work separate in comparisons: a faster prefix alone has limited
+whole-encoder benefit at this size. These samples do not establish larger-instance
+performance.
+
 **Acceptance:** exhaustive small-field and randomized larger-field checks,
 unchanged encoder outputs, and arithmetic storage that does not grow with the
 extension-field cardinality. The first encoding checkpoint is `s=9`, using its

@@ -25,6 +25,9 @@ not provide an s=10..20, streaming, GPU or integrated file-based encoder.
 The [table-free checkpoint](experiments/tablefree-encoding/report.md) now measures
 s=9,m=2,t=7 with exact K=17200. The standalone field API covers every s=2..20
 without full-field arithmetic tables; encoder support remains separately bounded.
+[Stage-specific CPU profiles](experiments/encoder-profile/report.md) identify
+FFT arithmetic and polynomial multiplication costs separately; these are
+diagnostics, not new latency benchmarks.
 
 A separate [small cryptographic reference](encoding/cryptoref/README.md) permutes codewords and applies storage-position XOR masks using the existing AES helpers. It tests independent masking keys, re-encoding, and genuine-codeword retrieval. Its in-memory architecture is a correctness reference; it does not select a production API or streaming design.
 

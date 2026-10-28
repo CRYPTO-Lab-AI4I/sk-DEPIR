@@ -206,3 +206,7 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-28 11:00 | ENCODE-002 | Completed | [Table-free arithmetic and s=9 encoding verified](2026-10-28-1100-codex-encode-002-completed.md) |
 | 2026-10-28 11:27 | PUBLISH-003 | Started | [Publish table-free checkpoint](2026-10-28-1127-codex-publish-003-started.md) |
 | 2026-10-28 11:27 | PUBLISH-003 | Completed | [Publish table-free checkpoint](2026-10-28-1127-codex-publish-003-completed.md) |
+| 2026-10-28 11:29 | ENCODE-003 | Started | [Profile encoder stages](2026-10-28-1129-codex-encode-003-started.md) |
+| 2026-10-28 11:31 | ENCODE-003 | Completed | [Encoder profiles recorded](2026-10-28-1131-codex-encode-003-completed.md) |
+| 2026-10-28 11:47 | PUBLISH-004 | Started | [Publish encoder profiling checkpoint](2026-10-28-1147-codex-publish-004-started.md) |
+| 2026-10-28 11:47 | PUBLISH-004 | Completed | [Publish encoder profiling checkpoint](2026-10-28-1147-codex-publish-004-completed.md) |

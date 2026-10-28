@@ -55,3 +55,6 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
 - [Table-free encoding checkpoint](tablefree-encoding/report.md): portable
   arithmetic through s=20, preserved old codewords, and exact s=9 encoding with
   separate discovery/preparation processes, prepared artifacts and packed output.
+
+- [Encoder CPU profiles](encoder-profile/report.md): separate s=9 paper/cyclic
+  preparation and database-encoding profiles, with checkpoint output verification.

@@ -1,0 +1,43 @@
+File: profile
+Type: cpu
+Time: 2026-10-28 12:29:22 CET
+Duration: 4.34s, Total samples = 3.89s (89.60%)
+Showing nodes accounting for 3.82s, 98.20% of 3.89s total
+Dropped 12 nodes (cum <= 0.02s)
+Showing top 35 nodes out of 46
+      flat  flat%   sum%        cum   cum%
+         0     0%     0%      3.68s 94.60%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*PaperEncoder).Encode
+         0     0%     0%      3.68s 94.60%  main.main
+         0     0%     0%      3.68s 94.60%  main.main.func3
+         0     0%     0%      3.68s 94.60%  runtime.main
+     0.18s  4.63%  4.63%      3.54s 91.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul
+         0     0%  4.63%      3.52s 90.49%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMul
+     0.13s  3.34%  7.97%      3.50s 89.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.karatsuba
+         0     0%  7.97%      3.37s 86.63%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*productTree).evaluate
+         0     0%  7.97%      3.37s 86.63%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*productTree).remainder
+     0.56s 14.40% 22.37%      3.36s 86.38%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.QuadraticField.Mul
+     2.80s 71.98% 94.34%      2.80s 71.98%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.BinaryField.Mul (inline)
+         0     0% 94.34%      0.16s  4.11%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).apply (inline)
+     0.01s  0.26% 94.60%      0.16s  4.11%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).recurse
+         0     0% 94.60%      0.11s  2.83%  runtime.systemstack
+         0     0% 94.60%      0.07s  1.80%  runtime.gopreempt_m (inline)
+         0     0% 94.60%      0.07s  1.80%  runtime.goschedImpl
+         0     0% 94.60%      0.07s  1.80%  runtime.morestack
+         0     0% 94.60%      0.07s  1.80%  runtime.newstack
+         0     0% 94.60%      0.06s  1.54%  runtime.(*mheap).alloc.func1
+         0     0% 94.60%      0.06s  1.54%  runtime.(*mheap).allocSpan
+     0.06s  1.54% 96.14%      0.06s  1.54%  runtime.madvise
+         0     0% 96.14%      0.06s  1.54%  runtime.sysUsed (inline)
+         0     0% 96.14%      0.06s  1.54%  runtime.sysUsedOS (inline)
+         0     0% 96.14%      0.05s  1.29%  runtime.notewakeup
+     0.05s  1.29% 97.43%      0.05s  1.29%  runtime.pthread_cond_signal
+         0     0% 97.43%      0.05s  1.29%  runtime.semawakeup
+         0     0% 97.43%      0.05s  1.29%  runtime.startm
+         0     0% 97.43%      0.05s  1.29%  runtime.wakep
+         0     0% 97.43%      0.03s  0.77%  runtime.findRunnable
+         0     0% 97.43%      0.03s  0.77%  runtime.gcStart.func4
+     0.03s  0.77% 98.20%      0.03s  0.77%  runtime.kevent
+         0     0% 98.20%      0.03s  0.77%  runtime.mPark (inline)
+         0     0% 98.20%      0.03s  0.77%  runtime.mcall
+         0     0% 98.20%      0.03s  0.77%  runtime.netpoll
+         0     0% 98.20%      0.03s  0.77%  runtime.notesleep

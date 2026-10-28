@@ -1,0 +1,43 @@
+File: profile
+Type: cpu
+Time: 2026-10-28 12:29:03 CET
+Duration: 8.48s, Total samples = 7690ms (90.73%)
+Showing nodes accounting for 7480ms, 97.27% of 7690ms total
+Dropped 40 nodes (cum <= 38.45ms)
+Showing top 35 nodes out of 48
+      flat  flat%   sum%        cum   cum%
+         0     0%     0%     6830ms 88.82%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PreparePaper
+         0     0%     0%     6830ms 88.82%  main.main
+         0     0%     0%     6830ms 88.82%  main.main.func1
+         0     0%     0%     6830ms 88.82%  runtime.main
+         0     0%     0%     6810ms 88.56%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMul
+     240ms  3.12%  3.12%     6770ms 88.04%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.karatsuba
+     410ms  5.33%  8.45%     6560ms 85.31%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul
+    1170ms 15.21% 23.67%     6150ms 79.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.QuadraticField.Mul
+    4970ms 64.63% 88.30%     4980ms 64.76%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.BinaryField.Mul (inline)
+         0     0% 88.30%     4500ms 58.52%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*productTree).evaluate
+         0     0% 88.30%     4500ms 58.52%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*productTree).remainder
+         0     0% 88.30%     4500ms 58.52%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyDiv
+         0     0% 88.30%     3220ms 41.87%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyInverse
+         0     0% 88.30%     1620ms 21.07%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*productTree).prepare
+         0     0% 88.30%      710ms  9.23%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.newProductTree
+         0     0% 88.30%      610ms  7.93%  runtime.systemstack
+         0     0% 88.30%      500ms  6.50%  runtime.(*mheap).alloc.func1
+         0     0% 88.30%      500ms  6.50%  runtime.(*mheap).allocSpan
+     500ms  6.50% 94.80%      500ms  6.50%  runtime.madvise
+         0     0% 94.80%      500ms  6.50%  runtime.sysUsed (inline)
+         0     0% 94.80%      500ms  6.50%  runtime.sysUsedOS (inline)
+         0     0% 94.80%      130ms  1.69%  runtime.gopreempt_m (inline)
+         0     0% 94.80%      130ms  1.69%  runtime.goschedImpl
+         0     0% 94.80%      130ms  1.69%  runtime.morestack
+         0     0% 94.80%      130ms  1.69%  runtime.newstack
+         0     0% 94.80%      120ms  1.56%  runtime.findRunnable
+         0     0% 94.80%      120ms  1.56%  runtime.schedule
+         0     0% 94.80%      110ms  1.43%  runtime.mcall
+         0     0% 94.80%      110ms  1.43%  runtime.notewakeup
+         0     0% 94.80%      110ms  1.43%  runtime.park_m
+     110ms  1.43% 96.23%      110ms  1.43%  runtime.pthread_cond_signal
+         0     0% 96.23%      110ms  1.43%  runtime.semawakeup
+         0     0% 96.23%      110ms  1.43%  runtime.startm
+         0     0% 96.23%      110ms  1.43%  runtime.wakep
+      80ms  1.04% 97.27%       80ms  1.04%  runtime.usleep
