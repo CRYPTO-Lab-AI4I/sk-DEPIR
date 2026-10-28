@@ -172,9 +172,10 @@ holdout benchmark.
 
 ## Next work
 
-The planned general/low-product backend is now implemented and validated within
-the current s<=9 boundary. Scalar field arithmetic and transforms remain important
-costs. Next address compact reusable artifacts and moderate-instance CPU scaling,
-measuring stage-specific RAM and actual output layout before any s=10..20 support
-claim. Field-kernel improvements can be evaluated separately. External-memory and
+This checkpoint implemented and validated the general/low-product backend within
+s<=9. Scalar field arithmetic and transforms remain important costs. The later
+[s=10 CPU checkpoint](../encoder-scaling/report.md) advances the comparison with
+stage-specific memory and packed output measurements. Current work prioritizes
+scaling measurements over artifact-format cleanup unless loading/size obstructs
+those experiments. Field-kernel improvements can be evaluated separately. External-memory and
 GPU work remain behind the existing scope decision gates.

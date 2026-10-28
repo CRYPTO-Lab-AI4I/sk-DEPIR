@@ -43,8 +43,9 @@ Reusable public preprocessing artifacts are separate from database encoding; the
 small artifacts can be distributed with generation evidence. This is not yet a
 large-instance streaming or GPU backend. The detailed
 [five-step encoder plan](docs/encoding-algorithms.md#6-five-step-implementation-plan)
-starts with table-free extension arithmetic and an s=9 encoding checkpoint, then
-compact public artifacts and CPU measurements through s=12. Bounded-RAM encoding
+starts with table-free extension arithmetic and an s=9 encoding checkpoint,
+then prioritizes CPU scaling measurements through s=12. Artifact-format cleanup
+is deferred unless size/loading costs obstruct those measurements. Bounded-RAM encoding
 and optional GPU acceleration are subsequent stages subject to this roadmap's
 TRL gates; this plan does not declare TRL 6 achieved or automatically expand scope.
 
@@ -195,7 +196,9 @@ large-scale API or storage strategy. The
 [small application reference](encoding/appref/README.md) now completes this
 correctness pipeline for supplied plans and ordinary packed reads. Automatic planning is implemented in `planner/`; executing those plans in the
 application wrapper and durable persistence remain separate tasks. The orbit backend
-encodes standalone s=8,m=2,t=8 and s=9,m=2,t=7 configurations with exact
-K=3121 and K=17200; s=10..20 still require further encoder and resource work;
+encodes standalone s=8,m=2,t=8, s=9,m=2,t=7 and s=10,m=2,t=6 configurations
+with exact K=3121, K=17200 and K=103556. The [s=10 checkpoint](experiments/encoder-scaling/report.md)
+records separate preprocessing, encoding, heap sampling and packed output; s=11..20
+still require further encoder and resource work;
 the small reference provides comparison vectors for that work. Small test fields
 do not inherit the catalogue's security claims.

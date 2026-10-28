@@ -7,7 +7,7 @@ import (
 
 // Encoder artifacts include all method-specific polynomial constants and cached
 // solver reciprocals. Unlike the discovery artifact, loading them never rebuilds
-// product trees or performs polynomial preparation. Field/FFT tables are rebuilt
+// product trees or performs polynomial preparation. Field and transform metadata are rebuilt
 // as bounded process-local runtime state; benchmark that load cost separately.
 type orbitEncoderArtifact struct {
 	Spectrum []uint32           `json:"generator_spectrum,omitempty"`
@@ -89,8 +89,8 @@ func (e *CyclicEncoder) MarshalBinary() ([]byte, error) {
 }
 func loadEncoderArtifact(data []byte, method string) (*OrbitBasis, orbitEncoderArtifact, error) {
 	var a orbitEncoderArtifact
-	if len(data) > 32<<20 {
-		return nil, a, fmt.Errorf("encoder artifact exceeds 32 MiB")
+	if len(data) > 64<<20 {
+		return nil, a, fmt.Errorf("encoder artifact exceeds 64 MiB")
 	}
 	if err := json.Unmarshal(data, &a); err != nil {
 		return nil, a, err

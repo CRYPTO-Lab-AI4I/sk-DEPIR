@@ -2,7 +2,7 @@ package liftrs
 
 // orbitField adapts the public table-free fields to the bounded transform's
 // uint32 coefficients. Packing a+b*u as a+q*b preserves existing coordinates
-// and version-1 artifacts. Only the encoder's s<=9 bound permits this adapter;
+// and version-1 artifacts. The bounded encoder uses s<=10 in this adapter;
 // the public two-component quadratic API separately supports all s<=20.
 type orbitField struct {
 	q         uint32

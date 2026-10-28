@@ -108,10 +108,13 @@ func TestTargetProfile(t *testing.T) {
 		if entry.Code.S != s || entry.Code.M != 2 || entry.Code.T != degree {
 			t.Fatalf("target %d differs from documented security calculation", i)
 		}
-		if entry.Code.S == 8 || entry.Code.S == 9 {
+		if entry.Code.S >= 8 && entry.Code.S <= 10 {
 			wantK, wantPolynomial := uint64(3121), uint32(0x11d)
 			if entry.Code.S == 9 {
 				wantK, wantPolynomial = 17200, 0x211
+			}
+			if entry.Code.S == 10 {
+				wantK, wantPolynomial = 103556, 0x409
 			}
 			if entry.EncodingStatus != "supported" || entry.Encoder == nil || entry.Capacity.Status != "verified" || entry.Code.Polynomial == nil || *entry.Code.Polynomial != wantPolynomial || entry.Capacity.K == nil || *entry.Capacity.K != wantK {
 				t.Fatal("missing bounded exact encoding evidence")
@@ -122,10 +125,10 @@ func TestTargetProfile(t *testing.T) {
 		if entry.Capacity.K == nil || entry.Capacity.Rate == nil {
 			t.Fatal("missing capacity")
 		}
-		if entry.Code.S == 8 || entry.Code.S == 9 {
+		if entry.Code.S >= 8 && entry.Code.S <= 10 {
 			found := false
 			for _, e := range entry.Capacity.Evidence {
-				if e.Kind == "encoding" && (e.Results == "experiments/encoder-comparison/results.json" || e.Results == "experiments/tablefree-encoding/results.json") {
+				if e.Kind == "encoding" && (e.Results == "experiments/encoder-comparison/results.json" || e.Results == "experiments/tablefree-encoding/results.json" || e.Results == "experiments/encoder-scaling/results.json") {
 					found = true
 				}
 			}
@@ -147,7 +150,7 @@ func TestTargetProfile(t *testing.T) {
 					t.Fatal("empirical evidence missing or not reproducible")
 				}
 				wantK := (measured.Good*entry.Capacity.N + measured.Samples/2) / measured.Samples
-				if (entry.Code.S != 8 && entry.Code.S != 9 && (*entry.Capacity.K != wantK || *entry.Capacity.Rate != float64(wantK)/float64(entry.Capacity.N))) || source.MonteCarlo.Samples != measured.Samples || source.MonteCarlo.LowerRate != measured.LowerRate || source.MonteCarlo.UpperRate != measured.UpperRate || source.MonteCarlo.Confidence != measured.Confidence {
+				if (entry.Code.S != 8 && entry.Code.S != 9 && entry.Code.S != 10 && (*entry.Capacity.K != wantK || *entry.Capacity.Rate != float64(wantK)/float64(entry.Capacity.N))) || source.MonteCarlo.Samples != measured.Samples || source.MonteCarlo.LowerRate != measured.LowerRate || source.MonteCarlo.UpperRate != measured.UpperRate || source.MonteCarlo.Confidence != measured.Confidence {
 					t.Fatal("catalogue does not match recorded rate experiment")
 				}
 			}
@@ -446,5 +449,55 @@ func TestS9CapacityMatchesTableFreeEvidence(t *testing.T) {
 	}
 	if !found {
 		t.Fatal("missing s=9 evidence")
+	}
+}
+
+// Check the catalogue's exact s=10 capacity against the separately recorded
+// discovery and cross-encoder/curve evidence, retaining the old sampling record.
+func TestS10CapacityMatchesScalingEvidence(t *testing.T) {
+	file, err := os.Open("configs_catalogue.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer file.Close()
+	c, err := Load(file)
+	if err != nil {
+		t.Fatal(err)
+	}
+	raw, err := os.ReadFile("../experiments/encoder-scaling/results.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var result struct {
+		Discovery struct {
+			S, M, T int
+			K, N    uint64
+		}
+		Methods []struct {
+			Encoding struct {
+				Output string `json:"output_sha256"`
+			}
+		}
+		Verification struct {
+			K, N      uint64
+			Equal     bool   `json:"paper_cyclic_equal"`
+			Curves    int    `json:"curve_checks"`
+			Positions uint64 `json:"systematic_positions_checked"`
+		}
+	}
+	if err := json.Unmarshal(raw, &result); err != nil {
+		t.Fatal(err)
+	}
+	e := c.Configurations[2]
+	d := result.Discovery
+	if d.S != 10 || d.M != 2 || d.T != 6 || d.K != *e.Capacity.K || d.N != e.Capacity.N {
+		t.Fatal("s=10 discovery/catalogue mismatch")
+	}
+	if len(result.Methods) != 2 || result.Methods[0].Encoding.Output == "" || result.Methods[0].Encoding.Output != result.Methods[1].Encoding.Output {
+		t.Fatal("s=10 outputs disagree")
+	}
+	v := result.Verification
+	if !v.Equal || v.Curves != 64 || v.K != d.K || v.N != d.N || v.Positions != d.K {
+		t.Fatal("s=10 verification evidence incomplete")
 	}
 }

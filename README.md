@@ -16,12 +16,12 @@ The online query and decode path supports locality `ℓ=q-1`, dimensions `m=2` a
 
 **Paper and cyclic encoders now share the paper's information set** through the
 [bounded orbit API](encoding/liftrs/README.md#paper-and-cyclic-encoders), for `m=2`,
-`s=2..9`, and at most 262,144 codeword positions. Discovery, method preparation,
+`s=2..10`, and at most 1,048,576 codeword positions. Discovery, method preparation,
 public artifact loading, and database encoding are separate. Prepared artifacts
 include cached solver data or cyclic polynomials/spectra, reused for many databases.
 The [CPU comparison](experiments/encoder-comparison/report.md) reports setup, artifact
 sizes, per-database encoding, process memory and output I/O separately. This does
-not provide an s=10..20, streaming, GPU or integrated file-based encoder.
+not provide an s=11..20, streaming, GPU or integrated file-based encoder.
 The [table-free checkpoint](experiments/tablefree-encoding/report.md) now measures
 s=9,m=2,t=7 with exact K=17200. The standalone field API covers every s=2..20
 without full-field arithmetic tables; encoder support remains separately bounded.
@@ -31,6 +31,10 @@ diagnostics, not new latency benchmarks.
 The [polynomial-product comparison](experiments/fast-polynomial/report.md) measures
 the hybrid FFT/Karatsuba backend against the preceding implementation, separately
 for preprocessing and database encoding; codewords and artifacts are unchanged.
+The [s=10 CPU checkpoint](experiments/encoder-scaling/report.md) adds exact
+K=103556 at m=2,t=6, paper/cyclic agreement, independent sampled-curve checks,
+separate encoding heap sampling and packed output measurements. JSON artifacts
+remain in use.
 
 A separate [small cryptographic reference](encoding/cryptoref/README.md) permutes codewords and applies storage-position XOR masks using the existing AES helpers. It tests independent masking keys, re-encoding, and genuine-codeword retrieval. Its in-memory architecture is a correctness reference; it does not select a production API or streaming design.
 
@@ -162,8 +166,8 @@ The [rate estimator](cmd/pir-rate/README.md) samples monomials using a determini
 membership test that supports `s=2..20` without field arithmetic or generator
 matrices. This does not extend the small encoder's supported sizes.
 
-The s=8,m=2,t=8 and s=9,m=2,t=7 catalogue entries now record exact K=3121
-and K=17200 respectively, with standalone orbit encoder support. Remaining
+The s=8,m=2,t=8, s=9,m=2,t=7 and s=10,m=2,t=6 catalogue entries now record
+exact K=3121, K=17200 and K=103556, with standalone orbit encoder support. Remaining
 entries have estimated capacities. Historical
 experiment snapshots retain their earlier estimates.
 
@@ -173,8 +177,10 @@ The [planner design](docs/parameter-planning.md) describes joint selection of su
 
 The [application encoder](docs/encoder-contract.md#application-encoding) consumes a selected plan, partitions and pads the input, converts it to field elements, and invokes the non-cryptographic and cryptographic PIR encoders for each database; [appref](encoding/appref/README.md) implements this workflow only as a bounded reference. [Code preprocessing](docs/encoder-contract.md#code-preprocessing) takes only code specifications and produces reusable encoding information, independently of any database. Durable manifest/key persistence and large-instance backends remain separate work. The [encoding algorithm review](docs/encoding-algorithms.md) compares the paper's systematic encoder, a cyclic polynomial formulation, and reusable transform implementations; it records the bounded implementations and remaining large-instance work. The
 [five-step encoder plan](docs/encoding-algorithms.md#6-five-step-implementation-plan)
-has completed table-free arithmetic, the s=9 checkpoint and hybrid full/low
-polynomial products. Compact binary artifacts, CPU comparisons through s=12, bounded-RAM
+has completed table-free arithmetic, hybrid full/low polynomial products and CPU
+measurements through s=10. Continue scaling before artifact-format cleanup unless
+size/loading costs obstruct measurement. Compact binary artifacts, CPU comparisons
+through s=12, bounded-RAM
 encoding and optional GPU acceleration remain planned, not supported large-instance
 capabilities.
 

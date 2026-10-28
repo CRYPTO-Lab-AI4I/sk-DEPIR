@@ -1,0 +1,23 @@
+{
+  "revision": "f623d8ff918feb7e76e4758b514ed2f6cdaf29a0",
+  "source_sha256": {
+    "encoding/liftrs/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+    "encoding/liftrs/orbit.go": "f6895dfdac54513ef7993e592a4fbb6ac070de46f2952d3f92e50bbc3826641e",
+    "encoding/liftrs/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+    "encoding/liftrs/binary_field.go": "e58ef0cb377b091c9ca895f518f64fee5622b65255d945db483248db879f371f",
+    "encoding/liftrs/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs/orbit_artifact.go": "05928e8eedc2c8ba84f479c3712ef3969c8119c69165d7d41db7960341a6dea3",
+    "encoding/liftrs/orbit_fft.go": "836a97ecdc7c1a000f7f126209b236f89121aa12326e9b39b2a3bb29c083e021",
+    "encoding/liftrs/orbit_arithmetic.go": "fc1a4dfa5222bb60c806393ea12c3edcf6aa902a338d4ba5a8c3e0cc063393b3"
+  },
+  "driver_revision": "f623d8f",
+  "driver": "experiments/tablefree-encoding/main.go",
+  "commands": [
+    "go build -o /tmp/depir-s10-driver ./experiments/tablefree-encoding",
+    "/tmp/depir-s10-driver -mode discover -s 10 -t 6 -artifacts experiments/encoder-scaling/artifacts",
+    "/tmp/depir-s10-driver -mode prepare-paper -s 10 -t 6 -artifacts experiments/encoder-scaling/artifacts"
+  ],
+  "purpose": "Preflight exact dimension and paper JSON artifact size; final experiment repeats with 64 MiB loader limit."
+}

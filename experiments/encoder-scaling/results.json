@@ -1,0 +1,218 @@
+{
+  "timestamp_utc": "2026-10-28T13:07:01.416208+00:00",
+  "revision": "f623d8ff918feb7e76e4758b514ed2f6cdaf29a0",
+  "working_tree_dirty": true,
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python_version": "3.9.6",
+    "cpu_count": 18,
+    "go": "go version go1.27.3 darwin/arm64",
+    "gomaxprocs": "default",
+    "filesystem": {
+      "command": [
+        "df",
+        "-h",
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T"
+      ],
+      "exit_code": 0,
+      "stdout": "Filesystem      Size    Used   Avail Capacity iused ifree %iused  Mounted on\n/dev/disk3s5   926Gi   134Gi   771Gi    15%    1.6M  8.1G    0%   /System/Volumes/Data",
+      "stderr": ""
+    },
+    "output_directory": "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T",
+    "cache_policy": "No flush; packed output sync included and readback is cached.",
+    "hardware": {
+      "command": [
+        "/usr/sbin/system_profiler",
+        "SPHardwareDataType",
+        "-detailLevel",
+        "mini"
+      ],
+      "exit_code": 0,
+      "stdout": "      Model Name: MacBook Pro\n      Model Identifier: Mac17,9\n      Chip: Apple M5 Pro\n      Total Number of Cores: 18 (6 Super and 12 Performance)\n      Memory: 48 GB",
+      "stderr": "2026-10-28 14:04:59.452 system_profiler[55264:29755577] Error fetching hw.cpufamily: -1"
+    },
+    "storage": {
+      "command": [
+        "/usr/sbin/diskutil",
+        "info",
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Unable to run because unable to use the DiskManagement framework.\nCommon reasons include, but are not limited to, the DiskArbitration\nframework being unavailable due to being booted in single-user mode."
+    }
+  },
+  "source_sha256": {
+    "encoding/liftrs/binary_field.go": "e58ef0cb377b091c9ca895f518f64fee5622b65255d945db483248db879f371f",
+    "encoding/liftrs/binary_field_example_test.go": "ebe64131fda2352f8cc21c213ccf868836b30ca5f068c914250ca55d5dee3962",
+    "encoding/liftrs/binary_field_test.go": "996838d45b0f2ec11d9732191a74bb4a5874b95a72496a98ffd8d53f1f8e39e8",
+    "encoding/liftrs/example_test.go": "7d0272b0ae860e856fc0f55c81ed5e1fbb08fbe5e12f2660ffe8c97ba8a29112",
+    "encoding/liftrs/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+    "encoding/liftrs/orbit.go": "f6895dfdac54513ef7993e592a4fbb6ac070de46f2952d3f92e50bbc3826641e",
+    "encoding/liftrs/orbit_arithmetic.go": "fc1a4dfa5222bb60c806393ea12c3edcf6aa902a338d4ba5a8c3e0cc063393b3",
+    "encoding/liftrs/orbit_artifact.go": "eee214ab10365cee753c36c70aec6ea6a17dc2370f388bbdc633d0c9daa07f64",
+    "encoding/liftrs/orbit_example_test.go": "ccadd8a9a724c9c756d36baf6638094a2e5ac985c2abd65267a0c82abd0ad7bf",
+    "encoding/liftrs/orbit_fft.go": "836a97ecdc7c1a000f7f126209b236f89121aa12326e9b39b2a3bb29c083e021",
+    "encoding/liftrs/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+    "encoding/liftrs/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+    "encoding/liftrs/orbit_product_test.go": "c675c0dedba16763c3cf64c9a79e372e9698ec4b2c5a273d2883179b513ba3e7",
+    "encoding/liftrs/orbit_test.go": "bec52f3b8f7ceb7a05aa4a8d41e7c74f7859624b77a49d6ccb80c6769b07e2b0",
+    "encoding/liftrs/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+    "encoding/liftrs/s10_checkpoint_test.go": "3f606fc200b82ac3a7bfab79b8919d9af22997d419ba848ef6e11ef95255ceeb",
+    "experiments/encoder-scaling/main.go": "455d40135c12ddb8b33a27a780c411f30bd03cb132200bda79de519c2482ac0e",
+    "experiments/encoder-scaling/main_test.go": "b5745bd72970dcd9891c5ade1bd0e353e1e4cb1e476544fd14b95ec86002e59c",
+    "experiments/encoder-scaling/run.py": "be3a9dece0f642c0043927cd37aceb47889b5e578b7b5170e482ae8cc383b8e7",
+    "experiments/tablefree-encoding/main.go": "1b5242949a113792b0362fa0f311ba4079c386ff35f389f62132fdcf6e2ea72e",
+    "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
+    "go.sum": "6b5b9bf04b57c04dc22dc13596e0c5862856f95c24ca23931bb0545736f6ef76"
+  },
+  "artifact_sha256": {
+    "s10-m2-t6-basis.json": "c9f4a0c684589e8dfc03421026ae988da0c56130aaf1db816f85e80a21a3c62d",
+    "s10-m2-t6-cyclic-fft.json": "345e600ecf5754baade484b5cefaecdaa2eb3878083efd58f7287857aef77fdc",
+    "s10-m2-t6-paper.json": "e755eecdc128497f11bc4f1f3b19cb31d4ac239eb0249212db335fd6194e38d5"
+  },
+  "discovery": {
+    "artifact_bytes": 692831,
+    "discovery_ns": 1447402875,
+    "go_version": "go1.27.3",
+    "k": 103556,
+    "m": 2,
+    "n": 1048576,
+    "s": 10,
+    "samples": 1,
+    "seed": 1010,
+    "serialize_ns": 1700125,
+    "t": 6,
+    "process_peak_rss_bytes": 25034752
+  },
+  "methods": [
+    {
+      "method": "cyclic-fft",
+      "preparation": {
+        "artifact_bytes": 5397696,
+        "basis_load_ns": 10542709,
+        "basis_read_ns": 108917,
+        "go_version": "go1.27.3",
+        "method": "cyclic-fft",
+        "prepare_ns": 26475027959,
+        "serialize_ns": 15186458,
+        "process_peak_rss_bytes": 77889536
+      },
+      "encoding": {
+        "artifact_load_ns": 53454292,
+        "artifact_read_ns": 580000,
+        "cached_readback_ns": 517000,
+        "encode_allocated_bytes": [
+          10903568,
+          10903568,
+          10903600
+        ],
+        "encode_ns": [
+          2675311834,
+          2719924125,
+          2681691167
+        ],
+        "go_version": "go1.27.3",
+        "method": "cyclic-fft",
+        "output_bytes": 1310720,
+        "output_sha256": "29ae877daff8ad0ae5bd2f632e3263fb0d4f99a9c6748e3b01803bf389b92e35",
+        "packed_sha256": "81afb7c207c4e02bc88db0e99ada54c6ccffbbaf3b3c4ba770d7fd61ad668837",
+        "packing_ns": 916333,
+        "write_sync_ns": 4520375,
+        "process_peak_rss_bytes": 58589184
+      },
+      "memory": {
+        "allocated_bytes": 10904888,
+        "baseline_heap_alloc_bytes": 11460632,
+        "gc_cycles": 0,
+        "go_version": "go1.27.3",
+        "instrumented_encode_ns": 2751694125,
+        "k": 103556,
+        "method": "cyclic-fft",
+        "n": 1048576,
+        "output_unpacked_bytes": 4194304,
+        "sample_period_ns": 2000000,
+        "sampled_incremental_heap_alloc_bytes": 10904888,
+        "sampled_peak_heap_alloc_bytes": 22365520,
+        "sampled_peak_heap_inuse_bytes": 22831104,
+        "samples": 1376,
+        "seed": 7310,
+        "sha256": "4ba5a39df37f8a131f061b14744017ec24c6b8b455d7133a214b7fce5f03a35a",
+        "process_peak_rss_bytes": 44662784
+      }
+    },
+    {
+      "method": "paper",
+      "preparation": {
+        "artifact_bytes": 37479757,
+        "basis_load_ns": 10526542,
+        "basis_read_ns": 135042,
+        "go_version": "go1.27.3",
+        "method": "paper",
+        "prepare_ns": 23970917292,
+        "serialize_ns": 77668125,
+        "process_peak_rss_bytes": 257277952
+      },
+      "encoding": {
+        "artifact_load_ns": 165335583,
+        "artifact_read_ns": 3309083,
+        "cached_readback_ns": 497958,
+        "encode_allocated_bytes": [
+          197770112,
+          197770096,
+          197780720
+        ],
+        "encode_ns": [
+          10613914541,
+          10714222167,
+          10708310375
+        ],
+        "go_version": "go1.27.3",
+        "method": "paper",
+        "output_bytes": 1310720,
+        "output_sha256": "29ae877daff8ad0ae5bd2f632e3263fb0d4f99a9c6748e3b01803bf389b92e35",
+        "packed_sha256": "81afb7c207c4e02bc88db0e99ada54c6ccffbbaf3b3c4ba770d7fd61ad668837",
+        "packing_ns": 949833,
+        "write_sync_ns": 6010792,
+        "process_peak_rss_bytes": 126861312
+      },
+      "memory": {
+        "allocated_bytes": 197784880,
+        "baseline_heap_alloc_bytes": 38866840,
+        "gc_cycles": 5,
+        "go_version": "go1.27.3",
+        "instrumented_encode_ns": 11032695083,
+        "k": 103556,
+        "method": "paper",
+        "n": 1048576,
+        "output_unpacked_bytes": 4194304,
+        "sample_period_ns": 2000000,
+        "sampled_incremental_heap_alloc_bytes": 36309128,
+        "sampled_peak_heap_alloc_bytes": 75175968,
+        "sampled_peak_heap_inuse_bytes": 78053376,
+        "samples": 5517,
+        "seed": 7310,
+        "sha256": "4ba5a39df37f8a131f061b14744017ec24c6b8b455d7133a214b7fce5f03a35a",
+        "process_peak_rss_bytes": 126812160
+      }
+    }
+  ],
+  "verification": {
+    "curve_checks": 64,
+    "curve_points": 1024,
+    "go_version": "go1.27.3",
+    "k": 103556,
+    "m": 2,
+    "n": 1048576,
+    "paper_cyclic_equal": true,
+    "s": 10,
+    "seed": 7310,
+    "sha256": "4ba5a39df37f8a131f061b14744017ec24c6b8b455d7133a214b7fce5f03a35a",
+    "systematic_positions_checked": 103556,
+    "t": 6,
+    "process_peak_rss_bytes": 140066816
+  }
+}

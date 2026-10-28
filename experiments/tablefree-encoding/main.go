@@ -164,7 +164,7 @@ func main() {
 }
 
 // packWord follows the contract: element i, bit b occupies file bit i*s+b.
-// The accumulator holds fewer than 8+s bits; public encoder support is s<=9.
+// The accumulator holds fewer than 8+s bits; public encoder support is s<=10.
 func packWord(word []uint32, s int) []byte {
 	out := make([]byte, (len(word)*s+7)/8)
 	var pending uint64

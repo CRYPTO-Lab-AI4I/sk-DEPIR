@@ -214,3 +214,7 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-28 12:04 | ENCODE-004 | Completed | [Fast polynomial products validated](2026-10-28-1204-codex-encode-004-completed.md) |
 | 2026-10-28 12:40 | PUBLISH-005 | Started | [Publish polynomial-product checkpoint](2026-10-28-1240-codex-publish-005-started.md) |
 | 2026-10-28 12:40 | PUBLISH-005 | Completed | [Polynomial-product checkpoint reviewed](2026-10-28-1240-codex-publish-005-completed.md) |
+| 2026-10-28 12:59 | ENCODE-005 | Started | [CPU encoding at s=10](2026-10-28-1259-codex-encode-005-started.md) |
+| 2026-10-28 13:15 | ENCODE-005 | Completed | [CPU s=10 checkpoint validated](2026-10-28-1315-codex-encode-005-completed.md) |
+| 2026-10-28 14:36 | PUBLISH-006 | Started | [Publish s=10 encoder checkpoint](2026-10-28-1436-codex-publish-006-started.md) |
+| 2026-10-28 14:36 | PUBLISH-006 | Completed | [Publish s=10 encoder checkpoint](2026-10-28-1436-codex-publish-006-completed.md) |

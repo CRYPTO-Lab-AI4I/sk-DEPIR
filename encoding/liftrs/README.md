@@ -102,14 +102,18 @@ prototype cryptographic components for production. The existing file-based
 ## Paper and cyclic encoders
 
 The separate `OrbitBasis` API implements the paper's omega-power information set
-and two equivalent encoding algorithms for `m=2`, `s=2..9`, `1<=t<q-1`, with
-`N<=262,144`. This extends the comparison backend, not the dense `Preprocess` API
+and two equivalent encoding algorithms for `m=2`, `s=2..10`, `1<=t<q-1`, with
+`N<=1,048,576`. This extends the comparison backend, not the dense `Preprocess` API
 or the legacy file-based PIR encoder. Output remains unmasked canonical-grid
 polynomial-basis field elements. See the [algorithm review](../../docs/encoding-algorithms.md)
 and [initial table-backed comparison](../../experiments/encoder-comparison/report.md).
 The [table-free checkpoint](../../experiments/tablefree-encoding/report.md) measures
-the current implementation through s=9, including packed output and separate
+the earlier implementation through s=9, including packed output and separate
 preparation processes.
+The [s=10 checkpoint](../../experiments/encoder-scaling/report.md) extends exact
+encoding to N=1,048,576 and K=103556 for t=6, retaining JSON artifacts. The complete
+artifact loader limit is 64 MiB because the paper solver occupies 35.74 MiB;
+this input-size cap is separate from any publication or working-memory budget.
 
 ### Reusable preprocessing and database encoding
 
@@ -153,7 +157,7 @@ exact code specifications and reproducible generation evidence. The experiment
 includes [example public artifacts](../../experiments/encoder-comparison/artifacts/).
 Load only independently verified artifacts: loaders check shapes, bounds and field
 ranges, not mathematical provenance. Basis artifacts are limited to 2 MiB and
-complete encoder artifacts to 32 MiB in this bounded backend.
+complete encoder artifacts to 64 MiB in this bounded backend.
 
 ### Algorithms, coordinates and limitations
 
@@ -185,7 +189,7 @@ all database-dependent scratch is per call and excluded from public artifacts.
 The [comparison](../../experiments/fast-polynomial/report.md) records thresholds,
 correctness, allocation and whole-encoder effects. The backend remains in memory;
 there is no external-storage, streaming, GPU or constant-time implementation.
-It does not support s=10..20 or integrate automatically with application plans.
+It does not support s=11..20 or integrate automatically with application plans.
 Do not extrapolate the small comparison's speed or artifact sizes to those codes.
 
 [Tests](orbit_test.go) check transforms against Horner evaluation, polynomial
@@ -208,10 +212,10 @@ Arithmetic contains no log/exp table or cardinality-sized allocation. Its field
 state is fixed-size; multiplication is portable shift/XOR reduction. Operand
 addition/multiplication/power methods require canonical inputs; inverse validates
 its operand and rejects zero. These methods are not constant-time cryptographic
-primitives. The public arithmetic does not imply full encoder support at s=10..20.
+primitives. The public arithmetic does not imply full encoder support at s=11..20.
 
 The bounded orbit adapter still uses uint32-packed extension coefficients and
-in-memory transforms, restricted to s<=9. It preserves version-1 artifact bytes,
+in-memory transforms, restricted to s<=10. It preserves version-1 artifact bytes,
 polynomials and primitive-generator selection. Discovery now samples four bytes
 per monomial coefficient for s=9, masking to 9 bits; a single byte would not yield
 uniform coefficients. The [tests](binary_field_test.go) independently check all

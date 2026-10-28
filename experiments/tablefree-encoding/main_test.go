@@ -8,7 +8,7 @@ import (
 
 func TestPackingMatchesBitDefinition(t *testing.T) {
 	r := rand.New(rand.NewSource(32))
-	for s := 2; s <= 9; s++ {
+	for s := 2; s <= 10; s++ {
 		for n := 0; n < 40; n++ {
 			word := make([]uint32, n)
 			want := make([]byte, (n*s+7)/8)

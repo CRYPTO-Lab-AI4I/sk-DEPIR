@@ -61,3 +61,6 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
 
 - [Fast polynomial products](fast-polynomial/report.md): independent convolution
   checks, kernel timings and same-machine old/new preprocessing and encoder costs.
+
+- [CPU encoding at s=10](encoder-scaling/report.md): exact capacity, reusable JSON
+  artifacts, paper/cyclic agreement, independent curve checks and separate heap/output measurements.

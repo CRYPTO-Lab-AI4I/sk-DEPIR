@@ -110,7 +110,7 @@ There are two preprocessing routes to compare:
   rather than accepting a larger-degree gcd. This reasoning requires the exact
   code space and independent uniform samples, not estimated K or sparse samples.
 
-The D-based route is now implemented for m=2, s=2..9 and checked against the
+The D-based route is now implemented for m=2, s=2..10 and checked against the
 paper path and dense oracle. The random-codeword gcd route is not implemented.
 Tests verify coordinate orientation, zero-coordinate extension and equality.
 The [current dense oracle](../encoding/liftrs/reference.go) chooses different
@@ -231,6 +231,11 @@ unchanged encoder outputs, and arithmetic storage that does not grow with the
 extension-field cardinality. The first encoding checkpoint is `s=9`, using its
 catalogue curve degree, after arithmetic passes these checks.
 
+**Execution order:** prioritize Step 3's scaling measurements with the current JSON
+format. Implement Step 2's format/cache cleanup earlier only when artifact size,
+loading time or memory obstructs those measurements. This supersedes the original
+format-first ordering without changing the correctness or publication checks.
+
 ### Step 2: Define compact, reusable public preprocessing artifacts
 
 Separate the artifacts by responsibility:
@@ -265,9 +270,9 @@ auxiliary data are loaded, reconstructed or optionally cached.
 
 ### Step 3: Scale the in-memory CPU encoder through s=9..12
 
-Advance one catalogue configuration at a time. Replace JSON numerical arrays
-with a documented binary artifact format, reuse scratch buffers and limit
-simultaneous allocations. Compare caching the generator spectrum with recomputing
+Advance one catalogue configuration at a time, keeping JSON artifacts until
+measurements justify changing their representation. Reuse scratch buffers and
+limit simultaneous allocations when measured costs warrant it. Compare caching the generator spectrum with recomputing
 it, recording the change in artifact size, setup and per-database cost explicitly.
 Compare with the paper path where feasible, without conflating different
 preprocessing boundaries.
@@ -326,11 +331,28 @@ large acceleration caches before the earlier checkpoints establish their costs.
 
 [The implementation and experiment](../experiments/tablefree-encoding/report.md)
 now provide portable base-field and two-component extension arithmetic for all
-s=2..20 with fixed-size arithmetic state. The encoder adapter supports m=2,s<=9;
-its transforms and polynomial scratch remain in memory. Existing s<=8 artifacts
+s=2..20 with fixed-size arithmetic state. At that checkpoint, the encoder adapter
+supported m=2,s<=9; transforms and polynomial scratch remain in memory. Existing s<=8 artifacts
 and complete output hashes are preserved, and s=9,t=7 has exact K=17200 with
 paper/cyclic agreement and sampled curve constraints. Table-free arithmetic is
 slower than the former tables on the measured small instance. This completes the
 arithmetic/s=9 part of Step 1. The later [polynomial-product checkpoint](../experiments/fast-polynomial/report.md)
 adds hybrid full/low products and validates unchanged artifacts and codewords.
 Compact binary artifacts, bounded-RAM encoding and GPU acceleration remain open.
+
+### CPU scaling checkpoint: s=10
+
+The [s=10,m=2,t=6 experiment](../experiments/encoder-scaling/report.md) now establishes
+exact K=103556 at N=1,048,576, with paper/cyclic agreement, full systematic-position
+checks and sampled actual-curve constraints evaluated using independent arithmetic.
+Code-only discovery/preparation, artifact loading, uninstrumented encoding, separate
+heap sampling and packed output I/O are measured independently. JSON remains in use;
+the complete-artifact loader cap was raised from 32 to 64 MiB to load the 35.74 MiB
+paper solver. This cap is independent of the proposed publication-size budget.
+
+The heap sampler reports an observed increase above loaded-cache/message baseline,
+including the 4 MiB output; it can miss transient peaks and is not an exact bound
+on intermediate workspace. Process RSS is recorded separately. The packed file is
+one canonical codeword, not grouped application storage or sustained disk throughput.
+Next use these measurements to choose optimization work and advance to s=11/12;
+streaming, external-memory and GPU scope decisions remain separate.

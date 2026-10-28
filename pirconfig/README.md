@@ -17,7 +17,10 @@ Its historical Monte Carlo point estimate was K=3117 and remains separate eviden
 The s=9,m=2,t=7 entry now has exact K=17200, polynomial 0x211 and the same
 standalone bounded support, backed by the [table-free checkpoint](../experiments/tablefree-encoding/report.md).
 Its historical Monte Carlo point estimate K=17118 remains separate evidence.
-The other 11 entries retain estimated capacities and candidate encoding status.
+The s=10,m=2,t=6 entry now has exact K=103556, polynomial 0x409 and standalone
+bounded support, backed by the [CPU scaling checkpoint](../experiments/encoder-scaling/report.md).
+Its historical Monte Carlo point estimate K=103952 remains separate evidence.
+The other 10 entries retain estimated capacities and candidate encoding status.
 “Supported” identifies the non-cryptographic backend, not integrated application
 encoding, grouped storage or production security. Historical cost-grid snapshots
 retain their original estimates so objective comparisons use identical inputs.

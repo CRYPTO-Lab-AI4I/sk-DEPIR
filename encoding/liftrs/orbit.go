@@ -16,7 +16,7 @@ type OrbitOptions struct {
 }
 
 // OrbitBasis contains only public, reusable code data, never a database or key.
-// This bounded implementation accepts m=2 and s=2..9 (N<=262144). Larger catalogue
+// This bounded implementation accepts m=2 and s=2..10 (N<=1048576). Larger catalogue
 // instances need a different memory/I/O backend. Its methods are concurrency-safe.
 type OrbitBasis struct {
 	spec                     Spec
@@ -33,9 +33,9 @@ type OrbitBasis struct {
 // failure to reach K is an error, never an estimated-capacity encoding artifact.
 func DiscoverOrbit(spec Spec, options OrbitOptions) (*OrbitBasis, error) {
 	polynomial, polynomialErr := BinaryPolynomial(spec.FieldDegree)
-	ok := polynomialErr == nil && spec.FieldDegree <= 9
+	ok := polynomialErr == nil && spec.FieldDegree <= 10
 	if !ok || spec.Dimension != 2 {
-		return nil, fmt.Errorf("orbit backend requires m=2 and s=2..9")
+		return nil, fmt.Errorf("orbit backend requires m=2 and s=2..10")
 	}
 	q := 1 << uint(spec.FieldDegree)
 	if spec.CurveDegree < 1 || spec.CurveDegree >= q-1 {
@@ -336,7 +336,7 @@ func LoadOrbit(data []byte) (*OrbitBasis, error) {
 	}
 	spec := artifact.Spec
 	polynomial, polynomialErr := BinaryPolynomial(spec.FieldDegree)
-	ok := polynomialErr == nil && spec.FieldDegree <= 9
+	ok := polynomialErr == nil && spec.FieldDegree <= 10
 	if artifact.Version != 1 || !ok || spec.Dimension != 2 || spec.CurveDegree < 1 || spec.CurveDegree >= (1<<uint(spec.FieldDegree))-1 {
 		return nil, fmt.Errorf("unsupported basis artifact")
 	}

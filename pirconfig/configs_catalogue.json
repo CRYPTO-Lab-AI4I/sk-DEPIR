@@ -144,17 +144,18 @@
     },
     {
       "id": "binary-s10-m2-t6",
-      "encoding_status": "candidate",
+      "encoding_status": "supported",
       "code": {
         "s": 10,
         "m": 2,
-        "t": 6
+        "t": 6,
+        "polynomial": 1033
       },
       "capacity": {
-        "status": "estimated",
+        "status": "verified",
         "n": 1048576,
-        "k": 103952,
-        "rate": 0.0991363525390625,
+        "k": 103556,
+        "rate": 0.09875869750976562,
         "evidence": [
           {
             "kind": "monte_carlo",
@@ -168,6 +169,13 @@
               "lower_rate": 0.09715316532156491,
               "upper_rate": 0.10111883467843509
             }
+          },
+          {
+            "kind": "encoding",
+            "reference": "experiments/encoder-scaling/report.md",
+            "script": "experiments/encoder-scaling/run.py",
+            "results": "experiments/encoder-scaling/results.json",
+            "method": "Exact monomial enumeration gives K=103556,N=1048576 at s=10,m=2,t=6 with field polynomial 0x409. Discovery reaches exact dimension. Paper/cyclic outputs and all systematic positions agree on two distinct seeded messages; the verification message passes 64 actual degree-six curve-sum checks using independent carryless arithmetic. Separate fixture tests recount the dimension and test another message. Bounded standalone non-cryptographic encoding only; historical Monte Carlo point K=103952 remains separate evidence."
           }
         ]
       },
@@ -187,6 +195,19 @@
             "reference": "experiments/bounded-sample-parameters/report.md",
             "script": "experiments/bounded-sample-parameters/run.py",
             "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      },
+      "encoder": {
+        "implementation": "encoding/liftrs/orbit.go: DiscoverOrbit, PreparePaper, PrepareCyclicFFT",
+        "preprocessing": "Table-free fields and hybrid polynomial products; exact dimension and certified degree support; complete public JSON code-only artifacts reused across databases. In-memory bounded backend, not integrated application execution.",
+        "evidence": [
+          {
+            "kind": "encoding",
+            "reference": "experiments/encoder-scaling/report.md",
+            "script": "experiments/encoder-scaling/run.py",
+            "results": "experiments/encoder-scaling/results.json",
+            "method": "Exact monomial enumeration gives K=103556,N=1048576 at s=10,m=2,t=6 with field polynomial 0x409. Discovery reaches exact dimension. Paper/cyclic outputs and all systematic positions agree on two distinct seeded messages; the verification message passes 64 actual degree-six curve-sum checks using independent carryless arithmetic. Separate fixture tests recount the dimension and test another message. Bounded standalone non-cryptographic encoding only; historical Monte Carlo point K=103952 remains separate evidence."
           }
         ]
       }
