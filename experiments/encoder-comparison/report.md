@@ -118,3 +118,11 @@ now records exact K=3121 for s=8,m=2,t=8, preserving Monte Carlo evidence separa
 Standalone support does not imply integration with application plans or grouped
 storage. Per-stage memory and packed/grouped output measurement remain future
 acceptance checks; the reported process RSS and uint32 sink are not those measurements.
+
+## Table-free implementation checkpoint
+
+The [new experiment](../tablefree-encoding/report.md) removes arithmetic lookup
+tables, preserves this run's artifact/output conventions, and extends the encoder
+to s=9. This report and its timing/source hashes describe the earlier table-backed
+implementation, not current performance. See the new report for the explicit
+speed/memory tradeoff and independently checked historical codeword compatibility.

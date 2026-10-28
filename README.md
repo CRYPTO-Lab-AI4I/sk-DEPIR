@@ -16,12 +16,15 @@ The online query and decode path supports locality `ℓ=q-1`, dimensions `m=2` a
 
 **Paper and cyclic encoders now share the paper's information set** through the
 [bounded orbit API](encoding/liftrs/README.md#paper-and-cyclic-encoders), for `m=2`,
-`s=2..8`, and at most 65,536 codeword positions. Discovery, method preparation,
+`s=2..9`, and at most 262,144 codeword positions. Discovery, method preparation,
 public artifact loading, and database encoding are separate. Prepared artifacts
 include cached solver data or cyclic polynomials/spectra, reused for many databases.
 The [CPU comparison](experiments/encoder-comparison/report.md) reports setup, artifact
 sizes, per-database encoding, process memory and output I/O separately. This does
-not provide an s=9..20, streaming, GPU or integrated file-based encoder.
+not provide an s=10..20, streaming, GPU or integrated file-based encoder.
+The [table-free checkpoint](experiments/tablefree-encoding/report.md) now measures
+s=9,m=2,t=7 with exact K=17200. The standalone field API covers every s=2..20
+without full-field arithmetic tables; encoder support remains separately bounded.
 
 A separate [small cryptographic reference](encoding/cryptoref/README.md) permutes codewords and applies storage-position XOR masks using the existing AES helpers. It tests independent masking keys, re-encoding, and genuine-codeword retrieval. Its in-memory architecture is a correctness reference; it does not select a production API or streaming design.
 
@@ -153,8 +156,9 @@ The [rate estimator](cmd/pir-rate/README.md) samples monomials using a determini
 membership test that supports `s=2..20` without field arithmetic or generator
 matrices. This does not extend the small encoder's supported sizes.
 
-The s=8,m=2,t=8 catalogue entry now records exact K=3121 and standalone orbit
-encoder support; the remaining entries have estimated capacities. Historical
+The s=8,m=2,t=8 and s=9,m=2,t=7 catalogue entries now record exact K=3121
+and K=17200 respectively, with standalone orbit encoder support. Remaining
+entries have estimated capacities. Historical
 experiment snapshots retain their earlier estimates.
 
 The PIR configuration catalogue includes binary extension fields `GF(2^s)` for every integer `s` from 8 through 20, initially with `m=2` and the [bounded-sample parameter profile](docs/parameter-planning.md#configuration-catalogue); prime fields are outside the current scope. For indexed layouts, application records must be at least as wide as the largest PIR record in the supported catalogue; packing is outside the current scope.
@@ -163,13 +167,14 @@ The [planner design](docs/parameter-planning.md) describes joint selection of su
 
 The [application encoder](docs/encoder-contract.md#application-encoding) consumes a selected plan, partitions and pads the input, converts it to field elements, and invokes the non-cryptographic and cryptographic PIR encoders for each database; [appref](encoding/appref/README.md) implements this workflow only as a bounded reference. [Code preprocessing](docs/encoder-contract.md#code-preprocessing) takes only code specifications and produces reusable encoding information, independently of any database. Durable manifest/key persistence and large-instance backends remain separate work. The [encoding algorithm review](docs/encoding-algorithms.md) compares the paper's systematic encoder, a cyclic polynomial formulation, and reusable transform implementations; it records the bounded implementations and remaining large-instance work. The
 [five-step encoder plan](docs/encoding-algorithms.md#6-five-step-implementation-plan)
-starts with removing full-extension-field tables and validating s=9, followed by
-compact reusable artifacts, CPU comparisons through s=12, bounded-RAM encoding,
-and optional GPU acceleration. These are planned checkpoints, not supported
-large-instance capabilities.
+has completed table-free arithmetic and the s=9 checkpoint. Fast truncated
+multiplication, compact binary artifacts, CPU comparisons through s=12, bounded-RAM
+encoding and optional GPU acceleration remain planned, not supported large-instance
+capabilities.
 
 - `utils/gf2n.go` implements `GF(2^n)` with log/exp tables for degrees 4, 8, 12, 13, 14, 16, 17, 18, and 20.
-- Degrees 9, 10, 11, 15, and 19 remain to be implemented for the target range. Terabyte-scale application databases are a parameter-planning target, not a verified implementation capability.
+- Degrees 9, 10, 11, 15, and 19 remain absent from that legacy backend; the
+  separate `encoding/liftrs` table-free arithmetic supports every s=2..20. Terabyte-scale application databases are a parameter-planning target, not a verified implementation capability.
 - `utils/curve_generation.go` implements prime-field curve generation and `GF(2^n)` curve generation for the online Lift-RS path.
 - `config.json` stores base64-encoded permutator and encryptor keys, a permutator tweak, and a server URL. The configuration helper fills in and persists missing key fields; `Gen` creates ephemeral in-memory keys.
 

@@ -14,7 +14,10 @@ supporting sources. The security profile comes from the separate
 The s=8,m=2,t=8 entry now has exact K=3121, polynomial 0x11d and standalone
 bounded orbit encoder support, backed by the [encoder comparison](../experiments/encoder-comparison/report.md).
 Its historical Monte Carlo point estimate was K=3117 and remains separate evidence.
-The other 12 entries retain estimated capacities and candidate encoding status.
+The s=9,m=2,t=7 entry now has exact K=17200, polynomial 0x211 and the same
+standalone bounded support, backed by the [table-free checkpoint](../experiments/tablefree-encoding/report.md).
+Its historical Monte Carlo point estimate K=17118 remains separate evidence.
+The other 11 entries retain estimated capacities and candidate encoding status.
 “Supported” identifies the non-cryptographic backend, not integrated application
 encoding, grouped storage or production security. Historical cost-grid snapshots
 retain their original estimates so objective comparisons use identical inputs.

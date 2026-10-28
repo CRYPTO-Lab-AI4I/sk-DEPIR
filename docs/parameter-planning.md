@@ -44,8 +44,8 @@ capacity. Record this status separately from the rate evidence.
 The [PIR configuration catalogue](../pirconfig/configs_catalogue.json) contains the
 agreed security profiles and [Monte Carlo rate estimates](../experiments/liftrs-rates/report.md)
 for every target configuration. The four matching paper estimates remain as
-supporting evidence. The s=8 entry additionally records exact capacity K=3121 and bounded standalone
-encoding support; the other capacities remain provisional. An application plan
+supporting evidence. The s=8 and s=9 entries additionally record exact capacities K=3121 and K=17200
+and bounded standalone encoding support; the other capacities remain provisional. An application plan
 still needs a compatible execution backend, beyond catalogue metadata alone.
 The [verified tiny fixture](../pirconfig/testdata/reference.json) exercises the format
 without claiming security.
@@ -97,8 +97,9 @@ Lower `t` values will be considered later as lower-security alternatives.
 Choose layouts by capacity, code rate, padding, and download costs. Upload remains
 reported and constrained when requested, but is not the optimization objective.
 Byte alignment does not restrict the catalogue. Each degree needs implemented field
-arithmetic and validated encoder capacity before use. Current arithmetic is in
-[gf2n.go](../utils/gf2n.go). The existing [Params type](../pir/params.go) names `q`,
+arithmetic and validated encoder capacity before use. Legacy client arithmetic is in [gf2n.go](../utils/gf2n.go); the separate
+[table-free arithmetic](../encoding/liftrs/binary_field.go) covers every s=2..20
+without implying a full encoder at all those sizes. The existing [Params type](../pir/params.go) names `q`,
 `m`, and curve degree `t` as `Q`, `M`, and `K`; its `K` is not the message capacity used
 in this document.
 

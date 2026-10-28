@@ -1,0 +1,254 @@
+{
+  "timestamp_utc": "2026-10-28T10:59:13.540171+00:00",
+  "base_revision": "08f9f5f5a9adbcf8bd269a85287ddaf8fdeb56b2",
+  "working_tree_dirty": true,
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python_version": "3.9.6",
+    "cpu_count": 18,
+    "processor": "arm",
+    "gomaxprocs": "default",
+    "output_directory": "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T",
+    "cache_policy": "No cache flush; final output sync included; readback is cached.",
+    "hardware": {
+      "command": [
+        "/usr/sbin/system_profiler",
+        "SPHardwareDataType",
+        "-detailLevel",
+        "mini"
+      ],
+      "exit_code": 0,
+      "stdout": "      Model Name: MacBook Pro\n      Model Identifier: Mac17,9\n      Chip: Apple M5 Pro\n      Total Number of Cores: 18 (6 Super and 12 Performance)\n      Memory: 48 GB",
+      "stderr": "2026-10-28 11:59:13.522 system_profiler[51504:29587101] Error fetching hw.cpufamily: -1"
+    },
+    "filesystem": {
+      "command": [
+        "/bin/df",
+        "-h",
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T"
+      ],
+      "exit_code": 0,
+      "stdout": "Filesystem      Size    Used   Avail Capacity iused ifree %iused  Mounted on\n/dev/disk3s5   926Gi   134Gi   771Gi    15%    1.6M  8.1G    0%   /System/Volumes/Data",
+      "stderr": ""
+    },
+    "storage": {
+      "command": [
+        "/usr/sbin/diskutil",
+        "info",
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Unable to run because unable to use the DiskManagement framework.\nCommon reasons include, but are not limited to, the DiskArbitration\nframework being unavailable due to being booted in single-user mode."
+    }
+  },
+  "source_sha256": {
+    "encoding/liftrs/orbit_polynomial.go": "5c199c5169f9b5eec700f977de376b4ea48970b17906d372d0ed4d2f86012f77",
+    "encoding/liftrs/orbit.go": "ab1ff954016792d5e8d8ebc0b0003e08ee78ef0a042cb4fe2eece9c43dd22878",
+    "encoding/liftrs/binary_field.go": "e58ef0cb377b091c9ca895f518f64fee5622b65255d945db483248db879f371f",
+    "encoding/liftrs/orbit_example_test.go": "ccadd8a9a724c9c756d36baf6638094a2e5ac985c2abd65267a0c82abd0ad7bf",
+    "encoding/liftrs/example_test.go": "7d0272b0ae860e856fc0f55c81ed5e1fbb08fbe5e12f2660ffe8c97ba8a29112",
+    "encoding/liftrs/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+    "encoding/liftrs/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+    "encoding/liftrs/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs/orbit_test.go": "565427527d884b54d7de436fa87c922f59af6420ec0ea7ab65ccdaeef758162a",
+    "encoding/liftrs/orbit_artifact.go": "05928e8eedc2c8ba84f479c3712ef3969c8119c69165d7d41db7960341a6dea3",
+    "encoding/liftrs/binary_field_example_test.go": "ebe64131fda2352f8cc21c213ccf868836b30ca5f068c914250ca55d5dee3962",
+    "encoding/liftrs/binary_field_test.go": "996838d45b0f2ec11d9732191a74bb4a5874b95a72496a98ffd8d53f1f8e39e8",
+    "encoding/liftrs/orbit_fft.go": "a8ce29350f76f89c1c01c5950c4c912c16aa3f06c8cf33c8df7f8e9b5d3e1057",
+    "encoding/liftrs/orbit_arithmetic.go": "8810a3a35d3323264690e5c8c93761ba1dc1167468e112ec7a772a4a23bfa43e",
+    "experiments/tablefree-encoding/main.go": "6b3a9a0ea256c518ba5319973e799370d877e985848f7c639b0a2a2e9ace2dda",
+    "experiments/tablefree-encoding/main_test.go": "f6eaef1138bb3566c1eb5c9103b2abd6f6452e96ca1c18f821cc3d6a70c86d8d",
+    "experiments/tablefree-encoding/run.py": "26fc4c948f976db6930924b329ab8a69edab81943c8264ad699549efd29b776d",
+    "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
+    "experiments/encoder-comparison/results.json": "6262278882ebd51834dfdb0472c20a7a7e0d90ef8a0c0a7e4a84c9a853f6d7f4"
+  },
+  "artifact_sha256": {
+    "s08-m2-t8-basis.json": "8c7a5dff25c053756a913fd8f65067ce5423147a7e365fdb8538231301add8fa",
+    "s08-m2-t8-cyclic-fft.json": "82a5abdd9af18250ffca7ad77d14c7b3cf21959df2213b5373ebd8fa5be1d4f7",
+    "s08-m2-t8-paper.json": "9be8ebd2345ead99254232e61d5ac4eeb5126743c5bdd495849f9b101358ed44",
+    "s09-m2-t7-basis.json": "5b818845a23d3b9106562c42bd4ff6a03912207e37184a163ea6ac92d807ed19",
+    "s09-m2-t7-cyclic-fft.json": "d9f204f60ed8ae75233e80f9225eef95b1a028385767b2d8244db0c4f9f028fc",
+    "s09-m2-t7-paper.json": "5ce725d8068d01d739caecc1f31ab43de8a905a11fa4585688238afec24563ba"
+  },
+  "scenarios": [
+    {
+      "discovery": {
+        "artifact_bytes": 16945,
+        "discovery_ns": 69569917,
+        "go_version": "go1.27.3",
+        "k": 3121,
+        "m": 2,
+        "n": 65536,
+        "s": 8,
+        "samples": 1,
+        "seed": 1008,
+        "serialize_ns": 277541,
+        "t": 8,
+        "process_peak_rss_bytes": 6815744
+      },
+      "methods": [
+        {
+          "preparation": {
+            "artifact_bytes": 825542,
+            "basis_load_ns": 961458,
+            "basis_read_ns": 26625,
+            "go_version": "go1.27.3",
+            "method": "paper",
+            "prepare_ns": 322678958,
+            "serialize_ns": 2408334,
+            "process_peak_rss_bytes": 15613952
+          },
+          "encoding": {
+            "artifact_load_ns": 5086917,
+            "artifact_read_ns": 103667,
+            "cached_readback_ns": 81791,
+            "encode_allocated_bytes": [
+              10879192,
+              10868424,
+              10868552
+            ],
+            "encode_ns": [
+              192333542,
+              203946375,
+              195338667
+            ],
+            "go_version": "go1.27.3",
+            "method": "paper",
+            "output_bytes": 65536,
+            "output_sha256": "0f049a254e9da9413c1a12ec8cf57a761b61357feba536070fe0cb28631ba4bf",
+            "packed_sha256": "6fd09a871360f336b2a8582f2c6ff5be332faa2eaf4f9467a64a287ec4bcdab9",
+            "packing_ns": 43417,
+            "write_sync_ns": 7905708,
+            "process_peak_rss_bytes": 13041664
+          }
+        },
+        {
+          "preparation": {
+            "artifact_bytes": 290972,
+            "basis_load_ns": 675500,
+            "basis_read_ns": 37750,
+            "go_version": "go1.27.3",
+            "method": "cyclic-fft",
+            "prepare_ns": 388642292,
+            "serialize_ns": 882750,
+            "process_peak_rss_bytes": 14860288
+          },
+          "encoding": {
+            "artifact_load_ns": 3927292,
+            "artifact_read_ns": 59167,
+            "cached_readback_ns": 70333,
+            "encode_allocated_bytes": [
+              2698272,
+              2703576,
+              2703608
+            ],
+            "encode_ns": [
+              72564750,
+              73027833,
+              72305292
+            ],
+            "go_version": "go1.27.3",
+            "method": "cyclic-fft",
+            "output_bytes": 65536,
+            "output_sha256": "0f049a254e9da9413c1a12ec8cf57a761b61357feba536070fe0cb28631ba4bf",
+            "packed_sha256": "6fd09a871360f336b2a8582f2c6ff5be332faa2eaf4f9467a64a287ec4bcdab9",
+            "packing_ns": 43542,
+            "write_sync_ns": 4003084,
+            "process_peak_rss_bytes": 12500992
+          }
+        }
+      ]
+    },
+    {
+      "discovery": {
+        "artifact_bytes": 106128,
+        "discovery_ns": 263764000,
+        "go_version": "go1.27.3",
+        "k": 17200,
+        "m": 2,
+        "n": 262144,
+        "s": 9,
+        "samples": 1,
+        "seed": 1009,
+        "serialize_ns": 346291,
+        "t": 7,
+        "process_peak_rss_bytes": 10272768
+      },
+      "methods": [
+        {
+          "preparation": {
+            "artifact_bytes": 5408038,
+            "basis_load_ns": 2632792,
+            "basis_read_ns": 30750,
+            "go_version": "go1.27.3",
+            "method": "paper",
+            "prepare_ns": 8162431667,
+            "serialize_ns": 13297917,
+            "process_peak_rss_bytes": 51019776
+          },
+          "encoding": {
+            "artifact_load_ns": 27409125,
+            "artifact_read_ns": 592542,
+            "cached_readback_ns": 160417,
+            "encode_allocated_bytes": [
+              293348104,
+              293331904,
+              293332096
+            ],
+            "encode_ns": [
+              4109855917,
+              4114535625,
+              4114228292
+            ],
+            "go_version": "go1.27.3",
+            "method": "paper",
+            "output_bytes": 294912,
+            "output_sha256": "a58e9aa839e7a7557b46e3c1d20558d9b0dbf284fc5386a5f57883813d30e7c2",
+            "packed_sha256": "6699a2c9d71300ef806e539331da71b382f8714cf8c0b1ed7caf7261c08cd5d6",
+            "packing_ns": 201542,
+            "write_sync_ns": 7201917,
+            "process_peak_rss_bytes": 27557888
+          }
+        },
+        {
+          "preparation": {
+            "artifact_bytes": 1232967,
+            "basis_load_ns": 2667208,
+            "basis_read_ns": 50166,
+            "go_version": "go1.27.3",
+            "method": "cyclic-fft",
+            "prepare_ns": 3918216250,
+            "serialize_ns": 3816250,
+            "process_peak_rss_bytes": 35651584
+          },
+          "encoding": {
+            "artifact_load_ns": 14506666,
+            "artifact_read_ns": 160334,
+            "cached_readback_ns": 158834,
+            "encode_allocated_bytes": [
+              62045224,
+              62039744,
+              62039872
+            ],
+            "encode_ns": [
+              508097708,
+              508780292,
+              494958333
+            ],
+            "go_version": "go1.27.3",
+            "method": "cyclic-fft",
+            "output_bytes": 294912,
+            "output_sha256": "a58e9aa839e7a7557b46e3c1d20558d9b0dbf284fc5386a5f57883813d30e7c2",
+            "packed_sha256": "6699a2c9d71300ef806e539331da71b382f8714cf8c0b1ed7caf7261c08cd5d6",
+            "packing_ns": 204625,
+            "write_sync_ns": 5992625,
+            "process_peak_rss_bytes": 18857984
+          }
+        }
+      ]
+    }
+  ]
+}

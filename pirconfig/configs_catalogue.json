@@ -74,17 +74,18 @@
     },
     {
       "id": "binary-s09-m2-t7",
-      "encoding_status": "candidate",
+      "encoding_status": "supported",
       "code": {
         "s": 9,
         "m": 2,
-        "t": 7
+        "t": 7,
+        "polynomial": 529
       },
       "capacity": {
-        "status": "estimated",
+        "status": "verified",
         "n": 262144,
-        "k": 17118,
-        "rate": 0.06529998779296875,
+        "k": 17200,
+        "rate": 0.06561279296875,
         "evidence": [
           {
             "kind": "monte_carlo",
@@ -98,6 +99,13 @@
               "lower_rate": 0.06331716532156491,
               "upper_rate": 0.06728283467843509
             }
+          },
+          {
+            "kind": "encoding",
+            "reference": "experiments/tablefree-encoding/report.md",
+            "script": "experiments/tablefree-encoding/run.py",
+            "results": "experiments/tablefree-encoding/results.json",
+            "method": "Exact enumeration gives K=17200,N=262144 at s=9,m=2,t=7; discovery reaches exact dimension, both prepared encoders yield identical complete outputs and preserve all systematic symbols. Tests also check sampled degree-7 curve constraints using independent arithmetic. Bounded standalone non-cryptographic encoding only; historical Monte Carlo point K=17118 retained separately."
           }
         ]
       },
@@ -117,6 +125,19 @@
             "reference": "experiments/bounded-sample-parameters/report.md",
             "script": "experiments/bounded-sample-parameters/run.py",
             "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      },
+      "encoder": {
+        "implementation": "encoding/liftrs/orbit.go: DiscoverOrbit, PreparePaper, PrepareCyclicFFT",
+        "preprocessing": "Table-free field arithmetic; exact dimension and certified degree support; complete public code-only artifacts loaded once and reused across databases. In-memory bounded backend, not integrated application execution.",
+        "evidence": [
+          {
+            "kind": "encoding",
+            "reference": "experiments/tablefree-encoding/report.md",
+            "script": "experiments/tablefree-encoding/run.py",
+            "results": "experiments/tablefree-encoding/results.json",
+            "method": "Exact enumeration gives K=17200,N=262144 at s=9,m=2,t=7; discovery reaches exact dimension, both prepared encoders yield identical complete outputs and preserve all systematic symbols. Tests also check sampled degree-7 curve constraints using independent arithmetic. Bounded standalone non-cryptographic encoding only; historical Monte Carlo point K=17118 retained separately."
           }
         ]
       }

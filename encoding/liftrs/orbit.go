@@ -16,7 +16,7 @@ type OrbitOptions struct {
 }
 
 // OrbitBasis contains only public, reusable code data, never a database or key.
-// This bounded implementation accepts m=2 and s=2..8 (N<=65536). Larger catalogue
+// This bounded implementation accepts m=2 and s=2..9 (N<=262144). Larger catalogue
 // instances need a different memory/I/O backend. Its methods are concurrency-safe.
 type OrbitBasis struct {
 	spec                     Spec
@@ -32,10 +32,10 @@ type OrbitBasis struct {
 // have appeared. K is independently counted by exact good-monomial enumeration;
 // failure to reach K is an error, never an estimated-capacity encoding artifact.
 func DiscoverOrbit(spec Spec, options OrbitOptions) (*OrbitBasis, error) {
-	polynomials := map[int]uint32{2: 0x7, 3: 0xb, 4: 0x13, 5: 0x25, 6: 0x43, 7: 0x83, 8: 0x11d}
-	polynomial, ok := polynomials[spec.FieldDegree]
+	polynomial, polynomialErr := BinaryPolynomial(spec.FieldDegree)
+	ok := polynomialErr == nil && spec.FieldDegree <= 9
 	if !ok || spec.Dimension != 2 {
-		return nil, fmt.Errorf("orbit backend requires m=2 and s=2..8")
+		return nil, fmt.Errorf("orbit backend requires m=2 and s=2..9")
 	}
 	q := 1 << uint(spec.FieldDegree)
 	if spec.CurveDegree < 1 || spec.CurveDegree >= q-1 {
@@ -60,14 +60,23 @@ func DiscoverOrbit(spec Spec, options OrbitOptions) (*OrbitBasis, error) {
 	}
 	found := make([]bool, q*q)
 	count := 0
-	random := make([]byte, len(good))
+	sampleBytes := 1
+	if spec.FieldDegree > 8 {
+		sampleBytes = 4
+	}
+	random := make([]byte, sampleBytes*len(good))
 	for b.samples < options.MaxSamples && count < len(good) {
 		if _, err := io.ReadFull(options.Random, random); err != nil {
 			return nil, fmt.Errorf("degree-set sampling: %w", err)
 		}
 		grid := make([]uint32, q*q)
 		for j, index := range good {
-			grid[index] = uint32(random[j]) & uint32(q-1)
+			offset := sampleBytes * j
+			value := uint32(random[offset])
+			if sampleBytes == 4 {
+				value |= uint32(random[offset+1])<<8 | uint32(random[offset+2])<<16 | uint32(random[offset+3])<<24
+			}
+			grid[index] = value & uint32(q-1)
 		}
 		for y := 0; y < q; y++ {
 			b.baseFFT.apply(grid[y*q:(y+1)*q], false)
@@ -321,8 +330,8 @@ func LoadOrbit(data []byte) (*OrbitBasis, error) {
 		return nil, err
 	}
 	spec := artifact.Spec
-	polynomials := map[int]uint32{2: 0x7, 3: 0xb, 4: 0x13, 5: 0x25, 6: 0x43, 7: 0x83, 8: 0x11d}
-	polynomial, ok := polynomials[spec.FieldDegree]
+	polynomial, polynomialErr := BinaryPolynomial(spec.FieldDegree)
+	ok := polynomialErr == nil && spec.FieldDegree <= 9
 	if artifact.Version != 1 || !ok || spec.Dimension != 2 || spec.CurveDegree < 1 || spec.CurveDegree >= (1<<uint(spec.FieldDegree))-1 {
 		return nil, fmt.Errorf("unsupported basis artifact")
 	}

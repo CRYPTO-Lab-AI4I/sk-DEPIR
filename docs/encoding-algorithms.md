@@ -110,7 +110,7 @@ There are two preprocessing routes to compare:
   rather than accepting a larger-degree gcd. This reasoning requires the exact
   code space and independent uniform samples, not estimated K or sparse samples.
 
-The D-based route is now implemented for m=2, s=2..8 and checked against the
+The D-based route is now implemented for m=2, s=2..9 and checked against the
 paper path and dense oracle. The random-codeword gcd route is not implemented.
 Tests verify coordinate orientation, zero-coordinate extension and equality.
 The [current dense oracle](../encoding/liftrs/reference.go) chooses different
@@ -173,8 +173,8 @@ portable implementation; select a native acceleration boundary only after profil
 
 ## 5. Checkpoint and remaining comparison
 
-The [bounded implementation and experiment](../experiments/encoder-comparison/report.md)
-now verify exact equality, preserve the paper's information set and measure separate
+The [initial table-backed experiment](../experiments/encoder-comparison/report.md)
+verified exact equality, preserved the paper's information set and measured separate
 setup/load/encoding costs through N=65,536. Both the direct Karatsuba cyclic path
 and the cached-FFT multiplication variant are available; the latter uses extension-
 field arithmetic internally and serializes the fixed generator spectrum.
@@ -182,7 +182,10 @@ field arithmetic internally and serializes the fixed generator spectrum.
 Next, expand the comparison and memory/I/O design before selecting a large-instance
 backend. Reusable public artifacts already separate code-only constants from each
 database. The current in-memory sizes, three-repeat CPU timings and small-file
-output checks do not establish s=9..20, external-storage or GPU feasibility.
+output checks did not establish larger-code, external-storage or GPU feasibility.
+The later [table-free s=9 checkpoint](../experiments/tablefree-encoding/report.md)
+now extends exact encoding evidence through N=262,144; s>=10 and external-memory/
+GPU feasibility remain unverified.
 
 ## 6. Five-step implementation plan
 
@@ -305,3 +308,15 @@ client retrieval or storage reads.
 transfers, setup and memory requirements, with preprocessing reuse stated. Kernel
 speed alone is insufficient. Do not commit to terabyte-scale runtime or publish
 large acceleration caches before the earlier checkpoints establish their costs.
+
+### Step 1 checkpoint: table-free arithmetic and s=9
+
+[The implementation and experiment](../experiments/tablefree-encoding/report.md)
+now provide portable base-field and two-component extension arithmetic for all
+s=2..20 with fixed-size arithmetic state. The encoder adapter supports m=2,s<=9;
+its transforms and polynomial scratch remain in memory. Existing s<=8 artifacts
+and complete output hashes are preserved, and s=9,t=7 has exact K=17200 with
+paper/cyclic agreement and sampled curve constraints. Table-free arithmetic is
+slower than the former tables on the measured small instance. This completes the
+arithmetic/s=9 part of Step 1, not fast truncated multiplication, compact binary
+artifacts, bounded-RAM encoding or GPU acceleration.

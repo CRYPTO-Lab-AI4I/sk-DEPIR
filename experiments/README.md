@@ -51,3 +51,7 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
 - [Download-objective comparison](download-objective-comparison/report.md): rerun
   all four cost grids with storage/download ranking; preserve prior results and
   compare endpoints, displayed options and approximate intermediate frontiers.
+
+- [Table-free encoding checkpoint](tablefree-encoding/report.md): portable
+  arithmetic through s=20, preserved old codewords, and exact s=9 encoding with
+  separate discovery/preparation processes, prepared artifacts and packed output.

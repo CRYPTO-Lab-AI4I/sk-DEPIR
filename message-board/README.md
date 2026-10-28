@@ -202,3 +202,7 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-28 10:31 | PLAN-014 | Completed | [Download objective, exact capacity and review corrections verified](2026-10-28-1031-codex-plan-014-completed.md) |
 | 2026-10-28 10:37 | PUBLISH-002 | Started | [Publish download-objective checkpoint](2026-10-28-1037-codex-publish-002-started.md) |
 | 2026-10-28 10:37 | PUBLISH-002 | Completed | [Download-objective checkpoint verified for publication](2026-10-28-1037-codex-publish-002-completed.md) |
+| 2026-10-28 10:45 | ENCODE-002 | Started | [Table-free fields and s=9 checkpoint](2026-10-28-1045-codex-encode-002-started.md) |
+| 2026-10-28 11:00 | ENCODE-002 | Completed | [Table-free arithmetic and s=9 encoding verified](2026-10-28-1100-codex-encode-002-completed.md) |
+| 2026-10-28 11:27 | PUBLISH-003 | Started | [Publish table-free checkpoint](2026-10-28-1127-codex-publish-003-started.md) |
+| 2026-10-28 11:27 | PUBLISH-003 | Completed | [Publish table-free checkpoint](2026-10-28-1127-codex-publish-003-completed.md) |

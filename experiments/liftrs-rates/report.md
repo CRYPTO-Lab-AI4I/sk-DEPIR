@@ -137,3 +137,7 @@ comes separately from the independent residue and actual-curve oracles on small
 instances. No exact target dimension, systematic information set, scalable encoder,
 application storage rate, cryptographic security, or terabyte-scale implementation
 has been established by this experiment.
+
+The later [table-free encoding checkpoint](../tablefree-encoding/report.md) also
+adds exact K=17200 at s=9,m=2,t=7 to the current catalogue, separately preserving
+the Monte Carlo point K=17118. The original sampling results are unchanged.

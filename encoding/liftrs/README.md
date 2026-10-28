@@ -102,11 +102,14 @@ prototype cryptographic components for production. The existing file-based
 ## Paper and cyclic encoders
 
 The separate `OrbitBasis` API implements the paper's omega-power information set
-and two equivalent encoding algorithms for `m=2`, `s=2..8`, `1<=t<q-1`, with
-`N<=65,536`. This extends the comparison backend, not the dense `Preprocess` API
+and two equivalent encoding algorithms for `m=2`, `s=2..9`, `1<=t<q-1`, with
+`N<=262,144`. This extends the comparison backend, not the dense `Preprocess` API
 or the legacy file-based PIR encoder. Output remains unmasked canonical-grid
 polynomial-basis field elements. See the [algorithm review](../../docs/encoding-algorithms.md)
-and [measured comparison](../../experiments/encoder-comparison/report.md).
+and [initial table-backed comparison](../../experiments/encoder-comparison/report.md).
+The [table-free checkpoint](../../experiments/tablefree-encoding/report.md) measures
+the current implementation through s=9, including packed output and separate
+preparation processes.
 
 ### Reusable preprocessing and database encoding
 
@@ -174,7 +177,7 @@ operations, including monomial-basis conversion. Karatsuba multiplication costs
 `O(n^log2(3))`; this comparison does not implement the asymptotically best general
 polynomial multiplier. The backend is in memory and allocates scratch buffers;
 there is no external-storage, streaming, GPU or constant-time implementation.
-It does not support s=9..20 or integrate automatically with application plans.
+It does not support s=10..20 or integrate automatically with application plans.
 Do not extrapolate the small comparison's speed or artifact sizes to those codes.
 
 [Tests](orbit_test.go) check transforms against Horner evaluation, polynomial
@@ -182,3 +185,27 @@ operations against schoolbook multiplication, complete message bases against the
 independent dense oracle, prepared-artifact reuse, malformed inputs and concurrency.
 The oracle uses different systematic coordinates: compare codewords after matching
 information-set values, not by reusing the same raw message across both conventions.
+
+## Table-free field arithmetic
+
+`NewBinaryField(s, polynomial)` validates an irreducible polynomial and provides
+polynomial-basis XOR addition, multiplication/reduction, powers, inverses and
+absolute trace for s=2..20. `BinaryPolynomial(s)` returns the fixed conventional
+identifier, preserving existing prototype choices. `NewQuadraticField(base)`
+constructs u²=u+delta using the first trace-one base element; a `QuadraticElement`
+is the pair `A+B*u`, with two uint32 components even at s=20. See the
+[runnable example](binary_field_example_test.go).
+
+Arithmetic contains no log/exp table or cardinality-sized allocation. Its field
+state is fixed-size; multiplication is portable shift/XOR reduction. Operand
+addition/multiplication/power methods require canonical inputs; inverse validates
+its operand and rejects zero. These methods are not constant-time cryptographic
+primitives. The public arithmetic does not imply full encoder support at s=10..20.
+
+The bounded orbit adapter still uses uint32-packed extension coefficients and
+in-memory transforms, restricted to s<=9. It preserves version-1 artifact bytes,
+polynomials and primitive-generator selection. Discovery now samples four bytes
+per monomial coefficient for s=9, masking to 9 bits; a single byte would not yield
+uniform coefficients. The [tests](binary_field_test.go) independently check all
+supported field degrees, historical codeword hashes and sampled s=9 curve constraints.
+The legacy `utils.GF2n` table-based backend and its field coverage are unchanged.

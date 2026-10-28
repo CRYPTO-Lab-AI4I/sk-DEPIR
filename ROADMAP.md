@@ -33,7 +33,10 @@ This goal does not require server-side protocol computation.
 6. Implement faster preprocessing for useful configurations identified by the planner.
 
 The [bounded paper/cyclic encoder comparison](experiments/encoder-comparison/report.md)
-now covers the paper information set and exact codeword equality through N=65,536.
+covers the paper information set and exact codeword equality through N=65,536.
+The [table-free s=9 checkpoint](experiments/tablefree-encoding/report.md) extends
+that backend through N=262,144, exact K=17,200, with fixed-size field arithmetic
+state and compatible earlier artifacts. Fast truncated multiplication remains open.
 Reusable public preprocessing artifacts are separate from database encoding; these
 small artifacts can be distributed with generation evidence. This is not yet a
 large-instance streaming or GPU backend. The detailed
@@ -190,7 +193,7 @@ large-scale API or storage strategy. The
 [small application reference](encoding/appref/README.md) now completes this
 correctness pipeline for supplied plans and ordinary packed reads. Automatic planning is implemented in `planner/`; executing those plans in the
 application wrapper and durable persistence remain separate tasks. The orbit backend
-encodes the standalone s=8,m=2,t=8 configuration with exact K=3121; s=9..20
-still require further encoder and resource work;
+encodes standalone s=8,m=2,t=8 and s=9,m=2,t=7 configurations with exact
+K=3121 and K=17200; s=10..20 still require further encoder and resource work;
 the small reference provides comparison vectors for that work. Small test fields
 do not inherit the catalogue's security claims.
