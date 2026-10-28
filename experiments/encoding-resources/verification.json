@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "checks": [
+    "Go layout probe: host int 8 bytes / tree node 72 bytes",
+    "model recurrence / prefix-padding / capacity-interval assertions",
+    "deterministic results.json and tables.md regeneration",
+    "recorded source/input SHA-256 checks",
+    "current changed-document local file links",
+    "Go test and vet of layout-probe package",
+    "Python model syntax"
+  ],
+  "production_code_changed": false,
+  "encoding_benchmarks_rerun": false
+}

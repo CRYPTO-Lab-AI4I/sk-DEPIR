@@ -104,6 +104,10 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
 - [Encoding layout verification](encoding-layout/report.md): separated backend
   builds, legacy compatibility, pre-move fixture hashes and historical evidence.
 
+- [Encoding resource model](encoding-resources/report.md): analytical array,
+  preparation, packed-cache and I/O scenarios for the scaling study; no new
+  encoding/RSS measurement or larger-size implementation.
+
 ## Encoding implementation paths
 
 The complete API, preprocessing and orchestration now live in

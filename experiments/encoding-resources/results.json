@@ -1,0 +1,528 @@
+{
+  "measured_anchors": {
+    "s13_native_encoding_s": 153.409264917,
+    "s13_loaded_process_peak_rss_bytes": 2423603200,
+    "s13_preparation_s": 1765.373562167,
+    "s13_first_use_process_peak_rss_bytes": 5730189312
+  },
+  "kind": "analytical_not_measured",
+  "revision": "f2aedf89374df493d926bf1d4f0197fdc0915037",
+  "assumptions": {
+    "base_slot_bytes": 4,
+    "host_int_bytes": 8,
+    "product_tree_node_bytes": 72,
+    "native_metadata_excluded": true,
+    "heap_rss_prediction": false,
+    "io_sweep_counts": "illustrative parameters, not derived pass counts"
+  },
+  "source_sha256": {
+    "pirconfig/configs_catalogue.json": "51c8e58cd1ad55b1754946c16b4c0b4df95dc4c17bc41e8c0b13dbe9a1d4df8e",
+    "experiments/encoding-resources/model.py": "110d09d66e3f8fdf21c447af2e5643881877bf9b0f8e882c6e6c39f0ba353407",
+    "experiments/encoding-resources/layout.go": "10c98f1a90a85dfbceb0e9c6b7586ad5ca6b654760dda0f475f4c22f4ccc20c7",
+    "experiments/encoding-resources/layout.json": "4fe2ed1b5ef431484c0e5fc1ab31244569140ef36465663126a2753bef62df9b",
+    "paper.pdf": "205571fe7afb594d82d461a900bf0a5e2e210b8c688260224dbc6a5d9f0b8076",
+    "experiments/native-encoding/s13/results.json": "1adeaf8d638a4a816d712d1c7cab7b7d762f5cb4c9582ae555fb6703993ad43f",
+    "experiments/cyclic-s13/results.json": "f534247fc79c14e93859c0cd22667382929e8bd0a3b7b791727c3174885b3583",
+    "encoding/liftrs-shared/binary_field.go": "5f867ee5e5b27511c906686bb7e7efc0c03e04736f46f76beaae4cf2636e4e32",
+    "encoding/liftrs-shared/binary_field_example_test.go": "90bf8034574b11976cb77cc8f2f2fca98c403f90569f9c8dfcf63fba7abdf714",
+    "encoding/liftrs-shared/binary_field_test.go": "79c0df2f825074175b5d7a9b37cb881ce7c6cf01abab590d44c258c78f078e38",
+    "encoding/liftrs-shared/cpp_disabled.go": "955ba56be88677b9927474d354f39d382d803b85765403079af671a92c362cfd",
+    "encoding/liftrs-shared/cpp_disabled_test.go": "8eb93205c80b50864c570210e35f6d3affa476123595c46c30d7d54db5b1e865",
+    "encoding/liftrs-shared/cpp_enabled.go": "5f0fdd59e060015d9b60d5cfba6aea3411983f1df343e9216cadd11fde6a693f",
+    "encoding/liftrs-shared/cpp_enabled_test.go": "db5a8e886c7f78823e45b9dbcb455902b6e2030b934365b4b50cf2c81603538c",
+    "encoding/liftrs-shared/cpp_encoder.go": "13da56029d4cd51a228e8b16971bca3cf7da24f978d56e1b67d11f0c88e2a8d3",
+    "encoding/liftrs-shared/cpp_example_test.go": "d584da75c6b23aa1c58d6d8ee809f663bad56b29cf73de53093ad090ddbceae9",
+    "encoding/liftrs-shared/example_test.go": "a6cceac621a7330fdedce85b1531821385988750c7ed90da4912b1ac8e25283f",
+    "encoding/liftrs-shared/field/binary.go": "ab162f7e65cd5fd7883fef2a261537c1dcbf9a6d92c98d86c05f81b68bae12fa",
+    "encoding/liftrs-shared/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs-shared/language_bench_test.go": "d78132c6d95929d0134008fc4e86b0a2bea9da94e89e302f02e3c3cca39b1994",
+    "encoding/liftrs-shared/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs-shared/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+    "encoding/liftrs-shared/orbit.go": "e1f3e29dcae40d1ed1e0ac44f06d0e77938340a5bc85ac430866cf7dc69f02ad",
+    "encoding/liftrs-shared/orbit_arithmetic.go": "4473448403b01d66291cdcf071ad3bd308ad58f2415dc479ca52461b7e0e55ad",
+    "encoding/liftrs-shared/orbit_artifact.go": "29df02372de9111bd2be3290edfe9db92bb6ba3062279bcde8a14f45c404948d",
+    "encoding/liftrs-shared/orbit_cache_example_test.go": "7992176943b9bfb24e2377091311a5f171b022150b003a4c019b3a5a00481cba",
+    "encoding/liftrs-shared/orbit_cache_test.go": "3ed519e68cb0204d0f097fd8c951b794cf585ed6ba643b21f0964542cfd869ac",
+    "encoding/liftrs-shared/orbit_constant.go": "fe3c4ab745c3bb9544cdfa6c8e643e7b2017fdcabb3aea3ebdbd176afdbc4e66",
+    "encoding/liftrs-shared/orbit_constant_artifact_test.go": "99a6e390c1c571e16b846c778a1ae8c2cdbadcf408f58d3c41c21257dd853f09",
+    "encoding/liftrs-shared/orbit_constant_test.go": "59724bab255587ab5b6ff67780f6c78cdaa8c0393f820243970b64c534aedfb2",
+    "encoding/liftrs-shared/orbit_example_test.go": "ddbee52aee098773429554707e2ff9d22d95a1c48bf570aea5e398b967d3b1e0",
+    "encoding/liftrs-shared/orbit_fft.go": "5ecd36d710ea78d5da1d90e2d3713372b4f25547aaab8073cb01cb231aea535f",
+    "encoding/liftrs-shared/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+    "encoding/liftrs-shared/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+    "encoding/liftrs-shared/orbit_product_test.go": "fe976bbabd5aa4de91f5fa035c9590568bbe04590bef085c09c07fd2d8c38d1a",
+    "encoding/liftrs-shared/orbit_test.go": "e7a37a4106840f7bac56c92bd5d1b11c486bcea4dd2c4f3368eea5f80e3319bc",
+    "encoding/liftrs-shared/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs-shared/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+    "encoding/liftrs-shared/s10_checkpoint_test.go": "3f606fc200b82ac3a7bfab79b8919d9af22997d419ba848ef6e11ef95255ceeb",
+    "encoding/liftrs-cpp/transform.hpp": "f220d93ad376e8b3f857c7a83c284668f5095adb1ff77f3f2ed461cbbeff5b71",
+    "encoding/liftrs-cpp/c_api.cpp": "3b76b3927cda0323bf67a2a9f67204c4370fe99ec7d36e5b121d356752dae849",
+    "encoding/liftrs-cpp/plan.go": "24bba70b9180d3ff61128f8fa8375f26c6c03223c07b50b0faf8334e4a819303",
+    "experiments/native-encoding/main.go": "038c630e7a1cbbfc8f6c6600d88a2ce0e087ced843e80142115492180d2990af"
+  },
+  "rows": [
+    {
+      "s": 13,
+      "t": 5,
+      "n": 67108864,
+      "k": 11926435,
+      "capacity_status": "verified",
+      "cached_transform_elements": 234881024,
+      "existing_uncached_transform_elements": 402653184,
+      "candidate_single_domain_uncached_transform_elements": 301989888,
+      "extension_slot_bytes": 4,
+      "prefix_fft_elements": 33554432,
+      "prefix_fft_elements_interval": [
+        33554432
+      ],
+      "input_packed_bytes": 19380457,
+      "base_output_packed_bytes": 109051904,
+      "discovery_array_scenario_bytes": 574105788,
+      "current_resident_array_bytes": 632282396,
+      "current_principal_buffer_scenario_bytes": 1264564788,
+      "current_prefix_scenario_bytes": 996129332,
+      "current_assembly_scenario_bytes": 1264564788,
+      "dense_transform_setup_pair_bytes": 402653192,
+      "product_tree_nodes": 23852869,
+      "product_tree_polynomial_elements": 317162963,
+      "product_tree_polynomial_bytes": 1268651852,
+      "product_tree_header_bytes": 1717406568,
+      "tree_roots_support_payload_bytes": 3129175640,
+      "lean_resident_bytes": 316141200,
+      "lean_prefix_scenario_bytes": 679988136,
+      "lean_assembly_scenario_bytes": 948423592,
+      "lean_disk_output_principal_bytes_excluding_tiles": 679988136,
+      "lean_principal_buffer_scenario_bytes": 948423592,
+      "aligned_full_binary_cache_bytes": 584576656,
+      "bitpacked_full_cache_bytes": 365916628,
+      "aligned_online_cache_bytes": 316141200,
+      "bitpacked_online_cache_bytes": 237484267,
+      "bitpacked_without_spectrum_cache_bytes": 109051906,
+      "transform_io_scenarios": [
+        {
+          "sweeps_per_transform": 2,
+          "bytes": 3758096384
+        },
+        {
+          "sweeps_per_transform": 4,
+          "bytes": 7516192768
+        },
+        {
+          "sweeps_per_transform": 8,
+          "bytes": 15032385536
+        }
+      ],
+      "pointwise_product_stream_bytes": 1207959552,
+      "routing_one_partition_level_bytes": 1610612736,
+      "routing_record_bytes": 8,
+      "routing_wide_intermediate_extra_level_bytes": 1610612736,
+      "routing_note": "one partition level to buckets spanning <=2^32 positions; uint32 local offsets plus uint32 base values. Earlier multi-level buckets may need uint64 offsets (12-byte pairs), adding 24*N bytes per read/write level."
+    },
+    {
+      "s": 14,
+      "t": 5,
+      "n": 268435456,
+      "k": 51209164,
+      "capacity_status": "estimated",
+      "cached_transform_elements": 939524096,
+      "existing_uncached_transform_elements": 1610612736,
+      "candidate_single_domain_uncached_transform_elements": 1207959552,
+      "extension_slot_bytes": 4,
+      "prefix_fft_elements": 134217728,
+      "prefix_fft_elements_interval": [
+        134217728,
+        134217728
+      ],
+      "input_packed_bytes": 89616037,
+      "base_output_packed_bytes": 469762048,
+      "discovery_array_scenario_bytes": 2366426096,
+      "current_resident_array_bytes": 2557156964,
+      "current_principal_buffer_scenario_bytes": 5114313924,
+      "current_prefix_scenario_bytes": 4040572100,
+      "current_assembly_scenario_bytes": 5114313924,
+      "dense_transform_setup_pair_bytes": 1610612744,
+      "product_tree_nodes": 102418327,
+      "product_tree_polynomial_elements": 1469166055,
+      "product_tree_polynomial_bytes": 5876664220,
+      "product_tree_header_bytes": 7374119544,
+      "tree_roots_support_payload_bytes": 13865293732,
+      "lean_resident_bytes": 1278578484,
+      "lean_prefix_scenario_bytes": 2761993620,
+      "lean_assembly_scenario_bytes": 3835735444,
+      "lean_disk_output_principal_bytes_excluding_tiles": 2761993620,
+      "lean_principal_buffer_scenario_bytes": 3835735444,
+      "aligned_full_binary_cache_bytes": 2352320308,
+      "bitpacked_full_cache_bytes": 1588518220,
+      "aligned_online_cache_bytes": 1278578484,
+      "bitpacked_online_cache_bytes": 1029140135,
+      "bitpacked_without_spectrum_cache_bytes": 469762050,
+      "transform_io_scenarios": [
+        {
+          "sweeps_per_transform": 2,
+          "bytes": 15032385536
+        },
+        {
+          "sweeps_per_transform": 4,
+          "bytes": 30064771072
+        },
+        {
+          "sweeps_per_transform": 8,
+          "bytes": 60129542144
+        }
+      ],
+      "pointwise_product_stream_bytes": 4831838208,
+      "routing_one_partition_level_bytes": 6442450944,
+      "routing_record_bytes": 8,
+      "routing_wide_intermediate_extra_level_bytes": 6442450944,
+      "routing_note": "one partition level to buckets spanning <=2^32 positions; uint32 local offsets plus uint32 base values. Earlier multi-level buckets may need uint64 offsets (12-byte pairs), adding 24*N bytes per read/write level."
+    },
+    {
+      "s": 15,
+      "t": 5,
+      "n": 1073741824,
+      "k": 216920545,
+      "capacity_status": "estimated",
+      "cached_transform_elements": 3758096384,
+      "existing_uncached_transform_elements": 6442450944,
+      "candidate_single_domain_uncached_transform_elements": 4831838208,
+      "extension_slot_bytes": 4,
+      "prefix_fft_elements": 536870912,
+      "prefix_fft_elements_interval": [
+        536870912,
+        536870912
+      ],
+      "input_packed_bytes": 406726022,
+      "base_output_packed_bytes": 2013265920,
+      "discovery_array_scenario_bytes": 9707251092,
+      "current_resident_array_bytes": 10325298956,
+      "current_principal_buffer_scenario_bytes": 20650597908,
+      "current_prefix_scenario_bytes": 16355630612,
+      "current_assembly_scenario_bytes": 20650597908,
+      "dense_transform_setup_pair_bytes": 6442450952,
+      "product_tree_nodes": 433841089,
+      "product_tree_polynomial_elements": 6673021983,
+      "product_tree_polynomial_bytes": 26692087932,
+      "product_tree_header_bytes": 31236558408,
+      "tree_roots_support_payload_bytes": 60531692880,
+      "lean_resident_bytes": 5162649480,
+      "lean_prefix_scenario_bytes": 11192981136,
+      "lean_assembly_scenario_bytes": 15487948432,
+      "lean_disk_output_principal_bytes_excluding_tiles": 11192981136,
+      "lean_principal_buffer_scenario_bytes": 15487948432,
+      "aligned_full_binary_cache_bytes": 9457616776,
+      "bitpacked_full_cache_bytes": 6853249806,
+      "aligned_online_cache_bytes": 5162649480,
+      "bitpacked_online_cache_bytes": 4433257864,
+      "bitpacked_without_spectrum_cache_bytes": 2013265922,
+      "transform_io_scenarios": [
+        {
+          "sweeps_per_transform": 2,
+          "bytes": 60129542144
+        },
+        {
+          "sweeps_per_transform": 4,
+          "bytes": 120259084288
+        },
+        {
+          "sweeps_per_transform": 8,
+          "bytes": 240518168576
+        }
+      ],
+      "pointwise_product_stream_bytes": 19327352832,
+      "routing_one_partition_level_bytes": 25769803776,
+      "routing_record_bytes": 8,
+      "routing_wide_intermediate_extra_level_bytes": 25769803776,
+      "routing_note": "one partition level to buckets spanning <=2^32 positions; uint32 local offsets plus uint32 base values. Earlier multi-level buckets may need uint64 offsets (12-byte pairs), adding 24*N bytes per read/write level."
+    },
+    {
+      "s": 16,
+      "t": 5,
+      "n": 4294967296,
+      "k": 919440829,
+      "capacity_status": "estimated",
+      "cached_transform_elements": 15032385536,
+      "existing_uncached_transform_elements": 25769803776,
+      "candidate_single_domain_uncached_transform_elements": 19327352832,
+      "extension_slot_bytes": 4,
+      "prefix_fft_elements": 2147483648,
+      "prefix_fft_elements_interval": [
+        2147483648,
+        2147483648
+      ],
+      "input_packed_bytes": 1838881658,
+      "base_output_packed_bytes": 8589934592,
+      "discovery_array_scenario_bytes": 39863915204,
+      "current_resident_array_bytes": 41715265004,
+      "current_principal_buffer_scenario_bytes": 83430530004,
+      "current_prefix_scenario_bytes": 66250660820,
+      "current_assembly_scenario_bytes": 83430530004,
+      "dense_transform_setup_pair_bytes": 25769803784,
+      "product_tree_nodes": 1838881657,
+      "product_tree_polynomial_elements": 30187246361,
+      "product_tree_polynomial_bytes": 120748985444,
+      "product_tree_header_bytes": 132399479304,
+      "tree_roots_support_payload_bytes": 264181754696,
+      "lean_resident_bytes": 20857632504,
+      "lean_prefix_scenario_bytes": 45393028320,
+      "lean_assembly_scenario_bytes": 62572897504,
+      "lean_disk_output_principal_bytes_excluding_tiles": 45393028320,
+      "lean_principal_buffer_scenario_bytes": 62572897504,
+      "aligned_full_binary_cache_bytes": 38037501688,
+      "bitpacked_full_cache_bytes": 29447567094,
+      "aligned_online_cache_bytes": 20857632504,
+      "bitpacked_online_cache_bytes": 19018750844,
+      "bitpacked_without_spectrum_cache_bytes": 8589934594,
+      "transform_io_scenarios": [
+        {
+          "sweeps_per_transform": 2,
+          "bytes": 240518168576
+        },
+        {
+          "sweeps_per_transform": 4,
+          "bytes": 481036337152
+        },
+        {
+          "sweeps_per_transform": 8,
+          "bytes": 962072674304
+        }
+      ],
+      "pointwise_product_stream_bytes": 77309411328,
+      "routing_one_partition_level_bytes": 103079215104,
+      "routing_record_bytes": 8,
+      "routing_wide_intermediate_extra_level_bytes": 103079215104,
+      "routing_note": "one partition level to buckets spanning <=2^32 positions; uint32 local offsets plus uint32 base values. Earlier multi-level buckets may need uint64 offsets (12-byte pairs), adding 24*N bytes per read/write level."
+    },
+    {
+      "s": 17,
+      "t": 5,
+      "n": 17179869184,
+      "k": 3870933765,
+      "capacity_status": "estimated",
+      "cached_transform_elements": 60129542144,
+      "existing_uncached_transform_elements": 103079215104,
+      "candidate_single_domain_uncached_transform_elements": 77309411328,
+      "extension_slot_bytes": 8,
+      "prefix_fft_elements": 8589934592,
+      "prefix_fft_elements_interval": [
+        8589934592,
+        8589934592
+      ],
+      "input_packed_bytes": 8225734251,
+      "base_output_packed_bytes": 36507222016,
+      "discovery_array_scenario_bytes": 232038022244,
+      "current_resident_array_bytes": 237125900332,
+      "current_principal_buffer_scenario_bytes": 474251800660,
+      "current_prefix_scenario_bytes": 405532323924,
+      "current_assembly_scenario_bytes": 474251800660,
+      "dense_transform_setup_pair_bytes": 206158430224,
+      "product_tree_nodes": 7741867529,
+      "product_tree_polynomial_elements": 135058648243,
+      "product_tree_polynomial_bytes": 1080469185944,
+      "product_tree_header_bytes": 557414462088,
+      "tree_roots_support_payload_bytes": 1699818588272,
+      "lean_resident_bytes": 152922688536,
+      "lean_prefix_scenario_bytes": 321329112128,
+      "lean_assembly_scenario_bytes": 390048588864,
+      "lean_disk_output_principal_bytes_excluding_tiles": 321329112128,
+      "lean_principal_buffer_scenario_bytes": 390048588864,
+      "aligned_full_binary_cache_bytes": 237125900332,
+      "bitpacked_full_cache_bytes": 125973134553,
+      "aligned_online_cache_bytes": 152922688536,
+      "bitpacked_online_cache_bytes": 81240178285,
+      "bitpacked_without_spectrum_cache_bytes": 36507222019,
+      "transform_io_scenarios": [
+        {
+          "sweeps_per_transform": 2,
+          "bytes": 1924145348608
+        },
+        {
+          "sweeps_per_transform": 4,
+          "bytes": 3848290697216
+        },
+        {
+          "sweeps_per_transform": 8,
+          "bytes": 7696581394432
+        }
+      ],
+      "pointwise_product_stream_bytes": 618475290624,
+      "routing_one_partition_level_bytes": 481036337152,
+      "routing_record_bytes": 8,
+      "routing_wide_intermediate_extra_level_bytes": 412316860416,
+      "routing_note": "one partition level to buckets spanning <=2^32 positions; uint32 local offsets plus uint32 base values. Earlier multi-level buckets may need uint64 offsets (12-byte pairs), adding 24*N bytes per read/write level."
+    },
+    {
+      "s": 18,
+      "t": 5,
+      "n": 68719476736,
+      "k": 16298885492,
+      "capacity_status": "estimated",
+      "cached_transform_elements": 240518168576,
+      "existing_uncached_transform_elements": 412316860416,
+      "candidate_single_domain_uncached_transform_elements": 309237645312,
+      "extension_slot_bytes": 8,
+      "prefix_fft_elements": 34359738368,
+      "prefix_fft_elements_interval": [
+        34359738368,
+        34359738368
+      ],
+      "input_packed_bytes": 36672492357,
+      "base_output_packed_bytes": 154618822656,
+      "discovery_array_scenario_bytes": 944454049040,
+      "current_resident_array_bytes": 955024804772,
+      "current_principal_buffer_scenario_bytes": 1910049609540,
+      "current_prefix_scenario_bytes": 1635171702596,
+      "current_assembly_scenario_bytes": 1910049609540,
+      "dense_transform_setup_pair_bytes": 824633720848,
+      "product_tree_nodes": 32597770983,
+      "product_tree_polynomial_elements": 602177779511,
+      "product_tree_polynomial_bytes": 4817422236088,
+      "product_tree_header_bytes": 2347039510776,
+      "tree_roots_support_payload_bytes": 7425243914736,
+      "lean_resident_bytes": 614951355860,
+      "lean_prefix_scenario_bytes": 1295098253684,
+      "lean_assembly_scenario_bytes": 1569976160628,
+      "lean_disk_output_principal_bytes_excluding_tiles": 1295098253684,
+      "lean_principal_buffer_scenario_bytes": 1569976160628,
+      "aligned_full_binary_cache_bytes": 955024804772,
+      "bitpacked_full_cache_bytes": 537201452685,
+      "aligned_online_cache_bytes": 614951355860,
+      "bitpacked_online_cache_bytes": 345910137672,
+      "bitpacked_without_spectrum_cache_bytes": 154618822659,
+      "transform_io_scenarios": [
+        {
+          "sweeps_per_transform": 2,
+          "bytes": 7696581394432
+        },
+        {
+          "sweeps_per_transform": 4,
+          "bytes": 15393162788864
+        },
+        {
+          "sweeps_per_transform": 8,
+          "bytes": 30786325577728
+        }
+      ],
+      "pointwise_product_stream_bytes": 2473901162496,
+      "routing_one_partition_level_bytes": 1924145348608,
+      "routing_record_bytes": 8,
+      "routing_wide_intermediate_extra_level_bytes": 1649267441664,
+      "routing_note": "one partition level to buckets spanning <=2^32 positions; uint32 local offsets plus uint32 base values. Earlier multi-level buckets may need uint64 offsets (12-byte pairs), adding 24*N bytes per read/write level."
+    },
+    {
+      "s": 19,
+      "t": 5,
+      "n": 274877906944,
+      "k": 68331898887,
+      "capacity_status": "estimated",
+      "cached_transform_elements": 962072674304,
+      "existing_uncached_transform_elements": 1649267441664,
+      "candidate_single_domain_uncached_transform_elements": 1236950581248,
+      "extension_slot_bytes": 8,
+      "prefix_fft_elements": 137438953472,
+      "prefix_fft_elements_interval": [
+        137438953472,
+        274877906944
+      ],
+      "input_packed_bytes": 162288259857,
+      "base_output_packed_bytes": 652835028992,
+      "discovery_array_scenario_bytes": 3840541237388,
+      "current_resident_array_bytes": 3845190074428,
+      "current_principal_buffer_scenario_bytes": 7690380148852,
+      "current_prefix_scenario_bytes": 6590868521076,
+      "current_assembly_scenario_bytes": 7690380148852,
+      "dense_transform_setup_pair_bytes": 3298534883344,
+      "product_tree_nodes": 136663797773,
+      "product_tree_polynomial_elements": 2664556478743,
+      "product_tree_polynomial_bytes": 21316451829944,
+      "product_tree_header_bytes": 9839793439656,
+      "tree_roots_support_payload_bytes": 32249555651792,
+      "lean_resident_bytes": 2472350851104,
+      "lean_prefix_scenario_bytes": 5218029297752,
+      "lean_assembly_scenario_bytes": 6317540925528,
+      "lean_disk_output_principal_bytes_excluding_tiles": 5218029297752,
+      "lean_principal_buffer_scenario_bytes": 6317540925528,
+      "aligned_full_binary_cache_bytes": 3845190074428,
+      "bitpacked_full_cache_bytes": 2283081606693,
+      "aligned_online_cache_bytes": 2472350851104,
+      "bitpacked_online_cache_bytes": 1467958317843,
+      "bitpacked_without_spectrum_cache_bytes": 652835028995,
+      "transform_io_scenarios": [
+        {
+          "sweeps_per_transform": 2,
+          "bytes": 30786325577728
+        },
+        {
+          "sweeps_per_transform": 4,
+          "bytes": 61572651155456
+        },
+        {
+          "sweeps_per_transform": 8,
+          "bytes": 123145302310912
+        }
+      ],
+      "pointwise_product_stream_bytes": 9895604649984,
+      "routing_one_partition_level_bytes": 7696581394432,
+      "routing_record_bytes": 8,
+      "routing_wide_intermediate_extra_level_bytes": 6597069766656,
+      "routing_note": "one partition level to buckets spanning <=2^32 positions; uint32 local offsets plus uint32 base values. Earlier multi-level buckets may need uint64 offsets (12-byte pairs), adding 24*N bytes per read/write level."
+    },
+    {
+      "s": 20,
+      "t": 5,
+      "n": 1099511627776,
+      "k": 286146801617,
+      "capacity_status": "estimated",
+      "cached_transform_elements": 5497558138880,
+      "existing_uncached_transform_elements": 8246337208320,
+      "candidate_single_domain_uncached_transform_elements": 6597069766656,
+      "extension_slot_bytes": 8,
+      "prefix_fft_elements": 1099511627776,
+      "prefix_fft_elements_interval": [
+        1099511627776,
+        1099511627776
+      ],
+      "input_packed_bytes": 715367004043,
+      "base_output_packed_bytes": 2748779069440,
+      "discovery_array_scenario_bytes": 15618544876628,
+      "current_resident_array_bytes": 15483313946252,
+      "current_principal_buffer_scenario_bytes": 35364674403604,
+      "current_prefix_scenario_bytes": 35364674403604,
+      "current_assembly_scenario_bytes": 30966627892500,
+      "dense_transform_setup_pair_bytes": 13194139533328,
+      "product_tree_nodes": 572293603233,
+      "product_tree_polynomial_elements": 11754556655642,
+      "product_tree_polynomial_bytes": 94036453245136,
+      "product_tree_header_bytes": 41205139432776,
+      "tree_roots_support_payload_bytes": 139819941503784,
+      "lean_resident_bytes": 9940680228680,
+      "lean_prefix_scenario_bytes": 29822040686032,
+      "lean_assembly_scenario_bytes": 25423994174928,
+      "lean_disk_output_principal_bytes_excluding_tiles": 29822040686032,
+      "lean_principal_buffer_scenario_bytes": 29822040686032,
+      "aligned_full_binary_cache_bytes": 15483313946252,
+      "bitpacked_full_cache_bytes": 9677071216408,
+      "aligned_online_cache_bytes": 9940680228680,
+      "bitpacked_online_cache_bytes": 6212925142925,
+      "bitpacked_without_spectrum_cache_bytes": 2748779069443,
+      "transform_io_scenarios": [
+        {
+          "sweeps_per_transform": 2,
+          "bytes": 175921860444160
+        },
+        {
+          "sweeps_per_transform": 4,
+          "bytes": 351843720888320
+        },
+        {
+          "sweeps_per_transform": 8,
+          "bytes": 703687441776640
+        }
+      ],
+      "pointwise_product_stream_bytes": 52776558133248,
+      "routing_one_partition_level_bytes": 30786325577728,
+      "routing_record_bytes": 8,
+      "routing_wide_intermediate_extra_level_bytes": 26388279066624,
+      "routing_note": "one partition level to buckets spanning <=2^32 positions; uint32 local offsets plus uint32 base values. Earlier multi-level buckets may need uint64 offsets (12-byte pairs), adding 24*N bytes per read/write level."
+    }
+  ]
+}

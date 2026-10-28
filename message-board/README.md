@@ -253,3 +253,7 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-28 22:30 | REF-004 | Completed | [Encoding paths separated; RM archived](2026-10-28-2230-codex-ref-004-completed.md) |
 | 2026-10-28 22:34 | PUBLISH-012 | Started | [Publish CPU checkpoint and scaling-study priority](2026-10-28-2234-codex-publish-012-started.md) |
 | 2026-10-28 22:35 | PUBLISH-012 | Completed | [CPU checkpoint verified for publication](2026-10-28-2235-codex-publish-012-completed.md) |
+| 2026-10-28 22:41 | SCALE-001 | Started | [Scaling plan and resource/design study](2026-10-28-2241-codex-scale-001-started.md) |
+| 2026-10-28 22:59 | SCALE-001 | Completed | [Resource audit and scaling designs completed](2026-10-28-2259-codex-scale-001-completed.md) |
+| 2026-10-28 23:03 | PUBLISH-013 | Started | [Publish resource and scaling design study](2026-10-28-2303-codex-publish-013-started.md) |
+| 2026-10-28 23:03 | PUBLISH-013 | Completed | [Scaling study verified for publication](2026-10-28-2303-codex-publish-013-completed.md) |

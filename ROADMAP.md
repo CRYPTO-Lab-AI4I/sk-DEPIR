@@ -2,8 +2,9 @@
 
 Current checkpoint: the planned CPU kernel optimization phase is complete, and
 standalone encoding has been validated through s=13. The next activity is the
-[scaling design study](docs/encoding-algorithms.md#next-scaling-design-study),
-before further architecture-specific tuning. s=14 appears practical with a higher
+[scaling design study](docs/encoding-scaling.md),
+before further architecture-specific tuning. Its resource accounting and candidate
+comparison (steps 1–2) are documented; focused prototypes are next. s=14 appears practical with a higher
 setup budget; s=15 is borderline for cached encoding and currently exceeds this
 host's memory for preprocessing. These are estimates, not validation or TRL 5
 completion; [measurement boundaries and assumptions](docs/encoding-algorithms.md#current-checkpoint-and-next-step)

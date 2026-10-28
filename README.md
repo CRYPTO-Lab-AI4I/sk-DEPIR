@@ -19,9 +19,12 @@ requirements should remain as generic as practical.
 
 The current CPU kernel optimization phase is complete; validated standalone
 encoding reaches **s=13**. Further tuning remains possible. The next priority is a
-[scaling design study](docs/encoding-algorithms.md#next-scaling-design-study),
+[scaling design study](docs/encoding-scaling.md),
 covering memory, preprocessing storage, blocked/external-memory algorithms and
-commodity CPU/GPU execution before architecture-specific tuning. On the current
+commodity CPU/GPU execution before architecture-specific tuning. Steps 1–2 now
+provide a [source-based resource model](experiments/encoding-resources/report.md)
+and candidate comparison; step 3 will test the uncertain operations. Counts are
+analytical payload scenarios, not measured RAM or implemented larger-size support. On the current
 48 GiB host, **s=14 appears practical with a larger setup budget**; **s=15 is
 borderline for encoding from an existing cache**, while its estimated preprocessing
 exceeds host memory. These are unmeasured expectations, not supported configurations;

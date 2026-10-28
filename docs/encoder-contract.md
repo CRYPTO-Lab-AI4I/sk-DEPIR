@@ -307,8 +307,18 @@ separates initialization, call accounting, native memory and encoding profiles.
 
 The current CPU kernel optimization phase is complete, with standalone in-memory
 encoding validated through s=13. Further optimization remains possible; it is
-paused in favor of the [scaling design study](encoding-algorithms.md#next-scaling-design-study).
+paused in favor of the [scaling design study](encoding-scaling.md).
 The [checkpoint](encoding-algorithms.md#current-checkpoint-and-next-step) distinguishes
 measured setup/encoding from s=14 feasibility estimates and s=15's borderline
 cached-encoding case. It does not claim s=14/15 support, completed TRL 5 or a
 large-instance backend. Keep profiling and reusable preprocessing for the study.
+
+
+The [scaling resource audit and design comparison](encoding-scaling.md) complete
+study steps 1–2. They distinguish live payload counts from RSS, identify sparse
+constant construction and root-only cyclic product preparation as candidate
+improvements, and preserve systematic/canonical output requirements for tiled
+execution. None of these candidate changes is implemented yet. Step 3 must verify
+constants, polynomials, complete codewords and actual memory/I/O before admission
+of larger workloads. Large optional spectra remain separate from moderately
+sized public preprocessing distribution.

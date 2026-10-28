@@ -43,27 +43,22 @@ representation limits can change these estimates; distant extrapolations are
 particularly uncertain. Runtime, memory and persisted storage must be measured
 separately before claiming feasibility.
 
-### Next: scaling design study
+### Scaling study: steps 1–2 complete
 
-Before substantial further kernel tuning:
+The [five-step scaling study](encoding-scaling.md) uses the native-backed encoder
+as baseline and starting implementation. Its source-linked resource accounting
+and execution-design comparison are complete; prototypes and hardware calibration
+remain planned. The [analytical model](../experiments/encoding-resources/report.md)
+separates array payloads from measured RSS, identifies avoidable dense setup and
+retained-tree costs, and accounts for width/padding transitions. It refines the
+resource discussion above; it is not a new benchmark or a memory guarantee.
 
-1. Account for live arrays, preprocessing artifacts, memory passes and I/O at
-   s=16..20, including domain/coordinate widths and cached-spectrum storage.
-2. Examine blocked, streaming and external-memory variants of systematic
-   interpolation, polynomial multiplication and evaluation. Identify which steps
-   need global access and how to preserve the efficient information-set mapping.
-3. Compare commodity CPU/multicore and optional GPU execution within those designs,
-   including available RAM/device memory, transfers and storage bandwidth.
-4. Prototype uncertain operations at manageable sizes; measure stage-specific
-   memory and realistic I/O as well as time. Select the architecture before
-   investing in kernels specific to it.
-
-Reuse existing correctness oracles, caches, profiles and comparable baselines.
-Continue profiling during the broader optimization effort; do not delete retained
-preprocessing or disable profiling merely because this CPU phase has ended.
-The study is the next planned activity, not a completed analysis or an already
-selected backend. TRL 5 remains the target; larger deployment acceptance remains
-separate.
+Next implement focused step-3 probes: sparse setup/root-only cyclic preparation,
+a lean online plan with bounded workspaces, and an exact general-basis tiled
+transform/output schedule. Start locally; use measured prototypes to select a
+larger CPU/GPU machine only if needed. No default backend or higher resource
+budget is selected. Reuse existing oracles, caches, profiles and comparable
+baselines; continue profiling during the broader optimization effort.
 
 ## 1. The paper's algorithm
 
