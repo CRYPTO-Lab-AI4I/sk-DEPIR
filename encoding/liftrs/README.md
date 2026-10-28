@@ -228,3 +228,12 @@ per monomial coefficient for s=9, masking to 9 bits; a single byte would not yie
 uniform coefficients. The [tests](binary_field_test.go) independently check all
 supported field degrees, historical codeword hashes and sampled s=9 curve constraints.
 The legacy `utils.GF2n` table-based backend and its field coverage are unchanged.
+
+
+The bounded transforms additionally use small reusable
+[fixed-constant tables](orbit_constant.go), capped at 256 KiB of row entries per
+transform. These accelerate repeated level constants without changing the public
+table-free field API, coordinate conventions or serialized artifacts. They are
+rebuilt during discovery/loading and reused across encodings; changing offsets
+still use general multiplication. Table indexing is not constant-time. See the
+[portable multiplication experiment](../../experiments/field-multiplication/report.md).

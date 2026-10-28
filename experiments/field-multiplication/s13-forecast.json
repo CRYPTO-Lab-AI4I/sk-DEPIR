@@ -1,0 +1,32 @@
+{
+  "s": 13,
+  "t": 5,
+  "capacity_kind": "catalogue_estimate",
+  "k": 11955914,
+  "n": 67108864,
+  "anchor_s": 12,
+  "safety_factor": 1.5,
+  "policy": {
+    "runtime_metric": "first_use",
+    "seconds": 3600,
+    "memory_gib": 12,
+    "safety_factor": 1.5,
+    "encoding_repeats": 3
+  },
+  "forecast": {
+    "discovery_s": 134.4376717802986,
+    "preparation_s": 4323.696778890758,
+    "encoding_s": 221.69643856285063,
+    "peak_bytes": 9038744188.723976
+  },
+  "first_use_seconds": 4679.830889233907,
+  "admitted": false,
+  "policy_source": "../cyclic-scaling/policy.json",
+  "model_source": "../cyclic-scaling/run.py",
+  "input_sha256": {
+    "experiments/field-multiplication/scaling-results.json": "318128926e29ff23c159e13cc980367d4cf284fee49a20923952faf03e02dae6",
+    "pirconfig/configs_catalogue.json": "aa99fbee33da985afa5c3c2779e97bbdded24e1d60237994d82f5024844cd4af",
+    "experiments/cyclic-scaling/run.py": "de21826267eb1cc8820f7d3ac2b86a25b769dba289b2caf2d3693ad7d8e9b22a",
+    "experiments/cyclic-scaling/policy.json": "d6a226d399066e1059075d98cd5666c65c420922682a387187f27ad04731daed"
+  }
+}

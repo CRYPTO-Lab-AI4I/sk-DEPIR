@@ -1,0 +1,11 @@
+{
+  "revision": "a2e0352ba34e53bdc72cc48b20fd6b10ec6681a8",
+  "command": "go build -o /tmp/depir-field-kernels ./experiments/field-multiplication; /tmp/depir-field-kernels",
+  "source_sha256": {
+    "experiments/field-multiplication/main.go": "12457491dec445518c69404b136871470b60a033b2f64c166c7d782402ee82fc",
+    "encoding/liftrs/binary_field.go": "e58ef0cb377b091c9ca895f518f64fee5622b65255d945db483248db879f371f",
+    "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
+    "go.sum": "6b5b9bf04b57c04dc22dc13596e0c5862856f95c24ca23931bb0545736f6ef76"
+  },
+  "results_sha256": "36417e8ea09843e6debf8878c2e0be3e518e9a8c1bbb9bfd6ec10baaae203b05"
+}

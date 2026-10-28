@@ -37,7 +37,10 @@ K=103556 at m=2,t=6, paper/cyclic agreement, independent sampled-curve checks,
 separate encoding heap sampling and packed output measurements. JSON artifacts
 remain in use.
 The [current s=10 CPU profile](experiments/encoder-profile-s10/report.md) identifies
-portable base-field multiplication inside the FFTs as the next optimization target.
+portable base-field multiplication inside the FFTs as an optimization target.
+The [fixed-constant multiplication comparison](experiments/field-multiplication/report.md)
+adds bounded reusable FFT tables while preserving the table-free general field API
+and existing artifact format.
 The [progressive cyclic benchmarks](experiments/cyclic-scaling/report.md) first
 extend measurements through s=12: all measured cases fit the agreed one-hour
 first-use and 12 GiB forecast policy. Large prepared caches stay in memory; JSON

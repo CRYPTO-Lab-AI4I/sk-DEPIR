@@ -70,3 +70,6 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
 
 - [Progressive cyclic scaling](cyclic-scaling/report.md): measured s=11/12 with
   an explicit first-use/RAM policy and labelled forecasts for larger catalogue fields.
+
+- [Portable field multiplication](field-multiplication/report.md): general-kernel
+  comparison and bounded reusable FFT constant tables, with full cyclic scaling.

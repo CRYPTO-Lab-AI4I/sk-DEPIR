@@ -225,3 +225,7 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-28 15:41 | ENCODE-007 | Completed | [Resource-gated cyclic benchmarks completed](2026-10-28-1541-codex-encode-007-completed.md) |
 | 2026-10-28 16:07 | PUBLISH-007 | Started | [Publish cyclic scaling and profiling checkpoint](2026-10-28-1607-codex-publish-007-started.md) |
 | 2026-10-28 16:08 | PUBLISH-007 | Completed | [Cyclic scaling checkpoint verified for publication](2026-10-28-1608-codex-publish-007-completed.md) |
+| 2026-10-28 16:30 | ENCODE-008 | Started | [Portable field multiplication optimization](2026-10-28-1630-codex-encode-008-started.md) |
+| 2026-10-28 16:48 | ENCODE-008 | Completed | [Portable FFT constant multiplication validated](2026-10-28-1648-codex-encode-008-completed.md) |
+| 2026-10-28 16:49 | PUBLISH-008 | Started | [Publish fixed-constant FFT optimization](2026-10-28-1649-codex-publish-008-started.md) |
+| 2026-10-28 16:50 | PUBLISH-008 | Completed | [Fixed-constant checkpoint verified for publication](2026-10-28-1650-codex-publish-008-completed.md) |

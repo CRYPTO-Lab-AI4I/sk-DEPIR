@@ -257,3 +257,11 @@ verify the s=11/12 catalogue cases in memory, with exact capacities K=455434 and
 K=1965739. The s=13 experimental bound is not a completed benchmark; s>=13
 resource/correctness checkpoints remain open. Large caches were not serialized,
 and current JSON loader byte caps remain separate limitations.
+
+The bounded CPU backend now caches four-bit multiplication maps for repeated FFT
+constants, with at most 256 KiB of table entries per transform. Construction is
+code-only runtime preprocessing (also performed on artifact loading); encoding
+reuses the immutable tables. They do not change the field representation,
+information set or version-1 serialized artifacts. The
+[multiplication comparison](../experiments/field-multiplication/report.md)
+separates setup, encoding and memory; table indexing is not constant-time.

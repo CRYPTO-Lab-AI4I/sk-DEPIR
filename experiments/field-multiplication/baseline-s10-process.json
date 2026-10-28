@@ -1,0 +1,7 @@
+{
+  "revision": "a2e0352",
+  "command": "cyclic-scaling -s 10 -t 6 -repeats 3",
+  "exit_status": 0,
+  "wall_seconds": 37.321217459,
+  "peak_rss_bytes": 74399744
+}

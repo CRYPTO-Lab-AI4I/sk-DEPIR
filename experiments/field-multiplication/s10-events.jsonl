@@ -1,0 +1,12 @@
+{"event":"started","phase":"discovery"}
+{"allocated_bytes":24828384,"baseline_heap_bytes":337712,"elapsed_ns":788237500,"event":"phase","gc_cycles":3,"phase":"discovery","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":27166984,"sampled_peak_heap_bytes":13462536,"samples":8}
+{"discovery_seed":1010,"event":"code","go_version":"go1.27.3","k":103556,"m":2,"n":1048576,"s":10,"samples":1,"t":6}
+{"event":"started","phase":"preparation"}
+{"allocated_bytes":272334976,"baseline_heap_bytes":1332552,"elapsed_ns":12704430958,"event":"phase","gc_cycles":22,"phase":"preparation","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":79010072,"sampled_peak_heap_bytes":50881384,"samples":128}
+{"event":"started","phase":"encode_0"}
+{"allocated_bytes":10910136,"baseline_heap_bytes":10189552,"elapsed_ns":1217747042,"event":"phase","gc_cycles":1,"phase":"encode_0","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":79010072,"sampled_peak_heap_bytes":18575728,"samples":13}
+{"event":"started","phase":"encode_1"}
+{"allocated_bytes":10911056,"baseline_heap_bytes":10189680,"elapsed_ns":1216373125,"event":"phase","gc_cycles":1,"phase":"encode_1","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":79010072,"sampled_peak_heap_bytes":18575984,"samples":13}
+{"event":"started","phase":"encode_2"}
+{"allocated_bytes":10910120,"baseline_heap_bytes":10190024,"elapsed_ns":1221056167,"event":"phase","gc_cycles":1,"phase":"encode_2","sample_period_ns":100000000,"sampled_peak_go_sys_bytes":79010072,"sampled_peak_heap_bytes":18576432,"samples":13}
+{"canonical_sha256":"29ae877daff8ad0ae5bd2f632e3263fb0d4f99a9c6748e3b01803bf389b92e35","curve_checks":16,"event":"verified","k":103556,"m":2,"n":1048576,"packed_bytes":1310720,"packed_sha256":"81afb7c207c4e02bc88db0e99ada54c6ccffbbaf3b3c4ba770d7fd61ad668837","packing_write_sync_ns":14793583,"s":10,"seed":71,"systematic_positions_checked":103556,"t":6,"verification_ns":9563708}

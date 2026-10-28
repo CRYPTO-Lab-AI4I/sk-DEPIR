@@ -382,3 +382,22 @@ The API's s<=13 bound permits resource-limited experiments; it is not a guarante
 for arbitrary instances or large serialized caches. After this broader baseline,
 optimize the measured arithmetic/transform bottlenecks and repeat the scaling
 comparison. External-memory/GPU work remains subject to the agreed scope gate.
+
+### Portable fixed-constant multiplication
+
+The [portable-kernel experiment](../experiments/field-multiplication/report.md)
+compares masked bit loops and four-bit general multiplication before changing
+that arithmetic. The existing scalar kernel is retained. The transform instead
+prepares four-bit tables for its repeatedly used level constants: sparse
+polynomial coefficients, butterfly factors and their inverses. These tables
+implement the same GF(2)-linear maps in the existing field/tower basis.
+
+Each transform caps table entries at 256 KiB (512 KiB across base and extension
+transforms); small descriptors/allocator overhead are additional. Identity and
+zero maps allocate no rows; exhausted budgets use scalar multiplication.
+Changing recursion offsets remain on the general path. Tables are immutable,
+database-independent runtime metadata built during discovery or artifact loading,
+not per-message scratch or new serialized fields. This keeps version-1 artifacts
+compatible. Table indices depend on symbols; no constant-time security claim is
+made. The report separates table setup, reusable preparation and encoding and
+records the resulting larger-instance admission decision.

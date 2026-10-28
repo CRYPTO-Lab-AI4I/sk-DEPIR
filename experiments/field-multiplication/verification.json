@@ -1,0 +1,64 @@
+[
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "test",
+      "./encoding/liftrs",
+      "./pirconfig",
+      "./experiments/field-multiplication",
+      "-count=1"
+    ],
+    "isolated_copy": false,
+    "exit_code": 0,
+    "seconds": 10.957834250000001
+  },
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "test",
+      "./encoding/liftrs",
+      "-run",
+      "TestConstantTableSizes",
+      "-v",
+      "-count=1"
+    ],
+    "isolated_copy": false,
+    "exit_code": 0,
+    "seconds": 0.8148790829999992
+  },
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "test",
+      "-race",
+      "./encoding/liftrs",
+      "./pirconfig",
+      "./experiments/field-multiplication"
+    ],
+    "isolated_copy": false,
+    "exit_code": 0,
+    "seconds": 77.66583033399999
+  },
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "vet",
+      "./encoding/liftrs",
+      "./pirconfig",
+      "./experiments/field-multiplication"
+    ],
+    "isolated_copy": false,
+    "exit_code": 0,
+    "seconds": 0.18692162499999654
+  },
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "test",
+      "./..."
+    ],
+    "isolated_copy": true,
+    "exit_code": 0,
+    "seconds": 10.97272658300001
+  }
+]
