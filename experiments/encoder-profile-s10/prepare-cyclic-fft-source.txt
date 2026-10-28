@@ -1,0 +1,40 @@
+Total: 25.85s
+ROUTINE ======================== github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PrepareCyclic in /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs/orbit.go
+         0     24.26s (flat, cum) 93.85% of Total
+         .          .    249:func (b *OrbitBasis) PrepareCyclic() (*CyclicEncoder, error) {
+         .          .    250:	roots := make([]uint32, b.Dimension())
+         .          .    251:	for j, i := range b.support {
+         .       30ms    252:		roots[j] = b.extension.inv(b.extension.pow(b.omega, i))
+         .          .    253:	}
+         .      1.78s    254:	p := newProductTree(b.extension, roots).polynomial
+         .          .    255:	scale := b.extension.inv(p[0])
+         .          .    256:	for i := range p {
+         .          .    257:		p[i] = b.extension.mul(p[i], scale)
+         .          .    258:		if p[i] >= b.base.q {
+         .          .    259:			return nil, fmt.Errorf("cyclic check polynomial escaped the base field")
+         .          .    260:		}
+         .          .    261:	}
+         .          .    262:	dividend := make([]uint32, b.Length())
+         .          .    263:	dividend[0] = 1
+         .          .    264:	dividend[len(dividend)-1] = 1
+         .     22.45s    265:	g, remainder := polyDiv(b.base, dividend, p)
+         .          .    266:	if len(remainder) != 0 || g[0] != 1 {
+         .          .    267:		return nil, fmt.Errorf("invalid cyclic generator")
+         .          .    268:	}
+         .          .    269:	return &CyclicEncoder{basis: b, p: p, g: g}, nil
+         .          .    270:}
+ROUTINE ======================== github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PrepareCyclicFFT in /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs/orbit.go
+         0     25.26s (flat, cum) 97.72% of Total
+         .          .    357:func (b *OrbitBasis) PrepareCyclicFFT() (*CyclicEncoder, error) {
+         .     24.26s    358:	e, err := b.PrepareCyclic()
+         .          .    359:	if err != nil {
+         .          .    360:		return nil, err
+         .          .    361:	}
+         .          .    362:	e.spectrum = make([]uint32, b.Length())
+         .          .    363:	copy(e.spectrum, e.g)
+         .         1s    364:	b.extensionFFT.apply(e.spectrum, false)
+         .          .    365:	return e, nil
+         .          .    366:}
+         .          .    367:
+         .          .    368:// Basis returns the immutable public code data shared by this encoder, including
+         .          .    369:// its dimension and information-set mapping. It contains no database or keys.

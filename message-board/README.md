@@ -218,3 +218,10 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-28 13:15 | ENCODE-005 | Completed | [CPU s=10 checkpoint validated](2026-10-28-1315-codex-encode-005-completed.md) |
 | 2026-10-28 14:36 | PUBLISH-006 | Started | [Publish s=10 encoder checkpoint](2026-10-28-1436-codex-publish-006-started.md) |
 | 2026-10-28 14:36 | PUBLISH-006 | Completed | [Publish s=10 encoder checkpoint](2026-10-28-1436-codex-publish-006-completed.md) |
+| 2026-10-28 14:38 | ENCODE-006 | Started | [Profile s=10 cyclic encoding](2026-10-28-1438-codex-encode-006-started.md) |
+| 2026-10-28 14:43 | ENCODE-006 | Completed | [s=10 CPU profiles recorded](2026-10-28-1443-codex-encode-006-completed.md) |
+| 2026-10-28 15:15 | ENCODE-007 | Started | [Progressive cyclic scaling benchmarks](2026-10-28-1515-codex-encode-007-started.md) |
+| 2026-10-28 15:17 | ENCODE-007 | Update | [First-use runtime policy confirmed](2026-10-28-1517-codex-encode-007-policy.md) |
+| 2026-10-28 15:41 | ENCODE-007 | Completed | [Resource-gated cyclic benchmarks completed](2026-10-28-1541-codex-encode-007-completed.md) |
+| 2026-10-28 16:07 | PUBLISH-007 | Started | [Publish cyclic scaling and profiling checkpoint](2026-10-28-1607-codex-publish-007-started.md) |
+| 2026-10-28 16:08 | PUBLISH-007 | Completed | [Cyclic scaling checkpoint verified for publication](2026-10-28-1608-codex-publish-007-completed.md) |

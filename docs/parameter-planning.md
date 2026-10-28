@@ -44,7 +44,8 @@ capacity. Record this status separately from the rate evidence.
 The [PIR configuration catalogue](../pirconfig/configs_catalogue.json) contains the
 agreed security profiles and [Monte Carlo rate estimates](../experiments/liftrs-rates/report.md)
 for every target configuration. The four matching paper estimates remain as
-supporting evidence. The s=8, s=9 and s=10 entries additionally record exact capacities K=3121, K=17200 and K=103556
+supporting evidence. The s=8..12 entries additionally record exact capacities K=3121, K=17200,
+K=103556, K=455434 and K=1965739
 and bounded standalone encoding support; the other capacities remain provisional. An application plan
 still needs a compatible execution backend, beyond catalogue metadata alone.
 The [verified tiny fixture](../pirconfig/testdata/reference.json) exercises the format

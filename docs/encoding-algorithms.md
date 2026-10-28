@@ -110,7 +110,7 @@ There are two preprocessing routes to compare:
   rather than accepting a larger-degree gcd. This reasoning requires the exact
   code space and independent uniform samples, not estimated K or sparse samples.
 
-The D-based route is now implemented for m=2, s=2..10 and checked against the
+The D-based route accepts an experimental m=2,s=2..13 range, with completed catalogue measurements through s=12 and checked against the
 paper path and dense oracle. The random-codeword gcd route is not implemented.
 Tests verify coordinate orientation, zero-coordinate extension and equality.
 The [current dense oracle](../encoding/liftrs/reference.go) chooses different
@@ -354,5 +354,31 @@ The heap sampler reports an observed increase above loaded-cache/message baselin
 including the 4 MiB output; it can miss transient peaks and is not an exact bound
 on intermediate workspace. Process RSS is recorded separately. The packed file is
 one canonical codeword, not grouped application storage or sustained disk throughput.
-Next use these measurements to choose optimization work and advance to s=11/12;
-streaming, external-memory and GPU scope decisions remain separate.
+The [subsequent s=10 profile](../experiments/encoder-profile-s10/report.md) attributes
+76.4% of encoding samples to scalar base-field multiplication, mostly inside the
+FFTs. The subsequent [progressive scaling run](../experiments/cyclic-scaling/report.md)
+first measured s=11/12 before selecting further optimization. Use its resource
+boundary alongside the field-kernel profile to choose the next change. The 76.5%
+main-FFT and 23.0% prefix shares describe algorithm stages; they overlap the
+arithmetic attribution and must not be added to it. Streaming, external-memory
+and GPU scope decisions remain separate.
+
+### Progressive first-use benchmarks through s=12
+
+The [larger cyclic experiment](../experiments/cyclic-scaling/report.md) measures
+s=11,t=6 and s=12,t=6 with exact K=455434 and K=1965739. Discovery, code-only
+preparation, database encoding and validation/output are separate. Prepared
+constants stay in memory; this comparison does not wait for large-cache JSON
+serialization or measure its loading. The existing JSON limits remain 2/64 MiB.
+
+User policy admits cases when forecast discovery + preparation + one encoding is
+under one hour and forecast RAM fits 12 GiB, with a 1.5 safety factor. Forecasts
+are updated from the largest completed case. First use is 2.92 minutes at s=11
+and 13.00 minutes at s=12; peak process RSS is 0.26/1.19 GiB. The s=13 forecast
+exceeds the time policy and s>=14 also exceeds the RAM policy. Excluded cases are
+model estimates, not claims of impossibility. No s>=13 benchmark is claimed.
+
+The API's s<=13 bound permits resource-limited experiments; it is not a guarantee
+for arbitrary instances or large serialized caches. After this broader baseline,
+optimize the measured arithmetic/transform bottlenecks and repeat the scaling
+comparison. External-memory/GPU work remains subject to the agreed scope gate.

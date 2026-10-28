@@ -27,16 +27,18 @@ func check(err error) {
 }
 
 func main() {
+	s := flag.Int("s", 9, "base-field degree")
+	t := flag.Int("t", 7, "curve degree")
 	stage := flag.String("stage", "encode", "prepare or encode")
 	method := flag.String("method", "cyclic-fft", "paper or cyclic-fft")
 	duration := flag.Duration("duration", 4*time.Second, "minimum sampled duration; complete the final call")
 	artifacts := flag.String("artifacts", "experiments/tablefree-encoding/artifacts", "prepared checkpoint directory")
 	profile := flag.String("profile", "cpu.pprof", "CPU profile output")
 	flag.Parse()
-	if (*stage != "prepare" && *stage != "encode") || (*method != "paper" && *method != "cyclic-fft") || *duration <= 0 {
+	if (*stage != "prepare" && *stage != "encode") || (*method != "paper" && *method != "cyclic-fft") || *duration <= 0 || *s < 2 || *s > 20 {
 		panic("invalid stage, method or duration")
 	}
-	stem := filepath.Join(*artifacts, "s09-m2-t7-")
+	stem := filepath.Join(*artifacts, fmt.Sprintf("s%02d-m2-t%d-", *s, *t))
 	var run func()
 	var marshal func() ([]byte, error)
 	var basis *liftrs.OrbitBasis
@@ -70,9 +72,20 @@ func main() {
 		message = make([]uint32, basis.Dimension())
 		random := rand.New(rand.NewSource(71))
 		for i := range message {
-			message[i] = uint32(random.Intn(512))
+			message[i] = uint32(random.Intn(1 << uint(*s)))
 		}
 		run = func() { var err error; word, err = encode(message); check(err) }
+	}
+	// Verify that flag-selected metadata agrees with the actual artifact before
+	// sampling. Keep the historical default configuration and seed unchanged.
+	metadata, err := basis.MarshalBinary()
+	check(err)
+	var description struct {
+		Spec liftrs.Spec `json:"spec"`
+	}
+	check(json.Unmarshal(metadata, &description))
+	if description.Spec != (liftrs.Spec{FieldDegree: *s, Dimension: 2, CurveDegree: *t}) {
+		panic("artifact/code specification mismatch")
 	}
 	runtime.GC()
 	file, err := os.Create(*profile)
@@ -111,6 +124,6 @@ func main() {
 		}
 	}
 	digest := sha256.Sum256(raw)
-	check(json.NewEncoder(os.Stdout).Encode(map[string]any{"stage": *stage, "method": *method, "s": 9, "m": 2, "t": 7, "n": basis.Length(), "k": basis.Dimension(), "seed": 71, "calls": calls, "elapsed_ns": elapsed.Nanoseconds(), "sha256": hex.EncodeToString(digest[:]), "go_version": runtime.Version(), "gomaxprocs": runtime.GOMAXPROCS(0)}))
+	check(json.NewEncoder(os.Stdout).Encode(map[string]any{"stage": *stage, "method": *method, "s": *s, "m": 2, "t": *t, "n": basis.Length(), "k": basis.Dimension(), "seed": 71, "calls": calls, "elapsed_ns": elapsed.Nanoseconds(), "sha256": hex.EncodeToString(digest[:]), "go_version": runtime.Version(), "gomaxprocs": runtime.GOMAXPROCS(0)}))
 	fmt.Fprintln(os.Stderr, "CPU profile:", *profile)
 }

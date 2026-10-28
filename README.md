@@ -15,13 +15,14 @@ The online query and decode path supports locality `ℓ=q-1`, dimensions `m=2` a
 **A standalone small Lift-RS encoder is available in [encoding/liftrs](encoding/liftrs/README.md).** It provides reusable generator-matrix preprocessing and systematic field-element encoding for correctness fixtures over GF(4), GF(8), and GF(16), with at most 256 codeword positions. These are not the target security configurations. **The existing file-based API has no integrated Lift-RS encoder.** `LiftedRS.Encode` calls the external Reed-Muller encoder (`RMEncoding`) as a testing placeholder. `encoding/rme.cpp` contains an experimental `LRSE2D` helper, but the encoder command protocol does not select it. RM-backed tests therefore validate the Lift-RS online protocol only on compatible RM codewords. They do not establish Lift-RS encoding, rate, storage overhead, or encoding time.
 
 **Paper and cyclic encoders now share the paper's information set** through the
-[bounded orbit API](encoding/liftrs/README.md#paper-and-cyclic-encoders), for `m=2`,
-`s=2..10`, and at most 1,048,576 codeword positions. Discovery, method preparation,
+[bounded orbit API](encoding/liftrs/README.md#paper-and-cyclic-encoders) for `m=2`.
+In-memory experiments accept `s=2..13` (at most 67,108,864 positions); completed
+catalogue benchmarks cover s=8..12. Discovery, method preparation,
 public artifact loading, and database encoding are separate. Prepared artifacts
 include cached solver data or cyclic polynomials/spectra, reused for many databases.
 The [CPU comparison](experiments/encoder-comparison/report.md) reports setup, artifact
 sizes, per-database encoding, process memory and output I/O separately. This does
-not provide an s=11..20, streaming, GPU or integrated file-based encoder.
+not provide validated s=13..20, streaming, GPU or integrated file-based encoding.
 The [table-free checkpoint](experiments/tablefree-encoding/report.md) now measures
 s=9,m=2,t=7 with exact K=17200. The standalone field API covers every s=2..20
 without full-field arithmetic tables; encoder support remains separately bounded.
@@ -35,6 +36,12 @@ The [s=10 CPU checkpoint](experiments/encoder-scaling/report.md) adds exact
 K=103556 at m=2,t=6, paper/cyclic agreement, independent sampled-curve checks,
 separate encoding heap sampling and packed output measurements. JSON artifacts
 remain in use.
+The [current s=10 CPU profile](experiments/encoder-profile-s10/report.md) identifies
+portable base-field multiplication inside the FFTs as the next optimization target.
+The [progressive cyclic benchmarks](experiments/cyclic-scaling/report.md) first
+extend measurements through s=12: all measured cases fit the agreed one-hour
+first-use and 12 GiB forecast policy. Large prepared caches stay in memory; JSON
+size limits are unchanged and large-cache loading was not measured.
 
 A separate [small cryptographic reference](encoding/cryptoref/README.md) permutes codewords and applies storage-position XOR masks using the existing AES helpers. It tests independent masking keys, re-encoding, and genuine-codeword retrieval. Its in-memory architecture is a correctness reference; it does not select a production API or streaming design.
 
@@ -166,8 +173,9 @@ The [rate estimator](cmd/pir-rate/README.md) samples monomials using a determini
 membership test that supports `s=2..20` without field arithmetic or generator
 matrices. This does not extend the small encoder's supported sizes.
 
-The s=8,m=2,t=8, s=9,m=2,t=7 and s=10,m=2,t=6 catalogue entries now record
-exact K=3121, K=17200 and K=103556, with standalone orbit encoder support. Remaining
+The s=8..12 catalogue entries now record exact capacities K=3121, 17200,
+103556, 455434 and 1965739, respectively, with standalone encoding evidence.
+The s=11/12 evidence covers in-memory cyclic encoding; remaining
 entries have estimated capacities. Historical
 experiment snapshots retain their earlier estimates.
 
@@ -178,9 +186,9 @@ The [planner design](docs/parameter-planning.md) describes joint selection of su
 The [application encoder](docs/encoder-contract.md#application-encoding) consumes a selected plan, partitions and pads the input, converts it to field elements, and invokes the non-cryptographic and cryptographic PIR encoders for each database; [appref](encoding/appref/README.md) implements this workflow only as a bounded reference. [Code preprocessing](docs/encoder-contract.md#code-preprocessing) takes only code specifications and produces reusable encoding information, independently of any database. Durable manifest/key persistence and large-instance backends remain separate work. The [encoding algorithm review](docs/encoding-algorithms.md) compares the paper's systematic encoder, a cyclic polynomial formulation, and reusable transform implementations; it records the bounded implementations and remaining large-instance work. The
 [five-step encoder plan](docs/encoding-algorithms.md#6-five-step-implementation-plan)
 has completed table-free arithmetic, hybrid full/low polynomial products and CPU
-measurements through s=10. Continue scaling before artifact-format cleanup unless
-size/loading costs obstruct measurement. Compact binary artifacts, CPU comparisons
-through s=12, bounded-RAM
+cyclic measurements through s=12. Larger first-use forecasts exceed the current
+resource policy; estimates are not benchmarks or feasibility proofs. Compact binary
+artifacts, optimized field kernels, bounded-RAM
 encoding and optional GPU acceleration remain planned, not supported large-instance
 capabilities.
 

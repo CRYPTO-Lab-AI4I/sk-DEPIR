@@ -1,0 +1,447 @@
+{
+  "timestamp_utc": "2026-10-28T15:15:05.694642+00:00",
+  "revision": "c06375c849038cf1bb40ff6ae33fc8f26d5f1766",
+  "source_sha256": {
+    "encoding/liftrs/binary_field.go": "e58ef0cb377b091c9ca895f518f64fee5622b65255d945db483248db879f371f",
+    "encoding/liftrs/binary_field_example_test.go": "ebe64131fda2352f8cc21c213ccf868836b30ca5f068c914250ca55d5dee3962",
+    "encoding/liftrs/binary_field_test.go": "996838d45b0f2ec11d9732191a74bb4a5874b95a72496a98ffd8d53f1f8e39e8",
+    "encoding/liftrs/example_test.go": "7d0272b0ae860e856fc0f55c81ed5e1fbb08fbe5e12f2660ffe8c97ba8a29112",
+    "encoding/liftrs/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+    "encoding/liftrs/orbit.go": "7fc2b6d10993b041b91f5db7ff45b346e8b98ccc1e33d90d049369945d6c70ee",
+    "encoding/liftrs/orbit_arithmetic.go": "8393001b357403435b617b4a294d9c0c9ad22e13fb7ff8c41112614e175569d3",
+    "encoding/liftrs/orbit_artifact.go": "eee214ab10365cee753c36c70aec6ea6a17dc2370f388bbdc633d0c9daa07f64",
+    "encoding/liftrs/orbit_example_test.go": "ccadd8a9a724c9c756d36baf6638094a2e5ac985c2abd65267a0c82abd0ad7bf",
+    "encoding/liftrs/orbit_fft.go": "836a97ecdc7c1a000f7f126209b236f89121aa12326e9b39b2a3bb29c083e021",
+    "encoding/liftrs/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+    "encoding/liftrs/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+    "encoding/liftrs/orbit_product_test.go": "c675c0dedba16763c3cf64c9a79e372e9698ec4b2c5a273d2883179b513ba3e7",
+    "encoding/liftrs/orbit_test.go": "e7a37a4106840f7bac56c92bd5d1b11c486bcea4dd2c4f3368eea5f80e3319bc",
+    "encoding/liftrs/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+    "encoding/liftrs/s10_checkpoint_test.go": "3f606fc200b82ac3a7bfab79b8919d9af22997d419ba848ef6e11ef95255ceeb",
+    "experiments/cyclic-scaling/main.go": "7aa7824ed929089ded1f4e08525b4fdc669fd48ca214013d153b4dc7c1e29f4e",
+    "experiments/cyclic-scaling/run.py": "de21826267eb1cc8820f7d3ac2b86a25b769dba289b2caf2d3693ad7d8e9b22a",
+    "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
+    "go.sum": "6b5b9bf04b57c04dc22dc13596e0c5862856f95c24ca23931bb0545736f6ef76"
+  },
+  "seed_checkpoint_sha256": "71cf92e5d09fc91368e95fc2ca37d8cd9769e3b2790175fe9697a7e6bc135dcf",
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.9.6",
+    "cpu_count": 18,
+    "go": "go version go1.27.3 darwin/arm64"
+  },
+  "initial_anchor": {
+    "s": 10,
+    "n": 1048576,
+    "k": 103556,
+    "discovery_s": 1.447402875,
+    "preparation_s": 26.475027959,
+    "encoding_s": 2.681691167,
+    "peak_bytes": 77889536
+  },
+  "cases": [
+    {
+      "s": 11,
+      "t": 6,
+      "n": 4194304,
+      "k": 455434,
+      "capacity_kind": "exact_enumeration",
+      "anchor": {
+        "s": 10,
+        "n": 1048576,
+        "k": 103556,
+        "discovery_s": 1.447402875,
+        "preparation_s": 26.475027959,
+        "encoding_s": 2.681691167,
+        "peak_bytes": 77889536
+      },
+      "policy": {
+        "runtime_metric": "first_use",
+        "seconds": 3600,
+        "memory_gib": 12,
+        "safety_factor": 1.5,
+        "encoding_repeats": 3
+      },
+      "forecast": {
+        "discovery_s": 11.558959359750006,
+        "preparation_s": 274.1183722072892,
+        "encoding_s": 21.415985659662006,
+        "peak_bytes": 511087463.600448
+      },
+      "events": "s11-events.jsonl",
+      "events_sha256": "34d58ec6d620969c019e49b3199713dab576016f8101bd60f7e27788729b71ac",
+      "stderr": "s11-stderr.txt",
+      "returncode": 0,
+      "wall_seconds": 204.823306,
+      "process_peak_rss_bytes": 280576000,
+      "status": "measured",
+      "measurement": {
+        "s": 11,
+        "n": 4194304,
+        "k": 455434,
+        "discovery_s": 15.069384458,
+        "preparation_s": 145.263712416,
+        "encoding_s": 14.60077475,
+        "peak_bytes": 280576000
+      },
+      "verification": {
+        "canonical_sha256": "5230bf16aa6238242a7bc03e838a6216e59c8fbb33a30408ee69391dafa0af30",
+        "curve_checks": 16,
+        "event": "verified",
+        "k": 455434,
+        "m": 2,
+        "n": 4194304,
+        "packed_bytes": 5767168,
+        "packed_sha256": "4ac9c7c4b4ed27337c9731dc02a5ea58d94fe565e23fd1131b51532963d1ba2f",
+        "packing_write_sync_ns": 37217958,
+        "s": 11,
+        "seed": 71,
+        "systematic_positions_checked": 455434,
+        "t": 6,
+        "verification_ns": 25632125
+      }
+    },
+    {
+      "s": 12,
+      "t": 6,
+      "n": 16777216,
+      "k": 1965739,
+      "capacity_kind": "exact_enumeration",
+      "anchor": {
+        "s": 11,
+        "n": 4194304,
+        "k": 455434,
+        "discovery_s": 15.069384458,
+        "preparation_s": 145.263712416,
+        "encoding_s": 14.60077475,
+        "peak_bytes": 280576000
+      },
+      "policy": {
+        "runtime_metric": "first_use",
+        "seconds": 3600,
+        "memory_gib": 12,
+        "safety_factor": 1.5,
+        "encoding_repeats": 3
+      },
+      "forecast": {
+        "discovery_s": 117.38495722054392,
+        "preparation_s": 1410.7789001605363,
+        "encoding_s": 113.73466011119454,
+        "peak_bytes": 1815580242.212922
+      },
+      "events": "s12-events.jsonl",
+      "events_sha256": "d2d2538d5c4337e7506bc0e3099e2ad735ad3b1bba143267e197d392f89b6ec3",
+      "stderr": "s12-stderr.txt",
+      "returncode": 0,
+      "wall_seconds": 914.883263166,
+      "process_peak_rss_bytes": 1278574592,
+      "status": "measured",
+      "measurement": {
+        "s": 12,
+        "n": 16777216,
+        "k": 1965739,
+        "discovery_s": 34.982976875,
+        "preparation_s": 677.19396675,
+        "encoding_s": 67.7592575,
+        "peak_bytes": 1278574592
+      },
+      "verification": {
+        "canonical_sha256": "7a7cd2c698d8ad2a599fa2de6bf01a2f3e6c5c6d3048b60a821d0d21cbce4f85",
+        "curve_checks": 16,
+        "event": "verified",
+        "k": 1965739,
+        "m": 2,
+        "n": 16777216,
+        "packed_bytes": 25165824,
+        "packed_sha256": "f2af53b60a272514d35a4e53564d604688dfbfed033b06b36143212108722dfd",
+        "packing_write_sync_ns": 159491458,
+        "s": 12,
+        "seed": 71,
+        "systematic_positions_checked": 1965739,
+        "t": 6,
+        "verification_ns": 110821208
+      }
+    },
+    {
+      "s": 13,
+      "t": 5,
+      "n": 67108864,
+      "k": 11955914,
+      "capacity_kind": "catalogue_estimate",
+      "anchor": {
+        "s": 12,
+        "n": 16777216,
+        "k": 1965739,
+        "discovery_s": 34.982976875,
+        "preparation_s": 677.19396675,
+        "encoding_s": 67.7592575,
+        "peak_bytes": 1278574592
+      },
+      "policy": {
+        "runtime_metric": "first_use",
+        "seconds": 3600,
+        "memory_gib": 12,
+        "safety_factor": 1.5,
+        "encoding_repeats": 3
+      },
+      "forecast": {
+        "discovery_s": 266.8666673415798,
+        "preparation_s": 9519.106490086184,
+        "encoding_s": 516.8996136371527,
+        "peak_bytes": 11664718356.203766
+      },
+      "status": "estimated_not_run",
+      "reasons": [
+        "runtime_forecast"
+      ]
+    },
+    {
+      "s": 14,
+      "t": 5,
+      "n": 268435456,
+      "k": 51209164,
+      "capacity_kind": "catalogue_estimate",
+      "anchor": {
+        "s": 12,
+        "n": 16777216,
+        "k": 1965739,
+        "discovery_s": 34.982976875,
+        "preparation_s": 677.19396675,
+        "encoding_s": 67.7592575,
+        "peak_bytes": 1278574592
+      },
+      "policy": {
+        "runtime_metric": "first_use",
+        "seconds": 3600,
+        "memory_gib": 12,
+        "safety_factor": 1.5,
+        "encoding_repeats": 3
+      },
+      "forecast": {
+        "discovery_s": 1333.2401186805557,
+        "preparation_s": 56747.11620498703,
+        "encoding_s": 2582.3805913888896,
+        "peak_bytes": 49961924727.51552
+      },
+      "status": "estimated_not_run",
+      "reasons": [
+        "runtime_forecast",
+        "memory_forecast",
+        "packed_backend_bound"
+      ]
+    },
+    {
+      "s": 15,
+      "t": 5,
+      "n": 1073741824,
+      "k": 216920545,
+      "capacity_kind": "catalogue_estimate",
+      "anchor": {
+        "s": 12,
+        "n": 16777216,
+        "k": 1965739,
+        "discovery_s": 34.982976875,
+        "preparation_s": 677.19396675,
+        "encoding_s": 67.7592575,
+        "peak_bytes": 1278574592
+      },
+      "policy": {
+        "runtime_metric": "first_use",
+        "seconds": 3600,
+        "memory_gib": 12,
+        "safety_factor": 1.5,
+        "encoding_repeats": 3
+      },
+      "forecast": {
+        "discovery_s": 6559.3081640625005,
+        "preparation_s": 325632.1197835747,
+        "encoding_s": 12704.860781250001,
+        "peak_bytes": 211637275334.9702
+      },
+      "status": "estimated_not_run",
+      "reasons": [
+        "runtime_forecast",
+        "memory_forecast",
+        "packed_backend_bound"
+      ]
+    },
+    {
+      "s": 16,
+      "t": 5,
+      "n": 4294967296,
+      "k": 919440829,
+      "capacity_kind": "catalogue_estimate",
+      "anchor": {
+        "s": 12,
+        "n": 16777216,
+        "k": 1965739,
+        "discovery_s": 34.982976875,
+        "preparation_s": 677.19396675,
+        "encoding_s": 67.7592575,
+        "peak_bytes": 1278574592
+      },
+      "policy": {
+        "runtime_metric": "first_use",
+        "seconds": 3600,
+        "memory_gib": 12,
+        "safety_factor": 1.5,
+        "encoding_repeats": 3
+      },
+      "forecast": {
+        "discovery_s": 31842.2829511111,
+        "preparation_s": 1830186.1770636332,
+        "encoding_s": 61675.981937777775,
+        "peak_bytes": 897047127930.1194
+      },
+      "status": "estimated_not_run",
+      "reasons": [
+        "runtime_forecast",
+        "memory_forecast",
+        "packed_backend_bound"
+      ]
+    },
+    {
+      "s": 17,
+      "t": 5,
+      "n": 17179869184,
+      "k": 3870933765,
+      "capacity_kind": "catalogue_estimate",
+      "anchor": {
+        "s": 12,
+        "n": 16777216,
+        "k": 1965739,
+        "discovery_s": 34.982976875,
+        "preparation_s": 677.19396675,
+        "encoding_s": 67.7592575,
+        "peak_bytes": 1278574592
+      },
+      "policy": {
+        "runtime_metric": "first_use",
+        "seconds": 3600,
+        "memory_gib": 12,
+        "safety_factor": 1.5,
+        "encoding_repeats": 3
+      },
+      "forecast": {
+        "discovery_s": 152774.54701055557,
+        "preparation_s": 10019334.505627053,
+        "encoding_s": 295912.20630888897,
+        "peak_bytes": 3776654143233.5874
+      },
+      "status": "estimated_not_run",
+      "reasons": [
+        "runtime_forecast",
+        "memory_forecast",
+        "packed_backend_bound"
+      ]
+    },
+    {
+      "s": 18,
+      "t": 5,
+      "n": 68719476736,
+      "k": 16298885492,
+      "capacity_kind": "catalogue_estimate",
+      "anchor": {
+        "s": 12,
+        "n": 16777216,
+        "k": 1965739,
+        "discovery_s": 34.982976875,
+        "preparation_s": 677.19396675,
+        "encoding_s": 67.7592575,
+        "peak_bytes": 1278574592
+      },
+      "policy": {
+        "runtime_metric": "first_use",
+        "seconds": 3600,
+        "memory_gib": 12,
+        "safety_factor": 1.5,
+        "encoding_repeats": 3
+      },
+      "forecast": {
+        "discovery_s": 725407.00848,
+        "preparation_s": 53975684.145668834,
+        "encoding_s": 1405055.96352,
+        "peak_bytes": 15901913378115.27
+      },
+      "status": "estimated_not_run",
+      "reasons": [
+        "runtime_forecast",
+        "memory_forecast",
+        "packed_backend_bound"
+      ]
+    },
+    {
+      "s": 19,
+      "t": 5,
+      "n": 274877906944,
+      "k": 68331898887,
+      "capacity_kind": "catalogue_estimate",
+      "anchor": {
+        "s": 12,
+        "n": 16777216,
+        "k": 1965739,
+        "discovery_s": 34.982976875,
+        "preparation_s": 677.19396675,
+        "encoding_s": 67.7592575,
+        "peak_bytes": 1278574592
+      },
+      "policy": {
+        "runtime_metric": "first_use",
+        "seconds": 3600,
+        "memory_gib": 12,
+        "safety_factor": 1.5,
+        "encoding_repeats": 3
+      },
+      "forecast": {
+        "discovery_s": 3412597.1681511104,
+        "preparation_s": 285255311.2710731,
+        "encoding_s": 6609930.626737777,
+        "peak_bytes": 66667622003758.85
+      },
+      "status": "estimated_not_run",
+      "reasons": [
+        "runtime_forecast",
+        "memory_forecast",
+        "packed_backend_bound"
+      ]
+    },
+    {
+      "s": 20,
+      "t": 5,
+      "n": 1099511627776,
+      "k": 286146801617,
+      "capacity_kind": "catalogue_estimate",
+      "anchor": {
+        "s": 12,
+        "n": 16777216,
+        "k": 1965739,
+        "discovery_s": 34.982976875,
+        "preparation_s": 677.19396675,
+        "encoding_s": 67.7592575,
+        "peak_bytes": 1278574592
+      },
+      "policy": {
+        "runtime_metric": "first_use",
+        "seconds": 3600,
+        "memory_gib": 12,
+        "safety_factor": 1.5,
+        "encoding_repeats": 3
+      },
+      "forecast": {
+        "discovery_s": 15921141.475555558,
+        "preparation_s": 1486620293.0005832,
+        "encoding_s": 30837990.968888897,
+        "peak_bytes": 279177472286168.75
+      },
+      "status": "estimated_not_run",
+      "reasons": [
+        "runtime_forecast",
+        "memory_forecast",
+        "packed_backend_bound"
+      ]
+    }
+  ]
+}

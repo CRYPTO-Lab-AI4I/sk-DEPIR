@@ -64,3 +64,9 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
 
 - [CPU encoding at s=10](encoder-scaling/report.md): exact capacity, reusable JSON
   artifacts, paper/cyclic agreement, independent curve checks and separate heap/output measurements.
+
+- [Current s=10 cyclic CPU profiles](encoder-profile-s10/report.md): separate reusable
+  preparation and database encoding, with stage/source attribution and field-kernel priorities.
+
+- [Progressive cyclic scaling](cyclic-scaling/report.md): measured s=11/12 with
+  an explicit first-use/RAM policy and labelled forecasts for larger catalogue fields.

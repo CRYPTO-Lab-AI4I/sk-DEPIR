@@ -103,3 +103,7 @@ reports and historical measurements are unchanged.
 The [polynomial-product checkpoint](../fast-polynomial/report.md) adds hybrid
 full/low products and compares its effects against this implementation. The
 measurements above remain a snapshot of the source revision recorded here.
+
+The shared driver now accepts code-degree arguments with the same s=9,t=7 defaults.
+[The s=10 profile](../encoder-profile-s10/report.md) measures the later hybrid
+polynomial backend; it does not replace the historical samples above.

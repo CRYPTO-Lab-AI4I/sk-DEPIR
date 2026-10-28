@@ -1,0 +1,32 @@
+File: profile
+Type: cpu
+Time: 2026-10-28 15:39:30 CET
+Duration: 26.39s, Total samples = 25.85s (97.95%)
+Showing nodes accounting for 25.57s, 98.92% of 25.85s total
+Dropped 49 nodes (cum <= 0.13s)
+      flat  flat%   sum%        cum   cum%
+    19.24s 74.43% 74.43%     19.24s 74.43%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.BinaryField.Mul (inline)
+     2.12s  8.20% 82.63%     24.39s 94.35%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).recurse
+     1.88s  7.27% 89.90%     21.11s 81.66%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.QuadraticField.Mul
+     1.78s  6.89% 96.79%     22.90s 88.59%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.orbitField.mul
+     0.45s  1.74% 98.53%      0.45s  1.74%  runtime.madvise
+     0.06s  0.23% 98.76%      0.55s  2.13%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.karatsuba
+     0.04s  0.15% 98.92%     23.62s 91.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*polynomialProducts).multiply
+         0     0% 98.92%     24.26s 93.85%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PrepareCyclic
+         0     0% 98.92%     25.26s 97.72%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*OrbitBasis).PrepareCyclicFFT
+         0     0% 98.92%         1s  3.87%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).apply (inline)
+         0     0% 98.92%     23.39s 90.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*additiveTransform).applySubspace
+         0     0% 98.92%      0.58s  2.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.karatsubaLow
+         0     0% 98.92%      1.78s  6.89%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.newProductTree
+         0     0% 98.92%     22.45s 86.85%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyDiv
+         0     0% 98.92%      9.81s 37.95%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyInverse
+         0     0% 98.92%      6.21s 24.02%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMul (inline)
+         0     0% 98.92%     24.23s 93.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.polyMulLow
+         0     0% 98.92%     25.26s 97.72%  main.main
+         0     0% 98.92%     25.26s 97.72%  main.main.func2
+         0     0% 98.92%      0.45s  1.74%  runtime.(*mheap).alloc.func1
+         0     0% 98.92%      0.45s  1.74%  runtime.(*mheap).allocSpan
+         0     0% 98.92%     25.26s 97.72%  runtime.main
+         0     0% 98.92%      0.45s  1.74%  runtime.sysUsed (inline)
+         0     0% 98.92%      0.45s  1.74%  runtime.sysUsedOS (inline)
+         0     0% 98.92%      0.46s  1.78%  runtime.systemstack

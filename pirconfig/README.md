@@ -20,7 +20,11 @@ Its historical Monte Carlo point estimate K=17118 remains separate evidence.
 The s=10,m=2,t=6 entry now has exact K=103556, polynomial 0x409 and standalone
 bounded support, backed by the [CPU scaling checkpoint](../experiments/encoder-scaling/report.md).
 Its historical Monte Carlo point estimate K=103952 remains separate evidence.
-The other 10 entries retain estimated capacities and candidate encoding status.
+The s=11/12 entries now have exact K=455434/1965739 and polynomials 0x805/0x1053,
+backed by [in-memory cyclic measurements](../experiments/cyclic-scaling/report.md).
+Their historical Monte Carlo points K=453002/1964713 remain separate evidence.
+Those runs do not establish large-cache JSON loading or paper-encoder performance.
+The other 8 entries retain estimated capacities and candidate encoding status.
 “Supported” identifies the non-cryptographic backend, not integrated application
 encoding, grouped storage or production security. Historical cost-grid snapshots
 retain their original estimates so objective comparisons use identical inputs.

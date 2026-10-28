@@ -194,7 +194,7 @@ type orbitFailedReader struct{}
 
 func (orbitFailedReader) Read([]byte) (int, error) { return 0, io.ErrUnexpectedEOF }
 func TestOrbitValidation(t *testing.T) {
-	for _, spec := range []Spec{{1, 2, 1}, {11, 2, 1}, {4, 3, 1}, {4, 2, 0}, {4, 2, 15}} {
+	for _, spec := range []Spec{{1, 2, 1}, {14, 2, 1}, {4, 3, 1}, {4, 2, 0}, {4, 2, 15}} {
 		if _, err := DiscoverOrbit(spec, OrbitOptions{}); err == nil {
 			t.Fatal("invalid spec accepted", spec)
 		}

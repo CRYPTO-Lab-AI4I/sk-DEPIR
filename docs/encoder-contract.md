@@ -199,7 +199,7 @@ and independently tested on tiny fields. It establishes the correctness baseline
 for future backends and wrapper integration. It does not implement the paper's
 fast encoder or support the initial `s=8..20` catalogue. The [bounded orbit backend](../encoding/liftrs/README.md#paper-and-cyclic-encoders)
 now implements the paper's information set, certified random degree discovery and
-paper/cyclic encoding for m=2, s=2..10, N<=1,048,576. Its additive transforms, prepared
+paper/cyclic encoding in an experimental m=2,s=2..13 range (N<=67,108,864). Its additive transforms, prepared
 public artifacts and method-specific constants are independently tested against
 the dense oracle. Its [hybrid polynomial products](../experiments/fast-polynomial/report.md)
 now cover full and low-coefficient multiplication, including preprocessing and
@@ -221,7 +221,7 @@ fixture tests do not qualify the reference or the custom permutation for product
 See the [encoding algorithm review](encoding-algorithms.md) for the paper's pipeline,
 the validated bounded cyclic formulation, and further transform implementation candidates. These
 methods preserve the stage boundaries. Dense fixtures remain limited to N<=256;
-the separate orbit backend supports m=2, s=2..10, N<=1,048,576.
+the separate orbit backend accepts m=2,s=2..13, N<=67,108,864 for resource-limited experiments.
 
 Complete public code-preprocessing artifacts can be distributed independently of
 any database (for example, on GitHub). Store reusable solver constants and transform
@@ -245,11 +245,15 @@ packed/grouped output measurements are required by the
 
 The [table-free field API](../encoding/liftrs/README.md#table-free-field-arithmetic)
 now covers s=2..20 and quadratic extensions without cardinality-sized tables.
-The bounded encoder adapter separately remains limited to m=2,s<=10; its uint32
+The bounded encoder adapter separately remains limited to m=2,s<=13; its uint32
 packed coefficients and in-memory arrays must not be used for larger encodings.
 [The first larger checkpoint](../experiments/tablefree-encoding/report.md) records
 exact s=9 capacity and separate code-only preparation, load and encoding evidence.
 Version-1 s<=8 artifacts retain their conventions and complete output hashes.
 The [s=10 checkpoint](../experiments/encoder-scaling/report.md) adds exact K=103556
 with reusable JSON artifacts, paper/cyclic comparisons and separate memory/output
-measurements. Encoder support at s>=11 remains unverified.
+measurements. The [progressive cyclic measurements](../experiments/cyclic-scaling/report.md) now
+verify the s=11/12 catalogue cases in memory, with exact capacities K=455434 and
+K=1965739. The s=13 experimental bound is not a completed benchmark; s>=13
+resource/correctness checkpoints remain open. Large caches were not serialized,
+and current JSON loader byte caps remain separate limitations.

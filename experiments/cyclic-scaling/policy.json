@@ -1,0 +1,7 @@
+{
+  "runtime_metric": "first_use",
+  "seconds": 3600,
+  "memory_gib": 12,
+  "safety_factor": 1.5,
+  "encoding_repeats": 3
+}

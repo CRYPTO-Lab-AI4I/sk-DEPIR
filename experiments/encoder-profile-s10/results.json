@@ -1,0 +1,102 @@
+{
+  "timestamp_utc": "2026-10-28T14:39:30.165793+00:00",
+  "revision": "c06375c849038cf1bb40ff6ae33fc8f26d5f1766",
+  "working_tree_dirty": true,
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.9.6",
+    "cpu_count": 18,
+    "go": "go version go1.27.3 darwin/arm64",
+    "gomaxprocs_environment": "default",
+    "hardware": {
+      "command": [
+        "/usr/sbin/system_profiler",
+        "SPHardwareDataType",
+        "-detailLevel",
+        "mini"
+      ],
+      "exit_code": 0,
+      "stdout": "      Model Name: MacBook Pro\n      Model Identifier: Mac17,9\n      Chip: Apple M5 Pro\n      Total Number of Cores: 18 (6 Super and 12 Performance)\n      Memory: 48 GB",
+      "stderr": "2026-10-28 15:39:30.156 system_profiler[57180:29890449] Error fetching hw.cpufamily: -1"
+    }
+  },
+  "minimum_seconds": 10,
+  "source_sha256": {
+    "encoding/liftrs/binary_field.go": "e58ef0cb377b091c9ca895f518f64fee5622b65255d945db483248db879f371f",
+    "encoding/liftrs/binary_field_example_test.go": "ebe64131fda2352f8cc21c213ccf868836b30ca5f068c914250ca55d5dee3962",
+    "encoding/liftrs/binary_field_test.go": "996838d45b0f2ec11d9732191a74bb4a5874b95a72496a98ffd8d53f1f8e39e8",
+    "encoding/liftrs/example_test.go": "7d0272b0ae860e856fc0f55c81ed5e1fbb08fbe5e12f2660ffe8c97ba8a29112",
+    "encoding/liftrs/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+    "encoding/liftrs/orbit.go": "f6895dfdac54513ef7993e592a4fbb6ac070de46f2952d3f92e50bbc3826641e",
+    "encoding/liftrs/orbit_arithmetic.go": "fc1a4dfa5222bb60c806393ea12c3edcf6aa902a338d4ba5a8c3e0cc063393b3",
+    "encoding/liftrs/orbit_artifact.go": "eee214ab10365cee753c36c70aec6ea6a17dc2370f388bbdc633d0c9daa07f64",
+    "encoding/liftrs/orbit_example_test.go": "ccadd8a9a724c9c756d36baf6638094a2e5ac985c2abd65267a0c82abd0ad7bf",
+    "encoding/liftrs/orbit_fft.go": "836a97ecdc7c1a000f7f126209b236f89121aa12326e9b39b2a3bb29c083e021",
+    "encoding/liftrs/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+    "encoding/liftrs/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+    "encoding/liftrs/orbit_product_test.go": "c675c0dedba16763c3cf64c9a79e372e9698ec4b2c5a273d2883179b513ba3e7",
+    "encoding/liftrs/orbit_test.go": "bec52f3b8f7ceb7a05aa4a8d41e7c74f7859624b77a49d6ccb80c6769b07e2b0",
+    "encoding/liftrs/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+    "encoding/liftrs/s10_checkpoint_test.go": "3f606fc200b82ac3a7bfab79b8919d9af22997d419ba848ef6e11ef95255ceeb",
+    "experiments/encoder-profile/main.go": "cd6bb41cfaddfac209b7ee7596c8ecefa71992e0018dc9864bc105253fb1e25b",
+    "experiments/encoder-profile-s10/run.py": "3a32a26df02805e139a2a0f30cb8c7aae8991c7ac5f7f54382c7be3b960380d7",
+    "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
+    "go.sum": "6b5b9bf04b57c04dc22dc13596e0c5862856f95c24ca23931bb0545736f6ef76"
+  },
+  "input_sha256": {
+    "experiments/encoder-scaling/results.json": "71cf92e5d09fc91368e95fc2ca37d8cd9769e3b2790175fe9697a7e6bc135dcf",
+    "experiments/encoder-scaling/artifacts/s10-m2-t6-basis.json": "c9f4a0c684589e8dfc03421026ae988da0c56130aaf1db816f85e80a21a3c62d",
+    "experiments/encoder-scaling/artifacts/s10-m2-t6-cyclic-fft.json": "345e600ecf5754baade484b5cefaecdaa2eb3878083efd58f7287857aef77fdc"
+  },
+  "profiles": [
+    {
+      "calls": 1,
+      "elapsed_ns": 26252398542,
+      "go_version": "go1.27.3",
+      "gomaxprocs": 18,
+      "k": 103556,
+      "m": 2,
+      "method": "cyclic-fft",
+      "n": 1048576,
+      "s": 10,
+      "seed": 71,
+      "sha256": "345e600ecf5754baade484b5cefaecdaa2eb3878083efd58f7287857aef77fdc",
+      "stage": "prepare",
+      "t": 6,
+      "profile": "prepare-cyclic-fft.pprof",
+      "profile_sha256": "f8f9db44b521d402f3ccab04dbcd31503cef0e9b5c647b22d1855d134bc192f7",
+      "views_sha256": {
+        "prepare-cyclic-fft-flat.txt": "27ff3d71a233ef5e6c9b51c9e9ac534aa2c268f704b0e75b492024366a1d5cb0",
+        "prepare-cyclic-fft-cum.txt": "0d88c901b40d8bfddc3fbb2245b8b5cb236809f328881995956092cd505f3682",
+        "prepare-cyclic-fft-tree.txt": "d327d7743dec5a330144216762a2ad2220b275aef3cb08b6fcf9e44cb1e8aa1a",
+        "prepare-cyclic-fft-source.txt": "512fef113229f0f3ab0f02cf61533f2bc871b4818b5dc2f6e9913ad554c1dc56"
+      }
+    },
+    {
+      "calls": 4,
+      "elapsed_ns": 10644422167,
+      "go_version": "go1.27.3",
+      "gomaxprocs": 18,
+      "k": 103556,
+      "m": 2,
+      "method": "cyclic-fft",
+      "n": 1048576,
+      "s": 10,
+      "seed": 71,
+      "sha256": "29ae877daff8ad0ae5bd2f632e3263fb0d4f99a9c6748e3b01803bf389b92e35",
+      "stage": "encode",
+      "t": 6,
+      "profile": "encode-cyclic-fft.pprof",
+      "profile_sha256": "e8ccefef8521a6e48b0477ff765c05169668800b3dcb8962cc0eff5ef7eddb4d",
+      "views_sha256": {
+        "encode-cyclic-fft-flat.txt": "58e66c56b7cb7d0ff75bffb8a344c3fc1f40e897b530dcc8782c9e46c07b5568",
+        "encode-cyclic-fft-cum.txt": "904a33a7575d563fb33ccea85fb753289c31540c4a52e832773187571b19d33e",
+        "encode-cyclic-fft-tree.txt": "14530c96eb8fb1c99352d8d30833bf67719f8e2acb16da8eed4c388c49390e0a",
+        "encode-cyclic-fft-source.txt": "dee4bace73c79f183c76e4f82d7188192585928f7a930ac6abd9d5e28130f18c"
+      }
+    }
+  ]
+}

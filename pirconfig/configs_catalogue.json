@@ -214,17 +214,18 @@
     },
     {
       "id": "binary-s11-m2-t6",
-      "encoding_status": "candidate",
+      "encoding_status": "supported",
       "code": {
         "s": 11,
         "m": 2,
-        "t": 6
+        "t": 6,
+        "polynomial": 2053
       },
       "capacity": {
-        "status": "estimated",
+        "status": "verified",
         "n": 4194304,
-        "k": 453002,
-        "rate": 0.10800409317016602,
+        "k": 455434,
+        "rate": 0.10858392715454102,
         "evidence": [
           {
             "kind": "monte_carlo",
@@ -238,6 +239,13 @@
               "lower_rate": 0.10602116532156491,
               "upper_rate": 0.10998683467843509
             }
+          },
+          {
+            "kind": "encoding",
+            "reference": "experiments/cyclic-scaling/report.md",
+            "script": "experiments/cyclic-scaling/run.py",
+            "results": "experiments/cyclic-scaling/results.json",
+            "method": "Complete monomial enumeration and support discovery give exact K=455434,N=4194304 at s=11,m=2,t=6. In-memory cyclic preprocessing is reused across three encodings. All systematic symbols, sampled public coordinate-map checks and 16 independently evaluated actual curves pass; canonical/packed hashes and sync/readback are recorded. Larger paper comparison and large-cache JSON loading are not claimed. Historical Monte Carlo capacity remains separate evidence."
           }
         ]
       },
@@ -259,21 +267,35 @@
             "results": "experiments/bounded-sample-parameters/results.csv"
           }
         ]
+      },
+      "encoder": {
+        "implementation": "encoding/liftrs/orbit.go: DiscoverOrbit, PrepareCyclicFFT (in-memory)",
+        "preprocessing": "Code-only exact support discovery and cached cyclic preparation reused across databases. In-memory benchmark with resource guards; existing basis/complete JSON loader caps are unchanged and may reject larger serialized caches. No application-plan integration.",
+        "evidence": [
+          {
+            "kind": "encoding",
+            "reference": "experiments/cyclic-scaling/report.md",
+            "script": "experiments/cyclic-scaling/run.py",
+            "results": "experiments/cyclic-scaling/results.json",
+            "method": "Complete monomial enumeration and support discovery give exact K=455434,N=4194304 at s=11,m=2,t=6. In-memory cyclic preprocessing is reused across three encodings. All systematic symbols, sampled public coordinate-map checks and 16 independently evaluated actual curves pass; canonical/packed hashes and sync/readback are recorded. Larger paper comparison and large-cache JSON loading are not claimed. Historical Monte Carlo capacity remains separate evidence."
+          }
+        ]
       }
     },
     {
       "id": "binary-s12-m2-t6",
-      "encoding_status": "candidate",
+      "encoding_status": "supported",
       "code": {
         "s": 12,
         "m": 2,
-        "t": 6
+        "t": 6,
+        "polynomial": 4179
       },
       "capacity": {
-        "status": "estimated",
+        "status": "verified",
         "n": 16777216,
-        "k": 1964713,
-        "rate": 0.11710602045059204,
+        "k": 1965739,
+        "rate": 0.11716717481613159,
         "evidence": [
           {
             "kind": "paper",
@@ -292,6 +314,13 @@
               "lower_rate": 0.11512316532156491,
               "upper_rate": 0.11908883467843509
             }
+          },
+          {
+            "kind": "encoding",
+            "reference": "experiments/cyclic-scaling/report.md",
+            "script": "experiments/cyclic-scaling/run.py",
+            "results": "experiments/cyclic-scaling/results.json",
+            "method": "Complete monomial enumeration and support discovery give exact K=1965739,N=16777216 at s=12,m=2,t=6. In-memory cyclic preprocessing is reused across three encodings. All systematic symbols, sampled public coordinate-map checks and 16 independently evaluated actual curves pass; canonical/packed hashes and sync/readback are recorded. Larger paper comparison and large-cache JSON loading are not claimed. Historical Monte Carlo capacity remains separate evidence."
           }
         ]
       },
@@ -311,6 +340,19 @@
             "reference": "experiments/bounded-sample-parameters/report.md",
             "script": "experiments/bounded-sample-parameters/run.py",
             "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      },
+      "encoder": {
+        "implementation": "encoding/liftrs/orbit.go: DiscoverOrbit, PrepareCyclicFFT (in-memory)",
+        "preprocessing": "Code-only exact support discovery and cached cyclic preparation reused across databases. In-memory benchmark with resource guards; existing basis/complete JSON loader caps are unchanged and may reject larger serialized caches. No application-plan integration.",
+        "evidence": [
+          {
+            "kind": "encoding",
+            "reference": "experiments/cyclic-scaling/report.md",
+            "script": "experiments/cyclic-scaling/run.py",
+            "results": "experiments/cyclic-scaling/results.json",
+            "method": "Complete monomial enumeration and support discovery give exact K=1965739,N=16777216 at s=12,m=2,t=6. In-memory cyclic preprocessing is reused across three encodings. All systematic symbols, sampled public coordinate-map checks and 16 independently evaluated actual curves pass; canonical/packed hashes and sync/readback are recorded. Larger paper comparison and large-cache JSON loading are not claimed. Historical Monte Carlo capacity remains separate evidence."
           }
         ]
       }

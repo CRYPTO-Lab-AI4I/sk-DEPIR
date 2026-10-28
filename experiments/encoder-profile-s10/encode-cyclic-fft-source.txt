@@ -1,0 +1,38 @@
+Total: 10.52s
+ROUTINE ======================== github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs.(*CyclicEncoder).Encode in /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs/orbit.go
+         0     10.51s (flat, cum) 99.90% of Total
+         .          .    274:func (e *CyclicEncoder) Encode(message []uint32) ([]uint32, error) {
+         .          .    275:	b := e.basis
+         .          .    276:	if err := b.validateMessage(message); err != nil {
+         .          .    277:		return nil, err
+         .          .    278:	}
+         .      2.42s    279:	h := polyMulLow(b.base, e.p, message, b.Dimension())
+         .          .    280:	var y []uint32
+         .          .    281:	if len(e.spectrum) == 0 {
+         .          .    282:		y = polyMul(b.base, e.g, h)
+         .          .    283:	} else {
+         .          .    284:		y = make([]uint32, b.Length())
+         .          .    285:		copy(y, h)
+         .      4.05s    286:		b.extensionFFT.apply(y, false)
+         .          .    287:		for i := range y {
+         .       10ms    288:			y[i] = b.extension.mul(y[i], e.spectrum[i])
+         .          .    289:		}
+         .         4s    290:		b.extensionFFT.apply(y, true)
+         .          .    291:		y = y[:b.Length()-1]
+         .          .    292:		for _, x := range y {
+         .          .    293:			if x >= b.base.q {
+         .          .    294:				return nil, fmt.Errorf("cyclic FFT product escaped the base field")
+         .          .    295:			}
+         .          .    296:		}
+         .          .    297:	}
+         .          .    298:	word := make([]uint32, b.Length())
+         .          .    299:	point := b.omega
+         .          .    300:	for _, x := range y {
+         .          .    301:		word[point] = x
+         .          .    302:		word[0] ^= x
+         .       30ms    303:		point = b.extension.mul(point, b.omega)
+         .          .    304:	}
+         .          .    305:	return word, nil
+         .          .    306:}
+         .          .    307:
+         .          .    308:// MarshalBinary serializes public discovery data as versioned JSON. This is a

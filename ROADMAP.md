@@ -198,7 +198,10 @@ correctness pipeline for supplied plans and ordinary packed reads. Automatic pla
 application wrapper and durable persistence remain separate tasks. The orbit backend
 encodes standalone s=8,m=2,t=8, s=9,m=2,t=7 and s=10,m=2,t=6 configurations
 with exact K=3121, K=17200 and K=103556. The [s=10 checkpoint](experiments/encoder-scaling/report.md)
-records separate preprocessing, encoding, heap sampling and packed output; s=11..20
-still require further encoder and resource work;
+records separate preprocessing, encoding, heap sampling and packed output.
+The [progressive cyclic experiment](experiments/cyclic-scaling/report.md) adds exact
+s=11/12 capacities K=455434/1965739 and resource measurements with in-memory cache
+reuse. Experimental specifications may be accepted through s=13, but completed
+resource/correctness evidence stops at s=12; s=13..20 need further work;
 the small reference provides comparison vectors for that work. Small test fields
 do not inherit the catalogue's security claims.
