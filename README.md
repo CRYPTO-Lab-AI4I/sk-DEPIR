@@ -14,6 +14,15 @@ The online query and decode path supports locality `ℓ=q-1`, dimensions `m=2` a
 
 **A standalone small Lift-RS encoder is available in [encoding/liftrs](encoding/liftrs/README.md).** It provides reusable generator-matrix preprocessing and systematic field-element encoding for correctness fixtures over GF(4), GF(8), and GF(16), with at most 256 codeword positions. These are not the target security configurations. **The existing file-based API has no integrated Lift-RS encoder.** `LiftedRS.Encode` calls the external Reed-Muller encoder (`RMEncoding`) as a testing placeholder. `encoding/rme.cpp` contains an experimental `LRSE2D` helper, but the encoder command protocol does not select it. RM-backed tests therefore validate the Lift-RS online protocol only on compatible RM codewords. They do not establish Lift-RS encoding, rate, storage overhead, or encoding time.
 
+**Paper and cyclic encoders now share the paper's information set** through the
+[bounded orbit API](encoding/liftrs/README.md#paper-and-cyclic-encoders), for `m=2`,
+`s=2..8`, and at most 65,536 codeword positions. Discovery, method preparation,
+public artifact loading, and database encoding are separate. Prepared artifacts
+include cached solver data or cyclic polynomials/spectra, reused for many databases.
+The [CPU comparison](experiments/encoder-comparison/report.md) reports setup, artifact
+sizes, per-database encoding, process memory and output I/O separately. This does
+not provide an s=9..20, streaming, GPU or integrated file-based encoder.
+
 A separate [small cryptographic reference](encoding/cryptoref/README.md) permutes codewords and applies storage-position XOR masks using the existing AES helpers. It tests independent masking keys, re-encoding, and genuine-codeword retrieval. Its in-memory architecture is a correctness reference; it does not select a production API or streaming design.
 
 The [small application reference](encoding/appref/README.md) now executes manually supplied submatrix plans, pads and packs records, invokes both reference stages, and reconstructs through ordinary byte-range reads. It completes the small correctness pipeline; it does not choose a large-instance architecture or implement the automatic planner.
@@ -95,6 +104,15 @@ The agreed [data representation conventions](docs/data-representation.md) specif
 
 The [protocol I/O contract](docs/protocol-io.md) describes querying every PIR database through compatible query-sharing groups, storage responses, and client reconstruction. Query-sharing groups reuse client query generation; the client sends the positions separately for each PIR database, and communication counts every copy. Storage only serves the reads explicitly requested by the client.
 
+[Optimizing upload through storage layout](docs/protocol-io.md#storage-layout-optimization)
+is now in scope for TRL 5: place each query-sharing group's same-position values
+together so one ordinary read address retrieves them all. A grouped layout,
+streaming writer and client adapter remain to be implemented and verified.
+The current evaluator still counts repeated uploads. The [tradeoff tables](experiments/tradeoff-costs/options.md)
+and [DP tables](experiments/dp-costs/options.md) now display inverse download rate
+`D/B` and absolute download, including `D/B` for the reference configuration;
+they retain the saved plans selected using total communication.
+
 The versioned [PIR configuration catalogue](pirconfig/README.md) and Go loader are
 implemented. All 13 [configuration entries](pirconfig/configs_catalogue.json) have
 [reproducible Monte Carlo rate estimates](experiments/liftrs-rates/report.md), with
@@ -137,7 +155,7 @@ The PIR configuration catalogue includes binary extension fields `GF(2^s)` for e
 
 The [planner design](docs/parameter-planning.md) describes joint selection of submatrix dimensions, code parameters, and query-sharing groups, including total storage and communication costs. Encoding-time and memory estimates may accompany plans but do not influence partition selection. The [small deterministic reference encoder](encoding/liftrs/README.md) now supplies the correctness baseline. The evaluator and greedy planner use catalogue evidence without running either encoder.
 
-The [application encoder](docs/encoder-contract.md#application-encoding) consumes a selected plan, partitions and pads the input, converts it to field elements, and invokes the non-cryptographic and cryptographic PIR encoders for each database; [appref](encoding/appref/README.md) implements this workflow only as a bounded reference. [Code preprocessing](docs/encoder-contract.md#code-preprocessing) takes only code specifications and produces reusable encoding information, independently of any database. Durable manifest/key persistence and large-instance backends remain separate work.
+The [application encoder](docs/encoder-contract.md#application-encoding) consumes a selected plan, partitions and pads the input, converts it to field elements, and invokes the non-cryptographic and cryptographic PIR encoders for each database; [appref](encoding/appref/README.md) implements this workflow only as a bounded reference. [Code preprocessing](docs/encoder-contract.md#code-preprocessing) takes only code specifications and produces reusable encoding information, independently of any database. Durable manifest/key persistence and large-instance backends remain separate work. The [encoding algorithm review](docs/encoding-algorithms.md) compares the paper's systematic encoder, a cyclic polynomial formulation, and reusable transform implementations; it records the bounded implementations and remaining large-instance work.
 
 - `utils/gf2n.go` implements `GF(2^n)` with log/exp tables for degrees 4, 8, 12, 13, 14, 16, 17, 18, and 20.
 - Degrees 9, 10, 11, 15, and 19 remain to be implemented for the target range. Terabyte-scale application databases are a parameter-planning target, not a verified implementation capability.

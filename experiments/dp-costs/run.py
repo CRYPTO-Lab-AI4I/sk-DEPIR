@@ -27,7 +27,12 @@ SOURCES = [
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--go", default=os.environ.get("GO", "go"))
+    parser.add_argument("--render-only", action="store_true",
+                        help="Regenerate options.md from saved results; do not rerun search.")
     args = parser.parse_args()
+    if args.render_only:
+        render_options(json.loads((HERE / "results.json").read_text()))
+        return
     hashes = {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest()
               for p in SOURCES}
     snapshot = HERE / "pir-configs.json"
@@ -108,10 +113,23 @@ def main():
                     "full_download_only": evaluation["full_download_only"],
                     **{name: search[name] for name in ["frontier_trimmed", "baseline_limit_reached", "states_explored"]},
                 })
+    render_options(result)
+    print(f"Wrote {len(result['scenarios'])} cost-DP scenarios to results.json and summary.csv")
+
+
+def render_options(result):
+    """Render saved plan costs without changing search selection or provenance.
+
+    Download rate is B/D; the displayed inverse D/B includes every returned
+    field element, including dummies. A full reference code has B=s and D=L*s,
+    hence reference D/B=L, independent of application-record width.
+    """
+    configs = {c["id"]: c for c in json.loads(
+        (HERE / "pir-configs.json").read_text())["configurations"]}
     lines = ["# Selected application tradeoffs", "",
-             "Each cell: storage / application · communication / record (absolute per-lookup upload + download).",
-             "★ means no worse than original greedy in both costs. Whole-download-only options are omitted.", "",
-             "| Database | Record | Reference N/K | Lower-storage option | Lowest communication found |",
+             "Each cell: storage / application · download / record (absolute per-lookup download).",
+             "★ means no worse than original greedy in storage and total communication. Whole-download-only options are omitted.", "",
+             "| Database | Record | Reference N/K · D/B | Lower-storage option | Minimum communication option |",
              "|---|---|---:|---:|---:|"]
     for case in result["scenarios"]:
         alternatives = [a for a in case["result"]["alternatives"] if not a["evaluation"]["full_download_only"]]
@@ -130,20 +148,19 @@ def main():
         for index in indices:
             alternative = alternatives[index]
             costs = alternative["evaluation"]["costs"]
-            size = costs["communication_bits"]/8
+            size = costs["download_bits"]/8
             absolute = f"{size/1e9:.3f} GB" if size >= 1e9 else f"{size/1e6:.3f} MB"
             storage = costs["storage_bits"]/(case["application_bytes"]*8)
-            inverse_rate = costs["communication_bits"]/(case["record_bytes"]*8)
+            inverse_rate = costs["download_bits"]/(case["record_bytes"]*8)
             cells.append(f"{storage:.3f}× · {inverse_rate:,.0f}× ({absolute})" + (" ★" if matches(alternative) else ""))
         if len(cells) == 1:
             cells = ["—", cells[0]]
         cells += ["—"]*(2-len(cells))
         database = "1 TB" if case["application_bytes"] == 10**12 else f"{case['application_bytes']//10**9} GB"
         record = {1000:"1 KB", 10000:"10 KB", 1000000:"1 MB", 10000000:"10 MB"}[case["record_bytes"]]
-        lines.append(f"| {database} | {record} | {case['reference_storage_overhead']:.3f}× | " + " | ".join(cells) + " |")
+        lines.append(f"| {database} | {record} | {case['reference_storage_overhead']:.3f}× · {configs[case['reference_config_id']]['query']['length']:,}× | " + " | ".join(cells) + " |")
     lines += ["", "Rounded cost-grid DP: see results.json for cost windows, units and output-frontier reduction. Reference overhead excludes application padding."]
     (HERE / "options.md").write_text("\n".join(lines) + "\n")
-    print(f"Wrote {len(result['scenarios'])} cost-DP scenarios to results.json and summary.csv")
 
 
 if __name__ == "__main__":

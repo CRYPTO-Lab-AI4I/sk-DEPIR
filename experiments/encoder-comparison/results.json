@@ -1,0 +1,498 @@
+{
+  "timestamp_utc": "2026-10-27T09:26:13.997998+00:00",
+  "base_revision": "42e9180d785871dd1711ccd14ffb6a8b8d57e67e",
+  "working_tree_dirty": true,
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "processor": "arm",
+  "cpu_count": 18,
+  "gomaxprocs": "default",
+  "python_version": "3.9.6",
+  "source_sha256": {
+    "encoding/liftrs/orbit_polynomial.go": "5c199c5169f9b5eec700f977de376b4ea48970b17906d372d0ed4d2f86012f77",
+    "encoding/liftrs/orbit.go": "ef398e7c66ba567a255a64fa23397d713ec5b84071d3d8e393735456368f6ae3",
+    "encoding/liftrs/orbit_example_test.go": "ccadd8a9a724c9c756d36baf6638094a2e5ac985c2abd65267a0c82abd0ad7bf",
+    "encoding/liftrs/example_test.go": "7d0272b0ae860e856fc0f55c81ed5e1fbb08fbe5e12f2660ffe8c97ba8a29112",
+    "encoding/liftrs/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+    "encoding/liftrs/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+    "encoding/liftrs/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs/orbit_test.go": "5f3fae1d995c4a3c20cc1ba7b10cbd96c11977175fa351858a540e984ec8c75a",
+    "encoding/liftrs/orbit_artifact.go": "05928e8eedc2c8ba84f479c3712ef3969c8119c69165d7d41db7960341a6dea3",
+    "encoding/liftrs/orbit_fft.go": "a8ce29350f76f89c1c01c5950c4c912c16aa3f06c8cf33c8df7f8e9b5d3e1057",
+    "encoding/liftrs/orbit_arithmetic.go": "b86e554eb0a4c20322ca38f07eb48abc3480564f39b66fad8eda1261589b9c2a",
+    "experiments/encoder-comparison/main.go": "cefffa58b5d0b0e78eda46f18da15eae434c08e4a24bae51874e6aaa389bec12",
+    "experiments/encoder-comparison/run.py": "563d1df0ea7cbd8a0255115ce42699f892774a793d4f2494a0bdbfa4aa4f816e",
+    "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
+    "paper.pdf": "205571fe7afb594d82d461a900bf0a5e2e210b8c688260224dbc6a5d9f0b8076"
+  },
+  "artifact_sha256": {
+    "s04-m2-t2-basis.json": "4ad14082c2992dbfcf658b24292c0ad199026e6eed872956304b4aa97bad1933",
+    "s04-m2-t2-cyclic-fft.json": "ad5c6237f664e50f9b0049e3149fcbb61cdd9e5a202a6d939780858607528aaa",
+    "s04-m2-t2-cyclic.json": "e713a0c320d5e8c1f050aca1cee708cec4ac7d062102ae4d7f40c352969e0af9",
+    "s04-m2-t2-paper.json": "81ff775f54475fff5d00e5dd20ad83c5dcf1d8b972af74a7c8f1fcfac81268c3",
+    "s05-m2-t3-basis.json": "cd5c3014b9c62efece10b2a5aebff53c5b203d4c54ed18abcd7630d632976d2a",
+    "s05-m2-t3-cyclic-fft.json": "0ba4734b056164f8462c45b7f4ae2ef408010bb013519b789801fc1eaa92e91d",
+    "s05-m2-t3-cyclic.json": "f8237ffa9d78f8b0aaf3c4cf377a8bfe04c33101b4edaa2519fbf97ee0ef281a",
+    "s05-m2-t3-paper.json": "6d5049cb3302c26b829d2bbaf2293e3dd100836484d9ce94852fc32257f72f71",
+    "s06-m2-t4-basis.json": "4d4a9007b0ea46b95c6fb3197bd1c252e20a9a65d6ab557ef97ec6ca9b3df7c6",
+    "s06-m2-t4-cyclic-fft.json": "ad98c96602178effdea005bf29d00331a20eb54f087b0215b0433c38ad227104",
+    "s06-m2-t4-cyclic.json": "49a91bbd10c0ceb2e0d7ee158aabe55af2995448ab8e58249f5163ebecaf920d",
+    "s06-m2-t4-paper.json": "854403918444ea781aa4deaf0f09688600caf2d8e7d591fb61dc80f5c7a8c703",
+    "s07-m2-t6-basis.json": "0bdb8bca9434ec4c8aeb3bff2cca1cde3c404b17fec24f0eedf0ad60c663332d",
+    "s07-m2-t6-cyclic-fft.json": "a792e0c5f64a9c8150b2f1c7b4a8aebdabea242f72ccdf9af5871c5adaabdf4b",
+    "s07-m2-t6-cyclic.json": "a1567c1a6d232f9276a1c81c4eb5dff945393bc84d19b6e41e6ae706a5be3ec2",
+    "s07-m2-t6-paper.json": "d8bf22762407d43eb6c01b27ef90e3b64000268585a72c56551ab3132a2056b9",
+    "s08-m2-t8-basis.json": "8c7a5dff25c053756a913fd8f65067ce5423147a7e365fdb8538231301add8fa",
+    "s08-m2-t8-cyclic-fft.json": "82a5abdd9af18250ffca7ad77d14c7b3cf21959df2213b5373ebd8fa5be1d4f7",
+    "s08-m2-t8-cyclic.json": "68e826b93ce70f293420a4915b002b6126c1bb1f9bbbbaa293a75efa5b960712",
+    "s08-m2-t8-paper.json": "9be8ebd2345ead99254232e61d5ac4eeb5126743c5bdd495849f9b101358ed44"
+  },
+  "scenarios": [
+    {
+      "preprocessing": {
+        "basis_artifact_bytes": 396,
+        "cyclic_artifact_bytes": 962,
+        "cyclic_fft_artifact_bytes": 1645,
+        "cyclic_fft_prepare_ns": 58708,
+        "cyclic_fft_serialize_ns": 7417,
+        "cyclic_prepare_ns": 63958,
+        "cyclic_serialize_ns": 7167,
+        "discovery_ns": 106500,
+        "go_version": "go1.27.3",
+        "k": 97,
+        "m": 2,
+        "n": 256,
+        "paper_artifact_bytes": 16948,
+        "paper_prepare_ns": 75000,
+        "paper_serialize_ns": 74334,
+        "s": 4,
+        "samples": 2,
+        "seed": 1004,
+        "t": 2,
+        "process_peak_rss_bytes": 6356992
+      },
+      "methods": [
+        {
+          "artifact_load_ns": 239792,
+          "artifact_read_ns": 27834,
+          "cached_readback_ns": 44792,
+          "encode_allocated_bytes": [
+            38232,
+            38248,
+            38264
+          ],
+          "encode_ns": [
+            49166,
+            46625,
+            49458
+          ],
+          "go_version": "go1.27.3",
+          "method": "paper",
+          "output_bytes": 1024,
+          "output_sha256": "4421d6289c0b7a6f994afd8293a31dd017213a41584c56121bb9d447ac1137d4",
+          "write_sync_ns": 5197958,
+          "process_peak_rss_bytes": 6946816
+        },
+        {
+          "artifact_load_ns": 106167,
+          "artifact_read_ns": 33250,
+          "cached_readback_ns": 47500,
+          "encode_allocated_bytes": [
+            31760,
+            31760,
+            31776
+          ],
+          "encode_ns": [
+            54875,
+            20125,
+            26833
+          ],
+          "go_version": "go1.27.3",
+          "method": "cyclic",
+          "output_bytes": 1024,
+          "output_sha256": "4421d6289c0b7a6f994afd8293a31dd017213a41584c56121bb9d447ac1137d4",
+          "write_sync_ns": 4148000,
+          "process_peak_rss_bytes": 6602752
+        },
+        {
+          "artifact_load_ns": 116375,
+          "artifact_read_ns": 33209,
+          "cached_readback_ns": 46958,
+          "encode_allocated_bytes": [
+            9232,
+            9232,
+            9248
+          ],
+          "encode_ns": [
+            30708,
+            30625,
+            26541
+          ],
+          "go_version": "go1.27.3",
+          "method": "cyclic-fft",
+          "output_bytes": 1024,
+          "output_sha256": "4421d6289c0b7a6f994afd8293a31dd017213a41584c56121bb9d447ac1137d4",
+          "write_sync_ns": 4234208,
+          "process_peak_rss_bytes": 6602752
+        }
+      ]
+    },
+    {
+      "preprocessing": {
+        "basis_artifact_bytes": 799,
+        "cyclic_artifact_bytes": 2901,
+        "cyclic_fft_artifact_bytes": 5319,
+        "cyclic_fft_prepare_ns": 434791,
+        "cyclic_fft_serialize_ns": 20583,
+        "cyclic_prepare_ns": 412375,
+        "cyclic_serialize_ns": 14125,
+        "discovery_ns": 150750,
+        "go_version": "go1.27.3",
+        "k": 196,
+        "m": 2,
+        "n": 1024,
+        "paper_artifact_bytes": 36658,
+        "paper_prepare_ns": 233583,
+        "paper_serialize_ns": 183042,
+        "s": 5,
+        "samples": 1,
+        "seed": 1005,
+        "t": 3,
+        "process_peak_rss_bytes": 8257536
+      },
+      "methods": [
+        {
+          "artifact_load_ns": 362375,
+          "artifact_read_ns": 32083,
+          "cached_readback_ns": 46041,
+          "encode_allocated_bytes": [
+            121760,
+            121776,
+            121792
+          ],
+          "encode_ns": [
+            158875,
+            164291,
+            160417
+          ],
+          "go_version": "go1.27.3",
+          "method": "paper",
+          "output_bytes": 4096,
+          "output_sha256": "74cd6965e2072ac4fba8b7d8eb3af87f9451e459c80dda3ba8ce8114e33c2e6b",
+          "write_sync_ns": 3654167,
+          "process_peak_rss_bytes": 7192576
+        },
+        {
+          "artifact_load_ns": 144708,
+          "artifact_read_ns": 32416,
+          "cached_readback_ns": 32833,
+          "encode_allocated_bytes": [
+            260112,
+            260112,
+            260128
+          ],
+          "encode_ns": [
+            178292,
+            160209,
+            152042
+          ],
+          "go_version": "go1.27.3",
+          "method": "cyclic",
+          "output_bytes": 4096,
+          "output_sha256": "74cd6965e2072ac4fba8b7d8eb3af87f9451e459c80dda3ba8ce8114e33c2e6b",
+          "write_sync_ns": 3517292,
+          "process_peak_rss_bytes": 7405568
+        },
+        {
+          "artifact_load_ns": 159250,
+          "artifact_read_ns": 26625,
+          "cached_readback_ns": 32209,
+          "encode_allocated_bytes": [
+            31760,
+            31760,
+            31776
+          ],
+          "encode_ns": [
+            105625,
+            96291,
+            80750
+          ],
+          "go_version": "go1.27.3",
+          "method": "cyclic-fft",
+          "output_bytes": 4096,
+          "output_sha256": "74cd6965e2072ac4fba8b7d8eb3af87f9451e459c80dda3ba8ce8114e33c2e6b",
+          "write_sync_ns": 3544791,
+          "process_peak_rss_bytes": 6914048
+        }
+      ]
+    },
+    {
+      "preprocessing": {
+        "basis_artifact_bytes": 2646,
+        "cyclic_artifact_bytes": 10892,
+        "cyclic_fft_artifact_bytes": 20616,
+        "cyclic_fft_prepare_ns": 3509042,
+        "cyclic_fft_serialize_ns": 78792,
+        "cyclic_prepare_ns": 3293875,
+        "cyclic_serialize_ns": 48541,
+        "discovery_ns": 501875,
+        "go_version": "go1.27.3",
+        "k": 589,
+        "m": 2,
+        "n": 4096,
+        "paper_artifact_bytes": 126563,
+        "paper_prepare_ns": 1598542,
+        "paper_serialize_ns": 668500,
+        "s": 6,
+        "samples": 1,
+        "seed": 1006,
+        "t": 4,
+        "process_peak_rss_bytes": 12075008
+      },
+      "methods": [
+        {
+          "artifact_load_ns": 932459,
+          "artifact_read_ns": 53208,
+          "cached_readback_ns": 174708,
+          "encode_allocated_bytes": [
+            1074224,
+            1074240,
+            1074256
+          ],
+          "encode_ns": [
+            1059542,
+            980666,
+            929583
+          ],
+          "go_version": "go1.27.3",
+          "method": "paper",
+          "output_bytes": 16384,
+          "output_sha256": "97a47fcfcc6d8c558ce131d41be267a82db051305d96ddf7eded267c19cf9163",
+          "write_sync_ns": 3915792,
+          "process_peak_rss_bytes": 10895360
+        },
+        {
+          "artifact_load_ns": 335625,
+          "artifact_read_ns": 74958,
+          "cached_readback_ns": 48708,
+          "encode_allocated_bytes": [
+            2422800,
+            2422800,
+            2423040
+          ],
+          "encode_ns": [
+            1609375,
+            2063625,
+            1454875
+          ],
+          "go_version": "go1.27.3",
+          "method": "cyclic",
+          "output_bytes": 16384,
+          "output_sha256": "97a47fcfcc6d8c558ce131d41be267a82db051305d96ddf7eded267c19cf9163",
+          "write_sync_ns": 5101834,
+          "process_peak_rss_bytes": 10977280
+        },
+        {
+          "artifact_load_ns": 355792,
+          "artifact_read_ns": 37708,
+          "cached_readback_ns": 46208,
+          "encode_allocated_bytes": [
+            265232,
+            265232,
+            265248
+          ],
+          "encode_ns": [
+            496084,
+            476042,
+            419667
+          ],
+          "go_version": "go1.27.3",
+          "method": "cyclic-fft",
+          "output_bytes": 16384,
+          "output_sha256": "97a47fcfcc6d8c558ce131d41be267a82db051305d96ddf7eded267c19cf9163",
+          "write_sync_ns": 3619583,
+          "process_peak_rss_bytes": 7569408
+        }
+      ]
+    },
+    {
+      "preprocessing": {
+        "basis_artifact_bytes": 6185,
+        "cyclic_artifact_bytes": 39007,
+        "cyclic_fft_artifact_bytes": 75897,
+        "cyclic_fft_prepare_ns": 29785167,
+        "cyclic_fft_serialize_ns": 237917,
+        "cyclic_prepare_ns": 29402583,
+        "cyclic_serialize_ns": 431459,
+        "discovery_ns": 3801250,
+        "go_version": "go1.27.3",
+        "k": 1268,
+        "m": 2,
+        "n": 16384,
+        "paper_artifact_bytes": 302052,
+        "paper_prepare_ns": 5535000,
+        "paper_serialize_ns": 1181958,
+        "s": 7,
+        "samples": 2,
+        "seed": 1007,
+        "t": 6,
+        "process_peak_rss_bytes": 13746176
+      },
+      "methods": [
+        {
+          "artifact_load_ns": 2121042,
+          "artifact_read_ns": 66416,
+          "cached_readback_ns": 78083,
+          "encode_allocated_bytes": [
+            3405928,
+            3400624,
+            3400768
+          ],
+          "encode_ns": [
+            3888958,
+            3651125,
+            3320125
+          ],
+          "go_version": "go1.27.3",
+          "method": "paper",
+          "output_bytes": 65536,
+          "output_sha256": "221f4da48cec0ae54eab2600cb068216001813c276b41cef7d37e1648ae0a19c",
+          "write_sync_ns": 8037584,
+          "process_peak_rss_bytes": 12746752
+        },
+        {
+          "artifact_load_ns": 980000,
+          "artifact_read_ns": 38458,
+          "cached_readback_ns": 80792,
+          "encode_allocated_bytes": [
+            20683984,
+            20678120,
+            20672560
+          ],
+          "encode_ns": [
+            13126083,
+            11887541,
+            12175417
+          ],
+          "go_version": "go1.27.3",
+          "method": "cyclic",
+          "output_bytes": 65536,
+          "output_sha256": "221f4da48cec0ae54eab2600cb068216001813c276b41cef7d37e1648ae0a19c",
+          "write_sync_ns": 3638500,
+          "process_peak_rss_bytes": 12746752
+        },
+        {
+          "artifact_load_ns": 1302500,
+          "artifact_read_ns": 58375,
+          "cached_readback_ns": 96875,
+          "encode_allocated_bytes": [
+            844816,
+            844816,
+            844832
+          ],
+          "encode_ns": [
+            2220334,
+            1976792,
+            1959042
+          ],
+          "go_version": "go1.27.3",
+          "method": "cyclic-fft",
+          "output_bytes": 65536,
+          "output_sha256": "221f4da48cec0ae54eab2600cb068216001813c276b41cef7d37e1648ae0a19c",
+          "write_sync_ns": 5508708,
+          "process_peak_rss_bytes": 9715712
+        }
+      ]
+    },
+    {
+      "preprocessing": {
+        "basis_artifact_bytes": 16945,
+        "cyclic_artifact_bytes": 148071,
+        "cyclic_fft_artifact_bytes": 290972,
+        "cyclic_fft_prepare_ns": 287537708,
+        "cyclic_fft_serialize_ns": 1015375,
+        "cyclic_prepare_ns": 253949333,
+        "cyclic_serialize_ns": 452167,
+        "discovery_ns": 19207750,
+        "go_version": "go1.27.3",
+        "k": 3121,
+        "m": 2,
+        "n": 65536,
+        "paper_artifact_bytes": 825542,
+        "paper_prepare_ns": 57394709,
+        "paper_serialize_ns": 5353875,
+        "s": 8,
+        "samples": 1,
+        "seed": 1008,
+        "t": 8,
+        "process_peak_rss_bytes": 17580032
+      },
+      "methods": [
+        {
+          "artifact_load_ns": 5310958,
+          "artifact_read_ns": 128750,
+          "cached_readback_ns": 152500,
+          "encode_allocated_bytes": [
+            10879288,
+            10873632,
+            10868456
+          ],
+          "encode_ns": [
+            12956459,
+            12905291,
+            12185291
+          ],
+          "go_version": "go1.27.3",
+          "method": "paper",
+          "output_bytes": 262144,
+          "output_sha256": "0f049a254e9da9413c1a12ec8cf57a761b61357feba536070fe0cb28631ba4bf",
+          "write_sync_ns": 7696125,
+          "process_peak_rss_bytes": 13860864
+        },
+        {
+          "artifact_load_ns": 2705167,
+          "artifact_read_ns": 62583,
+          "cached_readback_ns": 172667,
+          "encode_allocated_bytes": [
+            182804024,
+            182789104,
+            182787552
+          ],
+          "encode_ns": [
+            93604917,
+            97474917,
+            88399875
+          ],
+          "go_version": "go1.27.3",
+          "method": "cyclic",
+          "output_bytes": 262144,
+          "output_sha256": "0f049a254e9da9413c1a12ec8cf57a761b61357feba536070fe0cb28631ba4bf",
+          "write_sync_ns": 4442333,
+          "process_peak_rss_bytes": 15417344
+        },
+        {
+          "artifact_load_ns": 4183208,
+          "artifact_read_ns": 62042,
+          "cached_readback_ns": 132375,
+          "encode_allocated_bytes": [
+            2703576,
+            2698256,
+            2703592
+          ],
+          "encode_ns": [
+            8645709,
+            8897792,
+            8973458
+          ],
+          "go_version": "go1.27.3",
+          "method": "cyclic-fft",
+          "output_bytes": 262144,
+          "output_sha256": "0f049a254e9da9413c1a12ec8cf57a761b61357feba536070fe0cb28631ba4bf",
+          "write_sync_ns": 4960916,
+          "process_peak_rss_bytes": 11829248
+        }
+      ]
+    }
+  ]
+}

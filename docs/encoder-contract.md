@@ -196,9 +196,12 @@ preprocessing and systematic encoding through interpolation and evaluation.
 **Reference implementation status:** the bounded dense method above is implemented
 and independently tested on tiny fields. It establishes the correctness baseline
 for future backends and wrapper integration. It does not implement the paper's
-fast encoder or support the initial `s=8..20` catalogue. The faster method needs
-an extension-field isomorphism, interpolation/evaluation algorithms, and validation
-of randomized degree-set preprocessing; evaluate those against the reference.
+fast encoder or support the initial `s=8..20` catalogue. The [bounded orbit backend](../encoding/liftrs/README.md#paper-and-cyclic-encoders)
+now implements the paper's information set, certified random degree discovery and
+paper/cyclic encoding for m=2, s=2..8, N<=65,536. Its additive transforms, prepared
+public artifacts and method-specific constants are independently tested against
+the dense oracle. Target-size field coverage, memory/I/O scheduling and hardware
+acceleration remain open.
 
 **Cryptographic reference status:** the bounded stage now tests permutation, XOR
 masks at storage positions, independent database keys, and fresh masks on
@@ -211,3 +214,14 @@ from coordinate metadata. Key generation and online sampling must use Go's
 [`crypto/rand`](https://pkg.go.dev/crypto/rand); deterministic sources belong only
 in explicit tests. The legacy integer-additive masking remains separate. These
 fixture tests do not qualify the reference or the custom permutation for production.
+
+See the [encoding algorithm review](encoding-algorithms.md) for the paper's pipeline,
+the validated bounded cyclic formulation, and further transform implementation candidates. These
+research options do not change the stage boundaries or supported reference sizes.
+
+Complete public code-preprocessing artifacts can be distributed independently of
+any database (for example, on GitHub). Store reusable solver constants and transform
+spectra in those artifacts where their size is practical. Report discovery,
+method preparation, serialization and process-local loading separately from
+per-database encoding. No published size budget is established for the large
+catalogue configurations; do not assume a full matrix or spectrum fits that budget.

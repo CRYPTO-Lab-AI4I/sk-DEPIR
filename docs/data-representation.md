@@ -84,7 +84,9 @@ To retrieve a PIR record, the client sends a query listing positions to read fro
 encoded database. Several PIR databases can share query generation: the client
 computes one position list and sends a separate copy for each PIR database. Storage
 returns the requested values independently for each database. Query sharing reduces
-client computation; upload still includes every copy of the position list.
+client computation; upload still includes every copy of the position list in the
+current model. The [planned grouped storage layout](protocol-io.md#storage-layout-optimization)
+will place same-position values together so one read address retrieves all members.
 
 PIR databases are eligible to form a *query-sharing group* when:
 

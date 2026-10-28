@@ -10,6 +10,13 @@ decoding. Define the storage I/O contract and use simple readers in tests and
 examples; server-side protocol computation and a production server are outside
 this roadmap.
 
+Upload optimization through [grouped storage layout](docs/protocol-io.md#storage-layout-optimization)
+is explicitly in scope for TRL 5. Place each query-sharing group's same-position
+values in a single readable record, so the client sends each address once using
+ordinary storage reads. Implement the layout, streaming writer and client adapter;
+verify unchanged reconstruction and measure actual upload and request overhead.
+This goal does not require server-side protocol computation.
+
 ## Implementation sequence
 
 1. Specify the encoder contract and input layout; sketch catalogue fields and
@@ -24,6 +31,12 @@ this roadmap.
 5. Build the parameter planner using verified capacities, distinguishing them
    from paper and empirical estimates.
 6. Implement faster preprocessing for useful configurations identified by the planner.
+
+The [bounded paper/cyclic encoder comparison](experiments/encoder-comparison/report.md)
+now covers the paper information set and exact codeword equality through N=65,536.
+Reusable public preprocessing artifacts are separate from database encoding; these
+small artifacts can be distributed with generation evidence. This is not yet a
+large-instance streaming or GPU backend.
 
 A complete planner or broad benchmark campaign must not delay the reference
 encoder. Small-instance validation does not establish large-instance resource

@@ -116,3 +116,27 @@ Directional budgets remain supported. Sampling can miss feasible or superior pla
 no automatic communication budget is selected. Target encoders, production security and
 actual I/O feasibility remain unvalidated. The archived boundary-search JSON records its
 original source hashes; current reproduction uses the revised sources, not that method.
+
+## Download-only table presentation (2026-10-27)
+
+Run `python3 experiments/tradeoff-costs/run.py --render-only` from the repository
+root to regenerate [options.md](options.md) from [results.json](results.json) and
+[pir-configs.json](pir-configs.json), without rerunning the search. This presentation
+uses the saved run's revision, environment and parameters recorded above; no new
+encoding or timing measurement is introduced. Python 3 is the only rendering prerequisite.
+
+The table now shows storage overhead `S/(n*B)` and inverse download communication
+rate `D/B`, followed by absolute download bytes (`D/8`, decimal MB/GB). Download
+communication rate is `B/D`; `B` is the original application-record size in bits.
+The reference column shows `N/K` and `D/B=L`, since a catalogue PIR record has
+`s` bits and its response contains `L` field elements, including dummies.
+Reference values assume full utilization and exclude application padding.
+
+This supersedes the upload-plus-download presentation described earlier. The saved
+JSON/CSV retain their original upload, download and total-communication fields.
+Search used total communication; the tables emphasize download because the planned
+grouped storage layout is intended to make upload negligible. The selected options
+are presented as current choices; no additional optimization run is needed for
+this presentation change. Physical storage layout optimization is now
+[in scope](../../docs/protocol-io.md#storage-layout-optimization); the grouped-read
+backend and its actual upload/framing costs remain to be implemented and measured.

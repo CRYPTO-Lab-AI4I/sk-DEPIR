@@ -184,3 +184,13 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-26 20:41 | PLAN-012 | Completed | [Independent cost-grid DP and 21-case comparison verified](2026-10-26-2041-codex-plan-012-completed.md) |
 | 2026-10-26 21:06 | PLAN-013 | Started | [Publish planner and cost-DP checkpoint](2026-10-26-2106-codex-plan-013-started.md) |
 | 2026-10-26 21:07 | PLAN-013 | Completed | [Checkpoint verified for commit and push](2026-10-26-2107-codex-plan-013-completed.md) |
+| 2026-10-27 08:11 | DOC-051 | Started | [Storage layout goal and download tables](2026-10-27-0811-codex-doc-051-started.md) |
+| 2026-10-27 08:13 | DOC-051 | Completed | [Upload optimization scoped and download tables regenerated](2026-10-27-0813-codex-doc-051-completed.md) |
+| 2026-10-27 08:16 | DOC-052 | Started | [Current communication option labels](2026-10-27-0816-codex-doc-052-started.md) |
+| 2026-10-27 08:16 | DOC-052 | Completed | [Current communication labels applied](2026-10-27-0816-codex-doc-052-completed.md) |
+| 2026-10-27 08:25 | RESEARCH-001 | Started | [Scalable systematic Lift-RS encoding research](2026-10-27-0825-codex-research-001-started.md) |
+| 2026-10-27 08:32 | RESEARCH-001 | Completed | [Systematic encoding algorithms reviewed](2026-10-27-0832-codex-research-001-completed.md) |
+| 2026-10-27 08:44 | ENCODE-001 | Started | [Paper and cyclic systematic encoders](2026-10-27-0844-codex-encode-001-started.md) |
+| 2026-10-27 09:26 | ENCODE-001 | Completed | [Paper/cyclic encoders and public preprocessing artifacts verified](2026-10-27-0926-codex-encode-001-completed.md) |
+| 2026-10-28 09:09 | PUBLISH-001 | Started | [Publish encoder checkpoint](2026-10-28-0909-codex-publish-001-started.md) |
+| 2026-10-28 09:09 | PUBLISH-001 | Completed | [Encoder checkpoint reviewed for publication](2026-10-28-0909-codex-publish-001-completed.md) |

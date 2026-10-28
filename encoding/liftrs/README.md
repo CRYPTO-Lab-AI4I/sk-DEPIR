@@ -98,3 +98,87 @@ client, permutation/masking helpers, and plain in-memory reads to retrieve every
 systematic position of a genuine GF(16) lifted codeword. It does not qualify the
 prototype cryptographic components for production. The existing file-based
 `LiftedRS.Encode` still calls its clearly marked RM placeholder.
+
+## Paper and cyclic encoders
+
+The separate `OrbitBasis` API implements the paper's omega-power information set
+and two equivalent encoding algorithms for `m=2`, `s=2..8`, `1<=t<q-1`, with
+`N<=65,536`. This extends the comparison backend, not the dense `Preprocess` API
+or the legacy file-based PIR encoder. Output remains unmasked canonical-grid
+polynomial-basis field elements. See the [algorithm review](../../docs/encoding-algorithms.md)
+and [measured comparison](../../experiments/encoder-comparison/report.md).
+
+### Reusable preprocessing and database encoding
+
+See the [runnable example](orbit_example_test.go), which checks errors at each step:
+
+```go
+basis, err := liftrs.DiscoverOrbit(spec, liftrs.OrbitOptions{})
+// Handle err, then prepare once (or load a published complete artifact).
+encoder, err := basis.PrepareCyclicFFT() // alternatively PreparePaper / PrepareCyclic
+artifact, err := encoder.MarshalBinary() // public, database-independent constants
+// Handle errors and persist artifact with its generation provenance.
+
+encoder, err = liftrs.LoadCyclicEncoder(artifact) // once per process/code
+// Handle err, then reuse encoder for distinct databases of exactly K field elements.
+word, err := encoder.Encode(message)
+```
+
+The three stages have different costs:
+
+1. **Discovery:** exact good-monomial enumeration and random support discovery;
+   complete only when the observed degree set has the exact dimension K.
+2. **Preparation:** method-specific constants, independent of any database.
+   The paper solver caches its product tree, reversed-divisor reciprocals and
+   denominator inverses. Cyclic encoders cache P/G; the FFT variant also caches
+   the fixed generator's spectrum. These constants are included in their artifacts.
+3. **Encoding:** receives a database's K field elements. No discovery, product-tree
+   construction, denominator inversion or fixed-generator transform occurs here.
+
+Loading complete artifacts parses the constants and reconstructs field/transform
+runtime tables, without rerunning discovery or polynomial preparation. Count that
+load cost once per process/code. `OrbitBasis.MarshalBinary` is a smaller discovery
+artifact; loading that alone still requires `PreparePaper` or `PrepareCyclic`.
+All initialized encoders are immutable and can encode concurrently; each call
+owns its message-dependent buffers and output.
+
+Artifact version 1 fixes the documented field polynomials, tower and generator
+selection; incompatible changes require a new version. Artifacts use JSON and contain
+no database data, masking/permutation keys,
+or randomness needed for PIR queries. They can be published on GitHub with their
+exact code specifications and reproducible generation evidence. The experiment
+includes [example public artifacts](../../experiments/encoder-comparison/artifacts/).
+Load only independently verified artifacts: loaders check shapes, bounds and field
+ranges, not mathematical provenance. Basis artifacts are limited to 2 MiB and
+complete encoder artifacts to 32 MiB in this bounded backend.
+
+### Algorithms, coordinates and limitations
+
+For the paper path, set `beta_i=omega^i` for support exponents i. A product-tree
+transposed-Vandermonde solve recovers the univariate coefficients; an additive FFT
+evaluates the full extension field. The cyclic path computes `H=(P*M) mod X^K`
+and `Y=G*H`, where `P*G=1+X^(N-1)`. `PrepareCyclic` uses base-field Karatsuba;
+`PrepareCyclicFFT` uses a cached extension-field transform for the large product.
+The latter is not a base-field-only multiplication implementation.
+
+The extension uses `u^2=u+delta`, with delta the first polynomial-basis element
+of absolute trace one. The deterministic primitive generator is the first
+primitive packed extension element at least q. `phi(a+b*u)=(a,b)`, so the packed
+integer is also the canonical coordinate `a+q*b`. For message j, use
+`basis.SystematicPosition(j)` to compute `phi(omega^(j+1))` without storing a
+K-entry coordinate table. No discrete logarithm is required. Both algorithms
+return the same word in canonical coordinate order, before permutation/masking.
+
+The FFT uses general binary subspace polynomials and costs `O(N log² N)` field
+operations, including monomial-basis conversion. Karatsuba multiplication costs
+`O(n^log2(3))`; this comparison does not implement the asymptotically best general
+polynomial multiplier. The backend is in memory and allocates scratch buffers;
+there is no external-storage, streaming, GPU or constant-time implementation.
+It does not support s=9..20 or integrate automatically with application plans.
+Do not extrapolate the small comparison's speed or artifact sizes to those codes.
+
+[Tests](orbit_test.go) check transforms against Horner evaluation, polynomial
+operations against schoolbook multiplication, complete message bases against the
+independent dense oracle, prepared-artifact reuse, malformed inputs and concurrency.
+The oracle uses different systematic coordinates: compare codewords after matching
+information-set values, not by reusing the same raw message across both conventions.

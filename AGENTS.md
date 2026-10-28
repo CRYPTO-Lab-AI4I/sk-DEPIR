@@ -11,7 +11,10 @@ the paper's constructions, the implemented behavior, and experimental shortcuts.
 The current target is **TRL 5**, as defined by the ordered milestones and
 acceptance criteria in [ROADMAP.md](ROADMAP.md). Implement the client and
 preprocessing phases. Storage only returns requested records through an I/O
-interface; do not build server-side protocol computation. Defer TRL 6 scaling
+interface; do not build server-side protocol computation. Optimizing upload
+through a storage layout that places same-position values from a query-sharing
+group together, and a client adapter that reads them with one address, is in scope.
+Keep this goal distinct from the currently implemented repeated-upload model. Defer TRL 6 scaling
 and advanced optimization work until the user chooses to pursue it. Document
 current limitations and do not describe the target as already achieved.
 

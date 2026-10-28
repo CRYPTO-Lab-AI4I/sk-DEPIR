@@ -174,6 +174,16 @@ repeated positions within each list. Query sharing saves client computation, not
 transmitted addresses. Use the actual `L_g`, not just the
 curve length `q_g-1`, where `q_g` is the group's field size.
 
+The [storage layout optimization goal](protocol-io.md#storage-layout-optimization)
+places same-position values from each query-sharing group in one readable group
+record. With that layout, logical indexed upload would be
+`U_P = sum_g L_g*ceil(log2(N_g))`, eliminating the factor `J_g`; storage and
+download are unchanged before byte alignment and metadata. This is a target model,
+not the currently implemented evaluator. Report download communication rate `A/D`
+(and its inverse `D/A` for cost comparisons) separately from total communication
+rate `A/(U+D)`. Existing search results retain their total-communication objective;
+changing table presentation does not reoptimize their plans.
+
 The formulas include zero-row and zero-column padding through the chosen configurations.
 Add metadata, database identifiers, byte alignment, transport framing, and
 implementation resource overheads separately. A group with `J` databases using one

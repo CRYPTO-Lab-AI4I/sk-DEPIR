@@ -12,6 +12,24 @@ yet implemented by the legacy single-database API. The
 participation, repeated byte-range reads, unmasking, and record reconstruction
 for supplied tiny-instance layouts.
 
+## Storage layout optimization
+
+Reducing upload through the physical storage layout is in scope for TRL 5.
+For each query-sharing group, store the field elements at the same encoded position
+next to one another as a single group record. The client can then request that
+record once per position and receive all group members' values through ordinary
+reads. This removes repeated addresses across the group without server-side
+protocol computation. Preserve the group's common permutation, independent masks,
+fixed participation, and response ordering.
+
+Implement a grouped layout and matching client storage adapter, documenting how
+positions map to byte ranges. Measure upload including range descriptors, framing,
+and byte alignment; do not assume it is negligible for every backend. The layout
+must support streaming construction without requiring the whole group in memory.
+The current reference reads and evaluator still use independently stored databases
+and repeated uploads, as described below. Grouped reads are a goal, not an
+implemented storage format. Server-side linear combinations remain outside scope.
+
 ## Query groups and participation
 
 For each logical-fragment request, generate one position list per

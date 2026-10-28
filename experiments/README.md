@@ -43,3 +43,7 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
 
 - [Cost-grid DP](dp-costs/report.md): separate maximum-coverage DP on rounded
   storage/communication coordinates, with explicit cost windows and the 21-case table.
+
+- [Paper/cyclic encoder comparison](encoder-comparison/report.md): exact bounded
+  encodings with reusable public preprocessing artifacts; separate setup, load,
+  encoding, process memory and output I/O measurements.
