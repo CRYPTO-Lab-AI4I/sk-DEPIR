@@ -14,11 +14,11 @@ Development order is in [ROADMAP.md](../ROADMAP.md#implementation-sequence).
 **Inputs:** application-record count and size, desired security level, and optional
 limits on encoded storage and upload/download.
 
-**Objective:** find storage–communication tradeoffs for [partitions into PIR databases](data-representation.md)
+**Objective:** find storage–download tradeoffs for [partitions into PIR databases](data-representation.md)
 that meet the security and any supplied cost limits. Retain nondominated alternatives:
-none should have both higher storage and higher total communication than another
+none should have both higher storage and higher download than another
 feasible candidate. Users can inspect choices before setting communication limits.
-The single-choice greedy API instead minimizes storage with communication as a tie-break.
+The single-choice greedy API instead minimizes storage with download as a tie-break.
 
 **Output:** one or more partition plans. Each contains the submatrix partition, a
 configuration for each encoded PIR database drawn from the [configuration
@@ -44,7 +44,9 @@ capacity. Record this status separately from the rate evidence.
 The [PIR configuration catalogue](../pirconfig/configs_catalogue.json) contains the
 agreed security profiles and [Monte Carlo rate estimates](../experiments/liftrs-rates/report.md)
 for every target configuration. The four matching paper estimates remain as
-supporting evidence. These capacities support provisional planning, not execution.
+supporting evidence. The s=8 entry additionally records exact capacity K=3121 and bounded standalone
+encoding support; the other capacities remain provisional. An application plan
+still needs a compatible execution backend, beyond catalogue metadata alone.
 The [verified tiny fixture](../pirconfig/testdata/reference.json) exercises the format
 without claiming security.
 
@@ -92,7 +94,8 @@ degree and checks the computational bound against `2^100`. These are conjectured
 for the paper's assumption, not a security validation of the current implementation.
 Lower `t` values will be considered later as lower-security alternatives.
 
-Choose layouts by capacity, code rate, padding, and communication costs.
+Choose layouts by capacity, code rate, padding, and download costs. Upload remains
+reported and constrained when requested, but is not the optimization objective.
 Byte alignment does not restrict the catalogue. Each degree needs implemented field
 arithmetic and validated encoder capacity before use. Current arithmetic is in
 [gf2n.go](../utils/gf2n.go). The existing [Params type](../pir/params.go) names `q`,
@@ -181,8 +184,8 @@ record. With that layout, logical indexed upload would be
 download are unchanged before byte alignment and metadata. This is a target model,
 not the currently implemented evaluator. Report download communication rate `A/D`
 (and its inverse `D/A` for cost comparisons) separately from total communication
-rate `A/(U+D)`. Existing search results retain their total-communication objective;
-changing table presentation does not reoptimize their plans.
+rate `A/(U+D)`. Search now optimizes storage and download, including its dominance checks and
+approximation coordinates. Upload and total traffic remain separately reported.
 
 The formulas include zero-row and zero-column padding through the chosen configurations.
 Add metadata, database identifiers, byte alignment, transport framing, and
@@ -218,7 +221,7 @@ one-step lookahead. At each row position, try every eligible configuration, slic
 that block vertically, and score it together with a greedy completion. The
 completion fills the largest-fitting capacities and uses the cheapest covering
 configuration for the last remainder. Score repeated blocks in aggregate. Choose
-minimum full-plan storage, breaking ties by total communication; enforce all cost
+minimum full-plan storage, breaking ties by download; enforce all cost
 and security limits. Estimated capacities remain provisional.
 
 The returned plan represents column slices implicitly in full-width row blocks.
@@ -235,7 +238,7 @@ The broader selection procedure below describes possible future search strategie
 `GreedyApplication` tries the original width plus requested logical widths, or, by
 default, all catalogue field widths and powers of two starting at 8 bits up to the
 original width. For each width it runs the same row-block heuristic, charging indexed
-traffic for all fragments. Choose minimum storage, then total communication, then
+traffic for all fragments. Choose minimum storage, then download, then
 larger width for exact ties. This expands the search without arbitrary rearrangement
 or an optimality guarantee. `EvaluateApplication` validates the mapping and costs.
 
@@ -289,16 +292,17 @@ storage, and approximation flags rather than requiring a rate constraint upfront
 ## Cost-indexed DP alternative
 
 [`SearchDPCosts`](../planner/README.md#cost-indexed-dynamic-programming) instead records
-maximum row coverage by rounded storage/communication coordinates. Binary groups
+maximum row coverage by rounded storage/download coordinates. Binary groups
 represent all full-block multiplicities, followed by an exact padded or full-download
 completion. This changes the search approximation, not layout semantics or cost formulas.
 
-DP uses explicit per-width numerical windows, with a grid per communication scale.
+DP uses explicit per-width numerical windows, with a grid per download scale.
 Results retain exact bits, grid units and item/transition counts. Defaults are 64 cells
 per axis; the [dp-costs report](../experiments/dp-costs/report.md) uses 128. Cost rounding
 and finite exploration windows can still miss superior plans; an item-wise additive
 rounding bound is not a global approximation theorem. Completed greedy witnesses stay
-protected. Separate upload/download budgets are rejected in the initial two-cost API.
+protected. Download and storage budgets are supported; upload budgets require another DP
+dimension and are rejected by this initial API.
 
 ## Selection procedure and output
 
@@ -307,7 +311,7 @@ protected. Separate upload/download budgets are rejected in the initial two-cost
    for every logical row before accepting the query-sharing groups. Reject
    layouts that fail coverage, capacity, compatibility, the desired security
    level, or storage and communication limits; label estimate-based plans provisional.
-2. Compute total storage and communication. Remove choices that are no better
+2. Compute storage, upload and download; optimize storage and download. Remove choices that are no better
    in either metric and worse in at least one. Return the remaining tradeoffs; apply a storage-first ranking only after
    the caller selects communication constraints or explicitly requests that policy.
 3. Optionally attach encoding-time and memory estimates from existing measurements

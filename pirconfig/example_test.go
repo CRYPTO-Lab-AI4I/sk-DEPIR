@@ -22,5 +22,5 @@ func ExampleLoad() {
 	fmt.Println(first.ID, first.EncodingStatus, first.Capacity.Status)
 	// Output:
 	// 13
-	// binary-s08-m2-t8 candidate estimated
+	// binary-s08-m2-t8 supported verified
 }

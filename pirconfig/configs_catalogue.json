@@ -4,17 +4,18 @@
   "configurations": [
     {
       "id": "binary-s08-m2-t8",
-      "encoding_status": "candidate",
+      "encoding_status": "supported",
       "code": {
         "s": 8,
         "m": 2,
-        "t": 8
+        "t": 8,
+        "polynomial": 285
       },
       "capacity": {
-        "status": "estimated",
+        "status": "verified",
         "n": 65536,
-        "k": 3117,
-        "rate": 0.0475616455078125,
+        "k": 3121,
+        "rate": 0.0476226806640625,
         "evidence": [
           {
             "kind": "monte_carlo",
@@ -28,6 +29,13 @@
               "lower_rate": 0.045582165321564914,
               "upper_rate": 0.04954783467843509
             }
+          },
+          {
+            "kind": "encoding",
+            "reference": "experiments/encoder-comparison/report.md",
+            "script": "experiments/encoder-comparison/run.py",
+            "results": "experiments/encoder-comparison/results.json",
+            "method": "Exact enumeration of all 65,536 monomials gives K=3121 at s=8,m=2,t=8; discovery stops only at exact K. Prepared paper/cyclic/FFT encoders produce equal full codewords and preserve all systematic symbols. Historical Monte Carlo evidence remains separate (point estimate K=3117). Bounded standalone encoding only; no integrated application/storage backend or production security validation."
           }
         ]
       },
@@ -47,6 +55,19 @@
             "reference": "experiments/bounded-sample-parameters/report.md",
             "script": "experiments/bounded-sample-parameters/run.py",
             "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      },
+      "encoder": {
+        "implementation": "encoding/liftrs/orbit.go: DiscoverOrbit, PreparePaper, PrepareCyclic, PrepareCyclicFFT",
+        "preprocessing": "Database-independent exact dimension and certified degree support; public prepared artifacts with reusable solver constants or polynomials/spectrum. Load once per process/code; canonical omega-power information set. Bounded m=2,N<=65536.",
+        "evidence": [
+          {
+            "kind": "encoding",
+            "reference": "experiments/encoder-comparison/report.md",
+            "script": "experiments/encoder-comparison/run.py",
+            "results": "experiments/encoder-comparison/results.json",
+            "method": "Exact enumeration of all 65,536 monomials gives K=3121 at s=8,m=2,t=8; discovery stops only at exact K. Prepared paper/cyclic/FFT encoders produce equal full codewords and preserve all systematic symbols. Historical Monte Carlo evidence remains separate (point estimate K=3117). Bounded standalone encoding only; no integrated application/storage backend or production security validation."
           }
         ]
       }

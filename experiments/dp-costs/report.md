@@ -24,8 +24,7 @@ GOCACHE=/tmp/sk-depir-go-cache python3 experiments/dp-costs/run.py \
 
 Run from any directory. The script builds the driver and regenerates JSON, CSV and
 options Markdown. Requirements: Python 3, Go and git. No external encoder or network
-service is required. Base revision: `8b322b83ddd566a2becd2b38d59793b26d91678d`, plus
-the uncommitted implementation through PLAN-012. Exact source/input hashes and dirty
+service is required. Current rerun base revision: `2367b92`, plus the uncommitted PLAN-014 changes. Exact source/input hashes and dirty
 status are recorded; the base revision alone does not contain this implementation.
 Environment: Go 1.27.3, darwin/arm64, Python 3.9.6, macOS 26.6.2. No runtime or peak
 memory performance measurements are reported. The model calculation is deterministic;
@@ -43,16 +42,16 @@ protocol queries, not original application lookups.
 
 For each width, binary decomposition represents every full-block multiplicity from
 zero through floor(logical_rows/K). These groups form 0/1 items, with no sampling of
-counts or row positions. At every item stage, each rounded storage/communication cell
-retains maximum covered rows. Coverage ties prefer smaller exact costs. A descending
+counts or row positions. At every item stage, each rounded storage/download cell
+retains maximum covered rows. Coverage ties prefer smaller exact storage/download costs. A descending
 cell traversal uses each binary item at most once, including items rounded to zero
 coordinates. Overshooting groups may finish using fewer blocks and a padded block;
 otherwise a final padded block or full residual download is evaluated exactly.
 
 **Grid:** 128 cells per axis in this experiment; library defaults are 64. A storage
-window defaults to twice the storage of the least-communication one-code or greedy
-seed at that width. Communication windows run geometrically (factor 4) from seed
-communication, capped at original application size, through that application size.
+window defaults to twice the storage of the least-download one-code or greedy
+seed at that width. Download windows run geometrically (factor 4) from seed
+download, capped at original application size, through that application size.
 This retains low-traffic resolution as well as higher-traffic tradeoffs. Explicit
 window options can select other limits. Actual limits and units for every window
 are retained in results.json. Greedy/full protected seeds and one-code candidates
@@ -75,20 +74,21 @@ rounding is exact. The DP-specific Windows metadata describes the approximation.
 Completed-output selection uses MaxFrontier=32. Successfully completed greedy and
 whole-download baselines bypass lossy output reduction, with equal-or-better witnesses.
 MaxBaselineBlocks=256 bounds greedy seed construction. Returned/display options can
-exceed nominal sizes. The first two-cost API rejects separate upload/download budgets;
-correct support requires extra state dimensions. Exact storage requirements are supported.
+exceed nominal sizes. The two-cost DP supports storage/download budgets and rejects upload budgets,
+which require an additional constraint dimension.
 
 ## Table conventions
 
 The generated table omits whole-download-only solutions. Each row includes an option
-no worse than the original greedy plan and the lowest-communication option found.
+no worse than the original greedy plan and the lowest-download option found.
 If those coincide, an adjacent lower-storage point is also shown. This does not claim
 the lowest possible storage or recommend a balanced plan. The display protects the
 original greedy witness; complete representative indices protect every per-width witness.
 
-Storage overhead = stored bits / original application bits. Communication rate =
-original record bits / (upload + download per original lookup). The table shows its
-inverse and absolute communication; lower multiples are better. All counts exclude
+Storage overhead = stored bits / original application bits. Search optimizes
+storage and download; the table displays inverse download rate `D/B` and absolute
+download. Lower multiples are better. Total communication rate `B/(U+D)` remains
+in JSON/CSV as accounting, not the search objective. All counts exclude
 transport framing, metadata, identifiers and byte rounding. Physical whole-read
 requests are not free despite zero logical index upload.
 
@@ -101,18 +101,18 @@ achievability guarantee for that application layout.
 
 See [options.md](options.md) for the full analogous table. All **21/21** original greedy
 baselines retain equal-or-better witnesses in full results and displayed selections:
-4 improve at least one cost, 17 match both. All windows use rounded coordinates.
+3 improve at least one storage/download cost, 18 match both. All windows use rounded coordinates.
 
-Compared with the saved batched-search results, minimum communication **matches 20/21**
-cases and is higher in one: **1 TB / 1 KB** gives about **301.162 MB** versus
-**295.797 MB** previously (about **1.8% higher**). Some intermediate tradeoffs differ.
+Compared with the saved batched-search results, minimum download **matches 20/21**
+cases and is higher in one: **1 TB / 1 KB** gives about **100.387 MB** versus
+**98.599 MB** from batched search (about **1.8% higher**). Some intermediate tradeoffs differ.
 No previous search alternatives are silently inserted into this DP result. Both methods
 protect the original greedy baseline, not every alternative discovered by the other.
 The comparison is included in the JSON and derived by the same script from the linked
-[previous results](../tradeoff-costs/results.json), whose hash is recorded.
+[batched-search results](../tradeoff-costs/results.json), whose hash is recorded.
 
 These results do not demonstrate a uniform improvement over batched search or show that
-the large storage/communication gaps are unavoidable. Increasing grid resolution and
+the large storage/download gaps are unavoidable. Increasing grid resolution and
 changing storage windows can change the explored tradeoffs. There is no FPTAS or global
 Pareto approximation claim in this implementation.
 
@@ -131,26 +131,31 @@ production qualification is introduced. Empirical capacities remain provisional.
 cost-indexed DP shares the existing layout/retrieval family; it does not search arbitrary
 application rearrangements or introduce multi-record PIR decoding optimizations.
 
-## Download-only table presentation (2026-10-27)
+## Download-objective rerun (2026-10-28)
 
-Run `python3 experiments/dp-costs/run.py --render-only` from the repository
-root to regenerate [options.md](options.md) from [results.json](results.json) and
-[pir-configs.json](pir-configs.json), without rerunning the search. This presentation
-uses the saved run's revision, environment and parameters recorded above; no new
-encoding or timing measurement is introduced. Python 3 is the only rendering prerequisite.
+The current implementation optimizes storage and **download**, throughout ranking,
+dominance, frontier reduction and DP windows. Upload/total bits are still reported
+using the existing repeated-address model; grouped storage remains a future backend.
+No assumption of zero actual upload is introduced into accounting.
 
-The table now shows storage overhead `S/(n*B)` and inverse download communication
-rate `D/B`, followed by absolute download bytes (`D/8`, decimal MB/GB). Download
-communication rate is `B/D`; `B` is the original application-record size in bits.
-The reference column shows `N/K` and `D/B=L`, since a catalogue PIR record has
-`s` bits and its response contains `L` field elements, including dummies.
-Reference values assume full utilization and exclude application padding.
+Rerun with the command above. `--render-only` only renders existing results and
+must not be used to claim a new optimization run. The script/source hashes in
+[results.json](results.json) identify this rerun (base revision `2367b92` plus
+PLAN-014 changes). All configurations use the unchanged historical
+[pir-configs.json](pir-configs.json) snapshot, including estimated K=3117 at s=8;
+the current catalogue's separate exact K=3121 evidence is intentionally not mixed
+into this objective-only comparison.
 
-This supersedes the upload-plus-download presentation described earlier. The saved
-JSON/CSV retain their original upload, download and total-communication fields.
-Search used total communication; the tables emphasize download because the planned
-grouped storage layout is intended to make upload negligible. The selected options
-are presented as current choices; no additional optimization run is needed for
-this presentation change. Physical storage layout optimization is now
-[in scope](../../docs/protocol-io.md#storage-layout-optimization); the grouped-read
-backend and its actual upload/framing costs remain to be implemented and measured.
+The previous total-objective [results](total-objective-results.json),
+[CSV](total-objective-summary.csv) and [table](total-objective-options.md) are
+archived. Their scripts and source are preserved in repository revision `2367b92`;
+they were not generated by the current script. This report's older methodological
+observations/comparisons remain historical where explicitly referring to that run.
+The [objective comparison](../download-objective-comparison/report.md) provides a
+reproducible comparison of all 21 old/new scenarios, endpoints, displayed options
+and intermediate frontier points, using exact saved costs.
+
+The reference configuration is still selected by closest plaintext capacity `K*s`.
+Its table column displays `N/K` and inverse download rate `L` (including dummies),
+assuming full use of that code. Stars protect storage/download costs against the
+original greedy baseline, not upload or total communication.

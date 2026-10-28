@@ -112,7 +112,7 @@ func EvaluateApplication(plan ApplicationPlan, catalogue *pirconfig.Catalogue, r
 }
 
 // GreedyApplication searches logical widths around the existing greedy planner.
-// Selection minimizes storage then communication, using greater logical width for
+// Selection minimizes storage then download, using greater logical width for
 // deterministic exact-cost ties. Indexed traffic is charged for every fragment;
 // full-download suffixes are charged once per application retrieval. The original
 // Greedy API is unchanged and continues to construct unsliced indexed plans.

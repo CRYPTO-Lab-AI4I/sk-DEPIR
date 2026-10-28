@@ -1,0 +1,948 @@
+{
+  "timestamp_utc": "2026-10-28T10:31:13.430032+00:00",
+  "base_revision": "2367b92987062083dc00d5350f93b7ff75cfec91",
+  "method": "Exact saved-cost comparison; fixed historical catalogue snapshots; no new encoding measurements.",
+  "input_sha256": {
+    "experiments/greedy-costs/total-objective-results.json": "4040e8a37dd8cae62c91449c99039d6978d04a12100bbfae54a8b6447ea7170e",
+    "experiments/greedy-costs/results.json": "a86a0d58962a787933d633383c8f06f0d7fb86b672cccf7828094572a15658d1",
+    "experiments/application-costs/total-objective-results.json": "556a5fc350d31a2a595663418692c9745a90a1c21a95ff3d7a1300d3df96ed7a",
+    "experiments/application-costs/results.json": "6511327d8986e0210662cfe5c3f09f653c43154c147370efe072479ad1f0d336",
+    "experiments/tradeoff-costs/total-objective-results.json": "2099812019a4fb9f53df4f45f279d30deb516836066d6e3200ffcd433659ed4a",
+    "experiments/tradeoff-costs/results.json": "b2fe4395ea90d8dbd0604054c100a039648a630257f3d6e917499535fd2fc19e",
+    "experiments/tradeoff-costs/total-objective-options.md": "4d93e15734a697535dc2eadd09eefad3a007ad0bcff8de0156c9da4e9625d4e3",
+    "experiments/tradeoff-costs/options.md": "3edbe1f359676acbe54ad25535e07de9ff77d5534065aed94f4c1ebe1305f70a",
+    "experiments/dp-costs/total-objective-results.json": "3e2b3a4271e64f04b9c9841666f5a96c8faa519a1ae98f01b3e89bf293c30bda",
+    "experiments/dp-costs/results.json": "ebb2ea02883d0f1f2b9ea3f63a8cdce61b72906522ed06d5e4763642342a6fc9",
+    "experiments/dp-costs/total-objective-options.md": "898c294a549086b1527980e98d9c177659eb38cf27183b249c820d3942de951c",
+    "experiments/dp-costs/options.md": "39aca30b4548496c13004c67f28979c07d4294fb4d6f655796d513f9f13f159c",
+    "experiments/download-objective-comparison/run.py": "86827f5c81431805d09cd2096669ba419ea1b5cd06d0fe7a882c84cd023b73c2"
+  },
+  "comparisons": [
+    {
+      "experiment": "greedy-costs",
+      "scenarios": [
+        {
+          "application_bytes": 1000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 75564580864,
+          "new_storage_bits": 75564580864,
+          "old_download_bits": 44042800,
+          "new_download_bits": 44042800,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 1000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 83886080000,
+          "new_storage_bits": 83886080000,
+          "old_download_bits": 92080000,
+          "new_download_bits": 92080000,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 20000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 1074815565824,
+          "new_storage_bits": 1074815565824,
+          "old_download_bits": 133237104,
+          "new_download_bits": 133237104,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 20000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 1389430833152,
+          "new_storage_bits": 1389430833152,
+          "old_download_bits": 470738170,
+          "new_download_bits": 470738170,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 20000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 2621440262144,
+          "new_storage_bits": 2621440262144,
+          "old_download_bits": 8176000639,
+          "new_download_bits": 8176000639,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 50000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 2149631131648,
+          "new_storage_bits": 2149631131648,
+          "old_download_bits": 132220088,
+          "new_download_bits": 132220088,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 50000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 3518132649984,
+          "new_storage_bits": 3518132649984,
+          "old_download_bits": 1361088751,
+          "new_download_bits": 1361088751,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 50000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 6291456786432,
+          "new_storage_bits": 6291456786432,
+          "old_download_bits": 15336001917,
+          "new_download_bits": 15336001917,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 50000000000,
+          "record_bytes": 10000000,
+          "old_storage_bits": 10485760000000,
+          "new_storage_bits": 10485760000000,
+          "old_download_bits": 61280000000,
+          "new_download_bits": 61280000000,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 100000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 4299262263296,
+          "new_storage_bits": 4299262263296,
+          "old_download_bits": 264440176,
+          "new_download_bits": 264440176,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 100000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 5368843337728,
+          "new_storage_bits": 5368843337728,
+          "old_download_bits": 665536638,
+          "new_download_bits": 665536638,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 100000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 8388608000000,
+          "new_storage_bits": 8388608000000,
+          "old_download_bits": 9208000000,
+          "new_download_bits": 9208000000,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 100000000000,
+          "record_bytes": 10000000,
+          "old_storage_bits": 20971520000000,
+          "new_storage_bits": 20971520000000,
+          "old_download_bits": 122560000000,
+          "new_download_bits": 122560000000,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 500000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 20100854054912,
+          "new_storage_bits": 20100854054912,
+          "old_download_bits": 811836871,
+          "new_download_bits": 811836871,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 500000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 21477520834560,
+          "new_storage_bits": 21477520834560,
+          "old_download_bits": 1321045110,
+          "new_download_bits": 1321045110,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 500000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 39845901369344,
+          "new_storage_bits": 39845901369344,
+          "old_download_bits": 32736008442,
+          "new_download_bits": 32736008442,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 500000000000,
+          "record_bytes": 10000000,
+          "old_storage_bits": 62914560786432,
+          "new_storage_bits": 62914560786432,
+          "old_download_bits": 153360001917,
+          "new_download_bits": 153360001917,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 1000000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 37968199286784,
+          "new_storage_bits": 37968199286784,
+          "old_download_bits": 942304454,
+          "new_download_bits": 942304454,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 1000000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 42955041669120,
+          "new_storage_bits": 42955041669120,
+          "old_download_bits": 2642090220,
+          "new_download_bits": 2642090220,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 1000000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 75497497165824,
+          "new_storage_bits": 75497497165824,
+          "old_download_bits": 44008013050,
+          "new_download_bits": 44008013050,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 1000000000000,
+          "record_bytes": 10000000,
+          "old_storage_bits": 83886080000000,
+          "new_storage_bits": 83886080000000,
+          "old_download_bits": 92080000000,
+          "new_download_bits": 92080000000,
+          "endpoint_costs_changed": false
+        }
+      ],
+      "changed_endpoint_costs": 0
+    },
+    {
+      "experiment": "application-costs",
+      "scenarios": [
+        {
+          "application_bytes": 1000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 43486543872,
+          "new_storage_bits": 43486543872,
+          "old_download_bits": 961138464,
+          "new_download_bits": 961138464,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 1000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 43486543872,
+          "new_storage_bits": 43486543872,
+          "old_download_bits": 9602983080,
+          "new_download_bits": 9602983080,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 20000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 767346011296,
+          "new_storage_bits": 767346011296,
+          "old_download_bits": 2462333684,
+          "new_download_bits": 2462333684,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 20000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 766804902336,
+          "new_storage_bits": 766804902336,
+          "old_download_bits": 23492815000,
+          "new_download_bits": 23492815000,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 20000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 728262518720,
+          "new_storage_bits": 728262518720,
+          "old_download_bits": 1647203512992,
+          "new_download_bits": 1647203512992,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 50000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 1821066133504,
+          "new_storage_bits": 1821066133504,
+          "old_download_bits": 4324554324,
+          "new_download_bits": 4324554324,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 50000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 1821087105024,
+          "new_storage_bits": 1821087105024,
+          "old_download_bits": 43317148784,
+          "new_download_bits": 43317148784,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 50000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 1821087105024,
+          "new_storage_bits": 1821087105024,
+          "old_download_bits": 4331613627096,
+          "new_download_bits": 4331613627096,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 50000000000,
+          "record_bytes": 10000000,
+          "old_storage_bits": 1586121485007,
+          "new_storage_bits": 1586121485007,
+          "old_download_bits": 32768934096094,
+          "new_download_bits": 32768934096094,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 100000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 3743063998464,
+          "new_storage_bits": 3743063998464,
+          "old_download_bits": 7135406964,
+          "new_download_bits": 7135406964,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 100000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 3743063998464,
+          "new_storage_bits": 3743063998464,
+          "old_download_bits": 71293471704,
+          "new_download_bits": 71293471704,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 100000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 3736664251968,
+          "new_storage_bits": 3736664251968,
+          "old_download_bits": 5008396276304,
+          "new_download_bits": 5008396276304,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 100000000000,
+          "record_bytes": 10000000,
+          "old_storage_bits": 3392404326656,
+          "new_storage_bits": 3392404326656,
+          "old_download_bits": 15852989443328,
+          "new_download_bits": 15852989443328,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 500000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 16567263408429,
+          "new_storage_bits": 16567263408429,
+          "old_download_bits": 17382498575,
+          "new_download_bits": 17382498575,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 500000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 16496443027536,
+          "new_storage_bits": 16496443027536,
+          "old_download_bits": 169780773087,
+          "new_download_bits": 169780773087,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 500000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 16283693769970,
+          "new_storage_bits": 16283693769970,
+          "old_download_bits": 14495727441219,
+          "new_download_bits": 14495727441219,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 500000000000,
+          "record_bytes": 10000000,
+          "old_storage_bits": 15773123109249,
+          "new_storage_bits": 15773123109249,
+          "old_download_bits": 125964702865626,
+          "new_download_bits": 125964702865626,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 1000000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 33019708571648,
+          "new_storage_bits": 33019708571648,
+          "old_download_bits": 19143015512,
+          "new_download_bits": 19143015512,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 1000000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 33019708571648,
+          "new_storage_bits": 33019708571648,
+          "old_download_bits": 191021891756,
+          "new_download_bits": 191021891756,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 1000000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 33019708571648,
+          "new_storage_bits": 33019708571648,
+          "old_download_bits": 19100057133588,
+          "new_download_bits": 19100057133588,
+          "endpoint_costs_changed": false
+        },
+        {
+          "application_bytes": 1000000000000,
+          "record_bytes": 10000000,
+          "old_storage_bits": 33019708571648,
+          "new_storage_bits": 33019708571648,
+          "old_download_bits": 191000435248092,
+          "new_download_bits": 191000435248092,
+          "endpoint_costs_changed": false
+        }
+      ],
+      "changed_endpoint_costs": 0
+    },
+    {
+      "experiment": "tradeoff-costs",
+      "scenarios": [
+        {
+          "application_bytes": 1000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 134284836864,
+          "new_storage_bits": 134284836864,
+          "old_download_bits": 33800892,
+          "new_download_bits": 33800892,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 12,
+          "points_removed": 7
+        },
+        {
+          "application_bytes": 1000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 83886080000,
+          "new_storage_bits": 83886080000,
+          "old_download_bits": 92080000,
+          "new_download_bits": 92080000,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 20,
+          "points_removed": 13
+        },
+        {
+          "application_bytes": 20000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 2149631131648,
+          "new_storage_bits": 2149631131648,
+          "old_download_bits": 132220088,
+          "new_download_bits": 132220088,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 11,
+          "points_removed": 8
+        },
+        {
+          "application_bytes": 20000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 1426130468864,
+          "new_storage_bits": 1426130468864,
+          "old_download_bits": 429936892,
+          "new_download_bits": 429936892,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 13,
+          "points_removed": 11
+        },
+        {
+          "application_bytes": 20000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 2621440262144,
+          "new_storage_bits": 2621440262144,
+          "old_download_bits": 8176000639,
+          "new_download_bits": 8176000639,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 14,
+          "points_removed": 5
+        },
+        {
+          "application_bytes": 50000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 2149631131648,
+          "new_storage_bits": 2149631131648,
+          "old_download_bits": 132220088,
+          "new_download_bits": 132220088,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 7,
+          "points_removed": 7
+        },
+        {
+          "application_bytes": 50000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 5368843337728,
+          "new_storage_bits": 5368843337728,
+          "old_download_bits": 665536638,
+          "new_download_bits": 665536638,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 13,
+          "points_removed": 9
+        },
+        {
+          "application_bytes": 50000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 8388608000000,
+          "new_storage_bits": 8388608000000,
+          "old_download_bits": 9208000000,
+          "new_download_bits": 9208000000,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 12,
+          "points_removed": 11
+        },
+        {
+          "application_bytes": 50000000000,
+          "record_bytes": 10000000,
+          "old_storage_bits": 20971520262144,
+          "new_storage_bits": 20971520262144,
+          "old_download_bits": 51120000639,
+          "new_download_bits": 51120000639,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 3,
+          "points_removed": 1
+        },
+        {
+          "application_bytes": 100000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 8600672010240,
+          "new_storage_bits": 8600672010240,
+          "old_download_bits": 263488950,
+          "new_download_bits": 263488950,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 7,
+          "points_removed": 8
+        },
+        {
+          "application_bytes": 100000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 5368843337728,
+          "new_storage_bits": 5368843337728,
+          "old_download_bits": 665536638,
+          "new_download_bits": 665536638,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 15,
+          "points_removed": 12
+        },
+        {
+          "application_bytes": 100000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 8388608000000,
+          "new_storage_bits": 8388608000000,
+          "old_download_bits": 9208000000,
+          "new_download_bits": 9208000000,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 11,
+          "points_removed": 7
+        },
+        {
+          "application_bytes": 100000000000,
+          "record_bytes": 10000000,
+          "old_storage_bits": 20971520262144,
+          "new_storage_bits": 20971520262144,
+          "old_download_bits": 51120000639,
+          "new_download_bits": 51120000639,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 11,
+          "points_removed": 1
+        },
+        {
+          "application_bytes": 500000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 34359738368000,
+          "new_storage_bits": 34359738368000,
+          "old_download_bits": 525304000,
+          "new_download_bits": 525304000,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 5,
+          "points_removed": 9
+        },
+        {
+          "application_bytes": 500000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 21477520834560,
+          "new_storage_bits": 21477520834560,
+          "old_download_bits": 1321045110,
+          "new_download_bits": 1321045110,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 9,
+          "points_removed": 6
+        },
+        {
+          "application_bytes": 500000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 41943052582912,
+          "new_storage_bits": 41943052582912,
+          "old_download_bits": 26608006525,
+          "new_download_bits": 26608006525,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 10,
+          "points_removed": 9
+        },
+        {
+          "application_bytes": 500000000000,
+          "record_bytes": 10000000,
+          "old_storage_bits": 83886080000000,
+          "new_storage_bits": 83886080000000,
+          "old_download_bits": 92080000000,
+          "new_download_bits": 92080000000,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 13,
+          "points_removed": 11
+        },
+        {
+          "application_bytes": 1000000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 42960410378240,
+          "new_storage_bits": 42960410378240,
+          "old_download_bits": 788792950,
+          "new_download_bits": 788792950,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 18,
+          "points_removed": 3
+        },
+        {
+          "application_bytes": 1000000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 85910083338240,
+          "new_storage_bits": 85910083338240,
+          "old_download_bits": 2631928950,
+          "new_download_bits": 2631928950,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 5,
+          "points_removed": 8
+        },
+        {
+          "application_bytes": 1000000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 134217795108864,
+          "new_storage_bits": 134217795108864,
+          "old_download_bits": 33784016892,
+          "new_download_bits": 33784016892,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 11,
+          "points_removed": 9
+        },
+        {
+          "application_bytes": 1000000000000,
+          "record_bytes": 10000000,
+          "old_storage_bits": 83886080000000,
+          "new_storage_bits": 83886080000000,
+          "old_download_bits": 92080000000,
+          "new_download_bits": 92080000000,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 6,
+          "points_removed": 10
+        }
+      ],
+      "changed_endpoint_costs": 0,
+      "changed_display_rows": 1,
+      "display_changes": [
+        {
+          "old": "| 20 GB | 10 KB | 4.438\u00d7 \u00b7 131,199\u00d7 | 8.652\u00d7 \u00b7 6,552\u00d7 (65.522 MB) \u2605 | 8.913\u00d7 \u00b7 5,374\u00d7 (53.742 MB) |",
+          "new": "| 20 GB | 10 KB | 4.438\u00d7 \u00b7 131,199\u00d7 | 8.684\u00d7 \u00b7 5,884\u00d7 (58.842 MB) \u2605 | 8.913\u00d7 \u00b7 5,374\u00d7 (53.742 MB) |"
+        }
+      ],
+      "changed_frontiers": 21,
+      "points_added": 226,
+      "points_removed": 165
+    },
+    {
+      "experiment": "dp-costs",
+      "scenarios": [
+        {
+          "application_bytes": 1000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 134284836864,
+          "new_storage_bits": 134284836864,
+          "old_download_bits": 33800892,
+          "new_download_bits": 33800892,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 14,
+          "points_removed": 12
+        },
+        {
+          "application_bytes": 1000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 83886080000,
+          "new_storage_bits": 83886080000,
+          "old_download_bits": 92080000,
+          "new_download_bits": 92080000,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 24,
+          "points_removed": 18
+        },
+        {
+          "application_bytes": 20000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 2149631131648,
+          "new_storage_bits": 2149631131648,
+          "old_download_bits": 132220088,
+          "new_download_bits": 132220088,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 13,
+          "points_removed": 13
+        },
+        {
+          "application_bytes": 20000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 1426130468864,
+          "new_storage_bits": 1426130468864,
+          "old_download_bits": 429936892,
+          "new_download_bits": 429936892,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 15,
+          "points_removed": 13
+        },
+        {
+          "application_bytes": 20000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 2621440262144,
+          "new_storage_bits": 2621440262144,
+          "old_download_bits": 8176000639,
+          "new_download_bits": 8176000639,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 14,
+          "points_removed": 5
+        },
+        {
+          "application_bytes": 50000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 2149631131648,
+          "new_storage_bits": 2149631131648,
+          "old_download_bits": 132220088,
+          "new_download_bits": 132220088,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 9,
+          "points_removed": 10
+        },
+        {
+          "application_bytes": 50000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 5368843337728,
+          "new_storage_bits": 5368843337728,
+          "old_download_bits": 665536638,
+          "new_download_bits": 665536638,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 12,
+          "points_removed": 12
+        },
+        {
+          "application_bytes": 50000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 8388608000000,
+          "new_storage_bits": 8388608000000,
+          "old_download_bits": 9208000000,
+          "new_download_bits": 9208000000,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 17,
+          "points_removed": 13
+        },
+        {
+          "application_bytes": 50000000000,
+          "record_bytes": 10000000,
+          "old_storage_bits": 20971520262144,
+          "new_storage_bits": 20971520262144,
+          "old_download_bits": 51120000639,
+          "new_download_bits": 51120000639,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 3,
+          "points_removed": 1
+        },
+        {
+          "application_bytes": 100000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 8600672010240,
+          "new_storage_bits": 8600672010240,
+          "old_download_bits": 263488950,
+          "new_download_bits": 263488950,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 8,
+          "points_removed": 11
+        },
+        {
+          "application_bytes": 100000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 5368843337728,
+          "new_storage_bits": 5368843337728,
+          "old_download_bits": 665536638,
+          "new_download_bits": 665536638,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 17,
+          "points_removed": 14
+        },
+        {
+          "application_bytes": 100000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 8388608000000,
+          "new_storage_bits": 8388608000000,
+          "old_download_bits": 9208000000,
+          "new_download_bits": 9208000000,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 18,
+          "points_removed": 7
+        },
+        {
+          "application_bytes": 100000000000,
+          "record_bytes": 10000000,
+          "old_storage_bits": 20971520262144,
+          "new_storage_bits": 20971520262144,
+          "old_download_bits": 51120000639,
+          "new_download_bits": 51120000639,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 11,
+          "points_removed": 1
+        },
+        {
+          "application_bytes": 500000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 34359738368000,
+          "new_storage_bits": 34359738368000,
+          "old_download_bits": 525304000,
+          "new_download_bits": 525304000,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 10,
+          "points_removed": 13
+        },
+        {
+          "application_bytes": 500000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 21477520834560,
+          "new_storage_bits": 21477520834560,
+          "old_download_bits": 1321045110,
+          "new_download_bits": 1321045110,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 9,
+          "points_removed": 10
+        },
+        {
+          "application_bytes": 500000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 41943052582912,
+          "new_storage_bits": 41943052582912,
+          "old_download_bits": 26608006525,
+          "new_download_bits": 26608006525,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 10,
+          "points_removed": 11
+        },
+        {
+          "application_bytes": 500000000000,
+          "record_bytes": 10000000,
+          "old_storage_bits": 83886080000000,
+          "new_storage_bits": 83886080000000,
+          "old_download_bits": 92080000000,
+          "new_download_bits": 92080000000,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 19,
+          "points_removed": 13
+        },
+        {
+          "application_bytes": 1000000000000,
+          "record_bytes": 1000,
+          "old_storage_bits": 42964080656384,
+          "new_storage_bits": 42964080656384,
+          "old_download_bits": 803097589,
+          "new_download_bits": 803097589,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 7,
+          "points_removed": 8
+        },
+        {
+          "application_bytes": 1000000000000,
+          "record_bytes": 10000,
+          "old_storage_bits": 85910083338240,
+          "new_storage_bits": 85910083338240,
+          "old_download_bits": 2631928950,
+          "new_download_bits": 2631928950,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 6,
+          "points_removed": 7
+        },
+        {
+          "application_bytes": 1000000000000,
+          "record_bytes": 1000000,
+          "old_storage_bits": 134217795108864,
+          "new_storage_bits": 134217795108864,
+          "old_download_bits": 33784016892,
+          "new_download_bits": 33784016892,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 14,
+          "points_removed": 12
+        },
+        {
+          "application_bytes": 1000000000000,
+          "record_bytes": 10000000,
+          "old_storage_bits": 83886080000000,
+          "new_storage_bits": 83886080000000,
+          "old_download_bits": 92080000000,
+          "new_download_bits": 92080000000,
+          "endpoint_costs_changed": false,
+          "frontier_changed": true,
+          "points_added": 12,
+          "points_removed": 15
+        }
+      ],
+      "changed_endpoint_costs": 0,
+      "changed_display_rows": 1,
+      "display_changes": [
+        {
+          "old": "| 20 GB | 10 KB | 4.438\u00d7 \u00b7 131,199\u00d7 | 8.652\u00d7 \u00b7 6,552\u00d7 (65.522 MB) \u2605 | 8.913\u00d7 \u00b7 5,374\u00d7 (53.742 MB) |",
+          "new": "| 20 GB | 10 KB | 4.438\u00d7 \u00b7 131,199\u00d7 | 8.684\u00d7 \u00b7 5,884\u00d7 (58.842 MB) \u2605 | 8.913\u00d7 \u00b7 5,374\u00d7 (53.742 MB) |"
+        }
+      ],
+      "changed_frontiers": 21,
+      "points_added": 262,
+      "points_removed": 219
+    }
+  ]
+}

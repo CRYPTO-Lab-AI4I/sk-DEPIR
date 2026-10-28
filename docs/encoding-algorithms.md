@@ -201,6 +201,15 @@ base-field elements instead of indexing log/exp tables of size `2^(2s)`.
 Use carryless multiplication and reduction; profile before adding CPU-specific
 kernels. Field arithmetic support alone does not enable encoding a full instance.
 
+The current cached-FFT encoder accelerates only `G*H`; computing
+`H=(P*M) mod X^K` still uses Karatsuba. Its full encoding bound is
+`O(M(K)+N log² N)`, with `M(K)=O(K^log2(3))` today. The paper solver also uses
+Karatsuba in its product-tree arithmetic. Implement and verify fast truncated
+multiplication for the message-dependent prefix product, and fast general
+multiplication/division for reusable preprocessing and the paper baseline.
+Measure these operations separately before extrapolating whole-encoder runtime.
+Changing field arithmetic alone does not make either complete pipeline quasi-linear.
+
 **Acceptance:** exhaustive small-field and randomized larger-field checks,
 unchanged encoder outputs, and arithmetic storage that does not grow with the
 extension-field cardinality. The first encoding checkpoint is `s=9`, using its
@@ -228,7 +237,13 @@ replace exact dimensions in preprocessing. Keep all code-only work outside
 per-database encoding and amortize it across databases sharing that code.
 
 **Acceptance:** versioned artifacts with reproducible generation commands,
-checksums, code specifications and verification evidence. Report generation,
+checksums, code specifications and verification evidence. Before publishing,
+rebuild from the recorded source/specification, check exact dimension and field/
+coordinate conventions, compare complete outputs against the independent dense
+oracle on feasible fixtures, and cross-check paper/cyclic results and systematic
+symbols on the publication configuration. Record hashes and these checks beside
+the artifact. A loader's shape/range validation is not this mathematical verification;
+large configurations must explicitly state any limits of independent checking. Report generation,
 method preparation and loading costs separately from encoding; document which
 auxiliary data are loaded, reconstructed or optionally cached.
 
@@ -245,9 +260,20 @@ preprocessing boundaries.
 capacities, and reproducible measurements of discovery, preparation, artifact
 loading, encoding, output I/O, peak memory and artifact size. These measurements
 choose the next backend; do not infer target-scale feasibility from operation
-counts alone.
+counts alone. Measure each preparation method in its own process and report
+encoding workspace separately from artifact loading, output buffering and other
+process memory. Record exact CPU model, RAM, OS/toolchain, storage device/filesystem
+and cache/sync policy. Use the intended packed output layout and, once available,
+grouped-position storage; retain unpacked small-file checks only as labelled
+correctness fixtures. The current experiment's process RSS and uint32 sink do not
+satisfy these future resource/layout acceptance checks.
 
 ### Step 4: Implement encoding with bounded RAM
+
+**Decision gate:** after Step 3, use its resource measurements to decide with the
+user whether bounded-RAM work is necessary for the selected TRL 5 use case or
+whether to pursue the larger TRL 6 scaling effort. This plan does not itself
+activate the deferred work in the roadmap.
 
 Introduce a configurable memory budget and disk-backed working arrays. Specify
 block schedules for transforms, polynomial multiplication and coordinate
@@ -263,6 +289,10 @@ artificially small budget on manageable instances and compare their outputs with
 the in-memory backend. Large-instance runs follow only after that check.
 
 ### Step 5: Add optional GPU acceleration where justified
+
+**Decision gate:** after CPU profiling, present expected gains and deployment/
+maintenance costs to the user before choosing a GPU backend and expanding the
+current optimization scope. No GPU vendor or native dependency is selected here.
 
 Keep code descriptions, artifacts and outputs compatible with the CPU path.
 Accelerate arithmetic batches and transform blocks, transferring sufficiently

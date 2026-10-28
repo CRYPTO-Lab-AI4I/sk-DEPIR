@@ -59,22 +59,23 @@ def main():
         assert witness in case["representative_indices"]
         costs = case["result"]["alternatives"][witness]["evaluation"]["costs"]
         assert costs["storage_bits"] <= baseline["storage_bits"]
-        assert costs["communication_bits"] <= baseline["communication_bits"]
+        assert costs["download_bits"] <= baseline["download_bits"]
     prior = json.loads((ROOT / "experiments/tradeoff-costs/results.json").read_text())
     prior = {(x["application_bytes"], x["record_bytes"]): x for x in prior["scenarios"]}
-    comparison = {"lower_communication": 0, "equal_communication": 0, "higher_communication": 0}
+    comparison = {"lower_download": 0, "equal_download": 0, "higher_download": 0}
     for case in result["scenarios"]:
-        previous = prior[(case["application_bytes"], case["record_bytes"])]["result"]["alternatives"][-1]["evaluation"]["costs"]["communication_bits"]
-        current = case["result"]["alternatives"][-1]["evaluation"]["costs"]["communication_bits"]
-        case["previous_min_communication_bits"] = previous
-        case["communication_vs_previous"] = current/previous
-        comparison["lower_communication" if current < previous else "higher_communication" if current > previous else "equal_communication"] += 1
+        previous = prior[(case["application_bytes"], case["record_bytes"])]["result"]["alternatives"][-1]["evaluation"]["costs"]["download_bits"]
+        current = case["result"]["alternatives"][-1]["evaluation"]["costs"]["download_bits"]
+        case["previous_min_download_bits"] = previous
+        case["download_vs_tradeoff"] = current/previous
+        comparison["lower_download" if current < previous else "higher_download" if current > previous else "equal_download"] += 1
     result["comparison_with_tradeoff_costs"] = comparison
     result["experiment"] = {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "minimum_application_records": 5000,
         "base_revision": subprocess.check_output(
             ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+        "objective": "storage_and_download",
         "working_tree_dirty": bool(subprocess.check_output(
             ["git", "status", "--porcelain"], cwd=ROOT, text=True).strip()),
         "source_sha256": hashes,
@@ -128,7 +129,7 @@ def render_options(result):
         (HERE / "pir-configs.json").read_text())["configurations"]}
     lines = ["# Selected application tradeoffs", "",
              "Each cell: storage / application · download / record (absolute per-lookup download).",
-             "★ means no worse than original greedy in storage and total communication. Whole-download-only options are omitted.", "",
+             "★ means no worse than original greedy in storage and download. Whole-download-only options are omitted.", "",
              "| Database | Record | Reference N/K · D/B | Lower-storage option | Minimum communication option |",
              "|---|---|---:|---:|---:|"]
     for case in result["scenarios"]:
@@ -136,7 +137,7 @@ def render_options(result):
         baseline = case["original_greedy"]
         def matches(a):
             costs = a["evaluation"]["costs"]
-            return costs["storage_bits"] <= baseline["storage_bits"] and costs["communication_bits"] <= baseline["communication_bits"]
+            return costs["storage_bits"] <= baseline["storage_bits"] and costs["download_bits"] <= baseline["download_bits"]
         indices = []
         if alternatives:
             first = next(i for i, a in enumerate(alternatives) if matches(a))

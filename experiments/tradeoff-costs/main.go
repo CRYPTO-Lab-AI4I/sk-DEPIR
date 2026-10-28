@@ -56,12 +56,12 @@ func run(path string) error {
 				if costs.ApplicationBits != size*8 {
 					return fmt.Errorf("input size changed")
 				}
-				if !checked.FullDownloadOnly && costs.StorageBits >= size*8 && costs.CommunicationBits >= size*8 {
+				if !checked.FullDownloadOnly && costs.StorageBits >= size*8 && costs.DownloadBits >= size*8 {
 					return fmt.Errorf("whole-download dominated plan returned")
 				}
 				for j, b := range result.Alternatives {
 					other := b.Evaluation.Costs
-					if i != j && other.StorageBits <= costs.StorageBits && other.CommunicationBits <= costs.CommunicationBits {
+					if i != j && other.StorageBits <= costs.StorageBits && other.DownloadBits <= costs.DownloadBits {
 						return fmt.Errorf("dominated or duplicate alternative")
 					}
 				}
@@ -80,14 +80,14 @@ func run(path string) error {
 			}
 			for _, w := range result.BaselineWitnesses {
 				cost := result.Alternatives[w.AlternativeIndex].Evaluation.Costs
-				if !displayed[w.AlternativeIndex] || cost.StorageBits > w.Costs.StorageBits || cost.CommunicationBits > w.Costs.CommunicationBits {
+				if !displayed[w.AlternativeIndex] || cost.StorageBits > w.Costs.StorageBits || cost.DownloadBits > w.Costs.DownloadBits {
 					return fmt.Errorf("baseline/display guarantee failed")
 				}
 			}
 			witness := -1
 			for _, index := range representatives {
 				cost := result.Alternatives[index].Evaluation.Costs
-				if cost.StorageBits <= original.Costs.StorageBits && cost.CommunicationBits <= original.Costs.CommunicationBits {
+				if cost.StorageBits <= original.Costs.StorageBits && cost.DownloadBits <= original.Costs.DownloadBits {
 					witness = index
 					break
 				}
@@ -120,7 +120,7 @@ func run(path string) error {
 		Requirements planner.Requirements    `json:"requirements"`
 		Options      planner.TradeoffOptions `json:"options"`
 		Scenarios    []scenario              `json:"scenarios"`
-	}{1, "Decimal bytes; communication rate = original record bits / (upload + download per original lookup).", runtime.Version(), runtime.GOOS, runtime.GOARCH, requirements, options, scenarios}
+	}{1, "Decimal bytes; search objective = storage and download; total communication rate = original record bits / (upload + download per original lookup).", runtime.Version(), runtime.GOOS, runtime.GOARCH, requirements, options, scenarios}
 	encoder := json.NewEncoder(os.Stdout)
 	encoder.SetIndent("", "  ")
 	return encoder.Encode(output)

@@ -107,3 +107,14 @@ untrusted databases: structural loader validation does not certify that a suppli
 artifact describes the intended code. Publish source/provenance and independently
 verify artifacts. This experiment does not establish deployment security, target-size
 feasibility or a production API.
+
+## Subsequent documentation and catalogue corrections
+
+PLAN-014 narrows the `PrepareCyclicFFT` complexity comment: only the G*H product
+uses the full FFT; H=(P*M) mod X^K still uses Karatsuba. No arithmetic or measured
+result changed. The saved orbit.go hash therefore identifies the measured source
+at revision `0a4bb38`, not that later comment-only edit. Current catalogue evidence
+now records exact K=3121 for s=8,m=2,t=8, preserving Monte Carlo evidence separately.
+Standalone support does not imply integration with application plans or grouped
+storage. Per-stage memory and packed/grouped output measurement remain future
+acceptance checks; the reported process RSS and uint32 sink are not those measurements.

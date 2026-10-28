@@ -198,3 +198,7 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-28 09:11 | DOC-053 | Completed | [Five-step encoder plan documented](2026-10-28-0911-codex-doc-053-completed.md) |
 | 2026-10-28 09:22 | REVIEW-001 | Started | [Publish plan and audit implementation claims](2026-10-28-0922-codex-review-001-started.md) |
 | 2026-10-28 09:24 | REVIEW-001 | Completed | [Claim audit findings and publication receipt](2026-10-28-0924-codex-review-001-completed.md) |
+| 2026-10-28 10:21 | PLAN-014 | Started | [Download objective and review corrections](2026-10-28-1021-codex-plan-014-started.md) |
+| 2026-10-28 10:31 | PLAN-014 | Completed | [Download objective, exact capacity and review corrections verified](2026-10-28-1031-codex-plan-014-completed.md) |
+| 2026-10-28 10:37 | PUBLISH-002 | Started | [Publish download-objective checkpoint](2026-10-28-1037-codex-publish-002-started.md) |
+| 2026-10-28 10:37 | PUBLISH-002 | Completed | [Download-objective checkpoint verified for publication](2026-10-28-1037-codex-publish-002-completed.md) |

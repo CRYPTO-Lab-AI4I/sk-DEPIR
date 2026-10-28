@@ -115,3 +115,16 @@ not mean a new full-download backend or cryptographic suite exists. The heuristi
 search is not optimal. Costs are deterministic for this source/snapshot; timestamps,
 revision metadata and environment values may differ on reproduction. The historical
 unsliced experiment is preserved unchanged apart from its previously recorded context note.
+
+## Download-objective checkpoint (2026-10-28)
+
+Reran this experiment after changing the planner's tie-break to download rather
+than upload plus download. Upload and total-traffic accounting remain unchanged.
+The 21 selected plans have unchanged storage and download costs compared with
+the [archived total-objective results](total-objective-results.json); the archived
+[CSV](total-objective-summary.csv) and exact prior source at revision `2367b92`
+retain the old run. Current results record revision `2367b92` plus PLAN-014 source
+hashes. Existing setup/units/method descriptions still apply; no database is encoded.
+Historical catalogue snapshots remain fixed, including the prior s=8 estimate.
+See the [objective comparison](../download-objective-comparison/report.md) for
+all old/new comparisons and the standalone script deriving them.

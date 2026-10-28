@@ -152,7 +152,7 @@ func TestGreedyBaselineAndOptimalLowerBound(t *testing.T) {
 			if uint64(rows) > x.k {
 				rest = rows - int(x.k)
 			}
-			candidate := pair{x.s + dp[rest].storage, x.u + x.d + dp[rest].traffic}
+			candidate := pair{x.s + dp[rest].storage, x.d + dp[rest].traffic}
 			if lessPair(candidate, dp[rows]) {
 				dp[rows] = candidate
 			}
@@ -170,14 +170,14 @@ func TestGreedyBaselineAndOptimalLowerBound(t *testing.T) {
 			if selected < 0 {
 				selected = 0
 				for i, x := range items {
-					if lessPair(pair{x.s, x.u + x.d}, pair{items[selected].s, items[selected].u + items[selected].d}) {
+					if lessPair(pair{x.s, x.d}, pair{items[selected].s, items[selected].d}) {
 						selected = i
 					}
 				}
 			}
 			x := items[selected]
 			baseline.storage += x.s
-			baseline.traffic += x.u + x.d
+			baseline.traffic += x.d
 			if x.k >= remaining {
 				remaining = 0
 			} else {
@@ -188,7 +188,7 @@ func TestGreedyBaselineAndOptimalLowerBound(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		got := pair{e.Costs.StorageBits, e.Costs.CommunicationBits}
+		got := pair{e.Costs.StorageBits, e.Costs.DownloadBits}
 		if lessPair(got, dp[rows]) || lessPair(baseline, got) {
 			t.Fatalf("rows=%d optimum=%v greedy=%v baseline=%v", rows, dp[rows], got, baseline)
 		}

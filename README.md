@@ -111,7 +111,9 @@ streaming writer and client adapter remain to be implemented and verified.
 The current evaluator still counts repeated uploads. The [tradeoff tables](experiments/tradeoff-costs/options.md)
 and [DP tables](experiments/dp-costs/options.md) now display inverse download rate
 `D/B` and absolute download, including `D/B` for the reference configuration;
-they retain the saved plans selected using total communication.
+the searches now optimize storage versus download while retaining separate upload
+and total-traffic accounting. The rerun comparison is in the
+[objective-change report](experiments/download-objective-comparison/report.md).
 
 The versioned [PIR configuration catalogue](pirconfig/README.md) and Go loader are
 implemented. All 13 [configuration entries](pirconfig/configs_catalogue.json) have
@@ -133,10 +135,10 @@ baselines retain equal-or-better witnesses through approximation and display sel
 protected witnesses can increase the returned option count. Communication rate means
 requested record bits divided by upload plus download; higher is better.
 The separate [cost-grid DP](planner/README.md#cost-indexed-dynamic-programming) uses
-rounded storage/communication cells rather than sampled row states. Its
+rounded storage/download cells rather than sampled row states. Its
 [dp-costs experiment](experiments/dp-costs/report.md) records the same qualifying workload
 grid, explicit numerical windows, and a comparison table. It has no global approximation
-guarantee and currently rejects separate upload/download budgets.
+guarantee and supports storage/download budgets and rejects an upload budget.
 Default cost grids omit workloads with fewer than **5,000 application records**,
 leaving 21 specifications in the [tradeoff grid](experiments/tradeoff-costs/report.md).
 This filters evaluation workloads, not the planner API or correctness fixtures.
@@ -150,6 +152,10 @@ communication for highly fragmented records.
 The [rate estimator](cmd/pir-rate/README.md) samples monomials using a deterministic
 membership test that supports `s=2..20` without field arithmetic or generator
 matrices. This does not extend the small encoder's supported sizes.
+
+The s=8,m=2,t=8 catalogue entry now records exact K=3121 and standalone orbit
+encoder support; the remaining entries have estimated capacities. Historical
+experiment snapshots retain their earlier estimates.
 
 The PIR configuration catalogue includes binary extension fields `GF(2^s)` for every integer `s` from 8 through 20, initially with `m=2` and the [bounded-sample parameter profile](docs/parameter-planning.md#configuration-catalogue); prime fields are outside the current scope. For indexed layouts, application records must be at least as wide as the largest PIR record in the supported catalogue; packing is outside the current scope.
 

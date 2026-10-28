@@ -59,7 +59,7 @@ func exhaustiveTradeoffs(t *testing.T, rows, bits uint64, c *pirconfig.Catalogue
 			}
 			e, err := EvaluateApplication(ApplicationPlan{Rows: rows, RecordBits: bits, LogicalRecordBits: width, LogicalPlan: Plan{FormatVersion: 1, Rows: total, RecordBits: width, RowBlocks: blocks}}, c, r)
 			if err == nil {
-				values = append(values, costPair{e.Costs.StorageBits, e.Costs.CommunicationBits})
+				values = append(values, costPair{e.Costs.StorageBits, e.Costs.DownloadBits})
 			}
 		}
 		visit(0, nil)
@@ -100,7 +100,7 @@ func TestTradeoffsMatchExhaustiveRestrictedSearch(t *testing.T) {
 			}
 			pairs := map[costPair]bool{}
 			for _, a := range got.Alternatives {
-				pairs[costPair{a.Evaluation.Costs.StorageBits, a.Evaluation.Costs.CommunicationBits}] = true
+				pairs[costPair{a.Evaluation.Costs.StorageBits, a.Evaluation.Costs.DownloadBits}] = true
 				e, err := EvaluateApplication(a.Plan, c, r)
 				if err != nil || !reflect.DeepEqual(e, a.Evaluation) {
 					t.Fatal("result failed independent evaluation", err)
@@ -135,10 +135,10 @@ func TestTradeoffBoundsAndDeterminism(t *testing.T) {
 	// both endpoints and at most the requested count, deterministically.
 	var nodes []*partialPlan
 	for i := uint64(1); i <= 100; i++ {
-		nodes = append(nodes, &partialPlan{costs: Costs{StorageBits: i, CommunicationBits: 101 - i}})
+		nodes = append(nodes, &partialPlan{costs: Costs{StorageBits: i, DownloadBits: 101 - i, CommunicationBits: 101 - i}})
 	}
 	bounded, trimmed := boundFrontier(nodes, 8, false)
-	if !trimmed || len(bounded) > 8 || bounded[0].costs.StorageBits != 1 || bounded[len(bounded)-1].costs.CommunicationBits != 1 {
+	if !trimmed || len(bounded) > 8 || bounded[0].costs.StorageBits != 1 || bounded[len(bounded)-1].costs.DownloadBits != 1 {
 		t.Fatal("endpoint loss")
 	}
 	if other, _ := boundFrontier(nodes, 8, false); !reflect.DeepEqual(bounded, other) {
@@ -192,7 +192,7 @@ func TestTradeoffsTargetCoordinates(t *testing.T) {
 	}
 	for _, a := range result.Alternatives {
 		costs := a.Evaluation.Costs
-		if costs.StorageBits >= 8000000000000 && costs.CommunicationBits >= 8000000000000 && !a.Evaluation.FullDownloadOnly {
+		if costs.StorageBits >= 8000000000000 && costs.DownloadBits >= 8000000000000 && !a.Evaluation.FullDownloadOnly {
 			t.Fatal("dominated target plan survived")
 		}
 	}
@@ -223,7 +223,7 @@ func TestTradeoffApproximationKeepsTinyEndpoints(t *testing.T) {
 	if !bounded.FrontierTrimmed || len(bounded.Alternatives) > 2+len(bounded.BaselineWitnesses) {
 		t.Fatal("approximation did not run")
 	}
-	if bounded.Alternatives[0].Evaluation.Costs.StorageBits != exact.Alternatives[0].Evaluation.Costs.StorageBits || bounded.Alternatives[len(bounded.Alternatives)-1].Evaluation.Costs.CommunicationBits != exact.Alternatives[len(exact.Alternatives)-1].Evaluation.Costs.CommunicationBits {
+	if bounded.Alternatives[0].Evaluation.Costs.StorageBits != exact.Alternatives[0].Evaluation.Costs.StorageBits || bounded.Alternatives[len(bounded.Alternatives)-1].Evaluation.Costs.DownloadBits != exact.Alternatives[len(exact.Alternatives)-1].Evaluation.Costs.DownloadBits {
 		t.Fatal("tiny endpoint comparison failed")
 	}
 }
@@ -302,5 +302,22 @@ func TestTradeoffsDoNotRegressOriginalGreedy(t *testing.T) {
 	}
 	if !found {
 		t.Fatal("original greedy witness lost from results/display")
+	}
+}
+
+// Upload accounting must not reverse the download objective, even when total
+// traffic ranks two otherwise identical candidates in the opposite order.
+func TestDownloadObjectiveIgnoresUpload(t *testing.T) {
+	a := Costs{StorageBits: 100, UploadBits: 1000, DownloadBits: 10, CommunicationBits: 1010}
+	b := Costs{StorageBits: 100, UploadBits: 0, DownloadBits: 20, CommunicationBits: 20}
+	if !cheaper(a, b) || !dominates(a, b, false) || dominates(b, a, false) {
+		t.Fatal("ranking still uses upload/total communication")
+	}
+	if dominates(a, b, true) {
+		t.Fatal("upload budget dimension lost")
+	}
+	nodes, trimmed := boundFrontier([]*partialPlan{{costs: b}, {costs: a}}, 8, false)
+	if trimmed || len(nodes) != 1 || nodes[0].costs != a {
+		t.Fatal("download frontier kept wrong endpoint")
 	}
 }

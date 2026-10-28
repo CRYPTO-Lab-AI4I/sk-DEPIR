@@ -108,11 +108,26 @@ func TestTargetProfile(t *testing.T) {
 		if entry.Code.S != s || entry.Code.M != 2 || entry.Code.T != degree {
 			t.Fatalf("target %d differs from documented security calculation", i)
 		}
-		if entry.EncodingStatus != "candidate" || entry.Encoder != nil {
-			t.Fatal("target implies unsupported encoding")
+		if entry.Code.S == 8 {
+			if entry.EncodingStatus != "supported" || entry.Encoder == nil || entry.Capacity.Status != "verified" || entry.Code.Polynomial == nil || *entry.Code.Polynomial != 0x11d || entry.Capacity.K == nil || *entry.Capacity.K != 3121 {
+				t.Fatal("missing bounded exact encoding evidence")
+			}
+		} else if entry.EncodingStatus != "candidate" || entry.Encoder != nil || entry.Capacity.Status != "estimated" {
+			t.Fatal("unverified target promoted")
 		}
-		if entry.Capacity.Status != "estimated" || entry.Capacity.K == nil || entry.Capacity.Rate == nil {
-			t.Fatal("target lacks empirical capacity estimate")
+		if entry.Capacity.K == nil || entry.Capacity.Rate == nil {
+			t.Fatal("missing capacity")
+		}
+		if entry.Code.S == 8 {
+			found := false
+			for _, e := range entry.Capacity.Evidence {
+				if e.Kind == "encoding" && e.Results == "experiments/encoder-comparison/results.json" {
+					found = true
+				}
+			}
+			if !found {
+				t.Fatal("exact evidence absent")
+			}
 		}
 		evidence := entry.Capacity.Evidence
 		foundMC := false
@@ -128,7 +143,7 @@ func TestTargetProfile(t *testing.T) {
 					t.Fatal("empirical evidence missing or not reproducible")
 				}
 				wantK := (measured.Good*entry.Capacity.N + measured.Samples/2) / measured.Samples
-				if *entry.Capacity.K != wantK || *entry.Capacity.Rate != float64(wantK)/float64(entry.Capacity.N) || source.MonteCarlo.Samples != measured.Samples || source.MonteCarlo.LowerRate != measured.LowerRate || source.MonteCarlo.UpperRate != measured.UpperRate || source.MonteCarlo.Confidence != measured.Confidence {
+				if (entry.Code.S != 8 && (*entry.Capacity.K != wantK || *entry.Capacity.Rate != float64(wantK)/float64(entry.Capacity.N))) || source.MonteCarlo.Samples != measured.Samples || source.MonteCarlo.LowerRate != measured.LowerRate || source.MonteCarlo.UpperRate != measured.UpperRate || source.MonteCarlo.Confidence != measured.Confidence {
 					t.Fatal("catalogue does not match recorded rate experiment")
 				}
 			}
@@ -329,4 +344,53 @@ func FuzzLoad(f *testing.F) {
 			}
 		}
 	})
+}
+
+func TestExactCapacityMatchesEncodingEvidence(t *testing.T) {
+	raw, err := os.ReadFile("../experiments/encoder-comparison/results.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var saved struct {
+		Scenarios []struct {
+			Preprocessing struct {
+				S, M, T int
+				K, N    uint64
+			}
+			Methods []struct {
+				Output string `json:"output_sha256"`
+			}
+		}
+	}
+	if err := json.Unmarshal(raw, &saved); err != nil {
+		t.Fatal(err)
+	}
+	file, err := os.Open("configs_catalogue.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer file.Close()
+	catalogue, err := Load(file)
+	if err != nil {
+		t.Fatal(err)
+	}
+	entry := catalogue.Configurations[0]
+	found := false
+	for _, scenario := range saved.Scenarios {
+		p := scenario.Preprocessing
+		if p.S == entry.Code.S && p.M == entry.Code.M && p.T == entry.Code.T {
+			found = true
+			if p.K != *entry.Capacity.K || p.N != entry.Capacity.N || len(scenario.Methods) != 3 {
+				t.Fatal("exact capacity evidence differs")
+			}
+			for _, m := range scenario.Methods {
+				if m.Output == "" || m.Output != scenario.Methods[0].Output {
+					t.Fatal("encoding evidence does not agree")
+				}
+			}
+		}
+	}
+	if !found {
+		t.Fatal("exact configuration evidence missing")
+	}
 }

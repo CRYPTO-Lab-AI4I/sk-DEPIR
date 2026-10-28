@@ -337,7 +337,9 @@ func LoadOrbit(data []byte) (*OrbitBasis, error) {
 // PrepareCyclicFFT additionally caches the fixed generator's additive transform.
 // Encode then multiplies using two transforms and pointwise products, rather
 // than Karatsuba. The extension-field multiplication backend is explicit: it
-// sacrifices the base-field-only implementation to achieve O(N log² N) work.
+// sacrifices the base-field-only implementation to make the G*H product
+// O(N log² N). H=(P*M) mod X^K still uses Karatsuba: complete encoding costs
+// O(M(K)+N log² N), with M(K)=O(K^log2(3)) in this backend.
 // The public artifact grows by N extension-field elements, reused for all databases.
 func (b *OrbitBasis) PrepareCyclicFFT() (*CyclicEncoder, error) {
 	e, err := b.PrepareCyclic()

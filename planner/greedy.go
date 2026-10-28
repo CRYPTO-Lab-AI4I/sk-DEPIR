@@ -20,7 +20,7 @@ type blockOption struct {
 
 // Greedy constructs a compact row-block partition and evaluates it. Each step
 // scores every eligible configuration plus a largest-fitting-capacity greedy
-// completion. It chooses minimum total storage, breaking ties by total traffic,
+// completion. It chooses minimum total storage, breaking ties by download,
 // then greater next-block height and configuration ID for determinism.
 //
 // Tail costs batch repeated blocks without constructing rectangles. Estimated

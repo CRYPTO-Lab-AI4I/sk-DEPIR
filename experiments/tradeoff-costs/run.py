@@ -59,12 +59,13 @@ def main():
         assert witness in case["representative_indices"]
         costs = case["result"]["alternatives"][witness]["evaluation"]["costs"]
         assert costs["storage_bits"] <= baseline["storage_bits"]
-        assert costs["communication_bits"] <= baseline["communication_bits"]
+        assert costs["download_bits"] <= baseline["download_bits"]
     result["experiment"] = {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "minimum_application_records": 5000,
         "base_revision": subprocess.check_output(
             ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+        "objective": "storage_and_download",
         "working_tree_dirty": bool(subprocess.check_output(
             ["git", "status", "--porcelain"], cwd=ROOT, text=True).strip()),
         "source_sha256": hashes,
@@ -116,7 +117,7 @@ def render_options(result):
         (HERE / "pir-configs.json").read_text())["configurations"]}
     lines = ["# Selected application tradeoffs", "",
              "Each cell: storage / application · download / record (absolute per-lookup download).",
-             "★ means no worse than original greedy in storage and total communication. Whole-download-only options are omitted.", "",
+             "★ means no worse than original greedy in storage and download. Whole-download-only options are omitted.", "",
              "| Database | Record | Reference N/K · D/B | Lower-storage option | Minimum communication option |",
              "|---|---|---:|---:|---:|"]
     for case in result["scenarios"]:
@@ -124,7 +125,7 @@ def render_options(result):
         baseline = case["original_greedy"]
         def matches(a):
             costs = a["evaluation"]["costs"]
-            return costs["storage_bits"] <= baseline["storage_bits"] and costs["communication_bits"] <= baseline["communication_bits"]
+            return costs["storage_bits"] <= baseline["storage_bits"] and costs["download_bits"] <= baseline["download_bits"]
         indices = []
         if alternatives:
             first = next(i for i, a in enumerate(alternatives) if matches(a))

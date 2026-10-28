@@ -30,7 +30,7 @@ databases using one query-sharing group. The evaluator returns 64 storage bits,
 
 ## Storage and communication tradeoffs
 
-Use `SearchTradeoffs` to discover achievable choices before setting a communication
+Use `SearchTradeoffs` to discover achievable choices before setting a download
 budget. It returns nondominated plans rather than choosing a storage-first winner:
 
 ```go
@@ -54,7 +54,7 @@ Costs remain additive because all full-width row blocks are disjoint and groupin
 saves client computation, not communication.
 
 At the same configuration stage and remaining row count, prune dominated partial
-plans. Compare storage/total communication normally, or storage/upload/download for
+plans. Compare storage/download normally, or storage/upload/download for
 directional budgets. The defaults are:
 
 - `MaxFrontier=32`: retained plans per remaining-row state and completed exploratory set.
@@ -70,7 +70,7 @@ into that many equal-height consecutive blocks; zero means one. A final shorter 
 block is separate. Each repetition still has separate databases, masks and full traffic.
 Full-download blocks cannot repeat. Compact cost evaluation does not expand repeats.
 
-Frontier overflow uses geometric communication buckets with cost endpoints. Stage
+Frontier overflow uses geometric download buckets with cost endpoints. Stage
 state overflow samples remaining-row keys evenly and alternates their cost endpoints.
 These approximations have no multiplicative error guarantee. `FrontierTrimmed`,
 `StateLimitReached`, `CountChoicesTrimmed`, and `BaselineLimitReached` report losses;
@@ -97,23 +97,23 @@ alternatives and limitations. The [runnable example](example_test.go) shows the 
 
 ```go
 result, err := planner.SearchDPCosts(rows, recordBits, catalogue, requirements,
-    planner.DPCostOptions{StorageCells: 128, CommunicationCells: 128})
+    planner.DPCostOptions{StorageCells: 128, DownloadCells: 128})
 indices, err := result.RepresentativeIndices(3) // retains protected witnesses
 ```
 
 For each logical width, binary decomposition represents every full-block count from
 zero through `floor(rows/K)`, without sampling counts. Each item is a group of blocks
 that can be selected once. The DP stores maximum covered rows per rounded storage and
-communication cell at each item stage; equal coverage favors smaller exact costs.
+download cell at each item stage; equal coverage favors smaller exact costs.
 Overshooting groups can finish using fewer blocks and one padded final block. Full
 residual downloads and final padded blocks use exact costs. Compact repeated runs are
 coalesced before independent evaluation.
 
 Defaults are 64 cells per axis, 32 completed exploratory alternatives, and 256 blocks
 per greedy baseline. Axis limits are 1..512 cells. `StorageWindowBits` overrides the
-per-width exploration window; otherwise use twice the storage of the least-communication
-one-code or greedy seed. `CommunicationWindowBits` overrides a single communication
-window; otherwise solve geometrically spaced windows (factor 4) from seed communication
+per-width exploration window; otherwise use twice the storage of the least-download
+one-code or greedy seed. `DownloadWindowBits` overrides a single download
+window; otherwise solve geometrically spaced windows (factor 4) from seed download
 through application size. This keeps low-traffic precision without using database size
 as the only cost scale. Whole-download, completed greedy, and one-code seeds are also
 considered independently of DP windows. Only greedy/full seeds receive protected witnesses.
@@ -129,7 +129,7 @@ can lose tradeoffs or feasible completions. Output frontier reduction is also ap
 For `M` binary items and `S,C` cells, the dense transition pass costs `O(M*S*C)` per
 window. The grid has `(S+1)*(C+1)` slots; immutable reconstruction links can require
 additional memory. There is no row-boundary or count-sampling cap in this algorithm.
-The two-dimensional API explicitly rejects separate upload/download budgets because
+The two-dimensional API supports storage/download budgets and rejects upload budgets because
 supporting them correctly requires additional state dimensions. Exact storage budgets
 remain supported. Output costs and communication rate retain the ordinary evaluator's
 meaning, and protected baselines can exceed the output-size target.
@@ -190,7 +190,7 @@ plan, result, err := planner.GreedyApplication(rows, recordBits, catalogue, requ
 Without explicit `LogicalRecordBits`, search the original width, catalogue field
 widths, and powers of two from 8 bits through the original width. An explicit list
 replaces these alternatives; the original width is always included. Rank storage,
-then communication, then larger width. `ApplicationPlan.Fragment(j,i)` maps fragment
+then download, then larger width. `ApplicationPlan.Fragment(j,i)` maps fragment
 `i` of record `j` to logical row `j*ceil(A/W)+i` and its source bit range. Zero-pad
 the final fragment; narrow logical rows may also need field padding.
 
@@ -301,3 +301,15 @@ and an exact dynamic-programming lower bound, check deterministic choices and bu
 and compare compact plans with fully expanded evaluation. A 10 MB record test counts
 ten million databases without expanding them. A two-block target plan tests terabyte-scale coordinates using
 estimated capacities, without encoding a database of that size.
+
+### Search objective and accounting
+
+Search ranking, dominance, approximation buckets and DP axes now use **storage
+and download**. Upload and `CommunicationBits=UploadBits+DownloadBits` remain
+reported by evaluation; `CommunicationRate` retains `B/(U+D)`. The table's inverse
+download rate is `D/B`. If upload limits are supplied to bounded search, upload
+is retained as a constraint dimension, not added to the objective. The cost DP supports storage/download budgets and rejects upload budgets.
+
+The DP option names are now `DownloadCells` and `DownloadWindowBits`, and its
+window metadata uses `DownloadBits` and `DownloadUnitBits` (matching JSON names).
+This replaces the earlier communication-axis fields in the experimental API.

@@ -79,7 +79,7 @@ func withinBudgets(c Costs, r Requirements) bool {
 }
 
 func cheaper(a, b Costs) bool {
-	return a.StorageBits < b.StorageBits || (a.StorageBits == b.StorageBits && a.CommunicationBits < b.CommunicationBits)
+	return a.StorageBits < b.StorageBits || (a.StorageBits == b.StorageBits && a.DownloadBits < b.DownloadBits)
 }
 
 // repeatTraffic scales indexed PIR queries while leaving stored data unchanged.

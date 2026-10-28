@@ -9,7 +9,7 @@ import (
 func TestCostDPExactGridAgainstExhaustive(t *testing.T) {
 	c := tradeoffCatalogue(t)
 	for _, rows := range []uint64{1, 13, 15, 27, 39, 40, 41} {
-		got, err := SearchDPCosts(rows, 6, c, Requirements{}, DPCostOptions{LogicalRecordBits: []uint64{3}, StorageCells: 512, CommunicationCells: 512, StorageWindowBits: 500, CommunicationWindowBits: 250, MaxFrontier: 1000})
+		got, err := SearchDPCosts(rows, 6, c, Requirements{}, DPCostOptions{LogicalRecordBits: []uint64{3}, StorageCells: 512, DownloadCells: 512, StorageWindowBits: 500, DownloadWindowBits: 250, MaxFrontier: 1000})
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -17,7 +17,7 @@ func TestCostDPExactGridAgainstExhaustive(t *testing.T) {
 		pairs := map[costPair]bool{}
 		for _, a := range got.Alternatives {
 			costs := a.Evaluation.Costs
-			pairs[costPair{costs.StorageBits, costs.CommunicationBits}] = true
+			pairs[costPair{costs.StorageBits, costs.DownloadBits}] = true
 			e, err := EvaluateApplication(a.Plan, c, Requirements{})
 			if err != nil || !reflect.DeepEqual(e, a.Evaluation) {
 				t.Fatal("cost DP reconstruction", err)
@@ -36,7 +36,7 @@ func TestCostDPExactGridAgainstExhaustive(t *testing.T) {
 
 func TestCostDPRoundingAndWitnesses(t *testing.T) {
 	c := tradeoffCatalogue(t)
-	options := DPCostOptions{LogicalRecordBits: []uint64{3}, StorageCells: 8, CommunicationCells: 8, MaxFrontier: 2}
+	options := DPCostOptions{LogicalRecordBits: []uint64{3}, StorageCells: 8, DownloadCells: 8, MaxFrontier: 2}
 	result, err := SearchDPCosts(1000, 6, c, Requirements{}, options)
 	if err != nil {
 		t.Fatal(err)
@@ -69,12 +69,12 @@ func TestCostDPRoundingAndWitnesses(t *testing.T) {
 
 func TestCostDPValidation(t *testing.T) {
 	c := fixtureCatalogue(t, 2)
-	for _, o := range []DPCostOptions{{StorageCells: -1}, {CommunicationCells: 513}, {MaxFrontier: 1}, {MaxBaselineBlocks: -1}, {LogicalRecordBits: []uint64{0}}} {
+	for _, o := range []DPCostOptions{{StorageCells: -1}, {DownloadCells: 513}, {MaxFrontier: 1}, {MaxBaselineBlocks: -1}, {LogicalRecordBits: []uint64{0}}} {
 		if _, err := SearchDPCosts(3, 4, c, Requirements{}, o); err == nil {
 			t.Fatal("invalid options")
 		}
 	}
-	if _, err := SearchDPCosts(3, 4, c, Requirements{MaxDownloadBits: 1}, DPCostOptions{}); err == nil {
+	if _, err := SearchDPCosts(3, 4, c, Requirements{MaxUploadBits: 1}, DPCostOptions{}); err == nil {
 		t.Fatal("directional constraint silently accepted")
 	}
 	if _, err := SearchDPCosts(math.MaxUint64, 4, c, Requirements{}, DPCostOptions{}); err == nil {
@@ -86,5 +86,18 @@ func TestCostDPValidation(t *testing.T) {
 	result, err := SearchDPCosts(3, 4, c, Requirements{}, DPCostOptions{})
 	if err != nil || len(result.Alternatives) != 1 || !result.Alternatives[0].Evaluation.FullDownloadOnly {
 		t.Fatal("dominated encoded option")
+	}
+}
+
+func TestDPDownloadBudget(t *testing.T) {
+	c := tradeoffCatalogue(t)
+	result, err := SearchDPCosts(41, 6, c, Requirements{MaxDownloadBits: 100}, DPCostOptions{StorageCells: 64, DownloadCells: 64, LogicalRecordBits: []uint64{3}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, a := range result.Alternatives {
+		if a.Evaluation.Costs.DownloadBits > 100 {
+			t.Fatal("download budget exceeded")
+		}
 	}
 }

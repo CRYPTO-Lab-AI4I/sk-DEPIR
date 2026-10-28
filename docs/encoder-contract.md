@@ -111,10 +111,11 @@ Check dimensions and allocation sizes before constructing it; reject instances
 outside the reference limit `N <= 256`. The backend uses field degrees 2, 3,
 and 4 as correctness fixtures, with evaluation dimensions 2 or 3 where they fit.
 Its matrix size is `K*N` field elements, so this is a correctness reference rather than a scaling strategy.
-A persistent artifact format is unnecessary for the first implementation; add one
-when an encoder needs cached setup. See the package documentation for supported
+The dense fixture backend has no persistent artifact format. The separate orbit
+backend now provides persistent public preprocessing artifacts. See the package documentation for supported
 combinations, the API example, and tests. The [small application wrapper](../encoding/appref/README.md) uses these fixtures;
-larger field configurations remain to be implemented.
+this wrapper remains limited to the dense fixtures and does not execute orbit
+artifacts or automatic application plans.
 
 ## Non-cryptographic encoding
 
@@ -217,7 +218,8 @@ fixture tests do not qualify the reference or the custom permutation for product
 
 See the [encoding algorithm review](encoding-algorithms.md) for the paper's pipeline,
 the validated bounded cyclic formulation, and further transform implementation candidates. These
-research options do not change the stage boundaries or supported reference sizes.
+methods preserve the stage boundaries. Dense fixtures remain limited to N<=256;
+the separate orbit backend supports m=2, s=2..8, N<=65,536.
 
 Complete public code-preprocessing artifacts can be distributed independently of
 any database (for example, on GitHub). Store reusable solver constants and transform
@@ -231,3 +233,10 @@ specifies arithmetic, compact artifacts, moderate-instance CPU checks, bounded-R
 encoding and optional GPU acceleration, with acceptance criteria for each stage.
 Its proposed 64 MiB publication budget is configurable and distinct from local
 working-memory or disk limits. It does not change current backend support.
+
+Publication verification is distinct from loader validation. Follow the
+[artifact acceptance checks](encoding-algorithms.md#step-2-define-compact-reusable-public-preprocessing-artifacts)
+before publishing generated constants; a successful shape/range check does not
+prove the artifact describes the intended code. Stage-specific memory and realistic
+packed/grouped output measurements are required by the
+[CPU scaling checkpoint](encoding-algorithms.md#step-3-scale-the-in-memory-cpu-encoder-through-s912).

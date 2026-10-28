@@ -31,7 +31,7 @@ type Alternative struct {
 }
 
 // BaselineWitness identifies a successfully constructed feasible baseline and an
-// alternative no worse in storage and total communication. Strict improvement is
+// alternative no worse in storage and download. Strict improvement is
 // not required. AlternativeIndex addresses the final sorted Alternatives slice.
 type BaselineWitness struct {
 	LogicalRecordBits uint64 `json:"logical_record_bits"`
@@ -63,15 +63,16 @@ type partialPlan struct {
 	block    RowBlock
 }
 
-// SearchTradeoffs returns storage/communication alternatives. It processes full
+// SearchTradeoffs returns storage/download alternatives. It processes full
 // blocks in descending capacity order, batching repetitions. Reordering disjoint
 // full blocks does not change costs; a final padded block may use any configuration.
 // Full-download suffixes are ordinary candidates. Completed feasible greedy and
 // whole-download baselines bypass lossy reduction and retain explicit witnesses.
 //
 // At the same configuration stage and remaining row count, possible completions
-// are identical, so dominance pruning is sound. With directional budgets compare
-// storage/upload/download separately, otherwise storage/total communication.
+// are identical, so dominance pruning is sound. With an upload budget compare
+// storage/upload/download separately to preserve feasibility; otherwise compare
+// storage/download. Download limits fit the existing objective dimensions.
 // State and count sampling are bounded approximations, not cross-state dominance.
 // No multiplicative error bound or global optimality is promised. ErrNoPlan returns
 // nonnil search metadata and does not prove infeasibility after truncation.
@@ -207,7 +208,7 @@ func SearchTradeoffs(rows, recordBits uint64, catalogue *pirconfig.Catalogue, r 
 							continue
 						}
 						rest := total - next.end
-						kept, trimmed := boundFrontier(append(nextStates[rest], next), options.MaxFrontier, r.MaxUploadBits != 0 || r.MaxDownloadBits != 0)
+						kept, trimmed := boundFrontier(append(nextStates[rest], next), options.MaxFrontier, r.MaxUploadBits != 0)
 						nextStates[rest] = kept
 						result.FrontierTrimmed = result.FrontierTrimmed || trimmed
 					}
@@ -216,7 +217,7 @@ func SearchTradeoffs(rows, recordBits uint64, catalogue *pirconfig.Catalogue, r 
 			var trimmed bool
 			states, trimmed = boundStates(nextStates, options.MaxStates)
 			result.StateLimitReached = result.StateLimitReached || trimmed
-			completed, trimmed = boundFrontier(completed, options.MaxFrontier, r.MaxUploadBits != 0 || r.MaxDownloadBits != 0)
+			completed, trimmed = boundFrontier(completed, options.MaxFrontier, r.MaxUploadBits != 0)
 			result.FrontierTrimmed = result.FrontierTrimmed || trimmed
 		}
 		for _, remaining := range stateKeys(states) {
@@ -225,7 +226,7 @@ func SearchTradeoffs(rows, recordBits uint64, catalogue *pirconfig.Catalogue, r 
 			}
 		}
 		var trimmed bool
-		completed, trimmed = boundFrontier(completed, options.MaxFrontier, r.MaxUploadBits != 0 || r.MaxDownloadBits != 0)
+		completed, trimmed = boundFrontier(completed, options.MaxFrontier, r.MaxUploadBits != 0)
 		result.FrontierTrimmed = result.FrontierTrimmed || trimmed
 		for _, last := range completed {
 			mapping.LogicalPlan = partialLayout(last, total, width)
@@ -304,25 +305,25 @@ func dominates(a, b Costs, separate bool) bool {
 	if separate {
 		return a.UploadBits <= b.UploadBits && a.DownloadBits <= b.DownloadBits
 	}
-	return a.CommunicationBits <= b.CommunicationBits
+	return a.DownloadBits <= b.DownloadBits
 }
 
 // Retain the exact Pareto set first. If too large, keep minimum storage and
-// minimum communication plus the minimum-storage representative per geometric
-// communication bucket. Stable ordering makes ties reproducible.
+// minimum download plus the minimum-storage representative per geometric
+// download bucket. Stable ordering makes ties reproducible.
 func boundFrontier(nodes []*partialPlan, limit int, separate bool) ([]*partialPlan, bool) {
 	sort.SliceStable(nodes, func(i, j int) bool {
 		a, b := nodes[i].costs, nodes[j].costs
 		if a.StorageBits != b.StorageBits {
 			return a.StorageBits < b.StorageBits
 		}
-		if a.CommunicationBits != b.CommunicationBits {
-			return a.CommunicationBits < b.CommunicationBits
+		if a.DownloadBits != b.DownloadBits {
+			return a.DownloadBits < b.DownloadBits
 		}
-		if a.UploadBits != b.UploadBits {
+		if separate && a.UploadBits != b.UploadBits {
 			return a.UploadBits < b.UploadBits
 		}
-		return a.DownloadBits < b.DownloadBits
+		return false
 	})
 	kept := make([]*partialPlan, 0, len(nodes))
 	for _, node := range nodes {
@@ -342,22 +343,22 @@ func boundFrontier(nodes []*partialPlan, limit int, separate bool) ([]*partialPl
 	}
 	low := kept[0]
 	for _, node := range kept {
-		if node.costs.CommunicationBits < low.costs.CommunicationBits {
+		if node.costs.DownloadBits < low.costs.DownloadBits {
 			low = node
 		}
 	}
 	selected := map[*partialPlan]bool{kept[0]: true, low: true}
 	if limit > 2 {
-		minLog := math.Log1p(float64(low.costs.CommunicationBits))
+		minLog := math.Log1p(float64(low.costs.DownloadBits))
 		maxLog := minLog
 		for _, node := range kept {
-			maxLog = math.Max(maxLog, math.Log1p(float64(node.costs.CommunicationBits)))
+			maxLog = math.Max(maxLog, math.Log1p(float64(node.costs.DownloadBits)))
 		}
 		buckets := map[int]*partialPlan{}
 		for _, node := range kept {
 			bucket := 0
 			if maxLog > minLog {
-				bucket = int((math.Log1p(float64(node.costs.CommunicationBits)) - minLog) / (maxLog - minLog) * float64(limit-2))
+				bucket = int((math.Log1p(float64(node.costs.DownloadBits)) - minLog) / (maxLog - minLog) * float64(limit-2))
 				if bucket >= limit-2 {
 					bucket = limit - 3
 				}

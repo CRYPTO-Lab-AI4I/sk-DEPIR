@@ -120,12 +120,16 @@ an independent correctness or coverage proof.
 ## Catalogue integration and limitations
 
 The [PIR configuration catalogue](../../pirconfig/configs_catalogue.json) now uses
-these observations for every point capacity: `k=round(n*good/samples)`, with
+these observations as the original point capacities: `k=round(n*good/samples)`, with
 `rate=k/n`. Rounding uses integer counts and changes rate by at most `1/(2*n)`.
 Each entry links this script, report, and result file and records sample count,
 confidence, and interval. Previously recorded paper evidence remains separate.
-All capacities remain **estimated**, and all target encoding statuses remain
-**candidate**. The estimates enable provisional layout planning, not execution.
+At the time of this rate experiment all capacities were estimated and target
+statuses candidate. The current catalogue additionally records exact K=3121 and
+bounded standalone encoding support for s=8,m=2,t=8 from the separate
+[encoder comparison](../encoder-comparison/report.md); its Monte Carlo evidence
+(point K=3117) and this experiment's results are preserved. Other target capacities
+remain estimated. Historical cost snapshots retain their original point estimates.
 
 Intervals quantify sampling error under the stated model, not possible bugs in the
 membership test, rate characterization, or generator. Evidence for correctness

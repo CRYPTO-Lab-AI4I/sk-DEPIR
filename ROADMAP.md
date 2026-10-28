@@ -165,7 +165,10 @@ evidence. Any unsupported cases remain explicit.
 
 Large-scale external-memory preprocessing, advanced streaming and recovery,
 specialized parallel/vectorized kernels, broad performance tuning, and large
-database performance campaigns are deferred. Fix resource problems that prevent
+database performance campaigns are deferred. After the CPU checkpoints in the
+[five-step plan](docs/encoding-algorithms.md#6-five-step-implementation-plan), review
+measurements with the user before starting external-memory or GPU work. Distinguish
+resource fixes needed for a chosen TRL 5 use case from a decision to pursue TRL 6. Fix resource problems that prevent
 the TRL 5 workflow from functioning, and preserve existing optimizations where
 they remain correct and understandable.
 
@@ -185,8 +188,9 @@ permutation, XOR masks, fresh encoding keys, and genuine-codeword retrieval on
 small instances. Its in-memory implementation does not constrain the future
 large-scale API or storage strategy. The
 [small application reference](encoding/appref/README.md) now completes this
-correctness pipeline for supplied plans and ordinary packed reads. Automatic
-planning and durable persistence remain separate tasks. A faster encoder is
-required before the `s=8..20` catalogue can be encoded;
+correctness pipeline for supplied plans and ordinary packed reads. Automatic planning is implemented in `planner/`; executing those plans in the
+application wrapper and durable persistence remain separate tasks. The orbit backend
+encodes the standalone s=8,m=2,t=8 configuration with exact K=3121; s=9..20
+still require further encoder and resource work;
 the small reference provides comparison vectors for that work. Small test fields
 do not inherit the catalogue's security claims.

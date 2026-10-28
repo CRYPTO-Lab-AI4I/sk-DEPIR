@@ -10,22 +10,21 @@ import (
 )
 
 // DPCostOptions controls a cost-indexed DP independently of SearchTradeoffs.
-// Zero selects StorageCells=64, CommunicationCells=64, MaxFrontier=32 and
+// Zero selects StorageCells=64, DownloadCells=64, MaxFrontier=32 and
 // MaxBaselineBlocks=256. Each axis must have 1..512 cells. LogicalRecordBits
-// follows ApplicationOptions. Window bits bound exploration only, not protected
-// protected and one-code seeds: zero uses twice the storage of the least-communication one-code
-// or greedy seed, and geometrically spaced communication windows from that seed
+// follows ApplicationOptions. Window bits bound exploration only, not protected and one-code seeds: zero uses twice the storage of the least-download one-code
+// or greedy seed, and geometrically spaced download windows from that seed
 // through application size. Explicit window bits select a single window.
-// Exact costs and Requirements.MaxStorageBits are always enforced. Directional
-// upload/download budgets are unsupported because cell dominance is two-dimensional.
+// Exact costs and Requirements.MaxStorageBits are always enforced. Upload budgets require a third constraint dimension and remain unsupported;
+// storage and download budgets are enforced in the existing two dimensions.
 type DPCostOptions struct {
-	LogicalRecordBits       []uint64 `json:"logical_record_bits,omitempty"`
-	StorageCells            int      `json:"storage_cells,omitempty"`
-	CommunicationCells      int      `json:"communication_cells,omitempty"`
-	StorageWindowBits       uint64   `json:"storage_window_bits,omitempty"`
-	CommunicationWindowBits uint64   `json:"communication_window_bits,omitempty"`
-	MaxFrontier             int      `json:"max_frontier,omitempty"`
-	MaxBaselineBlocks       int      `json:"max_baseline_blocks,omitempty"`
+	LogicalRecordBits  []uint64 `json:"logical_record_bits,omitempty"`
+	StorageCells       int      `json:"storage_cells,omitempty"`
+	DownloadCells      int      `json:"download_cells,omitempty"`
+	StorageWindowBits  uint64   `json:"storage_window_bits,omitempty"`
+	DownloadWindowBits uint64   `json:"download_window_bits,omitempty"`
+	MaxFrontier        int      `json:"max_frontier,omitempty"`
+	MaxBaselineBlocks  int      `json:"max_baseline_blocks,omitempty"`
 }
 
 // DPCostWindow records the numerical search window and rounding for one width.
@@ -35,14 +34,14 @@ type DPCostOptions struct {
 // Transitions counts full-block grid attempts before exact budget checks; it
 // excludes terminal padding/download attempts and independent baseline work.
 type DPCostWindow struct {
-	LogicalRecordBits     uint64 `json:"logical_record_bits"`
-	StorageBits           uint64 `json:"storage_bits"`
-	CommunicationBits     uint64 `json:"communication_bits"`
-	StorageUnitBits       uint64 `json:"storage_unit_bits"`
-	CommunicationUnitBits uint64 `json:"communication_unit_bits"`
-	BinaryItems           int    `json:"binary_items"`
-	Transitions           uint64 `json:"transitions"`
-	Rounded               bool   `json:"rounded"`
+	LogicalRecordBits uint64 `json:"logical_record_bits"`
+	StorageBits       uint64 `json:"storage_bits"`
+	DownloadBits      uint64 `json:"download_bits"`
+	StorageUnitBits   uint64 `json:"storage_unit_bits"`
+	DownloadUnitBits  uint64 `json:"download_unit_bits"`
+	BinaryItems       int    `json:"binary_items"`
+	Transitions       uint64 `json:"transitions"`
+	Rounded           bool   `json:"rounded"`
 }
 
 // DPCostResult reuses protected baseline witnesses and display selection. State
@@ -61,16 +60,16 @@ type dpItem struct {
 	cost   Costs
 }
 
-// SearchDPCosts maximizes covered logical rows at each rounded storage/communication
+// SearchDPCosts maximizes covered logical rows at each rounded storage/download
 // cell, after each 0/1 binary item. There is no sampling of counts or row positions.
 // Items partition each configuration's full-block count bound into groups whose
 // subset sums represent every count from zero through floor(rows/K).
 //
 // For equal cell coordinates and item stage retain maximum coverage; ties use
-// smaller exact storage then communication. With unit=1 labels are exact within
+// smaller exact storage then download. With unit=1 labels are exact within
 // the search windows and layout family; seeds may contribute outside those windows. With flooring, costs may differ inside a cell;
 // retained plans and all reported costs are independently validated in exact bits.
-// Additional directional budgets require more DP dimensions and are rejected.
+// An additional upload budget requires another DP dimension and is rejected.
 func SearchDPCosts(rows, recordBits uint64, catalogue *pirconfig.Catalogue, r Requirements, o DPCostOptions) (*DPCostResult, error) {
 	if err := catalogue.Validate(); err != nil {
 		return nil, err
@@ -82,14 +81,14 @@ func SearchDPCosts(rows, recordBits uint64, catalogue *pirconfig.Catalogue, r Re
 	if err != nil {
 		return nil, err
 	}
-	if r.MaxUploadBits != 0 || r.MaxDownloadBits != 0 {
-		return nil, fmt.Errorf("planner: cost DP does not support separate upload/download budgets")
+	if r.MaxUploadBits != 0 {
+		return nil, fmt.Errorf("planner: cost DP does not support an upload budget")
 	}
 	if o.StorageCells == 0 {
 		o.StorageCells = 64
 	}
-	if o.CommunicationCells == 0 {
-		o.CommunicationCells = 64
+	if o.DownloadCells == 0 {
+		o.DownloadCells = 64
 	}
 	if o.MaxFrontier == 0 {
 		o.MaxFrontier = 32
@@ -97,7 +96,7 @@ func SearchDPCosts(rows, recordBits uint64, catalogue *pirconfig.Catalogue, r Re
 	if o.MaxBaselineBlocks == 0 {
 		o.MaxBaselineBlocks = 256
 	}
-	if o.StorageCells < 1 || o.StorageCells > 512 || o.CommunicationCells < 1 || o.CommunicationCells > 512 || o.MaxFrontier < 2 || o.MaxBaselineBlocks < 1 {
+	if o.StorageCells < 1 || o.StorageCells > 512 || o.DownloadCells < 1 || o.DownloadCells > 512 || o.MaxFrontier < 2 || o.MaxBaselineBlocks < 1 {
 		return nil, fmt.Errorf("planner: invalid cost-grid limits")
 	}
 	widths, err := logicalWidths(recordBits, catalogue, o.LogicalRecordBits)
@@ -175,7 +174,7 @@ func SearchDPCosts(rows, recordBits uint64, catalogue *pirconfig.Catalogue, r Re
 			}
 			mapping.LogicalPlan = coalesceRuns(partialLayout(p, total, width))
 			add(mapping, false)
-			if seed == nil || p.costs.CommunicationBits < seed.costs.CommunicationBits || (p.costs.CommunicationBits == seed.costs.CommunicationBits && p.costs.StorageBits < seed.costs.StorageBits) {
+			if seed == nil || p.costs.DownloadBits < seed.costs.DownloadBits || (p.costs.DownloadBits == seed.costs.DownloadBits && p.costs.StorageBits < seed.costs.StorageBits) {
 				seed = p
 			}
 		}
@@ -189,12 +188,12 @@ func SearchDPCosts(rows, recordBits uint64, catalogue *pirconfig.Catalogue, r Re
 				sLimit = math.MaxUint64
 			}
 		}
-		for _, cLimit := range dpCommunicationWindows(seed.costs.CommunicationBits, appBits, o.CommunicationWindowBits) {
+		for _, cLimit := range dpDownloadWindows(seed.costs.DownloadBits, appBits, o.DownloadWindowBits) {
 			if r.MaxStorageBits != 0 && r.MaxStorageBits < sLimit {
 				sLimit = r.MaxStorageBits
 			}
 			sUnit := ceilDivide(sLimit, uint64(o.StorageCells))
-			cUnit := ceilDivide(cLimit, uint64(o.CommunicationCells))
+			cUnit := ceilDivide(cLimit, uint64(o.DownloadCells))
 			sCells := int(sLimit / sUnit)
 			cCells := int(cLimit / cUnit)
 			stride := cCells + 1
@@ -217,10 +216,10 @@ func SearchDPCosts(rows, recordBits uint64, catalogue *pirconfig.Catalogue, r Re
 					}
 				}
 			}
-			window := DPCostWindow{LogicalRecordBits: width, StorageBits: sLimit, CommunicationBits: cLimit, StorageUnitBits: sUnit, CommunicationUnitBits: cUnit, BinaryItems: len(items), Rounded: sUnit > 1 || cUnit > 1}
+			window := DPCostWindow{LogicalRecordBits: width, StorageBits: sLimit, DownloadBits: cLimit, StorageUnitBits: sUnit, DownloadUnitBits: cUnit, BinaryItems: len(items), Rounded: sUnit > 1 || cUnit > 1}
 			var completed []*partialPlan
 			keep := func(p *partialPlan) {
-				if p.costs.StorageBits > sLimit || p.costs.CommunicationBits > cLimit || !withinBudgets(p.costs, r) {
+				if p.costs.StorageBits > sLimit || p.costs.DownloadBits > cLimit || !withinBudgets(p.costs, r) {
 					return
 				}
 				completed = append(completed, p)
@@ -231,7 +230,7 @@ func SearchDPCosts(rows, recordBits uint64, catalogue *pirconfig.Catalogue, r Re
 				}
 			}
 			for _, item := range items {
-				ds, dc := item.cost.StorageBits/sUnit, item.cost.CommunicationBits/cUnit
+				ds, dc := item.cost.StorageBits/sUnit, item.cost.DownloadBits/cUnit
 				if ds > uint64(sCells) || dc > uint64(cCells) {
 					continue
 				}
@@ -257,7 +256,7 @@ func SearchDPCosts(rows, recordBits uint64, catalogue *pirconfig.Catalogue, r Re
 					}
 					window.Transitions++
 					costs, err := addModelCosts(prefix.costs, item.cost)
-					if err != nil || costs.StorageBits > sLimit || costs.CommunicationBits > cLimit || !withinBudgets(costs, r) {
+					if err != nil || costs.StorageBits > sLimit || costs.DownloadBits > cLimit || !withinBudgets(costs, r) {
 						continue
 					}
 					target := (s+int(ds))*stride + c + int(dc)
@@ -372,9 +371,9 @@ func coalesceRuns(p Plan) Plan {
 	return p
 }
 
-// Geometrically spaced communication windows retain useful low-traffic resolution
+// Geometrically spaced download windows retain useful low-traffic resolution
 // instead of using database size as the sole rounding scale. Include both ends.
-func dpCommunicationWindows(seed, application, explicit uint64) []uint64 {
+func dpDownloadWindows(seed, application, explicit uint64) []uint64 {
 	if explicit != 0 {
 		return []uint64{explicit}
 	}

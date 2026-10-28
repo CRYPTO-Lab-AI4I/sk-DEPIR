@@ -2597,16 +2597,16 @@
     }
   ],
   "experiment": {
-    "timestamp_utc": "2026-10-26T19:01:33.579061+00:00",
+    "timestamp_utc": "2026-10-28T10:30:57.024072+00:00",
     "minimum_application_records": 5000,
-    "base_revision": "8b322b83ddd566a2becd2b38d59793b26d91678d",
+    "base_revision": "2367b92987062083dc00d5350f93b7ff75cfec91",
     "working_tree_dirty": true,
     "source_sha256": {
       "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
       "go.sum": "6b5b9bf04b57c04dc22dc13596e0c5862856f95c24ca23931bb0545736f6ef76",
-      "planner/evaluate.go": "735728b4c7efdb4aa1e0adc0f849f8dc0ccccd86cffa1f0c48b16a3c264f977e",
-      "planner/costs.go": "a0de414986cd62882d48e7f0a084292bb0b74928687170880df87466887f2e6b",
-      "planner/greedy.go": "060f2c043f865887822870233b4c88f5126aecb2982f0368aaa26225bde306ed",
+      "planner/evaluate.go": "48f2ea1125b193072b1ff8189b0009ae9ecf0ed13de2409e7959d06c5c31124f",
+      "planner/costs.go": "53c206439ecd9af96adbaf47d759250102f7a6f5ce1cebc5b368efc6afd7bba9",
+      "planner/greedy.go": "a0e27d9ac9100d6f7a53d4f44659ed1e89a3798adcfbda48526105a210b69997",
       "pirconfig/catalogue.go": "9eb849c0607b12b9bea5454b3a3387d5302dfbf64c1207c32ebe4fd9b6de14d3",
       "pirconfig/json.go": "836a3fb6ed819ee4ca73b3038dd9828bc5a911f26932f358bb4c4f4b70edd5e6",
       "experiments/greedy-costs/main.go": "d9dab615c949c07229fcbd6e581553638af7154fcf7f12e2976f1dab91e047ab",

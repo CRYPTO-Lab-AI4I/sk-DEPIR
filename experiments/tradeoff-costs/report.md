@@ -2,7 +2,7 @@
 
 ## Purpose and reproduction
 
-Calculate storage/communication alternatives for 21 application workloads, each with
+Calculate storage/download alternatives for 21 application workloads, each with
 at least **5,000 records**. Correctness fixtures and the planner API are not restricted
 by this workload filter. These are provisional logical estimates, not actual database
 encodings, network measurements, or security validations.
@@ -54,7 +54,7 @@ Defaults: MaxFrontier=32, MaxStates=256 live partial plans per configuration sta
 MaxCounts=8 count choices per state/configuration, MaxBaselineBlocks=256. Enumerate all
 counts if they fit; otherwise sample zero, one, filling counts and powers of two near
 both ends. Within equal-stage/equal-remaining-row states, prune by dominance. Excess
-cost frontiers use geometric communication buckets; excess live states sample remaining
+cost frontiers use geometric download buckets; excess live states sample remaining
 row keys and alternate their cost endpoints. These are approximations with no global
 or multiplicative optimality guarantee. The previous 256-boundary cutoff is removed.
 The API now uses state/count limits and flags, not boundary-admission options/flags.
@@ -70,9 +70,10 @@ from approximation. Final exact dominance pruning retains an equal-or-better wit
 for each protected baseline. Output/display targets can be exceeded to preserve them.
 The script also checks against the actual [original greedy grid](../greedy-costs/results.json).
 
-Storage overhead is stored bits / original application bits. Communication rate is
-original record bits / (upload + download per original lookup); higher is better.
-For readability, options.md shows its inverse and absolute communication. Indexed
+Storage overhead is stored bits / original application bits. Search optimizes
+storage and download. The options table displays `D/B`, the inverse download
+communication rate, and absolute download. Total communication rate `B/(U+D)`
+remains a separate JSON/CSV accounting field. Indexed
 traffic repeats for every fragment, including cover queries; full pieces are read
 once. Logical costs exclude framing, metadata, identifiers and byte rounding. Whole-read
 requests have nonzero physical headers even though logical index upload is zero.
@@ -87,16 +88,15 @@ assert that one configuration encodes the entire application at that overhead.
 See [the selected-options table](options.md) for two nontrivial choices per workload
 where available, including catalogue overhead. Full data include every retained
 alternative and approximation flags. The two displayed options include an original
-greedy witness and the minimum-communication endpoint; when identical, also show its
+greedy witness and the minimum-download endpoint; when identical, also show its
 adjacent lower-storage point. This is not a balanced recommendation or a minimum-storage
 claim. Whole-download-only options are omitted from that display, but remain candidates.
 
 All **21/21** original greedy baselines retain equal-or-better witnesses in results
-and representative selections: **4 strictly improve**, **17 match both costs**.
-Minimum-communication endpoints are unchanged from the archived boundary-search run.
-Some intermediate tradeoffs differ: for 100 GB / 1 MB records, an adjacent lower-storage
-option improves from 10.394x storage and 22.929 GB communication to 10.309x and 21.843 GB.
-This fixes redundant exploration, not the mathematical storage/communication tradeoff.
+and representative selections: **3 strictly improve**, **18 match storage/download costs**.
+Minimum-download endpoint costs match the archived total-objective run in all
+21 cases. The displayed lower-storage representative changes for 20 GB / 10 KB;
+all 21 intermediate frontier sets change. See the objective comparison below.
 
 All 21 cases report state reduction and sampled count choices; no baseline construction
 is interrupted. The search remains approximate. Do not interpret eliminating the old
@@ -117,26 +117,31 @@ no automatic communication budget is selected. Target encoders, production secur
 actual I/O feasibility remain unvalidated. The archived boundary-search JSON records its
 original source hashes; current reproduction uses the revised sources, not that method.
 
-## Download-only table presentation (2026-10-27)
+## Download-objective rerun (2026-10-28)
 
-Run `python3 experiments/tradeoff-costs/run.py --render-only` from the repository
-root to regenerate [options.md](options.md) from [results.json](results.json) and
-[pir-configs.json](pir-configs.json), without rerunning the search. This presentation
-uses the saved run's revision, environment and parameters recorded above; no new
-encoding or timing measurement is introduced. Python 3 is the only rendering prerequisite.
+The current implementation optimizes storage and **download**, throughout ranking,
+dominance, frontier reduction and DP windows. Upload/total bits are still reported
+using the existing repeated-address model; grouped storage remains a future backend.
+No assumption of zero actual upload is introduced into accounting.
 
-The table now shows storage overhead `S/(n*B)` and inverse download communication
-rate `D/B`, followed by absolute download bytes (`D/8`, decimal MB/GB). Download
-communication rate is `B/D`; `B` is the original application-record size in bits.
-The reference column shows `N/K` and `D/B=L`, since a catalogue PIR record has
-`s` bits and its response contains `L` field elements, including dummies.
-Reference values assume full utilization and exclude application padding.
+Rerun with the command above. `--render-only` only renders existing results and
+must not be used to claim a new optimization run. The script/source hashes in
+[results.json](results.json) identify this rerun (base revision `2367b92` plus
+PLAN-014 changes). All configurations use the unchanged historical
+[pir-configs.json](pir-configs.json) snapshot, including estimated K=3117 at s=8;
+the current catalogue's separate exact K=3121 evidence is intentionally not mixed
+into this objective-only comparison.
 
-This supersedes the upload-plus-download presentation described earlier. The saved
-JSON/CSV retain their original upload, download and total-communication fields.
-Search used total communication; the tables emphasize download because the planned
-grouped storage layout is intended to make upload negligible. The selected options
-are presented as current choices; no additional optimization run is needed for
-this presentation change. Physical storage layout optimization is now
-[in scope](../../docs/protocol-io.md#storage-layout-optimization); the grouped-read
-backend and its actual upload/framing costs remain to be implemented and measured.
+The previous total-objective [results](total-objective-results.json),
+[CSV](total-objective-summary.csv) and [table](total-objective-options.md) are
+archived. Their scripts and source are preserved in repository revision `2367b92`;
+they were not generated by the current script. This report's older methodological
+observations/comparisons remain historical where explicitly referring to that run.
+The [objective comparison](../download-objective-comparison/report.md) provides a
+reproducible comparison of all 21 old/new scenarios, endpoints, displayed options
+and intermediate frontier points, using exact saved costs.
+
+The reference configuration is still selected by closest plaintext capacity `K*s`.
+Its table column displays `N/K` and inverse download rate `L` (including dummies),
+assuming full use of that code. Stars protect storage/download costs against the
+original greedy baseline, not upload or total communication.

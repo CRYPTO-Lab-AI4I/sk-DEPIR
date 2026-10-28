@@ -47,3 +47,7 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
 - [Paper/cyclic encoder comparison](encoder-comparison/report.md): exact bounded
   encodings with reusable public preprocessing artifacts; separate setup, load,
   encoding, process memory and output I/O measurements.
+
+- [Download-objective comparison](download-objective-comparison/report.md): rerun
+  all four cost grids with storage/download ranking; preserve prior results and
+  compare endpoints, displayed options and approximate intermediate frontiers.

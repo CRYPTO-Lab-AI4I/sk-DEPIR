@@ -1,14 +1,14 @@
 # Selected application tradeoffs
 
 Each cell: storage / application · download / record (absolute per-lookup download).
-★ means no worse than original greedy in storage and total communication. Whole-download-only options are omitted.
+★ means no worse than original greedy in storage and download. Whole-download-only options are omitted.
 
 | Database | Record | Reference N/K · D/B | Lower-storage option | Minimum communication option |
 |---|---|---:|---:|---:|
 | 1 GB | 1 KB | 4.950× · 32,895× | 9.446× · 5,505× (5.505 MB) ★ | 16.786× · 4,225× (4.225 MB) |
 | 1 GB | 10 KB | 4.950× · 32,895× | 10.204× · 4,192× (41.916 MB) | 10.486× · 1,151× (11.510 MB) ★ |
 | 20 GB | 1 KB | 4.438× · 131,199× | 6.718× · 16,655× (16.655 MB) ★ | 13.435× · 16,528× (16.528 MB) |
-| 20 GB | 10 KB | 4.438× · 131,199× | 8.652× · 6,552× (65.522 MB) ★ | 8.913× · 5,374× (53.742 MB) |
+| 20 GB | 10 KB | 4.438× · 131,199× | 8.684× · 5,884× (58.842 MB) ★ | 8.913× · 5,374× (53.742 MB) |
 | 20 GB | 1 MB | 4.438× · 131,199× | 13.744× · 1,207× (1.207 GB) | 16.384× · 1,022× (1.022 GB) ★ |
 | 50 GB | 1 KB | 4.216× · 262,271× | 5.339× · 115,524× (115.524 MB) | 5.374× · 16,528× (16.528 MB) ★ |
 | 50 GB | 10 KB | 4.216× · 262,271× | 5.506× · 16,932× (169.320 MB) ★ | 13.422× · 8,319× (83.192 MB) |

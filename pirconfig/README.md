@@ -5,14 +5,19 @@ plan references configuration IDs and specifies application submatrices and
 query-sharing groups; it is separate from this catalogue.
 
 [configs_catalogue.json](configs_catalogue.json) contains all agreed `s=8..20`, `m=2`
-configurations. Every capacity has a Monte Carlo estimate from the
+configurations. Every entry retains Monte Carlo evidence from the
 [rate experiment](../experiments/liftrs-rates/report.md), with sample count,
 confidence interval, and reproducible evidence. The four matching paper estimates
 from [Table 1](../paper.pdf#page=64) and [Table 3](../paper.pdf#page=66) remain as
 supporting sources. The security profile comes from the separate
 [bounded-sample calculation](../experiments/bounded-sample-parameters/report.md).
-All target entries remain unsupported for encoding: an estimated dimension is not
-an exact message dimension verified by an encoder.
+The s=8,m=2,t=8 entry now has exact K=3121, polynomial 0x11d and standalone
+bounded orbit encoder support, backed by the [encoder comparison](../experiments/encoder-comparison/report.md).
+Its historical Monte Carlo point estimate was K=3117 and remains separate evidence.
+The other 12 entries retain estimated capacities and candidate encoding status.
+“Supported” identifies the non-cryptographic backend, not integrated application
+encoding, grouped storage or production security. Historical cost-grid snapshots
+retain their original estimates so objective comparisons use identical inputs.
 
 The [tiny fixture](testdata/reference.json) has verified `K=5`, `N=16` over GF(4),
 backed by the [reference encoder tests](../encoding/liftrs/reference_test.go).
