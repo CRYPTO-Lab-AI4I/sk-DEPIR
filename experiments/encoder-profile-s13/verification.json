@@ -1,0 +1,46 @@
+[
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "test",
+      "./encoding/liftrs",
+      "./experiments/encoder-profile-s13",
+      "-count=1"
+    ],
+    "isolated_copy": false,
+    "exit_code": 0,
+    "seconds": 11.094719833
+  },
+  {
+    "command": [
+      "/Library/Developer/CommandLineTools/usr/bin/python3",
+      "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/encoder-profile-s13/smoke.py",
+      "--go",
+      "/tmp/sk-depir-go-toolchain/go/bin/go"
+    ],
+    "isolated_copy": false,
+    "exit_code": 0,
+    "seconds": 1.838967499999999
+  },
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "vet",
+      "./encoding/liftrs",
+      "./experiments/encoder-profile-s13"
+    ],
+    "isolated_copy": false,
+    "exit_code": 0,
+    "seconds": 0.09809075000000078
+  },
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "test",
+      "./..."
+    ],
+    "isolated_copy": true,
+    "exit_code": 0,
+    "seconds": 11.398233708
+  }
+]

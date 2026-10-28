@@ -89,3 +89,6 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
 
 - [s=13 cyclic benchmark](cyclic-s13/report.md): a two-hour case allowance with
   separate discovery, reusable preprocessing, encoding and resource observations.
+
+- [s=13 CPU profiles and retained cache](encoder-profile-s13/report.md): profiled
+  discovery/preparation, separate cache save/load and one database encoding.

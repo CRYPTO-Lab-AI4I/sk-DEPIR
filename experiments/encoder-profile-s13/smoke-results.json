@@ -1,0 +1,44 @@
+{
+  "configuration": "s4-m2-t2",
+  "checks": [
+    {
+      "reuse": false,
+      "code": {
+        "event": "code",
+        "go_version": "go1.27.3",
+        "k": 97,
+        "m": 2,
+        "n": 256,
+        "reused_cache": false,
+        "s": 4,
+        "t": 2
+      },
+      "canonical": "4421d6289c0b7a6f994afd8293a31dd017213a41584c56121bb9d447ac1137d4",
+      "profiles": [
+        "cache_load.pprof",
+        "cache_save.pprof",
+        "discovery.pprof",
+        "encode_0.pprof",
+        "preparation.pprof"
+      ]
+    },
+    {
+      "reuse": true,
+      "code": {
+        "event": "code",
+        "go_version": "go1.27.3",
+        "k": 97,
+        "m": 2,
+        "n": 256,
+        "reused_cache": true,
+        "s": 4,
+        "t": 2
+      },
+      "canonical": "4421d6289c0b7a6f994afd8293a31dd017213a41584c56121bb9d447ac1137d4",
+      "profiles": [
+        "cache_load.pprof",
+        "encode_0.pprof"
+      ]
+    }
+  ]
+}

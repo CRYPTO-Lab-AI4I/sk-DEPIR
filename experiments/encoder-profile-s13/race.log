@@ -1,0 +1,2 @@
+$ GOCACHE=/tmp/sk-depir-go-cache /tmp/sk-depir-go-toolchain/go/bin/go test -race ./encoding/liftrs
+ok  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs  76.176s

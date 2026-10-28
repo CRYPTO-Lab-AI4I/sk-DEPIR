@@ -88,9 +88,13 @@ func (e *CyclicEncoder) MarshalBinary() ([]byte, error) {
 	return json.Marshal(orbitEncoderArtifact{Version: 1, Method: "cyclic", Basis: basis, P: e.p, G: e.g, Spectrum: e.spectrum})
 }
 func loadEncoderArtifact(data []byte, method string) (*OrbitBasis, orbitEncoderArtifact, error) {
+	return loadEncoderArtifactLimit(data, method, 64<<20, 2<<20)
+}
+
+func loadEncoderArtifactLimit(data []byte, method string, maxBytes, basisBytes int64) (*OrbitBasis, orbitEncoderArtifact, error) {
 	var a orbitEncoderArtifact
-	if len(data) > 64<<20 {
-		return nil, a, fmt.Errorf("encoder artifact exceeds 64 MiB")
+	if maxBytes <= 0 || int64(len(data)) > maxBytes {
+		return nil, a, fmt.Errorf("encoder artifact exceeds configured limit")
 	}
 	if err := json.Unmarshal(data, &a); err != nil {
 		return nil, a, err
@@ -98,7 +102,7 @@ func loadEncoderArtifact(data []byte, method string) (*OrbitBasis, orbitEncoderA
 	if a.Version != 1 || a.Method != method {
 		return nil, a, fmt.Errorf("unsupported encoder artifact")
 	}
-	b, err := LoadOrbit(a.Basis)
+	b, err := loadOrbitLimit(a.Basis, basisBytes)
 	if err != nil {
 		return nil, a, err
 	}
@@ -144,7 +148,21 @@ func LoadPaperEncoder(data []byte) (*PaperEncoder, error) {
 // field/FFT runtime tables but performs no generator construction or division.
 // Structural checks do not replace independent verification of public artifacts.
 func LoadCyclicEncoder(data []byte) (*CyclicEncoder, error) {
-	b, a, err := loadEncoderArtifact(data, "cyclic")
+	return loadCyclicEncoderLimit(data, 64<<20, 2<<20)
+}
+
+// LoadCyclicEncoderWithLimit loads trusted local preprocessing with an explicit
+// maximum JSON byte size, applying the same limit to its embedded basis. This
+// opt-in path preserves LoadCyclicEncoder's default 64 MiB / 2 MiB caps. The
+// caller must bound file reads and decoded-memory use separately: a byte cap is
+// not a RAM bound. Structural checks do not authenticate mathematical constants.
+// Field/FFT tables are rebuilt; generator/prefix constants and spectra are loaded.
+func LoadCyclicEncoderWithLimit(data []byte, maxBytes int64) (*CyclicEncoder, error) {
+	return loadCyclicEncoderLimit(data, maxBytes, maxBytes)
+}
+
+func loadCyclicEncoderLimit(data []byte, maxBytes, basisBytes int64) (*CyclicEncoder, error) {
+	b, a, err := loadEncoderArtifactLimit(data, "cyclic", maxBytes, basisBytes)
 	if err != nil {
 		return nil, err
 	}

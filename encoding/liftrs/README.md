@@ -243,3 +243,17 @@ table-free field API, coordinate conventions or serialized artifacts. They are
 rebuilt during discovery/loading and reused across encodings; changing offsets
 still use general multiplication. Table indexing is not constant-time. See the
 [portable multiplication experiment](../../experiments/field-multiplication/report.md).
+
+
+### Retained local caches
+
+`LoadCyclicEncoderWithLimit(data, maxBytes)` loads the same trusted version-1 JSON
+with an explicit size cap for both the complete cache and its embedded basis.
+The default loaders keep their 64 MiB complete / 2 MiB basis limits. Bound the
+file read before calling this API (see the [runnable example](orbit_cache_example_test.go))
+and budget decoded-memory use separately;
+structural checks do not authenticate mathematical contents. Large local caches
+are distinct from public artifact distribution. The
+[s=13 profiling runner](../../experiments/encoder-profile-s13/report.md) retains
+cache checksums/provenance under ignored `.cache/liftrs/` and can profile encoding
+again with `--reuse-cache`, without repeating discovery/preparation.

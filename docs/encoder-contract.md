@@ -277,3 +277,11 @@ checksums so later encoding profiles do not require repeating preparation. Keep
 large caches outside Git, account for machine resources, and record exceptions.
 Cache save/load is separate from encoding; profiled times remain distinct from
 unprofiled baselines. Disable profiling once optimization is complete.
+
+
+The cyclic JSON loader now offers `LoadCyclicEncoderWithLimit` for explicitly
+bounded trusted local caches larger than the default limits. The opt-in byte cap
+also applies to the embedded basis; defaults remain unchanged. Bound file reads
+and decoded RAM separately. [The profiled s=13 experiment](../experiments/encoder-profile-s13/report.md)
+retains local cache provenance/checksums and measures save/load separately from
+encoding. This local cache policy does not raise the public distribution budget.

@@ -323,8 +323,14 @@ func (b *OrbitBasis) MarshalBinary() ([]byte, error) {
 // is the intended code. Use artifacts generated and independently verified by the
 // project. Prepare a method-specific encoder once after loading, before databases.
 func LoadOrbit(data []byte) (*OrbitBasis, error) {
-	if len(data) > 2<<20 {
-		return nil, fmt.Errorf("basis artifact exceeds 2 MiB")
+	return loadOrbitLimit(data, 2<<20)
+}
+
+// loadOrbitLimit lets an explicitly bounded complete local cache contain a larger
+// basis while keeping the standalone basis loader's default 2 MiB cap.
+func loadOrbitLimit(data []byte, maxBytes int64) (*OrbitBasis, error) {
+	if maxBytes <= 0 || int64(len(data)) > maxBytes {
+		return nil, fmt.Errorf("basis artifact exceeds configured limit")
 	}
 	var artifact struct {
 		Version int   `json:"version"`

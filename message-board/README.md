@@ -233,3 +233,5 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-28 17:41 | ENCODE-009 | Completed | [s=13 cyclic benchmark completed and documented](2026-10-28-1741-codex-encode-009-completed.md) |
 | 2026-10-28 18:31 | PUBLISH-009 | Started | [Publish s=13 results and profiling/retention policy](2026-10-28-1831-codex-publish-009-started.md) |
 | 2026-10-28 18:36 | PUBLISH-009 | Completed | [s=13 checkpoint and standing profiling policy verified](2026-10-28-1836-codex-publish-009-completed.md) |
+| 2026-10-28 18:34 | ENCODE-010 | Started | [Profile s=13 and retain reloadable preprocessing](2026-10-28-1834-codex-encode-010-started.md) |
+| 2026-10-28 18:43 | ENCODE-010 | Update | [Profile/cache harness verified before long run](2026-10-28-1843-codex-encode-010-checkpoint.md) |

@@ -19,3 +19,6 @@ HANDOFF.md
 
 # Go test cache
 *.test
+
+# Retained local code-preprocessing caches (keep manifests in experiment reports)
+.cache/liftrs/

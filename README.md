@@ -50,7 +50,10 @@ size limits are unchanged and large-cache loading was not measured.
 The [s=13 benchmark](experiments/cyclic-s13/report.md), run with a two-hour
 allowance, adds exact K=11926435 at t=5: 29.42 min reusable preparation,
 185.15 s median encoding and 5.34 GiB whole-case peak RSS. First use is 33.94 min;
-large-cache loading and application integration remain unmeasured.
+application integration remains unmeasured. The subsequent
+[profiled s=13 run](experiments/encoder-profile-s13/report.md) is being prepared to
+retain a local reloadable cache; its instrumentation/cache results are separate
+from this unprofiled baseline.
 
 A separate [small cryptographic reference](encoding/cryptoref/README.md) permutes codewords and applies storage-position XOR masks using the existing AES helpers. It tests independent masking keys, re-encoding, and genuine-codeword retrieval. Its in-memory architecture is a correctness reference; it does not select a production API or streaming design.
 

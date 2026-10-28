@@ -1,0 +1,12 @@
+{
+  "runtime_metric": "first_use",
+  "case_timeout_seconds": 7200,
+  "memory_gib": 12,
+  "encoding_repeats": 1,
+  "cpu_profiling": true,
+  "retain_cache": true,
+  "cache_limit_bytes": 2147483648,
+  "s": 13,
+  "m": 2,
+  "t": 5
+}
