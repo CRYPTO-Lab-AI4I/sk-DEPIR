@@ -97,3 +97,9 @@ To inspect another view, rebuild the driver and run `go tool pprof -top` on a
 saved `.pprof` file (functions are symbolized in the saved text views). Profiles
 and source/input SHA256 hashes are retained for review. Existing performance
 reports and historical measurements are unchanged.
+
+## Subsequent implementation
+
+The [polynomial-product checkpoint](../fast-polynomial/report.md) adds hybrid
+full/low products and compares its effects against this implementation. The
+measurements above remain a snapshot of the source revision recorded here.

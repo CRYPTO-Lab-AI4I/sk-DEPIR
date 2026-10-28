@@ -59,6 +59,17 @@ func (a *additiveTransform) offset(k int, offset uint32) uint32 {
 func (a *additiveTransform) apply(buf []uint32, inverse bool) {
 	a.recurse(buf, len(a.terms), 0, inverse)
 }
+
+// applySubspace uses the first len(buf) coordinates, a binary subspace. The
+// power-of-two buffer must fit the field. Restricting the recursion, rather than
+// padding to the entire field, makes small polynomial products economical.
+func (a *additiveTransform) applySubspace(buf []uint32, inverse bool) {
+	n := len(buf)
+	if n == 0 || n&(n-1) != 0 || uint64(n) > uint64(a.f.q) {
+		panic("invalid polynomial transform length")
+	}
+	a.recurse(buf, bits.Len(uint(n))-1, 0, inverse)
+}
 func (a *additiveTransform) recurse(buf []uint32, level int, offset uint32, inverse bool) {
 	if level == 0 {
 		return

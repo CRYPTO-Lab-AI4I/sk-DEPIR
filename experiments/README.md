@@ -58,3 +58,6 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
 
 - [Encoder CPU profiles](encoder-profile/report.md): separate s=9 paper/cyclic
   preparation and database-encoding profiles, with checkpoint output verification.
+
+- [Fast polynomial products](fast-polynomial/report.md): independent convolution
+  checks, kernel timings and same-machine old/new preprocessing and encoder costs.

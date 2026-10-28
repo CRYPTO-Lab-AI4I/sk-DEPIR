@@ -129,3 +129,9 @@ or bounded-RAM external-memory support. Artifact loaders still perform structura
 checks on trusted artifacts; provenance and the independent checks above are the
 publication evidence. Future native/GPU acceleration and external-memory work remain
 behind the plan's explicit decision gates.
+
+## Subsequent implementation
+
+The [polynomial-product checkpoint](../fast-polynomial/report.md) adds hybrid
+full/low products and compares its effects against this implementation. The
+measurements above remain a snapshot of the source revision recorded here.

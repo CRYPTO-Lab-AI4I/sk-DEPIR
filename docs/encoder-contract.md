@@ -201,8 +201,10 @@ fast encoder or support the initial `s=8..20` catalogue. The [bounded orbit back
 now implements the paper's information set, certified random degree discovery and
 paper/cyclic encoding for m=2, s=2..9, N<=262,144. Its additive transforms, prepared
 public artifacts and method-specific constants are independently tested against
-the dense oracle. Target-size field coverage, memory/I/O scheduling and hardware
-acceleration remain open.
+the dense oracle. Its [hybrid polynomial products](../experiments/fast-polynomial/report.md)
+now cover full and low-coefficient multiplication, including preprocessing and
+per-database computations. Target-size encoder coverage, memory/I/O scheduling
+and hardware acceleration remain open.
 
 **Cryptographic reference status:** the bounded stage now tests permutation, XOR
 masks at storage positions, independent database keys, and fresh masks on

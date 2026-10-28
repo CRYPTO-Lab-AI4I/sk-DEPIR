@@ -1,0 +1,389 @@
+{
+  "timestamp_utc": "2026-10-28T11:59:18.214413+00:00",
+  "revision": "7e5a8ac35aad6c366d2cbbbe2a18535cab075912",
+  "working_tree_dirty": true,
+  "baseline_revision": "7e5a8ac35aad6c366d2cbbbe2a18535cab075912",
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.9.6",
+    "cpu_count": 18,
+    "go": "go version go1.27.3 darwin/arm64",
+    "gomaxprocs": "default",
+    "hardware": {
+      "command": [
+        "/usr/sbin/system_profiler",
+        "SPHardwareDataType",
+        "-detailLevel",
+        "mini"
+      ],
+      "exit_code": 0,
+      "stdout": "      Model Name: MacBook Pro\n      Model Identifier: Mac17,9\n      Chip: Apple M5 Pro\n      Total Number of Cores: 18 (6 Super and 12 Performance)\n      Memory: 48 GB",
+      "stderr": "2026-10-28 12:59:18.337 system_profiler[53638:29682803] Error fetching hw.cpufamily: -1"
+    },
+    "filesystem": {
+      "command": [
+        "df",
+        "-h",
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T"
+      ],
+      "exit_code": 0,
+      "stdout": "Filesystem      Size    Used   Avail Capacity iused ifree %iused  Mounted on\n/dev/disk3s5   926Gi   134Gi   771Gi    15%    1.6M  8.1G    0%   /System/Volumes/Data",
+      "stderr": ""
+    }
+  },
+  "scenarios": [
+    {
+      "s": 8,
+      "t": 8,
+      "m": 2,
+      "method": "paper",
+      "backends": {
+        "old": {
+          "preparation": {
+            "artifact_bytes": 825542,
+            "basis_load_ns": 1867083,
+            "basis_read_ns": 70208,
+            "go_version": "go1.27.3",
+            "method": "paper",
+            "prepare_ns": 344145917,
+            "serialize_ns": 2568417,
+            "process_peak_rss_bytes": 15597568
+          },
+          "encoding": {
+            "artifact_load_ns": 4742041,
+            "artifact_read_ns": 94791,
+            "cached_readback_ns": 78375,
+            "encode_allocated_bytes": [
+              10873648,
+              10868552,
+              10868328
+            ],
+            "encode_ns": [
+              194979042,
+              191191667,
+              196295917
+            ],
+            "go_version": "go1.27.3",
+            "method": "paper",
+            "output_bytes": 65536,
+            "output_sha256": "0f049a254e9da9413c1a12ec8cf57a761b61357feba536070fe0cb28631ba4bf",
+            "packed_sha256": "6fd09a871360f336b2a8582f2c6ff5be332faa2eaf4f9467a64a287ec4bcdab9",
+            "packing_ns": 43416,
+            "write_sync_ns": 4864250,
+            "process_peak_rss_bytes": 13418496
+          },
+          "artifact_sha256": "9be8ebd2345ead99254232e61d5ac4eeb5126743c5bdd495849f9b101358ed44"
+        },
+        "new": {
+          "preparation": {
+            "artifact_bytes": 825542,
+            "basis_load_ns": 1446708,
+            "basis_read_ns": 64125,
+            "go_version": "go1.27.3",
+            "method": "paper",
+            "prepare_ns": 259558417,
+            "serialize_ns": 2270167,
+            "process_peak_rss_bytes": 15089664
+          },
+          "encoding": {
+            "artifact_load_ns": 5624750,
+            "artifact_read_ns": 106959,
+            "cached_readback_ns": 75875,
+            "encode_allocated_bytes": [
+              5033288,
+              5027888,
+              5022568
+            ],
+            "encode_ns": [
+              148052166,
+              146141500,
+              147442125
+            ],
+            "go_version": "go1.27.3",
+            "method": "paper",
+            "output_bytes": 65536,
+            "output_sha256": "0f049a254e9da9413c1a12ec8cf57a761b61357feba536070fe0cb28631ba4bf",
+            "packed_sha256": "6fd09a871360f336b2a8582f2c6ff5be332faa2eaf4f9467a64a287ec4bcdab9",
+            "packing_ns": 43459,
+            "write_sync_ns": 5415250,
+            "process_peak_rss_bytes": 12419072
+          },
+          "artifact_sha256": "9be8ebd2345ead99254232e61d5ac4eeb5126743c5bdd495849f9b101358ed44"
+        }
+      }
+    },
+    {
+      "s": 8,
+      "t": 8,
+      "m": 2,
+      "method": "cyclic-fft",
+      "backends": {
+        "old": {
+          "preparation": {
+            "artifact_bytes": 290972,
+            "basis_load_ns": 789667,
+            "basis_read_ns": 28708,
+            "go_version": "go1.27.3",
+            "method": "cyclic-fft",
+            "prepare_ns": 385528167,
+            "serialize_ns": 821000,
+            "process_peak_rss_bytes": 14204928
+          },
+          "encoding": {
+            "artifact_load_ns": 3956917,
+            "artifact_read_ns": 53292,
+            "cached_readback_ns": 62667,
+            "encode_allocated_bytes": [
+              2698272,
+              2698256,
+              2698288
+            ],
+            "encode_ns": [
+              75086750,
+              71364667,
+              71137375
+            ],
+            "go_version": "go1.27.3",
+            "method": "cyclic-fft",
+            "output_bytes": 65536,
+            "output_sha256": "0f049a254e9da9413c1a12ec8cf57a761b61357feba536070fe0cb28631ba4bf",
+            "packed_sha256": "6fd09a871360f336b2a8582f2c6ff5be332faa2eaf4f9467a64a287ec4bcdab9",
+            "packing_ns": 43583,
+            "write_sync_ns": 4369084,
+            "process_peak_rss_bytes": 11517952
+          },
+          "artifact_sha256": "82a5abdd9af18250ffca7ad77d14c7b3cf21959df2213b5373ebd8fa5be1d4f7"
+        },
+        "new": {
+          "preparation": {
+            "artifact_bytes": 290972,
+            "basis_load_ns": 724625,
+            "basis_read_ns": 28625,
+            "go_version": "go1.27.3",
+            "method": "cyclic-fft",
+            "prepare_ns": 442818667,
+            "serialize_ns": 1013750,
+            "process_peak_rss_bytes": 12861440
+          },
+          "encoding": {
+            "artifact_load_ns": 3659459,
+            "artifact_read_ns": 60375,
+            "cached_readback_ns": 87500,
+            "encode_allocated_bytes": [
+              1734432,
+              1739736,
+              1734432
+            ],
+            "encode_ns": [
+              70352667,
+              70902417,
+              73492125
+            ],
+            "go_version": "go1.27.3",
+            "method": "cyclic-fft",
+            "output_bytes": 65536,
+            "output_sha256": "0f049a254e9da9413c1a12ec8cf57a761b61357feba536070fe0cb28631ba4bf",
+            "packed_sha256": "6fd09a871360f336b2a8582f2c6ff5be332faa2eaf4f9467a64a287ec4bcdab9",
+            "packing_ns": 43458,
+            "write_sync_ns": 4372708,
+            "process_peak_rss_bytes": 12058624
+          },
+          "artifact_sha256": "82a5abdd9af18250ffca7ad77d14c7b3cf21959df2213b5373ebd8fa5be1d4f7"
+        }
+      }
+    },
+    {
+      "s": 9,
+      "t": 7,
+      "m": 2,
+      "method": "paper",
+      "backends": {
+        "new": {
+          "preparation": {
+            "artifact_bytes": 5408038,
+            "basis_load_ns": 2753709,
+            "basis_read_ns": 37000,
+            "go_version": "go1.27.3",
+            "method": "paper",
+            "prepare_ns": 3311096500,
+            "serialize_ns": 13535250,
+            "process_peak_rss_bytes": 51363840
+          },
+          "encoding": {
+            "artifact_load_ns": 28621000,
+            "artifact_read_ns": 658750,
+            "cached_readback_ns": 149625,
+            "encode_allocated_bytes": [
+              35628536,
+              35623408,
+              35623200
+            ],
+            "encode_ns": [
+              1544789500,
+              1545705000,
+              1529549541
+            ],
+            "go_version": "go1.27.3",
+            "method": "paper",
+            "output_bytes": 294912,
+            "output_sha256": "a58e9aa839e7a7557b46e3c1d20558d9b0dbf284fc5386a5f57883813d30e7c2",
+            "packed_sha256": "6699a2c9d71300ef806e539331da71b382f8714cf8c0b1ed7caf7261c08cd5d6",
+            "packing_ns": 194458,
+            "write_sync_ns": 4416834,
+            "process_peak_rss_bytes": 26263552
+          },
+          "artifact_sha256": "5ce725d8068d01d739caecc1f31ab43de8a905a11fa4585688238afec24563ba"
+        },
+        "old": {
+          "preparation": {
+            "artifact_bytes": 5408038,
+            "basis_load_ns": 2627791,
+            "basis_read_ns": 41416,
+            "go_version": "go1.27.3",
+            "method": "paper",
+            "prepare_ns": 8522677875,
+            "serialize_ns": 14075792,
+            "process_peak_rss_bytes": 48267264
+          },
+          "encoding": {
+            "artifact_load_ns": 26933334,
+            "artifact_read_ns": 518958,
+            "cached_readback_ns": 187875,
+            "encode_allocated_bytes": [
+              293352752,
+              293331216,
+              293337208
+            ],
+            "encode_ns": [
+              4143946333,
+              4111121125,
+              4260709459
+            ],
+            "go_version": "go1.27.3",
+            "method": "paper",
+            "output_bytes": 294912,
+            "output_sha256": "a58e9aa839e7a7557b46e3c1d20558d9b0dbf284fc5386a5f57883813d30e7c2",
+            "packed_sha256": "6699a2c9d71300ef806e539331da71b382f8714cf8c0b1ed7caf7261c08cd5d6",
+            "packing_ns": 210542,
+            "write_sync_ns": 4025208,
+            "process_peak_rss_bytes": 27475968
+          },
+          "artifact_sha256": "5ce725d8068d01d739caecc1f31ab43de8a905a11fa4585688238afec24563ba"
+        }
+      }
+    },
+    {
+      "s": 9,
+      "t": 7,
+      "m": 2,
+      "method": "cyclic-fft",
+      "backends": {
+        "new": {
+          "preparation": {
+            "artifact_bytes": 1232967,
+            "basis_load_ns": 2804625,
+            "basis_read_ns": 33959,
+            "go_version": "go1.27.3",
+            "method": "cyclic-fft",
+            "prepare_ns": 3409636542,
+            "serialize_ns": 3843875,
+            "process_peak_rss_bytes": 26443776
+          },
+          "encoding": {
+            "artifact_load_ns": 13330458,
+            "artifact_read_ns": 125084,
+            "cached_readback_ns": 159917,
+            "encode_allocated_bytes": [
+              22397496,
+              22392080,
+              22392176
+            ],
+            "encode_ns": [
+              429600375,
+              443453166,
+              430430041
+            ],
+            "go_version": "go1.27.3",
+            "method": "cyclic-fft",
+            "output_bytes": 294912,
+            "output_sha256": "a58e9aa839e7a7557b46e3c1d20558d9b0dbf284fc5386a5f57883813d30e7c2",
+            "packed_sha256": "6699a2c9d71300ef806e539331da71b382f8714cf8c0b1ed7caf7261c08cd5d6",
+            "packing_ns": 201084,
+            "write_sync_ns": 6566250,
+            "process_peak_rss_bytes": 17661952
+          },
+          "artifact_sha256": "d9f204f60ed8ae75233e80f9225eef95b1a028385767b2d8244db0c4f9f028fc"
+        },
+        "old": {
+          "preparation": {
+            "artifact_bytes": 1232967,
+            "basis_load_ns": 2552084,
+            "basis_read_ns": 37792,
+            "go_version": "go1.27.3",
+            "method": "cyclic-fft",
+            "prepare_ns": 3904108250,
+            "serialize_ns": 3451875,
+            "process_peak_rss_bytes": 35667968
+          },
+          "encoding": {
+            "artifact_load_ns": 13331500,
+            "artifact_read_ns": 119667,
+            "cached_readback_ns": 164959,
+            "encode_allocated_bytes": [
+              62050432,
+              62039408,
+              62039744
+            ],
+            "encode_ns": [
+              491471833,
+              489916167,
+              490448917
+            ],
+            "go_version": "go1.27.3",
+            "method": "cyclic-fft",
+            "output_bytes": 294912,
+            "output_sha256": "a58e9aa839e7a7557b46e3c1d20558d9b0dbf284fc5386a5f57883813d30e7c2",
+            "packed_sha256": "6699a2c9d71300ef806e539331da71b382f8714cf8c0b1ed7caf7261c08cd5d6",
+            "packing_ns": 200708,
+            "write_sync_ns": 6484125,
+            "process_peak_rss_bytes": 18726912
+          },
+          "artifact_sha256": "d9f204f60ed8ae75233e80f9225eef95b1a028385767b2d8244db0c4f9f028fc"
+        }
+      }
+    }
+  ],
+  "input_sha256": {
+    "experiments/tablefree-encoding/artifacts/s08-m2-t8-basis.json": "8c7a5dff25c053756a913fd8f65067ce5423147a7e365fdb8538231301add8fa",
+    "experiments/tablefree-encoding/artifacts/s08-m2-t8-cyclic-fft.json": "82a5abdd9af18250ffca7ad77d14c7b3cf21959df2213b5373ebd8fa5be1d4f7",
+    "experiments/tablefree-encoding/artifacts/s08-m2-t8-paper.json": "9be8ebd2345ead99254232e61d5ac4eeb5126743c5bdd495849f9b101358ed44",
+    "experiments/tablefree-encoding/artifacts/s09-m2-t7-basis.json": "5b818845a23d3b9106562c42bd4ff6a03912207e37184a163ea6ac92d807ed19",
+    "experiments/tablefree-encoding/artifacts/s09-m2-t7-cyclic-fft.json": "d9f204f60ed8ae75233e80f9225eef95b1a028385767b2d8244db0c4f9f028fc",
+    "experiments/tablefree-encoding/artifacts/s09-m2-t7-paper.json": "5ce725d8068d01d739caecc1f31ab43de8a905a11fa4585688238afec24563ba"
+  },
+  "kernels_sha256": "4da9df20adb2176a841c921539db3877873d65d3699fa8b1993e51d036b8ae22",
+  "source_sha256": {
+    "encoding/liftrs/binary_field.go": "e58ef0cb377b091c9ca895f518f64fee5622b65255d945db483248db879f371f",
+    "encoding/liftrs/binary_field_example_test.go": "ebe64131fda2352f8cc21c213ccf868836b30ca5f068c914250ca55d5dee3962",
+    "encoding/liftrs/binary_field_test.go": "996838d45b0f2ec11d9732191a74bb4a5874b95a72496a98ffd8d53f1f8e39e8",
+    "encoding/liftrs/example_test.go": "7d0272b0ae860e856fc0f55c81ed5e1fbb08fbe5e12f2660ffe8c97ba8a29112",
+    "encoding/liftrs/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+    "encoding/liftrs/orbit.go": "c24b672eb952656d0c31c19445e67b64e4ccfee63686a536c3ef5eea9c6b9b1c",
+    "encoding/liftrs/orbit_arithmetic.go": "d2cfce74f29e5822eb5a12765d663fc23f7c537d64d1848bdc1f21eb483b597e",
+    "encoding/liftrs/orbit_artifact.go": "05928e8eedc2c8ba84f479c3712ef3969c8119c69165d7d41db7960341a6dea3",
+    "encoding/liftrs/orbit_example_test.go": "ccadd8a9a724c9c756d36baf6638094a2e5ac985c2abd65267a0c82abd0ad7bf",
+    "encoding/liftrs/orbit_fft.go": "836a97ecdc7c1a000f7f126209b236f89121aa12326e9b39b2a3bb29c083e021",
+    "encoding/liftrs/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+    "encoding/liftrs/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+    "encoding/liftrs/orbit_product_test.go": "c675c0dedba16763c3cf64c9a79e372e9698ec4b2c5a273d2883179b513ba3e7",
+    "encoding/liftrs/orbit_test.go": "565427527d884b54d7de436fa87c922f59af6420ec0ea7ab65ccdaeef758162a",
+    "encoding/liftrs/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+    "experiments/fast-polynomial/run.py": "ab1e308e9bde6cc9f530689200b3d3d08ca96d91aef056fcd03ef6d3bfd4d2ed",
+    "experiments/tablefree-encoding/main.go": "6b3a9a0ea256c518ba5319973e799370d877e985848f7c639b0a2a2e9ace2dda",
+    "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
+    "go.sum": "6b5b9bf04b57c04dc22dc13596e0c5862856f95c24ca23931bb0545736f6ef76"
+  }
+}

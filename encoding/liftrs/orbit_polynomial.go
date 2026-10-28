@@ -1,7 +1,7 @@
 package liftrs
 
-// Polynomial coefficients are in ascending order. Karatsuba multiplication and
-// Newton series inversion avoid quadratic division in the Vandermonde solver.
+// Polynomial coefficients are in ascending order. Hybrid additive-FFT/Karatsuba
+// products and Newton inversion support the Vandermonde solver.
 // These bounded implementations allocate temporary slices, not external storage.
 func polyTrim(a []uint32) []uint32 {
 	for len(a) > 0 && a[len(a)-1] == 0 {
@@ -10,28 +10,7 @@ func polyTrim(a []uint32) []uint32 {
 	return a
 }
 func polyMul(f orbitField, a, b []uint32) []uint32 {
-	if len(a) == 0 || len(b) == 0 {
-		return nil
-	}
-	if len(a) < 24 || len(b) < 24 {
-		c := make([]uint32, len(a)+len(b)-1)
-		for i, x := range a {
-			if x != 0 {
-				for j, y := range b {
-					c[i+j] ^= f.mul(x, y)
-				}
-			}
-		}
-		return c
-	}
-	n := 1
-	for n < len(a) || n < len(b) {
-		n *= 2
-	}
-	x, y := make([]uint32, n), make([]uint32, n)
-	copy(x, a)
-	copy(y, b)
-	return karatsuba(f, x, y)[:len(a)+len(b)-1]
+	return polyMulLow(f, a, b, len(a)+len(b)-1)
 }
 func karatsuba(f orbitField, a, b []uint32) []uint32 {
 	n := len(a)
@@ -78,7 +57,7 @@ func polyInverse(f orbitField, a []uint32, n int) []uint32 {
 		for i, x := range g {
 			square[2*i] = f.mul(x, x)
 		}
-		next := polyMul(f, aa, square)
+		next := polyMulLow(f, aa, square, size)
 		g = make([]uint32, size)
 		copy(g, next)
 	}
@@ -99,7 +78,7 @@ func polyDiv(f orbitField, a, b []uint32) (quotient, remainder []uint32) {
 	n := len(a) - len(b) + 1
 	ar := polyReverse(a, len(a))
 	br := polyReverse(b, len(b))
-	quotient = polyMul(f, ar[:n], polyInverse(f, br, n))
+	quotient = polyMulLow(f, ar[:n], polyInverse(f, br, n), n)
 	quotient = polyReverse(quotient[:n], n)
 	product := polyMul(f, quotient, b)
 	remainder = append([]uint32(nil), a...)
@@ -165,7 +144,7 @@ func (t *productTree) remainder(f orbitField, p []uint32) []uint32 {
 	}
 	n := len(p) - len(t.polynomial) + 1
 	rev := polyReverse(p, len(p))
-	q := polyMul(f, rev[:n], t.reciprocal[:n])
+	q := polyMulLow(f, rev[:n], t.reciprocal[:n], n)
 	q = polyReverse(q[:n], n)
 	product := polyMul(f, q, t.polynomial)
 	r := append([]uint32(nil), p...)

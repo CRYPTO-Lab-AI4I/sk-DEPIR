@@ -8,6 +8,7 @@ type orbitField struct {
 	q         uint32
 	base      BinaryField
 	extension *QuadraticField
+	products  *polynomialProducts
 }
 
 func (f orbitField) mul(a, b uint32) uint32 {

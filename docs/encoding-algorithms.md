@@ -204,14 +204,20 @@ base-field elements instead of indexing log/exp tables of size `2^(2s)`.
 Use carryless multiplication and reduction; profile before adding CPU-specific
 kernels. Field arithmetic support alone does not enable encoding a full instance.
 
-The current cached-FFT encoder accelerates only `G*H`; computing
-`H=(P*M) mod X^K` still uses Karatsuba. Its full encoding bound is
-`O(M(K)+N log² N)`, with `M(K)=O(K^log2(3))` today. The paper solver also uses
-Karatsuba in its product-tree arithmetic. Implement and verify fast truncated
-multiplication for the message-dependent prefix product, and fast general
-multiplication/division for reusable preprocessing and the paper baseline.
-Measure these operations separately before extrapolating whole-encoder runtime.
-Changing field arithmetic alone does not make either complete pipeline quasi-linear.
+The [hybrid polynomial backend](../encoding/liftrs/orbit_product.go) now provides
+full and low-coefficient products using additive FFTs for large balanced inputs,
+pruned Karatsuba for smaller ones, and blocking for unequal lengths. Newton series
+inversion and reciprocal-based division use these products. FFT domains must fit
+the complete local convolution, even when the caller requests only a prefix;
+higher coefficients must not alias into it. Products beyond one field-sized
+domain use overlap-add. Transform constants are reusable; per-call scratch is not.
+
+A local FFT product costs `O(n log² n)` extension-field operations, including
+monomial-basis conversion. The implementation returns truncated products but does
+not implement a specialized truncated transform. The paper solver still has its
+product/remainder-tree overhead, and neither full pipeline is established as the
+fastest possible encoder. Compare kernels and complete encoders separately using
+[the measured checkpoint](../experiments/fast-polynomial/report.md).
 
 The [s=9 CPU profiles](../experiments/encoder-profile/report.md) attribute about
 75% of cyclic encoding samples to FFTs and 18% to the prefix multiplication;
@@ -325,5 +331,6 @@ its transforms and polynomial scratch remain in memory. Existing s<=8 artifacts
 and complete output hashes are preserved, and s=9,t=7 has exact K=17200 with
 paper/cyclic agreement and sampled curve constraints. Table-free arithmetic is
 slower than the former tables on the measured small instance. This completes the
-arithmetic/s=9 part of Step 1, not fast truncated multiplication, compact binary
-artifacts, bounded-RAM encoding or GPU acceleration.
+arithmetic/s=9 part of Step 1. The later [polynomial-product checkpoint](../experiments/fast-polynomial/report.md)
+adds hybrid full/low products and validates unchanged artifacts and codewords.
+Compact binary artifacts, bounded-RAM encoding and GPU acceleration remain open.

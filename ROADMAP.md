@@ -36,7 +36,9 @@ The [bounded paper/cyclic encoder comparison](experiments/encoder-comparison/rep
 covers the paper information set and exact codeword equality through N=65,536.
 The [table-free s=9 checkpoint](experiments/tablefree-encoding/report.md) extends
 that backend through N=262,144, exact K=17,200, with fixed-size field arithmetic
-state and compatible earlier artifacts. Fast truncated multiplication remains open.
+state and compatible earlier artifacts. The [polynomial-product checkpoint](experiments/fast-polynomial/report.md)
+adds FFT multiplication and low-product dispatch while preserving those outputs;
+compact artifacts and larger-instance CPU measurements remain open.
 Reusable public preprocessing artifacts are separate from database encoding; these
 small artifacts can be distributed with generation evidence. This is not yet a
 large-instance streaming or GPU backend. The detailed

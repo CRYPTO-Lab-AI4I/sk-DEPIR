@@ -160,9 +160,10 @@ complete encoder artifacts to 32 MiB in this bounded backend.
 For the paper path, set `beta_i=omega^i` for support exponents i. A product-tree
 transposed-Vandermonde solve recovers the univariate coefficients; an additive FFT
 evaluates the full extension field. The cyclic path computes `H=(P*M) mod X^K`
-and `Y=G*H`, where `P*G=1+X^(N-1)`. `PrepareCyclic` uses base-field Karatsuba;
-`PrepareCyclicFFT` uses a cached extension-field transform for the large product.
-The latter is not a base-field-only multiplication implementation.
+and `Y=G*H`, where `P*G=1+X^(N-1)`. Polynomial products now use a hybrid
+[additive-FFT/Karatsuba backend](orbit_product.go); `PrepareCyclicFFT` additionally
+caches the fixed generator spectrum for the large `G*H` product. Both paths may
+use extension-field arithmetic internally, even for base-field coefficients.
 
 The extension uses `u^2=u+delta`, with delta the first polynomial-basis element
 of absolute trace one. The deterministic primitive generator is the first
@@ -173,9 +174,16 @@ K-entry coordinate table. No discrete logarithm is required. Both algorithms
 return the same word in canonical coordinate order, before permutation/masking.
 
 The FFT uses general binary subspace polynomials and costs `O(N log² N)` field
-operations, including monomial-basis conversion. Karatsuba multiplication costs
-`O(n^log2(3))`; this comparison does not implement the asymptotically best general
-polynomial multiplier. The backend is in memory and allocates scratch buffers;
+operations, including monomial-basis conversion. The product backend uses
+power-of-two subspaces sized for the full convolution, including when only a
+prefix is returned. Outputs beyond the available field domain use overlap-add
+chunks. Small products use Karatsuba, low products prune irrelevant recursive
+branches, and very unequal operands are split into balanced blocks. FFT work
+is `O(n log² n)` per padded local product; this is not a specialized truncated FFT
+or the asymptotically best known multiplier. Immutable transform data are reused;
+all database-dependent scratch is per call and excluded from public artifacts.
+The [comparison](../../experiments/fast-polynomial/report.md) records thresholds,
+correctness, allocation and whole-encoder effects. The backend remains in memory;
 there is no external-storage, streaming, GPU or constant-time implementation.
 It does not support s=10..20 or integrate automatically with application plans.
 Do not extrapolate the small comparison's speed or artifact sizes to those codes.

@@ -210,3 +210,7 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-28 11:31 | ENCODE-003 | Completed | [Encoder profiles recorded](2026-10-28-1131-codex-encode-003-completed.md) |
 | 2026-10-28 11:47 | PUBLISH-004 | Started | [Publish encoder profiling checkpoint](2026-10-28-1147-codex-publish-004-started.md) |
 | 2026-10-28 11:47 | PUBLISH-004 | Completed | [Publish encoder profiling checkpoint](2026-10-28-1147-codex-publish-004-completed.md) |
+| 2026-10-28 11:51 | ENCODE-004 | Started | [Fast polynomial products](2026-10-28-1151-codex-encode-004-started.md) |
+| 2026-10-28 12:04 | ENCODE-004 | Completed | [Fast polynomial products validated](2026-10-28-1204-codex-encode-004-completed.md) |
+| 2026-10-28 12:40 | PUBLISH-005 | Started | [Publish polynomial-product checkpoint](2026-10-28-1240-codex-publish-005-started.md) |
+| 2026-10-28 12:40 | PUBLISH-005 | Completed | [Polynomial-product checkpoint reviewed](2026-10-28-1240-codex-publish-005-completed.md) |

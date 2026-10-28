@@ -117,7 +117,12 @@ func DiscoverOrbit(spec Spec, options OrbitOptions) (*OrbitBasis, error) {
 }
 func newOrbitBasis(spec Spec, polynomial uint32) *OrbitBasis {
 	base, extension, delta, omega := orbitFields(spec.FieldDegree, polynomial)
-	return &OrbitBasis{spec: spec, polynomial: polynomial, base: base, extension: extension, delta: delta, omega: omega, baseFFT: newAdditiveTransform(base), extensionFFT: newAdditiveTransform(extension)}
+	fft := newAdditiveTransform(extension)
+	// The same extension transform multiplies base-field polynomials without
+	// changing their coefficients or the serialized public artifact.
+	base.products = &polynomialProducts{transform: fft, cutoff: 32768}
+	extension.products = &polynomialProducts{transform: fft, cutoff: 1024}
+	return &OrbitBasis{spec: spec, polynomial: polynomial, base: base, extension: extension, delta: delta, omega: omega, baseFFT: newAdditiveTransform(base), extensionFFT: fft}
 }
 func (b *OrbitBasis) validateSupport() error {
 	n := int(b.extension.q) - 1
@@ -214,7 +219,7 @@ func (e *PaperEncoder) Encode(message []uint32) ([]uint32, error) {
 		return nil, err
 	}
 	k := b.Dimension()
-	h := polyMul(b.extension, e.p, message)[:k]
+	h := polyMulLow(b.extension, e.p, message, k)
 	coefficients := make([]uint32, k)
 	e.tree.evaluate(b.extension, h, coefficients)
 	word := make([]uint32, b.Length())
@@ -271,7 +276,7 @@ func (e *CyclicEncoder) Encode(message []uint32) ([]uint32, error) {
 	if err := b.validateMessage(message); err != nil {
 		return nil, err
 	}
-	h := polyMul(b.base, e.p, message)[:b.Dimension()]
+	h := polyMulLow(b.base, e.p, message, b.Dimension())
 	var y []uint32
 	if len(e.spectrum) == 0 {
 		y = polyMul(b.base, e.g, h)
@@ -344,11 +349,10 @@ func LoadOrbit(data []byte) (*OrbitBasis, error) {
 }
 
 // PrepareCyclicFFT additionally caches the fixed generator's additive transform.
-// Encode then multiplies using two transforms and pointwise products, rather
-// than Karatsuba. The extension-field multiplication backend is explicit: it
-// sacrifices the base-field-only implementation to make the G*H product
-// O(N log² N). H=(P*M) mod X^K still uses Karatsuba: complete encoding costs
-// O(M(K)+N log² N), with M(K)=O(K^log2(3)) in this backend.
+// Encode multiplies G*H using two transforms and pointwise extension products,
+// with O(N log² N) arithmetic including monomial-basis conversion. The prefix
+// H=(P*M) mod X^K uses the hybrid low-product backend: pruned Karatsuba below
+// its cutoff, additive-FFT products above it. No message spectrum is cached.
 // The public artifact grows by N extension-field elements, reused for all databases.
 func (b *OrbitBasis) PrepareCyclicFFT() (*CyclicEncoder, error) {
 	e, err := b.PrepareCyclic()
