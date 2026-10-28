@@ -225,3 +225,9 @@ spectra in those artifacts where their size is practical. Report discovery,
 method preparation, serialization and process-local loading separately from
 per-database encoding. No published size budget is established for the large
 catalogue configurations; do not assume a full matrix or spectrum fits that budget.
+
+The [five-step implementation plan](encoding-algorithms.md#6-five-step-implementation-plan)
+specifies arithmetic, compact artifacts, moderate-instance CPU checks, bounded-RAM
+encoding and optional GPU acceleration, with acceptance criteria for each stage.
+Its proposed 64 MiB publication budget is configurable and distinct from local
+working-memory or disk limits. It does not change current backend support.

@@ -183,3 +183,95 @@ Next, expand the comparison and memory/I/O design before selecting a large-insta
 backend. Reusable public artifacts already separate code-only constants from each
 database. The current in-memory sizes, three-repeat CPU timings and small-file
 output checks do not establish s=9..20, external-storage or GPU feasibility.
+
+## 6. Five-step implementation plan
+
+Prioritize the cached-FFT cyclic encoder for further development, retaining the
+paper encoder as a correctness and performance baseline. Keep the same information
+set, field conventions and codeword outputs. The following steps are planned,
+not implemented support for the larger configurations. Complete the CPU and
+moderate-instance checkpoints first; external-memory and GPU work are later stages,
+subject to the [roadmap's scope and TRL gates](../ROADMAP.md).
+
+### Step 1: Remove full-extension-field arithmetic tables
+
+Implement portable polynomial-basis arithmetic for every `GF(2^s)`, `s=8..20`,
+using uint32 base-field elements. Represent the quadratic extension by two
+base-field elements instead of indexing log/exp tables of size `2^(2s)`.
+Use carryless multiplication and reduction; profile before adding CPU-specific
+kernels. Field arithmetic support alone does not enable encoding a full instance.
+
+**Acceptance:** exhaustive small-field and randomized larger-field checks,
+unchanged encoder outputs, and arithmetic storage that does not grow with the
+extension-field cardinality. The first encoding checkpoint is `s=9`, using its
+catalogue curve degree, after arithmetic passes these checks.
+
+### Step 2: Define compact, reusable public preprocessing artifacts
+
+Separate the artifacts by responsibility:
+
+| Layer | Contents | Distribution |
+|---|---|---|
+| Code description | Field polynomials, extension construction, coordinate map, primitive generator, exact dimension and algorithm version | Small public artifact |
+| Reusable auxiliary data | Transform constants, compact support descriptions and selected polynomial data | Publish when reasonably sized |
+| Large acceleration caches | Full polynomials, product trees or generator spectra | Optional local files, generated once and reused |
+
+Use a configurable publication-size budget; **64 MiB per configuration is a
+proposed initial default**, not an existing limit or requirement. Exceeding the
+budget changes what is cached or distributed, rather than making the code
+ineligible for encoding. Distinguish publication size from local RAM/disk budgets.
+
+Exploit the paper's weight-based monomial classification for exact dimension and
+support construction. Investigate compact support representations without assuming
+that the full degree set compresses well. Catalogue capacity estimates cannot
+replace exact dimensions in preprocessing. Keep all code-only work outside
+per-database encoding and amortize it across databases sharing that code.
+
+**Acceptance:** versioned artifacts with reproducible generation commands,
+checksums, code specifications and verification evidence. Report generation,
+method preparation and loading costs separately from encoding; document which
+auxiliary data are loaded, reconstructed or optionally cached.
+
+### Step 3: Scale the in-memory CPU encoder through s=9..12
+
+Advance one catalogue configuration at a time. Replace JSON numerical arrays
+with a documented binary artifact format, reuse scratch buffers and limit
+simultaneous allocations. Compare caching the generator spectrum with recomputing
+it, recording the change in artifact size, setup and per-database cost explicitly.
+Compare with the paper path where feasible, without conflating different
+preprocessing boundaries.
+
+**Acceptance:** exact agreement of codewords and systematic positions, verified
+capacities, and reproducible measurements of discovery, preparation, artifact
+loading, encoding, output I/O, peak memory and artifact size. These measurements
+choose the next backend; do not infer target-scale feasibility from operation
+counts alone.
+
+### Step 4: Implement encoding with bounded RAM
+
+Introduce a configurable memory budget and disk-backed working arrays. Specify
+block schedules for transforms, polynomial multiplication and coordinate
+reordering, including preprocessing artifacts. Memory-mapping existing arrays
+alone is not an external-memory algorithm; count temporary disk space and bytes
+read/written. Preserve the separation from permutation/masking and the eventual
+grouped storage layout, so later integration does not require a full in-memory
+codeword.
+
+**Acceptance:** a case exceeding the RAM budget completes correctly with measured
+peak memory and disk traffic. First force external-memory paths using an
+artificially small budget on manageable instances and compare their outputs with
+the in-memory backend. Large-instance runs follow only after that check.
+
+### Step 5: Add optional GPU acceleration where justified
+
+Keep code descriptions, artifacts and outputs compatible with the CPU path.
+Accelerate arithmetic batches and transform blocks, transferring sufficiently
+large blocks to amortize overhead. Preserve the portable CPU implementation;
+select the GPU boundary based on profiling rather than assuming that every stage
+benefits. GPU processing is confined to preprocessing/encoding, not required for
+client retrieval or storage reads.
+
+**Acceptance:** identical CPU/GPU outputs and an end-to-end improvement including
+transfers, setup and memory requirements, with preprocessing reuse stated. Kernel
+speed alone is insufficient. Do not commit to terabyte-scale runtime or publish
+large acceleration caches before the earlier checkpoints establish their costs.

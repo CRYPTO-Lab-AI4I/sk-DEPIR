@@ -194,3 +194,6 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-27 09:26 | ENCODE-001 | Completed | [Paper/cyclic encoders and public preprocessing artifacts verified](2026-10-27-0926-codex-encode-001-completed.md) |
 | 2026-10-28 09:09 | PUBLISH-001 | Started | [Publish encoder checkpoint](2026-10-28-0909-codex-publish-001-started.md) |
 | 2026-10-28 09:09 | PUBLISH-001 | Completed | [Encoder checkpoint reviewed for publication](2026-10-28-0909-codex-publish-001-completed.md) |
+| 2026-10-28 09:11 | DOC-053 | Started | [Record five-step encoder scaling plan](2026-10-28-0911-codex-doc-053-started.md) |
+| 2026-10-28 09:11 | DOC-053 | Completed | [Five-step encoder plan documented](2026-10-28-0911-codex-doc-053-completed.md) |
+| 2026-10-28 09:22 | REVIEW-001 | Started | [Publish plan and audit implementation claims](2026-10-28-0922-codex-review-001-started.md) |

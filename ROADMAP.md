@@ -36,7 +36,12 @@ The [bounded paper/cyclic encoder comparison](experiments/encoder-comparison/rep
 now covers the paper information set and exact codeword equality through N=65,536.
 Reusable public preprocessing artifacts are separate from database encoding; these
 small artifacts can be distributed with generation evidence. This is not yet a
-large-instance streaming or GPU backend.
+large-instance streaming or GPU backend. The detailed
+[five-step encoder plan](docs/encoding-algorithms.md#6-five-step-implementation-plan)
+starts with table-free extension arithmetic and an s=9 encoding checkpoint, then
+compact public artifacts and CPU measurements through s=12. Bounded-RAM encoding
+and optional GPU acceleration are subsequent stages subject to this roadmap's
+TRL gates; this plan does not declare TRL 6 achieved or automatically expand scope.
 
 A complete planner or broad benchmark campaign must not delay the reference
 encoder. Small-instance validation does not establish large-instance resource
