@@ -110,7 +110,7 @@ There are two preprocessing routes to compare:
   rather than accepting a larger-degree gcd. This reasoning requires the exact
   code space and independent uniform samples, not estimated K or sparse samples.
 
-The D-based route accepts an experimental m=2,s=2..13 range, with completed catalogue measurements through s=12 and checked against the
+The D-based route accepts an experimental m=2,s=2..13 range, with completed catalogue measurements through s=13 and checked against the
 paper path and dense oracle. The random-codeword gcd route is not implemented.
 Tests verify coordinate orientation, zero-coordinate extension and equality.
 The [current dense oracle](../encoding/liftrs/reference.go) chooses different
@@ -371,12 +371,13 @@ preparation, database encoding and validation/output are separate. Prepared
 constants stay in memory; this comparison does not wait for large-cache JSON
 serialization or measure its loading. The existing JSON limits remain 2/64 MiB.
 
-User policy admits cases when forecast discovery + preparation + one encoding is
+In that run, policy admitted cases when forecast discovery + preparation + one encoding was
 under one hour and forecast RAM fits 12 GiB, with a 1.5 safety factor. Forecasts
 are updated from the largest completed case. First use is 2.92 minutes at s=11
 and 13.00 minutes at s=12; peak process RSS is 0.26/1.19 GiB. The s=13 forecast
 exceeds the time policy and s>=14 also exceeds the RAM policy. Excluded cases are
-model estimates, not claims of impossibility. No s>=13 benchmark is claimed.
+model estimates, not claims of impossibility. That run did not benchmark s>=13;
+the later s=13 measurement below supersedes its exclusion for that configuration.
 
 The API's s<=13 bound permits resource-limited experiments; it is not a guarantee
 for arbitrary instances or large serialized caches. After this broader baseline,
@@ -401,3 +402,18 @@ not per-message scratch or new serialized fields. This keeps version-1 artifacts
 compatible. Table indices depend on symbols; no constant-time security claim is
 made. The report separates table setup, reusable preparation and encoding and
 records the resulting larger-instance admission decision.
+
+### Measured s=13 checkpoint
+
+The user clarified that one hour was a ballpark and authorized a two-hour
+whole-case timeout with the same 12 GiB observed Go-memory guard. The
+[s=13,m=2,t=5 benchmark](../experiments/cyclic-s13/report.md) completes exact
+discovery (K=11926435,N=67108864), reusable preparation and three encodings.
+Discovery takes 85.95 s, preparation 29.42 min and median encoding 185.15 s.
+First use is 33.94 min and whole-case peak RSS 5.34 GiB. All systematic symbols,
+16 independently evaluated actual curves and packed readback pass for the final
+output. This measures one codeword using in-memory caches, not application-plan
+execution, large-cache loading or larger paper-encoder performance. Historical
+one-hour policies and forecast results are preserved; current evidence reaches
+the adapter's s<=13 bound. Further scaling remains subject to resource measurement
+and the external-memory/GPU scope gate.

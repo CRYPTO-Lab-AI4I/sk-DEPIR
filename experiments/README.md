@@ -22,6 +22,19 @@ update its script, results, and report together, then post an update on the
 Do not put unreported measurements into the README. Link each new performance
 claim there to its experiment report.
 
+## Profiling and preprocessing retention
+
+During optimization, collect stage-specific CPU profiles and retain reusable
+preprocessing by default. A strong reason to omit either must be recorded in the
+report; disable profiling when optimization is complete. Keep reasonably sized
+local caches across runs, with code specifications, source revision/hashes,
+checksums, size and regeneration/load commands. Large caches belong outside Git.
+Check the project's machine budget before retaining them and document size-based
+omissions. Report discovery, reusable preparation, cache save/load and encoding
+separately. Profiled times include instrumentation overhead and must not silently
+replace unprofiled latency baselines. Historical scripts/results retain their
+original methodology; apply this policy to new optimization runs.
+
 ## Recorded experiments
 
 - [Bounded-sample parameters](bounded-sample-parameters/report.md): analytical
@@ -73,3 +86,6 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
 
 - [Portable field multiplication](field-multiplication/report.md): general-kernel
   comparison and bounded reusable FFT constant tables, with full cyclic scaling.
+
+- [s=13 cyclic benchmark](cyclic-s13/report.md): a two-hour case allowance with
+  separate discovery, reusable preprocessing, encoding and resource observations.

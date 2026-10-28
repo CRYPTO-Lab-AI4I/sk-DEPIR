@@ -254,9 +254,12 @@ The [s=10 checkpoint](../experiments/encoder-scaling/report.md) adds exact K=103
 with reusable JSON artifacts, paper/cyclic comparisons and separate memory/output
 measurements. The [progressive cyclic measurements](../experiments/cyclic-scaling/report.md) now
 verify the s=11/12 catalogue cases in memory, with exact capacities K=455434 and
-K=1965739. The s=13 experimental bound is not a completed benchmark; s>=13
-resource/correctness checkpoints remain open. Large caches were not serialized,
-and current JSON loader byte caps remain separate limitations.
+K=1965739. The subsequent [s=13 measurement](../experiments/cyclic-s13/report.md)
+adds exact K=11926435, 29.42 min reusable preparation, 185.15 s median encoding
+and 5.34 GiB peak process RSS. It uses a two-hour timeout; one hour is a ballpark,
+not a hard first-use limit. The s>=14 resource/correctness checkpoints remain
+open. Large caches were not serialized, and current JSON loader byte caps remain
+separate limitations.
 
 The bounded CPU backend now caches four-bit multiplication maps for repeated FFT
 constants, with at most 256 KiB of table entries per transform. Construction is
@@ -265,3 +268,12 @@ reuses the immutable tables. They do not change the field representation,
 information set or version-1 serialized artifacts. The
 [multiplication comparison](../experiments/field-multiplication/report.md)
 separates setup, encoding and memory; table indexing is not constant-time.
+
+
+During optimization, [experiment policy](../experiments/README.md#profiling-and-preprocessing-retention)
+requires stage-specific CPU profiles and retention of reasonably sized reusable
+preprocessing by default. Persist local caches with specifications/provenance and
+checksums so later encoding profiles do not require repeating preparation. Keep
+large caches outside Git, account for machine resources, and record exceptions.
+Cache save/load is separate from encoding; profiled times remain distinct from
+unprofiled baselines. Disable profiling once optimization is complete.

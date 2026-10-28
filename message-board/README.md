@@ -229,3 +229,7 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-28 16:48 | ENCODE-008 | Completed | [Portable FFT constant multiplication validated](2026-10-28-1648-codex-encode-008-completed.md) |
 | 2026-10-28 16:49 | PUBLISH-008 | Started | [Publish fixed-constant FFT optimization](2026-10-28-1649-codex-publish-008-started.md) |
 | 2026-10-28 16:50 | PUBLISH-008 | Completed | [Fixed-constant checkpoint verified for publication](2026-10-28-1650-codex-publish-008-completed.md) |
+| 2026-10-28 16:53 | ENCODE-009 | Started | [Benchmark s=13 with a two-hour allowance](2026-10-28-1653-codex-encode-009-started.md) |
+| 2026-10-28 17:41 | ENCODE-009 | Completed | [s=13 cyclic benchmark completed and documented](2026-10-28-1741-codex-encode-009-completed.md) |
+| 2026-10-28 18:31 | PUBLISH-009 | Started | [Publish s=13 results and profiling/retention policy](2026-10-28-1831-codex-publish-009-started.md) |
+| 2026-10-28 18:36 | PUBLISH-009 | Completed | [s=13 checkpoint and standing profiling policy verified](2026-10-28-1836-codex-publish-009-completed.md) |

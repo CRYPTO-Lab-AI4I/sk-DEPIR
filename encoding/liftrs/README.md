@@ -118,6 +118,12 @@ this input-size cap is separate from any publication or working-memory budget.
 cover s=11,t=6 and s=12,t=6 with exact K=455434 and K=1965739. They reuse prepared
 constants in memory; existing basis/complete JSON loader caps remain 2/64 MiB and
 may reject larger serialized caches. No larger paper comparison is claimed.
+The [s=13 cyclic benchmark](../../experiments/cyclic-s13/report.md) adds exact
+K=11926435,N=67108864 at t=5, with three encodings and final-output systematic,
+independent-curve and packed-readback checks. First use is 33.94 min, preparation
+29.42 min and median encoding 185.15 s, with 5.34 GiB whole-case peak RSS.
+It uses a two-hour case timeout and the same memory guard; large-cache JSON loading
+is still unmeasured.
 
 ### Reusable preprocessing and database encoding
 
@@ -195,7 +201,7 @@ correctness, allocation and whole-encoder effects. The backend remains in memory
 there is no external-storage, streaming, GPU or constant-time implementation.
 The accepted s<=13 range supports resource-limited experiments, not a guarantee
 that every code or serialized cache fits RAM or loader limits. Completed catalogue
-benchmarks cover cyclic s=8..12; s=13..20 resource feasibility and automatic
+benchmarks cover cyclic s=8..13; s=14..20 resource feasibility and automatic
 application-plan integration remain unverified.
 Do not extrapolate the small comparison's speed or artifact sizes to those codes.
 
@@ -219,7 +225,7 @@ Arithmetic contains no log/exp table or cardinality-sized allocation. Its field
 state is fixed-size; multiplication is portable shift/XOR reduction. Operand
 addition/multiplication/power methods require canonical inputs; inverse validates
 its operand and rejects zero. These methods are not constant-time cryptographic
-primitives. The public arithmetic does not imply full validated encoder support at s=13..20.
+primitives. The public arithmetic does not imply full validated encoder support at s=14..20.
 
 The bounded orbit adapter still uses uint32-packed extension coefficients and
 in-memory transforms, restricted to s<=13. It preserves version-1 artifact bytes,

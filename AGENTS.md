@@ -73,6 +73,18 @@ queries and responses. Keep agreed contracts distinct from implemented capabilit
    changing benchmark methodology silently; explain any change to measurement
    boundaries in the report and README.
 
+7. **Retain preprocessing and profiles during optimization.** Unless there is a
+   strong documented reason otherwise, enable CPU profiling and keep reusable
+   code-preprocessing data for later measurements. Persist reasonably sized local
+   caches with code specifications, source provenance and checksums so process
+   exit does not discard expensive setup. Keep large caches outside Git; link
+   their local location and regeneration command from the experiment report.
+   Respect this project's machine memory/storage budget and report any cache
+   omitted for size/resource reasons. Separate discovery, reusable preparation,
+   cache save/load and database encoding, and label profiled timings separately
+   from unprofiled latency baselines. Disable profiling only when optimization is
+   complete; document any earlier exception. Do not silently delete useful caches.
+
 ## Repository map
 
 - `pirconfig/`: JSON configuration catalogue, schema, and Go loading/validation.

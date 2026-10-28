@@ -359,17 +359,18 @@
     },
     {
       "id": "binary-s13-m2-t5",
-      "encoding_status": "candidate",
+      "encoding_status": "supported",
       "code": {
         "s": 13,
         "m": 2,
-        "t": 5
+        "t": 5,
+        "polynomial": 8219
       },
       "capacity": {
-        "status": "estimated",
+        "status": "verified",
         "n": 67108864,
-        "k": 11955914,
-        "rate": 0.1781570017337799,
+        "k": 11926435,
+        "rate": 0.17771773040294647,
         "evidence": [
           {
             "kind": "monte_carlo",
@@ -383,6 +384,13 @@
               "lower_rate": 0.1761741653215649,
               "upper_rate": 0.1801398346784351
             }
+          },
+          {
+            "kind": "encoding",
+            "reference": "experiments/cyclic-s13/report.md",
+            "script": "experiments/cyclic-s13/run.py",
+            "results": "experiments/cyclic-s13/results.json",
+            "method": "Complete monomial enumeration and support discovery give exact K=11926435,N=67108864 at s=13,m=2,t=5. In-memory cyclic preprocessing is reused across three encodings. The final output passes all systematic symbols, sampled public coordinate mappings and 16 independently evaluated actual curves; canonical/packed hashes and sync/readback are recorded. Two-hour whole-case timeout and 12 GiB Go-memory guard. No large paper comparison, JSON cache loading or application-plan integration."
           }
         ]
       },
@@ -402,6 +410,19 @@
             "reference": "experiments/bounded-sample-parameters/report.md",
             "script": "experiments/bounded-sample-parameters/run.py",
             "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      },
+      "encoder": {
+        "implementation": "encoding/liftrs/orbit.go: DiscoverOrbit, PrepareCyclicFFT (in-memory)",
+        "preprocessing": "Code-only exact support discovery and cached cyclic preparation reused across databases. In-memory benchmark with two-hour timeout and 12 GiB Go-memory guard. Existing JSON loader caps remain unchanged; large-cache serialization/loading and application-plan integration were not measured.",
+        "evidence": [
+          {
+            "kind": "encoding",
+            "reference": "experiments/cyclic-s13/report.md",
+            "script": "experiments/cyclic-s13/run.py",
+            "results": "experiments/cyclic-s13/results.json",
+            "method": "Complete monomial enumeration and support discovery give exact K=11926435,N=67108864 at s=13,m=2,t=5. In-memory cyclic preprocessing is reused across three encodings. The final output passes all systematic symbols, sampled public coordinate mappings and 16 independently evaluated actual curves; canonical/packed hashes and sync/readback are recorded. Two-hour whole-case timeout and 12 GiB Go-memory guard. No large paper comparison, JSON cache loading or application-plan integration."
           }
         ]
       }

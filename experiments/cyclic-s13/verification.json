@@ -1,0 +1,35 @@
+[
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "test",
+      "./pirconfig",
+      "./planner",
+      "-count=1"
+    ],
+    "isolated_copy": false,
+    "exit_code": 0,
+    "seconds": 1.327929125
+  },
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "vet",
+      "./pirconfig",
+      "./experiments/cyclic-scaling"
+    ],
+    "isolated_copy": false,
+    "exit_code": 0,
+    "seconds": 0.09244341700000014
+  },
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "test",
+      "./..."
+    ],
+    "isolated_copy": true,
+    "exit_code": 0,
+    "seconds": 11.84896975
+  }
+]

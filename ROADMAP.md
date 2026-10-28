@@ -44,7 +44,7 @@ small artifacts can be distributed with generation evidence. This is not yet a
 large-instance streaming or GPU backend. The detailed
 [five-step encoder plan](docs/encoding-algorithms.md#6-five-step-implementation-plan)
 starts with table-free extension arithmetic and an s=9 encoding checkpoint,
-then prioritizes CPU scaling measurements through s=12. Artifact-format cleanup
+then prioritizes CPU scaling measurements (now completed through s=13). Artifact-format cleanup
 is deferred unless size/loading costs obstruct those measurements. Bounded-RAM encoding
 and optional GPU acceleration are subsequent stages subject to this roadmap's
 TRL gates; this plan does not declare TRL 6 achieved or automatically expand scope.
@@ -201,7 +201,9 @@ with exact K=3121, K=17200 and K=103556. The [s=10 checkpoint](experiments/encod
 records separate preprocessing, encoding, heap sampling and packed output.
 The [progressive cyclic experiment](experiments/cyclic-scaling/report.md) adds exact
 s=11/12 capacities K=455434/1965739 and resource measurements with in-memory cache
-reuse. Experimental specifications may be accepted through s=13, but completed
-resource/correctness evidence stops at s=12; s=13..20 need further work;
-the small reference provides comparison vectors for that work. Small test fields
+reuse. The [s=13 experiment](experiments/cyclic-s13/report.md) adds exact K=11926435
+with in-memory cyclic encoding, first use of 33.94 min and 5.34 GiB peak RSS.
+The adapter remains limited to s<=13; s=14..20 need further work. Large serialized
+caches and automatic application-plan execution are still unverified; the small
+reference provides comparison vectors for that work. Small test fields
 do not inherit the catalogue's security claims.
