@@ -94,7 +94,7 @@ one explicit specification, including the data and key lifecycle.
 ### 2. Complete the correctness foundation
 
 - [x] Implement bounded generator-matrix preprocessing and systematic encoding,
-  with [independent tests](encoding/liftrs/reference_test.go) and
+  with [independent tests](encoding/liftrs-go/reference_test.go) and
   [online retrieval checks](pir/liftrs_reference_test.go).
 - [x] Add a bounded [cryptographic reference](encoding/cryptoref/README.md) and
   [retrieval tests](pir/cryptoref_test.go) using separate encoding keys and XOR masks.
@@ -186,7 +186,7 @@ sustained operational deployment require additional evidence beyond this target.
 
 ## Current starting point
 
-The repository has a bounded [Lift-RS reference encoder](encoding/liftrs/README.md)
+The repository has a bounded [Lift-RS reference encoder](encoding/liftrs-go/README.md)
 with independent tiny-instance tests and online retrieval integration. This implements
 code preprocessing and non-cryptographic encoding. The existing file-based API
 still uses its RM placeholder and the online client uses experimental randomness.

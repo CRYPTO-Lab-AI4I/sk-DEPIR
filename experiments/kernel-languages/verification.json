@@ -1,0 +1,61 @@
+[
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "test",
+      "./encoding/liftrs-go",
+      "./pirconfig",
+      "./planner",
+      "-count=1"
+    ],
+    "isolated_copy": false,
+    "exit_code": 0,
+    "seconds": 10.146771207999999
+  },
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "vet",
+      "./encoding/liftrs-go",
+      "./pirconfig",
+      "./planner"
+    ],
+    "isolated_copy": false,
+    "exit_code": 0,
+    "seconds": 0.13184345799999875
+  },
+  {
+    "command": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O1",
+      "-g",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/test.cpp",
+      "-o",
+      "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-language-checks-gx8uh29n/native-tests"
+    ],
+    "isolated_copy": false,
+    "exit_code": 0,
+    "seconds": 0.44874829100000113
+  },
+  {
+    "command": [
+      "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-language-checks-gx8uh29n/native-tests"
+    ],
+    "isolated_copy": false,
+    "exit_code": 0,
+    "seconds": 0.7286236670000008
+  },
+  {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "test",
+      "./..."
+    ],
+    "isolated_copy": true,
+    "exit_code": 0,
+    "seconds": 11.464145333
+  }
+]

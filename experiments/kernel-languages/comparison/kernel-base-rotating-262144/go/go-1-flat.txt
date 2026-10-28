@@ -1,0 +1,19 @@
+File: go-bench-comparison.test
+Type: cpu
+Time: 2026-10-28 21:34:56 CET
+Duration: 505.32ms, Total samples = 350ms (69.26%)
+Showing nodes accounting for 350ms, 100% of 350ms total
+      flat  flat%   sum%        cum   cum%
+     260ms 74.29% 74.29%      260ms 74.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.constantProduct.mul
+      80ms 22.86% 97.14%      340ms 97.14%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.languageKernel
+      10ms  2.86%   100%       10ms  2.86%  runtime.pthread_cond_signal
+         0     0%   100%      340ms 97.14%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.TestRunLanguageBench
+         0     0%   100%       10ms  2.86%  runtime.mcall
+         0     0%   100%       10ms  2.86%  runtime.notewakeup
+         0     0%   100%       10ms  2.86%  runtime.park_m
+         0     0%   100%       10ms  2.86%  runtime.resetspinning
+         0     0%   100%       10ms  2.86%  runtime.schedule
+         0     0%   100%       10ms  2.86%  runtime.semawakeup
+         0     0%   100%       10ms  2.86%  runtime.startm
+         0     0%   100%       10ms  2.86%  runtime.wakep
+         0     0%   100%      340ms 97.14%  testing.tRunner

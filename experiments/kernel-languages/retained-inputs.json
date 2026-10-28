@@ -1,0 +1,38 @@
+{
+  ".cache/liftrs/language-s13/transform.bin": {
+    "bytes": 131720,
+    "sha256": "e9600d50c4f1b71509c98b3d7bb16c97e8d461e1a304a27c9ba0948384221851"
+  },
+  ".cache/liftrs/language-s13/cpp-bench-comparison": {
+    "bytes": 61768,
+    "sha256": "6c6c8464ca4c905eb353d33b909f7c84ccbea1fb91e48d4f4ed13e0dc1ecadfb"
+  },
+  ".cache/liftrs/language-s13/export-go.pprof": {
+    "bytes": 9111,
+    "sha256": "285b2cefb2b03da7f9a2afe13790c65d2315baa463b82c4fe9a8748a29826b6b"
+  },
+  ".cache/liftrs/language-s13/go-bench.test": {
+    "bytes": 5860210,
+    "sha256": "81559a94882b78af370d381aef2780bc33a61e480c9d51df26bc9ad67e638bb0"
+  },
+  ".cache/liftrs/language-s13/go-bench-comparison.test": {
+    "bytes": 5860210,
+    "sha256": "81559a94882b78af370d381aef2780bc33a61e480c9d51df26bc9ad67e638bb0"
+  },
+  ".cache/liftrs/language-s13/extension.bin": {
+    "bytes": 16904452,
+    "sha256": "08d738cb0a3c5f0db12cab14a1415c52bf9753a3387c466696b966dfd5169e60"
+  },
+  ".cache/liftrs/language-s13/base.bin": {
+    "bytes": 16803892,
+    "sha256": "eac07319cdbcebbb798eee54cb45811d554d6c3e84a6309afd6a902c2052db26"
+  },
+  ".cache/liftrs/language-s13/transform-input.bin": {
+    "bytes": 268435456,
+    "sha256": "e4adc8ef8672fac15ca9480fbf9798ce7dd3c19235ea53f20dfc795c7060d3f9"
+  },
+  ".cache/liftrs/language-s13/cpp-bench": {
+    "bytes": 61752,
+    "sha256": "e7262738a3ed4df4655c717efd7acc936a2458ef03d7007a8da690dcad55ea44"
+  }
+}

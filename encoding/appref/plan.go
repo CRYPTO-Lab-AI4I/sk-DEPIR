@@ -8,7 +8,7 @@ import (
 	"fmt"
 
 	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/cryptoref"
-	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go"
 )
 
 // These bounds keep both application coverage checks and dense code fixtures

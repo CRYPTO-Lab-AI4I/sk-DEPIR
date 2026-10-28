@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/usr/bin/sample",
+    "66847",
+    "20",
+    "10",
+    "-mayDie",
+    "-file",
+    "experiments/kernel-languages/comparison/forward-extension-fixed-67108864/cpp/cpu-sample-external.txt"
+  ],
+  "profile_sha256": "d92fc27e388068fa7ec8e7c8c6ecbf2d122411692c8e843b39946d7779b2f772",
+  "target_binary": ".cache/liftrs/language-s13/cpp-bench-comparison",
+  "target_binary_sha256": "6c6c8464ca4c905eb353d33b909f7c84ccbea1fb91e48d4f4ed13e0dc1ecadfb",
+  "scope": "20-second diagnostic sample of own benchmark after sandbox task-inspection denial; subset of the native case, not all three timed calls",
+  "reproduction_script": "experiments/kernel-languages/profile-native.sh"
+}

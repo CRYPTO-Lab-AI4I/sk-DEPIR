@@ -25,7 +25,7 @@ preserved. There is no database generation or network dependency during the run.
 
 ## Algorithm and reusable information
 
-The [product backend](../../encoding/liftrs/orbit_product.go) uses the existing
+The [product backend](../../encoding/liftrs-go/orbit_product.go) uses the existing
 extension-field additive FFT on power-of-two binary subspaces. Forward-transform
 both polynomials, multiply their values and inverse-transform the result. Choose
 a domain large enough for the **entire local convolution**, even when returning
@@ -44,7 +44,7 @@ local choices are not claimed to be optimal for every field, input shape or CPU.
 For example, forced FFT beats automatic dispatch on the tested full base-field
 17200-by-17200 product, while pruned Karatsuba wins on its low half.
 
-[Encoder integration](../../encoding/liftrs/orbit.go) reuses immutable transform
+[Encoder integration](../../encoding/liftrs-go/orbit.go) reuses immutable transform
 constants already prepared/loaded with the code. Newton inversion, reversed
 quotient calculation and both encoders' prefixes use low products. The paper's
 product/remainder tree and cyclic generator construction use the full backend.
@@ -61,7 +61,7 @@ implementation or evidence of terabyte-scale encoding feasibility.
 
 ## Correctness and validation
 
-[New tests](../../encoding/liftrs/orbit_product_test.go) cover:
+[New tests](../../encoding/liftrs-go/orbit_product_test.go) cover:
 
 - Independent schoolbook convolution using carryless/tower arithmetic, including
   empty inputs, zeros, non-power-of-two lengths, partial/full outputs and unchanged
@@ -73,8 +73,8 @@ implementation or evidence of terabyte-scale encoding feasibility.
 - A forced-FFT paper/cyclic pipeline checked against the independent dense encoder
   on a small Lift-RS instance.
 
-Existing [dense-oracle and encoding tests](../../encoding/liftrs/orbit_test.go),
-[historical output/artifact and sampled-curve checks](../../encoding/liftrs/binary_field_test.go)
+Existing [dense-oracle and encoding tests](../../encoding/liftrs-go/orbit_test.go),
+[historical output/artifact and sampled-curve checks](../../encoding/liftrs-go/binary_field_test.go)
 remain in place. The experiment independently rebuilds the old and new implementations,
 reprepares both methods at s=8,t=8 and s=9,t=7, and requires byte-identical artifacts
 to the committed [checkpoint inputs](../tablefree-encoding/artifacts/). It checks
@@ -85,9 +85,9 @@ capacity or supported-size change is implied.
 Verification completed after the final measurements:
 
 ```sh
-go test ./encoding/liftrs -count=1
-go test -race ./encoding/liftrs ./pirconfig
-go vet ./encoding/liftrs ./pirconfig
+go test ./encoding/liftrs-go -count=1
+go test -race ./encoding/liftrs-go ./pirconfig
+go vet ./encoding/liftrs-go ./pirconfig
 go test ./...  # isolated repository copy: legacy tests write CSV files
 ```
 
@@ -112,7 +112,7 @@ output buffers; it is not isolated encoding workspace. Allocation totals are not
 peak live memory. No warmup, CPU affinity or cache flush is used. Run old then new
 at s=8 and new then old at s=9; the order is explicit but not randomized.
 
-Kernel benchmarks use [BenchmarkPolynomialKernels](../../encoding/liftrs/orbit_product_test.go):
+Kernel benchmarks use [BenchmarkPolynomialKernels](../../encoding/liftrs-go/orbit_product_test.go):
 base and extension coefficients, lengths 1024/4096/17200, full/low output, and old
 full-product-and-slice, pruned Karatsuba, forced FFT and automatic dispatch. Input
 seed 207 and immutable transform setup are outside timing. Run three single-call

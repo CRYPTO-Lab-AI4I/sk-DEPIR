@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Check s=13 provenance and generate a stage table, including partial runs."""
-import hashlib,json,statistics
+import hashlib,json,statistics,runpy
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];HERE=Path(__file__).resolve().parent
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 r=json.loads((HERE/'results.json').read_text())
-for name,h in r['source_sha256'].items():assert sha(ROOT/name)==h,name
+runpy.run_path(str(ROOT/'experiments/source_evidence.py'))['verify_sources'](ROOT,r['source_sha256'],r['revision'])
 for name in ['events','stderr','progress']:
  if name in r:assert sha(HERE/r[name])==r[name+'_sha256'],name
 lines=['# Cyclic encoding at s=13','','Status: '+r['status']+'. Times below are measured, not forecasts.','','| Stage | Time | Sampled peak heap | Sampled peak Go runtime |','|---|---:|---:|---:|']

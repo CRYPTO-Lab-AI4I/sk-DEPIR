@@ -6,12 +6,12 @@
 
 ## Implementation and documentation
 
-Added [liftrs.GoodMonomial](../encoding/liftrs/monomial.go): an exact binary-carry
+Added [liftrs.GoodMonomial](../encoding/liftrs-go/monomial.go): an exact binary-carry
 reformulation of the paper's monomial criterion, requiring `O(s*m*t)` time and
 constant space rather than a field-sized residue table. Supports `s=2..20`,
 `m=2..3` without field arithmetic or preprocessing. The original residue DP and
-small encoder limits remain unchanged. Added independent [comparison tests](../encoding/liftrs/monomial_test.go)
-and a public [example](../encoding/liftrs/example_test.go).
+small encoder limits remain unchanged. Added independent [comparison tests](../encoding/liftrs-go/monomial_test.go)
+and a public [example](../encoding/liftrs-go/example_test.go).
 
 Added the [pir-rate command](../cmd/pir-rate/main.go), [usage](../cmd/pir-rate/README.md),
 and [tests](../cmd/pir-rate/main_test.go). It samples reduced exponent tuples with
@@ -38,7 +38,7 @@ to check the recorded counts and current estimated status. All capacities remain
 estimated and target encoding remains unsupported.
 
 Updated the [root README](../README.md), [catalogue README](../pirconfig/README.md),
-[encoder package README](../encoding/liftrs/README.md), [planner document](../docs/parameter-planning.md),
+[encoder package README](../encoding/liftrs-go/README.md), [planner document](../docs/parameter-planning.md),
 [roadmap](../ROADMAP.md), [experiment index](../experiments/README.md), and
 [agent repository map](../AGENTS.md). README review is complete. No parameter or
 security profile changed; no layout evaluator or large-instance encoder was added.

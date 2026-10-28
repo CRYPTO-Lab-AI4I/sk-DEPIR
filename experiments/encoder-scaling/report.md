@@ -34,11 +34,11 @@ Monte Carlo point estimate K=103952 remains separate catalogue evidence; the
 exact rate is 0.09875869750976562, about 0.38% below that point capacity estimate.
 This is within the recorded sampling interval and is not a security estimate.
 
-The [orbit backend](../../encoding/liftrs/orbit.go) extends its degree bound from
+The [orbit backend](../../encoding/liftrs-go/orbit.go) extends its degree bound from
 9 to 10 with the existing fields, hybrid polynomial products and uint32 packed
 extension coordinates. No information-set ordering or mathematical encoding
 changed. Prepared artifact version 1 and JSON remain unchanged. The
-[complete-artifact loader](../../encoding/liftrs/orbit_artifact.go) cap increases
+[complete-artifact loader](../../encoding/liftrs-go/orbit_artifact.go) cap increases
 from 32 to **64 MiB** because the paper artifact occupies **35.74 MiB**. The basis
 cap remains 2 MiB. These input-size caps are separate from publication and RAM
 budgets; this is not a binary-format redesign.
@@ -106,7 +106,7 @@ For the distinct message seed 7310, [the verification driver](main.go) checks:
   using independent carryless convolution and polynomial long division. Their
   codeword-value sums are zero, as required for reduced degree at most 1022.
 
-The [fixture test](../../encoding/liftrs/s10_checkpoint_test.go) recounts all
+The [fixture test](../../encoding/liftrs-go/s10_checkpoint_test.go) recounts all
 1048576 monomials, encodes another message (seed 7311), checks all systematic
 positions and tests 16 more sampled curves using the independent arithmetic oracle.
 The [driver arithmetic test](main_test.go) compares 10000 random products with the
@@ -185,9 +185,9 @@ run discovery/preparation only, before attempting to load the oversized solver.
 Validation after measurements:
 
 ```sh
-go test ./encoding/liftrs ./pirconfig ./experiments/encoder-scaling ./experiments/tablefree-encoding -count=1
-go test -race ./encoding/liftrs ./pirconfig ./experiments/encoder-scaling ./experiments/tablefree-encoding
-go vet ./encoding/liftrs ./pirconfig ./experiments/encoder-scaling ./experiments/tablefree-encoding
+go test ./encoding/liftrs-go ./pirconfig ./experiments/encoder-scaling ./experiments/tablefree-encoding -count=1
+go test -race ./encoding/liftrs-go ./pirconfig ./experiments/encoder-scaling ./experiments/tablefree-encoding
+go vet ./encoding/liftrs-go ./pirconfig ./experiments/encoder-scaling ./experiments/tablefree-encoding
 go test ./...  # isolated repository copy: legacy tests write CSV files
 ```
 

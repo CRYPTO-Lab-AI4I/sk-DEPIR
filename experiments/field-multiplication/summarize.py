@@ -31,7 +31,7 @@ for case in current['cases']:
  enc=f'{before["encoding_s"]:.2f} → {case["encoding_s"]:.2f} s' if before else f'{case["encoding_s"]:.3f} s'
  speed=f'{before["encoding_s"]/case["encoding_s"]:.2f}×' if before else '—'
  lines.append(f'| {s} / {case["t"]} | {setup} | {enc} | {speed} | {first:.2f} min | {case["peak_bytes"]/2**30:.3f} |')
-for name,h in current['source_sha256'].items():assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==h,name
+runpy.run_path(str(ROOT/'experiments/source_evidence.py'))['verify_sources'](ROOT,current['source_sha256'],current['revision'])
 for case in current['cases']:assert hashlib.sha256((HERE/case['events']).read_bytes()).hexdigest()==case['events_sha256']
 assert len(current['cases'])==4,'full scaling run incomplete'
 model=runpy.run_path(str(ROOT/'experiments/cyclic-scaling/run.py'))['model']

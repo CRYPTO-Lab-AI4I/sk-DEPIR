@@ -88,7 +88,7 @@ encoding. Report whether encoding measurements reuse an existing artifact.
 
 ### Small reference encoder
 
-The bounded implementation is [encoding/liftrs](../encoding/liftrs/README.md).
+The bounded implementation is [encoding/liftrs-go](../encoding/liftrs-go/README.md).
 `Preprocess(Spec)` constructs reusable code data; `Code.Encode(message)` applies
 it to field elements. These are the first reference implementations of code preprocessing
 and non-cryptographic encoding, now used by the small application wrapper.
@@ -182,7 +182,7 @@ masking, and retrieval recover the original input. Use independent small vectors
 exhaustive small-instance retrieval checks. The existing
 `TestLiftedRSEndToEndWithGF2nCodeword` in [pir_api_test.go](../pir/pir_api_test.go)
 checks the online path on a directly evaluated codeword. The new
-[reference encoder tests](../encoding/liftrs/reference_test.go) check genuine
+[reference encoder tests](../encoding/liftrs-go/reference_test.go) check genuine
 systematic encoding; [online integration](../pir/liftrs_reference_test.go)
 retrieves every systematic position of a lifted codeword beyond RM. The RM-backed tests in
 [pir_test.go](../pir/pir_test.go) do not verify this Lift-RS encoder.
@@ -197,7 +197,7 @@ preprocessing and systematic encoding through interpolation and evaluation.
 **Reference implementation status:** the bounded dense method above is implemented
 and independently tested on tiny fields. It establishes the correctness baseline
 for future backends and wrapper integration. It does not implement the paper's
-fast encoder or support the initial `s=8..20` catalogue. The [bounded orbit backend](../encoding/liftrs/README.md#paper-and-cyclic-encoders)
+fast encoder or support the initial `s=8..20` catalogue. The [bounded orbit backend](../encoding/liftrs-go/README.md#paper-and-cyclic-encoders)
 now implements the paper's information set, certified random degree discovery and
 paper/cyclic encoding in an experimental m=2,s=2..13 range (N<=67,108,864). Its additive transforms, prepared
 public artifacts and method-specific constants are independently tested against
@@ -243,7 +243,7 @@ prove the artifact describes the intended code. Stage-specific memory and realis
 packed/grouped output measurements are required by the
 [CPU scaling checkpoint](encoding-algorithms.md#step-3-scale-the-in-memory-cpu-encoder-through-s912).
 
-The [table-free field API](../encoding/liftrs/README.md#table-free-field-arithmetic)
+The [table-free field API](../encoding/liftrs-go/README.md#table-free-field-arithmetic)
 now covers s=2..20 and quadratic extensions without cardinality-sized tables.
 The bounded encoder adapter separately remains limited to m=2,s<=13; its uint32
 packed coefficients and in-memory arrays must not be used for larger encodings.

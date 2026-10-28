@@ -6,21 +6,21 @@
 
 ## Implementation and separation
 
-Added the bounded [orbit API](../encoding/liftrs/orbit.go) for m=2, s=2..8,
+Added the bounded [orbit API](../encoding/liftrs-go/orbit.go) for m=2, s=2..8,
 N<=65,536. The stages are explicit: `DiscoverOrbit` uses code specifications and
 randomness only, `PreparePaper`/`PrepareCyclic`/`PrepareCyclicFFT` build code-only
 constants, loaders reconstruct process-local runtime state, and `Encode` takes
 only a database's message elements. The paper and cyclic paths share the paper's
 omega-power information set, exact dimension and output coordinates.
 
-[Arithmetic](../encoding/liftrs/orbit_arithmetic.go),
-[additive transforms](../encoding/liftrs/orbit_fft.go), and
-[polynomials](../encoding/liftrs/orbit_polynomial.go) implement the quadratic tower,
+[Arithmetic](../encoding/liftrs-go/orbit_arithmetic.go),
+[additive transforms](../encoding/liftrs-go/orbit_fft.go), and
+[polynomials](../encoding/liftrs-go/orbit_polynomial.go) implement the quadratic tower,
 general-basis FFT, Karatsuba, Newton division and cached transposed-Vandermonde
 solver. The cached-FFT cyclic variant also stores the fixed generator transform;
 no method repeats these preprocessing steps for each database.
 
-[Versioned artifacts](../encoding/liftrs/orbit_artifact.go) serialize all paper
+[Versioned artifacts](../encoding/liftrs-go/orbit_artifact.go) serialize all paper
 solver reciprocals/weights or cyclic P/G and optional generator spectrum.
 They are public code data, suitable for GitHub distribution with provenance.
 Structural validation does not certify untrusted artifact mathematics. Complete
@@ -29,11 +29,11 @@ The smaller basis-only format still requires method preparation.
 
 ## Evidence and documentation
 
-[Tests](../encoding/liftrs/orbit_test.go) check every message basis vector on eight
+[Tests](../encoding/liftrs-go/orbit_test.go) check every message basis vector on eight
 tiny codes against the independent dense oracle, randomized messages, exact
 paper/cyclic equality, transforms versus Horner, Karatsuba versus schoolbook,
 artifact round-trips, failures and concurrent reuse. A
-[runnable public example](../encoding/liftrs/orbit_example_test.go) covers published
+[runnable public example](../encoding/liftrs-go/orbit_example_test.go) covers published
 artifact loading and encoding.
 
 Created the [comparison experiment](../experiments/encoder-comparison/report.md),
@@ -50,7 +50,7 @@ CPU sample measured medians of 12.91 ms paper, 93.60 ms cyclic Karatsuba and
 8.90 ms cyclic cached FFT, with preprocessing excluded; setup is substantially
 more expensive for cyclic. These are three local samples, not a universal winner.
 
-Updated [README](../README.md), [package documentation](../encoding/liftrs/README.md),
+Updated [README](../README.md), [package documentation](../encoding/liftrs-go/README.md),
 [encoder contract](../docs/encoder-contract.md),
 [algorithm review](../docs/encoding-algorithms.md), [roadmap](../ROADMAP.md), and
 [experiment index](../experiments/README.md). README checked and changed for the

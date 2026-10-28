@@ -1,0 +1,200 @@
+{
+  "timestamp_utc": "2026-10-28T20:30:17.429915+00:00",
+  "revision": "0431f80867455162bd3021b82b8332e18577ff8f",
+  "source_sha256": {
+    "encoding/liftrs-go/binary_field.go": "e58ef0cb377b091c9ca895f518f64fee5622b65255d945db483248db879f371f",
+    "encoding/liftrs-go/binary_field_example_test.go": "d0f44b4854f1c540e601fc1a1a25fc0d0b65a37f3799c2a688c6a3a9e9fd74d0",
+    "encoding/liftrs-go/binary_field_test.go": "996838d45b0f2ec11d9732191a74bb4a5874b95a72496a98ffd8d53f1f8e39e8",
+    "encoding/liftrs-go/example_test.go": "aa0c7448b7fe5f6231fbab31a0fc921934ccbacc2aa8a63170a1bdd06085a5d6",
+    "encoding/liftrs-go/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs-go/language_bench_test.go": "d78132c6d95929d0134008fc4e86b0a2bea9da94e89e302f02e3c3cca39b1994",
+    "encoding/liftrs-go/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs-go/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+    "encoding/liftrs-go/orbit.go": "e1f3e29dcae40d1ed1e0ac44f06d0e77938340a5bc85ac430866cf7dc69f02ad",
+    "encoding/liftrs-go/orbit_arithmetic.go": "8393001b357403435b617b4a294d9c0c9ad22e13fb7ff8c41112614e175569d3",
+    "encoding/liftrs-go/orbit_artifact.go": "29df02372de9111bd2be3290edfe9db92bb6ba3062279bcde8a14f45c404948d",
+    "encoding/liftrs-go/orbit_cache_example_test.go": "7992176943b9bfb24e2377091311a5f171b022150b003a4c019b3a5a00481cba",
+    "encoding/liftrs-go/orbit_cache_test.go": "3ed519e68cb0204d0f097fd8c951b794cf585ed6ba643b21f0964542cfd869ac",
+    "encoding/liftrs-go/orbit_constant.go": "abd6c2991fb844b865670945381c427dd2a2444da257f8c206bee09c0f0540fe",
+    "encoding/liftrs-go/orbit_constant_artifact_test.go": "99a6e390c1c571e16b846c778a1ae8c2cdbadcf408f58d3c41c21257dd853f09",
+    "encoding/liftrs-go/orbit_constant_test.go": "8d76001348c64a185d7c7451013f568a13cd62e703dfe84470308dd5aab5c6b2",
+    "encoding/liftrs-go/orbit_example_test.go": "21242e39de21c25f958697307b8c4838da3186e7f7c1e373b292734bfbecd7a7",
+    "encoding/liftrs-go/orbit_fft.go": "64985f9b058b44152cf6b54cce9f9e92ca668996fbd9bf5f4fc0838e28e894c3",
+    "encoding/liftrs-go/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+    "encoding/liftrs-go/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+    "encoding/liftrs-go/orbit_product_test.go": "c675c0dedba16763c3cf64c9a79e372e9698ec4b2c5a273d2883179b513ba3e7",
+    "encoding/liftrs-go/orbit_test.go": "e7a37a4106840f7bac56c92bd5d1b11c486bcea4dd2c4f3368eea5f80e3319bc",
+    "encoding/liftrs-go/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs-go/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+    "encoding/liftrs-go/s10_checkpoint_test.go": "3f606fc200b82ac3a7bfab79b8919d9af22997d419ba848ef6e11ef95255ceeb",
+    "encoding/liftrs-cpp/README.md": "f96fa7648007f555fc4d30fe106aed43e9c9b061c652866d3a3529dac748016a",
+    "encoding/liftrs-cpp/bench.cpp": "a670987cb155aab85a2f14647287ab0d71668089372b07853dff5df14fbf5187",
+    "encoding/liftrs-cpp/transform.hpp": "ca693eb9146583238cefb634408fa05bec51e4850620853a02b4320efc8fecb0",
+    "experiments/kernel-languages/run.py": "12e296cdefd20280ee4df9dbe9fe8ccc55e7a095ec4ff82a9b059e5f6268a4e1",
+    "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
+    "go.sum": "6b5b9bf04b57c04dc22dc13596e0c5862856f95c24ca23931bb0545736f6ef76"
+  },
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "cpu_count": 18,
+    "go": "go version go1.27.3 darwin/arm64",
+    "cxx": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n"
+  },
+  "cpp_flags": [
+    "-std=c++17",
+    "-O3",
+    "-g",
+    "-fno-omit-frame-pointer"
+  ],
+  "cases": [
+    {
+      "label": "kernel-base-fixed-1024",
+      "mode": "kernel",
+      "kind": "base",
+      "pattern": "fixed",
+      "size": 1024,
+      "implementations": {
+        "go": {
+          "case": "base",
+          "elapsed_ns": [
+            356115875,
+            368104625,
+            369924084
+          ],
+          "field_bits": 13,
+          "language": "go",
+          "mode": "kernel",
+          "passes": 131072,
+          "sha256": "b7f2ad916ce7232cc9ff9d0edd442f481aef84990944f1f7104735901bf34d84",
+          "size": 1024,
+          "table_bytes": 25856,
+          "wall_seconds": 2.326166625,
+          "output_directory": ".cache/liftrs/language-s13/smoke/kernel-base-fixed-1024/go",
+          "median_ns": 368104625
+        },
+        "cpp": {
+          "language": "cpp",
+          "mode": "kernel",
+          "case": "base",
+          "size": 1024,
+          "passes": 131072,
+          "table_bytes": 25856,
+          "elapsed_ns": [
+            182291583,
+            150236959,
+            149203667
+          ],
+          "sha256": "b7f2ad916ce7232cc9ff9d0edd442f481aef84990944f1f7104735901bf34d84",
+          "wall_seconds": 1.2455726669999998,
+          "output_directory": ".cache/liftrs/language-s13/smoke/kernel-base-fixed-1024/cpp",
+          "median_ns": 150236959
+        }
+      },
+      "cpp_speedup": 2.45016024984904,
+      "outputs_equal": true
+    },
+    {
+      "label": "kernel-extension-rotating-1024",
+      "mode": "kernel",
+      "kind": "extension",
+      "pattern": "rotating",
+      "size": 1024,
+      "implementations": {
+        "go": {
+          "case": "extension",
+          "elapsed_ns": [
+            449209084,
+            474888042,
+            493440625
+          ],
+          "field_bits": 26,
+          "language": "go",
+          "mode": "kernel",
+          "passes": 131072,
+          "sha256": "a7770904d0e3c1551d217898443d209a4200ecda8753b272ecad0c04cbc689d7",
+          "size": 1024,
+          "table_bytes": 124992,
+          "wall_seconds": 2.1366956250000007,
+          "output_directory": ".cache/liftrs/language-s13/smoke/kernel-extension-rotating-1024/go",
+          "median_ns": 474888042
+        },
+        "cpp": {
+          "language": "cpp",
+          "mode": "kernel",
+          "case": "extension",
+          "size": 1024,
+          "passes": 131072,
+          "table_bytes": 124992,
+          "elapsed_ns": [
+            304532292,
+            278150791,
+            272722459
+          ],
+          "sha256": "a7770904d0e3c1551d217898443d209a4200ecda8753b272ecad0c04cbc689d7",
+          "wall_seconds": 1.17448425,
+          "output_directory": ".cache/liftrs/language-s13/smoke/kernel-extension-rotating-1024/cpp",
+          "median_ns": 278150791
+        }
+      },
+      "cpp_speedup": 1.707304301715971,
+      "outputs_equal": true
+    },
+    {
+      "label": "forward-extension-fixed-16",
+      "mode": "forward",
+      "kind": "extension",
+      "pattern": "fixed",
+      "size": 16,
+      "implementations": {
+        "go": {
+          "case": "extension",
+          "elapsed_ns": [
+            2625,
+            4875,
+            8750
+          ],
+          "field_bits": 26,
+          "language": "go",
+          "mode": "forward",
+          "passes": 1,
+          "sha256": "178dcc99951878b5b8443be14f7107fa1297903326890470432b3dbce90fa67a",
+          "size": 16,
+          "table_bytes": 0,
+          "wall_seconds": 1.266822083000001,
+          "output_directory": ".cache/liftrs/language-s13/smoke/forward-extension-fixed-16/go",
+          "median_ns": 4875
+        },
+        "cpp": {
+          "language": "cpp",
+          "mode": "forward",
+          "case": "extension",
+          "size": 16,
+          "passes": 1,
+          "table_bytes": 0,
+          "elapsed_ns": [
+            7792,
+            2333,
+            1583
+          ],
+          "sha256": "178dcc99951878b5b8443be14f7107fa1297903326890470432b3dbce90fa67a",
+          "wall_seconds": 0.35072204100000093,
+          "output_directory": ".cache/liftrs/language-s13/smoke/forward-extension-fixed-16/cpp",
+          "median_ns": 2333
+        }
+      },
+      "cpp_speedup": 2.0895842263180455,
+      "outputs_equal": true
+    }
+  ],
+  "fixture_sha256": {
+    "transform.bin": "e9600d50c4f1b71509c98b3d7bb16c97e8d461e1a304a27c9ba0948384221851",
+    "extension.bin": "08d738cb0a3c5f0db12cab14a1415c52bf9753a3387c466696b966dfd5169e60",
+    "base.bin": "eac07319cdbcebbb798eee54cb45811d554d6c3e84a6309afd6a902c2052db26",
+    "transform-input.bin": "e4adc8ef8672fac15ca9480fbf9798ce7dd3c19235ea53f20dfc795c7060d3f9"
+  },
+  "binary_sha256": {
+    ".cache/liftrs/language-s13/go-bench.test": "81559a94882b78af370d381aef2780bc33a61e480c9d51df26bc9ad67e638bb0",
+    ".cache/liftrs/language-s13/cpp-bench": "e7262738a3ed4df4655c717efd7acc936a2458ef03d7007a8da690dcad55ea44"
+  },
+  "status": "completed"
+}

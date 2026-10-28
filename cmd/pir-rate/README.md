@@ -1,7 +1,7 @@
 # Lift-RS rate estimator
 
 `pir-rate` estimates code rate by sampling reduced exponent tuples and checking
-monomial membership. It uses [liftrs.GoodMonomial](../../encoding/liftrs/monomial.go),
+monomial membership. It uses [liftrs.GoodMonomial](../../encoding/liftrs-go/monomial.go),
 not code preprocessing or database encoding. No field polynomial is needed.
 
 From the repository root:

@@ -99,7 +99,7 @@ Choose layouts by capacity, code rate, padding, and download costs. Upload remai
 reported and constrained when requested, but is not the optimization objective.
 Byte alignment does not restrict the catalogue. Each degree needs implemented field
 arithmetic and validated encoder capacity before use. Legacy client arithmetic is in [gf2n.go](../utils/gf2n.go); the separate
-[table-free arithmetic](../encoding/liftrs/binary_field.go) covers every s=2..20
+[table-free arithmetic](../encoding/liftrs-go/binary_field.go) covers every s=2..20
 without implying a full encoder at all those sizes. The existing [Params type](../pir/params.go) names `q`,
 `m`, and curve degree `t` as `Q`, `M`, and `K`; its `K` is not the message capacity used
 in this document.

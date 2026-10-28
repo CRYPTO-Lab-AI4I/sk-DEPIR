@@ -25,7 +25,7 @@ positions := code.SystematicPositions()
 // word[positions[j]] == message[j]. A PIR query for message j targets positions[j].
 ```
 
-Import `github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs`. The runnable
+Import `github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go`. The runnable
 [example](example_test.go) demonstrates the complete preprocessing/encoding call
 sequence.
 
@@ -81,9 +81,9 @@ produce errors.
 From the repository root:
 
 ```sh
-go test ./encoding/liftrs
+go test ./encoding/liftrs-go
 go test ./pir -run '^TestReferenceLiftedRSEncoderOnlineRecovery$'
-go test -race ./encoding/liftrs
+go test -race ./encoding/liftrs-go
 ```
 
 [Reference tests](reference_test.go) check field arithmetic with an independent
@@ -262,3 +262,13 @@ The completed profile checkpoint retains a 432 MiB s=13 cache and reloads it in
 4.83 s. Encoding from the reloaded cache takes 186.35 s under CPU sampling and
 matches the complete unprofiled output. See the report for separate setup/reuse
 runs, resource observations and raw CPU profiles.
+
+
+## Parallel language comparison
+
+This directory is the Go implementation (`liftrs-go`, declared package `liftrs`).
+The former `encoding/liftrs` import path moved here. Parallel experimental
+[C++ kernels](../liftrs-cpp/README.md) cover fixed products and additive transforms;
+they are not a complete native codeword encoder. The
+[comparison report](../../experiments/kernel-languages/report.md) records shared
+fixtures, validation, language/compiler boundaries and measured stage gains.

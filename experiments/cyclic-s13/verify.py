@@ -16,6 +16,6 @@ with (HERE/'verification.log').open('w') as log:
     run([args.go,'test','./pirconfig','./planner','-count=1'])
     run([args.go,'vet','./pirconfig','./experiments/cyclic-scaling'])
     with tempfile.TemporaryDirectory(prefix='depir-s13-tests-') as directory:
-        copy=Path(directory)/'repo';shutil.copytree(ROOT,copy,ignore=shutil.ignore_patterns('.git','__pycache__','.DS_Store'))
+        copy=Path(directory)/'repo';shutil.copytree(ROOT,copy,ignore=shutil.ignore_patterns('.git','.cache','__pycache__','.DS_Store'))
         run([args.go,'test','./...'],cwd=copy)
 print('Catalogue/planner tests, vet and isolated full suite passed.')

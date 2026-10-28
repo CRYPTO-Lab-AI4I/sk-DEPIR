@@ -73,7 +73,7 @@ def main():
     else:
         environment['hardware']=inspect(['uname','-a'])
         environment['filesystem']=inspect(['df','-T',tempfile.gettempdir()])
-    sources=list((ROOT/'encoding/liftrs').glob('*.go'))+[HERE/'main.go',HERE/'main_test.go',HERE/'run.py',ROOT/'go.mod',previous]
+    sources=list((ROOT/'encoding/liftrs-go').glob('*.go'))+[HERE/'main.go',HERE/'main_test.go',HERE/'run.py',ROOT/'go.mod',previous]
     result={'timestamp_utc':datetime.now(timezone.utc).isoformat(),
             'base_revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
             'working_tree_dirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip()),

@@ -5,7 +5,7 @@
 - Status: started
 
 Compare branch-free bit multiplication and four-bit multiplication with the
-[current kernel](../encoding/liftrs/binary_field.go), then select using kernel
+[current kernel](../encoding/liftrs-go/binary_field.go), then select using kernel
 and complete cyclic encoding measurements. Include table construction costs.
 If general multiplication still leaves a justified hotspot, consider reusable
 fixed-constant tables with an explicit memory budget (including tower delta).

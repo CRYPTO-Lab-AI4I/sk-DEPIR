@@ -3,7 +3,7 @@ package liftrs_test
 import (
 	"fmt"
 
-	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go"
 )
 
 func ExamplePreprocess() {

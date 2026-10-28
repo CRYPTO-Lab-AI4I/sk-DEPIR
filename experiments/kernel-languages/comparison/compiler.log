@@ -1,0 +1,132 @@
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:12:166: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   12 | Product read_product(std::istream& in){Product p;p.coefficient=read32(in);uint32_t n=read32(in);if(n>1024)throw std::runtime_error("bad row count");p.rows.resize(n);for(auto& x:p.rows)x=read32(in);return p;}
+      |                                                                                                                                                                      ^
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:3:
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:6:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:314:
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:250:27: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+  250 |       if (__vec_.__begin_ != nullptr) {
+      |                           ^
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:250:27: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:250:27: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:250:27: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:14:256: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   14 |  for(unsigned k=0;k<levels;k++){unsigned count=read32(in);if(count>27)throw std::runtime_error("bad terms");for(unsigned j=0;j<count;j++){Term t;t.degree=read32(in);t.product=read_product(in);a.terms[k].push_back(std::move(t));}a.values[k].resize(levels);for(auto& x:a.values[k])x=read32(in);a.delta[k]=read32(in);a.inverse[k]=read32(in);a.delta_products[k]=read_product(in);a.inverse_products[k]=read_product(in);}return a;}
+      |                                                                                                                                                                                                                                                                ^
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:3:
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:6:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:314:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:44:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/uninitialized_algorithms.h:25:
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/destroy.h:49:3: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   49 |   for (; __first != __last; ++__first)
+      |   ^
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:3:
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:6:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:314:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:44:
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/uninitialized_algorithms.h:625:5: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+  625 |     while (__iter != __last) {
+      |     ^
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:20:136: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   20 |  }else{transform=read_transform(dir+"/transform.bin");std::ifstream in(dir+"/transform-input.bin",std::ios::binary);input.resize(size);for(auto& x:input)x=read32(in);}
+      |                                                                                                                                        ^
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:19:177: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   19 |   std::ifstream in(dir+"/"+kind+".bin",std::ios::binary);f.q=read32(in);unsigned count=read32(in),n=read32(in);if(count>1024||size>n)throw std::runtime_error("bad dimensions");for(unsigned i=0;i<count;i++)products.push_back(read_product(in));input.resize(size);for(auto& x:input)x=read32(in);
+      |                                                                                                                                                                                 ^
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:19:262: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   19 |   std::ifstream in(dir+"/"+kind+".bin",std::ios::binary);f.q=read32(in);unsigned count=read32(in),n=read32(in);if(count>1024||size>n)throw std::runtime_error("bad dimensions");for(unsigned i=0;i<count;i++)products.push_back(read_product(in));input.resize(size);for(auto& x:input)x=read32(in);
+      |                                                                                                                                                                                                                                                                      ^
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:26:22: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   26 |   if(mode=="kernel"){for(unsigned pass=0;pass<passes;pass++)batch(products,f,input,output,pattern=="rotating");}else transform.apply(output,mode=="inverse");
+      |                      ^
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:26:22: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:26:22: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:26:22: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:32:23: remark: vectorized loop (vectorization width: 2, interleaved count: 4) [-Rpass=loop-vectorize]
+   32 |  size_t table_bytes=0;for(const auto& p:products)table_bytes+=4*p.rows.size();
+      |                       ^
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:34:2: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   34 |  for(size_t i=0;i<times.size();i++){if(i)result<<',';result<<times[i];}result<<"]}\n";
+      |  ^
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:3:
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:6:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:314:
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:250:27: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+  250 |       if (__vec_.__begin_ != nullptr) {
+      |                           ^
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:250:27: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:250:27: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:250:27: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:250:27: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:3:
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:13:17: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   13 |   uint32_t r=0; while(b){if(b&1)r^=a;b>>=1;a<<=1;if(a&(1u<<s))a^=polynomial;}return r;
+      |                 ^
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:13:17: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:13:17: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:13:17: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:13:17: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:27:16: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   27 |   uint32_t y=0;for(size_t j=0;j<rows.size();j+=16){y^=rows[j+(x&15)];x>>=4;}return y;
+      |                ^
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:52:20: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   52 |   unsigned level=0;for(size_t n=data.size();n>1;n>>=1)level++;recurse(data.data(),data.size(),level,0,invert);
+      |                    ^
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:3:
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:6:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:314:
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:250:27: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+  250 |       if (__vec_.__begin_ != nullptr) {
+      |                           ^
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:250:27: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:250:27: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:250:27: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:250:27: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:3:
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:13:17: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   13 |   uint32_t r=0; while(b){if(b&1)r^=a;b>>=1;a<<=1;if(a&(1u<<s))a^=polynomial;}return r;
+      |                 ^
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:13:17: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:13:17: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:13:17: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:13:17: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:35:18: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   35 |   uint32_t out=0;while(x){unsigned j=__builtin_ctz(x);out^=values[k][j];x&=x-1;}return out;
+      |                  ^
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:27:16: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   27 |   uint32_t y=0;for(size_t j=0;j<rows.size();j+=16){y^=rows[j+(x&15)];x>>=4;}return y;
+      |                ^
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:27:16: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:27:16: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:27:16: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:3:
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:6:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:314:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:44:
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/uninitialized_algorithms.h:625:5: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+  625 |     while (__iter != __last) {
+      |     ^
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:3:
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:6:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:314:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:44:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/uninitialized_algorithms.h:25:
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/destroy.h:49:3: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   49 |   for (; __first != __last; ++__first)
+      |   ^
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:3:
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:6:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:314:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:44:
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/uninitialized_algorithms.h:625:5: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+  625 |     while (__iter != __last) {
+      |     ^
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/bench.cpp:3:
+In file included from /Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/encoding/liftrs-cpp/transform.hpp:6:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:314:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__vector/vector.h:44:
+In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/uninitialized_algorithms.h:25:
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/destroy.h:49:3: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   49 |   for (; __first != __last; ++__first)
+      |   ^

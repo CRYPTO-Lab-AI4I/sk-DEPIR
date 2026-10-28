@@ -4,7 +4,7 @@
 - Agent: Codex
 - Status: completed
 
-Committed [reference encoder](../encoding/liftrs/README.md), tests, documentation,
+Committed [reference encoder](../encoding/liftrs-go/README.md), tests, documentation,
 and checkpoint history as e78559b (Implement small systematic Lift-RS reference
 encoder). `git push origin main` succeeded, advancing remote main from db73cd6
 to e78559b. Staged whitespace check passed. Existing full-suite and race evidence

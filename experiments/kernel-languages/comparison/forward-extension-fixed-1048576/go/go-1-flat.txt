@@ -1,0 +1,21 @@
+File: go-bench-comparison.test
+Type: cpu
+Time: 2026-10-28 21:35:16 CET
+Duration: 707.32ms, Total samples = 570ms (80.59%)
+Showing nodes accounting for 570ms, 100% of 570ms total
+      flat  flat%   sum%        cum   cum%
+     270ms 47.37% 47.37%      270ms 47.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.BinaryField.Mul (inline)
+     160ms 28.07% 75.44%      160ms 28.07%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.constantProduct.mul
+      60ms 10.53% 85.96%      560ms 98.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).recurse
+      50ms  8.77% 94.74%      320ms 56.14%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.QuadraticField.Mul
+      10ms  1.75% 96.49%       10ms  1.75%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).offset (inline)
+      10ms  1.75% 98.25%      330ms 57.89%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.orbitField.mul
+      10ms  1.75%   100%       10ms  1.75%  runtime.madvise
+         0     0%   100%      560ms 98.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).applySubspace
+         0     0%   100%      560ms 98.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.TestRunLanguageBench
+         0     0%   100%       10ms  1.75%  runtime.(*pageAlloc).scavenge.func1
+         0     0%   100%       10ms  1.75%  runtime.(*pageAlloc).scavengeOne
+         0     0%   100%       10ms  1.75%  runtime.sysUnused (inline)
+         0     0%   100%       10ms  1.75%  runtime.sysUnusedOS (inline)
+         0     0%   100%       10ms  1.75%  runtime.systemstack
+         0     0%   100%      560ms 98.25%  testing.tRunner

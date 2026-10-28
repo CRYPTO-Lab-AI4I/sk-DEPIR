@@ -15,7 +15,7 @@ wording to reconcile later.
 ## Findings, in priority order
 
 1. **The complete encoder is not yet quasi-linear.**
-   [PrepareCyclicFFT's comment](../encoding/liftrs/orbit.go) says O(N log² N) work,
+   [PrepareCyclicFFT's comment](../encoding/liftrs-go/orbit.go) says O(N log² N) work,
    but only the large G*H product uses that transform. H=(P*M) mod X^K still calls
    Karatsuba, as does the paper solver's product-tree arithmetic. The package
    README discloses Karatsuba, but the five-step plan does not explicitly schedule

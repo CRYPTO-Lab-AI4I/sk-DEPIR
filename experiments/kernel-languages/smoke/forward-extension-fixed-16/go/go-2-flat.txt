@@ -1,0 +1,6 @@
+File: go-bench.test
+Type: cpu
+Time: 2026-10-28 21:30:25 CET
+Duration: 201.14ms, Total samples = 0 
+Showing nodes accounting for 0, 0% of 0 total
+      flat  flat%   sum%        cum   cum%

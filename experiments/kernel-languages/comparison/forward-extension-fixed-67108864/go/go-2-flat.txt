@@ -1,0 +1,25 @@
+File: go-bench-comparison.test
+Type: cpu
+Time: 2026-10-28 21:37:28 CET
+Duration: 62.57s, Total samples = 60.50s (96.70%)
+Showing nodes accounting for 60.40s, 99.83% of 60.50s total
+Dropped 22 nodes (cum <= 0.30s)
+      flat  flat%   sum%        cum   cum%
+    24.16s 39.93% 39.93%     24.17s 39.95%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.constantProduct.mul
+    19.12s 31.60% 71.54%     19.12s 31.60%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.BinaryField.Mul (inline)
+    10.55s 17.44% 88.98%     59.97s 99.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).recurse
+     4.65s  7.69% 96.66%     23.77s 39.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.QuadraticField.Mul
+     0.92s  1.52% 98.18%     24.69s 40.81%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.orbitField.mul
+     0.55s  0.91% 99.09%      0.55s  0.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).offset (inline)
+     0.43s  0.71% 99.80%      0.43s  0.71%  runtime.pthread_cond_signal
+     0.01s 0.017% 99.82%      0.46s  0.76%  runtime.notewakeup
+     0.01s 0.017% 99.83%      0.46s  0.76%  runtime.semawakeup
+         0     0% 99.83%     59.97s 99.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).applySubspace
+         0     0% 99.83%     59.97s 99.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.TestRunLanguageBench
+         0     0% 99.83%      0.48s  0.79%  runtime.gopreempt_m (inline)
+         0     0% 99.83%      0.48s  0.79%  runtime.goschedImpl
+         0     0% 99.83%      0.48s  0.79%  runtime.morestack
+         0     0% 99.83%      0.48s  0.79%  runtime.newstack
+         0     0% 99.83%      0.49s  0.81%  runtime.startm
+         0     0% 99.83%      0.49s  0.81%  runtime.wakep
+         0     0% 99.83%     59.97s 99.12%  testing.tRunner

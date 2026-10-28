@@ -16,9 +16,9 @@ exact discovery, reusable cyclic preparation, repeated encoding and validation/I
 All data-dependent code is unchanged; prepared caches remain in memory instead of
 serializing large JSON. Existing 2 MiB/64 MiB loader limits remain unchanged.
 
-The [orbit bound](../encoding/liftrs/orbit.go),
-[field-adapter documentation](../encoding/liftrs/orbit_arithmetic.go) and
-[invalid-spec test](../encoding/liftrs/orbit_test.go) now permit resource-limited
+The [orbit bound](../encoding/liftrs-go/orbit.go),
+[field-adapter documentation](../encoding/liftrs-go/orbit_arithmetic.go) and
+[invalid-spec test](../encoding/liftrs-go/orbit_test.go) now permit resource-limited
 s<=13 experiments, N<=67108864. Accepted specifications and completed benchmark
 support are distinct: measured catalogue evidence stops at s=12.
 
@@ -65,7 +65,7 @@ Updated [README](../README.md), [roadmap](../ROADMAP.md),
 [encoder contract](../docs/encoder-contract.md),
 [algorithm plan](../docs/encoding-algorithms.md),
 [parameter planning](../docs/parameter-planning.md),
-[package README](../encoding/liftrs/README.md),
+[package README](../encoding/liftrs-go/README.md),
 [catalogue README](../pirconfig/README.md),
 [experiment index](../experiments/README.md) and
 [s=10 profile context](../experiments/encoder-profile-s10/report.md).

@@ -67,7 +67,7 @@ evidence manifest and `git diff --check` pass. The cache is ignored by Git.
 README checked and updated from pending to measured status. Also updated the
 [encoder contract](../docs/encoder-contract.md),
 [algorithm plan](../docs/encoding-algorithms.md) and
-[package README](../encoding/liftrs/README.md). Defaults, publication-size budget,
+[package README](../encoding/liftrs-go/README.md). Defaults, publication-size budget,
 application integration and s>=14 limits remain distinct. New profile results,
 monitor fix and final report are uncommitted; the requested pre-run checkpoints
 were already pushed.

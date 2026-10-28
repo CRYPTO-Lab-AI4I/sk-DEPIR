@@ -1,0 +1,532 @@
+{
+  "timestamp_utc": "2026-10-28T20:34:49.308200+00:00",
+  "revision": "0431f80867455162bd3021b82b8332e18577ff8f",
+  "source_sha256": {
+    "encoding/liftrs-go/binary_field.go": "e58ef0cb377b091c9ca895f518f64fee5622b65255d945db483248db879f371f",
+    "encoding/liftrs-go/binary_field_example_test.go": "d0f44b4854f1c540e601fc1a1a25fc0d0b65a37f3799c2a688c6a3a9e9fd74d0",
+    "encoding/liftrs-go/binary_field_test.go": "996838d45b0f2ec11d9732191a74bb4a5874b95a72496a98ffd8d53f1f8e39e8",
+    "encoding/liftrs-go/example_test.go": "aa0c7448b7fe5f6231fbab31a0fc921934ccbacc2aa8a63170a1bdd06085a5d6",
+    "encoding/liftrs-go/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs-go/language_bench_test.go": "d78132c6d95929d0134008fc4e86b0a2bea9da94e89e302f02e3c3cca39b1994",
+    "encoding/liftrs-go/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs-go/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+    "encoding/liftrs-go/orbit.go": "e1f3e29dcae40d1ed1e0ac44f06d0e77938340a5bc85ac430866cf7dc69f02ad",
+    "encoding/liftrs-go/orbit_arithmetic.go": "8393001b357403435b617b4a294d9c0c9ad22e13fb7ff8c41112614e175569d3",
+    "encoding/liftrs-go/orbit_artifact.go": "29df02372de9111bd2be3290edfe9db92bb6ba3062279bcde8a14f45c404948d",
+    "encoding/liftrs-go/orbit_cache_example_test.go": "7992176943b9bfb24e2377091311a5f171b022150b003a4c019b3a5a00481cba",
+    "encoding/liftrs-go/orbit_cache_test.go": "3ed519e68cb0204d0f097fd8c951b794cf585ed6ba643b21f0964542cfd869ac",
+    "encoding/liftrs-go/orbit_constant.go": "abd6c2991fb844b865670945381c427dd2a2444da257f8c206bee09c0f0540fe",
+    "encoding/liftrs-go/orbit_constant_artifact_test.go": "99a6e390c1c571e16b846c778a1ae8c2cdbadcf408f58d3c41c21257dd853f09",
+    "encoding/liftrs-go/orbit_constant_test.go": "8d76001348c64a185d7c7451013f568a13cd62e703dfe84470308dd5aab5c6b2",
+    "encoding/liftrs-go/orbit_example_test.go": "21242e39de21c25f958697307b8c4838da3186e7f7c1e373b292734bfbecd7a7",
+    "encoding/liftrs-go/orbit_fft.go": "64985f9b058b44152cf6b54cce9f9e92ca668996fbd9bf5f4fc0838e28e894c3",
+    "encoding/liftrs-go/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+    "encoding/liftrs-go/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+    "encoding/liftrs-go/orbit_product_test.go": "c675c0dedba16763c3cf64c9a79e372e9698ec4b2c5a273d2883179b513ba3e7",
+    "encoding/liftrs-go/orbit_test.go": "e7a37a4106840f7bac56c92bd5d1b11c486bcea4dd2c4f3368eea5f80e3319bc",
+    "encoding/liftrs-go/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs-go/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+    "encoding/liftrs-go/s10_checkpoint_test.go": "3f606fc200b82ac3a7bfab79b8919d9af22997d419ba848ef6e11ef95255ceeb",
+    "encoding/liftrs-cpp/README.md": "f96fa7648007f555fc4d30fe106aed43e9c9b061c652866d3a3529dac748016a",
+    "encoding/liftrs-cpp/bench.cpp": "a670987cb155aab85a2f14647287ab0d71668089372b07853dff5df14fbf5187",
+    "encoding/liftrs-cpp/transform.hpp": "ca693eb9146583238cefb634408fa05bec51e4850620853a02b4320efc8fecb0",
+    "experiments/kernel-languages/run.py": "e1d57e901b058720ca1fe54cfd2104910bf0530ab9decaf80564888a60f63f3e",
+    "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
+    "go.sum": "6b5b9bf04b57c04dc22dc13596e0c5862856f95c24ca23931bb0545736f6ef76"
+  },
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "cpu_count": 18,
+    "go": "go version go1.27.3 darwin/arm64",
+    "cxx": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n"
+  },
+  "cpp_flags": [
+    "-std=c++17",
+    "-O3",
+    "-g",
+    "-fno-omit-frame-pointer"
+  ],
+  "cases": [
+    {
+      "label": "kernel-base-fixed-262144",
+      "mode": "kernel",
+      "kind": "base",
+      "pattern": "fixed",
+      "size": 262144,
+      "implementations": {
+        "go": {
+          "case": "base",
+          "elapsed_ns": [
+            370702917,
+            392625083,
+            387474125
+          ],
+          "field_bits": 13,
+          "language": "go",
+          "mode": "kernel",
+          "passes": 512,
+          "sha256": "be9a8fe645d5330f857a6b8a5431a2247f85c646f59f2262029e795182211fd3",
+          "size": 262144,
+          "table_bytes": 25856,
+          "wall_seconds": 2.3884556249999997,
+          "output_directory": ".cache/liftrs/language-s13/comparison/kernel-base-fixed-262144/go",
+          "median_ns": 387474125
+        },
+        "cpp": {
+          "language": "cpp",
+          "mode": "kernel",
+          "case": "base",
+          "size": 262144,
+          "passes": 512,
+          "table_bytes": 25856,
+          "elapsed_ns": [
+            177082833,
+            156408750,
+            156101458
+          ],
+          "sha256": "be9a8fe645d5330f857a6b8a5431a2247f85c646f59f2262029e795182211fd3",
+          "wall_seconds": 1.1776192909999996,
+          "output_directory": ".cache/liftrs/language-s13/comparison/kernel-base-fixed-262144/cpp",
+          "median_ns": 156408750
+        }
+      },
+      "native_sampler_returncode": 255,
+      "cpp_speedup": 2.477317445475397,
+      "outputs_equal": true
+    },
+    {
+      "label": "kernel-base-fixed-4194304",
+      "mode": "kernel",
+      "kind": "base",
+      "pattern": "fixed",
+      "size": 4194304,
+      "implementations": {
+        "go": {
+          "case": "base",
+          "elapsed_ns": [
+            375181250,
+            378965500,
+            388110458
+          ],
+          "field_bits": 13,
+          "language": "go",
+          "mode": "kernel",
+          "passes": 32,
+          "sha256": "7429bf996bd7cb08461c3b7cf0dc7cd430097461463f613cb589d21a28cce814",
+          "size": 4194304,
+          "table_bytes": 25856,
+          "wall_seconds": 1.8783628749999997,
+          "output_directory": ".cache/liftrs/language-s13/comparison/kernel-base-fixed-4194304/go",
+          "median_ns": 378965500
+        },
+        "cpp": {
+          "language": "cpp",
+          "mode": "kernel",
+          "case": "base",
+          "size": 4194304,
+          "passes": 32,
+          "table_bytes": 25856,
+          "elapsed_ns": [
+            180843791,
+            158589708,
+            159336083
+          ],
+          "sha256": "7429bf996bd7cb08461c3b7cf0dc7cd430097461463f613cb589d21a28cce814",
+          "wall_seconds": 0.8685727910000001,
+          "output_directory": ".cache/liftrs/language-s13/comparison/kernel-base-fixed-4194304/cpp",
+          "median_ns": 159336083
+        }
+      },
+      "native_sampler_returncode": 255,
+      "cpp_speedup": 2.3784035157937202,
+      "outputs_equal": true
+    },
+    {
+      "label": "kernel-base-rotating-262144",
+      "mode": "kernel",
+      "kind": "base",
+      "pattern": "rotating",
+      "size": 262144,
+      "implementations": {
+        "go": {
+          "case": "base",
+          "elapsed_ns": [
+            377497125,
+            375132708,
+            382401833
+          ],
+          "field_bits": 13,
+          "language": "go",
+          "mode": "kernel",
+          "passes": 512,
+          "sha256": "c661f041d255f38f9a0c885376918f7a7f7ed06dd7f9b9aca9583bceb9a2a1b5",
+          "size": 262144,
+          "table_bytes": 25856,
+          "wall_seconds": 1.8078798330000003,
+          "output_directory": ".cache/liftrs/language-s13/comparison/kernel-base-rotating-262144/go",
+          "median_ns": 377497125
+        },
+        "cpp": {
+          "language": "cpp",
+          "mode": "kernel",
+          "case": "base",
+          "size": 262144,
+          "passes": 512,
+          "table_bytes": 25856,
+          "elapsed_ns": [
+            165979584,
+            163914417,
+            165532416
+          ],
+          "sha256": "c661f041d255f38f9a0c885376918f7a7f7ed06dd7f9b9aca9583bceb9a2a1b5",
+          "wall_seconds": 0.8257951249999991,
+          "output_directory": ".cache/liftrs/language-s13/comparison/kernel-base-rotating-262144/cpp",
+          "median_ns": 165532416
+        }
+      },
+      "native_sampler_returncode": 255,
+      "cpp_speedup": 2.280502720385595,
+      "outputs_equal": true
+    },
+    {
+      "label": "kernel-base-rotating-4194304",
+      "mode": "kernel",
+      "kind": "base",
+      "pattern": "rotating",
+      "size": 4194304,
+      "implementations": {
+        "go": {
+          "case": "base",
+          "elapsed_ns": [
+            390174458,
+            387305625,
+            399618209
+          ],
+          "field_bits": 13,
+          "language": "go",
+          "mode": "kernel",
+          "passes": 32,
+          "sha256": "880fe8632f38af9ed3f6d5e2e5a9ce88b9929eb9733468b11ff07003fda8fd88",
+          "size": 4194304,
+          "table_bytes": 25856,
+          "wall_seconds": 1.8582085410000015,
+          "output_directory": ".cache/liftrs/language-s13/comparison/kernel-base-rotating-4194304/go",
+          "median_ns": 390174458
+        },
+        "cpp": {
+          "language": "cpp",
+          "mode": "kernel",
+          "case": "base",
+          "size": 4194304,
+          "passes": 32,
+          "table_bytes": 25856,
+          "elapsed_ns": [
+            168176625,
+            159821416,
+            157960458
+          ],
+          "sha256": "880fe8632f38af9ed3f6d5e2e5a9ce88b9929eb9733468b11ff07003fda8fd88",
+          "wall_seconds": 0.868489083,
+          "output_directory": ".cache/liftrs/language-s13/comparison/kernel-base-rotating-4194304/cpp",
+          "median_ns": 159821416
+        }
+      },
+      "native_sampler_returncode": 255,
+      "cpp_speedup": 2.4413152365012207,
+      "outputs_equal": true
+    },
+    {
+      "label": "kernel-extension-fixed-262144",
+      "mode": "kernel",
+      "kind": "extension",
+      "pattern": "fixed",
+      "size": 262144,
+      "implementations": {
+        "go": {
+          "case": "extension",
+          "elapsed_ns": [
+            471093541,
+            481380333,
+            467797750
+          ],
+          "field_bits": 26,
+          "language": "go",
+          "mode": "kernel",
+          "passes": 512,
+          "sha256": "4abecd0da2e83a47a6032f7146e6c0ed2b73a9d289e24a44aabfc7e281e344c9",
+          "size": 262144,
+          "table_bytes": 124992,
+          "wall_seconds": 2.1555468750000006,
+          "output_directory": ".cache/liftrs/language-s13/comparison/kernel-extension-fixed-262144/go",
+          "median_ns": 471093541
+        },
+        "cpp": {
+          "language": "cpp",
+          "mode": "kernel",
+          "case": "extension",
+          "size": 262144,
+          "passes": 512,
+          "table_bytes": 124992,
+          "elapsed_ns": [
+            297813083,
+            283061625,
+            288106459
+          ],
+          "sha256": "4abecd0da2e83a47a6032f7146e6c0ed2b73a9d289e24a44aabfc7e281e344c9",
+          "wall_seconds": 1.1781351670000006,
+          "output_directory": ".cache/liftrs/language-s13/comparison/kernel-extension-fixed-262144/cpp",
+          "median_ns": 288106459
+        }
+      },
+      "native_sampler_returncode": 255,
+      "cpp_speedup": 1.635137034536251,
+      "outputs_equal": true
+    },
+    {
+      "label": "kernel-extension-fixed-4194304",
+      "mode": "kernel",
+      "kind": "extension",
+      "pattern": "fixed",
+      "size": 4194304,
+      "implementations": {
+        "go": {
+          "case": "extension",
+          "elapsed_ns": [
+            473682166,
+            489932958,
+            479360625
+          ],
+          "field_bits": 26,
+          "language": "go",
+          "mode": "kernel",
+          "passes": 32,
+          "sha256": "1cb9572cd40df302242b8e17d5836050a85cc6b7d8ab5fc85a4fb58442f0a65b",
+          "size": 4194304,
+          "table_bytes": 124992,
+          "wall_seconds": 2.1344137090000004,
+          "output_directory": ".cache/liftrs/language-s13/comparison/kernel-extension-fixed-4194304/go",
+          "median_ns": 479360625
+        },
+        "cpp": {
+          "language": "cpp",
+          "mode": "kernel",
+          "case": "extension",
+          "size": 4194304,
+          "passes": 32,
+          "table_bytes": 124992,
+          "elapsed_ns": [
+            288413875,
+            270571542,
+            297472417
+          ],
+          "sha256": "1cb9572cd40df302242b8e17d5836050a85cc6b7d8ab5fc85a4fb58442f0a65b",
+          "wall_seconds": 1.2628288750000003,
+          "output_directory": ".cache/liftrs/language-s13/comparison/kernel-extension-fixed-4194304/cpp",
+          "median_ns": 288413875
+        }
+      },
+      "native_sampler_returncode": 255,
+      "cpp_speedup": 1.662058127404585,
+      "outputs_equal": true
+    },
+    {
+      "label": "kernel-extension-rotating-262144",
+      "mode": "kernel",
+      "kind": "extension",
+      "pattern": "rotating",
+      "size": 262144,
+      "implementations": {
+        "go": {
+          "case": "extension",
+          "elapsed_ns": [
+            489590542,
+            472025917,
+            484801583
+          ],
+          "field_bits": 26,
+          "language": "go",
+          "mode": "kernel",
+          "passes": 512,
+          "sha256": "de78f518dd6291da277f979dd0dcc172afb423812d37ae6b8d4fe444b54d56be",
+          "size": 262144,
+          "table_bytes": 124992,
+          "wall_seconds": 2.1461268340000004,
+          "output_directory": ".cache/liftrs/language-s13/comparison/kernel-extension-rotating-262144/go",
+          "median_ns": 484801583
+        },
+        "cpp": {
+          "language": "cpp",
+          "mode": "kernel",
+          "case": "extension",
+          "size": 262144,
+          "passes": 512,
+          "table_bytes": 124992,
+          "elapsed_ns": [
+            298301709,
+            284539084,
+            285506750
+          ],
+          "sha256": "de78f518dd6291da277f979dd0dcc172afb423812d37ae6b8d4fe444b54d56be",
+          "wall_seconds": 1.231837083000002,
+          "output_directory": ".cache/liftrs/language-s13/comparison/kernel-extension-rotating-262144/cpp",
+          "median_ns": 285506750
+        }
+      },
+      "native_sampler_returncode": 255,
+      "cpp_speedup": 1.6980389535448812,
+      "outputs_equal": true
+    },
+    {
+      "label": "kernel-extension-rotating-4194304",
+      "mode": "kernel",
+      "kind": "extension",
+      "pattern": "rotating",
+      "size": 4194304,
+      "implementations": {
+        "go": {
+          "case": "extension",
+          "elapsed_ns": [
+            473579416,
+            485141750,
+            481925500
+          ],
+          "field_bits": 26,
+          "language": "go",
+          "mode": "kernel",
+          "passes": 32,
+          "sha256": "69286f37041318e600422b56b189710907940d61ad6eaecfe7739fad59005c56",
+          "size": 4194304,
+          "table_bytes": 124992,
+          "wall_seconds": 2.1360949159999976,
+          "output_directory": ".cache/liftrs/language-s13/comparison/kernel-extension-rotating-4194304/go",
+          "median_ns": 481925500
+        },
+        "cpp": {
+          "language": "cpp",
+          "mode": "kernel",
+          "case": "extension",
+          "size": 4194304,
+          "passes": 32,
+          "table_bytes": 124992,
+          "elapsed_ns": [
+            299290041,
+            285143542,
+            288818166
+          ],
+          "sha256": "69286f37041318e600422b56b189710907940d61ad6eaecfe7739fad59005c56",
+          "wall_seconds": 1.2601334169999987,
+          "output_directory": ".cache/liftrs/language-s13/comparison/kernel-extension-rotating-4194304/cpp",
+          "median_ns": 288818166
+        }
+      },
+      "native_sampler_returncode": 255,
+      "cpp_speedup": 1.6686121467858084,
+      "outputs_equal": true
+    },
+    {
+      "label": "forward-extension-fixed-1048576",
+      "mode": "forward",
+      "kind": "extension",
+      "pattern": "fixed",
+      "size": 1048576,
+      "implementations": {
+        "go": {
+          "case": "extension",
+          "elapsed_ns": [
+            605309000,
+            610075416,
+            616014958
+          ],
+          "field_bits": 26,
+          "language": "go",
+          "mode": "forward",
+          "passes": 1,
+          "sha256": "54c8c66c29326fe052b6c5638a03e92d2c984825bdcb61b3656e8c5d3dc92cdd",
+          "size": 1048576,
+          "table_bytes": 0,
+          "wall_seconds": 3.532142916999998,
+          "output_directory": ".cache/liftrs/language-s13/comparison/forward-extension-fixed-1048576/go",
+          "median_ns": 610075416
+        },
+        "cpp": {
+          "language": "cpp",
+          "mode": "forward",
+          "case": "extension",
+          "size": 1048576,
+          "passes": 1,
+          "table_bytes": 0,
+          "elapsed_ns": [
+            550380708,
+            532636500,
+            530387584
+          ],
+          "sha256": "54c8c66c29326fe052b6c5638a03e92d2c984825bdcb61b3656e8c5d3dc92cdd",
+          "wall_seconds": 2.4970631659999967,
+          "output_directory": ".cache/liftrs/language-s13/comparison/forward-extension-fixed-1048576/cpp",
+          "median_ns": 532636500
+        }
+      },
+      "native_sampler_returncode": 255,
+      "cpp_speedup": 1.1453879259119493,
+      "outputs_equal": true
+    },
+    {
+      "label": "forward-extension-fixed-67108864",
+      "mode": "forward",
+      "kind": "extension",
+      "pattern": "fixed",
+      "size": 67108864,
+      "implementations": {
+        "go": {
+          "case": "extension",
+          "elapsed_ns": [
+            63214118708,
+            63365709334,
+            62457059125
+          ],
+          "field_bits": 26,
+          "language": "go",
+          "mode": "forward",
+          "passes": 1,
+          "sha256": "eb0f93a4bd16e07e4e8003d5b5bc3bcb72fff8f97427eba7bbbd3ddd16c8776e",
+          "size": 67108864,
+          "table_bytes": 0,
+          "wall_seconds": 251.00170862499996,
+          "output_directory": ".cache/liftrs/language-s13/comparison/forward-extension-fixed-67108864/go",
+          "median_ns": 63214118708
+        },
+        "cpp": {
+          "language": "cpp",
+          "mode": "forward",
+          "case": "extension",
+          "size": 67108864,
+          "passes": 1,
+          "table_bytes": 0,
+          "elapsed_ns": [
+            49636751459,
+            50445350584,
+            50111191167
+          ],
+          "sha256": "eb0f93a4bd16e07e4e8003d5b5bc3bcb72fff8f97427eba7bbbd3ddd16c8776e",
+          "wall_seconds": 201.64932850000002,
+          "output_directory": ".cache/liftrs/language-s13/comparison/forward-extension-fixed-67108864/cpp",
+          "median_ns": 50111191167
+        }
+      },
+      "native_sampler_returncode": 255,
+      "cpp_speedup": 1.2614770720044017,
+      "outputs_equal": true
+    }
+  ],
+  "fixture_sha256": {
+    "transform.bin": "e9600d50c4f1b71509c98b3d7bb16c97e8d461e1a304a27c9ba0948384221851",
+    "extension.bin": "08d738cb0a3c5f0db12cab14a1415c52bf9753a3387c466696b966dfd5169e60",
+    "base.bin": "eac07319cdbcebbb798eee54cb45811d554d6c3e84a6309afd6a902c2052db26",
+    "transform-input.bin": "e4adc8ef8672fac15ca9480fbf9798ce7dd3c19235ea53f20dfc795c7060d3f9"
+  },
+  "binary_sha256": {
+    ".cache/liftrs/language-s13/go-bench-comparison.test": "81559a94882b78af370d381aef2780bc33a61e480c9d51df26bc9ad67e638bb0",
+    ".cache/liftrs/language-s13/cpp-bench-comparison": "6c6c8464ca4c905eb353d33b909f7c84ccbea1fb91e48d4f4ed13e0dc1ecadfb"
+  },
+  "status": "completed"
+}

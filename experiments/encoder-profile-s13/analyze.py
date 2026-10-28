@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Verify retained evidence and regenerate pprof views without rerunning encoding."""
-import argparse,hashlib,json,re,subprocess
+import argparse,hashlib,json,re,runpy,subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];HERE=Path(__file__).resolve().parent
 
@@ -22,9 +22,9 @@ def main():
     all_profiles={}
     for name in ['setup','reuse-01']:
         directory=HERE/name;r=json.loads((directory/'results.json').read_text())
-        for source,h in r['source_sha256'].items():
-            path=directory/'run-snapshot.py' if name=='setup' and source=='experiments/encoder-profile-s13/run.py' else ROOT/source
-            assert sha(path)==h,(name,source)
+        verify=runpy.run_path(str(ROOT/'experiments/source_evidence.py'))['verify_sources']
+        snapshots={'experiments/encoder-profile-s13/run.py':directory/'run-snapshot.py'} if name=='setup' else {}
+        verify(ROOT,r['source_sha256'],r['revision'],snapshots)
         binary=ROOT/r['profile_binary']['path'];assert sha(binary)==r['profile_binary']['sha256']
         for field in ['events','stderr','progress']:assert sha(directory/r[field])==r[field+'_sha256']
         for phase,event in r['phases'].items():
@@ -38,7 +38,7 @@ def main():
                 texts[path.name]=sha(path)
             if phase in ['preparation','encode_0']:
                 path=directory/(phase+'-source.txt')
-                with path.open('w') as output:subprocess.run([args.go,'tool','pprof','-list','recurse|polyMul|constantProduct',str(binary),str(profile)],stdout=output,stderr=subprocess.STDOUT,check=True)
+                with path.open('w') as output:subprocess.run([args.go,'tool','pprof','-list','recurse|polyMul|constantProduct','-trim_path',str(ROOT/'encoding/liftrs'),'-source_path',str(ROOT/'encoding/liftrs-go'),str(binary),str(profile)],stdout=output,stderr=subprocess.STDOUT,check=True)
                 texts[path.name]=sha(path)
             all_profiles[name+'/'+phase]={'profile':str(profile.relative_to(ROOT)),'sha256':sha(profile),'texts':texts,'cpu_rows':rows(directory/(phase+'-flat.txt'))}
     reused=json.loads((HERE/'reuse-01/results.json').read_text());cache=ROOT/reused['cache_directory']

@@ -19,7 +19,7 @@
         "evidence": [
           {
             "kind": "reference_test",
-            "reference": "encoding/liftrs/reference_test.go"
+            "reference": "encoding/liftrs-go/reference_test.go"
           }
         ]
       },
@@ -36,7 +36,7 @@
         "evidence": [
           {
             "kind": "reference_test",
-            "reference": "encoding/liftrs/reference_test.go"
+            "reference": "encoding/liftrs-go/reference_test.go"
           }
         ]
       },
@@ -46,7 +46,7 @@
         "evidence": [
           {
             "kind": "reference_test",
-            "reference": "encoding/liftrs/reference_test.go"
+            "reference": "encoding/liftrs-go/reference_test.go"
           }
         ]
       }

@@ -92,3 +92,17 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
 
 - [s=13 CPU profiles and retained cache](encoder-profile-s13/report.md): profiled
   discovery/preparation, separate cache save/load and one database encoding.
+
+- [Go/C++ kernel languages](kernel-languages/report.md): shared four-bit tables
+  and inputs, batched kernels and full-size additive-transform comparison, with
+  language-labelled implementations and preserved historical source evidence.
+
+## Language-labelled implementation paths
+
+The Go Lift-RS package moved from `encoding/liftrs/` to `encoding/liftrs-go/`;
+parallel C++ kernels live in `encoding/liftrs-cpp/`. Current imports and scripts
+use the new paths; historical source manifests, snapshot scripts and commands
+retain the measured paths/revisions. Markdown link targets follow the move.
+[source_evidence.py](source_evidence.py) verifies exact recorded bytes using the
+current/mapped path or matching committed blobs, including historically dirty
+working trees. It never rewrites measurement hashes.

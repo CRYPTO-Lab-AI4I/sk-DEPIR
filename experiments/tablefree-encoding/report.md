@@ -24,14 +24,14 @@ not contain the new implementation; hashes identify the measured source.
 
 ## Implementation and correctness
 
-[BinaryField and QuadraticField](../../encoding/liftrs/binary_field.go) implement
+[BinaryField and QuadraticField](../../encoding/liftrs-go/binary_field.go) implement
 portable polynomial-basis multiplication/reduction, exponentiation, inverse and
 absolute trace without cardinality-sized tables. The public base field supports
 every s=2..20. Quadratic elements are pairs (a,b) of uint32 base-field elements,
 with u²=u+delta; constructors use checked irreducible polynomials. Their arithmetic
 state has fixed size, independent of 2^s or 2^(2s). This is not a constant-time backend.
 
-The [bounded adapter](../../encoding/liftrs/orbit_arithmetic.go) packs those two
+The [bounded adapter](../../encoding/liftrs-go/orbit_arithmetic.go) packs those two
 components into uint32 for its s<=9 transform arrays, preserving old coordinate
 ordering. Arithmetic support up to s=20 is not encoder support at those sizes.
 The orbit encoder now accepts s=2..9, m=2, N<=262144. Discovery uses one random
@@ -39,13 +39,13 @@ byte per coefficient through s=8, and four bytes masked to s bits at s=9, so
 sampling remains uniform for the wider field. Reusing only one byte would be wrong.
 No old artifact version or field polynomial changed. New degree 9 uses 0x211.
 
-[Arithmetic and compatibility tests](../../encoding/liftrs/binary_field_test.go)
+[Arithmetic and compatibility tests](../../encoding/liftrs-go/binary_field_test.go)
 compare base multiplication with independent uint64 carryless convolution and
 long division (exhaustive through s=8), extension multiplication with a separate
 four-product oracle (exhaustive through s=4), and randomized inverse/Frobenius
 identities for every s through 20. They load the historical prepared artifacts and
 reproduce their pre-change complete output hashes. Existing dense-oracle tests
-remain in [orbit_test.go](../../encoding/liftrs/orbit_test.go).
+remain in [orbit_test.go](../../encoding/liftrs-go/orbit_test.go).
 
 The s=9 prepared artifact also passes all systematic-symbol checks and eight
 sampled degree-7 curve sum checks using independent base arithmetic. The two

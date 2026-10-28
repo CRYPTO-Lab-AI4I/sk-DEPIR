@@ -52,7 +52,7 @@ def main():
             scenarios.append({'preprocessing': setup, 'methods': methods})
             print(f's={s}: equal outputs; median encode ' + ', '.join(
                 f"{m['method']} {statistics.median(m['encode_ns'])/1e6:.2f} ms" for m in methods), flush=True)
-    sources = list((ROOT / 'encoding/liftrs').glob('*.go')) + [HERE/'main.go', HERE/'run.py', ROOT/'go.mod', ROOT/'paper.pdf']
+    sources = list((ROOT / 'encoding/liftrs-go').glob('*.go')) + [HERE/'main.go', HERE/'run.py', ROOT/'go.mod', ROOT/'paper.pdf']
     result = {'timestamp_utc': datetime.now(timezone.utc).isoformat(),
               'base_revision': subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip(),
               'working_tree_dirty': bool(subprocess.check_output(['git','status','--porcelain'], cwd=ROOT, text=True).strip()),

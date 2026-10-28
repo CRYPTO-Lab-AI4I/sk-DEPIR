@@ -11,9 +11,9 @@ with (HERE/'verification.log').open('w') as log:
         checks.append({'command':command,'isolated_copy':cwd!=ROOT,'exit_code':r.returncode,'seconds':time.monotonic()-start})
         (HERE/'verification.json').write_text(json.dumps(checks,indent=2)+'\n')
         if r.returncode:raise SystemExit('check failed; see verification.log')
-    run([args.go,'test','./encoding/liftrs','./experiments/encoder-profile-s13','-count=1'])
+    run([args.go,'test','./encoding/liftrs-go','./experiments/encoder-profile-s13','-count=1'])
     run([sys.executable,str(HERE/'smoke.py'),'--go',args.go])
-    run([args.go,'vet','./encoding/liftrs','./experiments/encoder-profile-s13'])
+    run([args.go,'vet','./encoding/liftrs-go','./experiments/encoder-profile-s13'])
     with tempfile.TemporaryDirectory(prefix='depir-profile-tests-') as directory:
         copy=Path(directory)/'repo'
         shutil.copytree(ROOT,copy,ignore=shutil.ignore_patterns('.git','.cache','__pycache__','.DS_Store'))

@@ -48,7 +48,7 @@ claim integrated application execution, grouped storage or production security.
 [Catalogue tests](../pirconfig/catalogue_test.go) connect exact capacity and output
 agreement to saved encoder evidence; [example](../pirconfig/example_test.go) updated.
 
-Narrowed [PrepareCyclicFFT's comment](../encoding/liftrs/orbit.go): only G*H is
+Narrowed [PrepareCyclicFFT's comment](../encoding/liftrs-go/orbit.go): only G*H is
 O(N log² N); H=(P*M) mod X^K retains Karatsuba. Updated the
 [five-step plan](../docs/encoding-algorithms.md#6-five-step-implementation-plan)
 with fast/truncated multiplication, preprocessing complexity checks, stage-specific

@@ -17,7 +17,7 @@ import (
 	"runtime/pprof"
 	"time"
 
-	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go"
 )
 
 func check(err error) {

@@ -178,9 +178,9 @@ with sync and cached-readback verification. Raw events retain timing/hashes.
 After the measurements, run:
 
 ```sh
-go test ./encoding/liftrs ./pirconfig ./experiments/cyclic-scaling -count=1
-go test -race ./encoding/liftrs ./pirconfig ./experiments/cyclic-scaling
-go vet ./encoding/liftrs ./pirconfig ./experiments/cyclic-scaling
+go test ./encoding/liftrs-go ./pirconfig ./experiments/cyclic-scaling -count=1
+go test -race ./encoding/liftrs-go ./pirconfig ./experiments/cyclic-scaling
+go vet ./encoding/liftrs-go ./pirconfig ./experiments/cyclic-scaling
 go test ./...  # isolated copy: legacy tests write CSV files
 ```
 

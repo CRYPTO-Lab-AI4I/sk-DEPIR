@@ -22,7 +22,7 @@ def main():
     anchor={'s':10,'n':1048576,'k':103556,'discovery_s':checkpoint['discovery']['discovery_ns']/1e9,'preparation_s':method['preparation']['prepare_ns']/1e9,
             'encoding_s':statistics.median(method['encoding']['encode_ns'])/1e9,'peak_bytes':max(checkpoint['discovery']['process_peak_rss_bytes'],method['preparation']['process_peak_rss_bytes'],method['encoding']['process_peak_rss_bytes'])}
     catalogue=json.loads((ROOT/'pirconfig/configs_catalogue.json').read_text())
-    sources=sorted((ROOT/'encoding/liftrs').glob('*.go'))+[HERE/'main.go',HERE/'run.py',ROOT/'go.mod',ROOT/'go.sum']
+    sources=sorted((ROOT/'encoding/liftrs-go').glob('*.go'))+[HERE/'main.go',HERE/'run.py',ROOT/'go.mod',ROOT/'go.sum']
     result={'timestamp_utc':datetime.now(timezone.utc).isoformat(),'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
             'source_sha256':{str(p.relative_to(ROOT)):digest(p) for p in sources},'seed_checkpoint_sha256':digest(ROOT/'experiments/encoder-scaling/results.json'),
             'environment':{'platform':platform.platform(),'python':platform.python_version(),'cpu_count':os.cpu_count(),'go':subprocess.check_output([args.go,'version'],text=True).strip()},'initial_anchor':anchor,'cases':[]}

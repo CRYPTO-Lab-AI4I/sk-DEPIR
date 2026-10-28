@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/cryptoref"
-	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go"
 )
 
 func ExampleMasker_Encode() {

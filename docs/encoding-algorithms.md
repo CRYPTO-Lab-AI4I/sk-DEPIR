@@ -2,7 +2,7 @@
 
 Research checkpoint, 2026-10-27. This reviews exact systematic encoding for the
 catalogue's curve-lifted codes (`m=2`, `s=8..20`), not ordinary line-lifted or
-linearized Reed-Solomon codes. The [bounded implementation](../encoding/liftrs/README.md#paper-and-cyclic-encoders)
+linearized Reed-Solomon codes. The [bounded implementation](../encoding/liftrs-go/README.md#paper-and-cyclic-encoders)
 and [CPU comparison](../experiments/encoder-comparison/report.md) now validate the
 main paper/cyclic paths; large-instance feasibility remains unverified. The [encoder contract](encoder-contract.md) remains authoritative.
 
@@ -113,7 +113,7 @@ There are two preprocessing routes to compare:
 The D-based route accepts an experimental m=2,s=2..13 range, with completed catalogue measurements through s=13 and checked against the
 paper path and dense oracle. The random-codeword gcd route is not implemented.
 Tests verify coordinate orientation, zero-coordinate extension and equality.
-The [current dense oracle](../encoding/liftrs/reference.go) chooses different
+The [current dense oracle](../encoding/liftrs-go/reference.go) chooses different
 systematic positions; compare using a message extracted at its information set,
 not by feeding both encoders the same raw message and demanding identical words.
 
@@ -230,7 +230,7 @@ base-field elements instead of indexing log/exp tables of size `2^(2s)`.
 Use carryless multiplication and reduction; profile before adding CPU-specific
 kernels. Field arithmetic support alone does not enable encoding a full instance.
 
-The [hybrid polynomial backend](../encoding/liftrs/orbit_product.go) now provides
+The [hybrid polynomial backend](../encoding/liftrs-go/orbit_product.go) now provides
 full and low-coefficient products using additive FFTs for large balanced inputs,
 pruned Karatsuba for smaller ones, and blocking for unequal lengths. Newton series
 inversion and reciprocal-based division use these products. FFT domains must fit
@@ -463,3 +463,15 @@ alternative row widths within a stated table-memory budget), then validate full
 encoding using retained preprocessing. No further optimization or speedup is
 claimed by this profile. Raw profiles, text views, checksums and the matching
 binary/cache locations are retained for later analysis.
+
+### Go/C++ kernel and transform comparison
+
+[The language comparison](../experiments/kernel-languages/report.md) uses matched
+s=13 tables, inputs and batch counts. C++ gives about 2.3–2.5× kernel speedup for
+base products and 1.6–1.7× for extension products. A complete 67,108,864-point
+forward transform measures 63.21 s in Go and 50.11 s in C++ (1.26× speedup), with
+identical complete output and inverse recovery. This is a standalone dense FFT,
+not a full codeword encoder or measured FFI integration. Profiling coverage and
+implementation/compiler differences are documented; these results do not settle
+the language choice. Next evaluate a batched native transform in actual encoding,
+including ownership/interface and setup costs, before selecting a backend.

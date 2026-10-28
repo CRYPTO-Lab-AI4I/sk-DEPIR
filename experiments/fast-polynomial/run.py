@@ -46,7 +46,7 @@ def main():
     result['input_sha256']={str(p.relative_to(ROOT)):digest(p) for p in inputs}
     with tempfile.TemporaryDirectory(prefix='depir-polynomial-') as directory:
         temp=Path(directory);old=temp/'old';old.mkdir()
-        archive=subprocess.check_output(['git','archive',baseline,'go.mod','go.sum','encoding/liftrs','experiments/tablefree-encoding'],cwd=ROOT)
+        archive=subprocess.check_output(['git','archive',baseline,'go.mod','go.sum','encoding/liftrs-go','experiments/tablefree-encoding'],cwd=ROOT)
         # Archive contains our own committed repository paths, not external input.
         with tarfile.open(fileobj=io.BytesIO(archive)) as tar:tar.extractall(old)
         binaries={}
@@ -81,10 +81,10 @@ def main():
                 result['scenarios'].append(case)
     # Benchmark inputs and immutable transform construction are outside each timed
     # kernel; old is the retained full Karatsuba-and-slice path in the test driver.
-    kernels=command([args.go,'test','./encoding/liftrs','-run','^$','-bench','^BenchmarkPolynomialKernels$','-benchtime=1x','-count=3'])
+    kernels=command([args.go,'test','./encoding/liftrs-go','-run','^$','-bench','^BenchmarkPolynomialKernels$','-benchtime=1x','-count=3'])
     (HERE/'kernels.txt').write_text(kernels)
     result['kernels_sha256']=digest(HERE/'kernels.txt')
-    sources=sorted((ROOT/'encoding/liftrs').glob('*.go'))+[HERE/'run.py',ROOT/'experiments/tablefree-encoding/main.go',ROOT/'go.mod',ROOT/'go.sum']
+    sources=sorted((ROOT/'encoding/liftrs-go').glob('*.go'))+[HERE/'run.py',ROOT/'experiments/tablefree-encoding/main.go',ROOT/'go.mod',ROOT/'go.sum']
     result['source_sha256']={str(p.relative_to(ROOT)):digest(p) for p in sources}
     (HERE/'results.json').write_text(json.dumps(result,indent=2)+'\n')
     lines=['# Fast polynomial multiplication: encoder comparison','','Same-machine runs; median of three per-database encodings. Reusable preparation is separate.','','| s / t | Method | Preparation old → new (ms) | Encode old → new (ms) | Encode speedup | Allocated per encode old → new (MiB) | Encode-process RSS old → new (MiB) |','|---|---|---:|---:|---:|---:|---:|']

@@ -21,10 +21,10 @@ requirements should remain as generic as practical.
 
 The online query and decode path supports locality `ℓ=q-1`, dimensions `m=2` and `m=3`, prime fields, and the listed binary extension fields. `Params.Q`, `Params.K`, and `Params.M` denote the field size `q`, curve degree `t`, and database dimension `m`. Production `Query` and `QueryLocal` append 128 dummy positions, so the transmitted query length is `L=(q-1)+128`.
 
-**A standalone small Lift-RS encoder is available in [encoding/liftrs](encoding/liftrs/README.md).** It provides reusable generator-matrix preprocessing and systematic field-element encoding for correctness fixtures over GF(4), GF(8), and GF(16), with at most 256 codeword positions. These are not the target security configurations. **The existing file-based API has no integrated Lift-RS encoder.** `LiftedRS.Encode` calls the external Reed-Muller encoder (`RMEncoding`) as a testing placeholder. `encoding/rme.cpp` contains an experimental `LRSE2D` helper, but the encoder command protocol does not select it. RM-backed tests therefore validate the Lift-RS online protocol only on compatible RM codewords. They do not establish Lift-RS encoding, rate, storage overhead, or encoding time.
+**A standalone small Lift-RS encoder is available in [encoding/liftrs-go](encoding/liftrs-go/README.md).** It provides reusable generator-matrix preprocessing and systematic field-element encoding for correctness fixtures over GF(4), GF(8), and GF(16), with at most 256 codeword positions. These are not the target security configurations. **The existing file-based API has no integrated Lift-RS encoder.** `LiftedRS.Encode` calls the external Reed-Muller encoder (`RMEncoding`) as a testing placeholder. `encoding/rme.cpp` contains an experimental `LRSE2D` helper, but the encoder command protocol does not select it. RM-backed tests therefore validate the Lift-RS online protocol only on compatible RM codewords. They do not establish Lift-RS encoding, rate, storage overhead, or encoding time.
 
 **Paper and cyclic encoders now share the paper's information set** through the
-[bounded orbit API](encoding/liftrs/README.md#paper-and-cyclic-encoders) for `m=2`.
+[bounded orbit API](encoding/liftrs-go/README.md#paper-and-cyclic-encoders) for `m=2`.
 In-memory experiments accept `s=2..13` (at most 67,108,864 positions); completed
 catalogue benchmarks cover s=8..13. Discovery, method preparation,
 public artifact loading, and database encoding are separate. Prepared artifacts
@@ -121,7 +121,7 @@ The external encoder is needed by `BenchmarkEncode` and the tests whose names co
 | `TestCryptographicReferenceLiftedRSRecovery` | Genuine systematic GF(16) Lift-RS codewords | In-memory reads | XOR masking, shared permutation, independent database/re-encoding keys, and recovery with repeated curve positions. |
 | `TestQueryFromServer` | Assumes a compatible database is served | HTTP | Network smoke test only; may skip and does not assert decoded values. |
 
-Tests are in `planner/`, `cmd/pir-rate/`, `pirconfig/`, `pir/`, `utils/`, `encoding/liftrs/`, `encoding/cryptoref/`, and `encoding/appref/`. The [reference package tests](encoding/liftrs/reference_test.go) include exhaustive tiny-instance curve and message checks and a runnable API example. Run them from the repository root with `go test ./...`.
+Tests are in `planner/`, `cmd/pir-rate/`, `pirconfig/`, `pir/`, `utils/`, `encoding/liftrs-go/`, `encoding/cryptoref/`, and `encoding/appref/`. The [reference package tests](encoding/liftrs-go/reference_test.go) include exhaustive tiny-instance curve and message checks and a runnable API example. Run them from the repository root with `go test ./...`.
 
 ## Benchmarks
 
@@ -202,7 +202,7 @@ experiment snapshots retain their earlier estimates.
 
 The PIR configuration catalogue includes binary extension fields `GF(2^s)` for every integer `s` from 8 through 20, initially with `m=2` and the [bounded-sample parameter profile](docs/parameter-planning.md#configuration-catalogue); prime fields are outside the current scope. For indexed layouts, application records must be at least as wide as the largest PIR record in the supported catalogue; packing is outside the current scope.
 
-The [planner design](docs/parameter-planning.md) describes joint selection of submatrix dimensions, code parameters, and query-sharing groups, including total storage and communication costs. Encoding-time and memory estimates may accompany plans but do not influence partition selection. The [small deterministic reference encoder](encoding/liftrs/README.md) now supplies the correctness baseline. The evaluator and greedy planner use catalogue evidence without running either encoder.
+The [planner design](docs/parameter-planning.md) describes joint selection of submatrix dimensions, code parameters, and query-sharing groups, including total storage and communication costs. Encoding-time and memory estimates may accompany plans but do not influence partition selection. The [small deterministic reference encoder](encoding/liftrs-go/README.md) now supplies the correctness baseline. The evaluator and greedy planner use catalogue evidence without running either encoder.
 
 The [application encoder](docs/encoder-contract.md#application-encoding) consumes a selected plan, partitions and pads the input, converts it to field elements, and invokes the non-cryptographic and cryptographic PIR encoders for each database; [appref](encoding/appref/README.md) implements this workflow only as a bounded reference. [Code preprocessing](docs/encoder-contract.md#code-preprocessing) takes only code specifications and produces reusable encoding information, independently of any database. Durable manifest/key persistence and large-instance backends remain separate work. The [encoding algorithm review](docs/encoding-algorithms.md) compares the paper's systematic encoder, a cyclic polynomial formulation, and reusable transform implementations; it records the bounded implementations and remaining large-instance work. The
 [five-step encoder plan](docs/encoding-algorithms.md#6-five-step-implementation-plan)
@@ -216,7 +216,7 @@ capabilities.
 
 - `utils/gf2n.go` implements `GF(2^n)` with log/exp tables for degrees 4, 8, 12, 13, 14, 16, 17, 18, and 20.
 - Degrees 9, 10, 11, 15, and 19 remain absent from that legacy backend; the
-  separate `encoding/liftrs` table-free arithmetic supports every s=2..20. Terabyte-scale application databases are a parameter-planning target, not a verified implementation capability.
+  separate `encoding/liftrs-go` table-free arithmetic supports every s=2..20. Terabyte-scale application databases are a parameter-planning target, not a verified implementation capability.
 - `utils/curve_generation.go` implements prime-field curve generation and `GF(2^n)` curve generation for the online Lift-RS path.
 - `config.json` stores base64-encoded permutator and encryptor keys, a permutator tweak, and a server URL. The configuration helper fills in and persists missing key fields; `Gen` creates ephemeral in-memory keys.
 
@@ -228,10 +228,23 @@ planner/        Bounded tradeoff search, greedy partitioning, validation, and co
 cmd/pir-rate/   Monomial-sampling Lift-RS rate estimator
 pir/            Go Lift-RS client API, tests, benchmarks, and RM encoder wrapper
 utils/          Field arithmetic, curve generation, permutation, masks, and matrix I/O
-encoding/       External RM placeholder and liftrs/, cryptoref/, appref/ reference backends
+encoding/       RM placeholders; liftrs-go/, liftrs-cpp/, cryptoref/, appref/ backends
 server/         Julia HTTP query handler
 input/, output/ Example CSV data and generated matrix locations
 experiments/    Scripts, reports, and results for new measurements
 docs/           Construction and data representation specifications
 message-board/  One file per agent message, with an index in README.md
 ```
+
+
+## Parallel encoding implementations
+
+The Go Lift-RS package is now `encoding/liftrs-go` (Go package name `liftrs`);
+update imports from `github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs` to
+`github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go`. The parallel
+[C++ implementation](encoding/liftrs-cpp/README.md) currently contains comparison
+kernels and an additive-transform stage, not a complete PIR encoder or integrated
+native backend. The [language comparison](experiments/kernel-languages/report.md)
+records matched work, output checks and compiler/profiling boundaries. Historical
+source manifests retain their measured paths; active code and links use the new
+language-labelled directories.

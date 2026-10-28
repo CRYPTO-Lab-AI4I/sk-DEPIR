@@ -13,7 +13,7 @@ import (
 	"testing"
 
 	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/appref"
-	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs"
+	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go"
 	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/pirconfig"
 )
 
@@ -33,7 +33,7 @@ func fixtureCatalogue(t *testing.T, degrees ...int) *pirconfig.Catalogue {
 			Capacity: pirconfig.Capacity{Status: "verified", K: &k, N: n, Rate: &rate, Evidence: evidence},
 			Query:    pirconfig.Query{CurvePositions: 1<<uint(s) - 1, DummyPositions: 128, Length: 1<<uint(s) + 127, DummyRule: "fixed_count_uniform_positions"},
 			Security: pirconfig.Security{Assumptions: "Synthetic correctness fixture, no security claim", Evidence: evidence},
-			Encoder:  &pirconfig.Encoder{Implementation: "encoding/liftrs", Preprocessing: "dense systematic reference", Evidence: evidence},
+			Encoder:  &pirconfig.Encoder{Implementation: "encoding/liftrs-go", Preprocessing: "dense systematic reference", Evidence: evidence},
 		})
 	}
 	return c

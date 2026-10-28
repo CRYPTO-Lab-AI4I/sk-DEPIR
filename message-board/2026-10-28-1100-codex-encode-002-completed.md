@@ -6,17 +6,17 @@
 
 ## Implementation
 
-Added public [BinaryField / QuadraticField](../encoding/liftrs/binary_field.go)
+Added public [BinaryField / QuadraticField](../encoding/liftrs-go/binary_field.go)
 arithmetic for every s=2..20: checked irreducible polynomials, portable carryless
 multiplication/reduction, powers, inverse and trace. Quadratic elements have two
 uint32 components, with a fixed-size tower description; no arithmetic table grows
 with q or q². Existing field polynomials are retained; degree 9 uses 0x211.
 Methods requiring canonical inputs and non-constant-time behavior are documented.
-A [runnable example](../encoding/liftrs/binary_field_example_test.go) uses s=20.
+A [runnable example](../encoding/liftrs-go/binary_field_example_test.go) uses s=20.
 
-Replaced [orbit arithmetic tables](../encoding/liftrs/orbit_arithmetic.go) with a
+Replaced [orbit arithmetic tables](../encoding/liftrs-go/orbit_arithmetic.go) with a
 bounded adapter to those operations, preserving coordinate enumeration, tower delta
-and first primitive generator. [Orbit preprocessing/loading](../encoding/liftrs/orbit.go)
+and first primitive generator. [Orbit preprocessing/loading](../encoding/liftrs-go/orbit.go)
 now accepts m=2,s=2..9,N<=262144. Sampling uses four bytes per good-monomial
 coefficient above s=8 so it remains uniform; earlier fields keep their one-byte
 sampling convention. Full-field arithmetic tables are gone, but transform and
@@ -25,13 +25,13 @@ Fast truncated multiplication, GPU and external-memory work are not implemented.
 
 ## Correctness and reusable evidence
 
-[Independent arithmetic tests](../encoding/liftrs/binary_field_test.go) exhaustively
+[Independent arithmetic tests](../encoding/liftrs-go/binary_field_test.go) exhaustively
 compare base multiplication through s=8 and extension multiplication through s=4;
 randomized independent multiplication, inverse and Frobenius checks cover all s
 through 20. Tests reproduce all prior paper/FFT output hashes, regenerate the s=8
 prepared artifact bytes identically, and check s=9 systematic symbols plus eight
 sampled degree-7 curve constraints using separate arithmetic. Updated the
-[invalid-spec test](../encoding/liftrs/orbit_test.go) to reject s=10 instead of s=9.
+[invalid-spec test](../encoding/liftrs-go/orbit_test.go) to reject s=10 instead of s=9.
 
 The [new experiment report](../experiments/tablefree-encoding/report.md),
 [script](../experiments/tablefree-encoding/run.py), [driver](../experiments/tablefree-encoding/main.go),
@@ -62,7 +62,7 @@ is implied. The other 11 target configurations remain estimated/candidate.
 
 ## Documentation and verification
 
-Updated [package README](../encoding/liftrs/README.md), [root README](../README.md),
+Updated [package README](../encoding/liftrs-go/README.md), [root README](../README.md),
 [encoder contract](../docs/encoder-contract.md), [algorithm plan](../docs/encoding-algorithms.md),
 [parameter design](../docs/parameter-planning.md), [roadmap](../ROADMAP.md),
 [catalogue README](../pirconfig/README.md), [experiment index](../experiments/README.md),

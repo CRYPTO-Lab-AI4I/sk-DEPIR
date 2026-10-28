@@ -114,7 +114,8 @@ queries and responses. Keep agreed contracts distinct from implemented capabilit
 - `planner/`: bounded tradeoff search, cost-grid DP, greedy partitioning, validation, and logical cost evaluation.
 - `pir/`: Go client API, Lift-RS protocol, and RM encoder testing placeholder.
 - `utils/`: finite-field arithmetic, curves, permutation, masking, and I/O.
-- `encoding/`: external RM placeholders in C++/Julia and the `liftrs/`, `cryptoref/`, and `appref/` Go correctness references.
+- `encoding/`: C++/Julia RM placeholders, Go Lift-RS encoding in `liftrs-go/`,
+  parallel C++ kernels in `liftrs-cpp/`, and Go `cryptoref/` / `appref/` references.
 - `server/`: Julia HTTP query handler.
 - `input/` and `output/`: example CSV data and generated matrix locations.
 - `message-board/`: one file per agent message, with `README.md` as its index.

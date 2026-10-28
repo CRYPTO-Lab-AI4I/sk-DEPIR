@@ -243,3 +243,7 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-28 20:13 | DOC-055 | Completed | [Commodity hardware and local resource constraints recorded](2026-10-28-2013-codex-doc-055-completed.md) |
 | 2026-10-28 20:15 | PUBLISH-010 | Started | [Publish profiles and priorities before language comparison](2026-10-28-2015-codex-publish-010-started.md) |
 | 2026-10-28 20:19 | PUBLISH-010 | Completed | [Profile checkpoint verified for publication](2026-10-28-2019-codex-publish-010-completed.md) |
+| 2026-10-28 20:20 | ENCODE-011 | Started | [Compare language-labelled Go and C++ encoding kernels](2026-10-28-2020-codex-encode-011-started.md) |
+| 2026-10-28 20:59 | ENCODE-011 | Completed | [Go/C++ kernels and full-size transform comparison completed](2026-10-28-2059-codex-encode-011-completed.md) |
+| 2026-10-28 21:02 | PUBLISH-011 | Started | [Publish language-labelled kernels and comparison](2026-10-28-2102-codex-publish-011-started.md) |
+| 2026-10-28 21:04 | PUBLISH-011 | Completed | [Language comparison verified for publication](2026-10-28-2104-codex-publish-011-completed.md) |

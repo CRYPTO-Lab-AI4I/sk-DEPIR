@@ -1,0 +1,14 @@
+File: go-bench-comparison.test
+Type: cpu
+Time: 2026-10-28 21:35:15 CET
+Duration: 706.37ms, Total samples = 570ms (80.69%)
+Showing nodes accounting for 570ms, 100% of 570ms total
+      flat  flat%   sum%        cum   cum%
+     250ms 43.86% 43.86%      250ms 43.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.BinaryField.Mul (inline)
+     200ms 35.09% 78.95%      200ms 35.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.constantProduct.mul
+      80ms 14.04% 92.98%      570ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).recurse
+      30ms  5.26% 98.25%      280ms 49.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.QuadraticField.Mul
+      10ms  1.75%   100%      290ms 50.88%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.orbitField.mul
+         0     0%   100%      570ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*additiveTransform).applySubspace
+         0     0%   100%      570ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.TestRunLanguageBench
+         0     0%   100%      570ms   100%  testing.tRunner

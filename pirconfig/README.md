@@ -33,7 +33,7 @@ encoding, grouped storage or production security. Historical cost-grid snapshots
 retain their original estimates so objective comparisons use identical inputs.
 
 The [tiny fixture](testdata/reference.json) has verified `K=5`, `N=16` over GF(4),
-backed by the [reference encoder tests](../encoding/liftrs/reference_test.go).
+backed by the [reference encoder tests](../encoding/liftrs-go/reference_test.go).
 It makes no security claim and is not part of the target security profile.
 
 ## Format

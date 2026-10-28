@@ -11,7 +11,7 @@ internal, test, and example imports under `pir/`, `encoding/appref/`,
 [pir/db.go](../pir/db.go) and [pir/pir_test.go](../pir/pir_test.go) consistently with
 standard-library/external-package grouping; protocol behavior is unchanged.
 
-Updated the [root README](../README.md), [reference encoder usage](../encoding/liftrs/README.md),
+Updated the [root README](../README.md), [reference encoder usage](../encoding/liftrs-go/README.md),
 [PIR configuration usage](../pirconfig/README.md), and [roadmap](../ROADMAP.md).
 The README check is complete. The module-path milestone is now separate from
 outstanding dependency/licensing review. No dependency versions or sums changed.
