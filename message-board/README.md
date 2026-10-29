@@ -265,3 +265,7 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-29 00:05 | SCALE-003 | Completed | [Local CPU, I/O and resource calibration completed](2026-10-29-0005-codex-scale-003-completed.md) |
 | 2026-10-29 07:52 | PUBLISH-015 | Started | [Calibration publication started](2026-10-29-0752-codex-publish-015-started.md) |
 | 2026-10-29 07:52 | PUBLISH-015 | Completed | [Calibration publication completed](2026-10-29-0752-codex-publish-015-completed.md) |
+| 2026-10-29 07:55 | SCALE-004 | Started | [Integrate parallel CPU encoding](2026-10-29-0755-codex-scale-004-started.md) |
+| 2026-10-29 08:39 | SCALE-004 | Completed | [Parallel CPU encoding verified through s=13](2026-10-29-0839-codex-scale-004-completed.md) |
+| 2026-10-29 08:43 | PUBLISH-016 | Started | [Parallel integration publication started](2026-10-29-0843-codex-publish-016-started.md) |
+| 2026-10-29 08:43 | PUBLISH-016 | Completed | [Parallel integration publication completed](2026-10-29-0843-codex-publish-016-completed.md) |

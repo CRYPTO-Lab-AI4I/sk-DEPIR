@@ -17,26 +17,24 @@ standard setups. Target commodity CPUs and GPUs and measure on locally available
 hardware. Larger workloads may need larger machines, but hardware/software
 requirements should remain as generic as practical.
 
-The current CPU kernel optimization phase is complete; validated standalone
-encoding reaches **s=13**. Further tuning remains possible. The next priority is a
-[scaling design study](docs/encoding-scaling.md),
-covering memory, preprocessing storage, blocked/external-memory algorithms and
-commodity CPU/GPU execution before architecture-specific tuning. Steps 1–2 now
-provide a [source-based resource model](experiments/encoding-resources/report.md)
-and candidate comparison. [Step-3 prototypes](experiments/scaling-prototypes/report.md)
-now validate sparse setup, lean cyclic preparation, reusable online workspaces and
-exact disk-backed matrix/output mappings. One s=13 native workspace encoding matches
-the complete baseline hash in 153.37 s; these opt-in probes do not change defaults
-or establish larger-instance practicality. [Local step-4 calibration](experiments/local-calibration/report.md)
-now shows useful native tile concurrency (about 7× at eight workers and 12× at
-sixteen), lower prototype preparation RSS at s=10, and a fresh s=13 minimal-loader
-peak of 623 MiB. These are component measurements, not a full-encoder speedup or
-larger-size feasibility claim. The resource model counts remain
-analytical payload scenarios rather than measured RAM bounds. On the current
-48 GiB host, **s=14 appears practical with a larger setup budget**; **s=15 is
-borderline for encoding from an existing cache**, while its estimated preprocessing
-exceeds host memory. These are unmeasured expectations, not supported configurations;
-see the [assumptions and estimates](docs/encoding-algorithms.md#current-checkpoint-and-next-step).
+Standalone mathematical encoding is validated through **s=13**. The
+[scaling study](docs/encoding-scaling.md) now includes resource accounting,
+correctness prototypes, local calibration and an
+[opt-in parallel CPU integration](experiments/parallel-encoding/report.md).
+On this 48 GiB commodity host, three profiled s=13 encodings have medians of
+**29.8 s at eight workers and 20.2 s at sixteen**, with identical full canonical
+outputs. Process peak RSS is **1.15 GiB**. The sixteen-worker time is about 7.6×
+faster than the retained 153.4-second serial native baseline; this is a historical
+comparison, not a freshly matched speedup trial.
+
+The new path uses arbitrary-basis/affine C++ transforms, parallel matrix/Taylor
+execution, blocked in-memory transposes, reusable workspace and buffered minimal
+preprocessing loading. Existing reference/default APIs remain available. Reusable
+large code preparation remains Go and is separate from these online timings.
+There is no disk-backed backend or larger supported field yet. The next gate is
+s=14 discovery/preparation and full encoding under reviewed resource budgets,
+followed by s=15. The [resource model](experiments/encoding-resources/report.md)
+counts analytical payloads, not measured larger-size RAM bounds.
 
 ## Implementation status and limits
 

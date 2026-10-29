@@ -1,0 +1,24 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 09:25:38 CET
+Duration: 302.74ms, Total samples = 150ms (49.55%)
+Showing nodes accounting for 150ms, 100% of 150ms total
+      flat  flat%   sum%        cum   cum%
+     130ms 86.67% 86.67%      150ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.LoadScalingOnline
+      20ms 13.33%   100%       20ms 13.33%  syscall.rawsyscalln
+         0     0%   100%       20ms 13.33%  bufio.(*Reader).Read
+         0     0%   100%       20ms 13.33%  internal/poll.(*FD).Read
+         0     0%   100%       20ms 13.33%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%       20ms 13.33%  io.(*teeReader).Read
+         0     0%   100%       20ms 13.33%  io.ReadAtLeast
+         0     0%   100%       20ms 13.33%  io.ReadFull (inline)
+         0     0%   100%      150ms   100%  main.main
+         0     0%   100%      150ms   100%  main.main.func2
+         0     0%   100%      150ms   100%  main.main.func3
+         0     0%   100%       20ms 13.33%  os.(*File).Read
+         0     0%   100%       20ms 13.33%  os.(*File).read (inline)
+         0     0%   100%      150ms   100%  runtime.main
+         0     0%   100%       20ms 13.33%  syscall.Read (inline)
+         0     0%   100%       20ms 13.33%  syscall.read
+         0     0%   100%       20ms 13.33%  syscall.syscall
+         0     0%   100%       20ms 13.33%  syscall.syscalln

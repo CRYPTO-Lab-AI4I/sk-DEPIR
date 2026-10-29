@@ -325,15 +325,25 @@ sized public preprocessing distribution.
 
 The [step-3 prototypes](../experiments/scaling-prototypes/report.md) now provide
 opt-in sparse/paired cyclic preparation and explicit reusable online workspaces.
-They preserve the information set and original complete s=13 codeword. The
-sectioned minimal loader and matrix/Taylor/output-routing experiments are test-only;
-no public artifact validation or default backend changes. RAM/throughput guarantees,
-large preparation, native generalized tiles and cryptographic/grouped output remain
-separate acceptance work.
+They preserve the information set and original complete s=13 codeword. At that checkpoint the
+sectioned minimal loader and matrix/Taylor/output-routing experiments were test-only.
+The newer [parallel integration](../experiments/parallel-encoding/report.md) exposes
+an experimental checksum-checked minimal loader and opt-in native generalized
+matrix path. It does not change default encoding APIs, establish a stable public
+artifact format or add cryptographic/grouped output. Large preparation and actual
+RAM/throughput measurements remain distinct acceptance work.
 
 
 [Step-4 calibration](../experiments/local-calibration/report.md) supplies independent
 native-tile scaling and fresh preparation/loader process RSS. These component
 observations do not change supported parameters, API defaults or resource limits.
-Step 5 must validate native generalized tiles, bounded scheduling and actual
-matrix/output movement before using those measurements for full-encoder claims.
+Those measurements motivated validation of native generalized tiles, scheduling
+and matrix movement in the subsequent integration checkpoint below.
+
+
+The [parallel integration checkpoint](../experiments/parallel-encoding/report.md)
+now validates native arbitrary-basis/affine execution and the complete canonical
+s=13 word using explicit workers, reusable Taylor setup and transpose workspace.
+Its runtime/RSS evidence applies to mathematical encoding only. The next gate is
+larger exact discovery/preparation and complete encoding; cryptographic/grouped
+output, public artifact publication and external-memory execution remain separate.

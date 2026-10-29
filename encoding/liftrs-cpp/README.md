@@ -54,13 +54,26 @@ The [encoding overview](../README.md) contrasts this with the compiler-free Go
 path. No RM code is used by these kernels; it is archived in `../rme_legacy/`.
 
 The [scaling prototypes](../../experiments/scaling-prototypes/report.md) exercise
-this same native executor with minimal online state and a reusable shared-code
-workspace. C++ transform code is unchanged. Sparse preparation remains Go, and
-the new disk-backed matrix/Taylor probe uses Go subtransforms while its generalized
-basis/offset semantics are validated; it is not yet a C++ tiled backend.
+the original native executor with minimal online state and a reusable shared-code
+workspace. That historical checkpoint used unchanged C++ kernels. Sparse
+preparation remains Go. Its scalar disk-backed matrix/Taylor probe is a separate
+correctness reference for the newer in-memory native matrix path below.
 
 
 Standard root commands `make test` and `make encode` enable native support;
 `make encode` also selects C++ execution. `BACKEND=go` selects the reference path.
 No caller API or preprocessing default has changed; enabling the build tag alone
 still does not replace explicit adapter construction in arbitrary Go callers.
+
+## Experimental parallel matrix execution
+
+`Plan.ApplyAt` accepts an ordered basis and a packed affine field offset using
+internal descriptor version 2. Version 1 canonical plans remain compatible.
+`ApplyMatrix` combines sparse h-adic Taylor conversion, arbitrary image-basis
+column transforms, affine row transforms and 64×64 blocked transposes. Workers
+are explicit; buffers are borrowed for one call, and scratch must be disjoint.
+`ApplyMatrixWithStats` reports elapsed native stages, including thread scheduling.
+Code-only Taylor multiplication maps are built once in explicit plan preparation.
+The binding compiles/links with `-pthread` for portable standard-library threads.
+This is an in-memory backend, with an extra N-element transpose buffer, not a
+bounded-disk implementation. See the [integration experiment](../../experiments/parallel-encoding/report.md).

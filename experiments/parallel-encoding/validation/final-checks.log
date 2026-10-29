@@ -1,0 +1,5 @@
+$ /tmp/sk-depir-go-toolchain/go/bin/go test -race -tags liftrs_cpp ./encoding/liftrs-shared -run TestCPP(Ordered|Matrix)|TestScalingOnline|ExampleScalingOnlinePlan_WithCPPMatrix -count=1
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	2.944s
+$ /tmp/sk-depir-go-toolchain/go/bin/go vet -tags liftrs_cpp ./encoding/... ./experiments/parallel-encoding
+$ /tmp/sk-depir-go-toolchain/go/bin/go test ./encoding/liftrs-shared -run TestScalingOnline -count=1
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	0.420s

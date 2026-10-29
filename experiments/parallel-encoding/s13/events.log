@@ -1,0 +1,17 @@
+load 149.150792ms
+setup-w8 1.490542ms
+workspace-w8 16.457708ms
+encode-w8-r0 29.322402958s
+verify-w8-r0 112.351625ms
+encode-w8-r1 29.400840917s
+verify-w8-r1 111.797375ms
+encode-w8-r2 29.795108584s
+verify-w8-r2 115.168166ms
+setup-w16 2.5785ms
+workspace-w16 3.739208ms
+encode-w16-r0 19.108286208s
+verify-w16-r0 110.148416ms
+encode-w16-r1 19.450085208s
+verify-w16-r1 117.351083ms
+encode-w16-r2 19.754920084s
+verify-w16-r2 118.055291ms

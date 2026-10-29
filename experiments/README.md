@@ -116,6 +116,10 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
   scaling, explicit-cache block transfers, compute/I/O overlap and fresh-process
   preparation/minimal-loader RSS, with GPU inventory and interpretation limits.
 
+- [Parallel encoding integration](parallel-encoding/report.md): full canonical
+  s=13 comparison with general-basis/affine native tiles, parallel Taylor/matrix
+  execution, blocked transposes and buffered minimal-plan loading.
+
 ## Encoding implementation paths
 
 The complete API, preprocessing and orchestration now live in

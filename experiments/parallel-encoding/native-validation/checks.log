@@ -1,0 +1,3 @@
+$ /usr/bin/clang++ -std=c++17 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -pthread encoding/liftrs-cpp/matrix_test.cpp encoding/liftrs-cpp/c_api.cpp -o /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-matrix-asan-omoyusnt/matrix
+$ /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-matrix-asan-omoyusnt/matrix
+General-basis matrix/Taylor/Horner/inverse checks passed at all small splits

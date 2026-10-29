@@ -1,0 +1,32 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 09:27:31 CET
+Duration: 20.08s, Total samples = 168.68s (839.89%)
+Showing nodes accounting for 168.01s, 99.60% of 168.68s total
+Dropped 25 nodes (cum <= 0.84s)
+      flat  flat%   sum%        cum   cum%
+   150.91s 89.47% 89.47%    150.91s 89.47%  [probe]
+    12.49s  7.40% 96.87%     12.49s  7.40%  runtime.cgocall
+     2.16s  1.28% 98.15%      2.16s  1.28%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     1.10s  0.65% 98.80%      1.10s  0.65%  runtime.pthread_cond_wait
+        1s  0.59% 99.40%         1s  0.59%  __thread_proxy
+     0.20s  0.12% 99.51%     15.02s  8.90%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).Encode
+     0.15s 0.089% 99.60%      2.31s  1.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0% 99.60%     12.49s  7.40%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0% 99.60%     12.49s  7.40%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0% 99.60%     15.02s  8.90%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPEncoder).EncodeWithStats
+         0     0% 99.60%      5.43s  3.22%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0% 99.60%      7.06s  4.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0% 99.60%     12.49s  7.40%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*matrixCPPExecutor).apply
+         0     0% 99.60%     15.02s  8.90%  main.main
+         0     0% 99.60%     15.02s  8.90%  main.main.func2
+         0     0% 99.60%     15.02s  8.90%  main.main.func7
+         0     0% 99.60%    151.91s 90.06%  runtime._ExternalCode
+         0     0% 99.60%      1.72s  1.02%  runtime.findRunnable
+         0     0% 99.60%     15.02s  8.90%  runtime.main
+         0     0% 99.60%      1.73s  1.03%  runtime.mcall
+         0     0% 99.60%      1.10s  0.65%  runtime.notesleep
+         0     0% 99.60%      1.73s  1.03%  runtime.park_m
+         0     0% 99.60%      1.72s  1.02%  runtime.schedule
+         0     0% 99.60%      1.10s  0.65%  runtime.semasleep
+         0     0% 99.60%      1.10s  0.65%  runtime.stopm

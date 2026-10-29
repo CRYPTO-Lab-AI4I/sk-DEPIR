@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "command": [
+        "/tmp/sk-depir-go-toolchain/go/bin/go",
+        "test",
+        "-race",
+        "-tags",
+        "liftrs_cpp",
+        "./encoding/liftrs-shared",
+        "-run",
+        "TestCPP(Ordered|Matrix)|TestScalingOnline|ExampleScalingOnlinePlan_WithCPPMatrix",
+        "-count=1"
+      ],
+      "exit_code": 0,
+      "wall_s": 4.329917417
+    },
+    {
+      "command": [
+        "/tmp/sk-depir-go-toolchain/go/bin/go",
+        "vet",
+        "-tags",
+        "liftrs_cpp",
+        "./encoding/...",
+        "./experiments/parallel-encoding"
+      ],
+      "exit_code": 0,
+      "wall_s": 0.2526448330000006
+    },
+    {
+      "command": [
+        "/tmp/sk-depir-go-toolchain/go/bin/go",
+        "test",
+        "./encoding/liftrs-shared",
+        "-run",
+        "TestScalingOnline",
+        "-count=1"
+      ],
+      "exit_code": 0,
+      "wall_s": 0.6578477920000001
+    }
+  ],
+  "note": "Final prefix-capacity guard and runnable API example checked after full suites; codeword path unchanged.",
+  "pthread_portability_check": {
+    "command": [
+      "/tmp/sk-depir-go-toolchain/go/bin/go",
+      "test",
+      "-tags",
+      "liftrs_cpp",
+      "./encoding/liftrs-shared",
+      "-run",
+      "TestCPP(Ordered|Matrix)|TestScalingOnline|ExampleScalingOnlinePlan_WithCPPMatrix",
+      "-count=1"
+    ],
+    "status": "passed",
+    "note": "Final binding explicitly compiles/links pthread; checked on macOS, not a Linux platform qualification.",
+    "env": {
+      "GOCACHE": "/tmp/sk-depir-go-cache"
+    },
+    "exit_code": 0
+  },
+  "final_binding_sha256": "d437d95a1bd38b9116acc21f2e2b1d9191d186dd736e821e27687163373ebc27"
+}

@@ -1,0 +1,19 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 09:02:09 CET
+Duration: 202.26ms, Total samples = 40ms (19.78%)
+Showing nodes accounting for 40ms, 100% of 40ms total
+      flat  flat%   sum%        cum   cum%
+      40ms   100%   100%       40ms   100%  runtime.cgocall
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.ApplyMatrixWithStats (inline)
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix.func1 (inline)
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPEncoder).EncodeWithStats
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).Encode
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*matrixCPPExecutor).apply
+         0     0%   100%       40ms   100%  main.main
+         0     0%   100%       40ms   100%  main.main.func2
+         0     0%   100%       40ms   100%  main.main.func7
+         0     0%   100%       40ms   100%  runtime.main

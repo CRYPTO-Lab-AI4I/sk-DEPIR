@@ -325,3 +325,22 @@ bucket routing are **test-only prototypes**. The file layout is not a public
 artifact format and requires an independently trusted digest/code provenance.
 External execution currently uses scalar disk calls and Go tile kernels. It tests
 exact decomposition, not high-throughput I/O or a full native external encoder.
+
+## Experimental parallel matrix encoder
+
+With `-tags liftrs_cpp`, a verified minimal `ScalingOnlinePlan` can prepare
+`WithCPPMatrix(workers)`. Allocate one `encoder.NewWorkspace()` per concurrent
+encoding and call `encoder.Encode(message, workspace)` (or `EncodeWithStats`).
+The [runnable example](scaling_matrix_cpp_example_test.go) demonstrates this API.
+Close the encoder after its calls finish. Code P/spectrum is shared immutably;
+transpose scratch adds `4*N` bytes to the reusable workspace. This opt-in path
+preserves the canonical codeword and information set; Go still orchestrates the
+five transforms, pointwise products and assembly. It does not change the original
+`CyclicEncoder` or `WithCPPTransforms` APIs/defaults.
+
+`LoadScalingOnline(reader, trustedSHA256, maxElements)` uses buffered blocks to
+read the experimental minimal binary. The digest must come from independently
+verified preprocessing; matching a checksum does not prove code validity. The
+format is experimental, limited to s≤13, and is not a public artifact-distribution
+commitment. Usage and profiling commands are in the
+[parallel integration report](../../experiments/parallel-encoding/report.md).

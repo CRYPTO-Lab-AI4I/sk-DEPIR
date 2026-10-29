@@ -23,7 +23,17 @@ These figures refer to different measurement boundaries. Directory separation
 [passed both backend checks](../experiments/encoding-layout/report.md); it did not
 rerun or replace the original timing measurements.
 
-**Larger-size expectations are unmeasured.** On the 48 GiB host, s=14 appears
+The [parallel matrix integration](../experiments/parallel-encoding/report.md) now
+measures profiled s=13 medians of 29.8 s (eight workers) and 20.2 s (sixteen),
+with identical canonical outputs and 1.15 GiB whole-process peak RSS. Arbitrary
+basis/affine tiles, Taylor maps prepared once, blocked transposes and minimal
+binary loading are opt-in. The 7.6× comparison to the retained serial native
+median combines scheduling/algorithm changes; it is not thread scaling alone.
+Larger parallel cases and their preparation remain unmeasured.
+
+**Earlier serial-path expectations are unmeasured.** These online-time/RSS
+extrapolations predate the parallel integration below and are preserved as
+historical scenarios, not forecasts for the new backend. On the 48 GiB host, s=14 appears
 practical with an increased setup budget: approximately 12–13 minutes per encoding,
 10 GiB loading/encoding RAM, 3 hours and 23 GiB RAM to generate preprocessing.
 s=15 is borderline for encoding from an already available cache (roughly 55–63

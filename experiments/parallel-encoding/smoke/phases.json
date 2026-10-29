@@ -1,0 +1,107 @@
+[
+  {
+    "allocated_bytes": 111759184,
+    "elapsed_ns": 363260417,
+    "go_sys_bytes": 18614536,
+    "heap_after_bytes": 3818360,
+    "heap_before_bytes": 360024,
+    "k": 3121,
+    "n": 65536,
+    "phase": "load",
+    "plan_array_bytes": 274632,
+    "s": 8,
+    "small_load_includes_generation_if_missing": true
+  },
+  {
+    "allocated_bytes": 2242208,
+    "elapsed_ns": 225291,
+    "go_sys_bytes": 18876680,
+    "heap_after_bytes": 3012728,
+    "heap_before_bytes": 770520,
+    "phase": "setup-w1",
+    "workers": 1
+  },
+  {
+    "allocated_bytes": 2534584,
+    "elapsed_ns": 8333,
+    "go_sys_bytes": 18876680,
+    "heap_after_bytes": 3312920,
+    "heap_before_bytes": 778336,
+    "input_bytes": 12484,
+    "phase": "workspace-w1",
+    "workspace_bytes": 536772
+  },
+  {
+    "allocated_bytes": 2294824,
+    "elapsed_ns": 43414083,
+    "go_sys_bytes": 18876680,
+    "heap_after_bytes": 3612200,
+    "heap_before_bytes": 1317376,
+    "native_stages": {
+      "calls": 5,
+      "taylor_ns": 1590292,
+      "columns_transposes_ns": 13421833,
+      "rows_ns": 27088459
+    },
+    "output_bytes": 262144,
+    "phase": "encode-w1-r0",
+    "repeat": 0,
+    "workers": 1
+  },
+  {
+    "allocated_bytes": 1996744,
+    "canonical_sha256": "0f049a254e9da9413c1a12ec8cf57a761b61357feba536070fe0cb28631ba4bf",
+    "elapsed_ns": 194375,
+    "full_hash_match": true,
+    "go_sys_bytes": 18876680,
+    "heap_after_bytes": 3579344,
+    "heap_before_bytes": 1582600,
+    "phase": "verify-w1-r0"
+  },
+  {
+    "allocated_bytes": 2242688,
+    "elapsed_ns": 291541,
+    "go_sys_bytes": 18893064,
+    "heap_after_bytes": 3026280,
+    "heap_before_bytes": 783592,
+    "phase": "setup-w4",
+    "workers": 4
+  },
+  {
+    "allocated_bytes": 2534104,
+    "elapsed_ns": 4292,
+    "go_sys_bytes": 18893064,
+    "heap_after_bytes": 3319104,
+    "heap_before_bytes": 785000,
+    "input_bytes": 12484,
+    "phase": "workspace-w4",
+    "workspace_bytes": 536772
+  },
+  {
+    "allocated_bytes": 2307848,
+    "elapsed_ns": 14725167,
+    "go_sys_bytes": 18893064,
+    "heap_after_bytes": 3631296,
+    "heap_before_bytes": 1323448,
+    "native_stages": {
+      "calls": 5,
+      "taylor_ns": 2008875,
+      "columns_transposes_ns": 4191792,
+      "rows_ns": 7202708
+    },
+    "output_bytes": 262144,
+    "phase": "encode-w4-r0",
+    "repeat": 0,
+    "workers": 4
+  },
+  {
+    "allocated_bytes": 1996840,
+    "canonical_sha256": "0f049a254e9da9413c1a12ec8cf57a761b61357feba536070fe0cb28631ba4bf",
+    "elapsed_ns": 121833,
+    "full_hash_match": true,
+    "go_sys_bytes": 18893064,
+    "heap_after_bytes": 3584360,
+    "heap_before_bytes": 1587520,
+    "phase": "verify-w4-r0"
+  }
+]

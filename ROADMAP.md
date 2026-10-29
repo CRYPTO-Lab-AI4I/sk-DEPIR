@@ -224,3 +224,10 @@ The adapter remains limited to s<=13; s=14..20 need further work. Large serializ
 caches and automatic application-plan execution are still unverified; the small
 reference provides comparison vectors for that work. Small test fields
 do not inherit the catalogue's security claims.
+
+
+The [parallel CPU checkpoint](experiments/parallel-encoding/report.md) completes
+local s=13 matrix integration: canonical outputs, 20.2 s profiled median at sixteen
+workers, and 1.15 GiB process peak RSS. This is standalone mathematical encoding;
+large preparation, s=14/15 validation and application execution remain acceptance
+work. It does not establish the full TRL 5 target.

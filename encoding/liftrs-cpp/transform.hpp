@@ -30,6 +30,7 @@ struct Product {
 struct Term {uint32_t degree;Product product;};
 struct Transform {
  Field f;std::vector<std::vector<Term>> terms;std::vector<std::vector<uint32_t>> values;
+ std::vector<uint32_t> basis; // Ordered field coordinates; empty means canonical powers of two.
  std::vector<uint32_t> delta,inverse;std::vector<Product> delta_products,inverse_products;
  uint32_t offset(unsigned k,uint32_t x) const {
   uint32_t out=0;while(x){unsigned j=__builtin_ctz(x);out^=values[k][j];x&=x-1;}return out;
@@ -41,7 +42,7 @@ struct Transform {
    for(size_t i=length;i-- > half;){uint32_t v=data[i];for(size_t j=0;j+1<ts.size();j++)data[i-half+ts[j].degree]^=ts[j].product.mul(f,v);}
    for(size_t j=0;j<half;j++){uint32_t v=data[half+j],left=data[j]^f.mul(c,v);data[j]=left;data[half+j]=left^delta_products[k].mul(f,v);}
   }
-  recurse(data,half,k,start,invert);recurse(data+half,half,k,start^uint32_t(half),invert);
+  recurse(data,half,k,start,invert);recurse(data+half,half,k,start^(basis.empty()?uint32_t(half):basis[k]),invert);
   if(invert){
    for(size_t j=0;j<half;j++){uint32_t v=inverse_products[k].mul(f,data[j]^data[half+j]);data[j]^=f.mul(c,v);data[half+j]=v;}
    for(size_t j=0;j<half;j++){uint32_t v=data[half+j];for(size_t n=0;n+1<ts.size();n++)data[j+ts[n].degree]^=ts[n].product.mul(f,v);}
@@ -49,12 +50,13 @@ struct Transform {
  }
  // Borrow a pointer-free caller buffer for this call; no allocation or retained
  // message pointer. The immutable plan is shared across independent encodings.
- void apply(uint32_t* data,size_t length,bool invert=false)const {
-  if(!data || !length || (length&(length-1)) || length>f.q)
+ void apply(uint32_t* data,size_t length,bool invert=false,uint32_t start=0)const {
+  if(!data || !length || (length&(length-1)) || length>f.q || start>=f.q)
    throw std::runtime_error("invalid transform length");
   unsigned level=0;
   for(size_t n=length;n>1;n>>=1)level++;
-  recurse(data,length,level,0,invert);
+  if(level>terms.size())throw std::runtime_error("transform exceeds basis");
+  recurse(data,length,level,start,invert);
  }
  void apply(std::vector<uint32_t>& data,bool invert=false)const {
   apply(data.data(),data.size(),invert);

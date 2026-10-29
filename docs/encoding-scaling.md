@@ -20,7 +20,7 @@ an application layout can invoke several such encodings and reuse code-only setu
 | 2. Execution designs | Compare blocked in-memory and external-memory transforms/products, selective preprocessing and spectrum choices | Concrete candidates, cost models and explicit unresolved dependencies | Complete: candidates/gates |
 | 3. Focused prototypes | Implement uncertain operations at manageable sizes under constrained RAM; compare with the existing code | Verified decompositions and measured memory/I/O, not just timings | Prototype round complete; performance gates open |
 | 4. Local calibration | Measure useful-core scaling, sustained storage and compute/I/O overlap; assess GPU suitability | Calibrated resource model and reasons for any larger hardware test | Bounded local calibration complete; sustained/integrated gates open |
-| 5. Design selection | Select from measured evidence; integrate and validate progressively at s=13,14,15 when budgets permit | Canonical outputs, measured resource use and next hardware recommendation | Planned |
+| 5. Design selection | Select from measured evidence; integrate and validate progressively at s=13,14,15 when budgets permit | Canonical outputs, measured resource use and next hardware recommendation | Local s=13 CPU integration complete; s=14/15 gates open |
 
 The first local feasibility target is s=15; the design must account for s=16..20.
 No runtime/RAM/disk budget is increased by this plan. Agree numerical budgets
@@ -287,8 +287,9 @@ or selecting hardware, implement blocked I/O for Taylor/column stages, measure
 large preparation scratch/GC lifetimes and a minimal-loader-only process peak,
 and port general-basis/affine tile semantics into native execution as needed.
 The old default constructors remain unchanged. No s=14/15 encoding, public binary
-format, RAM bound or full native external-memory encoder is claimed. Steps 4–5
-remain open; the throughput/resource gates identified by step 3 must be met.
+format, RAM bound or full native external-memory encoder is claimed by that
+prototype checkpoint. The following sections record subsequent calibration and
+local integration; sustained storage and larger-size resource gates remain.
 
 
 ## Step 4: local calibration checkpoint
@@ -320,3 +321,41 @@ I/O; improve minimal binary decoding, verify the combined s=13 path, and then
 review budgets before larger runs. Longer storage qualification and integrated
 parallel I/O remain gates when required by the chosen design. No HPC/GPU platform,
 higher memory budget, worker default or additional supported field is selected.
+
+## Parallel integration work item
+
+Following step 4, implement these three steps before larger runs:
+
+1. Extend C++ transforms to arbitrary ordered bases and affine offsets, preserving
+   canonical field coordinates. Integrate the verified matrix decomposition with
+   parallel row/column tiles, blocked transposes and Taylor conversion. Account
+   for all scratch explicitly and make concurrency configurable.
+2. Load the minimal P/spectrum plan with buffered binary decoding and reuse
+   database workspaces. Keep artifact generation, validation and loading separate
+   from database encoding; code preprocessing remains Go.
+3. Check complete small codewords against existing references, then encode the
+   retained s=13 fixture with profiles. Measure initialization, loading, encoding,
+   output validation, process RSS and scratch separately. Compare to the retained
+   153-second native baseline without repeating expensive preparation.
+
+A 3–6× end-to-end improvement is an exploratory target, not a measured prediction.
+Local s=14/15 runs follow only after this integration and a resource-budget review.
+Larger commodity hosts and disk-backed intermediates remain subsequent options;
+GPU offload depends on measured compute/movement costs. This work does not claim
+that independent-tile speedups apply to the whole encoder.
+
+### Parallel integration checkpoint
+
+Expanded steps 1–3 above are complete for the opt-in in-memory path. The
+[report](../experiments/parallel-encoding/report.md) records arbitrary-basis/affine
+native transforms, reusable Taylor tables, blocked matrix transposes, explicit
+workers and buffered minimal loading. Six full s=13 outputs match the retained
+canonical hash. Profiled medians are 29.8/20.2 seconds at eight/sixteen workers;
+whole-process peak RSS is 1.15 GiB. The historical serial native median is 153.4 s.
+
+This validates a practical local CPU schedule through s=13. Extra transpose
+scratch is counted, and no disk/GPU implementation or larger support is implied.
+Large discovery/preparation remains a separate measured gate: proceed to s=14
+under reviewed time/RAM/storage budgets before admitting s=15. For larger sizes,
+retain the same mathematical/tile semantics with larger commodity hosts or bounded
+file schedules as needed, rather than assuming all state fits this host.

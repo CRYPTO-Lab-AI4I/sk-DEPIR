@@ -1,0 +1,28 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 09:02:10 CET
+Duration: 201.98ms, Total samples = 30ms (14.85%)
+Showing nodes accounting for 30ms, 100% of 30ms total
+      flat  flat%   sum%        cum   cum%
+      20ms 66.67% 66.67%       20ms 66.67%  runtime.cgocall
+      10ms 33.33%   100%       10ms 33.33%  runtime.pthread_cond_signal
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.ApplyMatrixWithStats (inline)
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix.func1 (inline)
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPEncoder).EncodeWithStats
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).Encode
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*matrixCPPExecutor).apply
+         0     0%   100%       20ms 66.67%  main.main
+         0     0%   100%       20ms 66.67%  main.main.func2
+         0     0%   100%       20ms 66.67%  main.main.func7
+         0     0%   100%       10ms 33.33%  runtime.gopreempt_m (inline)
+         0     0%   100%       10ms 33.33%  runtime.goschedImpl
+         0     0%   100%       20ms 66.67%  runtime.main
+         0     0%   100%       10ms 33.33%  runtime.morestack
+         0     0%   100%       10ms 33.33%  runtime.newstack
+         0     0%   100%       10ms 33.33%  runtime.notewakeup
+         0     0%   100%       10ms 33.33%  runtime.semawakeup
+         0     0%   100%       10ms 33.33%  runtime.startm
+         0     0%   100%       10ms 33.33%  runtime.wakep
