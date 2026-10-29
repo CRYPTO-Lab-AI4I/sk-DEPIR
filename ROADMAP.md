@@ -231,3 +231,11 @@ local s=13 matrix integration: canonical outputs, 20.2 s profiled median at sixt
 workers, and 1.15 GiB process peak RSS. This is standalone mathematical encoding;
 large preparation, s=14/15 validation and application execution remain acceptance
 work. It does not establish the full TRL 5 target.
+
+
+The [s=14 first-use checkpoint](experiments/parallel-s14/report.md) adds exact
+K=50,976,325 and retained profiled preparation. Native mathematical encoding takes
+about 91 s; fresh cached peak RSS is 4.59 GiB and first-use peak 13.73 GiB. Code
+preparation currently uses an experimental harness, with the public default
+discovery guard unchanged at s≤13. s≥15 and integrated application execution remain
+separate acceptance work; this checkpoint does not complete TRL 5.

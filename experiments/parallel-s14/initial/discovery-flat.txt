@@ -1,0 +1,30 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 09:55:51 CET
+Duration: 255.04s, Total samples = 614.95s (241.12%)
+Showing nodes accounting for 612.08s, 99.53% of 614.95s total
+Dropped 66 nodes (cum <= 3.07s)
+      flat  flat%   sum%        cum   cum%
+   358.66s 58.32% 58.32%    358.66s 58.32%  [probe]
+   220.25s 35.82% 94.14%    220.25s 35.82%  runtime.cgocall
+    13.67s  2.22% 96.36%     13.67s  2.22%  __thread_proxy
+     6.73s  1.09% 97.46%    239.34s 38.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.discoverOrbitBasis
+     5.67s  0.92% 98.38%      5.67s  0.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.goodMonomialCarries
+     3.74s  0.61% 98.99%      5.87s  0.95%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).validateSupport
+     3.17s  0.52% 99.50%      3.17s  0.52%  runtime.pthread_cond_signal
+     0.19s 0.031% 99.53%      5.86s  0.95%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.GoodMonomial
+         0     0% 99.53%    194.67s 31.66%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply
+         0     0% 99.53%     25.60s  4.16%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0% 99.53%    194.65s 31.65%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_apply
+         0     0% 99.53%     25.60s  4.16%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0% 99.53%    220.30s 35.82%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0% 99.53%    194.70s 31.66%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*meteredCPP).apply
+         0     0% 99.53%     25.60s  4.16%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*scalingPreparationCPP).apply
+         0     0% 99.53%    239.34s 38.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse
+         0     0% 99.53%    239.34s 38.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func3
+         0     0% 99.53%    239.34s 38.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func7
+         0     0% 99.53%    372.35s 60.55%  runtime._ExternalCode
+         0     0% 99.53%      3.17s  0.52%  runtime.notewakeup
+         0     0% 99.53%      3.17s  0.52%  runtime.semawakeup
+         0     0% 99.53%      3.18s  0.52%  runtime.systemstack
+         0     0% 99.53%    239.34s 38.92%  testing.tRunner

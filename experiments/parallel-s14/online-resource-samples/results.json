@@ -1,0 +1,19 @@
+{
+  "script_sha256": "5f61cc944aacf06703170323e3616eb8ec532450577329e5269d4e0d85bb28ce",
+  "pid": 88511,
+  "run": "experiments/parallel-s14/initial",
+  "method": "ps rss in KiB every second; sampled RSS, not an OS peak counter; begins during first encoding after explicit preparation release",
+  "samples": 219,
+  "peaks_by_phase_bytes": {
+    "encode-0": 13307674624,
+    "verify-0": 13307691008,
+    "encode-1": 13307936768,
+    "verify-1": 13305053184,
+    "encode-2": 13305315328,
+    "verify-2": 12595429376,
+    "pack-output": 12595429376,
+    "verify-packed": 0
+  },
+  "elapsed_s": 220.950821292,
+  "samples_sha256": "0841ec04d4ad3fdd5d5026ddbd16408b83acc2d0c0b3decd807655f212c23f51"
+}

@@ -83,8 +83,13 @@ func rootProduct(f orbitField, factors [][]uint32) []uint32 {
 // It does not establish bounded-RAM preparation: factors and multiplication
 // scratch still allocate, discovery/support are retained, and no disk spill exists.
 func (b *OrbitBasis) PrepareCyclicScalingPrototype() (*CyclicEncoder, error) {
+	return b.prepareCyclicScaling(newSparseTransform(b.extension))
+}
+
+// prepareCyclicScaling accepts a reusable executor for the same field/basis. Only
+// execution changes: root factors, reciprocal identity and canonical spectrum do not.
+func (b *OrbitBasis) prepareCyclicScaling(fft *additiveTransform) (*CyclicEncoder, error) {
 	clone := *b
-	fft := newSparseTransform(b.extension)
 	clone.extensionFFT = fft
 	clone.baseFFT = newSparseTransform(b.base)
 	clone.base.products = &polynomialProducts{fft, b.base.products.cutoff}

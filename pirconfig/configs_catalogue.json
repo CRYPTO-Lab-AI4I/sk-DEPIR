@@ -429,17 +429,18 @@
     },
     {
       "id": "binary-s14-m2-t5",
-      "encoding_status": "candidate",
+      "encoding_status": "supported",
       "code": {
         "s": 14,
         "m": 2,
-        "t": 5
+        "t": 5,
+        "polynomial": 16427
       },
       "capacity": {
-        "status": "estimated",
+        "status": "verified",
         "n": 268435456,
-        "k": 51209164,
-        "rate": 0.1907690018415451,
+        "k": 50976325,
+        "rate": 0.18990160897374153,
         "evidence": [
           {
             "kind": "monte_carlo",
@@ -453,6 +454,13 @@
               "lower_rate": 0.1887861653215649,
               "upper_rate": 0.1927518346784351
             }
+          },
+          {
+            "kind": "encoding",
+            "reference": "experiments/parallel-s14/report.md",
+            "script": "experiments/parallel-s14/run.py",
+            "results": "experiments/parallel-s14/initial/results.json",
+            "method": "Exact monomial enumeration and two-sample support discovery give K=50976325,N=268435456 at s=14,m=2,t=5. Go paired/root-only preparation with native matrix transforms verifies the full P*G identity and retains support/P/G/spectrum. Three profiled 16-worker encodings pass every systematic position, 16 independent curve checks, repeat hashes and packed write/fsync/readback; a separate fresh cached process matches the same canonical output. 24 GiB Go soft target, 32 GiB sampled RSS guard, two-hour case timeout. Experimental preprocessing harness; default public discovery remains s<=13. No application-plan or cryptographic integration and no full s14 Go comparison."
           }
         ]
       },
@@ -472,6 +480,19 @@
             "reference": "experiments/bounded-sample-parameters/report.md",
             "script": "experiments/bounded-sample-parameters/run.py",
             "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      },
+      "encoder": {
+        "implementation": "encoding/liftrs-shared/scaling_online.go: LoadScalingOnline; scaling_matrix_cpp.go: WithCPPMatrix (experimental native matrix path)",
+        "preprocessing": "Experimental exact discovery and reusable Go/native preparation via experiments/parallel-s14/run.py; retains checked minimal P/spectrum binary, G and support separately. Default public DiscoverOrbit/JSON basis loaders remain bounded to s<=13. Standalone mathematical encoding from the retained s14 artifact is validated; application-plan execution is not integrated.",
+        "evidence": [
+          {
+            "kind": "encoding",
+            "reference": "experiments/parallel-s14/report.md",
+            "script": "experiments/parallel-s14/run.py",
+            "results": "experiments/parallel-s14/initial/results.json",
+            "method": "Exact monomial enumeration and two-sample support discovery give K=50976325,N=268435456 at s=14,m=2,t=5. Go paired/root-only preparation with native matrix transforms verifies the full P*G identity and retains support/P/G/spectrum. Three profiled 16-worker encodings pass every systematic position, 16 independent curve checks, repeat hashes and packed write/fsync/readback; a separate fresh cached process matches the same canonical output. 24 GiB Go soft target, 32 GiB sampled RSS guard, two-hour case timeout. Experimental preprocessing harness; default public discovery remains s<=13. No application-plan or cryptographic integration and no full s14 Go comparison."
           }
         ]
       }

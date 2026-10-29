@@ -1,0 +1,9 @@
+=== RUN   TestParallelFirstUse
+    parallel_firstuse_probe_test.go:85: load-online 587.542µs
+    parallel_firstuse_probe_test.go:85: online-setup 1.177083ms
+    parallel_firstuse_probe_test.go:85: encode-0 5.077958ms
+    parallel_firstuse_probe_test.go:85: verify-0 309.708µs
+    parallel_firstuse_probe_test.go:85: pack-output 7.554125ms
+    parallel_firstuse_probe_test.go:85: verify-packed 2.592333ms
+--- PASS: TestParallelFirstUse (1.22s)
+PASS

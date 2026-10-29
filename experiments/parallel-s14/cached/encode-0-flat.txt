@@ -1,0 +1,24 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 11:03:10 CET
+Duration: 92.28s, Total samples = 758.09s (821.48%)
+Showing nodes accounting for 757.85s, 100% of 758.09s total
+Dropped 22 nodes (cum <= 3.79s)
+      flat  flat%   sum%        cum   cum%
+   674.03s 88.91% 88.91%    674.03s 88.91%  [probe]
+    58.17s  7.67% 96.58%     58.17s  7.67%  runtime.cgocall
+    14.66s  1.93% 98.52%     14.66s  1.93%  __thread_proxy
+     9.80s  1.29% 99.81%      9.80s  1.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.60s 0.079% 99.89%     69.22s  9.13%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).Encode
+     0.59s 0.078%   100%     10.39s  1.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0%   100%     58.17s  7.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0%   100%     58.17s  7.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0%   100%     69.22s  9.13%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPEncoder).EncodeWithStats
+         0     0%   100%     23.68s  3.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0%   100%     34.49s  4.55%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0%   100%     58.17s  7.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*matrixCPPExecutor).apply
+         0     0%   100%     69.22s  9.13%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse
+         0     0%   100%     69.22s  9.13%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func14
+         0     0%   100%     69.22s  9.13%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func3
+         0     0%   100%    688.70s 90.85%  runtime._ExternalCode
+         0     0%   100%     69.22s  9.13%  testing.tRunner

@@ -1,0 +1,137 @@
+[
+  {
+    "allocated_bytes": 2471712,
+    "elapsed_ns": 480042,
+    "go_sys_bytes": 13453576,
+    "heap_after_bytes": 2884576,
+    "heap_before_bytes": 412864,
+    "m": 2,
+    "phase": "executor-setup",
+    "s": 6,
+    "scratch_bytes": 16384,
+    "t": 4,
+    "workers": 16
+  },
+  {
+    "allocated_bytes": 2228576,
+    "elapsed_ns": 2574500,
+    "go_sys_bytes": 14305544,
+    "heap_after_bytes": 2711840,
+    "heap_before_bytes": 483264,
+    "k": 589,
+    "n": 4096,
+    "phase": "discovery",
+    "reused": false,
+    "samples": 2
+  },
+  {
+    "allocated_bytes": 3123784,
+    "bytes": 2356,
+    "elapsed_ns": 10958417,
+    "elements": 589,
+    "go_sys_bytes": 18516232,
+    "heap_after_bytes": 3615648,
+    "heap_before_bytes": 491864,
+    "k": 589,
+    "n": 4096,
+    "path": "support.bin",
+    "phase": "save-basis",
+    "s": 6,
+    "seed": 1603,
+    "sha256": "8117282261de48e8333c2332fdf5c1b560a8b7d9e8a37edce076c2e7097dd887",
+    "t": 4
+  },
+  {
+    "allocated_bytes": 4714968,
+    "elapsed_ns": 6211500,
+    "go_sys_bytes": 18778376,
+    "heap_after_bytes": 3442792,
+    "heap_before_bytes": 494176,
+    "identity_verified": true,
+    "k": 589,
+    "n": 4096,
+    "phase": "preparation"
+  },
+  {
+    "allocated_bytes": 3218824,
+    "bytes": 18769,
+    "elapsed_ns": 10988375,
+    "generator": {
+      "bytes": 14028,
+      "elements": 3507,
+      "path": "g.bin",
+      "sha256": "b3019dde7a78107a74ab9f1ea6724e32f48e04f700426081ff352673c730ab96"
+    },
+    "go_sys_bytes": 18794760,
+    "heap_after_bytes": 1273664,
+    "heap_before_bytes": 534864,
+    "identity_verified": true,
+    "k": 589,
+    "n": 4096,
+    "phase": "save-prepared",
+    "s": 6,
+    "sha256": "f01c76e912777620e28645b60f07cab4f3176332f8cb58b20893d43f705db191",
+    "t": 4
+  },
+  {
+    "allocated_bytes": 2255648,
+    "elapsed_ns": 179709,
+    "go_sys_bytes": 18811144,
+    "heap_after_bytes": 2703856,
+    "heap_before_bytes": 448208,
+    "k": 589,
+    "n": 4096,
+    "phase": "load-online",
+    "plan_bytes": 18744
+  },
+  {
+    "allocated_bytes": 2151328,
+    "elapsed_ns": 103292,
+    "go_sys_bytes": 18827528,
+    "heap_after_bytes": 2648768,
+    "heap_before_bytes": 497440,
+    "phase": "online-setup",
+    "workers": 16,
+    "workspace_bytes": 35124
+  },
+  {
+    "allocated_bytes": 2059400,
+    "elapsed_ns": 7287959,
+    "go_sys_bytes": 18827528,
+    "heap_after_bytes": 2588976,
+    "heap_before_bytes": 529576,
+    "input_bytes": 2356,
+    "native_stages": {
+      "calls": 5,
+      "taylor_ns": 4106417,
+      "columns_transposes_ns": 1337459,
+      "rows_ns": 1593083
+    },
+    "output_bytes": 16384,
+    "phase": "encode-0"
+  },
+  {
+    "allocated_bytes": 2009256,
+    "canonical_sha256": "97a47fcfcc6d8c558ce131d41be267a82db051305d96ddf7eded267c19cf9163",
+    "curves_checked": 16,
+    "elapsed_ns": 571375,
+    "go_sys_bytes": 18827528,
+    "heap_after_bytes": 2558600,
+    "heap_before_bytes": 549344,
+    "phase": "verify-0",
+    "repeat_match": true,
+    "systematic_checked": 589
+  },
+  {
+    "allocated_bytes": 3054096,
+    "canonical_sha256": "97a47fcfcc6d8c558ce131d41be267a82db051305d96ddf7eded267c19cf9163",
+    "elapsed_ns": 4232250,
+    "go_sys_bytes": 18827528,
+    "heap_after_bytes": 3601688,
+    "heap_before_bytes": 547592,
+    "packed_bytes": 3072,
+    "phase": "pack-output",
+    "seed": 71,
+    "sha256": "bc2a5f62a62665418977e162f4a60f8a46fc12726cd1aead37ee3d4b035d4184"
+  }
+]

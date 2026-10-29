@@ -51,6 +51,14 @@ func DiscoverOrbit(spec Spec, options OrbitOptions) (*OrbitBasis, error) {
 		options.Random = rand.Reader
 	}
 	b := newOrbitBasis(spec, polynomial)
+	return discoverOrbitBasis(b, options)
+}
+
+// discoverOrbitBasis shares exact discovery with explicitly configured experimental
+// executors. The caller validates the specification and sampling options first.
+func discoverOrbitBasis(b *OrbitBasis, options OrbitOptions) (*OrbitBasis, error) {
+	spec := b.spec
+	q := 1 << uint(spec.FieldDegree)
 	var good []int
 	for i := 0; i < q*q; i++ {
 		yes, _ := GoodMonomial(spec, []uint32{uint32(i % q), uint32(i / q)})

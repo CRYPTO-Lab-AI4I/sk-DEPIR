@@ -77,3 +77,11 @@ Code-only Taylor multiplication maps are built once in explicit plan preparation
 The binding compiles/links with `-pthread` for portable standard-library threads.
 This is an in-memory backend, with an extra N-element transpose buffer, not a
 bounded-disk implementation. See the [integration experiment](../../experiments/parallel-encoding/report.md).
+
+
+The [s=14 first-use experiment](../../experiments/parallel-s14/report.md) extends
+the native width guard through s=14 after independent scalar/table, affine Horner
+and inverse checks on small buffers. Sparse discovery and paired/root-only
+preparation remain Go orchestration, using the native matrix executor for FFTs.
+The experiment's code-only executor prepares all needed convolution lengths once
+and reuses one transpose buffer; default public discovery remains bounded to s≤13.

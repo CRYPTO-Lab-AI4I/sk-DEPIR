@@ -1,0 +1,73 @@
+[
+  {
+    "allocated_bytes": 2270392,
+    "elapsed_ns": 587542,
+    "go_sys_bytes": 13715720,
+    "heap_after_bytes": 2678000,
+    "heap_before_bytes": 407608,
+    "k": 589,
+    "n": 4096,
+    "phase": "load-online",
+    "plan_bytes": 18744
+  },
+  {
+    "allocated_bytes": 2151352,
+    "elapsed_ns": 1177083,
+    "go_sys_bytes": 14567688,
+    "heap_after_bytes": 2626544,
+    "heap_before_bytes": 475192,
+    "phase": "online-setup",
+    "workers": 16,
+    "workspace_bytes": 35124
+  },
+  {
+    "allocated_bytes": 2023288,
+    "elapsed_ns": 5077958,
+    "go_sys_bytes": 14584072,
+    "heap_after_bytes": 2531024,
+    "heap_before_bytes": 507736,
+    "input_bytes": 2356,
+    "native_stages": {
+      "calls": 5,
+      "taylor_ns": 2029084,
+      "columns_transposes_ns": 1180457,
+      "rows_ns": 1684959
+    },
+    "output_bytes": 16384,
+    "phase": "encode-0"
+  },
+  {
+    "allocated_bytes": 2009344,
+    "canonical_sha256": "97a47fcfcc6d8c558ce131d41be267a82db051305d96ddf7eded267c19cf9163",
+    "curves_checked": 16,
+    "elapsed_ns": 309708,
+    "go_sys_bytes": 14584072,
+    "heap_after_bytes": 2537024,
+    "heap_before_bytes": 527680,
+    "phase": "verify-0",
+    "repeat_match": true,
+    "systematic_checked": 589
+  },
+  {
+    "allocated_bytes": 3054096,
+    "canonical_sha256": "97a47fcfcc6d8c558ce131d41be267a82db051305d96ddf7eded267c19cf9163",
+    "elapsed_ns": 7554125,
+    "go_sys_bytes": 14600456,
+    "heap_after_bytes": 3581024,
+    "heap_before_bytes": 526928,
+    "packed_bytes": 3072,
+    "phase": "pack-output",
+    "seed": 71,
+    "sha256": "bc2a5f62a62665418977e162f4a60f8a46fc12726cd1aead37ee3d4b035d4184"
+  },
+  {
+    "allocated_bytes": 2034280,
+    "elapsed_ns": 2592333,
+    "go_sys_bytes": 14616840,
+    "heap_after_bytes": 2563344,
+    "heap_before_bytes": 529064,
+    "phase": "verify-packed",
+    "positions_checked": 1027,
+    "readback_match": true
+  }
+]

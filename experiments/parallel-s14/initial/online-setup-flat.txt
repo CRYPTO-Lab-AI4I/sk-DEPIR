@@ -1,0 +1,35 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 10:57:56 CET
+Duration: 204.19ms, Total samples = 80ms (39.18%)
+Showing nodes accounting for 80ms, 100% of 80ms total
+      flat  flat%   sum%        cum   cum%
+      40ms 50.00% 50.00%       40ms 50.00%  runtime.pthread_cond_signal
+      20ms 25.00% 75.00%       20ms 25.00%  runtime.madvise
+      20ms 25.00%   100%       20ms 25.00%  runtime.memclrNoHeapPointers
+         0     0%   100%       20ms 25.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPEncoder).NewWorkspace
+         0     0%   100%       10ms 12.50%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).NewWorkspace (inline)
+         0     0%   100%       20ms 25.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse
+         0     0%   100%       20ms 25.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func13
+         0     0%   100%       20ms 25.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func3
+         0     0%   100%       20ms 25.00%  runtime.(*mheap).alloc.func1
+         0     0%   100%       20ms 25.00%  runtime.(*mheap).allocSpan
+         0     0%   100%       20ms 25.00%  runtime.gopreempt_m (inline)
+         0     0%   100%       40ms 50.00%  runtime.goschedImpl
+         0     0%   100%       10ms 12.50%  runtime.gosched_m
+         0     0%   100%       10ms 12.50%  runtime.goschedguarded_m
+         0     0%   100%       20ms 25.00%  runtime.makeslice
+         0     0%   100%       20ms 25.00%  runtime.mallocgc
+         0     0%   100%       20ms 25.00%  runtime.mallocgcLarge
+         0     0%   100%       20ms 25.00%  runtime.mcall
+         0     0%   100%       20ms 25.00%  runtime.memclrNoHeapPointersChunked
+         0     0%   100%       20ms 25.00%  runtime.morestack
+         0     0%   100%       20ms 25.00%  runtime.newstack
+         0     0%   100%       40ms 50.00%  runtime.notewakeup
+         0     0%   100%       40ms 50.00%  runtime.semawakeup
+         0     0%   100%       40ms 50.00%  runtime.startm
+         0     0%   100%       20ms 25.00%  runtime.sysUsed (inline)
+         0     0%   100%       20ms 25.00%  runtime.sysUsedOS (inline)
+         0     0%   100%       20ms 25.00%  runtime.systemstack
+         0     0%   100%       40ms 50.00%  runtime.wakep
+         0     0%   100%       20ms 25.00%  testing.tRunner

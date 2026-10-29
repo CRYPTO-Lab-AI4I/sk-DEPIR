@@ -269,3 +269,8 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-29 08:39 | SCALE-004 | Completed | [Parallel CPU encoding verified through s=13](2026-10-29-0839-codex-scale-004-completed.md) |
 | 2026-10-29 08:43 | PUBLISH-016 | Started | [Parallel integration publication started](2026-10-29-0843-codex-publish-016-started.md) |
 | 2026-10-29 08:43 | PUBLISH-016 | Completed | [Parallel integration publication completed](2026-10-29-0843-codex-publish-016-completed.md) |
+| 2026-10-29 08:46 | SCALE-005 | Started | [Profile first-use s=14 encoding](2026-10-29-0846-codex-scale-005-started.md) |
+| 2026-10-29 09:09 | SCALE-005 | Update | [Exact s=14 basis retained](2026-10-29-0909-codex-scale-005-basis-saved.md) |
+| 2026-10-29 10:14 | SCALE-005 | Completed | [Profiled s=14 first use and cached encoding](2026-10-29-1014-codex-scale-005-completed.md) |
+| 2026-10-29 10:18 | PUBLISH-017 | Started | [Publish s=14 checkpoint](2026-10-29-1018-codex-publish-017-started.md) |
+| 2026-10-29 10:19 | PUBLISH-017 | Completed | [s=14 checkpoint verified for publication](2026-10-29-1018-codex-publish-017-completed.md) |

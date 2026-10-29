@@ -1,0 +1,19 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 09:53:11 CET
+Duration: 201.35ms, Total samples = 10ms ( 4.97%)
+Showing nodes accounting for 10ms, 100% of 10ms total
+      flat  flat%   sum%        cum   cum%
+      10ms   100%   100%       10ms   100%  runtime.cgocall
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.ApplyMatrixWithStats (inline)
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix.func1 (inline)
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPEncoder).EncodeWithStats
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).Encode
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*matrixCPPExecutor).apply
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func13
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func3
+         0     0%   100%       10ms   100%  testing.tRunner

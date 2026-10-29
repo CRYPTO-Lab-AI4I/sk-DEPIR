@@ -1,0 +1,4 @@
+{"elapsed_s": 0.0008605409999999925, "phase": "starting", "phase_elapsed_s": 0.0020673749999999824, "observed_peak_rss_bytes": 32768, "cache_bytes": 2834413436, "rss_read_available": true}
+{"elapsed_s": 30.152594583000003, "phase": "encode-0", "phase_elapsed_s": 28.144141792, "observed_peak_rss_bytes": 3110699008, "cache_bytes": 2834413436, "rss_read_available": true}
+{"elapsed_s": 60.290277083, "phase": "encode-0", "phase_elapsed_s": 58.281824292, "observed_peak_rss_bytes": 3851517952, "cache_bytes": 2834413436, "rss_read_available": true}
+{"elapsed_s": 90.42769358299999, "phase": "encode-0", "phase_elapsed_s": 88.419240792, "observed_peak_rss_bytes": 4926341120, "cache_bytes": 2834413436, "rss_read_available": true}

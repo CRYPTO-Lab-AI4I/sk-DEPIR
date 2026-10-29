@@ -27,7 +27,13 @@ Those runs do not establish large-cache JSON loading or paper-encoder performanc
 The s=13,t=5 entry has exact K=11926435 and polynomial 0x201b, backed by
 [the two-hour-allowance cyclic run](../experiments/cyclic-s13/report.md).
 Its historical Monte Carlo point K=11955914 remains separate evidence.
-The other 7 entries retain estimated capacities and candidate encoding status.
+The s=14,m=2,t=5 entry now has exact K=50,976,325 and polynomial 0x402b,
+backed by the [profiled first-use run](../experiments/parallel-s14/report.md).
+Standalone native matrix encoding from its retained P/spectrum artifact is
+validated. Code discovery/preparation currently uses the experimental harness;
+default public discovery and JSON basis loaders remain bounded to s≤13.
+Application-plan execution remains separate. The Monte Carlo evidence is retained.
+The other 6 entries retain estimated capacities and candidate encoding status.
 “Supported” identifies the non-cryptographic backend, not integrated application
 encoding, grouped storage or production security. Historical cost-grid snapshots
 retain their original estimates so objective comparisons use identical inputs.
@@ -35,6 +41,8 @@ retain their original estimates so objective comparisons use identical inputs.
 The [tiny fixture](testdata/reference.json) has verified `K=5`, `N=16` over GF(4),
 backed by the [reference encoder tests](../encoding/liftrs-shared/reference_test.go).
 It makes no security claim and is not part of the target security profile.
+
+
 
 ## Format
 

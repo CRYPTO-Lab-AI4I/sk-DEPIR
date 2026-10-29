@@ -17,7 +17,9 @@ standard setups. Target commodity CPUs and GPUs and measure on locally available
 hardware. Larger workloads may need larger machines, but hardware/software
 requirements should remain as generic as practical.
 
-Standalone mathematical encoding is validated through **s=13**. The
+Standalone mathematical encoding is validated through **s=14**; s=14 discovery/
+preparation currently uses an experimental harness, while default public discovery
+remains bounded to s≤13. The
 [scaling study](docs/encoding-scaling.md) now includes resource accounting,
 correctness prototypes, local calibration and an
 [opt-in parallel CPU integration](experiments/parallel-encoding/report.md).
@@ -31,10 +33,14 @@ The new path uses arbitrary-basis/affine C++ transforms, parallel matrix/Taylor
 execution, blocked in-memory transposes, reusable workspace and buffered minimal
 preprocessing loading. Existing reference/default APIs remain available. Reusable
 large code preparation remains Go and is separate from these online timings.
-There is no disk-backed backend or larger supported field yet. The next gate is
-s=14 discovery/preparation and full encoding under reviewed resource budgets,
-followed by s=15. The [resource model](experiments/encoding-resources/report.md)
-counts analytical payloads, not measured larger-size RAM bounds.
+There is no disk-backed backend or validated s≥15 path yet. The [profiled s=14 first-use experiment](experiments/parallel-s14/report.md)
+now gives exact K=50,976,325 at m=2,t=5: 4 min 15 s discovery, 33 min 38 s reusable
+preparation and 90.53 s median encoding. First-use peak RSS is 13.73 GiB; a fresh
+cached encoding takes 92.12 s with 4.59 GiB peak RSS. Its 1.19 GiB online plan and
+other reusable constants/profiles are retained. This is mathematical encoding;
+s=15, cryptographic/application integration and larger-size feasibility remain
+separate gates. The [resource model](experiments/encoding-resources/report.md)
+retains historical analytical payloads, not measured larger-size RAM bounds.
 
 ## Implementation status and limits
 

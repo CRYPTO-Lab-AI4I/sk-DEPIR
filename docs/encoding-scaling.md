@@ -3,7 +3,8 @@
 Use the shared encoder with C++ transforms as both **baseline and starting code**.
 Retain Go preprocessing and independent Go/dense correctness references. The
 [current checkpoint](encoding-algorithms.md#current-checkpoint-and-next-step)
-validates s=13; larger fields remain unimplemented/unmeasured. Keep the current
+now validates an experimental s=14 path; public default discovery remains s≤13
+and s≥15 remains unmeasured. Keep the current
 information set and canonical field/grid representation, not just membership in
 the same code. Begin on the local 48 GiB CPU machine; choose larger hardware only
 when measurements identify a specific need.
@@ -20,7 +21,7 @@ an application layout can invoke several such encodings and reuse code-only setu
 | 2. Execution designs | Compare blocked in-memory and external-memory transforms/products, selective preprocessing and spectrum choices | Concrete candidates, cost models and explicit unresolved dependencies | Complete: candidates/gates |
 | 3. Focused prototypes | Implement uncertain operations at manageable sizes under constrained RAM; compare with the existing code | Verified decompositions and measured memory/I/O, not just timings | Prototype round complete; performance gates open |
 | 4. Local calibration | Measure useful-core scaling, sustained storage and compute/I/O overlap; assess GPU suitability | Calibrated resource model and reasons for any larger hardware test | Bounded local calibration complete; sustained/integrated gates open |
-| 5. Design selection | Select from measured evidence; integrate and validate progressively at s=13,14,15 when budgets permit | Canonical outputs, measured resource use and next hardware recommendation | Local s=13 CPU integration complete; s=14/15 gates open |
+| 5. Design selection | Select from measured evidence; integrate and validate progressively at s=13,14,15 when budgets permit | Canonical outputs, measured resource use and next hardware recommendation | Local s=13/14 CPU integration complete; s=15 gate open |
 
 The first local feasibility target is s=15; the design must account for s=16..20.
 No runtime/RAM/disk budget is increased by this plan. Agree numerical budgets
@@ -69,7 +70,7 @@ needs no K-entry map. Storing only orbit order would instead require an efficien
 inverse address map for arbitrary query points; a discrete-log lookup is not a
 free replacement for canonical storage.
 
-Existing limits are also explicit: the bounded code/plan APIs stop at s=13;
+At that resource audit the bounded code/plan APIs stopped at s=13;
 default complete/basis JSON loader limits are 64/2 MiB, and the retained-cache
 benchmark uses an explicit 2 GiB read limit. They are API/harness constraints,
 not mathematical memory bounds. A larger-size prototype needs reviewed format,
@@ -359,3 +360,41 @@ Large discovery/preparation remains a separate measured gate: proceed to s=14
 under reviewed time/RAM/storage budgets before admitting s=15. For larger sizes,
 retain the same mathematical/tile semantics with larger commodity hosts or bounded
 file schedules as needed, rather than assuming all state fits this host.
+
+## Measured s=14 checkpoint
+
+The [profiled first-use experiment](../experiments/parallel-s14/report.md) completes
+exact discovery (K=50,976,325 in 254.9 s), reusable sparse/paired preparation
+(2,018.0 s), binary save/load and three full native encodings (median 90.53 s).
+Every systematic symbol, 16 independent curves, repeat hashes and packed readback
+pass. A fresh cached process gives 92.12 s and 4.59 GiB peak RSS, versus 13.73 GiB
+for first use. Code-only support/P/G/spectrum total 2.19 GiB; the online file is
+1.19 GiB. Profiles, native samples, constants and provenance are retained.
+
+Default public discovery and JSON basis loaders stay at s≤13. Experimental
+preprocessing and the minimal native path establish this s=14 evidence; they do
+not add application/cryptographic execution or a disk backend. s=15 admission now
+needs a budget based on preparation lifetimes as well as online memory. Do not
+multiply retained first-use RSS and treat it as an unavoidable online requirement.
+
+## Next admission: s=15
+
+1. Audit the s=14 preparation profiles and live array lifetimes at s=15 sizes.
+   Online encoding suggests roughly 6–9 minutes and 18–22 GiB RAM on this host;
+   these are planning estimates, not measurements. Multiplying first-use RSS by
+   four gives about 55 GiB, so distinguish live scratch from retained garbage
+   before deciding whether preparation fits the 48 GiB machine.
+2. Bound preparation memory where the audit requires it: consume root-factor
+   batches and reuse/release polynomial-product and reciprocal scratch. Verify
+   any change against retained P/G/spectrum and small independent references.
+   Make no change solely to fit a proportional RSS forecast.
+3. Extend and test the experimental native/loader guards for s=15 (30-bit packed
+   extension elements and N=2^30 still fit the current element representation).
+   Review numerical time/RAM/storage limits before launching; retain checkpoint
+   resume, profiling and sampled RSS guards.
+4. Run exact discovery/preparation and three encodings, then one fresh cached
+   process for online RSS. Persist constants/profiles and update evidence only
+   after correctness checks. If live preparation exceeds the local budget, use
+   the measured shortfall to choose bounded external memory or a larger commodity
+   RAM machine. s=16+ architecture decisions follow those results.
+

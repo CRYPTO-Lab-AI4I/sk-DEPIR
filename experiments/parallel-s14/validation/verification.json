@@ -1,0 +1,60 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/tmp/sk-depir-go-toolchain/go/bin/go",
+        "test",
+        "-tags",
+        "liftrs_cpp",
+        "./encoding/liftrs-shared",
+        "-count=1"
+      ],
+      "exit_code": 0,
+      "wall_s": 11.198503707999999
+    },
+    {
+      "command": [
+        "/tmp/sk-depir-go-toolchain/go/bin/go",
+        "test",
+        "./encoding/liftrs-shared",
+        "-count=1"
+      ],
+      "exit_code": 0,
+      "wall_s": 10.795940833
+    },
+    {
+      "command": [
+        "/tmp/sk-depir-go-toolchain/go/bin/go",
+        "vet",
+        "-tags",
+        "liftrs_cpp",
+        "./encoding/..."
+      ],
+      "exit_code": 0,
+      "wall_s": 0.18617316699999975
+    },
+    {
+      "command": [
+        "/usr/bin/clang++",
+        "-std=c++17",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "encoding/liftrs-cpp/test.cpp",
+        "-o",
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-s14-check-q6qsrpy_/arithmetic"
+      ],
+      "exit_code": 0,
+      "wall_s": 0.36051900000000003
+    },
+    {
+      "command": [
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-s14-check-q6qsrpy_/arithmetic"
+      ],
+      "exit_code": 0,
+      "wall_s": 0.9228490410000028
+    }
+  ],
+  "status": "passed"
+}

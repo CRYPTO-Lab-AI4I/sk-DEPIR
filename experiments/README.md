@@ -120,6 +120,10 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
   s=13 comparison with general-basis/affine native tiles, parallel Taylor/matrix
   execution, blocked transposes and buffered minimal-plan loading.
 
+- [Profiled s=14 first use](parallel-s14/report.md): exact discovery, reusable
+  lean Go/native preparation, retained binary constants, complete encoding and
+  output validation with Go/native profiles. See the report for current run status.
+
 ## Encoding implementation paths
 
 The complete API, preprocessing and orchestration now live in

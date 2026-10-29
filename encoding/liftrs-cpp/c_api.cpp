@@ -55,7 +55,7 @@ extern "C" int liftrs_plan_create(const uint32_t* words, size_t count,
     a.f.s = r.word(); a.f.polynomial = r.word(); a.f.delta = r.word();
     a.f.q = r.word(); const unsigned levels = r.word();
     unsigned width=0; for(auto q=a.f.q;q>1;q>>=1)width++;
-    if (a.f.s < 2 || a.f.s > 13 ||
+    if (a.f.s < 2 || a.f.s > 14 ||
         (width != a.f.s && width != 2*a.f.s) || a.f.q != (1u<<width) ||
         !levels || levels>width || (version==1 && levels!=width) ||
         (a.f.polynomial >> a.f.s) != 1 || !(a.f.polynomial&1) ||

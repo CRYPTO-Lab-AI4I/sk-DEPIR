@@ -1,0 +1,57 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 10:57:55 CET
+Duration: 809.43ms, Total samples = 690ms (85.25%)
+Showing nodes accounting for 690ms, 100% of 690ms total
+      flat  flat%   sum%        cum   cum%
+     600ms 86.96% 86.96%      600ms 86.96%  syscall.rawsyscalln
+      30ms  4.35% 91.30%       30ms  4.35%  runtime.pthread_cond_signal
+      20ms  2.90% 94.20%       20ms  2.90%  runtime.madvise
+      10ms  1.45% 95.65%       10ms  1.45%  crypto/internal/fips140/sha256.blockSHA2
+      10ms  1.45% 97.10%       10ms  1.45%  runtime.memclrNoHeapPointers
+      10ms  1.45% 98.55%       10ms  1.45%  runtime.sweepone
+      10ms  1.45%   100%       10ms  1.45%  runtime.usleep
+         0     0%   100%      610ms 88.41%  bufio.(*Reader).Read
+         0     0%   100%       10ms  1.45%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%       10ms  1.45%  crypto/internal/fips140/sha256.block
+         0     0%   100%      620ms 89.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.LoadScalingOnline
+         0     0%   100%      620ms 89.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse
+         0     0%   100%      620ms 89.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func12
+         0     0%   100%      620ms 89.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func3
+         0     0%   100%      600ms 86.96%  internal/poll.(*FD).Read
+         0     0%   100%      600ms 86.96%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%      610ms 88.41%  io.(*teeReader).Read
+         0     0%   100%      610ms 88.41%  io.ReadAtLeast
+         0     0%   100%      610ms 88.41%  io.ReadFull (inline)
+         0     0%   100%      600ms 86.96%  os.(*File).Read
+         0     0%   100%      600ms 86.96%  os.(*File).read (inline)
+         0     0%   100%       20ms  2.90%  runtime.(*mheap).alloc.func1
+         0     0%   100%       20ms  2.90%  runtime.(*mheap).allocSpan
+         0     0%   100%       20ms  2.90%  runtime.bgsweep
+         0     0%   100%       10ms  1.45%  runtime.freeSomeWbufs
+         0     0%   100%       20ms  2.90%  runtime.gopreempt_m (inline)
+         0     0%   100%       30ms  4.35%  runtime.goschedImpl
+         0     0%   100%       10ms  1.45%  runtime.gosched_m
+         0     0%   100%       10ms  1.45%  runtime.lock (inline)
+         0     0%   100%       10ms  1.45%  runtime.lock2
+         0     0%   100%       10ms  1.45%  runtime.lockWithRank (inline)
+         0     0%   100%       10ms  1.45%  runtime.makeslice
+         0     0%   100%       10ms  1.45%  runtime.mallocgc
+         0     0%   100%       10ms  1.45%  runtime.mallocgcLarge
+         0     0%   100%       10ms  1.45%  runtime.mcall
+         0     0%   100%       10ms  1.45%  runtime.memclrNoHeapPointersChunked
+         0     0%   100%       20ms  2.90%  runtime.morestack
+         0     0%   100%       20ms  2.90%  runtime.newstack
+         0     0%   100%       30ms  4.35%  runtime.notewakeup
+         0     0%   100%       10ms  1.45%  runtime.osyield (inline)
+         0     0%   100%       30ms  4.35%  runtime.semawakeup
+         0     0%   100%       30ms  4.35%  runtime.startm
+         0     0%   100%       20ms  2.90%  runtime.sysUsed (inline)
+         0     0%   100%       20ms  2.90%  runtime.sysUsedOS (inline)
+         0     0%   100%       20ms  2.90%  runtime.systemstack
+         0     0%   100%       30ms  4.35%  runtime.wakep
+         0     0%   100%      600ms 86.96%  syscall.Read (inline)
+         0     0%   100%      600ms 86.96%  syscall.read
+         0     0%   100%      600ms 86.96%  syscall.syscall
+         0     0%   100%      600ms 86.96%  syscall.syscalln
+         0     0%   100%      620ms 89.86%  testing.tRunner

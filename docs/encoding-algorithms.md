@@ -8,8 +8,8 @@ main paper/cyclic paths; large-instance feasibility remains unverified. The [enc
 
 ## Current checkpoint and next step
 
-The **current CPU kernel optimization phase is complete**. In-memory codeword
-encoding has been validated through **s=13**. This closes the present phase;
+The **current CPU kernel optimization phase is complete**. That original phase validated in-memory codeword
+encoding through **s=13**; the scaling study now adds experimental s=14 evidence below. This closes the present phase;
 it does not mean CPU optimization is exhausted or the complete TRL 5 library is
 finished. Additional lookup-table, recursion and parallel-kernel tuning is deferred
 until the large-instance execution design is chosen.
@@ -29,7 +29,10 @@ with identical canonical outputs and 1.15 GiB whole-process peak RSS. Arbitrary
 basis/affine tiles, Taylor maps prepared once, blocked transposes and minimal
 binary loading are opt-in. The 7.6× comparison to the retained serial native
 median combines scheduling/algorithm changes; it is not thread scaling alone.
-Larger parallel cases and their preparation remain unmeasured.
+The [s=14 first-use run](../experiments/parallel-s14/report.md) now adds exact
+K=50,976,325, 33 min 38 s reusable preparation and 90.53 s median encoding. A fresh
+cached process uses 4.59 GiB RSS and 92.12 s, versus first-use peak 13.73 GiB.
+Default public discovery remains s≤13; s≥15 parallel cases remain unmeasured.
 
 **Earlier serial-path expectations are unmeasured.** These online-time/RSS
 extrapolations predate the parallel integration below and are preserved as

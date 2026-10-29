@@ -1,0 +1,106 @@
+[
+  {
+    "allocated_bytes": 2471712,
+    "elapsed_ns": 627041,
+    "go_sys_bytes": 18172168,
+    "heap_after_bytes": 2879160,
+    "heap_before_bytes": 407448,
+    "m": 2,
+    "phase": "executor-setup",
+    "s": 6,
+    "scratch_bytes": 16384,
+    "t": 4,
+    "workers": 16
+  },
+  {
+    "allocated_bytes": 3153016,
+    "elapsed_ns": 608708,
+    "go_sys_bytes": 18499848,
+    "heap_after_bytes": 3625336,
+    "heap_before_bytes": 472320,
+    "k": 589,
+    "n": 4096,
+    "phase": "discovery",
+    "reused": true
+  },
+  {
+    "allocated_bytes": 2008640,
+    "elapsed_ns": 275125,
+    "go_sys_bytes": 18761992,
+    "heap_after_bytes": 2432184,
+    "heap_before_bytes": 442400,
+    "phase": "release-preparation",
+    "released_to_os": true
+  },
+  {
+    "allocated_bytes": 2254960,
+    "elapsed_ns": 336334,
+    "go_sys_bytes": 18761992,
+    "heap_after_bytes": 2694976,
+    "heap_before_bytes": 440016,
+    "k": 589,
+    "n": 4096,
+    "phase": "load-online",
+    "plan_bytes": 18744
+  },
+  {
+    "allocated_bytes": 2150208,
+    "elapsed_ns": 141083,
+    "go_sys_bytes": 18778376,
+    "heap_after_bytes": 2640480,
+    "heap_before_bytes": 490272,
+    "phase": "online-setup",
+    "workers": 16,
+    "workspace_bytes": 35124
+  },
+  {
+    "allocated_bytes": 2023144,
+    "elapsed_ns": 3944625,
+    "go_sys_bytes": 18794760,
+    "heap_after_bytes": 2543360,
+    "heap_before_bytes": 520216,
+    "input_bytes": 2356,
+    "native_stages": {
+      "calls": 5,
+      "taylor_ns": 2191583,
+      "columns_transposes_ns": 789084,
+      "rows_ns": 810959
+    },
+    "output_bytes": 16384,
+    "phase": "encode-0"
+  },
+  {
+    "allocated_bytes": 2009952,
+    "canonical_sha256": "97a47fcfcc6d8c558ce131d41be267a82db051305d96ddf7eded267c19cf9163",
+    "curves_checked": 16,
+    "elapsed_ns": 301000,
+    "go_sys_bytes": 18794760,
+    "heap_after_bytes": 2550920,
+    "heap_before_bytes": 540968,
+    "phase": "verify-0",
+    "repeat_match": true,
+    "systematic_checked": 589
+  },
+  {
+    "allocated_bytes": 3053296,
+    "canonical_sha256": "97a47fcfcc6d8c558ce131d41be267a82db051305d96ddf7eded267c19cf9163",
+    "elapsed_ns": 9333416,
+    "go_sys_bytes": 18794760,
+    "heap_after_bytes": 3593024,
+    "heap_before_bytes": 539728,
+    "packed_bytes": 3072,
+    "phase": "pack-output",
+    "seed": 71,
+    "sha256": "bc2a5f62a62665418977e162f4a60f8a46fc12726cd1aead37ee3d4b035d4184"
+  },
+  {
+    "allocated_bytes": 2034360,
+    "elapsed_ns": 423209,
+    "go_sys_bytes": 18794760,
+    "heap_after_bytes": 2578048,
+    "heap_before_bytes": 543688,
+    "phase": "verify-packed",
+    "positions_checked": 1027,
+    "readback_match": true
+  }
+]

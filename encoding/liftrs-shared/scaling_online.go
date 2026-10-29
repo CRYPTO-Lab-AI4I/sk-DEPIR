@@ -32,7 +32,7 @@ func LoadScalingOnline(source io.Reader, digest string, maxElements int) (*Scali
 		}
 	}
 	s, t, k, n := int(header[0]), int(header[1]), int(header[2]), int(header[3])
-	if s < 2 || s > 13 || t < 1 || t >= (1<<uint(s))-1 || n != 1<<uint(2*s) || n > maxElements || k < 1 || k > n/2 {
+	if s < 2 || s > 14 || t < 1 || t >= (1<<uint(s))-1 || n != 1<<uint(2*s) || n > maxElements || k < 1 || k > n/2 {
 		return nil, fmt.Errorf("invalid online probe shape/limit")
 	}
 	polynomial, _ := BinaryPolynomial(s)

@@ -51,3 +51,10 @@ that tag **and selects C++ execution** in the profiling runner. Use
 command does not compile C++ transforms (full legacy tests still build RM).
 This does not change the shared encoder API or promote scaling prototypes.
 `GO`, `PYTHON`, `CXX` and `RUN_NAME` can be set on Make's command line.
+
+
+The [profiled s=14 path](../experiments/parallel-s14/report.md) uses experimental
+Go discovery/preparation orchestration with native transforms. Its retained
+minimal artifact loads through `LoadScalingOnline`, then encodes through
+`WithCPPMatrix`. Default `DiscoverOrbit` and JSON basis loaders remain bounded
+to s≤13. See that report for explicit first-use and cached-only commands.

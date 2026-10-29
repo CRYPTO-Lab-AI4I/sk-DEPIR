@@ -1,0 +1,73 @@
+[
+  {
+    "allocated_bytes": 1280165360,
+    "elapsed_ns": 596808458,
+    "go_sys_bytes": 1294699080,
+    "heap_after_bytes": 1280513664,
+    "heap_before_bytes": 406744,
+    "k": 50976325,
+    "n": 268435456,
+    "phase": "load-online",
+    "plan_bytes": 1277647128
+  },
+  {
+    "allocated_bytes": 2354878584,
+    "elapsed_ns": 4345458,
+    "go_sys_bytes": 3650210952,
+    "heap_after_bytes": 3631667264,
+    "heap_before_bytes": 1278282952,
+    "phase": "online-setup",
+    "workers": 16,
+    "workspace_bytes": 2351388948
+  },
+  {
+    "allocated_bytes": 1076132792,
+    "elapsed_ns": 92117958125,
+    "go_sys_bytes": 4930883016,
+    "heap_after_bytes": 4909715528,
+    "heap_before_bytes": 3833582736,
+    "input_bytes": 203905300,
+    "native_stages": {
+      "calls": 5,
+      "taylor_ns": 20742171582,
+      "columns_transposes_ns": 26327231083,
+      "rows_ns": 33360281875
+    },
+    "output_bytes": 1073741824,
+    "phase": "encode-0"
+  },
+  {
+    "allocated_bytes": 2147760,
+    "canonical_sha256": "b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c",
+    "curves_checked": 16,
+    "elapsed_ns": 3190940458,
+    "go_sys_bytes": 4931145160,
+    "heap_after_bytes": 4909476480,
+    "heap_before_bytes": 4907328720,
+    "phase": "verify-0",
+    "repeat_match": true,
+    "systematic_checked": 50976325
+  },
+  {
+    "allocated_bytes": 3144352,
+    "canonical_sha256": "b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c",
+    "elapsed_ns": 1360131208,
+    "go_sys_bytes": 4931161544,
+    "heap_after_bytes": 4706572816,
+    "heap_before_bytes": 4703428464,
+    "packed_bytes": 469762048,
+    "phase": "pack-output",
+    "seed": 71,
+    "sha256": "f56ca77b8b50416105b711f5d0399bee9fcd2f4fbd975587478ed2f22e9ed08c"
+  },
+  {
+    "allocated_bytes": 2033856,
+    "elapsed_ns": 1309416,
+    "go_sys_bytes": 4931161544,
+    "heap_after_bytes": 4705465856,
+    "heap_before_bytes": 4703432000,
+    "phase": "verify-packed",
+    "positions_checked": 1027,
+    "readback_match": true
+  }
+]

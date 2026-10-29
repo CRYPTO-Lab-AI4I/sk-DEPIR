@@ -1,0 +1,28 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 11:01:01 CET
+Duration: 3.33s, Total samples = 3.07s (92.13%)
+Showing nodes accounting for 3.07s, 100% of 3.07s total
+      flat  flat%   sum%        cum   cum%
+     1.21s 39.41% 39.41%      3.04s 99.02%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func15
+     0.66s 21.50% 60.91%      0.66s 21.50%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     0.52s 16.94% 77.85%      1.30s 42.35%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.35s 11.40% 89.25%      0.35s 11.40%  crypto/internal/fips140/sha256.blockSHA2
+     0.13s  4.23% 93.49%      0.15s  4.89%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func15.1 (inline)
+     0.12s  3.91% 97.39%      0.78s 25.41%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.03s  0.98% 98.37%      0.03s  0.98%  encoding/binary.littleEndian.PutUint32 (inline)
+     0.03s  0.98% 99.35%      0.03s  0.98%  runtime.pthread_cond_signal
+     0.02s  0.65%   100%      0.02s  0.65%  runtime.asyncPreempt
+         0     0%   100%      0.35s 11.40%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%      0.35s 11.40%  crypto/internal/fips140/sha256.block
+         0     0%   100%      3.04s 99.02%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse
+         0     0%   100%      3.04s 99.02%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func3
+         0     0%   100%      0.03s  0.98%  runtime.gopreempt_m (inline)
+         0     0%   100%      0.03s  0.98%  runtime.goschedImpl
+         0     0%   100%      0.03s  0.98%  runtime.morestack
+         0     0%   100%      0.03s  0.98%  runtime.newstack
+         0     0%   100%      0.03s  0.98%  runtime.notewakeup
+         0     0%   100%      0.03s  0.98%  runtime.semawakeup
+         0     0%   100%      0.03s  0.98%  runtime.startm
+         0     0%   100%      0.03s  0.98%  runtime.wakep
+         0     0%   100%      3.04s 99.02%  testing.tRunner

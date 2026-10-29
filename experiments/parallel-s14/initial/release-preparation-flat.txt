@@ -1,0 +1,20 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 10:57:55 CET
+Duration: 204.61ms, Total samples = 60ms (29.32%)
+Showing nodes accounting for 60ms, 100% of 60ms total
+      flat  flat%   sum%        cum   cum%
+      50ms 83.33% 83.33%       50ms 83.33%  runtime.madvise
+      10ms 16.67%   100%       10ms 16.67%  runtime.mProf_FlushLocked
+         0     0%   100%       50ms 83.33%  runtime.(*mheap).scavengeAll
+         0     0%   100%       50ms 83.33%  runtime.(*pageAlloc).scavenge
+         0     0%   100%       50ms 83.33%  runtime.(*pageAlloc).scavenge.func1
+         0     0%   100%       50ms 83.33%  runtime.(*pageAlloc).scavengeOne
+         0     0%   100%       10ms 16.67%  runtime.gcBgMarkWorker
+         0     0%   100%       10ms 16.67%  runtime.gcMarkDone
+         0     0%   100%       10ms 16.67%  runtime.gcMarkTermination
+         0     0%   100%       10ms 16.67%  runtime.mProf_Flush
+         0     0%   100%       50ms 83.33%  runtime.runtime_debug_freeOSMemory.func1
+         0     0%   100%       50ms 83.33%  runtime.sysUnused (inline)
+         0     0%   100%       50ms 83.33%  runtime.sysUnusedOS (inline)
+         0     0%   100%       50ms 83.33%  runtime.systemstack

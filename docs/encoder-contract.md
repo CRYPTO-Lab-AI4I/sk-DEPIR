@@ -347,3 +347,11 @@ s=13 word using explicit workers, reusable Taylor setup and transpose workspace.
 Its runtime/RSS evidence applies to mathematical encoding only. The next gate is
 larger exact discovery/preparation and complete encoding; cryptographic/grouped
 output, public artifact publication and external-memory execution remain separate.
+
+
+The [s=14 checkpoint](../experiments/parallel-s14/report.md) now measures experimental
+exact discovery/preparation, verified retained constants and cached mathematical
+encoding. Default public discovery/JSON basis loading remains s≤13; the minimal
+artifact/native matrix path additionally validates s=14. First-use and fresh
+cached-process RSS are reported separately. This is not application or
+cryptographic encoding integration, and s≥15 remains an admission gate.

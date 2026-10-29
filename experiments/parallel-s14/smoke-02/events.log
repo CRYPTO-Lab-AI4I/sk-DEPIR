@@ -1,0 +1,13 @@
+=== RUN   TestParallelFirstUse
+    parallel_firstuse_probe_test.go:85: executor-setup 480.042µs
+    parallel_firstuse_probe_test.go:85: discovery 2.5745ms
+    parallel_firstuse_probe_test.go:85: save-basis 10.958417ms
+    parallel_firstuse_probe_test.go:85: preparation 6.2115ms
+    parallel_firstuse_probe_test.go:85: save-prepared 10.988375ms
+    parallel_firstuse_probe_test.go:85: load-online 179.709µs
+    parallel_firstuse_probe_test.go:85: online-setup 103.292µs
+    parallel_firstuse_probe_test.go:85: encode-0 7.287959ms
+    parallel_firstuse_probe_test.go:85: verify-0 571.375µs
+    parallel_firstuse_probe_test.go:85: pack-output 4.23225ms
+--- PASS: TestParallelFirstUse (2.05s)
+PASS

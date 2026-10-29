@@ -1,0 +1,33 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 11:02:40 CET
+Duration: 1.51s, Total samples = 1.25s (82.58%)
+Showing nodes accounting for 1.25s, 100% of 1.25s total
+      flat  flat%   sum%        cum   cum%
+     0.39s 31.20% 31.20%      0.83s 66.40%  bufio.(*Writer).WriteByte
+     0.37s 29.60% 60.80%      0.37s 29.60%  syscall.rawsyscalln
+     0.26s 20.80% 81.60%      1.25s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func16
+     0.15s 12.00% 93.60%      0.15s 12.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func2
+     0.06s  4.80% 98.40%      0.06s  4.80%  crypto/internal/fips140/sha256.blockSHA2
+     0.01s   0.8% 99.20%      0.01s   0.8%  bufio.(*Writer).Available (inline)
+     0.01s   0.8%   100%      0.01s   0.8%  runtime.fcntl
+         0     0%   100%      0.43s 34.40%  bufio.(*Writer).Flush
+         0     0%   100%      0.06s  4.80%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%      0.06s  4.80%  crypto/internal/fips140/sha256.block
+         0     0%   100%      1.25s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse
+         0     0%   100%      1.25s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func3
+         0     0%   100%      0.01s   0.8%  internal/poll.(*FD).Fsync
+         0     0%   100%      0.01s   0.8%  internal/poll.(*FD).Fsync.func1 (inline)
+         0     0%   100%      0.37s 29.60%  internal/poll.(*FD).Write
+         0     0%   100%      0.01s   0.8%  internal/poll.ignoringEINTR (inline)
+         0     0%   100%      0.37s 29.60%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%      0.01s   0.8%  internal/syscall/unix.Fcntl
+         0     0%   100%      0.43s 34.40%  io.(*multiWriter).Write
+         0     0%   100%      0.01s   0.8%  os.(*File).Sync
+         0     0%   100%      0.37s 29.60%  os.(*File).Write
+         0     0%   100%      0.37s 29.60%  os.(*File).write (inline)
+         0     0%   100%      0.37s 29.60%  syscall.Write (inline)
+         0     0%   100%      0.37s 29.60%  syscall.syscall
+         0     0%   100%      0.37s 29.60%  syscall.syscalln
+         0     0%   100%      0.37s 29.60%  syscall.write
+         0     0%   100%      1.25s   100%  testing.tRunner

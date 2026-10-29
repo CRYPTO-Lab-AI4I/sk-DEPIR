@@ -1,0 +1,362 @@
+//go:build liftrs_cpp && cgo
+
+package liftrs
+
+// Opt-in retained first-use benchmark. No default public discovery guard changes.
+import (
+	"bufio"
+	"crypto/sha256"
+	"encoding/binary"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"io"
+	"math/rand"
+	"os"
+	"os/signal"
+	"path/filepath"
+	"runtime"
+	"runtime/debug"
+	"runtime/pprof"
+	"syscall"
+	"testing"
+	"time"
+)
+
+func TestParallelFirstUse(t *testing.T) {
+	out, cache := os.Getenv("PIR_FIRSTUSE_OUT"), os.Getenv("PIR_FIRSTUSE_CACHE")
+	if out == "" {
+		t.Skip("opt-in retained first-use experiment")
+	}
+	if cache == "" {
+		t.Fatal("cache required")
+	}
+	s, curve := 14, 5
+	if os.Getenv("PIR_FIRSTUSE_SMOKE") == "1" {
+		s, curve = 6, 4
+	}
+	debug.SetMemoryLimit(24 << 30)
+	signals := make(chan os.Signal, 1)
+	signal.Notify(signals, syscall.SIGTERM, os.Interrupt)
+	defer signal.Stop(signals)
+	go func() { <-signals; pprof.StopCPUProfile(); os.Exit(4) }()
+	spec := Spec{s, 2, curve}
+	workers := 16
+	check := func(err error) {
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+	check(os.MkdirAll(cache, 0755))
+	var phases []map[string]any
+	phase := func(name string, fn func() map[string]any) {
+		runtime.GC()
+		var before, after runtime.MemStats
+		runtime.ReadMemStats(&before)
+		state, _ := json.Marshal(map[string]any{"phase": name, "event": "started", "timestamp_utc": time.Now().UTC().Format(time.RFC3339Nano)})
+		check(os.WriteFile(filepath.Join(out, "state.json"), state, 0644))
+		f, err := os.Create(filepath.Join(out, name+".pprof"))
+		check(err)
+		check(pprof.StartCPUProfile(f))
+		stopped := false
+		defer func() {
+			if !stopped {
+				pprof.StopCPUProfile()
+				f.Close()
+			}
+		}()
+		start := time.Now()
+		r := fn()
+		elapsed := time.Since(start)
+		pprof.StopCPUProfile()
+		stopped = true
+		check(f.Close())
+		runtime.ReadMemStats(&after)
+		r["phase"] = name
+		r["elapsed_ns"] = elapsed.Nanoseconds()
+		r["allocated_bytes"] = after.TotalAlloc - before.TotalAlloc
+		r["heap_before_bytes"] = before.HeapAlloc
+		r["heap_after_bytes"] = after.HeapAlloc
+		r["go_sys_bytes"] = after.Sys
+		phases = append(phases, r)
+		data, err := json.MarshalIndent(phases, "", "  ")
+		check(err)
+		check(os.WriteFile(filepath.Join(out, "phases.json"), data, 0644))
+		t.Log(name, elapsed)
+	}
+	// Fixed-width public files are written atomically and hashed while streaming.
+	saveWords := func(name string, values []uint32) map[string]any {
+		path := filepath.Join(cache, name)
+		file, err := os.Create(path + ".tmp")
+		check(err)
+		h := sha256.New()
+		w := bufio.NewWriterSize(io.MultiWriter(file, h), 1<<20)
+		var block [65536]byte
+		for start := 0; start < len(values); start += len(block) / 4 {
+			count := minInt(len(block)/4, len(values)-start)
+			for j := 0; j < count; j++ {
+				binary.LittleEndian.PutUint32(block[4*j:], values[start+j])
+			}
+			_, err := w.Write(block[:4*count])
+			check(err)
+		}
+		check(w.Flush())
+		check(file.Sync())
+		check(file.Close())
+		check(os.Rename(path+".tmp", path))
+		return map[string]any{"path": name, "elements": len(values), "bytes": len(values) * 4, "sha256": hex.EncodeToString(h.Sum(nil))}
+	}
+	saveMeta := func(name string, m map[string]any) {
+		raw, err := json.MarshalIndent(m, "", "  ")
+		check(err)
+		check(os.WriteFile(filepath.Join(cache, name), raw, 0644))
+	}
+	var basis *OrbitBasis
+	var setup *scalingPreparationCPP
+	phase("executor-setup", func() map[string]any {
+		var err error
+		basis, setup, err = newScalingPreparationCPP(spec, workers)
+		check(err)
+		return map[string]any{"s": s, "m": 2, "t": curve, "workers": workers, "scratch_bytes": len(setup.scratch) * 4}
+	})
+	defer setup.close()
+	basisMeta := filepath.Join(cache, "basis-metadata.json")
+	phase("discovery", func() map[string]any {
+		raw, err := os.ReadFile(basisMeta)
+		if err == nil {
+			var meta struct {
+				S, T, K, N int
+				SHA256     string
+			}
+			check(json.Unmarshal(raw, &meta))
+			if meta.S != s || meta.T != curve || meta.N != basis.Length() {
+				t.Fatal("basis cache spec")
+			}
+			file, err := os.Open(filepath.Join(cache, "support.bin"))
+			check(err)
+			defer file.Close()
+			h := sha256.New()
+			r := bufio.NewReaderSize(io.TeeReader(file, h), 1<<20)
+			basis.support = make([]int, meta.K)
+			var block [65536]byte
+			for start := 0; start < meta.K; start += len(block) / 4 {
+				n := minInt(len(block)/4, meta.K-start)
+				_, err := io.ReadFull(r, block[:4*n])
+				check(err)
+				for j := 0; j < n; j++ {
+					basis.support[start+j] = int(binary.LittleEndian.Uint32(block[4*j:]))
+				}
+			}
+			if _, err := r.ReadByte(); err != io.EOF {
+				t.Fatal("support trailing/read")
+			}
+			if hex.EncodeToString(h.Sum(nil)) != meta.SHA256 {
+				t.Fatal("support checksum")
+			}
+			check(basis.validateSupport())
+			return map[string]any{"reused": true, "k": basis.Dimension(), "n": basis.Length()}
+		}
+		if !os.IsNotExist(err) {
+			check(err)
+		}
+		basis, err = discoverOrbitBasis(basis, OrbitOptions{Random: rand.New(rand.NewSource(1603)), MaxSamples: 2 + (128+s-1)/s})
+		check(err)
+		return map[string]any{"reused": false, "k": basis.Dimension(), "n": basis.Length(), "samples": basis.Samples()}
+	})
+	if _, err := os.Stat(basisMeta); os.IsNotExist(err) {
+		phase("save-basis", func() map[string]any {
+			values := make([]uint32, len(basis.support))
+			for i, x := range basis.support {
+				values[i] = uint32(x)
+			}
+			m := saveWords("support.bin", values)
+			m["s"] = s
+			m["t"] = curve
+			m["k"] = basis.Dimension()
+			m["n"] = basis.Length()
+			m["seed"] = 1603
+			saveMeta("basis-metadata.json", m)
+			return m
+		})
+	}
+	var prepared *CyclicEncoder
+	var plan *ScalingOnlinePlan
+	onlineMeta := filepath.Join(cache, "online-metadata.json")
+	if _, err := os.Stat(onlineMeta); os.IsNotExist(err) {
+		phase("preparation", func() map[string]any {
+			var err error
+			prepared, err = basis.prepareCyclicScaling(basis.extensionFFT)
+			check(err)
+			return map[string]any{"k": basis.Dimension(), "n": basis.Length(), "identity_verified": true}
+		})
+		phase("save-prepared", func() map[string]any {
+			// Borrow immutable arrays to stream, avoiding an extra P/spectrum copy.
+			b := *prepared.basis
+			b.support = nil
+			b.extensionFFT = newSparseTransform(b.extension)
+			b.baseFFT = nil
+			b.base.products = nil
+			b.extension.products = nil
+			plan = &ScalingOnlinePlan{basis: b, k: basis.Dimension(), p: prepared.p, spectrum: prepared.spectrum}
+			file, err := os.Create(filepath.Join(cache, "online.bin.tmp"))
+			check(err)
+			h := sha256.New()
+			check(writeScalingOnline(io.MultiWriter(file, h), plan))
+			check(file.Sync())
+			check(file.Close())
+			check(os.Rename(filepath.Join(cache, "online.bin.tmp"), filepath.Join(cache, "online.bin")))
+			info, err := os.Stat(filepath.Join(cache, "online.bin"))
+			check(err)
+			m := map[string]any{"s": s, "t": curve, "k": basis.Dimension(), "n": basis.Length(), "sha256": hex.EncodeToString(h.Sum(nil)), "bytes": info.Size(), "generator": saveWords("g.bin", prepared.g), "identity_verified": true}
+			saveMeta("online-metadata.json", m)
+			return m
+		})
+	}
+	// Drop discovery/support/G and preparation scratch before a separately timed
+	// online-file load. Reusing the public artifact does not retain old setup RAM.
+	prepared = nil
+	plan = nil
+	basis = nil
+	setup.close()
+	phase("load-online", func() map[string]any {
+		raw, err := os.ReadFile(onlineMeta)
+		check(err)
+		var m struct{ SHA256 string }
+		check(json.Unmarshal(raw, &m))
+		file, err := os.Open(filepath.Join(cache, "online.bin"))
+		check(err)
+		defer file.Close()
+		plan, err = LoadScalingOnline(file, m.SHA256, 1<<uint(2*s))
+		check(err)
+		return map[string]any{"plan_bytes": plan.ResidentBytes(), "k": plan.k, "n": plan.Length()}
+	})
+	var encoder *ScalingCPPEncoder
+	var workspace *ScalingCPPWorkspace
+	phase("online-setup", func() map[string]any {
+		var err error
+		encoder, err = plan.WithCPPMatrix(workers)
+		check(err)
+		workspace = encoder.NewWorkspace()
+		return map[string]any{"workers": workers, "workspace_bytes": workspace.Bytes()}
+	})
+	defer encoder.Close()
+	random := rand.New(rand.NewSource(71))
+	message := make([]uint32, plan.k)
+	for i := range message {
+		message[i] = uint32(random.Intn(1 << uint(s)))
+	}
+	repeats := 3
+	if s == 6 {
+		repeats = 1
+	}
+	var digest string
+	var word []uint32
+	for repeat := 0; repeat < repeats; repeat++ {
+		word = nil
+		phase(fmt.Sprintf("encode-%d", repeat), func() map[string]any {
+			var err error
+			var stats ScalingCPPStats
+			word, stats, err = encoder.EncodeWithStats(message, workspace)
+			check(err)
+			return map[string]any{"native_stages": stats, "input_bytes": len(message) * 4, "output_bytes": len(word) * 4}
+		})
+		phase(fmt.Sprintf("verify-%d", repeat), func() map[string]any {
+			point := plan.basis.omega
+			for _, x := range message {
+				if word[point] != x {
+					t.Fatal("systematic mismatch")
+				}
+				point = plan.basis.extension.mul(point, plan.basis.omega)
+			}
+			// Independent carryless base arithmetic for degree-t curve restrictions.
+			mul := func(a, b uint32) uint32 {
+				var product uint64
+				for j := 0; j < s; j++ {
+					if b&(1<<uint(j)) != 0 {
+						product ^= uint64(a) << uint(j)
+					}
+				}
+				for j := 2*s - 2; j >= s; j-- {
+					if product&(1<<uint(j)) != 0 {
+						product ^= uint64(plan.basis.polynomial) << uint(j-s)
+					}
+				}
+				return uint32(product)
+			}
+			r := rand.New(rand.NewSource(1604))
+			for trial := 0; trial < 16; trial++ {
+				var curves [2][]uint32
+				for axis := range curves {
+					curves[axis] = make([]uint32, curve+1)
+					for j := range curves[axis] {
+						curves[axis][j] = uint32(r.Intn(1 << uint(s)))
+					}
+				}
+				var sum uint32
+				for z := uint32(0); z < 1<<uint(s); z++ {
+					var p [2]uint32
+					for axis := range curves {
+						for j := curve; j >= 0; j-- {
+							p[axis] = mul(p[axis], z) ^ curves[axis][j]
+						}
+					}
+					sum ^= word[p[0]+(1<<uint(s))*p[1]]
+				}
+				if sum != 0 {
+					t.Fatal("curve restriction")
+				}
+			}
+			h := sha256.New()
+			var block [65536]byte
+			for start := 0; start < len(word); start += len(block) / 4 {
+				n := minInt(len(block)/4, len(word)-start)
+				for j := 0; j < n; j++ {
+					binary.LittleEndian.PutUint32(block[4*j:], word[start+j])
+				}
+				h.Write(block[:4*n])
+			}
+			got := hex.EncodeToString(h.Sum(nil))
+			if digest != "" && digest != got {
+				t.Fatal("repeat hash differs")
+			}
+			digest = got
+			return map[string]any{"canonical_sha256": got, "systematic_checked": len(message), "curves_checked": 16, "repeat_match": true}
+		})
+	}
+	phase("pack-output", func() map[string]any {
+		file, err := os.Create(filepath.Join(cache, "word-packed.bin.tmp"))
+		check(err)
+		h := sha256.New()
+		w := bufio.NewWriterSize(io.MultiWriter(file, h), 1<<20)
+		var acc uint64
+		var used uint
+		var count int64
+		for _, x := range word {
+			acc |= uint64(x) << used
+			used += uint(s)
+			for used >= 8 {
+				check(w.WriteByte(byte(acc)))
+				acc >>= 8
+				used -= 8
+				count++
+			}
+		}
+		if used != 0 {
+			check(w.WriteByte(byte(acc)))
+			count++
+		}
+		check(w.Flush())
+		check(file.Sync())
+		check(file.Close())
+		check(os.Rename(filepath.Join(cache, "word-packed.bin.tmp"), filepath.Join(cache, "word-packed.bin")))
+		if count != int64((len(word)*s+7)/8) {
+			t.Fatal("packed length")
+		}
+		m := map[string]any{"packed_bytes": count, "sha256": hex.EncodeToString(h.Sum(nil)), "canonical_sha256": digest, "seed": 71}
+		saveMeta("word-metadata.json", m)
+		return m
+	})
+	runtime.KeepAlive(encoder)
+	runtime.KeepAlive(workspace)
+	runtime.KeepAlive(word)
+}

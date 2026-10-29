@@ -108,7 +108,7 @@ func TestTargetProfile(t *testing.T) {
 		if entry.Code.S != s || entry.Code.M != 2 || entry.Code.T != degree {
 			t.Fatalf("target %d differs from documented security calculation", i)
 		}
-		if entry.Code.S >= 8 && entry.Code.S <= 13 {
+		if entry.Code.S >= 8 && entry.Code.S <= 14 {
 			wantK, wantPolynomial := uint64(3121), uint32(0x11d)
 			if entry.Code.S == 9 {
 				wantK, wantPolynomial = 17200, 0x211
@@ -125,6 +125,9 @@ func TestTargetProfile(t *testing.T) {
 			if entry.Code.S == 13 {
 				wantK, wantPolynomial = 11926435, 0x201b
 			}
+			if entry.Code.S == 14 {
+				wantK, wantPolynomial = 50976325, 0x402b
+			}
 			if entry.EncodingStatus != "supported" || entry.Encoder == nil || entry.Capacity.Status != "verified" || entry.Code.Polynomial == nil || *entry.Code.Polynomial != wantPolynomial || entry.Capacity.K == nil || *entry.Capacity.K != wantK {
 				t.Fatal("missing bounded exact encoding evidence")
 			}
@@ -134,10 +137,10 @@ func TestTargetProfile(t *testing.T) {
 		if entry.Capacity.K == nil || entry.Capacity.Rate == nil {
 			t.Fatal("missing capacity")
 		}
-		if entry.Code.S >= 8 && entry.Code.S <= 13 {
+		if entry.Code.S >= 8 && entry.Code.S <= 14 {
 			found := false
 			for _, e := range entry.Capacity.Evidence {
-				if e.Kind == "encoding" && (e.Results == "experiments/encoder-comparison/results.json" || e.Results == "experiments/tablefree-encoding/results.json" || e.Results == "experiments/encoder-scaling/results.json" || e.Results == "experiments/cyclic-scaling/results.json" || e.Results == "experiments/cyclic-s13/results.json") {
+				if e.Kind == "encoding" && (e.Results == "experiments/encoder-comparison/results.json" || e.Results == "experiments/tablefree-encoding/results.json" || e.Results == "experiments/encoder-scaling/results.json" || e.Results == "experiments/cyclic-scaling/results.json" || e.Results == "experiments/cyclic-s13/results.json" || e.Results == "experiments/parallel-s14/initial/results.json") {
 					found = true
 				}
 			}
@@ -159,7 +162,7 @@ func TestTargetProfile(t *testing.T) {
 					t.Fatal("empirical evidence missing or not reproducible")
 				}
 				wantK := (measured.Good*entry.Capacity.N + measured.Samples/2) / measured.Samples
-				if (entry.Code.S > 13 && (*entry.Capacity.K != wantK || *entry.Capacity.Rate != float64(wantK)/float64(entry.Capacity.N))) || source.MonteCarlo.Samples != measured.Samples || source.MonteCarlo.LowerRate != measured.LowerRate || source.MonteCarlo.UpperRate != measured.UpperRate || source.MonteCarlo.Confidence != measured.Confidence {
+				if (entry.Code.S > 14 && (*entry.Capacity.K != wantK || *entry.Capacity.Rate != float64(wantK)/float64(entry.Capacity.N))) || source.MonteCarlo.Samples != measured.Samples || source.MonteCarlo.LowerRate != measured.LowerRate || source.MonteCarlo.UpperRate != measured.UpperRate || source.MonteCarlo.Confidence != measured.Confidence {
 					t.Fatal("catalogue does not match recorded rate experiment")
 				}
 			}

@@ -1,0 +1,41 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 11:04:45 CET
+Duration: 1.51s, Total samples = 1.26s (83.23%)
+Showing nodes accounting for 1.26s, 100% of 1.26s total
+      flat  flat%   sum%        cum   cum%
+     0.46s 36.51% 36.51%      0.46s 36.51%  syscall.rawsyscalln
+     0.32s 25.40% 61.90%      0.87s 69.05%  bufio.(*Writer).WriteByte
+     0.19s 15.08% 76.98%      1.22s 96.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func16
+     0.15s 11.90% 88.89%      0.15s 11.90%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func2
+     0.06s  4.76% 93.65%      0.06s  4.76%  crypto/internal/fips140/sha256.blockSHA2
+     0.04s  3.17% 96.83%      0.04s  3.17%  bufio.(*Writer).Available (inline)
+     0.04s  3.17%   100%      0.04s  3.17%  runtime.pthread_cond_signal
+         0     0%   100%      0.51s 40.48%  bufio.(*Writer).Flush
+         0     0%   100%      0.06s  4.76%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%      0.06s  4.76%  crypto/internal/fips140/sha256.block
+         0     0%   100%      1.22s 96.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse
+         0     0%   100%      1.22s 96.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func3
+         0     0%   100%      0.45s 35.71%  internal/poll.(*FD).Write
+         0     0%   100%      0.45s 35.71%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%      0.51s 40.48%  io.(*multiWriter).Write
+         0     0%   100%      0.45s 35.71%  os.(*File).Write
+         0     0%   100%      0.45s 35.71%  os.(*File).write (inline)
+         0     0%   100%      0.01s  0.79%  os.Rename (inline)
+         0     0%   100%      0.01s  0.79%  os.ignoringEINTR (inline)
+         0     0%   100%      0.01s  0.79%  os.rename
+         0     0%   100%      0.01s  0.79%  os.rename.func1 (inline)
+         0     0%   100%      0.04s  3.17%  runtime.gopreempt_m (inline)
+         0     0%   100%      0.04s  3.17%  runtime.goschedImpl
+         0     0%   100%      0.04s  3.17%  runtime.morestack
+         0     0%   100%      0.04s  3.17%  runtime.newstack
+         0     0%   100%      0.04s  3.17%  runtime.notewakeup
+         0     0%   100%      0.04s  3.17%  runtime.semawakeup
+         0     0%   100%      0.04s  3.17%  runtime.startm
+         0     0%   100%      0.04s  3.17%  runtime.wakep
+         0     0%   100%      0.01s  0.79%  syscall.Rename
+         0     0%   100%      0.45s 35.71%  syscall.Write (inline)
+         0     0%   100%      0.46s 36.51%  syscall.syscall
+         0     0%   100%      0.46s 36.51%  syscall.syscalln
+         0     0%   100%      0.45s 35.71%  syscall.write
+         0     0%   100%      1.22s 96.83%  testing.tRunner

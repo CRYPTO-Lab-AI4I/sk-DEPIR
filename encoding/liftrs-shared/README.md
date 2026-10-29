@@ -216,7 +216,10 @@ correctness, allocation and whole-encoder effects. The backend remains in memory
 there is no external-storage, streaming, GPU or constant-time implementation.
 The accepted s<=13 range supports resource-limited experiments, not a guarantee
 that every code or serialized cache fits RAM or loader limits. Completed catalogue
-benchmarks cover cyclic s=8..13; s=14..20 resource feasibility and automatic
+benchmarks cover the public cyclic path through s=13. The experimental
+[s=14 first-use path](../../experiments/parallel-s14/report.md) additionally
+validates exact K=50,976,325 and cached native encoding in about 91 s, with
+separate preparation and fresh-process memory measurements. s≥15 and automatic
 application-plan integration remain unverified.
 Do not extrapolate the small comparison's speed or artifact sizes to those codes.
 
@@ -341,6 +344,7 @@ five transforms, pointwise products and assembly. It does not change the origina
 `LoadScalingOnline(reader, trustedSHA256, maxElements)` uses buffered blocks to
 read the experimental minimal binary. The digest must come from independently
 verified preprocessing; matching a checksum does not prove code validity. The
-format is experimental, limited to s≤13, and is not a public artifact-distribution
+format is experimental, limited to s≤14 (s=14 first-use evidence is tracked
+[separately](../../experiments/parallel-s14/report.md)), and is not a public artifact-distribution
 commitment. Usage and profiling commands are in the
 [parallel integration report](../../experiments/parallel-encoding/report.md).

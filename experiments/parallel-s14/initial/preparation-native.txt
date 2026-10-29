@@ -1,0 +1,358 @@
+Analysis of sampling probe (pid 88511) every 1 millisecond
+Process:         probe [88511]
+Path:            /Users/USER/*/probe
+Load Address:    0x100ae0000
+Identifier:      probe
+Version:         0
+Code Type:       ARM64
+Platform:        macOS
+Parent Process:  Python [88484]
+Target Type:     live task
+
+Date/Time:       2026-10-29 10:00:17.697 +0100
+Launch Time:     2026-10-29 09:55:50.654 +0100
+OS Version:      macOS 26.6.2 (25G83)
+Report Version:  7
+Analysis Tool:   /usr/bin/sample
+
+Physical footprint:         2.9G
+Physical footprint (peak):  5.8G
+Idle exit:                  untracked
+----
+
+Call graph:
+    4272 Thread_30952909   DispatchQueue_1: com.apple.main-thread  (serial)
+    + 4272 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30952930
+    + 4270 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    + ! 4270 runtime.usleep_trampoline.abi0  (in probe) + 20  [0x100b69414]
+    + !   4270 usleep  (in libsystem_c.dylib) + 68  [0x186676bd8]
+    + !     4270 nanosleep  (in libsystem_c.dylib) + 220  [0x186676cc0]
+    + !       4270 __semwait_signal  (in libsystem_kernel.dylib) + 8  [0x18679b308]
+    + 2 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   2 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     2 runtime.pthread_kill_trampoline.abi0  (in probe) + 24  [0x100b69848]
+    +       1 pthread_kill  (in libsystem_pthread.dylib) + 296  [0x1867db8d8]
+    +       : 1 __pthread_kill  (in libsystem_kernel.dylib) + 4  [0x1867a05e4]
+    +       1 pthread_kill  (in libsystem_pthread.dylib) + 420  [0x1867db954]
+    4272 Thread_30952931
+    + 4272 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30952932
+    + 4272 runtime.read_trampoline.abi0  (in probe) + 28  [0x100b6904c]
+    +   4272 read  (in libsystem_kernel.dylib) + 8  [0x18679891c]
+    4272 Thread_30952933
+    + 4272 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30952934
+    + 4272 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30952935
+    + 2762 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 132  [0x100c68d74]
+    + ! 2762 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul  (in probe) + 68,244,...  [0x100c62da4,0x100c62e54,...]
+    + 563 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Inverse  (in probe) + 184  [0x100c62b58]
+    + ! 563 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Pow  (in probe) + 164,112,...  [0x100c62a84,0x100c62a50,...]
+    + 377 ???  (in <unknown binary>)  [0xd65f03c0]
+    + ! 377 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    + !   377 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    + !     376 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    + !     : 376 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    + !     1 _pthread_cond_wait  (in libsystem_pthread.dylib) + 1120  [0x1867dc1b4]
+    + !       1 _pthread_mutex_firstfit_lock_slow  (in libsystem_pthread.dylib) + 216  [0x1867d68e0]
+    + !         1 _pthread_mutex_firstfit_lock_wait  (in libsystem_pthread.dylib) + 84  [0x1867d8e9c]
+    + !           1 __psynch_mutexwait  (in libsystem_kernel.dylib) + 8  [0x18679a9dc]
+    + 223 runtime.kevent_trampoline.abi0  (in probe) + 40  [0x100b694d8]
+    + ! 223 kevent  (in libsystem_kernel.dylib) + 8  [0x18679dfc4]
+    + 106 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow  (in probe) + 64,112,...  [0x100c68e50,0x100c68e80,...]
+    + 104 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Inverse  (in probe) + 212,272,...  [0x100c63054,0x100c63090,...]
+    + 35 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 96,144,...  [0x100c68d50,0x100c68d80,...]
+    + 26 runtime.goexit.abi0  (in probe) + 4  [0x100b68724]
+    + ! 26 testing.(*T).Run.gowrap1  (in probe) + 32  [0x100bdb4b0]
+    + !   26 testing.tRunner  (in probe) + 196  [0x100bd6224]
+    + !     26 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse  (in probe) + 1312  [0x100c81c70]
+    + !       26 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func3  (in probe) + 972  [0x100c946ec]
+    + !         26 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func9  (in probe) + 56  [0x100c929b8]
+    + !           15 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScaling  (in probe) + 640  [0x100c6f170]
+    + !           : 14 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 156  [0x100c68d8c]
+    + !           : 1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow  (in probe) + 152  [0x100c68ea8]
+    + !           :   1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 16  [0x100c68d00]
+    + !           6 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScaling  (in probe) + 968  [0x100c6f2b8]
+    + !           : 4 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 156  [0x100c68d8c]
+    + !           : 2 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow  (in probe) + 152  [0x100c68ea8]
+    + !           :   2 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 16  [0x100c68d00]
+    + !           2 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScaling  (in probe) + 672  [0x100c6f190]
+    + !           : 2 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Inverse  (in probe) + 536  [0x100c63198]
+    + !           1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScaling  (in probe) + 1012  [0x100c6f2e4]
+    + !           : 1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 16  [0x100c68d00]
+    + !           1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 156  [0x100c68d8c]
+    + !           1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow  (in probe) + 176  [0x100c68ec0]
+    + 20 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow  (in probe) + 152  [0x100c68ea8]
+    + ! 20 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 0  [0x100c68cf0]
+    + 16 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    + ! 14 runtime.pthread_mutex_unlock_trampoline.abi0  (in probe) + 20  [0x100b69744]
+    + ! : 14 _pthread_mutex_firstfit_unlock_slow  (in libsystem_pthread.dylib) + 220  [0x1867d6b94]
+    + ! :   14 _pthread_mutex_firstfit_wake  (in libsystem_pthread.dylib) + 28  [0x1867d8f0c]
+    + ! :     14 __psynch_mutexdrop  (in libsystem_kernel.dylib) + 8  [0x18679aba8]
+    + ! 2 runtime.pthread_cond_signal_trampoline.abi0  (in probe) + 20  [0x100b697f4]
+    + !   2 pthread_cond_signal  (in libsystem_pthread.dylib) + 708  [0x1867daf88]
+    + !     2 __psynch_cvsignal  (in libsystem_kernel.dylib) + 8  [0x18679ca64]
+    + 12 pthread_cond_signal  (in libsystem_pthread.dylib) + 708  [0x1867daf88]
+    + ! 12 _sigtramp  (in libsystem_platform.dylib) + 0  [0x1867e570c]
+    + 6 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow  (in probe) + 100  [0x100c68e74]
+    + ! 6 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 0  [0x100c68cf0]
+    + 4 runtime.growslice  (in probe) + 1220  [0x100b63d34]
+    + ! 4 runtime.memmove  (in probe) + 412,416  [0x100b68dbc,0x100b68dc0]
+    + 2 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScaling  (in probe) + 640  [0x100c6f170]
+    + ! 2 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow  (in probe) + 0  [0x100c68e10]
+    + 2 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScaling  (in probe) + 1164,1216  [0x100c6f37c,0x100c6f3b0]
+    + 2 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Inverse  (in probe) + 364  [0x100c630ec]
+    + ! 2 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Inverse  (in probe) + 0  [0x100c62aa0]
+    + 2 runtime.mallocgcTinySC2  (in probe) + 64,216  [0x100afd8d0,0x100afd968]
+    + 1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScaling  (in probe) + 672  [0x100c6f190]
+    + ! 1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.inv  (in probe) + 0  [0x100c68f10]
+    + 1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScaling  (in probe) + 968  [0x100c6f2b8]
+    + ! 1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow  (in probe) + 0  [0x100c68e10]
+    + 1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScaling  (in probe) + 1012  [0x100c6f2e4]
+    + ! 1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 0  [0x100c68cf0]
+    + 1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScaling  (in probe) + 1064  [0x100c6f318]
+    + ! 1 runtime.mallocgcTinySC2  (in probe) + 0  [0x100afd890]
+    + 1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.inv  (in probe) + 88  [0x100c68f68]
+    + ! 1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Inverse  (in probe) + 0  [0x100c62f80]
+    + 1 runtime.findRunnable  (in probe) + 4720  [0x100b30ae0]
+    + ! 1 runtime.runqputbatch  (in probe) + 32  [0x100b38a40]
+    + 1 runtime.findRunnable  (in probe) + 4708  [0x100b30ad4]
+    + 1 runtime.gcTrigger.test  (in probe) + 268  [0x100b06f2c]
+    + ! 1 runtime.(*gcControllerState).trigger  (in probe) + 0  [0x100b11c20]
+    + 1 runtime.libcCall  (in probe) + 36  [0x100b485c4]
+    + 1 runtime.memclrNoHeapPointersChunked  (in probe) + 60  [0x100afb97c]
+    +   1 runtime.memclrNoHeapPointers  (in probe) + 404  [0x100b68c04]
+    4272 Thread_30952936
+    + 4272 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30952937
+    + 3672 ???  (in <unknown binary>)  [0xd65f03c0]
+    + ! 3672 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    + !   3672 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    + !     3672 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    + !       3672 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    + 448 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 132  [0x100c68d74]
+    + ! 448 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul  (in probe) + 244,68,...  [0x100c62e54,0x100c62da4,...]
+    + 92 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Inverse  (in probe) + 184  [0x100c62b58]
+    + ! 92 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Pow  (in probe) + 164,112,...  [0x100c62a84,0x100c62a50,...]
+    + 22 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow  (in probe) + 64,60,...  [0x100c68e50,0x100c68e4c,...]
+    + 20 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Inverse  (in probe) + 212,324,...  [0x100c63054,0x100c630c4,...]
+    + 5 runtime.goexit.abi0  (in probe) + 4  [0x100b68724]
+    + ! 5 testing.(*T).Run.gowrap1  (in probe) + 32  [0x100bdb4b0]
+    + !   5 testing.tRunner  (in probe) + 196  [0x100bd6224]
+    + !     5 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse  (in probe) + 1312  [0x100c81c70]
+    + !       5 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func3  (in probe) + 972  [0x100c946ec]
+    + !         5 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func9  (in probe) + 56  [0x100c929b8]
+    + !           3 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScaling  (in probe) + 968  [0x100c6f2b8]
+    + !           : 2 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 156  [0x100c68d8c]
+    + !           : 1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow  (in probe) + 152  [0x100c68ea8]
+    + !           :   1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 16  [0x100c68d00]
+    + !           2 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScaling  (in probe) + 640  [0x100c6f170]
+    + !             1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 156  [0x100c68d8c]
+    + !             1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow  (in probe) + 152  [0x100c68ea8]
+    + !               1 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 16  [0x100c68d00]
+    + 3 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 72,128,...  [0x100c68d38,0x100c68d70,...]
+    + 2 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow  (in probe) + 100  [0x100c68e74]
+    + ! 2 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 0,8  [0x100c68cf0,0x100c68cf8]
+    + 2 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow  (in probe) + 152  [0x100c68ea8]
+    + ! 2 github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 0  [0x100c68cf0]
+    + 2 runtime.mallocgcTinySC2  (in probe) + 328  [0x100afd9d8]
+    + 1 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    + ! 1 runtime.pthread_mutex_unlock_trampoline.abi0  (in probe) + 20  [0x100b69744]
+    + !   1 _pthread_mutex_firstfit_unlock_slow  (in libsystem_pthread.dylib) + 220  [0x1867d6b94]
+    + !     1 _pthread_mutex_firstfit_wake  (in libsystem_pthread.dylib) + 28  [0x1867d8f0c]
+    + !       1 __psynch_mutexdrop  (in libsystem_kernel.dylib) + 8  [0x18679aba8]
+    + 1 runtime.callers.func1  (in probe) + 76  [0x100b5b9bc]
+    + 1 runtime.growslice  (in probe) + 1220  [0x100b63d34]
+    + ! 1 runtime.memmove  (in probe) + 416  [0x100b68dc0]
+    + 1 runtime.pidleget  (in probe) + 100  [0x100b38554]
+    4272 Thread_30952938
+    + 4272 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30952939
+    + 4272 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30952940
+    + 4272 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30952941
+    + 4246 ???  (in <unknown binary>)  [0xd65f03c0]
+    + ! 4246 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    + !   4246 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    + !     4231 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    + !     : 4231 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    + !     15 _pthread_cond_wait  (in libsystem_pthread.dylib) + 1120  [0x1867dc1b4]
+    + !       15 _pthread_mutex_firstfit_lock_slow  (in libsystem_pthread.dylib) + 216  [0x1867d68e0]
+    + !         15 _pthread_mutex_firstfit_lock_wait  (in libsystem_pthread.dylib) + 84  [0x1867d8e9c]
+    + !           15 __psynch_mutexwait  (in libsystem_kernel.dylib) + 8  [0x18679a9dc]
+    + 19 runtime.checkTimersNoP  (in probe) + 180  [0x100b313c4]
+    + 6 runtime.stealWork  (in probe) + 324,52,...  [0x100b30ee4,0x100b30dd4,...]
+    + 1 runtime.(*timers).check  (in probe) + 288  [0x100b49ae0]
+    4272 Thread_30954708
+    + 4272 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30956385
+    + 4272 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30956386
+    + 4272 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30956455
+    + 4272 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30956848
+    + 4272 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30956849
+    + 4272 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30956850
+    + 4272 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30956851
+    + 4272 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30956852
+    + 4049 runtime.kevent_trampoline.abi0  (in probe) + 40  [0x100b694d8]
+    + ! 4049 kevent  (in libsystem_kernel.dylib) + 8  [0x18679dfc4]
+    + 223 ???  (in <unknown binary>)  [0xd65f03c0]
+    +   223 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+    +     223 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+    +       223 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+    +         223 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+    4272 Thread_30956853
+      4272 ???  (in <unknown binary>)  [0xd65f03c0]
+        4272 runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+          4272 runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+            4272 _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+              4272 __psynch_cvwait  (in libsystem_kernel.dylib) + 8  [0x18679b50c]
+
+Total number in stack (recursive counted multiple, when >=5):
+        25       runtime.asmcgocall.abi0  (in probe) + 212  [0x100b68584]
+        22       ???  (in <unknown binary>)  [0xd65f03c0]
+        21       __psynch_cvwait  (in libsystem_kernel.dylib) + 0  [0x18679b504]
+        21       _pthread_cond_wait  (in libsystem_pthread.dylib) + 980  [0x1867dc128]
+        21       runtime.pthread_cond_wait_trampoline.abi0  (in probe) + 24  [0x100b69798]
+        17       github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe) + 0  [0x100c68cf0]
+        6       github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow  (in probe) + 152  [0x100c68ea8]
+        5       github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow  (in probe) + 0  [0x100c68e10]
+
+Sort by top of stack, same collapsed (when >= 5):
+        __psynch_cvwait  (in libsystem_kernel.dylib)        81126
+        kevent  (in libsystem_kernel.dylib)        4272
+        read  (in libsystem_kernel.dylib)        4272
+        __semwait_signal  (in libsystem_kernel.dylib)        4270
+        github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul  (in probe)        3210
+        github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Pow  (in probe)        655
+        github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow  (in probe)        132
+        github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Inverse  (in probe)        127
+        github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul  (in probe)        97
+        runtime.checkTimersNoP  (in probe)        19
+        __psynch_mutexwait  (in libsystem_kernel.dylib)        16
+        __psynch_mutexdrop  (in libsystem_kernel.dylib)        15
+        _sigtramp  (in libsystem_platform.dylib)        12
+        runtime.stealWork  (in probe)        6
+        runtime.mallocgcTinySC2  (in probe)        5
+        runtime.memmove  (in probe)        5
+
+Binary Images:
+       0x100ae0000 -        0x100e45dff +probe (0) <D90AF093-FD5D-370B-A185-0C189953E021> /Users/*/probe
+       0x186368000 -        0x1863bab4b  libobjc.A.dylib (951.7) <03BD9E32-CF0A-37B0-898A-3CE8DE06D842> /usr/lib/libobjc.A.dylib
+       0x1863bb000 -        0x1863efd58  libdyld.dylib (1387) <957F93B3-8805-39C7-9C51-EDD1715F550E> /usr/lib/system/libdyld.dylib
+       0x1863f0000 -        0x1864a34ff  dyld (1.0.0 - 1387) <74E52480-C2BD-3C8D-812D-95FE2B74A096> /usr/lib/dyld
+       0x1864a4000 -        0x1864a7228  libsystem_blocks.dylib (96) <E0AC1231-27AA-3A13-8FAC-41D5802B1F3C> /usr/lib/system/libsystem_blocks.dylib
+       0x1864a8000 -        0x1864fc55f  libxpc.dylib (3102.160.5) <33E44C2D-D65E-37A6-B85F-1A4CF524A050> /usr/lib/system/libxpc.dylib
+       0x1864fd000 -        0x18651d9ff  libsystem_trace.dylib (1861.160.4) <93F1DD8C-6CD9-32B9-B222-D23DA5D161B4> /usr/lib/system/libsystem_trace.dylib
+       0x18651e000 -        0x1865cc5f7  libcorecrypto.dylib (1922.160.10) <0642DDAD-4771-3C82-805C-E7C6701C1461> /usr/lib/system/libcorecrypto.dylib
+       0x1865cd000 -        0x18661d257  libsystem_malloc.dylib (812.160.5) <D969A907-3E43-3951-9365-8C2DB3812E9D> /usr/lib/system/libsystem_malloc.dylib
+       0x18661e000 -        0x18666523f  libdispatch.dylib (1542.160.2) <B2000CD5-F580-314A-A141-E036719D854E> /usr/lib/system/libdispatch.dylib
+       0x186666000 -        0x186668ffb  libsystem_featureflags.dylib (103) <FEE12F9C-344B-33B3-8EDD-283580EF1C67> /usr/lib/system/libsystem_featureflags.dylib
+       0x186669000 -        0x1866ea1e7  libsystem_c.dylib (1752.160.4) <D77CEB62-AFF6-3CEC-BA9B-4F057FBE2EB5> /usr/lib/system/libsystem_c.dylib
+       0x1866eb000 -        0x18677bae7  libc++.1.dylib (2100.43) <F0FD393C-15BC-3C75-A19D-897F7B225C78> /usr/lib/libc++.1.dylib
+       0x18677c000 -        0x18679675f  libc++abi.dylib (2100.43) <F38A9C58-22AB-3798-BBAE-8DCD9CC0CE27> /usr/lib/libc++abi.dylib
+       0x186797000 -        0x1867d42e7  libsystem_kernel.dylib (12377.161.14) <C6A4A4CB-92E6-3BAF-AAE0-E8306259209A> /usr/lib/system/libsystem_kernel.dylib
+       0x1867d5000 -        0x1867e1b3b  libsystem_pthread.dylib (539.100.4) <A373F0B0-9880-326A-88B4-DD8BE4E33072> /usr/lib/system/libsystem_pthread.dylib
+       0x1867e2000 -        0x1867ea963  libsystem_platform.dylib (375.120.2) <EDB83A19-EC17-32DE-9350-6145970A85D6> /usr/lib/system/libsystem_platform.dylib
+       0x1867eb000 -        0x18681a6eb  libsystem_info.dylib (600) <9B5FB84B-31AD-3EA7-8F89-8C700D369DC8> /usr/lib/system/libsystem_info.dylib
+       0x18a7b8000 -        0x18a7c1e5f  libsystem_darwin.dylib (1752.160.4) <8E07D22E-CE5A-38A0-B091-5B0338C326F5> /usr/lib/system/libsystem_darwin.dylib
+       0x18ac23000 -        0x18ac351b6  libsystem_notify.dylib (348.160.3) <15799128-6CBD-30D6-A2BB-B9D02B4470C0> /usr/lib/system/libsystem_notify.dylib
+       0x18cef4000 -        0x18cf0ef7b  libsystem_networkextension.dylib (2226.161.1) <9C7B1EEB-47BE-3791-93A9-CFC693CB9417> /usr/lib/system/libsystem_networkextension.dylib
+       0x18cf91000 -        0x18cfa8fdf  libsystem_asl.dylib (406) <54439739-33EE-3273-839F-CBA67D7F5CB1> /usr/lib/system/libsystem_asl.dylib
+       0x18eb4a000 -        0x18eb52387  libsystem_symptoms.dylib (2169.160.3) <229122B9-B8B1-3F2F-870E-8650AE3C4FB5> /usr/lib/system/libsystem_symptoms.dylib
+       0x192def000 -        0x192e275b7  libsystem_containermanager.dylib (725.160.3) <14B2A47F-19C8-392F-8FDB-FE8AE375DD41> /usr/lib/system/libsystem_containermanager.dylib
+       0x194201000 -        0x1942055d7  libsystem_configuration.dylib (1405.160.3) <D8D6280B-783D-3550-BDBA-2861AE40604F> /usr/lib/system/libsystem_configuration.dylib
+       0x194206000 -        0x19420c99f  libsystem_sandbox.dylib (2680.160.6) <54688162-B50D-3D31-A1E8-7B9766D3530D> /usr/lib/system/libsystem_sandbox.dylib
+       0x195861000 -        0x1958641fb  libquarantine.dylib (196.160.2) <EEE5AADB-52E1-3C4C-881A-70405770B1F1> /usr/lib/system/libquarantine.dylib
+       0x196000000 -        0x196006d03  libsystem_coreservices.dylib (191.5.1) <D4ACD2AC-5702-3C45-85A0-300B2C2D19E1> /usr/lib/system/libsystem_coreservices.dylib
+       0x19658f000 -        0x1965cca77  libsystem_m.dylib (3312.100.1) <B54FBE99-DB0B-32C7-ABDD-C2206DF606A4> /usr/lib/system/libsystem_m.dylib
+       0x1965ce000 -        0x1965d1527  libmacho.dylib (1387) <949131E5-BDA2-39BA-AA50-62651BB51802> /usr/lib/system/libmacho.dylib
+       0x1965eb000 -        0x1965f83a7  libcommonCrypto.dylib (600035) <3B110564-5278-3CB0-85F1-2CE8431FF935> /usr/lib/system/libcommonCrypto.dylib
+       0x1965f9000 -        0x196602ca3  libunwind.dylib (2100.2) <05FD0014-55B1-3B8A-A6BA-6C7A389C4123> /usr/lib/system/libunwind.dylib
+       0x19660b000 -        0x196615bef  libcopyfile.dylib (240.160.2.0.1) <D0009B8A-8ECC-3D56-9206-7E1839707F93> /usr/lib/system/libcopyfile.dylib
+       0x196616000 -        0x196619987  libcompiler_rt.dylib (103.3) <6FB345CA-7F5C-3263-A23F-143F7539FD8A> /usr/lib/system/libcompiler_rt.dylib
+       0x19661a000 -        0x19661e78b  libsystem_collections.dylib (1752.160.4) <C8160BD2-5941-3DC0-BB40-F8C2B8156EC4> /usr/lib/system/libsystem_collections.dylib
+       0x19661f000 -        0x1966224cf  libsystem_secinit.dylib (168.100.7) <ECABC024-8F02-374A-BB7E-29437CEA2ABD> /usr/lib/system/libsystem_secinit.dylib
+       0x196623000 -        0x196625bf7  libremovefile.dylib (85.100.6) <7460B5AE-469A-36A0-A7EC-6C7D69628E86> /usr/lib/system/libremovefile.dylib
+       0x196626000 -        0x196626f27  libkeymgr.dylib (31) <7E863FCA-F3FF-32C7-8A8C-F983E946AFC3> /usr/lib/system/libkeymgr.dylib
+       0x196627000 -        0x19662fe37  libsystem_dnssd.dylib (2881.160.4) <305F4398-E688-3384-B351-02D865EC8A04> /usr/lib/system/libsystem_dnssd.dylib
+       0x196630000 -        0x19663509b  libcache.dylib (95) <9CD7B1E1-3E47-339C-A193-2392E3E0ED23> /usr/lib/system/libcache.dylib
+       0x196636000 -        0x196637ce3  libSystem.B.dylib (1356) <4FED5EE2-5D3E-35B1-A170-9859C4B683BB> /usr/lib/libSystem.B.dylib
+       0x19a8c4000 -        0x19a8e019b  libresolv.9.dylib (96) <4AB71911-9300-30D4-88CF-D20EFD75ACE6> /usr/lib/libresolv.9.dylib
+       0x28a5f9000 -        0x28a600349  libRosetta.dylib (367.9) <0C7397C6-D747-31F2-8BC1-4096213BDE5C> /usr/lib/libRosetta.dylib
+       0x28c20c000 -        0x28c20fa4b  libsystem_darwindirectory.dylib (122) <971A4F65-493D-39F3-846D-0D33FA2769FD> /usr/lib/system/libsystem_darwindirectory.dylib
+       0x28c210000 -        0x28c21a39b  libsystem_eligibility.dylib (319.160.17) <750CA446-92EA-3A56-9A7B-CC0841686C50> /usr/lib/system/libsystem_eligibility.dylib
+       0x28c21b000 -        0x28c22288b  libsystem_sanitizers.dylib (26.1) <D88EC709-9AA8-3083-B22B-D3CB39678D71> /usr/lib/system/libsystem_sanitizers.dylib
+       0x28c223000 -        0x28c223bb7  libsystem_trial.dylib (474.2.18.2) <7194FF5B-A6C5-3D67-B00A-90209F10D603> /usr/lib/system/libsystem_trial.dylib

@@ -1,0 +1,32 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 11:03:08 CET
+Duration: 707.25ms, Total samples = 540ms (76.35%)
+Showing nodes accounting for 540ms, 100% of 540ms total
+      flat  flat%   sum%        cum   cum%
+     370ms 68.52% 68.52%      540ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.LoadScalingOnline
+     150ms 27.78% 96.30%      150ms 27.78%  syscall.rawsyscalln
+      10ms  1.85% 98.15%       10ms  1.85%  crypto/internal/fips140/sha256.blockSHA2
+      10ms  1.85%   100%       10ms  1.85%  runtime.memclrNoHeapPointers
+         0     0%   100%      160ms 29.63%  bufio.(*Reader).Read
+         0     0%   100%       10ms  1.85%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%       10ms  1.85%  crypto/internal/fips140/sha256.block
+         0     0%   100%      540ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse
+         0     0%   100%      540ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func12
+         0     0%   100%      540ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestParallelFirstUse.func3
+         0     0%   100%      150ms 27.78%  internal/poll.(*FD).Read
+         0     0%   100%      150ms 27.78%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%      160ms 29.63%  io.(*teeReader).Read
+         0     0%   100%      160ms 29.63%  io.ReadAtLeast
+         0     0%   100%      160ms 29.63%  io.ReadFull (inline)
+         0     0%   100%      150ms 27.78%  os.(*File).Read
+         0     0%   100%      150ms 27.78%  os.(*File).read (inline)
+         0     0%   100%       10ms  1.85%  runtime.makeslice
+         0     0%   100%       10ms  1.85%  runtime.mallocgc
+         0     0%   100%       10ms  1.85%  runtime.mallocgcLarge
+         0     0%   100%       10ms  1.85%  runtime.memclrNoHeapPointersChunked
+         0     0%   100%      150ms 27.78%  syscall.Read (inline)
+         0     0%   100%      150ms 27.78%  syscall.read
+         0     0%   100%      150ms 27.78%  syscall.syscall
+         0     0%   100%      150ms 27.78%  syscall.syscalln
+         0     0%   100%      540ms   100%  testing.tRunner

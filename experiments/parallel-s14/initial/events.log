@@ -1,0 +1,19 @@
+=== RUN   TestParallelFirstUse
+    parallel_firstuse_probe_test.go:85: executor-setup 28.781083ms
+    parallel_firstuse_probe_test.go:85: discovery 4m14.898332292s
+    parallel_firstuse_probe_test.go:85: save-basis 156.8435ms
+    parallel_firstuse_probe_test.go:85: preparation 33m37.984615625s
+    parallel_firstuse_probe_test.go:85: save-prepared 1.207818458s
+    parallel_firstuse_probe_test.go:85: release-preparation 50.770375ms
+    parallel_firstuse_probe_test.go:85: load-online 687.373042ms
+    parallel_firstuse_probe_test.go:85: online-setup 80.607375ms
+    parallel_firstuse_probe_test.go:85: encode-0 1m30.5207665s
+    parallel_firstuse_probe_test.go:85: verify-0 3.209696125s
+    parallel_firstuse_probe_test.go:85: encode-1 1m30.53313425s
+    parallel_firstuse_probe_test.go:85: verify-1 3.209341958s
+    parallel_firstuse_probe_test.go:85: encode-2 1m31.987278625s
+    parallel_firstuse_probe_test.go:85: verify-2 3.292184333s
+    parallel_firstuse_probe_test.go:85: pack-output 1.359327083s
+    parallel_firstuse_probe_test.go:85: verify-packed 1.04575ms
+--- PASS: TestParallelFirstUse (2561.89s)
+PASS
