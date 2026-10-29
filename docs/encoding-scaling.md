@@ -397,4 +397,3 @@ multiply retained first-use RSS and treat it as an unavoidable online requiremen
    after correctness checks. If live preparation exceeds the local budget, use
    the measured shortfall to choose bounded external memory or a larger commodity
    RAM machine. s=16+ architecture decisions follow those results.
-

@@ -274,3 +274,5 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-29 10:14 | SCALE-005 | Completed | [Profiled s=14 first use and cached encoding](2026-10-29-1014-codex-scale-005-completed.md) |
 | 2026-10-29 10:18 | PUBLISH-017 | Started | [Publish s=14 checkpoint](2026-10-29-1018-codex-publish-017-started.md) |
 | 2026-10-29 10:19 | PUBLISH-017 | Completed | [s=14 checkpoint verified for publication](2026-10-29-1018-codex-publish-017-completed.md) |
+| 2026-10-29 10:19 | PUBLISH-018 | Started | [Correct final publication whitespace](2026-10-29-1019-codex-publish-018-started.md) |
+| 2026-10-29 10:20 | PUBLISH-018 | Completed | [Publication whitespace corrected](2026-10-29-1019-codex-publish-018-completed.md) |
