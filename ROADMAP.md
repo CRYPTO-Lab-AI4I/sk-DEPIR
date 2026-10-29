@@ -5,8 +5,10 @@ standalone encoding has been validated through s=13. The next activity is the
 [scaling design study](docs/encoding-scaling.md),
 before further architecture-specific tuning. Its resource accounting and candidate
 comparison (steps 1–2) and the [first prototype round](experiments/scaling-prototypes/report.md)
-are documented. Blocked I/O and actual preparation/loading resource measurements
-remain gates before hardware/design selection. s=14 appears practical with a higher
+are documented. [Local step-4 measurements](experiments/local-calibration/report.md) now quantify
+native tile concurrency and fresh preparation/loading process memory. Integrated
+blocked I/O, generalized native tiles and larger resource validation remain gates
+before final design/hardware selection. s=14 appears practical with a higher
 setup budget; s=15 is borderline for cached encoding and currently exceeds this
 host's memory for preprocessing. These are estimates, not validation or TRL 5
 completion; [measurement boundaries and assumptions](docs/encoding-algorithms.md#current-checkpoint-and-next-step)

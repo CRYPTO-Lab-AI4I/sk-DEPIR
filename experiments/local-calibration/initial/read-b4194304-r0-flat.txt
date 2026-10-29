@@ -1,0 +1,6 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:55:12 CET
+Duration: 204.35ms, Total samples = 0 
+Showing nodes accounting for 0, 0% of 0 total
+      flat  flat%   sum%        cum   cum%

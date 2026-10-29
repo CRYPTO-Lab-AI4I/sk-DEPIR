@@ -1,0 +1,210 @@
+{
+  "revision": "e4d693ae8765a12e61c424860b555d57929f0238",
+  "source_sha256": {
+    "encoding/liftrs-shared/binary_field.go": "5f867ee5e5b27511c906686bb7e7efc0c03e04736f46f76beaae4cf2636e4e32",
+    "encoding/liftrs-shared/binary_field_example_test.go": "90bf8034574b11976cb77cc8f2f2fca98c403f90569f9c8dfcf63fba7abdf714",
+    "encoding/liftrs-shared/binary_field_test.go": "79c0df2f825074175b5d7a9b37cb881ce7c6cf01abab590d44c258c78f078e38",
+    "encoding/liftrs-shared/calibration_resource_test.go": "8324513ef4082a9bc70f7bcda5a2a057ab1e0885c91d248f1833ddca660c1990",
+    "encoding/liftrs-shared/cpp_disabled.go": "955ba56be88677b9927474d354f39d382d803b85765403079af671a92c362cfd",
+    "encoding/liftrs-shared/cpp_disabled_test.go": "8eb93205c80b50864c570210e35f6d3affa476123595c46c30d7d54db5b1e865",
+    "encoding/liftrs-shared/cpp_enabled.go": "5f0fdd59e060015d9b60d5cfba6aea3411983f1df343e9216cadd11fde6a693f",
+    "encoding/liftrs-shared/cpp_enabled_test.go": "db5a8e886c7f78823e45b9dbcb455902b6e2030b934365b4b50cf2c81603538c",
+    "encoding/liftrs-shared/cpp_encoder.go": "13da56029d4cd51a228e8b16971bca3cf7da24f978d56e1b67d11f0c88e2a8d3",
+    "encoding/liftrs-shared/cpp_example_test.go": "d584da75c6b23aa1c58d6d8ee809f663bad56b29cf73de53093ad090ddbceae9",
+    "encoding/liftrs-shared/example_test.go": "a6cceac621a7330fdedce85b1531821385988750c7ed90da4912b1ac8e25283f",
+    "encoding/liftrs-shared/field/binary.go": "ab162f7e65cd5fd7883fef2a261537c1dcbf9a6d92c98d86c05f81b68bae12fa",
+    "encoding/liftrs-shared/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs-shared/language_bench_test.go": "d78132c6d95929d0134008fc4e86b0a2bea9da94e89e302f02e3c3cca39b1994",
+    "encoding/liftrs-shared/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs-shared/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+    "encoding/liftrs-shared/orbit.go": "e1f3e29dcae40d1ed1e0ac44f06d0e77938340a5bc85ac430866cf7dc69f02ad",
+    "encoding/liftrs-shared/orbit_arithmetic.go": "4473448403b01d66291cdcf071ad3bd308ad58f2415dc479ca52461b7e0e55ad",
+    "encoding/liftrs-shared/orbit_artifact.go": "29df02372de9111bd2be3290edfe9db92bb6ba3062279bcde8a14f45c404948d",
+    "encoding/liftrs-shared/orbit_cache_example_test.go": "7992176943b9bfb24e2377091311a5f171b022150b003a4c019b3a5a00481cba",
+    "encoding/liftrs-shared/orbit_cache_test.go": "3ed519e68cb0204d0f097fd8c951b794cf585ed6ba643b21f0964542cfd869ac",
+    "encoding/liftrs-shared/orbit_constant.go": "fe3c4ab745c3bb9544cdfa6c8e643e7b2017fdcabb3aea3ebdbd176afdbc4e66",
+    "encoding/liftrs-shared/orbit_constant_artifact_test.go": "99a6e390c1c571e16b846c778a1ae8c2cdbadcf408f58d3c41c21257dd853f09",
+    "encoding/liftrs-shared/orbit_constant_test.go": "59724bab255587ab5b6ff67780f6c78cdaa8c0393f820243970b64c534aedfb2",
+    "encoding/liftrs-shared/orbit_example_test.go": "ddbee52aee098773429554707e2ff9d22d95a1c48bf570aea5e398b967d3b1e0",
+    "encoding/liftrs-shared/orbit_fft.go": "98b0471e9fc95a192cc082a190b4d2ff0f5c9f6898a813446e8d428381fbada0",
+    "encoding/liftrs-shared/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+    "encoding/liftrs-shared/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+    "encoding/liftrs-shared/orbit_product_test.go": "fe976bbabd5aa4de91f5fa035c9590568bbe04590bef085c09c07fd2d8c38d1a",
+    "encoding/liftrs-shared/orbit_test.go": "e7a37a4106840f7bac56c92bd5d1b11c486bcea4dd2c4f3368eea5f80e3319bc",
+    "encoding/liftrs-shared/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs-shared/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+    "encoding/liftrs-shared/s10_checkpoint_test.go": "3f606fc200b82ac3a7bfab79b8919d9af22997d419ba848ef6e11ef95255ceeb",
+    "encoding/liftrs-shared/scaling_example_test.go": "f75a521ad436692946d51204b04f005c9b425aadd3a423c9dafb0e948372ffa1",
+    "encoding/liftrs-shared/scaling_experimental.go": "48f7cac0b12430dd58e28914d98e204275abb9bb0f2cc90ff591a247df9ef9e1",
+    "encoding/liftrs-shared/scaling_experimental_test.go": "caf810c346b0637fe9f7b0e037e2a69e2813be568f139e98f5937ff15160b814",
+    "encoding/liftrs-shared/scaling_matrix_test.go": "8eb66e784d0f341d01c79883200c46f1c298e00335725850d71cbf8e28df271b",
+    "encoding/liftrs-shared/scaling_online_file_test.go": "09b62ea103e8f773f0114b01bac9041f0b6be9c2d492071d340d7d9bc27746a4",
+    "encoding/liftrs-shared/scaling_probe_disabled_test.go": "f0b7664e2c02a43f0fafa2baf0c0c000dec7e881961f1628e910370ccf35313d",
+    "encoding/liftrs-shared/scaling_probe_native_test.go": "d021160a5bc86021fcb7ba7364e33718afc194242ac7f9835e8d4947c7394f3e",
+    "encoding/liftrs-shared/scaling_probe_test.go": "29ac7fcf6ab79b1bf2bda6e5a17af0dddc83ce805f0926aaf07dfdcd06ec4ec4",
+    "encoding/liftrs-shared/scaling_s13_test.go": "3df25c122eaa1d9a857ee0fa13aad3ab69a3372b3e3a7a2bd064b396a496f7a5",
+    "encoding/liftrs-go/transform.go": "2f5d0b317f7a1307161bcf49ec0121d00fffc230b0add11646156fed047315fb",
+    "encoding/liftrs-cpp/README.md": "dff652cb79194e5c580deb3110bc70088938b8d6f0665e82de26330a6cea40d4",
+    "encoding/liftrs-cpp/bench.cpp": "4138e83dc767f8fbfdecfceced31b600c2dd861413c3dd6c9d4e07367629cb23",
+    "encoding/liftrs-cpp/c_api.cpp": "3b76b3927cda0323bf67a2a9f67204c4370fe99ec7d36e5b121d356752dae849",
+    "encoding/liftrs-cpp/c_api.h": "643201ecaa1d1dfc3432491188bd6d7d6df863e44dcd19224131432caaf4be91",
+    "encoding/liftrs-cpp/c_api_test.cpp": "4e7b93a8250cdcbb482bfe7b3e22deeaa8a0e1a934a0a7db1a79b345c388349d",
+    "encoding/liftrs-cpp/plan.go": "24bba70b9180d3ff61128f8fa8375f26c6c03223c07b50b0faf8334e4a819303",
+    "encoding/liftrs-cpp/test.cpp": "3e69e2b4935375ee75e59551cd96948595ee14f11eb434c4d19cdf24321ed1e3",
+    "encoding/liftrs-cpp/transform.hpp": "f220d93ad376e8b3f857c7a83c284668f5095adb1ff77f3f2ed461cbbeff5b71",
+    "experiments/local-calibration/resources.py": "d62fffdb034a255f8df2385ab94ebbefb8a3826e64abb89e87ddaaa893eaffb7",
+    "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
+    "go.sum": "6b5b9bf04b57c04dc22dc13596e0c5862856f95c24ca23931bb0545736f6ef76"
+  },
+  "cache_directory": ".cache/liftrs/local-resources/7554a29d6de9f793",
+  "status": "passed",
+  "cases": {
+    "basis-s10": {
+      "returncode": 0,
+      "wall_s": 2.040944291,
+      "peak_rss_bytes": 27426816,
+      "phase_data": "phases.json",
+      "phases": [
+        {
+          "allocated_bytes": 30933608,
+          "bytes": 692831,
+          "elapsed_ns": 737064416,
+          "go_sys_bytes": 31361288,
+          "heap_after_bytes": 1992656,
+          "k": 103556,
+          "n": 1048576,
+          "phase": "s10-discovery"
+        }
+      ]
+    },
+    "baseline-s10": {
+      "returncode": 0,
+      "wall_s": 12.215517458,
+      "peak_rss_bytes": 82182144,
+      "phase_data": "phases.json",
+      "phases": [
+        {
+          "allocated_bytes": 275183632,
+          "elapsed_ns": 11999543209,
+          "go_sys_bytes": 84252952,
+          "heap_after_bytes": 37830144,
+          "k": 103556,
+          "n": 1048576,
+          "phase": "baseline-s10"
+        },
+        {
+          "bytes": 5397696,
+          "prepared_sha256": "345e600ecf5754baade484b5cefaecdaa2eb3878083efd58f7287857aef77fdc"
+        }
+      ]
+    },
+    "prototype-s10": {
+      "returncode": 0,
+      "wall_s": 9.103870083,
+      "peak_rss_bytes": 53084160,
+      "phase_data": "phases.json",
+      "phases": [
+        {
+          "allocated_bytes": 522307536,
+          "elapsed_ns": 8795140500,
+          "go_sys_bytes": 49125656,
+          "heap_after_bytes": 29339112,
+          "k": 103556,
+          "n": 1048576,
+          "phase": "prototype-s10"
+        },
+        {
+          "bytes": 5397696,
+          "prepared_sha256": "345e600ecf5754baade484b5cefaecdaa2eb3878083efd58f7287857aef77fdc"
+        }
+      ]
+    },
+    "export-s13": {
+      "returncode": 0,
+      "wall_s": 5.570260292,
+      "peak_rss_bytes": 2424881152,
+      "phase_data": "phases.json",
+      "phases": [
+        {
+          "allocated_bytes": 5661481888,
+          "elapsed_ns": 5325470791,
+          "go_sys_bytes": 2459376472,
+          "heap_after_bytes": 1885746480,
+          "k": 11926435,
+          "n": 67108864,
+          "phase": "export-s13",
+          "s": 13,
+          "sha256": "f9992fa0a354d1154e73ccf110899abd96fb3f08b532fc2ae8a8aa1cfb0b7c47",
+          "source": "retained verified s13 cyclic JSON",
+          "source_sha256": "a2a3bcd5913d821c99d08ceca05d6c5d73ce2abe6e3987910c0dcf5dfe97eb22"
+        }
+      ]
+    },
+    "minimal-load-s13": {
+      "returncode": 0,
+      "wall_s": 1.5279409999999984,
+      "peak_rss_bytes": 653344768,
+      "phase_data": "phases.json",
+      "phases": [
+        {
+          "allocated_bytes": 634639400,
+          "elapsed_ns": 1010117959,
+          "go_sys_bytes": 658569640,
+          "heap_after_bytes": 325938296,
+          "k": 11926435,
+          "n": 67108864,
+          "phase": "minimal-load-s13",
+          "plan_array_bytes": 316141200,
+          "support_elements": 0
+        }
+      ]
+    }
+  },
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "go": "go version go1.27.3 darwin/arm64",
+    "host": "same 48 GiB Apple M5 Pro"
+  },
+  "policy": {
+    "timeout_s": 600,
+    "go_soft_limit_bytes": 9663676416,
+    "existing_s13_cache": "read-only",
+    "measurements": "fresh process peak RSS includes load/preparation/runtime/profile; not isolated phase RSS"
+  },
+  "binary": {
+    "path": ".cache/liftrs/local-resources/7554a29d6de9f793/probe",
+    "sha256": "db0f11a24b4717dddf883670737603a7b84d9d8099c98b1a88c6caf2a6f850ec"
+  },
+  "cache_sha256": {
+    "s10-basis.json": "c9f4a0c684589e8dfc03421026ae988da0c56130aaf1db816f85e80a21a3c62d",
+    "provenance.json": "75fb5eb09d18ccd95dd448f924da4ee66411eff95f7234cbbe88751bfde62697",
+    "s13-online.bin": "f9992fa0a354d1154e73ccf110899abd96fb3f08b532fc2ae8a8aa1cfb0b7c47",
+    "baseline-s10.json": "345e600ecf5754baade484b5cefaecdaa2eb3878083efd58f7287857aef77fdc",
+    "prototype-s10.json": "345e600ecf5754baade484b5cefaecdaa2eb3878083efd58f7287857aef77fdc",
+    "s13-online-metadata.json": "05eb1dd1c8c6dd42472640e97d8241f1bc7183227469e0b1034256bff73909ea",
+    "probe": "db0f11a24b4717dddf883670737603a7b84d9d8099c98b1a88c6caf2a6f850ec"
+  },
+  "evidence_sha256": {
+    "build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "export-s13/export-s13.pprof": "4e0319b724dbfed33e288a623d64bf32e01350caf9108b646cf7a2e4a3d030ec",
+    "export-s13/run.log": "4e6ad7d05323e8eab0a91954997842522cbf691301faaee01a1409c75d4df2c3",
+    "export-s13/export-s13-flat.txt": "ae1a9c33198833b28add27baedacc15bf4728f51d0339d6c99f245cb245329da",
+    "export-s13/phases.json": "f939e33fa27f7cfa77186eb62e26ba837df81f9b1d69f1821c5b18d2ae626bee",
+    "basis-s10/run.log": "a737be061f2108b9a72701ec778b6a79cfc8778475976f4d398b15b8293bc02e",
+    "basis-s10/s10-discovery-flat.txt": "f12500297bdcd91d1801e162599366ef79958c9a58161e7770136e2ed416708f",
+    "basis-s10/s10-discovery.pprof": "ebe3da360aa901679253db413c7057627cf2fc403cfa97c14a22313175a06977",
+    "basis-s10/phases.json": "d4633bc7311f941ee306baf66b5d17d2c08752499d52785b444e6103ef276be2",
+    "minimal-load-s13/run.log": "69af3dbd472c73020ef0c10bd4252d737c13ad1be97a889e5339acd33ba626c4",
+    "minimal-load-s13/minimal-load-s13-flat.txt": "22c109cab18d41d0f4a525f3dfaeda6fc6ff2f331fb748fcf2da9b76bd573e01",
+    "minimal-load-s13/minimal-load-s13.pprof": "9a498311afdac5822e33b043a0553b1f663fabd519eb4790964ac9936da0cba2",
+    "minimal-load-s13/phases.json": "916094fb53ecb3befd3bc18b7dbb8b42061f7f88078c31026a92847a6039cdac",
+    "baseline-s10/baseline-s10.pprof": "c91bcaebcdc736fda287ec3c07eb4be4537f01f62bafa5d8b0c40ae8558b3bf7",
+    "baseline-s10/run.log": "e66b7029d342d5042803c12f3d6f4c53fc0fd93a963b7a8fb376708ec12d358b",
+    "baseline-s10/baseline-s10-flat.txt": "4a5fcc69eed3211d94a912dcc719589946e3d0dc9ffb6638469a9bbf943abace",
+    "baseline-s10/phases.json": "d998d3195d0132750e3aabd5ca2ea645c55e76faebde44ca54485b714a231544",
+    "prototype-s10/prototype-s10.pprof": "48b2c601847670b6fa1008aec7d0dc201e96e7c4976e177932b83e35491026ca",
+    "prototype-s10/run.log": "dbc12635f501ad823157ce04fad08089091357554479e71a3a0a65c5b73998bb",
+    "prototype-s10/prototype-s10-flat.txt": "965f7a718ed115008910dae8dcb402894a51871bc7b393cefcf1e210d8d209be",
+    "prototype-s10/phases.json": "3b0acef1cada4ff57d51992c171dd1b846ab4af8ed50330b88fe3afbd9bf9090"
+  }
+}

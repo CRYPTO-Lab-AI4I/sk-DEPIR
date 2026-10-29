@@ -1,0 +1,4 @@
+=== RUN   TestCalibrationResource
+    calibration_resource_test.go:66: s10-discovery 737.064416ms
+--- PASS: TestCalibrationResource (0.92s)
+PASS

@@ -1,0 +1,15 @@
+[
+  {
+    "allocated_bytes": 522307536,
+    "elapsed_ns": 8795140500,
+    "go_sys_bytes": 49125656,
+    "heap_after_bytes": 29339112,
+    "k": 103556,
+    "n": 1048576,
+    "phase": "prototype-s10"
+  },
+  {
+    "bytes": 5397696,
+    "prepared_sha256": "345e600ecf5754baade484b5cefaecdaa2eb3878083efd58f7287857aef77fdc"
+  }
+]

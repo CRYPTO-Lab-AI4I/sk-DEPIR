@@ -1,0 +1,27 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:55:01 CET
+Duration: 2.43s, Total samples = 480ms (19.71%)
+Showing nodes accounting for 480ms, 100% of 480ms total
+      flat  flat%   sum%        cum   cum%
+     450ms 93.75% 93.75%      450ms 93.75%  syscall.rawsyscalln
+      30ms  6.25%   100%       30ms  6.25%  runtime.pthread_cond_signal
+         0     0%   100%      450ms 93.75%  internal/poll.(*FD).Read
+         0     0%   100%      450ms 93.75%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%      450ms 93.75%  io.ReadAtLeast
+         0     0%   100%      450ms 93.75%  io.ReadFull (inline)
+         0     0%   100%      450ms 93.75%  main.main
+         0     0%   100%      450ms 93.75%  main.main.func5
+         0     0%   100%      450ms 93.75%  main.measure
+         0     0%   100%      450ms 93.75%  os.(*File).Read
+         0     0%   100%      450ms 93.75%  os.(*File).read (inline)
+         0     0%   100%       30ms  6.25%  runtime.exitsyscall.func3
+         0     0%   100%       30ms  6.25%  runtime.exitsyscallTryGetP
+         0     0%   100%      450ms 93.75%  runtime.main
+         0     0%   100%       30ms  6.25%  runtime.notewakeup
+         0     0%   100%       30ms  6.25%  runtime.semawakeup
+         0     0%   100%       30ms  6.25%  runtime.systemstack
+         0     0%   100%      450ms 93.75%  syscall.Read (inline)
+         0     0%   100%      450ms 93.75%  syscall.read
+         0     0%   100%      450ms 93.75%  syscall.syscall
+         0     0%   100%      450ms 93.75%  syscall.syscalln

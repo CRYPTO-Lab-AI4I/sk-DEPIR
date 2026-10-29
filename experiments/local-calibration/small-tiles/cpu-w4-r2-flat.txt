@@ -1,0 +1,36 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 01:01:09 CET
+Duration: 1.72s, Total samples = 5.20s (302.55%)
+Showing nodes accounting for 5.20s, 100% of 5.20s total
+Dropped 4 nodes (cum <= 0.03s)
+      flat  flat%   sum%        cum   cum%
+     2.87s 55.19% 55.19%      2.87s 55.19%  runtime.cgocall
+     2.22s 42.69% 97.88%      2.22s 42.69%  runtime.pthread_cond_signal
+     0.06s  1.15% 99.04%      0.06s  1.15%  runtime.usleep
+     0.05s  0.96%   100%      0.05s  0.96%  runtime.pthread_cond_wait
+         0     0%   100%      2.15s 41.35%  _.goready.func1
+         0     0%   100%      2.87s 55.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply
+         0     0%   100%      2.87s 55.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply.func1 (inline)
+         0     0%   100%      2.87s 55.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_apply
+         0     0%   100%      2.87s 55.19%  main.transform.func1
+         0     0%   100%      0.08s  1.54%  runtime.exitsyscall.func3
+         0     0%   100%      0.04s  0.77%  runtime.exitsyscallNoP
+         0     0%   100%      0.08s  1.54%  runtime.exitsyscallTryGetP
+         0     0%   100%      0.06s  1.15%  runtime.findRunnable
+         0     0%   100%      0.05s  0.96%  runtime.mPark (inline)
+         0     0%   100%      0.10s  1.92%  runtime.mcall
+         0     0%   100%      0.05s  0.96%  runtime.notesleep
+         0     0%   100%      2.22s 42.69%  runtime.notewakeup
+         0     0%   100%      0.06s  1.15%  runtime.park_m
+         0     0%   100%      2.15s 41.35%  runtime.ready
+         0     0%   100%      0.05s  0.96%  runtime.runqgrab
+         0     0%   100%      0.05s  0.96%  runtime.runqsteal
+         0     0%   100%      0.06s  1.15%  runtime.schedule
+         0     0%   100%      0.05s  0.96%  runtime.semasleep
+         0     0%   100%      2.22s 42.69%  runtime.semawakeup
+         0     0%   100%      2.14s 41.15%  runtime.startm
+         0     0%   100%      0.05s  0.96%  runtime.stealWork
+         0     0%   100%      0.05s  0.96%  runtime.stopm
+         0     0%   100%      2.23s 42.88%  runtime.systemstack
+         0     0%   100%      2.15s 41.35%  runtime.wakep

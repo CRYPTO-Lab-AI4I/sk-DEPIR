@@ -1,0 +1,34 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:57:04 CET
+Duration: 916.54ms, Total samples = 710ms (77.47%)
+Showing nodes accounting for 710ms, 100% of 710ms total
+      flat  flat%   sum%        cum   cum%
+     300ms 42.25% 42.25%      300ms 42.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Product.Mul
+     230ms 32.39% 74.65%      230ms 32.39%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+      70ms  9.86% 84.51%      660ms 92.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).Recurse
+      40ms  5.63% 90.14%      200ms 28.17%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+      20ms  2.82% 92.96%      290ms 40.85%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Field.mul
+      20ms  2.82% 95.77%      690ms 97.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.DiscoverOrbit
+      10ms  1.41% 97.18%       10ms  1.41%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newAdditiveTransform
+      10ms  1.41% 98.59%       10ms  1.41%  runtime.madvise
+      10ms  1.41%   100%       10ms  1.41%  runtime.pthread_cond_signal
+         0     0%   100%      660ms 92.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0%   100%      690ms 97.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCalibrationResource
+         0     0%   100%      690ms 97.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCalibrationResource.func1
+         0     0%   100%      690ms 97.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCalibrationResource.func2
+         0     0%   100%       10ms  1.41%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newOrbitBasis
+         0     0%   100%       10ms  1.41%  runtime.(*mheap).alloc.func1
+         0     0%   100%       10ms  1.41%  runtime.(*mheap).allocSpan
+         0     0%   100%       10ms  1.41%  runtime.gopreempt_m (inline)
+         0     0%   100%       10ms  1.41%  runtime.goschedImpl
+         0     0%   100%       10ms  1.41%  runtime.morestack
+         0     0%   100%       10ms  1.41%  runtime.newstack
+         0     0%   100%       10ms  1.41%  runtime.notewakeup
+         0     0%   100%       10ms  1.41%  runtime.semawakeup
+         0     0%   100%       10ms  1.41%  runtime.startm
+         0     0%   100%       10ms  1.41%  runtime.sysUsed (inline)
+         0     0%   100%       10ms  1.41%  runtime.sysUsedOS (inline)
+         0     0%   100%       10ms  1.41%  runtime.systemstack
+         0     0%   100%       10ms  1.41%  runtime.wakep
+         0     0%   100%      690ms 97.18%  testing.tRunner

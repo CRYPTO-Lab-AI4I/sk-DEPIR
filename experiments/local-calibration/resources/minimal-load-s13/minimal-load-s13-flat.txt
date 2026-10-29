@@ -1,0 +1,46 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:57:33 CET
+Duration: 1.12s, Total samples = 980ms (87.49%)
+Showing nodes accounting for 980ms, 100% of 980ms total
+      flat  flat%   sum%        cum   cum%
+     680ms 69.39% 69.39%      680ms 69.39%  runtime.madvise
+     230ms 23.47% 92.86%      230ms 23.47%  encoding/binary.decodeFast
+      50ms  5.10% 97.96%       50ms  5.10%  syscall.rawsyscalln
+      10ms  1.02% 98.98%       10ms  1.02%  runtime.(*mspan).init
+      10ms  1.02%   100%       10ms  1.02%  runtime.(*mspan).moveInlineMarks
+         0     0%   100%       50ms  5.10%  bufio.(*Reader).Read
+         0     0%   100%      290ms 29.59%  encoding/binary.Read
+         0     0%   100%      290ms 29.59%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCalibrationResource
+         0     0%   100%      290ms 29.59%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCalibrationResource.func1
+         0     0%   100%      290ms 29.59%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCalibrationResource.func5
+         0     0%   100%      290ms 29.59%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.loadScalingOnline
+         0     0%   100%       50ms  5.10%  internal/poll.(*FD).Read
+         0     0%   100%       50ms  5.10%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%       50ms  5.10%  io.(*teeReader).Read
+         0     0%   100%       50ms  5.10%  io.ReadAtLeast
+         0     0%   100%       50ms  5.10%  io.ReadFull (inline)
+         0     0%   100%       50ms  5.10%  os.(*File).Read
+         0     0%   100%       50ms  5.10%  os.(*File).read (inline)
+         0     0%   100%       10ms  1.02%  runtime.(*mcache).nextFree
+         0     0%   100%       10ms  1.02%  runtime.(*mcache).refill
+         0     0%   100%       10ms  1.02%  runtime.(*mcentral).cacheSpan
+         0     0%   100%       10ms  1.02%  runtime.(*mcentral).grow
+         0     0%   100%       10ms  1.02%  runtime.(*mheap).alloc
+         0     0%   100%      690ms 70.41%  runtime.(*mheap).alloc.func1
+         0     0%   100%      690ms 70.41%  runtime.(*mheap).allocSpan
+         0     0%   100%       10ms  1.02%  runtime.(*mheap).initSpan
+         0     0%   100%       10ms  1.02%  runtime.(*sweepLocked).sweep
+         0     0%   100%       10ms  1.02%  runtime.bgsweep
+         0     0%   100%       10ms  1.02%  runtime.makeslice
+         0     0%   100%       10ms  1.02%  runtime.mallocgc
+         0     0%   100%       10ms  1.02%  runtime.mallocgcTinySC2
+         0     0%   100%       10ms  1.02%  runtime.sweepone
+         0     0%   100%      680ms 69.39%  runtime.sysUsed (inline)
+         0     0%   100%      680ms 69.39%  runtime.sysUsedOS (inline)
+         0     0%   100%      690ms 70.41%  runtime.systemstack
+         0     0%   100%       50ms  5.10%  syscall.Read (inline)
+         0     0%   100%       50ms  5.10%  syscall.read
+         0     0%   100%       50ms  5.10%  syscall.syscall
+         0     0%   100%       50ms  5.10%  syscall.syscalln
+         0     0%   100%      290ms 29.59%  testing.tRunner

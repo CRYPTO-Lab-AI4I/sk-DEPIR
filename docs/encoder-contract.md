@@ -330,3 +330,10 @@ sectioned minimal loader and matrix/Taylor/output-routing experiments are test-o
 no public artifact validation or default backend changes. RAM/throughput guarantees,
 large preparation, native generalized tiles and cryptographic/grouped output remain
 separate acceptance work.
+
+
+[Step-4 calibration](../experiments/local-calibration/report.md) supplies independent
+native-tile scaling and fresh preparation/loader process RSS. These component
+observations do not change supported parameters, API defaults or resource limits.
+Step 5 must validate native generalized tiles, bounded scheduling and actual
+matrix/output movement before using those measurements for full-encoder claims.

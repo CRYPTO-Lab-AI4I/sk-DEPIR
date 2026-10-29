@@ -1,0 +1,21 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:55:07 CET
+Duration: 403.52ms, Total samples = 20ms ( 4.96%)
+Showing nodes accounting for 20ms, 100% of 20ms total
+      flat  flat%   sum%        cum   cum%
+      20ms   100%   100%       20ms   100%  syscall.rawsyscalln
+         0     0%   100%       20ms   100%  internal/poll.(*FD).Read
+         0     0%   100%       20ms   100%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%       20ms   100%  io.ReadAtLeast
+         0     0%   100%       20ms   100%  io.ReadFull (inline)
+         0     0%   100%       20ms   100%  main.main
+         0     0%   100%       20ms   100%  main.main.func5
+         0     0%   100%       20ms   100%  main.measure
+         0     0%   100%       20ms   100%  os.(*File).Read
+         0     0%   100%       20ms   100%  os.(*File).read (inline)
+         0     0%   100%       20ms   100%  runtime.main
+         0     0%   100%       20ms   100%  syscall.Read (inline)
+         0     0%   100%       20ms   100%  syscall.read
+         0     0%   100%       20ms   100%  syscall.syscall
+         0     0%   100%       20ms   100%  syscall.syscalln

@@ -1,0 +1,29 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 01:01:13 CET
+Duration: 1.01s, Total samples = 5.73s (569.55%)
+Showing nodes accounting for 5.70s, 99.48% of 5.73s total
+Dropped 9 nodes (cum <= 0.03s)
+      flat  flat%   sum%        cum   cum%
+     3.21s 56.02% 56.02%      3.21s 56.02%  runtime.pthread_cond_signal
+     2.45s 42.76% 98.78%      2.45s 42.76%  runtime.cgocall
+     0.04s   0.7% 99.48%      0.04s   0.7%  runtime.pthread_cond_wait
+         0     0% 99.48%      3.20s 55.85%  _.goready.func1
+         0     0% 99.48%      2.45s 42.76%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply
+         0     0% 99.48%      2.45s 42.76%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply.func1 (inline)
+         0     0% 99.48%      2.45s 42.76%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_apply
+         0     0% 99.48%      2.46s 42.93%  main.transform.func1
+         0     0% 99.48%      0.06s  1.05%  runtime.findRunnable
+         0     0% 99.48%      0.04s   0.7%  runtime.mPark (inline)
+         0     0% 99.48%      0.07s  1.22%  runtime.mcall
+         0     0% 99.48%      0.04s   0.7%  runtime.notesleep
+         0     0% 99.48%      3.21s 56.02%  runtime.notewakeup
+         0     0% 99.48%      0.07s  1.22%  runtime.park_m
+         0     0% 99.48%      3.20s 55.85%  runtime.ready
+         0     0% 99.48%      0.07s  1.22%  runtime.schedule
+         0     0% 99.48%      0.04s   0.7%  runtime.semasleep
+         0     0% 99.48%      3.21s 56.02%  runtime.semawakeup
+         0     0% 99.48%      3.21s 56.02%  runtime.startm
+         0     0% 99.48%      0.04s   0.7%  runtime.stopm
+         0     0% 99.48%      3.20s 55.85%  runtime.systemstack
+         0     0% 99.48%      3.21s 56.02%  runtime.wakep

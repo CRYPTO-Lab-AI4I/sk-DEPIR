@@ -27,7 +27,11 @@ and candidate comparison. [Step-3 prototypes](experiments/scaling-prototypes/rep
 now validate sparse setup, lean cyclic preparation, reusable online workspaces and
 exact disk-backed matrix/output mappings. One s=13 native workspace encoding matches
 the complete baseline hash in 153.37 s; these opt-in probes do not change defaults
-or establish larger-instance practicality. The resource model counts remain
+or establish larger-instance practicality. [Local step-4 calibration](experiments/local-calibration/report.md)
+now shows useful native tile concurrency (about 7× at eight workers and 12× at
+sixteen), lower prototype preparation RSS at s=10, and a fresh s=13 minimal-loader
+peak of 623 MiB. These are component measurements, not a full-encoder speedup or
+larger-size feasibility claim. The resource model counts remain
 analytical payload scenarios rather than measured RAM bounds. On the current
 48 GiB host, **s=14 appears practical with a larger setup budget**; **s=15 is
 borderline for encoding from an existing cache**, while its estimated preprocessing

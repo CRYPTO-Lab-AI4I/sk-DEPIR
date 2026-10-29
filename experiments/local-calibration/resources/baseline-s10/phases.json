@@ -1,0 +1,15 @@
+[
+  {
+    "allocated_bytes": 275183632,
+    "elapsed_ns": 11999543209,
+    "go_sys_bytes": 84252952,
+    "heap_after_bytes": 37830144,
+    "k": 103556,
+    "n": 1048576,
+    "phase": "baseline-s10"
+  },
+  {
+    "bytes": 5397696,
+    "prepared_sha256": "345e600ecf5754baade484b5cefaecdaa2eb3878083efd58f7287857aef77fdc"
+  }
+]

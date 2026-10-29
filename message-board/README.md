@@ -261,3 +261,7 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-28 23:33 | SCALE-002 | Completed | [Step-3 scaling prototypes validated](2026-10-28-2333-codex-scale-002-completed.md) |
 | 2026-10-28 23:42 | PUBLISH-014 | Started | [Prefer native commands and publish step-3 probes](2026-10-28-2342-codex-publish-014-started.md) |
 | 2026-10-28 23:46 | PUBLISH-014 | Completed | [Native command defaults verified for publication](2026-10-28-2346-codex-publish-014-completed.md) |
+| 2026-10-28 23:50 | SCALE-003 | Started | [Calibrate CPU, storage and resource boundaries](2026-10-28-2350-codex-scale-003-started.md) |
+| 2026-10-29 00:05 | SCALE-003 | Completed | [Local CPU, I/O and resource calibration completed](2026-10-29-0005-codex-scale-003-completed.md) |
+| 2026-10-29 07:52 | PUBLISH-015 | Started | [Calibration publication started](2026-10-29-0752-codex-publish-015-started.md) |
+| 2026-10-29 07:52 | PUBLISH-015 | Completed | [Calibration publication completed](2026-10-29-0752-codex-publish-015-completed.md) |

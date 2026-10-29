@@ -1,0 +1,45 @@
+{"started":"native-setup"}
+{"allocated_bytes":2922768,"elapsed_ns":4277417,"go_sys_bytes":13453576,"heap_after_bytes":3274936,"native_owned_bytes":141904,"phase":"native-setup","s":13}
+{"started":"cpu-w1-r0"}
+{"allocated_bytes":2000016,"elapsed_ns":406958,"go_sys_bytes":13781256,"heap_after_bytes":2369360,"input_bytes":4096,"phase":"cpu-w1-r0","repeat":0,"tile_elements":256,"tiles":4,"workers":1}
+{"started":"cpu-w2-r0"}
+{"allocated_bytes":2000240,"elapsed_ns":250167,"go_sys_bytes":13781256,"heap_after_bytes":2364296,"input_bytes":4096,"phase":"cpu-w2-r0","repeat":0,"tile_elements":256,"tiles":4,"workers":2}
+{"started":"cpu-w4-r0"}
+{"allocated_bytes":2002256,"elapsed_ns":135667,"go_sys_bytes":13797640,"heap_after_bytes":2367440,"input_bytes":4096,"phase":"cpu-w4-r0","repeat":0,"tile_elements":256,"tiles":4,"workers":4}
+{"started":"write-b4096-r0"}
+{"allocated_bytes":1998696,"block_bytes":4096,"bytes":1048576,"cache_policy":"macOS F_NOCACHE","calls":256,"elapsed_ns":2420792,"go_sys_bytes":18778376,"heap_after_bytes":6560752,"phase":"write-b4096-r0","sync_included":false}
+{"started":"sync-b4096-r0"}
+{"allocated_bytes":1999096,"durability":"file fsync; not drive-cache F_FULLFSYNC","elapsed_ns":12275000,"go_sys_bytes":18778376,"heap_after_bytes":6565432,"phase":"sync-b4096-r0"}
+{"started":"read-b4096-r0"}
+{"allocated_bytes":1998232,"block_bytes":4096,"bytes":1048576,"cache_policy":"macOS F_NOCACHE","calls":256,"elapsed_ns":12431333,"go_sys_bytes":18778376,"heap_after_bytes":6565416,"phase":"read-b4096-r0"}
+{"started":"write-b65536-r0"}
+{"allocated_bytes":1998040,"block_bytes":65536,"bytes":1048576,"cache_policy":"macOS F_NOCACHE","calls":16,"elapsed_ns":1210250,"go_sys_bytes":18778376,"heap_after_bytes":6565816,"phase":"write-b65536-r0","sync_included":false}
+{"started":"sync-b65536-r0"}
+{"allocated_bytes":1997992,"durability":"file fsync; not drive-cache F_FULLFSYNC","elapsed_ns":4180542,"go_sys_bytes":18778376,"heap_after_bytes":6565160,"phase":"sync-b65536-r0"}
+{"started":"read-b65536-r0"}
+{"allocated_bytes":1998152,"block_bytes":65536,"bytes":1048576,"cache_policy":"macOS F_NOCACHE","calls":16,"elapsed_ns":5545458,"go_sys_bytes":18778376,"heap_after_bytes":6565928,"phase":"read-b65536-r0"}
+{"started":"write-b1048576-r0"}
+{"allocated_bytes":1998056,"block_bytes":1048576,"bytes":1048576,"cache_policy":"macOS F_NOCACHE","calls":1,"elapsed_ns":524125,"go_sys_bytes":18778376,"heap_after_bytes":6565344,"phase":"write-b1048576-r0","sync_included":false}
+{"started":"sync-b1048576-r0"}
+{"allocated_bytes":1998584,"durability":"file fsync; not drive-cache F_FULLFSYNC","elapsed_ns":4095916,"go_sys_bytes":18778376,"heap_after_bytes":6565696,"phase":"sync-b1048576-r0"}
+{"started":"read-b1048576-r0"}
+{"allocated_bytes":1998104,"block_bytes":1048576,"bytes":1048576,"cache_policy":"macOS F_NOCACHE","calls":1,"elapsed_ns":5150084,"go_sys_bytes":18778376,"heap_after_bytes":6566520,"phase":"read-b1048576-r0"}
+{"started":"write-b4194304-r0"}
+{"allocated_bytes":1998232,"block_bytes":4194304,"bytes":1048576,"cache_policy":"macOS F_NOCACHE","calls":1,"elapsed_ns":567625,"go_sys_bytes":18778376,"heap_after_bytes":6567032,"phase":"write-b4194304-r0","sync_included":false}
+{"started":"sync-b4194304-r0"}
+{"allocated_bytes":1997992,"durability":"file fsync; not drive-cache F_FULLFSYNC","elapsed_ns":3081792,"go_sys_bytes":18778376,"heap_after_bytes":6567128,"phase":"sync-b4194304-r0"}
+{"started":"read-b4194304-r0"}
+{"allocated_bytes":1998040,"block_bytes":4194304,"bytes":1048576,"cache_policy":"macOS F_NOCACHE","calls":1,"elapsed_ns":1098875,"go_sys_bytes":18778376,"heap_after_bytes":6566920,"phase":"read-b4194304-r0"}
+{"started":"pipeline-slots1-r0"}
+{"allocated_bytes":2000696,"buffer_payload_bytes":2048,"cache_policy":"macOS F_NOCACHE","elapsed_ns":311750,"go_sys_bytes":22989064,"heap_after_bytes":2375976,"phase":"pipeline-slots1-r0","read_bytes":4096,"slots":1,"sync_included":false,"tile_bytes":1024,"tiles":4,"write_bytes":4096}
+{"started":"pipeline-sync-slots1-r0"}
+{"allocated_bytes":1998336,"elapsed_ns":3124083,"go_sys_bytes":22989064,"heap_after_bytes":2375704,"phase":"pipeline-sync-slots1-r0"}
+{"started":"pipeline-slots2-r0"}
+{"allocated_bytes":2001240,"buffer_payload_bytes":4096,"cache_policy":"macOS F_NOCACHE","elapsed_ns":301792,"go_sys_bytes":22989064,"heap_after_bytes":2382752,"phase":"pipeline-slots2-r0","read_bytes":4096,"slots":2,"sync_included":false,"tile_bytes":1024,"tiles":4,"write_bytes":4096}
+{"started":"pipeline-sync-slots2-r0"}
+{"allocated_bytes":1997760,"elapsed_ns":3094750,"go_sys_bytes":22989064,"heap_after_bytes":2375912,"phase":"pipeline-sync-slots2-r0"}
+{"started":"pipeline-slots4-r0"}
+{"allocated_bytes":2001576,"buffer_payload_bytes":8192,"cache_policy":"macOS F_NOCACHE","elapsed_ns":288500,"go_sys_bytes":22989064,"heap_after_bytes":2388832,"phase":"pipeline-slots4-r0","read_bytes":4096,"slots":4,"sync_included":false,"tile_bytes":1024,"tiles":4,"write_bytes":4096}
+{"started":"pipeline-sync-slots4-r0"}
+{"allocated_bytes":1998336,"elapsed_ns":3136334,"go_sys_bytes":22989064,"heap_after_bytes":2377240,"phase":"pipeline-sync-slots4-r0"}
+{"expected_sha256":["d6dae9125110f253be058101ffe19b1f37eedeec788cb2b76d870e4edf97003d","1227984e58de390a27b0bc1c9188cee5d23baf8fdbadc9c61cb6a164a84a6cb2","861a1b291d00d75f6028c0c9948a4193a4f7efa0dc1fa4886c22eea3a80b4d66","e61a78b2279d25e2cab05076083ccf218e1fedc7fd10bd45063da0d3dc0b807e"],"native_inverse":true,"storage_bytes_checked":1048576,"tiles":4,"verified":true}

@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "checks": [
+    "profiled smoke and full CPU/storage/pipeline outputs and native inverse recovery",
+    "small balanced-matrix cardinality tile worker scaling outputs",
+    "fresh-process s10 serialized preparation equality and s13 minimal checksum",
+    "tagged shared encoder tests and local driver build",
+    "final tagged vet of shared and local-calibration packages",
+    "race-instrumented quick driver: Go buffers/scheduling; C++ not race-instrumented",
+    "initial/small-tiles/resources source/cache/binary/profile/evidence analyzers",
+    "Python syntax, current local documentation file links and diff whitespace"
+  ],
+  "race_command": "go build -race -tags liftrs_cpp -o .cache/liftrs/local-calibration-race/probe ./experiments/local-calibration; probe -quick -out experiments/local-calibration/validation -cache .cache/liftrs/local-calibration-race",
+  "race_driver_source_sha256": "09ac5397e2b95247f5ef5775f7da638b479c1756159debba3099f73d430b3132",
+  "race_binary_sha256": "8f11e4691ab5a5369d0755f66dfddb467771a3d4e6198bb7803f28080a6c3d51",
+  "final_sources": {
+    "experiments/local-calibration/cache_other.go": "f933cf8a0472113b841ba54307b23f1b994476a10a98a33179f787910c1d91ec",
+    "experiments/local-calibration/cache_darwin.go": "0b0653ca8b5ab03c51a07066860c5aeee5c3264b52a398005ac63f9e5856ce1b",
+    "experiments/local-calibration/main.go": "b7c6b736ea551166f605f6e582d0d09d78ab6548eca03ff53859410505826369",
+    "experiments/local-calibration/run.py": "f68e63d518adbc969914b396ab98d7fc1831c2c528acba0bd35b0f03e0248892",
+    "experiments/local-calibration/resources.py": "d62fffdb034a255f8df2385ab94ebbefb8a3826e64abb89e87ddaaa893eaffb7",
+    "experiments/local-calibration/analyze.py": "62f183fddb5ea1ede64f28711cf383fc69508e3559d533f4dd61246d34a0b9a6",
+    "encoding/liftrs-shared/calibration_resource_test.go": "8324513ef4082a9bc70f7bcda5a2a057ab1e0885c91d248f1833ddca660c1990"
+  }
+}

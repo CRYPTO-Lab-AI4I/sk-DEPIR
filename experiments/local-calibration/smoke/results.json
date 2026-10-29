@@ -1,0 +1,472 @@
+{
+  "revision": "e4d693ae8765a12e61c424860b555d57929f0238",
+  "source_sha256": {
+    "encoding/liftrs-shared/binary_field.go": "5f867ee5e5b27511c906686bb7e7efc0c03e04736f46f76beaae4cf2636e4e32",
+    "encoding/liftrs-shared/binary_field_example_test.go": "90bf8034574b11976cb77cc8f2f2fca98c403f90569f9c8dfcf63fba7abdf714",
+    "encoding/liftrs-shared/binary_field_test.go": "79c0df2f825074175b5d7a9b37cb881ce7c6cf01abab590d44c258c78f078e38",
+    "encoding/liftrs-shared/cpp_disabled.go": "955ba56be88677b9927474d354f39d382d803b85765403079af671a92c362cfd",
+    "encoding/liftrs-shared/cpp_disabled_test.go": "8eb93205c80b50864c570210e35f6d3affa476123595c46c30d7d54db5b1e865",
+    "encoding/liftrs-shared/cpp_enabled.go": "5f0fdd59e060015d9b60d5cfba6aea3411983f1df343e9216cadd11fde6a693f",
+    "encoding/liftrs-shared/cpp_enabled_test.go": "db5a8e886c7f78823e45b9dbcb455902b6e2030b934365b4b50cf2c81603538c",
+    "encoding/liftrs-shared/cpp_encoder.go": "13da56029d4cd51a228e8b16971bca3cf7da24f978d56e1b67d11f0c88e2a8d3",
+    "encoding/liftrs-shared/cpp_example_test.go": "d584da75c6b23aa1c58d6d8ee809f663bad56b29cf73de53093ad090ddbceae9",
+    "encoding/liftrs-shared/example_test.go": "a6cceac621a7330fdedce85b1531821385988750c7ed90da4912b1ac8e25283f",
+    "encoding/liftrs-shared/field/binary.go": "ab162f7e65cd5fd7883fef2a261537c1dcbf9a6d92c98d86c05f81b68bae12fa",
+    "encoding/liftrs-shared/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs-shared/language_bench_test.go": "d78132c6d95929d0134008fc4e86b0a2bea9da94e89e302f02e3c3cca39b1994",
+    "encoding/liftrs-shared/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs-shared/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+    "encoding/liftrs-shared/orbit.go": "e1f3e29dcae40d1ed1e0ac44f06d0e77938340a5bc85ac430866cf7dc69f02ad",
+    "encoding/liftrs-shared/orbit_arithmetic.go": "4473448403b01d66291cdcf071ad3bd308ad58f2415dc479ca52461b7e0e55ad",
+    "encoding/liftrs-shared/orbit_artifact.go": "29df02372de9111bd2be3290edfe9db92bb6ba3062279bcde8a14f45c404948d",
+    "encoding/liftrs-shared/orbit_cache_example_test.go": "7992176943b9bfb24e2377091311a5f171b022150b003a4c019b3a5a00481cba",
+    "encoding/liftrs-shared/orbit_cache_test.go": "3ed519e68cb0204d0f097fd8c951b794cf585ed6ba643b21f0964542cfd869ac",
+    "encoding/liftrs-shared/orbit_constant.go": "fe3c4ab745c3bb9544cdfa6c8e643e7b2017fdcabb3aea3ebdbd176afdbc4e66",
+    "encoding/liftrs-shared/orbit_constant_artifact_test.go": "99a6e390c1c571e16b846c778a1ae8c2cdbadcf408f58d3c41c21257dd853f09",
+    "encoding/liftrs-shared/orbit_constant_test.go": "59724bab255587ab5b6ff67780f6c78cdaa8c0393f820243970b64c534aedfb2",
+    "encoding/liftrs-shared/orbit_example_test.go": "ddbee52aee098773429554707e2ff9d22d95a1c48bf570aea5e398b967d3b1e0",
+    "encoding/liftrs-shared/orbit_fft.go": "98b0471e9fc95a192cc082a190b4d2ff0f5c9f6898a813446e8d428381fbada0",
+    "encoding/liftrs-shared/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+    "encoding/liftrs-shared/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+    "encoding/liftrs-shared/orbit_product_test.go": "fe976bbabd5aa4de91f5fa035c9590568bbe04590bef085c09c07fd2d8c38d1a",
+    "encoding/liftrs-shared/orbit_test.go": "e7a37a4106840f7bac56c92bd5d1b11c486bcea4dd2c4f3368eea5f80e3319bc",
+    "encoding/liftrs-shared/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs-shared/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+    "encoding/liftrs-shared/s10_checkpoint_test.go": "3f606fc200b82ac3a7bfab79b8919d9af22997d419ba848ef6e11ef95255ceeb",
+    "encoding/liftrs-shared/scaling_example_test.go": "f75a521ad436692946d51204b04f005c9b425aadd3a423c9dafb0e948372ffa1",
+    "encoding/liftrs-shared/scaling_experimental.go": "48f7cac0b12430dd58e28914d98e204275abb9bb0f2cc90ff591a247df9ef9e1",
+    "encoding/liftrs-shared/scaling_experimental_test.go": "caf810c346b0637fe9f7b0e037e2a69e2813be568f139e98f5937ff15160b814",
+    "encoding/liftrs-shared/scaling_matrix_test.go": "8eb66e784d0f341d01c79883200c46f1c298e00335725850d71cbf8e28df271b",
+    "encoding/liftrs-shared/scaling_online_file_test.go": "09b62ea103e8f773f0114b01bac9041f0b6be9c2d492071d340d7d9bc27746a4",
+    "encoding/liftrs-shared/scaling_probe_disabled_test.go": "f0b7664e2c02a43f0fafa2baf0c0c000dec7e881961f1628e910370ccf35313d",
+    "encoding/liftrs-shared/scaling_probe_native_test.go": "d021160a5bc86021fcb7ba7364e33718afc194242ac7f9835e8d4947c7394f3e",
+    "encoding/liftrs-shared/scaling_probe_test.go": "29ac7fcf6ab79b1bf2bda6e5a17af0dddc83ce805f0926aaf07dfdcd06ec4ec4",
+    "encoding/liftrs-shared/scaling_s13_test.go": "3df25c122eaa1d9a857ee0fa13aad3ab69a3372b3e3a7a2bd064b396a496f7a5",
+    "encoding/liftrs-go/transform.go": "2f5d0b317f7a1307161bcf49ec0121d00fffc230b0add11646156fed047315fb",
+    "encoding/liftrs-cpp/README.md": "dff652cb79194e5c580deb3110bc70088938b8d6f0665e82de26330a6cea40d4",
+    "encoding/liftrs-cpp/bench.cpp": "4138e83dc767f8fbfdecfceced31b600c2dd861413c3dd6c9d4e07367629cb23",
+    "encoding/liftrs-cpp/c_api.cpp": "3b76b3927cda0323bf67a2a9f67204c4370fe99ec7d36e5b121d356752dae849",
+    "encoding/liftrs-cpp/c_api.h": "643201ecaa1d1dfc3432491188bd6d7d6df863e44dcd19224131432caaf4be91",
+    "encoding/liftrs-cpp/c_api_test.cpp": "4e7b93a8250cdcbb482bfe7b3e22deeaa8a0e1a934a0a7db1a79b345c388349d",
+    "encoding/liftrs-cpp/plan.go": "24bba70b9180d3ff61128f8fa8375f26c6c03223c07b50b0faf8334e4a819303",
+    "encoding/liftrs-cpp/test.cpp": "3e69e2b4935375ee75e59551cd96948595ee14f11eb434c4d19cdf24321ed1e3",
+    "encoding/liftrs-cpp/transform.hpp": "f220d93ad376e8b3f857c7a83c284668f5095adb1ff77f3f2ed461cbbeff5b71",
+    "experiments/local-calibration/cache_darwin.go": "0b0653ca8b5ab03c51a07066860c5aeee5c3264b52a398005ac63f9e5856ce1b",
+    "experiments/local-calibration/cache_other.go": "f933cf8a0472113b841ba54307b23f1b994476a10a98a33179f787910c1d91ec",
+    "experiments/local-calibration/main.go": "09ac5397e2b95247f5ef5775f7da638b479c1756159debba3099f73d430b3132",
+    "experiments/local-calibration/run.py": "239359632b9d0e5ecd0ecd8cb36a5e73152f8b9ce88fa3cbee483236fb233b5a",
+    "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
+    "go.sum": "6b5b9bf04b57c04dc22dc13596e0c5862856f95c24ca23931bb0545736f6ef76"
+  },
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "go": "go version go1.27.3 darwin/arm64",
+    "compiler": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin",
+    "cpu": "Apple M5 Pro",
+    "logical_cpus": 18,
+    "memory_bytes": 51539607552
+  },
+  "cache_directory": ".cache/liftrs/local-calibration/cc485c9acd98ff39/smoke",
+  "quick": true,
+  "status": "passed",
+  "policy": {
+    "timeout_s": 900,
+    "go_soft_memory_bytes": 2147483648,
+    "retained_storage_budget_bytes": 2147483648,
+    "file_sync": "fsync, not F_FULLFSYNC",
+    "native_profiles": "Go CPU profiles include cgo calls; kernels unchanged, prior detailed native sample retained"
+  },
+  "binary": {
+    "path": ".cache/liftrs/local-calibration/cc485c9acd98ff39/smoke/probe",
+    "sha256": "714d98bebe5114b2b6f30c56e0c3da051d54bd4b1f4d3d46e26d8fecf01ad951"
+  },
+  "command": [
+    "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/local-calibration/cc485c9acd98ff39/smoke/probe",
+    "-out",
+    "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/local-calibration/smoke",
+    "-cache",
+    "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/local-calibration/cc485c9acd98ff39/smoke",
+    "-quick"
+  ],
+  "returncode": 0,
+  "wall_s": 5.070622875000001,
+  "process_peak_rss_bytes": 18661376,
+  "events": [
+    {
+      "started": "native-setup"
+    },
+    {
+      "allocated_bytes": 2932192,
+      "elapsed_ns": 2117541,
+      "go_sys_bytes": 17455384,
+      "heap_after_bytes": 3286512,
+      "native_owned_bytes": 141904,
+      "phase": "native-setup",
+      "s": 13
+    },
+    {
+      "started": "cpu-w1-r0"
+    },
+    {
+      "allocated_bytes": 2000032,
+      "elapsed_ns": 450334,
+      "go_sys_bytes": 17783064,
+      "heap_after_bytes": 2380568,
+      "input_bytes": 4096,
+      "phase": "cpu-w1-r0",
+      "repeat": 0,
+      "tile_elements": 256,
+      "tiles": 4,
+      "workers": 1
+    },
+    {
+      "started": "cpu-w2-r0"
+    },
+    {
+      "allocated_bytes": 1999856,
+      "elapsed_ns": 226125,
+      "go_sys_bytes": 17783064,
+      "heap_after_bytes": 2375896,
+      "input_bytes": 4096,
+      "phase": "cpu-w2-r0",
+      "repeat": 0,
+      "tile_elements": 256,
+      "tiles": 4,
+      "workers": 2
+    },
+    {
+      "started": "cpu-w4-r0"
+    },
+    {
+      "allocated_bytes": 2001856,
+      "elapsed_ns": 101209,
+      "go_sys_bytes": 18061592,
+      "heap_after_bytes": 2379640,
+      "input_bytes": 4096,
+      "phase": "cpu-w4-r0",
+      "repeat": 0,
+      "tile_elements": 256,
+      "tiles": 4,
+      "workers": 4
+    },
+    {
+      "started": "write-b4096-r0"
+    },
+    {
+      "allocated_bytes": 1998264,
+      "block_bytes": 4096,
+      "bytes": 1048576,
+      "cache_policy": "macOS F_NOCACHE",
+      "calls": 256,
+      "elapsed_ns": 8959292,
+      "go_sys_bytes": 18323736,
+      "heap_after_bytes": 6571560,
+      "phase": "write-b4096-r0",
+      "sync_included": false
+    },
+    {
+      "started": "sync-b4096-r0"
+    },
+    {
+      "allocated_bytes": 1997656,
+      "durability": "file fsync; not drive-cache F_FULLFSYNC",
+      "elapsed_ns": 11323792,
+      "go_sys_bytes": 18848024,
+      "heap_after_bytes": 6574720,
+      "phase": "sync-b4096-r0"
+    },
+    {
+      "started": "read-b4096-r0"
+    },
+    {
+      "allocated_bytes": 1998104,
+      "block_bytes": 4096,
+      "bytes": 1048576,
+      "cache_policy": "macOS F_NOCACHE",
+      "calls": 256,
+      "elapsed_ns": 20072250,
+      "go_sys_bytes": 18848024,
+      "heap_after_bytes": 6575280,
+      "phase": "read-b4096-r0"
+    },
+    {
+      "started": "write-b65536-r0"
+    },
+    {
+      "allocated_bytes": 1998712,
+      "block_bytes": 65536,
+      "bytes": 1048576,
+      "cache_policy": "macOS F_NOCACHE",
+      "calls": 16,
+      "elapsed_ns": 979500,
+      "go_sys_bytes": 18848024,
+      "heap_after_bytes": 6575776,
+      "phase": "write-b65536-r0",
+      "sync_included": false
+    },
+    {
+      "started": "sync-b65536-r0"
+    },
+    {
+      "allocated_bytes": 1998776,
+      "durability": "file fsync; not drive-cache F_FULLFSYNC",
+      "elapsed_ns": 4517708,
+      "go_sys_bytes": 18848024,
+      "heap_after_bytes": 6576448,
+      "phase": "sync-b65536-r0"
+    },
+    {
+      "started": "read-b65536-r0"
+    },
+    {
+      "allocated_bytes": 1998296,
+      "block_bytes": 65536,
+      "bytes": 1048576,
+      "cache_policy": "macOS F_NOCACHE",
+      "calls": 16,
+      "elapsed_ns": 10067167,
+      "go_sys_bytes": 18848024,
+      "heap_after_bytes": 6576816,
+      "phase": "read-b65536-r0"
+    },
+    {
+      "started": "write-b1048576-r0"
+    },
+    {
+      "allocated_bytes": 1998232,
+      "block_bytes": 1048576,
+      "bytes": 1048576,
+      "cache_policy": "macOS F_NOCACHE",
+      "calls": 1,
+      "elapsed_ns": 226416,
+      "go_sys_bytes": 18848024,
+      "heap_after_bytes": 6577368,
+      "phase": "write-b1048576-r0",
+      "sync_included": false
+    },
+    {
+      "started": "sync-b1048576-r0"
+    },
+    {
+      "allocated_bytes": 1997688,
+      "durability": "file fsync; not drive-cache F_FULLFSYNC",
+      "elapsed_ns": 5212291,
+      "go_sys_bytes": 18848024,
+      "heap_after_bytes": 6576912,
+      "phase": "sync-b1048576-r0"
+    },
+    {
+      "started": "read-b1048576-r0"
+    },
+    {
+      "allocated_bytes": 1997736,
+      "block_bytes": 1048576,
+      "bytes": 1048576,
+      "cache_policy": "macOS F_NOCACHE",
+      "calls": 1,
+      "elapsed_ns": 2482750,
+      "go_sys_bytes": 19110168,
+      "heap_after_bytes": 6577088,
+      "phase": "read-b1048576-r0"
+    },
+    {
+      "started": "write-b4194304-r0"
+    },
+    {
+      "allocated_bytes": 1998312,
+      "block_bytes": 4194304,
+      "bytes": 1048576,
+      "cache_policy": "macOS F_NOCACHE",
+      "calls": 1,
+      "elapsed_ns": 218458,
+      "go_sys_bytes": 23304472,
+      "heap_after_bytes": 6577752,
+      "phase": "write-b4194304-r0",
+      "sync_included": false
+    },
+    {
+      "started": "sync-b4194304-r0"
+    },
+    {
+      "allocated_bytes": 1998696,
+      "durability": "file fsync; not drive-cache F_FULLFSYNC",
+      "elapsed_ns": 4202958,
+      "go_sys_bytes": 23304472,
+      "heap_after_bytes": 6578736,
+      "phase": "sync-b4194304-r0"
+    },
+    {
+      "started": "read-b4194304-r0"
+    },
+    {
+      "allocated_bytes": 1998712,
+      "block_bytes": 4194304,
+      "bytes": 1048576,
+      "cache_policy": "macOS F_NOCACHE",
+      "calls": 1,
+      "elapsed_ns": 3648708,
+      "go_sys_bytes": 23304472,
+      "heap_after_bytes": 6579168,
+      "phase": "read-b4194304-r0"
+    },
+    {
+      "started": "pipeline-slots1-r0"
+    },
+    {
+      "allocated_bytes": 2000248,
+      "buffer_payload_bytes": 2048,
+      "cache_policy": "macOS F_NOCACHE",
+      "elapsed_ns": 309667,
+      "go_sys_bytes": 23320856,
+      "heap_after_bytes": 2386960,
+      "phase": "pipeline-slots1-r0",
+      "read_bytes": 4096,
+      "slots": 1,
+      "sync_included": false,
+      "tile_bytes": 1024,
+      "tiles": 4,
+      "write_bytes": 4096
+    },
+    {
+      "started": "pipeline-sync-slots1-r0"
+    },
+    {
+      "allocated_bytes": 1998400,
+      "elapsed_ns": 3295000,
+      "go_sys_bytes": 23320856,
+      "heap_after_bytes": 2386712,
+      "phase": "pipeline-sync-slots1-r0"
+    },
+    {
+      "started": "pipeline-slots2-r0"
+    },
+    {
+      "allocated_bytes": 2002360,
+      "buffer_payload_bytes": 4096,
+      "cache_policy": "macOS F_NOCACHE",
+      "elapsed_ns": 510708,
+      "go_sys_bytes": 23320856,
+      "heap_after_bytes": 2395360,
+      "phase": "pipeline-slots2-r0",
+      "read_bytes": 4096,
+      "slots": 2,
+      "sync_included": false,
+      "tile_bytes": 1024,
+      "tiles": 4,
+      "write_bytes": 4096
+    },
+    {
+      "started": "pipeline-sync-slots2-r0"
+    },
+    {
+      "allocated_bytes": 1997408,
+      "elapsed_ns": 3255042,
+      "go_sys_bytes": 23320856,
+      "heap_after_bytes": 2388088,
+      "phase": "pipeline-sync-slots2-r0"
+    },
+    {
+      "started": "pipeline-slots4-r0"
+    },
+    {
+      "allocated_bytes": 2000696,
+      "buffer_payload_bytes": 8192,
+      "cache_policy": "macOS F_NOCACHE",
+      "elapsed_ns": 293875,
+      "go_sys_bytes": 23320856,
+      "heap_after_bytes": 2400040,
+      "phase": "pipeline-slots4-r0",
+      "read_bytes": 4096,
+      "slots": 4,
+      "sync_included": false,
+      "tile_bytes": 1024,
+      "tiles": 4,
+      "write_bytes": 4096
+    },
+    {
+      "started": "pipeline-sync-slots4-r0"
+    },
+    {
+      "allocated_bytes": 1998400,
+      "elapsed_ns": 3450667,
+      "go_sys_bytes": 23320856,
+      "heap_after_bytes": 2390016,
+      "phase": "pipeline-sync-slots4-r0"
+    },
+    {
+      "expected_sha256": [
+        "d6dae9125110f253be058101ffe19b1f37eedeec788cb2b76d870e4edf97003d",
+        "1227984e58de390a27b0bc1c9188cee5d23baf8fdbadc9c61cb6a164a84a6cb2",
+        "861a1b291d00d75f6028c0c9948a4193a4f7efa0dc1fa4886c22eea3a80b4d66",
+        "e61a78b2279d25e2cab05076083ccf218e1fedc7fd10bd45063da0d3dc0b807e"
+      ],
+      "native_inverse": true,
+      "storage_bytes_checked": 1048576,
+      "tiles": 4,
+      "verified": true
+    }
+  ],
+  "cache_sha256": {
+    "transform.bin": "7964d02d7c3551e1d5f9f21cdcd26404cf709282b679c553b8c291a5fb8179f5",
+    "tile-input.bin": "53922fd5d98bab8d1820e080d2aad0d42c6f4f1c17b82bdb2ecdc0d9e036227d",
+    "storage-b4096.bin": "f904808a540aa6e24c853663e53116243a5110053e9d3034821aad79eed953a5",
+    "provenance.json": "6710f220abbb565a0df2dbee3afbf6d1afe3743e6764efcc88198c789d06319d",
+    "pipeline-slots4.bin": "7e6b6a56b93d273112fa40c99721b7ae05fe7204b9162c701b5f4220150629c1",
+    "pipeline-slots1.bin": "7e6b6a56b93d273112fa40c99721b7ae05fe7204b9162c701b5f4220150629c1",
+    "pipeline-slots2.bin": "7e6b6a56b93d273112fa40c99721b7ae05fe7204b9162c701b5f4220150629c1",
+    "storage-b1048576.bin": "047070082dc19252643737deab740167d1aaac1222c45768dd4f89d99b443b1e",
+    "storage-b65536.bin": "2175581f4de8541d8d6ea57e290fabb30ff71f76dc6824d472314367f69631c7",
+    "probe": "714d98bebe5114b2b6f30c56e0c3da051d54bd4b1f4d3d46e26d8fecf01ad951",
+    "storage-b4194304.bin": "047070082dc19252643737deab740167d1aaac1222c45768dd4f89d99b443b1e"
+  },
+  "retained_bytes": 9149005,
+  "evidence_sha256": {
+    "read-b1048576-r0.pprof": "31f2da2282c9e8d2b3c2edb79a5491d2802faede5ccc9a04c7a0ce4e8a787f72",
+    "native-setup-flat.txt": "d6aa152662f2058c9cd6d13df9cb562d3fa8c06eae18439bbe5fd0290b767dee",
+    "cpu-w2-r0.pprof": "27f55d000ce3e535f82233d65768f56e93ca22e75a9d450e0a0122db9ec0fc34",
+    "sync-b65536-r0.pprof": "c75c841a6f19fce1225de8d87b5e85c9827cba9f025ff39fa7b8f38f5854b11b",
+    "sync-b4096-r0.pprof": "72b58e6c22ee8038cfd44f9429964c237dd8ffe34462f839b5f16f61b569129d",
+    "pipeline-slots1-r0.pprof": "2003779bd426d793a36bf8ef6c807cdad627b322214c70ad8441d848af89a6c7",
+    "read-b4194304-r0-flat.txt": "a6474d14d54eaec5d2e6a760365847202581a9be68e641ffb2862a33429950f5",
+    "write-b4194304-r0-flat.txt": "bd6ab899462cf5f6cfb3fc4742b233e7e2d5a413ad1d92815d092cca05408569",
+    "cpu-w4-r0.pprof": "704437cea501f665b174f1fc70bb818f675ed4a1dc9db1212c82d197d2dc0d56",
+    "sync-b4194304-r0-flat.txt": "29d597ce227ac42a3a3f6ffb56acbb7f81ccccbeeba59404221c7017228c87cb",
+    "read-b65536-r0-flat.txt": "7cd20596871dd233298ab78b50cdc8ce969b659587fbb5c285058b673694b02d",
+    "write-b65536-r0-flat.txt": "98a3638ffab516db80121bf16686ece54d821c7accc82b1702be7e8cc54fc9fd",
+    "sync-b4096-r0-flat.txt": "1cfe8fe68ef23dd7c8660a8c00381a66aa01f1c6c8c81d5ea680e8f596c0f132",
+    "write-b4194304-r0.pprof": "adef5d06a1f6782b19e031622d11ddd772d34fabfef736f4207195b8415c7ba0",
+    "sync-b4194304-r0.pprof": "1d8464e5fcd4a7abcb22e295d1e9e82543f7ec93b22ab04f5250c187360bdb12",
+    "write-b4096-r0-flat.txt": "6ae173e9e582a62395545321773bdae77a560d582e08a10bfea4b6632f3d9fd9",
+    "pipeline-sync-slots1-r0.pprof": "9c05b5bcb19d0f0d128c11dbf3315510b8bc6464b60552c756cddbbd8d98f1c0",
+    "write-b65536-r0.pprof": "724ad1b484fe9fd405dc413bf241c8187d2440c1258033d2336a55ccf8b2685a",
+    "read-b65536-r0.pprof": "7446710a6040386bace931cdd4252028b1395b1289165eb9fcadefe0c7af8ce9",
+    "pipeline-slots2-r0.pprof": "d624687af8bdda06aaec7675a15b69c8fd115eb46c5d91c46fe87a3ae1d7458c",
+    "write-b1048576-r0-flat.txt": "0d3968d75ef2851f5fef14564691b81d0479281a531533c7ead0d5b1ab02297a",
+    "pipeline-slots4-r0-flat.txt": "33c37150548610d401cf59922a91da436b38cdad02b03fd52eb8081e2b8d3a6c",
+    "read-b1048576-r0-flat.txt": "9f3dd7b098dbc4fffe0a3aeeea184ce1fafa964e640994e2a3ada6772108f0c4",
+    "pipeline-sync-slots4-r0-flat.txt": "c01098f8dff29fb8df0232e4f9d9c7ddcd32b92cd1e7e7ce9955fcf625fb1a51",
+    "write-b4096-r0.pprof": "78b033756a4fe763344a99934e397678c4ef7e34f5176fcdd2058a30d4851122",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sync-b1048576-r0-flat.txt": "e205acdc0b5ca48b0c653355504495c0777b05f7ab827425486216301d90ef03",
+    "cpu-w1-r0.pprof": "eda39acba738552bfe846f70fa4b2391be5dd465a913b7eaf0eab09bd7b30bec",
+    "events.jsonl": "c757c78bca590350fc0697ffe7ceca852f96d09dea8c32bdaaed34fe3c9f427d",
+    "pipeline-sync-slots4-r0.pprof": "d9d63e5cdb0dbde6a2dc078bd2ab3b07a538a6bc931db1a6e4adf3f9bc89033a",
+    "sync-b65536-r0-flat.txt": "100972ea0df982cb2f2fa66ce2f89aa7638ebaaa7e5d3f141dff7e2e4f63dc2b",
+    "write-b1048576-r0.pprof": "41d018d34e839bd7602327044f6e43bd8f8f76bea7fff5d06d5edd6d40458282",
+    "pipeline-sync-slots1-r0-flat.txt": "7e283ba4990f417ba3129604243945057a23fd89623208d17c7b28a49e510954",
+    "sync-b1048576-r0.pprof": "9264c7fa4e37b56baa1c93b03aab74fd9f8779f8d3cbb738fe01adc5f8b7b6f8",
+    "cpu-w2-r0-flat.txt": "daf4c121cdea55ab1c802e21c6e565fa87d50fb6a4a3309721aed30681f60a11",
+    "pipeline-slots1-r0-flat.txt": "d9f5a0fe572447a3cfb44b85151090ec72a5adab11bd9f73f7b139c252d9ee81",
+    "pipeline-sync-slots2-r0.pprof": "b27c3963ee001cd23137a94170eb4542f1b16ad49080eda3a61e5687fcc80788",
+    "read-b4096-r0-flat.txt": "39fae2767615205be2e7bee3a8cf8877097c61d26ea0c1da86efbd5771134c6b",
+    "cpu-w1-r0-flat.txt": "054cd724865e34513aeab569f5e48b3fc0143c42c083219aaf6b07aad617b0f4",
+    "pipeline-sync-slots2-r0-flat.txt": "33c37150548610d401cf59922a91da436b38cdad02b03fd52eb8081e2b8d3a6c",
+    "pipeline-slots2-r0-flat.txt": "c2c2c879ebbcaa988feeec7c6aecedcf9da25e668f38d51e4fe899f3c7944682",
+    "read-b4194304-r0.pprof": "f71e5acdaa16213822cf9f323c10f2dc501fd738a2c5dc04e33ddb4de4609ba3",
+    "read-b4096-r0.pprof": "b266d9abcc70cf5a461fda162663400b60865e2cbcb294ef94442b25b589717b",
+    "pipeline-slots4-r0.pprof": "6631d231a84a87986f5cf62172857c51f9c2889b74bf9db6d3de5813b8b6137f",
+    "native-setup.pprof": "623c2640802ee15231536597158758c8e0b27be20f23692587a619a8cd74759a",
+    "cpu-w4-r0-flat.txt": "eb060c703ecc27b8e0438774159f2e43aac26f7eb9ad8a809e138248e205d183",
+    "build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

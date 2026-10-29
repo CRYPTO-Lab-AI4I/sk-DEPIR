@@ -1,0 +1,51 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:57:05 CET
+Duration: 12.13s, Total samples = 11.63s (95.91%)
+Showing nodes accounting for 11.47s, 98.62% of 11.63s total
+Dropped 47 nodes (cum <= 0.06s)
+      flat  flat%   sum%        cum   cum%
+     4.37s 37.58% 37.58%      4.37s 37.58%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Product.Mul
+     2.72s 23.39% 60.96%      2.72s 23.39%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     2.22s 19.09% 80.05%     10.15s 87.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).Recurse
+     1.21s 10.40% 90.46%      3.91s 33.62%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.54s  4.64% 95.10%      0.54s  4.64%  runtime.madvise
+     0.17s  1.46% 96.56%      3.51s 30.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Field.mul
+     0.07s   0.6% 97.16%      0.07s   0.6%  runtime.pthread_cond_signal
+     0.06s  0.52% 97.68%      0.06s  0.52%  internal/runtime/atomic.(*UnsafePointer).Load (inline)
+     0.05s  0.43% 98.11%      0.50s  4.30%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     0.03s  0.26% 98.37%        10s 85.98%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+     0.03s  0.26% 98.62%      0.60s  5.16%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0% 98.62%     10.56s 90.80%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclic
+         0     0% 98.62%     10.97s 94.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclicFFT
+         0     0% 98.62%      0.41s  3.53%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0% 98.62%      9.74s 83.75%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0% 98.62%     10.97s 94.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCalibrationResource
+         0     0% 98.62%     10.97s 94.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCalibrationResource.func1
+         0     0% 98.62%     10.97s 94.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCalibrationResource.func3
+         0     0% 98.62%      0.50s  4.30%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+         0     0% 98.62%      1.03s  8.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newProductTree
+         0     0% 98.62%      9.49s 81.60%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyDiv
+         0     0% 98.62%      4.27s 36.72%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyInverse
+         0     0% 98.62%      2.91s 25.02%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+         0     0% 98.62%     10.50s 90.28%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0% 98.62%      0.56s  4.82%  runtime.(*mheap).alloc.func1
+         0     0% 98.62%      0.56s  4.82%  runtime.(*mheap).allocSpan
+         0     0% 98.62%      0.08s  0.69%  runtime.gopreempt_m (inline)
+         0     0% 98.62%      0.08s  0.69%  runtime.goschedImpl
+         0     0% 98.62%      0.07s   0.6%  runtime.mProf_Malloc
+         0     0% 98.62%      0.09s  0.77%  runtime.makeslice
+         0     0% 98.62%      0.09s  0.77%  runtime.mallocgc
+         0     0% 98.62%      0.07s   0.6%  runtime.mallocgcSmallNoscan
+         0     0% 98.62%      0.08s  0.69%  runtime.morestack
+         0     0% 98.62%      0.08s  0.69%  runtime.newstack
+         0     0% 98.62%      0.08s  0.69%  runtime.notewakeup
+         0     0% 98.62%      0.07s   0.6%  runtime.profilealloc
+         0     0% 98.62%      0.08s  0.69%  runtime.semawakeup
+         0     0% 98.62%      0.08s  0.69%  runtime.startm
+         0     0% 98.62%      0.07s   0.6%  runtime.stkbucket
+         0     0% 98.62%      0.54s  4.64%  runtime.sysUsed (inline)
+         0     0% 98.62%      0.54s  4.64%  runtime.sysUsedOS (inline)
+         0     0% 98.62%      0.57s  4.90%  runtime.systemstack
+         0     0% 98.62%      0.08s  0.69%  runtime.wakep
+         0     0% 98.62%     10.97s 94.33%  testing.tRunner

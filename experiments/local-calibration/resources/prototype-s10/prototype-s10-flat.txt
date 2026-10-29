@@ -1,0 +1,54 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:57:18 CET
+Duration: 8.95s, Total samples = 8.32s (93.00%)
+Showing nodes accounting for 8.22s, 98.80% of 8.32s total
+Dropped 27 nodes (cum <= 0.04s)
+      flat  flat%   sum%        cum   cum%
+     2.85s 34.25% 34.25%      2.85s 34.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     2.43s 29.21% 63.46%      2.43s 29.21%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Product.Mul
+     1.38s 16.59% 80.05%      6.51s 78.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).Recurse
+     0.63s  7.57% 87.62%      2.67s 32.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.14s  1.68% 89.30%      0.14s  1.68%  runtime.madvise
+     0.14s  1.68% 90.99%      0.14s  1.68%  runtime.pthread_cond_signal
+     0.12s  1.44% 92.43%      2.64s 31.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Field.mul
+     0.12s  1.44% 93.87%      1.24s 14.90%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     0.12s  1.44% 95.31%      1.08s 12.98%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.11s  1.32% 96.63%      0.11s  1.32%  runtime.kevent
+     0.09s  1.08% 97.72%      0.09s  1.08%  internal/runtime/atomic.(*UnsafePointer).Load (inline)
+     0.05s   0.6% 98.32%      0.05s   0.6%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).offset (inline)
+     0.03s  0.36% 98.68%      0.19s  2.28%  runtime.mallocgcSmallNoscan
+     0.01s  0.12% 98.80%      4.27s 51.32%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyInverse
+         0     0% 98.80%      7.92s 95.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclicScalingPrototype
+         0     0% 98.80%      0.42s  5.05%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0% 98.80%      6.09s 73.20%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0% 98.80%      6.23s 74.88%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+         0     0% 98.80%      7.92s 95.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCalibrationResource
+         0     0% 98.80%      7.92s 95.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCalibrationResource.func1
+         0     0% 98.80%      7.92s 95.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCalibrationResource.func3
+         0     0% 98.80%      1.24s 14.90%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+         0     0% 98.80%      3.22s 38.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+         0     0% 98.80%      7.48s 89.90%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0% 98.80%      1.33s 15.99%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rootProduct
+         0     0% 98.80%      0.14s  1.68%  runtime.(*mheap).alloc.func1
+         0     0% 98.80%      0.14s  1.68%  runtime.(*mheap).allocSpan
+         0     0% 98.80%      0.11s  1.32%  runtime.gcStart.func4
+         0     0% 98.80%      0.11s  1.32%  runtime.gopreempt_m (inline)
+         0     0% 98.80%      0.11s  1.32%  runtime.goschedImpl
+         0     0% 98.80%      0.14s  1.68%  runtime.mProf_Malloc
+         0     0% 98.80%      0.20s  2.40%  runtime.makeslice
+         0     0% 98.80%      0.20s  2.40%  runtime.mallocgc
+         0     0% 98.80%      0.11s  1.32%  runtime.morestack
+         0     0% 98.80%      0.11s  1.32%  runtime.netpoll
+         0     0% 98.80%      0.11s  1.32%  runtime.newstack
+         0     0% 98.80%      0.14s  1.68%  runtime.notewakeup
+         0     0% 98.80%      0.14s  1.68%  runtime.profilealloc
+         0     0% 98.80%      0.14s  1.68%  runtime.semawakeup
+         0     0% 98.80%      0.11s  1.32%  runtime.startTheWorldWithSema
+         0     0% 98.80%      0.14s  1.68%  runtime.startm
+         0     0% 98.80%      0.14s  1.68%  runtime.stkbucket
+         0     0% 98.80%      0.14s  1.68%  runtime.sysUsed (inline)
+         0     0% 98.80%      0.14s  1.68%  runtime.sysUsedOS (inline)
+         0     0% 98.80%      0.28s  3.37%  runtime.systemstack
+         0     0% 98.80%      0.14s  1.68%  runtime.wakep
+         0     0% 98.80%      7.92s 95.19%  testing.tRunner

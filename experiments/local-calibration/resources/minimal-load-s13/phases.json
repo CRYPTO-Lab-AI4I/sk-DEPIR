@@ -1,0 +1,13 @@
+[
+  {
+    "allocated_bytes": 634639400,
+    "elapsed_ns": 1010117959,
+    "go_sys_bytes": 658569640,
+    "heap_after_bytes": 325938296,
+    "k": 11926435,
+    "n": 67108864,
+    "phase": "minimal-load-s13",
+    "plan_array_bytes": 316141200,
+    "support_elements": 0
+  }
+]

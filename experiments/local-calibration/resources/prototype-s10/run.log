@@ -1,0 +1,4 @@
+=== RUN   TestCalibrationResource
+    calibration_resource_test.go:66: prototype-s10 8.7951405s
+--- PASS: TestCalibrationResource (8.99s)
+PASS

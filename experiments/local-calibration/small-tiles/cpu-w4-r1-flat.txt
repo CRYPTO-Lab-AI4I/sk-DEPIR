@@ -1,0 +1,22 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 01:01:08 CET
+Duration: 1.72s, Total samples = 5320ms (309.58%)
+Showing nodes accounting for 5300ms, 99.62% of 5320ms total
+Dropped 9 nodes (cum <= 26.60ms)
+      flat  flat%   sum%        cum   cum%
+    2720ms 51.13% 51.13%     2720ms 51.13%  runtime.cgocall
+    2580ms 48.50% 99.62%     2580ms 48.50%  runtime.pthread_cond_signal
+         0     0% 99.62%     2480ms 46.62%  _.goready.func1
+         0     0% 99.62%     2720ms 51.13%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply
+         0     0% 99.62%     2720ms 51.13%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply.func1 (inline)
+         0     0% 99.62%     2720ms 51.13%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_apply
+         0     0% 99.62%     2720ms 51.13%  main.transform.func1
+         0     0% 99.62%      100ms  1.88%  runtime.exitsyscall.func3
+         0     0% 99.62%      100ms  1.88%  runtime.exitsyscallTryGetP
+         0     0% 99.62%     2580ms 48.50%  runtime.notewakeup
+         0     0% 99.62%     2480ms 46.62%  runtime.ready
+         0     0% 99.62%     2580ms 48.50%  runtime.semawakeup
+         0     0% 99.62%     2480ms 46.62%  runtime.startm
+         0     0% 99.62%     2580ms 48.50%  runtime.systemstack
+         0     0% 99.62%     2480ms 46.62%  runtime.wakep

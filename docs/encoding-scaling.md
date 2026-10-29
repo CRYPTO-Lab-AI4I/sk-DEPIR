@@ -19,7 +19,7 @@ an application layout can invoke several such encodings and reuse code-only setu
 | 1. Resource accounting | Audit arrays, lifetimes, widths, accesses and preprocessing/output costs at s=13..20 | Source-linked inventory and reproducible analytical model | Complete: source audit/model |
 | 2. Execution designs | Compare blocked in-memory and external-memory transforms/products, selective preprocessing and spectrum choices | Concrete candidates, cost models and explicit unresolved dependencies | Complete: candidates/gates |
 | 3. Focused prototypes | Implement uncertain operations at manageable sizes under constrained RAM; compare with the existing code | Verified decompositions and measured memory/I/O, not just timings | Prototype round complete; performance gates open |
-| 4. Local calibration | Measure useful-core scaling, sustained storage and compute/I/O overlap; assess GPU suitability | Calibrated resource model and reasons for any larger hardware test | Planned |
+| 4. Local calibration | Measure useful-core scaling, sustained storage and compute/I/O overlap; assess GPU suitability | Calibrated resource model and reasons for any larger hardware test | Bounded local calibration complete; sustained/integrated gates open |
 | 5. Design selection | Select from measured evidence; integrate and validate progressively at s=13,14,15 when budgets permit | Canonical outputs, measured resource use and next hardware recommendation | Planned |
 
 The first local feasibility target is s=15; the design must account for s=16..20.
@@ -289,3 +289,34 @@ and port general-basis/affine tile semantics into native execution as needed.
 The old default constructors remain unchanged. No s=14/15 encoding, public binary
 format, RAM bound or full native external-memory encoder is claimed. Steps 4–5
 remain open; the throughput/resource gates identified by step 3 must be met.
+
+
+## Step 4: local calibration checkpoint
+
+The [calibration report](../experiments/local-calibration/report.md) records three
+repeat CPU/file/overlap tests and fresh-process resource observations. Independent
+native tiles scale 6.87–6.99× at eight workers and 12.42–12.77× at sixteen, across
+4 MiB and balanced-matrix-sized 32 KiB tiles. This does not establish parallel
+speedup of complete encoding or generalized image-basis matrix stages.
+
+MiB-sized transfers substantially reduce file-call overhead compared with 4 KiB
+calls. F_NOCACHE is explicitly requested on this host, but the 256 MiB tests are
+short filesystem/device-path calibrations, not sustained or durable-media
+bandwidth promises. Simple one-compute-stage overlap gives no material improvement.
+Retain this distinction before extrapolating the external-memory model.
+
+Fresh s=10 preparation reduces peak process RSS from 78.4 to 50.6 MiB and measured
+phase time from 12.00 to 8.80 s, preserving the exact complete prepared artifact.
+Cumulative allocation grows, so scratch/GC improvements remain necessary. The
+fresh minimal s=13 loader peaks at 623 MiB RSS in 1.01 s, without workspace/output;
+its arrays occupy ~302 MiB and per-element decoding still creates temporary
+allocations. Larger-size feasibility remains unmeasured.
+
+The GPU inventory is recorded, with no available Metal compiler through xcrun and
+no GPU benchmark or installation. CPU-first remains the preferred implementation
+candidate on current hardware. Step 5 should combine bounded state, native
+arbitrary-basis/affine tiles and parallel scheduling with blocked Taylor/transpose
+I/O; improve minimal binary decoding, verify the combined s=13 path, and then
+review budgets before larger runs. Longer storage qualification and integrated
+parallel I/O remain gates when required by the chosen design. No HPC/GPU platform,
+higher memory budget, worker default or additional supported field is selected.

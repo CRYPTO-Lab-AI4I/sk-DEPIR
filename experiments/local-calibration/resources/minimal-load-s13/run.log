@@ -1,0 +1,4 @@
+=== RUN   TestCalibrationResource
+    calibration_resource_test.go:66: minimal-load-s13 1.010117959s
+--- PASS: TestCalibrationResource (1.12s)
+PASS

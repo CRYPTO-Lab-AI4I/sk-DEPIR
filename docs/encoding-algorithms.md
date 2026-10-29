@@ -43,14 +43,15 @@ representation limits can change these estimates; distant extrapolations are
 particularly uncertain. Runtime, memory and persisted storage must be measured
 separately before claiming feasibility.
 
-### Scaling study: resource audit and first prototypes complete
+### Scaling study: resource audit, prototypes and local calibration
 
 The [five-step scaling study](encoding-scaling.md) uses the native-backed encoder
 as baseline and starting implementation. Its source-linked resource accounting
 and execution-design comparison are complete. The first
 [step-3 probe round](../experiments/scaling-prototypes/report.md) now validates the
-uncertain algebra/ordering and workspace reuse; throughput and hardware calibration
-remain open. The [analytical model](../experiments/encoding-resources/report.md)
+uncertain algebra/ordering and workspace reuse. [Step-4 local calibration](../experiments/local-calibration/report.md)
+now quantifies independent native concurrency, bounded block transfers and fresh
+resource peaks; full integrated throughput and hardware selection remain open. The [analytical model](../experiments/encoding-resources/report.md)
 separates array payloads from measured RSS, identifies avoidable dense setup and
 retained-tree costs, and accounts for width/padding transitions. It refines the
 resource discussion above; it is not a new benchmark or a memory guarantee.

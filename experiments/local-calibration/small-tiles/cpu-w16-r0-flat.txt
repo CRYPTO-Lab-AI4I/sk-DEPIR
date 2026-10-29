@@ -1,0 +1,33 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 01:01:14 CET
+Duration: 605.23ms, Total samples = 6.09s (1006.23%)
+Showing nodes accounting for 6.08s, 99.84% of 6.09s total
+Dropped 8 nodes (cum <= 0.03s)
+      flat  flat%   sum%        cum   cum%
+     3.18s 52.22% 52.22%      3.18s 52.22%  runtime.pthread_cond_signal
+     2.80s 45.98% 98.19%      2.80s 45.98%  runtime.cgocall
+     0.05s  0.82% 99.01%      0.05s  0.82%  runtime.pthread_cond_wait
+     0.05s  0.82% 99.84%      0.05s  0.82%  runtime.usleep
+         0     0% 99.84%      3.20s 52.55%  _.goready.func1
+         0     0% 99.84%      2.80s 45.98%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply
+         0     0% 99.84%      2.80s 45.98%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply.func1 (inline)
+         0     0% 99.84%      2.80s 45.98%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_apply
+         0     0% 99.84%      2.80s 45.98%  main.transform.func1
+         0     0% 99.84%      0.09s  1.48%  runtime.findRunnable
+         0     0% 99.84%      0.05s  0.82%  runtime.mPark (inline)
+         0     0% 99.84%      0.09s  1.48%  runtime.mcall
+         0     0% 99.84%      0.05s  0.82%  runtime.notesleep
+         0     0% 99.84%      3.18s 52.22%  runtime.notewakeup
+         0     0% 99.84%      0.09s  1.48%  runtime.park_m
+         0     0% 99.84%      3.20s 52.55%  runtime.ready
+         0     0% 99.84%      0.04s  0.66%  runtime.runqgrab
+         0     0% 99.84%      0.04s  0.66%  runtime.runqsteal
+         0     0% 99.84%      0.09s  1.48%  runtime.schedule
+         0     0% 99.84%      0.05s  0.82%  runtime.semasleep
+         0     0% 99.84%      3.18s 52.22%  runtime.semawakeup
+         0     0% 99.84%      3.18s 52.22%  runtime.startm
+         0     0% 99.84%      0.04s  0.66%  runtime.stealWork
+         0     0% 99.84%      0.05s  0.82%  runtime.stopm
+         0     0% 99.84%      3.20s 52.55%  runtime.systemstack
+         0     0% 99.84%      3.20s 52.55%  runtime.wakep

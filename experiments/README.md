@@ -112,6 +112,10 @@ has 21 cases. Code-parameter experiments and correctness fixtures are separate.
   preparation, lean online files/workspaces, exact matrix/Taylor and canonical
   routing probes, with profiled s=13 hash validation and explicit I/O limitations.
 
+- [Local scaling calibration](local-calibration/report.md): native tile/core
+  scaling, explicit-cache block transfers, compute/I/O overlap and fresh-process
+  preparation/minimal-loader RSS, with GPU inventory and interpretation limits.
+
 ## Encoding implementation paths
 
 The complete API, preprocessing and orchestration now live in

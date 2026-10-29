@@ -1,0 +1,12 @@
+[
+  {
+    "allocated_bytes": 30933608,
+    "bytes": 692831,
+    "elapsed_ns": 737064416,
+    "go_sys_bytes": 31361288,
+    "heap_after_bytes": 1992656,
+    "k": 103556,
+    "n": 1048576,
+    "phase": "s10-discovery"
+  }
+]

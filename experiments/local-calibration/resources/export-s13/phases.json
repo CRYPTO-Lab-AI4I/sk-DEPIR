@@ -1,0 +1,15 @@
+[
+  {
+    "allocated_bytes": 5661481888,
+    "elapsed_ns": 5325470791,
+    "go_sys_bytes": 2459376472,
+    "heap_after_bytes": 1885746480,
+    "k": 11926435,
+    "n": 67108864,
+    "phase": "export-s13",
+    "s": 13,
+    "sha256": "f9992fa0a354d1154e73ccf110899abd96fb3f08b532fc2ae8a8aa1cfb0b7c47",
+    "source": "retained verified s13 cyclic JSON",
+    "source_sha256": "a2a3bcd5913d821c99d08ceca05d6c5d73ce2abe6e3987910c0dcf5dfe97eb22"
+  }
+]

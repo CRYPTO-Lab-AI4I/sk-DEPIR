@@ -1,0 +1,27 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 01:00:56 CET
+Duration: 3.23s, Total samples = 4900ms (151.67%)
+Showing nodes accounting for 4890ms, 99.80% of 4900ms total
+Dropped 7 nodes (cum <= 24.50ms)
+      flat  flat%   sum%        cum   cum%
+    4530ms 92.45% 92.45%     4530ms 92.45%  runtime.cgocall
+     220ms  4.49% 96.94%      220ms  4.49%  runtime.pthread_cond_signal
+     140ms  2.86% 99.80%      140ms  2.86%  runtime.madvise
+         0     0% 99.80%      100ms  2.04%  _.goready.func1
+         0     0% 99.80%     4530ms 92.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply
+         0     0% 99.80%     4530ms 92.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply.func1 (inline)
+         0     0% 99.80%     4530ms 92.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_apply
+         0     0% 99.80%     4530ms 92.45%  main.transform.func1
+         0     0% 99.80%      140ms  2.86%  runtime.(*mheap).alloc.func1
+         0     0% 99.80%      140ms  2.86%  runtime.(*mheap).allocSpan
+         0     0% 99.80%      120ms  2.45%  runtime.exitsyscall.func3
+         0     0% 99.80%      120ms  2.45%  runtime.exitsyscallTryGetP
+         0     0% 99.80%      220ms  4.49%  runtime.notewakeup
+         0     0% 99.80%      100ms  2.04%  runtime.ready
+         0     0% 99.80%      220ms  4.49%  runtime.semawakeup
+         0     0% 99.80%      100ms  2.04%  runtime.startm
+         0     0% 99.80%      140ms  2.86%  runtime.sysUsed (inline)
+         0     0% 99.80%      140ms  2.86%  runtime.sysUsedOS (inline)
+         0     0% 99.80%      360ms  7.35%  runtime.systemstack
+         0     0% 99.80%      100ms  2.04%  runtime.wakep

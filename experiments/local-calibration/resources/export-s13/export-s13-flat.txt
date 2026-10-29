@@ -1,0 +1,101 @@
+File: probe
+Type: cpu
+Time: 2026-10-29 00:57:27 CET
+Duration: 5.50s, Total samples = 5.06s (92.01%)
+Showing nodes accounting for 4.91s, 97.04% of 5.06s total
+Dropped 26 nodes (cum <= 0.03s)
+      flat  flat%   sum%        cum   cum%
+     0.72s 14.23% 14.23%      0.73s 14.43%  reflect.Value.SetUint
+     0.50s  9.88% 24.11%      0.50s  9.88%  encoding/json/internal/jsonwire.ConsumeSimpleNumber (inline)
+     0.46s  9.09% 33.20%      0.63s 12.45%  runtime.mapassign_fast64
+     0.40s  7.91% 41.11%      1.21s 23.91%  encoding/json/jsontext.(*decoderState).consumeValue
+     0.33s  6.52% 47.63%      0.33s  6.52%  encoding/json/internal/jsonwire.ConsumeWhitespace (inline)
+     0.22s  4.35% 51.98%      1.12s 22.13%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).validateSupport
+     0.20s  3.95% 55.93%      0.33s  6.52%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newAdditiveTransform
+     0.17s  3.36% 59.29%      0.17s  3.36%  syscall.rawsyscalln
+     0.16s  3.16% 62.45%      0.54s 10.67%  encoding/json/jsontext.(*decoderState).ReadValue
+     0.13s  2.57% 65.02%      0.13s  2.57%  crypto/internal/fips140/sha256.blockSHA2
+     0.13s  2.57% 67.59%      0.13s  2.57%  encoding/json/internal/jsonwire.ParseUint
+     0.12s  2.37% 69.96%      0.12s  2.37%  encoding/json/jsontext.(*decodeBuffer).needMore (inline)
+     0.12s  2.37% 72.33%      0.33s  6.52%  encoding/json/jsontext.(*decoderState).PeekKind
+     0.12s  2.37% 74.70%      0.12s  2.37%  runtime.memmove
+     0.11s  2.17% 76.88%      1.43s 28.26%  encoding/json/v2.makeUintArshaler.func2
+     0.10s  1.98% 78.85%      0.10s  1.98%  internal/runtime/maps.probeSeq.next (inline)
+     0.10s  1.98% 80.83%      0.10s  1.98%  runtime.usleep
+     0.09s  1.78% 82.61%      0.24s  4.74%  runtime.mapaccess2_fast64
+     0.08s  1.58% 84.19%      0.90s 17.79%  encoding/json/jsontext.(*decoderState).consumeArray
+     0.07s  1.38% 85.57%      2.14s 42.29%  encoding/json/v2.makeSliceArshaler.func3
+     0.06s  1.19% 86.76%      0.06s  1.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     0.05s  0.99% 87.75%      0.13s  2.57%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.05s  0.99% 88.74%      0.05s  0.99%  internal/runtime/maps.(*groupReference).key (inline)
+     0.05s  0.99% 89.72%      0.05s  0.99%  internal/runtime/maps.bitset.removeFirst (inline)
+     0.05s  0.99% 90.71%      0.05s  0.99%  internal/runtime/maps.ctrlGroupMatchEmpty (inline)
+     0.05s  0.99% 91.70%      0.06s  1.19%  reflect.Value.Index
+     0.04s  0.79% 92.49%      0.04s  0.79%  encoding/json/jsontext.Kind.normalize (inline)
+     0.04s  0.79% 93.28%      0.04s  0.79%  runtime.memclrNoHeapPointers
+     0.04s  0.79% 94.07%      0.04s  0.79%  runtime.pthread_cond_signal
+     0.03s  0.59% 94.66%      0.09s  1.78%  encoding/json/jsontext.Value.Kind (inline)
+     0.03s  0.59% 95.26%      4.52s 89.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.loadCyclicEncoderLimit
+     0.03s  0.59% 95.85%      0.03s  0.59%  internal/runtime/atomic.(*UnsafePointer).Load (inline)
+     0.02s   0.4% 96.25%      0.12s  2.37%  encoding/json/v2.makeIntArshaler.func2
+     0.02s   0.4% 96.64%      0.08s  1.58%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.02s   0.4% 97.04%      0.26s  5.14%  runtime.mapaccess1_fast64
+         0     0% 97.04%      0.17s  3.36%  bufio.(*Writer).Flush
+         0     0% 97.04%      0.17s  3.36%  bufio.(*Writer).Write
+         0     0% 97.04%      0.13s  2.57%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0% 97.04%      0.13s  2.57%  crypto/internal/fips140/sha256.block
+         0     0% 97.04%      0.13s  2.57%  crypto/sha256.Sum256
+         0     0% 97.04%      3.04s 60.08%  encoding/json.Unmarshal (inline)
+         0     0% 97.04%      0.33s  6.52%  encoding/json/jsontext.(*Decoder).PeekKind (inline)
+         0     0% 97.04%      0.07s  1.38%  encoding/json/jsontext.(*Decoder).ReadValue (inline)
+         0     0% 97.04%      0.83s 16.40%  encoding/json/jsontext.(*decoderState).CheckNextValue
+         0     0% 97.04%      0.90s 17.79%  encoding/json/jsontext.(*decoderState).consumeObject
+         0     0% 97.04%      3.04s 60.08%  encoding/json/v2.Unmarshal
+         0     0% 97.04%      0.07s  1.38%  encoding/json/v2.makeMethodArshaler.func6
+         0     0% 97.04%      2.21s 43.68%  encoding/json/v2.makeStructArshaler.func3
+         0     0% 97.04%      3.04s 60.08%  encoding/json/v2.unmarshalDecode
+         0     0% 97.04%      4.52s 89.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.LoadCyclicEncoderWithLimit (inline)
+         0     0% 97.04%      4.88s 96.44%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCalibrationResource
+         0     0% 97.04%      4.88s 96.44%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCalibrationResource.func1
+         0     0% 97.04%      4.88s 96.44%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCalibrationResource.func4
+         0     0% 97.04%      4.49s 88.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.loadEncoderArtifactLimit
+         0     0% 97.04%      1.71s 33.79%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.loadOrbitLimit
+         0     0% 97.04%      0.33s  6.52%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newOrbitBasis
+         0     0% 97.04%      0.17s  3.36%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.writeScalingOnline
+         0     0% 97.04%      0.17s  3.36%  internal/poll.(*FD).Write
+         0     0% 97.04%      0.17s  3.36%  internal/poll.ignoringEINTRIO (inline)
+         0     0% 97.04%      0.05s  0.99%  internal/runtime/maps.ctrlGroup.matchEmpty (inline)
+         0     0% 97.04%      0.17s  3.36%  io.(*multiWriter).Write
+         0     0% 97.04%      0.05s  0.99%  io.ReadAll
+         0     0% 97.04%      0.17s  3.36%  os.(*File).Write
+         0     0% 97.04%      0.17s  3.36%  os.(*File).write (inline)
+         0     0% 97.04%      0.13s  2.57%  reflect.Value.Grow
+         0     0% 97.04%      0.13s  2.57%  reflect.Value.grow
+         0     0% 97.04%      0.13s  2.57%  reflect.growslice
+         0     0% 97.04%      0.10s  1.98%  runtime.gcBgMarkWorker.func2
+         0     0% 97.04%      0.10s  1.98%  runtime.gcDrain
+         0     0% 97.04%      0.10s  1.98%  runtime.gcDrainMarkWorkerDedicated (inline)
+         0     0% 97.04%      0.05s  0.99%  runtime.gopreempt_m (inline)
+         0     0% 97.04%      0.05s  0.99%  runtime.goschedImpl
+         0     0% 97.04%      0.13s  2.57%  runtime.growslice
+         0     0% 97.04%      0.03s  0.59%  runtime.mProf_Malloc
+         0     0% 97.04%      0.03s  0.59%  runtime.mallocgc
+         0     0% 97.04%      0.03s  0.59%  runtime.mallocgcLarge
+         0     0% 97.04%      0.10s  1.98%  runtime.markroot
+         0     0% 97.04%      0.10s  1.98%  runtime.markroot.func1
+         0     0% 97.04%      0.05s  0.99%  runtime.morestack
+         0     0% 97.04%      0.05s  0.99%  runtime.newstack
+         0     0% 97.04%      0.05s  0.99%  runtime.notewakeup
+         0     0% 97.04%      0.10s  1.98%  runtime.osyield (inline)
+         0     0% 97.04%      0.03s  0.59%  runtime.profilealloc
+         0     0% 97.04%      0.05s  0.99%  runtime.semawakeup
+         0     0% 97.04%      0.05s  0.99%  runtime.startm
+         0     0% 97.04%      0.03s  0.59%  runtime.stkbucket
+         0     0% 97.04%      0.10s  1.98%  runtime.suspendG
+         0     0% 97.04%      0.13s  2.57%  runtime.systemstack
+         0     0% 97.04%      0.05s  0.99%  runtime.wakep
+         0     0% 97.04%      0.17s  3.36%  syscall.Write (inline)
+         0     0% 97.04%      0.17s  3.36%  syscall.syscall
+         0     0% 97.04%      0.17s  3.36%  syscall.syscalln
+         0     0% 97.04%      0.17s  3.36%  syscall.write
+         0     0% 97.04%      4.88s 96.44%  testing.tRunner

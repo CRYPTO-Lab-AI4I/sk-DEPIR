@@ -1,0 +1,12 @@
+{
+  "graphics": [
+    {
+      "spdisplays_mtlgpufamilysupport": "spdisplays_metal4",
+      "spdisplays_vendor": "sppci_vendor_Apple",
+      "sppci_model": "Apple M5 Pro"
+    }
+  ],
+  "metal_compiler_lookup_exit": 72,
+  "metal_compiler": "not available via xcrun; no installation attempted",
+  "gpu_benchmark_run": false
+}
