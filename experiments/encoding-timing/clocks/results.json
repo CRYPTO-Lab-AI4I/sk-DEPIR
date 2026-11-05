@@ -1,0 +1,231 @@
+{
+  "status": "passed",
+  "revision": "6a193ade35d4b082061033c7dfc683ea8fb053a8",
+  "source_sha256": {
+    "encoding/appref/appref_test.go": "67d084fd8e4ae5faab2df20f81a72071ada94b45f30da288bd2ddfeeac795c84",
+    "encoding/appref/encode.go": "97cc1e21c3dd8391c64adb7c5703fbc5dcbe92af61c35e7edb0f43e5e3680c1e",
+    "encoding/appref/example_test.go": "33c8573e84257ee44e3e78b09536ac172876fc5d37ca628da2f573a10cc7247c",
+    "encoding/appref/plan.go": "33c987f3dcd2a6e1aeb64bc65a8c0043b3501997695717bc8f3cb28f16b89817",
+    "encoding/appref/retrieve.go": "b8074462fe85520b5b8fd8aa663360fc48214f8a885719b49c24cf39a91d8cd9",
+    "encoding/cryptoref/example_test.go": "2acb9daada4e96c3c6026c0970c64be96349ff3182e2c095fc99f9d6cce6d81d",
+    "encoding/cryptoref/reference.go": "f340ad4639a78e1fc269e51418ad7e363e0bdabdc55d750b0d83c25c07055f00",
+    "encoding/cryptoref/reference_test.go": "fa768908595403d5d97e24541f52b3f04e841b7b53986a8a6be715bdf11c38a7",
+    "encoding/liftrs-cpp/clocks.go": "0d248814e8c5fc7d09c75cbf4eb0b36e4d8d31949529e22608fd2428bb367d30",
+    "encoding/liftrs-cpp/plan.go": "333acbbf544d46d400ac5736017e7426b9f0397e998fd7b5059add5d93226c97",
+    "encoding/liftrs-go/transform.go": "2f5d0b317f7a1307161bcf49ec0121d00fffc230b0add11646156fed047315fb",
+    "encoding/liftrs-shared/binary_field.go": "5f867ee5e5b27511c906686bb7e7efc0c03e04736f46f76beaae4cf2636e4e32",
+    "encoding/liftrs-shared/binary_field_example_test.go": "90bf8034574b11976cb77cc8f2f2fca98c403f90569f9c8dfcf63fba7abdf714",
+    "encoding/liftrs-shared/binary_field_test.go": "79c0df2f825074175b5d7a9b37cb881ce7c6cf01abab590d44c258c78f078e38",
+    "encoding/liftrs-shared/calibration_resource_test.go": "8324513ef4082a9bc70f7bcda5a2a057ab1e0885c91d248f1833ddca660c1990",
+    "encoding/liftrs-shared/cpp_disabled.go": "955ba56be88677b9927474d354f39d382d803b85765403079af671a92c362cfd",
+    "encoding/liftrs-shared/cpp_disabled_test.go": "8eb93205c80b50864c570210e35f6d3affa476123595c46c30d7d54db5b1e865",
+    "encoding/liftrs-shared/cpp_enabled.go": "5f0fdd59e060015d9b60d5cfba6aea3411983f1df343e9216cadd11fde6a693f",
+    "encoding/liftrs-shared/cpp_enabled_test.go": "db5a8e886c7f78823e45b9dbcb455902b6e2030b934365b4b50cf2c81603538c",
+    "encoding/liftrs-shared/cpp_encoder.go": "13da56029d4cd51a228e8b16971bca3cf7da24f978d56e1b67d11f0c88e2a8d3",
+    "encoding/liftrs-shared/cpp_example_test.go": "d584da75c6b23aa1c58d6d8ee809f663bad56b29cf73de53093ad090ddbceae9",
+    "encoding/liftrs-shared/example_test.go": "a6cceac621a7330fdedce85b1531821385988750c7ed90da4912b1ac8e25283f",
+    "encoding/liftrs-shared/field/binary.go": "ab162f7e65cd5fd7883fef2a261537c1dcbf9a6d92c98d86c05f81b68bae12fa",
+    "encoding/liftrs-shared/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs-shared/language_bench_test.go": "d78132c6d95929d0134008fc4e86b0a2bea9da94e89e302f02e3c3cca39b1994",
+    "encoding/liftrs-shared/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs-shared/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+    "encoding/liftrs-shared/orbit.go": "cfe31fd45302e258dc135dd2157bb860cd085300b8929c9e47012989c0858de7",
+    "encoding/liftrs-shared/orbit_arithmetic.go": "4473448403b01d66291cdcf071ad3bd308ad58f2415dc479ca52461b7e0e55ad",
+    "encoding/liftrs-shared/orbit_artifact.go": "29df02372de9111bd2be3290edfe9db92bb6ba3062279bcde8a14f45c404948d",
+    "encoding/liftrs-shared/orbit_cache_example_test.go": "7992176943b9bfb24e2377091311a5f171b022150b003a4c019b3a5a00481cba",
+    "encoding/liftrs-shared/orbit_cache_test.go": "3ed519e68cb0204d0f097fd8c951b794cf585ed6ba643b21f0964542cfd869ac",
+    "encoding/liftrs-shared/orbit_constant.go": "fe3c4ab745c3bb9544cdfa6c8e643e7b2017fdcabb3aea3ebdbd176afdbc4e66",
+    "encoding/liftrs-shared/orbit_constant_artifact_test.go": "99a6e390c1c571e16b846c778a1ae8c2cdbadcf408f58d3c41c21257dd853f09",
+    "encoding/liftrs-shared/orbit_constant_test.go": "59724bab255587ab5b6ff67780f6c78cdaa8c0393f820243970b64c534aedfb2",
+    "encoding/liftrs-shared/orbit_example_test.go": "ddbee52aee098773429554707e2ff9d22d95a1c48bf570aea5e398b967d3b1e0",
+    "encoding/liftrs-shared/orbit_fft.go": "98b0471e9fc95a192cc082a190b4d2ff0f5c9f6898a813446e8d428381fbada0",
+    "encoding/liftrs-shared/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+    "encoding/liftrs-shared/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+    "encoding/liftrs-shared/orbit_product_test.go": "fe976bbabd5aa4de91f5fa035c9590568bbe04590bef085c09c07fd2d8c38d1a",
+    "encoding/liftrs-shared/orbit_test.go": "e7a37a4106840f7bac56c92bd5d1b11c486bcea4dd2c4f3368eea5f80e3319bc",
+    "encoding/liftrs-shared/parallel_firstuse_probe_test.go": "d335b0a3fc961b44cec457ffa1bf068697d770e6822df5264665f767134ef78d",
+    "encoding/liftrs-shared/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs-shared/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+    "encoding/liftrs-shared/s10_checkpoint_test.go": "3f606fc200b82ac3a7bfab79b8919d9af22997d419ba848ef6e11ef95255ceeb",
+    "encoding/liftrs-shared/scaling_example_test.go": "f75a521ad436692946d51204b04f005c9b425aadd3a423c9dafb0e948372ffa1",
+    "encoding/liftrs-shared/scaling_experimental.go": "30ee98486ee051cf865dc23c1dd0dd5aa509ec9a7842e969ed2a5ff99c878bb5",
+    "encoding/liftrs-shared/scaling_experimental_test.go": "caf810c346b0637fe9f7b0e037e2a69e2813be568f139e98f5937ff15160b814",
+    "encoding/liftrs-shared/scaling_matrix_cpp.go": "b9a1caeccd9210924eced62ec0db779dfa66554331a8dc71c7fc5f34129105a3",
+    "encoding/liftrs-shared/scaling_matrix_cpp_example_test.go": "3a5e4994d9d5cd96531a6a03338a5198775494c2ae7738e78cf57104b212416a",
+    "encoding/liftrs-shared/scaling_matrix_cpp_test.go": "e454e873c4f0c3982d8028975a82d0f2781d80476028d8abb0c07e413357d4c1",
+    "encoding/liftrs-shared/scaling_matrix_test.go": "8eb66e784d0f341d01c79883200c46f1c298e00335725850d71cbf8e28df271b",
+    "encoding/liftrs-shared/scaling_online.go": "99a2a648f9b36d35e553e1f7731bdc44eae87915d8038b59b6c2c9651f28d839",
+    "encoding/liftrs-shared/scaling_online_file_test.go": "d59c7aef88d7935fe77e8f0146e32878ec4436d8d81d42b54ae2e8524a476a60",
+    "encoding/liftrs-shared/scaling_online_validation_test.go": "382d8a2aa82006f2fb901694731ab4cd2c8a441d35a78030b1ca83feaf421fae",
+    "encoding/liftrs-shared/scaling_prepare_cpp.go": "5532a0322897b8e3947bbd678af39b68131f09e0141552f1a7306a73aeb98a0a",
+    "encoding/liftrs-shared/scaling_prepare_cpp_test.go": "72f0a4ddfedba5eaf5e9c7db05cc3cf9f0d562920c348f0c11a6c2b2b7c3ed6b",
+    "encoding/liftrs-shared/scaling_probe_disabled_test.go": "f0b7664e2c02a43f0fafa2baf0c0c000dec7e881961f1628e910370ccf35313d",
+    "encoding/liftrs-shared/scaling_probe_native_test.go": "d021160a5bc86021fcb7ba7364e33718afc194242ac7f9835e8d4947c7394f3e",
+    "encoding/liftrs-shared/scaling_probe_test.go": "29ac7fcf6ab79b1bf2bda6e5a17af0dddc83ce805f0926aaf07dfdcd06ec4ec4",
+    "encoding/liftrs-shared/scaling_s13_test.go": "3df25c122eaa1d9a857ee0fa13aad3ab69a3372b3e3a7a2bd064b396a496f7a5",
+    "encoding/rme_legacy/process/process.go": "a2a301f7916be718fba108d3997185e99fe81d4ba8811a6cb5d3e207774828d4",
+    "encoding/liftrs-cpp/README.md": "ee9839a0543bc13a0cc5b25765d7e5d1afcbbbbc7ca22f10aede09eda20fe25f",
+    "encoding/liftrs-cpp/bench.cpp": "4138e83dc767f8fbfdecfceced31b600c2dd861413c3dd6c9d4e07367629cb23",
+    "encoding/liftrs-cpp/c_api.cpp": "bbf98964bf850495f92d79d81114981ff37ebdaac194c6598648661bc908c4fa",
+    "encoding/liftrs-cpp/c_api.h": "97c44d6c1c503cb4918030ad743a9b6f259d875c47a634a710149a193f3cae15",
+    "encoding/liftrs-cpp/c_api_test.cpp": "4e7b93a8250cdcbb482bfe7b3e22deeaa8a0e1a934a0a7db1a79b345c388349d",
+    "encoding/liftrs-cpp/matrix_test.cpp": "50684016acf460991971632e0704a29a9d5970c3af557d3b9c66738127fe25b1",
+    "encoding/liftrs-cpp/online_test.cpp": "eeb52ef8edf4238fe5c87588fbeb09a0863ccddb272fe4ed556466e3569ee01f",
+    "encoding/liftrs-cpp/test.cpp": "3bce3877aa9bb8d08e4e8c003f8a78f307860d4e7895b02e12eaf92e5d7a422c",
+    "encoding/liftrs-cpp/transform.hpp": "2d5ce1e73552bf02f4abfc6a57578692ae0f93b8c881e733859027b3e029f5f0",
+    "experiments/encoding-timing/main.go": "eb2d2024fd3a86283f0da60dd25c74a81f9217e10691288c83ef9408bf988568",
+    "experiments/encoding-timing/run.py": "5ce49159bbca01eba9121f7939d62c9022e7435d63ef6374f5f4bf7bc8cbcdfe",
+    "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
+    "go.sum": "6b5b9bf04b57c04dc22dc13596e0c5862856f95c24ca23931bb0545736f6ef76"
+  },
+  "backend": "native,hybrid,hybrid,native,native,hybrid",
+  "smoke": true,
+  "clocks_only": true,
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "cpu": "Apple M5 Pro",
+    "logical_cpus": 18,
+    "ram_gib": 48,
+    "go": "go version go1.27.3 darwin/arm64",
+    "compiler": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin"
+  },
+  "policy": {
+    "timeout_s": 7200,
+    "rss_guard_bytes": 12884901888,
+    "go_soft_memory_bytes": 12884901888,
+    "workers": 16,
+    "prevent_idle_sleep": false,
+    "cpu_profiles": "every phase",
+    "native_sample": "5 seconds per encoding after 10 seconds",
+    "copies_across_ffi": 0,
+    "preprocessing": "read-only retained constants; smoke generates and retains s8 cache"
+  },
+  "samples": [],
+  "binary": {
+    "path": ".cache/liftrs/encoding-timing/0ad05ab5bf760e2d/probe",
+    "sha256": "9ad15b71934653cd3ae9cba4039dfc94a17e78efaa9b55b67cf303ceaec1cc7c"
+  },
+  "command": [
+    "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/encoding-timing/0ad05ab5bf760e2d/probe",
+    "-out",
+    "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/encoding-timing/clocks",
+    "-cache",
+    "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/encoding-timing/0ad05ab5bf760e2d/small",
+    "-s",
+    "8",
+    "-workers",
+    "16",
+    "-repeats",
+    "1",
+    "-backend",
+    "native,hybrid,hybrid,native,native,hybrid",
+    "-clocks-only"
+  ],
+  "returncode": 0,
+  "wall_s": 2.015803875,
+  "process_peak_rss_bytes": 5881856,
+  "controls": [
+    {
+      "after": {
+        "steady_ns": 5699070090366708,
+        "wall_ns": 1793912880050714000,
+        "posix_monotonic_ns": 5699055153793000,
+        "process_cpu_ns": 254088000
+      },
+      "before": {
+        "steady_ns": 5699069840343625,
+        "wall_ns": 1793912879800689000,
+        "posix_monotonic_ns": 5699054903771000,
+        "process_cpu_ns": 5326000
+      },
+      "go_ns": 250001584,
+      "kind": "busy"
+    },
+    {
+      "after": {
+        "steady_ns": 5699070341485500,
+        "wall_ns": 1793912880301834000,
+        "posix_monotonic_ns": 5699055404910000,
+        "process_cpu_ns": 254243000
+      },
+      "before": {
+        "steady_ns": 5699070090384125,
+        "wall_ns": 1793912880050732000,
+        "posix_monotonic_ns": 5699055153815000,
+        "process_cpu_ns": 254108000
+      },
+      "go_ns": 251058750,
+      "kind": "sleep"
+    },
+    {
+      "after": {
+        "steady_ns": 5699070591506750,
+        "wall_ns": 1793912880551857000,
+        "posix_monotonic_ns": 5699055654935000,
+        "process_cpu_ns": 502278000
+      },
+      "before": {
+        "steady_ns": 5699070341494083,
+        "wall_ns": 1793912880301843000,
+        "posix_monotonic_ns": 5699055404926000,
+        "process_cpu_ns": 254271000
+      },
+      "go_ns": 250001417,
+      "kind": "busy"
+    },
+    {
+      "after": {
+        "steady_ns": 5699070842589375,
+        "wall_ns": 1793912880802941000,
+        "posix_monotonic_ns": 5699055906011000,
+        "process_cpu_ns": 502429000
+      },
+      "before": {
+        "steady_ns": 5699070591512958,
+        "wall_ns": 1793912880551863000,
+        "posix_monotonic_ns": 5699055654947000,
+        "process_cpu_ns": 502289000
+      },
+      "go_ns": 251056125,
+      "kind": "sleep"
+    },
+    {
+      "after": {
+        "steady_ns": 5699071092614375,
+        "wall_ns": 1793912881052968000,
+        "posix_monotonic_ns": 5699056156046000,
+        "process_cpu_ns": 752615000
+      },
+      "before": {
+        "steady_ns": 5699070842601541,
+        "wall_ns": 1793912880802953000,
+        "posix_monotonic_ns": 5699055906037000,
+        "process_cpu_ns": 502457000
+      },
+      "go_ns": 250000084,
+      "kind": "busy"
+    },
+    {
+      "after": {
+        "steady_ns": 5699071343708000,
+        "wall_ns": 1793912881304063000,
+        "posix_monotonic_ns": 5699056407125000,
+        "process_cpu_ns": 752746000
+      },
+      "before": {
+        "steady_ns": 5699071092621041,
+        "wall_ns": 1793912881052975000,
+        "posix_monotonic_ns": 5699056156058000,
+        "process_cpu_ns": 752627000
+      },
+      "go_ns": 251049917,
+      "kind": "sleep"
+    }
+  ],
+  "evidence_sha256": {
+    "clocks.json": "959f5910c633415b35f9d05370c96fd9086db4c9ebb1e6e66bd8e2cb53c9a42e",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "events.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build.log": "beb3611d30fd945a77226e98cac1af022a5352628556fbc8e82010eb1226042c"
+  }
+}

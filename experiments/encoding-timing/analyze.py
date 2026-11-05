@@ -1,0 +1,127 @@
+#!/usr/bin/env python3
+"""Verify timing evidence and summarize paired same-clock encoding durations."""
+import gzip
+import shutil
+import hashlib
+import json
+import statistics
+from datetime import datetime
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT / 'experiments'))
+from source_evidence import verify_sources
+
+
+def sha(path):
+    value = hashlib.sha256()
+    with path.open('rb') as stream:
+        for block in iter(lambda: stream.read(1 << 20), b''):
+            value.update(block)
+    return value.hexdigest()
+
+
+def analyze(name):
+    out = HERE / name
+    record = json.loads((out / 'results.json').read_text())
+    assert record['status'] == 'passed', record['status']
+    resolved = verify_sources(ROOT, record['source_sha256'], record['revision'])
+    assert sha(ROOT / record['binary']['path']) == record['binary']['sha256']
+    archived = {}
+    for name, expected in record['evidence_sha256'].items():
+        path = out / name
+        if name.endswith('-native.txt'):
+            compressed = out / (name + '.gz')
+            local = (ROOT / record['binary']['path']).parent / 'native-samples' / out.name / name
+            if path.exists():
+                raw = path.read_bytes()
+                assert hashlib.sha256(raw).hexdigest() == expected
+                local.parent.mkdir(parents=True,exist_ok=True)
+                shutil.copyfile(path,local)
+                compressed.write_bytes(gzip.compress(raw,mtime=0))
+                path.unlink()
+            assert hashlib.sha256(gzip.decompress(compressed.read_bytes())).hexdigest() == expected
+            archived[name] = {'gzip':compressed.name,'gzip_sha256':sha(compressed),'original_sha256':expected,'retained_raw':str(local.relative_to(ROOT))}
+        else:
+            assert sha(path) == expected, name
+    if 'input_cache' in record:
+        assert sha(ROOT / record['input_cache']['path']) == record['input_cache']['sha256']
+    result = {'sources_resolved': resolved, 'clock_controls': record.get('controls', []), 'cases': [], 'native_sample_archive': archived}
+    for phase in record.get('phases', []):
+        if not phase['phase'].startswith('encode-'):
+            continue
+        before, after = phase['native_before'], phase['native_after']
+        delta = {key: after[key] - before[key] for key in before}
+        stages = phase['native_stages']
+        stage_sum = sum(v for k, v in stages.items() if k.endswith('_ns'))
+        # Stage counters and total now share the exact same native steady clock.
+        assert stage_sum <= delta['steady_ns'] + 1_000_000, (phase['phase'], stage_sum, delta)
+        assert stages['boundary_calls'] == (1 if phase['backend'] == 'native' else 5)
+        result['cases'].append({'phase': phase['phase'], 'backend': phase['backend'], 'start_wall_ns': before['wall_ns'], 'end_wall_ns': after['wall_ns'],
+                                'native_s': delta['steady_ns'] / 1e9, 'go_s': phase['elapsed_ns'] / 1e9,
+                                'wall_s': delta['wall_ns'] / 1e9, 'posix_s': delta['posix_monotonic_ns'] / 1e9,
+                                'process_cpu_s': delta['process_cpu_ns'] / 1e9,
+                                'user_cpu_s': phase['user_cpu_ns'] / 1e9,
+                                'system_cpu_s': phase['system_cpu_ns'] / 1e9,
+                                'native_stage_sum_s': stage_sum / 1e9,
+                                'go_agrees_with_native': abs(delta['steady_ns']-phase['elapsed_ns']) <= max(5_000_000,delta['steady_ns']*.02)})
+    if result['cases']:
+        verifies = [p for p in record['phases'] if p['phase'].startswith('verify-')]
+        assert len(verifies) == len(result['cases'])
+        assert all(p['full_hash_match'] for p in verifies)
+        hashes = {p['canonical_sha256'] for p in verifies}
+        assert len(hashes) == 1
+        if not record['smoke']:
+            assert hashes == {'b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c'}
+        result['canonical_sha256'] = next(iter(hashes))
+        result['median_s'] = {backend: statistics.median(c['native_s'] for c in result['cases'] if c['backend'] == backend) for backend in ['native','hybrid']}
+        result['paired_ratios'] = []
+        for start in range(0,len(result['cases']),2):
+            pair = {c['backend']: c for c in result['cases'][start:start+2]}
+            assert set(pair) == {'native','hybrid'}
+            result['paired_ratios'].append(pair['hybrid']['native_s']/pair['native']['native_s'])
+        result['peak_rss_gib'] = record['process_peak_rss_bytes']/2**30
+        observations = []
+        power_path = out / 'power-observations.jsonl'
+        if power_path.exists():
+            for line in power_path.read_text().splitlines():
+                item = json.loads(line)
+                observations.append((int(datetime.fromisoformat(item['timestamp_utc']).timestamp()*1e9),item['stdout']))
+        for file in [HERE/'environment-midrun.json', HERE/'environment-end.json']:
+            if file.exists() and out.name == 's14':
+                item = json.loads(file.read_text())
+                for obs in item['observations']:
+                    if obs['command'] == ['/usr/bin/pmset','-g','batt']:
+                        observations.append((int(datetime.fromisoformat(item['timestamp_utc']).timestamp()*1e9),obs['stdout']))
+        observations.sort()
+        for case in result['cases']:
+            start,end = case['start_wall_ns'],case['end_wall_ns']
+            prior = [x for x in observations if x[0]<=start]
+            later = [x for x in observations if x[0]>=end]
+            within = [x for x in observations if start<x[0]<end]
+            bracket = (prior[-1:] + within + later[:1])
+            if prior and later and all("'AC Power'" in x[1] for x in bracket):
+                case['power'] = 'AC throughout observation bracket'
+            elif any("'AC Power'" in x[1] for x in within) and any("'Battery Power'" in x[1] for x in within):
+                case['power'] = 'power transition observed'
+            elif any("'Battery Power'" in x[1] for x in within):
+                case['power'] = 'battery observed'
+            else:
+                case['power'] = 'not fully observed'
+        ac = [c for c in result['cases'] if c['power']=='AC throughout observation bracket']
+        if len(ac)>=4 and len(ac)%2==0:
+            result['ac_median_s'] = {backend:statistics.median(c['native_s'] for c in ac if c['backend']==backend) for backend in ['native','hybrid']}
+            result['ac_paired_ratios'] = []
+            for i in range(0,len(ac),2):
+                pair = {c['backend']:c for c in ac[i:i+2]}
+                assert set(pair)=={'native','hybrid'}
+                result['ac_paired_ratios'].append(pair['hybrid']['native_s']/pair['native']['native_s'])
+
+    (out / 'analysis.json').write_text(json.dumps(result,indent=2)+'\n')
+    print(json.dumps({k:v for k,v in result.items() if k!='sources_resolved'},indent=2))
+
+
+if __name__ == '__main__':
+    analyze(sys.argv[1] if len(sys.argv)>1 else 's14')

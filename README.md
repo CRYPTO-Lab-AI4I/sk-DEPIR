@@ -49,7 +49,12 @@ reusable code preprocessing and artifact loading remain Go. The
 [native-online comparison](experiments/native-online/report.md) records validation
 and cached s=14 measurements separately from the historical hybrid timings above.
 All full outputs match and peak RSS remains about 4.59 GiB; clock discrepancies
-and host variance make the speed comparison inconclusive. The original transform adapter and Go reference remain available.
+and host variance make the speed comparison inconclusive. The original transform adapter and Go reference remain available. A separate
+[timing study](experiments/encoding-timing/report.md) now obtains agreeing clocks
+and two complete AC pairs: 84.47 s full C++ versus 94.55 s hybrid, about 10.7%
+less elapsed time with similar CPU cost and 4.59 GiB process peak RSS. The initial
+power-transition pair is reported separately; these are profiled, warm-workspace
+measurements on this host.
 
 ## Implementation status and limits
 

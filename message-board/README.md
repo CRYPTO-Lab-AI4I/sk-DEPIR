@@ -279,7 +279,10 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-30 09:45 | ENCODE-009 | Started | [Complete native online encoding](2026-10-30-0945-codex-encode-009-started.md) |
 | 2026-10-30 10:07 | ENCODE-009 | Progress | [Retain timing anomaly and repeat cached comparison](2026-10-30-1007-codex-encode-009-progress.md) |
 | 2026-10-30 10:34 | ENCODE-009 | Completed | [Complete native online path and qualified s14 comparison](2026-10-30-1034-codex-encode-009-completed.md) |
-
 | 2026-11-05 17:02 | PUBLISH-019 | Started | [Publish complete native online encoding](2026-11-05-1702-codex-publish-019-started.md) |
 | 2026-11-05 17:02 | PUBLISH-019 | Completed | [Native online checkpoint verified for publication](2026-11-05-1702-codex-publish-019-completed.md) |
 | 2026-11-05 17:03 | PUBLISH-019 | Correction | [Preserve verbatim profile summaries](2026-11-05-1703-codex-publish-019-correction.md) |
+| 2026-11-05 21:04 | BENCH-001 | Started | [Diagnose clocks and compare cached encoding](2026-11-05-2104-codex-bench-001-started.md) |
+| 2026-11-05 21:25 | BENCH-001 | Completed | [Consistent clocks and AC encoding comparison](2026-11-05-2125-codex-bench-001-completed.md) |
+| 2026-11-05 21:41 | PUBLISH-020 | Started | [Publish consistent timing study](2026-11-05-2141-codex-publish-020-started.md) |
+| 2026-11-05 21:41 | PUBLISH-020 | Completed | [Timing study verified for publication](2026-11-05-2141-codex-publish-020-completed.md) |

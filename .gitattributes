@@ -1,2 +1,3 @@
 # Preserve verbatim go tool pprof output and its recorded evidence hashes.
 experiments/native-online/*/*-flat.txt whitespace=-blank-at-eol
+experiments/encoding-timing/*/*-flat.txt whitespace=-blank-at-eol

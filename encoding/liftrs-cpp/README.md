@@ -114,3 +114,14 @@ positions. Assembly uses a small fixed-omega lookup map and reduces chunk parity
 Run the profiled [native-online experiment](../../experiments/native-online/report.md)
 for the cached large-instance comparison. The path is in-memory and mathematical
 only: no masks, application partitioning or external-memory backend is implied.
+
+## Timing diagnostics
+
+`ReadClocks()` returns nanosecond readings of the exact C++ steady clock used
+by stage counters, system wall time, POSIX monotonic time and all-thread process
+CPU time. Compare differences within each clock domain; absolute origins differ.
+The readings are sequential and introduce small skew. The
+[timing harness](../../experiments/encoding-timing/main.go) brackets whole Go/native
+encoding calls with this API so native stages can be checked against a total
+from the same clock, while Go/getrusage readings provide independent diagnostics.
+This observation API does not change encoding or retained preprocessing.

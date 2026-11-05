@@ -1,0 +1,98 @@
+[
+  {
+    "after": {
+      "steady_ns": 5699070090366708,
+      "wall_ns": 1793912880050714000,
+      "posix_monotonic_ns": 5699055153793000,
+      "process_cpu_ns": 254088000
+    },
+    "before": {
+      "steady_ns": 5699069840343625,
+      "wall_ns": 1793912879800689000,
+      "posix_monotonic_ns": 5699054903771000,
+      "process_cpu_ns": 5326000
+    },
+    "go_ns": 250001584,
+    "kind": "busy"
+  },
+  {
+    "after": {
+      "steady_ns": 5699070341485500,
+      "wall_ns": 1793912880301834000,
+      "posix_monotonic_ns": 5699055404910000,
+      "process_cpu_ns": 254243000
+    },
+    "before": {
+      "steady_ns": 5699070090384125,
+      "wall_ns": 1793912880050732000,
+      "posix_monotonic_ns": 5699055153815000,
+      "process_cpu_ns": 254108000
+    },
+    "go_ns": 251058750,
+    "kind": "sleep"
+  },
+  {
+    "after": {
+      "steady_ns": 5699070591506750,
+      "wall_ns": 1793912880551857000,
+      "posix_monotonic_ns": 5699055654935000,
+      "process_cpu_ns": 502278000
+    },
+    "before": {
+      "steady_ns": 5699070341494083,
+      "wall_ns": 1793912880301843000,
+      "posix_monotonic_ns": 5699055404926000,
+      "process_cpu_ns": 254271000
+    },
+    "go_ns": 250001417,
+    "kind": "busy"
+  },
+  {
+    "after": {
+      "steady_ns": 5699070842589375,
+      "wall_ns": 1793912880802941000,
+      "posix_monotonic_ns": 5699055906011000,
+      "process_cpu_ns": 502429000
+    },
+    "before": {
+      "steady_ns": 5699070591512958,
+      "wall_ns": 1793912880551863000,
+      "posix_monotonic_ns": 5699055654947000,
+      "process_cpu_ns": 502289000
+    },
+    "go_ns": 251056125,
+    "kind": "sleep"
+  },
+  {
+    "after": {
+      "steady_ns": 5699071092614375,
+      "wall_ns": 1793912881052968000,
+      "posix_monotonic_ns": 5699056156046000,
+      "process_cpu_ns": 752615000
+    },
+    "before": {
+      "steady_ns": 5699070842601541,
+      "wall_ns": 1793912880802953000,
+      "posix_monotonic_ns": 5699055906037000,
+      "process_cpu_ns": 502457000
+    },
+    "go_ns": 250000084,
+    "kind": "busy"
+  },
+  {
+    "after": {
+      "steady_ns": 5699071343708000,
+      "wall_ns": 1793912881304063000,
+      "posix_monotonic_ns": 5699056407125000,
+      "process_cpu_ns": 752746000
+    },
+    "before": {
+      "steady_ns": 5699071092621041,
+      "wall_ns": 1793912881052975000,
+      "posix_monotonic_ns": 5699056156058000,
+      "process_cpu_ns": 752627000
+    },
+    "go_ns": 251049917,
+    "kind": "sleep"
+  }
+]

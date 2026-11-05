@@ -1,0 +1,2 @@
+$ clang++ -std=c++17 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -pthread -Iencoding/liftrs-cpp /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-clock-asan-5k3qtz1x/clocks.cpp encoding/liftrs-cpp/c_api.cpp -o /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-clock-asan-5k3qtz1x/clocks
+$ /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-clock-asan-5k3qtz1x/clocks

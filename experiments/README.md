@@ -140,3 +140,7 @@ rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
 - [Complete native online encoding](native-online/report.md): cached C++ encoding
   versus hybrid Go/C++ execution, with identical canonical words, profiled stages
   and separate initialization/process-memory accounting.
+
+- [Encoding timing consistency](encoding-timing/report.md): short clock controls
+  and alternating cached native/hybrid execution, with same-clock totals, CPU
+  time, profiles and resource accounting.

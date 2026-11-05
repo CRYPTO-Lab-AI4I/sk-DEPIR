@@ -380,10 +380,10 @@ multiply retained first-use RSS and treat it as an unavoidable online requiremen
 ## Next step: complete C++ online encoding
 
 **Implemented and validated** in the [native-online experiment](../experiments/native-online/report.md).
-All seven cached s=14 words match and peak RSS remains about 4.59 GiB. The paired
-runs give a descriptive 6.3% time reduction, but clock discrepancies and host
-variance prevent a dependable speedup claim. Stabilize timing before using these
-results for optimization choices or larger-size forecasts.
+At that checkpoint, all seven cached s=14 words matched and peak RSS remained
+about 4.59 GiB. Its paired runs gave a descriptive 6.3% time reduction, qualified
+by clock discrepancies and host variance. The timing verification below now
+provides a consistent comparison; the original measurements remain unchanged.
 
 The recorded step before s=15 admission was to move the remaining database-dependent work into C++:
 buffer preparation, pointwise field products and canonical output assembly.
@@ -397,6 +397,24 @@ references. Profile cached s=14 with the retained preprocessing, reporting setup
 interface/copy costs, encoding stages and fresh-process peak memory. Use this
 complete native online baseline to choose further optimizations. Mathematical
 encoding remains separate from cryptographic/application encoding.
+
+## Timing verification before further tuning
+
+The [timing experiment](../experiments/encoding-timing/report.md) brackets complete
+encoding with the native stage clock and independently records Go/POSIX/wall
+intervals, process CPU time and peak RSS. Short busy/sleep controls and small
+encoding fixtures must pass before the cached s=14 comparison. Native stage sums
+must fit their same-clock total. Three ordered pairs alternate native/hybrid
+execution with identical inputs, workers and profiling, reusing one plan and
+workspace; retain the first cold-workspace result and all later measurements.
+The completed study has agreeing large-run clocks (within 0.376 ms) and matching
+hashes. The first pair precedes/overlaps an observed battery-to-AC transition;
+the two subsequent AC pairs give 84.47 s full C++ versus 94.55 s hybrid, about
+10.7% less elapsed time with similar CPU cost and 4.59 GiB process peak RSS.
+These are profiled, warm-workspace observations, not a universal speedup or a
+historical root-cause diagnosis. Reuse this consistent baseline for further
+measurements. Code discovery/preparation was not repeated; the next scaling
+work remains the s=15 preparation-memory audit below.
 
 ## Subsequent admission: s=15
 

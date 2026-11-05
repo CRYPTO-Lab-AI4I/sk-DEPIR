@@ -1,0 +1,37 @@
+{
+  "timestamp_utc": "2026-11-05T21:20:51.267972+00:00",
+  "observations": [
+    {
+      "command": [
+        "/usr/sbin/sysctl",
+        "-n",
+        "machdep.cpu.brand_string",
+        "hw.memsize",
+        "hw.logicalcpu"
+      ],
+      "exit_code": 0,
+      "stdout": "Apple M5 Pro\n51539607552\n18\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/usr/bin/pmset",
+        "-g",
+        "batt"
+      ],
+      "exit_code": 0,
+      "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=35192931)\t19%; charging; 4:00 remaining present: true\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/usr/bin/pmset",
+        "-g",
+        "therm"
+      ],
+      "exit_code": 0,
+      "stdout": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+      "stderr": ""
+    }
+  ]
+}

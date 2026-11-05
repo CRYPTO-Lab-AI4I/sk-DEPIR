@@ -1,0 +1,11 @@
+$ /tmp/sk-depir-go-toolchain/go/bin/go test -race -tags liftrs_cpp ./encoding/liftrs-shared -run TestCPPOnline|TestCPPMatrix -count=1
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	1.786s
+$ /tmp/sk-depir-go-toolchain/go/bin/go test -tags liftrs_cpp ./encoding/liftrs-cpp ./experiments/encoding-timing
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp	[no test files]
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/encoding-timing	[no test files]
+$ /tmp/sk-depir-go-toolchain/go/bin/go vet -tags liftrs_cpp ./encoding/liftrs-cpp ./encoding/liftrs-shared ./experiments/encoding-timing
+$ /tmp/sk-depir-go-toolchain/go/bin/go test ./encoding/liftrs-shared ./encoding/liftrs-go
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	11.006s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go	[no test files]
+$ clang++ -std=c++17 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -pthread -Iencoding/liftrs-cpp /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-clock-asan-z4w06a7b/clocks.cpp encoding/liftrs-cpp/c_api.cpp -o /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-clock-asan-z4w06a7b/clocks
+$ /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-clock-asan-z4w06a7b/clocks

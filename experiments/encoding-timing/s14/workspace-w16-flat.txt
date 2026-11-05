@@ -1,0 +1,17 @@
+File: probe
+Type: cpu
+Time: 2026-11-05 22:09:27 CET
+Duration: 302.74ms, Total samples = 70ms (23.12%)
+Showing nodes accounting for 70ms, 100% of 70ms total
+      flat  flat%   sum%        cum   cum%
+      70ms   100%   100%       70ms   100%  runtime.memclrNoHeapPointers
+         0     0%   100%       70ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPEncoder).NewWorkspace
+         0     0%   100%       70ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).NewWorkspace (inline)
+         0     0%   100%       70ms   100%  main.main
+         0     0%   100%       70ms   100%  main.main.func2
+         0     0%   100%       70ms   100%  main.main.func6
+         0     0%   100%       70ms   100%  runtime.main
+         0     0%   100%       70ms   100%  runtime.makeslice
+         0     0%   100%       70ms   100%  runtime.mallocgc
+         0     0%   100%       70ms   100%  runtime.mallocgcLarge
+         0     0%   100%       70ms   100%  runtime.memclrNoHeapPointersChunked

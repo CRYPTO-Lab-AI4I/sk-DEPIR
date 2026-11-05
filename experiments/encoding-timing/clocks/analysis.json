@@ -1,0 +1,179 @@
+{
+  "sources_resolved": {
+    "encoding/appref/appref_test.go": "encoding/appref/appref_test.go",
+    "encoding/appref/encode.go": "encoding/appref/encode.go",
+    "encoding/appref/example_test.go": "encoding/appref/example_test.go",
+    "encoding/appref/plan.go": "encoding/appref/plan.go",
+    "encoding/appref/retrieve.go": "encoding/appref/retrieve.go",
+    "encoding/cryptoref/example_test.go": "encoding/cryptoref/example_test.go",
+    "encoding/cryptoref/reference.go": "encoding/cryptoref/reference.go",
+    "encoding/cryptoref/reference_test.go": "encoding/cryptoref/reference_test.go",
+    "encoding/liftrs-cpp/clocks.go": "encoding/liftrs-cpp/clocks.go",
+    "encoding/liftrs-cpp/plan.go": "encoding/liftrs-cpp/plan.go",
+    "encoding/liftrs-go/transform.go": "encoding/liftrs-go/transform.go",
+    "encoding/liftrs-shared/binary_field.go": "encoding/liftrs-shared/binary_field.go",
+    "encoding/liftrs-shared/binary_field_example_test.go": "encoding/liftrs-shared/binary_field_example_test.go",
+    "encoding/liftrs-shared/binary_field_test.go": "encoding/liftrs-shared/binary_field_test.go",
+    "encoding/liftrs-shared/calibration_resource_test.go": "encoding/liftrs-shared/calibration_resource_test.go",
+    "encoding/liftrs-shared/cpp_disabled.go": "encoding/liftrs-shared/cpp_disabled.go",
+    "encoding/liftrs-shared/cpp_disabled_test.go": "encoding/liftrs-shared/cpp_disabled_test.go",
+    "encoding/liftrs-shared/cpp_enabled.go": "encoding/liftrs-shared/cpp_enabled.go",
+    "encoding/liftrs-shared/cpp_enabled_test.go": "encoding/liftrs-shared/cpp_enabled_test.go",
+    "encoding/liftrs-shared/cpp_encoder.go": "encoding/liftrs-shared/cpp_encoder.go",
+    "encoding/liftrs-shared/cpp_example_test.go": "encoding/liftrs-shared/cpp_example_test.go",
+    "encoding/liftrs-shared/example_test.go": "encoding/liftrs-shared/example_test.go",
+    "encoding/liftrs-shared/field/binary.go": "encoding/liftrs-shared/field/binary.go",
+    "encoding/liftrs-shared/field.go": "encoding/liftrs-shared/field.go",
+    "encoding/liftrs-shared/language_bench_test.go": "encoding/liftrs-shared/language_bench_test.go",
+    "encoding/liftrs-shared/monomial.go": "encoding/liftrs-shared/monomial.go",
+    "encoding/liftrs-shared/monomial_test.go": "encoding/liftrs-shared/monomial_test.go",
+    "encoding/liftrs-shared/orbit.go": "encoding/liftrs-shared/orbit.go",
+    "encoding/liftrs-shared/orbit_arithmetic.go": "encoding/liftrs-shared/orbit_arithmetic.go",
+    "encoding/liftrs-shared/orbit_artifact.go": "encoding/liftrs-shared/orbit_artifact.go",
+    "encoding/liftrs-shared/orbit_cache_example_test.go": "encoding/liftrs-shared/orbit_cache_example_test.go",
+    "encoding/liftrs-shared/orbit_cache_test.go": "encoding/liftrs-shared/orbit_cache_test.go",
+    "encoding/liftrs-shared/orbit_constant.go": "encoding/liftrs-shared/orbit_constant.go",
+    "encoding/liftrs-shared/orbit_constant_artifact_test.go": "encoding/liftrs-shared/orbit_constant_artifact_test.go",
+    "encoding/liftrs-shared/orbit_constant_test.go": "encoding/liftrs-shared/orbit_constant_test.go",
+    "encoding/liftrs-shared/orbit_example_test.go": "encoding/liftrs-shared/orbit_example_test.go",
+    "encoding/liftrs-shared/orbit_fft.go": "encoding/liftrs-shared/orbit_fft.go",
+    "encoding/liftrs-shared/orbit_polynomial.go": "encoding/liftrs-shared/orbit_polynomial.go",
+    "encoding/liftrs-shared/orbit_product.go": "encoding/liftrs-shared/orbit_product.go",
+    "encoding/liftrs-shared/orbit_product_test.go": "encoding/liftrs-shared/orbit_product_test.go",
+    "encoding/liftrs-shared/orbit_test.go": "encoding/liftrs-shared/orbit_test.go",
+    "encoding/liftrs-shared/parallel_firstuse_probe_test.go": "encoding/liftrs-shared/parallel_firstuse_probe_test.go",
+    "encoding/liftrs-shared/reference.go": "encoding/liftrs-shared/reference.go",
+    "encoding/liftrs-shared/reference_test.go": "encoding/liftrs-shared/reference_test.go",
+    "encoding/liftrs-shared/s10_checkpoint_test.go": "encoding/liftrs-shared/s10_checkpoint_test.go",
+    "encoding/liftrs-shared/scaling_example_test.go": "encoding/liftrs-shared/scaling_example_test.go",
+    "encoding/liftrs-shared/scaling_experimental.go": "encoding/liftrs-shared/scaling_experimental.go",
+    "encoding/liftrs-shared/scaling_experimental_test.go": "encoding/liftrs-shared/scaling_experimental_test.go",
+    "encoding/liftrs-shared/scaling_matrix_cpp.go": "encoding/liftrs-shared/scaling_matrix_cpp.go",
+    "encoding/liftrs-shared/scaling_matrix_cpp_example_test.go": "encoding/liftrs-shared/scaling_matrix_cpp_example_test.go",
+    "encoding/liftrs-shared/scaling_matrix_cpp_test.go": "encoding/liftrs-shared/scaling_matrix_cpp_test.go",
+    "encoding/liftrs-shared/scaling_matrix_test.go": "encoding/liftrs-shared/scaling_matrix_test.go",
+    "encoding/liftrs-shared/scaling_online.go": "encoding/liftrs-shared/scaling_online.go",
+    "encoding/liftrs-shared/scaling_online_file_test.go": "encoding/liftrs-shared/scaling_online_file_test.go",
+    "encoding/liftrs-shared/scaling_online_validation_test.go": "encoding/liftrs-shared/scaling_online_validation_test.go",
+    "encoding/liftrs-shared/scaling_prepare_cpp.go": "encoding/liftrs-shared/scaling_prepare_cpp.go",
+    "encoding/liftrs-shared/scaling_prepare_cpp_test.go": "encoding/liftrs-shared/scaling_prepare_cpp_test.go",
+    "encoding/liftrs-shared/scaling_probe_disabled_test.go": "encoding/liftrs-shared/scaling_probe_disabled_test.go",
+    "encoding/liftrs-shared/scaling_probe_native_test.go": "encoding/liftrs-shared/scaling_probe_native_test.go",
+    "encoding/liftrs-shared/scaling_probe_test.go": "encoding/liftrs-shared/scaling_probe_test.go",
+    "encoding/liftrs-shared/scaling_s13_test.go": "encoding/liftrs-shared/scaling_s13_test.go",
+    "encoding/rme_legacy/process/process.go": "encoding/rme_legacy/process/process.go",
+    "encoding/liftrs-cpp/README.md": "experiments/source-snapshots/ee9839a0543bc13a0cc5b25765d7e5d1afcbbbbc7ca22f10aede09eda20fe25f.txt",
+    "encoding/liftrs-cpp/bench.cpp": "encoding/liftrs-cpp/bench.cpp",
+    "encoding/liftrs-cpp/c_api.cpp": "encoding/liftrs-cpp/c_api.cpp",
+    "encoding/liftrs-cpp/c_api.h": "encoding/liftrs-cpp/c_api.h",
+    "encoding/liftrs-cpp/c_api_test.cpp": "encoding/liftrs-cpp/c_api_test.cpp",
+    "encoding/liftrs-cpp/matrix_test.cpp": "encoding/liftrs-cpp/matrix_test.cpp",
+    "encoding/liftrs-cpp/online_test.cpp": "encoding/liftrs-cpp/online_test.cpp",
+    "encoding/liftrs-cpp/test.cpp": "encoding/liftrs-cpp/test.cpp",
+    "encoding/liftrs-cpp/transform.hpp": "encoding/liftrs-cpp/transform.hpp",
+    "experiments/encoding-timing/main.go": "experiments/source-snapshots/eb2d2024fd3a86283f0da60dd25c74a81f9217e10691288c83ef9408bf988568.txt",
+    "experiments/encoding-timing/run.py": "experiments/encoding-timing/run.py",
+    "go.mod": "go.mod",
+    "go.sum": "go.sum"
+  },
+  "clock_controls": [
+    {
+      "after": {
+        "steady_ns": 5699070090366708,
+        "wall_ns": 1793912880050714000,
+        "posix_monotonic_ns": 5699055153793000,
+        "process_cpu_ns": 254088000
+      },
+      "before": {
+        "steady_ns": 5699069840343625,
+        "wall_ns": 1793912879800689000,
+        "posix_monotonic_ns": 5699054903771000,
+        "process_cpu_ns": 5326000
+      },
+      "go_ns": 250001584,
+      "kind": "busy"
+    },
+    {
+      "after": {
+        "steady_ns": 5699070341485500,
+        "wall_ns": 1793912880301834000,
+        "posix_monotonic_ns": 5699055404910000,
+        "process_cpu_ns": 254243000
+      },
+      "before": {
+        "steady_ns": 5699070090384125,
+        "wall_ns": 1793912880050732000,
+        "posix_monotonic_ns": 5699055153815000,
+        "process_cpu_ns": 254108000
+      },
+      "go_ns": 251058750,
+      "kind": "sleep"
+    },
+    {
+      "after": {
+        "steady_ns": 5699070591506750,
+        "wall_ns": 1793912880551857000,
+        "posix_monotonic_ns": 5699055654935000,
+        "process_cpu_ns": 502278000
+      },
+      "before": {
+        "steady_ns": 5699070341494083,
+        "wall_ns": 1793912880301843000,
+        "posix_monotonic_ns": 5699055404926000,
+        "process_cpu_ns": 254271000
+      },
+      "go_ns": 250001417,
+      "kind": "busy"
+    },
+    {
+      "after": {
+        "steady_ns": 5699070842589375,
+        "wall_ns": 1793912880802941000,
+        "posix_monotonic_ns": 5699055906011000,
+        "process_cpu_ns": 502429000
+      },
+      "before": {
+        "steady_ns": 5699070591512958,
+        "wall_ns": 1793912880551863000,
+        "posix_monotonic_ns": 5699055654947000,
+        "process_cpu_ns": 502289000
+      },
+      "go_ns": 251056125,
+      "kind": "sleep"
+    },
+    {
+      "after": {
+        "steady_ns": 5699071092614375,
+        "wall_ns": 1793912881052968000,
+        "posix_monotonic_ns": 5699056156046000,
+        "process_cpu_ns": 752615000
+      },
+      "before": {
+        "steady_ns": 5699070842601541,
+        "wall_ns": 1793912880802953000,
+        "posix_monotonic_ns": 5699055906037000,
+        "process_cpu_ns": 502457000
+      },
+      "go_ns": 250000084,
+      "kind": "busy"
+    },
+    {
+      "after": {
+        "steady_ns": 5699071343708000,
+        "wall_ns": 1793912881304063000,
+        "posix_monotonic_ns": 5699056407125000,
+        "process_cpu_ns": 752746000
+      },
+      "before": {
+        "steady_ns": 5699071092621041,
+        "wall_ns": 1793912881052975000,
+        "posix_monotonic_ns": 5699056156058000,
+        "process_cpu_ns": 752627000
+      },
+      "go_ns": 251049917,
+      "kind": "sleep"
+    }
+  ],
+  "cases": [],
+  "native_sample_archive": {}
+}

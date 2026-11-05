@@ -1,0 +1,663 @@
+{
+  "status": "passed",
+  "revision": "6a193ade35d4b082061033c7dfc683ea8fb053a8",
+  "source_sha256": {
+    "encoding/appref/appref_test.go": "67d084fd8e4ae5faab2df20f81a72071ada94b45f30da288bd2ddfeeac795c84",
+    "encoding/appref/encode.go": "97cc1e21c3dd8391c64adb7c5703fbc5dcbe92af61c35e7edb0f43e5e3680c1e",
+    "encoding/appref/example_test.go": "33c8573e84257ee44e3e78b09536ac172876fc5d37ca628da2f573a10cc7247c",
+    "encoding/appref/plan.go": "33c987f3dcd2a6e1aeb64bc65a8c0043b3501997695717bc8f3cb28f16b89817",
+    "encoding/appref/retrieve.go": "b8074462fe85520b5b8fd8aa663360fc48214f8a885719b49c24cf39a91d8cd9",
+    "encoding/cryptoref/example_test.go": "2acb9daada4e96c3c6026c0970c64be96349ff3182e2c095fc99f9d6cce6d81d",
+    "encoding/cryptoref/reference.go": "f340ad4639a78e1fc269e51418ad7e363e0bdabdc55d750b0d83c25c07055f00",
+    "encoding/cryptoref/reference_test.go": "fa768908595403d5d97e24541f52b3f04e841b7b53986a8a6be715bdf11c38a7",
+    "encoding/liftrs-cpp/clocks.go": "0d248814e8c5fc7d09c75cbf4eb0b36e4d8d31949529e22608fd2428bb367d30",
+    "encoding/liftrs-cpp/plan.go": "333acbbf544d46d400ac5736017e7426b9f0397e998fd7b5059add5d93226c97",
+    "encoding/liftrs-go/transform.go": "2f5d0b317f7a1307161bcf49ec0121d00fffc230b0add11646156fed047315fb",
+    "encoding/liftrs-shared/binary_field.go": "5f867ee5e5b27511c906686bb7e7efc0c03e04736f46f76beaae4cf2636e4e32",
+    "encoding/liftrs-shared/binary_field_example_test.go": "90bf8034574b11976cb77cc8f2f2fca98c403f90569f9c8dfcf63fba7abdf714",
+    "encoding/liftrs-shared/binary_field_test.go": "79c0df2f825074175b5d7a9b37cb881ce7c6cf01abab590d44c258c78f078e38",
+    "encoding/liftrs-shared/calibration_resource_test.go": "8324513ef4082a9bc70f7bcda5a2a057ab1e0885c91d248f1833ddca660c1990",
+    "encoding/liftrs-shared/cpp_disabled.go": "955ba56be88677b9927474d354f39d382d803b85765403079af671a92c362cfd",
+    "encoding/liftrs-shared/cpp_disabled_test.go": "8eb93205c80b50864c570210e35f6d3affa476123595c46c30d7d54db5b1e865",
+    "encoding/liftrs-shared/cpp_enabled.go": "5f0fdd59e060015d9b60d5cfba6aea3411983f1df343e9216cadd11fde6a693f",
+    "encoding/liftrs-shared/cpp_enabled_test.go": "db5a8e886c7f78823e45b9dbcb455902b6e2030b934365b4b50cf2c81603538c",
+    "encoding/liftrs-shared/cpp_encoder.go": "13da56029d4cd51a228e8b16971bca3cf7da24f978d56e1b67d11f0c88e2a8d3",
+    "encoding/liftrs-shared/cpp_example_test.go": "d584da75c6b23aa1c58d6d8ee809f663bad56b29cf73de53093ad090ddbceae9",
+    "encoding/liftrs-shared/example_test.go": "a6cceac621a7330fdedce85b1531821385988750c7ed90da4912b1ac8e25283f",
+    "encoding/liftrs-shared/field/binary.go": "ab162f7e65cd5fd7883fef2a261537c1dcbf9a6d92c98d86c05f81b68bae12fa",
+    "encoding/liftrs-shared/field.go": "32c305ce566c508ef91a12ca00b63d234d23791e70ef64476ec3c80f35f6c4cd",
+    "encoding/liftrs-shared/language_bench_test.go": "d78132c6d95929d0134008fc4e86b0a2bea9da94e89e302f02e3c3cca39b1994",
+    "encoding/liftrs-shared/monomial.go": "ca2eafa04f607fb405ff69caedbf27ea217ac0daecf4c8249487b8393a72a1b2",
+    "encoding/liftrs-shared/monomial_test.go": "323193a1654c558b536f9f26362947111a86a384a578214f2101c2b7375884bc",
+    "encoding/liftrs-shared/orbit.go": "cfe31fd45302e258dc135dd2157bb860cd085300b8929c9e47012989c0858de7",
+    "encoding/liftrs-shared/orbit_arithmetic.go": "4473448403b01d66291cdcf071ad3bd308ad58f2415dc479ca52461b7e0e55ad",
+    "encoding/liftrs-shared/orbit_artifact.go": "29df02372de9111bd2be3290edfe9db92bb6ba3062279bcde8a14f45c404948d",
+    "encoding/liftrs-shared/orbit_cache_example_test.go": "7992176943b9bfb24e2377091311a5f171b022150b003a4c019b3a5a00481cba",
+    "encoding/liftrs-shared/orbit_cache_test.go": "3ed519e68cb0204d0f097fd8c951b794cf585ed6ba643b21f0964542cfd869ac",
+    "encoding/liftrs-shared/orbit_constant.go": "fe3c4ab745c3bb9544cdfa6c8e643e7b2017fdcabb3aea3ebdbd176afdbc4e66",
+    "encoding/liftrs-shared/orbit_constant_artifact_test.go": "99a6e390c1c571e16b846c778a1ae8c2cdbadcf408f58d3c41c21257dd853f09",
+    "encoding/liftrs-shared/orbit_constant_test.go": "59724bab255587ab5b6ff67780f6c78cdaa8c0393f820243970b64c534aedfb2",
+    "encoding/liftrs-shared/orbit_example_test.go": "ddbee52aee098773429554707e2ff9d22d95a1c48bf570aea5e398b967d3b1e0",
+    "encoding/liftrs-shared/orbit_fft.go": "98b0471e9fc95a192cc082a190b4d2ff0f5c9f6898a813446e8d428381fbada0",
+    "encoding/liftrs-shared/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+    "encoding/liftrs-shared/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+    "encoding/liftrs-shared/orbit_product_test.go": "fe976bbabd5aa4de91f5fa035c9590568bbe04590bef085c09c07fd2d8c38d1a",
+    "encoding/liftrs-shared/orbit_test.go": "e7a37a4106840f7bac56c92bd5d1b11c486bcea4dd2c4f3368eea5f80e3319bc",
+    "encoding/liftrs-shared/parallel_firstuse_probe_test.go": "d335b0a3fc961b44cec457ffa1bf068697d770e6822df5264665f767134ef78d",
+    "encoding/liftrs-shared/reference.go": "a36526e753b063fa5339230c62aa7b5045ca49dc19d3ecf917e5a83c5248a331",
+    "encoding/liftrs-shared/reference_test.go": "2ddcf7f6fdc1f906d2829a8d6a9a669f6756decffd8b94e64abe7baa3ef848c2",
+    "encoding/liftrs-shared/s10_checkpoint_test.go": "3f606fc200b82ac3a7bfab79b8919d9af22997d419ba848ef6e11ef95255ceeb",
+    "encoding/liftrs-shared/scaling_example_test.go": "f75a521ad436692946d51204b04f005c9b425aadd3a423c9dafb0e948372ffa1",
+    "encoding/liftrs-shared/scaling_experimental.go": "30ee98486ee051cf865dc23c1dd0dd5aa509ec9a7842e969ed2a5ff99c878bb5",
+    "encoding/liftrs-shared/scaling_experimental_test.go": "caf810c346b0637fe9f7b0e037e2a69e2813be568f139e98f5937ff15160b814",
+    "encoding/liftrs-shared/scaling_matrix_cpp.go": "b9a1caeccd9210924eced62ec0db779dfa66554331a8dc71c7fc5f34129105a3",
+    "encoding/liftrs-shared/scaling_matrix_cpp_example_test.go": "3a5e4994d9d5cd96531a6a03338a5198775494c2ae7738e78cf57104b212416a",
+    "encoding/liftrs-shared/scaling_matrix_cpp_test.go": "e454e873c4f0c3982d8028975a82d0f2781d80476028d8abb0c07e413357d4c1",
+    "encoding/liftrs-shared/scaling_matrix_test.go": "8eb66e784d0f341d01c79883200c46f1c298e00335725850d71cbf8e28df271b",
+    "encoding/liftrs-shared/scaling_online.go": "99a2a648f9b36d35e553e1f7731bdc44eae87915d8038b59b6c2c9651f28d839",
+    "encoding/liftrs-shared/scaling_online_file_test.go": "d59c7aef88d7935fe77e8f0146e32878ec4436d8d81d42b54ae2e8524a476a60",
+    "encoding/liftrs-shared/scaling_online_validation_test.go": "382d8a2aa82006f2fb901694731ab4cd2c8a441d35a78030b1ca83feaf421fae",
+    "encoding/liftrs-shared/scaling_prepare_cpp.go": "5532a0322897b8e3947bbd678af39b68131f09e0141552f1a7306a73aeb98a0a",
+    "encoding/liftrs-shared/scaling_prepare_cpp_test.go": "72f0a4ddfedba5eaf5e9c7db05cc3cf9f0d562920c348f0c11a6c2b2b7c3ed6b",
+    "encoding/liftrs-shared/scaling_probe_disabled_test.go": "f0b7664e2c02a43f0fafa2baf0c0c000dec7e881961f1628e910370ccf35313d",
+    "encoding/liftrs-shared/scaling_probe_native_test.go": "d021160a5bc86021fcb7ba7364e33718afc194242ac7f9835e8d4947c7394f3e",
+    "encoding/liftrs-shared/scaling_probe_test.go": "29ac7fcf6ab79b1bf2bda6e5a17af0dddc83ce805f0926aaf07dfdcd06ec4ec4",
+    "encoding/liftrs-shared/scaling_s13_test.go": "3df25c122eaa1d9a857ee0fa13aad3ab69a3372b3e3a7a2bd064b396a496f7a5",
+    "encoding/rme_legacy/process/process.go": "a2a301f7916be718fba108d3997185e99fe81d4ba8811a6cb5d3e207774828d4",
+    "encoding/liftrs-cpp/README.md": "ee9839a0543bc13a0cc5b25765d7e5d1afcbbbbc7ca22f10aede09eda20fe25f",
+    "encoding/liftrs-cpp/bench.cpp": "4138e83dc767f8fbfdecfceced31b600c2dd861413c3dd6c9d4e07367629cb23",
+    "encoding/liftrs-cpp/c_api.cpp": "bbf98964bf850495f92d79d81114981ff37ebdaac194c6598648661bc908c4fa",
+    "encoding/liftrs-cpp/c_api.h": "97c44d6c1c503cb4918030ad743a9b6f259d875c47a634a710149a193f3cae15",
+    "encoding/liftrs-cpp/c_api_test.cpp": "4e7b93a8250cdcbb482bfe7b3e22deeaa8a0e1a934a0a7db1a79b345c388349d",
+    "encoding/liftrs-cpp/matrix_test.cpp": "50684016acf460991971632e0704a29a9d5970c3af557d3b9c66738127fe25b1",
+    "encoding/liftrs-cpp/online_test.cpp": "eeb52ef8edf4238fe5c87588fbeb09a0863ccddb272fe4ed556466e3569ee01f",
+    "encoding/liftrs-cpp/test.cpp": "3bce3877aa9bb8d08e4e8c003f8a78f307860d4e7895b02e12eaf92e5d7a422c",
+    "encoding/liftrs-cpp/transform.hpp": "2d5ce1e73552bf02f4abfc6a57578692ae0f93b8c881e733859027b3e029f5f0",
+    "experiments/encoding-timing/main.go": "622e1dbf5263d1889e36f9ff6bc80f7be0d46f92bfd15970acdf6fced9d1a6ad",
+    "experiments/encoding-timing/run.py": "5ce49159bbca01eba9121f7939d62c9022e7435d63ef6374f5f4bf7bc8cbcdfe",
+    "go.mod": "a04cd1af1e808d9bdb06fff98704997e85948f94c21762b7fd7f694eda85b031",
+    "go.sum": "6b5b9bf04b57c04dc22dc13596e0c5862856f95c24ca23931bb0545736f6ef76"
+  },
+  "backend": "native,hybrid,hybrid,native,native,hybrid",
+  "smoke": false,
+  "clocks_only": false,
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "cpu": "Apple M5 Pro",
+    "logical_cpus": 18,
+    "ram_gib": 48,
+    "go": "go version go1.27.3 darwin/arm64",
+    "compiler": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin"
+  },
+  "policy": {
+    "timeout_s": 7200,
+    "rss_guard_bytes": 12884901888,
+    "go_soft_memory_bytes": 12884901888,
+    "workers": 16,
+    "prevent_idle_sleep": true,
+    "cpu_profiles": "every phase",
+    "native_sample": "5 seconds per encoding after 10 seconds",
+    "copies_across_ffi": 0,
+    "preprocessing": "read-only retained constants; smoke generates and retains s8 cache"
+  },
+  "samples": [
+    {
+      "phase": "encode-w16-r0-c0-native",
+      "file": "encode-w16-r0-c0-native-native.txt",
+      "duration_s": 5
+    },
+    {
+      "phase": "encode-w16-r0-c1-hybrid",
+      "file": "encode-w16-r0-c1-hybrid-native.txt",
+      "duration_s": 5
+    },
+    {
+      "phase": "encode-w16-r0-c2-hybrid",
+      "file": "encode-w16-r0-c2-hybrid-native.txt",
+      "duration_s": 5
+    },
+    {
+      "phase": "encode-w16-r0-c3-native",
+      "file": "encode-w16-r0-c3-native-native.txt",
+      "duration_s": 5
+    },
+    {
+      "phase": "encode-w16-r0-c4-native",
+      "file": "encode-w16-r0-c4-native-native.txt",
+      "duration_s": 5
+    },
+    {
+      "phase": "encode-w16-r0-c5-hybrid",
+      "file": "encode-w16-r0-c5-hybrid-native.txt",
+      "duration_s": 5
+    }
+  ],
+  "binary": {
+    "path": ".cache/liftrs/encoding-timing/a51fcfe35392afe8/probe",
+    "sha256": "6c07cc40a2174faa2e7d6f49d1693dca3792ac4b6d5fa4ecec0c83025bdd9cd1"
+  },
+  "input_cache": {
+    "path": ".cache/liftrs/parallel-s14/s14-m2-t5/online.bin",
+    "bytes": 1277647153,
+    "sha256": "88d5ff39c5df8bdd4aa0f85fc19833ae673df95365b4fd862bb83936e5a0adf8"
+  },
+  "command": [
+    "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/encoding-timing/a51fcfe35392afe8/probe",
+    "-out",
+    "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/experiments/encoding-timing/s14",
+    "-cache",
+    "/Users/tmour/Code/sk-DEPIR-AIF/sk-DEPIR/.cache/liftrs/parallel-s14/s14-m2-t5/online.bin",
+    "-s",
+    "14",
+    "-workers",
+    "16",
+    "-repeats",
+    "1",
+    "-backend",
+    "native,hybrid,hybrid,native,native,hybrid"
+  ],
+  "returncode": 0,
+  "wall_s": 665.750227917,
+  "process_peak_rss_bytes": 4925784064,
+  "phases": [
+    {
+      "allocated_bytes": 1280128240,
+      "elapsed_ns": 995455250,
+      "go_sys_bytes": 1294436936,
+      "heap_after_bytes": 1280449808,
+      "heap_before_bytes": 361536,
+      "k": 50976325,
+      "max_rss_native_units": 1287847936,
+      "n": 268435456,
+      "native_after": {
+        "steady_ns": 5699156676686666,
+        "wall_ns": 1793912966611065000,
+        "posix_monotonic_ns": 5699141714144000,
+        "process_cpu_ns": 981997000
+      },
+      "native_before": {
+        "steady_ns": 5699155681210125,
+        "wall_ns": 1793912965615602000,
+        "posix_monotonic_ns": 5699140718681000,
+        "process_cpu_ns": 6794000
+      },
+      "phase": "load",
+      "plan_array_bytes": 1277647128,
+      "s": 14,
+      "small_load_includes_generation_if_missing": false,
+      "system_cpu_ns": 211488000,
+      "user_cpu_ns": 763715000
+    },
+    {
+      "allocated_bytes": 3480928,
+      "elapsed_ns": 3989375,
+      "go_sys_bytes": 1500514952,
+      "heap_after_bytes": 1485622120,
+      "heap_before_bytes": 1482141192,
+      "max_rss_native_units": 1494663168,
+      "native_after": {
+        "steady_ns": 5699156994724875,
+        "wall_ns": 1793912966929100000,
+        "posix_monotonic_ns": 5699142032182000,
+        "process_cpu_ns": 1186294000
+      },
+      "native_before": {
+        "steady_ns": 5699156990732083,
+        "wall_ns": 1793912966925107000,
+        "posix_monotonic_ns": 5699142028187000,
+        "process_cpu_ns": 1182035000
+      },
+      "phase": "setup-w16",
+      "system_cpu_ns": 357000,
+      "user_cpu_ns": 3899000,
+      "workers": 16
+    },
+    {
+      "allocated_bytes": 2353423592,
+      "elapsed_ns": 209075584,
+      "go_sys_bytes": 3856288968,
+      "heap_after_bytes": 3835555608,
+      "heap_before_bytes": 1482143464,
+      "input_bytes": 203905300,
+      "max_rss_native_units": 2571780096,
+      "native_after": {
+        "steady_ns": 5699157403067416,
+        "wall_ns": 1793912967337437000,
+        "posix_monotonic_ns": 5699142440516000,
+        "process_cpu_ns": 1285225000
+      },
+      "native_before": {
+        "steady_ns": 5699157193983375,
+        "wall_ns": 1793912967128356000,
+        "posix_monotonic_ns": 5699142231436000,
+        "process_cpu_ns": 1187821000
+      },
+      "phase": "workspace-w16",
+      "system_cpu_ns": 74983000,
+      "user_cpu_ns": 22455000,
+      "workspace_bytes": 2351388948
+    },
+    {
+      "allocated_bytes": 1076063928,
+      "backend": "native",
+      "elapsed_ns": 168947228916,
+      "go_sys_bytes": 4931161544,
+      "heap_after_bytes": 4909584456,
+      "heap_before_bytes": 3833542544,
+      "max_rss_native_units": 4925276160,
+      "native_after": {
+        "steady_ns": 5699326445508166,
+        "wall_ns": 1793913136379503000,
+        "posix_monotonic_ns": 5699311482580000,
+        "process_cpu_ns": 1810826383000
+      },
+      "native_before": {
+        "steady_ns": 5699157498265750,
+        "wall_ns": 1793912967432635000,
+        "posix_monotonic_ns": 5699142535713000,
+        "process_cpu_ns": 1288099000
+      },
+      "native_stages": {
+        "calls": 5,
+        "boundary_calls": 1,
+        "buffer_ns": 123707499,
+        "pointwise_ns": 2546551001,
+        "assembly_ns": 659720708,
+        "taylor_ns": 37511443667,
+        "columns_transposes_ns": 56874154375,
+        "rows_ns": 71175504624
+      },
+      "output_bytes": 1073741824,
+      "phase": "encode-w16-r0-c0-native",
+      "repeat": 0,
+      "system_cpu_ns": 30419587000,
+      "user_cpu_ns": 1779118700000,
+      "workers": 16
+    },
+    {
+      "allocated_bytes": 2038976,
+      "canonical_sha256": "b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c",
+      "elapsed_ns": 596732917,
+      "full_hash_match": true,
+      "go_sys_bytes": 4931161544,
+      "heap_after_bytes": 4909329712,
+      "heap_before_bytes": 4907290736,
+      "max_rss_native_units": 4925276160,
+      "native_after": {
+        "steady_ns": 5699327191915208,
+        "wall_ns": 1793913137125910000,
+        "posix_monotonic_ns": 5699312228989000,
+        "process_cpu_ns": 1811425000000
+      },
+      "native_before": {
+        "steady_ns": 5699326595174375,
+        "wall_ns": 1793913136529169000,
+        "posix_monotonic_ns": 5699311632249000,
+        "process_cpu_ns": 1810829397000
+      },
+      "phase": "verify-w16-r0-c0-native",
+      "system_cpu_ns": 6816000,
+      "user_cpu_ns": 588787000
+    },
+    {
+      "allocated_bytes": 1076150720,
+      "backend": "hybrid",
+      "elapsed_ns": 132008779333,
+      "go_sys_bytes": 4931161544,
+      "heap_after_bytes": 4909681496,
+      "heap_before_bytes": 3833557224,
+      "max_rss_native_units": 4925784064,
+      "native_after": {
+        "steady_ns": 5699459312596333,
+        "wall_ns": 1793913269246429000,
+        "posix_monotonic_ns": 5699444349502000,
+        "process_cpu_ns": 3125477103000
+      },
+      "native_before": {
+        "steady_ns": 5699327303802583,
+        "wall_ns": 1793913137237797000,
+        "posix_monotonic_ns": 5699312340877000,
+        "process_cpu_ns": 1811427782000
+      },
+      "native_stages": {
+        "calls": 5,
+        "boundary_calls": 5,
+        "buffer_ns": 0,
+        "pointwise_ns": 0,
+        "assembly_ns": 0,
+        "taylor_ns": 33270494250,
+        "columns_transposes_ns": 36526040666,
+        "rows_ns": 48085039833
+      },
+      "output_bytes": 1073741824,
+      "phase": "encode-w16-r0-c1-hybrid",
+      "repeat": 0,
+      "system_cpu_ns": 9568055000,
+      "user_cpu_ns": 1304481272000,
+      "workers": 16
+    },
+    {
+      "allocated_bytes": 2056096,
+      "canonical_sha256": "b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c",
+      "elapsed_ns": 409644208,
+      "full_hash_match": true,
+      "go_sys_bytes": 4931161544,
+      "heap_after_bytes": 4909356776,
+      "heap_before_bytes": 4907300680,
+      "max_rss_native_units": 4925784064,
+      "native_after": {
+        "steady_ns": 5699459870022291,
+        "wall_ns": 1793913269803854000,
+        "posix_monotonic_ns": 5699444906934000,
+        "process_cpu_ns": 3125891071000
+      },
+      "native_before": {
+        "steady_ns": 5699459460372291,
+        "wall_ns": 1793913269394204000,
+        "posix_monotonic_ns": 5699444497283000,
+        "process_cpu_ns": 3125480689000
+      },
+      "phase": "verify-w16-r0-c1-hybrid",
+      "system_cpu_ns": 2905000,
+      "user_cpu_ns": 407475000
+    },
+    {
+      "allocated_bytes": 1076134960,
+      "backend": "hybrid",
+      "elapsed_ns": 93719974583,
+      "go_sys_bytes": 4931161544,
+      "heap_after_bytes": 4909696280,
+      "heap_before_bytes": 3833561320,
+      "max_rss_native_units": 4925784064,
+      "native_after": {
+        "steady_ns": 5699553788820458,
+        "wall_ns": 1793913363722537000,
+        "posix_monotonic_ns": 5699538825613000,
+        "process_cpu_ns": 4208093910000
+      },
+      "native_before": {
+        "steady_ns": 5699460068832458,
+        "wall_ns": 1793913270002664000,
+        "posix_monotonic_ns": 5699445105742000,
+        "process_cpu_ns": 3125893975000
+      },
+      "native_stages": {
+        "calls": 5,
+        "boundary_calls": 5,
+        "buffer_ns": 0,
+        "pointwise_ns": 0,
+        "assembly_ns": 0,
+        "taylor_ns": 21585357876,
+        "columns_transposes_ns": 26309092667,
+        "rows_ns": 34321627709
+      },
+      "output_bytes": 1073741824,
+      "phase": "encode-w16-r0-c2-hybrid",
+      "repeat": 0,
+      "system_cpu_ns": 4128462000,
+      "user_cpu_ns": 1078071475000,
+      "workers": 16
+    },
+    {
+      "allocated_bytes": 2051072,
+      "canonical_sha256": "b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c",
+      "elapsed_ns": 402763416,
+      "full_hash_match": true,
+      "go_sys_bytes": 4931161544,
+      "heap_after_bytes": 4909358280,
+      "heap_before_bytes": 4907307208,
+      "max_rss_native_units": 4925784064,
+      "native_after": {
+        "steady_ns": 5699554290014000,
+        "wall_ns": 1793913364223730000,
+        "posix_monotonic_ns": 5699539326810000,
+        "process_cpu_ns": 4208500558000
+      },
+      "native_before": {
+        "steady_ns": 5699553887244208,
+        "wall_ns": 1793913363820960000,
+        "posix_monotonic_ns": 5699538924042000,
+        "process_cpu_ns": 4208097062000
+      },
+      "phase": "verify-w16-r0-c2-hybrid",
+      "system_cpu_ns": 2208000,
+      "user_cpu_ns": 401288000
+    },
+    {
+      "allocated_bytes": 1076056216,
+      "backend": "native",
+      "elapsed_ns": 84227862958,
+      "go_sys_bytes": 4931161544,
+      "heap_after_bytes": 4909623072,
+      "heap_before_bytes": 3833566856,
+      "max_rss_native_units": 4925784064,
+      "native_after": {
+        "steady_ns": 5699638620053666,
+        "wall_ns": 1793913448553666000,
+        "posix_monotonic_ns": 5699623656747000,
+        "process_cpu_ns": 5306433678000
+      },
+      "native_before": {
+        "steady_ns": 5699554392184375,
+        "wall_ns": 1793913364325900000,
+        "posix_monotonic_ns": 5699539428979000,
+        "process_cpu_ns": 4208502558000
+      },
+      "native_stages": {
+        "calls": 5,
+        "boundary_calls": 1,
+        "buffer_ns": 25366250,
+        "pointwise_ns": 1451566209,
+        "assembly_ns": 256119791,
+        "taylor_ns": 21358692001,
+        "columns_transposes_ns": 26623892165,
+        "rows_ns": 34487525500
+      },
+      "output_bytes": 1073741824,
+      "phase": "encode-w16-r0-c3-native",
+      "repeat": 0,
+      "system_cpu_ns": 4855053000,
+      "user_cpu_ns": 1093076061000,
+      "workers": 16
+    },
+    {
+      "allocated_bytes": 2045824,
+      "canonical_sha256": "b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c",
+      "elapsed_ns": 418464958,
+      "full_hash_match": true,
+      "go_sys_bytes": 4931161544,
+      "heap_after_bytes": 4909356200,
+      "heap_before_bytes": 4907310376,
+      "max_rss_native_units": 4925784064,
+      "native_after": {
+        "steady_ns": 5699639171046416,
+        "wall_ns": 1793913449104658000,
+        "posix_monotonic_ns": 5699624207738000,
+        "process_cpu_ns": 5306853516000
+      },
+      "native_before": {
+        "steady_ns": 5699638752574333,
+        "wall_ns": 1793913448686186000,
+        "posix_monotonic_ns": 5699623789266000,
+        "process_cpu_ns": 5306436777000
+      },
+      "phase": "verify-w16-r0-c3-native",
+      "system_cpu_ns": 4684000,
+      "user_cpu_ns": 412056000
+    },
+    {
+      "allocated_bytes": 1076063008,
+      "backend": "native",
+      "elapsed_ns": 84715057791,
+      "go_sys_bytes": 4931161544,
+      "heap_after_bytes": 4909635784,
+      "heap_before_bytes": 3833572776,
+      "max_rss_native_units": 4925784064,
+      "native_after": {
+        "steady_ns": 5699724075201833,
+        "wall_ns": 1793913534008709000,
+        "posix_monotonic_ns": 5699709111789000,
+        "process_cpu_ns": 6411263964000
+      },
+      "native_before": {
+        "steady_ns": 5699639360136791,
+        "wall_ns": 1793913449293748000,
+        "posix_monotonic_ns": 5699624396825000,
+        "process_cpu_ns": 5306856036000
+      },
+      "native_stages": {
+        "calls": 5,
+        "boundary_calls": 1,
+        "buffer_ns": 25579292,
+        "pointwise_ns": 1386034375,
+        "assembly_ns": 250345834,
+        "taylor_ns": 21764176918,
+        "columns_transposes_ns": 26732849959,
+        "rows_ns": 34528358667
+      },
+      "output_bytes": 1073741824,
+      "phase": "encode-w16-r0-c4-native",
+      "repeat": 0,
+      "system_cpu_ns": 4851760000,
+      "user_cpu_ns": 1099556163000,
+      "workers": 16
+    },
+    {
+      "allocated_bytes": 2060464,
+      "canonical_sha256": "b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c",
+      "elapsed_ns": 424108708,
+      "full_hash_match": true,
+      "go_sys_bytes": 4931161544,
+      "heap_after_bytes": 4909376584,
+      "heap_before_bytes": 4907316120,
+      "max_rss_native_units": 4925784064,
+      "native_after": {
+        "steady_ns": 5699724746655958,
+        "wall_ns": 1793913534680162000,
+        "posix_monotonic_ns": 5699709783241000,
+        "process_cpu_ns": 6411692524000
+      },
+      "native_before": {
+        "steady_ns": 5699724322538166,
+        "wall_ns": 1793913534256045000,
+        "posix_monotonic_ns": 5699709359119000,
+        "process_cpu_ns": 6411268253000
+      },
+      "phase": "verify-w16-r0-c4-native",
+      "system_cpu_ns": 3827000,
+      "user_cpu_ns": 420434000
+    },
+    {
+      "allocated_bytes": 1076147792,
+      "backend": "hybrid",
+      "elapsed_ns": 95374999083,
+      "go_sys_bytes": 4931161544,
+      "heap_after_bytes": 4909723016,
+      "heap_before_bytes": 3833575224,
+      "max_rss_native_units": 4925784064,
+      "native_after": {
+        "steady_ns": 5699820305568083,
+        "wall_ns": 1793913630238957000,
+        "posix_monotonic_ns": 5699805342035000,
+        "process_cpu_ns": 7506621431000
+      },
+      "native_before": {
+        "steady_ns": 5699724930559625,
+        "wall_ns": 1793913534864066000,
+        "posix_monotonic_ns": 5699709967138000,
+        "process_cpu_ns": 6411695895000
+      },
+      "native_stages": {
+        "calls": 5,
+        "boundary_calls": 5,
+        "buffer_ns": 0,
+        "pointwise_ns": 0,
+        "assembly_ns": 0,
+        "taylor_ns": 21492722709,
+        "columns_transposes_ns": 27200583459,
+        "rows_ns": 34988041459
+      },
+      "output_bytes": 1073741824,
+      "phase": "encode-w16-r0-c5-hybrid",
+      "repeat": 0,
+      "system_cpu_ns": 5315600000,
+      "user_cpu_ns": 1089609929000,
+      "workers": 16
+    },
+    {
+      "allocated_bytes": 2060048,
+      "canonical_sha256": "b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c",
+      "elapsed_ns": 407829750,
+      "full_hash_match": true,
+      "go_sys_bytes": 4931423688,
+      "heap_after_bytes": 4909382696,
+      "heap_before_bytes": 4907322648,
+      "max_rss_native_units": 4925784064,
+      "native_after": {
+        "steady_ns": 5699820854928958,
+        "wall_ns": 1793913630788317000,
+        "posix_monotonic_ns": 5699805891398000,
+        "process_cpu_ns": 7507033326000
+      },
+      "native_before": {
+        "steady_ns": 5699820447093333,
+        "wall_ns": 1793913630380482000,
+        "posix_monotonic_ns": 5699805483563000,
+        "process_cpu_ns": 7506624804000
+      },
+      "phase": "verify-w16-r0-c5-hybrid",
+      "system_cpu_ns": 2435000,
+      "user_cpu_ns": 406083000
+    }
+  ],
+  "evidence_sha256": {
+    "encode-w16-r0-c4-native-native.txt": "9619cb08f34bfa48046dd67a56f15de13e1bd58625cfb83899ea4ac6e31d4b26",
+    "setup-w16.pprof": "227773b20a2cb01e76f72fc9ccbc8c2f1d39eeb42d25fa832f9b2f871f3891c3",
+    "encode-w16-r0-c4-native-flat.txt": "9d71fa45e4eb7c1b9bf520bd5abfe430250be1d8fe9040818b83f5577d8029da",
+    "verify-w16-r0-c4-native.pprof": "69d136087e025a18a1a6c70f4b44b6357f4a9a7972adcc7edf5ab8e328f79159",
+    "verify-w16-r0-c3-native.pprof": "edf31ba736dc957844c8dc4b3894779b979c425b5d0831a6e0a05da2566f7a2f",
+    "encode-w16-r0-c0-native.pprof": "954cb02445cd2bc787024208c73d9e5ad4c8f8f7898f53238e9c82708442f8f9",
+    "verify-w16-r0-c3-native-flat.txt": "01abf4a71566b5ff0917dbfbb99a3e2bde78933d11b58dbab04ace6617f63c32",
+    "verify-w16-r0-c4-native-flat.txt": "a7f9303474bd0857c30b9fc820255e87a2fa8d095d54ae9badee0352b0e4901f",
+    "state.json": "d071862a6777665f46d086125a60633d9a675b655b24adedceec39b5c634851e",
+    "setup-w16-flat.txt": "2ac7fec044c243d7ead118cece83bc280698b83c628474a560e48f05ef7ce4fa",
+    "encode-w16-r0-c0-native-native.txt": "1296781e2bd6c417e16afc114122c365ca0a810d984a0ccb0637a53ce57a145c",
+    "encode-w16-r0-c3-native-sample.log": "3782b5e5fb61ab486f805d1bc0b23d1eca6227764da36a008513846350ba4bda",
+    "encode-w16-r0-c3-native-flat.txt": "0743d17df98fc8ec65881390039a3ec8a7b05799690d9cf18fd4f1c6cd97e5a4",
+    "workspace-w16-flat.txt": "9ce1e1cf348921fd9501428c1c2224c5cf557da94ce4ea606966a0283f71d272",
+    "verify-w16-r0-c1-hybrid-flat.txt": "337cede764f23f443e9d2461bde259d79092cb91db1d2c9ef2d5aef378af1018",
+    "encode-w16-r0-c3-native-native.txt": "8b5a1cca66091bc0b9f6f187fbecab598770d11d762b28846b0e3f7159cc514d",
+    "encode-w16-r0-c0-native-sample.log": "a17e8b2b084a163e6619635350ac380a94f4ba2679602d622d00d60f1d91b595",
+    "encode-w16-r0-c4-native-sample.log": "547a3f379629a0fbfe2f8db65ed6994c0646434f45e700282d2100d91a30dffd",
+    "power-observations.jsonl": "fe1f14ab7a7855b4335f443a346788498f04bec7f96f29e1508ca95516e9b84b",
+    "verify-w16-r0-c5-hybrid.pprof": "0b8ef5647e9cbb57c6168a00149702ea255c545b75c5388d6b6ef93ad213e14f",
+    "verify-w16-r0-c2-hybrid.pprof": "14b429e2b04f4d6870b19bcfb319d0b965c6697ec265e9da4c6ba7987facbfe2",
+    "encode-w16-r0-c1-hybrid-flat.txt": "04a3719042482eb69a237ffa84648e16488e7551d67e37d6df421f40b2b90d97",
+    "load-flat.txt": "a07e0bb78010e297cefb81aec3fe64855cd07670daccd9d4343571a8fdedfc91",
+    "encode-w16-r0-c1-hybrid.pprof": "62e401308f922c6163bedca48cb45c7e262193c40dbeb45a360a638074606b4e",
+    "load.pprof": "2c7b9f2cb4ae9ba880d61d78bee97838ddd30ea882dc591e4e2591c5ab015f71",
+    "encode-w16-r0-c5-hybrid-native.txt": "6d574ddadde727c57b0dca9e43b0b2ccbed448deeb1172d4dee5b9830f9d965e",
+    "workspace-w16.pprof": "45d692388e2c9392a7d98ec9da0eee867b766945c1b3eba32d448d864603ac90",
+    "encode-w16-r0-c0-native-flat.txt": "3e5cd56ed90810354a4975ac49786cfa4d103b8b6d1e41095151f55b9550af62",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "events.log": "f628ee854121dc7d081babb35162fef3581ef48c9562b44fe7ae7c73db0df3fd",
+    "verify-w16-r0-c1-hybrid.pprof": "2cc77ea714b80ecd0124a4df8a6a668c2483eb1873db199b19d8488d5e715981",
+    "encode-w16-r0-c2-hybrid-sample.log": "b276d5dfbd5d4415912f2b638a4f01c963c57266519f24dac88e3a4db20635a9",
+    "verify-w16-r0-c0-native-flat.txt": "730fa660549b3b2b00ce340d96f0d1514d7ec4df1dd03513112252768d96fe27",
+    "encode-w16-r0-c1-hybrid-native.txt": "612933689a67efdf3f95a5e61e1ed5f41cfc89774bd1bc3d25e1d46339aa8fd7",
+    "encode-w16-r0-c2-hybrid.pprof": "92db3895d993cc6963e5e5b8e378a981cc573e6530e27d7a1db511e7f86f8ba3",
+    "encode-w16-r0-c5-hybrid.pprof": "4d01740ce315c63fe33e155fcf386cdb77ae1adfdf370347e9123b29656b77e8",
+    "verify-w16-r0-c0-native.pprof": "e0449493db06a073df4334e9146d3a9672a481fc45e24a48ad52867b95614c60",
+    "encode-w16-r0-c2-hybrid-flat.txt": "06f9c00d80000c2d8936be9380be7bdd2ec4b0538b4057fe3daf593ebc82ab0e",
+    "encode-w16-r0-c1-hybrid-sample.log": "04b3c2cb9a04173d43d6cacef96f34fed58f04e3d56af34f6aeb8d18f02fa10e",
+    "encode-w16-r0-c2-hybrid-native.txt": "5d8c1f3936aa823b6b3015d185b59cdb8f14b81c5dc288de890632a5112c83d8",
+    "verify-w16-r0-c5-hybrid-flat.txt": "4595ecd15dbdf2c48ab0f4d27f0e1c2b29b7d010326e1b2703608b1d9708b848",
+    "encode-w16-r0-c3-native.pprof": "85009034856e11a5679c6c284f488830e4ef0ac91034a1a72680a2514d99bfae",
+    "encode-w16-r0-c4-native.pprof": "3c857a2407153be00fea56755a8a7439874e0457233d4be261ef47c67efcc6f5",
+    "encode-w16-r0-c5-hybrid-sample.log": "f150ad13558c5fa95c5af144662111f26bdbcdf54d2814e99e037668f847cad6",
+    "verify-w16-r0-c2-hybrid-flat.txt": "62f2431fe851e0f568116afffd4323b626761c8c4ec627962e7992a5183e4fa2",
+    "phases.json": "c657b4c685d77d0f222efa441db5a457d823295e44fd699e9382f1eebc629a8c",
+    "encode-w16-r0-c5-hybrid-flat.txt": "33dc09d445beb8ef434e2c0e3001d239b4525e3e9497dc8f3dad508b33cc1c22",
+    "build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

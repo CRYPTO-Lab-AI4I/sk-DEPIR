@@ -33,6 +33,9 @@ int liftrs_online_encode(const liftrs_plan*, const liftrs_plan*, const liftrs_pl
     const liftrs_plan*, unsigned, unsigned, unsigned, uint32_t,
     const uint32_t*, const uint32_t*, const uint32_t*, size_t, size_t, size_t,
     uint32_t*, size_t, uint32_t*, uint32_t*, uint32_t*, uint64_t*, char*, size_t);
+/* Diagnostic nanoseconds: stage steady_clock, system wall, POSIX monotonic,
+ * process CPU (all threads). No encoding state or buffers are changed. */
+int liftrs_read_clocks(uint64_t* values, char* error, size_t capacity);
 size_t liftrs_plan_owned_bytes(const liftrs_plan* plan);
 void liftrs_plan_destroy(liftrs_plan* plan);
 #ifdef __cplusplus

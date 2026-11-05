@@ -1,0 +1,15 @@
+load 541.142625ms
+setup-w16 388.5µs
+workspace-w16 6.625µs
+encode-w16-r0-c0-native 11.402708ms
+verify-w16-r0-c0-native 154.5µs
+encode-w16-r0-c1-hybrid 11.411584ms
+verify-w16-r0-c1-hybrid 170.125µs
+encode-w16-r0-c2-hybrid 11.637542ms
+verify-w16-r0-c2-hybrid 153.583µs
+encode-w16-r0-c3-native 12.240125ms
+verify-w16-r0-c3-native 157.084µs
+encode-w16-r0-c4-native 11.331833ms
+verify-w16-r0-c4-native 168.542µs
+encode-w16-r0-c5-hybrid 11.633125ms
+verify-w16-r0-c5-hybrid 154.625µs

@@ -1,0 +1,15 @@
+load 995.45525ms
+setup-w16 3.989375ms
+workspace-w16 209.075584ms
+encode-w16-r0-c0-native 2m48.947228916s
+verify-w16-r0-c0-native 596.732917ms
+encode-w16-r0-c1-hybrid 2m12.008779333s
+verify-w16-r0-c1-hybrid 409.644208ms
+encode-w16-r0-c2-hybrid 1m33.719974583s
+verify-w16-r0-c2-hybrid 402.763416ms
+encode-w16-r0-c3-native 1m24.227862958s
+verify-w16-r0-c3-native 418.464958ms
+encode-w16-r0-c4-native 1m24.715057791s
+verify-w16-r0-c4-native 424.108708ms
+encode-w16-r0-c5-hybrid 1m35.374999083s
+verify-w16-r0-c5-hybrid 407.82975ms
