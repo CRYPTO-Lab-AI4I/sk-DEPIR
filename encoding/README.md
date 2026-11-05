@@ -1,14 +1,15 @@
 # Encoding layout
 
-Lift-RS code is separated by responsibility. **Shared code is written in Go and
-is used by both complete execution paths.** C++ currently supplies transform
-kernels, not an independent complete encoder.
+Lift-RS code is separated by responsibility. Go provides the shared API,
+discovery, reusable preprocessing and reference encoding. C++ provides transform
+kernels and complete mathematical online execution for the opt-in matrix path;
+Go remains its API/loading layer.
 
 | Directory | Contents | Used by |
 |---|---|---|
 | [liftrs-shared](liftrs-shared/README.md) | Public API, code discovery, reusable preprocessing, field arithmetic, polynomial strategy, codeword assembly, dense correctness oracle and native adapter | Both paths |
 | [liftrs-go](liftrs-go/README.md) | Pure-Go additive-transform recursion and fixed-map execution | Go transforms |
-| [liftrs-cpp](liftrs-cpp/README.md) | C++ transforms, C ABI, optional cgo binding and native kernel benchmarks | C++ transforms |
+| [liftrs-cpp](liftrs-cpp/README.md) | C++ transforms, complete cyclic online execution, C ABI/cgo binding and native fixtures | Native execution |
 | [cryptoref](cryptoref/README.md) | Small permutation/masking correctness reference | Reference pipeline |
 | [appref](appref/README.md) | Small application-layout correctness reference | Reference pipeline |
 | [rme_legacy](rme_legacy/README.md) | Historical RM sources, Julia dependencies, subprocess driver, benchmarks and plot | Old file-based test API only |
@@ -58,3 +59,9 @@ Go discovery/preparation orchestration with native transforms. Its retained
 minimal artifact loads through `LoadScalingOnline`, then encodes through
 `WithCPPMatrix`. Default `DiscoverOrbit` and JSON basis loaders remain bounded
 to s≤13. See that report for explicit first-use and cached-only commands.
+
+The opt-in [matrix encoder](liftrs-cpp/README.md#complete-native-online-encoding)
+executes complete database-dependent mathematical encoding in C++ with Go
+preprocessing/loading. Its [example](liftrs-shared/scaling_matrix_cpp_example_test.go)
+and [experiment](../experiments/native-online/report.md) distinguish it from the
+original transform-only adapter and the Go reference path.

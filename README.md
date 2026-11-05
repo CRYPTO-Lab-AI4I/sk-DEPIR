@@ -42,6 +42,15 @@ s=15, cryptographic/application integration and larger-size feasibility remain
 separate gates. The [resource model](experiments/encoding-resources/report.md)
 retains historical analytical payloads, not measured larger-size RAM bounds.
 
+The opt-in matrix encoder now also has a
+[complete C++ online path](encoding/liftrs-cpp/README.md#complete-native-online-encoding),
+including point products and canonical assembly in one native call. Discovery,
+reusable code preprocessing and artifact loading remain Go. The
+[native-online comparison](experiments/native-online/report.md) records validation
+and cached s=14 measurements separately from the historical hybrid timings above.
+All full outputs match and peak RSS remains about 4.59 GiB; clock discrepancies
+and host variance make the speed comparison inconclusive. The original transform adapter and Go reference remain available.
+
 ## Implementation status and limits
 
 The online query and decode path supports locality `ℓ=q-1`, dimensions `m=2` and `m=3`, prime fields, and the listed binary extension fields. `Params.Q`, `Params.K`, and `Params.M` denote the field size `q`, curve degree `t`, and database dimension `m`. Production `Query` and `QueryLocal` append 128 dummy positions, so the transmitted query length is `L=(q-1)+128`.
@@ -56,7 +65,8 @@ public artifact loading, and database encoding are separate. Prepared artifacts
 include cached solver data or cyclic polynomials/spectra, reused for many databases.
 The [CPU comparison](experiments/encoder-comparison/report.md) reports setup, artifact
 sizes, per-database encoding, process memory and output I/O separately. This does
-not provide validated s=14..20, streaming, GPU or integrated file-based encoding.
+not provide streaming, GPU or integrated file-based encoding; experimental s=14
+validation uses the separate minimal-artifact/matrix path described above.
 The [table-free checkpoint](experiments/tablefree-encoding/report.md) now measures
 s=9,m=2,t=7 with exact K=17200. The standalone field API covers every s=2..20
 without full-field arithmetic tables; encoder support remains separately bounded.

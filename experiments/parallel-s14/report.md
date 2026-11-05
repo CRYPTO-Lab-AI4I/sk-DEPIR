@@ -149,3 +149,10 @@ planning/cost reports retain their original catalogue snapshots and are not reru
 The measured s=14 path is practical on this machine under the stated budgets.
 This is not an s=15 result or proof that its preparation fits. Next assess s=15
 using measured first-use/online lifetimes and profiles before setting its budget.
+
+
+Reproduction note (2026-10-30): the current harness explicitly calls
+`EncodeHybridWithStats`, preserving this report's five-native-transform/Go-scalar
+measurement boundary. The opt-in encoder's `EncodeWithStats` now selects the
+[complete native online path](../native-online/report.md). Historical source
+manifests and results above remain unchanged.

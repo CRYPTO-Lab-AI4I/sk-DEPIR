@@ -355,3 +355,12 @@ encoding. Default public discovery/JSON basis loading remains s≤13; the minima
 artifact/native matrix path additionally validates s=14. First-use and fresh
 cached-process RSS are reported separately. This is not application or
 cryptographic encoding integration, and s≥15 remains an admission gate.
+
+
+The opt-in [complete native online path](../encoding/liftrs-cpp/README.md#complete-native-online-encoding)
+keeps code preprocessing and loading in Go, while buffer preparation, transforms,
+pointwise arithmetic and canonical assembly execute in one C++ call. Large
+preprocessing arrays are borrowed without duplication. Workspace and output
+ownership follow the existing matrix API; the previous hybrid path remains an
+explicit comparison method. This boundary concerns mathematical codeword
+encoding only, with no change to cryptographic encoding requirements.

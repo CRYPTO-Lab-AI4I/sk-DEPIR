@@ -136,3 +136,7 @@ snapshot scripts and source hashes retain their original measured bytes/paths.
 [content-addressed snapshots](source-snapshots/README.md) and Git history without
 rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
 `encoding/rme_legacy/` and are not Lift-RS performance evidence.
+
+- [Complete native online encoding](native-online/report.md): cached C++ encoding
+  versus hybrid Go/C++ execution, with identical canonical words, profiled stages
+  and separate initialization/process-memory accounting.

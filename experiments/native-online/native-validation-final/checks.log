@@ -1,0 +1,3 @@
+$ clang++ -std=c++17 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -pthread encoding/liftrs-cpp/online_test.cpp encoding/liftrs-cpp/c_api.cpp -o /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-online-asan-mfwr_n9k/online
+$ /var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-online-asan-mfwr_n9k/online
+Complete online ABI, parallel scatter and same-domain fixture passed

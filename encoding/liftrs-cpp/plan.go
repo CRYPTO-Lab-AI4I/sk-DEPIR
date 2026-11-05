@@ -194,3 +194,67 @@ func (p *Plan) PrepareTaylor(highLevels int) error {
 	p.bytes = uint64(C.liftrs_plan_owned_bytes(p.handle))
 	return nil
 }
+
+// OnlineStats records elapsed native stages, excluding allocation and cgo entry.
+// Matrix stages aggregate all five transforms; products and assembly are parallel.
+type OnlineStats struct {
+	MatrixStats
+	BufferNS    uint64
+	PointwiseNS uint64
+	AssemblyNS  uint64
+}
+
+// EncodeOnline executes complete cyclic codeword encoding in one cgo call.
+// P/spectrum and message are immutable. arena, h, scratch and word are distinct
+// mutable arrays with no overlap with constants/input; arena alone contains the
+// intentional prefix/full-buffer aliasing. All backing arrays are borrowed only
+// until return; no native plan retains Go pointers or copies large constants.
+// The caller supplies trusted code parameters and canonical transform plans.
+func EncodeOnline(pr, pc, fr, fc *Plan, prefixSplit, fullSplit, workers int, omega uint32,
+	message, p, spectrum, arena, h, scratch, word []uint32, prefixLength int) (OnlineStats, error) {
+	var result OnlineStats
+	k, n, l := len(message), len(spectrum), prefixLength
+	if pr == nil || pc == nil || fr == nil || fc == nil || k == 0 || k > n/2 || len(p) != k+1 ||
+		l < 2*k-1 || l > n || l&(l-1) != 0 || len(arena) < max(2*l, n) || len(h) != k || len(scratch) != n || len(word) != n ||
+		prefixSplit < 1 || fullSplit < 1 || workers < 1 || workers > 64 {
+		return result, errors.New("invalid online arrays/plans")
+	}
+	arrays := [][]uint32{message, p, spectrum, arena, h, scratch, word}
+	// Constants may share backing storage with each other. All writable arrays
+	// must be disjoint from every other array, including partially overlapping slices.
+	for i := 3; i < len(arrays); i++ {
+		a := uintptr(unsafe.Pointer(&arrays[i][0]))
+		size := uintptr(len(arrays[i])) * 4
+		for j := 0; j < i; j++ {
+			b := uintptr(unsafe.Pointer(&arrays[j][0]))
+			other := uintptr(len(arrays[j])) * 4
+			if a < b+other && b < a+size {
+				return result, errors.New("overlapping online arrays")
+			}
+		}
+	}
+	// Prefix/full domains can share a plan. Lock each distinct handle once so a
+	// waiting Close cannot deadlock a recursive read-lock acquisition.
+	seen := map[*Plan]bool{}
+	for _, plan := range []*Plan{pr, pc, fr, fc} {
+		if !seen[plan] {
+			seen[plan] = true
+			plan.mu.RLock()
+			defer plan.mu.RUnlock()
+		}
+		if plan.handle == nil {
+			return result, errors.New("online plan closed")
+		}
+	}
+	ptr := func(a []uint32) *C.uint32_t { return (*C.uint32_t)(unsafe.Pointer(&a[0])) }
+	var stages [6]C.uint64_t
+	var errorText [512]C.char
+	code := C.liftrs_online_encode(pr.handle, pc.handle, fr.handle, fc.handle, C.uint(prefixSplit), C.uint(fullSplit), C.uint(workers), C.uint32_t(omega),
+		ptr(message), ptr(p), ptr(spectrum), C.size_t(k), C.size_t(n), C.size_t(l), ptr(arena), C.size_t(len(arena)), ptr(h), ptr(scratch), ptr(word), &stages[0], &errorText[0], C.size_t(len(errorText)))
+	runtime.KeepAlive(arrays)
+	if code != 0 {
+		return result, fmt.Errorf("C++ online encoding: %s", C.GoString(&errorText[0]))
+	}
+	result = OnlineStats{MatrixStats{uint64(stages[0]), uint64(stages[1]), uint64(stages[2])}, uint64(stages[3]), uint64(stages[4]), uint64(stages[5])}
+	return result, nil
+}

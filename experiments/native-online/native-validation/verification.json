@@ -1,0 +1,36 @@
+{
+  "source_sha256": {
+    "encoding/liftrs-cpp/online_test.cpp": "eeb52ef8edf4238fe5c87588fbeb09a0863ccddb272fe4ed556466e3569ee01f",
+    "encoding/liftrs-cpp/c_api.cpp": "de43a64ae11cca789dae6fab83838c1be8783d198259b4f6fe83d6bc44754c2c",
+    "encoding/liftrs-cpp/c_api.h": "d39cc7f89f7db795b064faa2a790c3d1f5e6b6e577f5f500d818c1f339ee2006",
+    "encoding/liftrs-cpp/transform.hpp": "2d5ce1e73552bf02f4abfc6a57578692ae0f93b8c881e733859027b3e029f5f0",
+    "experiments/native-online/native-check.py": "c4b3e4ca7307c06db44a60688f24f81599d634b50df82e5c8d58a9b01ecccab0"
+  },
+  "checks": [
+    {
+      "command": [
+        "clang++",
+        "-std=c++17",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-pthread",
+        "encoding/liftrs-cpp/online_test.cpp",
+        "encoding/liftrs-cpp/c_api.cpp",
+        "-o",
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-matrix-asan-otdme8s9/matrix"
+      ],
+      "exit_code": 0,
+      "wall_s": 1.700648959
+    },
+    {
+      "command": [
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-matrix-asan-otdme8s9/matrix"
+      ],
+      "exit_code": 0,
+      "wall_s": 0.34919262500000015
+    }
+  ],
+  "status": "passed"
+}

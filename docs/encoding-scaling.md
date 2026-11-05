@@ -377,7 +377,28 @@ not add application/cryptographic execution or a disk backend. s=15 admission no
 needs a budget based on preparation lifetimes as well as online memory. Do not
 multiply retained first-use RSS and treat it as an unavoidable online requirement.
 
-## Next admission: s=15
+## Next step: complete C++ online encoding
+
+**Implemented and validated** in the [native-online experiment](../experiments/native-online/report.md).
+All seven cached s=14 words match and peak RSS remains about 4.59 GiB. The paired
+runs give a descriptive 6.3% time reduction, but clock discrepancies and host
+variance prevent a dependable speedup claim. Stabilize timing before using these
+results for optimization choices or larger-size forecasts.
+
+The recorded step before s=15 admission was to move the remaining database-dependent work into C++:
+buffer preparation, pointwise field products and canonical output assembly.
+Reuse the existing parallel Taylor transforms, fixed-constant maps, blocked
+transposes and explicit workers. One coarse native call borrows pointer-free
+input, preprocessing and workspace arrays; no database pointers are retained.
+Discovery and reusable code preprocessing remain Go.
+
+Validate identical full codewords against the Go path and small independent
+references. Profile cached s=14 with the retained preprocessing, reporting setup,
+interface/copy costs, encoding stages and fresh-process peak memory. Use this
+complete native online baseline to choose further optimizations. Mathematical
+encoding remains separate from cryptographic/application encoding.
+
+## Subsequent admission: s=15
 
 1. Audit the s=14 preparation profiles and live array lifetimes at s=15 sizes.
    Online encoding suggests roughly 6–9 minutes and 18–22 GiB RAM on this host;

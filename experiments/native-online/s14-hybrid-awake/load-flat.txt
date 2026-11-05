@@ -1,0 +1,37 @@
+File: probe
+Type: cpu
+Time: 2026-10-30 11:17:52 CET
+Duration: 1.83s, Total samples = 1.27s (69.36%)
+Showing nodes accounting for 1.27s, 100% of 1.27s total
+      flat  flat%   sum%        cum   cum%
+     1.03s 81.10% 81.10%      1.26s 99.21%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.LoadScalingOnline
+     0.20s 15.75% 96.85%      0.20s 15.75%  syscall.rawsyscalln
+     0.01s  0.79% 97.64%      0.02s  1.57%  crypto/internal/fips140/sha256.(*Digest).Write
+     0.01s  0.79% 98.43%      0.01s  0.79%  crypto/internal/fips140/sha256.blockSHA2
+     0.01s  0.79% 99.21%      0.01s  0.79%  runtime.asyncPreempt
+     0.01s  0.79%   100%      0.01s  0.79%  runtime.pthread_cond_wait
+         0     0%   100%      0.22s 17.32%  bufio.(*Reader).Read
+         0     0%   100%      0.01s  0.79%  crypto/internal/fips140/sha256.block
+         0     0%   100%      0.20s 15.75%  internal/poll.(*FD).Read
+         0     0%   100%      0.20s 15.75%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%      0.22s 17.32%  io.(*teeReader).Read
+         0     0%   100%      0.22s 17.32%  io.ReadAtLeast
+         0     0%   100%      0.22s 17.32%  io.ReadFull (inline)
+         0     0%   100%      1.26s 99.21%  main.main
+         0     0%   100%      1.26s 99.21%  main.main.func2
+         0     0%   100%      1.26s 99.21%  main.main.func3
+         0     0%   100%      0.20s 15.75%  os.(*File).Read
+         0     0%   100%      0.20s 15.75%  os.(*File).read (inline)
+         0     0%   100%      0.01s  0.79%  runtime.findRunnable
+         0     0%   100%      0.01s  0.79%  runtime.mPark (inline)
+         0     0%   100%      1.26s 99.21%  runtime.main
+         0     0%   100%      0.01s  0.79%  runtime.mcall
+         0     0%   100%      0.01s  0.79%  runtime.notesleep
+         0     0%   100%      0.01s  0.79%  runtime.park_m
+         0     0%   100%      0.01s  0.79%  runtime.schedule
+         0     0%   100%      0.01s  0.79%  runtime.semasleep
+         0     0%   100%      0.01s  0.79%  runtime.stopm
+         0     0%   100%      0.20s 15.75%  syscall.Read (inline)
+         0     0%   100%      0.20s 15.75%  syscall.read
+         0     0%   100%      0.20s 15.75%  syscall.syscall
+         0     0%   100%      0.20s 15.75%  syscall.syscalln

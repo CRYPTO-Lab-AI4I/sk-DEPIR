@@ -1,7 +1,7 @@
 #pragma once
 // Portable polynomial-basis kernels matching liftrs-go. Tables and transform
 // constants are trusted experiment fixtures, not a public cache format. There is
-// no cryptographic stage or full PIR encoder here; arithmetic is not constant-time.
+// no cryptographic stage or application encoder here; arithmetic is not constant-time.
 #include <cstdint>
 #include <vector>
 #include <stdexcept>

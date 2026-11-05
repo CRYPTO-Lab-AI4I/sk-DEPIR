@@ -1,0 +1,9 @@
+load 765.935792ms
+setup-w16 2.783208ms
+workspace-w16 165.755291ms
+encode-w16-r0 1m26.59189425s
+verify-w16-r0 439.829167ms
+encode-w16-r1 2m39.781981167s
+verify-w16-r1 929.130625ms
+encode-w16-r2 5m8.252490875s
+verify-w16-r2 1.200123375s

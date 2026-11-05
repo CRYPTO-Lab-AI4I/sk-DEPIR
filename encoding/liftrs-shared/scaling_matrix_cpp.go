@@ -179,13 +179,14 @@ func (m *matrixCPPExecutor) apply(data []uint32, inverse bool) {
 	}
 	if m.stats != nil {
 		m.stats.Calls++
+		m.stats.BoundaryCalls++
 		m.stats.TaylorNS += stages.TaylorNS
 		m.stats.ColumnsNS += stages.ColumnsNS
 		m.stats.RowsNS += stages.RowsNS
 	}
 }
 
-// Encode preserves canonical codewords and uses five matrix transforms. Taylor
+// Encode runs the complete database-dependent path in one native call. Taylor
 // conversion, transposes and native thread scheduling are inside the measured call.
 func (e *ScalingCPPEncoder) Encode(message []uint32, w *ScalingCPPWorkspace) ([]uint32, error) {
 	word, _, err := e.EncodeWithStats(message, w)
@@ -193,16 +194,49 @@ func (e *ScalingCPPEncoder) Encode(message []uint32, w *ScalingCPPWorkspace) ([]
 }
 
 // ScalingCPPStats accounts for native elapsed stages across five transforms.
-// Columns includes transposes. Other encoding arithmetic/assembly remains Go.
+// Columns includes transposes. Additional stages cover non-transform work.
 type ScalingCPPStats struct {
-	Calls     uint64 `json:"calls"`
-	TaylorNS  uint64 `json:"taylor_ns"`
-	ColumnsNS uint64 `json:"columns_transposes_ns"`
-	RowsNS    uint64 `json:"rows_ns"`
+	Calls         uint64 `json:"calls"`
+	BoundaryCalls uint64 `json:"boundary_calls"`
+	BufferNS      uint64 `json:"buffer_ns"`
+	PointwiseNS   uint64 `json:"pointwise_ns"`
+	AssemblyNS    uint64 `json:"assembly_ns"`
+	TaylorNS      uint64 `json:"taylor_ns"`
+	ColumnsNS     uint64 `json:"columns_transposes_ns"`
+	RowsNS        uint64 `json:"rows_ns"`
 }
 
-// EncodeWithStats returns the same word plus per-call native stage accounting.
-func (e *ScalingCPPEncoder) EncodeWithStats(message []uint32, w *ScalingCPPWorkspace) (word []uint32, stats ScalingCPPStats, err error) {
+// EncodeWithStats allocates the canonical output, then borrows constants and
+// workspace for one native call. Output allocation is included in caller timing;
+// no large input, preprocessing or output copies cross the language boundary.
+func (e *ScalingCPPEncoder) EncodeWithStats(message []uint32, w *ScalingCPPWorkspace) ([]uint32, ScalingCPPStats, error) {
+	e.mu.RLock()
+	defer e.mu.RUnlock()
+	var stats ScalingCPPStats
+	if e.closed {
+		return nil, stats, ErrCPPClosed
+	}
+	if w == nil || w.owner != e || len(message) != e.source.k {
+		return nil, stats, fmt.Errorf("matrix workspace/message mismatch")
+	}
+	p := e.source
+	l := len(w.work.x)
+	prefix, full := e.plans[l], e.plans[p.basis.Length()]
+	word := make([]uint32, p.basis.Length())
+	// NewWorkspace owns one arena; x and z partition its first 2L elements.
+	arena := w.work.x[:cap(w.work.x)]
+	native, err := liftrscpp.EncodeOnline(prefix.rows, prefix.columns, full.rows, full.columns, prefix.split, full.split, e.workers, p.basis.omega,
+		message, p.p, p.spectrum, arena, w.work.h, w.scratch, word, l)
+	if err != nil {
+		return nil, stats, err
+	}
+	stats = ScalingCPPStats{Calls: 5, BoundaryCalls: 1, TaylorNS: native.TaylorNS, ColumnsNS: native.ColumnsNS, RowsNS: native.RowsNS, BufferNS: native.BufferNS, PointwiseNS: native.PointwiseNS, AssemblyNS: native.AssemblyNS}
+	return word, stats, nil
+}
+
+// EncodeHybridWithStats retains the earlier Go orchestration/scalar arithmetic
+// path with five native transform calls for reference and measured comparisons.
+func (e *ScalingCPPEncoder) EncodeHybridWithStats(message []uint32, w *ScalingCPPWorkspace) (word []uint32, stats ScalingCPPStats, err error) {
 	e.mu.RLock()
 	defer e.mu.RUnlock()
 	if e.closed {

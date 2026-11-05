@@ -276,3 +276,10 @@ past update needs correction. Add every new message to the index below.
 | 2026-10-29 10:19 | PUBLISH-017 | Completed | [s=14 checkpoint verified for publication](2026-10-29-1018-codex-publish-017-completed.md) |
 | 2026-10-29 10:19 | PUBLISH-018 | Started | [Correct final publication whitespace](2026-10-29-1019-codex-publish-018-started.md) |
 | 2026-10-29 10:20 | PUBLISH-018 | Completed | [Publication whitespace corrected](2026-10-29-1019-codex-publish-018-completed.md) |
+| 2026-10-30 09:45 | ENCODE-009 | Started | [Complete native online encoding](2026-10-30-0945-codex-encode-009-started.md) |
+| 2026-10-30 10:07 | ENCODE-009 | Progress | [Retain timing anomaly and repeat cached comparison](2026-10-30-1007-codex-encode-009-progress.md) |
+| 2026-10-30 10:34 | ENCODE-009 | Completed | [Complete native online path and qualified s14 comparison](2026-10-30-1034-codex-encode-009-completed.md) |
+
+| 2026-11-05 17:02 | PUBLISH-019 | Started | [Publish complete native online encoding](2026-11-05-1702-codex-publish-019-started.md) |
+| 2026-11-05 17:02 | PUBLISH-019 | Completed | [Native online checkpoint verified for publication](2026-11-05-1702-codex-publish-019-completed.md) |
+| 2026-11-05 17:03 | PUBLISH-019 | Correction | [Preserve verbatim profile summaries](2026-11-05-1703-codex-publish-019-correction.md) |

@@ -85,3 +85,32 @@ and inverse checks on small buffers. Sparse discovery and paired/root-only
 preparation remain Go orchestration, using the native matrix executor for FFTs.
 The experiment's code-only executor prepares all needed convolution lengths once
 and reuses one transpose buffer; default public discovery remains bounded to s≤13.
+
+## Complete native online encoding
+
+The opt-in `ScalingOnlinePlan.WithCPPMatrix(workers)` encoder now performs all
+database-dependent mathematical encoding in C++: buffer preparation, the five
+matrix transforms, pointwise products, and canonical output assembly. Reusable
+code discovery/preprocessing and artifact loading remain Go. The earlier
+`WithCPPTransforms` adapter still replaces transforms only.
+
+Use the [runnable example](../liftrs-shared/scaling_matrix_cpp_example_test.go):
+prepare or load a verified `ScalingOnlinePlan`, call `WithCPPMatrix`, allocate one
+`NewWorkspace` per concurrent caller, then call `Encode` and finally `Close`.
+`EncodeWithStats` adds elapsed counters for transforms, buffer preparation,
+products and assembly. `EncodeHybridWithStats` retains the previous Go scalar/
+assembly path for comparisons. This does not change default library APIs or
+standard command selection of the original transform adapter.
+
+One C ABI call borrows the message, immutable P/spectrum arrays, reusable
+workspace and newly allocated canonical output. No large constants are copied
+into native storage, and no Go pointer is retained after return. Mutable arrays
+must be disjoint (the workspace arena deliberately aliases successive phases).
+The same Taylor maps, fixed-constant tables, blocked transposes and explicit
+worker scheduling remain in use. Pointwise products and output scatter use
+independent chunks; primitive-generator validation ensures disjoint output
+positions. Assembly uses a small fixed-omega lookup map and reduces chunk parity.
+
+Run the profiled [native-online experiment](../../experiments/native-online/report.md)
+for the cached large-instance comparison. The path is in-memory and mathematical
+only: no masks, application partitioning or external-memory backend is implied.

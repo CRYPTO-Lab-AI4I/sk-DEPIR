@@ -259,7 +259,7 @@ func TestParallelFirstUse(t *testing.T) {
 		phase(fmt.Sprintf("encode-%d", repeat), func() map[string]any {
 			var err error
 			var stats ScalingCPPStats
-			word, stats, err = encoder.EncodeWithStats(message, workspace)
+			word, stats, err = encoder.EncodeHybridWithStats(message, workspace)
 			check(err)
 			return map[string]any{"native_stages": stats, "input_bytes": len(message) * 4, "output_bytes": len(word) * 4}
 		})

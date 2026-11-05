@@ -1,0 +1,53 @@
+File: probe
+Type: cpu
+Time: 2026-10-30 10:50:27 CET
+Duration: 504.14ms, Total samples = 330ms (65.46%)
+Showing nodes accounting for 330ms, 100% of 330ms total
+      flat  flat%   sum%        cum   cum%
+     100ms 30.30% 30.30%      180ms 54.55%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).Recurse
+      70ms 21.21% 51.52%       70ms 21.21%  runtime.kevent
+      60ms 18.18% 69.70%       60ms 18.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+      40ms 12.12% 81.82%       40ms 12.12%  runtime.madvise
+      20ms  6.06% 87.88%       20ms  6.06%  internal/runtime/atomic.(*UnsafePointer).StoreNoWB (inline)
+      10ms  3.03% 90.91%       10ms  3.03%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Product.Mul
+      10ms  3.03% 93.94%       60ms 18.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+      10ms  3.03% 96.97%       10ms  3.03%  runtime.(*spanInlineMarkBits).init
+      10ms  3.03%   100%       10ms  3.03%  time.Since
+         0     0%   100%       70ms 21.21%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Field.mul
+         0     0%   100%      150ms 45.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclic
+         0     0%   100%      160ms 48.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclicFFT
+         0     0%   100%       60ms 18.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0%   100%      120ms 36.36%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0%   100%      130ms 39.39%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+         0     0%   100%       50ms 15.15%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.DiscoverOrbit
+         0     0%   100%       50ms 15.15%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.discoverOrbitBasis
+         0     0%   100%       20ms  6.06%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+         0     0%   100%       20ms  6.06%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+         0     0%   100%       30ms  9.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newProductTree
+         0     0%   100%      120ms 36.36%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyDiv
+         0     0%   100%       30ms  9.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+         0     0%   100%      150ms 45.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0%   100%       20ms  6.06%  internal/runtime/atomic.(*Pointer[go.shape.struct { runtime.spanSetBlockHeader2; runtime.spans [512]runtime.atomicMSpanPointer }]).StoreNoWB (inline)
+         0     0%   100%      220ms 66.67%  main.main
+         0     0%   100%      220ms 66.67%  main.main.func2
+         0     0%   100%      210ms 63.64%  main.main.func3
+         0     0%   100%       30ms  9.09%  runtime.(*mcache).nextFree
+         0     0%   100%       30ms  9.09%  runtime.(*mcache).refill
+         0     0%   100%       10ms  3.03%  runtime.(*mcentral).cacheSpan
+         0     0%   100%       10ms  3.03%  runtime.(*mcentral).grow
+         0     0%   100%       20ms  6.06%  runtime.(*mcentral).uncacheSpan
+         0     0%   100%       40ms 12.12%  runtime.(*mheap).alloc.func1
+         0     0%   100%       40ms 12.12%  runtime.(*mheap).allocSpan
+         0     0%   100%       10ms  3.03%  runtime.(*mspan).initHeapBits
+         0     0%   100%       10ms  3.03%  runtime.(*mspan).initInlineMarkBits (inline)
+         0     0%   100%       20ms  6.06%  runtime.(*spanSet).push
+         0     0%   100%       70ms 21.21%  runtime.gcStart.func4
+         0     0%   100%      220ms 66.67%  runtime.main
+         0     0%   100%       30ms  9.09%  runtime.makeslice
+         0     0%   100%       30ms  9.09%  runtime.mallocgc
+         0     0%   100%       30ms  9.09%  runtime.mallocgcSmallNoscan
+         0     0%   100%       70ms 21.21%  runtime.netpoll
+         0     0%   100%       70ms 21.21%  runtime.startTheWorldWithSema
+         0     0%   100%       40ms 12.12%  runtime.sysUsed (inline)
+         0     0%   100%       40ms 12.12%  runtime.sysUsedOS (inline)
+         0     0%   100%      110ms 33.33%  runtime.systemstack

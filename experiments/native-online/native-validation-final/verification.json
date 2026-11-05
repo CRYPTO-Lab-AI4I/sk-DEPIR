@@ -1,0 +1,37 @@
+{
+  "revision": "af5a65041542f9aead50e19c40288679be8b2e54",
+  "source_sha256": {
+    "encoding/liftrs-cpp/online_test.cpp": "eeb52ef8edf4238fe5c87588fbeb09a0863ccddb272fe4ed556466e3569ee01f",
+    "encoding/liftrs-cpp/c_api.cpp": "a005fe342553154a6c8813f6ea4b4ef8c1c55949634e1202089dee6c9f37252b",
+    "encoding/liftrs-cpp/c_api.h": "d39cc7f89f7db795b064faa2a790c3d1f5e6b6e577f5f500d818c1f339ee2006",
+    "encoding/liftrs-cpp/transform.hpp": "2d5ce1e73552bf02f4abfc6a57578692ae0f93b8c881e733859027b3e029f5f0",
+    "experiments/native-online/native-check.py": "fb60e5580aac5d40a5d15c422b45625c521a89293be4be4d4136906ca8740157"
+  },
+  "checks": [
+    {
+      "command": [
+        "clang++",
+        "-std=c++17",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-pthread",
+        "encoding/liftrs-cpp/online_test.cpp",
+        "encoding/liftrs-cpp/c_api.cpp",
+        "-o",
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-online-asan-mfwr_n9k/online"
+      ],
+      "exit_code": 0,
+      "wall_s": 3.6730839160000004
+    },
+    {
+      "command": [
+        "/var/folders/zn/cdvmrcj12_7d79thhjrwvdh00000gn/T/depir-online-asan-mfwr_n9k/online"
+      ],
+      "exit_code": 0,
+      "wall_s": 0.9056832080000001
+    }
+  ],
+  "status": "passed"
+}

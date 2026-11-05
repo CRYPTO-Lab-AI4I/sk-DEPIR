@@ -1,0 +1,138 @@
+#!/usr/bin/env python3
+"""Profile fresh-process complete-native or hybrid encoding using retained data."""
+import argparse
+import hashlib
+import json
+import os
+import platform
+import signal
+import subprocess
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+HERE = Path(__file__).resolve().parent
+
+
+def sha(path):
+    digest = hashlib.sha256()
+    with path.open('rb') as stream:
+        for block in iter(lambda: stream.read(1 << 20), b''):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--go', default='go')
+    parser.add_argument('--run-name', required=True)
+    parser.add_argument('--backend', choices=['native', 'hybrid'], default='native')
+    parser.add_argument('--smoke', action='store_true')
+    parser.add_argument('--repeats', type=int, default=3)
+    args = parser.parse_args()
+    if not args.run_name or any(c not in 'abcdefghijklmnopqrstuvwxyz0123456789-_' for c in args.run_name):
+        raise SystemExit('invalid run name')
+    out = HERE / args.run_name
+    out.mkdir(exist_ok=False)
+    sources = sorted((ROOT / 'encoding').rglob('*.go'))
+    sources += sorted((ROOT / 'encoding/liftrs-cpp').glob('*.*'))
+    sources += [HERE / 'main.go', Path(__file__), ROOT / 'go.mod', ROOT / 'go.sum']
+    manifest = {str(p.relative_to(ROOT)): sha(p) for p in sources}
+    identity = hashlib.sha256(json.dumps(manifest, sort_keys=True).encode()).hexdigest()[:16]
+    build = ROOT / '.cache/liftrs/native-online' / identity
+    build.mkdir(parents=True, exist_ok=True)
+    # Preserve uncommitted measured sources before any later edits. Unchanged
+    # sources are recoverable from the recorded Git revision.
+    for relative, digest in manifest.items():
+        historical = subprocess.run(['git', 'show', 'HEAD:' + relative], cwd=ROOT, capture_output=True)
+        if historical.returncode or hashlib.sha256(historical.stdout).hexdigest() != digest:
+            snapshot = ROOT / 'experiments/source-snapshots' / (digest + '.txt')
+            snapshot.parent.mkdir(exist_ok=True)
+            snapshot.write_bytes((ROOT / relative).read_bytes())
+    record = {
+        'status': 'running', 'revision': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
+        'source_sha256': manifest, 'backend': args.backend, 'smoke': args.smoke,
+        'environment': {'platform': platform.platform(), 'cpu': 'Apple M5 Pro', 'logical_cpus': os.cpu_count(), 'ram_gib': 48,
+                        'go': subprocess.check_output([args.go, 'version'], text=True).strip(),
+                        'compiler': subprocess.check_output(['clang++', '--version'], text=True).strip()},
+        'policy': {'timeout_s': 1800, 'rss_guard_bytes': 12 << 30, 'go_soft_memory_bytes': 12 << 30,
+                   'workers': 16, 'cpu_profiles': 'every phase', 'native_sample': '5 seconds per encoding after 10 seconds',
+                   'copies_across_ffi': 0, 'preprocessing': 'read-only retained constants; smoke generates and retains s8 cache'},
+        'samples': [],
+    }
+    def save():
+        (out / 'results.json').write_text(json.dumps(record, indent=2) + '\n')
+    save()
+    (build / 'provenance.json').write_text(json.dumps(record, indent=2) + '\n')
+    binary = build / 'probe'
+    with (out / 'build.log').open('w') as log:
+        subprocess.run([args.go, 'build', '-tags', 'liftrs_cpp', '-o', str(binary), './experiments/native-online'], cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, check=True)
+    record['binary'] = {'path': str(binary.relative_to(ROOT)), 'sha256': sha(binary)}
+    source = build / 'small' if args.smoke else ROOT / '.cache/liftrs/parallel-s14/s14-m2-t5/online.bin'
+    if not args.smoke:
+        record['input_cache'] = {'path': str(source.relative_to(ROOT)), 'bytes': source.stat().st_size, 'sha256': sha(source)}
+    command = [str(binary), '-out', str(out), '-cache', str(source), '-s', '8' if args.smoke else '14', '-workers', '16', '-repeats', str(args.repeats), '-backend', args.backend]
+    record['command'] = command
+    save()
+    samplers = []
+    observed = set()
+    phase, phase_start = '', time.monotonic()
+    with (out / 'events.log').open('w') as stdout, (out / 'stderr.txt').open('w') as stderr:
+        process = subprocess.Popen(command, cwd=ROOT, stdout=stdout, stderr=stderr)
+        start = time.monotonic()
+        try:
+            while True:
+                pid, status, usage = os.wait4(process.pid, os.WNOHANG)
+                if pid:
+                    process.returncode = os.waitstatus_to_exitcode(status)
+                    break
+                now = time.monotonic()
+                state = out / 'state.json'
+                if state.exists():
+                    current = json.loads(state.read_text())['phase']
+                    if current != phase:
+                        phase, phase_start = current, now
+                        print('starting ' + phase, flush=True)
+                if not args.smoke:
+                    rss = subprocess.check_output(['/bin/ps', '-o', 'rss=', '-p', str(process.pid)], text=True).strip()
+                    if rss and int(rss) * 1024 > 12 << 30:
+                        raise RuntimeError('12 GiB RSS guard')
+                    if platform.system() == 'Darwin' and phase.startswith('encode-') and now - phase_start >= 10 and phase not in observed:
+                        observed.add(phase)
+                        path = out / (phase + '-native.txt')
+                        log = (out / (phase + '-sample.log')).open('w')
+                        sampler = subprocess.Popen(['/usr/bin/sample', str(process.pid), '5', '-file', str(path)], stdout=log, stderr=subprocess.STDOUT)
+                        samplers.append((sampler, log))
+                        record['samples'].append({'phase': phase, 'file': path.name, 'duration_s': 5})
+                        save()
+                if now - start > 1800:
+                    raise TimeoutError('30-minute timeout')
+                time.sleep(1)
+        except BaseException as error:
+            process.kill()
+            os.wait4(process.pid, 0)
+            record.update(status='failed', error=repr(error))
+            save()
+            raise
+    for sampler, log in samplers:
+        sampler.wait()
+        log.close()
+        if sampler.returncode:
+            raise RuntimeError('native profiling failed')
+    record.update(status='passed' if process.returncode == 0 else 'failed', returncode=process.returncode,
+                  wall_s=time.monotonic() - start, process_peak_rss_bytes=usage.ru_maxrss * (1 if platform.system() == 'Darwin' else 1024))
+    save()
+    if process.returncode:
+        raise SystemExit('benchmark failed; evidence retained')
+    record['phases'] = json.loads((out / 'phases.json').read_text())
+    assert all(x['full_hash_match'] for x in record['phases'] if x['phase'].startswith('verify-'))
+    for profile in sorted(out.glob('*.pprof')):
+        with (out / (profile.stem + '-flat.txt')).open('w') as stream:
+            subprocess.run([args.go, 'tool', 'pprof', '-top', str(binary), str(profile)], stdout=stream, stderr=subprocess.STDOUT, check=True)
+    record['evidence_sha256'] = {p.name: sha(p) for p in out.iterdir() if p.is_file() and p.name != 'results.json'}
+    save()
+    print('native-online ' + record['status'], flush=True)
+
+
+if __name__ == '__main__':
+    main()

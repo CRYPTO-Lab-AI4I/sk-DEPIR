@@ -15,7 +15,7 @@ The import is `github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared`;
 `encoding/liftrs-go` no longer contains the complete encoder API.
 
 
-This pure-Go package implements code preprocessing and systematic encoding for
+The Go reference implements code preprocessing and systematic encoding for
 small curve-lifted Reed-Solomon codes with locality `q-1`. It takes field elements
 directly; the application wrapper owns partitioning, padding, and bit conversion.
 There is no permutation, masking, storage access, or secret state here. The
@@ -287,8 +287,9 @@ runs, resource observations and raw CPU profiles.
 This directory contains shared Go orchestration (package `liftrs`), used by both
 backends. The full encoder import formerly named `encoding/liftrs-go` moved here.
 Pure-Go transform execution is separate in `../liftrs-go/`. Parallel experimental
-[C++ kernels](../liftrs-cpp/README.md) cover fixed products and additive transforms;
-they are not a complete native codeword encoder. The
+[C++ kernels](../liftrs-cpp/README.md) originally covered fixed products and additive
+transforms; the opt-in matrix path now also provides complete native online
+execution, described below. The historical
 [comparison report](../../experiments/kernel-languages/report.md) records shared
 fixtures, validation, language/compiler boundaries and measured stage gains.
 
@@ -301,8 +302,9 @@ builds return `ErrCPPUnavailable` and retain the Go path. See the
 Go preprocessing, cached generator spectra and all polynomial optimizations are
 shared by both paths. `EncodeWithStats` exposes per-encoding boundary accounting;
 `Close` releases native code metadata after active encodings finish.
-The current native plan importer accepts field degrees 2–13; larger native
-instances remain unvalidated.
+The native plan importer accepts field degrees 2–14. The original orbit/artifact
+API remains bounded to s≤13; the opt-in minimal-artifact matrix path below adds
+validated s=14 execution.
 
 ## Scaling experiments (opt-in)
 
@@ -318,15 +320,16 @@ roots/factors, division/products and discovery still need resource work.
 convolution buffer; the final canonical output remains separately allocated.
 Use a separate workspace per concurrent call. `ResidentBytes` and `Bytes` count
 array payload, not RAM. The [example](scaling_example_test.go) shows the Go path.
-The native executor is exercised by the opt-in package experiment; there is no
-new public native-workspace API or supported streaming loader. High-rate cases
+The initial native prototype used an internal workspace; the opt-in public
+matrix workspace is described below. No supported streaming backend exists.
+High-rate cases
 whose full prefix convolution exceeds the transform domain are rejected by this
 prototype; the ordinary encoder retains overlap-add support.
 
-The minimal binary loader, general-basis matrix transform, Taylor/inverse and
-bucket routing are **test-only prototypes**. The file layout is not a public
-artifact format and requires an independently trusted digest/code provenance.
-External execution currently uses scalar disk calls and Go tile kernels. It tests
+The minimal binary loader and native matrix path are now exposed experimentally
+below. Their file layout is not a public artifact format and requires an
+independently trusted digest/code provenance. External bucket routing remains
+test-only: it uses scalar disk calls and Go tile kernels and tests
 exact decomposition, not high-throughput I/O or a full native external encoder.
 
 ## Experimental parallel matrix encoder
@@ -337,9 +340,12 @@ encoding and call `encoder.Encode(message, workspace)` (or `EncodeWithStats`).
 The [runnable example](scaling_matrix_cpp_example_test.go) demonstrates this API.
 Close the encoder after its calls finish. Code P/spectrum is shared immutably;
 transpose scratch adds `4*N` bytes to the reusable workspace. This opt-in path
-preserves the canonical codeword and information set; Go still orchestrates the
-five transforms, pointwise products and assembly. It does not change the original
-`CyclicEncoder` or `WithCPPTransforms` APIs/defaults.
+preserves the canonical codeword and information set. `Encode`/`EncodeWithStats`
+now run buffer setup, five transforms, pointwise products and assembly in one
+native call, without duplicating large preprocessing arrays. Preprocessing and
+loading remain Go. `EncodeHybridWithStats` preserves the previous Go scalar/
+assembly path for comparisons. The original `CyclicEncoder` and
+`WithCPPTransforms` APIs/defaults are unchanged.
 
 `LoadScalingOnline(reader, trustedSHA256, maxElements)` uses buffered blocks to
 read the experimental minimal binary. The digest must come from independently
@@ -348,3 +354,9 @@ format is experimental, limited to s≤14 (s=14 first-use evidence is tracked
 [separately](../../experiments/parallel-s14/report.md)), and is not a public artifact-distribution
 commitment. Usage and profiling commands are in the
 [parallel integration report](../../experiments/parallel-encoding/report.md).
+
+
+The [complete native backend documentation](../liftrs-cpp/README.md#complete-native-online-encoding)
+explains stage counters, borrowing rules and the profiled comparison. The
+immutable plan is shared; each concurrent encoding needs its own workspace.
+`Close` waits for active calls and releases only small native metadata.

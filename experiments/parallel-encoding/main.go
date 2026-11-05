@@ -149,7 +149,7 @@ func main() {
 			phase(fmt.Sprintf("encode-w%d-r%d", count, repeat), func() map[string]any {
 				var err error
 				var stats liftrs.ScalingCPPStats
-				word, stats, err = encoder.EncodeWithStats(message, work)
+				word, stats, err = encoder.EncodeHybridWithStats(message, work)
 				must(err)
 				return map[string]any{"workers": count, "repeat": repeat, "output_bytes": len(word) * 4, "native_stages": stats}
 			})

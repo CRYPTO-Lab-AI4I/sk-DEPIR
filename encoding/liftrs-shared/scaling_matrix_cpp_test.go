@@ -187,3 +187,109 @@ func TestCPPMatrixConcurrent(t *testing.T) {
 	}
 	wg.Wait()
 }
+
+// Exercise complete native orchestration against the retained hybrid path, with
+// zero, unit and deterministic messages, and reject invalid fields/ownership.
+func TestCPPOnlineNative(t *testing.T) {
+	b, err := DiscoverOrbit(Spec{4, 2, 2}, OrbitOptions{Random: rand.New(rand.NewSource(1701))})
+	if err != nil {
+		t.Fatal(err)
+	}
+	enc, err := b.PrepareCyclicFFT()
+	if err != nil {
+		t.Fatal(err)
+	}
+	p, err := enc.ScalingPlan()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, workers := range []int{1, 4} {
+		e, err := p.WithCPPMatrix(workers)
+		if err != nil {
+			t.Fatal(err)
+		}
+		w := e.NewWorkspace()
+		for trial := 0; trial < p.k+2; trial++ {
+			message := make([]uint32, p.k)
+			if trial > 0 && trial <= p.k {
+				message[trial-1] = 1
+			}
+			if trial == p.k+1 {
+				for i := range message {
+					message[i] = uint32(i % 16)
+				}
+			}
+			got, stats, err := e.EncodeWithStats(message, w)
+			if err != nil {
+				t.Fatal(err)
+			}
+			want, hybrid, err := e.EncodeHybridWithStats(message, w)
+			if err != nil || !reflect.DeepEqual(got, want) || stats.Calls != 5 || stats.BoundaryCalls != 1 || hybrid.BoundaryCalls != 5 {
+				t.Fatal("native/hybrid", trial, err, stats, hybrid)
+			}
+		}
+		bad := make([]uint32, p.k)
+		bad[0] = 16
+		if _, err := e.Encode(bad, w); err == nil {
+			t.Fatal("accepted out-of-field message")
+		}
+		if _, err := e.Encode(bad[:len(bad)-1], w); err == nil {
+			t.Fatal("accepted wrong length")
+		}
+		if _, err := e.Encode(bad, nil); err == nil {
+			t.Fatal("accepted nil workspace")
+		}
+		other, err := p.WithCPPMatrix(workers)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if _, err := e.Encode(bad, other.NewWorkspace()); err == nil {
+			t.Fatal("accepted foreign workspace")
+		}
+		other.Close()
+		// Nonprimitive omega would cause overlapping parallel scatter writes.
+		saved := p.basis.omega
+		p.basis.omega = 1
+		if _, err := e.Encode(make([]uint32, p.k), w); err == nil {
+			t.Fatal("accepted nonprimitive omega")
+		}
+		p.basis.omega = saved
+		e.Close()
+	}
+}
+
+// The low-level ABI rejects partial overlap before native code writes anything.
+func TestCPPOnlineOverlap(t *testing.T) {
+	b, err := DiscoverOrbit(Spec{4, 2, 2}, OrbitOptions{Random: rand.New(rand.NewSource(1702))})
+	if err != nil {
+		t.Fatal(err)
+	}
+	e, err := b.PrepareCyclicFFT()
+	if err != nil {
+		t.Fatal(err)
+	}
+	p, err := e.ScalingPlan()
+	if err != nil {
+		t.Fatal(err)
+	}
+	native, err := p.WithCPPMatrix(2)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer native.Close()
+	w := native.NewWorkspace()
+	l := len(w.work.x)
+	prefix, full := native.plans[l], native.plans[p.Length()]
+	arena := w.work.x[:cap(w.work.x)]
+	_, err = liftrscpp.EncodeOnline(prefix.rows, prefix.columns, full.rows, full.columns, prefix.split, full.split, 2, p.basis.omega,
+		make([]uint32, p.k), p.p, p.spectrum, arena, w.work.h, w.scratch, w.scratch, l)
+	if err == nil {
+		t.Fatal("accepted overlapping output/scratch")
+	}
+	// Shortening a workspace buffer must fail without entering the transform.
+	_, err = liftrscpp.EncodeOnline(prefix.rows, prefix.columns, full.rows, full.columns, prefix.split, full.split, 2, p.basis.omega,
+		make([]uint32, p.k), p.p, p.spectrum, arena, w.work.h, w.scratch[:1], make([]uint32, p.Length()), l)
+	if err == nil {
+		t.Fatal("accepted short scratch")
+	}
+}

@@ -218,3 +218,136 @@ extern "C" int liftrs_plan_prepare_taylor(liftrs_plan* plan,unsigned high_levels
     plan->taylor_terms=std::move(prepared);plan->owned_bytes+=bytes;return 0;
   }catch(const std::exception& e){fail(error,capacity,e.what());return 1;}
 }
+
+// Complete database-dependent cyclic encoding. All large arrays are borrowed
+// for this call. arena aliases prefix x/z with the later full convolution;
+// H must therefore be saved before clearing y. Constants remain immutable.
+extern "C" int liftrs_online_encode(
+    const liftrs_plan* pr, const liftrs_plan* pc,
+    const liftrs_plan* fr, const liftrs_plan* fc,
+    unsigned ps, unsigned fs, unsigned workers, uint32_t omega,
+    const uint32_t* message, const uint32_t* p, const uint32_t* spectrum,
+    size_t k, size_t n, size_t l, uint32_t* arena, size_t arena_count,
+    uint32_t* h, uint32_t* scratch, uint32_t* word,
+    uint64_t* stats, char* error, size_t capacity) {
+  try {
+    if (!pr || !pc || !fr || !fc || !message || !p || !spectrum ||
+        !arena || !h || !scratch || !word || !stats ||
+        !k || k > n/2 || !l || (l & (l-1)) || l < 2*k-1 || l > n ||
+        arena_count < std::max(2*l, n) || !workers || workers > 64 ||
+        fr->transform.f.q != n) {
+      throw std::runtime_error("invalid online shape/buffers");
+    }
+    const auto& f = fr->transform.f;
+    auto same = [&](const liftrs_plan* a) {
+      return a->transform.f.q == f.q && a->transform.f.s == f.s &&
+             a->transform.f.polynomial == f.polynomial &&
+             a->transform.f.delta == f.delta;
+    };
+    if (!same(pr) || !same(pc) || !same(fc)) {
+      throw std::runtime_error("online field mismatch");
+    }
+    auto power = [&](uint32_t x, size_t exponent) {
+      uint32_t result = 1;
+      while (exponent) {
+        if (exponent & 1) result = f.mul(result, x);
+        x = f.mul(x, x);
+        exponent >>= 1;
+      }
+      return result;
+    };
+    // A primitive omega guarantees distinct scatter destinations, including when
+    // chunks execute concurrently. Reject invalid generators before writing.
+    if (!omega || omega >= n || power(omega, n-1) != 1) {
+      throw std::runtime_error("invalid online generator");
+    }
+    size_t order = n-1;
+    for (size_t d = 2; d*d <= order; d++) {
+      if (order % d != 0) continue;
+      if (power(omega, (n-1)/d) == 1) {
+        throw std::runtime_error("nonprimitive online generator");
+      }
+      while (order % d == 0) order /= d;
+    }
+    if (order > 1 && power(omega, (n-1)/order) == 1) {
+      throw std::runtime_error("nonprimitive online generator");
+    }
+    for (size_t i = 0; i < k; i++) {
+      if (message[i] >= (1u << f.s) || p[i] >= (1u << f.s)) {
+        throw std::runtime_error("online input outside base field");
+      }
+    }
+    std::fill(stats, stats+6, 0);
+    auto measured = [&](unsigned stage, auto fn) {
+      auto start = std::chrono::steady_clock::now();
+      fn();
+      stats[stage] += std::chrono::duration_cast<std::chrono::nanoseconds>(
+          std::chrono::steady_clock::now()-start).count();
+    };
+    auto fft = [&](bool prefix, uint32_t* data, bool inverse) {
+      uint64_t stages[3] = {};
+      if (liftrs_matrix_apply(prefix ? pr : fr, prefix ? pc : fc,
+          data, scratch, prefix ? l : n, prefix ? ps : fs, workers,
+          inverse, stages, error, capacity)) {
+        throw std::runtime_error(error && capacity ? error : "online matrix failed");
+      }
+      for (unsigned j = 0; j < 3; j++) stats[j] += stages[j];
+    };
+    auto* x = arena;
+    auto* z = arena+l;
+    measured(3, [&] {
+      std::fill(arena, arena+2*l, 0);
+      std::copy(p, p+k, x);
+      std::copy(message, message+k, z);
+    });
+    fft(true, x, false);
+    fft(true, z, false);
+    constexpr size_t chunk = 65536;
+    auto multiply = [&](uint32_t* a, const uint32_t* b, size_t count) {
+      parallel_jobs((count+chunk-1)/chunk, workers, [&](size_t job) {
+        for (size_t i = job*chunk; i < std::min(count, (job+1)*chunk); i++) {
+          a[i] = f.mul(a[i], b[i]);
+        }
+      });
+    };
+    measured(4, [&] { multiply(x, z, l); });
+    fft(true, x, true);
+    measured(3, [&] {
+      std::copy(x, x+k, h);
+      std::fill(arena, arena+n, 0);
+      std::copy(h, h+k, arena);
+    });
+    fft(false, arena, false);
+    measured(4, [&] { multiply(arena, spectrum, n); });
+    fft(false, arena, true);
+    measured(5, [&] {
+      // One small fixed-constant lookup map replaces scalar multiplication by
+      // omega. Each chunk starts at omega^(first+1), so no N-sized map is needed.
+      const auto step = make_product(f, omega);
+      const size_t jobs = (n-1+chunk-1)/chunk;
+      std::vector<uint32_t> parity(jobs);
+      std::atomic<bool> bad{false};
+      parallel_jobs(jobs, workers, [&](size_t job) {
+        uint32_t point = power(omega, job*chunk+1), sum = 0;
+        for (size_t i = job*chunk; i < std::min(n-1, (job+1)*chunk); i++) {
+          const uint32_t value = arena[i];
+          if (value >= (1u << f.s)) bad.store(true, std::memory_order_relaxed);
+          word[point] = value;
+          sum ^= value;
+          point = step.mul(f, point);
+        }
+        parity[job] = sum;
+      });
+      if (bad.load()) throw std::runtime_error("product escaped base field");
+      word[0] = 0;
+      for (auto value : parity) word[0] ^= value;
+    });
+    return 0;
+  } catch (const std::exception& e) {
+    fail(error, capacity, e.what());
+    return 1;
+  } catch (...) {
+    fail(error, capacity, "native online encoding failed");
+    return 1;
+  }
+}

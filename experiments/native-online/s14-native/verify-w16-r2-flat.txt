@@ -1,0 +1,30 @@
+File: probe
+Type: cpu
+Time: 2026-10-30 11:05:23 CET
+Duration: 1.32s, Total samples = 1.12s (84.53%)
+Showing nodes accounting for 1.12s, 100% of 1.12s total
+      flat  flat%   sum%        cum   cum%
+     0.85s 75.89% 75.89%      0.85s 75.89%  crypto/internal/fips140/sha256.blockSHA2
+     0.16s 14.29% 90.18%      1.09s 97.32%  main.main.func4
+     0.08s  7.14% 97.32%      0.08s  7.14%  encoding/binary.littleEndian.PutUint32 (inline)
+     0.02s  1.79% 99.11%      0.02s  1.79%  runtime.pthread_cond_signal
+     0.01s  0.89%   100%      0.01s  0.89%  runtime.kevent
+         0     0%   100%      0.85s 75.89%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%      0.85s 75.89%  crypto/internal/fips140/sha256.block
+         0     0%   100%      1.09s 97.32%  main.main
+         0     0%   100%      1.09s 97.32%  main.main.func2
+         0     0%   100%      1.09s 97.32%  main.main.func8
+         0     0%   100%      0.01s  0.89%  runtime.findRunnable
+         0     0%   100%      0.02s  1.79%  runtime.gopreempt_m (inline)
+         0     0%   100%      0.02s  1.79%  runtime.goschedImpl
+         0     0%   100%      1.09s 97.32%  runtime.main
+         0     0%   100%      0.01s  0.89%  runtime.mcall
+         0     0%   100%      0.02s  1.79%  runtime.morestack
+         0     0%   100%      0.01s  0.89%  runtime.netpoll
+         0     0%   100%      0.02s  1.79%  runtime.newstack
+         0     0%   100%      0.02s  1.79%  runtime.notewakeup
+         0     0%   100%      0.01s  0.89%  runtime.park_m
+         0     0%   100%      0.01s  0.89%  runtime.schedule
+         0     0%   100%      0.02s  1.79%  runtime.semawakeup
+         0     0%   100%      0.02s  1.79%  runtime.startm
+         0     0%   100%      0.02s  1.79%  runtime.wakep

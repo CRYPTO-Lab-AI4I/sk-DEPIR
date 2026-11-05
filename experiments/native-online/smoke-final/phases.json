@@ -1,0 +1,98 @@
+[
+  {
+    "allocated_bytes": 111733832,
+    "elapsed_ns": 354153584,
+    "go_sys_bytes": 18876680,
+    "heap_after_bytes": 2495688,
+    "heap_before_bytes": 368608,
+    "k": 3121,
+    "n": 65536,
+    "phase": "load",
+    "plan_array_bytes": 274632,
+    "s": 8,
+    "small_load_includes_generation_if_missing": true
+  },
+  {
+    "allocated_bytes": 2243232,
+    "elapsed_ns": 285167,
+    "go_sys_bytes": 18876680,
+    "heap_after_bytes": 3026048,
+    "heap_before_bytes": 782816,
+    "phase": "setup-w16",
+    "workers": 16
+  },
+  {
+    "allocated_bytes": 2534184,
+    "elapsed_ns": 7084,
+    "go_sys_bytes": 18876680,
+    "heap_after_bytes": 3318328,
+    "heap_before_bytes": 784144,
+    "input_bytes": 12484,
+    "phase": "workspace-w16",
+    "workspace_bytes": 536772
+  },
+  {
+    "allocated_bytes": 2287080,
+    "backend": "native",
+    "elapsed_ns": 10776750,
+    "go_sys_bytes": 18876680,
+    "heap_after_bytes": 3609720,
+    "heap_before_bytes": 1322640,
+    "native_stages": {
+      "calls": 5,
+      "boundary_calls": 1,
+      "buffer_ns": 3167,
+      "pointwise_ns": 796958,
+      "assembly_ns": 340250,
+      "taylor_ns": 4630083,
+      "columns_transposes_ns": 2270708,
+      "rows_ns": 2713959
+    },
+    "output_bytes": 262144,
+    "phase": "encode-w16-r0",
+    "repeat": 0,
+    "workers": 16
+  },
+  {
+    "allocated_bytes": 1996872,
+    "canonical_sha256": "0f049a254e9da9413c1a12ec8cf57a761b61357feba536070fe0cb28631ba4bf",
+    "elapsed_ns": 103000,
+    "full_hash_match": true,
+    "go_sys_bytes": 18876680,
+    "heap_after_bytes": 3586160,
+    "heap_before_bytes": 1589288,
+    "phase": "verify-w16-r0"
+  },
+  {
+    "allocated_bytes": 2299616,
+    "backend": "native",
+    "elapsed_ns": 10399500,
+    "go_sys_bytes": 18876680,
+    "heap_after_bytes": 3628520,
+    "heap_before_bytes": 1328904,
+    "native_stages": {
+      "calls": 5,
+      "boundary_calls": 1,
+      "buffer_ns": 3083,
+      "pointwise_ns": 802958,
+      "assembly_ns": 350333,
+      "taylor_ns": 3302709,
+      "columns_transposes_ns": 2252791,
+      "rows_ns": 3667251
+    },
+    "output_bytes": 262144,
+    "phase": "encode-w16-r1",
+    "repeat": 1,
+    "workers": 16
+  },
+  {
+    "allocated_bytes": 1996280,
+    "canonical_sha256": "0f049a254e9da9413c1a12ec8cf57a761b61357feba536070fe0cb28631ba4bf",
+    "elapsed_ns": 102750,
+    "full_hash_match": true,
+    "go_sys_bytes": 18876680,
+    "heap_after_bytes": 3590088,
+    "heap_before_bytes": 1593808,
+    "phase": "verify-w16-r1"
+  }
+]

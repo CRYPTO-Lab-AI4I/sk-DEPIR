@@ -1,0 +1,15 @@
+File: probe
+Type: cpu
+Time: 2026-10-30 10:54:35 CET
+Duration: 605.96ms, Total samples = 420ms (69.31%)
+Showing nodes accounting for 420ms, 100% of 420ms total
+      flat  flat%   sum%        cum   cum%
+     340ms 80.95% 80.95%      340ms 80.95%  crypto/internal/fips140/sha256.blockSHA2
+      50ms 11.90% 92.86%       50ms 11.90%  encoding/binary.littleEndian.PutUint32 (inline)
+      30ms  7.14%   100%      420ms   100%  main.main.func4
+         0     0%   100%      340ms 80.95%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%      340ms 80.95%  crypto/internal/fips140/sha256.block
+         0     0%   100%      420ms   100%  main.main
+         0     0%   100%      420ms   100%  main.main.func2
+         0     0%   100%      420ms   100%  main.main.func8
+         0     0%   100%      420ms   100%  runtime.main

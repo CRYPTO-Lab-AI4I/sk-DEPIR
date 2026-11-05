@@ -1,0 +1,22 @@
+File: probe
+Type: cpu
+Time: 2026-10-30 10:52:55 CET
+Duration: 202.19ms, Total samples = 50ms (24.73%)
+Showing nodes accounting for 50ms, 100% of 50ms total
+      flat  flat%   sum%        cum   cum%
+      30ms 60.00% 60.00%       30ms 60.00%  runtime.kevent
+      10ms 20.00% 80.00%       10ms 20.00%  [probe]
+      10ms 20.00%   100%       10ms 20.00%  runtime.cgocall
+         0     0%   100%       10ms 20.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.EncodeOnline
+         0     0%   100%       10ms 20.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_online_encode
+         0     0%   100%       10ms 20.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPEncoder).EncodeWithStats
+         0     0%   100%       10ms 20.00%  main.main
+         0     0%   100%       10ms 20.00%  main.main.func2
+         0     0%   100%       10ms 20.00%  main.main.func7
+         0     0%   100%       10ms 20.00%  runtime._ExternalCode
+         0     0%   100%       30ms 60.00%  runtime.findRunnable
+         0     0%   100%       10ms 20.00%  runtime.main
+         0     0%   100%       30ms 60.00%  runtime.mcall
+         0     0%   100%       30ms 60.00%  runtime.netpoll
+         0     0%   100%       30ms 60.00%  runtime.park_m
+         0     0%   100%       30ms 60.00%  runtime.schedule

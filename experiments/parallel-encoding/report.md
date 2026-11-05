@@ -152,3 +152,10 @@ and budget review before s=15. Use measured buffer/lifetime accounting for those
 runs rather than multiplying the former JSON-process RSS. Larger commodity hosts
 or disk-backed execution remain options where capacity demands them.
 
+
+
+Reproduction note (2026-10-30): the current harness explicitly calls
+`EncodeHybridWithStats`, preserving this report's five-native-transform/Go-scalar
+measurement boundary. The opt-in encoder's `EncodeWithStats` now selects the
+[complete native online path](../native-online/report.md). Historical source
+manifests and results above remain unchanged.

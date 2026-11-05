@@ -25,6 +25,14 @@ int liftrs_matrix_apply(const liftrs_plan* rows, const liftrs_plan* columns,
                         char* error, size_t error_capacity);
 /* One-time code-only preparation; caller must exclude concurrent execution. */
 int liftrs_plan_prepare_taylor(liftrs_plan*, unsigned high_levels, char*, size_t);
+/* Complete cyclic online path. Constants and distinct caller buffers are borrowed
+ * only until return. arena has max(2*l,n) elements; h has k, scratch/word n.
+ * stats[6]: Taylor, columns/transposes, rows, buffer setup, products, assembly.
+ * The Go binding checks all forbidden overlap before entering this function. */
+int liftrs_online_encode(const liftrs_plan*, const liftrs_plan*, const liftrs_plan*,
+    const liftrs_plan*, unsigned, unsigned, unsigned, uint32_t,
+    const uint32_t*, const uint32_t*, const uint32_t*, size_t, size_t, size_t,
+    uint32_t*, size_t, uint32_t*, uint32_t*, uint32_t*, uint64_t*, char*, size_t);
 size_t liftrs_plan_owned_bytes(const liftrs_plan* plan);
 void liftrs_plan_destroy(liftrs_plan* plan);
 #ifdef __cplusplus

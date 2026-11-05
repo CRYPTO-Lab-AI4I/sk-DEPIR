@@ -8,6 +8,15 @@ main paper/cyclic paths; large-instance feasibility remains unverified. The [enc
 
 ## Current checkpoint and next step
 
+The [complete native online step](encoding-scaling.md#next-step-complete-c-online-encoding)
+is implemented before s=15 admission. Code preprocessing remains Go; all
+database-dependent mathematical work executes in one C++ call. The
+[experiment](../experiments/native-online/report.md) validates cached s=14 outputs
+and unchanged memory use, while qualifying the timing comparison because of
+clock discrepancies and host variance; the earlier transform-only and
+parallel measurements below retain their original boundaries.
+
+
 The **current CPU kernel optimization phase is complete**. That original phase validated in-memory codeword
 encoding through **s=13**; the scaling study now adds experimental s=14 evidence below. This closes the present phase;
 it does not mean CPU optimization is exhausted or the complete TRL 5 library is
