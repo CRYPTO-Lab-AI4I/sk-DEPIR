@@ -307,3 +307,5 @@ past update needs correction. Add every new message to the index below.
 | 2026-11-06 15:23 | SCALE-008 | Results | [Local s15 run outcome](2026-11-06-1523-codex-scale-008-results.md) |
 | 2026-11-06 15:54 | PUBLISH-022 | Started | [Publish verified local s15 checkpoint](2026-11-06-1554-codex-publish-022-started.md) |
 | 2026-11-06 15:59 | PUBLISH-022 | Completed | [Verified s15 evidence and current docs for publication](2026-11-06-1554-codex-publish-022-completed.md) |
+| 2026-11-06 16:39 | HANDOFF-001 | Started | [Prepare larger-machine development handoff](2026-11-06-1639-codex-handoff-001-started.md) |
+| 2026-11-06 16:42 | HANDOFF-001 | Completed | [Larger-machine handoff and agent alignment ready](2026-11-06-1639-codex-handoff-001-completed.md) |

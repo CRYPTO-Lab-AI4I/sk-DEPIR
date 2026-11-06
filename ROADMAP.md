@@ -14,6 +14,12 @@ first-use peak. Larger s remains unmeasured and needs a memory-design review.
 These standalone results do not establish TRL 5 completion; [measurement boundaries and assumptions](docs/encoding-algorithms.md#current-checkpoint-and-next-step)
 remain explicit.
 
+Development now moves from the 48 GiB laptop to a larger-memory environment.
+Follow the [migration handoff](docs/development-handoff.md): validate one shared-memory
+CPU node and transferred s=15 artifacts first, then audit s=16 representation and
+resource requirements. A 256 GiB host is a planning target, not proof of feasibility;
+distributed/GPU execution is not selected by this move.
+
 The current target is a usable, validated Lift-RS client and preprocessing
 library. TRL 5 is a planning target, not a claim about the present implementation
 or a formal certification. TRL 6 may be considered later if needed.

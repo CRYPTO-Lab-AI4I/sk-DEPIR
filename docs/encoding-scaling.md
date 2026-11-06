@@ -6,8 +6,9 @@ Retain Go preprocessing and independent Go/dense correctness references. The
 now validates experimental s=14/15 paths; public default discovery remains s≤13
 and s≥16 remains unmeasured. Keep the current
 information set and canonical field/grid representation, not just membership in
-the same code. Begin on the local 48 GiB CPU machine; choose larger hardware only
-when measurements identify a specific need.
+the same code. The local 48 GiB machine now provides the verified s≤15 baseline;
+continue larger-scale work on a larger-memory CPU node using the
+[development handoff](development-handoff.md).
 
 Throughout, q=2^s, m=2, N=q² and K is the code's message dimension. Resource
 figures describe **one field-element database encoded under one code**. Encoding
@@ -518,3 +519,16 @@ field-element width. Compare a bounded-RAM design with a larger commodity-RAM
 baseline, including I/O and preprocessing costs; do not assume more kernel tuning
 alone solves the memory gap. Validate any selected design against retained s=15
 words/constants and small references before requesting a new large-run budget.
+
+
+## Development moves to a larger-memory host
+
+Local laptop development stops at s=15. The [development handoff](development-handoff.md)
+is the continuation entry point: begin on a single shared-memory commodity CPU
+node, provisionally 256 GiB RAM, validate the host/toolchain and transferred s=15
+cache, then perform the s=16 audit above. No destination test or artifact transfer
+has happened yet. Larger s remains unverified; the move does not select distributed
+HPC or a GPU, change protocol scope or require every field to use specialized hardware.
+Keep the generic local path and references intact, and retain all source-machine
+caches/profiles until verified transfer. New host/job budgets replace laptop values
+only after resource review; no additional large laptop run is planned.

@@ -65,3 +65,8 @@ executes complete database-dependent mathematical encoding in C++ with Go
 preprocessing/loading. Its [example](liftrs-shared/scaling_matrix_cpp_example_test.go)
 and [experiment](../experiments/native-online/report.md) distinguish it from the
 original transform-only adapter and the Go reference path.
+
+Further scaling development moves to a larger-memory CPU host after the verified
+s=15 checkpoint. New agents should start with the [handoff](../docs/development-handoff.md),
+including separate cache transfer, new-host validation and s=16 cardinality/memory
+requirements. Current code does not yet implement or validate s≥16.

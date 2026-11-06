@@ -38,6 +38,19 @@ Evaluate architecture-specific acceleration by its measured benefit and deployme
 cost, retaining a practical generic path. Clearly label projections for unavailable
 hardware; do not present them as measurements.
 
+## Current development environment and handoff
+
+Local laptop development stops at the verified standalone s=15 checkpoint.
+Larger-scale encoding work moves to a larger-memory environment; read the
+[development handoff](docs/development-handoff.md) before continuing. Start with
+a single shared-memory commodity CPU node (provisionally 256 GiB RAM), retaining
+the C++ online path and Go preprocessing/references. s≥16 is a larger-memory
+target, **not demonstrated feasibility or automatic HPC/GPU support**. Audit
+s=16 memory/cardinality changes, validate the new host and transferred caches,
+and review job budgets before a full run. Keep all laptop caches/profiles intact;
+Git alone does not transfer large preprocessing data. TRL 5 and protocol scope
+remain unchanged. Do not continue large laptop benchmarking by default.
+
 ## Rules for every contributor and agent
 
 Follow the [data representation conventions](docs/data-representation.md) for

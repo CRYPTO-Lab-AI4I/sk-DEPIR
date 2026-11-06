@@ -73,6 +73,15 @@ execution: K=216,914,047, median encoding 393.19 s, cached encoding 393.69 s,
 paused/resumed, so raw setup elapsed time is interrupted. These establish
 standalone local feasibility; application/cryptographic integration remains open.
 
+## Development handoff
+
+Local encoding development stops at the verified s=15 checkpoint. Further scaling
+moves to a larger-memory commodity CPU environment, initially a single shared-memory
+node (provisionally 256 GiB RAM). s≥16 remains unverified. The
+[agent handoff](docs/development-handoff.md) records the baseline, first actions,
+portability gaps, artifact transfer/checksums and budget review. Large caches are
+not in Git and remain on the source machine; no transfer has been performed yet.
+
 ## Implementation status and limits
 
 The online query and decode path supports locality `ℓ=q-1`, dimensions `m=2` and `m=3`, prime fields, and the listed binary extension fields. `Params.Q`, `Params.K`, and `Params.M` denote the field size `q`, curve degree `t`, and database dimension `m`. Production `Query` and `QueryLocal` append 128 dummy positions, so the transmitted query length is `L=(q-1)+128`.
