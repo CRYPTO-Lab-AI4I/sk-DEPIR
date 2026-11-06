@@ -1,0 +1,36 @@
+File: probe
+Type: cpu
+Time: 2026-11-06 15:55:31 CET
+Duration: 810.92ms, Total samples = 420ms (51.79%)
+Showing nodes accounting for 420ms, 100% of 420ms total
+      flat  flat%   sum%        cum   cum%
+     380ms 90.48% 90.48%      380ms 90.48%  runtime.memclrNoHeapPointers
+      20ms  4.76% 95.24%       20ms  4.76%  runtime.madvise
+      10ms  2.38% 97.62%       10ms  2.38%  runtime.(*bucket).mp
+      10ms  2.38%   100%       10ms  2.38%  runtime.usleep
+         0     0%   100%      380ms 90.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPEncoder).NewWorkspace
+         0     0%   100%      210ms 50.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).NewWorkspace (inline)
+         0     0%   100%      380ms 90.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse
+         0     0%   100%      380ms 90.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func13
+         0     0%   100%      380ms 90.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func3
+         0     0%   100%       20ms  4.76%  runtime.(*mheap).alloc.func1
+         0     0%   100%       20ms  4.76%  runtime.(*mheap).allocSpan
+         0     0%   100%       10ms  2.38%  runtime.bgsweep
+         0     0%   100%       10ms  2.38%  runtime.freeSomeWbufs
+         0     0%   100%       10ms  2.38%  runtime.gcBgMarkWorker
+         0     0%   100%       10ms  2.38%  runtime.gcMarkDone
+         0     0%   100%       10ms  2.38%  runtime.gcMarkTermination
+         0     0%   100%       10ms  2.38%  runtime.lock (inline)
+         0     0%   100%       10ms  2.38%  runtime.lock2
+         0     0%   100%       10ms  2.38%  runtime.lockWithRank (inline)
+         0     0%   100%       10ms  2.38%  runtime.mProf_Flush
+         0     0%   100%       10ms  2.38%  runtime.mProf_FlushLocked
+         0     0%   100%      380ms 90.48%  runtime.makeslice
+         0     0%   100%      380ms 90.48%  runtime.mallocgc
+         0     0%   100%      380ms 90.48%  runtime.mallocgcLarge
+         0     0%   100%      380ms 90.48%  runtime.memclrNoHeapPointersChunked
+         0     0%   100%       10ms  2.38%  runtime.osyield (inline)
+         0     0%   100%       20ms  4.76%  runtime.sysUsed (inline)
+         0     0%   100%       20ms  4.76%  runtime.sysUsedOS (inline)
+         0     0%   100%       20ms  4.76%  runtime.systemstack
+         0     0%   100%      380ms 90.48%  testing.tRunner

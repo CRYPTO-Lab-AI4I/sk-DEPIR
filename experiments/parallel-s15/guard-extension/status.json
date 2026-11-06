@@ -1,0 +1,21 @@
+{
+  "status": "worker-exited",
+  "timestamp_utc": "2026-11-06T10:29:09.274860+00:00",
+  "worker_pid": 84546,
+  "original_monitor_pid": 84443,
+  "monitor_pid": 89916,
+  "timeout_s": 19800,
+  "previous_timeout_s": 14400,
+  "source_sha256": "bbd23c73d5d0403ac13c7fb7bbb11640db143481f76389a77006cefaac81b59a",
+  "transferred_wall_s": 5244,
+  "clock_resolution_s": 1,
+  "process_rss_guard_bytes": 34359738368,
+  "cache_budget_bytes": 21474836480,
+  "go_soft_memory_bytes": 25769803776,
+  "power_pauses": [],
+  "peak_observed_rss_bytes": 19897008128,
+  "active_elapsed_s": 10554.3896555,
+  "paused_s": 0.0,
+  "phase": "active-reciprocal-fft-1073741824",
+  "finished_utc": "2026-11-06T15:16:08.142307+00:00"
+}

@@ -32,7 +32,7 @@ func LoadScalingOnline(source io.Reader, digest string, maxElements int) (*Scali
 		}
 	}
 	s, t, k, n := int(header[0]), int(header[1]), int(header[2]), int(header[3])
-	if s < 2 || s > 14 || t < 1 || t >= (1<<uint(s))-1 || n != 1<<uint(2*s) || n > maxElements || k < 1 || k > n/2 {
+	if !validScalingOnlineShape(s, t, k, n, maxElements) {
 		return nil, fmt.Errorf("invalid online probe shape/limit")
 	}
 	polynomial, _ := BinaryPolynomial(s)
@@ -86,4 +86,11 @@ func (p *ScalingOnlinePlan) SystematicPosition(index int) (uint64, error) {
 		return 0, fmt.Errorf("systematic index outside message")
 	}
 	return uint64(p.basis.extension.pow(p.basis.omega, index+1)), nil
+}
+
+// Validate the experimental header before allocating its potentially GiB-sized
+// arrays. s=15 uses 30-bit extension elements; larger fields need another layout.
+func validScalingOnlineShape(s, t, k, n, maxElements int) bool {
+	return s >= 2 && s <= 15 && t >= 1 && t < (1<<uint(s))-1 &&
+		n == 1<<uint(2*s) && n <= maxElements && k >= 1 && k <= n/2
 }

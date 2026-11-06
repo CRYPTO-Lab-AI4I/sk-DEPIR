@@ -1,0 +1,24 @@
+{
+  "timestamp_utc": "2026-11-06T09:06:22.427029+00:00",
+  "status": "admitted-running",
+  "source_sha256": {
+    "encoding/liftrs-shared/scaling_online.go": "ffc5467dcf1fe0a79d4989cdbd1690acc356ca93def8a023bdffb942ffc60809",
+    "encoding/liftrs-shared/scaling_prepare_cpp.go": "decc95fa68ec7d91e6fe1cf105da1dfdb18ed1cf049379aab2ee428a197ec0f5",
+    "encoding/liftrs-cpp/c_api.cpp": "5e47c27433410ef4d007ef02071a4188ac25bd6b5725dee42f862712fc549bfe",
+    "encoding/liftrs-shared/s15_firstuse_probe_test.go": "1a99db44201d4f213c87603991660f3210cf1463f6708ea70ebd61eb4c36e16e",
+    "experiments/parallel-s15/run.py": "7316a91630bc831109c3aba05f92b538f41a7a9e7f941b5c7b83e9099e9b756f",
+    "experiments/parallel-s15/analyze.py": "5966dfd2d7c68b3e52ddf057282e1640092b9167072136fe393d8febb81aa8d9",
+    "experiments/parallel-s15/finish.py": "069fa8e5d018e1ab8d5776095b8c1472a7875ca67a1c80258060bd449c86da48"
+  },
+  "validation": "validation/verification.json",
+  "smoke": [
+    "smoke/analysis.json",
+    "smoke-cached/analysis.json"
+  ],
+  "checks": [
+    "Python compilation",
+    "relative links in updated documentation",
+    "git diff --check"
+  ],
+  "large_results": "pending"
+}

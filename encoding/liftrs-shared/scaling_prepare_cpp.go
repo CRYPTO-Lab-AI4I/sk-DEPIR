@@ -48,8 +48,8 @@ func (c *scalingPreparationCPP) close() {
 	c.scratch = nil
 }
 func newScalingPreparationCPP(spec Spec, workers int) (*OrbitBasis, *scalingPreparationCPP, error) {
-	if spec.FieldDegree < 2 || spec.FieldDegree > 14 || spec.Dimension != 2 || spec.CurveDegree < 1 || spec.CurveDegree >= (1<<uint(spec.FieldDegree))-1 || workers < 1 || workers > 64 {
-		return nil, nil, fmt.Errorf("experimental preprocessing requires m=2,s=2..14 and valid t/workers")
+	if spec.FieldDegree < 2 || spec.FieldDegree > 15 || spec.Dimension != 2 || spec.CurveDegree < 1 || spec.CurveDegree >= (1<<uint(spec.FieldDegree))-1 || workers < 1 || workers > 64 {
+		return nil, nil, fmt.Errorf("experimental preprocessing requires m=2,s=2..15 and valid t/workers")
 	}
 	polynomial, err := BinaryPolynomial(spec.FieldDegree)
 	if err != nil {

@@ -1,0 +1,19 @@
+File: probe
+Type: cpu
+Time: 2026-11-06 16:08:53 CET
+Duration: 16.16s, Total samples = 15.46s (95.69%)
+Showing nodes accounting for 15.39s, 99.55% of 15.46s total
+Dropped 20 nodes (cum <= 0.08s)
+      flat  flat%   sum%        cum   cum%
+    13.28s 85.90% 85.90%     15.40s 99.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func15
+     1.22s  7.89% 93.79%      1.22s  7.89%  crypto/internal/fips140/sha256.blockSHA2
+     0.35s  2.26% 96.05%      0.35s  2.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func15.1 (inline)
+     0.22s  1.42% 97.48%      0.22s  1.42%  encoding/binary.littleEndian.PutUint32 (inline)
+     0.15s  0.97% 98.45%      0.15s  0.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     0.14s  0.91% 99.35%      0.32s  2.07%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.03s  0.19% 99.55%      0.18s  1.16%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+         0     0% 99.55%      1.22s  7.89%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0% 99.55%      1.22s  7.89%  crypto/internal/fips140/sha256.block
+         0     0% 99.55%     15.40s 99.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse
+         0     0% 99.55%     15.40s 99.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func3
+         0     0% 99.55%     15.40s 99.61%  testing.tRunner

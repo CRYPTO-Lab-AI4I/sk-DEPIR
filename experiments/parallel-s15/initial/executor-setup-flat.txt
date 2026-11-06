@@ -1,0 +1,27 @@
+File: probe
+Type: cpu
+Time: 2026-11-06 10:01:45 CET
+Duration: 404.11ms, Total samples = 190ms (47.02%)
+Showing nodes accounting for 190ms, 100% of 190ms total
+      flat  flat%   sum%        cum   cum%
+     170ms 89.47% 89.47%      170ms 89.47%  runtime.memclrNoHeapPointers
+      10ms  5.26% 94.74%       10ms  5.26%  runtime.cgocall
+      10ms  5.26%   100%       10ms  5.26%  runtime.madvise
+         0     0%   100%       10ms  5.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).PrepareTaylor
+         0     0%   100%       10ms  5.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).PrepareTaylor.func1 (inline)
+         0     0%   100%       10ms  5.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_prepare_taylor
+         0     0%   100%      180ms 94.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse
+         0     0%   100%      180ms 94.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func3
+         0     0%   100%      180ms 94.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func6
+         0     0%   100%       10ms  5.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newMatrixCPP
+         0     0%   100%      180ms 94.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newScalingPreparationCPP
+         0     0%   100%       10ms  5.26%  runtime.(*mheap).alloc.func1
+         0     0%   100%       10ms  5.26%  runtime.(*mheap).allocSpan
+         0     0%   100%      170ms 89.47%  runtime.makeslice
+         0     0%   100%      170ms 89.47%  runtime.mallocgc
+         0     0%   100%      170ms 89.47%  runtime.mallocgcLarge
+         0     0%   100%      170ms 89.47%  runtime.memclrNoHeapPointersChunked
+         0     0%   100%       10ms  5.26%  runtime.sysUsed (inline)
+         0     0%   100%       10ms  5.26%  runtime.sysUsedOS (inline)
+         0     0%   100%       10ms  5.26%  runtime.systemstack
+         0     0%   100%      180ms 94.74%  testing.tRunner

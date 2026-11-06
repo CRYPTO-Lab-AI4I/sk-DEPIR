@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+"""Verify retained s15 evidence and summarize only completed runs."""
+import gzip
+import hashlib
+import json
+import shutil
+import statistics
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT / 'experiments'))
+from source_evidence import verify_sources
+
+
+def sha(path):
+    h = hashlib.sha256()
+    with path.open('rb') as f:
+        for block in iter(lambda: f.read(1 << 20), b''):
+            h.update(block)
+    return h.hexdigest()
+
+
+def analyze(name):
+    out = HERE / name
+    r = json.loads((out / 'results.json').read_text())
+    assert r['status'] in ['passed', 'stopped', 'not-started', 'failed']
+    resolved = verify_sources(ROOT, r['source_sha256'], r['revision'])
+    if 'binary' in r:
+        assert sha(ROOT / r['binary']['path']) == r['binary']['sha256']
+    archive = {}
+    for name, expected in r.get('evidence_sha256', {}).items():
+        path = out / name
+        # An early supervisor captured this derived file in the original manifest.
+        # Preserve and verify those exact bytes separately; never verify our own
+        # regenerated analysis against an older version of itself.
+        if name == 'analysis.json' and (out / 'analysis-at-finalization.json').exists():
+            path = out / 'analysis-at-finalization.json'
+        if name.endswith('-native.txt'):
+            packed = out / (name + '.gz')
+            retained = (ROOT / r['binary']['path']).parent / 'native-samples' / out.name / name
+            if path.exists():
+                raw = path.read_bytes()
+                assert hashlib.sha256(raw).hexdigest() == expected
+                retained.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(path, retained)
+                packed.write_bytes(gzip.compress(raw, mtime=0))
+                path.unlink()
+            assert hashlib.sha256(gzip.decompress(packed.read_bytes())).hexdigest() == expected
+            archive[name] = {'gzip': packed.name, 'sha256': expected, 'retained_raw': str(retained.relative_to(ROOT))}
+        else:
+            assert sha(path) == expected, name
+    cache = ROOT / r['cache_directory']
+    for name, expected in r.get('cache_sha256', {}).items():
+        assert sha(cache / name) == expected, name
+    result = {'status': r['status'], 'sources_resolved': resolved, 'native_sample_archive': archive}
+    if r['status'] == 'passed':
+        phases = r['phases']
+        checks = [p for p in phases if p['phase'].startswith('verify-') and p['phase'] != 'verify-packed']
+        assert checks and all(p['repeat_match'] and p['curves_checked'] == 16 for p in checks)
+        hashes = {p['canonical_sha256'] for p in checks}
+        assert len(hashes) == 1
+        assert next(p for p in phases if p['phase'] == 'verify-packed')['readback_match']
+        encodes = [p for p in phases if p['phase'].startswith('encode-')]
+        assert len(encodes) == (1 if r['smoke'] or r['online_only'] else 3)
+        assert all(p['native_stages']['boundary_calls'] == 1 for p in encodes)
+        times = [(p['native_after']['steady_ns'] - p['native_before']['steady_ns']) / 1e9 for p in encodes]
+        result.update(encoding_seconds=times, median_encoding_s=statistics.median(times),
+                      canonical_sha256=next(iter(hashes)), peak_process_rss_gib=r['process_peak_rss_bytes'] / 2**30,
+                      wall_s=r['wall_s'], paused_s=r['paused_s'])
+        if not r['online_only']:
+            basis = json.loads((cache / 'basis-metadata.json').read_text())
+            prepared = json.loads((cache / 'online-metadata.json').read_text())
+            assert prepared['identity_verified'] and basis['k'] == prepared['k']
+            assert basis['n'] == (1 << (12 if r['smoke'] else 30))
+            result.update(k=basis['k'], n=basis['n'], code_rate=basis['k'] / basis['n'])
+        first = HERE / ('smoke' if r['smoke'] else 'initial') / 'analysis.json'
+        if r['online_only']:
+            assert first.exists(), 'analyze first use before cached comparison'
+            assert json.loads(first.read_text())['canonical_sha256'] == result['canonical_sha256']
+            result['first_use_word_match'] = True
+    else:
+        result.update(partial_only=True, reason=r.get('stop_reason', r.get('admission_failure', r.get('error'))))
+    (out / 'analysis.json').write_text(json.dumps(result, indent=2) + '\n')
+    print(json.dumps({k: v for k, v in result.items() if k not in ['sources_resolved', 'native_sample_archive']}, indent=2))
+
+
+if __name__ == '__main__':
+    analyze(sys.argv[1] if len(sys.argv) > 1 else 'initial')

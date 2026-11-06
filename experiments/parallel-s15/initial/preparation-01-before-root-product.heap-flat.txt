@@ -1,0 +1,13 @@
+File: probe
+Type: inuse_space
+Time: 2026-11-06 10:20:39 CET
+Showing nodes accounting for 5.67GB, 99.88% of 5.68GB total
+Dropped 33 nodes (cum <= 0.03GB)
+      flat  flat%   sum%        cum   cum%
+       4GB 70.46% 70.46%        4GB 70.47%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newScalingPreparationCPP
+    1.67GB 29.41% 99.88%     1.67GB 29.41%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.discoverOrbitBasis
+         0     0% 99.88%     5.67GB 99.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse
+         0     0% 99.88%     5.67GB 99.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func3
+         0     0% 99.88%        4GB 70.47%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func6
+         0     0% 99.88%     1.67GB 29.41%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func7
+         0     0% 99.88%     5.67GB 99.91%  testing.tRunner

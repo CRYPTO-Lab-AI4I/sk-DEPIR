@@ -65,7 +65,13 @@ implemented and pass small reference checks; the
 passes complete P/G/spectrum digest checks: 34m 32.5s preparation, 9.01 GiB
 process peak RSS and 5.42 GiB peak reachable heap at diagnostic checkpoints.
 Forced GC/profiling and retained-basis loading differ from the historical run;
-this is not a controlled latency comparison. s=15 admission is still pending.
+this is not a controlled latency comparison. The guarded
+[s=15 local experiment](experiments/parallel-s15/report.md) now passes exact
+discovery, reusable preparation, three complete native encodings and fresh cached
+execution: K=216,914,047, median encoding 393.19 s, cached encoding 393.69 s,
+18.46 GiB cached peak RSS and 20.55 GiB first-use peak. Preparation was manually
+paused/resumed, so raw setup elapsed time is interrupted. These establish
+standalone local feasibility; application/cryptographic integration remains open.
 
 ## Implementation status and limits
 

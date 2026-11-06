@@ -3,3 +3,4 @@ experiments/native-online/*/*-flat.txt whitespace=-blank-at-eol
 experiments/encoding-timing/*/*-flat.txt whitespace=-blank-at-eol
 experiments/preparation-memory/*/*/*-flat.txt whitespace=-blank-at-eol
 experiments/preparation-checkpoint/*/*-flat.txt whitespace=-blank-at-eol
+experiments/parallel-s15/*/*-flat.txt whitespace=-blank-at-eol

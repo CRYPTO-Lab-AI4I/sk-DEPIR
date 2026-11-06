@@ -1,0 +1,8 @@
+File: probe
+Type: cpu
+Time: 2026-11-06 10:00:39 CET
+Duration: 202.66ms, Total samples = 10ms ( 4.93%)
+Showing nodes accounting for 10ms, 100% of 10ms total
+      flat  flat%   sum%        cum   cum%
+      10ms   100%   100%       10ms   100%  [probe]
+         0     0%   100%       10ms   100%  runtime._ExternalCode

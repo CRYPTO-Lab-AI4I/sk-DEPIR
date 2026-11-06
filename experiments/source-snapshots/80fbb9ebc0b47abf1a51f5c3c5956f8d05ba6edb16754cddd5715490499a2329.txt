@@ -1,0 +1,109 @@
+#!/usr/bin/env python3
+"""Profile guarded s15 first use and fresh cached native encoding."""
+import argparse,hashlib,json,os,platform,re,signal,subprocess,time
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[2];HERE=Path(__file__).resolve().parent
+
+def sha(p):
+ h=hashlib.sha256()
+ with p.open('rb') as f:
+  for b in iter(lambda:f.read(1<<20),b''):h.update(b)
+ return h.hexdigest()
+def power_action(output,paused):
+ """Power transitions alone preserve work; only low battery pauses it."""
+ if paused and "'AC Power'" in output:return 'resume'
+ level=re.search(r'(\d+)%;',output)
+ if not paused and "'Battery Power'" in output and level and int(level.group(1))<=10:return 'pause'
+ return None
+
+def main():
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--go',default='go');p.add_argument('--run-name',default='initial');p.add_argument('--smoke',action='store_true');p.add_argument('--online-only',action='store_true');a=p.parse_args()
+ if not a.run_name or any(c not in 'abcdefghijklmnopqrstuvwxyz0123456789-_' for c in a.run_name):raise SystemExit('invalid name')
+ out=HERE/a.run_name;out.mkdir(exist_ok=False)
+ sources=sorted((ROOT/'encoding/liftrs-shared').rglob('*.go'))+sorted((ROOT/'encoding/liftrs-go').glob('*.go'))+sorted((ROOT/'encoding/liftrs-cpp').glob('*.*'))+[HERE/'run.py',ROOT/'go.mod',ROOT/'go.sum']
+ manifest={str(p.relative_to(ROOT)):sha(p) for p in sources}
+ for name,digest in manifest.items():
+  original=subprocess.run(['git','show','HEAD:'+name],cwd=ROOT,capture_output=True)
+  if original.returncode or hashlib.sha256(original.stdout).hexdigest()!=digest:
+   (ROOT/'experiments/source-snapshots'/(digest+'.txt')).write_bytes((ROOT/name).read_bytes())
+ identity=hashlib.sha256(json.dumps(manifest,sort_keys=True).encode()).hexdigest()[:16]
+ cache=ROOT/'.cache/liftrs/parallel-s15'/('s6-m2-t4' if a.smoke else 's15-m2-t5');cache.mkdir(parents=True,exist_ok=True);build=cache/'builds'/identity;build.mkdir(parents=True,exist_ok=True)
+ r={'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source_sha256':manifest,'status':'running','cache_directory':str(cache.relative_to(ROOT)),'smoke':a.smoke,'online_only':a.online_only,'measurement_boundary':'exact discovery, diagnostic preparation GC checkpoints, full native encoding','policy':{'timeout_s':14400,'go_soft_memory_bytes':24<<30,'process_rss_guard_bytes':32<<30,'cache_budget_bytes':20<<30,'power_policy':'AC or >=30% to start; pause at <=10% on battery; resume on AC','workers':16,'profiling':'Go CPU every phase; native sample once for each phase exceeding 10 seconds'},'environment':{'platform':platform.platform(),'go':subprocess.check_output([a.go,'version'],text=True).strip(),'compiler':subprocess.check_output([os.environ.get('CXX','clang++'),'--version'],text=True).strip(),'cpu_count':os.cpu_count(),'host_reference':'experiments/local-calibration/initial/results.json, same Apple M5 Pro 48 GiB machine'},'samples':[]}
+ def save():(out/'results.json').write_text(json.dumps(r,indent=2)+'\n')
+ save();(build/'provenance.json').write_text(json.dumps({'revision':r['revision'],'source_sha256':manifest},indent=2)+'\n')
+ binary=build/'probe'
+ with (out/'build.log').open('w') as f:subprocess.run([a.go,'test','-c','-tags','liftrs_cpp','-o',str(binary),'./encoding/liftrs-shared'],cwd=ROOT,stdout=f,stderr=subprocess.STDOUT,check=True)
+ r['binary']={'path':str(binary.relative_to(ROOT)),'sha256':sha(binary)};save()
+ env=dict(os.environ,PIR_S15_OUT=str(out),PIR_S15_CACHE=str(cache))
+ if a.smoke:env['PIR_S15_SMOKE']='1'
+ if a.online_only:env['PIR_S15_ONLINE_ONLY']='1'
+ command=[str(binary),'-test.run','^TestS15FirstUse$','-test.v','-test.timeout','24h'];r['command']=command
+ if not a.smoke:
+  power=subprocess.run(['/usr/bin/pmset','-g','batt'],capture_output=True,text=True);r['initial_power']={'command':['/usr/bin/pmset','-g','batt'],'stdout':power.stdout,'stderr':power.stderr,'exit_code':power.returncode}
+  level=re.search(r'(\d+)%;',power.stdout)
+  if platform.system()=='Darwin' and "'AC Power'" not in power.stdout and (not level or int(level.group(1))<30):
+   r['status']='not-started';r['admission_failure']='AC or at least 30% battery required';save();raise SystemExit(r['admission_failure'])
+  if __import__('shutil').disk_usage(ROOT).free < 30<<30:
+   r['status']='not-started';r['admission_failure']='30 GiB free disk required';save();raise SystemExit(r['admission_failure'])
+ save()
+ samplers=[];observed=set();paused_at=None;paused_total=0.;r['power_pauses']=[];phase='starting';phase_start=time.monotonic();peak_observed=0;stopped=None
+ with (out/'events.log').open('w') as stdout,(out/'stderr.txt').open('w') as stderr,(out/'progress.jsonl').open('w') as progress:
+  process=subprocess.Popen(command,cwd=ROOT,env=env,stdout=stdout,stderr=stderr);r['pid']=process.pid;save();start=time.monotonic();last=start-30
+  awake=subprocess.Popen(['/usr/bin/caffeinate','-i','-w',str(process.pid)]) if platform.system()=='Darwin' else None
+  try:
+   while True:
+    pid,status,usage=os.wait4(process.pid,os.WNOHANG)
+    if pid:process.returncode=os.waitstatus_to_exitcode(status);break
+    now=time.monotonic()
+    state=out/'state.json'
+    if state.exists():
+     try:current_state=json.loads(state.read_text());current=current_state['phase']
+     except (json.JSONDecodeError,KeyError):current=phase
+     if current!=phase:phase=current;phase_start=now;print('starting '+phase,flush=True)
+    try:rss=subprocess.run(['/bin/ps','-o','rss=','-p',str(process.pid)],capture_output=True,text=True)
+    except PermissionError:
+     if not a.smoke:raise RuntimeError('process RSS access required for large-run guard')
+     rss=subprocess.CompletedProcess([],1,stdout='',stderr='sandbox denies ps')
+    if rss.returncode==0 and rss.stdout.strip():peak_observed=max(peak_observed,int(rss.stdout.strip())*1024)
+    if now-start-paused_total-(now-paused_at if paused_at is not None else 0)>14400:stopped='active-compute timeout'
+    if rss.returncode==0 and rss.stdout.strip() and int(rss.stdout.strip())*1024>32<<30:stopped='RSS guard'
+    cache_bytes=sum(p.stat().st_size for p in cache.rglob('*') if p.is_file())
+    if cache_bytes>20<<30:stopped='cache guard'
+    if stopped:
+     if paused_at is not None:process.send_signal(signal.SIGCONT)
+     process.send_signal(signal.SIGTERM)
+     try:_,status,usage=os.wait4(process.pid,0);process.returncode=os.waitstatus_to_exitcode(status)
+     except ChildProcessError:process.returncode=4
+     break
+    if paused_at is None and not a.smoke and platform.system()=='Darwin' and now-phase_start>=10 and phase not in observed:
+     observed.add(phase);path=out/(phase+'-native.txt');log=(out/(phase+'-sample.log')).open('w');sampler=subprocess.Popen(['/usr/bin/sample',str(process.pid),'5','-file',str(path)],stdout=log,stderr=subprocess.STDOUT);samplers.append((sampler,log));r['samples'].append({'phase':phase,'elapsed_s':now-start,'path':path.name,'duration_s':5,'interval':'default 1 ms'});save()
+    if now-last>=30:
+     item={'elapsed_s':now-start,'phase':phase,'phase_elapsed_s':now-phase_start,'observed_peak_rss_bytes':peak_observed,'cache_bytes':cache_bytes,'rss_read_available':rss.returncode==0}
+     if not a.smoke and platform.system()=='Darwin':
+      power=subprocess.run(['/usr/bin/pmset','-g','batt'],capture_output=True,text=True);item['power']={'exit_code':power.returncode,'stdout':power.stdout,'stderr':power.stderr}
+      action=power_action(power.stdout,paused_at is not None)
+      if action=='pause':
+       process.send_signal(signal.SIGSTOP);paused_at=now;r['power_pauses'].append({'start_elapsed_s':now-start,'phase':phase,'reason':'battery <=10%'})
+       if awake is not None:awake.terminate();awake.wait();awake=None
+       print('benchmark suspended at low battery; work retained',flush=True);save()
+      elif action=='resume':
+       duration=now-paused_at;paused_total+=duration;r['power_pauses'][-1].update(end_elapsed_s=now-start,duration_s=duration)
+       process.send_signal(signal.SIGCONT);paused_at=None;awake=subprocess.Popen(['/usr/bin/caffeinate','-i','-w',str(process.pid)]);print('benchmark resumed on AC',flush=True);save()
+     item['work_progress']=current_state.get('progress') if 'current_state' in locals() else None
+     item['paused']=paused_at is not None;item['paused_seconds']=paused_total+(now-paused_at if paused_at is not None else 0)
+     progress.write(json.dumps(item)+'\n');progress.flush();print(json.dumps(item),flush=True);last=now
+    time.sleep(2)
+  except BaseException as err:
+   if paused_at is not None:process.send_signal(signal.SIGCONT)
+   process.send_signal(signal.SIGTERM);_,status,usage=os.wait4(process.pid,0);process.returncode=os.waitstatus_to_exitcode(status);r['error']=repr(err);r['status']='failed';save();raise
+ if awake is not None:awake.wait()
+ for process_sample,log in samplers:process_sample.wait();log.close()
+ terminal_status='passed' if process.returncode==0 else 'stopped' if stopped else 'failed'
+ r.update(status='finalizing',returncode=process.returncode,stop_reason=stopped,wall_s=time.monotonic()-start,paused_s=paused_total,process_peak_rss_bytes=usage.ru_maxrss*(1 if platform.system()=='Darwin' else 1024),observed_peak_rss_bytes=peak_observed)
+ if (out/'phases.json').exists():r['phases']=json.loads((out/'phases.json').read_text())
+ save()
+ for profile in sorted(out.glob('*.pprof')):
+  with (out/(profile.stem+'-flat.txt')).open('w') as f:subprocess.run([a.go,'tool','pprof','-top',str(binary),str(profile)],stdout=f,stderr=subprocess.STDOUT)
+ r['cache_sha256']={str(p.relative_to(cache)):sha(p) for p in cache.iterdir() if p.is_file()};r['evidence_sha256']={p.name:sha(p) for p in out.iterdir() if p.is_file() and p.name not in ('results.json','analysis.json')};r['status']=terminal_status;save();print('s15 first-use '+r['status'],flush=True)
+ if process.returncode:raise SystemExit('first-use incomplete; retained checkpoints/profiles preserved')
+if __name__=='__main__':main()

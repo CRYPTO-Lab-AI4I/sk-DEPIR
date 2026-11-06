@@ -1,0 +1,31 @@
+File: probe
+Type: cpu
+Time: 2026-11-06 15:55:27 CET
+Duration: 408.27ms, Total samples = 260ms (63.68%)
+Showing nodes accounting for 260ms, 100% of 260ms total
+      flat  flat%   sum%        cum   cum%
+     230ms 88.46% 88.46%      230ms 88.46%  runtime.madvise
+      20ms  7.69% 96.15%       20ms  7.69%  runtime.usleep
+      10ms  3.85%   100%       10ms  3.85%  runtime.pthread_cond_wait
+         0     0%   100%      220ms 84.62%  runtime.(*mheap).scavengeAll
+         0     0%   100%      220ms 84.62%  runtime.(*pageAlloc).scavenge
+         0     0%   100%      230ms 88.46%  runtime.(*pageAlloc).scavenge.func1
+         0     0%   100%      230ms 88.46%  runtime.(*pageAlloc).scavengeOne
+         0     0%   100%       10ms  3.85%  runtime.findRunnable
+         0     0%   100%       30ms 11.54%  runtime.goschedImpl
+         0     0%   100%       30ms 11.54%  runtime.gosched_m
+         0     0%   100%       20ms  7.69%  runtime.lock (inline)
+         0     0%   100%       20ms  7.69%  runtime.lock2
+         0     0%   100%       20ms  7.69%  runtime.lockWithRank (inline)
+         0     0%   100%       10ms  3.85%  runtime.mPark (inline)
+         0     0%   100%       30ms 11.54%  runtime.mcall
+         0     0%   100%       10ms  3.85%  runtime.notesleep
+         0     0%   100%       20ms  7.69%  runtime.osyield (inline)
+         0     0%   100%      220ms 84.62%  runtime.runtime_debug_freeOSMemory.func1
+         0     0%   100%       10ms  3.85%  runtime.schedule
+         0     0%   100%       10ms  3.85%  runtime.semasleep
+         0     0%   100%       10ms  3.85%  runtime.stopm
+         0     0%   100%      230ms 88.46%  runtime.sysUnused (inline)
+         0     0%   100%      230ms 88.46%  runtime.sysUnusedOS (inline)
+         0     0%   100%      230ms 88.46%  runtime.systemstack
+         0     0%   100%       10ms  3.85%  runtime.wakep

@@ -33,7 +33,12 @@ Standalone native matrix encoding from its retained P/spectrum artifact is
 validated. Code discovery/preparation currently uses the experimental harness;
 default public discovery and JSON basis loaders remain bounded to s≤13.
 Application-plan execution remains separate. The Monte Carlo evidence is retained.
-The other 6 entries retain estimated capacities and candidate encoding status.
+The s=15,m=2,t=5 entry has exact K=216,914,047 and polynomial 0x8003, backed
+by the [completed local run](../experiments/parallel-s15/report.md). Three native
+encodings and fresh cached execution pass; this is standalone support, with
+public discovery still limited to s≤13. Its historical MC estimate K=216,920,545
+is retained as separate evidence. The other five entries retain estimated
+capacities and candidate encoding status.
 “Supported” identifies the non-cryptographic backend, not integrated application
 encoding, grouped storage or production security. Historical cost-grid snapshots
 retain their original estimates so objective comparisons use identical inputs.

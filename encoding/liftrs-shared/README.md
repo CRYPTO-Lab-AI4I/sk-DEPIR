@@ -219,7 +219,7 @@ that every code or serialized cache fits RAM or loader limits. Completed catalog
 benchmarks cover the public cyclic path through s=13. The experimental
 [s=14 first-use path](../../experiments/parallel-s14/report.md) additionally
 validates exact K=50,976,325 and cached native encoding in about 91 s, with
-separate preparation and fresh-process memory measurements. s≥15 and automatic
+separate preparation and fresh-process memory measurements. s≥16 and automatic
 application-plan integration remain unverified.
 Do not extrapolate the small comparison's speed or artifact sizes to those codes.
 
@@ -302,7 +302,7 @@ builds return `ErrCPPUnavailable` and retain the Go path. See the
 Go preprocessing, cached generator spectra and all polynomial optimizations are
 shared by both paths. `EncodeWithStats` exposes per-encoding boundary accounting;
 `Close` releases native code metadata after active encodings finish.
-The native plan importer accepts field degrees 2–14. The original orbit/artifact
+The native plan importer accepts field degrees 2–15. The original orbit/artifact
 API remains bounded to s≤13; the opt-in minimal-artifact matrix path below adds
 validated s=14 execution.
 
@@ -350,7 +350,7 @@ assembly path for comparisons. The original `CyclicEncoder` and
 `LoadScalingOnline(reader, trustedSHA256, maxElements)` uses buffered blocks to
 read the experimental minimal binary. The digest must come from independently
 verified preprocessing; matching a checksum does not prove code validity. The
-format is experimental, limited to s≤14 (s=14 first-use evidence is tracked
+format is experimental, limited to s≤15 (s=14 first-use evidence is tracked
 [separately](../../experiments/parallel-s14/report.md)), and is not a public artifact-distribution
 commitment. Usage and profiling commands are in the
 [parallel integration report](../../experiments/parallel-encoding/report.md).
@@ -377,3 +377,18 @@ compares exact generated constants and separately labels diagnostic GC/heap
 snapshots. This is an in-memory improvement, not an s=15 support extension or a
 process-RSS guarantee. Normal preparation does not force collection; only the
 opt-in diagnostic observer does so.
+
+
+### Guarded s=15 admission
+
+The [local s=15 experiment](../../experiments/parallel-s15/report.md) extends only
+experimental native import, preparation and minimal-file limits to s=15 after
+small-buffer 30-bit-field and allocation-free shape checks. The ordinary public
+DiscoverOrbit limit remains s=13. Large execution now passes exact discovery, bounded preparation with heap
+checkpoints, three complete native encodings, packed output checks and a fresh
+cached run. Exact K is 216,914,047; median native encoding is 393.19 s and
+fresh cached peak RSS 18.46 GiB (20.55 GiB first use). Preparation timing spans
+a manual pause; these are standalone results, not application integration.
+Retained source, profiles and cache hashes distinguish its evidence from the
+completed s=14 measurements. Preparation remains Go with native transforms;
+database-dependent encoding uses the complete C++ path.

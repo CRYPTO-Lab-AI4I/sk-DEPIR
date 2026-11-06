@@ -499,17 +499,18 @@
     },
     {
       "id": "binary-s15-m2-t5",
-      "encoding_status": "candidate",
+      "encoding_status": "supported",
       "code": {
         "s": 15,
         "m": 2,
-        "t": 5
+        "t": 5,
+        "polynomial": 32771
       },
       "capacity": {
-        "status": "estimated",
+        "status": "verified",
         "n": 1073741824,
-        "k": 216920545,
-        "rate": 0.20202300045639277,
+        "k": 216914047,
+        "rate": 0.2020169487223029,
         "evidence": [
           {
             "kind": "paper",
@@ -533,6 +534,13 @@
               "lower_rate": 0.2000401653215649,
               "upper_rate": 0.2040058346784351
             }
+          },
+          {
+            "kind": "encoding",
+            "reference": "experiments/parallel-s15/report.md",
+            "script": "experiments/parallel-s15/run.py",
+            "results": "experiments/parallel-s15/initial/results.json",
+            "method": "Exact monomial enumeration and support discovery establish K=216914047,N=1073741824. Bounded reusable Go preparation with native transforms verifies P*G and retains support/P/G/spectrum. Three complete C++ encodings pass all systematic positions, 16 independently evaluated curve restrictions, repeated canonical hashes and packed readback; fresh cached execution matches. Preparation was manually paused/resumed and its raw elapsed time is interrupted. Standalone experimental native/minimal-file path only; default public discovery remains s<=13. No application-plan or cryptographic integration."
           }
         ]
       },
@@ -552,6 +560,19 @@
             "reference": "experiments/bounded-sample-parameters/report.md",
             "script": "experiments/bounded-sample-parameters/run.py",
             "results": "experiments/bounded-sample-parameters/results.csv"
+          }
+        ]
+      },
+      "encoder": {
+        "implementation": "encoding/liftrs-shared/scaling_online.go: LoadScalingOnline; scaling_matrix_cpp.go: WithCPPMatrix/EncodeWithStats (complete native online path)",
+        "preprocessing": "Experimental exact discovery and bounded reusable preparation via experiments/parallel-s15/run.py; verified binary support/P/spectrum/G files retained outside Git with checksums. Public DiscoverOrbit/JSON basis limits remain s<=13. Application-plan execution is not integrated.",
+        "evidence": [
+          {
+            "kind": "encoding",
+            "reference": "experiments/parallel-s15/report.md",
+            "script": "experiments/parallel-s15/run.py",
+            "results": "experiments/parallel-s15/initial/results.json",
+            "method": "Exact monomial enumeration and support discovery establish K=216914047,N=1073741824. Bounded reusable Go preparation with native transforms verifies P*G and retains support/P/G/spectrum. Three complete C++ encodings pass all systematic positions, 16 independently evaluated curve restrictions, repeated canonical hashes and packed readback; fresh cached execution matches. Preparation was manually paused/resumed and its raw elapsed time is interrupted. Standalone experimental native/minimal-file path only; default public discovery remains s<=13. No application-plan or cryptographic integration."
           }
         ]
       }

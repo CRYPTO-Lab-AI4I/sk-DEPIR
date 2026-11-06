@@ -49,3 +49,20 @@ func TestScalingOnlineValidation(t *testing.T) {
 		})
 	}
 }
+
+// Admission checks do not allocate the full s=15 domain. Caller caps remain
+// mandatory even when the experimental implementation understands its field.
+func TestScalingOnlineLargeShape(t *testing.T) {
+	for _, s := range []int{14, 15} {
+		n := 1 << uint(2*s)
+		if !validScalingOnlineShape(s, 5, n/4, n, n) ||
+			validScalingOnlineShape(s, 5, n/4, n, n-1) ||
+			validScalingOnlineShape(s, 5, n/2+1, n, n) ||
+			validScalingOnlineShape(s, 5, n/4, n-1, n) {
+			t.Fatal("large online shape guard", s)
+		}
+	}
+	if validScalingOnlineShape(16, 5, 1, 1<<32, 1<<32) {
+		t.Fatal("s=16 admitted despite packed arithmetic limit")
+	}
+}

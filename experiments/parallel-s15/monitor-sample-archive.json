@@ -1,0 +1,104 @@
+{
+  "guard-extension/active-reciprocal-fft-1073741824-native.txt": {
+    "raw_sha256": "eac03a855360e4a49ac012e962f577d2e7e17d5e000e1c28f5c1caded6ecee18",
+    "gzip": "guard-extension/active-reciprocal-fft-1073741824-native.txt.gz",
+    "gzip_sha256": "12964cfc1cf9f4a80a4a347c753adf26fadc15cb405a8dee9fb5d520db661cba",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-extension/active-reciprocal-fft-1073741824-native.txt"
+  },
+  "guard-extension/active-reciprocal-fft-268435456-native.txt": {
+    "raw_sha256": "1c85fdd358a38ffcf45a2a8555f6c1d2b3661f345b5c88eaec787d6f421aef4d",
+    "gzip": "guard-extension/active-reciprocal-fft-268435456-native.txt.gz",
+    "gzip_sha256": "b590ca489c658dcee2eab82508506d85c25111da8cc6bb23e8e89b56204f76be",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-extension/active-reciprocal-fft-268435456-native.txt"
+  },
+  "guard-extension/active-reciprocal-fft-536870912-native.txt": {
+    "raw_sha256": "a6420449f0124aee07d22fb873145ceb0a82145d82424f12fb1c847bf9daeb00",
+    "gzip": "guard-extension/active-reciprocal-fft-536870912-native.txt.gz",
+    "gzip_sha256": "aed93aa5bcd331ffafa09fd3c2ff84546cf356843bee189a04974c64752deec5",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-extension/active-reciprocal-fft-536870912-native.txt"
+  },
+  "guard-extension/active-root-product-fft-268435456-native.txt": {
+    "raw_sha256": "bb4d8533ffe789f3f2d2cd601be70e86dce19b885264535c3e4228c33d166401",
+    "gzip": "guard-extension/active-root-product-fft-268435456-native.txt.gz",
+    "gzip_sha256": "7cb44202c2de540815a60ae65b969af819ccf84e1091282f0614139c6f7ef869",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-extension/active-root-product-fft-268435456-native.txt"
+  },
+  "guard-extension/before-reciprocal-native.txt": {
+    "raw_sha256": "2122abf392ba2c7aeb306d08f8e89081b9d3ba0246ae19463a7e3beb6733162b",
+    "gzip": "guard-extension/before-reciprocal-native.txt.gz",
+    "gzip_sha256": "7c95b0235e401fdfa0a04df01aa7a84d4995e638ebaad23f0e16351e4fb759fa",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-extension/before-reciprocal-native.txt"
+  },
+  "guard-extension/root-product-native.txt": {
+    "raw_sha256": "4b84789d6fd6b99195fe50ce8680c7a7b53b26565a23fcac289b63cd2aaca3f5",
+    "gzip": "guard-extension/root-product-native.txt.gz",
+    "gzip_sha256": "bd415e14cf13a2195a565c126a9ffc65913b7ebefefe48c1f960bd35077acccf",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-extension/root-product-native.txt"
+  },
+  "guard-resumed-20261106-143915/active-identity-fft-1073741824-native.txt": {
+    "raw_sha256": "c284c41726f8444fb9dbc7201b559daa16b5a2a17f4ba08c3e9267a02f1eece4",
+    "gzip": "guard-resumed-20261106-143915/active-identity-fft-1073741824-native.txt.gz",
+    "gzip_sha256": "bb72eac40595c2dde3b4cde6045b112ec6dd1df7a9dba07687cf02f3492cdc30",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-resumed-20261106-143915/active-identity-fft-1073741824-native.txt"
+  },
+  "guard-resumed-20261106-143915/active-identity-fft-536870912-native.txt": {
+    "raw_sha256": "a32d8f50eeff8b742aca4371d554e385cb47f45a14e81bde198b9e18bb4f630d",
+    "gzip": "guard-resumed-20261106-143915/active-identity-fft-536870912-native.txt.gz",
+    "gzip_sha256": "bbaf9b6f5eee7e700b59ddbedd7be0e59e22d29eeac5e41f0d687933f7393fad",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-resumed-20261106-143915/active-identity-fft-536870912-native.txt"
+  },
+  "guard-resumed-20261106-143915/active-reciprocal-fft-1073741824-native.txt": {
+    "raw_sha256": "1429ed384c75916ca9219a5d08b2c39242fbe1ea3bb8bc770631de61ef12da4d",
+    "gzip": "guard-resumed-20261106-143915/active-reciprocal-fft-1073741824-native.txt.gz",
+    "gzip_sha256": "24ec0c948c20072a52fc6948ef5c084a4e721fa23526698dd1eb0cb72e80dd0e",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-resumed-20261106-143915/active-reciprocal-fft-1073741824-native.txt"
+  },
+  "guard-resumed-20261106-143915/active-reciprocal-fft-536870912-native.txt": {
+    "raw_sha256": "17e865413abc1aa4d97bec12c643fdfc1201835669ea6c16f5d98ca2e37104ed",
+    "gzip": "guard-resumed-20261106-143915/active-reciprocal-fft-536870912-native.txt.gz",
+    "gzip_sha256": "814cb000dbb37994a78597a1eafe03bed861cce981f146f48be6c4b2a1b109e5",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-resumed-20261106-143915/active-reciprocal-fft-536870912-native.txt"
+  },
+  "guard-resumed-20261106-143915/before-spectrum-native.txt": {
+    "raw_sha256": "6cd4c92c1b9107ba59c6b4e5ed2db25c39cacece01958c8ec53c3184a835ba11",
+    "gzip": "guard-resumed-20261106-143915/before-spectrum-native.txt.gz",
+    "gzip_sha256": "fcb91298aca379656fc8d0fc5934de3246e2dcaca51b673562e469931a5fe0c7",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-resumed-20261106-143915/before-spectrum-native.txt"
+  },
+  "guard-resumed-20261106-143915/encode-0-native.txt": {
+    "raw_sha256": "d04046ab422b477bcf9fbd618af0b19b182dc0650f5a36f46cfdcb63077ff662",
+    "gzip": "guard-resumed-20261106-143915/encode-0-native.txt.gz",
+    "gzip_sha256": "9646124d71a097e3890feabcb01f2ac172f824f2ba01f19634ca8569a9c84ab5",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-resumed-20261106-143915/encode-0-native.txt"
+  },
+  "guard-resumed-20261106-143915/encode-1-native.txt": {
+    "raw_sha256": "b227fbdde3b73dedd66ba9be17b96d13360e85a341b68cb02c8063ef6d485c33",
+    "gzip": "guard-resumed-20261106-143915/encode-1-native.txt.gz",
+    "gzip_sha256": "56a24d272a86cef42d9012d056d58dd339099fd56e8a8b6290bf9ee88b297bd9",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-resumed-20261106-143915/encode-1-native.txt"
+  },
+  "guard-resumed-20261106-143915/encode-2-native.txt": {
+    "raw_sha256": "d5a253399382af7ab1f876228f44107a279bc689ef9edbc2e734e60ecc0ac8f3",
+    "gzip": "guard-resumed-20261106-143915/encode-2-native.txt.gz",
+    "gzip_sha256": "e66b76ff585e5fce174cabfe466ebf2a6c5e4128c4f0d10f8ea028771feb5b3a",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-resumed-20261106-143915/encode-2-native.txt"
+  },
+  "guard-resumed-20261106-143915/verify-0-native.txt": {
+    "raw_sha256": "be4cd786f33e3c9a4afcf6d0f22aa9b136a8b125609f4cb1e6e52722e8c92612",
+    "gzip": "guard-resumed-20261106-143915/verify-0-native.txt.gz",
+    "gzip_sha256": "c61cc98e383c613a3848e529536c5f6e46d37fa87633b7ed36535702e810a02c",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-resumed-20261106-143915/verify-0-native.txt"
+  },
+  "guard-resumed-20261106-143915/verify-1-native.txt": {
+    "raw_sha256": "a9299d8e6b85719a06e9692e9b8d7c5d9e13fa21c7f0031b4e00506994828fc4",
+    "gzip": "guard-resumed-20261106-143915/verify-1-native.txt.gz",
+    "gzip_sha256": "54476454ec039d8e24f5f2dce71e6821e2c180bc15cab7a980745b3fd7850abb",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-resumed-20261106-143915/verify-1-native.txt"
+  },
+  "guard-resumed-20261106-143915/verify-2-native.txt": {
+    "raw_sha256": "fc2283c0647b3d017d47cbf7c793fcc6ee408fa05af6066da01db1f313cf4288",
+    "gzip": "guard-resumed-20261106-143915/verify-2-native.txt.gz",
+    "gzip_sha256": "852cc5e2f4770a1c90f13686d65706c92a7c776deeb31a2a5d6024d4c5f3e894",
+    "retained_raw": ".cache/liftrs/parallel-s15/monitor-native-samples/guard-resumed-20261106-143915/verify-2-native.txt"
+  }
+}

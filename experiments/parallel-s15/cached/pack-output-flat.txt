@@ -1,0 +1,37 @@
+File: probe
+Type: cpu
+Time: 2026-11-06 16:23:01 CET
+Duration: 5.85s, Total samples = 5500ms (93.94%)
+Showing nodes accounting for 5460ms, 99.27% of 5500ms total
+Dropped 8 nodes (cum <= 27.50ms)
+      flat  flat%   sum%        cum   cum%
+    1750ms 31.82% 31.82%     3290ms 59.82%  bufio.(*Writer).WriteByte
+    1470ms 26.73% 58.55%     5400ms 98.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func16
+    1070ms 19.45% 78.00%     1070ms 19.45%  syscall.rawsyscalln
+     640ms 11.64% 89.64%      640ms 11.64%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func2
+     360ms  6.55% 96.18%      360ms  6.55%  crypto/internal/fips140/sha256.blockSHA2
+     110ms  2.00% 98.18%      110ms  2.00%  bufio.(*Writer).Available (inline)
+      60ms  1.09% 99.27%       60ms  1.09%  runtime.pthread_cond_signal
+         0     0% 99.27%     1430ms 26.00%  bufio.(*Writer).Flush
+         0     0% 99.27%      360ms  6.55%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0% 99.27%      360ms  6.55%  crypto/internal/fips140/sha256.block
+         0     0% 99.27%     5400ms 98.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse
+         0     0% 99.27%     5400ms 98.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func3
+         0     0% 99.27%     1070ms 19.45%  internal/poll.(*FD).Write
+         0     0% 99.27%     1070ms 19.45%  internal/poll.ignoringEINTRIO (inline)
+         0     0% 99.27%     1430ms 26.00%  io.(*multiWriter).Write
+         0     0% 99.27%     1070ms 19.45%  os.(*File).Write
+         0     0% 99.27%     1070ms 19.45%  os.(*File).write (inline)
+         0     0% 99.27%       90ms  1.64%  runtime.gopreempt_m (inline)
+         0     0% 99.27%       90ms  1.64%  runtime.goschedImpl
+         0     0% 99.27%       90ms  1.64%  runtime.morestack
+         0     0% 99.27%       90ms  1.64%  runtime.newstack
+         0     0% 99.27%       80ms  1.45%  runtime.notewakeup
+         0     0% 99.27%       80ms  1.45%  runtime.semawakeup
+         0     0% 99.27%       90ms  1.64%  runtime.startm
+         0     0% 99.27%       90ms  1.64%  runtime.wakep
+         0     0% 99.27%     1070ms 19.45%  syscall.Write (inline)
+         0     0% 99.27%     1070ms 19.45%  syscall.syscall
+         0     0% 99.27%     1070ms 19.45%  syscall.syscalln
+         0     0% 99.27%     1070ms 19.45%  syscall.write
+         0     0% 99.27%     5400ms 98.18%  testing.tRunner

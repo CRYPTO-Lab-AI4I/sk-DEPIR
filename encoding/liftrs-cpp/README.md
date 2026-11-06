@@ -125,3 +125,9 @@ The readings are sequential and introduce small skew. The
 encoding calls with this API so native stages can be checked against a total
 from the same clock, while Go/getrusage readings provide independent diagnostics.
 This observation API does not change encoding or retained preprocessing.
+
+
+The [s=15 admission experiment](../../experiments/parallel-s15/report.md) extends
+the native importer through s=15 (30-bit extension elements) after small-buffer
+Horner/inverse tests. The completed first-use and fresh cached runs establish standalone s=15
+execution: about 6.5 minutes per encoding and 18.46 GiB cached peak RSS. Ordinary public Go discovery limits are unchanged.

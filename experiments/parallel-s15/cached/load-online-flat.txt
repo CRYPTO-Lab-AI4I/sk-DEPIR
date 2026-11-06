@@ -1,0 +1,25 @@
+File: probe
+Type: cpu
+Time: 2026-11-06 16:16:09 CET
+Duration: 2.73s, Total samples = 2340ms (85.85%)
+Showing nodes accounting for 2330ms, 99.57% of 2340ms total
+Dropped 3 nodes (cum <= 11.70ms)
+      flat  flat%   sum%        cum   cum%
+    1920ms 82.05% 82.05%     2340ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.LoadScalingOnline
+     410ms 17.52% 99.57%      410ms 17.52%  syscall.rawsyscalln
+         0     0% 99.57%      420ms 17.95%  bufio.(*Reader).Read
+         0     0% 99.57%     2340ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse
+         0     0% 99.57%     2340ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func12
+         0     0% 99.57%     2340ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func3
+         0     0% 99.57%      410ms 17.52%  internal/poll.(*FD).Read
+         0     0% 99.57%      410ms 17.52%  internal/poll.ignoringEINTRIO (inline)
+         0     0% 99.57%      420ms 17.95%  io.(*teeReader).Read
+         0     0% 99.57%      420ms 17.95%  io.ReadAtLeast
+         0     0% 99.57%      420ms 17.95%  io.ReadFull (inline)
+         0     0% 99.57%      410ms 17.52%  os.(*File).Read
+         0     0% 99.57%      410ms 17.52%  os.(*File).read (inline)
+         0     0% 99.57%      410ms 17.52%  syscall.Read (inline)
+         0     0% 99.57%      410ms 17.52%  syscall.read
+         0     0% 99.57%      410ms 17.52%  syscall.syscall
+         0     0% 99.57%      410ms 17.52%  syscall.syscalln
+         0     0% 99.57%     2340ms   100%  testing.tRunner

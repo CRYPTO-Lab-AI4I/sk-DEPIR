@@ -8,10 +8,10 @@ comparison (steps 1–2) and the [first prototype round](experiments/scaling-pro
 are documented. [Local step-4 measurements](experiments/local-calibration/report.md) now quantify
 native tile concurrency and fresh preparation/loading process memory. Integrated
 blocked I/O, generalized native tiles and larger resource validation remain gates
-before final design/hardware selection. s=14 appears practical with a higher
-setup budget; s=15 is borderline for cached encoding and currently exceeds this
-host's memory for preprocessing. These are estimates, not validation or TRL 5
-completion; [measurement boundaries and assumptions](docs/encoding-algorithms.md#current-checkpoint-and-next-step)
+before final design/hardware selection. [s=15 local feasibility](experiments/parallel-s15/report.md) is now demonstrated:
+about 6.5 minutes per native encoding, 18.46 GiB cached peak RSS and 20.55 GiB
+first-use peak. Larger s remains unmeasured and needs a memory-design review.
+These standalone results do not establish TRL 5 completion; [measurement boundaries and assumptions](docs/encoding-algorithms.md#current-checkpoint-and-next-step)
 remain explicit.
 
 The current target is a usable, validated Lift-RS client and preprocessing
@@ -237,5 +237,5 @@ The [s=14 first-use checkpoint](experiments/parallel-s14/report.md) adds exact
 K=50,976,325 and retained profiled preparation. Native mathematical encoding takes
 about 91 s; fresh cached peak RSS is 4.59 GiB and first-use peak 13.73 GiB. Code
 preparation currently uses an experimental harness, with the public default
-discovery guard unchanged at s≤13. s≥15 and integrated application execution remain
+discovery guard unchanged at s≤13. s≥16 and integrated application execution remain
 separate acceptance work; this checkpoint does not complete TRL 5.

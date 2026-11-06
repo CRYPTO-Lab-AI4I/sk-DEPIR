@@ -1,0 +1,18 @@
+{
+  "status": "resumed",
+  "timestamp_utc": "2026-11-06T11:58:04.806796+00:00",
+  "worker_pid": 84546,
+  "monitor_pid": 89916,
+  "original_monitor_pid": 84443,
+  "active_elapsed_s": 10579,
+  "timeout_s": 19800,
+  "previous_guard_record": "experiments/parallel-s15/guard-extension/status.json",
+  "sleep_assertions_disabled": [
+    84547
+  ],
+  "local_process_monotonic_at_pause": 0.0254085,
+  "active_time_source": "worker ps etime at first manual pause; no earlier power/sleep pauses",
+  "resume_command": "python3 experiments/parallel-s15/extend_guard.py --worker 84546 --monitor 84443 --hours 5.5 --resume-from experiments/parallel-s15/manual-pause/status.json",
+  "resumed_utc": "2026-11-06T14:39:15.922564+00:00",
+  "resume_guard_record": "experiments/parallel-s15/guard-resumed-20261106-143915/status.json"
+}

@@ -1,0 +1,17 @@
+{
+  "timestamp_utc": "2026-11-06T12:00:28.346766+00:00",
+  "worker_state": "T",
+  "active_monitor_state": "T",
+  "original_monitor_state": "T",
+  "tests": 3,
+  "checks": [
+    "Python compilation",
+    "git diff --check",
+    "paused PIDs and terminated idle-sleep assertion verified"
+  ],
+  "source_sha256": {
+    "experiments/parallel-s15/extend_guard.py": "d99e3c528475a1f90659d647dd4deb3988275ebf94b8c1d40d57b518e810974d",
+    "experiments/parallel-s15/test_extend_guard.py": "532bcfd06874cf28bf60a13d6282d2b48b733770266a25c335c1bb072d14d0a8"
+  },
+  "resume_exercised": false
+}

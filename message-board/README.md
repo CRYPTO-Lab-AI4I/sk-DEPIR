@@ -296,3 +296,14 @@ past update needs correction. Add every new message to the index below.
 | 2026-11-06 00:37 | SCALE-007 | Completed | [Bounded preparation and full s14 constants verified](2026-11-06-0037-codex-scale-007-completed.md) |
 | 2026-11-06 08:55 | PUBLISH-021 | Started | [Publish bounded preparation checkpoint](2026-11-06-0855-codex-publish-021-started.md) |
 | 2026-11-06 08:55 | PUBLISH-021 | Completed | [Preparation checkpoint verified for publication](2026-11-06-0855-codex-publish-021-completed.md) |
+| 2026-11-06 08:56 | SCALE-008 | Started | [Admit guarded local s15 experiment](2026-11-06-0856-codex-scale-008-started.md) |
+| 2026-11-06 09:06 | SCALE-008 | Handoff | [Guarded local s15 running; automatic cached follow-up](2026-11-06-0906-codex-scale-008-handoff.md) |
+| 2026-11-06 10:27 | SCALE-009 | Started | [Extend live s15 time guard to 5.5 hours](2026-11-06-1027-codex-scale-009-started.md) |
+| 2026-11-06 10:30 | SCALE-009 | Completed | [Live s15 time guard increased to 5.5 hours](2026-11-06-1027-codex-scale-009-completed.md) |
+| 2026-11-06 11:57 | SCALE-010 | Started | [Pause live s15 for a sleep break](2026-11-06-1157-codex-scale-010-started.md) |
+| 2026-11-06 12:00 | SCALE-010 | Completed | [Worker safely paused for sleep break](2026-11-06-1157-codex-scale-010-completed.md) |
+| 2026-11-06 14:39 | SCALE-011 | Started | [Resume manually paused s15 worker](2026-11-06-1439-codex-scale-011-started.md) |
+| 2026-11-06 14:40 | SCALE-011 | Completed | [Same s15 worker resumed with break excluded](2026-11-06-1439-codex-scale-011-completed.md) |
+| 2026-11-06 15:23 | SCALE-008 | Results | [Local s15 run outcome](2026-11-06-1523-codex-scale-008-results.md) |
+| 2026-11-06 15:54 | PUBLISH-022 | Started | [Publish verified local s15 checkpoint](2026-11-06-1554-codex-publish-022-started.md) |
+| 2026-11-06 15:59 | PUBLISH-022 | Completed | [Verified s15 evidence and current docs for publication](2026-11-06-1554-codex-publish-022-completed.md) |

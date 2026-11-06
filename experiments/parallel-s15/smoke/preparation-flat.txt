@@ -1,0 +1,22 @@
+File: probe
+Type: cpu
+Time: 2026-11-06 10:00:38 CET
+Duration: 202.60ms, Total samples = 10ms ( 4.94%)
+Showing nodes accounting for 10ms, 100% of 10ms total
+      flat  flat%   sum%        cum   cum%
+      10ms   100%   100%       10ms   100%  internal/runtime/atomic.(*UnsafePointer).Load (inline)
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScalingObserved
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func3
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func9
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0%   100%       10ms   100%  runtime.mProf_Malloc
+         0     0%   100%       10ms   100%  runtime.makeslice
+         0     0%   100%       10ms   100%  runtime.mallocgc
+         0     0%   100%       10ms   100%  runtime.mallocgcSmallNoscan
+         0     0%   100%       10ms   100%  runtime.profilealloc
+         0     0%   100%       10ms   100%  runtime.stkbucket
+         0     0%   100%       10ms   100%  testing.tRunner

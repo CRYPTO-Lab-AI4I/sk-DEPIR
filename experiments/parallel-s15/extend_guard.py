@@ -1,0 +1,184 @@
+#!/usr/bin/env python3
+"""Replace a fixed running monitor's time guard without restarting its worker.
+
+Suspend only the original monitor, which remains the worker's parent and later
+reaps it for kernel peak RSS. Enforce the new deadline, unchanged RSS/cache limits
+and power policy here, then resume that parent when the worker exits. The original
+source/policy record is historical; this override has its own provenance/logs.
+"""
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import json
+import os
+from pathlib import Path
+import signal
+import subprocess
+import time
+
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[1]
+
+
+def elapsed_seconds(value):
+    """Parse macOS ps elapsed time; resolution is one second."""
+    days, value = value.split('-', 1) if '-' in value else ('0', value)
+    parts = [int(x) for x in value.split(':')]
+    if len(parts) == 2:
+        parts.insert(0, 0)
+    if len(parts) != 3:
+        raise ValueError('invalid ps elapsed time')
+    return int(days)*86400 + parts[0]*3600 + parts[1]*60 + parts[2]
+
+
+def budget_origin(now, elapsed_wall, prior_paused, resume):
+    """Resume from captured active time, regardless of the break or clock origin."""
+    if resume:
+        return now - resume['active_elapsed_s'], 0
+    return now - elapsed_wall, prior_paused
+
+
+def ps(pid, field):
+    return subprocess.check_output(['/bin/ps', '-o', field+'=', '-p', str(pid)], text=True).strip()
+
+
+def power_action(output, paused):
+    import re
+    if paused and "'AC Power'" in output:
+        return 'resume'
+    level = re.search(r'(\d+)%;', output)
+    if not paused and "'Battery Power'" in output and level and int(level.group(1)) <= 10:
+        return 'pause'
+    return None
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--worker', type=int, required=True)
+    p.add_argument('--monitor', type=int, required=True)
+    p.add_argument('--hours', type=float, required=True)
+    p.add_argument('--resume-from', type=Path, help='explicitly resume a recorded manual pause')
+    a = p.parse_args()
+    if not 4 < a.hours < 24:
+        raise SystemExit('extension must be above 4h and below the Go wall timeout')
+    run = HERE / 'initial'
+    original = json.loads((run/'results.json').read_text())
+    if original['status'] != 'running' or original['pid'] != a.worker:
+        raise SystemExit('worker does not match running metadata')
+    if int(ps(a.worker, 'ppid')) != a.monitor or 'parallel-s15/run.py' not in ps(a.monitor, 'command'):
+        raise SystemExit('monitor is not the expected worker parent')
+    resume = json.loads(a.resume_from.read_text()) if a.resume_from else None
+    if resume:
+        if resume['status'] != 'paused' or resume['worker_pid'] != a.worker or resume['original_monitor_pid'] != a.monitor:
+            raise SystemExit('manual pause does not match this worker/parent')
+        if not ps(a.worker, 'stat').startswith('T') or not ps(resume['monitor_pid'], 'stat').startswith('T'):
+            raise SystemExit('manual pause processes are not suspended')
+    name = 'guard-resumed-'+datetime.now(timezone.utc).strftime('%Y%m%d-%H%M%S') if resume else 'guard-extension'
+    out = HERE/name; out.mkdir(exist_ok=False)
+    prior = json.loads((run/'progress.jsonl').read_text().splitlines()[-1])
+    if prior.get('paused'):
+        raise SystemExit('transfer while paused requires explicit pause accounting')
+    # ps provides elapsed wall time from process launch, rounded to one second.
+    transferred_wall = elapsed_seconds(ps(a.worker, 'etime'))
+    # Python's monotonic origin can differ between processes on this runtime.
+    # Resumption uses captured active duration, never another process's origin.
+    start, paused_total = budget_origin(time.monotonic(), transferred_wall,
+                                        prior.get('paused_seconds', 0), resume)
+    resume_monitor = resume['monitor_pid'] if resume else a.monitor
+    record = {'status':'transferring','timestamp_utc':datetime.now(timezone.utc).isoformat(),
+              'worker_pid':a.worker,'original_monitor_pid':a.monitor,'monitor_pid':os.getpid(),
+              'timeout_s':round(a.hours*3600),'previous_timeout_s':original['policy']['timeout_s'],
+              'source_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+              'transferred_wall_s':transferred_wall,'clock_resolution_s':1,
+              'process_rss_guard_bytes':original['policy']['process_rss_guard_bytes'],
+              'cache_budget_bytes':original['policy']['cache_budget_bytes'],
+              'go_soft_memory_bytes':original['policy']['go_soft_memory_bytes'],
+              'power_pauses':[],'peak_observed_rss_bytes':prior['observed_peak_rss_bytes']}
+    def save():
+        tmp=out/'status.tmp'; tmp.write_text(json.dumps(record,indent=2)+'\n');tmp.replace(out/'status.json')
+    if resume:
+        previous = json.loads((ROOT/resume['previous_guard_record']).read_text())
+        record['peak_observed_rss_bytes'] = previous['peak_observed_rss_bytes']
+        record['manual_pause'] = resume
+        record['manual_break_wall_s'] = (datetime.now(timezone.utc)-datetime.fromisoformat(resume['timestamp_utc'])).total_seconds()
+        record['active_at_resume_s'] = resume['active_elapsed_s']
+        record['resume_monitor_pid'] = resume_monitor
+    save()
+    paused_at=None; samplers=[]; awake=None; observed=set(); last=0; phase=None; phase_start=0
+    cache=ROOT/original['cache_directory']
+    os.kill(a.monitor,signal.SIGSTOP)
+    try:
+        if not ps(a.monitor,'stat').startswith('T'):
+            raise RuntimeError('original monitor did not suspend')
+        record['status']='enforcing';save()
+        if resume:
+            resume['status']='resumed';resume['resumed_utc']=datetime.now(timezone.utc).isoformat()
+            resume['resume_guard_record']=str((out/'status.json').relative_to(ROOT))
+            a.resume_from.write_text(json.dumps(resume,indent=2)+'\n')
+            os.kill(a.worker,signal.SIGCONT)
+            awake=subprocess.Popen(['/usr/bin/caffeinate','-i','-w',str(a.worker)])
+        print('active-time guard enforcing; original monitor suspended; worker unchanged',flush=True)
+        with (out/'progress.jsonl').open('w') as log:
+            while True:
+                state=ps(a.worker,'stat')
+                if state.startswith('Z'):
+                    record['status']='worker-exited';break
+                now=time.monotonic()
+                try:current=json.loads((run/'state.json').read_text())
+                except json.JSONDecodeError:
+                    time.sleep(0.1);continue
+                if current['phase']!=phase:
+                    phase=current['phase'];phase_start=now
+                rss=int(ps(a.worker,'rss'))*1024
+                record['peak_observed_rss_bytes']=max(record['peak_observed_rss_bytes'],rss)
+                active=now-start-paused_total-(now-paused_at if paused_at is not None else 0)
+                reason=None
+                if active>record['timeout_s']:reason='active-compute timeout'
+                if rss>record['process_rss_guard_bytes']:reason='RSS guard'
+                if sum(p.stat().st_size for p in cache.rglob('*') if p.is_file())>record['cache_budget_bytes']:reason='cache guard'
+                if reason:
+                    record.update(status='guard-stopped',stop_reason=reason)
+                    if paused_at is not None:os.kill(a.worker,signal.SIGCONT);paused_at=None
+                    os.kill(a.worker,signal.SIGTERM)
+                    while not ps(a.worker,'stat').startswith('Z'):time.sleep(1)
+                    break
+                if paused_at is None and now-phase_start>=10 and phase not in observed:
+                    observed.add(phase)
+                    f=(out/(phase+'-sample.log')).open('w')
+                    child=subprocess.Popen(['/usr/bin/sample',str(a.worker),'5','-file',str(out/(phase+'-native.txt'))],stdout=f,stderr=subprocess.STDOUT)
+                    samplers.append((child,f))
+                if now-last>=30:
+                    power=subprocess.check_output(['/usr/bin/pmset','-g','batt'],text=True)
+                    action=power_action(power,paused_at is not None)
+                    if action=='pause':
+                        os.kill(a.worker,signal.SIGSTOP);paused_at=now
+                        record['power_pauses'].append({'start_elapsed_s':now-start})
+                        # Disable the old monitor's idle-sleep assertion while suspended.
+                        children=subprocess.check_output(['/bin/ps','-axo','pid=,ppid=,comm='],text=True)
+                        for line in children.splitlines():
+                            fields=line.split(None,2)
+                            if len(fields)==3 and fields[1]==str(a.monitor) and fields[2].endswith('/caffeinate'):
+                                os.kill(int(fields[0]),signal.SIGTERM)
+                        if awake is not None:awake.terminate();awake.wait();awake=None
+                    elif action=='resume':
+                        duration=now-paused_at;paused_total+=duration
+                        record['power_pauses'][-1]['duration_s']=duration
+                        os.kill(a.worker,signal.SIGCONT);paused_at=None
+                        awake=subprocess.Popen(['/usr/bin/caffeinate','-i','-w',str(a.worker)])
+                    record.update(active_elapsed_s=active,paused_s=paused_total,phase=phase)
+                    log.write(json.dumps({'active_elapsed_s':active,'rss_bytes':rss,'phase':phase,'work_progress':current.get('progress'),'power':power,'paused':paused_at is not None})+'\n');log.flush();save();last=now
+                time.sleep(2)
+    except BaseException as error:
+        record.update(status='monitor-error',error=repr(error))
+        raise
+    finally:
+        # Restore original enforcement if this monitor fails; never strand its parent.
+        if paused_at is not None:os.kill(a.worker,signal.SIGCONT)
+        record['finished_utc']=datetime.now(timezone.utc).isoformat();save()
+        os.kill(resume_monitor,signal.SIGCONT)
+        for child,f in samplers:child.wait();f.close()
+        if awake is not None:awake.terminate();awake.wait()
+        print('original monitor resumed to collect final statistics',flush=True)
+
+
+if __name__=='__main__':main()

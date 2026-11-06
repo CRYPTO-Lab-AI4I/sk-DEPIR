@@ -1,0 +1,27 @@
+File: probe
+Type: cpu
+Time: 2026-11-06 16:22:46 CET
+Duration: 15.13s, Total samples = 14.59s (96.40%)
+Showing nodes accounting for 14.50s, 99.38% of 14.59s total
+Dropped 12 nodes (cum <= 0.07s)
+      flat  flat%   sum%        cum   cum%
+     8.98s 61.55% 61.55%     14.48s 99.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func15
+     2.27s 15.56% 77.11%      2.27s 15.56%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     1.91s 13.09% 90.20%      4.67s 32.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.48s  3.29% 93.49%      2.75s 18.85%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.34s  2.33% 95.82%      0.34s  2.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func15.1 (inline)
+     0.33s  2.26% 98.08%      0.33s  2.26%  crypto/internal/fips140/sha256.blockSHA2
+     0.16s  1.10% 99.18%      0.16s  1.10%  encoding/binary.littleEndian.PutUint32 (inline)
+     0.01s 0.069% 99.25%      0.11s  0.75%  runtime.newstack
+     0.01s 0.069% 99.31%      0.08s  0.55%  runtime.semawakeup
+     0.01s 0.069% 99.38%      0.09s  0.62%  runtime.startm
+         0     0% 99.38%      0.33s  2.26%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0% 99.38%      0.33s  2.26%  crypto/internal/fips140/sha256.block
+         0     0% 99.38%     14.48s 99.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse
+         0     0% 99.38%     14.48s 99.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func3
+         0     0% 99.38%      0.10s  0.69%  runtime.gopreempt_m (inline)
+         0     0% 99.38%      0.10s  0.69%  runtime.goschedImpl
+         0     0% 99.38%      0.10s  0.69%  runtime.morestack
+         0     0% 99.38%      0.08s  0.55%  runtime.notewakeup
+         0     0% 99.38%      0.10s  0.69%  runtime.wakep
+         0     0% 99.38%     14.48s 99.25%  testing.tRunner

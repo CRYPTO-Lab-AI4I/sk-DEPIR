@@ -3,8 +3,8 @@
 Use the shared encoder with C++ transforms as both **baseline and starting code**.
 Retain Go preprocessing and independent Go/dense correctness references. The
 [current checkpoint](encoding-algorithms.md#current-checkpoint-and-next-step)
-now validates an experimental s=14 path; public default discovery remains s≤13
-and s≥15 remains unmeasured. Keep the current
+now validates experimental s=14/15 paths; public default discovery remains s≤13
+and s≥16 remains unmeasured. Keep the current
 information set and canonical field/grid representation, not just membership in
 the same code. Begin on the local 48 GiB CPU machine; choose larger hardware only
 when measurements identify a specific need.
@@ -21,9 +21,10 @@ an application layout can invoke several such encodings and reuse code-only setu
 | 2. Execution designs | Compare blocked in-memory and external-memory transforms/products, selective preprocessing and spectrum choices | Concrete candidates, cost models and explicit unresolved dependencies | Complete: candidates/gates |
 | 3. Focused prototypes | Implement uncertain operations at manageable sizes under constrained RAM; compare with the existing code | Verified decompositions and measured memory/I/O, not just timings | Prototype round complete; performance gates open |
 | 4. Local calibration | Measure useful-core scaling, sustained storage and compute/I/O overlap; assess GPU suitability | Calibrated resource model and reasons for any larger hardware test | Bounded local calibration complete; sustained/integrated gates open |
-| 5. Design selection | Select from measured evidence; integrate and validate progressively at s=13,14,15 when budgets permit | Canonical outputs, measured resource use and next hardware recommendation | Local s=13/14 CPU integration complete; s=15 gate open |
+| 5. Design selection | Select from measured evidence; integrate and validate progressively at s=13,14,15 when budgets permit | Canonical outputs, measured resource use and next hardware recommendation | Local s=13/14/15 CPU integration complete; larger-memory design gates open |
 
-The first local feasibility target is s=15; the design must account for s=16..20.
+The first local feasibility target, s=15, is demonstrated on the 48 GiB host.
+The design must still account for s=16..20.
 No runtime/RAM/disk budget is increased by this plan. Agree numerical budgets
 before larger runs. Reuse comparable baseline results, durable preprocessing and
 profiles. Keep setup, cache loading, database encoding, output and validation
@@ -466,3 +467,54 @@ HPC/GPU or external-memory work is not yet required by the evidence.
    after correctness checks. If live preparation exceeds the local budget, use
    the measured shortfall to choose bounded external memory or a larger commodity
    RAM machine. s=16+ architecture decisions follow those results.
+
+
+### Local s=15 admission experiment
+
+The [experiment](../experiments/parallel-s15/report.md) implements the next local
+attempt: experimental preparation/native/loader guards allow s=15, while public
+DiscoverOrbit remains at s≤13. Small-buffer 30-bit arithmetic, loader shape caps
+and full suites must pass before launch. The run separates exact discovery,
+reusable preparation, artifact persistence, three complete native encodings,
+packed I/O and fresh-process cached execution. Preparation retains internal
+heap checkpoints and diagnostic GC; encoding does not add forced internal GC.
+
+Use a 24 GiB Go soft target, 32 GiB process RSS guard, 20 GiB new cache budget
+and initially four hours of active compute. The current initial run has a
+[user-authorized 5.5-hour override](../experiments/parallel-s15/report.md#live-time-guard-extension),
+without restarting the worker or changing RAM/cache limits. The s=14 measurement suggests s=15 preparation
+alone may exceed two hours; this extends time, not the memory limit. Low battery
+pauses preserve running memory; completed stages persist across process restarts.
+A guard stop is evidence of the encountered resource limit, not success or proof
+that a larger commodity machine is required. Full results are now recorded in the completed checkpoint below.
+
+The completed s=15 attempt [resumed after its manual sleep break](../experiments/parallel-s15/report.md#resumed-after-manual-break)
+on the same worker, under a new active-time monitor. Break time is excluded from
+the 5.5-hour budget. Do not rerun its resume command or resume the old fixed
+monitors directly. Preparation latency must be labeled interrupted; later online
+measurements remain a separate boundary.
+
+
+## Completed local s=15 checkpoint and next step
+
+The [first-use and cached runs](../experiments/parallel-s15/report.md) pass for
+s=15,m=2,t=5, with exact K=216,914,047 and N=2^30. Three complete native encodings
+take 391.35/393.19/396.48 s; fresh cached encoding takes 393.69 s and reproduces
+the full output hash. Whole-process peaks are 20.55 GiB first use and 18.46 GiB
+cached. All systematic positions, sampled independent curves and packed readback
+pass. Reusable code files total about 8.81 GiB, with a 4.81 GiB minimal online
+file. Profiles, exact sources and cache hashes remain retained outside Git.
+
+This demonstrates this standalone configuration locally, completing the s=15
+admission gate described above. Earlier resource models/forecasts remain historical
+scenarios. Preparation spans a manual sleep pause; its raw elapsed time is not an
+uninterrupted latency baseline. Public discovery defaults still stop at s≤13;
+application-plan/cryptographic execution, TRL 5 acceptance and s≥16 remain open.
+
+Next, design the s=16 memory schedule before another full run. Audit the retained
+s=15 profiles and simultaneous buffers, then specify which arrays can be reused,
+fused or processed in blocks. Address 2^32 cardinalities/indexing separately from
+field-element width. Compare a bounded-RAM design with a larger commodity-RAM
+baseline, including I/O and preprocessing costs; do not assume more kernel tuning
+alone solves the memory gap. Validate any selected design against retained s=15
+words/constants and small references before requesting a new large-run budget.

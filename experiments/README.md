@@ -152,3 +152,8 @@ rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
 - [Bounded preparation checkpoint](preparation-checkpoint/report.md): compact
   membership, batched factors and reusable scratch, with exact constant checks
   and diagnostic live-heap/process-memory measurements from retained support.
+
+- [Guarded local s=15 first use](parallel-s15/report.md): exact discovery, bounded
+  preparation and complete native encoding with retained profiles/cache and
+  explicit memory, time and power guards. First use and fresh cached execution
+  pass: about 6.5 minutes per encoding and 18.46 GiB cached peak RSS.

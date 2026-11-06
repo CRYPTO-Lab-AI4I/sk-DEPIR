@@ -1,0 +1,35 @@
+{
+  "timestamp_utc": "2026-11-06T15:58:50.469157+00:00",
+  "status": "passed",
+  "checks": [
+    "initial/cached source, binary, artifact and evidence verification",
+    "initial analysis repeated, legacy captured analysis checksum preserved",
+    "publication smoke and repeat analysis; derived analysis excluded from sealed manifest",
+    "catalogue/planner Go tests",
+    "three guard policy tests",
+    "Python compilation",
+    "updated document links",
+    "git diff --check",
+    "17 native monitor samples losslessly archived with raw originals retained"
+  ],
+  "source_sha256": {
+    "experiments/parallel-s15/run.py": "80fbb9ebc0b47abf1a51f5c3c5956f8d05ba6edb16754cddd5715490499a2329",
+    "experiments/parallel-s15/analyze.py": "6dbf1278bf8857962b5e8aa3cb82e9d35145e3e9e28b4d2fa71c05c17308d028",
+    "experiments/parallel-s15/finish.py": "ee03b87d924bda5a48a5045e76c4cb79b8daeb426240df256b6d4e97fbaad2da",
+    "experiments/parallel-s15/record-catalogue.py": "9a77f5261d46f4ba855995ba6e900bdf85bc37ca2e742eec5aebc9f3c75f1182",
+    "experiments/parallel-s15/archive-monitor-samples.py": "bdedb5ef795b7b81d7f79a64f123c47f015da54bf021b024647e221619acabfe",
+    "pirconfig/configs_catalogue.json": "8e217ea2e2405b1327e375a73f9a3d80733382ad50c8e58e6b428e395506b84e",
+    "pirconfig/catalogue_test.go": "7fb75cd6f497768f22d1cf860058f0062dcd8fd2d5d3c2c5474f344bf8deb8bf",
+    "README.md": "0780fdda83c8bb4b5cc0ed3a59c0c26dbb9ea652937fdc9134264f26b7264861",
+    "ROADMAP.md": "bd34614aef5023953f6591b0e5b643d7c03d5c13998bc25dd8122a71dc487529",
+    "docs/encoding-scaling.md": "2391e92ec0fc6084a4c9f81386390143766af9e362e0a80a1d8da5b0f84896f4",
+    "docs/encoding-algorithms.md": "19af3a7834b3404bb2e25199851bbe82ae38bf7aaede530f70b64b1bd16abb37",
+    "docs/encoder-contract.md": "0eccc0808fe810121d3408530b77b96b05176bec96504771c8e66226f987fbd7",
+    "pirconfig/README.md": "a617f4e599904a5b4744c2d06ced84b03994925b52d8b9b1c5bc37b314f2e8ae",
+    "encoding/liftrs-shared/README.md": "c27224e18113e93c07e1a50bb118778237ef3e217e017f485a8ec42080ced4a0",
+    "encoding/liftrs-cpp/README.md": "921f3620ab50382d90b97e4052da99e72bd5cbaf42aa2f3a584edec610e28b9f",
+    "experiments/README.md": "9b0190f5cd383aa238dd651f90b5ec6a9e0e459c6761b4b05c8d8b9a80dbab2a",
+    "experiments/parallel-s15/report.md": "c7f9fe422d243d38b4f23ee670483b0cb5482130b7bc64d72100a7241f3fcd00"
+  },
+  "prior_backend_validation": "validation/verification.json; full Go/native suites, focused race and vet passed before large run; no subsequent arithmetic changes"
+}

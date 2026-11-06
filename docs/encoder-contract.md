@@ -354,7 +354,10 @@ exact discovery/preparation, verified retained constants and cached mathematical
 encoding. Default public discovery/JSON basis loading remains s≤13; the minimal
 artifact/native matrix path additionally validates s=14. First-use and fresh
 cached-process RSS are reported separately. This is not application or
-cryptographic encoding integration, and s≥15 remains an admission gate.
+cryptographic encoding integration. The [s=15 checkpoint](../experiments/parallel-s15/report.md)
+now also passes exact discovery/preparation, complete native encoding and fresh
+cached hash verification: 393.19 s median encoding and 18.46 GiB cached peak RSS.
+s≥16 remains an admission/design gate.
 
 
 The opt-in [complete native online path](../encoding/liftrs-cpp/README.md#complete-native-online-encoding)

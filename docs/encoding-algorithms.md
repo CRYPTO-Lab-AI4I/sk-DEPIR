@@ -18,7 +18,7 @@ parallel measurements below retain their original boundaries.
 
 
 The **current CPU kernel optimization phase is complete**. That original phase validated in-memory codeword
-encoding through **s=13**; the scaling study now adds experimental s=14 evidence below. This closes the present phase;
+encoding through **s=13**; the scaling study now adds experimental s=14/15 evidence below. This closes the present phase;
 it does not mean CPU optimization is exhausted or the complete TRL 5 library is
 finished. Additional lookup-table, recursion and parallel-kernel tuning is deferred
 until the large-instance execution design is chosen.
@@ -41,7 +41,10 @@ median combines scheduling/algorithm changes; it is not thread scaling alone.
 The [s=14 first-use run](../experiments/parallel-s14/report.md) now adds exact
 K=50,976,325, 33 min 38 s reusable preparation and 90.53 s median encoding. A fresh
 cached process uses 4.59 GiB RSS and 92.12 s, versus first-use peak 13.73 GiB.
-Default public discovery remains s≤13; s≥15 parallel cases remain unmeasured.
+Default public discovery remains s≤13. The [completed s=15 run](../experiments/parallel-s15/report.md)
+adds exact K=216,914,047, 393.19 s median native encoding, matching fresh cached
+output and 18.46 GiB cached peak RSS. First-use peak is 20.55 GiB; interrupted
+preparation timing is labeled separately. s≥16 remains unmeasured.
 
 **Earlier serial-path expectations are unmeasured.** These online-time/RSS
 extrapolations predate the parallel integration below and are preserved as
@@ -51,7 +54,8 @@ practical with an increased setup budget: approximately 12–13 minutes per enco
 s=15 is borderline for encoding from an already available cache (roughly 55–63
 minutes and 41 GiB RAM, leaving little headroom). Its estimated 17-hour/97 GiB
 preprocessing does not fit this host; it needs memory improvements or a larger
-machine. Neither size is currently supported/validated. These are not admissions
+machine. Those forecasts did not establish support; later s=14/15 measurements above
+supersede them. They were not admissions
 under the previous 12 GiB memory guard or two-hour case timeout.
 
 The estimates use N=2^(2s): encoding scales the s=13 native time by

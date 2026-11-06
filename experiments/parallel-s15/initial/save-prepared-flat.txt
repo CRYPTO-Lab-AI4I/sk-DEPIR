@@ -1,0 +1,34 @@
+File: probe
+Type: cpu
+Time: 2026-11-06 15:55:22 CET
+Duration: 4.84s, Total samples = 4310ms (89.06%)
+Showing nodes accounting for 4270ms, 99.07% of 4310ms total
+Dropped 17 nodes (cum <= 21.55ms)
+      flat  flat%   sum%        cum   cum%
+    2270ms 52.67% 52.67%     2270ms 52.67%  syscall.rawsyscalln
+    1240ms 28.77% 81.44%     1660ms 38.52%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func4
+     420ms  9.74% 91.18%     2470ms 57.31%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.writeScalingOnline
+     180ms  4.18% 95.36%      180ms  4.18%  crypto/internal/fips140/sha256.blockSHA2
+     160ms  3.71% 99.07%      160ms  3.71%  runtime.madvise
+         0     0% 99.07%     2450ms 56.84%  bufio.(*Writer).Flush
+         0     0% 99.07%     2460ms 57.08%  bufio.(*Writer).Write
+         0     0% 99.07%      180ms  4.18%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0% 99.07%      180ms  4.18%  crypto/internal/fips140/sha256.block
+         0     0% 99.07%     4130ms 95.82%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse
+         0     0% 99.07%     4130ms 95.82%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func10
+         0     0% 99.07%     4130ms 95.82%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS15FirstUse.func3
+         0     0% 99.07%     2270ms 52.67%  internal/poll.(*FD).Write
+         0     0% 99.07%     2270ms 52.67%  internal/poll.ignoringEINTRIO (inline)
+         0     0% 99.07%     2450ms 56.84%  io.(*multiWriter).Write
+         0     0% 99.07%     2270ms 52.67%  os.(*File).Write
+         0     0% 99.07%     2270ms 52.67%  os.(*File).write (inline)
+         0     0% 99.07%      160ms  3.71%  runtime.(*pageAlloc).scavenge.func1
+         0     0% 99.07%      160ms  3.71%  runtime.(*pageAlloc).scavengeOne
+         0     0% 99.07%      160ms  3.71%  runtime.sysUnused (inline)
+         0     0% 99.07%      160ms  3.71%  runtime.sysUnusedOS (inline)
+         0     0% 99.07%      160ms  3.71%  runtime.systemstack
+         0     0% 99.07%     2270ms 52.67%  syscall.Write (inline)
+         0     0% 99.07%     2270ms 52.67%  syscall.syscall
+         0     0% 99.07%     2270ms 52.67%  syscall.syscalln
+         0     0% 99.07%     2270ms 52.67%  syscall.write
+         0     0% 99.07%     4130ms 95.82%  testing.tRunner
