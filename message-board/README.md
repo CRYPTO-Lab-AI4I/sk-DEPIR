@@ -286,3 +286,13 @@ past update needs correction. Add every new message to the index below.
 | 2026-11-05 21:25 | BENCH-001 | Completed | [Consistent clocks and AC encoding comparison](2026-11-05-2125-codex-bench-001-completed.md) |
 | 2026-11-05 21:41 | PUBLISH-020 | Started | [Publish consistent timing study](2026-11-05-2141-codex-publish-020-started.md) |
 | 2026-11-05 21:41 | PUBLISH-020 | Completed | [Timing study verified for publication](2026-11-05-2141-codex-publish-020-completed.md) |
+| 2026-11-05 21:41 | SCALE-006 | Started | [Audit s15 preparation memory](2026-11-05-2141-codex-scale-006-started.md) |
+| 2026-11-05 21:57 | SCALE-006 | Completed | [s15 memory audit and admission recommendation](2026-11-05-2157-codex-scale-006-completed.md) |
+| 2026-11-05 22:20 | SCALE-007 | Started | [Bound preparation memory and validate s14](2026-11-05-2220-codex-scale-007-started.md) |
+| 2026-11-05 22:34 | SCALE-007 | Progress | [Implementation verified; AC admission pending](2026-11-05-2234-codex-scale-007-progress.md) |
+| 2026-11-05 22:37 | SCALE-007 | Handoff | [Code verified; large checkpoint awaits AC](2026-11-05-2237-codex-scale-007-handoff.md) |
+| 2026-11-05 23:28 | SCALE-007 | Resumed | [AC confirmed; start s14 checkpoint](2026-11-05-2328-codex-scale-007-resumed.md) |
+| 2026-11-05 23:59 | SCALE-007 | Correction | [Preserve work across power changes](2026-11-05-2359-codex-scale-007-correction.md) |
+| 2026-11-06 00:37 | SCALE-007 | Completed | [Bounded preparation and full s14 constants verified](2026-11-06-0037-codex-scale-007-completed.md) |
+| 2026-11-06 08:55 | PUBLISH-021 | Started | [Publish bounded preparation checkpoint](2026-11-06-0855-codex-publish-021-started.md) |
+| 2026-11-06 08:55 | PUBLISH-021 | Completed | [Preparation checkpoint verified for publication](2026-11-06-0855-codex-publish-021-completed.md) |

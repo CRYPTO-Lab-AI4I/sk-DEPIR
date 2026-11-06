@@ -58,8 +58,14 @@ func polyInverse(f orbitField, a []uint32, n int) []uint32 {
 			square[2*i] = f.mul(x, x)
 		}
 		next := polyMulLow(f, aa, square, size)
-		g = make([]uint32, size)
-		copy(g, next)
+		// A fresh full-length result already has the required ownership. Short
+		// convolutions (e.g. a constant polynomial) still need zero padding.
+		if len(next) == size {
+			g = next
+		} else {
+			g = make([]uint32, size)
+			copy(g, next)
+		}
 	}
 	return g
 }

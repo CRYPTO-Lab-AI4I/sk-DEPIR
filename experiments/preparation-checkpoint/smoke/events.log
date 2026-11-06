@@ -1,0 +1,7 @@
+=== RUN   TestPreparationCheckpoint
+    preparation_checkpoint_test.go:82: setup 594.584µs
+    preparation_checkpoint_test.go:82: basis 1.849583ms
+    preparation_checkpoint_test.go:82: preparation 64.914792ms
+    preparation_checkpoint_test.go:82: verify-constants 37.857084ms
+--- PASS: TestPreparationCheckpoint (0.81s)
+PASS

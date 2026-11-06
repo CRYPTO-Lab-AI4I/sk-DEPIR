@@ -1,0 +1,23 @@
+File: probe
+Type: cpu
+Time: 2026-11-05 23:36:10 CET
+Duration: 202.24ms, Total samples = 30ms (14.83%)
+Showing nodes accounting for 30ms, 100% of 30ms total
+      flat  flat%   sum%        cum   cum%
+      20ms 66.67% 66.67%       20ms 66.67%  runtime.cgocall
+      10ms 33.33%   100%       10ms 33.33%  [probe]
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclic
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclicFFT
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*scalingPreparationCPP).apply
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func11
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func5
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyDiv
+         0     0%   100%       10ms 33.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyInverse
+         0     0%   100%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0%   100%       10ms 33.33%  runtime._ExternalCode
+         0     0%   100%       20ms 66.67%  testing.tRunner

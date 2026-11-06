@@ -1,0 +1,30 @@
+File: probe
+Type: inuse_space
+Time: 2026-11-05 23:36:10 CET
+Showing nodes accounting for 3747.51kB, 100% of 3747.51kB total
+      flat  flat%   sum%        cum   cum%
+ 2051.05kB 54.73% 54.73%  2051.05kB 54.73%  runtime.mallocgc
+ 1184.27kB 31.60% 86.33%  1184.27kB 31.60%  runtime/pprof.StartCPUProfile
+  512.19kB 13.67%   100%   512.19kB 13.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newSparseTransform
+         0     0%   100%  1696.46kB 45.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint
+         0     0%   100%  1696.46kB 45.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func5
+         0     0%   100%   512.19kB 13.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func6
+         0     0%   100%   512.19kB 13.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newScalingPreparationCPP
+         0     0%   100%      513kB 13.69%  runtime.(*gcControllerState).enlistWorker
+         0     0%   100%   512.05kB 13.66%  runtime.(*scavengerState).init
+         0     0%   100%     1539kB 41.07%  runtime.allocm
+         0     0%   100%   512.05kB 13.66%  runtime.bgscavenge
+         0     0%   100%      513kB 13.69%  runtime.gcBgMarkWorker.func2
+         0     0%   100%      513kB 13.69%  runtime.gcDrain
+         0     0%   100%      513kB 13.69%  runtime.gcDrainMarkWorkerDedicated (inline)
+         0     0%   100%     1026kB 27.38%  runtime.mstart
+         0     0%   100%     1026kB 27.38%  runtime.mstart0
+         0     0%   100%     1026kB 27.38%  runtime.mstart1
+         0     0%   100%     1539kB 41.07%  runtime.newm
+         0     0%   100%  2051.05kB 54.73%  runtime.newobject
+         0     0%   100%      513kB 13.69%  runtime.resetspinning
+         0     0%   100%     1026kB 27.38%  runtime.schedule
+         0     0%   100%     1539kB 41.07%  runtime.startm
+         0     0%   100%      513kB 13.69%  runtime.systemstack
+         0     0%   100%     1539kB 41.07%  runtime.wakep
+         0     0%   100%  1696.46kB 45.27%  testing.tRunner

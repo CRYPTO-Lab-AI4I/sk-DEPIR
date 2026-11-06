@@ -1,0 +1,27 @@
+File: probe
+Type: cpu
+Time: 2026-11-06 01:35:18 CET
+Duration: 919.41ms, Total samples = 780ms (84.84%)
+Showing nodes accounting for 780ms, 100% of 780ms total
+      flat  flat%   sum%        cum   cum%
+     570ms 73.08% 73.08%      570ms 73.08%  crypto/internal/fips140/sha256.blockSHA2
+     120ms 15.38% 88.46%      120ms 15.38%  encoding/binary.littleEndian.PutUint32 (inline)
+      30ms  3.85% 92.31%      450ms 57.69%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.writeScalingOnline
+      30ms  3.85% 96.15%       30ms  3.85%  runtime.memmove
+      20ms  2.56% 98.72%      770ms 98.72%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func11
+      10ms  1.28%   100%       10ms  1.28%  runtime.pthread_cond_signal
+         0     0%   100%      330ms 42.31%  bufio.(*Writer).Flush
+         0     0%   100%      360ms 46.15%  bufio.(*Writer).Write
+         0     0%   100%      570ms 73.08%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%      570ms 73.08%  crypto/internal/fips140/sha256.block
+         0     0%   100%      770ms 98.72%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint
+         0     0%   100%      770ms 98.72%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func5
+         0     0%   100%       10ms  1.28%  runtime.gopreempt_m (inline)
+         0     0%   100%       10ms  1.28%  runtime.goschedImpl
+         0     0%   100%       10ms  1.28%  runtime.morestack
+         0     0%   100%       10ms  1.28%  runtime.newstack
+         0     0%   100%       10ms  1.28%  runtime.notewakeup
+         0     0%   100%       10ms  1.28%  runtime.semawakeup
+         0     0%   100%       10ms  1.28%  runtime.startm
+         0     0%   100%       10ms  1.28%  runtime.wakep
+         0     0%   100%      770ms 98.72%  testing.tRunner

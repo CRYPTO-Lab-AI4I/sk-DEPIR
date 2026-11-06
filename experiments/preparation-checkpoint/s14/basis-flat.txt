@@ -1,0 +1,14 @@
+File: probe
+Type: cpu
+Time: 2026-11-06 00:28:12 CET
+Duration: 404.32ms, Total samples = 260ms (64.31%)
+Showing nodes accounting for 260ms, 100% of 260ms total
+      flat  flat%   sum%        cum   cum%
+     100ms 38.46% 38.46%      260ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func7
+      80ms 30.77% 69.23%      160ms 61.54%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).validateSupport
+      60ms 23.08% 92.31%       60ms 23.08%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.exponentSet.add (inline)
+      10ms  3.85% 96.15%       20ms  7.69%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.exponentSet.has (inline)
+      10ms  3.85%   100%       10ms  3.85%  runtime.asyncPreempt
+         0     0%   100%      260ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint
+         0     0%   100%      260ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func5
+         0     0%   100%      260ms   100%  testing.tRunner

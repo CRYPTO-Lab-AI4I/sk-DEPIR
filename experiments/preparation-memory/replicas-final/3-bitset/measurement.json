@@ -1,0 +1,18 @@
+{
+  "allocation_ns": 1005708,
+  "allocation_traffic_bytes": 2097288,
+  "capacity": 3389383,
+  "count": 3389383,
+  "cpu_profile": "cpu.pprof",
+  "domain": 16777216,
+  "go": "go1.27.3",
+  "heap_after_allocation_bytes": 3619056,
+  "heap_after_gc_bytes": 3619056,
+  "heap_before_bytes": 1521768,
+  "heap_profile": "heap.pprof",
+  "int_bytes": 8,
+  "kind": "bitset",
+  "live_objects_delta": 4,
+  "retained_delta_bytes": 2097288,
+  "slice_header_bytes": 24
+}

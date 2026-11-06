@@ -78,7 +78,7 @@ func newScalingPreparationCPP(spec Spec, workers int) (*OrbitBasis, *scalingPrep
 	c.scratch = make([]uint32, int(extension.q))
 	fft.executor = c
 	baseFFT.executor = &meteredCPP{plan: c.base, stats: &CPPEncodeStats{}}
-	base.products = &polynomialProducts{fft, 32768}
-	extension.products = &polynomialProducts{fft, 1024}
+	base.products = &polynomialProducts{transform: fft, cutoff: 32768}
+	extension.products = &polynomialProducts{transform: fft, cutoff: 1024}
 	return &OrbitBasis{spec: spec, polynomial: polynomial, delta: delta, omega: omega, base: base, extension: extension, baseFFT: baseFFT, extensionFFT: fft}, c, nil
 }

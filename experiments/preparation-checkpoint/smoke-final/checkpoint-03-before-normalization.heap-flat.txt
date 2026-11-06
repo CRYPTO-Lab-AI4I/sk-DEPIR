@@ -1,0 +1,48 @@
+File: probe
+Type: inuse_space
+Time: 2026-11-05 23:29:47 CET
+Showing nodes accounting for 2562.79kB, 100% of 2562.79kB total
+      flat  flat%   sum%        cum   cum%
+ 2050.10kB 79.99% 79.99%  2050.10kB 79.99%  runtime.mallocgc
+  512.69kB 20.01%   100%   512.69kB 20.01%  slices.Grow[go.shape.[]uint8,go.shape.uint8] (inline)
+         0     0%   100%   512.69kB 20.01%  encoding/json.Marshal (inline)
+         0     0%   100%   512.69kB 20.01%  encoding/json.MarshalIndent
+         0     0%   100%   512.69kB 20.01%  encoding/json/internal/jsonwire.AppendQuote
+         0     0%   100%   512.69kB 20.01%  encoding/json/jsontext.(*Encoder).WriteToken (inline)
+         0     0%   100%   512.69kB 20.01%  encoding/json/jsontext.(*encoderState).WriteToken
+         0     0%   100%   512.69kB 20.01%  encoding/json/jsontext.Token.appendString
+         0     0%   100%   512.69kB 20.01%  encoding/json/v2.Marshal
+         0     0%   100%   512.69kB 20.01%  encoding/json/v2.makeMapArshaler.func2
+         0     0%   100%   512.69kB 20.01%  encoding/json/v2.makeSliceArshaler.func2
+         0     0%   100%   512.69kB 20.01%  encoding/json/v2.marshalEncode
+         0     0%   100%   512.69kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScalingObserved
+         0     0%   100%   512.69kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScalingObserved.func1
+         0     0%   100%   512.69kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*factorProductBuilder).finish
+         0     0%   100%   512.69kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*factorProductBuilder).flush
+         0     0%   100%   512.69kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+         0     0%   100%   512.69kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint
+         0     0%   100%   512.69kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func2
+         0     0%   100%   512.69kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func4
+         0     0%   100%   512.69kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func9
+         0     0%   100%   512.69kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func9.1
+         0     0%   100%   512.69kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+         0     0%   100%   512.69kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0%   100%   512.69kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rootProduct
+         0     0%   100%   512.05kB 19.98%  runtime.(*scavengerState).init
+         0     0%   100%   512.05kB 19.98%  runtime.acquireSudog
+         0     0%   100%     1026kB 40.03%  runtime.allocm
+         0     0%   100%   512.05kB 19.98%  runtime.bgscavenge
+         0     0%   100%   512.05kB 19.98%  runtime.gcBgMarkWorker
+         0     0%   100%   512.05kB 19.98%  runtime.gcMarkDone
+         0     0%   100%     1026kB 40.03%  runtime.mstart
+         0     0%   100%     1026kB 40.03%  runtime.mstart0
+         0     0%   100%     1026kB 40.03%  runtime.mstart1
+         0     0%   100%     1026kB 40.03%  runtime.newm
+         0     0%   100%  2050.10kB 79.99%  runtime.newobject
+         0     0%   100%      513kB 20.02%  runtime.resetspinning
+         0     0%   100%     1026kB 40.03%  runtime.schedule
+         0     0%   100%   512.05kB 19.98%  runtime.semacquire (inline)
+         0     0%   100%   512.05kB 19.98%  runtime.semacquire1
+         0     0%   100%     1026kB 40.03%  runtime.startm
+         0     0%   100%     1026kB 40.03%  runtime.wakep
+         0     0%   100%   512.69kB 20.01%  testing.tRunner

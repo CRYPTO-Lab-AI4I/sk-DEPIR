@@ -1,0 +1,82 @@
+[
+  {
+    "go_elapsed_ns": 63618333,
+    "native_after": {
+      "steady_ns": 5709435643241375,
+      "wall_ns": 1793923245601208000,
+      "posix_monotonic_ns": 5709420704288000,
+      "process_cpu_ns": 70987000
+    },
+    "native_before": {
+      "steady_ns": 5709435579616791,
+      "wall_ns": 1793923245537584000,
+      "posix_monotonic_ns": 5709420640665000,
+      "process_cpu_ns": 5376000
+    },
+    "phase": "setup",
+    "s": 14,
+    "scratch_bytes": 1073741824,
+    "t": 5
+  },
+  {
+    "go_elapsed_ns": 285677917,
+    "k": 50976325,
+    "n": 268435456,
+    "native_after": {
+      "steady_ns": 5709436068803458,
+      "wall_ns": 1793923246026771000,
+      "posix_monotonic_ns": 5709421129851000,
+      "process_cpu_ns": 358104000
+    },
+    "native_before": {
+      "steady_ns": 5709435783120250,
+      "wall_ns": 1793923245741087000,
+      "posix_monotonic_ns": 5709420844168000,
+      "process_cpu_ns": 73101000
+    },
+    "phase": "basis",
+    "reused": true,
+    "sha256": "da599ca203bac67a501778d9aefb53ce1f83c0a6ff606342c8507fba54203dd1"
+  },
+  {
+    "allocation_traffic_bytes": 224316863496,
+    "diagnostic_gc_checkpoints": 15,
+    "go_elapsed_ns": 2072501421958,
+    "identity_verified": true,
+    "k": 50976325,
+    "n": 268435456,
+    "native_after": {
+      "steady_ns": 5711508688839250,
+      "wall_ns": 1793925318637537000,
+      "posix_monotonic_ns": 5711493740617000,
+      "process_cpu_ns": 7663446584000
+    },
+    "native_before": {
+      "steady_ns": 5709436187412125,
+      "wall_ns": 1793923246145380000,
+      "posix_monotonic_ns": 5709421248461000,
+      "process_cpu_ns": 359633000
+    },
+    "phase": "preparation"
+  },
+  {
+    "all_constants_match": true,
+    "generator_sha256": "4b9461c0dc7f7fb54389f8217f9ab6e72977e9613a99d10a835f6bb0c22cc7da",
+    "go_elapsed_ns": 805215750,
+    "native_after": {
+      "steady_ns": 5711509718946000,
+      "wall_ns": 1793925319667642000,
+      "posix_monotonic_ns": 5711494770721000,
+      "process_cpu_ns": 7664411656000
+    },
+    "native_before": {
+      "steady_ns": 5711508913721916,
+      "wall_ns": 1793925318862420000,
+      "posix_monotonic_ns": 5711493965500000,
+      "process_cpu_ns": 7663566510000
+    },
+    "online_sha256": "88d5ff39c5df8bdd4aa0f85fc19833ae673df95365b4fd862bb83936e5a0adf8",
+    "phase": "verify-constants",
+    "retained_originals": true
+  }
+]

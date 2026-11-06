@@ -1,0 +1,29 @@
+File: probe
+Type: cpu
+Time: 2026-11-06 01:00:45 CET
+Duration: 403.39ms, Total samples = 270ms (66.93%)
+Showing nodes accounting for 270ms, 100% of 270ms total
+      flat  flat%   sum%        cum   cum%
+      80ms 29.63% 29.63%      270ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func7
+      80ms 29.63% 59.26%       80ms 29.63%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.exponentSet.add (inline)
+      60ms 22.22% 81.48%       60ms 22.22%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.exponentSet.has (inline)
+      30ms 11.11% 92.59%      170ms 62.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).validateSupport
+      10ms  3.70% 96.30%       10ms  3.70%  crypto/internal/fips140/sha256.blockSHA2
+      10ms  3.70%   100%       10ms  3.70%  syscall.rawsyscalln
+         0     0%   100%       20ms  7.41%  bufio.(*Reader).Read
+         0     0%   100%       10ms  3.70%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%       10ms  3.70%  crypto/internal/fips140/sha256.block
+         0     0%   100%      270ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint
+         0     0%   100%      270ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func5
+         0     0%   100%       10ms  3.70%  internal/poll.(*FD).Read
+         0     0%   100%       10ms  3.70%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%       20ms  7.41%  io.(*teeReader).Read
+         0     0%   100%       20ms  7.41%  io.ReadAtLeast
+         0     0%   100%       20ms  7.41%  io.ReadFull (inline)
+         0     0%   100%       10ms  3.70%  os.(*File).Read
+         0     0%   100%       10ms  3.70%  os.(*File).read (inline)
+         0     0%   100%       10ms  3.70%  syscall.Read (inline)
+         0     0%   100%       10ms  3.70%  syscall.read
+         0     0%   100%       10ms  3.70%  syscall.syscall
+         0     0%   100%       10ms  3.70%  syscall.syscalln
+         0     0%   100%      270ms   100%  testing.tRunner

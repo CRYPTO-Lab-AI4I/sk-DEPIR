@@ -118,8 +118,8 @@ func TestCPPPolynomialStrategies(t *testing.T) {
 	var stats CPPEncodeStats
 	engine := source.withTransformExecutor(&meteredCPP{native.plan, &stats})
 	f, g := b.base, engine.basis.base
-	f.products = &polynomialProducts{b.extensionFFT, 0}
-	g.products = &polynomialProducts{engine.basis.extensionFFT, 0}
+	f.products = &polynomialProducts{transform: b.extensionFFT, cutoff: 0}
+	g.products = &polynomialProducts{transform: engine.basis.extensionFFT, cutoff: 0}
 	random := rand.New(rand.NewSource(1204))
 	for _, shape := range [][3]int{{17, 13, 9}, {33, 32, 20}, {101, 27, 79}, {300, 270, 310}, {511, 300, 650}} {
 		a, z := make([]uint32, shape[0]), make([]uint32, shape[1])

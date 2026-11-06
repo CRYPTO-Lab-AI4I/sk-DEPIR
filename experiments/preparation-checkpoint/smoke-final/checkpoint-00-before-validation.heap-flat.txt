@@ -1,0 +1,18 @@
+File: probe
+Type: inuse_space
+Time: 2026-11-05 23:29:47 CET
+Showing nodes accounting for 1538.05kB, 100% of 1538.05kB total
+      flat  flat%   sum%        cum   cum%
+ 1538.05kB   100%   100%  1538.05kB   100%  runtime.mallocgc
+         0     0%   100%   512.05kB 33.29%  runtime.(*scavengerState).init
+         0     0%   100%     1026kB 66.71%  runtime.allocm
+         0     0%   100%   512.05kB 33.29%  runtime.bgscavenge
+         0     0%   100%     1026kB 66.71%  runtime.mstart
+         0     0%   100%     1026kB 66.71%  runtime.mstart0
+         0     0%   100%     1026kB 66.71%  runtime.mstart1
+         0     0%   100%     1026kB 66.71%  runtime.newm
+         0     0%   100%  1538.05kB   100%  runtime.newobject
+         0     0%   100%      513kB 33.35%  runtime.resetspinning
+         0     0%   100%     1026kB 66.71%  runtime.schedule
+         0     0%   100%     1026kB 66.71%  runtime.startm
+         0     0%   100%     1026kB 66.71%  runtime.wakep

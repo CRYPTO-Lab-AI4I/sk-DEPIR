@@ -144,3 +144,11 @@ rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
 - [Encoding timing consistency](encoding-timing/report.md): short clock controls
   and alternating cached native/hybrid execution, with same-clock totals, CPU
   time, profiles and resource accounting.
+
+- [Preparation-memory audit](preparation-memory/report.md): small allocation-layout
+  replicas and source-based s=15 preparation scenarios, distinguishing live
+  payload, allocation traffic and measured process RSS.
+
+- [Bounded preparation checkpoint](preparation-checkpoint/report.md): compact
+  membership, batched factors and reusable scratch, with exact constant checks
+  and diagnostic live-heap/process-memory measurements from retained support.

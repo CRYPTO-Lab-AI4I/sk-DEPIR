@@ -1,0 +1,30 @@
+File: probe
+Type: cpu
+Time: 2026-11-05 22:47:51 CET
+Duration: 306.27ms, Total samples = 140ms (45.71%)
+Showing nodes accounting for 140ms, 100% of 140ms total
+      flat  flat%   sum%        cum   cum%
+      80ms 57.14% 57.14%      110ms 78.57%  runtime.mapassign_fast64
+      10ms  7.14% 64.29%       10ms  7.14%  internal/runtime/maps.(*Map).directoryIndex (inline)
+      10ms  7.14% 71.43%       10ms  7.14%  internal/runtime/maps.(*groupsReference).group (inline)
+      10ms  7.14% 78.57%       10ms  7.14%  internal/runtime/maps.memHash64AES
+      10ms  7.14% 85.71%      120ms 85.71%  main.main
+      10ms  7.14% 92.86%       10ms  7.14%  runtime.pthread_cond_signal
+      10ms  7.14%   100%       10ms  7.14%  runtime.usleep
+         0     0%   100%       10ms  7.14%  runtime.findRunnable
+         0     0%   100%       10ms  7.14%  runtime.gopreempt_m (inline)
+         0     0%   100%       10ms  7.14%  runtime.goschedImpl
+         0     0%   100%       10ms  7.14%  runtime.lock (inline)
+         0     0%   100%       10ms  7.14%  runtime.lock2
+         0     0%   100%       10ms  7.14%  runtime.lockWithRank (inline)
+         0     0%   100%      120ms 85.71%  runtime.main
+         0     0%   100%       10ms  7.14%  runtime.mcall
+         0     0%   100%       10ms  7.14%  runtime.morestack
+         0     0%   100%       10ms  7.14%  runtime.newstack
+         0     0%   100%       10ms  7.14%  runtime.notewakeup
+         0     0%   100%       10ms  7.14%  runtime.osyield (inline)
+         0     0%   100%       10ms  7.14%  runtime.park_m
+         0     0%   100%       10ms  7.14%  runtime.schedule
+         0     0%   100%       10ms  7.14%  runtime.semawakeup
+         0     0%   100%       10ms  7.14%  runtime.startm
+         0     0%   100%       10ms  7.14%  runtime.wakep

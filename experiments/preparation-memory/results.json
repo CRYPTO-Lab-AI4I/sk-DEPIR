@@ -1,0 +1,169 @@
+{
+  "kind": "analytical_payload_scenarios_not_measured_s15_rss",
+  "revision": "d638a9f522af8f7b0f1659cd6a7fe3c528706080",
+  "source_sha256": {
+    "experiments/preparation-memory/model.py": "a043af59b8cdb7298584750c28da69f2370d6bd832ede69dc8dea75d85c8c3a4",
+    "experiments/preparation-memory/replicas-final/results.json": "e0b5386dfd4841edacea51e8a74d5cc5367d11e2925008300af4684c4b07fb3d",
+    "pirconfig/configs_catalogue.json": "6ab8b6f69a65c10887e0ea75b315c984f4f47e67bac375ffdd4aa366fe907fe1",
+    "experiments/parallel-s14/initial/results.json": "c6aeaff9976eda70c3aeff42039fd9c7e79ca481ce444f84c0fd52d9f37c1a9e",
+    "experiments/parallel-s14/initial/phases.json": "0a6c21012d35c8a1cdd370fa6ebab3b41addd2fb46ff584a31b4ff82292b9966",
+    "experiments/parallel-s14/initial/preparation-flat.txt": "e4f66ae6c6f9d968019f4637c124cc3c2a60857024f349027dfc817015595706",
+    "encoding/liftrs-shared/orbit.go": "cfe31fd45302e258dc135dd2157bb860cd085300b8929c9e47012989c0858de7",
+    "encoding/liftrs-shared/orbit_product.go": "b15782610cc08c4fd8407541fdb8870b2ee61dac96534f5e7018f0bcea4e7ea5",
+    "encoding/liftrs-shared/orbit_polynomial.go": "b45516bc5a6fafefdecbdef2e512ff1a04e18e5e947cbf09a3316612a4b52753",
+    "encoding/liftrs-shared/scaling_experimental.go": "30ee98486ee051cf865dc23c1dd0dd5aa509ec9a7842e969ed2a5ff99c878bb5",
+    "encoding/liftrs-shared/scaling_prepare_cpp.go": "5532a0322897b8e3947bbd678af39b68131f09e0141552f1a7306a73aeb98a0a",
+    "encoding/liftrs-shared/scaling_matrix_cpp.go": "b9a1caeccd9210924eced62ec0db779dfa66554331a8dc71c7fc5f34129105a3",
+    "encoding/liftrs-shared/parallel_firstuse_probe_test.go": "d335b0a3fc961b44cec457ffa1bf068697d770e6822df5264665f767134ef78d"
+  },
+  "assumptions": {
+    "int_bytes": 8,
+    "coefficient_bytes": 4,
+    "slice_header_bytes": 24,
+    "factor_capacity_scenario": 1.25,
+    "factor_leaf_bytes": 16,
+    "excludes": [
+      "GC-retained unreachable objects",
+      "allocator/runtime/native metadata",
+      "thread stacks",
+      "OS pages and other processes"
+    ],
+    "map_projection": "Empirical B/entry range at two small map densities; not an exact capacity formula or bound.",
+    "coefficient_lifetimes": "Logically required arrays; compiler liveness and physical RSS may differ. Old reciprocal g shown separately."
+  },
+  "measured_s14": {
+    "whole_process_peak_rss_bytes": 14738112512,
+    "preparation_allocation_traffic_bytes": 209966957280,
+    "preparation_end_heap_bytes": 3775990744,
+    "preparation_end_go_sys_bytes": 15549403544,
+    "preparation_s": 2017.984615625
+  },
+  "measured_map_bytes_per_entry": [
+    22.44671434299399,
+    29.77477983207955
+  ],
+  "rows": [
+    {
+      "s": 14,
+      "k": 50976325,
+      "n": 268435456,
+      "capacity_status": "verified",
+      "support_len_bytes": 407810600,
+      "support_capacity_slack_scenario_bytes": 101952650,
+      "transpose_bytes": 1073741824,
+      "membership_bitset_bytes": 33554432,
+      "validation_map_estimate_bytes": [
+        1144251006,
+        1517808854
+      ],
+      "factor_count_ceiling": 25496354,
+      "factor_headers_125_percent_capacity_bytes": 764890632,
+      "factor_leaf_allocation_scenario_bytes": 407941664,
+      "factors_total_scenario_bytes": 1172832296,
+      "root_top_multiply_scenario_bytes": 3599066244,
+      "identity_array_scenario_bytes": 5776519724,
+      "newton_array_scenario_bytes": 5776519720,
+      "newton_with_old_g_retained_scenario_bytes": 6313390632,
+      "identity_with_support_capacity_slack_bytes": 5878472374,
+      "prepared_arrays_bytes": 3629036076,
+      "minimal_online_file_bytes": 1277647153,
+      "support_p_g_spectrum_files_bytes": 2351388977,
+      "packed_word_bytes": 469762048,
+      "online_prefix_elements": 134217728,
+      "online_complete_array_payload_bytes": 4906683200
+    },
+    {
+      "s": 15,
+      "k": 216920545,
+      "n": 1073741824,
+      "capacity_status": "estimated",
+      "support_len_bytes": 1735364360,
+      "support_capacity_slack_scenario_bytes": 433841090,
+      "transpose_bytes": 4294967296,
+      "membership_bitset_bytes": 134217728,
+      "validation_map_estimate_bytes": [
+        4869153509,
+        6458761469
+      ],
+      "factor_count_ceiling": 108476656,
+      "factor_headers_125_percent_capacity_bytes": 3254299680,
+      "factor_leaf_allocation_scenario_bytes": 1735626496,
+      "factors_total_scenario_bytes": 4989926176,
+      "root_top_multiply_scenario_bytes": 14903105852,
+      "identity_array_scenario_bytes": 23210200844,
+      "newton_array_scenario_bytes": 23210200840,
+      "newton_with_old_g_retained_scenario_bytes": 25357684488,
+      "identity_with_support_capacity_slack_bytes": 23644041934,
+      "prepared_arrays_bytes": 14620266252,
+      "minimal_online_file_bytes": 5162649505,
+      "support_p_g_spectrum_files_bytes": 9457616801,
+      "packed_word_bytes": 2013265920,
+      "online_prefix_elements": 536870912,
+      "online_complete_array_payload_bytes": 19782915728
+    }
+  ],
+  "s15_capacity_interval": [
+    214791491,
+    219049598
+  ],
+  "s15_interval_rows": [
+    {
+      "s": 15,
+      "k": 214791491,
+      "n": 1073741824,
+      "capacity_status": "monte_carlo_interval_endpoint",
+      "support_len_bytes": 1718331928,
+      "support_capacity_slack_scenario_bytes": 429582982,
+      "transpose_bytes": 4294967296,
+      "membership_bitset_bytes": 134217728,
+      "validation_map_estimate_bytes": [
+        4821363242,
+        6395369355
+      ],
+      "factor_count_ceiling": 107412129,
+      "factor_headers_125_percent_capacity_bytes": 3222363888,
+      "factor_leaf_allocation_scenario_bytes": 1718594064,
+      "factors_total_scenario_bytes": 4940957952,
+      "root_top_multiply_scenario_bytes": 14820072764,
+      "identity_array_scenario_bytes": 23193168412,
+      "newton_array_scenario_bytes": 23193168408,
+      "newton_with_old_g_retained_scenario_bytes": 25340652056,
+      "identity_with_support_capacity_slack_bytes": 23622751394,
+      "prepared_arrays_bytes": 14603233820,
+      "minimal_online_file_bytes": 5154133289,
+      "support_p_g_spectrum_files_bytes": 9449100585,
+      "packed_word_bytes": 2013265920,
+      "online_prefix_elements": 536870912,
+      "online_complete_array_payload_bytes": 19757367080
+    },
+    {
+      "s": 15,
+      "k": 219049598,
+      "n": 1073741824,
+      "capacity_status": "monte_carlo_interval_endpoint",
+      "support_len_bytes": 1752396784,
+      "support_capacity_slack_scenario_bytes": 438099196,
+      "transpose_bytes": 4294967296,
+      "membership_bitset_bytes": 134217728,
+      "validation_map_estimate_bytes": [
+        4916943754,
+        6522153553
+      ],
+      "factor_count_ceiling": 109541183,
+      "factor_headers_125_percent_capacity_bytes": 3286235496,
+      "factor_leaf_allocation_scenario_bytes": 1752658928,
+      "factors_total_scenario_bytes": 5038894424,
+      "root_top_multiply_scenario_bytes": 14986138948,
+      "identity_array_scenario_bytes": 23227233268,
+      "newton_array_scenario_bytes": 23227233264,
+      "newton_with_old_g_retained_scenario_bytes": 25374716912,
+      "identity_with_support_capacity_slack_bytes": 23665332464,
+      "prepared_arrays_bytes": 14637298676,
+      "minimal_online_file_bytes": 5171165717,
+      "support_p_g_spectrum_files_bytes": 9466133013,
+      "packed_word_bytes": 2013265920,
+      "online_prefix_elements": 536870912,
+      "online_complete_array_payload_bytes": 19808464364
+    }
+  ]
+}

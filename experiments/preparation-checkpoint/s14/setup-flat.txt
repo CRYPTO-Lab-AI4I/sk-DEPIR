@@ -1,0 +1,26 @@
+File: probe
+Type: cpu
+Time: 2026-11-06 00:28:12 CET
+Duration: 201.88ms, Total samples = 50ms (24.77%)
+Showing nodes accounting for 50ms, 100% of 50ms total
+      flat  flat%   sum%        cum   cum%
+      40ms 80.00% 80.00%       40ms 80.00%  runtime.memclrNoHeapPointers
+      10ms 20.00%   100%       10ms 20.00%  runtime.(*spanSet).push
+         0     0%   100%       50ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint
+         0     0%   100%       50ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func5
+         0     0%   100%       50ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func6
+         0     0%   100%       10ms 20.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.cppDescription
+         0     0%   100%       10ms 20.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.cppDescription.func1 (inline)
+         0     0%   100%       10ms 20.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newMatrixCPP
+         0     0%   100%       50ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newScalingPreparationCPP
+         0     0%   100%       10ms 20.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orderedCPP
+         0     0%   100%       10ms 20.00%  runtime.(*mcache).nextFree
+         0     0%   100%       10ms 20.00%  runtime.(*mcache).refill
+         0     0%   100%       10ms 20.00%  runtime.(*mcentral).uncacheSpan
+         0     0%   100%       10ms 20.00%  runtime.growslice
+         0     0%   100%       40ms 80.00%  runtime.makeslice
+         0     0%   100%       50ms   100%  runtime.mallocgc
+         0     0%   100%       40ms 80.00%  runtime.mallocgcLarge
+         0     0%   100%       10ms 20.00%  runtime.mallocgcSmallNoscan
+         0     0%   100%       40ms 80.00%  runtime.memclrNoHeapPointersChunked
+         0     0%   100%       50ms   100%  testing.tRunner

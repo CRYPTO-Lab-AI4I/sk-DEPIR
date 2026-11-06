@@ -1,0 +1,26 @@
+File: probe
+Type: inuse_space
+Time: 2026-11-05 23:27:42 CET
+Showing nodes accounting for 3234.60kB, 100% of 3234.60kB total
+      flat  flat%   sum%        cum   cum%
+ 1184.27kB 36.61% 36.61%  1184.27kB 36.61%  runtime/pprof.StartCPUProfile
+    1026kB 31.72% 68.33%     1026kB 31.72%  runtime.mallocgc
+  512.28kB 15.84% 84.17%   512.28kB 15.84%  testing.runTests
+  512.05kB 15.83%   100%   512.05kB 15.83%  time.Sleep
+         0     0%   100%  1184.27kB 36.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint
+         0     0%   100%  1184.27kB 36.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func4
+         0     0%   100%   512.28kB 15.84%  main.main
+         0     0%   100%     1026kB 31.72%  runtime.allocm
+         0     0%   100%   512.28kB 15.84%  runtime.main
+         0     0%   100%     1026kB 31.72%  runtime.mstart
+         0     0%   100%     1026kB 31.72%  runtime.mstart0
+         0     0%   100%     1026kB 31.72%  runtime.mstart1
+         0     0%   100%     1026kB 31.72%  runtime.newm
+         0     0%   100%     1026kB 31.72%  runtime.newobject
+         0     0%   100%      513kB 15.86%  runtime.resetspinning
+         0     0%   100%     1026kB 31.72%  runtime.schedule
+         0     0%   100%     1026kB 31.72%  runtime.startm
+         0     0%   100%     1026kB 31.72%  runtime.wakep
+         0     0%   100%   512.05kB 15.83%  runtime/pprof.profileWriter
+         0     0%   100%   512.28kB 15.84%  testing.(*M).Run
+         0     0%   100%  1184.27kB 36.61%  testing.tRunner

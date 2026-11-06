@@ -1,0 +1,45 @@
+File: probe
+Type: cpu
+Time: 2026-11-05 22:46:54 CET
+Duration: 202.22ms, Total samples = 110ms (54.40%)
+Showing nodes accounting for 110ms, 100% of 110ms total
+      flat  flat%   sum%        cum   cum%
+      20ms 18.18% 18.18%       20ms 18.18%  runtime.memmove
+      10ms  9.09% 27.27%       60ms 54.55%  main.main
+      10ms  9.09% 36.36%       10ms  9.09%  runtime.(*spanSet).push
+      10ms  9.09% 45.45%       10ms  9.09%  runtime.bulkBarrierPreWriteSrcOnly
+      10ms  9.09% 54.55%       10ms  9.09%  runtime.pthread_cond_wait
+      10ms  9.09% 63.64%       10ms  9.09%  runtime.pthread_kill
+      10ms  9.09% 72.73%       10ms  9.09%  runtime.readUintptr (inline)
+      10ms  9.09% 81.82%       20ms 18.18%  runtime.typePointers.next
+      10ms  9.09% 90.91%       10ms  9.09%  runtime.usleep
+      10ms  9.09%   100%       10ms  9.09%  time.Since
+         0     0%   100%       10ms  9.09%  runtime.(*gcControllerState).enlistWorker
+         0     0%   100%       10ms  9.09%  runtime.(*mcache).nextFree
+         0     0%   100%       10ms  9.09%  runtime.(*mcache).refill
+         0     0%   100%       10ms  9.09%  runtime.(*mcentral).uncacheSpan
+         0     0%   100%       10ms  9.09%  runtime.findRunnable
+         0     0%   100%       20ms 18.18%  runtime.gcBgMarkWorker
+         0     0%   100%       40ms 36.36%  runtime.gcBgMarkWorker.func2
+         0     0%   100%       40ms 36.36%  runtime.gcDrain
+         0     0%   100%       10ms  9.09%  runtime.gcDrainMarkWorkerDedicated (inline)
+         0     0%   100%       30ms 27.27%  runtime.gcDrainMarkWorkerIdle (inline)
+         0     0%   100%       30ms 27.27%  runtime.growslice
+         0     0%   100%       10ms  9.09%  runtime.mPark (inline)
+         0     0%   100%       60ms 54.55%  runtime.main
+         0     0%   100%       10ms  9.09%  runtime.mallocgcTinySC2
+         0     0%   100%       10ms  9.09%  runtime.markroot
+         0     0%   100%       10ms  9.09%  runtime.markroot.func1
+         0     0%   100%       10ms  9.09%  runtime.mcall
+         0     0%   100%       10ms  9.09%  runtime.notesleep
+         0     0%   100%       10ms  9.09%  runtime.osyield (inline)
+         0     0%   100%       10ms  9.09%  runtime.park_m
+         0     0%   100%       10ms  9.09%  runtime.preemptM
+         0     0%   100%       10ms  9.09%  runtime.preemptone
+         0     0%   100%       20ms 18.18%  runtime.scanObject
+         0     0%   100%       10ms  9.09%  runtime.schedule
+         0     0%   100%       10ms  9.09%  runtime.semasleep
+         0     0%   100%       10ms  9.09%  runtime.signalM (inline)
+         0     0%   100%       10ms  9.09%  runtime.stopm
+         0     0%   100%       10ms  9.09%  runtime.suspendG
+         0     0%   100%       40ms 36.36%  runtime.systemstack

@@ -1,0 +1,26 @@
+File: probe
+Type: inuse_space
+Time: 2026-11-05 22:46:54 CET
+Showing nodes accounting for 67.76MB, 100% of 67.76MB total
+      flat  flat%   sum%        cum   cum%
+   64.61MB 95.34% 95.34%    65.76MB 97.05%  main.main
+       2MB  2.95% 98.29%        2MB  2.95%  runtime.mallocgc
+    1.16MB  1.71%   100%     1.16MB  1.71%  runtime/pprof.StartCPUProfile
+         0     0%   100%     0.50MB  0.74%  runtime.(*scavengerState).init
+         0     0%   100%     0.50MB  0.74%  runtime.acquireSudog
+         0     0%   100%        1MB  1.48%  runtime.allocm
+         0     0%   100%     0.50MB  0.74%  runtime.bgscavenge
+         0     0%   100%     0.50MB  0.74%  runtime.gcBgMarkWorker
+         0     0%   100%     0.50MB  0.74%  runtime.gcMarkDone
+         0     0%   100%    65.76MB 97.05%  runtime.main
+         0     0%   100%        1MB  1.48%  runtime.mstart
+         0     0%   100%        1MB  1.48%  runtime.mstart0
+         0     0%   100%        1MB  1.48%  runtime.mstart1
+         0     0%   100%        1MB  1.48%  runtime.newm
+         0     0%   100%        2MB  2.95%  runtime.newobject
+         0     0%   100%     0.50MB  0.74%  runtime.resetspinning
+         0     0%   100%        1MB  1.48%  runtime.schedule
+         0     0%   100%     0.50MB  0.74%  runtime.semacquire (inline)
+         0     0%   100%     0.50MB  0.74%  runtime.semacquire1
+         0     0%   100%        1MB  1.48%  runtime.startm
+         0     0%   100%        1MB  1.48%  runtime.wakep

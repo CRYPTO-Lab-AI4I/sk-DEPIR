@@ -1,0 +1,28 @@
+[
+  {
+    "allocation_traffic_since_start": 72008,
+    "gc_ns": 235125,
+    "heap_before_gc": 1483503952,
+    "heap_inuse": 1484144640,
+    "heap_profile": "checkpoint-00-before-validation.heap.pprof",
+    "heap_released": 8962048,
+    "heap_sys": 1530167296,
+    "live_heap_after_gc": 1483478232,
+    "stage": "before-validation",
+    "timestamp_utc": "2026-11-05T23:28:13.201986Z",
+    "workspace_bytes": 0
+  },
+  {
+    "allocation_traffic_since_start": 34575544,
+    "gc_ns": 284666,
+    "heap_before_gc": 1517981768,
+    "heap_inuse": 1484177408,
+    "heap_profile": "checkpoint-01-before-root-product.heap.pprof",
+    "heap_released": 8962048,
+    "heap_sys": 1530167296,
+    "live_heap_after_gc": 1483499160,
+    "stage": "before-root-product",
+    "timestamp_utc": "2026-11-05T23:28:13.390058Z",
+    "workspace_bytes": 0
+  }
+]

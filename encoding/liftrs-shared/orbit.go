@@ -66,7 +66,7 @@ func discoverOrbitBasis(b *OrbitBasis, options OrbitOptions) (*OrbitBasis, error
 			good = append(good, i)
 		}
 	}
-	found := make([]bool, q*q)
+	found := newExponentSet(q * q)
 	count := 0
 	sampleBytes := 1
 	if spec.FieldDegree > 8 {
@@ -103,8 +103,8 @@ func discoverOrbitBasis(b *OrbitBasis, options OrbitOptions) (*OrbitBasis, error
 		// as the canonical grid, so interpolation needs no permutation table.
 		b.extensionFFT.apply(grid, true)
 		for i, c := range grid {
-			if c != 0 && !found[i] {
-				found[i] = true
+			if c != 0 && !found.has(i) {
+				found.add(i)
 				count++
 			}
 		}
@@ -113,8 +113,8 @@ func discoverOrbitBasis(b *OrbitBasis, options OrbitOptions) (*OrbitBasis, error
 	if count != len(good) {
 		return nil, fmt.Errorf("degree discovery incomplete: %d of %d exponents after %d samples", count, len(good), b.samples)
 	}
-	for i, yes := range found {
-		if yes {
+	for i := 0; i < q*q; i++ {
+		if found.has(i) {
 			b.support = append(b.support, i)
 		}
 	}
@@ -137,15 +137,15 @@ func (b *OrbitBasis) validateSupport() error {
 	if len(b.support) == 0 || len(b.support) > n {
 		return fmt.Errorf("invalid degree-set size")
 	}
-	seen := make(map[int]bool, len(b.support))
+	seen := newExponentSet(n)
 	for j, i := range b.support {
 		if i < 0 || i >= n || (j > 0 && i <= b.support[j-1]) {
 			return fmt.Errorf("degree set must be sorted, distinct and exclude N-1")
 		}
-		seen[i] = true
+		seen.add(i)
 	}
 	for _, i := range b.support {
-		if !seen[i*int(b.base.q)%n] {
+		if !seen.has(int(uint64(i) * uint64(b.base.q) % uint64(n))) {
 			return fmt.Errorf("degree set is not Frobenius closed")
 		}
 	}

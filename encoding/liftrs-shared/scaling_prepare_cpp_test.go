@@ -5,6 +5,7 @@ package liftrs
 import (
 	"math/rand"
 	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -81,5 +82,39 @@ func TestScalingCPPField14(t *testing.T) {
 	}
 	if _, err := p.ApplyAt(got, offset, true); err != nil || !reflect.DeepEqual(got, input) {
 		t.Fatal("field14 inverse", err)
+	}
+}
+
+func TestObservedPreparationWorkspace(t *testing.T) {
+	b, c, err := newScalingPreparationCPP(Spec{6, 2, 4}, 2)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer c.close()
+	b, err = discoverOrbitBasis(b, OrbitOptions{Random: rand.New(rand.NewSource(1802)), MaxSamples: 24})
+	if err != nil {
+		t.Fatal(err)
+	}
+	b.base.products.cutoff = 0
+	active, complete := 0, false
+	e, err := b.prepareCyclicScalingObserved(b.extensionFFT, func(stage string, bytes uint64) {
+		if strings.HasPrefix(stage, "active-") {
+			active++
+			if bytes == 0 {
+				t.Error("active scratch missing")
+			}
+		}
+		if stage == "complete" {
+			complete = true
+			if bytes != 0 {
+				t.Error("scratch not released")
+			}
+		}
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if active == 0 || !complete || e.basis.base.products.workspace != nil || e.basis.extension.products.workspace != nil {
+		t.Fatal("preparation workspace lifetime", active, complete)
 	}
 }

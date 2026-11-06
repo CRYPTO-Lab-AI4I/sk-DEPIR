@@ -1,0 +1,270 @@
+//go:build liftrs_cpp && cgo
+
+package liftrs
+
+// Targeted diagnostic preparation: load a retained basis, collect GC checkpoint
+// heaps and independent sampled RSS, and compare all generated code constants.
+import (
+	"bufio"
+	"crypto/sha256"
+	"encoding/binary"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	native "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp"
+	"io"
+	"math/rand"
+	"os"
+	"os/signal"
+	"path/filepath"
+	"reflect"
+	"runtime"
+	"runtime/debug"
+	"runtime/pprof"
+	"strings"
+	"sync"
+	"syscall"
+	"testing"
+	"time"
+)
+
+func TestPreparationCheckpoint(t *testing.T) {
+	out := os.Getenv("PIR_PREP_MEMORY_OUT")
+	if out == "" {
+		t.Skip("opt-in diagnostic preparation")
+	}
+	source := os.Getenv("PIR_PREP_MEMORY_SOURCE")
+	cache := os.Getenv("PIR_PREP_MEMORY_CACHE")
+	if source == "" || cache == "" {
+		t.Fatal("source/cache required")
+	}
+	smoke := os.Getenv("PIR_PREP_MEMORY_SMOKE") == "1"
+	must := func(err error) {
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+	must(os.MkdirAll(out, 0755))
+	must(os.MkdirAll(cache, 0755))
+	debug.SetMemoryLimit(24 << 30)
+	// Resource guards stop this long diagnostic with SIGTERM. Flush the active
+	// CPU profile before exiting; completed heap checkpoints are already on disk.
+	signals := make(chan os.Signal, 1)
+	done := make(chan struct{})
+	signal.Notify(signals, syscall.SIGTERM, os.Interrupt)
+	defer signal.Stop(signals)
+	defer close(done)
+	go func() {
+		select {
+		case <-signals:
+			pprof.StopCPUProfile()
+			os.Exit(4)
+		case <-done:
+			return
+		}
+	}()
+
+	writeJSON := func(name string, value any) {
+		raw, err := json.MarshalIndent(value, "", "  ")
+		must(err)
+		must(os.WriteFile(filepath.Join(out, name), raw, 0644))
+	}
+	state := func(name string) {
+		writeJSON("state.json", map[string]any{"phase": name, "timestamp_utc": time.Now().UTC().Format(time.RFC3339Nano)})
+	}
+	var phases, checkpoints []map[string]any
+	phase := func(name string, fn func() map[string]any) {
+		state(name)
+		runtime.GC()
+		f, err := os.Create(filepath.Join(out, name+".pprof"))
+		must(err)
+		must(pprof.StartCPUProfile(f))
+		active := true
+		defer func() {
+			if active {
+				pprof.StopCPUProfile()
+				f.Close()
+			}
+		}()
+		before, err := native.ReadClocks()
+		must(err)
+		start := time.Now()
+		result := fn()
+		elapsed := time.Since(start)
+		after, err := native.ReadClocks()
+		must(err)
+		pprof.StopCPUProfile()
+		must(f.Close())
+		active = false
+		result["phase"], result["go_elapsed_ns"], result["native_before"], result["native_after"] = name, elapsed.Nanoseconds(), before, after
+		phases = append(phases, result)
+		writeJSON("phases.json", phases)
+		t.Log(name, elapsed)
+	}
+	var basis *OrbitBasis
+	var executor *scalingPreparationCPP
+	spec := Spec{14, 2, 5}
+	if smoke {
+		spec = Spec{6, 2, 4}
+	}
+	phase("setup", func() map[string]any {
+		var err error
+		basis, executor, err = newScalingPreparationCPP(spec, 16)
+		must(err)
+		return map[string]any{"s": spec.FieldDegree, "t": spec.CurveDegree, "scratch_bytes": len(executor.scratch) * 4}
+	})
+	defer executor.close()
+	phase("basis", func() map[string]any {
+		if smoke {
+			var err error
+			basis, err = discoverOrbitBasis(basis, OrbitOptions{Random: rand.New(rand.NewSource(1803)), MaxSamples: 24})
+			must(err)
+			basis.base.products.cutoff = 0 // Exercise active-buffer checkpoints on the tiny fixture only.
+			return map[string]any{"smoke_discovery": true, "k": basis.Dimension(), "n": basis.Length(), "cutoff_override": 0}
+		}
+		raw, err := os.ReadFile(filepath.Join(source, "basis-metadata.json"))
+		must(err)
+		var meta struct {
+			S, T, K, N int
+			SHA256     string
+		}
+		must(json.Unmarshal(raw, &meta))
+		if meta.S != 14 || meta.T != 5 || meta.K != 50976325 || meta.N != 1<<28 || meta.SHA256 != "da599ca203bac67a501778d9aefb53ce1f83c0a6ff606342c8507fba54203dd1" {
+			t.Fatal("unexpected retained basis")
+		}
+		f, err := os.Open(filepath.Join(source, "support.bin"))
+		must(err)
+		defer f.Close()
+		h := sha256.New()
+		reader := bufio.NewReaderSize(io.TeeReader(f, h), 1<<20)
+		basis.support = make([]int, meta.K)
+		var block [65536]byte
+		for start := 0; start < meta.K; start += len(block) / 4 {
+			n := minInt(len(block)/4, meta.K-start)
+			_, err := io.ReadFull(reader, block[:n*4])
+			must(err)
+			for j := 0; j < n; j++ {
+				basis.support[start+j] = int(binary.LittleEndian.Uint32(block[j*4:]))
+			}
+		}
+		if _, err := reader.ReadByte(); err != io.EOF {
+			t.Fatal("basis trailing/read error", err)
+		}
+		if hex.EncodeToString(h.Sum(nil)) != meta.SHA256 {
+			t.Fatal("basis checksum")
+		}
+		must(basis.validateSupport())
+		return map[string]any{"k": basis.Dimension(), "n": basis.Length(), "sha256": meta.SHA256, "reused": true}
+	})
+	// Sample allocated heap between checkpoints without forcing collections. GC at
+	// explicit checkpoints measures reachable heap and is included in diagnostic time.
+	samples, err := os.Create(filepath.Join(out, "heap-samples.jsonl"))
+	must(err)
+	stop := make(chan struct{})
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		ticker := time.NewTicker(500 * time.Millisecond)
+		defer ticker.Stop()
+		encoder := json.NewEncoder(samples)
+		for {
+			select {
+			case <-stop:
+				return
+			case <-ticker.C:
+				var m runtime.MemStats
+				runtime.ReadMemStats(&m)
+				encoder.Encode(map[string]any{"timestamp_utc": time.Now().UTC().Format(time.RFC3339Nano), "heap_alloc": m.HeapAlloc, "heap_inuse": m.HeapInuse, "heap_sys": m.HeapSys, "heap_released": m.HeapReleased, "num_gc": m.NumGC})
+			}
+		}
+	}()
+	defer func() { close(stop); wg.Wait(); samples.Close() }()
+	var prepared *CyclicEncoder
+	phase("preparation", func() map[string]any {
+		var before, after runtime.MemStats
+		runtime.ReadMemStats(&before)
+		observe := func(name string, workspace uint64) {
+			if strings.HasPrefix(name, "progress-") {
+				writeJSON("state.json", map[string]any{"phase": "before-root-product", "progress": name, "timestamp_utc": time.Now().UTC().Format(time.RFC3339Nano)})
+				return
+			}
+			state(name)
+			var pre, live runtime.MemStats
+			runtime.ReadMemStats(&pre)
+			start := time.Now()
+			runtime.GC()
+			gcNS := time.Since(start).Nanoseconds()
+			runtime.ReadMemStats(&live)
+			filename := fmt.Sprintf("checkpoint-%02d-%s.heap.pprof", len(checkpoints), name)
+			f, err := os.Create(filepath.Join(out, filename))
+			must(err)
+			must(pprof.WriteHeapProfile(f))
+			must(f.Close())
+			checkpoints = append(checkpoints, map[string]any{"stage": name, "timestamp_utc": time.Now().UTC().Format(time.RFC3339Nano), "heap_before_gc": pre.HeapAlloc, "live_heap_after_gc": live.HeapAlloc, "heap_inuse": live.HeapInuse, "heap_sys": live.HeapSys, "heap_released": live.HeapReleased, "allocation_traffic_since_start": live.TotalAlloc - before.TotalAlloc, "gc_ns": gcNS, "workspace_bytes": workspace, "heap_profile": filename})
+			writeJSON("checkpoints.json", checkpoints)
+		}
+		var err error
+		prepared, err = basis.prepareCyclicScalingObserved(basis.extensionFFT, observe)
+		must(err)
+		runtime.ReadMemStats(&after)
+		return map[string]any{"k": basis.Dimension(), "n": basis.Length(), "allocation_traffic_bytes": after.TotalAlloc - before.TotalAlloc, "identity_verified": true, "diagnostic_gc_checkpoints": len(checkpoints)}
+	})
+	phase("verify-constants", func() map[string]any {
+		plan := &ScalingOnlinePlan{basis: *prepared.basis, k: basis.Dimension(), p: prepared.p, spectrum: prepared.spectrum}
+		h := sha256.New()
+		must(writeScalingOnline(h, plan))
+		onlineSHA := hex.EncodeToString(h.Sum(nil))
+		ghash := sha256.New()
+		var block [65536]byte
+		for start := 0; start < len(prepared.g); start += len(block) / 4 {
+			n := minInt(len(block)/4, len(prepared.g)-start)
+			for j := 0; j < n; j++ {
+				binary.LittleEndian.PutUint32(block[j*4:], prepared.g[start+j])
+			}
+			_, err := ghash.Write(block[:n*4])
+			must(err)
+		}
+		gSHA := hex.EncodeToString(ghash.Sum(nil))
+		matched := onlineSHA == "88d5ff39c5df8bdd4aa0f85fc19833ae673df95365b4fd862bb83936e5a0adf8" && gSHA == "4b9461c0dc7f7fb54389f8217f9ab6e72977e9613a99d10a835f6bb0c22cc7da"
+		if smoke {
+			ref, err := basis.PrepareCyclicFFT()
+			must(err)
+			matched = reflect.DeepEqual(prepared.p, ref.p) && reflect.DeepEqual(prepared.g, ref.g) && reflect.DeepEqual(prepared.spectrum, ref.spectrum)
+		}
+		// On success, retain the already stored identical constants instead of writing
+		// duplicate GiB files. Save distinct generated outputs on mismatch for diagnosis.
+		if !matched || smoke {
+			f, err := os.Create(filepath.Join(cache, "generated-online.bin"))
+			must(err)
+			must(writeScalingOnline(f, plan))
+			must(f.Close())
+			gfile, err := os.Create(filepath.Join(cache, "generated-g.bin"))
+			must(err)
+			for start := 0; start < len(prepared.g); start += len(block) / 4 {
+				n := minInt(len(block)/4, len(prepared.g)-start)
+				for j := 0; j < n; j++ {
+					binary.LittleEndian.PutUint32(block[j*4:], prepared.g[start+j])
+				}
+				_, err := gfile.Write(block[:n*4])
+				must(err)
+			}
+			must(gfile.Close())
+			if smoke {
+				supportFile, err := os.Create(filepath.Join(cache, "generated-support.bin"))
+				must(err)
+				for _, i := range basis.support {
+					var word [4]byte
+					binary.LittleEndian.PutUint32(word[:], uint32(i))
+					_, err := supportFile.Write(word[:])
+					must(err)
+				}
+				must(supportFile.Close())
+			}
+		}
+		if !matched {
+			t.Fatal("generated constants differ; diagnostic output retained", onlineSHA, gSHA)
+		}
+		return map[string]any{"online_sha256": onlineSHA, "generator_sha256": gSHA, "all_constants_match": matched, "retained_originals": !smoke}
+	})
+}

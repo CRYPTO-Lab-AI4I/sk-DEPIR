@@ -56,6 +56,17 @@ less elapsed time with similar CPU cost and 4.59 GiB process peak RSS. The initi
 power-transition pair is reported separately; these are profiled, warm-workspace
 measurements on this host.
 
+The [s=15 preparation-memory audit](experiments/preparation-memory/report.md)
+now separates principal arrays (about 22 GiB) from allocation/GC overhead. A
+48 GiB machine remains plausible, but s=15 has not been run or admitted. Compact
+validation, bounded factor batches and private preparation scratch reuse are now
+implemented and pass small reference checks; the
+[s=14 preparation checkpoint](experiments/preparation-checkpoint/report.md)
+passes complete P/G/spectrum digest checks: 34m 32.5s preparation, 9.01 GiB
+process peak RSS and 5.42 GiB peak reachable heap at diagnostic checkpoints.
+Forced GC/profiling and retained-basis loading differ from the historical run;
+this is not a controlled latency comparison. s=15 admission is still pending.
+
 ## Implementation status and limits
 
 The online query and decode path supports locality `ℓ=q-1`, dimensions `m=2` and `m=3`, prime fields, and the listed binary extension fields. `Params.Q`, `Params.K`, and `Params.M` denote the field size `q`, curve degree `t`, and database dimension `m`. Production `Query` and `QueryLocal` append 128 dummy positions, so the transmitted query length is `L=(q-1)+128`.

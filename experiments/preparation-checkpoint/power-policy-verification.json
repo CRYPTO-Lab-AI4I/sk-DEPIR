@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "tests": 4,
+  "command": [
+    "python3",
+    "experiments/preparation-checkpoint/test_power.py"
+  ],
+  "source_sha256": {
+    "experiments/preparation-checkpoint/run.py": "89ed7d9d450c36f3dc5470c5724e63783ad6f16aa30146d54345b533dc98a8dc",
+    "experiments/preparation-checkpoint/test_power.py": "27ed7f6827e558d127525cb3ebc6a857d6f9db2cfe89e2ff2bf9449335f0105f"
+  }
+}

@@ -1,0 +1,24 @@
+File: probe
+Type: cpu
+Time: 2026-11-05 22:47:50 CET
+Duration: 408.49ms, Total samples = 220ms (53.86%)
+Showing nodes accounting for 220ms, 100% of 220ms total
+      flat  flat%   sum%        cum   cum%
+     110ms 50.00% 50.00%      210ms 95.45%  runtime.mapassign_fast64
+      30ms 13.64% 63.64%       30ms 13.64%  internal/runtime/maps.memHash64AES
+      20ms  9.09% 72.73%       20ms  9.09%  internal/runtime/maps.(*groupReference).key (inline)
+      20ms  9.09% 81.82%       20ms  9.09%  internal/runtime/maps.(*groupsReference).group (inline)
+      20ms  9.09% 90.91%       20ms  9.09%  internal/runtime/maps.probeSeq.next (inline)
+      10ms  4.55% 95.45%       10ms  4.55%  internal/runtime/maps.bitsetFirst (inline)
+      10ms  4.55%   100%       10ms  4.55%  runtime.pthread_cond_wait
+         0     0%   100%       10ms  4.55%  internal/runtime/maps.bitset.first (inline)
+         0     0%   100%      210ms 95.45%  main.main
+         0     0%   100%       10ms  4.55%  runtime.findRunnable
+         0     0%   100%       10ms  4.55%  runtime.mPark (inline)
+         0     0%   100%      210ms 95.45%  runtime.main
+         0     0%   100%       10ms  4.55%  runtime.mcall
+         0     0%   100%       10ms  4.55%  runtime.notesleep
+         0     0%   100%       10ms  4.55%  runtime.park_m
+         0     0%   100%       10ms  4.55%  runtime.schedule
+         0     0%   100%       10ms  4.55%  runtime.semasleep
+         0     0%   100%       10ms  4.55%  runtime.stopm

@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "checks": {
+    "replicas": {
+      "sources_resolved": {
+        "experiments/preparation-memory/run.py": "experiments/source-snapshots/424cfb144cc525fe4e6d1cc6f8bf147e52a42ebf172ecbc3adb0ec947e6c449a.txt",
+        "experiments/preparation-memory/probe.go": "experiments/source-snapshots/8cfb633ea05ba4d85fd1bddf1a8c1a4d3c11c2a22105f899e3125834ecaa27c5.txt",
+        "go.mod": "go.mod",
+        "pirconfig/configs_catalogue.json": "pirconfig/configs_catalogue.json"
+      }
+    },
+    "replicas-final": {
+      "sources_resolved": {
+        "experiments/preparation-memory/run.py": "experiments/preparation-memory/run.py",
+        "experiments/preparation-memory/probe.go": "experiments/preparation-memory/probe.go",
+        "go.mod": "go.mod",
+        "pirconfig/configs_catalogue.json": "pirconfig/configs_catalogue.json"
+      }
+    },
+    "model": {
+      "sources_resolved": {
+        "experiments/preparation-memory/model.py": "experiments/preparation-memory/model.py",
+        "experiments/preparation-memory/replicas-final/results.json": "experiments/preparation-memory/replicas-final/results.json",
+        "pirconfig/configs_catalogue.json": "pirconfig/configs_catalogue.json",
+        "experiments/parallel-s14/initial/results.json": "experiments/parallel-s14/initial/results.json",
+        "experiments/parallel-s14/initial/phases.json": "experiments/parallel-s14/initial/phases.json",
+        "experiments/parallel-s14/initial/preparation-flat.txt": "experiments/parallel-s14/initial/preparation-flat.txt",
+        "encoding/liftrs-shared/orbit.go": "encoding/liftrs-shared/orbit.go",
+        "encoding/liftrs-shared/orbit_product.go": "encoding/liftrs-shared/orbit_product.go",
+        "encoding/liftrs-shared/orbit_polynomial.go": "encoding/liftrs-shared/orbit_polynomial.go",
+        "encoding/liftrs-shared/scaling_experimental.go": "encoding/liftrs-shared/scaling_experimental.go",
+        "encoding/liftrs-shared/scaling_prepare_cpp.go": "encoding/liftrs-shared/scaling_prepare_cpp.go",
+        "encoding/liftrs-shared/scaling_matrix_cpp.go": "encoding/liftrs-shared/scaling_matrix_cpp.go",
+        "encoding/liftrs-shared/parallel_firstuse_probe_test.go": "encoding/liftrs-shared/parallel_firstuse_probe_test.go"
+      }
+    },
+    "go_vet": {
+      "command": [
+        "/tmp/sk-depir-go-toolchain/go/bin/go",
+        "vet",
+        "./experiments/preparation-memory"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  },
+  "not_run": "No library encoding tests repeated: production code is unchanged; no s15 run."
+}

@@ -1,0 +1,12 @@
+File: probe
+Type: inuse_space
+Time: 2026-11-06 01:00:46 CET
+Showing nodes accounting for 1412.92MB, 99.71% of 1417.08MB total
+Dropped 22 nodes (cum <= 7.09MB)
+      flat  flat%   sum%        cum   cum%
+    1024MB 72.26% 72.26%     1025MB 72.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newScalingPreparationCPP
+  388.92MB 27.45% 99.71%   388.92MB 27.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func7
+         0     0% 99.71%  1415.08MB 99.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint
+         0     0% 99.71%  1415.08MB 99.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func5
+         0     0% 99.71%     1025MB 72.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func6
+         0     0% 99.71%  1415.08MB 99.86%  testing.tRunner

@@ -1,0 +1,30 @@
+File: probe
+Type: inuse_space
+Time: 2026-11-05 22:47:52 CET
+Showing nodes accounting for 6411.25kB, 100% of 6411.25kB total
+      flat  flat%   sum%        cum   cum%
+ 2086.21kB 32.54% 32.54%  4361.15kB 68.02%  main.main
+ 2050.10kB 31.98% 64.52%  2050.10kB 31.98%  runtime.mallocgc
+ 1762.94kB 27.50% 92.01%  1762.94kB 27.50%  runtime/pprof.StartCPUProfile
+     512kB  7.99%   100%      512kB  7.99%  os.newFile
+         0     0%   100%      512kB  7.99%  os.Create (inline)
+         0     0%   100%      512kB  7.99%  os.OpenFile
+         0     0%   100%      512kB  7.99%  os.openFileNolog
+         0     0%   100%   512.05kB  7.99%  runtime.(*scavengerState).init
+         0     0%   100%   512.05kB  7.99%  runtime.acquireSudog
+         0     0%   100%     1026kB 16.00%  runtime.allocm
+         0     0%   100%   512.05kB  7.99%  runtime.bgscavenge
+         0     0%   100%   512.05kB  7.99%  runtime.gcBgMarkWorker
+         0     0%   100%   512.05kB  7.99%  runtime.gcMarkDone
+         0     0%   100%  4361.15kB 68.02%  runtime.main
+         0     0%   100%     1026kB 16.00%  runtime.mstart
+         0     0%   100%     1026kB 16.00%  runtime.mstart0
+         0     0%   100%     1026kB 16.00%  runtime.mstart1
+         0     0%   100%     1026kB 16.00%  runtime.newm
+         0     0%   100%  2050.10kB 31.98%  runtime.newobject
+         0     0%   100%      513kB  8.00%  runtime.resetspinning
+         0     0%   100%     1026kB 16.00%  runtime.schedule
+         0     0%   100%   512.05kB  7.99%  runtime.semacquire (inline)
+         0     0%   100%   512.05kB  7.99%  runtime.semacquire1
+         0     0%   100%     1026kB 16.00%  runtime.startm
+         0     0%   100%     1026kB 16.00%  runtime.wakep

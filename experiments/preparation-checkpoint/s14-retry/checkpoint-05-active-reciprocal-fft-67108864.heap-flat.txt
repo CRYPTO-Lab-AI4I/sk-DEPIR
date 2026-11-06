@@ -1,0 +1,23 @@
+File: probe
+Type: inuse_space
+Time: 2026-11-06 01:28:54 CET
+Showing nodes accounting for 2412.22MB, 99.68% of 2419.89MB total
+Dropped 21 nodes (cum <= 12.10MB)
+      flat  flat%   sum%        cum   cum%
+    1024MB 42.32% 42.32%     1025MB 42.36%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newScalingPreparationCPP
+     512MB 21.16% 63.47%      512MB 21.16%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*productWorkspace).buffers (inline)
+  388.92MB 16.07% 79.55%   388.92MB 16.07%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func7
+  322.46MB 13.33% 92.87%   834.46MB 34.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+     128MB  5.29% 98.16%      256MB 10.58%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyInverse
+   36.84MB  1.52% 99.68%    36.84MB  1.52%  runtime/pprof.(*profMap).lookup
+         0     0% 99.68%   962.46MB 39.77%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScalingObserved
+         0     0% 99.68%   706.46MB 29.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*factorProductBuilder).finish
+         0     0% 99.68%  2377.54MB 98.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint
+         0     0% 99.68%   962.46MB 39.77%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func10
+         0     0% 99.68%  2377.54MB 98.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func5
+         0     0% 99.68%     1025MB 42.36%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func6
+         0     0% 99.68%   706.46MB 29.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+         0     0% 99.68%   834.46MB 34.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0% 99.68%    36.84MB  1.52%  runtime/pprof.(*profileBuilder).addCPUData
+         0     0% 99.68%    37.34MB  1.54%  runtime/pprof.profileWriter
+         0     0% 99.68%  2377.54MB 98.25%  testing.tRunner

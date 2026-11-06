@@ -360,3 +360,20 @@ The [complete native backend documentation](../liftrs-cpp/README.md#complete-nat
 explains stage counters, borrowing rules and the profiled comparison. The
 immutable plan is shared; each concurrent encoding needs its own workspace.
 `Close` waits for active calls and releases only small native metadata.
+
+### Bounded preparation workspace
+
+Support validation and discovery membership now use one bit per exponent rather
+than hash-map entries or a byte per position. The opt-in scaling preparation
+builds roots from at most 32,768 factors in flat leaf storage, merging completed
+polynomials with a balanced schedule. Its private FFT buffers are reused across
+convolutions and released before spectrum construction/return. Prepared objects
+retain no mutable workspace; ordinary encoding calls keep their existing buffer
+ownership. Newton inversion reuses full-length fresh results, preserving zero
+padding when the product is shorter than the requested precision.
+
+The [preparation checkpoint](../../experiments/preparation-checkpoint/report.md)
+compares exact generated constants and separately labels diagnostic GC/heap
+snapshots. This is an in-memory improvement, not an s=15 support extension or a
+process-RSS guarantee. Normal preparation does not force collection; only the
+opt-in diagnostic observer does so.

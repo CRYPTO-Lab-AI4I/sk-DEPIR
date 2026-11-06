@@ -1,0 +1,56 @@
+File: probe
+Type: cpu
+Time: 2026-11-05 22:47:51 CET
+Duration: 204.35ms, Total samples = 110ms (53.83%)
+Showing nodes accounting for 110ms, 100% of 110ms total
+      flat  flat%   sum%        cum   cum%
+      20ms 18.18% 18.18%       20ms 18.18%  runtime.memmove
+      20ms 18.18% 36.36%       20ms 18.18%  runtime.mmap
+      20ms 18.18% 54.55%       20ms 18.18%  runtime.usleep
+      10ms  9.09% 63.64%       10ms  9.09%  runtime.(*gcBits).bytep (inline)
+      10ms  9.09% 72.73%       10ms  9.09%  runtime.(*spanSet).push
+      10ms  9.09% 81.82%       10ms  9.09%  runtime.pthread_cond_wait
+      10ms  9.09% 90.91%       10ms  9.09%  runtime.pthread_kill
+      10ms  9.09%   100%       10ms  9.09%  runtime.tryDeferToSpanScan
+         0     0%   100%       40ms 36.36%  main.main
+         0     0%   100%       10ms  9.09%  runtime.(*gcControllerState).enlistWorker
+         0     0%   100%       20ms 18.18%  runtime.(*mcache).nextFree
+         0     0%   100%       20ms 18.18%  runtime.(*mcache).refill
+         0     0%   100%       10ms  9.09%  runtime.(*mcentral).cacheSpan
+         0     0%   100%       10ms  9.09%  runtime.(*mcentral).uncacheSpan
+         0     0%   100%       10ms  9.09%  runtime.(*mheap).alloc.func1
+         0     0%   100%       10ms  9.09%  runtime.(*mheap).allocSpan
+         0     0%   100%       10ms  9.09%  runtime.(*mheap).initSpan
+         0     0%   100%       10ms  9.09%  runtime.(*mspan).refillAllocCache
+         0     0%   100%       10ms  9.09%  runtime.(*sweepLocked).sweep
+         0     0%   100%       10ms  9.09%  runtime.bgsweep
+         0     0%   100%       10ms  9.09%  runtime.findRunnable
+         0     0%   100%       10ms  9.09%  runtime.gcBgMarkWorker
+         0     0%   100%       40ms 36.36%  runtime.gcBgMarkWorker.func2
+         0     0%   100%       40ms 36.36%  runtime.gcDrain
+         0     0%   100%       30ms 27.27%  runtime.gcDrainMarkWorkerDedicated (inline)
+         0     0%   100%       10ms  9.09%  runtime.gcDrainMarkWorkerIdle (inline)
+         0     0%   100%       20ms 18.18%  runtime.growslice
+         0     0%   100%       10ms  9.09%  runtime.mPark (inline)
+         0     0%   100%       40ms 36.36%  runtime.main
+         0     0%   100%       20ms 18.18%  runtime.mallocgcTinySC2
+         0     0%   100%       20ms 18.18%  runtime.markroot
+         0     0%   100%       20ms 18.18%  runtime.markroot.func1
+         0     0%   100%       10ms  9.09%  runtime.mcall
+         0     0%   100%       20ms 18.18%  runtime.newArenaMayUnlock
+         0     0%   100%       20ms 18.18%  runtime.newMarkBits
+         0     0%   100%       10ms  9.09%  runtime.notesleep
+         0     0%   100%       20ms 18.18%  runtime.osyield (inline)
+         0     0%   100%       10ms  9.09%  runtime.park_m
+         0     0%   100%       10ms  9.09%  runtime.preemptM
+         0     0%   100%       10ms  9.09%  runtime.preemptone
+         0     0%   100%       10ms  9.09%  runtime.scanObject
+         0     0%   100%       10ms  9.09%  runtime.schedule
+         0     0%   100%       10ms  9.09%  runtime.semasleep
+         0     0%   100%       10ms  9.09%  runtime.signalM (inline)
+         0     0%   100%       10ms  9.09%  runtime.stopm
+         0     0%   100%       20ms 18.18%  runtime.suspendG
+         0     0%   100%       10ms  9.09%  runtime.sweepone
+         0     0%   100%       20ms 18.18%  runtime.sysAlloc
+         0     0%   100%       20ms 18.18%  runtime.sysAllocOS (inline)
+         0     0%   100%       50ms 45.45%  runtime.systemstack

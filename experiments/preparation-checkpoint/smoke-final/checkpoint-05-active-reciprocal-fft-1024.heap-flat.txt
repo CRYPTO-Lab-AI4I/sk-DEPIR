@@ -1,0 +1,29 @@
+File: probe
+Type: inuse_space
+Time: 2026-11-05 23:29:47 CET
+Showing nodes accounting for 2563.10kB, 100% of 2563.10kB total
+      flat  flat%   sum%        cum   cum%
+ 2050.10kB 79.99% 79.99%  2050.10kB 79.99%  runtime.mallocgc
+     513kB 20.01%   100%      513kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyInverse
+         0     0%   100%      513kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScalingObserved
+         0     0%   100%      513kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint
+         0     0%   100%      513kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func4
+         0     0%   100%      513kB 20.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func9
+         0     0%   100%   512.05kB 19.98%  runtime.(*scavengerState).init
+         0     0%   100%   512.05kB 19.98%  runtime.acquireSudog
+         0     0%   100%     1026kB 40.03%  runtime.allocm
+         0     0%   100%   512.05kB 19.98%  runtime.bgscavenge
+         0     0%   100%   512.05kB 19.98%  runtime.gcBgMarkWorker
+         0     0%   100%   512.05kB 19.98%  runtime.gcMarkDone
+         0     0%   100%     1026kB 40.03%  runtime.mstart
+         0     0%   100%     1026kB 40.03%  runtime.mstart0
+         0     0%   100%     1026kB 40.03%  runtime.mstart1
+         0     0%   100%     1026kB 40.03%  runtime.newm
+         0     0%   100%  2050.10kB 79.99%  runtime.newobject
+         0     0%   100%      513kB 20.01%  runtime.resetspinning
+         0     0%   100%     1026kB 40.03%  runtime.schedule
+         0     0%   100%   512.05kB 19.98%  runtime.semacquire (inline)
+         0     0%   100%   512.05kB 19.98%  runtime.semacquire1
+         0     0%   100%     1026kB 40.03%  runtime.startm
+         0     0%   100%     1026kB 40.03%  runtime.wakep
+         0     0%   100%      513kB 20.01%  testing.tRunner

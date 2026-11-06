@@ -1,0 +1,22 @@
+File: probe
+Type: inuse_space
+Time: 2026-11-06 01:35:01 CET
+Showing nodes accounting for 2474.27MB, 99.69% of 2481.94MB total
+Dropped 21 nodes (cum <= 12.41MB)
+      flat  flat%   sum%        cum   cum%
+ 1024.01MB 41.26% 41.26%  1024.01MB 41.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+    1024MB 41.26% 82.52%     1025MB 41.30%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newScalingPreparationCPP
+  388.92MB 15.67% 98.19%   388.92MB 15.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func7
+   37.34MB  1.50% 99.69%    37.34MB  1.50%  runtime/pprof.(*profMap).lookup
+         0     0% 99.69%  1024.01MB 41.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScalingObserved
+         0     0% 99.69%   194.46MB  7.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*factorProductBuilder).finish
+         0     0% 99.69%  2439.09MB 98.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint
+         0     0% 99.69%  1024.01MB 41.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func10
+         0     0% 99.69%  2439.09MB 98.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func5
+         0     0% 99.69%     1025MB 41.30%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCheckpoint.func6
+         0     0% 99.69%   829.55MB 33.42%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyInverse
+         0     0% 99.69%   194.46MB  7.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+         0     0% 99.69%  1024.01MB 41.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0% 99.69%    37.34MB  1.50%  runtime/pprof.(*profileBuilder).addCPUData
+         0     0% 99.69%    37.84MB  1.52%  runtime/pprof.profileWriter
+         0     0% 99.69%  2439.09MB 98.27%  testing.tRunner

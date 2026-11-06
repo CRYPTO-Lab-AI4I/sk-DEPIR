@@ -80,8 +80,8 @@ func rootProduct(f orbitField, factors [][]uint32) []uint32 {
 // into Frobenius orbits, constructs P over the base field without retaining a
 // product tree, and obtains G from the truncated reciprocal 1/P. It uses sparse
 // FFT setup. The result preserves the original information set/artifact format.
-// It does not establish bounded-RAM preparation: factors and multiplication
-// scratch still allocate, discovery/support are retained, and no disk spill exists.
+// Leaf batches and preparation FFT scratch have explicit ownership; this is
+// still an in-memory algorithm, and process RSS requires separate measurement.
 func (b *OrbitBasis) PrepareCyclicScalingPrototype() (*CyclicEncoder, error) {
 	return b.prepareCyclicScaling(newSparseTransform(b.extension))
 }
@@ -89,18 +89,50 @@ func (b *OrbitBasis) PrepareCyclicScalingPrototype() (*CyclicEncoder, error) {
 // prepareCyclicScaling accepts a reusable executor for the same field/basis. Only
 // execution changes: root factors, reciprocal identity and canonical spectrum do not.
 func (b *OrbitBasis) prepareCyclicScaling(fft *additiveTransform) (*CyclicEncoder, error) {
+	return b.prepareCyclicScalingObserved(fft, nil)
+}
+
+// The private observer is for diagnostic stage snapshots. It receives current
+// FFT-workspace capacity; it may force GC only when the benchmark requests it.
+// Production calls pass nil and do not force collection or retain callbacks.
+func (b *OrbitBasis) prepareCyclicScalingObserved(fft *additiveTransform, observe func(string, uint64)) (*CyclicEncoder, error) {
 	clone := *b
 	clone.extensionFFT = fft
 	clone.baseFFT = newSparseTransform(b.base)
-	clone.base.products = &polynomialProducts{fft, b.base.products.cutoff}
-	clone.extension.products = &polynomialProducts{fft, b.extension.products.cutoff}
+	workspace := &productWorkspace{}
+	phase := "root-product"
+	if observe != nil {
+		workspace.observe = func(n int) {
+			if n >= b.Length()/4 {
+				observe(fmt.Sprintf("active-%s-fft-%d", phase, n), workspace.bytes())
+			}
+		}
+	}
+	clone.base.products = &polynomialProducts{transform: fft, cutoff: b.base.products.cutoff, workspace: workspace}
+	clone.extension.products = &polynomialProducts{transform: fft, cutoff: b.extension.products.cutoff, workspace: workspace}
+	release := func() {
+		workspace.release()
+		clone.base.products.workspace = nil
+		clone.extension.products.workspace = nil
+	}
+	defer release()
+	checkpoint := func(stage string) {
+		if observe != nil {
+			observe(stage, workspace.bytes())
+		}
+	}
+	checkpoint("before-validation")
 	// Frobenius closure is checked independently of random discovery on every basis.
 	if err := b.validateSupport(); err != nil {
 		return nil, err
 	}
-	var factors [][]uint32
+	checkpoint("before-root-product")
+	factors := newFactorProductBuilder(clone.base, minInt(32768, b.Dimension()))
 	order := b.Length() - 1
-	for _, i := range b.support {
+	for index, i := range b.support {
+		if observe != nil && index > 0 && index%(1<<20) == 0 {
+			observe(fmt.Sprintf("progress-root-exponents-%d-of-%d", index, len(b.support)), workspace.bytes())
+		}
 		partner := int(uint64(i) * uint64(b.base.q) % uint64(order))
 		if partner < i {
 			continue
@@ -110,7 +142,7 @@ func (b *OrbitBasis) prepareCyclicScaling(fft *additiveTransform) (*CyclicEncode
 			if root >= b.base.q {
 				return nil, fmt.Errorf("fixed root outside base field")
 			}
-			factors = append(factors, []uint32{root, 1})
+			factors.add(root, 1, 0, 1)
 			continue
 		}
 		conjugate := b.extension.pow(root, int(b.base.q))
@@ -118,9 +150,10 @@ func (b *OrbitBasis) prepareCyclicScaling(fft *additiveTransform) (*CyclicEncode
 		if trace >= b.base.q || norm >= b.base.q {
 			return nil, fmt.Errorf("paired root factor outside base field")
 		}
-		factors = append(factors, []uint32{norm, trace, 1})
+		factors.add(norm, trace, 1, 2)
 	}
-	p := rootProduct(clone.base, factors)
+	p := factors.finish()
+	checkpoint("before-normalization")
 	if len(p) != b.Dimension()+1 {
 		return nil, fmt.Errorf("paired product degree mismatch")
 	}
@@ -128,7 +161,11 @@ func (b *OrbitBasis) prepareCyclicScaling(fft *additiveTransform) (*CyclicEncode
 	for i := range p {
 		p[i] = clone.base.mul(p[i], scale)
 	}
+	phase = "reciprocal"
+	checkpoint("before-reciprocal")
 	g := polyInverse(clone.base, p, b.Length()-b.Dimension())
+	phase = "identity"
+	checkpoint("before-identity")
 	// Verify the defining identity independently of reciprocal truncation. This
 	// one-time full convolution is deliberately included in preparation timings.
 	identity := polyMul(clone.base, p, g)
@@ -144,9 +181,12 @@ func (b *OrbitBasis) prepareCyclicScaling(fft *additiveTransform) (*CyclicEncode
 			return nil, fmt.Errorf("generator identity mismatch at %d", i)
 		}
 	}
+	release()
+	checkpoint("before-spectrum")
 	spectrum := make([]uint32, b.Length())
 	copy(spectrum, g)
 	fft.apply(spectrum, false)
+	checkpoint("complete")
 	return &CyclicEncoder{basis: &clone, p: p, g: g, spectrum: spectrum}, nil
 }
 

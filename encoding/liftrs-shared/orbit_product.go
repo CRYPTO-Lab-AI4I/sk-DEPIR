@@ -1,12 +1,15 @@
 package liftrs
 
 // polynomialProducts reuses immutable extension-field transform constants for
-// both base and extension coefficients. Scratch belongs to the individual call;
-// preparing/loading a code never caches message-dependent values. The cutoff
+// both base and extension coefficients. Ordinary calls own their scratch; a
+// private code-preparation session may explicitly reuse single-caller buffers.
+// Preparing/loading a code never caches message-dependent values. The cutoff
 // applies to both operands after truncation and is a performance choice only.
 type polynomialProducts struct {
 	transform *additiveTransform
 	cutoff    int
+	// Non-nil only in a private, single-caller code-preparation session.
+	workspace *productWorkspace
 }
 
 // multiply returns the first limit coefficients of the ordinary convolution.
@@ -18,6 +21,13 @@ type polynomialProducts struct {
 // chunks keeps every local product within the available evaluation domain.
 func (p *polynomialProducts) multiply(a, b []uint32, limit int) []uint32 {
 	out := make([]uint32, limit)
+	if p.workspace != nil {
+		if p.workspace.busy {
+			panic("recursive preparation workspace use")
+		}
+		p.workspace.busy = true
+		defer func() { p.workspace.busy = false }()
+	}
 	chunk := int(p.transform.f.q) / 2
 	for i := 0; i < len(a) && i < limit; i += chunk {
 		ai := a[i:minInt(i+chunk, len(a))]
@@ -27,9 +37,17 @@ func (p *polynomialProducts) multiply(a, b []uint32, limit int) []uint32 {
 			for n < len(ai)+len(bj)-1 {
 				n *= 2
 			}
-			x, y := make([]uint32, n), make([]uint32, n)
+			var x, y []uint32
+			if p.workspace != nil {
+				x, y = p.workspace.buffers(n)
+			} else {
+				x, y = make([]uint32, n), make([]uint32, n)
+			}
 			copy(x, ai)
 			copy(y, bj)
+			if p.workspace != nil && p.workspace.observe != nil {
+				p.workspace.observe(n)
+			}
 			p.transform.applySubspace(x, false)
 			p.transform.applySubspace(y, false)
 			for k := range x {
@@ -156,3 +174,25 @@ func karatsubaLow(f orbitField, a, b []uint32, limit int) []uint32 {
 	}
 	return out
 }
+
+// productWorkspace is mutable scratch, never part of a public prepared artifact.
+// Private preparation owns it for one caller and releases it before returning.
+// Ordinary encoders keep workspace nil and preserve concurrent-call ownership.
+type productWorkspace struct {
+	x, y    []uint32
+	busy    bool
+	observe func(int) // Diagnostic only; must not reenter multiplication.
+}
+
+func (w *productWorkspace) buffers(n int) ([]uint32, []uint32) {
+	if cap(w.x) < n {
+		w.x = make([]uint32, n)
+		w.y = make([]uint32, n)
+	}
+	x, y := w.x[:n], w.y[:n]
+	clear(x)
+	clear(y)
+	return x, y
+}
+func (w *productWorkspace) bytes() uint64 { return uint64(cap(w.x)+cap(w.y)) * 4 }
+func (w *productWorkspace) release()      { w.x = nil; w.y = nil; w.observe = nil }

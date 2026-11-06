@@ -416,17 +416,47 @@ historical root-cause diagnosis. Reuse this consistent baseline for further
 measurements. Code discovery/preparation was not repeated; the next scaling
 work remains the s=15 preparation-memory audit below.
 
+## s=15 preparation-memory audit checkpoint
+
+The [audit](../experiments/preparation-memory/report.md) is complete; no s=15
+preparation or encoding was run and its guards remain unchanged. Source-based
+simultaneous coefficient arrays are about 21.62 GiB, or 22.02 GiB with a support
+capacity scenario. Cached online arrays are about 18.42 GiB. These are analytical
+payloads using estimated K, not RSS bounds. Scaling s=14 RSS by four does not
+establish a requirement for a larger machine.
+
+Small layout measurements identify a projected 4.54–6.02 GiB validation map and a
+4.65 GiB retained-factor scenario. Those objects belong to earlier phases and
+must not all be added to the final FFT peak. A proposed membership bitset needs
+128 MiB. The existing s=14 endpoint/CPU profiles do not measure in-stage live
+heap, so they cannot establish that unchanged s=15 preparation fits the 32 GiB
+RSS guard.
+
+Compact support validation, bounded factor batches, private reusable FFT buffers
+and fresh Newton-result reuse are now implemented. Small reference comparisons
+pass. The [targeted s=14 checkpoint](../experiments/preparation-checkpoint/report.md)
+passes complete P/G/spectrum digests from its retained basis. Diagnostic
+preparation took 34m 32.5s, with 9.01 GiB process peak RSS and 5.42 GiB peak
+reachable Go heap at checkpoints; reusable convolution buffers were released
+before spectrum generation. Forced GC/profiling and loading the retained basis
+change the measurement boundary from the historical run, so this is not a
+controlled latency comparison. The live heap is consistent with the roughly
+22 GiB s=15 principal-array model, but does not prove a 32 GiB RSS bound. Review
+s=15 guards before launching; the 48 GiB host remains a plausible target.
+HPC/GPU or external-memory work is not yet required by the evidence.
+
 ## Subsequent admission: s=15
 
-1. Audit the s=14 preparation profiles and live array lifetimes at s=15 sizes.
-   Online encoding suggests roughly 6–9 minutes and 18–22 GiB RAM on this host;
-   these are planning estimates, not measurements. Multiplying first-use RSS by
-   four gives about 55 GiB, so distinguish live scratch from retained garbage
-   before deciding whether preparation fits the 48 GiB machine.
-2. Bound preparation memory where the audit requires it: consume root-factor
-   batches and reuse/release polynomial-product and reciprocal scratch. Verify
-   any change against retained P/G/spectrum and small independent references.
-   Make no change solely to fit a proportional RSS forecast.
+1. Use the completed audit and diagnostic s=14 live-heap/RSS measurements to
+   review s=15 time/RAM/storage limits. Online encoding suggests roughly 6–9
+   minutes and 18–22 GiB RAM on this host; these remain planning estimates.
+   Preparation has a roughly 22 GiB principal-array model plus runtime/native
+   overhead. Neither multiplying historical RSS nor extrapolating live heap
+   alone establishes its process RSS.
+2. Retain the implemented compact membership, bounded factor batches and
+   preparation-only scratch reuse. Full s=14 constants and small independent
+   references pass; use the profiles to identify any additional memory change
+   needed before admission. Make no change solely to fit proportional RSS.
 3. Extend and test the experimental native/loader guards for s=15 (30-bit packed
    extension elements and N=2^30 still fit the current element representation).
    Review numerical time/RAM/storage limits before launching; retain checkpoint
