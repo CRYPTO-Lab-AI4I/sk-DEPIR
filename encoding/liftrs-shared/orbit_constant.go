@@ -19,7 +19,7 @@ type constantProduct struct {
 // maps need no table. With no budget, the same map uses general multiplication.
 func newConstantProduct(f orbitField, c uint32, budget int) constantProduct {
 	p := constantProduct{coefficient: c}
-	count := (bits.Len32(f.q) - 1 + 3) / 4
+	count := (bits.Len64(f.q) - 1 + 3) / 4
 	if c <= 1 || count*16*4 > budget {
 		return p
 	}
@@ -29,7 +29,7 @@ func newConstantProduct(f orbitField, c uint32, budget int) constantProduct {
 		for bit := 0; bit < 4; bit++ {
 			position := uint(j*4 + bit)
 			// The final row may contain unused high bits; callers use canonical values.
-			if position < uint(bits.Len32(f.q)-1) {
+			if position < uint(bits.Len64(f.q)-1) {
 				row[1<<bit] = f.mul(c, 1<<position)
 			}
 		}

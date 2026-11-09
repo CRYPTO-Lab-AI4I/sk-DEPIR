@@ -24,7 +24,7 @@ func TestOrbitTransforms(t *testing.T) {
 			values := append([]uint32(nil), p...)
 			a.apply(values, false)
 			// Horner samples independently check ordering and forward correctness.
-			for _, point := range []uint32{0, 1, f.q / 3, f.q - 1} {
+			for _, point := range []uint32{0, 1, uint32(f.q / 3), uint32(f.q - 1)} {
 				want := uint32(0)
 				for j := len(p) - 1; j >= 0; j-- {
 					want = f.mul(want, point) ^ p[j]
@@ -170,7 +170,7 @@ func TestOrbitModerateAgreementAndReuse(t *testing.T) {
 	}
 	message := make([]uint32, b.Dimension())
 	for i := range message {
-		message[i] = uint32(i) % b.base.q
+		message[i] = uint32(uint64(i) % b.base.q)
 	}
 	want, err := p.Encode(message)
 	if err != nil {
@@ -238,7 +238,7 @@ func TestPreparedOrbitArtifactReuse(t *testing.T) {
 	c, _ := b.PrepareCyclic()
 	message := make([]uint32, b.Dimension())
 	for i := range message {
-		message[i] = uint32(i) % b.base.q
+		message[i] = uint32(uint64(i) % b.base.q)
 	}
 	want, _ := p.Encode(message)
 	pa, err := p.MarshalBinary()

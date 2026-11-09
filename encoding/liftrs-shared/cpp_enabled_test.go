@@ -169,7 +169,7 @@ func TestCPPPlanValidation(t *testing.T) {
 		}
 		data := make([]uint32, field.q)
 		for j := range data {
-			data[j] = uint32(j) % field.q
+			data[j] = uint32(uint64(j) % field.q)
 		}
 		want := append([]uint32(nil), data...)
 		a.apply(want, false)
@@ -180,7 +180,7 @@ func TestCPPPlanValidation(t *testing.T) {
 			t.Fatal(err)
 		}
 		for j, x := range data {
-			if x != uint32(j)%field.q {
+			if x != uint32(uint64(j)%field.q) {
 				t.Fatal("native inverse")
 			}
 		}

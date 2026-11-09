@@ -163,7 +163,14 @@ func cppDescription(a *additiveTransform) []uint32 {
 	if a.f.extension != nil {
 		delta = a.f.extension.Delta()
 	}
-	words := []uint32{1, uint32(a.f.base.Degree()), a.f.base.Polynomial(), delta, a.f.q, uint32(len(a.terms))}
+	// Versions 1/2 retain exact existing bytes. Versions 3/4 add a high count
+	// word only when the domain needs it; coefficients remain four bytes.
+	words := []uint32{1, uint32(a.f.base.Degree()), a.f.base.Polynomial(), delta, uint32(a.f.q)}
+	if a.f.q > 1<<32-1 {
+		words[0] = 3
+		words = append(words, uint32(a.f.q>>32))
+	}
+	words = append(words, uint32(len(a.terms)))
 	appendProduct := func(p constantProduct) {
 		words = append(words, p.coefficient, uint32(len(p.rows)))
 		words = append(words, p.rows...)

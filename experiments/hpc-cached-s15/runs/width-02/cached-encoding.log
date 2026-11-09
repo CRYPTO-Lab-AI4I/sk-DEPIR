@@ -1,0 +1,32 @@
+=== RUN   TestS15FirstUse
+    s15_firstuse_probe_test.go:95: load-online 12.68326717s
+    s15_firstuse_probe_test.go:95: online-setup 25.416046ms
+    s15_firstuse_probe_test.go:95: encode-0 11m45.864037839s
+    s15_firstuse_probe_test.go:95: verify-0 2m59.199061529s
+    s15_firstuse_probe_test.go:95: pack-output 14.834209646s
+    s15_firstuse_probe_test.go:95: verify-packed 1.877101ms
+--- PASS: TestS15FirstUse (915.47s)
+PASS
+	Command being timed: "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/hpc-cached-s15/width-02/probe -test.run=^TestS15FirstUse$ -test.v -test.timeout=35m"
+	User time (seconds): 8779.35
+	System time (seconds): 185.96
+	Percent of CPU this job got: 976%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 15:17.79
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 19351944
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 16834581
+	Voluntary context switches: 51349
+	Involuntary context switches: 76004
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 3932400
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

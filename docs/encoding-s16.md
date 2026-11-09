@@ -1,7 +1,9 @@
 # s=16 representation and memory gate
 
-This is a source-based readiness audit, not implemented s=16 support or a measured
-memory bound. The [handoff](development-handoff.md) requires this gate after the
+The count/header extension is implemented and small-buffer boundary checks pass;
+full s=16 encoding and its memory bound remain unverified. The
+[compatibility validation](../experiments/count-width-validation/report.md)
+records current verification. The [handoff](development-handoff.md) requires this gate after the
 verified s=15 checkpoint. The [Linux baseline](../experiments/hpc-cached-s15/report.md)
 reproduces the existing encoder before changing its representations.
 
@@ -18,25 +20,30 @@ cardinality is N. They need different integer ranges at s=16:
 | 17 | 17,179,869,184 | 17,179,869,183 | Neither |
 
 `s` is an input argument within implemented bounds. Increasing it does not widen
-storage, arithmetic intermediates or serialized headers. The s=16 change should
-retain four-byte coefficients while separating counts from element values.
+storage, arithmetic intermediates or serialized headers. The implementation
+retains four-byte coefficients while separating counts from element values.
 
-## Changes required before enabling s=16
+## Representation status and remaining admission work
 
-| Boundary | Current evidence | Required work |
+| Boundary | Implementation | Remaining limit |
 |---|---|---|
-| Go field domain | [orbit_arithmetic.go](../encoding/liftrs-shared/orbit_arithmetic.go) stores `orbitField.q` as uint32 and computes `q*q` before converting to int | Widen cardinality and products before multiplication; audit generator search, inverses, bounds and conversions |
-| Go transforms | [scaling_experimental.go](../encoding/liftrs-shared/scaling_experimental.go), [scaling_matrix_cpp.go](../encoding/liftrs-shared/scaling_matrix_cpp.go) and [scaling_prepare_cpp.go](../encoding/liftrs-shared/scaling_prepare_cpp.go) infer levels using `bits.Len32(q)` | Use a count representation supporting 2^32; keep field offsets and coefficients uint32; audit degree/shift expressions and allocation products |
-| Native field/import | [transform.hpp](../encoding/liftrs-cpp/transform.hpp) stores field cardinality as uint32; [c_api.cpp](../encoding/liftrs-cpp/c_api.cpp) imports one 32-bit cardinality word and checks `1u<<width` | Version the native description, widen count fields and use defined shifts at width 32; preserve versions 1/2 and existing fixtures |
-| Minimal online file | [scaling_online.go](../encoding/liftrs-shared/scaling_online.go) reads four uint32 header words and bounds s≤15 | Add a distinguishable version with wider count fields; keep `LRSprobe1` interpretation and digest checks intact; validate before large allocations |
-| Allocation/index boundaries | Go slices use int and native buffers use size_t, but transforms, byte products, chunk bounds and exponent loops cross narrower representations | Require a 64-bit host; check count-to-length/offset conversions and multiplication overflow; distinguish maximum index from element count |
-| Discovery/preparation | Experimental preparation explicitly accepts s≤15; public discovery remains s≤13 | Keep public bounds unchanged until separately justified; enable an experimental s=16 path only after arithmetic, header and shape tests pass |
+| Go field domain | [orbit_arithmetic.go](../encoding/liftrs-shared/orbit_arithmetic.go) uses uint64 cardinality/products and a wide generator-search counter | Four-byte packed extension values permit s≤16; host lengths must fit |
+| Go transforms | Sparse, ordered and dense descriptions derive levels from the wide count; coefficients/offsets remain uint32 | Full s16 arrays are not allocated by boundary tests |
+| Native field/import | [transform.hpp](../encoding/liftrs-cpp/transform.hpp) uses a uint64 count; [c_api.cpp](../encoding/liftrs-cpp/c_api.cpp) reads versions 1/2 unchanged and 3/4 with one extra high count word; domain shifts use uint64 | Native field/value bounds reject s≥17 |
+| Minimal online file | [scaling_online.go](../encoding/liftrs-shared/scaling_online.go) reads both old 32-bit and new 64-bit counts, validating caps and host byte offsets before allocation | The caller still supplies a trusted digest and an explicit allocation cap |
+| Allocation/index boundaries | Counts remain wide during header checks and generator search; lengths use the host int/size_t | Full preprocessing lifetimes and allocation schedules still need memory/admission review |
+| Discovery/preparation | Full experimental preparation still accepts s≤15; public discovery remains s≤13 | The change does not admit a full s16 preparation run |
 
 The existing online C ABI already uses size_t for K/N/buffer lengths, so it is not
-necessary to widen every argument. Native field cardinality, descriptors and
-derived shift logic still need changes. Input/output base-field symbols at s=16
+necessary to widen every argument. Input/output base-field symbols at s=16
 use 16 bits; internal extension arithmetic uses up to 32 bits. s≥17 is a separate
 element-width project and must remain rejected by a four-byte extension backend.
+
+Saved widths depend on s. `WriteScalingOnline` uses exact existing `LRSprobe1`
+bytes for s≤15 (32-bit K/N), and `LRSprobe2` for s=16 (64-bit K/N). The latter
+adds eight header bytes. Native canonical/ordered plans likewise use versions
+1/2 for counts fitting 32 bits and 3/4 for the 2^32 domain. Small count variables
+use uint64 in memory; widening these scalars does not change the large arrays.
 
 ## Memory and admission
 
@@ -55,11 +62,10 @@ safe allocation budget. Code discovery, support/factor construction, reciprocals
 identity validation, GC retention and temporary copies have separate lifetimes;
 the approximately 4× domain growth from s=15 does not establish their RSS.
 
-First validate s=16 field arithmetic and arbitrary-basis/affine transforms using
-small buffers in the 32-bit extension domain. Test the 2^32 count and malformed
-headers without allocating a full codeword, including old-version compatibility.
-Then compare changed s≤15 codewords and retained constant hashes before a large
-run. Review simultaneous preprocessing arrays and baseline profiles, choose worker,
+Small-buffer tests now cover s16 field arithmetic, canonical/arbitrary-basis/affine
+transforms, 32-level matrix metadata, 2^32 counts and malformed headers, including
+old-version byte compatibility. The linked cached s15 regression also passes
+complete output checks. Review simultaneous preprocessing arrays and baseline profiles, choose worker,
 RAM, scratch and wall-time budgets, and enforce them independently if Slurm does
 not configure a memory cgroup cap. A larger-RAM in-memory baseline and bounded-RAM
 alternatives remain eligible; no s=16 full run is admitted by this document.

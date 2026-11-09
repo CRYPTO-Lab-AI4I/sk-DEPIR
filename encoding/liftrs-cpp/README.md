@@ -78,6 +78,14 @@ The binding compiles/links with `-pthread` for portable standard-library threads
 This is an in-memory backend, with an extra N-element transpose buffer, not a
 bounded-disk implementation. See the [integration experiment](../../experiments/parallel-encoding/report.md).
 
+Domain counts now use uint64 while values, offsets and coefficient arrays remain
+uint32. Descriptions select a count width: canonical/ordered versions 1/2 retain
+their existing bytes for smaller domains; versions 3/4 add a high count word for
+the s=16 extension domain of 2^32 positions. Small-buffer tests cover high-bit
+values, affine Horner/inverse checks and 32-level matrix metadata. They do not
+establish full s16 discovery, preparation or encoding; see
+[count-width validation](../../experiments/count-width-validation/report.md).
+
 
 The [s=14 first-use experiment](../../experiments/parallel-s14/report.md) extends
 the native width guard through s=14 after independent scalar/table, affine Horner

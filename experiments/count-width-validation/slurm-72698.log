@@ -1,0 +1,9 @@
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	0.102s
+Traceback (most recent call last):
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/hpc-cached-s15/run.py", line 196, in <module>
+    main()
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/hpc-cached-s15/run.py", line 149, in main
+    run('vet', [str(go), 'vet', '-tags', 'liftrs_cpp', './encoding/...', './pirconfig', './planner'], cwd=source)
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/hpc-cached-s15/run.py", line 108, in run
+    raise RuntimeError(label + ' failed; see retained log')
+RuntimeError: vet failed; see retained log

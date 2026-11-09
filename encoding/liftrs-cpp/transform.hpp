@@ -8,7 +8,8 @@
 #include <algorithm>
 namespace liftrs {
 struct Field {
- uint32_t s=13, polynomial=0x201b, delta=1, q=1u<<26;
+ uint32_t s=13, polynomial=0x201b, delta=1;
+ uint64_t q=uint64_t(1)<<26; // Cardinality can be 2^32; values still fit uint32_t.
  uint32_t base_mul(uint32_t a,uint32_t b) const {
   uint32_t r=0; while(b){if(b&1)r^=a;b>>=1;a<<=1;if(a&(1u<<s))a^=polynomial;}return r;
  }

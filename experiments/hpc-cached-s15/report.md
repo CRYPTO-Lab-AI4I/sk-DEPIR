@@ -1,5 +1,9 @@
 # Linux compute-node cached s=15 validation
 
+Subsequent `width-*` regression runs are documented in the separate
+[count-width validation](../count-width-validation/report.md); their sources and
+purpose differ from this original baseline.
+
 Status: corrected job 72676 (`baseline-02`) **passed**. Its
 [results](runs/baseline-02/results.json) and [batch log](slurm-72676.log) retain
 completed evidence. This validates the unchanged

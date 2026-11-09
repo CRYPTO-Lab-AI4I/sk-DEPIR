@@ -13,7 +13,7 @@ import (
 // values still evaluates canonical packed offsets; the native executor advances
 // children using basis[k], rather than confusing basis indices with field points.
 func orderedTransform(f orbitField, basis []uint32) (*additiveTransform, error) {
-	width := bits.Len32(f.q) - 1
+	width := bits.Len64(f.q) - 1
 	levels := len(basis)
 	if levels < 1 || levels > width {
 		return nil, fmt.Errorf("invalid ordered basis length")
@@ -28,7 +28,7 @@ func orderedTransform(f orbitField, basis []uint32) (*additiveTransform, error) 
 		return y
 	}
 	for k, x := range basis {
-		if x >= f.q {
+		if uint64(x) >= f.q {
 			return nil, fmt.Errorf("basis outside field")
 		}
 		for j, c := range p {
@@ -56,10 +56,14 @@ func orderedTransform(f orbitField, basis []uint32) (*additiveTransform, error) 
 }
 func orderedCPP(a *additiveTransform, basis []uint32) (*liftrscpp.Plan, error) {
 	words := cppDescription(a)
-	words[0] = 2
-	description := append([]uint32(nil), words[:6]...)
+	header := 6
+	if words[0] == 3 {
+		header = 7
+	}
+	words[0]++ // Canonical 1/3 -> ordered 2/4, with the same count width.
+	description := append([]uint32(nil), words[:header]...)
 	description = append(description, basis...)
-	description = append(description, words[6:]...)
+	description = append(description, words[header:]...)
 	return liftrscpp.NewPlan(description)
 }
 

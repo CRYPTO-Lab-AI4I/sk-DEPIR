@@ -51,7 +51,8 @@ Implementation boundaries:
   encoding and parallel transforms; `ScalingCPPEncoder.EncodeWithStats` is the
   complete path. `EncodeHybridWithStats` is the older comparison path.
 - [liftrs-go](../encoding/liftrs-go/README.md): Go transform reference/fallback.
-- Experimental preparation/native/minimal-file guards allow s≤15. Public
+- Experimental full preparation remains bounded to s≤15. Native/minimal-file
+  count handling now accepts s=16 with small-buffer/header validation only. Public
   `DiscoverOrbit` and ordinary basis/JSON limits remain s≤13. Supported catalogue
   entries identify standalone encoding, not application or cryptographic integration.
 - [appref](../encoding/appref) and [cryptoref](../encoding/cryptoref) are small
@@ -78,17 +79,17 @@ Implementation boundaries:
    This excludes allocator/runtime/OS overhead and is not a preprocessing/RSS
    bound. Compare buffer reuse/blocking with a larger-RAM baseline; do not assume
    the old proportional RSS forecasts are requirements.
-5. **Implement the necessary representation changes and review budgets.** At
-   s=16, N=2^32 cannot fit current uint32 cardinalities/headers, although individual
+5. **Validate the count/header extension and review budgets.** At
+   s=16, N=2^32 cannot fit the original uint32 cardinalities/headers, although individual
    extension values still fit 32 bits. Audit domain sizes, lengths, indexes,
    shifts, native descriptions and file versions separately. Preserve the existing
    `LRSprobe1` fixtures/loaders; do not silently reinterpret their headers or widen
    every value. s≥17 also needs wider extension values. Add small-buffer boundary
    and reference tests before approving a profiled, guarded s=16 first-use run.
 
-The [s=16 source audit](encoding-s16.md) identifies current cardinality, transform,
-native-description and file-header boundaries separately from field-element width.
-It does not enable s=16 or replace a measured admission review.
+The [s=16 representation status](encoding-s16.md) now records wide count/header
+handling, stored widths selected from s, and small-buffer boundary checks.
+Full preprocessing/encoding feasibility and measured admission remain open.
 
 Set new numerical RAM, scratch-storage, worker and time budgets from that audit
 and the actual allocation. The laptop's 24 GiB Go/32 GiB RSS/20 GiB cache/5.5h

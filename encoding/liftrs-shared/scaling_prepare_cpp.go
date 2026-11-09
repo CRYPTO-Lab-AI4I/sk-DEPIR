@@ -68,7 +68,7 @@ func newScalingPreparationCPP(spec Spec, workers int) (*OrbitBasis, *scalingPrep
 	if err != nil {
 		return fail(err)
 	}
-	for dimension := 2; dimension <= bits.Len32(extension.q)-1; dimension++ {
+	for dimension := 2; dimension <= bits.Len64(extension.q)-1; dimension++ {
 		p, err := newMatrixCPP(extension, dimension)
 		if err != nil {
 			return fail(err)

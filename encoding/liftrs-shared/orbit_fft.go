@@ -27,7 +27,7 @@ type additiveTransform struct {
 }
 
 func newAdditiveTransform(f orbitField) *additiveTransform {
-	levels := bits.Len32(f.q) - 1
+	levels := bits.Len64(f.q) - 1
 	a := &additiveTransform{f: f, terms: make([][]linearTerm, levels), values: make([][]uint32, levels), delta: make([]uint32, levels), inverse: make([]uint32, levels)}
 	p := []uint32{0, 1}
 	for k := 0; k < levels; k++ {

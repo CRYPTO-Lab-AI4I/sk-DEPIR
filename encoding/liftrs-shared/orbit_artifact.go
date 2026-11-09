@@ -32,8 +32,8 @@ func saveOrbitTree(t *productTree) *orbitTreeArtifact {
 	}
 	return &orbitTreeArtifact{t.polynomial, t.reciprocal, t.root, saveOrbitTree(t.left), saveOrbitTree(t.right)}
 }
-func loadOrbitTree(a *orbitTreeArtifact, n, reciprocal int, q uint32) (*productTree, error) {
-	if a == nil || len(a.Polynomial) != n+1 || len(a.Reciprocal) != reciprocal || a.Root >= q {
+func loadOrbitTree(a *orbitTreeArtifact, n, reciprocal int, q uint64) (*productTree, error) {
+	if a == nil || len(a.Polynomial) != n+1 || len(a.Reciprocal) != reciprocal || uint64(a.Root) >= q {
 		return nil, fmt.Errorf("invalid solver tree shape")
 	}
 	if a.Polynomial[n] != 1 {
@@ -41,7 +41,7 @@ func loadOrbitTree(a *orbitTreeArtifact, n, reciprocal int, q uint32) (*productT
 	}
 	for _, v := range [][]uint32{a.Polynomial, a.Reciprocal} {
 		for _, x := range v {
-			if x >= q {
+			if uint64(x) >= q {
 				return nil, fmt.Errorf("solver coefficient outside field")
 			}
 		}
@@ -114,7 +114,7 @@ func loadEncoderArtifactLimit(data []byte, method string, maxBytes, basisBytes i
 		limit = b.extension.q
 	}
 	for _, x := range a.P {
-		if x >= limit {
+		if uint64(x) >= limit {
 			return nil, a, fmt.Errorf("check coefficient outside field")
 		}
 	}
@@ -133,7 +133,7 @@ func LoadPaperEncoder(data []byte) (*PaperEncoder, error) {
 		return nil, fmt.Errorf("invalid solver weights")
 	}
 	for _, x := range a.Weights {
-		if x == 0 || x >= b.extension.q {
+		if x == 0 || uint64(x) >= b.extension.q {
 			return nil, fmt.Errorf("invalid denominator inverse")
 		}
 	}
@@ -170,7 +170,7 @@ func loadCyclicEncoderLimit(data []byte, maxBytes, basisBytes int64) (*CyclicEnc
 		return nil, fmt.Errorf("invalid cyclic generator shape")
 	}
 	for _, x := range a.G {
-		if x >= b.base.q {
+		if uint64(x) >= b.base.q {
 			return nil, fmt.Errorf("generator coefficient outside field")
 		}
 	}
@@ -178,7 +178,7 @@ func loadCyclicEncoderLimit(data []byte, maxBytes, basisBytes int64) (*CyclicEnc
 		return nil, fmt.Errorf("invalid generator spectrum size")
 	}
 	for _, x := range a.Spectrum {
-		if x >= b.extension.q {
+		if uint64(x) >= b.extension.q {
 			return nil, fmt.Errorf("spectrum coefficient outside extension field")
 		}
 	}

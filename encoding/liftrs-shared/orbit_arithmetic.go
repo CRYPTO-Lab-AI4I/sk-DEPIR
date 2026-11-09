@@ -2,10 +2,10 @@ package liftrs
 
 // orbitField adapts the public table-free fields to the bounded transform's
 // uint32 coefficients. Packing a+b*u as a+q*b preserves existing coordinates
-// and version-1 artifacts. The bounded encoder uses s<=13 in this adapter;
-// the public two-component quadratic API separately supports all s<=20.
+// and version-1 artifacts. Counts need one more bit than coordinates at s=16;
+// widening this small field must not widen the coefficient arrays.
 type orbitField struct {
-	q         uint32
+	q         uint64
 	base      BinaryField
 	extension *QuadraticField
 	products  *polynomialProducts
@@ -54,6 +54,9 @@ func (f orbitField) inv(a uint32) uint32 {
 // Generator search factors q²-1, then picks the first primitive packed element
 // at least q. It allocates no arithmetic table and preserves version-1 ordering.
 func orbitFields(s int, polynomial uint32) (base, extension orbitField, delta, omega uint32) {
+	if s < 2 || s > 16 || uint64(^uint(0)>>1) < uint64(1)<<uint(2*s) {
+		panic("packed orbit fields require s=2..16 and a sufficient host integer width")
+	}
 	field, err := NewBinaryField(s, polynomial)
 	if err != nil {
 		panic(err)
@@ -62,7 +65,7 @@ func orbitFields(s int, polynomial uint32) (base, extension orbitField, delta, o
 	if err != nil {
 		panic(err)
 	}
-	q := uint32(1) << uint(s)
+	q := uint64(1) << uint(s)
 	base = orbitField{q: q, base: field}
 	extension = orbitField{q: q * q, base: field, extension: &tower}
 	order := int(q*q) - 1
@@ -79,7 +82,8 @@ func orbitFields(s int, polynomial uint32) (base, extension orbitField, delta, o
 	if rem > 1 {
 		factors = append(factors, rem)
 	}
-	for omega = q; omega < q*q; omega++ {
+	for candidate := q; candidate < q*q; candidate++ {
+		omega = uint32(candidate)
 		primitive := true
 		for _, p := range factors {
 			if extension.pow(omega, order/p) == 1 {

@@ -50,22 +50,24 @@ extern "C" int liftrs_plan_create(const uint32_t* words, size_t count,
       throw std::runtime_error("invalid native plan size");
     Reader r{words,count};
     const auto version=r.word();
-    if(version!=1 && version!=2) throw std::runtime_error("unsupported native plan version");
+    if(version<1 || version>4) throw std::runtime_error("unsupported native plan version");
     auto plan = std::make_unique<liftrs_plan>();
     auto& a = plan->transform;
     a.f.s = r.word(); a.f.polynomial = r.word(); a.f.delta = r.word();
-    a.f.q = r.word(); const unsigned levels = r.word();
+    a.f.q = r.word();
+    if(version>=3) a.f.q |= uint64_t(r.word())<<32;
+    const unsigned levels = r.word();
     unsigned width=0; for(auto q=a.f.q;q>1;q>>=1)width++;
-    if (a.f.s < 2 || a.f.s > 15 ||
-        (width != a.f.s && width != 2*a.f.s) || a.f.q != (1u<<width) ||
-        !levels || levels>width || (version==1 && levels!=width) ||
+    if (a.f.s < 2 || a.f.s > 16 || width>32 ||
+        (width != a.f.s && width != 2*a.f.s) || a.f.q != (uint64_t(1)<<width) ||
+        !levels || levels>width || ((version&1) && levels!=width) ||
         (a.f.polynomial >> a.f.s) != 1 || !(a.f.polynomial&1) ||
         a.f.delta >= (1u<<a.f.s))
       throw std::runtime_error("invalid native field description");
     a.terms.resize(levels); a.values.resize(levels);
     a.delta.resize(levels); a.inverse.resize(levels);
     a.delta_products.resize(levels); a.inverse_products.resize(levels);
-    if(version==2){a.basis.resize(levels);for(auto& x:a.basis){x=r.word();if(!x || x>=a.f.q)throw std::runtime_error("invalid ordered basis");}}
+    if(!(version&1)){a.basis.resize(levels);for(auto& x:a.basis){x=r.word();if(!x || x>=a.f.q)throw std::runtime_error("invalid ordered basis");}}
     auto& bytes = plan->owned_bytes;
     bytes = a.basis.capacity()*sizeof(uint32_t) + sizeof(liftrs_plan) + a.terms.capacity()*sizeof(a.terms[0]) +
       a.values.capacity()*sizeof(a.values[0]) +

@@ -26,6 +26,10 @@ past update needs correction. Add every new message to the index below.
 | 2026-11-09 17:09 | PUBLISH-023 | Started | [Publish the HPC baseline checkpoint](2026-11-09-1709-codex-publish-023-started.md) |
 | 2026-11-09 17:10 | PUBLISH-023 | Completed | [HPC checkpoint verified for publication](2026-11-09-1710-codex-publish-023-completed.md) |
 | 2026-11-09 17:12 | PUBLISH-023 | Correction | [Preserve generated Slurm/GCC whitespace](2026-11-09-1712-codex-publish-023-correction.md) |
+| 2026-11-09 17:38 | WIDTH-001 | Started | [Separate domain counts from field values](2026-11-09-1738-codex-width-001-started.md) |
+| 2026-11-09 18:10 | WIDTH-001 | Completed | [Counts and saved metadata use the required width](2026-11-09-1810-codex-width-001-completed.md) |
+| 2026-11-09 22:56 | PUBLISH-024 | Started | [Publish count-width handling](2026-11-09-2256-codex-publish-024-started.md) |
+| 2026-11-09 22:57 | PUBLISH-024 | Completed | [Count-width checkpoint verified for publication](2026-11-09-2257-codex-publish-024-completed.md) |
 | 2026-10-21 09:15 | DOC-001 | Started | [Inspect repo and set collaboration rules](2026-10-21-0915-codex-doc-001-started.md) |
 | 2026-10-21 09:15 | DOC-001 | Completed | [Rules and experiment conventions added](2026-10-21-0915-codex-doc-001-completed.md) |
 | 2026-10-21 09:17 | DOC-002 | Started | [Move board to root folder](2026-10-21-0917-codex-doc-002-started.md) |

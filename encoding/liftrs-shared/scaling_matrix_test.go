@@ -44,7 +44,7 @@ func (d *scalingDisk) put(i int, x uint32) {
 // affine offsets, which are needed for the row cosets. No field-coordinate change.
 func genericMatrixPlan(f orbitField, basis []uint32) *additiveTransform {
 	levels := len(basis)
-	width := bits.Len32(f.q) - 1
+	width := bits.Len64(f.q) - 1
 	a := &additiveTransform{f: f, terms: make([][]linearTerm, levels), values: make([][]uint32, levels), delta: make([]uint32, levels), inverse: make([]uint32, levels)}
 	p := []uint32{1}
 	eval := func(x uint32) uint32 {

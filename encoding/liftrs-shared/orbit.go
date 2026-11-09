@@ -174,7 +174,7 @@ func (b *OrbitBasis) validateMessage(message []uint32) error {
 		return fmt.Errorf("message has %d elements; need %d", len(message), b.Dimension())
 	}
 	for _, x := range message {
-		if x >= b.base.q {
+		if uint64(x) >= b.base.q {
 			return fmt.Errorf("message element outside base field")
 		}
 	}
@@ -237,7 +237,7 @@ func (e *PaperEncoder) Encode(message []uint32) ([]uint32, error) {
 	}
 	b.extensionFFT.apply(word, false)
 	for _, x := range word {
-		if x >= b.base.q {
+		if uint64(x) >= b.base.q {
 			return nil, fmt.Errorf("encoding escaped the base field")
 		}
 	}
@@ -263,7 +263,7 @@ func (b *OrbitBasis) PrepareCyclic() (*CyclicEncoder, error) {
 	scale := b.extension.inv(p[0])
 	for i := range p {
 		p[i] = b.extension.mul(p[i], scale)
-		if p[i] >= b.base.q {
+		if uint64(p[i]) >= b.base.q {
 			return nil, fmt.Errorf("cyclic check polynomial escaped the base field")
 		}
 	}
@@ -298,7 +298,7 @@ func (e *CyclicEncoder) Encode(message []uint32) ([]uint32, error) {
 		b.extensionFFT.apply(y, true)
 		y = y[:b.Length()-1]
 		for _, x := range y {
-			if x >= b.base.q {
+			if uint64(x) >= b.base.q {
 				return nil, fmt.Errorf("cyclic FFT product escaped the base field")
 			}
 		}

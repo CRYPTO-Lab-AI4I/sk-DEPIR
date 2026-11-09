@@ -16,16 +16,16 @@ func TestConstantProducts(t *testing.T) {
 			t.Fatal(err)
 		}
 		q := uint32(1) << uint(s)
-		fields := []orbitField{{q: q, base: base}}
+		fields := []orbitField{{q: uint64(q), base: base}}
 		if s <= 13 {
 			tower, err := NewQuadraticField(base)
 			if err != nil {
 				t.Fatal(err)
 			}
-			fields = append(fields, orbitField{q: q * q, base: base, extension: &tower})
+			fields = append(fields, orbitField{q: uint64(q) * uint64(q), base: base, extension: &tower})
 		}
 		for _, f := range fields {
-			coefficients := []uint32{0, 1, f.q - 1, r.Uint32() & (f.q - 1)}
+			coefficients := []uint32{0, 1, uint32(f.q - 1), r.Uint32() & uint32(f.q-1)}
 			for _, c := range coefficients {
 				for _, budget := range []int{0, 63, 64, 4096} {
 					product := newConstantProduct(f, c, budget)
@@ -33,7 +33,7 @@ func TestConstantProducts(t *testing.T) {
 						t.Fatal("table budget exceeded")
 					}
 					for i := 0; i < 1000; i++ {
-						x := r.Uint32() & (f.q - 1)
+						x := r.Uint32() & uint32(f.q-1)
 						var want uint32
 						if f.extension == nil {
 							want = binaryOracleMul(c, x, s, p)

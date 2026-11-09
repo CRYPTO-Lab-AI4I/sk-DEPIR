@@ -7,7 +7,10 @@ extern "C" {
 #endif
 /* Immutable C++-owned plan. Create copies the bounded, pointer-free Go plan
  * description. Apply borrows an existing uint32 buffer only until return; there
- * is no per-element boundary call, retained Go pointer, or input/output copy. */
+ * is no per-element boundary call, retained Go pointer, or input/output copy.
+ * Versions 1/2 store 32-bit domain counts; 3/4 insert a high count word after
+ * the low word. Odd versions use a canonical basis, even versions an explicit
+ * basis. Only counts widen: all field values and basis points remain uint32. */
 typedef struct liftrs_plan liftrs_plan;
 int liftrs_plan_create(const uint32_t* words, size_t count, liftrs_plan** out,
                        char* error, size_t error_capacity);

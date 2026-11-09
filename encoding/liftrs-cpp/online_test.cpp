@@ -11,7 +11,7 @@ uint32_t evaluate(const liftrs::Field& f,const std::vector<uint32_t>& p,uint32_t
 // Sparse S_k preparation without tables; constants remain canonical field values.
 std::vector<uint32_t> description(const liftrs::Field& f,const std::vector<uint32_t>& basis){
   unsigned width=0;for(auto q=f.q;q>1;q>>=1)width++;
-  std::vector<uint32_t> out{2,f.s,f.polynomial,f.delta,f.q,uint32_t(basis.size())};out.insert(out.end(),basis.begin(),basis.end());
+  std::vector<uint32_t> out{2,f.s,f.polynomial,f.delta,uint32_t(f.q),uint32_t(basis.size())};out.insert(out.end(),basis.begin(),basis.end());
   std::vector<uint32_t> p{1};
   for(auto x:basis){
     unsigned count=0;for(auto c:p)if(c)count++;out.push_back(count);

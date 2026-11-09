@@ -10,7 +10,7 @@ import (
 // equal degrees must XOR before the next level. No unused final polynomial is made.
 // Experimental only: the ordinary constructors retain their measured behavior.
 func newSparseTransform(f orbitField) *additiveTransform {
-	levels := bits.Len32(f.q) - 1
+	levels := bits.Len64(f.q) - 1
 	a := &additiveTransform{f: f, terms: make([][]linearTerm, levels), values: make([][]uint32, levels), delta: make([]uint32, levels), inverse: make([]uint32, levels)}
 	p := []uint32{1}
 	for k := 0; k < levels; k++ {
@@ -41,11 +41,11 @@ func newSparseTransform(f orbitField) *additiveTransform {
 
 // SparseTransformProbe constructs code-only sparse transform constants and returns
 // their native-description words for independent comparison/retention. It does not
-// enable a larger encoder: packed extension arithmetic is limited here to s<=15.
+// enable a larger encoder: packed extension arithmetic is limited here to s<=16.
 // For s>=14 this tests only setup, not discovery, encoding or security parameters.
 func SparseTransformProbe(s int, extension bool) ([]uint32, error) {
-	if s < 2 || s > 15 {
-		return nil, fmt.Errorf("sparse transform probe requires s=2..15")
+	if s < 2 || s > 16 {
+		return nil, fmt.Errorf("sparse transform probe requires s=2..16")
 	}
 	polynomial, err := BinaryPolynomial(s)
 	if err != nil {
@@ -139,7 +139,7 @@ func (b *OrbitBasis) prepareCyclicScalingObserved(fft *additiveTransform, observ
 		}
 		root := b.extension.inv(b.extension.pow(b.omega, i))
 		if partner == i {
-			if root >= b.base.q {
+			if uint64(root) >= b.base.q {
 				return nil, fmt.Errorf("fixed root outside base field")
 			}
 			factors.add(root, 1, 0, 1)
@@ -147,7 +147,7 @@ func (b *OrbitBasis) prepareCyclicScalingObserved(fft *additiveTransform, observ
 		}
 		conjugate := b.extension.pow(root, int(b.base.q))
 		trace, norm := root^conjugate, b.extension.mul(root, conjugate)
-		if trace >= b.base.q || norm >= b.base.q {
+		if uint64(trace) >= b.base.q || uint64(norm) >= b.base.q {
 			return nil, fmt.Errorf("paired root factor outside base field")
 		}
 		factors.add(norm, trace, 1, 2)
@@ -261,7 +261,7 @@ func (p *ScalingOnlinePlan) Encode(message []uint32, w *ScalingWorkspace) ([]uin
 		return nil, fmt.Errorf("workspace/message mismatch")
 	}
 	for _, v := range message {
-		if v >= p.basis.base.q {
+		if uint64(v) >= p.basis.base.q {
 			return nil, fmt.Errorf("message outside field")
 		}
 	}
@@ -287,7 +287,7 @@ func (p *ScalingOnlinePlan) Encode(message []uint32, w *ScalingWorkspace) ([]uin
 	word := make([]uint32, p.basis.Length())
 	point := p.basis.omega
 	for _, x := range w.y[:len(w.y)-1] {
-		if x >= p.basis.base.q {
+		if uint64(x) >= p.basis.base.q {
 			return nil, fmt.Errorf("product escaped base field")
 		}
 		word[point] = x

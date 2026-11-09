@@ -302,7 +302,8 @@ builds return `ErrCPPUnavailable` and retain the Go path. See the
 Go preprocessing, cached generator spectra and all polynomial optimizations are
 shared by both paths. `EncodeWithStats` exposes per-encoding boundary accounting;
 `Close` releases native code metadata after active encodings finish.
-The native plan importer accepts field degrees 2–15. The original orbit/artifact
+The native plan importer accepts field degrees 2–16 (s=16 has small-buffer
+validation only). The original orbit/artifact
 API remains bounded to s≤13; the opt-in minimal-artifact matrix path below adds
 validated s=14 execution.
 
@@ -350,10 +351,24 @@ assembly path for comparisons. The original `CyclicEncoder` and
 `LoadScalingOnline(reader, trustedSHA256, maxElements)` uses buffered blocks to
 read the experimental minimal binary. The digest must come from independently
 verified preprocessing; matching a checksum does not prove code validity. The
-format is experimental, limited to s≤15 (s=14 first-use evidence is tracked
+format is experimental; count/header handling accepts s≤16 (s=14 first-use evidence is tracked
 [separately](../../experiments/parallel-s14/report.md)), and is not a public artifact-distribution
 commitment. Usage and profiling commands are in the
 [parallel integration report](../../experiments/parallel-encoding/report.md).
+
+`WriteScalingOnline(writer, plan)` streams the same minimal constants. It selects
+the count width from s: s≤15 retains exact `LRSprobe1` bytes and 32-bit K/N;
+s=16 uses `LRSprobe2` and 64-bit K/N, adding eight header bytes. Both versions
+store coefficients as uint32. Writers own atomic persistence and trusted digest
+metadata (for example, hash an `io.MultiWriter` stream). The loader reads both
+versions and checks wide counts against the caller's element cap and host byte
+offset range before allocating. Internal count calculations use uint64; this
+widens a few scalar fields, not the large arrays. Native descriptions likewise
+retain versions 1/2 for smaller domains and use 3/4 only for the 2^32 count.
+See [s16 readiness](../../docs/encoding-s16.md): small-buffer field/transform and
+header checks do not establish a full s=16 discovery/preparation or encoding run.
+Experimental full preparation remains bounded to s≤15, ordinary discovery to
+s≤13, and s≥17 still requires wider extension values.
 
 
 The [complete native backend documentation](../liftrs-cpp/README.md#complete-native-online-encoding)

@@ -1,0 +1,2 @@
+encoding/liftrs-shared/count_width_test.go:26:44: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.QuadraticElement struct literal uses unkeyed fields
+encoding/liftrs-shared/count_width_test.go:26:82: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.QuadraticElement struct literal uses unkeyed fields

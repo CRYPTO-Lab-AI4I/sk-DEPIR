@@ -37,6 +37,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Count-width compatibility](count-width-validation/report.md): s-dependent stored
+  count widths, 2^32 boundary/sanitizer checks and a cached s15 regression; see
+  the report for current status. No full s16 workload is included.
+
 - [Linux HPC cached s15 validation](hpc-cached-s15/report.md): bounded Slurm CPU
   validation, isolated Go/native suites and cached mathematical encoding from
   transferred constants; see the report for current status and resource limits.

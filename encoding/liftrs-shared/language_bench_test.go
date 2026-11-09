@@ -86,7 +86,7 @@ func TestExportLanguageFixtures(t *testing.T) {
 		file, err := os.Create(filepath.Join(dir, item.name+".bin"))
 		benchCheck(t, err)
 		w := bufio.NewWriterSize(file, 1<<20)
-		put32(t, w, item.f.q)
+		put32(t, w, uint32(item.f.q))
 		put32(t, w, uint32(len(products)))
 		put32(t, w, 1<<22)
 		for _, p := range products {
@@ -94,7 +94,7 @@ func TestExportLanguageFixtures(t *testing.T) {
 		}
 		random := rand.New(rand.NewSource(1313))
 		for i := 0; i < 1<<22; i++ {
-			put32(t, w, random.Uint32()&(item.f.q-1))
+			put32(t, w, random.Uint32()&uint32(item.f.q-1))
 		}
 		benchCheck(t, w.Flush())
 		benchCheck(t, file.Close())
@@ -103,7 +103,7 @@ func TestExportLanguageFixtures(t *testing.T) {
 	file, err := os.Create(filepath.Join(dir, "transform.bin"))
 	benchCheck(t, err)
 	w := bufio.NewWriterSize(file, 1<<20)
-	for _, x := range []uint32{13, 0x201b, ext.extension.Delta(), ext.q, uint32(len(a.terms))} {
+	for _, x := range []uint32{13, 0x201b, ext.extension.Delta(), uint32(ext.q), uint32(len(a.terms))} {
 		put32(t, w, x)
 	}
 	for k := range a.terms {
@@ -126,8 +126,8 @@ func TestExportLanguageFixtures(t *testing.T) {
 	benchCheck(t, err)
 	w = bufio.NewWriterSize(file, 1<<20)
 	random := rand.New(rand.NewSource(1313))
-	for i := uint32(0); i < ext.q; i++ {
-		put32(t, w, random.Uint32()&(ext.q-1))
+	for i := uint64(0); i < ext.q; i++ {
+		put32(t, w, random.Uint32()&uint32(ext.q-1))
 	}
 	benchCheck(t, w.Flush())
 	benchCheck(t, file.Close())
@@ -178,7 +178,7 @@ func TestRunLanguageBench(t *testing.T) {
 		benchCheck(t, err)
 		r := bufio.NewReaderSize(file, 1<<20)
 		q, count, n := get32(t, r), get32(t, r), get32(t, r)
-		if q != f.q || size > int(n) {
+		if uint64(q) != f.q || size > int(n) {
 			t.Fatal("fixture dimensions")
 		}
 		products = make([]constantProduct, count)
@@ -254,7 +254,7 @@ func TestRunLanguageBench(t *testing.T) {
 	for _, p := range products {
 		entries += len(p.rows)
 	}
-	result := map[string]any{"language": "go", "mode": mode, "case": name, "size": len(in), "passes": passes, "elapsed_ns": times, "sha256": hex.EncodeToString(h.Sum(nil)), "table_bytes": entries * 4, "field_bits": bits.Len32(f.q) - 1}
+	result := map[string]any{"language": "go", "mode": mode, "case": name, "size": len(in), "passes": passes, "elapsed_ns": times, "sha256": hex.EncodeToString(h.Sum(nil)), "table_bytes": entries * 4, "field_bits": bits.Len64(f.q) - 1}
 	raw, err := json.MarshalIndent(result, "", "  ")
 	benchCheck(t, err)
 	benchCheck(t, os.WriteFile(filepath.Join(outdir, "result.json"), append(raw, '\n'), 0644))

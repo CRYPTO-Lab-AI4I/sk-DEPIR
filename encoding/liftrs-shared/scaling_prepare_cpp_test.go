@@ -43,7 +43,7 @@ func TestScalingPreparationCPP(t *testing.T) {
 
 // Large-field arithmetic is validated on small buffers before any large allocation.
 func TestScalingCPPLargeFields(t *testing.T) {
-	for _, s := range []int{14, 15} {
+	for _, s := range []int{14, 15, 16} {
 		polynomial, _ := BinaryPolynomial(s)
 		_, f, _, _ := orbitFields(s, polynomial)
 		basis := []uint32{3, 5, 1 << uint(s), 9}

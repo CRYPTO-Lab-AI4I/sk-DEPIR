@@ -89,7 +89,11 @@ The [Linux compute-node validation](experiments/hpc-cached-s15/report.md) reuses
 the retained s=15 constants under bounded Slurm resources, separating correctness
 checks, staging, loading, encoding and output I/O. Both full suites and the complete
 cached s=15 output checks pass. The [s=16 audit](docs/encoding-s16.md) explains
-required count/header changes without widening individual field values.
+count/header handling without widening individual field values. Stored counts
+remain 32-bit through s=15 and use 64 bits at s=16. The
+[compatibility validation](experiments/count-width-validation/report.md) passes
+small-buffer boundaries, sanitizer/full-suite checks and complete cached s15
+output comparison; full s=16 feasibility remains open.
 
 ## Implementation status and limits
 

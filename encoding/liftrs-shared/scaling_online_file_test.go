@@ -16,6 +16,8 @@ import (
 	"testing"
 )
 
+// Keep the original narrow serializer as an independent byte-compatibility
+// oracle. New code uses WriteScalingOnline, which selects the count width.
 func writeScalingOnline(file io.Writer, p *ScalingOnlinePlan) error {
 	w := bufio.NewWriterSize(file, 64<<10)
 	if _, err := w.WriteString("LRSprobe1"); err != nil {
