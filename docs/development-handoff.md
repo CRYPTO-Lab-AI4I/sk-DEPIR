@@ -86,6 +86,10 @@ Implementation boundaries:
    every value. s≥17 also needs wider extension values. Add small-buffer boundary
    and reference tests before approving a profiled, guarded s=16 first-use run.
 
+The [s=16 source audit](encoding-s16.md) identifies current cardinality, transform,
+native-description and file-header boundaries separately from field-element width.
+It does not enable s=16 or replace a measured admission review.
+
 Set new numerical RAM, scratch-storage, worker and time budgets from that audit
 and the actual allocation. The laptop's 24 GiB Go/32 GiB RSS/20 GiB cache/5.5h
 limits are historical, not new-node defaults. Retain preprocessing/profiles and
@@ -139,7 +143,11 @@ The s=14 equivalents are under `.cache/liftrs/parallel-s14/s14-m2-t5/`.
 Ignore cached executables as runnable assets on another OS/ISA; preserve matching
 old binaries separately if needed to symbolize historical profiles. Native raw
 sample locations are linked from the [archive manifest](../experiments/parallel-s15/monitor-sample-archive.json).
-No transfer or destination hardware validation has been performed yet.
+The [destination receipt](../message-board/2026-11-09-1316-codex-orient-001-completed.md)
+now verifies transferred s=13/14/15 data. See [HPC setup](hpc-setup.md) for the
+shared toolchain and Slurm GPU inventory. The [cached CPU baseline](../experiments/hpc-cached-s15/report.md)
+now passes full suites and s=15 output checks on a compute node; GPU execution
+and s≥16 remain unverified.
 
 Verify the transferred s=15 files against the committed first-use manifest:
 

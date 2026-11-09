@@ -526,8 +526,11 @@ words/constants and small references before requesting a new large-run budget.
 Local laptop development stops at s=15. The [development handoff](development-handoff.md)
 is the continuation entry point: begin on a single shared-memory commodity CPU
 node, provisionally 256 GiB RAM, validate the host/toolchain and transferred s=15
-cache, then perform the s=16 audit above. No destination test or artifact transfer
-has happened yet. Larger s remains unverified; the move does not select distributed
+cache, then perform the s=16 audit above. The [destination receipt](../message-board/2026-11-09-1316-codex-orient-001-completed.md)
+now verifies transferred reference data; [HPC setup](hpc-setup.md) records the
+toolchain and scheduler inventory. A [cached CPU baseline](../experiments/hpc-cached-s15/report.md)
+now passes full suites and s=15 output checks on a compute node. Larger s remains
+unverified; the move does not select distributed
 HPC or a GPU, change protocol scope or require every field to use specialized hardware.
 Keep the generic local path and references intact, and retain all source-machine
 caches/profiles until verified transfer. New host/job budgets replace laptop values

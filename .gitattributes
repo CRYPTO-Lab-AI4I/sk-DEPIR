@@ -4,3 +4,6 @@ experiments/encoding-timing/*/*-flat.txt whitespace=-blank-at-eol
 experiments/preparation-memory/*/*/*-flat.txt whitespace=-blank-at-eol
 experiments/preparation-checkpoint/*/*-flat.txt whitespace=-blank-at-eol
 experiments/parallel-s15/*/*-flat.txt whitespace=-blank-at-eol
+# Preserve exact Slurm/GCC logs and their sealed evidence digests.
+experiments/hpc-cached-s15/runs/*/allocation.log whitespace=-blank-at-eol,-blank-at-eof
+experiments/hpc-cached-s15/runs/*/compiler.log whitespace=-blank-at-eof

@@ -37,6 +37,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Linux HPC cached s15 validation](hpc-cached-s15/report.md): bounded Slurm CPU
+  validation, isolated Go/native suites and cached mathematical encoding from
+  transferred constants; see the report for current status and resource limits.
+
 - [Bounded-sample parameters](bounded-sample-parameters/report.md): analytical
   security-profile selection, not rate measurements.
 - [Lift-RS rates](liftrs-rates/report.md): uniform monomial sampling for all 13 PIR

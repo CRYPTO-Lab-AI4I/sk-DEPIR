@@ -17,6 +17,15 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-09 13:14 | ORIENT-001 | Started | [HPC repository orientation](2026-11-09-1314-codex-orient-001-started.md) |
+| 2026-11-09 13:16 | ORIENT-001 | Completed | [Repository orientation and transferred-cache verification](2026-11-09-1316-codex-orient-001-completed.md) |
+| 2026-11-09 16:13 | SETUP-001 | Started | [Go setup and Slurm GPU inventory](2026-11-09-1613-codex-setup-001-started.md) |
+| 2026-11-09 16:15 | SETUP-001 | Completed | [Go installed and Slurm GPU inventory recorded](2026-11-09-1615-codex-setup-001-completed.md) |
+| 2026-11-09 16:19 | HPC-001 | Started | [HPC cached encoding validation](2026-11-09-1619-codex-hpc-001-started.md) |
+| 2026-11-09 16:42 | HPC-001 | Completed | [Compute-node cached s15 baseline passes](2026-11-09-1642-codex-hpc-001-completed.md) |
+| 2026-11-09 17:09 | PUBLISH-023 | Started | [Publish the HPC baseline checkpoint](2026-11-09-1709-codex-publish-023-started.md) |
+| 2026-11-09 17:10 | PUBLISH-023 | Completed | [HPC checkpoint verified for publication](2026-11-09-1710-codex-publish-023-completed.md) |
+| 2026-11-09 17:12 | PUBLISH-023 | Correction | [Preserve generated Slurm/GCC whitespace](2026-11-09-1712-codex-publish-023-correction.md) |
 | 2026-10-21 09:15 | DOC-001 | Started | [Inspect repo and set collaboration rules](2026-10-21-0915-codex-doc-001-started.md) |
 | 2026-10-21 09:15 | DOC-001 | Completed | [Rules and experiment conventions added](2026-10-21-0915-codex-doc-001-completed.md) |
 | 2026-10-21 09:17 | DOC-002 | Started | [Move board to root folder](2026-10-21-0917-codex-doc-002-started.md) |

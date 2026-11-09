@@ -80,7 +80,16 @@ moves to a larger-memory commodity CPU environment, initially a single shared-me
 node (provisionally 256 GiB RAM). s≥16 remains unverified. The
 [agent handoff](docs/development-handoff.md) records the baseline, first actions,
 portability gaps, artifact transfer/checksums and budget review. Large caches are
-not in Git and remain on the source machine; no transfer has been performed yet.
+not in Git. The [destination transfer receipt](message-board/2026-11-09-1316-codex-orient-001-completed.md)
+verifies the transferred s=13/14/15 reference data; preserve the source copies.
+[HPC setup](docs/hpc-setup.md) records the local Go installation and Slurm GPU
+inventory. The cached CPU baseline now passes on a Slurm compute node; GPU
+execution and s≥16 feasibility remain unverified.
+The [Linux compute-node validation](experiments/hpc-cached-s15/report.md) reuses
+the retained s=15 constants under bounded Slurm resources, separating correctness
+checks, staging, loading, encoding and output I/O. Both full suites and the complete
+cached s=15 output checks pass. The [s=16 audit](docs/encoding-s16.md) explains
+required count/header changes without widening individual field values.
 
 ## Implementation status and limits
 

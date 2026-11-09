@@ -1,0 +1,15 @@
+{
+  "timestamp_utc": "2026-11-09T16:42:00.238611+00:00",
+  "documentation_relative_links_checked": 183,
+  "documentation_links": "passed",
+  "python_syntax": "passed",
+  "runner_unit_checks": "python3 -B experiments/hpc-cached-s15/test_run.py: 2 passed",
+  "analysis": "python3 -B experiments/hpc-cached-s15/analyze.py baseline-02: passed; 227 source files and all sealed evidence verified",
+  "shell_syntax": "bash -n experiments/hpc-cached-s15/run.sbatch: passed",
+  "script_sha256": {
+    "experiments/hpc-cached-s15/analyze.py": "ea16d14de293c99f151d98a7ad8bf4d01023b5b029eb76f90ed60b25f107071d",
+    "experiments/hpc-cached-s15/run.py": "2ab286b507a8df6d526e9e8232d130fb36363ce969dbd3e84871a3b9c92d100b",
+    "experiments/hpc-cached-s15/run.sbatch": "5d676449a5d1f130a381df53b3d1a814d2a0c601dbc64f6b838cfab3eed560bb",
+    "experiments/hpc-cached-s15/test_run.py": "19d41e85f8681a85a1354782bc3dfedc832d8e7e0e1ed93cae9043a7764dc0bc"
+  }
+}

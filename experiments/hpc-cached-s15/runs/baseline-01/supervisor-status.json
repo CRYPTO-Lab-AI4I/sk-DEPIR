@@ -1,0 +1,6 @@
+{
+  "status": "cancelled",
+  "job_id": "72675",
+  "timestamp_utc": "2026-11-09T16:23:40.091621+00:00",
+  "reason": "Requested 64 GiB was not enforced by memory.max; stopped during tests before large encoding to add an explicit sampled RSS guard. Raw partial results are preserved."
+}

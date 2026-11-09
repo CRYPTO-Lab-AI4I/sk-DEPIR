@@ -1,0 +1,4 @@
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/cmd/pir-rate	0.008s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/appref	0.153s
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/cryptoref	0.005s
+?   	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go	[no test files]
