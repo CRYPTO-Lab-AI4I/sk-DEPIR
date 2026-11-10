@@ -1,0 +1,25 @@
+File: scaling.test
+Build ID: 643187640adccdab81a5944d79ed2302c3c7c906
+Type: cpu
+Time: 2026-11-10 12:04:28 CET
+Duration: 97.65s, Total samples = 585.25s (599.36%)
+Showing nodes accounting for 581.68s, 99.39% of 585.25s total
+Dropped 21 nodes (cum <= 2.93s)
+      flat  flat%   sum%        cum   cum%
+   488.72s 83.51% 83.51%    488.72s 83.51%  [scaling.test]
+    82.89s 14.16% 97.67%     82.89s 14.16%  runtime.cgocall
+     5.61s  0.96% 98.63%      5.61s  0.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     3.82s  0.65% 99.28%      6.53s  1.12%  reflect.deepValueEqual
+     0.47s  0.08% 99.36%     96.43s 16.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUScaling.func4
+     0.17s 0.029% 99.39%      5.78s  0.99%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0% 99.39%     74.03s 12.65%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0% 99.39%     74.03s 12.65%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0% 99.39%     74.03s 12.65%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*scalingPreparationCPP).apply
+         0     0% 99.39%     96.43s 16.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUScaling
+         0     0% 99.39%      3.73s  0.64%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.(*Engine).Apply
+         0     0% 99.39%      5.12s  0.87%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.(*Engine).Product
+         0     0% 99.39%      3.73s  0.64%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix._Cfunc_bridge_apply
+         0     0% 99.39%      5.12s  0.87%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix._Cfunc_bridge_product
+         0     0% 99.39%      6.53s  1.12%  reflect.DeepEqual
+         0     0% 99.39%    488.74s 83.51%  runtime._ExternalCode
+         0     0% 99.39%     96.43s 16.48%  testing.tRunner

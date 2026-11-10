@@ -83,7 +83,11 @@ readmission. The current lookup improvement is a smaller-code/kernel result.
 Resident convolution now passes complete smaller-code checks and
 [bounded s16 root-product intervals](../experiments/s16-resident-intervals/report.md)
 using the saved support. Later operations require up to2^32-point transforms;
-the experimental CUDA executor is measured/admitted only through2^22 points.
-Its private full-domain metadata/workspace needs extension or a blocked design
-before a reliable full-run forecast. Existing CPU/header count validation remains
-separate; individual field values still fit32 bits. No full s16 run is restarted.
+the experimental CUDA executor now passes exact operation comparisons through
+2^28 points in the [bounded scaling experiment](../experiments/gpu-scaling/report.md).
+Private version2 GPU metadata carries2^32 counts and17 row levels without a
+full-domain workspace allocation. Explicit per-engine limits enforce each approved job cap (4 GiB for
+the larger sweep); full-domain execution still requires a larger reviewed memory schedule
+or a validated blocked design before a reliable forecast. Existing CPU/header
+count validation remains separate; individual field values still fit32 bits.
+No full s16 run is restarted.

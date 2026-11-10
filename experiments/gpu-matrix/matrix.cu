@@ -10,8 +10,10 @@
 #include <vector>
 
 namespace {
-constexpr unsigned levels=16,terms=17;
-constexpr size_t max_points=size_t(1)<<22,device_cap=size_t(512)<<20;
+constexpr unsigned levels=17,terms=17;
+static_assert(sizeof(size_t)>=8,"GPU experiment requires 64-bit counts");
+constexpr size_t domain_limit=size_t(1)<<32;
+constexpr uint32_t plan_v2=0x324d474c;
 struct Tile {unsigned count[levels];uint32_t degree[levels][terms],coef[levels][terms],values[levels][32],basis[levels],delta[levels],inverse[levels];};
 struct Taylor {unsigned count;uint32_t degree[levels],coef[levels];};
 struct Matrix {Tile rows,columns;Taylor taylor[levels];unsigned split,dimension,s;uint32_t delta;};
@@ -20,9 +22,9 @@ struct Device {
  void* p=nullptr;size_t bytes=0;
  Device()=default;Device(const Device&)=delete;Device& operator=(const Device&)=delete;
  ~Device(){if(p)cudaFree(p);}
- void allocate(size_t n){if(p){check(cudaFree(p));p=nullptr;bytes=0;}check(cudaMalloc(&p,n));bytes=n;}
+ void release(){if(p){check(cudaFree(p));p=nullptr;bytes=0;}}
+ void allocate(size_t n){release();check(cudaMalloc(&p,n));bytes=n;}
  uint32_t* words(){return static_cast<uint32_t*>(p);}
- void swap(Device& other){std::swap(p,other.p);std::swap(bytes,other.bytes);}
 };
 __host__ __device__ uint32_t base_mul(uint32_t a,uint32_t b,const uint32_t* log,const uint32_t* powers){return a&&b?powers[log[a]+log[b]]:0;}
 __host__ __device__ uint32_t multiply(uint32_t a,uint32_t b,unsigned s,uint32_t delta,const uint32_t* log,const uint32_t* powers){
@@ -81,12 +83,16 @@ template<class F>double measured(F fn){
 using Clock=std::chrono::steady_clock;
 double elapsed(Clock::time_point start){return std::chrono::duration<double>(Clock::now()-start).count();}
 struct Engine {
- unsigned s,polynomial;uint32_t delta;Device log,powers,a,b,scratch;size_t points=0;
+ unsigned s,polynomial;uint32_t delta;Device log,powers,a,b,scratch;size_t points=0,max_points,device_cap;
  std::unordered_map<size_t,std::unique_ptr<Device>> plans;
  std::vector<uint32_t> host_log,host_powers;
  uint64_t owned(){uint64_t bytes=log.bytes+powers.bytes+a.bytes+b.bytes+scratch.bytes;for(auto& kv:plans)bytes+=kv.second->bytes;return bytes;}
  void grow(size_t n){if(n>max_points||!n||(n&(n-1)))throw std::runtime_error("GPU shape bound");if(n<=points)return;
-  if(owned()+3*n*4>device_cap)throw std::runtime_error("device allocation bound");Device next_a,next_b,next_scratch;next_a.allocate(n*4);next_b.allocate(n*4);next_scratch.allocate(n*4);a.swap(next_a);b.swap(next_b);scratch.swap(next_scratch);points=n;
+  auto retained=owned()-a.bytes-b.bytes-scratch.bytes;
+  if(retained>device_cap||n>(device_cap-retained)/12)throw std::runtime_error("device allocation bound");
+  // Synchronous single-caller calls leave no live values in workspace. Release
+  // before growth so old plus replacement buffers cannot exceed the cap.
+  points=0;a.release();b.release();scratch.release();a.allocate(n*4);b.allocate(n*4);scratch.allocate(n*4);points=n;
  }
  void apply(uint32_t* data,size_t n,bool inverse,double* stats){
   auto it=plans.find(n);if(it==plans.end())throw std::runtime_error("unprepared GPU matrix shape");auto* p=static_cast<Matrix*>(it->second->p);
@@ -118,27 +124,41 @@ void read_tile(Reader& r,Tile& p,unsigned expected,unsigned s){
 }
 template<class F>int api(char* error,size_t capacity,F fn){try{fn();return 0;}catch(const std::exception& e){if(error&&capacity)std::snprintf(error,capacity,"%s",e.what());return 1;}}
 }
-extern "C" int gm_create(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,void** out,char* error,size_t capacity){return api(error,capacity,[&]{
+extern "C" int gm_create_bounded(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,size_t max_points,size_t device_cap,void** out,char* error,size_t capacity){return api(error,capacity,[&]{
  if(!out||!logs||!powers||s<2||s>16||lc!=(size_t(1)<<s)||pc!=2*(lc-1)||!delta||delta>=lc||polynomial>>s!=1)throw std::runtime_error("GPU field/table shape");
- auto e=std::make_unique<Engine>();e->s=s;e->polynomial=polynomial;e->delta=delta;check(cudaSetDevice(0));check(cudaFree(nullptr));
+ if(max_points<4||max_points>domain_limit||(max_points&(max_points-1))||device_cap<12*max_points+lc*4+pc*4+sizeof(Matrix))throw std::runtime_error("GPU engine limits");
+ auto e=std::make_unique<Engine>();e->max_points=max_points;e->device_cap=device_cap;e->s=s;e->polynomial=polynomial;e->delta=delta;check(cudaSetDevice(0));check(cudaFree(nullptr));
  e->host_log.assign(logs,logs+lc);e->host_powers.assign(powers,powers+pc);
  for(size_t i=1;i<lc;i++)if(logs[i]>=lc-1||powers[logs[i]]!=i)throw std::runtime_error("GPU lookup coordinate");
  e->log.allocate(lc*4);e->powers.allocate(pc*4);check(cudaMemcpy(e->log.p,logs,lc*4,cudaMemcpyHostToDevice));check(cudaMemcpy(e->powers.p,powers,pc*4,cudaMemcpyHostToDevice));*out=e.release();
 });}
-extern "C" int gm_add_plan(void* handle,const uint32_t* words,size_t count,char* error,size_t capacity){return api(error,capacity,[&]{
- if(!handle||!words)throw std::runtime_error("null GPU plan");auto& e=*static_cast<Engine*>(handle);Reader r{words,count};auto n=r.word(),split=r.word(),width=r.word();unsigned dim=0;for(auto v=n;v>1;v>>=1)dim++;
- if(n<4||n>max_points||(n&(n-1))||split!=dim/2||dim>2*e.s||width!=2*e.s||e.plans.count(n))throw std::runtime_error("GPU matrix shape or repeated plan");
+extern "C" int gm_create(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,void** out,char* error,size_t capacity){return gm_create_bounded(s,polynomial,delta,logs,lc,powers,pc,size_t(1)<<22,size_t(512)<<20,out,error,capacity);}
+namespace {
+Matrix read_matrix(Engine& e,const uint32_t* words,size_t count,size_t& n){
+ if(!words)throw std::runtime_error("null GPU plan");Reader r{words,count};uint64_t encoded=r.word();
+ if(encoded==plan_v2){encoded=r.word();encoded|=uint64_t(r.word())<<32;}
+ n=size_t(encoded);auto split=r.word(),width=r.word();unsigned dim=0;for(auto v=n;v>1;v>>=1)dim++;
+ if(n<4||n>domain_limit||(n&(n-1))||split!=dim/2||dim>2*e.s||width!=2*e.s)throw std::runtime_error("GPU matrix shape");
  Matrix m{};m.s=e.s;m.delta=e.delta;m.dimension=dim;m.split=split;read_tile(r,m.rows,split+1,e.s);read_tile(r,m.columns,dim-split,e.s);if(r.offset!=count)throw std::runtime_error("matrix description trailing words");
  for(unsigned j=0;j<=split;j++)if(m.rows.basis[j]!=(1u<<j))throw std::runtime_error("row affine schedule requires canonical basis");
  auto multiply_host=[&](uint32_t a,uint32_t b){return multiply(a,b,e.s,e.delta,e.host_log.data(),e.host_powers.data());};
  for(unsigned k=0;k<dim-split;k++){auto& t=m.taylor[k];t.count=m.rows.count[split]-1;for(unsigned j=0;j<t.count;j++){t.degree[j]=m.rows.degree[split][j]<<k;auto c=m.rows.coef[split][j];for(unsigned z=0;z<k;z++)c=multiply_host(c,c);t.coef[j]=c;}}
- e.grow(n);if(e.owned()+sizeof(Matrix)>device_cap)throw std::runtime_error("device plan bound");auto device=std::make_unique<Device>();device->allocate(sizeof(Matrix));check(cudaMemcpy(device->p,&m,sizeof(m),cudaMemcpyHostToDevice));e.plans.emplace(n,std::move(device));
+ return m;
+}
+}
+extern "C" int gm_check_plan(void* handle,const uint32_t* words,size_t count,char* error,size_t capacity){return api(error,capacity,[&]{
+ if(!handle)throw std::runtime_error("null GPU engine");size_t n;read_matrix(*static_cast<Engine*>(handle),words,count,n);
+});}
+extern "C" int gm_add_plan(void* handle,const uint32_t* words,size_t count,char* error,size_t capacity){return api(error,capacity,[&]{
+ if(!handle)throw std::runtime_error("null GPU engine");auto& e=*static_cast<Engine*>(handle);size_t n;auto m=read_matrix(e,words,count,n);
+ if(e.plans.count(n))throw std::runtime_error("repeated GPU plan");
+ e.grow(n);if(e.owned()+sizeof(Matrix)>e.device_cap)throw std::runtime_error("device plan bound");auto device=std::make_unique<Device>();device->allocate(sizeof(Matrix));check(cudaMemcpy(device->p,&m,sizeof(m),cudaMemcpyHostToDevice));e.plans.emplace(n,std::move(device));
 });}
 extern "C" int gm_apply(void* handle,uint32_t* data,size_t n,int inverse,double* stats,char* error,size_t capacity){return api(error,capacity,[&]{
- if(!handle||!data||!stats||(inverse!=0&&inverse!=1))throw std::runtime_error("GPU apply arguments");auto& e=*static_cast<Engine*>(handle);if(!e.plans.count(n))throw std::runtime_error("GPU apply shape");std::fill(stats,stats+8,0);auto start=Clock::now(),copy=Clock::now();check(cudaMemcpy(e.a.p,data,n*4,cudaMemcpyHostToDevice));stats[0]=elapsed(copy);e.apply(e.a.words(),n,inverse,stats);copy=Clock::now();check(cudaMemcpy(data,e.a.p,n*4,cudaMemcpyDeviceToHost));stats[5]=elapsed(copy);stats[7]=elapsed(start);
+ if(!handle||!data||!stats||(inverse!=0&&inverse!=1))throw std::runtime_error("GPU apply arguments");auto& e=*static_cast<Engine*>(handle);if(!e.plans.count(n))throw std::runtime_error("GPU apply shape");e.grow(n);std::fill(stats,stats+8,0);auto start=Clock::now(),copy=Clock::now();check(cudaMemcpy(e.a.p,data,n*4,cudaMemcpyHostToDevice));stats[0]=elapsed(copy);e.apply(e.a.words(),n,inverse,stats);copy=Clock::now();check(cudaMemcpy(data,e.a.p,n*4,cudaMemcpyDeviceToHost));stats[5]=elapsed(copy);stats[7]=elapsed(start);
 });}
 extern "C" int gm_product(void* handle,const uint32_t* a,size_t ac,const uint32_t* b,size_t bc,uint32_t* out,size_t oc,size_t n,double* stats,char* error,size_t capacity){return api(error,capacity,[&]{
- if(!handle||!a||!b||!out||!stats)throw std::runtime_error("GPU convolution arguments");auto& e=*static_cast<Engine*>(handle);if(!e.plans.count(n)||!ac||!bc||ac>n||bc>n||ac>n-bc+1||!oc||oc>ac+bc-1)throw std::runtime_error("GPU convolution shape/prefix");std::fill(stats,stats+8,0);auto start=Clock::now(),copy=Clock::now();check(cudaMemset(e.a.p,0,n*4));check(cudaMemset(e.b.p,0,n*4));check(cudaMemcpy(e.a.p,a,ac*4,cudaMemcpyHostToDevice));check(cudaMemcpy(e.b.p,b,bc*4,cudaMemcpyHostToDevice));stats[0]=elapsed(copy);e.apply(e.a.words(),n,false,stats);e.apply(e.b.words(),n,false,stats);stats[6]=measured([&]{pointwise<<<(n+255)/256,256>>>(e.a.words(),e.b.words(),n,e.s,e.delta,e.log.words(),e.powers.words());});e.apply(e.a.words(),n,true,stats);copy=Clock::now();check(cudaMemcpy(out,e.a.p,oc*4,cudaMemcpyDeviceToHost));stats[5]=elapsed(copy);stats[7]=elapsed(start);
+ if(!handle||!a||!b||!out||!stats)throw std::runtime_error("GPU convolution arguments");auto& e=*static_cast<Engine*>(handle);if(!e.plans.count(n)||!ac||!bc||ac>n||bc>n||ac>n-bc+1||!oc||oc>ac+bc-1)throw std::runtime_error("GPU convolution shape/prefix");e.grow(n);std::fill(stats,stats+8,0);auto start=Clock::now(),copy=Clock::now();check(cudaMemset(e.a.p,0,n*4));check(cudaMemset(e.b.p,0,n*4));check(cudaMemcpy(e.a.p,a,ac*4,cudaMemcpyHostToDevice));check(cudaMemcpy(e.b.p,b,bc*4,cudaMemcpyHostToDevice));stats[0]=elapsed(copy);e.apply(e.a.words(),n,false,stats);e.apply(e.b.words(),n,false,stats);stats[6]=measured([&]{pointwise<<<(n+255)/256,256>>>(e.a.words(),e.b.words(),n,e.s,e.delta,e.log.words(),e.powers.words());});e.apply(e.a.words(),n,true,stats);copy=Clock::now();check(cudaMemcpy(out,e.a.p,oc*4,cudaMemcpyDeviceToHost));stats[5]=elapsed(copy);stats[7]=elapsed(start);
 });}
 extern "C" int gm_convolution(void* handle,const uint32_t* a,const uint32_t* b,uint32_t* out,size_t n,double* stats,char* error,size_t capacity){return gm_product(handle,a,n/2,b,n/2,out,n?n-1:0,n,stats,error,capacity);}
 extern "C" uint64_t gm_owned_bytes(void* handle){return handle?static_cast<Engine*>(handle)->owned():0;}

@@ -1,0 +1,25 @@
+File: scaling.test
+Build ID: 1713d37fda6a8e5db8372346ea0c908f7b062a5a
+Type: cpu
+Time: 2026-11-10 11:50:18 CET
+Duration: 6.01s, Total samples = 31.43s (523.29%)
+Showing nodes accounting for 31.20s, 99.27% of 31.43s total
+Dropped 16 nodes (cum <= 0.16s)
+      flat  flat%   sum%        cum   cum%
+    25.55s 81.29% 81.29%     25.55s 81.29%  [scaling.test]
+     5.01s 15.94% 97.23%      5.01s 15.94%  runtime.cgocall
+     0.35s  1.11% 98.35%      0.35s  1.11%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.25s   0.8% 99.14%      0.41s  1.30%  reflect.deepValueEqual
+     0.02s 0.064% 99.20%      5.85s 18.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUScaling.func4
+     0.02s 0.064% 99.27%      0.37s  1.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0% 99.27%      3.70s 11.77%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0% 99.27%      3.70s 11.77%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0% 99.27%      3.70s 11.77%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*scalingPreparationCPP).apply
+         0     0% 99.27%      5.85s 18.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUScaling
+         0     0% 99.27%      0.54s  1.72%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.(*Engine).Apply
+         0     0% 99.27%      0.77s  2.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.(*Engine).Product
+         0     0% 99.27%      0.54s  1.72%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix._Cfunc_bridge_apply
+         0     0% 99.27%      0.77s  2.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix._Cfunc_bridge_product
+         0     0% 99.27%      0.41s  1.30%  reflect.DeepEqual
+         0     0% 99.27%     25.57s 81.36%  runtime._ExternalCode
+         0     0% 99.27%      5.85s 18.61%  testing.tRunner

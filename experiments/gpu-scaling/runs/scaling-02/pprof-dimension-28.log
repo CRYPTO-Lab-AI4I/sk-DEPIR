@@ -1,0 +1,23 @@
+File: scaling.test
+Build ID: 643187640adccdab81a5944d79ed2302c3c7c906
+Type: cpu
+Time: 2026-11-10 12:09:23 CET
+Duration: 404.74s, Total samples = 2578.44s (637.07%)
+Showing nodes accounting for 2563.87s, 99.43% of 2578.44s total
+Dropped 76 nodes (cum <= 12.89s)
+      flat  flat%   sum%        cum   cum%
+  2178.16s 84.48% 84.48%   2178.16s 84.48%  [scaling.test]
+   345.52s 13.40% 97.88%    345.52s 13.40%  runtime.cgocall
+    22.43s  0.87% 98.75%     22.43s  0.87%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+    15.94s  0.62% 99.36%     26.18s  1.02%  reflect.deepValueEqual
+     1.13s 0.044% 99.41%    399.67s 15.50%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUScaling.func4
+     0.69s 0.027% 99.43%     23.12s   0.9%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0% 99.43%    321.81s 12.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0% 99.43%    321.81s 12.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0% 99.43%    321.81s 12.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*scalingPreparationCPP).apply
+         0     0% 99.43%    399.67s 15.50%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUScaling
+         0     0% 99.43%     13.61s  0.53%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.(*Engine).Product
+         0     0% 99.43%     13.34s  0.52%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix._Cfunc_bridge_product
+         0     0% 99.43%     26.18s  1.02%  reflect.DeepEqual
+         0     0% 99.43%   2178.20s 84.48%  runtime._ExternalCode
+         0     0% 99.43%    399.67s 15.50%  testing.tRunner

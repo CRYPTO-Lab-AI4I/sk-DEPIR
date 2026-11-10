@@ -1,0 +1,7 @@
+=== RUN   TestGPUMatrixTaylorGather
+--- PASS: TestGPUMatrixTaylorGather (0.00s)
+=== RUN   TestGPUMatrixWideDescription
+--- PASS: TestGPUMatrixWideDescription (0.01s)
+=== RUN   TestGPUResidentProducts
+--- PASS: TestGPUResidentProducts (1.36s)
+PASS

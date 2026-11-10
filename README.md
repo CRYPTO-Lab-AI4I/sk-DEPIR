@@ -10,6 +10,13 @@ by default; keep large local caches outside Git and report instrumentation overh
 
 The current development target is **TRL 5**: a usable, validated client and preprocessing library. The [roadmap](ROADMAP.md) gives the ordered tasks and acceptance criteria. Storage is treated as a plain I/O endpoint returning requested records; server-side protocol computation is outside the scope. TRL 6 acceptance is deferred; evaluating encoding-efficiency improvements remains in scope.
 
+The optional [GPU scaling experiment](experiments/gpu-scaling/report.md) separates
+full-domain plan metadata from explicit per-engine allocation limits. Exact
+CPU/GPU operation comparisons now pass through2^28 values; on the measured H200,
+forward transform time is2.65 s versus65.11 s on16 CPU cores. This is an operation
+comparison, not a full s16 encoding speedup. Ordinary builds and CPU constructors
+retain their current setup requirements.
+
 Fast encoding is an explicit priority. Language, compiler, algorithms, hardware,
 layout and parallelism remain open choices; select improvements through measured
 comparisons while preserving PIR functionality, correctness and usability on

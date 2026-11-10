@@ -1,0 +1,25 @@
+File: scaling.test
+Build ID: 643187640adccdab81a5944d79ed2302c3c7c906
+Type: cpu
+Time: 2026-11-10 12:06:05 CET
+Duration: 197.97s, Total samples = 1170.02s (591.02%)
+Showing nodes accounting for 1162.88s, 99.39% of 1170.02s total
+Dropped 42 nodes (cum <= 5.85s)
+      flat  flat%   sum%        cum   cum%
+   974.93s 83.33% 83.33%    974.93s 83.33%  [scaling.test]
+   167.96s 14.36% 97.68%    167.96s 14.36%  runtime.cgocall
+    11.20s  0.96% 98.64%     11.20s  0.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     7.84s  0.67% 99.31%     13.08s  1.12%  reflect.deepValueEqual
+     0.53s 0.045% 99.35%    194.88s 16.66%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUScaling.func4
+     0.42s 0.036% 99.39%     11.62s  0.99%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0% 99.39%    152.74s 13.05%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0% 99.39%    152.74s 13.05%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0% 99.39%    152.74s 13.05%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*scalingPreparationCPP).apply
+         0     0% 99.39%    194.88s 16.66%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUScaling
+         0     0% 99.39%      6.48s  0.55%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.(*Engine).Apply
+         0     0% 99.39%      8.73s  0.75%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.(*Engine).Product
+         0     0% 99.39%      6.48s  0.55%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix._Cfunc_bridge_apply
+         0     0% 99.39%      8.73s  0.75%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix._Cfunc_bridge_product
+         0     0% 99.39%     13.08s  1.12%  reflect.DeepEqual
+         0     0% 99.39%    974.94s 83.33%  runtime._ExternalCode
+         0     0% 99.39%    194.88s 16.66%  testing.tRunner

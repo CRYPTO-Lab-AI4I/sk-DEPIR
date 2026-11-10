@@ -1,0 +1,10 @@
+{
+  "device_after": 786424,
+  "device_before": 786424,
+  "domain": 4294967296,
+  "full_plan_rejected_by_budget": true,
+  "malformed_rejected": true,
+  "row_levels": 17,
+  "setup_seconds": 0.526670678,
+  "underfunded_rejected": true
+}

@@ -192,3 +192,6 @@ rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
   preparation and complete native encoding with retained profiles/cache and
   explicit memory, time and power guards. First use and fresh cached execution
   pass: about 6.5 minutes per encoding and 18.46 GiB cached peak RSS.
+
+- [GPU domain metadata and bounded scaling](gpu-scaling/report.md): allocation-free
+  full-domain descriptions and progressive exact CPU/GPU operation comparisons.

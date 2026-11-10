@@ -1,0 +1,7 @@
+=== RUN   TestGPUScaling
+    gpu_scaling_test.go:181: dimension22 CPU forward 0.769s, GPU 0.140s, device 48.8 MiB
+    gpu_scaling_test.go:181: dimension23 CPU forward 1.595s, GPU 0.237s, device 96.8 MiB
+    gpu_scaling_test.go:181: dimension24 CPU forward 3.382s, GPU 0.370s, device 192.8 MiB
+    gpu_scaling_test.go:181: dimension25 CPU forward 7.090s, GPU 0.630s, device 384.8 MiB
+--- PASS: TestGPUScaling (90.72s)
+PASS

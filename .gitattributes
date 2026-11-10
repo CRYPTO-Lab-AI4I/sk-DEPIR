@@ -23,3 +23,5 @@ experiments/gpu-products/runs/*/compiler.log whitespace=-blank-at-eof
 experiments/gpu-products/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
 experiments/s16-resident-intervals/runs/*/compiler.log whitespace=-blank-at-eof
 experiments/s16-resident-intervals/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
+experiments/gpu-scaling/runs/*/compiler.log whitespace=-blank-at-eof
+experiments/gpu-scaling/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof

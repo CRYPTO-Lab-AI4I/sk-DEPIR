@@ -13,21 +13,27 @@ package gpumatrix
 typedef struct {
  void *library,*engine;
  int (*create)(unsigned,unsigned,unsigned,const uint32_t*,size_t,const uint32_t*,size_t,void**,char*,size_t);
+ int (*bounded)(unsigned,unsigned,unsigned,const uint32_t*,size_t,const uint32_t*,size_t,size_t,size_t,void**,char*,size_t);
+ int (*check)(void*,const uint32_t*,size_t,char*,size_t);
  int (*add)(void*,const uint32_t*,size_t,char*,size_t);
  int (*apply)(void*,uint32_t*,size_t,int,double*,char*,size_t);
  int (*product)(void*,const uint32_t*,size_t,const uint32_t*,size_t,uint32_t*,size_t,size_t,double*,char*,size_t);
  uint64_t (*owned)(void*);
  void (*destroy)(void*);
 } bridge;
-static bridge* bridge_open(const char* path,unsigned s,unsigned poly,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,char* error,size_t capacity){
+static bridge* bridge_open(const char* path,unsigned s,unsigned poly,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,size_t max_points,size_t device_cap,int bounded,char* error,size_t capacity){
  bridge* b=calloc(1,sizeof(bridge));if(!b)return NULL;
  b->library=dlopen(path,RTLD_NOW|RTLD_LOCAL);
  if(!b->library){snprintf(error,capacity,"%s",dlerror());free(b);return NULL;}
  b->create=dlsym(b->library,"gm_create");b->add=dlsym(b->library,"gm_add_plan");b->apply=dlsym(b->library,"gm_apply");b->owned=dlsym(b->library,"gm_owned_bytes");b->destroy=dlsym(b->library,"gm_destroy");
+ b->bounded=dlsym(b->library,"gm_create_bounded");b->check=dlsym(b->library,"gm_check_plan");
  b->product=dlsym(b->library,"gm_product"); // Optional for old transform-only libraries.
  if(!b->create||!b->add||!b->apply||!b->owned||!b->destroy){snprintf(error,capacity,"missing GPU ABI symbol");dlclose(b->library);free(b);return NULL;}
- if(b->create(s,poly,delta,logs,lc,powers,pc,&b->engine,error,capacity)){dlclose(b->library);free(b);return NULL;}return b;
+ if(bounded&&!b->bounded){snprintf(error,capacity,"bounded GPU ABI unavailable");dlclose(b->library);free(b);return NULL;}
+ int status=bounded?b->bounded(s,poly,delta,logs,lc,powers,pc,max_points,device_cap,&b->engine,error,capacity):b->create(s,poly,delta,logs,lc,powers,pc,&b->engine,error,capacity);
+ if(status){dlclose(b->library);free(b);return NULL;}return b;
 }
+static int bridge_check(bridge* b,const uint32_t* words,size_t count,char* error,size_t capacity){if(!b->check){snprintf(error,capacity,"plan check ABI unavailable");return 1;}return b->check(b->engine,words,count,error,capacity);}
 static int bridge_add(bridge* b,const uint32_t* words,size_t count,char* error,size_t capacity){return b->add(b->engine,words,count,error,capacity);}
 static int bridge_apply(bridge* b,uint32_t* words,size_t count,int inverse,double* stats,char* error,size_t capacity){return b->apply(b->engine,words,count,inverse,stats,error,capacity);}
 static int bridge_product(bridge* b,const uint32_t* a,size_t ac,const uint32_t* c,size_t cc,uint32_t* out,size_t oc,size_t n,double* stats,char* error,size_t capacity){if(!b->product){snprintf(error,capacity,"resident product ABI unavailable");return 1;}return b->product(b->engine,a,ac,c,cc,out,oc,n,stats,error,capacity);}
@@ -46,26 +52,62 @@ import (
 // Engine serializes all calls and closes owned CUDA state explicitly. Host
 // slices are borrowed only until the synchronous call returns, never retained.
 type Engine struct {
-	mu     sync.Mutex
-	handle *C.bridge
+	mu        sync.Mutex
+	handle    *C.bridge
+	maxPoints int
 }
 
 // New loads the explicitly supplied experimental shared library and copies
 // trusted base-field tables. The caller must use a checksum-verified binary.
 func New(path string, s int, polynomial, delta uint32, logs, powers []uint32) (*Engine, error) {
+	return newEngine(path, s, polynomial, delta, logs, powers, 1<<22, 512<<20, false)
+}
+
+// NewBounded explicitly admits a maximum domain and total device allocation cap.
+// It requires the bounded ABI. Values remain uint32; counts can reach 2^32 on
+// 64-bit hosts. The cap excludes CUDA driver/context allocations.
+func NewBounded(path string, s int, polynomial, delta uint32, logs, powers []uint32, maxPoints int, deviceBytes uint64) (*Engine, error) {
+	return newEngine(path, s, polynomial, delta, logs, powers, maxPoints, deviceBytes, true)
+}
+
+func newEngine(path string, s int, polynomial, delta uint32, logs, powers []uint32, maxPoints int, deviceBytes uint64, bounded bool) (*Engine, error) {
+	if maxPoints < 4 || uint64(maxPoints) > uint64(1)<<32 || maxPoints&(maxPoints-1) != 0 || uint64(C.size_t(deviceBytes)) != deviceBytes {
+		return nil, fmt.Errorf("GPU engine limits")
+	}
 	if s < 2 || s > 16 || len(logs) != 1<<uint(s) || len(powers) != 2*((1<<uint(s))-1) {
 		return nil, fmt.Errorf("GPU table shape")
 	}
 	name := C.CString(path)
 	defer C.free(unsafe.Pointer(name))
 	var message [512]C.char
-	h := C.bridge_open(name, C.uint(s), C.uint(polynomial), C.uint(delta), (*C.uint32_t)(unsafe.Pointer(&logs[0])), C.size_t(len(logs)), (*C.uint32_t)(unsafe.Pointer(&powers[0])), C.size_t(len(powers)), &message[0], 512)
+	flag := C.int(0)
+	if bounded {
+		flag = 1
+	}
+	h := C.bridge_open(name, C.uint(s), C.uint(polynomial), C.uint(delta), (*C.uint32_t)(unsafe.Pointer(&logs[0])), C.size_t(len(logs)), (*C.uint32_t)(unsafe.Pointer(&powers[0])), C.size_t(len(powers)), C.size_t(maxPoints), C.size_t(deviceBytes), flag, &message[0], 512)
 	runtime.KeepAlive(logs)
 	runtime.KeepAlive(powers)
 	if h == nil {
 		return nil, fmt.Errorf("GPU initialization: %s", C.GoString(&message[0]))
 	}
-	return &Engine{handle: h}, nil
+	return &Engine{handle: h, maxPoints: maxPoints}, nil
+}
+
+// CheckPlan validates trusted matrix metadata without allocating device plans or
+// workspace. It checks field/format limits, independently of engine admission.
+func (e *Engine) CheckPlan(words []uint32) error {
+	e.mu.Lock()
+	defer e.mu.Unlock()
+	if e.handle == nil || len(words) == 0 {
+		return fmt.Errorf("GPU closed/empty plan")
+	}
+	var message [512]C.char
+	code := C.bridge_check(e.handle, (*C.uint32_t)(unsafe.Pointer(&words[0])), C.size_t(len(words)), &message[0], 512)
+	runtime.KeepAlive(words)
+	if code != 0 {
+		return fmt.Errorf("GPU plan check: %s", C.GoString(&message[0]))
+	}
+	return nil
 }
 
 // AddPlan copies a bounded trusted, pointer-free matrix description.
@@ -130,7 +172,7 @@ func (e *Engine) Product(a, b []uint32, limit, n int) ([]uint32, [8]float64, err
 	defer e.mu.Unlock()
 	var stats [8]C.double
 	var timing [8]float64
-	if e.handle == nil || len(a) == 0 || len(b) == 0 || n < 4 || n > 1<<22 || n&(n-1) != 0 || len(a) > n || len(b) > n || len(a) > n-len(b)+1 || limit < 1 || limit > len(a)+len(b)-1 {
+	if e.handle == nil || len(a) == 0 || len(b) == 0 || n < 4 || n > e.maxPoints || n&(n-1) != 0 || len(a) > n || len(b) > n || len(a) > n-len(b)+1 || limit < 1 || limit > len(a)+len(b)-1 {
 		return nil, timing, fmt.Errorf("GPU product shape/prefix")
 	}
 	out := make([]uint32, limit)

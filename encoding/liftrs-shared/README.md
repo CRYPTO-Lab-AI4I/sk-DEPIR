@@ -432,3 +432,10 @@ a manual pause; these are standalone results, not application integration.
 Retained source, profiles and cache hashes distinguish its evidence from the
 completed s=14 measurements. Preparation remains Go with native transforms;
 database-dependent encoding uses the complete C++ path.
+
+
+The optional [GPU scaling harness](../../experiments/gpu-scaling/report.md) uses
+versioned private plan counts through2^32 while keeping field values at32 bits.
+Allocation-free metadata checking is separate from explicit engine workload and
+device-memory limits. Workspace growth releases disposable old arrays first;
+CPU constructors and production preprocessing defaults remain unchanged.

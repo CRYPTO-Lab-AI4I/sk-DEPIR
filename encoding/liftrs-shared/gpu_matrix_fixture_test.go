@@ -63,6 +63,18 @@ func gpuMatrixDescription(f orbitField, dimension int) ([]uint32, []uint32, []ui
 	return words, orderedWords(rows, low), orderedWords(columns, gamma), nil
 }
 
+// Version 2 stores domain count in two words; at dimension32, the count is
+// 2^32 although every coordinate/field element still fits a single word.
+func gpuMatrixDescriptionV2(f orbitField, dimension int) ([]uint32, error) {
+	words, _, _, err := gpuMatrixDescription(f, dimension)
+	if err != nil {
+		return nil, err
+	}
+	n := uint64(1) << uint(dimension)
+	out := []uint32{0x324d474c, uint32(n), uint32(n >> 32)}
+	return append(out, words[1:]...), nil
+}
+
 func TestGPUMatrixFixtures(t *testing.T) {
 	out := os.Getenv("PIR_GPU_FIXTURE_OUT")
 	if out == "" {
@@ -209,6 +221,20 @@ func TestGPUMatrixTaylorGather(t *testing.T) {
 					t.Fatal("gather inverse mismatch", split, k, i)
 				}
 			}
+		}
+	}
+}
+
+func TestGPUMatrixWideDescription(t *testing.T) {
+	_, f, _, _ := orbitFields(16, 0x1002d)
+	for dimension := 30; dimension <= 32; dimension++ {
+		words, err := gpuMatrixDescriptionV2(f, dimension)
+		if err != nil {
+			t.Fatal(err)
+		}
+		n := uint64(words[1]) | uint64(words[2])<<32
+		if words[0] != 0x324d474c || n != uint64(1)<<uint(dimension) || words[3] != uint32(dimension/2) || words[4] != 32 || words[5] != uint32(dimension/2+1) {
+			t.Fatal("wide domain or extra row level lost", dimension)
 		}
 	}
 }

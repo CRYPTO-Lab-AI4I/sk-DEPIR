@@ -207,6 +207,27 @@ Proceed in this order:
    reusable setup, memory and I/O. Report an estimate with its unmeasured portions
    and uncertainty; a full s16 run remains a separate admission decision.
 
+Gate1 and the initial bounded portion of gates2/3 now pass in the
+[GPU scaling experiment](../experiments/gpu-scaling/report.md): versioned2^32
+counts,17 row levels, allocation-free metadata validation and exact CPU/GPU
+operations through2^25. Per-engine limits preserve the512 MiB cap. Releasing old
+workspace before growth admits384 MiB array payload at2^25 without replacement
+buffer overlap. The full-domain contiguous payload model is48 GiB for three
+arrays; this excludes tables/plans/context and host arrays. The remaining choice
+is a larger explicitly budgeted contiguous test or a validated blocked schedule.
+Neither full-domain execution nor the whole-run estimate is complete.
+User approved the next bounded increment:2^26..2^28 points,4 GiB explicit
+device cap,16 GiB host request/12 GiB sampled RSS,one GPU/16 CPUs,30-minute
+allocation/25-minute controller. This admits only that operation sweep, retaining
+all output checks/profiles and resource guards; full s16 remains separate.
+The approved sweep now passes: at2^28, GPU forward2.651 s vs16-core native
+CPU65.114 s, inverse2.533 s and resident product6.669 s. Exact full-array checks
+pass. Explicit device peak3.001 GiB and sampled process RSS4.141 GiB remain under
+the approved bounds. See the scaling report for CPU-product methodology and
+provenance. Four doublings remain to2^32; review the next device/host/time budget
+and validation schedule before submitting another increment. Full preparation
+speedup remains unmeasured.
+
 ## Step 1: resource accounting
 
 The [reproducible model](../experiments/encoding-resources/report.md) audits the

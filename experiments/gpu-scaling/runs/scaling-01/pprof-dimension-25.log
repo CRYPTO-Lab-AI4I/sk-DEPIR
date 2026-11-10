@@ -1,0 +1,26 @@
+File: scaling.test
+Build ID: 1713d37fda6a8e5db8372346ea0c908f7b062a5a
+Type: cpu
+Time: 2026-11-10 11:51:00 CET
+Duration: 48.34s, Total samples = 280.59s (580.40%)
+Showing nodes accounting for 278.88s, 99.39% of 280.59s total
+Dropped 29 nodes (cum <= 1.40s)
+      flat  flat%   sum%        cum   cum%
+   230.76s 82.24% 82.24%    230.76s 82.24%  [scaling.test]
+    41.09s 14.64% 96.89%     41.09s 14.64%  runtime.cgocall
+     2.86s  1.02% 97.90%      2.86s  1.02%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     2.04s  0.73% 98.63%      3.29s  1.17%  reflect.deepValueEqual
+     1.93s  0.69% 99.32%      1.93s  0.69%  [libc.so.6]
+     0.13s 0.046% 99.37%     47.85s 17.05%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUScaling.func4
+     0.07s 0.025% 99.39%      2.93s  1.04%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0% 99.39%     35.26s 12.57%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0% 99.39%     35.26s 12.57%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0% 99.39%     35.26s 12.57%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*scalingPreparationCPP).apply
+         0     0% 99.39%     47.85s 17.05%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUScaling
+         0     0% 99.39%      2.44s  0.87%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.(*Engine).Apply
+         0     0% 99.39%      3.38s  1.20%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.(*Engine).Product
+         0     0% 99.39%      2.44s  0.87%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix._Cfunc_bridge_apply
+         0     0% 99.39%      3.38s  1.20%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix._Cfunc_bridge_product
+         0     0% 99.39%      3.29s  1.17%  reflect.DeepEqual
+         0     0% 99.39%    232.69s 82.93%  runtime._ExternalCode
+         0     0% 99.39%     47.85s 17.05%  testing.tRunner

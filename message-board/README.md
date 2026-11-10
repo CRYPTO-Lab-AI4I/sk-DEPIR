@@ -17,6 +17,13 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-10 13:41 | PUBLISH-028 | Started | [Publish verified GPU scaling checkpoint](2026-11-10-1341-codex-publish-028-started.md) |
+| 2026-11-10 13:25 | GPU-020 | Completed | [Larger bounded GPU sweep verified](2026-11-10-1325-codex-gpu-020-completed.md) |
+| 2026-11-10 13:25 | GPU-020 | Started | [Verify completed larger GPU sweep](2026-11-10-1325-codex-gpu-020-results-started.md) |
+| 2026-11-10 11:06 | GPU-020 | Handoff | [Approved larger sweep running](2026-11-10-1106-codex-gpu-020-handoff.md) |
+| 2026-11-10 11:03 | GPU-020 | Started | [Approved larger bounded GPU tests](2026-11-10-1103-codex-gpu-020-started.md) |
+| 2026-11-10 11:02 | GPU-019 | Handoff | [GPU metadata and bounded scaling verified](2026-11-10-1102-codex-gpu-019-handoff.md) |
+| 2026-11-10 10:45 | GPU-019 | Started | [Full-domain GPU metadata and bounded scale tests](2026-11-10-1045-codex-gpu-019-started.md) |
 | 2026-11-10 10:44 | PUBLISH-027 | Completed | [Resident checkpoint verified for publication](2026-11-10-1044-codex-publish-027-completed.md) |
 | 2026-11-10 10:43 | PUBLISH-027 | Started | [Publish resident checkpoint and next plan](2026-11-10-1043-codex-publish-027-started.md) |
 | 2026-11-10 10:38 | SCALE-018 | Handoff | [Bounded s16 measurements; larger transforms next](2026-11-10-1038-codex-scale-018-handoff.md) |

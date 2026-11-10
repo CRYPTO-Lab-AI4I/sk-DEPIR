@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "sources_verified": 279,
+  "job_id": "72847",
+  "metadata": {
+    "device_after": 786424,
+    "device_before": 786424,
+    "domain": 4294967296,
+    "full_plan_rejected_by_budget": true,
+    "malformed_rejected": true,
+    "row_levels": 17,
+    "setup_seconds": 0.526670678,
+    "underfunded_rejected": true
+  },
+  "measurements": [
+    {
+      "dimension": 26,
+      "n": 67108864,
+      "owned_device_bytes": 806104708,
+      "forward": {
+        "gpu_seconds": 0.9588825480000001,
+        "cpu_seconds": 14.961757813,
+        "cpu_over_gpu": 15.603326856043687
+      },
+      "inverse": {
+        "gpu_seconds": 0.903051829,
+        "cpu_seconds": 15.29626861,
+        "cpu_over_gpu": 16.93841717472453
+      },
+      "product": {
+        "gpu_seconds": 2.566101996,
+        "cpu_seconds": 50.886748322,
+        "cpu_over_gpu": 19.83036855172611
+      }
+    },
+    {
+      "dimension": 27,
+      "n": 134217728,
+      "owned_device_bytes": 1611422992,
+      "forward": {
+        "gpu_seconds": 1.6648070764999998,
+        "cpu_seconds": 31.000536097,
+        "cpu_over_gpu": 18.62109822489093
+      },
+      "inverse": {
+        "gpu_seconds": 1.5785044099999999,
+        "cpu_seconds": 31.616135284,
+        "cpu_over_gpu": 20.02917133693659
+      },
+      "product": {
+        "gpu_seconds": 4.369753685999999,
+        "cpu_seconds": 105.056575528,
+        "cpu_over_gpu": 24.04176140741861
+      }
+    },
+    {
+      "dimension": 28,
+      "n": 268435456,
+      "owned_device_bytes": 3222047644,
+      "forward": {
+        "gpu_seconds": 2.650847914,
+        "cpu_seconds": 65.114258911,
+        "cpu_over_gpu": 24.563558915285245
+      },
+      "inverse": {
+        "gpu_seconds": 2.532662824,
+        "cpu_seconds": 66.056743204,
+        "cpu_over_gpu": 26.081933440975085
+      },
+      "product": {
+        "gpu_seconds": 6.6692235255,
+        "cpu_seconds": 219.307204716,
+        "cpu_over_gpu": 32.88346894919199
+      }
+    }
+  ],
+  "sampled_process_peak_bytes": 4445843456,
+  "cache_bytes": 8540751,
+  "full_domain_array_payload_bytes": 51539607552,
+  "limits": "One data-center GPU; profiled transfer-inclusive operations. CPU product includes Go pointwise multiplication. Metadata validated through2^32; execution measured at the recorded dimensions. No full s16 runtime forecast."
+}

@@ -1,0 +1,5 @@
+========= COMPUTE-SANITIZER
+=== RUN   TestGPUScaling
+--- PASS: TestGPUScaling (0.81s)
+PASS
+========= ERROR SUMMARY: 0 errors
