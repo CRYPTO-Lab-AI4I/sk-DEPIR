@@ -1,0 +1,80 @@
+[
+  {
+    "allocated_bytes": 17197189544,
+    "elapsed_ns": 4340427426,
+    "go_sys_bytes": 17223555336,
+    "heap_after_bytes": 17183067608,
+    "heap_before_bytes": 722464,
+    "m": 2,
+    "native_after": {
+      "steady_ns": 14376597785763215,
+      "wall_ns": 1794266630936529783,
+      "posix_monotonic_ns": 14376597785757270,
+      "process_cpu_ns": 4388182821
+    },
+    "native_before": {
+      "steady_ns": 14376593445320898,
+      "wall_ns": 1794266626596088249,
+      "posix_monotonic_ns": 14376593445317081,
+      "process_cpu_ns": 7624982
+    },
+    "phase": "executor-setup",
+    "s": 16,
+    "scratch_bytes": 17179869184,
+    "t": 5,
+    "workers": 32
+  },
+  {
+    "allocated_bytes": 124741774704,
+    "elapsed_ns": 10597544895921,
+    "go_sys_bytes": 95747080872,
+    "heap_after_bytes": 85820031608,
+    "heap_before_bytes": 17181003456,
+    "k": 918672421,
+    "n": 4294967296,
+    "native_after": {
+      "steady_ns": 14387195390482950,
+      "wall_ns": 1794277228541249596,
+      "posix_monotonic_ns": 14387195390476782,
+      "process_cpu_ns": 29923985169278
+    },
+    "native_before": {
+      "steady_ns": 14376597845572386,
+      "wall_ns": 1794266630996338807,
+      "posix_monotonic_ns": 14376597845571328,
+      "process_cpu_ns": 4400885328
+    },
+    "phase": "discovery",
+    "reused": false,
+    "samples": 2
+  },
+  {
+    "allocated_bytes": 3372928,
+    "bytes": 3674689684,
+    "elapsed_ns": 5922360415,
+    "elements": 918672421,
+    "go_sys_bytes": 95747605160,
+    "heap_after_bytes": 25734026800,
+    "heap_before_bytes": 25730653872,
+    "k": 918672421,
+    "n": 4294967296,
+    "native_after": {
+      "steady_ns": 14387201332306120,
+      "wall_ns": 1794277234483072686,
+      "posix_monotonic_ns": 14387201332303222,
+      "process_cpu_ns": 29929754875905
+    },
+    "native_before": {
+      "steady_ns": 14387195409938426,
+      "wall_ns": 1794277228560705082,
+      "posix_monotonic_ns": 14387195409936323,
+      "process_cpu_ns": 29924072883044
+    },
+    "path": "support.bin",
+    "phase": "save-basis",
+    "s": 16,
+    "seed": 1603,
+    "sha256": "021446aa0d2764f4020e989ee54f3a99c63c7d9a407f5babbcb333919a2854ad",
+    "t": 5
+  }
+]

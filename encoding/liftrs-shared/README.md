@@ -14,6 +14,12 @@ stays Go. See the [overview and run commands](../README.md) and the examples bel
 The import is `github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared`;
 `encoding/liftrs-go` no longer contains the complete encoder API.
 
+Experimental scaling preparation uses a private base-field lookup table for
+public code coefficients (less than 768 KiB through s16), released before online
+use. General field APIs remain table-free and artifact coordinates are unchanged.
+The [arithmetic experiment](../../experiments/preparation-arithmetic/report.md)
+records kernel and complete smaller-code checks; full s16 feasibility remains open.
+
 
 The Go reference implements code preprocessing and systematic encoding for
 small curve-lifted Reed-Solomon codes with locality `q-1`. It takes field elements
@@ -367,8 +373,13 @@ widens a few scalar fields, not the large arrays. Native descriptions likewise
 retain versions 1/2 for smaller domains and use 3/4 only for the 2^32 count.
 See [s16 readiness](../../docs/encoding-s16.md): small-buffer field/transform and
 header checks do not establish a full s=16 discovery/preparation or encoding run.
-Experimental full preparation remains bounded to s≤15, ordinary discovery to
-s≤13, and s≥17 still requires wider extension values.
+Experimental preparation now admits s=16 only under the
+[first-use resource controller](../../experiments/hpc-s16/report.md); full
+feasibility remains unverified. Ordinary discovery remains bounded to s≤13, and
+s≥17 still requires wider extension values. The controller persists completed
+support/constants with source provenance and retains profiles; incomplete
+preparation still requires recomputation. Its small first-use/cached cases match
+the retained reference bytes before the large case is admitted.
 
 
 The [complete native backend documentation](../liftrs-cpp/README.md#complete-native-online-encoding)

@@ -94,6 +94,18 @@ remain 32-bit through s=15 and use 64 bits at s=16. The
 [compatibility validation](experiments/count-width-validation/report.md) passes
 small-buffer boundaries, sanitizer/full-suite checks and complete cached s15
 output comparison; full s=16 feasibility remains open.
+The [guarded s16 first-use experiment](experiments/hpc-s16/report.md) now audits
+array/file lifetimes, validates the shared first-use harness on retained small
+fixtures and defines a bounded single-node CPU run. Its report records live status;
+experimental admission is separate from demonstrated feasibility.
+The first full run was stopped after discovery because preparation would exceed
+its time budget; discovery data is retained. A
+[bounded arithmetic comparison](experiments/preparation-arithmetic/report.md)
+measures 1.56× faster complete s10 preparation and a 3.55× faster s16 leaf kernel
+using a small private multiplication table. Full s16 preparation remains unverified.
+The [current scaling step](docs/encoding-scaling.md#current-step-larger-memory-preparation-efficiency)
+now includes targeted stage profiling, CPU kernel/batch/root improvements and
+matched GPU trials before another full-run admission decision.
 
 ## Implementation status and limits
 

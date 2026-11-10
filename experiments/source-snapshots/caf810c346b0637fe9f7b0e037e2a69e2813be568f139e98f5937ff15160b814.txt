@@ -1,0 +1,124 @@
+package liftrs
+
+import (
+	"math/rand"
+	"reflect"
+	"testing"
+)
+
+func TestScalingSparseConstants(t *testing.T) {
+	for s := 2; s <= 9; s++ {
+		p, _ := BinaryPolynomial(s)
+		base, ext, _, _ := orbitFields(s, p)
+		for _, f := range []orbitField{base, ext} {
+			a, b := newAdditiveTransform(f), newSparseTransform(f)
+			if !reflect.DeepEqual(cppDescription(a), cppDescription(b)) {
+				t.Fatal("sparse constants differ", s, f.q)
+			}
+		}
+	}
+}
+func TestScalingPreparationWorkspace(t *testing.T) {
+	for _, spec := range []Spec{{2, 2, 1}, {3, 2, 2}, {4, 2, 2}, {6, 2, 4}, {8, 2, 8}} {
+		b, err := DiscoverOrbit(spec, OrbitOptions{Random: rand.New(rand.NewSource(301))})
+		if err != nil {
+			t.Fatal(err)
+		}
+		original, err := b.PrepareCyclicFFT()
+		if err != nil {
+			t.Fatal(err)
+		}
+		candidate, err := b.PrepareCyclicScalingPrototype()
+		if err != nil {
+			t.Fatal(err)
+		}
+		for _, pair := range [][2][]uint32{{original.p, candidate.p}, {original.g, candidate.g}, {original.spectrum, candidate.spectrum}} {
+			if !reflect.DeepEqual(pair[0], pair[1]) {
+				t.Fatal("preparation changed", spec)
+			}
+		}
+		plan, err := candidate.ScalingPlan()
+		if err != nil {
+			t.Fatal(err)
+		}
+		if len(plan.basis.support) != 0 {
+			t.Fatal("support retained")
+		}
+		workspace := plan.NewWorkspace()
+		r := rand.New(rand.NewSource(302))
+		for repeat := 0; repeat < 3; repeat++ {
+			message := make([]uint32, b.Dimension())
+			for i := range message {
+				message[i] = uint32(r.Intn(int(b.base.q)))
+			}
+			saved := append([]uint32(nil), message...)
+			want, err := original.Encode(message)
+			if err != nil {
+				t.Fatal(err)
+			}
+			got, err := plan.Encode(message, workspace)
+			if err != nil || !reflect.DeepEqual(got, want) {
+				t.Fatal("workspace differs", spec, repeat, err)
+			}
+			if !reflect.DeepEqual(message, saved) {
+				t.Fatal("input changed")
+			}
+			if spec.FieldDegree <= 4 {
+				oracle, err := Preprocess(spec)
+				if err != nil {
+					t.Fatal(err)
+				}
+				values := make([]uint32, oracle.Dimension())
+				for j, pos := range oracle.SystematicPositions() {
+					values[j] = got[pos]
+				}
+				word, err := oracle.Encode(values)
+				if err != nil || !reflect.DeepEqual(word, got) {
+					t.Fatal("dense oracle", err)
+				}
+			}
+		}
+		if _, err := plan.Encode(nil, workspace); err == nil {
+			t.Fatal("bad message")
+		}
+		other, _ := candidate.ScalingPlan()
+		if _, err := plan.Encode(make([]uint32, plan.k), other.NewWorkspace()); err == nil {
+			t.Fatal("foreign workspace")
+		}
+	}
+}
+
+func TestScalingLargeSparseSetup(t *testing.T) {
+	for _, s := range []int{14, 15} {
+		polynomial, _ := BinaryPolynomial(s)
+		_, f, _, _ := orbitFields(s, polynomial)
+		a := newSparseTransform(f)
+		for k, terms := range a.terms {
+			for j := 0; j < k; j++ {
+				var value uint32
+				for _, term := range terms {
+					value ^= f.mul(term.coefficient, f.pow(1<<uint(j), term.degree))
+				}
+				if value != 0 {
+					t.Fatal("vanishing subspace", s, k, j)
+				}
+			}
+		}
+		coefficients := []uint32{1, 3, 7, 11, 19, 23, 29, 31}
+		got := append([]uint32(nil), coefficients...)
+		a.applySubspace(got, false)
+		for x, value := range got {
+			var want uint32
+			for i := len(coefficients) - 1; i >= 0; i-- {
+				want = f.mul(want, uint32(x)) ^ coefficients[i]
+			}
+			if want != value {
+				t.Fatal("large setup Horner", s, x)
+			}
+		}
+		a.applySubspace(got, true)
+		if !reflect.DeepEqual(got, coefficients) {
+			t.Fatal("large setup inverse", s)
+		}
+	}
+}

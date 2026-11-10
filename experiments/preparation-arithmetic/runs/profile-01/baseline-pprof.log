@@ -1,0 +1,27 @@
+File: baseline.test
+Build ID: 208e8be7677a452db0b6b60dcddeb169d1e8589c
+Type: cpu
+Time: 2026-11-10 09:24:43 CET
+Duration: 8.28s, Total samples = 8.43s (101.83%)
+Showing nodes accounting for 8.20s, 97.27% of 8.43s total
+Dropped 51 nodes (cum <= 0.04s)
+      flat  flat%   sum%        cum   cum%
+     7.09s 84.10% 84.10%      7.11s 84.34%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     0.72s  8.54% 92.65%      8.06s 95.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     0.29s  3.44% 96.09%      7.40s 87.78%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.05s  0.59% 96.68%      8.24s 97.75%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+     0.02s  0.24% 96.92%      0.10s  1.19%  runtime.mallocgc
+     0.01s  0.12% 97.03%      8.30s 98.46%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+     0.01s  0.12% 97.15%      0.05s  0.59%  runtime.(*sweepLocked).sweep
+     0.01s  0.12% 97.27%      0.11s  1.30%  runtime.makeslice
+         0     0% 97.27%      8.30s 98.46%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationLeafProfile
+         0     0% 97.27%      8.30s 98.46%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+         0     0% 97.27%      8.30s 98.46%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rootProduct
+         0     0% 97.27%      0.06s  0.71%  runtime.(*mcache).nextFree
+         0     0% 97.27%      0.06s  0.71%  runtime.(*mcache).refill
+         0     0% 97.27%      0.08s  0.95%  runtime.bgsweep
+         0     0% 97.27%      0.05s  0.59%  runtime.gcBgMarkWorker
+         0     0% 97.27%      0.07s  0.83%  runtime.mallocgcSmallNoscan
+         0     0% 97.27%      0.05s  0.59%  runtime.sweepone
+         0     0% 97.27%      0.12s  1.42%  runtime.systemstack
+         0     0% 97.27%      8.30s 98.46%  testing.tRunner

@@ -1,0 +1,85 @@
+{
+  "kind": "analytical_principal_array_scenarios_not_measured_s16_rss",
+  "revision": "34e1514734abf17cd57d3d094985d45b0c474955",
+  "source_sha256": {
+    "experiments/hpc-s16/audit.py": "7495006786cbc79db76c89f1bb0eb60d5579e4c17c4a9575038966d6ad3de7bb",
+    "experiments/hpc-s16/policy.json": "f624e2a5792de2c0a3543dbc58d1d671afd6fb602fdb833b11641b582883a151",
+    "pirconfig/configs_catalogue.json": "8e217ea2e2405b1327e375a73f9a3d80733382ad50c8e58e6b428e395506b84e",
+    "encoding/liftrs-shared/orbit.go": "65c235257bcf38926ce4ef7cccb8e2110f570bfbca6ae6cd379e685929dc9734",
+    "encoding/liftrs-shared/scaling_experimental.go": "a557c73ed1c5316b337eeacb82c8cca2132d11825c194473026d6c924ace23cf",
+    "encoding/liftrs-shared/factor_product.go": "45211036dcd75a6e77bba451454aba88b4cc7b690b6828c8a6309d9fb024b78e",
+    "encoding/liftrs-shared/orbit_polynomial.go": "62978160cc874dc0f6d25e0d161af1b61642959fd416fb4507946a57e0546048",
+    "encoding/liftrs-shared/orbit_product.go": "86e9f9c63b0d5c991dfad77a4deee00382134afb10a5478738be18ff7d49da74",
+    "encoding/liftrs-shared/scaling_prepare_cpp.go": "2aade45578b85f05436038bdc90d0ebddd6cb72f7b4f4c09496698b946f9d6fe",
+    "encoding/liftrs-shared/scaling_matrix_cpp.go": "1d1780029a6d239aab0bc6c7b2d761a2be8283cae6d6b64176c8bcac033e418a",
+    "encoding/liftrs-shared/s15_firstuse_probe_test.go": "c503f44dfc1c37337e2c4c7603531579770fdb4fbb9e6b83dd90857d520c6c6f"
+  },
+  "capacity_status": [
+    "exact_s15",
+    "estimated_s16",
+    "admission_capacity_ceiling_not_a_capacity_prediction"
+  ],
+  "rows": [
+    {
+      "s": 15,
+      "k": 216914047,
+      "n": 1073741824,
+      "discovery_with_both_index_lists_and_capacity_slack_bytes": 13930089448,
+      "root_product_illustration_bytes": 10781911544,
+      "identity_or_newton_arrays_bytes": 23210148860,
+      "newton_old_g_and_support_slack_bytes": 25791460602,
+      "prepared_plus_executor_bytes": 15054042362,
+      "online_arrays_bytes": 19782837752,
+      "online_file_bytes": 5162623513,
+      "generator_file_bytes": 3427311108,
+      "support_file_bytes": 867656188,
+      "packed_word_bytes": 2013265920,
+      "code_and_two_packed_words_bytes": 13484122645
+    },
+    {
+      "s": 16,
+      "k": 919440829,
+      "n": 4294967296,
+      "discovery_with_both_index_lists_and_capacity_slack_bytes": 56963189176,
+      "root_product_illustration_bytes": 44159800016,
+      "identity_or_newton_arrays_bytes": 93254872556,
+      "newton_old_g_and_support_slack_bytes": 103683688806,
+      "prepared_plus_executor_bytes": 60734015846,
+      "online_arrays_bytes": 79752766688,
+      "online_file_bytes": 20857632537,
+      "generator_file_bytes": 13502105868,
+      "support_file_bytes": 3677763316,
+      "packed_word_bytes": 8589934592,
+      "code_and_two_packed_words_bytes": 55217370901
+    },
+    {
+      "s": 16,
+      "k": 2147483648,
+      "n": 4294967296,
+      "discovery_with_both_index_lists_and_capacity_slack_bytes": 86436216832,
+      "root_product_illustration_bytes": 94490460172,
+      "identity_or_newton_arrays_bytes": 103079215108,
+      "newton_old_g_and_support_slack_bytes": 115964116996,
+      "prepared_plus_executor_bytes": 73014444036,
+      "online_arrays_bytes": 111669149700,
+      "online_file_bytes": 25769803813,
+      "generator_file_bytes": 8589934592,
+      "support_file_bytes": 8589934592,
+      "packed_word_bytes": 8589934592,
+      "code_and_two_packed_words_bytes": 60129542177
+    }
+  ],
+  "assumptions": [
+    "8-byte Go int; 4-byte coefficients",
+    "25% illustrative index-list capacity slack",
+    "bounded flat factor batches; reusable FFT pair plus N-element transpose",
+    "old reciprocal included in conservative scenario",
+    "excludes GC-retained unreachable allocations, allocator/runtime, OS and thread overhead"
+  ],
+  "time_budget": {
+    "native_encoding_scenario_seconds": 3011.6864,
+    "interpretation": "domain/level extrapolation from s15, not a measured s16 time or worker-scaling prediction",
+    "preparation": "unmeasured on this host; historical s15 setup spans a manual pause and is not a clean baseline",
+    "admission": "24h bounded exploratory allocation; initial 21h, cached 2h, runner deadline 23.5h; no automatic retry"
+  }
+}

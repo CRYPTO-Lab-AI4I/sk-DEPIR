@@ -97,6 +97,10 @@ func (b *OrbitBasis) prepareCyclicScaling(fft *additiveTransform) (*CyclicEncode
 // Production calls pass nil and do not force collection or retain callbacks.
 func (b *OrbitBasis) prepareCyclicScalingObserved(fft *additiveTransform, observe func(string, uint64)) (*CyclicEncoder, error) {
 	clone := *b
+	// Small products below the native-transform cutoff dominate leaf batches.
+	// These coefficients depend only on the public code, so bounded lookup is safe
+	// here; general field APIs and database-dependent arithmetic stay table-free.
+	clone.base.lookup = newPreparationProducts(clone.base.base)
 	clone.extensionFFT = fft
 	clone.baseFFT = newSparseTransform(b.base)
 	workspace := &productWorkspace{}
@@ -111,6 +115,7 @@ func (b *OrbitBasis) prepareCyclicScalingObserved(fft *additiveTransform, observ
 	clone.base.products = &polynomialProducts{transform: fft, cutoff: b.base.products.cutoff, workspace: workspace}
 	clone.extension.products = &polynomialProducts{transform: fft, cutoff: b.extension.products.cutoff, workspace: workspace}
 	release := func() {
+		clone.base.lookup = nil
 		workspace.release()
 		clone.base.products.workspace = nil
 		clone.extension.products.workspace = nil

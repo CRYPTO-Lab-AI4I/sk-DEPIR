@@ -1,0 +1,18 @@
+[
+  {
+    "gc_ns": 4730796,
+    "heap_before_gc": 25731997344,
+    "heap_profile": "preparation-00-before-validation.heap.pprof",
+    "live_heap_after_gc": 25731896808,
+    "stage": "before-validation",
+    "workspace_bytes": 0
+  },
+  {
+    "gc_ns": 2559203,
+    "heap_before_gc": 26269855576,
+    "heap_profile": "preparation-01-before-root-product.heap.pprof",
+    "live_heap_after_gc": 25731909160,
+    "stage": "before-root-product",
+    "workspace_bytes": 0
+  }
+]

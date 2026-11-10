@@ -1,0 +1,4 @@
+=== RUN   TestS16FirstUse
+    s15_firstuse_probe_test.go:114: executor-setup 4.340427426s
+    s15_firstuse_probe_test.go:114: discovery 2h56m37.544895921s
+    s15_firstuse_probe_test.go:114: save-basis 5.922360415s

@@ -37,6 +37,14 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Preparation arithmetic](preparation-arithmetic/report.md): bounded s16 leaf
+  profiles and matched complete s10 runs comparing private base-field lookup
+  with table-free preparation after the first full s16 run was stopped.
+
+- [Guarded Linux s16 first use](hpc-s16/report.md): current array/storage audit,
+  explicit controller budgets, small first-use/cache admission and a guarded
+  full CPU experiment. See the report for current status; no full result is assumed.
+
 - [Count-width compatibility](count-width-validation/report.md): s-dependent stored
   count widths, 2^32 boundary/sanitizer checks and a cached s15 regression; see
   the report for current status. No full s16 workload is included.

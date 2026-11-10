@@ -1,0 +1,15 @@
+=== RUN   TestPreparationBenchmark
+    s15_firstuse_probe_test.go:114: executor-setup 9.432314ms
+    s15_firstuse_probe_test.go:114: discovery 1.613074655s
+    s15_firstuse_probe_test.go:114: save-basis 10.720654ms
+    s15_firstuse_probe_test.go:114: preparation 8.988348913s
+    s15_firstuse_probe_test.go:114: save-prepared 55.142726ms
+    s15_firstuse_probe_test.go:114: release-preparation 1.286158ms
+    s15_firstuse_probe_test.go:114: load-online 165.626708ms
+    s15_firstuse_probe_test.go:114: online-setup 1.969943ms
+    s15_firstuse_probe_test.go:114: encode-0 1.037275691s
+    s15_firstuse_probe_test.go:114: verify-0 29.37331ms
+    s15_firstuse_probe_test.go:114: pack-output 48.524526ms
+    s15_firstuse_probe_test.go:114: verify-packed 103.345541ms
+--- PASS: TestPreparationBenchmark (12.35s)
+PASS

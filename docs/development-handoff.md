@@ -51,8 +51,10 @@ Implementation boundaries:
   encoding and parallel transforms; `ScalingCPPEncoder.EncodeWithStats` is the
   complete path. `EncodeHybridWithStats` is the older comparison path.
 - [liftrs-go](../encoding/liftrs-go/README.md): Go transform reference/fallback.
-- Experimental full preparation remains bounded to s≤15. Native/minimal-file
-  count handling now accepts s=16 with small-buffer/header validation only. Public
+- Experimental preparation admits s16 through the
+  [guarded first-use controller](../experiments/hpc-s16/report.md), with small
+  full-pipeline validation but no assumed large result. Native/minimal-file
+  count handling accepts s=16 with small-buffer/header validation. Public
   `DiscoverOrbit` and ordinary basis/JSON limits remain s≤13. Supported catalogue
   entries identify standalone encoding, not application or cryptographic integration.
 - [appref](../encoding/appref) and [cryptoref](../encoding/cryptoref) are small
@@ -90,6 +92,17 @@ Implementation boundaries:
 The [s=16 representation status](encoding-s16.md) now records wide count/header
 handling, stored widths selected from s, and small-buffer boundary checks.
 Full preprocessing/encoding feasibility and measured admission remain open.
+
+The first full Linux s16 run was stopped after discovery because measured
+preparation progress exceeded its time budget. Verified support remains at
+`.cache/liftrs/hpc-s16/s16-m2-t5/`, K=918,672,421; see the
+[stop record](../experiments/hpc-s16/runs/first-01/interruption.json).
+The [bounded arithmetic comparison](../experiments/preparation-arithmetic/report.md)
+validates faster private preparation arithmetic on smaller complete codes and s16
+leaf work. Before reusing the support with changed sources, explicitly review its
+provenance: the full-run controller correctly refuses an unmatched fingerprint.
+Do not bypass that check or restart discovery automatically. No full retry has
+been admitted or run after this optimization.
 
 Set new numerical RAM, scratch-storage, worker and time budgets from that audit
 and the actual allocation. The laptop's 24 GiB Go/32 GiB RSS/20 GiB cache/5.5h

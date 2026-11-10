@@ -9,10 +9,15 @@ type orbitField struct {
 	base      BinaryField
 	extension *QuadraticField
 	products  *polynomialProducts
+	// Private code-preparation lookup; never serialized or used by public fields.
+	lookup *preparationProducts
 }
 
 func (f orbitField) mul(a, b uint32) uint32 {
 	if f.extension == nil {
+		if f.lookup != nil {
+			return f.lookup.mul(a, b)
+		}
 		return f.base.Mul(a, b)
 	}
 	s := uint(f.base.Degree())

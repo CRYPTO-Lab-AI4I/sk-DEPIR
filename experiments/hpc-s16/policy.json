@@ -1,0 +1,20 @@
+{
+  "s": 16,
+  "m": 2,
+  "t": 5,
+  "workers": 32,
+  "slurm_memory_gib": 256,
+  "go_memory_gib": 192,
+  "rss_guard_gib": 224,
+  "cache_guard_gib": 64,
+  "scratch_guard_gib": 128,
+  "minimum_initial_available_memory_gib": 320,
+  "minimum_available_memory_gib": 32,
+  "minimum_free_scratch_gib": 128,
+  "minimum_free_cache_gib": 80,
+  "slurm_wall_seconds": 86400,
+  "runner_wall_seconds": 84600,
+  "initial_timeout_seconds": 75600,
+  "cached_timeout_seconds": 7200,
+  "monitor_seconds": 2
+}

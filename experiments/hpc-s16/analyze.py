@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+"""Show live status, or verify sealed results without repeating large arithmetic."""
+import json
+from pathlib import Path
+import runpy
+import sys
+
+HERE=Path(__file__).resolve().parent
+ROOT=HERE.parents[1]
+sys.path.insert(0,str(ROOT/'experiments'))
+from source_evidence import verify_sources
+
+
+def main():
+    if len(sys.argv)!=2: raise SystemExit('Usage: analyze.py RUN_NAME')
+    out=HERE/'runs'/sys.argv[1]
+    if (out/'interruption.json').exists():
+        print((out/'interruption.json').read_text())
+        return
+    record=json.loads((out/'results.json').read_text())
+    if record['status']!='passed':
+        print(json.dumps({'status':record['status'],'job_id':record['job_id'],
+                          'error':record.get('error'),'last_completed_command':record['commands'][-1] if record['commands'] else None},indent=2))
+        return
+    helpers=runpy.run_path(str(HERE/'run.py'))
+    sha=helpers['sha']
+    sources=verify_sources(ROOT,record['source_sha256'],record['revision'])
+    assert sha(Path(record['binary']))==record['binary_sha256']
+    for name,digest in record['evidence_sha256'].items(): assert sha(out/name)==digest,name
+    cache=Path(record['cache'])
+    for name,digest in record['cache_sha256'].items(): assert sha(cache/name)==digest,name
+    s=6 if record['validation'] else 16
+    initial=helpers['verify_phases'](out/'initial',s)
+    cached=helpers['verify_phases'](out/'cached',s)
+    assert initial['canonical_sha256']==cached['canonical_sha256']
+    assert initial['packed_sha256']==cached['packed_sha256']
+    fresh=cache.parent/('cached-'+sys.argv[1])/'word-packed.bin'
+    assert sha(fresh)==initial['packed_sha256']
+    analysis={'status':'passed','source_files_verified':len(sources),'sources_resolved':sources,
+              'initial':initial,'cached':cached,'cache':str(cache),
+              'limits':'Digest/source identity and recorded worker validation; not independent full codeword proof.'}
+    (out/'analysis.json').write_text(json.dumps(analysis,indent=2)+'\n')
+    print(json.dumps({k:v for k,v in analysis.items() if k!='sources_resolved'},indent=2))
+
+
+if __name__=='__main__':main()

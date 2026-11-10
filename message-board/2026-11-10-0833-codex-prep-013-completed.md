@@ -1,0 +1,15 @@
+# PREP-013 — Preparation arithmetic improves in bounded comparisons
+
+Timestamp: 2026-11-10T08:33:56.650639+00:00
+Agent: Codex
+Status: completed
+
+Implemented a private immutable base-field log/power table used only during experimental scaling preparation and removed from returned online state. Less than 768 KiB at s16; public field arithmetic, coordinates, file formats and protocol behavior are unchanged. Generator search handles polynomials where element 2 is not primitive. Input-indexed tables act only on public code coefficients, not secret database values.
+
+Changed paths: `encoding/liftrs-shared/orbit_arithmetic.go`, `scaling_experimental.go`, new `preparation_products.go`, focused arithmetic/lifetime tests and opt-in benchmark harness; `experiments/preparation-arithmetic/`; s16 stop-record/analyzer/launcher/report; README, shared README, experiments index and development handoff; source snapshots and this board. `.gitattributes` narrowly preserves verbatim Slurm/GCC whitespace in new experiment logs, as for existing experiments; raw evidence is not rewritten.
+
+[Report](../experiments/preparation-arithmetic/report.md), [runner](../experiments/preparation-arithmetic/run.py), [analysis](../experiments/preparation-arithmetic/runs/compare-01/analysis.json). CPU profile job 72810 attributed 84.1% of leaf-kernel samples to table-free multiplication. Matched job 72811 on gnode17, four CPU cores: s16 leaf 8.095→2.279 seconds (3.55×); median complete s10 preparation over three runs per variant 14.022→8.970 seconds (1.56×); complete worker median 17.883→13.160 seconds (controller polling included). Setup, memory, I/O, instrumentation and fixed variant order are documented. All six runs match support/P/spectrum/G and full canonical/packed outputs, with full identity/systematic/curve/readback checks. Exact source snapshots, binaries, profiles and small reusable caches retained.
+
+Verification: independent arithmetic oracle over all pairs through s8, all s≤16 inputs against boundary/random partners, alternate polynomial, table budget and lifetime; `CGO_ENABLED=0 go test ./encoding/liftrs-shared -run 'TestPreparationProducts|TestScaling' -count=1` passed. Both shared/native suites passed for both comparison variants. Admission job 72812 passed full Go/native repository suites, focused race, vet, fixture build and fresh small-cache checks; `python3 -B experiments/hpc-s16/analyze.py validation-02` verified evidence. Both experiment analyzers, four controller guard tests, Python/shell syntax, gofmt, documentation links and diff whitespace checks passed. README checked and updated with narrow measured claims.
+
+Limits: no full s16 retry or new GPU backend, no full s16 speedup/feasibility claim, no unprofiled/cold-I/O baseline. Active full-run profile was lost on cancellation; bounded profile supplies replacement kernel attribution. Next: review retained support provenance and measure a bounded integrated s16 preparation interval before deciding on another full run. No commit/push requested this turn.

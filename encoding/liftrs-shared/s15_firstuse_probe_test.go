@@ -39,13 +39,32 @@ func TestS15FirstUse(t *testing.T) {
 	if os.Getenv("PIR_S15_SMOKE") == "1" {
 		s, curve = 6, 4
 	}
-	debug.SetMemoryLimit(24 << 30)
+	repeats := 3
+	if s == 6 || os.Getenv("PIR_S15_ONLINE_ONLY") == "1" {
+		repeats = 1
+	}
+	runScalingFirstUse(t, scalingFirstUseConfig{spec: Spec{s, 2, curve}, out: out, cache: cache,
+		workers: 16, repeats: repeats, memoryLimit: 24 << 30, onlineOnly: os.Getenv("PIR_S15_ONLINE_ONLY") == "1"})
+}
+
+// Private experiment configuration; public encoder defaults remain unchanged.
+type scalingFirstUseConfig struct {
+	spec             Spec
+	out, cache       string
+	workers, repeats int
+	memoryLimit      int64
+	onlineOnly       bool
+}
+
+func runScalingFirstUse(t *testing.T, cfg scalingFirstUseConfig) {
+	spec, out, cache := cfg.spec, cfg.out, cfg.cache
+	s, curve := spec.FieldDegree, spec.CurveDegree
+	workers, repeats := cfg.workers, cfg.repeats
+	debug.SetMemoryLimit(cfg.memoryLimit)
 	signals := make(chan os.Signal, 1)
 	signal.Notify(signals, syscall.SIGTERM, os.Interrupt)
 	defer signal.Stop(signals)
 	go func() { <-signals; pprof.StopCPUProfile(); os.Exit(4) }()
-	spec := Spec{s, 2, curve}
-	workers := 16
 	check := func(err error) {
 		if err != nil {
 			t.Fatal(err)
@@ -119,13 +138,19 @@ func TestS15FirstUse(t *testing.T) {
 	saveMeta := func(name string, m map[string]any) {
 		raw, err := json.MarshalIndent(m, "", "  ")
 		check(err)
-		check(os.WriteFile(filepath.Join(cache, name), raw, 0644))
+		file, err := os.OpenFile(filepath.Join(cache, name+".tmp"), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0644)
+		check(err)
+		_, err = file.Write(raw)
+		check(err)
+		check(file.Sync())
+		check(file.Close())
+		check(os.Rename(filepath.Join(cache, name+".tmp"), filepath.Join(cache, name)))
 	}
 	var basis *OrbitBasis
 	var plan *ScalingOnlinePlan
 	var setup *scalingPreparationCPP
 	onlineMeta := filepath.Join(cache, "online-metadata.json")
-	if os.Getenv("PIR_S15_ONLINE_ONLY") != "1" {
+	if !cfg.onlineOnly {
 		phase("executor-setup", func() map[string]any {
 			var err error
 			basis, setup, err = newScalingPreparationCPP(spec, workers)
@@ -142,7 +167,7 @@ func TestS15FirstUse(t *testing.T) {
 					SHA256     string
 				}
 				check(json.Unmarshal(raw, &meta))
-				if meta.S != s || meta.T != curve || meta.N != basis.Length() {
+				if meta.S != s || meta.T != curve || meta.N != basis.Length() || meta.K < 1 || meta.K > meta.N/2 {
 					t.Fatal("basis cache spec")
 				}
 				file, err := os.Open(filepath.Join(cache, "support.bin"))
@@ -178,11 +203,24 @@ func TestS15FirstUse(t *testing.T) {
 		})
 		if _, err := os.Stat(basisMeta); os.IsNotExist(err) {
 			phase("save-basis", func() map[string]any {
-				values := make([]uint32, len(basis.support))
-				for i, x := range basis.support {
-					values[i] = uint32(x)
+				file, err := os.Create(filepath.Join(cache, "support.bin.tmp"))
+				check(err)
+				h := sha256.New()
+				w := bufio.NewWriterSize(io.MultiWriter(file, h), 1<<20)
+				var block [65536]byte
+				for start := 0; start < len(basis.support); start += len(block) / 4 {
+					n := minInt(len(block)/4, len(basis.support)-start)
+					for j := 0; j < n; j++ {
+						binary.LittleEndian.PutUint32(block[4*j:], uint32(basis.support[start+j]))
+					}
+					_, err := w.Write(block[:4*n])
+					check(err)
 				}
-				m := saveWords("support.bin", values)
+				check(w.Flush())
+				check(file.Sync())
+				check(file.Close())
+				check(os.Rename(filepath.Join(cache, "support.bin.tmp"), filepath.Join(cache, "support.bin")))
+				m := map[string]any{"path": "support.bin", "elements": basis.Dimension(), "bytes": 4 * basis.Dimension(), "sha256": hex.EncodeToString(h.Sum(nil))}
 				m["s"] = s
 				m["t"] = curve
 				m["k"] = basis.Dimension()
@@ -191,6 +229,9 @@ func TestS15FirstUse(t *testing.T) {
 				saveMeta("basis-metadata.json", m)
 				return m
 			})
+		}
+		if basis.Dimension() > basis.Length()/2 {
+			t.Fatal("discovered capacity exceeds admitted prefix/memory envelope")
 		}
 		var prepared *CyclicEncoder
 		if _, err := os.Stat(onlineMeta); os.IsNotExist(err) {
@@ -240,7 +281,7 @@ func TestS15FirstUse(t *testing.T) {
 				file, err := os.Create(filepath.Join(cache, "online.bin.tmp"))
 				check(err)
 				h := sha256.New()
-				check(writeScalingOnline(io.MultiWriter(file, h), plan))
+				check(WriteScalingOnline(io.MultiWriter(file, h), plan))
 				check(file.Sync())
 				check(file.Close())
 				check(os.Rename(filepath.Join(cache, "online.bin.tmp"), filepath.Join(cache, "online.bin")))
@@ -269,6 +310,9 @@ func TestS15FirstUse(t *testing.T) {
 		defer file.Close()
 		plan, err = LoadScalingOnline(file, m.SHA256, 1<<uint(2*s))
 		check(err)
+		if plan.FieldDegree() != s || plan.basis.spec.CurveDegree != curve {
+			t.Fatal("online cache spec mismatch")
+		}
 		return map[string]any{"plan_bytes": plan.ResidentBytes(), "k": plan.k, "n": plan.Length()}
 	})
 	var encoder *ScalingCPPEncoder
@@ -285,10 +329,6 @@ func TestS15FirstUse(t *testing.T) {
 	message := make([]uint32, plan.k)
 	for i := range message {
 		message[i] = uint32(random.Intn(1 << uint(s)))
-	}
-	repeats := 3
-	if s == 6 || os.Getenv("PIR_S15_ONLINE_ONLY") == "1" {
-		repeats = 1
 	}
 	var digest string
 	var word []uint32

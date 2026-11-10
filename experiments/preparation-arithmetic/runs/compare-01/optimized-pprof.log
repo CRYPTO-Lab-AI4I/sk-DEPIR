@@ -1,0 +1,29 @@
+File: optimized.test
+Build ID: 5175fc5da73a3167167964107c6e9b9f4ba70577
+Type: cpu
+Time: 2026-11-10 09:28:23 CET
+Duration: 2.28s, Total samples = 2.41s (105.73%)
+Showing nodes accounting for 2.27s, 94.19% of 2.41s total
+Dropped 48 nodes (cum <= 0.01s)
+Showing top 20 nodes out of 45
+      flat  flat%   sum%        cum   cum%
+     1.20s 49.79% 49.79%      1.62s 67.22%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.47s 19.50% 69.29%      2.23s 92.53%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     0.42s 17.43% 86.72%      0.42s 17.43%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).mul (inline)
+     0.02s  0.83% 87.55%      0.02s  0.83%  runtime.lock2
+     0.02s  0.83% 88.38%      0.02s  0.83%  runtime.madvise
+     0.02s  0.83% 89.21%      0.14s  5.81%  runtime.mallocgcSmallNoscan
+     0.02s  0.83% 90.04%      0.02s  0.83%  runtime.memclrNoHeapPointers
+     0.02s  0.83% 90.87%      0.06s  2.49%  runtime.scanObject
+     0.02s  0.83% 91.70%      0.02s  0.83%  runtime.tryDeferToSpanScan
+     0.02s  0.83% 92.53%      0.02s  0.83%  runtime.typePointers.next
+     0.01s  0.41% 92.95%      2.24s 92.95%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+     0.01s  0.41% 93.36%      0.06s  2.49%  runtime.(*mcache).refill
+     0.01s  0.41% 93.78%      0.04s  1.66%  runtime.(*mcentral).cacheSpan
+     0.01s  0.41% 94.19%      0.02s  0.83%  runtime.schedule
+         0     0% 94.19%      2.25s 93.36%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationLeafProfile
+         0     0% 94.19%      2.25s 93.36%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+         0     0% 94.19%      2.25s 93.36%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0% 94.19%      2.25s 93.36%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rootProduct
+         0     0% 94.19%      0.06s  2.49%  runtime.(*mcache).nextFree
+         0     0% 94.19%      0.03s  1.24%  runtime.(*mcentral).grow

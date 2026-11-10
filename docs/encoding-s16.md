@@ -32,7 +32,7 @@ retains four-byte coefficients while separating counts from element values.
 | Native field/import | [transform.hpp](../encoding/liftrs-cpp/transform.hpp) uses a uint64 count; [c_api.cpp](../encoding/liftrs-cpp/c_api.cpp) reads versions 1/2 unchanged and 3/4 with one extra high count word; domain shifts use uint64 | Native field/value bounds reject s≥17 |
 | Minimal online file | [scaling_online.go](../encoding/liftrs-shared/scaling_online.go) reads both old 32-bit and new 64-bit counts, validating caps and host byte offsets before allocation | The caller still supplies a trusted digest and an explicit allocation cap |
 | Allocation/index boundaries | Counts remain wide during header checks and generator search; lengths use the host int/size_t | Full preprocessing lifetimes and allocation schedules still need memory/admission review |
-| Discovery/preparation | Full experimental preparation still accepts s≤15; public discovery remains s≤13 | The change does not admit a full s16 preparation run |
+| Discovery/preparation | Experimental preparation now accepts s16 under the first-use controller; public discovery remains s≤13 | Large feasibility remains unverified; see the guarded experiment's current status |
 
 The existing online C ABI already uses size_t for K/N/buffer lengths, so it is not
 necessary to widen every argument. Input/output base-field symbols at s=16
@@ -69,3 +69,14 @@ complete output checks. Review simultaneous preprocessing arrays and baseline pr
 RAM, scratch and wall-time budgets, and enforce them independently if Slurm does
 not configure a memory cgroup cap. A larger-RAM in-memory baseline and bounded-RAM
 alternatives remain eligible; no s=16 full run is admitted by this document.
+The subsequent [first-use audit and controller](../experiments/hpc-s16/report.md)
+now define the initial admission: 32 workers, 256 GiB requested RAM, a 224 GiB
+sampled RSS guard and a 24-hour wall limit. Small full-pipeline/cache checks pass.
+These numerical limits are a bounded experiment policy, not measured requirements
+or a guarantee of completion.
+
+The initial full attempt was stopped after discovery; its support is retained.
+The [expanded preparation-efficiency step](encoding-scaling.md#current-step-larger-memory-preparation-efficiency)
+now separates targeted profiling, specialized/native CPU products, bounded batch
+parallelism, root-generation reuse and measured GPU alternatives before full-run
+readmission. The current lookup improvement is a smaller-code/kernel result.

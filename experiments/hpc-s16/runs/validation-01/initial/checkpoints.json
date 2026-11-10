@@ -1,0 +1,58 @@
+[
+  {
+    "gc_ns": 413527,
+    "heap_before_gc": 1509576,
+    "heap_profile": "preparation-00-before-validation.heap.pprof",
+    "live_heap_after_gc": 1469112,
+    "stage": "before-validation",
+    "workspace_bytes": 0
+  },
+  {
+    "gc_ns": 552522,
+    "heap_before_gc": 2390432,
+    "heap_profile": "preparation-01-before-root-product.heap.pprof",
+    "live_heap_after_gc": 1469760,
+    "stage": "before-root-product",
+    "workspace_bytes": 0
+  },
+  {
+    "gc_ns": 533993,
+    "heap_before_gc": 2594344,
+    "heap_profile": "preparation-02-before-normalization.heap.pprof",
+    "live_heap_after_gc": 1473160,
+    "stage": "before-normalization",
+    "workspace_bytes": 0
+  },
+  {
+    "gc_ns": 346742,
+    "heap_before_gc": 2427472,
+    "heap_profile": "preparation-03-before-reciprocal.heap.pprof",
+    "live_heap_after_gc": 1473992,
+    "stage": "before-reciprocal",
+    "workspace_bytes": 0
+  },
+  {
+    "gc_ns": 439978,
+    "heap_before_gc": 1944392,
+    "heap_profile": "preparation-04-before-identity.heap.pprof",
+    "live_heap_after_gc": 1487304,
+    "stage": "before-identity",
+    "workspace_bytes": 0
+  },
+  {
+    "gc_ns": 598516,
+    "heap_before_gc": 3377424,
+    "heap_profile": "preparation-05-before-spectrum.heap.pprof",
+    "live_heap_after_gc": 1489832,
+    "stage": "before-spectrum",
+    "workspace_bytes": 0
+  },
+  {
+    "gc_ns": 437526,
+    "heap_before_gc": 2485128,
+    "heap_profile": "preparation-06-complete.heap.pprof",
+    "live_heap_after_gc": 1506616,
+    "stage": "complete",
+    "workspace_bytes": 0
+  }
+]

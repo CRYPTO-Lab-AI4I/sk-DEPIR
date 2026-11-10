@@ -1,0 +1,26 @@
+{
+  "status": "stopped",
+  "timestamp_utc": "2026-11-10T08:26:52.148742+00:00",
+  "job_id": "72768",
+  "reason": "User-authorized stop after measured progress exceeded the job budget.",
+  "accounting": "72768|FAILED|08:58:32|0:15\n72768.batch|CANCELLED|08:58:32|0:15\n",
+  "basis": {
+    "bytes": 3674689684,
+    "elements": 918672421,
+    "k": 918672421,
+    "n": 4294967296,
+    "path": "support.bin",
+    "s": 16,
+    "seed": 1603,
+    "sha256": "021446aa0d2764f4020e989ee54f3a99c63c7d9a407f5babbcb333919a2854ad",
+    "t": 5
+  },
+  "support_checksum_verified": true,
+  "last_worker_state": {
+    "phase": "root-product",
+    "progress": "progress-root-exponents-124780544-of-918672421",
+    "timestamp_utc": "2026-11-10T08:19:16.481114863Z"
+  },
+  "preparation_profile_bytes": 0,
+  "limits": "Original results.json was not finalized; batch-shell termination prevented controller cleanup. Preparation CPU profile is empty. Completed phase profiles and discovery survive; no full preparation or encoding result."
+}

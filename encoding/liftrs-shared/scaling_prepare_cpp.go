@@ -48,8 +48,8 @@ func (c *scalingPreparationCPP) close() {
 	c.scratch = nil
 }
 func newScalingPreparationCPP(spec Spec, workers int) (*OrbitBasis, *scalingPreparationCPP, error) {
-	if spec.FieldDegree < 2 || spec.FieldDegree > 15 || spec.Dimension != 2 || spec.CurveDegree < 1 || spec.CurveDegree >= (1<<uint(spec.FieldDegree))-1 || workers < 1 || workers > 64 {
-		return nil, nil, fmt.Errorf("experimental preprocessing requires m=2,s=2..15 and valid t/workers")
+	if !validScalingPreparationShape(spec, workers) {
+		return nil, nil, fmt.Errorf("experimental preprocessing requires m=2,s=2..16 and valid host/t/workers")
 	}
 	polynomial, err := BinaryPolynomial(spec.FieldDegree)
 	if err != nil {
@@ -81,4 +81,12 @@ func newScalingPreparationCPP(spec Spec, workers int) (*OrbitBasis, *scalingPrep
 	base.products = &polynomialProducts{transform: fft, cutoff: 32768}
 	extension.products = &polynomialProducts{transform: fft, cutoff: 1024}
 	return &OrbitBasis{spec: spec, polynomial: polynomial, delta: delta, omega: omega, base: base, extension: extension, baseFFT: baseFFT, extensionFFT: fft}, c, nil
+}
+
+// Admission shape is checked without allocating the potentially 16 GiB scratch
+// array. Experimental s16 execution additionally needs an external resource guard.
+func validScalingPreparationShape(spec Spec, workers int) bool {
+	return spec.FieldDegree >= 2 && spec.FieldDegree <= 16 && spec.Dimension == 2 &&
+		workers >= 1 && workers <= 64 && spec.CurveDegree >= 1 && spec.CurveDegree < (1<<uint(spec.FieldDegree))-1 &&
+		(uint64(1)<<uint(2*spec.FieldDegree)) <= uint64(^uint(0)>>1)/4
 }

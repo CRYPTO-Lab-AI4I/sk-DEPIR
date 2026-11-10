@@ -19,6 +19,10 @@ Follow the [migration handoff](docs/development-handoff.md): validate one shared
 CPU node and transferred s=15 artifacts first, then audit s=16 representation and
 resource requirements. A 256 GiB host is a planning target, not proof of feasibility;
 distributed/GPU execution is not selected by this move.
+The [current scaling step](docs/encoding-scaling.md#current-step-larger-memory-preparation-efficiency)
+now includes bounded preparation profiling, specialized/native CPU kernels,
+parallel batches, root-generation reuse and matched GPU trials before full s16
+readmission. These are encoding-efficiency sub-steps within the existing scope.
 
 The current target is a usable, validated Lift-RS client and preprocessing
 library. TRL 5 is a planning target, not a claim about the present implementation

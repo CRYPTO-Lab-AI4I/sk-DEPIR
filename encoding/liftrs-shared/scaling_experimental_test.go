@@ -32,6 +32,9 @@ func TestScalingPreparationWorkspace(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
+		if candidate.basis.base.lookup != nil || b.base.lookup != nil {
+			t.Fatal("preparation lookup escaped into online state")
+		}
 		for _, pair := range [][2][]uint32{{original.p, candidate.p}, {original.g, candidate.g}, {original.spectrum, candidate.spectrum}} {
 			if !reflect.DeepEqual(pair[0], pair[1]) {
 				t.Fatal("preparation changed", spec)

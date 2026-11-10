@@ -34,6 +34,49 @@ separate. Measure temporary storage and bytes transferred as well as peak memory
 The study is complete when measured prototypes justify a design and its target
 sizes/hardware requirements; implementing every size through s=20 is not required.
 
+## Current step: larger-memory preparation efficiency
+
+The verified s15 checkpoint and Linux cached baseline remain the starting point.
+The first full s16 attempt completed discovery but was stopped because preparation
+progress exceeded its budget. Support is retained; see the
+[stop report](../experiments/hpc-s16/report.md). Private base-field lookup now
+improves complete s10 preparation by 1.56× and the measured s16 leaf kernel by
+3.55×; see the [matched comparison](../experiments/preparation-arithmetic/report.md).
+Full s16 preprocessing/encoding feasibility remains open. Expand the current
+design-selection/scaling step with these sub-steps:
+
+1. **Targeted profile.** Separate root generation, small polynomial products and
+   larger native convolution/transform work. Use bounded s16 kernels and existing
+   complete smaller-run profiles; sample saved s16 support without repeating
+   discovery. Retain exact sources, checksums, CPU profiles, stage clocks and RSS.
+   A partial kernel profile cannot establish the full s16 stage proportions.
+2. **Specialized CPU kernels.** Compare reduced Go dispatch overhead and native
+   C++ small-product loops with the lookup baseline. Preserve the field basis,
+   exact coefficients and full identity/output checks.
+3. **Bounded parallel batches.** Evaluate independent root/factor batches on
+   multiple CPU cores, accounting for per-worker buffers and coordinated merges.
+   Do not share the current single-caller convolution workspace across workers.
+4. **Root-generation reuse.** Test cheaper powers/inverses and reuse between
+   sorted exponents, verifying every generated factor against the current method.
+5. **Matched GPU trials.** Verify an available GPU allocation/toolchain, then
+   compare batched root/product and transform kernels against CPU alternatives.
+   Include device setup, allocation, transfers, synchronization, reusable state
+   and complete pipeline effects; record device memory and deployment requirements.
+   GPU benefit is unmeasured and is not assumed from hardware specifications.
+   Retain a practical CPU path; no backend or ordering is settled in advance.
+6. **Select and admit.** Choose from kernel and complete smaller-code evidence,
+   then measure a bounded integrated s16 preparation interval using reviewed saved
+   support provenance. Reassess time/RAM/I/O budgets before another full run;
+   preserve preprocessing/profiles and publish no full-feasibility claim early.
+
+Sub-step 1 is next. Later sub-steps can be reordered or omitted with recorded
+measurement-based reasons. Initial profiling budget: one CPU-only Slurm job,
+four cores, 16 GiB requested, 12 GiB sampled process-group RSS guard, 30-minute
+allocation and 25-minute controller deadline. Cap representative convolution
+buffers at 2^22 points and sampled support at 65,536 exponents. No full s16
+executor allocation, discovery, or preparation is part of that job. GPU trials
+need a separate explicit device/workload budget recorded before submission.
+
 ## Step 1: resource accounting
 
 The [reproducible model](../experiments/encoding-resources/report.md) audits the

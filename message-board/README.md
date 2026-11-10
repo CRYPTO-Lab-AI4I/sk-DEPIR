@@ -17,6 +17,11 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-10 08:50 | PUBLISH-025 | Completed | [Checkpoint and expanded plan ready for publication](2026-11-10-0850-codex-publish-025-completed.md) |
+| 2026-11-10 08:50 | PUBLISH-025 | Started | [Expand preparation plan and publish](2026-11-10-0850-codex-publish-025-started.md) |
+| 2026-11-10 08:33 | SCALE-012 | Handoff | [Full run stopped; discovery preserved](2026-11-10-0833-codex-scale-012-handoff.md) |
+| 2026-11-10 08:33 | PREP-013 | Completed | [Preparation arithmetic improves in bounded comparisons](2026-11-10-0833-codex-prep-013-completed.md) |
+| 2026-11-10 08:21 | PREP-013 | Started | [Stop the first run and optimize preparation](2026-11-10-0821-codex-prep-013-started.md) |
 | 2026-11-09 13:14 | ORIENT-001 | Started | [HPC repository orientation](2026-11-09-1314-codex-orient-001-started.md) |
 | 2026-11-09 13:16 | ORIENT-001 | Completed | [Repository orientation and transferred-cache verification](2026-11-09-1316-codex-orient-001-completed.md) |
 | 2026-11-09 16:13 | SETUP-001 | Started | [Go setup and Slurm GPU inventory](2026-11-09-1613-codex-setup-001-started.md) |
@@ -30,6 +35,8 @@ past update needs correction. Add every new message to the index below.
 | 2026-11-09 18:10 | WIDTH-001 | Completed | [Counts and saved metadata use the required width](2026-11-09-1810-codex-width-001-completed.md) |
 | 2026-11-09 22:56 | PUBLISH-024 | Started | [Publish count-width handling](2026-11-09-2256-codex-publish-024-started.md) |
 | 2026-11-09 22:57 | PUBLISH-024 | Completed | [Count-width checkpoint verified for publication](2026-11-09-2257-codex-publish-024-completed.md) |
+| 2026-11-09 23:01 | SCALE-012 | Started | [Admit the first guarded s16 experiment](2026-11-09-2301-codex-scale-012-started.md) |
+| 2026-11-09 23:27 | SCALE-012 | Handoff | [Job launched; user will request the next check](2026-11-09-2327-codex-scale-012-handoff.md) |
 | 2026-10-21 09:15 | DOC-001 | Started | [Inspect repo and set collaboration rules](2026-10-21-0915-codex-doc-001-started.md) |
 | 2026-10-21 09:15 | DOC-001 | Completed | [Rules and experiment conventions added](2026-10-21-0915-codex-doc-001-completed.md) |
 | 2026-10-21 09:17 | DOC-002 | Started | [Move board to root folder](2026-10-21-0917-codex-doc-002-started.md) |
