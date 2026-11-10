@@ -1,0 +1,21 @@
+File: preparation.test
+Build ID: f0de6a4c2027cae47ee5e42b1bb40ecbe522eaf6
+Type: cpu
+Time: 2026-11-10 14:51:43 CET
+Duration: 33.44ms, Total samples = 10ms (29.91%)
+Showing nodes accounting for 10ms, 100% of 10ms total
+      flat  flat%   sum%        cum   cum%
+      10ms   100%   100%       10ms   100%  internal/runtime/syscall/linux.Syscall6
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation.func1
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func10
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%       10ms   100%  internal/poll.(*FD).Fsync
+         0     0%   100%       10ms   100%  internal/poll.(*FD).Fsync.func1 (inline)
+         0     0%   100%       10ms   100%  internal/poll.ignoringEINTR (inline)
+         0     0%   100%       10ms   100%  os.(*File).Sync
+         0     0%   100%       10ms   100%  syscall.Fsync
+         0     0%   100%       10ms   100%  syscall.RawSyscall6
+         0     0%   100%       10ms   100%  syscall.Syscall
+         0     0%   100%       10ms   100%  testing.tRunner

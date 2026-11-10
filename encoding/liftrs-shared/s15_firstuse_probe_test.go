@@ -54,6 +54,8 @@ type scalingFirstUseConfig struct {
 	workers, repeats  int
 	memoryLimit       int64
 	onlineOnly        bool
+	prepareOnly       bool
+	rootCheckpoint    bool
 	preparationCutoff int                               // Experiment-only override; zero preserves the default.
 	prepareExecutor   func(*OrbitBasis) (func(), error) // Optional experimental backend; cleanup follows the run.
 }
@@ -251,7 +253,27 @@ func runScalingFirstUse(t *testing.T, cfg scalingFirstUseConfig) {
 				if cfg.preparationCutoff > 0 {
 					basis.base.products.cutoff = cfg.preparationCutoff
 				}
-				prepared, err = basis.prepareCyclicScalingObserved(basis.extensionFFT, func(stage string, workspace uint64) {
+				var root []uint32
+				var persistRoot func([]uint32) error
+				if cfg.rootCheckpoint {
+					var supportMeta struct{ SHA256 string }
+					raw, err := os.ReadFile(basisMeta)
+					check(err)
+					check(json.Unmarshal(raw, &supportMeta))
+					root, err = loadPreparationRoot(cache, spec, basis.Dimension(), basis.Length(), supportMeta.SHA256)
+					check(err)
+					persistRoot = func(p []uint32) error {
+						m := saveWords("root.bin", p)
+						m["s"] = s
+						m["t"] = curve
+						m["k"] = basis.Dimension()
+						m["n"] = basis.Length()
+						m["support_sha256"] = supportMeta.SHA256
+						saveMeta("root-metadata.json", m)
+						return nil
+					}
+				}
+				prepared, err = basis.prepareCyclicScalingCheckpointed(basis.extensionFFT, func(stage string, workspace uint64) {
 					label := stage
 					if strings.HasPrefix(stage, "progress-") {
 						label = "root-product"
@@ -278,7 +300,7 @@ func runScalingFirstUse(t *testing.T, cfg scalingFirstUseConfig) {
 					raw, err = json.MarshalIndent(checkpoints, "", "  ")
 					check(err)
 					check(os.WriteFile(filepath.Join(out, "checkpoints.json"), raw, 0644))
-				})
+				}, root, persistRoot)
 				check(err)
 				return map[string]any{"k": basis.Dimension(), "n": basis.Length(), "identity_verified": true}
 			})
@@ -311,7 +333,14 @@ func runScalingFirstUse(t *testing.T, cfg scalingFirstUseConfig) {
 		plan = nil
 		basis = nil
 		setup.close()
+		if closeExecutor != nil {
+			closeExecutor()
+			closeExecutor = nil
+		}
 		phase("release-preparation", func() map[string]any { debug.FreeOSMemory(); return map[string]any{"released_to_os": true} })
+	}
+	if cfg.prepareOnly {
+		return
 	}
 	phase("load-online", func() map[string]any {
 		raw, err := os.ReadFile(onlineMeta)

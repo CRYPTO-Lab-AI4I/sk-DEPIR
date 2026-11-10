@@ -1,0 +1,26 @@
+File: preparation.test
+Build ID: f0de6a4c2027cae47ee5e42b1bb40ecbe522eaf6
+Type: cpu
+Time: 2026-11-10 14:51:40 CET
+Duration: 728.24ms, Total samples = 240ms (32.96%)
+Showing nodes accounting for 240ms, 100% of 240ms total
+      flat  flat%   sum%        cum   cum%
+     210ms 87.50% 87.50%      210ms 87.50%  runtime.cgocall
+      20ms  8.33% 95.83%       20ms  8.33%  [libc.so.6]
+      10ms  4.17%   100%       10ms  4.17%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.finishAdditiveTransform
+         0     0%   100%      220ms 91.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation
+         0     0%   100%      220ms 91.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation.func1
+         0     0%   100%      210ms 87.50%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation.func1.1
+         0     0%   100%       10ms  4.17%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newScalingPreparationCPP
+         0     0%   100%       10ms  4.17%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newSparseTransform
+         0     0%   100%      220ms 91.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%      220ms 91.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%      220ms 91.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func6
+         0     0%   100%       10ms  4.17%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.(*Engine).AddPlan
+         0     0%   100%       10ms  4.17%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.(*Engine).AddPlan.func1 (inline)
+         0     0%   100%      200ms 83.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.NewBounded (inline)
+         0     0%   100%       10ms  4.17%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix._Cfunc_bridge_add
+         0     0%   100%      200ms 83.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix._Cfunc_bridge_open
+         0     0%   100%      200ms 83.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.newEngine
+         0     0%   100%       20ms  8.33%  runtime._ExternalCode
+         0     0%   100%      220ms 91.67%  testing.tRunner

@@ -1,0 +1,28 @@
+File: preparation.test
+Build ID: f0de6a4c2027cae47ee5e42b1bb40ecbe522eaf6
+Type: cpu
+Time: 2026-11-10 14:51:40 CET
+Duration: 1.12s, Total samples = 1.12s (100.21%)
+Showing nodes accounting for 1.12s, 100% of 1.12s total
+Showing top 20 nodes out of 23
+      flat  flat%   sum%        cum   cum%
+     1.03s 91.96% 91.96%      1.03s 91.96%  runtime.cgocall
+     0.07s  6.25% 98.21%      0.07s  6.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.goodMonomialCarries
+     0.01s  0.89% 99.11%      1.12s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.discoverOrbitBasis
+     0.01s  0.89%   100%      0.01s  0.89%  math/rand.read
+         0     0%   100%      0.98s 87.50%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply
+         0     0%   100%      0.98s 87.50%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).Apply.func1 (inline)
+         0     0%   100%      0.98s 87.50%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_apply
+         0     0%   100%      1.03s 91.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0%   100%      0.05s  4.46%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*gpuPreparationExecutor).apply
+         0     0%   100%      0.98s 87.50%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*meteredCPP).apply
+         0     0%   100%      0.07s  6.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.GoodMonomial
+         0     0%   100%      1.12s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation
+         0     0%   100%      1.12s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation.func1
+         0     0%   100%      1.12s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%      1.12s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%      1.12s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func7
+         0     0%   100%      0.05s  4.46%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.(*Engine).Apply
+         0     0%   100%      0.05s  4.46%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.(*Engine).Apply.func1 (inline)
+         0     0%   100%      0.05s  4.46%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix._Cfunc_bridge_apply
+         0     0%   100%      0.01s  0.89%  io.ReadAtLeast

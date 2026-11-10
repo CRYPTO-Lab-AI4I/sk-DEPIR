@@ -439,3 +439,12 @@ versioned private plan counts through2^32 while keeping field values at32 bits.
 Allocation-free metadata checking is separate from explicit engine workload and
 device-memory limits. Workspace growth releases disposable old arrays first;
 CPU constructors and production preprocessing defaults remain unchanged.
+
+
+The [actual preparation harness](../../experiments/gpu-preparation/report.md)
+optionally saves a normalized root product bound to its support digest/spec.
+Replay checks its shape, field, normalization and digest, and still performs the
+full generator identity check. Default callers use no checkpoint or persistence
+callback. Preparation-only mode streams complete constants, closes executors and
+stops before database encoding; atomic metadata distinguishes reusable files from
+unfinished writes. No intermediate root-batch checkpoint is implemented.

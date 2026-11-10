@@ -1,0 +1,28 @@
+File: preparation.test
+Build ID: f0de6a4c2027cae47ee5e42b1bb40ecbe522eaf6
+Type: cpu
+Time: 2026-11-10 14:51:42 CET
+Duration: 1.43s, Total samples = 1.20s (83.73%)
+Showing nodes accounting for 1.20s, 100% of 1.20s total
+Showing top 20 nodes out of 109
+      flat  flat%   sum%        cum   cum%
+     0.69s 57.50% 57.50%      0.69s 57.50%  runtime.cgocall
+     0.12s 10.00% 67.50%      0.22s 18.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).addProduct (inline)
+     0.10s  8.33% 75.83%      0.10s  8.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).mul (inline)
+     0.10s  8.33% 84.17%      0.10s  8.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul
+     0.02s  1.67% 85.83%      0.71s 59.17%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+     0.02s  1.67% 87.50%      0.28s 23.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     0.02s  1.67% 89.17%      0.02s  1.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Pow
+     0.02s  1.67% 90.83%      0.02s  1.67%  runtime.typePointers.next
+     0.01s  0.83% 91.67%      0.01s  0.83%  compress/flate.(*fastEncL1).encode
+     0.01s  0.83% 92.50%      0.01s  0.83%  runtime.(*mheap).allocSpan
+     0.01s  0.83% 93.33%      0.01s  0.83%  runtime.(*mspan).base (inline)
+     0.01s  0.83% 94.17%      0.01s  0.83%  runtime.getempty
+     0.01s  0.83% 95.00%      0.01s  0.83%  runtime.mapassign_fast64
+     0.01s  0.83% 95.83%      0.01s  0.83%  runtime.memmove
+     0.01s  0.83% 96.67%      0.01s  0.83%  runtime.nextFreeFast (inline)
+     0.01s  0.83% 97.50%      0.01s  0.83%  runtime.pallocSum.unpack
+     0.01s  0.83% 98.33%      0.02s  1.67%  runtime.pcvalue
+     0.01s  0.83% 99.17%      0.01s  0.83%  runtime.readvarint (inline)
+     0.01s  0.83%   100%      0.03s  2.50%  runtime.scanObject
+         0     0%   100%      0.01s  0.83%  compress/flate.(*Writer).Close

@@ -17,6 +17,10 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-10 13:53 | GPU-021 | Progress | [Actual preparation integration validated](2026-11-10-1353-codex-gpu-021-validation.md) |
+| 2026-11-10 13:49 | GPU-021 | Correction | [Validation legacy build setup corrected](2026-11-10-1349-codex-gpu-021-correction.md) |
+| 2026-11-10 13:43 | GPU-021 | Started | [Actual GPU-assisted s16 preparation](2026-11-10-1343-codex-gpu-021-started.md) |
+| 2026-11-10 13:43 | PUBLISH-028 | Completed | [GPU scaling checkpoint published](2026-11-10-1343-codex-publish-028-completed.md) |
 | 2026-11-10 13:41 | PUBLISH-028 | Started | [Publish verified GPU scaling checkpoint](2026-11-10-1341-codex-publish-028-started.md) |
 | 2026-11-10 13:25 | GPU-020 | Completed | [Larger bounded GPU sweep verified](2026-11-10-1325-codex-gpu-020-completed.md) |
 | 2026-11-10 13:25 | GPU-020 | Started | [Verify completed larger GPU sweep](2026-11-10-1325-codex-gpu-020-results-started.md) |

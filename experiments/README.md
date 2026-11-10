@@ -195,3 +195,6 @@ rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
 
 - [GPU domain metadata and bounded scaling](gpu-scaling/report.md): allocation-free
   full-domain descriptions and progressive exact CPU/GPU operation comparisons.
+
+- [Actual GPU-assisted s16 preparation](gpu-preparation/report.md): saved support,
+  normalized-root restart checkpoint, complete identity checks and guarded resources.

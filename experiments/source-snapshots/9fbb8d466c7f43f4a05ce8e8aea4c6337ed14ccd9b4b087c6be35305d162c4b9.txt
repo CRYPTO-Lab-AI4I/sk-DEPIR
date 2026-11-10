@@ -1,0 +1,110 @@
+#!/usr/bin/env python3
+"""Actual GPU-assisted preparation with saved support and guarded checkpoints."""
+import argparse,datetime,fcntl,hashlib,json,os,runpy,shutil,signal,subprocess,time
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[2]
+HERE=Path(__file__).resolve().parent
+HELP=runpy.run_path(str(ROOT/'experiments/hpc-cached-s15/run.py'))
+OLD=runpy.run_path(str(ROOT/'experiments/hpc-s16/run.py'))
+sha=HELP['sha']
+
+def main():
+    parser=argparse.ArgumentParser();parser.add_argument('name');parser.add_argument('--validate',action='store_true');parser.add_argument('--admission',default='validation-01');args=parser.parse_args()
+    for name in (args.name,args.admission):
+        if not name or not name.replace('-','').isalnum():raise SystemExit('Use fresh alphanumeric/hyphen names')
+    job=os.environ['SLURM_JOB_ID'];small=args.validate
+    out=HERE/'runs'/args.name;out.mkdir(parents=True,exist_ok=False)
+    scratch=Path('/tmp')/('sk-depir-gpu-preparation-'+job);scratch.mkdir(exist_ok=False)
+    cache=ROOT/'.cache/liftrs/gpu-preparation'/('smoke-'+args.name if small else 's16-m2-t5');cache.mkdir(parents=True,exist_ok=True)
+    lock=(cache.parent/(cache.name+'.lock')).open('a+');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    deadline=800 if small else 84600;rss_cap=(12 if small else 224)*2**30
+    record={'status':'running','job_id':job,'validation':small,'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'cache':str(cache),'commands':[],
+            'started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            'policy':{'rss_guard_bytes':rss_cap,'device_cap_bytes':(512<<20) if small else (64<<30),'controller_seconds':deadline,'worker_seconds':600 if small else 82800,'cache_guard_bytes':64<<30,'scratch_guard_bytes':128<<30,'minimum_node_available_bytes':(4 if small else 32)<<30}}
+    began=time.monotonic();cancelled=[];signal.signal(signal.SIGTERM,lambda *_:cancelled.append(True))
+    env=dict(os.environ,GOTOOLCHAIN='local',GOPROXY='off',GOSUMDB='off',GOPATH=str(ROOT/'.cache/liftrs/toolchains/gopath'),GOCACHE=str(scratch/'go-cache'),TMPDIR=str(scratch),CGO_ENABLED='1',CXX='g++',GOMAXPROCS='4' if small else '32',GOFLAGS='-p=4')
+    go=str(ROOT/'.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go')
+    def save():
+        p=out/'results.json.tmp';p.write_text(json.dumps(record,indent=2)+'\n');p.replace(out/'results.json')
+    def run(label,argv,cwd=ROOT):
+        start=time.monotonic();peak=0;reason=None;last_disk=0;sizes=(0,0)
+        with (out/(label+'.log')).open('w') as log,(out/'progress.jsonl').open('a') as progress:
+            proc=subprocess.Popen(argv,cwd=cwd,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+            try:
+                while proc.poll() is None:
+                    now=time.monotonic();peak=max(peak,HELP['group_rss'](proc.pid))
+                    if now-last_disk>30:sizes=OLD['tree_bytes'](cache),OLD['tree_bytes'](scratch);last_disk=now
+                    if peak>rss_cap:reason='RSS guard'
+                    if sizes[0]>64<<30 or sizes[1]>128<<30:reason='cache/scratch guard'
+                    if OLD['mem_available']()<record['policy']['minimum_node_available_bytes']:reason='node available-memory guard'
+                    if now-began>deadline:reason='controller deadline'
+                    if cancelled:reason='Slurm/user termination'
+                    state={}
+                    try:state=json.loads((out/'worker/state.json').read_text())
+                    except (FileNotFoundError,json.JSONDecodeError):pass
+                    progress.write(json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'command':label,'rss_bytes':peak,'cache_bytes':sizes[0],'scratch_bytes':sizes[1],'worker':state,'guard':reason})+'\n');progress.flush()
+                    if reason:OLD['stop_group'](proc);break
+                    time.sleep(2)
+            finally:
+                if proc.poll() is None:OLD['stop_group'](proc)
+        record['commands'].append({'label':label,'argv':list(map(str,argv)),'seconds':time.monotonic()-start,'peak_rss_bytes':peak,'exit_code':proc.returncode,'guard':reason});save()
+        if reason or proc.returncode:raise RuntimeError(label+': '+str(reason or proc.returncode))
+    save()
+    try:
+        if OLD['mem_available']()<(12 if small else 320)<<30:raise RuntimeError('insufficient initial available node RAM')
+        if shutil.disk_usage(cache).free<80<<30 or shutil.disk_usage(scratch).free<128<<30:raise RuntimeError('insufficient cache/scratch space')
+        for label,argv in [('hostname',['hostname']),('cpu',['lscpu']),('memory',['free','-b']),('compiler',['g++','--version']),('go',[go,'version']),('job',['scontrol','show','job',job]),('os',['cat','/etc/os-release']),('gpu',['nvidia-smi','--query-gpu=name,uuid,driver_version,memory.total','--format=csv']),('nvcc',['nvcc','--version'])]:run(label,argv)
+        visible=env['CUDA_VISIBLE_DEVICES'];assert ',' not in visible,'one device required'
+        free=int(subprocess.check_output(['nvidia-smi','-i',visible,'--query-gpu=memory.free','--format=csv,noheader,nounits'],text=True).strip())*2**20
+        record['initial_free_device_bytes']=free
+        if free<record['policy']['device_cap_bytes']+(1<<30):raise RuntimeError('insufficient free device memory')
+        source=scratch/'repo';shutil.copytree(ROOT,source,ignore=shutil.ignore_patterns('.git','.cache','runs','__pycache__','slurm-*.log'))
+        record['source_sha256']={str(p.relative_to(source)):sha(p) for p in source.rglob('*') if p.is_file() and (p.suffix in ('.go','.cpp','.h','.hpp','.cu','.py','.sbatch') or p.name in ('go.mod','go.sum','Makefile'))}
+        for name,digest in record['source_sha256'].items():
+            blob=subprocess.run(['git','show',record['revision']+':'+name],cwd=ROOT,capture_output=True)
+            if blob.returncode or hashlib.sha256(blob.stdout).hexdigest()!=digest:
+                dest=ROOT/'experiments/source-snapshots'/(digest+'.txt')
+                if not dest.exists():dest.write_bytes((source/name).read_bytes())
+        if not small:
+            admission=json.loads((HERE/'runs'/args.admission/'results.json').read_text());assert admission['status']=='passed' and admission['validation']
+            assert record['source_sha256']==admission['source_sha256'],'runtime source changed after validation'
+            provenance=cache/'provenance.json';identity={'sources':record['source_sha256'],'support_sha256':'021446aa0d2764f4020e989ee54f3a99c63c7d9a407f5babbcb333919a2854ad'}
+            if provenance.exists():assert json.loads(provenance.read_text())==identity,'checkpoint source changed; review before reuse'
+            else:
+                assert not (cache/'root-metadata.json').exists() and not (cache/'online-metadata.json').exists()
+                provenance.write_text(json.dumps(identity,indent=2)+'\n')
+            reference=ROOT/'.cache/liftrs/hpc-s16/s16-m2-t5';assert sha(reference/'support.bin')==identity['support_sha256']
+            record['support_sha256']=identity['support_sha256'];record['support_reference']=str(reference)
+            for name in ('support.bin','basis-metadata.json'):
+                dest=cache/name
+                if not dest.exists():dest.symlink_to(reference/name)
+                assert dest.resolve()==(reference/name).resolve()
+        library=cache/'libgpu-matrix.so';binary=cache/'preparation.test'
+        run('cuda-build',['nvcc','-std=c++17','-O3','-lineinfo','-arch=native','-shared','-Xcompiler=-fPIC','experiments/gpu-matrix/matrix.cu','-o',str(library)],source)
+        env['PIR_GPU_LIBRARY']=str(library)
+        if small:
+            run('legacy-build',['make','-C','encoding/rme_legacy','rme'],source)
+            env['CGO_ENABLED']='0';run('suite-go',[go,'test','./...','-timeout=8m'],source);env['CGO_ENABLED']='1'
+            run('suite-native',[go,'test','-tags','liftrs_cpp,liftrs_cuda','./...','-timeout=8m'],source)
+            run('race',[go,'test','-race','-tags','liftrs_cpp','./encoding/liftrs-shared','-run','TestPreparationRootCheckpoint|TestScalingPreparationCPP','-count=1'],source)
+            run('vet',[go,'vet','-tags','liftrs_cpp,liftrs_cuda','./encoding/...','./experiments/gpu-matrix'],source)
+        run('build',[go,'test','-tags','liftrs_cpp,liftrs_cuda','-c','-o',str(binary),'./encoding/liftrs-shared'],source)
+        env.update(PIR_GPU_FULL_OUT=str(out/'worker'),PIR_GPU_FULL_CACHE=str(cache))
+        if small:env['PIR_GPU_FULL_SMALL']='1'
+        run('preparation',[str(binary),'-test.run=^TestGPUFullPreparation$','-test.v','-test.timeout='+str(record['policy']['worker_seconds'])+'s'],source)
+        if small:
+            baseline=ROOT/'.cache/liftrs/gpu-products/products-02/cpu-0'
+            for name in ('support.bin','g.bin','online.bin'):
+                assert sha(cache/'first'/name)==sha(baseline/name),name
+            for name in ('g.bin','online.bin'):assert sha(cache/'replay'/name)==sha(cache/'first'/name),('replay',name)
+        meta=json.loads((cache/('first/online-metadata.json' if small else 'online-metadata.json')).read_text());assert meta['identity_verified']
+        for profile in sorted((out/'worker').rglob('*.pprof')):
+            if '.heap.' not in profile.name:run('pprof-'+str(profile.relative_to(out/'worker')).replace('/','-'),[go,'tool','pprof','-top','-nodecount=20',str(binary),str(profile)])
+        record['status']='passed'
+    except BaseException as error:
+        record['status']='stopped' if cancelled else 'failed';record['error']=repr(error);raise
+    finally:
+        record['cache_sha256']={str(p.relative_to(cache)):sha(p) for p in cache.rglob('*') if p.is_file() and not p.is_symlink() and not p.name.endswith('.tmp')}
+        record['evidence_sha256']={str(p.relative_to(out)):sha(p) for p in out.rglob('*') if p.is_file() and p.name not in ('results.json','results.json.tmp','analysis.json')};save();lock.close()
+
+if __name__=='__main__':main()

@@ -1,0 +1,28 @@
+File: preparation.test
+Build ID: f0de6a4c2027cae47ee5e42b1bb40ecbe522eaf6
+Type: cpu
+Time: 2026-11-10 14:51:45 CET
+Duration: 668.27ms, Total samples = 590ms (88.29%)
+Showing nodes accounting for 590ms, 100% of 590ms total
+Showing top 20 nodes out of 57
+      flat  flat%   sum%        cum   cum%
+     520ms 88.14% 88.14%      520ms 88.14%  runtime.cgocall
+      40ms  6.78% 94.92%       40ms  6.78%  [libc.so.6]
+      10ms  1.69% 96.61%       10ms  1.69%  runtime.(*spanInlineMarkBits).init
+      10ms  1.69% 98.31%       10ms  1.69%  runtime.memclrNoHeapPointers
+      10ms  1.69%   100%       10ms  1.69%  runtime.typePointers.next
+         0     0%   100%       10ms  1.69%  compress/flate.(*Writer).Close (inline)
+         0     0%   100%       10ms  1.69%  compress/flate.(*compressor).close
+         0     0%   100%       10ms  1.69%  compress/flate.(*compressor).deflateFast
+         0     0%   100%       10ms  1.69%  compress/flate.(*fastEncL1).encode
+         0     0%   100%       10ms  1.69%  compress/flate.(*fastGen).addBlock
+         0     0%   100%       10ms  1.69%  compress/gzip.(*Writer).Close
+         0     0%   100%      540ms 91.53%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScalingCheckpointed
+         0     0%   100%       10ms  1.69%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScalingCheckpointed.func1
+         0     0%   100%       30ms  5.08%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0%   100%       30ms  5.08%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*gpuPreparationExecutor).apply
+         0     0%   100%      490ms 83.05%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*gpuPreparationExecutor).convolve
+         0     0%   100%      500ms 84.75%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+         0     0%   100%      540ms 91.53%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation
+         0     0%   100%      540ms 91.53%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation.func1
+         0     0%   100%       10ms  1.69%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow

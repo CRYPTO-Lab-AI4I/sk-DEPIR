@@ -96,6 +96,13 @@ func (b *OrbitBasis) prepareCyclicScaling(fft *additiveTransform) (*CyclicEncode
 // FFT-workspace capacity; it may force GC only when the benchmark requests it.
 // Production calls pass nil and do not force collection or retain callbacks.
 func (b *OrbitBasis) prepareCyclicScalingObserved(fft *additiveTransform, observe func(string, uint64)) (*CyclicEncoder, error) {
+	return b.prepareCyclicScalingCheckpointed(fft, observe, nil, nil)
+}
+
+// A trusted normalized root checkpoint avoids repeating the expensive factor
+// product. It remains subject to full support/field checks and the P*G identity.
+// saveRoot must persist atomically before returning; default callers use neither.
+func (b *OrbitBasis) prepareCyclicScalingCheckpointed(fft *additiveTransform, observe func(string, uint64), savedRoot []uint32, saveRoot func([]uint32) error) (*CyclicEncoder, error) {
 	clone := *b
 	// Small products below the native-transform cutoff dominate leaf batches.
 	// These coefficients depend only on the public code, so bounded lookup is safe
@@ -131,40 +138,59 @@ func (b *OrbitBasis) prepareCyclicScalingObserved(fft *additiveTransform, observ
 	if err := b.validateSupport(); err != nil {
 		return nil, err
 	}
-	checkpoint("before-root-product")
-	factors := newFactorProductBuilder(clone.base, minInt(32768, b.Dimension()))
-	order := b.Length() - 1
-	for index, i := range b.support {
-		if observe != nil && index > 0 && index%(1<<20) == 0 {
-			observe(fmt.Sprintf("progress-root-exponents-%d-of-%d", index, len(b.support)), workspace.bytes())
-		}
-		partner := int(uint64(i) * uint64(b.base.q) % uint64(order))
-		if partner < i {
-			continue
-		}
-		root := b.extension.inv(b.extension.pow(b.omega, i))
-		if partner == i {
-			if uint64(root) >= b.base.q {
-				return nil, fmt.Errorf("fixed root outside base field")
+	p := savedRoot
+	if p == nil {
+		checkpoint("before-root-product")
+		factors := newFactorProductBuilder(clone.base, minInt(32768, b.Dimension()))
+		order := b.Length() - 1
+		for index, i := range b.support {
+			if observe != nil && index > 0 && index%(1<<20) == 0 {
+				observe(fmt.Sprintf("progress-root-exponents-%d-of-%d", index, len(b.support)), workspace.bytes())
 			}
-			factors.add(root, 1, 0, 1)
-			continue
+			partner := int(uint64(i) * uint64(b.base.q) % uint64(order))
+			if partner < i {
+				continue
+			}
+			root := b.extension.inv(b.extension.pow(b.omega, i))
+			if partner == i {
+				if uint64(root) >= b.base.q {
+					return nil, fmt.Errorf("fixed root outside base field")
+				}
+				factors.add(root, 1, 0, 1)
+				continue
+			}
+			conjugate := b.extension.pow(root, int(b.base.q))
+			trace, norm := root^conjugate, b.extension.mul(root, conjugate)
+			if uint64(trace) >= b.base.q || uint64(norm) >= b.base.q {
+				return nil, fmt.Errorf("paired root factor outside base field")
+			}
+			factors.add(norm, trace, 1, 2)
 		}
-		conjugate := b.extension.pow(root, int(b.base.q))
-		trace, norm := root^conjugate, b.extension.mul(root, conjugate)
-		if uint64(trace) >= b.base.q || uint64(norm) >= b.base.q {
-			return nil, fmt.Errorf("paired root factor outside base field")
+		p = factors.finish()
+		checkpoint("before-normalization")
+		if len(p) != b.Dimension()+1 {
+			return nil, fmt.Errorf("paired product degree mismatch")
 		}
-		factors.add(norm, trace, 1, 2)
-	}
-	p := factors.finish()
-	checkpoint("before-normalization")
-	if len(p) != b.Dimension()+1 {
-		return nil, fmt.Errorf("paired product degree mismatch")
-	}
-	scale := clone.base.inv(p[0])
-	for i := range p {
-		p[i] = clone.base.mul(p[i], scale)
+		scale := clone.base.inv(p[0])
+		for i := range p {
+			p[i] = clone.base.mul(p[i], scale)
+		}
+
+		if saveRoot != nil {
+			if err := saveRoot(p); err != nil {
+				return nil, err
+			}
+		}
+	} else {
+		checkpoint("reuse-normalized-root")
+		if len(p) != b.Dimension()+1 || p[0] != 1 {
+			return nil, fmt.Errorf("root checkpoint shape/normalization")
+		}
+		for _, value := range p {
+			if uint64(value) >= b.base.q {
+				return nil, fmt.Errorf("root checkpoint field")
+			}
+		}
 	}
 	phase = "reciprocal"
 	checkpoint("before-reciprocal")

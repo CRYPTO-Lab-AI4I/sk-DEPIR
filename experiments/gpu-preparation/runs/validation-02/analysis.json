@@ -1,0 +1,74 @@
+{
+  "status": "passed",
+  "job_id": "72872",
+  "sources_verified": 283,
+  "validation": true,
+  "phases": [
+    {
+      "worker": "worker/first",
+      "seconds": {
+        "executor-setup": 0.728199566,
+        "discovery": 1.117601492,
+        "save-basis": 0.011203982,
+        "preparation": 1.433126983,
+        "save-prepared": 0.033457302,
+        "release-preparation": 0.000492809,
+        "load-online": 0.088595742,
+        "online-setup": 0.002166564,
+        "encode-0": 1.083463751,
+        "verify-0": 0.028493634,
+        "pack-output": 0.020702788,
+        "verify-packed": 0.13019158
+      },
+      "gpu": {
+        "calls": 3,
+        "device_cap_bytes": 536870912,
+        "owned_after_close": 0,
+        "preparation_only": false,
+        "product_calls": 28,
+        "s": 10,
+        "setup_seconds": 0.719507814,
+        "stage_seconds": [
+          0.005506034000000001,
+          0.018051264005713163,
+          0.35476092606782916,
+          0.3061756467223168,
+          0.0025308479797095064,
+          0.007985309000000001,
+          0.0003760959999635814,
+          0.7142176170000001
+        ]
+      }
+    },
+    {
+      "worker": "worker/replay",
+      "seconds": {
+        "executor-setup": 0.409464599,
+        "discovery": 0.018846671,
+        "preparation": 0.668248544,
+        "save-prepared": 0.030949333,
+        "release-preparation": 0.001243044
+      },
+      "gpu": {
+        "calls": 1,
+        "device_cap_bytes": 536870912,
+        "owned_after_close": 0,
+        "preparation_only": true,
+        "product_calls": 11,
+        "s": 10,
+        "setup_seconds": 0.40170336,
+        "stage_seconds": [
+          0.0033155830000000004,
+          0.008153375998139381,
+          0.25276143819093705,
+          0.21508422654867174,
+          0.001151743999682367,
+          0.007027953,
+          0.0001804479993879795,
+          0.495671168
+        ]
+      }
+    }
+  ],
+  "limits": "Recorded identity/checkpoint/cache evidence; full actual preparation only if validation is false. No database encoding in actual mode."
+}

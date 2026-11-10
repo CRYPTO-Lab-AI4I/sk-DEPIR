@@ -228,6 +228,16 @@ provenance. Four doublings remain to2^32; review the next device/host/time budge
 and validation schedule before submitting another increment. Full preparation
 speedup remains unmeasured.
 
+User selected the [actual guarded preparation](../experiments/gpu-preparation/report.md)
+instead of further synthetic sweeps. Reuse saved s16 support, integrate full-domain
+resident products/spectrum, validate complete smaller preparation plus normalized
+root checkpoint replay, then launch preparation-only under one GPU/32 CPUs,
+256 GiB host request/224 GiB sampled RSS,128 GiB Go soft target,64 GiB explicit
+device cap,64 GiB new cache/128 GiB scratch and a24-hour allocation (23.5-hour
+controller/23-hour worker). These limits are for the actual attempt; they are not
+a runtime forecast. Preserve profiles and completed stages; stop after constants
+are saved. Full s16 completion and database encoding remain separate outcomes.
+
 ## Step 1: resource accounting
 
 The [reproducible model](../experiments/encoding-resources/report.md) audits the

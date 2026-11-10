@@ -17,6 +17,11 @@ forward transform time is2.65 s versus65.11 s on16 CPU cores. This is an operati
 comparison, not a full s16 encoding speedup. Ordinary builds and CPU constructors
 retain their current setup requirements.
 
+The [actual GPU-assisted s16 preparation experiment](experiments/gpu-preparation/report.md)
+reuses saved support and can restart from a verified normalized root checkpoint.
+It stops after saving complete preparation data; full s16 completion remains
+unverified until its results pass review.
+
 Fast encoding is an explicit priority. Language, compiler, algorithms, hardware,
 layout and parallelism remain open choices; select improvements through measured
 comparisons while preserving PIR functionality, correctness and usability on

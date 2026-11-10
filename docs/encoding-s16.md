@@ -91,3 +91,11 @@ the larger sweep); full-domain execution still requires a larger reviewed memory
 or a validated blocked design before a reliable forecast. Existing CPU/header
 count validation remains separate; individual field values still fit32 bits.
 No full s16 run is restarted.
+
+
+The user-authorized [actual GPU preparation attempt](../experiments/gpu-preparation/report.md)
+now replaces additional synthetic sweeps. It uses the retained support and a
+restartable normalized-root checkpoint, with full identity checking before saving
+constants. The report specifies the64 GiB device/256 GiB requested host budget
+and independent guards. It performs preparation only; a submitted job is not a
+validated full s16 checkpoint until final evidence passes review.

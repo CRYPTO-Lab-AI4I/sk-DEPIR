@@ -1,0 +1,26 @@
+File: preparation.test
+Build ID: f0de6a4c2027cae47ee5e42b1bb40ecbe522eaf6
+Type: cpu
+Time: 2026-11-10 14:51:46 CET
+Duration: 30.90ms, Total samples = 10ms (32.36%)
+Showing nodes accounting for 10ms, 100% of 10ms total
+      flat  flat%   sum%        cum   cum%
+      10ms   100%   100%       10ms   100%  internal/runtime/syscall/linux.Syscall6
+         0     0%   100%       10ms   100%  bufio.(*Writer).Flush
+         0     0%   100%       10ms   100%  bufio.(*Writer).Write
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation.func1
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.WriteScalingOnline
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func10
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%       10ms   100%  internal/poll.(*FD).Write
+         0     0%   100%       10ms   100%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%       10ms   100%  io.(*multiWriter).Write
+         0     0%   100%       10ms   100%  os.(*File).Write
+         0     0%   100%       10ms   100%  os.(*File).write (inline)
+         0     0%   100%       10ms   100%  syscall.RawSyscall6
+         0     0%   100%       10ms   100%  syscall.Syscall
+         0     0%   100%       10ms   100%  syscall.Write (inline)
+         0     0%   100%       10ms   100%  syscall.write
+         0     0%   100%       10ms   100%  testing.tRunner

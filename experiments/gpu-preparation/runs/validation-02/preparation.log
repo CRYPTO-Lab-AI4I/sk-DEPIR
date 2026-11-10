@@ -1,0 +1,20 @@
+=== RUN   TestGPUFullPreparation
+    s15_firstuse_probe_test.go:118: executor-setup 728.199566ms
+    s15_firstuse_probe_test.go:118: discovery 1.117601492s
+    s15_firstuse_probe_test.go:118: save-basis 11.203982ms
+    s15_firstuse_probe_test.go:118: preparation 1.433126983s
+    s15_firstuse_probe_test.go:118: save-prepared 33.457302ms
+    s15_firstuse_probe_test.go:118: release-preparation 492.809µs
+    s15_firstuse_probe_test.go:118: load-online 88.595742ms
+    s15_firstuse_probe_test.go:118: online-setup 2.166564ms
+    s15_firstuse_probe_test.go:118: encode-0 1.083463751s
+    s15_firstuse_probe_test.go:118: verify-0 28.493634ms
+    s15_firstuse_probe_test.go:118: pack-output 20.702788ms
+    s15_firstuse_probe_test.go:118: verify-packed 130.19158ms
+    s15_firstuse_probe_test.go:118: executor-setup 409.464599ms
+    s15_firstuse_probe_test.go:118: discovery 18.846671ms
+    s15_firstuse_probe_test.go:118: preparation 668.248544ms
+    s15_firstuse_probe_test.go:118: save-prepared 30.949333ms
+    s15_firstuse_probe_test.go:118: release-preparation 1.243044ms
+--- PASS: TestGPUFullPreparation (6.38s)
+PASS

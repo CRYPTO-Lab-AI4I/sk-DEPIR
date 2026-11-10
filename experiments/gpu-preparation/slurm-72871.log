@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-preparation/run.py", line 109, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-preparation/run.py", line 86, in main
+    env['CGO_ENABLED']='0';run('suite-go',[go,'test','./...','-timeout=8m'],source);env['CGO_ENABLED']='1'
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-preparation/run.py", line 51, in run
+    if reason or proc.returncode:raise RuntimeError(label+': '+str(reason or proc.returncode))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: suite-go: 1
