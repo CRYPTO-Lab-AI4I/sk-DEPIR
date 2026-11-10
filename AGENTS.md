@@ -121,6 +121,15 @@ queries and responses. Keep agreed contracts distinct from implemented capabilit
    from unprofiled latency baselines. Disable profiling only when optimization is
    complete; document any earlier exception. Do not silently delete useful caches.
 
+8. **Hand off jobs longer than 30 seconds.** For every job expected to take more
+   than 30 seconds, submit it, report its identifier and result location, then
+   yield to the user. Do not poll scheduler/process state, follow logs, wait for
+   completion, or analyze results until the user pings after completion or
+   explicitly asks for a check. This applies to validation and test jobs as well
+   as experiments. Keep automatic resource guards, deadlines, profiling and
+   checkpoint persistence active; those are part of job execution, not agent
+   monitoring. Dependent work must wait for the user's completion ping.
+
 ## Repository map
 
 - `pirconfig/`: JSON configuration catalogue, schema, and Go loading/validation.

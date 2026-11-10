@@ -19,8 +19,9 @@ retain their current setup requirements.
 
 The [actual GPU-assisted s16 preparation experiment](experiments/gpu-preparation/report.md)
 reuses saved support and can restart from a verified normalized root checkpoint.
-It stops after saving complete preparation data; full s16 completion remains
-unverified until its results pass review.
+It completed s16 preparation in2h20m15s (2h24m15s allocation elapsed), with the
+full polynomial identity verified and72.6 GiB peak sampled process RSS. Saved
+constants are retained; a cached s16 database encoding has not yet been validated.
 
 Fast encoding is an explicit priority. Language, compiler, algorithms, hardware,
 layout and parallelism remain open choices; select improvements through measured

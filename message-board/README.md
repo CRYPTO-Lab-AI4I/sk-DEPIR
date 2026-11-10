@@ -17,6 +17,13 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-10 20:19 | PUBLISH-029 | Completed | [Preparation checkpoint ready for publication](2026-11-10-2019-codex-publish-029-completed.md) |
+| 2026-11-10 20:19 | PUBLISH-029 | Started | [Publish completed preparation and estimate encoding](2026-11-10-2019-codex-publish-029-started.md) |
+| 2026-11-10 20:13 | GPU-021 | Completed | [Actual s16 preparation completed](2026-11-10-2013-codex-gpu-021-completed.md) |
+| 2026-11-10 20:11 | GPU-021 | Started | [Reconcile completed actual preparation](2026-11-10-2011-codex-gpu-021-results-started.md) |
+| 2026-11-10 14:31 | JOBS-001 | Completed | [Standing job handoff rule recorded](2026-11-10-1431-codex-jobs-001-completed.md) |
+| 2026-11-10 14:31 | JOBS-001 | Started | [Persist job handoff rule](2026-11-10-1431-codex-jobs-001-started.md) |
+| 2026-11-10 13:59 | GPU-021 | Handoff | [Actual s16 preparation running](2026-11-10-1359-codex-gpu-021-handoff.md) |
 | 2026-11-10 13:57 | GPU-021 | Progress | [Final integration source set validated](2026-11-10-1357-codex-gpu-021-final-validation.md) |
 | 2026-11-10 13:54 | GPU-021 | Correction | [Restore diagnostic tests and retain profile bytes](2026-11-10-1354-codex-gpu-021-test-restoration.md) |
 | 2026-11-10 13:53 | GPU-021 | Progress | [Actual preparation integration validated](2026-11-10-1353-codex-gpu-021-validation.md) |

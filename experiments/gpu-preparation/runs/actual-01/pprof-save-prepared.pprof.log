@@ -1,0 +1,29 @@
+File: preparation.test
+Build ID: 1701e14d75da27653a7f8eda902c21743903b56a
+Type: cpu
+Time: 2026-11-10 17:20:02 CET
+Duration: 46.02s, Total samples = 41.72s (90.65%)
+Showing nodes accounting for 41.54s, 99.57% of 41.72s total
+Dropped 41 nodes (cum <= 0.21s)
+Showing top 20 nodes out of 25
+      flat  flat%   sum%        cum   cum%
+    16.76s 40.17% 40.17%     16.76s 40.17%  crypto/internal/fips140/sha256.blockSHANI
+    16.37s 39.24% 79.41%     16.37s 39.24%  internal/runtime/syscall/linux.Syscall6
+     2.80s  6.71% 86.12%     24.79s 59.42%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.WriteScalingOnline
+     2.67s  6.40% 92.52%      2.70s  6.47%  encoding/binary.littleEndian.PutUint32 (inline)
+     1.62s  3.88% 96.40%     16.81s 40.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func4
+     1.28s  3.07% 99.47%      1.28s  3.07%  runtime.memmove
+     0.03s 0.072% 99.54%     34.45s 82.57%  bufio.(*Writer).Write
+     0.01s 0.024% 99.57%     33.14s 79.43%  io.(*multiWriter).Write
+         0     0% 99.57%     33.14s 79.43%  bufio.(*Writer).Flush
+         0     0% 99.57%     16.76s 40.17%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0% 99.57%     16.76s 40.17%  crypto/internal/fips140/sha256.block
+         0     0% 99.57%     41.61s 99.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation
+         0     0% 99.57%     41.61s 99.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation.func1
+         0     0% 99.57%     41.61s 99.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0% 99.57%     41.61s 99.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func10
+         0     0% 99.57%     41.61s 99.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0% 99.57%     16.37s 39.24%  internal/poll.(*FD).Write
+         0     0% 99.57%     16.37s 39.24%  internal/poll.ignoringEINTRIO (inline)
+         0     0% 99.57%     16.37s 39.24%  os.(*File).Write
+         0     0% 99.57%     16.37s 39.24%  os.(*File).write (inline)

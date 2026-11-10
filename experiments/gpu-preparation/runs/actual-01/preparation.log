@@ -1,0 +1,8 @@
+=== RUN   TestGPUFullPreparation
+    s15_firstuse_probe_test.go:118: executor-setup 849.298752ms
+    s15_firstuse_probe_test.go:118: discovery 25.701534801s
+    s15_firstuse_probe_test.go:118: preparation 2h20m15.469054728s
+    s15_firstuse_probe_test.go:118: save-prepared 46.021087421s
+    s15_firstuse_probe_test.go:118: release-preparation 1.146749334s
+--- PASS: TestGPUFullPreparation (8489.91s)
+PASS

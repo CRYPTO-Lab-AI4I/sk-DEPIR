@@ -99,3 +99,11 @@ restartable normalized-root checkpoint, with full identity checking before savin
 constants. The report specifies the64 GiB device/256 GiB requested host budget
 and independent guards. It performs preparation only; a submitted job is not a
 validated full s16 checkpoint until final evidence passes review.
+
+
+Actual job72875 now completed preparation successfully: full polynomial identity
+verified, normalized root and final P/G/spectrum persisted,2h20m15s preparation
+and2h24m15s total allocation elapsed. Peak sampled RSS72.575 GiB under the224 GiB
+guard. See the linked report for hashes and reconciliation limits. This closes
+the actual preparation gate on the measured machine; cached s16 database encoding
+and application/cryptographic execution remain separate, unvalidated steps.

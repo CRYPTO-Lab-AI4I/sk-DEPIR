@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "scope": "Sources, sealed output evidence, small cache files, metadata and artifact sizes verified; large artifact digests are recorded controller results, not freshly recomputed.",
+  "script_sha256": "5e9a9273284c2dd4aca1535c0fab21411478985babd4f0d7c3c055287dce7436",
+  "sources_verified": 284,
+  "sealed_evidence_files_verified": 42,
+  "preparation_identity_verified": true,
+  "peak_sampled_rss_bytes": 77926809600,
+  "retained_cache_bytes": 38043010613,
+  "gpu_calls": 1,
+  "gpu_products": 223322,
+  "gpu_call_seconds": 3745.148071918986
+}

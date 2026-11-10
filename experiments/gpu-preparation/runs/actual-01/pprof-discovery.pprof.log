@@ -1,0 +1,29 @@
+File: preparation.test
+Build ID: 1701e14d75da27653a7f8eda902c21743903b56a
+Type: cpu
+Time: 2026-11-10 14:59:20 CET
+Duration: 25.70s, Total samples = 25.70s (  100%)
+Showing nodes accounting for 25.52s, 99.30% of 25.70s total
+Dropped 21 nodes (cum <= 0.13s)
+Showing top 20 nodes out of 26
+      flat  flat%   sum%        cum   cum%
+    13.49s 52.49% 52.49%     13.51s 52.57%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.exponentSet.has (inline)
+     4.55s 17.70% 70.19%     25.68s 99.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func7
+     2.66s 10.35% 80.54%      2.66s 10.35%  internal/runtime/syscall/linux.Syscall6
+     2.26s  8.79% 89.34%     16.90s 65.76%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).validateSupport
+     1.24s  4.82% 94.16%      1.24s  4.82%  crypto/internal/fips140/sha256.blockSHANI
+     1.11s  4.32% 98.48%      1.11s  4.32%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.exponentSet.add (inline)
+     0.21s  0.82% 99.30%      0.21s  0.82%  encoding/binary.littleEndian.Uint32 (inline)
+         0     0% 99.30%      4.01s 15.60%  bufio.(*Reader).Read
+         0     0% 99.30%      1.24s  4.82%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0% 99.30%      1.24s  4.82%  crypto/internal/fips140/sha256.block
+         0     0% 99.30%     25.68s 99.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation
+         0     0% 99.30%     25.68s 99.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation.func1
+         0     0% 99.30%     25.68s 99.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0% 99.30%     25.68s 99.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0% 99.30%      2.66s 10.35%  internal/poll.(*FD).Read
+         0     0% 99.30%      2.66s 10.35%  internal/poll.ignoringEINTRIO (inline)
+         0     0% 99.30%      3.90s 15.18%  io.(*teeReader).Read
+         0     0% 99.30%      4.01s 15.60%  io.ReadAtLeast
+         0     0% 99.30%      4.01s 15.60%  io.ReadFull (inline)
+         0     0% 99.30%      2.66s 10.35%  os.(*File).Read

@@ -42,7 +42,8 @@ progress exceeded its budget. Support is retained; see the
 [stop report](../experiments/hpc-s16/report.md). Private base-field lookup now
 improves complete s10 preparation by 1.56× and the measured s16 leaf kernel by
 3.55×; see the [matched comparison](../experiments/preparation-arithmetic/report.md).
-Full s16 preprocessing/encoding feasibility remains open. Expand the current
+Full s16 preparation now completes in the actual GPU-assisted run below; s16
+database encoding remains unverified. Expand the current
 design-selection/scaling step with these sub-steps:
 
 1. **Targeted profile.** Separate root generation, small polynomial products and
@@ -739,3 +740,17 @@ HPC or a GPU, change protocol scope or require every field to use specialized ha
 Keep the generic local path and references intact, and retain all source-machine
 caches/profiles until verified transfer. New host/job budgets replace laptop values
 only after resource review; no additional large laptop run is planned.
+
+
+## Actual GPU-assisted s16 preparation checkpoint
+
+The [actual preparation report](../experiments/gpu-preparation/report.md) records
+job72875 COMPLETED/0:0:2h20m15s preparation,46.0 s final persistence and2h24m15s
+allocation elapsed. Saved support was reused; no rediscovery. Full P*G identity
+passes, normalized P and final G/spectrum are retained. Sampled process RSS72.575
+GiB and new cache35.430 GiB stay below the admitted guards. Large artifact hashes
+were computed by the controller; source/log/metadata reconciliation passes.
+No full-domain synthetic sweep was needed. Next is separately admitted cached
+s16 database encoding and its output checks; do not restart preparation or launch
+encoding automatically. A matched full CPU baseline/whole-run speedup, application
+integration and TRL5 acceptance remain unverified.

@@ -5,7 +5,7 @@ User chose an actual guarded run rather than additional synthetic size sweeps.
 reuse exact saved support and the verified resident transform/product backend.
 Parent published checkpoint:412eb29. Each manifest records exact revision, dirty
 source hashes/snapshots, hardware/toolchain, commands and artifact hashes.
-Results are pending. Do not describe full s16 preprocessing as demonstrated.
+Actual preparation now passes as recorded below; s16 database encoding remains unverified.
 
 ```sh
 module load slurm/slurm/25.05
@@ -122,3 +122,107 @@ sealed evidence verify. Full Go/native suites, focused race/vet and s10 referenc
 replay checks all pass. The actual admission uses validation-03 and exactly the
 same runtime sources. Staged whitespace checking now passes with the targeted
 raw-profile-log attribute; earlier measurement bytes remain unchanged.
+
+
+## Actual submission and handoff
+
+Job72875, actual-01, was submitted from published revisiond9a80f0 with
+`--admission validation-03`. [Live manifest](runs/actual-01/results.json) and
+[Slurm log](slurm-72875.log) record startup and eventual outcome. At the initial handoff, startup
+was running and full preparation was not yet verified. The controller requires
+identical validated runtime hashes and the frozen support digest before entering
+the worker. No synthetic size sweep or database encoding is scheduled. Leave the
+job unmonitored after handoff; when the user reports completion, run
+`python3 -B experiments/gpu-preparation/analyze.py actual-01`, inspect any guard/
+error outcome and update this report before making completion claims.
+
+
+## Completed actual preparation
+
+[Actual-01 manifest](runs/actual-01/results.json), job72875 at revisiond9a80f0,
+passes with no guard stop. [Final accounting](runs/actual-01/accounting.log)
+records COMPLETED/0:0 and **2h24m15s** allocation elapsed. Environment is recorded
+in its hostname/CPU/GPU/compiler/toolkit logs; the run uses the H200 NVL/Xeon6710E
+setup. The phase clocks are profiled wall timings, including diagnostic GC and
+root checkpoint persistence, and exclude the original support discovery:
+
+| Phase | Measured wall time |
+|---|---:|
+| Native/GPU executor setup | 0.849 s |
+| Load and verify saved support (labeled discovery) | 25.702 s |
+| Complete preparation, including identity verification | 2h20m15.469s |
+| Stream final online/G files | 46.021 s |
+| Release executors and host state | 1.147 s |
+
+The worker process takes8491.095 s (2h21m31s); its phase clocks exclude profile
+start/stop and some wrapper costs. Allocation elapsed additionally includes
+controller startup, verified support input, build, profile summaries and cache
+hashing. This is faster than the conversational3–5-hour rough estimate. It is
+not a matched CPU/GPU whole-run speedup: the historical CPU attempt was stopped,
+and its discovery/setup boundary differs.
+
+Exact K918,672,421 and N4,294,967,296; full P*G=1+X^(N-1) identity verified.
+The normalized root checkpoint and complete P/G/spectrum files were saved.
+Sampled process-group RSS peaks at77,926,809,600 bytes (**72.575 GiB**), below the
+224 GiB guard; Slurm accounting records a different sampling boundary. New cache
+occupies38,043,010,613 bytes (**35.430 GiB**), excluding symlinked original support.
+No runtime explicit-device peak was sampled;48 GiB remains the three-array payload
+model, bounded by the64 GiB engine cap. Owned device state is zero after close.
+
+There are223,322 resident product calls and one standalone spectrum transform.
+Transfer-inclusive GPU calls total3745.148 s (62.419 minutes), including event and
+call overhead. This is part of preparation wall time, not a separate latency or
+GPU utilization percentage. Retained [Go profile summary](runs/actual-01/pprof-preparation.pprof.log)
+shows substantial remaining root arithmetic/small-product work as well as Cgo
+calls; it cannot identify GPU/native instruction hotspots.
+
+Reusable files under `.cache/liftrs/gpu-preparation/s16-m2-t5`:
+
+| File | Bytes | Recorded SHA256 |
+|---|---:|---|
+| root.bin | 3,674,689,688 | ec7c60c6e0f6349bf1a81d110012ec24ce330a33ac86b20991571941c11c6a79 |
+| g.bin | 13,505,179,500 | 488d9d65d67b1b77a658071cab3349e00c0cff9f9c72802049d2bf1b20ff7cc0 |
+| online.bin | 20,854,558,905 | f33dc66cb3b616697866a298ad04dd3d4853fb98bf840f3c81976955bc895874 |
+
+The controller computed final cache digests before marking passed. The lightweight
+[reconciliation script](reconcile.sh), run as
+`bash experiments/gpu-preparation/reconcile.sh actual-01`, verifies284 exact source
+hashes,42 sealed evidence files, small cached files, recorded metadata/digest
+agreement and actual artifact sizes. Its [result](runs/actual-01/reconciliation.json)
+explicitly does **not** rehash the three large payload files. The existing
+[analyzer](analyze.py) can perform that bulk recheck; treat it as a nontrivial job
+and hand it off if expected to exceed30 seconds. Existing evidence bytes remain
+unchanged. No additional hardware job was submitted during reconciliation.
+
+This demonstrates complete experimental s16 preparation on the measured machine.
+It does not validate a fresh cached s16 database encoding, full application/
+cryptographic execution or TRL5 acceptance. Next is one separately admitted cached
+encoding with saved online.bin; it must check every systematic position, independent
+curve samples and packed readback, retain profiling and obey the user's job handoff
+rule. No encoding was launched automatically.
+
+
+## Rough estimate for the next cached encoding
+
+The current [online path](../../encoding/liftrs-shared/scaling_matrix_cpp.go)
+executes the whole database-dependent encoding in C++; its transforms and scalar
+work remain CPU. The optional GPU backend above accelerates preparation. A GPU
+online encoding would require separate integration and correctness checks, so its
+preparation gains are not applied to this estimate.
+
+The same-host retained [width-02 s15 analysis](../hpc-cached-s15/runs/width-02/analysis.json)
+measures705.864 s encoding on16 workers, versus655.937 s in the older baseline.
+For s15, three prefix transforms have2^29 values and two full transforms2^30;
+s16 needs2^31/2^32 respectively. All domains grow4x. A rough N*log2(N)^2 scaling
+scenario gives705.864*4*(32/30)^2≈3212 s (53.5 minutes), excluding loading and
+validation. This is a planning model, not a measured cost law. Field/basis changes,
+allocation, memory bandwidth, larger scatter output and worker scaling introduce
+uncertainty; do not assume doubling cores halves runtime.
+
+Use **45–75 minutes for encoding alone**, roughly **1–1.5 hours for a fresh cached
+run including loading, correctness checks and packed-output persistence**. Plan
+around one hour for the kernel. The broader run estimate reflects width-02's
+179.2 s s15 validation and its growth with message/output size plus I/O variability.
+It reuses prepared code, excludes discovery/preparation and queue wait, and covers
+one field-element database, not an entire application layout or cryptographic
+encoding. No new timing job was run and no GPU-online speedup is claimed.
