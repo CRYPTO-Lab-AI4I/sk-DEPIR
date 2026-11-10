@@ -1,0 +1,14 @@
+File: preparation.test
+Build ID: cc0f786afbcc45570e04da94d780a547c1c82197
+Type: cpu
+Time: 2026-11-10 14:56:39 CET
+Duration: 28.49ms, Total samples = 20ms (70.21%)
+Showing nodes accounting for 20ms, 100% of 20ms total
+      flat  flat%   sum%        cum   cum%
+      20ms   100%   100%       20ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func15.1 (inline)
+         0     0%   100%       20ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation
+         0     0%   100%       20ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation.func1
+         0     0%   100%       20ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%       20ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func15
+         0     0%   100%       20ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%       20ms   100%  testing.tRunner

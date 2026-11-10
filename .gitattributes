@@ -27,3 +27,4 @@ experiments/gpu-scaling/runs/*/compiler.log whitespace=-blank-at-eof
 experiments/gpu-scaling/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
 experiments/gpu-preparation/runs/*/compiler.log whitespace=-blank-at-eof
 experiments/gpu-preparation/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
+experiments/gpu-preparation/runs/*/pprof-*.log whitespace=-blank-at-eol

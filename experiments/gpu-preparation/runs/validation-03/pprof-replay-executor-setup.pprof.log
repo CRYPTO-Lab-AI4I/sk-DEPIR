@@ -1,0 +1,28 @@
+File: preparation.test
+Build ID: cc0f786afbcc45570e04da94d780a547c1c82197
+Type: cpu
+Time: 2026-11-10 14:56:39 CET
+Duration: 402.30ms, Total samples = 190ms (47.23%)
+Showing nodes accounting for 190ms, 100% of 190ms total
+Showing top 20 nodes out of 30
+      flat  flat%   sum%        cum   cum%
+     170ms 89.47% 89.47%      170ms 89.47%  runtime.cgocall
+      10ms  5.26% 94.74%       10ms  5.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+      10ms  5.26%   100%       10ms  5.26%  runtime.scanObject
+         0     0%   100%       20ms 10.53%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).PrepareTaylor
+         0     0%   100%       20ms 10.53%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Plan).PrepareTaylor.func1 (inline)
+         0     0%   100%       20ms 10.53%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_plan_prepare_taylor
+         0     0%   100%      180ms 94.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation
+         0     0%   100%      180ms 94.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation.func1
+         0     0%   100%      160ms 84.21%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUFullPreparation.func1.1
+         0     0%   100%       10ms  5.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.gpuMatrixDescription
+         0     0%   100%       10ms  5.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.gpuMatrixDescriptionV2
+         0     0%   100%       20ms 10.53%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newMatrixCPP
+         0     0%   100%       20ms 10.53%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newScalingPreparationCPP
+         0     0%   100%       10ms  5.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0%   100%       10ms  5.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow
+         0     0%   100%       10ms  5.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orderedTransform
+         0     0%   100%       10ms  5.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orderedTransform.func1 (inline)
+         0     0%   100%      180ms 94.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%      180ms 94.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%      180ms 94.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func6

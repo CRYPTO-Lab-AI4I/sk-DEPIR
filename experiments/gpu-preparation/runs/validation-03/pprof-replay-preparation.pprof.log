@@ -1,0 +1,28 @@
+File: preparation.test
+Build ID: cc0f786afbcc45570e04da94d780a547c1c82197
+Type: cpu
+Time: 2026-11-10 14:56:40 CET
+Duration: 984.65ms, Total samples = 580ms (58.90%)
+Showing nodes accounting for 580ms, 100% of 580ms total
+Showing top 20 nodes out of 55
+      flat  flat%   sum%        cum   cum%
+     490ms 84.48% 84.48%      490ms 84.48%  runtime.cgocall
+      10ms  1.72% 86.21%       10ms  1.72%  encoding/json/internal/jsonwire.AppendQuote
+      10ms  1.72% 87.93%       10ms  1.72%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).addProduct (inline)
+      10ms  1.72% 89.66%      390ms 67.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyInverse
+      10ms  1.72% 91.38%       10ms  1.72%  internal/runtime/maps.ctrlGroup.matchH2 (inline)
+      10ms  1.72% 93.10%       10ms  1.72%  runtime.(*spanSet).reset
+      10ms  1.72% 94.83%       10ms  1.72%  runtime.growslice
+      10ms  1.72% 96.55%       10ms  1.72%  runtime.scanObject
+      10ms  1.72% 98.28%       30ms  5.17%  runtime/pprof.(*profileBuilder).appendLocsForStack
+      10ms  1.72%   100%       40ms  6.90%  runtime/pprof.writeHeapProto
+         0     0%   100%       10ms  1.72%  encoding/json.Marshal (inline)
+         0     0%   100%       10ms  1.72%  encoding/json/jsontext.(*Encoder).WriteToken (inline)
+         0     0%   100%       10ms  1.72%  encoding/json/jsontext.(*encoderState).WriteToken
+         0     0%   100%       10ms  1.72%  encoding/json/jsontext.Token.appendString
+         0     0%   100%       10ms  1.72%  encoding/json/v2.Marshal
+         0     0%   100%       10ms  1.72%  encoding/json/v2.makeMapArshaler.func2
+         0     0%   100%       10ms  1.72%  encoding/json/v2.marshalEncode
+         0     0%   100%      570ms 98.28%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScalingCheckpointed
+         0     0%   100%       40ms  6.90%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScalingCheckpointed.func1
+         0     0%   100%       20ms  3.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScalingCheckpointed.func3 (inline)

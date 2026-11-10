@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-10 13:57 | GPU-021 | Progress | [Final integration source set validated](2026-11-10-1357-codex-gpu-021-final-validation.md) |
+| 2026-11-10 13:54 | GPU-021 | Correction | [Restore diagnostic tests and retain profile bytes](2026-11-10-1354-codex-gpu-021-test-restoration.md) |
 | 2026-11-10 13:53 | GPU-021 | Progress | [Actual preparation integration validated](2026-11-10-1353-codex-gpu-021-validation.md) |
 | 2026-11-10 13:49 | GPU-021 | Correction | [Validation legacy build setup corrected](2026-11-10-1349-codex-gpu-021-correction.md) |
 | 2026-11-10 13:43 | GPU-021 | Started | [Actual GPU-assisted s16 preparation](2026-11-10-1343-codex-gpu-021-started.md) |

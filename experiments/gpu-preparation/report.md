@@ -9,9 +9,9 @@ Results are pending. Do not describe full s16 preprocessing as demonstrated.
 
 ```sh
 module load slurm/slurm/25.05
-sbatch --cpus-per-task=4 --mem=16G --time=00:15:00 --output=experiments/gpu-preparation/slurm-%j.log experiments/gpu-preparation/run.sbatch validation-02 --validate
+sbatch --cpus-per-task=4 --mem=16G --time=00:15:00 --output=experiments/gpu-preparation/slurm-%j.log experiments/gpu-preparation/run.sbatch validation-03 --validate
 # After successful validation with identical runtime sources:
-sbatch --output=experiments/gpu-preparation/slurm-%j.log experiments/gpu-preparation/run.sbatch actual-01 --admission validation-02
+sbatch --output=experiments/gpu-preparation/slurm-%j.log experiments/gpu-preparation/run.sbatch actual-01 --admission validation-03
 ```
 
 ## Integration and correctness
@@ -105,3 +105,20 @@ and sealed evidence verify. Full small preparation takes1.433 s and root replay
 0.668 s, with GPU setup0.720/0.402 s separately; these are instrumented integration
 checks, not full-s16 forecasts. GPU resources close to zero after each run.
 Runtime sources must exactly match this validation before actual admission.
+
+
+Final diff review caught a test filename collision after validation-02: the new
+root-checkpoint helpers had replaced the existing diagnostic test file. Restore
+that file exactly and keep the new tests in preparation_root_checkpoint_test.go.
+Fresh validation-03 is required before actual admission. Historical source
+snapshots preserve the exact validation-02 contents. Raw zero-sample pprof logs
+retain their hashes under a targeted whitespace attribute; no log bytes changed.
+
+
+[Final validation-03](runs/validation-03/results.json), job72873, and
+[analysis](runs/validation-03/analysis.json) pass after restoring the original
+diagnostic and separating the root-checkpoint tests.284 exact source hashes and
+sealed evidence verify. Full Go/native suites, focused race/vet and s10 reference/
+replay checks all pass. The actual admission uses validation-03 and exactly the
+same runtime sources. Staged whitespace checking now passes with the targeted
+raw-profile-log attribute; earlier measurement bytes remain unchanged.

@@ -1,0 +1,28 @@
+File: preparation.test
+Build ID: cc0f786afbcc45570e04da94d780a547c1c82197
+Type: cpu
+Time: 2026-11-10 14:56:36 CET
+Duration: 1.64s, Total samples = 1.21s (73.59%)
+Showing nodes accounting for 1.21s, 100% of 1.21s total
+Showing top 20 nodes out of 109
+      flat  flat%   sum%        cum   cum%
+     0.66s 54.55% 54.55%      0.66s 54.55%  runtime.cgocall
+     0.15s 12.40% 66.94%      0.24s 19.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).addProduct (inline)
+     0.12s  9.92% 76.86%      0.12s  9.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     0.11s  9.09% 85.95%      0.11s  9.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).mul (inline)
+     0.04s  3.31% 89.26%      0.27s 22.31%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     0.02s  1.65% 90.91%      0.02s  1.65%  internal/runtime/syscall/linux.Syscall6
+     0.02s  1.65% 92.56%      0.02s  1.65%  runtime.madvise
+     0.01s  0.83% 93.39%      0.01s  0.83%  compress/flate.(*huffmanBitWriter).writeTokens
+     0.01s  0.83% 94.21%      0.67s 55.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+     0.01s  0.83% 95.04%      0.11s  9.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow
+     0.01s  0.83% 95.87%      0.01s  0.83%  runtime.(*mspan).moveInlineMarks
+     0.01s  0.83% 96.69%      0.01s  0.83%  runtime.(*sysMemStat).add
+     0.01s  0.83% 97.52%      0.01s  0.83%  runtime.getGCMask
+     0.01s  0.83% 98.35%      0.01s  0.83%  runtime.memmove
+     0.01s  0.83% 99.17%      0.01s  0.83%  runtime.nextFreeFast (inline)
+     0.01s  0.83%   100%      0.01s  0.83%  runtime.step
+         0     0%   100%      0.01s  0.83%  compress/flate.(*Writer).Close (inline)
+         0     0%   100%      0.01s  0.83%  compress/flate.(*compressor).close
+         0     0%   100%      0.01s  0.83%  compress/flate.(*compressor).deflateFast
+         0     0%   100%      0.01s  0.83%  compress/flate.(*huffmanBitWriter).writeBlockDynamic
