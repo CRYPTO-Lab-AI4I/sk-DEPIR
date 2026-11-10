@@ -1,0 +1,16 @@
+File: matrix.test
+Build ID: ba356ecd13f36a5c0d090dd08ee5d1c23d1e5594
+Type: cpu
+Time: 2026-11-10 10:41:45 CET
+Duration: 5.73s, Total samples = 20.84s (363.58%)
+Showing nodes accounting for 20.71s, 99.38% of 20.84s total
+Dropped 19 nodes (cum <= 0.10s)
+      flat  flat%   sum%        cum   cum%
+    15.11s 72.50% 72.50%     15.11s 72.50%  [matrix.test]
+     5.57s 26.73% 99.23%      5.57s 26.73%  runtime.cgocall
+     0.03s  0.14% 99.38%      5.71s 27.40%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUMatrixFixtures
+         0     0% 99.38%      5.57s 26.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0% 99.38%      5.57s 26.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0% 99.38%      5.57s 26.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*scalingPreparationCPP).apply
+         0     0% 99.38%     15.12s 72.55%  runtime._ExternalCode
+         0     0% 99.38%      5.71s 27.40%  testing.tRunner

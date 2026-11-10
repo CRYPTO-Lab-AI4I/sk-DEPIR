@@ -1,0 +1,5 @@
+{
+  "backend": "gpu",
+  "boundaries": "Only extension transforms \u003e=4096 points use GPU. Base discovery transforms, root products/orchestration, pointwise products and complete online encoding remain CPU; each GPU transform uploads/downloads. CPU native scratch is retained.",
+  "setup_seconds": 0
+}

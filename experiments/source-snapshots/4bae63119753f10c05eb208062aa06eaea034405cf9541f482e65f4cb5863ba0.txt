@@ -1,0 +1,147 @@
+//go:build liftrs_cpp && cgo
+
+package liftrs
+
+import (
+	"encoding/binary"
+	"encoding/json"
+	"math/rand"
+	"os"
+	"path/filepath"
+	"runtime/pprof"
+	"testing"
+	"time"
+)
+
+// Matrix descriptions are internal experiment fixtures, not a public format.
+func gpuMatrixDescription(f orbitField, dimension int) ([]uint32, []uint32, []uint32, error) {
+	split := dimension / 2
+	low := make([]uint32, split+1)
+	for j := range low {
+		low[j] = 1 << uint(j)
+	}
+	rows, err := orderedTransform(f, low)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	gamma := make([]uint32, dimension-split)
+	for j := range gamma {
+		for _, term := range rows.terms[split] {
+			gamma[j] ^= f.mul(term.coefficient, f.pow(1<<uint(split+j), term.degree))
+		}
+	}
+	columns, err := orderedTransform(f, gamma)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	words := []uint32{1 << uint(dimension), uint32(split), uint32(2 * f.base.Degree())}
+	tile := func(a *additiveTransform, basis []uint32) {
+		words = append(words, uint32(len(basis)))
+		words = append(words, basis...)
+		for k := range basis {
+			words = append(words, uint32(len(a.terms[k])))
+			for _, term := range a.terms[k] {
+				words = append(words, uint32(term.degree), term.coefficient)
+			}
+			words = append(words, a.values[k]...)
+			words = append(words, a.delta[k], a.inverse[k])
+		}
+	}
+	tile(rows, low)
+	tile(columns, gamma)
+	orderedWords := func(a *additiveTransform, basis []uint32) []uint32 {
+		w := cppDescription(a)
+		header := 6
+		if w[0] == 3 {
+			header = 7
+		}
+		w[0]++
+		out := append([]uint32(nil), w[:header]...)
+		out = append(out, basis...)
+		return append(out, w[header:]...)
+	}
+	return words, orderedWords(rows, low), orderedWords(columns, gamma), nil
+}
+
+func TestGPUMatrixFixtures(t *testing.T) {
+	out := os.Getenv("PIR_GPU_FIXTURE_OUT")
+	if out == "" {
+		t.Skip("opt-in composed GPU matrix fixtures")
+	}
+	check := func(err error) {
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+	file, err := os.Create(filepath.Join(out, "matrix.bin"))
+	check(err)
+	defer file.Close()
+	word := func(v uint32) { check(binary.Write(file, binary.LittleEndian, v)) }
+	words := func(v []uint32) { check(binary.Write(file, binary.LittleEndian, v)) }
+	base, extension, _, _ := orbitFields(16, 0x1002d)
+	table := newPreparationProducts(base.base)
+	word(0x314d474c)
+	word(16)
+	word(base.base.Polynomial())
+	word(extension.extension.Delta())
+	word(uint32(len(table.log)))
+	words(table.log)
+	word(uint32(len(table.powers)))
+	words(table.powers)
+	dimensions := []int{4, 6, 8, 18, 20, 22}
+	word(uint32(len(dimensions)))
+	rng := rand.New(rand.NewSource(1601))
+	var cases []map[string]any
+	profile, err := os.Create(filepath.Join(out, "fixture.pprof"))
+	check(err)
+	check(pprof.StartCPUProfile(profile))
+	defer pprof.StopCPUProfile()
+	for _, dimension := range dimensions {
+		description, rowWords, columnWords, err := gpuMatrixDescription(extension, dimension)
+		check(err)
+		for _, v := range [][]uint32{description, rowWords, columnWords} {
+			word(uint32(len(v)))
+			words(v)
+		}
+		n := 1 << uint(dimension)
+		input := make([]uint32, n)
+		for i := range input {
+			input[i] = rng.Uint32()
+		}
+		want := append([]uint32(nil), input...)
+		plan, err := newMatrixCPP(extension, dimension)
+		check(err)
+		executor := &scalingPreparationCPP{plans: map[int]*matrixCPPPlan{n: plan}, scratch: make([]uint32, n), workers: 4}
+		start := time.Now()
+		executor.apply(want, false)
+		seconds := time.Since(start).Seconds()
+		if n <= 256 {
+			for point := 0; point < n; point++ {
+				v := uint32(0)
+				for j := len(input) - 1; j >= 0; j-- {
+					v = extension.mul(v, uint32(point)) ^ input[j]
+				}
+				if v != want[point] {
+					t.Fatal("independent Horner fixture", dimension, point)
+				}
+			}
+		}
+		words(input)
+		words(want)
+		executor.apply(want, true)
+		executor.close()
+		for i := range want {
+			if want[i] != input[i] {
+				t.Fatal("CPU matrix inverse fixture")
+			}
+		}
+		cases = append(cases, map[string]any{"dimension": dimension, "n": n, "forward_seconds": seconds, "horner_checked": n <= 256})
+	}
+	pprof.StopCPUProfile()
+	check(profile.Close())
+	check(file.Sync())
+	check(file.Close())
+	raw, err := json.MarshalIndent(cases, "", "  ")
+	check(err)
+	check(os.WriteFile(filepath.Join(out, "fixtures.json"), raw, 0644))
+}

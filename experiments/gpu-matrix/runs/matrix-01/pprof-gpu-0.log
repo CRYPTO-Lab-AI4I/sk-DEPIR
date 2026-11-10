@@ -1,0 +1,29 @@
+File: matrix.test
+Build ID: ba356ecd13f36a5c0d090dd08ee5d1c23d1e5594
+Type: cpu
+Time: 2026-11-10 10:42:59 CET
+Duration: 2.86s, Total samples = 2.54s (88.69%)
+Showing nodes accounting for 2.39s, 94.09% of 2.54s total
+Dropped 70 nodes (cum <= 0.01s)
+Showing top 20 nodes out of 63
+      flat  flat%   sum%        cum   cum%
+     0.64s 25.20% 25.20%      1.18s 46.46%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).addProduct (inline)
+     0.54s 21.26% 46.46%      0.54s 21.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).mul (inline)
+     0.51s 20.08% 66.54%      0.51s 20.08%  runtime.cgocall
+     0.36s 14.17% 80.71%      0.36s 14.17%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     0.11s  4.33% 85.04%      1.35s 53.15%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     0.05s  1.97% 87.01%      0.40s 15.75%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.03s  1.18% 88.19%      0.03s  1.18%  runtime.memclrNoHeapPointers
+     0.03s  1.18% 89.37%      0.03s  1.18%  runtime.nextFreeFast (inline)
+     0.02s  0.79% 90.16%      1.40s 55.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+     0.02s  0.79% 90.94%      0.02s  0.79%  internal/runtime/atomic.(*Uint32).Add (inline)
+     0.02s  0.79% 91.73%      0.04s  1.57%  runtime.(*sweepLocked).sweep
+     0.01s  0.39% 92.13%      0.84s 33.07%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+     0.01s  0.39% 92.52%      0.09s  3.54%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow
+     0.01s  0.39% 92.91%      0.35s 13.78%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.01s  0.39% 93.31%      0.04s  1.57%  runtime.gcDrain
+     0.01s  0.39% 93.70%      0.09s  3.54%  runtime.mallocgcSmallNoscan
+     0.01s  0.39% 94.09%      0.02s  0.79%  runtime/pprof.(*profileBuilder).appendLocsForStack
+         0     0% 94.09%      2.41s 94.88%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScalingObserved
+         0     0% 94.09%      0.02s  0.79%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScalingObserved.func1
+         0     0% 94.09%      0.03s  1.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply

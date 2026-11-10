@@ -1,0 +1,15 @@
+=== RUN   TestGPUPreparation
+    s15_firstuse_probe_test.go:116: executor-setup 658.850041ms
+    s15_firstuse_probe_test.go:116: discovery 1.114795272s
+    s15_firstuse_probe_test.go:116: save-basis 10.541583ms
+    s15_firstuse_probe_test.go:116: preparation 2.863939532s
+    s15_firstuse_probe_test.go:116: save-prepared 33.32449ms
+    s15_firstuse_probe_test.go:116: release-preparation 745.209µs
+    s15_firstuse_probe_test.go:116: load-online 155.002922ms
+    s15_firstuse_probe_test.go:116: online-setup 3.852886ms
+    s15_firstuse_probe_test.go:116: encode-0 1.018850416s
+    s15_firstuse_probe_test.go:116: verify-0 31.250831ms
+    s15_firstuse_probe_test.go:116: pack-output 20.456759ms
+    s15_firstuse_probe_test.go:116: verify-packed 273.848384ms
+--- PASS: TestGPUPreparation (6.64s)
+PASS

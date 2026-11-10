@@ -223,7 +223,11 @@ or the asymptotically best known multiplier. Immutable transform data are reused
 all database-dependent scratch is per call and excluded from public artifacts.
 The [comparison](../../experiments/fast-polynomial/report.md) records thresholds,
 correctness, allocation and whole-encoder effects. The backend remains in memory;
-there is no external-storage, streaming, GPU or constant-time implementation.
+there is no external-storage, streaming or constant-time implementation in this
+default path. The separate [GPU matrix experiment](../../experiments/gpu-matrix/report.md)
+validates complete transforms, resident convolution and GPU-assisted s10
+preprocessing under `liftrs_cuda`; it does not change ordinary constructors or
+move the complete online encoder to GPU.
 The accepted s<=13 range supports resource-limited experiments, not a guarantee
 that every code or serialized cache fits RAM or loader limits. Completed catalogue
 benchmarks cover the public cyclic path through s=13. The experimental

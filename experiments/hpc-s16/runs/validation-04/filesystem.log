@@ -1,0 +1,3 @@
+Filesystem           Type        1B-blocks            Used        Available Use% Mounted on
+10.0.23.31:/hpc/home nfs  5088133938937856 143588050599936 4944545888337920   3% /hpc/home
+/dev/nvme0n1p3       xfs     1902163845120     62718222336    1839445622784   4% /

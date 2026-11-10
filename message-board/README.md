@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-10 09:51 | GPU-016 | Completed | [Composed GPU transforms and smaller pipeline pass](2026-11-10-0951-codex-gpu-016-completed.md) |
 | 2026-11-10 09:31 | GPU-016 | Started | [Compose complete GPU transforms](2026-11-10-0931-codex-gpu-016-started.md) |
 | 2026-11-10 09:21 | PREP-015 | Completed | [CPU/GPU trials pass; private Go loops integrated](2026-11-10-0921-codex-prep-015-completed.md) |
 | 2026-11-10 09:01 | PREP-015 | Started | [CPU crossover and GPU transform trials](2026-11-10-0901-codex-prep-015-started.md) |

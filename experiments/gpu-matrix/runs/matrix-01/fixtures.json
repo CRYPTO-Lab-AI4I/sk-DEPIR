@@ -1,0 +1,38 @@
+[
+  {
+    "dimension": 4,
+    "forward_seconds": 0.000449751,
+    "horner_checked": true,
+    "n": 16
+  },
+  {
+    "dimension": 6,
+    "forward_seconds": 0.000820283,
+    "horner_checked": true,
+    "n": 64
+  },
+  {
+    "dimension": 8,
+    "forward_seconds": 0.000456922,
+    "horner_checked": true,
+    "n": 256
+  },
+  {
+    "dimension": 18,
+    "forward_seconds": 0.108179384,
+    "horner_checked": false,
+    "n": 262144
+  },
+  {
+    "dimension": 20,
+    "forward_seconds": 0.489926298,
+    "horner_checked": false,
+    "n": 1048576
+  },
+  {
+    "dimension": 22,
+    "forward_seconds": 2.193496902,
+    "horner_checked": false,
+    "n": 4194304
+  }
+]

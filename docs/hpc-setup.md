@@ -73,6 +73,12 @@ module is `cuda12.9/toolkit/12.9.1`. CUDA remains an optional experiment depende
 These are warmed component measurements including separate transfer/setup clocks,
 not a working complete GPU encoder or consumer-GPU benchmark. The library
 encoding implementation remains CPU-based; full s16 feasibility remains open.
+The subsequent [matrix composition experiment](../experiments/gpu-matrix/report.md)
+also runs complete GPU forward/inverse transforms and resident convolution on
+gnode03, with four/sixteen-core CPU comparisons and GPU-assisted s10 preparation.
+It uses one device, sixteen allocated CPU cores and the same CUDA/GCC modules.
+This optional backend is built as a shared library and loaded only by
+`liftrs_cuda` experiments; ordinary builds need no CUDA installation.
 
 ## Retained reference data
 

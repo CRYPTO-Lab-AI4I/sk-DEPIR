@@ -1,0 +1,200 @@
+{
+  "status": "passed",
+  "job_id": "72835",
+  "sources_verified": 264,
+  "setup_seconds": 0.653107704,
+  "owned_device_bytes_after_all_plans": 51184600,
+  "matrices": [
+    {
+      "n": 16,
+      "gpu_forward_seconds": 0.000181143,
+      "gpu_inverse_seconds": 0.000179863,
+      "cpu_4_forward_seconds": 0.000244909,
+      "cpu_16_forward_seconds": 0.000247596
+    },
+    {
+      "n": 64,
+      "gpu_forward_seconds": 0.000259884,
+      "gpu_inverse_seconds": 0.000259304,
+      "cpu_4_forward_seconds": 0.000331295,
+      "cpu_16_forward_seconds": 0.00067368
+    },
+    {
+      "n": 256,
+      "gpu_forward_seconds": 0.000397395,
+      "gpu_inverse_seconds": 0.000398359,
+      "cpu_4_forward_seconds": 0.000472829,
+      "cpu_16_forward_seconds": 0.001639384
+    },
+    {
+      "n": 262144,
+      "gpu_forward_seconds": 0.023339282,
+      "gpu_inverse_seconds": 0.02171862,
+      "cpu_4_forward_seconds": 0.107805155,
+      "cpu_16_forward_seconds": 0.041558901
+    },
+    {
+      "n": 1048576,
+      "gpu_forward_seconds": 0.056814606,
+      "gpu_inverse_seconds": 0.05287365,
+      "cpu_4_forward_seconds": 0.490984825,
+      "cpu_16_forward_seconds": 0.173079606
+    },
+    {
+      "n": 4194304,
+      "gpu_forward_seconds": 0.137472458,
+      "gpu_inverse_seconds": 0.12924361,
+      "cpu_4_forward_seconds": 2.194546685,
+      "cpu_16_forward_seconds": 0.759603587
+    }
+  ],
+  "convolutions": [
+    {
+      "n": 262144,
+      "gpu_seconds": 0.064334064,
+      "cpu_4_seconds": 0.348939871,
+      "cpu_16_seconds": 0.151327892
+    },
+    {
+      "n": 1048576,
+      "gpu_seconds": 0.156727939,
+      "cpu_4_seconds": 1.573439838,
+      "cpu_16_seconds": 0.637442187
+    },
+    {
+      "n": 4194304,
+      "gpu_seconds": 0.379261078,
+      "cpu_4_seconds": 6.982384231,
+      "cpu_16_seconds": 2.736643978
+    }
+  ],
+  "pipelines": {
+    "cpu": {
+      "runs": [
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.008769457,
+            "discovery": 1.601751259,
+            "save-basis": 0.010198431,
+            "preparation": 6.686623546,
+            "save-prepared": 0.033079377,
+            "release-preparation": 0.000687615,
+            "load-online": 0.083415438,
+            "online-setup": 0.001865051,
+            "encode-0": 1.0213489,
+            "verify-0": 0.029321786,
+            "pack-output": 0.073231025,
+            "verify-packed": 0.149375778
+          }
+        },
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.008916747,
+            "discovery": 1.599005354,
+            "save-basis": 0.04309963,
+            "preparation": 6.924798073,
+            "save-prepared": 0.03284078,
+            "release-preparation": 0.001195542,
+            "load-online": 0.125712676,
+            "online-setup": 0.001904046,
+            "encode-0": 1.02246139,
+            "verify-0": 0.029199291,
+            "pack-output": 0.019190003,
+            "verify-packed": 0.074772263
+          }
+        }
+      ],
+      "cached": {
+        "s": 10,
+        "k": 146641,
+        "n": 1048576,
+        "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+        "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+        "phase_seconds": {
+          "load-online": 0.007839266,
+          "online-setup": 0.002850718,
+          "encode-0": 1.019711328,
+          "verify-0": 0.029723888,
+          "pack-output": 0.050566533,
+          "verify-packed": 0.089212922
+        }
+      },
+      "preparation_median_seconds": 6.8057108095,
+      "phase_sum_median_seconds": 9.791381729
+    },
+    "gpu": {
+      "runs": [
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.658850041,
+            "discovery": 1.114795272,
+            "save-basis": 0.010541583,
+            "preparation": 2.863939532,
+            "save-prepared": 0.03332449,
+            "release-preparation": 0.000745209,
+            "load-online": 0.155002922,
+            "online-setup": 0.003852886,
+            "encode-0": 1.018850416,
+            "verify-0": 0.031250831,
+            "pack-output": 0.020456759,
+            "verify-packed": 0.273848384
+          }
+        },
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.557505128,
+            "discovery": 1.106089199,
+            "save-basis": 0.00977137,
+            "preparation": 2.57335033,
+            "save-prepared": 0.032561039,
+            "release-preparation": 0.001194626,
+            "load-online": 0.160024545,
+            "online-setup": 0.002042114,
+            "encode-0": 1.018055956,
+            "verify-0": 0.029703581,
+            "pack-output": 0.02113832,
+            "verify-packed": 0.107524513
+          }
+        }
+      ],
+      "cached": {
+        "s": 10,
+        "k": 146641,
+        "n": 1048576,
+        "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+        "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+        "phase_seconds": {
+          "load-online": 0.008062877,
+          "online-setup": 0.002842295,
+          "encode-0": 1.018005601,
+          "verify-0": 0.029157345,
+          "pack-output": 0.020781343,
+          "verify-packed": 0.076563509
+        }
+      },
+      "preparation_median_seconds": 2.718644931,
+      "phase_sum_median_seconds": 5.902209523
+    }
+  },
+  "limits": "Instrumented sequential samples on one data-center GPU; GPU-assisted s10 preprocessing, CPU online encoding. Not full s16, full GPU encoder, constant-time or production validation."
+}

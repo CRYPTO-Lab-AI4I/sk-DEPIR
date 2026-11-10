@@ -1,0 +1,114 @@
+[
+  {
+    "gc_ns": 414318,
+    "heap_before_gc": 7202400,
+    "heap_profile": "preparation-00-before-validation.heap.pprof",
+    "live_heap_after_gc": 7151896,
+    "stage": "before-validation",
+    "workspace_bytes": 0
+  },
+  {
+    "gc_ns": 459851,
+    "heap_before_gc": 8250848,
+    "heap_profile": "preparation-01-before-root-product.heap.pprof",
+    "live_heap_after_gc": 7152544,
+    "stage": "before-root-product",
+    "workspace_bytes": 0
+  },
+  {
+    "gc_ns": 478600,
+    "heap_before_gc": 11532984,
+    "heap_profile": "preparation-02-before-normalization.heap.pprof",
+    "live_heap_after_gc": 8796016,
+    "stage": "before-normalization",
+    "workspace_bytes": 1048576
+  },
+  {
+    "gc_ns": 517732,
+    "heap_before_gc": 10120616,
+    "heap_profile": "preparation-03-before-reciprocal.heap.pprof",
+    "live_heap_after_gc": 8798096,
+    "stage": "before-reciprocal",
+    "workspace_bytes": 1048576
+  },
+  {
+    "gc_ns": 666228,
+    "heap_before_gc": 14329320,
+    "heap_profile": "preparation-04-active-reciprocal-fft-262144.heap.pprof",
+    "live_heap_after_gc": 10895024,
+    "stage": "active-reciprocal-fft-262144",
+    "workspace_bytes": 2097152
+  },
+  {
+    "gc_ns": 587329,
+    "heap_before_gc": 18600528,
+    "heap_profile": "preparation-05-active-reciprocal-fft-524288.heap.pprof",
+    "live_heap_after_gc": 14042544,
+    "stage": "active-reciprocal-fft-524288",
+    "workspace_bytes": 4194304
+  },
+  {
+    "gc_ns": 387359,
+    "heap_before_gc": 22436024,
+    "heap_profile": "preparation-06-active-reciprocal-fft-1048576.heap.pprof",
+    "live_heap_after_gc": 20333232,
+    "stage": "active-reciprocal-fft-1048576",
+    "workspace_bytes": 8388608
+  },
+  {
+    "gc_ns": 489119,
+    "heap_before_gc": 29569736,
+    "heap_profile": "preparation-07-active-reciprocal-fft-1048576.heap.pprof",
+    "live_heap_after_gc": 23948304,
+    "stage": "active-reciprocal-fft-1048576",
+    "workspace_bytes": 8388608
+  },
+  {
+    "gc_ns": 496581,
+    "heap_before_gc": 25374424,
+    "heap_profile": "preparation-08-active-reciprocal-fft-524288.heap.pprof",
+    "live_heap_after_gc": 23948816,
+    "stage": "active-reciprocal-fft-524288",
+    "workspace_bytes": 8388608
+  },
+  {
+    "gc_ns": 363351,
+    "heap_before_gc": 25380408,
+    "heap_profile": "preparation-09-before-identity.heap.pprof",
+    "live_heap_after_gc": 19756064,
+    "stage": "before-identity",
+    "workspace_bytes": 8388608
+  },
+  {
+    "gc_ns": 440313,
+    "heap_before_gc": 25387192,
+    "heap_profile": "preparation-10-active-identity-fft-1048576.heap.pprof",
+    "live_heap_after_gc": 23950832,
+    "stage": "active-identity-fft-1048576",
+    "workspace_bytes": 8388608
+  },
+  {
+    "gc_ns": 466620,
+    "heap_before_gc": 25404528,
+    "heap_profile": "preparation-11-active-identity-fft-524288.heap.pprof",
+    "live_heap_after_gc": 23951360,
+    "stage": "active-identity-fft-524288",
+    "workspace_bytes": 8388608
+  },
+  {
+    "gc_ns": 382135,
+    "heap_before_gc": 25406448,
+    "heap_profile": "preparation-12-before-spectrum.heap.pprof",
+    "live_heap_after_gc": 11356512,
+    "stage": "before-spectrum",
+    "workspace_bytes": 0
+  },
+  {
+    "gc_ns": 461212,
+    "heap_before_gc": 17000344,
+    "heap_profile": "preparation-13-complete.heap.pprof",
+    "live_heap_after_gc": 15552240,
+    "stage": "complete",
+    "workspace_bytes": 0
+  }
+]

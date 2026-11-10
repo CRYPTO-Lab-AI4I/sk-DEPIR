@@ -115,9 +115,14 @@ forward/inverse comparisons on an H200 NVL: warmed, transfer-inclusive tiles are
 19–25× faster than the four-core lookup CPU reference at the largest tested buffer.
 Device initialization is separate. This is a transform component, not a complete
 GPU encoder or a full s16 speedup; the library retains its CPU backend.
-The [next GPU composition step](docs/encoding-scaling.md#completed-comparison-checkpoint-and-next-integration)
-now specifies complete matrix/Taylor transforms, persistent workspace, exact
-CPU comparisons and a smaller-code preparation test before full s16 admission.
+The [GPU composition experiment](experiments/gpu-matrix/report.md) now validates
+complete matrix/Taylor transforms, persistent workspace and resident convolution.
+At 2^22 values, complete GPU transforms take 0.137 s versus 0.760 s on 16 CPU
+cores, excluding reusable setup but including transfers. GPU-assisted s10
+preparation takes 2.719 s versus 6.806 s; complete worker times including setup,
+checks and I/O are 6.790 s versus 10.743 s. These are instrumented sequential
+measurements, not full s16 results or a complete GPU online encoder. CUDA remains
+an optional experiment; default library construction uses CPU.
 
 ## Implementation status and limits
 

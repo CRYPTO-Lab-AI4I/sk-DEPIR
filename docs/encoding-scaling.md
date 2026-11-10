@@ -126,12 +126,11 @@ tiles at 2^22 values are 19–25× faster than the four-core CPU reference using
 same lookup arithmetic. Context initialization is separate; no whole-encoder
 speedup is inferred. This completes the initial component trial in sub-step 5.
 
-Next integration: compose GPU tiles with matrix/Taylor conversion, transposes
-and persistent buffers; measure complete forward/inverse transforms and complete
-smaller-code preparation against the improved CPU path, including one-time setup,
-transfers and CPU core scaling. Validate row and arbitrary column bases, all
-canonical outputs, memory ownership and repeated calls. Record a new bounded
-budget before execution. The next implementation expands into:
+The composition checkpoint covers matrix/Taylor conversion, transposes and
+persistent buffers. It measures complete transforms and smaller-code preparation
+against the improved CPU path, including setup, transfers and CPU core scaling.
+Checks cover row and arbitrary column bases, canonical outputs, memory ownership
+and repeated calls. Its acceptance work is:
 
 1. Compose canonical row tiles and arbitrary-basis column tiles with exact
    h-adic Taylor conversion and transposes. Verify independent small Horner
@@ -157,9 +156,26 @@ allocated device buffers/tables, 30-minute allocation/25-minute controller deadl
 and at most 2^22 transform values. CUDA driver/context memory is separate from
 explicit buffers and must be reported. Preserve caches, source/binary hashes and
 all attempts; no full s16 discovery/preparation is included.
-This is a planned integration, not an implemented GPU backend. Keep CPU batch
-parallelism eligible and revisit root reuse only if integrated profiles justify
-it. Full s16 readmission remains a later decision.
+The [composition experiment](../experiments/gpu-matrix/report.md) now passes items
+1–4 and supplies the selection evidence for item 5: complete forward/inverse
+transforms, arbitrary column bases, persistent buffers, resident convolution,
+independent small Horner/Taylor checks, small CUDA memcheck and exact full s10
+preparation/cached outputs. At 2^22 values, complete forward transform time is
+0.137 s versus 0.760 s on 16 CPU cores; resident convolution is 0.379 s versus
+2.737 s. GPU-assisted s10 preparation is 2.719 s versus 6.806 s, while complete
+worker observations including setup/checks/I/O are 6.790 s versus 10.743 s.
+These instrumented measurements apply to one H200 NVL, not consumer GPUs or full
+s16. The default CPU constructors and complete CPU online encoding remain intact.
+
+The new small-pipeline profile shifts attention to CPU polynomial leaves and
+products outside the GPU resident kernel. Next, compare feeding resident GPU
+convolution into preprocessing, with arbitrary operand lengths, truncated outputs,
+padding, overlap-add and ownership checked against the existing product contract.
+Calibrate CPU/GPU product cutoffs rather than routing tiny products to GPU
+unconditionally. Reuse plans/workspace and retain the improved CPU path; compare
+complete smaller pipelines again before a bounded s16 preparation interval.
+CPU batch parallelism remains eligible. Root reuse remains lower priority in this
+profile, and full s16 readmission still needs a separate budget/provenance review.
 
 ## Step 1: resource accounting
 

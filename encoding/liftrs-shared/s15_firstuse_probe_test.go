@@ -54,7 +54,8 @@ type scalingFirstUseConfig struct {
 	workers, repeats  int
 	memoryLimit       int64
 	onlineOnly        bool
-	preparationCutoff int // Experiment-only override; zero preserves the default.
+	preparationCutoff int                               // Experiment-only override; zero preserves the default.
+	prepareExecutor   func(*OrbitBasis) (func(), error) // Optional experimental backend; cleanup follows the run.
 }
 
 func runScalingFirstUse(t *testing.T, cfg scalingFirstUseConfig) {
@@ -152,13 +153,21 @@ func runScalingFirstUse(t *testing.T, cfg scalingFirstUseConfig) {
 	var setup *scalingPreparationCPP
 	onlineMeta := filepath.Join(cache, "online-metadata.json")
 	if !cfg.onlineOnly {
+		var closeExecutor func()
 		phase("executor-setup", func() map[string]any {
 			var err error
 			basis, setup, err = newScalingPreparationCPP(spec, workers)
 			check(err)
+			if cfg.prepareExecutor != nil {
+				closeExecutor, err = cfg.prepareExecutor(basis)
+				check(err)
+			}
 			return map[string]any{"s": s, "m": 2, "t": curve, "workers": workers, "scratch_bytes": len(setup.scratch) * 4}
 		})
 		defer setup.close()
+		if closeExecutor != nil {
+			defer closeExecutor()
+		}
 		basisMeta := filepath.Join(cache, "basis-metadata.json")
 		phase("discovery", func() map[string]any {
 			raw, err := os.ReadFile(basisMeta)

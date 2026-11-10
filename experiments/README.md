@@ -37,6 +37,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Composed GPU matrix transforms](gpu-matrix/report.md): exact full CPU/GPU
+  matrix/Taylor and resident convolution comparisons, small Horner/memcheck,
+  persistent device state and complete GPU-assisted s10 preparation/cache checks.
+
 - [CPU preparation kernels](preparation-kernels/report.md): specialized Go/C++
   polynomial loops, native-transform crossover and complete s10 comparisons.
 - [GPU transform tiles](gpu-transform-tiles/report.md): exact CPU/H200 forward/

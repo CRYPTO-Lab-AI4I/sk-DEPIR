@@ -160,7 +160,7 @@ sample locations are linked from the [archive manifest](../experiments/parallel-
 The [destination receipt](../message-board/2026-11-09-1316-codex-orient-001-completed.md)
 now verifies transferred s=13/14/15 data. See [HPC setup](hpc-setup.md) for the
 shared toolchain and Slurm GPU inventory. The [cached CPU baseline](../experiments/hpc-cached-s15/report.md)
-now passes full suites and s=15 output checks on a compute node; GPU execution
+now passes full suites and s=15 output checks on a compute node; full GPU encoding
 and s≥16 remain unverified.
 
 Verify the transferred s=15 files against the committed first-use manifest:
