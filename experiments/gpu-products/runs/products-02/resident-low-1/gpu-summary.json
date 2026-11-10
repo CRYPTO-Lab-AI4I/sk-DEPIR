@@ -1,0 +1,19 @@
+{
+  "backend": "resident",
+  "boundaries": "Extension transforms \u003e=4096 points use GPU. Resident backend also keeps eligible complete polynomial convolutions on device, including pointwise products; outer overlap-add/prefix assembly and small products remain Go. Base discovery transforms and complete online encoding remain CPU. CPU native scratch is retained.",
+  "calls": 3,
+  "owned_device_bytes_after_close": 0,
+  "product_calls": 84,
+  "product_cutoff_override": 1024,
+  "setup_seconds": 0.539794163,
+  "stage_seconds": [
+    0.006922782000000001,
+    0.040186496022623024,
+    0.4291776955127715,
+    0.36198038378357894,
+    0.00530931198503822,
+    0.005783483,
+    0.0008294079983606933,
+    0.8957415300000001
+  ]
+}

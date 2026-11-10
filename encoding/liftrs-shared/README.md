@@ -228,6 +228,12 @@ default path. The separate [GPU matrix experiment](../../experiments/gpu-matrix/
 validates complete transforms, resident convolution and GPU-assisted s10
 preprocessing under `liftrs_cuda`; it does not change ordinary constructors or
 move the complete online encoder to GPU.
+Its [resident product adapter](../../experiments/gpu-products/report.md) optionally
+keeps both transforms, pointwise products and inverse on device for each local
+convolution, returning only the required prefix. The existing overlap-add and
+single-caller workspace contract remain in the shared layer. Default executors
+keep the CPU path; the optional private hook accepts immutable inputs and checks
+the returned prefix length. CUDA support remains experimental and bounded.
 The accepted s<=13 range supports resource-limited experiments, not a guarantee
 that every code or serialized cache fits RAM or loader limits. Completed catalogue
 benchmarks cover the public cyclic path through s=13. The experimental

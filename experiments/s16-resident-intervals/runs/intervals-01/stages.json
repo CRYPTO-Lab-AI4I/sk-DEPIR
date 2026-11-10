@@ -1,0 +1,107 @@
+[
+  {
+    "accepted_factors": 459356469,
+    "batches": 14019,
+    "fixed_factors": 40517,
+    "phase": "support-census",
+    "positions": 918672421,
+    "prefix_positions": 1048576,
+    "seconds": 38.231329625
+  },
+  {
+    "cpu_transpose_bytes": 16777216,
+    "maximum_transform_points": 4194304,
+    "phase": "cpu-setup",
+    "seconds": 0.018372371,
+    "workers": 4
+  },
+  {
+    "degree_added": 1048476,
+    "end_position": 524288,
+    "factors_added": 524243,
+    "phase": "cpu-interval-0",
+    "product_cutoff": 32768,
+    "seconds": 16.698910951,
+    "start_position": 0
+  },
+  {
+    "degree_added": 1048235,
+    "end_position": 1048576,
+    "factors_added": 524123,
+    "phase": "cpu-interval-1",
+    "product_cutoff": 32768,
+    "seconds": 19.992399609,
+    "start_position": 524288
+  },
+  {
+    "coefficients": 2096712,
+    "factors": 1048366,
+    "limits": "Finalizes this partial prefix only; not part of the two interval clocks or a complete code.",
+    "phase": "cpu-finish",
+    "seconds": 5.980040258
+  },
+  {
+    "cpu_transpose_bytes": 16777216,
+    "maximum_transform_points": 4194304,
+    "phase": "resident-setup",
+    "seconds": 0.684862883,
+    "workers": 4
+  },
+  {
+    "degree_added": 1048476,
+    "end_position": 524288,
+    "factors_added": 524243,
+    "phase": "resident-interval-0",
+    "product_cutoff": 1024,
+    "seconds": 9.679028303,
+    "start_position": 0
+  },
+  {
+    "degree_added": 1048235,
+    "end_position": 1048576,
+    "factors_added": 524123,
+    "phase": "resident-interval-1",
+    "product_cutoff": 1024,
+    "seconds": 10.526131513,
+    "start_position": 524288
+  },
+  {
+    "coefficients": 2096712,
+    "factors": 1048366,
+    "limits": "Finalizes this partial prefix only; not part of the two interval clocks or a complete code.",
+    "phase": "resident-finish",
+    "seconds": 0.848646994
+  },
+  {
+    "cpu_transpose_bytes": 16777216,
+    "maximum_transform_points": 4194304,
+    "phase": "resident-4096-setup",
+    "seconds": 0.491674442,
+    "workers": 4
+  },
+  {
+    "degree_added": 1048476,
+    "end_position": 524288,
+    "factors_added": 524243,
+    "phase": "resident-4096-interval-0",
+    "product_cutoff": 4096,
+    "seconds": 8.251982691,
+    "start_position": 0
+  },
+  {
+    "degree_added": 1048235,
+    "end_position": 1048576,
+    "factors_added": 524123,
+    "phase": "resident-4096-interval-1",
+    "product_cutoff": 4096,
+    "seconds": 9.01515958,
+    "start_position": 524288
+  },
+  {
+    "coefficients": 2096712,
+    "factors": 1048366,
+    "limits": "Finalizes this partial prefix only; not part of the two interval clocks or a complete code.",
+    "phase": "resident-4096-finish",
+    "seconds": 0.816407108
+  }
+]

@@ -37,6 +37,12 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Resident GPU products](gpu-products/report.md): unequal/truncated products,
+  overlap-add/old-ABI/memcheck and complete CPU/transform-only/resident s10 trials.
+- [Bounded s16 resident intervals](s16-resident-intervals/report.md): verified
+  support census and exact CPU/GPU partial root products; later-operation inventory
+  exposes the unmeasured full-domain gap instead of claiming a whole-run forecast.
+
 - [Composed GPU matrix transforms](gpu-matrix/report.md): exact full CPU/GPU
   matrix/Taylor and resident convolution comparisons, small Horner/memcheck,
   persistent device state and complete GPU-assisted s10 preparation/cache checks.

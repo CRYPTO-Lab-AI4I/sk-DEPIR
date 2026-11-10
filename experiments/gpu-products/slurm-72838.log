@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-products/run.py", line 115, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-products/run.py", line 86, in main
+    run('product-checks',[str(binary),'-test.run=^TestGPUResidentProducts$','-test.v','-test.timeout=5m'])
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-products/run.py", line 57, in run
+    if reason or p.returncode: raise RuntimeError(label+': '+str(reason or p.returncode))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: product-checks: 2

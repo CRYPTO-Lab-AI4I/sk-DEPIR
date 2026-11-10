@@ -1,0 +1,29 @@
+File: matrix.test
+Build ID: dd5c7b7ac09b00a7690971583f7b4b8e72492d69
+Type: cpu
+Time: 2026-11-10 11:13:42 CET
+Duration: 2.81s, Total samples = 2.57s (91.38%)
+Showing nodes accounting for 2.39s, 93.00% of 2.57s total
+Dropped 68 nodes (cum <= 0.01s)
+Showing top 20 nodes out of 72
+      flat  flat%   sum%        cum   cum%
+     0.57s 22.18% 22.18%      0.57s 22.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).mul (inline)
+     0.53s 20.62% 42.80%      1.11s 43.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).addProduct (inline)
+     0.45s 17.51% 60.31%      0.45s 17.51%  runtime.cgocall
+     0.43s 16.73% 77.04%      0.43s 16.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     0.15s  5.84% 82.88%      1.35s 52.53%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     0.03s  1.17% 84.05%      0.03s  1.17%  [libc.so.6]
+     0.03s  1.17% 85.21%      0.83s 32.30%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+     0.03s  1.17% 86.38%      0.45s 17.51%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.02s  0.78% 87.16%      0.47s 18.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.02s  0.78% 87.94%      0.02s  0.78%  runtime.(*fixalloc).alloc
+     0.02s  0.78% 88.72%      0.10s  3.89%  runtime.mallocgcSmallNoscan
+     0.02s  0.78% 89.49%      0.05s  1.95%  runtime.scanObject
+     0.02s  0.78% 90.27%      0.03s  1.17%  runtime.tryDeferToSpanScan
+     0.01s  0.39% 90.66%      1.38s 53.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+     0.01s  0.39% 91.05%      0.11s  4.28%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow
+     0.01s  0.39% 91.44%      0.08s  3.11%  runtime.(*mcache).refill
+     0.01s  0.39% 91.83%      0.02s  0.78%  runtime.(*mheap).freeSpan.func1
+     0.01s  0.39% 92.22%      0.03s  1.17%  runtime.(*mheap).initSpan
+     0.01s  0.39% 92.61%      0.08s  3.11%  runtime.gcDrain
+     0.01s  0.39% 93.00%      0.02s  0.78%  runtime.pcvalue

@@ -19,3 +19,7 @@ experiments/gpu-transform-tiles/runs/*/compiler.log whitespace=-blank-at-eof
 experiments/gpu-transform-tiles/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
 experiments/gpu-matrix/runs/*/compiler.log whitespace=-blank-at-eof
 experiments/gpu-matrix/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
+experiments/gpu-products/runs/*/compiler.log whitespace=-blank-at-eof
+experiments/gpu-products/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
+experiments/s16-resident-intervals/runs/*/compiler.log whitespace=-blank-at-eof
+experiments/s16-resident-intervals/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof

@@ -80,3 +80,10 @@ The [expanded preparation-efficiency step](encoding-scaling.md#current-step-larg
 now separates targeted profiling, specialized/native CPU products, bounded batch
 parallelism, root-generation reuse and measured GPU alternatives before full-run
 readmission. The current lookup improvement is a smaller-code/kernel result.
+Resident convolution now passes complete smaller-code checks and
+[bounded s16 root-product intervals](../experiments/s16-resident-intervals/report.md)
+using the saved support. Later operations require up to2^32-point transforms;
+the experimental CUDA executor is measured/admitted only through2^22 points.
+Its private full-domain metadata/workspace needs extension or a blocked design
+before a reliable full-run forecast. Existing CPU/header count validation remains
+separate; individual field values still fit32 bits. No full s16 run is restarted.

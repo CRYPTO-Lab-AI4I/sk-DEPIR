@@ -1,0 +1,28 @@
+File: intervals.test
+Build ID: 642e474a8818c116edf3d3bbe673b5825edb35a7
+Type: cpu
+Time: 2026-11-10 11:21:24 CET
+Duration: 38.23s, Total samples = 11.24s (29.40%)
+Showing nodes accounting for 11.20s, 99.64% of 11.24s total
+Dropped 21 nodes (cum <= 0.06s)
+      flat  flat%   sum%        cum   cum%
+     4.99s 44.40% 44.40%      4.99s 44.40%  internal/runtime/syscall/linux.Syscall6
+     4.41s 39.23% 83.63%     11.22s 99.82%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS16ResidentIntervals.func5
+     1.64s 14.59% 98.22%      1.64s 14.59%  crypto/internal/fips140/sha256.blockSHANI
+     0.12s  1.07% 99.29%      0.13s  1.16%  encoding/binary.littleEndian.Uint32 (inline)
+     0.02s  0.18% 99.47%      6.68s 59.43%  io.(*teeReader).Read
+     0.02s  0.18% 99.64%      5.01s 44.57%  syscall.RawSyscall6
+         0     0% 99.64%      1.64s 14.59%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0% 99.64%      1.64s 14.59%  crypto/internal/fips140/sha256.block
+         0     0% 99.64%     11.22s 99.82%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS16ResidentIntervals
+         0     0% 99.64%     11.22s 99.82%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS16ResidentIntervals.func4
+         0     0% 99.64%      5.02s 44.66%  internal/poll.(*FD).Read
+         0     0% 99.64%      5.02s 44.66%  internal/poll.ignoringEINTRIO (inline)
+         0     0% 99.64%      6.68s 59.43%  io.ReadAtLeast
+         0     0% 99.64%      6.68s 59.43%  io.ReadFull (inline)
+         0     0% 99.64%      5.02s 44.66%  os.(*File).Read
+         0     0% 99.64%      5.02s 44.66%  os.(*File).read (inline)
+         0     0% 99.64%      5.02s 44.66%  syscall.Read (inline)
+         0     0% 99.64%      5.02s 44.66%  syscall.Syscall
+         0     0% 99.64%      5.02s 44.66%  syscall.read
+         0     0% 99.64%     11.22s 99.82%  testing.tRunner

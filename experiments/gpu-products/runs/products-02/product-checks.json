@@ -1,0 +1,10 @@
+{
+  "cases_checked": 100,
+  "closed_engine": true,
+  "input_immutability": true,
+  "invalid_inputs": true,
+  "old_transform_library": true,
+  "overlap_add": true,
+  "product_calls": 122,
+  "zero_padding": true
+}

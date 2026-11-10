@@ -123,6 +123,14 @@ preparation takes 2.719 s versus 6.806 s; complete worker times including setup,
 checks and I/O are 6.790 s versus 10.743 s. These are instrumented sequential
 measurements, not full s16 results or a complete GPU online encoder. CUDA remains
 an optional experiment; default library construction uses CPU.
+The [resident product integration](experiments/gpu-products/report.md) now handles
+unequal operands, low prefixes and overlap-add without returning intermediate
+transforms to the CPU. Complete s10 preparation measures 2.400 s at the existing
+cutoff, or 1.528 s with an earlier GPU crossover, versus 2.735 s transform-only
+GPU and 6.647 s CPU. [Bounded s16 intervals](experiments/s16-resident-intervals/report.md)
+match exact partial products and measure about 2.1× faster early root-product
+work with resident GPU; later full-domain operations remain outside the measured
+GPU cap, so these figures do not establish a full-s16 time or speedup.
 
 ## Implementation status and limits
 

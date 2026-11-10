@@ -1,0 +1,7 @@
+{
+  "coefficients": 2096712,
+  "prefix_positions": 1048576,
+  "product_cutoff": 32768,
+  "scope": "monic partial root product; not normalized P or a complete code cache",
+  "sha256": "0dd4d85de8e24d6f66475f11ab3e931d758e2a10b6661d84da9ed88f8ecf2491"
+}

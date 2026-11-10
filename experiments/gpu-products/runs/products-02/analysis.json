@@ -1,0 +1,326 @@
+{
+  "status": "passed",
+  "job_id": "72839",
+  "sources_verified": 269,
+  "setup_seconds": 0.63609612,
+  "owned_device_bytes_after_all_plans": 51184600,
+  "matrices": [
+    {
+      "n": 16,
+      "gpu_forward_seconds": 0.000167243,
+      "gpu_inverse_seconds": 0.000167904,
+      "cpu_4_forward_seconds": 0.000206676,
+      "cpu_16_forward_seconds": 0.000206129
+    },
+    {
+      "n": 64,
+      "gpu_forward_seconds": 0.000254265,
+      "gpu_inverse_seconds": 0.000247794,
+      "cpu_4_forward_seconds": 0.000301125,
+      "cpu_16_forward_seconds": 0.00065591
+    },
+    {
+      "n": 256,
+      "gpu_forward_seconds": 0.000387922,
+      "gpu_inverse_seconds": 0.0003926,
+      "cpu_4_forward_seconds": 0.000445434,
+      "cpu_16_forward_seconds": 0.001592868
+    },
+    {
+      "n": 262144,
+      "gpu_forward_seconds": 0.023649032,
+      "gpu_inverse_seconds": 0.021995939,
+      "cpu_4_forward_seconds": 0.107772479,
+      "cpu_16_forward_seconds": 0.041884247
+    },
+    {
+      "n": 1048576,
+      "gpu_forward_seconds": 0.057258107,
+      "gpu_inverse_seconds": 0.053754288,
+      "cpu_4_forward_seconds": 0.489164174,
+      "cpu_16_forward_seconds": 0.172875344
+    },
+    {
+      "n": 4194304,
+      "gpu_forward_seconds": 0.138839994,
+      "gpu_inverse_seconds": 0.129941166,
+      "cpu_4_forward_seconds": 2.192442187,
+      "cpu_16_forward_seconds": 0.767074857
+    }
+  ],
+  "convolutions": [
+    {
+      "n": 262144,
+      "gpu_seconds": 0.06510458,
+      "cpu_4_seconds": 0.347423444,
+      "cpu_16_seconds": 0.150561014
+    },
+    {
+      "n": 1048576,
+      "gpu_seconds": 0.158216866,
+      "cpu_4_seconds": 1.570449748,
+      "cpu_16_seconds": 0.641348864
+    },
+    {
+      "n": 4194304,
+      "gpu_seconds": 0.382288742,
+      "cpu_4_seconds": 6.980370129,
+      "cpu_16_seconds": 2.73942284
+    }
+  ],
+  "pipelines": {
+    "cpu": {
+      "runs": [
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.008675942,
+            "discovery": 1.597283039,
+            "save-basis": 0.01056283,
+            "preparation": 6.609076721,
+            "save-prepared": 0.08973051,
+            "release-preparation": 0.000956471,
+            "load-online": 0.127230688,
+            "online-setup": 0.002966854,
+            "encode-0": 1.015493486,
+            "verify-0": 0.030178354,
+            "pack-output": 0.021031473,
+            "verify-packed": 0.268590896
+          }
+        },
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.008949576,
+            "discovery": 1.586077573,
+            "save-basis": 0.012256553,
+            "preparation": 6.68570799,
+            "save-prepared": 0.113572289,
+            "release-preparation": 0.001311079,
+            "load-online": 0.164126713,
+            "online-setup": 0.00203201,
+            "encode-0": 1.016961987,
+            "verify-0": 0.029997089,
+            "pack-output": 0.020265686,
+            "verify-packed": 0.088042481
+          }
+        }
+      ],
+      "cached": {
+        "s": 10,
+        "k": 146641,
+        "n": 1048576,
+        "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+        "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+        "phase_seconds": {
+          "load-online": 0.009784269,
+          "online-setup": 0.002869318,
+          "encode-0": 1.018214969,
+          "verify-0": 0.029547723,
+          "pack-output": 0.021204269,
+          "verify-packed": 0.088034255
+        }
+      },
+      "preparation_median_seconds": 6.6473923555,
+      "phase_sum_median_seconds": 9.755539145
+    },
+    "gpu": {
+      "runs": [
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.682426689,
+            "discovery": 1.1208446,
+            "save-basis": 0.010740499,
+            "preparation": 2.812387295,
+            "save-prepared": 0.035121073,
+            "release-preparation": 0.00090395,
+            "load-online": 0.150649494,
+            "online-setup": 0.001947239,
+            "encode-0": 1.020035761,
+            "verify-0": 0.030331817,
+            "pack-output": 0.020201742,
+            "verify-packed": 0.106501619
+          }
+        },
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.549291837,
+            "discovery": 1.113386125,
+            "save-basis": 0.010500343,
+            "preparation": 2.657520171,
+            "save-prepared": 0.035081011,
+            "release-preparation": 0.00140846,
+            "load-online": 0.134833827,
+            "online-setup": 0.002050682,
+            "encode-0": 1.016408875,
+            "verify-0": 0.029639709,
+            "pack-output": 0.021067323,
+            "verify-packed": 0.231725685
+          }
+        }
+      ],
+      "cached": {
+        "s": 10,
+        "k": 146641,
+        "n": 1048576,
+        "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+        "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+        "phase_seconds": {
+          "load-online": 0.009867948,
+          "online-setup": 0.002880212,
+          "encode-0": 1.015184595,
+          "verify-0": 0.029361723,
+          "pack-output": 0.021872325,
+          "verify-packed": 0.097663097
+        }
+      },
+      "preparation_median_seconds": 2.734953733,
+      "phase_sum_median_seconds": 5.897502913
+    },
+    "resident": {
+      "runs": [
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.651394063,
+            "discovery": 1.118304423,
+            "save-basis": 0.051767031,
+            "preparation": 2.446339665,
+            "save-prepared": 0.084802874,
+            "release-preparation": 0.000825898,
+            "load-online": 0.144180771,
+            "online-setup": 0.001981193,
+            "encode-0": 1.018960269,
+            "verify-0": 0.031458126,
+            "pack-output": 0.021572457,
+            "verify-packed": 0.280331911
+          }
+        },
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.551056946,
+            "discovery": 1.109271716,
+            "save-basis": 0.011209858,
+            "preparation": 2.352684259,
+            "save-prepared": 0.034257778,
+            "release-preparation": 0.000978283,
+            "load-online": 0.196207989,
+            "online-setup": 0.002277499,
+            "encode-0": 1.017822835,
+            "verify-0": 0.029606777,
+            "pack-output": 0.043614183,
+            "verify-packed": 0.131225361
+          }
+        }
+      ],
+      "cached": {
+        "s": 10,
+        "k": 146641,
+        "n": 1048576,
+        "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+        "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+        "phase_seconds": {
+          "load-online": 0.009794485,
+          "online-setup": 0.002819816,
+          "encode-0": 1.018884805,
+          "verify-0": 0.029819936,
+          "pack-output": 0.022411378,
+          "verify-packed": 0.087729765
+        }
+      },
+      "preparation_median_seconds": 2.399511962,
+      "phase_sum_median_seconds": 5.6660660825
+    },
+    "resident-low": {
+      "runs": [
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.642638771,
+            "discovery": 1.12510868,
+            "save-basis": 0.013943934,
+            "preparation": 1.666099782,
+            "save-prepared": 0.034656301,
+            "release-preparation": 0.001204035,
+            "load-online": 0.137763317,
+            "online-setup": 0.003956816,
+            "encode-0": 1.014773975,
+            "verify-0": 0.02990689,
+            "pack-output": 0.020501425,
+            "verify-packed": 0.086134578
+          }
+        },
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.548586267,
+            "discovery": 1.123654903,
+            "save-basis": 0.010994247,
+            "preparation": 1.390687743,
+            "save-prepared": 0.160097384,
+            "release-preparation": 0.000909436,
+            "load-online": 0.116806446,
+            "online-setup": 0.003456301,
+            "encode-0": 1.017629807,
+            "verify-0": 0.030138172,
+            "pack-output": 0.022461539,
+            "verify-packed": 0.086660264
+          }
+        }
+      ],
+      "cached": {
+        "s": 10,
+        "k": 146641,
+        "n": 1048576,
+        "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+        "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+        "phase_seconds": {
+          "load-online": 0.009292405,
+          "online-setup": 0.002827172,
+          "encode-0": 1.015239007,
+          "verify-0": 0.029806098,
+          "pack-output": 0.021779268,
+          "verify-packed": 0.086273436
+        }
+      },
+      "preparation_median_seconds": 1.5283937625,
+      "phase_sum_median_seconds": 4.6443855065
+    }
+  },
+  "limits": "Instrumented sequential samples on one data-center GPU; resident product GPU-assisted s10 preprocessing, CPU online encoding. Not full s16, full GPU encoder, constant-time or production validation."
+}

@@ -167,15 +167,45 @@ worker observations including setup/checks/I/O are 6.790 s versus 10.743 s.
 These instrumented measurements apply to one H200 NVL, not consumer GPUs or full
 s16. The default CPU constructors and complete CPU online encoding remain intact.
 
-The new small-pipeline profile shifts attention to CPU polynomial leaves and
-products outside the GPU resident kernel. Next, compare feeding resident GPU
-convolution into preprocessing, with arbitrary operand lengths, truncated outputs,
-padding, overlap-add and ownership checked against the existing product contract.
-Calibrate CPU/GPU product cutoffs rather than routing tiny products to GPU
-unconditionally. Reuse plans/workspace and retain the improved CPU path; compare
-complete smaller pipelines again before a bounded s16 preparation interval.
-CPU batch parallelism remains eligible. Root reuse remains lower priority in this
-profile, and full s16 readmission still needs a separate budget/provenance review.
+The [resident integration](../experiments/gpu-products/report.md) now passes
+arbitrary/unequal operands, low prefixes, padding, overlap-add, old-library
+compatibility, CUDA memcheck and complete smaller pipelines. At the same cutoff,
+s10 preparation falls from2.735 to2.400 s; cutoff1024 measures1.528 s versus
+6.647 s CPU. Default CPU constructors and the global cutoff are unchanged.
+
+The [bounded s16 measurement](../experiments/s16-resident-intervals/report.md)
+also passes exact partial products. Two consecutive2^19-position root-product
+intervals total36.691 s on the current CPU path,20.205 s resident at cutoff1024,
+or17.267 s at4096. The latter is2.12× faster for this early work; artificial
+partial finalization is separate. The census captures exact root-batch degrees
+and a logical later-operation inventory without rediscovery or large allocations.
+
+Next estimation gate: later reciprocal/identity/spectrum need transforms up to
+2^32 points, outside the measured/admitted2^22 CUDA prototype cap. Extend and test
+the private domain count/17-level row metadata or select a validated blocked
+alternative, record its memory/workload budget, then measure representative later
+sizes and test extrapolation across scales. The existing C ABI call lengths are
+already size_t and field values remain uint32. This limit is not evidence that
+the hardware cannot fit s16; no whole-run speedup or deadline is inferred yet.
+Keep CPU batch/root alternatives eligible as profiles change. Full s16 readmission
+still needs a separate budget/provenance decision; do not start it automatically.
+
+Proceed in this order:
+
+1. Extend private GPU plan counts through 2^32 and row descriptions through
+   17 levels. Keep field values at 32 bits, reject unsupported shapes, and retain
+   old-library compatibility. Test the full-domain description without allocating
+   a full-domain workspace.
+2. Review workspace growth and peak allocation, including temporary replacement
+   buffers, tables/plans and separate driver overhead. Compare contiguous device
+   execution with a bounded-block alternative before requesting larger budgets.
+3. Validate and measure progressively larger forward/inverse transforms and
+   resident products against CPU/reference outputs. Initially retain the existing
+   512 MiB explicit device, 12 GiB RSS and 25-minute controller limits; any shape
+   increase must fit those bounds or have a new recorded budget before submission.
+4. Combine measured scaling with the exact s16 operation inventory, CPU root work,
+   reusable setup, memory and I/O. Report an estimate with its unmeasured portions
+   and uncertainty; a full s16 run remains a separate admission decision.
 
 ## Step 1: resource accounting
 

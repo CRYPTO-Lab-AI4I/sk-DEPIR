@@ -1,0 +1,9 @@
+=== RUN   TestGPUPreparation
+    s15_firstuse_probe_test.go:116: load-online 9.784269ms
+    s15_firstuse_probe_test.go:116: online-setup 2.869318ms
+    s15_firstuse_probe_test.go:116: encode-0 1.018214969s
+    s15_firstuse_probe_test.go:116: verify-0 29.547723ms
+    s15_firstuse_probe_test.go:116: pack-output 21.204269ms
+    s15_firstuse_probe_test.go:116: verify-packed 88.034255ms
+--- PASS: TestGPUPreparation (1.29s)
+PASS

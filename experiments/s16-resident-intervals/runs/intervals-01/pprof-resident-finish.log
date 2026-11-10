@@ -1,0 +1,28 @@
+File: intervals.test
+Build ID: 642e474a8818c116edf3d3bbe673b5825edb35a7
+Type: cpu
+Time: 2026-11-10 11:23:06 CET
+Duration: 848.62ms, Total samples = 870ms (102.52%)
+Showing nodes accounting for 870ms, 100% of 870ms total
+Showing top 20 nodes out of 41
+      flat  flat%   sum%        cum   cum%
+     710ms 81.61% 81.61%      710ms 81.61%  runtime.cgocall
+      50ms  5.75% 87.36%      100ms 11.49%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).addProduct (inline)
+      50ms  5.75% 93.10%       50ms  5.75%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).mul (inline)
+      20ms  2.30% 95.40%      730ms 83.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+      10ms  1.15% 96.55%      100ms 11.49%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+      10ms  1.15% 97.70%       10ms  1.15%  runtime.(*spanInlineMarkBits).init
+      10ms  1.15% 98.85%       10ms  1.15%  runtime.(*unwinder).resolveInternal
+      10ms  1.15%   100%       10ms  1.15%  runtime.sweepone
+         0     0%   100%      850ms 97.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*factorProductBuilder).finish
+         0     0%   100%      850ms 97.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*factorProductBuilder).flush
+         0     0%   100%      710ms 81.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*gpuPreparationExecutor).convolve
+         0     0%   100%      850ms 97.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS16ResidentIntervals
+         0     0%   100%      850ms 97.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS16ResidentIntervals.func4
+         0     0%   100%      850ms 97.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS16ResidentIntervals.func8
+         0     0%   100%      100ms 11.49%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+         0     0%   100%      850ms 97.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+         0     0%   100%      850ms 97.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0%   100%      310ms 35.63%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rootProduct
+         0     0%   100%      710ms 81.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.(*Engine).Product
+         0     0%   100%      710ms 81.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix.(*Engine).Product.func1 (inline)

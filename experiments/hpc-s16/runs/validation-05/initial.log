@@ -1,0 +1,38 @@
+=== RUN   TestS16FirstUse
+    s15_firstuse_probe_test.go:116: executor-setup 953.454µs
+    s15_firstuse_probe_test.go:116: discovery 4.117884ms
+    s15_firstuse_probe_test.go:116: save-basis 9.714291ms
+    s15_firstuse_probe_test.go:116: preparation 262.247858ms
+    s15_firstuse_probe_test.go:116: save-prepared 12.34287ms
+    s15_firstuse_probe_test.go:116: release-preparation 381.924µs
+    s15_firstuse_probe_test.go:116: load-online 3.604857ms
+    s15_firstuse_probe_test.go:116: online-setup 269.218µs
+    s15_firstuse_probe_test.go:116: encode-0 4.432005ms
+    s15_firstuse_probe_test.go:116: verify-0 658.595µs
+    s15_firstuse_probe_test.go:116: pack-output 51.766197ms
+    s15_firstuse_probe_test.go:116: verify-packed 1.387511ms
+--- PASS: TestS16FirstUse (0.52s)
+PASS
+	Command being timed: "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/hpc-s16/probe-validation-05 -test.run=^TestS16FirstUse$ -test.v -test.timeout=720s"
+	User time (seconds): 0.04
+	System time (seconds): 0.03
+	Percent of CPU this job got: 14%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.53
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 13584
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 3789
+	Voluntary context switches: 1645
+	Involuntary context switches: 4
+	Swaps: 0
+	File system inputs: 56
+	File system outputs: 640
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

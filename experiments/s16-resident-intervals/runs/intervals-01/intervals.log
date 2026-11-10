@@ -1,0 +1,16 @@
+=== RUN   TestS16ResidentIntervals
+    gpu_s16_intervals_test.go:60: support-census 38.231329625
+    gpu_s16_intervals_test.go:60: cpu-setup 0.018372371
+    gpu_s16_intervals_test.go:60: cpu-interval-0 16.698910951
+    gpu_s16_intervals_test.go:60: cpu-interval-1 19.992399609
+    gpu_s16_intervals_test.go:60: cpu-finish 5.980040258
+    gpu_s16_intervals_test.go:60: resident-setup 0.684862883
+    gpu_s16_intervals_test.go:60: resident-interval-0 9.679028303
+    gpu_s16_intervals_test.go:60: resident-interval-1 10.526131513
+    gpu_s16_intervals_test.go:60: resident-finish 0.848646994
+    gpu_s16_intervals_test.go:60: resident-4096-setup 0.491674442
+    gpu_s16_intervals_test.go:60: resident-4096-interval-0 8.251982691
+    gpu_s16_intervals_test.go:60: resident-4096-interval-1 9.01515958
+    gpu_s16_intervals_test.go:60: resident-4096-finish 0.816407108
+--- PASS: TestS16ResidentIntervals (122.11s)
+PASS

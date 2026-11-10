@@ -17,6 +17,13 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-10 10:44 | PUBLISH-027 | Completed | [Resident checkpoint verified for publication](2026-11-10-1044-codex-publish-027-completed.md) |
+| 2026-11-10 10:43 | PUBLISH-027 | Started | [Publish resident checkpoint and next plan](2026-11-10-1043-codex-publish-027-started.md) |
+| 2026-11-10 10:38 | SCALE-018 | Handoff | [Bounded s16 measurements; larger transforms next](2026-11-10-1038-codex-scale-018-handoff.md) |
+| 2026-11-10 10:38 | GPU-017 | Completed | [Resident convolution verified](2026-11-10-1038-codex-gpu-017-completed.md) |
+| 2026-11-10 10:18 | SCALE-018 | Started | [Bounded s16 intervals and operation census](2026-11-10-1018-codex-scale-018-started.md) |
+| 2026-11-10 10:11 | GPU-017 | Correction | [Fix short-buffer test fallback](2026-11-10-1011-codex-gpu-017-correction.md) |
+| 2026-11-10 10:02 | GPU-017 | Started | [Integrate resident convolution](2026-11-10-1002-codex-gpu-017-started.md) |
 | 2026-11-10 09:51 | GPU-016 | Completed | [Composed GPU transforms and smaller pipeline pass](2026-11-10-0951-codex-gpu-016-completed.md) |
 | 2026-11-10 09:31 | GPU-016 | Started | [Compose complete GPU transforms](2026-11-10-0931-codex-gpu-016-started.md) |
 | 2026-11-10 09:21 | PREP-015 | Completed | [CPU/GPU trials pass; private Go loops integrated](2026-11-10-0921-codex-prep-015-completed.md) |

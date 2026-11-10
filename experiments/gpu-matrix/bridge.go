@@ -15,6 +15,7 @@ typedef struct {
  int (*create)(unsigned,unsigned,unsigned,const uint32_t*,size_t,const uint32_t*,size_t,void**,char*,size_t);
  int (*add)(void*,const uint32_t*,size_t,char*,size_t);
  int (*apply)(void*,uint32_t*,size_t,int,double*,char*,size_t);
+ int (*product)(void*,const uint32_t*,size_t,const uint32_t*,size_t,uint32_t*,size_t,size_t,double*,char*,size_t);
  uint64_t (*owned)(void*);
  void (*destroy)(void*);
 } bridge;
@@ -23,11 +24,13 @@ static bridge* bridge_open(const char* path,unsigned s,unsigned poly,unsigned de
  b->library=dlopen(path,RTLD_NOW|RTLD_LOCAL);
  if(!b->library){snprintf(error,capacity,"%s",dlerror());free(b);return NULL;}
  b->create=dlsym(b->library,"gm_create");b->add=dlsym(b->library,"gm_add_plan");b->apply=dlsym(b->library,"gm_apply");b->owned=dlsym(b->library,"gm_owned_bytes");b->destroy=dlsym(b->library,"gm_destroy");
+ b->product=dlsym(b->library,"gm_product"); // Optional for old transform-only libraries.
  if(!b->create||!b->add||!b->apply||!b->owned||!b->destroy){snprintf(error,capacity,"missing GPU ABI symbol");dlclose(b->library);free(b);return NULL;}
  if(b->create(s,poly,delta,logs,lc,powers,pc,&b->engine,error,capacity)){dlclose(b->library);free(b);return NULL;}return b;
 }
 static int bridge_add(bridge* b,const uint32_t* words,size_t count,char* error,size_t capacity){return b->add(b->engine,words,count,error,capacity);}
 static int bridge_apply(bridge* b,uint32_t* words,size_t count,int inverse,double* stats,char* error,size_t capacity){return b->apply(b->engine,words,count,inverse,stats,error,capacity);}
+static int bridge_product(bridge* b,const uint32_t* a,size_t ac,const uint32_t* c,size_t cc,uint32_t* out,size_t oc,size_t n,double* stats,char* error,size_t capacity){if(!b->product){snprintf(error,capacity,"resident product ABI unavailable");return 1;}return b->product(b->engine,a,ac,c,cc,out,oc,n,stats,error,capacity);}
 static uint64_t bridge_owned(bridge* b){return b->owned(b->engine);}
 static void bridge_close(bridge* b){if(b){b->destroy(b->engine);dlclose(b->library);free(b);}}
 */
@@ -41,7 +44,7 @@ import (
 )
 
 // Engine serializes all calls and closes owned CUDA state explicitly. Host
-// slices are borrowed only until synchronous Apply returns, never retained.
+// slices are borrowed only until the synchronous call returns, never retained.
 type Engine struct {
 	mu     sync.Mutex
 	handle *C.bridge
@@ -115,6 +118,34 @@ func (e *Engine) OwnedBytes() uint64 {
 		return 0
 	}
 	return uint64(C.bridge_owned(e.handle))
+}
+
+// Product returns the requested low coefficients of a*b. n must be a prepared
+// power-of-two domain covering the full product; truncation never shrinks that
+// domain. Inputs remain unchanged and device padding is cleared on every call.
+// Forward transforms, products and inverse stay resident until the prefix copy.
+// Inputs must be trusted canonical packed elements of this engine's field.
+func (e *Engine) Product(a, b []uint32, limit, n int) ([]uint32, [8]float64, error) {
+	e.mu.Lock()
+	defer e.mu.Unlock()
+	var stats [8]C.double
+	var timing [8]float64
+	if e.handle == nil || len(a) == 0 || len(b) == 0 || n < 4 || n > 1<<22 || n&(n-1) != 0 || len(a) > n || len(b) > n || len(a) > n-len(b)+1 || limit < 1 || limit > len(a)+len(b)-1 {
+		return nil, timing, fmt.Errorf("GPU product shape/prefix")
+	}
+	out := make([]uint32, limit)
+	var message [512]C.char
+	code := C.bridge_product(e.handle, (*C.uint32_t)(unsafe.Pointer(&a[0])), C.size_t(len(a)), (*C.uint32_t)(unsafe.Pointer(&b[0])), C.size_t(len(b)), (*C.uint32_t)(unsafe.Pointer(&out[0])), C.size_t(len(out)), C.size_t(n), &stats[0], &message[0], 512)
+	runtime.KeepAlive(a)
+	runtime.KeepAlive(b)
+	runtime.KeepAlive(out)
+	for i := range timing {
+		timing[i] = float64(stats[i])
+	}
+	if code != 0 {
+		return nil, timing, fmt.Errorf("GPU product: %s", C.GoString(&message[0]))
+	}
+	return out, timing, nil
 }
 
 // Close releases plans, buffers and the dynamic library after active calls finish.

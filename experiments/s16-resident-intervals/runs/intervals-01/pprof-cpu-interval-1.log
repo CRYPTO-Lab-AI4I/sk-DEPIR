@@ -1,0 +1,29 @@
+File: intervals.test
+Build ID: 642e474a8818c116edf3d3bbe673b5825edb35a7
+Type: cpu
+Time: 2026-11-10 11:22:19 CET
+Duration: 19.99s, Total samples = 34.94s (174.76%)
+Showing nodes accounting for 33.86s, 96.91% of 34.94s total
+Dropped 98 nodes (cum <= 0.17s)
+Showing top 20 nodes out of 40
+      flat  flat%   sum%        cum   cum%
+    14.48s 41.44% 41.44%     14.48s 41.44%  [intervals.test]
+    10.27s 29.39% 70.84%     11.16s 31.94%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     5.93s 16.97% 87.81%      5.93s 16.97%  runtime.cgocall
+     1.72s  4.92% 92.73%      1.72s  4.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.39s  1.12% 93.85%      0.39s  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Pow
+     0.36s  1.03% 94.88%     11.58s 33.14%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+     0.26s  0.74% 95.62%      0.85s  2.43%  runtime.mallocgcSmallNoscan
+     0.12s  0.34% 95.96%      1.84s  5.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.06s  0.17% 96.14%      0.27s  0.77%  runtime.sweepone
+     0.05s  0.14% 96.28%     18.02s 51.57%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+     0.05s  0.14% 96.42%      0.94s  2.69%  runtime.makeslice
+     0.04s  0.11% 96.54%      0.43s  1.23%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Inverse
+     0.03s 0.086% 96.62%      6.36s 18.20%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+     0.03s 0.086% 96.71%      0.18s  0.52%  runtime.(*sweepLocked).sweep
+     0.02s 0.057% 96.77%      1.41s  4.04%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow
+     0.02s 0.057% 96.82%      0.90s  2.58%  runtime.mallocgc
+     0.01s 0.029% 96.85%     19.92s 57.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestS16ResidentIntervals.func7
+     0.01s 0.029% 96.88%      0.38s  1.09%  runtime.(*mcache).nextFree
+     0.01s 0.029% 96.91%      0.37s  1.06%  runtime.(*mcache).refill
+         0     0% 96.91%      5.93s 16.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply

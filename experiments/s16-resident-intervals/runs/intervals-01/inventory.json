@@ -1,0 +1,712 @@
+{
+  "k": 918672421,
+  "n": 4294967296,
+  "product_cutoff": 4096,
+  "large_operations": [
+    {
+      "stage": "identity",
+      "transform_points": 2147483648,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "identity",
+      "transform_points": 4294967296,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 16384,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": true
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 32768,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": true
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 65536,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": true
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 131072,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": true
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 262144,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": true
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 524288,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": true
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 1048576,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": true
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 2097152,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": true
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 4194304,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": true
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 8388608,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 16777216,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 33554432,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 67108864,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 134217728,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 268435456,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 536870912,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 1073741824,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 2147483648,
+      "convolutions": 2,
+      "fft_calls": 6,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "reciprocal",
+      "transform_points": 4294967296,
+      "convolutions": 2,
+      "fft_calls": 6,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "root-carry",
+      "transform_points": 131072,
+      "convolutions": 7009,
+      "fft_calls": 21027,
+      "within_current_gpu_cap": true
+    },
+    {
+      "stage": "root-carry",
+      "transform_points": 262144,
+      "convolutions": 3504,
+      "fft_calls": 10512,
+      "within_current_gpu_cap": true
+    },
+    {
+      "stage": "root-carry",
+      "transform_points": 524288,
+      "convolutions": 1752,
+      "fft_calls": 5256,
+      "within_current_gpu_cap": true
+    },
+    {
+      "stage": "root-carry",
+      "transform_points": 1048576,
+      "convolutions": 876,
+      "fft_calls": 2628,
+      "within_current_gpu_cap": true
+    },
+    {
+      "stage": "root-carry",
+      "transform_points": 2097152,
+      "convolutions": 438,
+      "fft_calls": 1314,
+      "within_current_gpu_cap": true
+    },
+    {
+      "stage": "root-carry",
+      "transform_points": 4194304,
+      "convolutions": 219,
+      "fft_calls": 657,
+      "within_current_gpu_cap": true
+    },
+    {
+      "stage": "root-carry",
+      "transform_points": 8388608,
+      "convolutions": 109,
+      "fft_calls": 327,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "root-carry",
+      "transform_points": 16777216,
+      "convolutions": 54,
+      "fft_calls": 162,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "root-carry",
+      "transform_points": 33554432,
+      "convolutions": 27,
+      "fft_calls": 81,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "root-carry",
+      "transform_points": 67108864,
+      "convolutions": 13,
+      "fft_calls": 39,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "root-carry",
+      "transform_points": 134217728,
+      "convolutions": 6,
+      "fft_calls": 18,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "root-carry",
+      "transform_points": 268435456,
+      "convolutions": 3,
+      "fft_calls": 9,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "root-carry",
+      "transform_points": 536870912,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "root-finish",
+      "transform_points": 262144,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": true
+    },
+    {
+      "stage": "root-finish",
+      "transform_points": 8388608,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "root-finish",
+      "transform_points": 16777216,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "root-finish",
+      "transform_points": 67108864,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "root-finish",
+      "transform_points": 134217728,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "root-finish",
+      "transform_points": 536870912,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    },
+    {
+      "stage": "root-finish",
+      "transform_points": 1073741824,
+      "convolutions": 1,
+      "fft_calls": 3,
+      "within_current_gpu_cap": false
+    }
+  ],
+  "noncarry_details": [
+    {
+      "stage": "root-finish",
+      "a": 29100,
+      "b": 130800,
+      "limit": 159899,
+      "blocks": [
+        {
+          "a": 29100,
+          "b": 130800,
+          "limit": 159899,
+          "transform_points": 262144
+        }
+      ]
+    },
+    {
+      "stage": "root-finish",
+      "a": 159899,
+      "b": 4192189,
+      "limit": 4352087,
+      "blocks": [
+        {
+          "a": 159899,
+          "b": 4192189,
+          "limit": 4352087,
+          "transform_points": 8388608
+        }
+      ]
+    },
+    {
+      "stage": "root-finish",
+      "a": 4352087,
+      "b": 8386670,
+      "limit": 12738756,
+      "blocks": [
+        {
+          "a": 4352087,
+          "b": 8386670,
+          "limit": 12738756,
+          "transform_points": 16777216
+        }
+      ]
+    },
+    {
+      "stage": "root-finish",
+      "a": 12738756,
+      "b": 33550071,
+      "limit": 46288826,
+      "blocks": [
+        {
+          "a": 12738756,
+          "b": 33550071,
+          "limit": 46288826,
+          "transform_points": 67108864
+        }
+      ]
+    },
+    {
+      "stage": "root-finish",
+      "a": 46288826,
+      "b": 67103756,
+      "limit": 113392581,
+      "blocks": [
+        {
+          "a": 46288826,
+          "b": 67103756,
+          "limit": 113392581,
+          "transform_points": 134217728
+        }
+      ]
+    },
+    {
+      "stage": "root-finish",
+      "a": 113392581,
+      "b": 268422913,
+      "limit": 381815493,
+      "blocks": [
+        {
+          "a": 113392581,
+          "b": 268422913,
+          "limit": 381815493,
+          "transform_points": 536870912
+        }
+      ]
+    },
+    {
+      "stage": "root-finish",
+      "a": 381815493,
+      "b": 536856930,
+      "limit": 918672422,
+      "blocks": [
+        {
+          "a": 381815493,
+          "b": 536856930,
+          "limit": 918672422,
+          "transform_points": 1073741824
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 8192,
+      "b": 8191,
+      "limit": 8192,
+      "blocks": [
+        {
+          "a": 8192,
+          "b": 8191,
+          "limit": 8192,
+          "transform_points": 16384
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 16384,
+      "b": 16383,
+      "limit": 16384,
+      "blocks": [
+        {
+          "a": 16384,
+          "b": 16383,
+          "limit": 16384,
+          "transform_points": 32768
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 32768,
+      "b": 32767,
+      "limit": 32768,
+      "blocks": [
+        {
+          "a": 32768,
+          "b": 32767,
+          "limit": 32768,
+          "transform_points": 65536
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 65536,
+      "b": 65535,
+      "limit": 65536,
+      "blocks": [
+        {
+          "a": 65536,
+          "b": 65535,
+          "limit": 65536,
+          "transform_points": 131072
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 131072,
+      "b": 131071,
+      "limit": 131072,
+      "blocks": [
+        {
+          "a": 131072,
+          "b": 131071,
+          "limit": 131072,
+          "transform_points": 262144
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 262144,
+      "b": 262143,
+      "limit": 262144,
+      "blocks": [
+        {
+          "a": 262144,
+          "b": 262143,
+          "limit": 262144,
+          "transform_points": 524288
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 524288,
+      "b": 524287,
+      "limit": 524288,
+      "blocks": [
+        {
+          "a": 524288,
+          "b": 524287,
+          "limit": 524288,
+          "transform_points": 1048576
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 1048576,
+      "b": 1048575,
+      "limit": 1048576,
+      "blocks": [
+        {
+          "a": 1048576,
+          "b": 1048575,
+          "limit": 1048576,
+          "transform_points": 2097152
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 2097152,
+      "b": 2097151,
+      "limit": 2097152,
+      "blocks": [
+        {
+          "a": 2097152,
+          "b": 2097151,
+          "limit": 2097152,
+          "transform_points": 4194304
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 4194304,
+      "b": 4194303,
+      "limit": 4194304,
+      "blocks": [
+        {
+          "a": 4194304,
+          "b": 4194303,
+          "limit": 4194304,
+          "transform_points": 8388608
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 8388608,
+      "b": 8388607,
+      "limit": 8388608,
+      "blocks": [
+        {
+          "a": 8388608,
+          "b": 8388607,
+          "limit": 8388608,
+          "transform_points": 16777216
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 16777216,
+      "b": 16777215,
+      "limit": 16777216,
+      "blocks": [
+        {
+          "a": 16777216,
+          "b": 16777215,
+          "limit": 16777216,
+          "transform_points": 33554432
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 33554432,
+      "b": 33554431,
+      "limit": 33554432,
+      "blocks": [
+        {
+          "a": 33554432,
+          "b": 33554431,
+          "limit": 33554432,
+          "transform_points": 67108864
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 67108864,
+      "b": 67108863,
+      "limit": 67108864,
+      "blocks": [
+        {
+          "a": 67108864,
+          "b": 67108863,
+          "limit": 67108864,
+          "transform_points": 134217728
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 134217728,
+      "b": 134217727,
+      "limit": 134217728,
+      "blocks": [
+        {
+          "a": 134217728,
+          "b": 134217727,
+          "limit": 134217728,
+          "transform_points": 268435456
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 268435456,
+      "b": 268435455,
+      "limit": 268435456,
+      "blocks": [
+        {
+          "a": 268435456,
+          "b": 268435455,
+          "limit": 268435456,
+          "transform_points": 536870912
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 536870912,
+      "b": 536870911,
+      "limit": 536870912,
+      "blocks": [
+        {
+          "a": 536870912,
+          "b": 536870911,
+          "limit": 536870912,
+          "transform_points": 1073741824
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 918672422,
+      "b": 1073741823,
+      "limit": 1073741824,
+      "blocks": [
+        {
+          "a": 918672422,
+          "b": 1073741823,
+          "limit": 1073741824,
+          "transform_points": 2147483648
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 918672422,
+      "b": 2147483647,
+      "limit": 2147483648,
+      "blocks": [
+        {
+          "a": 918672422,
+          "b": 2147483647,
+          "limit": 2147483648,
+          "transform_points": 4294967296
+        }
+      ]
+    },
+    {
+      "stage": "reciprocal",
+      "a": 918672422,
+      "b": 4294967295,
+      "limit": 3376294875,
+      "blocks": [
+        {
+          "a": 918672422,
+          "b": 2147483648,
+          "limit": 3066156069,
+          "transform_points": 4294967296
+        },
+        {
+          "a": 918672422,
+          "b": 1228811227,
+          "limit": 1228811227,
+          "transform_points": 2147483648
+        }
+      ]
+    },
+    {
+      "stage": "identity",
+      "a": 918672422,
+      "b": 3376294875,
+      "limit": 4294967296,
+      "blocks": [
+        {
+          "a": 918672422,
+          "b": 2147483648,
+          "limit": 3066156069,
+          "transform_points": 4294967296
+        },
+        {
+          "a": 918672422,
+          "b": 1228811227,
+          "limit": 2147483648,
+          "transform_points": 2147483648
+        }
+      ]
+    }
+  ],
+  "base_normalization_muls": 918672422,
+  "reciprocal_square_muls": 4294967295,
+  "final_spectrum_forward_points": 4294967296,
+  "source_sha256": {
+    "encoding/liftrs-shared/orbit_product.go": "526c6ca2040fc5a7ec142dd3917e1c9dc5f1e002d5c387f0929b7e5ed28f2b38",
+    "encoding/liftrs-shared/orbit_polynomial.go": "6e8daba9496ab20a5e47b513c97ae0fcb4b81280edc5e44cbfe676e4b404f18d",
+    "encoding/liftrs-shared/factor_product.go": "45211036dcd75a6e77bba451454aba88b4cc7b690b6828c8a6309d9fb024b78e",
+    "encoding/liftrs-shared/scaling_experimental.go": "24eab5634b42b3497ef60de337ee07c6f7bc9731f7c003a2d9dcb094e3415af0"
+  },
+  "estimation_status": "Incomplete: early root intervals and <=2^22 kernels only. No whole-run time/speedup inferred.",
+  "excluded": "Internal batch leaf trees, root exponentiation, validation, CPU overhead, memory/GC, persistence and timing extrapolation. Counts are logical operations, not measured cost.",
+  "gpu_boundary_work": "Full 2^32 transforms need wider private shape counts, 17 row-basis levels and a newly admitted workspace; current experimental API rejects those sizes."
+}

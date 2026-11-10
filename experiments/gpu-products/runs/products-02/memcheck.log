@@ -1,0 +1,5 @@
+========= COMPUTE-SANITIZER
+=== RUN   TestGPUResidentProducts
+--- PASS: TestGPUResidentProducts (3.25s)
+PASS
+========= ERROR SUMMARY: 0 errors

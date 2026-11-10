@@ -12,6 +12,14 @@ type polynomialProducts struct {
 	workspace *productWorkspace
 }
 
+// Optional private executor for code-only resident products. Default Go/native
+// executors do not implement it. Output must have exactly limit coefficients;
+// caller slices stay immutable. Workspace ownership remains single-caller.
+type residentConvolver interface {
+	canConvolve(n int) bool
+	convolve(a, b []uint32, limit, n int) []uint32
+}
+
 // multiply returns the first limit coefficients of the ordinary convolution.
 // In characteristic two, pointwise multiplication on a binary subspace followed
 // by interpolation recovers a product whose degree is below that subspace size.
@@ -37,6 +45,20 @@ func (p *polynomialProducts) multiply(a, b []uint32, limit int) []uint32 {
 			for n < len(ai)+len(bj)-1 {
 				n *= 2
 			}
+			count := minInt(limit-i-j, len(ai)+len(bj)-1)
+			if resident, ok := p.transform.executor.(residentConvolver); ok && resident.canConvolve(n) {
+				if p.workspace != nil && p.workspace.observe != nil {
+					p.workspace.observe(n)
+				}
+				product := resident.convolve(ai, bj, count, n)
+				if len(product) != count {
+					panic("resident product length")
+				}
+				for k, v := range product {
+					out[i+j+k] ^= v
+				}
+				continue
+			}
 			var x, y []uint32
 			if p.workspace != nil {
 				x, y = p.workspace.buffers(n)
@@ -54,7 +76,6 @@ func (p *polynomialProducts) multiply(a, b []uint32, limit int) []uint32 {
 				x[k] = p.transform.f.mul(x[k], y[k])
 			}
 			p.transform.applySubspace(x, true)
-			count := minInt(limit-i-j, len(ai)+len(bj)-1)
 			for k := 0; k < count; k++ {
 				out[i+j+k] ^= x[k]
 			}

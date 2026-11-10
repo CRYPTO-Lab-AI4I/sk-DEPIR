@@ -1,0 +1,75 @@
+{
+  "status": "passed",
+  "sources_verified": 273,
+  "job_id": "72842",
+  "partials": {
+    "cpu": {
+      "interval_seconds": [
+        16.698910951,
+        19.992399609
+      ],
+      "finish_seconds": 5.980040258,
+      "partial": {
+        "coefficients": 2096712,
+        "prefix_positions": 1048576,
+        "product_cutoff": 32768,
+        "scope": "monic partial root product; not normalized P or a complete code cache",
+        "sha256": "0dd4d85de8e24d6f66475f11ab3e931d758e2a10b6661d84da9ed88f8ecf2491"
+      }
+    },
+    "resident": {
+      "interval_seconds": [
+        9.679028303,
+        10.526131513
+      ],
+      "finish_seconds": 0.848646994,
+      "partial": {
+        "coefficients": 2096712,
+        "owned_device_bytes": 51240040,
+        "prefix_positions": 1048576,
+        "product_calls": 1994,
+        "product_cutoff": 1024,
+        "scope": "monic partial root product; not normalized P or a complete code cache",
+        "sha256": "0dd4d85de8e24d6f66475f11ab3e931d758e2a10b6661d84da9ed88f8ecf2491",
+        "stage_seconds": [
+          0.06364744200000011,
+          0.9072342399661435,
+          6.613876003861438,
+          5.711735614418984,
+          0.10321023978479184,
+          0.044715185999999976,
+          0.017421759943012233,
+          14.481138956999988
+        ]
+      }
+    },
+    "resident-4096": {
+      "interval_seconds": [
+        8.251982691,
+        9.01515958
+      ],
+      "finish_seconds": 0.816407108,
+      "partial": {
+        "coefficients": 2096712,
+        "owned_device_bytes": 51240040,
+        "prefix_positions": 1048576,
+        "product_calls": 503,
+        "product_cutoff": 4096,
+        "scope": "monic partial root product; not normalized P or a complete code cache",
+        "sha256": "0dd4d85de8e24d6f66475f11ab3e931d758e2a10b6661d84da9ed88f8ecf2491",
+        "stage_seconds": [
+          0.027647282999999998,
+          0.2913081920132972,
+          3.8896896023750296,
+          3.2302156746983544,
+          0.027722943979781138,
+          0.023443296000000013,
+          0.004908479994162918,
+          7.777642113999999
+        ]
+      }
+    }
+  },
+  "estimation_status": "Incomplete: early root intervals and <=2^22 kernels only. No whole-run time/speedup inferred.",
+  "limits": "One actual prefix in two consecutive intervals per backend; not a complete code, randomized sample or full-run forecast."
+}

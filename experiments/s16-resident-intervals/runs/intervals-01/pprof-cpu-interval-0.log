@@ -1,0 +1,29 @@
+File: intervals.test
+Build ID: 642e474a8818c116edf3d3bbe673b5825edb35a7
+Type: cpu
+Time: 2026-11-10 11:22:03 CET
+Duration: 16.70s, Total samples = 25.24s (151.14%)
+Showing nodes accounting for 24.56s, 97.31% of 25.24s total
+Dropped 80 nodes (cum <= 0.13s)
+Showing top 20 nodes out of 44
+      flat  flat%   sum%        cum   cum%
+     9.69s 38.39% 38.39%     10.40s 41.20%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     8.11s 32.13% 70.52%      8.11s 32.13%  [intervals.test]
+     3.55s 14.06% 84.59%      3.55s 14.06%  runtime.cgocall
+     1.46s  5.78% 90.37%      1.46s  5.78%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.42s  1.66% 92.04%      0.42s  1.66%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Pow
+     0.33s  1.31% 93.34%     10.80s 42.79%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+     0.26s  1.03% 94.37%      0.65s  2.58%  runtime.mallocgcSmallNoscan
+     0.15s  0.59% 94.97%      0.15s  0.59%  runtime.memclrNoHeapPointers
+     0.09s  0.36% 95.32%      1.55s  6.14%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.07s  0.28% 95.60%      1.32s  5.23%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow
+     0.06s  0.24% 95.84%      0.14s  0.55%  runtime.(*mheap).allocSpan
+     0.06s  0.24% 96.08%      0.26s  1.03%  runtime.(*sweepLocked).sweep
+     0.06s  0.24% 96.32%      0.74s  2.93%  runtime.mallocgc
+     0.05s   0.2% 96.51%      0.47s  1.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Inverse
+     0.04s  0.16% 96.67%     14.72s 58.32%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+     0.04s  0.16% 96.83%      0.25s  0.99%  runtime.(*mcache).refill
+     0.04s  0.16% 96.99%      0.33s  1.31%  runtime.sweepone
+     0.03s  0.12% 97.11%      3.86s 15.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+     0.03s  0.12% 97.23%      0.75s  2.97%  runtime.makeslice
+     0.02s 0.079% 97.31%      0.16s  0.63%  runtime.(*mcentral).cacheSpan

@@ -1,0 +1,28 @@
+File: matrix.test
+Build ID: dd5c7b7ac09b00a7690971583f7b4b8e72492d69
+Type: cpu
+Time: 2026-11-10 11:14:14 CET
+Duration: 1.67s, Total samples = 1.30s (78.03%)
+Showing nodes accounting for 1.30s, 100% of 1.30s total
+Showing top 20 nodes out of 76
+      flat  flat%   sum%        cum   cum%
+     0.88s 67.69% 67.69%      0.88s 67.69%  runtime.cgocall
+     0.13s 10.00% 77.69%      0.14s 10.77%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     0.07s  5.38% 83.08%      0.07s  5.38%  [matrix.test]
+     0.06s  4.62% 87.69%      0.06s  4.62%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.04s  3.08% 90.77%      0.10s  7.69%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.03s  2.31% 93.08%      0.03s  2.31%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Pow
+     0.01s  0.77% 93.85%      0.01s  0.77%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).validateSupport
+     0.01s  0.77% 94.62%      0.89s 68.46%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+     0.01s  0.77% 95.38%      0.09s  6.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow
+     0.01s  0.77% 96.15%      0.01s  0.77%  indexbytebody
+     0.01s  0.77% 96.92%      0.01s  0.77%  internal/strconv.formatBase10
+     0.01s  0.77% 97.69%      0.01s  0.77%  runtime.(*spanInlineMarkBits).init
+     0.01s  0.77% 98.46%      0.01s  0.77%  runtime.greyobject
+     0.01s  0.77% 99.23%      0.02s  1.54%  runtime.makeslice
+     0.01s  0.77%   100%      0.01s  0.77%  runtime.step
+         0     0%   100%      0.01s  0.77%  encoding/json.MarshalIndent
+         0     0%   100%      0.01s  0.77%  encoding/json/v2.Marshal
+         0     0%   100%      0.01s  0.77%  encoding/json/v2.makeInterfaceArshaler.func1
+         0     0%   100%      0.01s  0.77%  encoding/json/v2.makeMapArshaler.func2
+         0     0%   100%      0.01s  0.77%  encoding/json/v2.makeSliceArshaler.func2

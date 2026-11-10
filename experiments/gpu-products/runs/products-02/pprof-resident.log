@@ -1,0 +1,29 @@
+File: matrix.test
+Build ID: dd5c7b7ac09b00a7690971583f7b4b8e72492d69
+Type: cpu
+Time: 2026-11-10 11:13:58 CET
+Duration: 2.45s, Total samples = 2.22s (90.75%)
+Showing nodes accounting for 2.09s, 94.14% of 2.22s total
+Dropped 82 nodes (cum <= 0.01s)
+Showing top 20 nodes out of 79
+      flat  flat%   sum%        cum   cum%
+     0.61s 27.48% 27.48%      0.61s 27.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).mul (inline)
+     0.56s 25.23% 52.70%      1.17s 52.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).addProduct (inline)
+     0.49s 22.07% 74.77%      0.49s 22.07%  runtime.cgocall
+     0.11s  4.95% 79.73%      0.11s  4.95%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     0.09s  4.05% 83.78%      1.32s 59.46%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     0.02s   0.9% 84.68%      0.02s   0.9%  internal/runtime/atomic.(*Uint32).Add (inline)
+     0.02s   0.9% 85.59%      0.02s   0.9%  internal/runtime/syscall/linux.Syscall6
+     0.02s   0.9% 86.49%      0.02s   0.9%  runtime.(*pallocBits).summarize
+     0.02s   0.9% 87.39%      0.02s   0.9%  runtime.findObject
+     0.02s   0.9% 88.29%      0.02s   0.9%  runtime.futex
+     0.02s   0.9% 89.19%      0.07s  3.15%  runtime.scanObject
+     0.02s   0.9% 90.09%      0.02s   0.9%  runtime.tryDeferToSpanScan
+     0.02s   0.9% 90.99%      0.02s   0.9%  runtime.typePointers.next
+     0.01s  0.45% 91.44%      2.04s 91.89%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).prepareCyclicScalingObserved
+     0.01s  0.45% 91.89%      0.08s  3.60%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.01s  0.45% 92.34%      0.49s 22.07%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyInverse
+     0.01s  0.45% 92.79%      0.04s  1.80%  runtime.(*mheap).freeSpanLocked
+     0.01s  0.45% 93.24%      0.07s  3.15%  runtime.makeslice
+     0.01s  0.45% 93.69%      0.06s  2.70%  runtime.mallocgcSmallNoscan
+     0.01s  0.45% 94.14%      0.02s   0.9%  runtime/pprof.(*profileBuilder).appendLocsForStack

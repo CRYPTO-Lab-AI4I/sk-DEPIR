@@ -1,0 +1,27 @@
+=== RUN   TestGPUResidentProducts
+--- FAIL: TestGPUResidentProducts (0.71s)
+panic: runtime error: index out of range [1] with length 1 [recovered, repanicked]
+
+goroutine 6 [running]:
+testing.tRunner.func1.2({0x871d08, 0x288820e2c090})
+	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2125 +0x232
+testing.tRunner.func1()
+	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2128 +0x329
+panic({0x871d08?, 0x288820e2c090?})
+	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/runtime/panic.go:859 +0x125
+github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).Recurse(0x288820dcf180, {0x288820e2a08c, 0x1, 0x1}, 0x5c28c0?, 0x20d485f0?, 0x0)
+	/tmp/sk-depir-products-72838/repo/encoding/liftrs-go/transform.go:90 +0x685
+github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply(0x288820e37200?, {0x288820e2a08c?, 0x288820dd9800?, 0x5e269d?}, 0x8?)
+	/tmp/sk-depir-products-72838/repo/encoding/liftrs-shared/orbit_fft.go:103 +0x4e
+github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*gpuPreparationExecutor).apply(0x3f010ffb4bc6a7f0?, {0x288820e2a08c?, 0x48fac9?, 0x3ee7fa0b8e17742a?}, 0x5e?)
+	/tmp/sk-depir-products-72838/repo/encoding/liftrs-shared/gpu_preparation_test.go:46 +0x46
+github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace(0x288820dcf200?, {0x288820e2a08c?, 0x0?, 0x0?}, 0x0?)
+	/tmp/sk-depir-products-72838/repo/encoding/liftrs-shared/orbit_fft.go:115 +0x43
+github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply(0x288820dd9e50, {0x288820e2a070, 0x1, 0x1}, {0x288820e2a074, 0x1, 0x1}, 0x1)
+	/tmp/sk-depir-products-72838/repo/encoding/liftrs-shared/orbit_product.go:73 +0x7bc
+github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUResidentProducts(0x288820de2248)
+	/tmp/sk-depir-products-72838/repo/encoding/liftrs-shared/gpu_resident_test.go:54 +0xae5
+testing.tRunner(0x288820de2248, 0x87fd80)
+	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2195 +0xea
+created by testing.(*T).Run in goroutine 1
+	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2260 +0x4d4
