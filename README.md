@@ -115,6 +115,9 @@ forward/inverse comparisons on an H200 NVL: warmed, transfer-inclusive tiles are
 19–25× faster than the four-core lookup CPU reference at the largest tested buffer.
 Device initialization is separate. This is a transform component, not a complete
 GPU encoder or a full s16 speedup; the library retains its CPU backend.
+The [next GPU composition step](docs/encoding-scaling.md#completed-comparison-checkpoint-and-next-integration)
+now specifies complete matrix/Taylor transforms, persistent workspace, exact
+CPU comparisons and a smaller-code preparation test before full s16 admission.
 
 ## Implementation status and limits
 

@@ -131,9 +131,35 @@ and persistent buffers; measure complete forward/inverse transforms and complete
 smaller-code preparation against the improved CPU path, including one-time setup,
 transfers and CPU core scaling. Validate row and arbitrary column bases, all
 canonical outputs, memory ownership and repeated calls. Record a new bounded
-budget before execution. This is a planned integration, not an implemented GPU
-backend. Keep CPU batch parallelism eligible, and revisit root reuse only if
-integrated profiles justify it. Full s16 readmission remains a later decision.
+budget before execution. The next implementation expands into:
+
+1. Compose canonical row tiles and arbitrary-basis column tiles with exact
+   h-adic Taylor conversion and transposes. Verify independent small Horner
+   outputs, complete native CPU outputs and forward/inverse round trips.
+2. Own tables/plans and device workspace once per executor. Keep buffers resident
+   across forward/product/inverse sequences where possible, with explicit
+   ownership and no retained Go input pointers. Repeated calls must not reuse
+   stale values. Reject shapes outside the admitted bound.
+3. Measure complete transforms and resident convolution against 4/16-core CPU
+   references, including initialization, plan preparation, transfers, staging,
+   synchronization and memory. Preserve per-stage diagnostic timings/profiles.
+4. Connect the experimental executor to complete s10 preprocessing/encoding with
+   the existing exact identity, systematic, curve, output-hash and readback checks.
+   Compare CPU and GPU-assisted runs and fresh cache use; leave ordinary CPU
+   constructors available. Record CPU/GPU boundaries and all remaining transfers.
+5. Select the next integration from complete pipeline evidence. A full s16 attempt
+   requires a separate reviewed budget/provenance decision after these checks;
+   tile or transform gains alone do not establish its runtime or feasibility.
+
+Initial composition budget per job: one GPU, 16 CPU cores for 4/16-core comparisons,
+16 GiB host RAM requested, 12 GiB sampled process RSS guard, 512 MiB explicitly
+allocated device buffers/tables, 30-minute allocation/25-minute controller deadline,
+and at most 2^22 transform values. CUDA driver/context memory is separate from
+explicit buffers and must be reported. Preserve caches, source/binary hashes and
+all attempts; no full s16 discovery/preparation is included.
+This is a planned integration, not an implemented GPU backend. Keep CPU batch
+parallelism eligible and revisit root reuse only if integrated profiles justify
+it. Full s16 readmission remains a later decision.
 
 ## Step 1: resource accounting
 
