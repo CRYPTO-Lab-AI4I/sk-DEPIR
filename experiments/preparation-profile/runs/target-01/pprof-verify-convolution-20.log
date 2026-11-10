@@ -1,0 +1,15 @@
+File: profile.test
+Build ID: 9138473093419a3eefd81a3a65ea61d8317b058e
+Type: cpu
+Time: 2026-11-10 09:55:12 CET
+Duration: 97.52ms, Total samples = 100ms (102.55%)
+Showing nodes accounting for 100ms, 100% of 100ms total
+      flat  flat%   sum%        cum   cum%
+      70ms 70.00% 70.00%       70ms 70.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+      30ms 30.00%   100%      100ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0%   100%      100ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile
+         0     0%   100%      100ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile.func12
+         0     0%   100%      100ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile.func3
+         0     0%   100%      100ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile.func9
+         0     0%   100%       70ms 70.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+         0     0%   100%      100ms   100%  testing.tRunner

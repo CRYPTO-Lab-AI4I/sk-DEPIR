@@ -106,6 +106,8 @@ using a small private multiplication table. Full s16 preparation remains unverif
 The [current scaling step](docs/encoding-scaling.md#current-step-larger-memory-preparation-efficiency)
 now includes targeted stage profiling, CPU kernel/batch/root improvements and
 matched GPU trials before another full-run admission decision.
+Its first sub-step is the [bounded stage profile](experiments/preparation-profile/report.md),
+using saved support and representative kernels with separate correctness checks.
 
 ## Implementation status and limits
 

@@ -1,0 +1,19 @@
+File: profile.test
+Build ID: 9138473093419a3eefd81a3a65ea61d8317b058e
+Type: cpu
+Time: 2026-11-10 09:55:08 CET
+Duration: 145.09ms, Total samples = 140ms (96.49%)
+Showing nodes accounting for 140ms, 100% of 140ms total
+      flat  flat%   sum%        cum   cum%
+     130ms 92.86% 92.86%      130ms 92.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+      10ms  7.14%   100%       50ms 35.71%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow
+         0     0%   100%      140ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile
+         0     0%   100%      140ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile.func3
+         0     0%   100%      140ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile.func6
+         0     0%   100%       90ms 64.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.inv
+         0     0%   100%       40ms 28.57%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0%   100%       70ms 50.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Inverse
+         0     0%   100%       70ms 50.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Pow
+         0     0%   100%       90ms 64.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Inverse
+         0     0%   100%       40ms 28.57%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+         0     0%   100%      140ms   100%  testing.tRunner

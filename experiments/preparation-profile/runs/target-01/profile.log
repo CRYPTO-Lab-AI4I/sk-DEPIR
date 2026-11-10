@@ -1,0 +1,15 @@
+=== RUN   TestPreparationTargetProfile
+    preparation_profile_test.go:69: support-read 38.784814981s
+    preparation_profile_test.go:69: bounded-setup 30.178941ms
+    preparation_profile_test.go:69: root-generation 145.118368ms
+    preparation_profile_test.go:69: leaf-products 805.381826ms
+    preparation_profile_test.go:69: batch-merges 879.42275ms
+    preparation_profile_test.go:69: factor-verification 18.630281ms
+    preparation_profile_test.go:69: convolution-18 308.914106ms
+    preparation_profile_test.go:69: verify-convolution-18 24.385175ms
+    preparation_profile_test.go:69: convolution-20 1.474694614s
+    preparation_profile_test.go:69: verify-convolution-20 97.545001ms
+    preparation_profile_test.go:69: convolution-22 6.589040142s
+    preparation_profile_test.go:69: verify-convolution-22 389.444081ms
+--- PASS: TestPreparationTargetProfile (49.70s)
+PASS

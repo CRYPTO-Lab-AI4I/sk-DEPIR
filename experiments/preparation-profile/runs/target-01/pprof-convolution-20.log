@@ -1,0 +1,24 @@
+File: profile.test
+Build ID: 9138473093419a3eefd81a3a65ea61d8317b058e
+Type: cpu
+Time: 2026-11-10 09:55:10 CET
+Duration: 1.47s, Total samples = 4.57s (309.88%)
+Showing nodes accounting for 4.56s, 99.78% of 4.57s total
+Dropped 1 node (cum <= 0.02s)
+      flat  flat%   sum%        cum   cum%
+     3.16s 69.15% 69.15%      3.16s 69.15%  [profile.test]
+     1.31s 28.67% 97.81%      1.31s 28.67%  runtime.cgocall
+     0.06s  1.31% 99.12%      0.06s  1.31%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.03s  0.66% 99.78%      0.09s  1.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0% 99.78%      1.31s 28.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0% 99.78%      1.31s 28.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0% 99.78%      1.31s 28.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0% 99.78%      1.41s 30.85%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+         0     0% 99.78%      1.31s 28.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*profileTransform).apply
+         0     0% 99.78%      1.31s 28.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*scalingPreparationCPP).apply
+         0     0% 99.78%      1.41s 30.85%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile
+         0     0% 99.78%      1.41s 30.85%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile.func11
+         0     0% 99.78%      1.41s 30.85%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile.func3
+         0     0% 99.78%      1.41s 30.85%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0% 99.78%      3.16s 69.15%  runtime._ExternalCode
+         0     0% 99.78%      1.41s 30.85%  testing.tRunner

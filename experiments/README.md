@@ -37,6 +37,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Targeted preparation profile](preparation-profile/report.md): read-only saved
+  s16 support sampling, root generation, lookup leaf products and bounded native
+  convolution clocks/profiles; no whole s16 preparation or GPU claim.
+
 - [Preparation arithmetic](preparation-arithmetic/report.md): bounded s16 leaf
   profiles and matched complete s10 runs comparing private base-field lookup
   with table-free preparation after the first full s16 run was stopped.

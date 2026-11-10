@@ -69,13 +69,48 @@ design-selection/scaling step with these sub-steps:
    support provenance. Reassess time/RAM/I/O budgets before another full run;
    preserve preprocessing/profiles and publish no full-feasibility claim early.
 
-Sub-step 1 is next. Later sub-steps can be reordered or omitted with recorded
-measurement-based reasons. Initial profiling budget: one CPU-only Slurm job,
+Sub-step 1 now passes in the [targeted profile](../experiments/preparation-profile/report.md):
+sampled Go leaf/merge work and native transforms remain distinct opportunities.
+Sub-step 2 is next, including calibration of the existing Go/native product
+crossover threshold. Root generation was smaller than product work in this
+sample, so defer sub-step 4 until product improvements are checked unless later
+integrated evidence changes the ranking. Large transforms are the first proposed
+GPU comparison target; device benefit remains unmeasured. Later sub-steps can be
+reordered or omitted with recorded measurement-based reasons.
+Initial profiling budget: one CPU-only Slurm job,
 four cores, 16 GiB requested, 12 GiB sampled process-group RSS guard, 30-minute
 allocation and 25-minute controller deadline. Cap representative convolution
 buffers at 2^22 points and sampled support at 65,536 exponents. No full s16
 executor allocation, discovery, or preparation is part of that job. GPU trials
 need a separate explicit device/workload budget recorded before submission.
+
+### Next comparisons: CPU products and GPU transform tiles
+
+The targeted profile supports these concrete comparisons within sub-steps 2/5:
+
+1. Measure lookup-specialized Go versus native C++ polynomial loops with the
+   same deterministic coefficients and exact output comparison. Sweep the
+   existing Go/native-transform cutoff on representative s16 product sizes;
+   include allocation, plan setup and complete smaller-code checks before choosing
+   a production setting. Keep generic arithmetic as the correctness reference.
+2. Validate one available GPU and its compiler/driver. Prototype batched affine
+   transform tiles over the existing packed extension field, matched exactly to
+   native CPU tiles. Sweep tile sizes and total buffer sizes up to 2^22 values;
+   separately measure initialization, reusable tables/buffers, host/device copies,
+   forward/inverse kernels, synchronization and complete transfer-inclusive calls.
+   These tiles are components of the larger transforms, not a full GPU matrix/
+   Taylor backend. Report that scope even if the kernel is faster.
+3. Use both results to choose the next integration. GPU tile gains alone do not
+   justify moving the full pipeline or predict full s16 runtime. If the GPU
+   prototype loses, report its algorithm/layout limitations rather than treating
+   the result as a limit on other GPU implementations.
+
+Trial budget per job: four CPU cores, 16 GiB requested RAM, 12 GiB sampled process
+RSS guard, 30-minute Slurm allocation and 25-minute controller deadline. GPU trial
+requests one device and caps explicit device allocations at 512 MiB. Keep all
+large-code caches intact and retain generated fixtures/profiles/binaries outside
+Git with checksums. No full s16 run is included. CPU and GPU experiments can run
+independently under these per-job bounds; log every attempt and any correction.
 
 ## Step 1: resource accounting
 

@@ -1,0 +1,11 @@
+# PREP-014 — targeted preparation profile passes
+
+Timestamp: 2026-11-10T08:57:19.670094+00:00
+Agent: Codex
+Status: completed
+
+Published checkpoint and expanded plan as ea1ff1e (main and origin/main aligned immediately after push), then implemented the requested targeted CPU profile. [Report](../experiments/preparation-profile/report.md), [runner](../experiments/preparation-profile/run.py), [analysis](../experiments/preparation-profile/runs/target-01/analysis.json), [harness](../encoding/liftrs-shared/preparation_profile_test.go). Job 72816 on gnode17 passed; four CPU cores, 16 GiB request/12 GiB RSS guard, 30-minute allocation/25-minute deadline. Native buffers capped at 2^22 points; no discovery, full executor/preparation or GPU run. Existing support opened read-only and original checksum verified. Profiles, exact dirty source snapshots and matching binary retained; no cache removed.
+
+Measured single profiled samples: sampled 65,536 support exponents produced 32,659 factors in 0.145 s; leaf products 0.805 s; merges 0.879 s (all below native cutoff). Representative 2^22 convolution 6.589 s, including 6.193 s native transforms (94.0% of this kernel, not the whole preparation). Worker peak sampled RSS 105.75 MiB, completed in 49.70 s; support hashing/sampling separately 38.785 s. All root/product/convolution checks pass. Analyzer verified 247 sources, binary/evidence, bounds and check counts. CGO-disabled focused lookup/scaling tests, Python/shell syntax, gofmt, links and staged whitespace checks pass. No repeated full suites for profiling-only changes; published arithmetic/full-suite checkpoint unchanged.
+
+Changed: opt-in `preparation_profile_test.go`, new experiment scripts/report/results, source snapshots; README/experiments index/current scaling step; narrow .gitattributes exceptions preserve exact Slurm/compiler log whitespace; this board. README checked/updated. Current sub-step 1 complete; sub-step 2 next compares specialized CPU kernels and Go/native crossover. Parallel batches remain eligible; defer root reuse based on this local sample. Large transforms are the proposed first GPU target, with full setup/transfers still to measure. Kernel sizes differ; no full-s16 percentage, timing projection or GPU speedup is inferred. No full retry. Post-publication profile work is staged locally, not part of ea1ff1e.

@@ -11,3 +11,5 @@ experiments/hpc-s16/runs/*/compiler.log whitespace=-blank-at-eof
 experiments/hpc-s16/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
 experiments/preparation-arithmetic/runs/*/compiler.log whitespace=-blank-at-eof
 experiments/preparation-arithmetic/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
+experiments/preparation-profile/runs/*/compiler.log whitespace=-blank-at-eof
+experiments/preparation-profile/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof

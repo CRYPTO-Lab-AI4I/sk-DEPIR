@@ -1,0 +1,89 @@
+[
+  {
+    "phase": "support-read",
+    "sampled": 65536,
+    "sampling": "floor(j*K/65536), spread over sorted support",
+    "seconds": 38.784814981,
+    "sha256": "021446aa0d2764f4020e989ee54f3a99c63c7d9a407f5babbcb333919a2854ad",
+    "source_k": 918672421
+  },
+  {
+    "maximum_transform_points": 4194304,
+    "phase": "bounded-setup",
+    "s": 16,
+    "seconds": 0.030178941,
+    "transpose_bytes": 16777216,
+    "workers": 4
+  },
+  {
+    "factors": 32659,
+    "phase": "root-generation",
+    "positions_scanned": 65536,
+    "seconds": 0.145118368
+  },
+  {
+    "batch_factors": 8192,
+    "batches": 4,
+    "factors": 32659,
+    "phase": "leaf-products",
+    "seconds": 0.805381826
+  },
+  {
+    "coefficients": 65316,
+    "native_transform_calls": 0,
+    "native_transform_seconds": 0,
+    "phase": "batch-merges",
+    "seconds": 0.87942275
+  },
+  {
+    "phase": "factor-verification",
+    "product_evaluation_points": 3,
+    "roots_checked": 32659,
+    "seconds": 0.018630281
+  },
+  {
+    "native_transform_calls": 3,
+    "native_transform_seconds": 0.287754558,
+    "output_coefficients": 262143,
+    "phase": "convolution-18",
+    "seconds": 0.308914106,
+    "transform_points": 262144
+  },
+  {
+    "base_range_checked": 262143,
+    "direct_prefix_checked": 32,
+    "evaluation_points": 3,
+    "phase": "verify-convolution-18",
+    "seconds": 0.024385175
+  },
+  {
+    "native_transform_calls": 3,
+    "native_transform_seconds": 1.376653603,
+    "output_coefficients": 1048575,
+    "phase": "convolution-20",
+    "seconds": 1.4746946140000001,
+    "transform_points": 1048576
+  },
+  {
+    "base_range_checked": 1048575,
+    "direct_prefix_checked": 32,
+    "evaluation_points": 3,
+    "phase": "verify-convolution-20",
+    "seconds": 0.097545001
+  },
+  {
+    "native_transform_calls": 3,
+    "native_transform_seconds": 6.19339527,
+    "output_coefficients": 4194303,
+    "phase": "convolution-22",
+    "seconds": 6.589040142,
+    "transform_points": 4194304
+  },
+  {
+    "base_range_checked": 4194303,
+    "direct_prefix_checked": 32,
+    "evaluation_points": 3,
+    "phase": "verify-convolution-22",
+    "seconds": 0.389444081
+  }
+]

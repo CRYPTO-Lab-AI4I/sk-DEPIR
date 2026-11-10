@@ -1,0 +1,27 @@
+File: profile.test
+Build ID: 9138473093419a3eefd81a3a65ea61d8317b058e
+Type: cpu
+Time: 2026-11-10 09:54:29 CET
+Duration: 38.78s, Total samples = 5.88s (15.16%)
+Showing nodes accounting for 5.87s, 99.83% of 5.88s total
+Dropped 9 nodes (cum <= 0.03s)
+      flat  flat%   sum%        cum   cum%
+     4.08s 69.39% 69.39%      4.08s 69.39%  internal/runtime/syscall/linux.Syscall6
+     1.79s 30.44% 99.83%      1.79s 30.44%  crypto/internal/fips140/sha256.blockSHANI
+         0     0% 99.83%      1.79s 30.44%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0% 99.83%      1.79s 30.44%  crypto/internal/fips140/sha256.block
+         0     0% 99.83%      5.87s 99.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile
+         0     0% 99.83%      5.87s 99.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile.func3
+         0     0% 99.83%      5.87s 99.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile.func4
+         0     0% 99.83%      4.08s 69.39%  internal/poll.(*FD).Read
+         0     0% 99.83%      4.08s 69.39%  internal/poll.ignoringEINTRIO (inline)
+         0     0% 99.83%      5.87s 99.83%  io.(*teeReader).Read
+         0     0% 99.83%      5.87s 99.83%  io.ReadAtLeast
+         0     0% 99.83%      5.87s 99.83%  io.ReadFull (inline)
+         0     0% 99.83%      4.08s 69.39%  os.(*File).Read
+         0     0% 99.83%      4.08s 69.39%  os.(*File).read (inline)
+         0     0% 99.83%      4.08s 69.39%  syscall.RawSyscall6
+         0     0% 99.83%      4.08s 69.39%  syscall.Read (inline)
+         0     0% 99.83%      4.08s 69.39%  syscall.Syscall
+         0     0% 99.83%      4.08s 69.39%  syscall.read
+         0     0% 99.83%      5.87s 99.83%  testing.tRunner

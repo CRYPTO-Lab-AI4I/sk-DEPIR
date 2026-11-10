@@ -1,0 +1,28 @@
+File: profile.test
+Build ID: 9138473093419a3eefd81a3a65ea61d8317b058e
+Type: cpu
+Time: 2026-11-10 09:55:08 CET
+Duration: 805.38ms, Total samples = 840ms (104.30%)
+Showing nodes accounting for 840ms, 100% of 840ms total
+Showing top 20 nodes out of 22
+      flat  flat%   sum%        cum   cum%
+     430ms 51.19% 51.19%      550ms 65.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     210ms 25.00% 76.19%      730ms 86.90%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     120ms 14.29% 90.48%      120ms 14.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).mul (inline)
+      30ms  3.57% 94.05%      770ms 91.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+      20ms  2.38% 96.43%       30ms  3.57%  runtime.tryDeferToSpanScan
+      10ms  1.19% 97.62%       10ms  1.19%  runtime.alignDown (inline)
+      10ms  1.19% 98.81%       10ms  1.19%  runtime.mallocgcSmallNoScanSC5
+      10ms  1.19%   100%       40ms  4.76%  runtime.scanObject
+         0     0%   100%      800ms 95.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile
+         0     0%   100%      800ms 95.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile.func3
+         0     0%   100%      800ms 95.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile.func7
+         0     0%   100%      800ms 95.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+         0     0%   100%      800ms 95.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0%   100%      800ms 95.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rootProduct
+         0     0%   100%       40ms  4.76%  runtime.gcBgMarkWorker
+         0     0%   100%       40ms  4.76%  runtime.gcBgMarkWorker.func2
+         0     0%   100%       40ms  4.76%  runtime.gcDrain
+         0     0%   100%       40ms  4.76%  runtime.gcDrainMarkWorkerDedicated (inline)
+         0     0%   100%       10ms  1.19%  runtime.makeslice
+         0     0%   100%       10ms  1.19%  runtime.mallocgc

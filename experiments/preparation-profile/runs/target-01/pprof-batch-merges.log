@@ -1,0 +1,28 @@
+File: profile.test
+Build ID: 9138473093419a3eefd81a3a65ea61d8317b058e
+Type: cpu
+Time: 2026-11-10 09:55:09 CET
+Duration: 879.44ms, Total samples = 910ms (103.48%)
+Showing nodes accounting for 910ms, 100% of 910ms total
+Showing top 20 nodes out of 40
+      flat  flat%   sum%        cum   cum%
+     420ms 46.15% 46.15%      580ms 63.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     260ms 28.57% 74.73%      860ms 94.51%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     160ms 17.58% 92.31%      160ms 17.58%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).mul (inline)
+      20ms  2.20% 94.51%      880ms 96.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+      10ms  1.10% 95.60%       10ms  1.10%  runtime.lock2
+      10ms  1.10% 96.70%       10ms  1.10%  runtime.madvise
+      10ms  1.10% 97.80%       10ms  1.10%  runtime.memclrNoHeapPointers
+      10ms  1.10% 98.90%       10ms  1.10%  runtime.nextFreeFast (inline)
+      10ms  1.10%   100%       10ms  1.10%  runtime.typePointers.next
+         0     0%   100%      880ms 96.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile
+         0     0%   100%      880ms 96.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile.func3
+         0     0%   100%      880ms 96.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationTargetProfile.func8
+         0     0%   100%      880ms 96.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+         0     0%   100%      880ms 96.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0%   100%      880ms 96.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rootProduct
+         0     0%   100%       10ms  1.10%  runtime.(*mheap).freeSpan
+         0     0%   100%       10ms  1.10%  runtime.(*mheap).freeSpan.func1
+         0     0%   100%       10ms  1.10%  runtime.(*pageAlloc).scavenge
+         0     0%   100%       10ms  1.10%  runtime.(*pageAlloc).scavenge.func1
+         0     0%   100%       10ms  1.10%  runtime.(*pageAlloc).scavengeOne
