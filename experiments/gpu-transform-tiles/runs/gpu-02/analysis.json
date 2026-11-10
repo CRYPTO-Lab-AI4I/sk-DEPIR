@@ -1,0 +1,198 @@
+{
+  "status": "passed",
+  "sources_verified": 255,
+  "job_id": "72825",
+  "mode": "gpu",
+  "setup": {
+    "kind": "setup",
+    "gpu": "NVIDIA H200 NVL",
+    "device_memory_bytes": 150109880320,
+    "context_seconds": 0.644782,
+    "tables_seconds": 0.00964749,
+    "table_bytes": 788124
+  },
+  "tiles": [
+    {
+      "n": 262144,
+      "tile": 16,
+      "medians": {
+        "cpu_forward_seconds": 0.0221531,
+        "cpu_inverse_seconds": 0.0241378,
+        "cpu_lookup_forward_seconds": 0.00376801,
+        "cpu_lookup_inverse_seconds": 0.00429299,
+        "gpu_forward_seconds": 9.1968e-05,
+        "gpu_inverse_seconds": 9.6384e-05,
+        "h2d_seconds": 0.000122183,
+        "d2h_seconds": 0.000169166,
+        "layout_in_seconds": 1.248e-05,
+        "layout_out_seconds": 9.568e-06,
+        "forward_end_to_end_seconds": 0.000496126,
+        "allocation_seconds": 0.000130272,
+        "native_cpu_over_transfer_inclusive_gpu": 44.65216497422025,
+        "lookup_cpu_over_transfer_inclusive_gpu": 7.594865014129474
+      }
+    },
+    {
+      "n": 262144,
+      "tile": 64,
+      "medians": {
+        "cpu_forward_seconds": 0.0301116,
+        "cpu_inverse_seconds": 0.0303769,
+        "cpu_lookup_forward_seconds": 0.00618182,
+        "cpu_lookup_inverse_seconds": 0.00697588,
+        "gpu_forward_seconds": 0.000622336,
+        "gpu_inverse_seconds": 0.000628928,
+        "h2d_seconds": 9.2841e-05,
+        "d2h_seconds": 0.000168529,
+        "layout_in_seconds": 1.4304e-05,
+        "layout_out_seconds": 9.984e-06,
+        "forward_end_to_end_seconds": 0.00097359,
+        "allocation_seconds": 0.000163945,
+        "native_cpu_over_transfer_inclusive_gpu": 30.928419560595323,
+        "lookup_cpu_over_transfer_inclusive_gpu": 6.349510574266375
+      }
+    },
+    {
+      "n": 262144,
+      "tile": 256,
+      "medians": {
+        "cpu_forward_seconds": 0.0376068,
+        "cpu_inverse_seconds": 0.0371069,
+        "cpu_lookup_forward_seconds": 0.0118266,
+        "cpu_lookup_inverse_seconds": 0.0103667,
+        "gpu_forward_seconds": 0.00377901,
+        "gpu_inverse_seconds": 0.00378557,
+        "h2d_seconds": 9.9945e-05,
+        "d2h_seconds": 0.000168579,
+        "layout_in_seconds": 1.4272e-05,
+        "layout_out_seconds": 1.152e-05,
+        "forward_end_to_end_seconds": 0.0041319,
+        "allocation_seconds": 0.00017977,
+        "native_cpu_over_transfer_inclusive_gpu": 9.101575546358818,
+        "lookup_cpu_over_transfer_inclusive_gpu": 2.862266753793654
+      }
+    },
+    {
+      "n": 1048576,
+      "tile": 16,
+      "medians": {
+        "cpu_forward_seconds": 0.0940191,
+        "cpu_inverse_seconds": 0.0931607,
+        "cpu_lookup_forward_seconds": 0.0169793,
+        "cpu_lookup_inverse_seconds": 0.0198232,
+        "gpu_forward_seconds": 0.000210688,
+        "gpu_inverse_seconds": 0.000218784,
+        "h2d_seconds": 0.000490461,
+        "d2h_seconds": 0.000535132,
+        "layout_in_seconds": 1.1616e-05,
+        "layout_out_seconds": 1.1872e-05,
+        "forward_end_to_end_seconds": 0.00132079,
+        "allocation_seconds": 0.000304306,
+        "native_cpu_over_transfer_inclusive_gpu": 71.18398837059638,
+        "lookup_cpu_over_transfer_inclusive_gpu": 12.855412291128793
+      }
+    },
+    {
+      "n": 1048576,
+      "tile": 64,
+      "medians": {
+        "cpu_forward_seconds": 0.126557,
+        "cpu_inverse_seconds": 0.127454,
+        "cpu_lookup_forward_seconds": 0.0262527,
+        "cpu_lookup_inverse_seconds": 0.0303082,
+        "gpu_forward_seconds": 0.000652,
+        "gpu_inverse_seconds": 0.00065792,
+        "h2d_seconds": 0.000500475,
+        "d2h_seconds": 0.000357507,
+        "layout_in_seconds": 3.0304e-05,
+        "layout_out_seconds": 1.4112e-05,
+        "forward_end_to_end_seconds": 0.00161507,
+        "allocation_seconds": 0.000244248,
+        "native_cpu_over_transfer_inclusive_gpu": 78.36007108051045,
+        "lookup_cpu_over_transfer_inclusive_gpu": 16.254837251636154
+      }
+    },
+    {
+      "n": 1048576,
+      "tile": 256,
+      "medians": {
+        "cpu_forward_seconds": 0.156751,
+        "cpu_inverse_seconds": 0.154712,
+        "cpu_lookup_forward_seconds": 0.0374105,
+        "cpu_lookup_inverse_seconds": 0.0436475,
+        "gpu_forward_seconds": 0.00402566,
+        "gpu_inverse_seconds": 0.00403821,
+        "h2d_seconds": 0.000496302,
+        "d2h_seconds": 0.000354288,
+        "layout_in_seconds": 2.7648e-05,
+        "layout_out_seconds": 1.6672e-05,
+        "forward_end_to_end_seconds": 0.00498569,
+        "allocation_seconds": 0.000368532,
+        "native_cpu_over_transfer_inclusive_gpu": 31.440181800312494,
+        "lookup_cpu_over_transfer_inclusive_gpu": 7.503575232314885
+      }
+    },
+    {
+      "n": 4194304,
+      "tile": 16,
+      "medians": {
+        "cpu_forward_seconds": 0.387987,
+        "cpu_inverse_seconds": 0.465165,
+        "cpu_lookup_forward_seconds": 0.0738866,
+        "cpu_lookup_inverse_seconds": 0.0835693,
+        "gpu_forward_seconds": 0.00102256,
+        "gpu_inverse_seconds": 0.0010407,
+        "h2d_seconds": 0.00153794,
+        "d2h_seconds": 0.00117239,
+        "layout_in_seconds": 3.3088e-05,
+        "layout_out_seconds": 1.8912e-05,
+        "forward_end_to_end_seconds": 0.00383622,
+        "allocation_seconds": 0.000284235,
+        "native_cpu_over_transfer_inclusive_gpu": 101.13783881007868,
+        "lookup_cpu_over_transfer_inclusive_gpu": 19.26026140315206
+      }
+    },
+    {
+      "n": 4194304,
+      "tile": 64,
+      "medians": {
+        "cpu_forward_seconds": 0.536028,
+        "cpu_inverse_seconds": 0.610876,
+        "cpu_lookup_forward_seconds": 0.115447,
+        "cpu_lookup_inverse_seconds": 0.13012,
+        "gpu_forward_seconds": 0.00154954,
+        "gpu_inverse_seconds": 0.0015784,
+        "h2d_seconds": 0.00182084,
+        "d2h_seconds": 0.00121633,
+        "layout_in_seconds": 8.0608e-05,
+        "layout_out_seconds": 2.7488e-05,
+        "forward_end_to_end_seconds": 0.00473802,
+        "allocation_seconds": 0.000332171,
+        "native_cpu_over_transfer_inclusive_gpu": 113.13333417756783,
+        "lookup_cpu_over_transfer_inclusive_gpu": 24.366085411205525
+      }
+    },
+    {
+      "n": 4194304,
+      "tile": 256,
+      "medians": {
+        "cpu_forward_seconds": 0.750449,
+        "cpu_inverse_seconds": 0.654018,
+        "cpu_lookup_forward_seconds": 0.178451,
+        "cpu_lookup_inverse_seconds": 0.207605,
+        "gpu_forward_seconds": 0.00412726,
+        "gpu_inverse_seconds": 0.004132,
+        "h2d_seconds": 0.00164713,
+        "d2h_seconds": 0.00123903,
+        "layout_in_seconds": 8.3136e-05,
+        "layout_out_seconds": 3.9584e-05,
+        "forward_end_to_end_seconds": 0.00718454,
+        "allocation_seconds": 0.0003339,
+        "native_cpu_over_transfer_inclusive_gpu": 104.45331225102791,
+        "lookup_cpu_over_transfer_inclusive_gpu": 24.83819423372965
+      }
+    }
+  ],
+  "fixture_sha256": "1c9c67cd9de71bb0ebe91fff66124ca109544c6dfed8a908810c1b22650df880",
+  "limits": "Profiled CPU kernels/two complete s10 runs per cutoff, or warmed GPU transform tiles; not a complete GPU backend, full s16 feasibility or an optimal universal cutoff."
+}

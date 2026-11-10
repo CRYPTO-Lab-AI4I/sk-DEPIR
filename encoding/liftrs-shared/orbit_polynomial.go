@@ -16,6 +16,10 @@ func karatsuba(f orbitField, a, b []uint32) []uint32 {
 	n := len(a)
 	if n <= 32 {
 		c := make([]uint32, 2*n)
+		if f.extension == nil && f.lookup != nil {
+			f.lookup.addProduct(c, a, b)
+			return c
+		}
 		for i, x := range a {
 			if x != 0 {
 				for j, y := range b {

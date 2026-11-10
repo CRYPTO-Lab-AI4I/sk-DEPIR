@@ -57,3 +57,18 @@ func (t *preparationProducts) mul(a, b uint32) uint32 {
 	}
 	return t.powers[t.log[a]+t.log[b]]
 }
+
+// addProduct keeps the private lookup choice outside the coefficient loop.
+// Truncation is exact: higher coefficients never contribute to this prefix.
+func (t *preparationProducts) addProduct(out, a, b []uint32) {
+	for i, x := range a {
+		if i >= len(out) {
+			break
+		}
+		if x != 0 {
+			for j := 0; j < len(b) && i+j < len(out); j++ {
+				out[i+j] ^= t.mul(x, b[j])
+			}
+		}
+	}
+}

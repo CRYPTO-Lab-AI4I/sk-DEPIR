@@ -13,3 +13,7 @@ experiments/preparation-arithmetic/runs/*/compiler.log whitespace=-blank-at-eof
 experiments/preparation-arithmetic/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
 experiments/preparation-profile/runs/*/compiler.log whitespace=-blank-at-eof
 experiments/preparation-profile/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
+experiments/preparation-kernels/runs/*/compiler.log whitespace=-blank-at-eof
+experiments/preparation-kernels/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
+experiments/gpu-transform-tiles/runs/*/compiler.log whitespace=-blank-at-eof
+experiments/gpu-transform-tiles/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof

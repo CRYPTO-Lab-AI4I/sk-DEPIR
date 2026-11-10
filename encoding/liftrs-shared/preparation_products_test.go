@@ -2,8 +2,34 @@ package liftrs
 
 import (
 	"math/rand"
+	"reflect"
 	"testing"
 )
+
+func TestPreparationProductPrefixes(t *testing.T) {
+	base, _, _, _ := orbitFields(16, 0x1002d)
+	fast := base
+	fast.lookup = newPreparationProducts(base.base)
+	rng := rand.New(rand.NewSource(1502))
+	for _, shape := range [][2]int{{1, 1}, {3, 7}, {17, 23}, {32, 32}, {33, 65}, {128, 32}} {
+		a, b := make([]uint32, shape[0]), make([]uint32, shape[1])
+		for i := range a {
+			if i%7 != 0 {
+				a[i] = rng.Uint32() & 65535
+			}
+		}
+		for i := range b {
+			if i%5 != 0 {
+				b[i] = rng.Uint32() & 65535
+			}
+		}
+		for _, limit := range []int{0, 1, 17, 31, 32, 33, len(a) + len(b) - 1} {
+			if !reflect.DeepEqual(polyMulLow(fast, a, b, limit), polyMulLow(base, a, b, limit)) {
+				t.Fatal("lookup prefix", shape, limit)
+			}
+		}
+	}
+}
 
 func TestPreparationProducts(t *testing.T) {
 	for s := 2; s <= 16; s++ {

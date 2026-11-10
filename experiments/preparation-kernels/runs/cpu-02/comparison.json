@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "before": "cpu-01",
+  "after": "cpu-02",
+  "default_preparation_seconds": [
+    9.0199336185,
+    7.0124839485
+  ],
+  "limits": "Sequential same-node profiled runs, not randomized or load/frequency-controlled; all fixtures and full codewords agree."
+}

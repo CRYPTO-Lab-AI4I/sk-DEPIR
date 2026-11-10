@@ -1,0 +1,207 @@
+{
+  "status": "passed",
+  "sources_verified": 254,
+  "job_id": "72820",
+  "mode": "cpu",
+  "kernels": [
+    {
+      "n": 32,
+      "seconds": {
+        "dispatch-lookup": 5.945e-06,
+        "specialized-go": 2.429e-06,
+        "native-transform": 0.000868394,
+        "native-cpp": 1.955e-06
+      }
+    },
+    {
+      "n": 128,
+      "seconds": {
+        "dispatch-lookup": 5.2239e-05,
+        "specialized-go": 2.2584e-05,
+        "native-transform": 0.001114322,
+        "native-cpp": 1.7678e-05
+      }
+    },
+    {
+      "n": 512,
+      "seconds": {
+        "dispatch-lookup": 0.000484222,
+        "specialized-go": 0.000209683,
+        "native-transform": 0.001824702,
+        "native-cpp": 0.000174038
+      }
+    },
+    {
+      "n": 2048,
+      "seconds": {
+        "dispatch-lookup": 0.004462226,
+        "specialized-go": 0.00193021,
+        "native-transform": 0.004222186,
+        "native-cpp": 0.00148089
+      }
+    },
+    {
+      "n": 8192,
+      "seconds": {
+        "dispatch-lookup": 0.03931863,
+        "specialized-go": 0.01795938,
+        "native-transform": 0.015137549,
+        "native-cpp": 0.0137678
+      }
+    },
+    {
+      "n": 32768,
+      "seconds": {
+        "dispatch-lookup": 0.357622123,
+        "specialized-go": 0.16134764,
+        "native-transform": 0.076336426,
+        "native-cpp": 0.121656
+      }
+    }
+  ],
+  "full": {
+    "32768": {
+      "preparation_median_seconds": 9.0199336185,
+      "runs": [
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.010120156,
+            "discovery": 1.605044068,
+            "save-basis": 0.013348241,
+            "preparation": 8.992448261,
+            "save-prepared": 0.113717201,
+            "release-preparation": 0.005481875,
+            "load-online": 0.110322171,
+            "online-setup": 0.00249833,
+            "encode-0": 1.078866711,
+            "verify-0": 0.032438924,
+            "pack-output": 0.024535702,
+            "verify-packed": 0.088777508
+          }
+        },
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.010164355,
+            "discovery": 1.625015351,
+            "save-basis": 0.014838248,
+            "preparation": 9.047418976,
+            "save-prepared": 0.073255075,
+            "release-preparation": 0.002033287,
+            "load-online": 0.103626043,
+            "online-setup": 0.002617534,
+            "encode-0": 1.080463261,
+            "verify-0": 0.034412661,
+            "pack-output": 0.028240908,
+            "verify-packed": 0.188966906
+          }
+        }
+      ]
+    },
+    "1024": {
+      "preparation_median_seconds": 6.9757123955,
+      "runs": [
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.011235511,
+            "discovery": 1.604970728,
+            "save-basis": 0.012654332,
+            "preparation": 6.899389101,
+            "save-prepared": 0.049757958,
+            "release-preparation": 0.002223807,
+            "load-online": 0.122667055,
+            "online-setup": 0.002328455,
+            "encode-0": 1.083235089,
+            "verify-0": 0.03782266,
+            "pack-output": 0.026783607,
+            "verify-packed": 0.091859193
+          }
+        },
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.010413716,
+            "discovery": 1.609629223,
+            "save-basis": 0.012933811,
+            "preparation": 7.05203569,
+            "save-prepared": 0.048959507,
+            "release-preparation": 0.001631594,
+            "load-online": 0.222852176,
+            "online-setup": 0.002948297,
+            "encode-0": 1.079434344,
+            "verify-0": 0.041235647,
+            "pack-output": 0.025098635,
+            "verify-packed": 0.308903206
+          }
+        }
+      ]
+    },
+    "128": {
+      "preparation_median_seconds": 8.768054488,
+      "runs": [
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.008662793,
+            "discovery": 1.602183436,
+            "save-basis": 0.011850309,
+            "preparation": 8.952257658,
+            "save-prepared": 0.0521638,
+            "release-preparation": 0.001511625,
+            "load-online": 0.108119744,
+            "online-setup": 0.002619823,
+            "encode-0": 1.06496502,
+            "verify-0": 0.038824937,
+            "pack-output": 0.059833258,
+            "verify-packed": 0.091870703
+          }
+        },
+        {
+          "s": 10,
+          "k": 146641,
+          "n": 1048576,
+          "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+          "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+          "phase_seconds": {
+            "executor-setup": 0.008592767,
+            "discovery": 1.597960247,
+            "save-basis": 0.012508316,
+            "preparation": 8.583851318,
+            "save-prepared": 0.057953429,
+            "release-preparation": 0.002347413,
+            "load-online": 0.123199829,
+            "online-setup": 0.009804281,
+            "encode-0": 1.077260699,
+            "verify-0": 0.031536853,
+            "pack-output": 0.023577183,
+            "verify-packed": 0.089540803
+          }
+        }
+      ]
+    }
+  },
+  "fixture_sha256": "1c9c67cd9de71bb0ebe91fff66124ca109544c6dfed8a908810c1b22650df880",
+  "limits": "Profiled CPU kernels/two complete s10 runs per cutoff, or warmed GPU transform tiles; not a complete GPU backend, full s16 feasibility or an optimal universal cutoff."
+}

@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-10 09:21 | PREP-015 | Completed | [CPU/GPU trials pass; private Go loops integrated](2026-11-10-0921-codex-prep-015-completed.md) |
 | 2026-11-10 09:01 | PREP-015 | Started | [CPU crossover and GPU transform trials](2026-11-10-0901-codex-prep-015-started.md) |
 | 2026-11-10 08:57 | PREP-014 | Completed | [Targeted preparation profile passes](2026-11-10-0857-codex-prep-014-completed.md) |
 | 2026-11-10 08:51 | PREP-014 | Started | [Targeted preparation stage profile](2026-11-10-0851-codex-prep-014-started.md) |

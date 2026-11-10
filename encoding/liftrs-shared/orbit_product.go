@@ -110,6 +110,10 @@ func polyMulLow(f orbitField, a, b []uint32, limit int) []uint32 {
 	}
 	if len(a) < 24 || len(b) < 24 {
 		out := make([]uint32, limit)
+		if f.extension == nil && f.lookup != nil {
+			f.lookup.addProduct(out, a, b)
+			return out
+		}
 		for i, x := range a {
 			if x != 0 {
 				for j := 0; j < len(b) && i+j < limit; j++ {
@@ -139,6 +143,10 @@ func karatsubaLow(f orbitField, a, b []uint32, limit int) []uint32 {
 	}
 	if n <= 32 {
 		out := make([]uint32, limit)
+		if f.extension == nil && f.lookup != nil {
+			f.lookup.addProduct(out, a, b)
+			return out
+		}
 		for i, x := range a {
 			if i >= limit {
 				break

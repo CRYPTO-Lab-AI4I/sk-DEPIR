@@ -1,0 +1,168 @@
+//go:build liftrs_cpp && cgo
+
+package liftrs
+
+import (
+	"encoding/binary"
+	"encoding/json"
+	"math/rand"
+	"os"
+	"path/filepath"
+	"reflect"
+	"runtime/pprof"
+	"strconv"
+	"testing"
+	"time"
+)
+
+func TestPreparationCrossoverFull(t *testing.T) {
+	out := os.Getenv("PIR_TRIAL_FULL_OUT")
+	if out == "" {
+		t.Skip("opt-in complete crossover comparison")
+	}
+	cutoff, err := strconv.Atoi(os.Getenv("PIR_TRIAL_CUTOFF"))
+	if err != nil || cutoff < 24 || cutoff > 32768 {
+		t.Fatal("cutoff must be 24..32768")
+	}
+	runScalingFirstUse(t, scalingFirstUseConfig{spec: Spec{10, 2, 5}, out: out, cache: os.Getenv("PIR_TRIAL_FULL_CACHE"), workers: 4, repeats: 1, memoryLimit: 4 << 30, preparationCutoff: cutoff})
+}
+
+// lookupKaratsuba is an experiment-only specialization of the existing kernel.
+// It removes field dispatch, preserving the same split and zero-padding rules.
+func lookupKaratsuba(table *preparationProducts, a, b []uint32) []uint32 {
+	n := len(a)
+	out := make([]uint32, 2*n)
+	if n <= 32 {
+		for i, x := range a {
+			for j, y := range b {
+				out[i+j] ^= table.mul(x, y)
+			}
+		}
+		return out
+	}
+	h := n / 2
+	x, y := make([]uint32, h), make([]uint32, h)
+	for i := range x {
+		x[i] = a[i] ^ a[h+i]
+		y[i] = b[i] ^ b[h+i]
+	}
+	z0, z2, z1 := lookupKaratsuba(table, a[:h], b[:h]), lookupKaratsuba(table, a[h:], b[h:]), lookupKaratsuba(table, x, y)
+	for i := 0; i < n; i++ {
+		out[i] ^= z0[i]
+		out[n+i] ^= z2[i]
+		out[h+i] ^= z0[i] ^ z1[i] ^ z2[i]
+	}
+	return out
+}
+
+func TestPreparationCPUTrials(t *testing.T) {
+	out := os.Getenv("PIR_TRIAL_OUT")
+	if out == "" {
+		t.Skip("opt-in CPU/GPU fixtures and crossover trial")
+	}
+	check := func(err error) {
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+	base, ext, _, _ := orbitFields(16, 0x1002d)
+	base.lookup = newPreparationProducts(base.base)
+	file, err := os.Create(filepath.Join(out, "fixtures.bin"))
+	check(err)
+	defer file.Close()
+	word := func(v uint32) { check(binary.Write(file, binary.LittleEndian, v)) }
+	words := func(v []uint32) { check(binary.Write(file, binary.LittleEndian, v)) }
+	// Private fixture, not a library file format. Tables retain polynomial values.
+	word(0x3154504c)
+	word(16)
+	word(base.base.Polynomial())
+	word(ext.extension.Delta())
+	word(uint32(len(base.lookup.log)))
+	words(base.lookup.log)
+	word(uint32(len(base.lookup.powers)))
+	words(base.lookup.powers)
+	fft := newSparseTransform(ext)
+	word(8)
+	for k := 0; k < 8; k++ {
+		word(uint32(len(fft.terms[k])))
+		for _, term := range fft.terms[k] {
+			word(uint32(term.degree))
+			word(term.coefficient)
+		}
+		words(fft.values[k])
+		word(fft.delta[k])
+		word(fft.inverse[k])
+	}
+	sizes := []int{32, 128, 512, 2048, 8192, 32768}
+	word(uint32(len(sizes)))
+	type row struct {
+		N       int
+		Method  string
+		Seconds []float64
+	}
+	var results []row
+	rng := rand.New(rand.NewSource(1501))
+	profile, err := os.Create(filepath.Join(out, "cpu-kernels.pprof"))
+	check(err)
+	check(pprof.StartCPUProfile(profile))
+	defer pprof.StopCPUProfile()
+	c := &scalingPreparationCPP{plans: make(map[int]*matrixCPPPlan), workers: 4}
+	defer c.close()
+	setup := time.Now()
+	for dim := 2; dim <= 16; dim++ {
+		p, err := newMatrixCPP(ext, dim)
+		check(err)
+		c.plans[1<<uint(dim)] = p
+	}
+	c.scratch = make([]uint32, 1<<16)
+	fft.executor = c
+	setupSeconds := time.Since(setup).Seconds()
+	for _, n := range sizes {
+		a, b := make([]uint32, n), make([]uint32, n)
+		for i := range a {
+			a[i] = rng.Uint32() & 65535
+			b[i] = rng.Uint32() & 65535
+		}
+		reference := polyMul(base, a, b)
+		word(uint32(n))
+		words(a)
+		words(b)
+		words(reference)
+		for _, method := range []string{"default-lookup", "specialized-go", "native-transform"} {
+			r := row{N: n, Method: method}
+			for repeat := 0; repeat < 3; repeat++ {
+				var got []uint32
+				start := time.Now()
+				switch method {
+				case "default-lookup":
+					got = polyMul(base, a, b)
+				case "specialized-go":
+					got = lookupKaratsuba(base.lookup, a, b)[:2*n-1]
+				case "native-transform":
+					field := base
+					field.products = &polynomialProducts{transform: fft, cutoff: 24}
+					got = polyMul(field, a, b)
+				}
+				r.Seconds = append(r.Seconds, time.Since(start).Seconds())
+				if !reflect.DeepEqual(got, reference) {
+					t.Fatal("product mismatch", n, method)
+				}
+			}
+			results = append(results, r)
+		}
+	}
+	pprof.StopCPUProfile()
+	check(profile.Close())
+	// Shared full-width random input for affine CPU/GPU tile comparisons.
+	word(1 << 22)
+	input := make([]uint32, 1<<22)
+	for i := range input {
+		input[i] = rng.Uint32()
+	}
+	words(input)
+	check(file.Sync())
+	check(file.Close())
+	raw, err := json.MarshalIndent(map[string]any{"s": 16, "seed": 1501, "rows": results, "native_setup_seconds": setupSeconds}, "", "  ")
+	check(err)
+	check(os.WriteFile(filepath.Join(out, "cpu-go.json"), raw, 0644))
+}

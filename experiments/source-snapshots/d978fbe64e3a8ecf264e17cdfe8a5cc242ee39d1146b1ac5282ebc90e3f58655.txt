@@ -1,0 +1,135 @@
+// Experimental batched affine transform tiles, not a complete GPU encoder.
+// One GPU thread owns one tile in coefficient-major layout. The sequential
+// division dependency is identical to transform.hpp; tiles are independent.
+#include "../preparation-kernels/fixture.hpp"
+#include <cuda_runtime.h>
+#include <chrono>
+#include <iostream>
+#include <thread>
+#include <string>
+
+void checked(cudaError_t e){if(e!=cudaSuccess)throw std::runtime_error(cudaGetErrorString(e));}
+using Clock=std::chrono::steady_clock;
+double seconds(Clock::time_point start){return std::chrono::duration<double>(Clock::now()-start).count();}
+struct DevicePlan{uint32_t count[8],degree[8][9],coef[8][9],values[8][32],delta[8],inverse[8],tower_delta;};
+__constant__ DevicePlan plan;
+__device__ uint32_t bm(uint32_t a,uint32_t b,const uint32_t* log,const uint32_t* powers){return a&&b?powers[log[a]+log[b]]:0;}
+__device__ uint32_t mul(uint32_t a,uint32_t b,const uint32_t* log,const uint32_t* powers){
+ if(!a||!b)return 0;if(a==1)return b;if(b==1)return a;
+ uint32_t aa=a&65535,ab=a>>16,ba=b&65535,bb=b>>16;
+ uint32_t ac=bm(aa,ba,log,powers),bd=bm(ab,bb,log,powers);
+ return (ac^bm(plan.tower_delta,bd,log,powers))|((bm(aa^ab,ba^bb,log,powers)^ac)<<16);
+}
+__global__ void layout(const uint32_t* src,uint32_t* dst,size_t n,unsigned tile_log,bool inverse){
+ size_t index=size_t(blockIdx.x)*blockDim.x+threadIdx.x;if(index>=n)return;
+ size_t length=size_t(1)<<tile_log,tiles=n/length,tile=index/length,j=index%length;
+ if(!inverse)dst[j*tiles+tile]=src[index];else dst[index]=src[j*tiles+tile];
+}
+__global__ void transform(uint32_t* data,size_t n,unsigned tile_log,bool inverse,const uint32_t* log,const uint32_t* powers){
+ size_t tile=size_t(blockIdx.x)*blockDim.x+threadIdx.x,length=size_t(1)<<tile_log,tiles=n/length;
+ if(tile>=tiles)return;
+ for(unsigned stage=0;stage<tile_log;stage++){
+  unsigned k=inverse?stage:tile_log-1-stage;
+  size_t size=size_t(1)<<(k+1),half=size/2;
+  for(size_t group=0;group<length;group+=size){
+   uint32_t offset=uint32_t(tile*length+group),c=0;
+   for(unsigned bit=0;bit<32;bit++)if((offset>>bit)&1)c^=plan.values[k][bit];
+   if(!inverse){
+    for(size_t i=size;i-- > half;){uint32_t z=data[(group+i)*tiles+tile];
+     for(unsigned term=0;term+1<plan.count[k];term++)data[(group+i-half+plan.degree[k][term])*tiles+tile]^=mul(plan.coef[k][term],z,log,powers);
+    }
+    for(size_t j=0;j<half;j++){
+     auto left=(group+j)*tiles+tile,right=(group+half+j)*tiles+tile;
+     uint32_t v=data[right],x=data[left]^mul(c,v,log,powers);data[left]=x;data[right]=x^mul(plan.delta[k],v,log,powers);
+    }
+   }else{
+    for(size_t j=0;j<half;j++){
+     auto left=(group+j)*tiles+tile,right=(group+half+j)*tiles+tile;
+     uint32_t v=mul(plan.inverse[k],data[left]^data[right],log,powers);data[left]^=mul(c,v,log,powers);data[right]=v;
+    }
+    for(size_t j=0;j<half;j++){uint32_t v=data[(group+half+j)*tiles+tile];
+     for(unsigned term=0;term+1<plan.count[k];term++)data[(group+j+plan.degree[k][term])*tiles+tile]^=mul(plan.coef[k][term],v,log,powers);
+    }
+   }
+  }
+ }
+}
+template<class F>double kernel(F fn){
+ cudaEvent_t begin,end;checked(cudaEventCreate(&begin));checked(cudaEventCreate(&end));
+ checked(cudaEventRecord(begin));fn();checked(cudaGetLastError());checked(cudaEventRecord(end));checked(cudaEventSynchronize(end));
+ float ms;checked(cudaEventElapsedTime(&ms,begin,end));checked(cudaEventDestroy(begin));checked(cudaEventDestroy(end));return ms/1000.0;
+}
+void cpu_tiles(const Fixture& f,std::vector<uint32_t>& data,unsigned tile_log,bool inverse){
+ size_t length=size_t(1)<<tile_log,tiles=data.size()/length;
+ auto work=[&](unsigned worker){for(size_t tile=worker;tile<tiles;tile+=4)f.transform.apply(data.data()+tile*length,length,inverse,uint32_t(tile*length));};
+ std::thread a(work,1),b(work,2),c(work,3);work(0);a.join();b.join();c.join();
+}
+// Same lookup arithmetic as the GPU: distinguishes arithmetic choice from
+// hardware benefit. This is a benchmark reference, not a new library backend.
+void cpu_lookup_tiles(const Fixture& f,std::vector<uint32_t>& data,unsigned tile_log,bool inverse){
+ auto mul=[&](uint32_t a,uint32_t b){
+  if(!a||!b)return uint32_t(0);if(a==1)return b;if(b==1)return a;
+  auto aa=a&65535,ab=a>>16,ba=b&65535,bb=b>>16,ac=f.mul(aa,ba),bd=f.mul(ab,bb);
+  return (ac^f.mul(f.transform.f.delta,bd))|((f.mul(aa^ab,ba^bb)^ac)<<16);
+ };
+ size_t length=size_t(1)<<tile_log,tiles=data.size()/length;const auto& p=f.transform;
+ auto work=[&](unsigned worker){for(size_t tile=worker;tile<tiles;tile+=4){auto* x=data.data()+tile*length;
+  for(unsigned stage=0;stage<tile_log;stage++){
+   unsigned k=inverse?stage:tile_log-1-stage;size_t size=size_t(1)<<(k+1),half=size/2;
+   for(size_t group=0;group<length;group+=size){auto* y=x+group;auto c=p.offset(k,uint32_t(tile*length+group));const auto& ts=p.terms[k];
+    if(!inverse){
+     for(size_t i=size;i-- > half;){auto z=y[i];for(size_t j=0;j+1<ts.size();j++)y[i-half+ts[j].degree]^=mul(ts[j].product.coefficient,z);}
+     for(size_t j=0;j<half;j++){auto v=y[half+j],left=y[j]^mul(c,v);y[j]=left;y[half+j]=left^mul(p.delta[k],v);}
+    }else{
+     for(size_t j=0;j<half;j++){auto v=mul(p.inverse[k],y[j]^y[half+j]);y[j]^=mul(c,v);y[half+j]=v;}
+     for(size_t j=0;j<half;j++){auto v=y[half+j];for(size_t t=0;t+1<ts.size();t++)y[j+ts[t].degree]^=mul(ts[t].product.coefficient,v);}
+    }
+   }
+  }
+ }};std::thread a(work,1),b(work,2),c(work,3);work(0);a.join();b.join();c.join();
+}
+int main(int argc,char** argv){try{
+ if(argc!=2)throw std::runtime_error("fixture path required");Fixture f(argv[1]);auto cases=f.word();
+ for(unsigned i=0;i<cases;i++){auto n=f.word();if(n>32768)throw std::runtime_error("fixture shape");f.words(n);f.words(n);f.words(2*n-1);}
+ auto max_n=f.word();if(max_n!=(1u<<22))throw std::runtime_error("input cap");auto input=f.words(max_n);
+ auto init=Clock::now();checked(cudaSetDevice(0));checked(cudaFree(nullptr));cudaDeviceProp prop;checked(cudaGetDeviceProperties(&prop,0));
+ double init_seconds=seconds(init);
+ DevicePlan host{};host.tower_delta=f.transform.f.delta;
+ for(unsigned k=0;k<8;k++){
+  host.count[k]=f.transform.terms[k].size();host.delta[k]=f.transform.delta[k];host.inverse[k]=f.transform.inverse[k];
+  for(unsigned j=0;j<host.count[k];j++){host.degree[k][j]=f.transform.terms[k][j].degree;host.coef[k][j]=f.transform.terms[k][j].product.coefficient;}
+  std::copy(f.transform.values[k].begin(),f.transform.values[k].end(),host.values[k]);
+ }
+ auto setup=Clock::now();uint32_t *logs,*powers;
+ checked(cudaMalloc(&logs,f.log.size()*4));checked(cudaMalloc(&powers,f.powers.size()*4));
+ checked(cudaMemcpy(logs,f.log.data(),f.log.size()*4,cudaMemcpyHostToDevice));checked(cudaMemcpy(powers,f.powers.data(),f.powers.size()*4,cudaMemcpyHostToDevice));checked(cudaMemcpyToSymbol(plan,&host,sizeof(host)));
+ std::cout<<"{\"kind\":\"setup\",\"gpu\":\""<<prop.name<<"\",\"device_memory_bytes\":"<<prop.totalGlobalMem<<",\"context_seconds\":"<<init_seconds<<",\"tables_seconds\":"<<seconds(setup)<<",\"table_bytes\":"<<(f.log.size()+f.powers.size())*4+sizeof(host)<<"}\n";
+ for(unsigned log_n:{18u,20u,22u})for(unsigned tile_log:{4u,6u,8u}){
+  size_t n=size_t(1)<<log_n,length=size_t(1)<<tile_log,tiles=n/length;
+  size_t owned=2*n*4+(f.log.size()+f.powers.size())*4+sizeof(host);
+  if(owned>512u*1024*1024)throw std::runtime_error("device allocation guard");
+  auto alloc=Clock::now();uint32_t *a,*b;checked(cudaMalloc(&a,n*4));checked(cudaMalloc(&b,n*4));double alloc_seconds=seconds(alloc);
+  std::vector<uint32_t> original(input.begin(),input.begin()+n),want,got(n);
+  for(unsigned repeat=0;repeat<3;repeat++){
+   want=original;auto cpu=Clock::now();cpu_tiles(f,want,tile_log,false);double cpu_forward=seconds(cpu);
+   auto forward=want;cpu=Clock::now();cpu_tiles(f,want,tile_log,true);double cpu_inverse=seconds(cpu);
+   if(want!=original)throw std::runtime_error("CPU inverse mismatch");
+   want=original;cpu=Clock::now();cpu_lookup_tiles(f,want,tile_log,false);double cpu_lookup_forward=seconds(cpu);
+   if(want!=forward)throw std::runtime_error("CPU lookup forward mismatch");
+   cpu=Clock::now();cpu_lookup_tiles(f,want,tile_log,true);double cpu_lookup_inverse=seconds(cpu);
+   if(want!=original)throw std::runtime_error("CPU lookup inverse mismatch");
+   auto all=Clock::now(),copy=Clock::now();checked(cudaMemcpy(a,original.data(),n*4,cudaMemcpyHostToDevice));double h2d=seconds(copy);
+   double layout_in=kernel([&]{layout<<<(n+255)/256,256>>>(a,b,n,tile_log,false);});
+   double gpu_forward=kernel([&]{transform<<<(tiles+127)/128,128>>>(b,n,tile_log,false,logs,powers);});
+   double layout_out=kernel([&]{layout<<<(n+255)/256,256>>>(b,a,n,tile_log,true);});
+   copy=Clock::now();checked(cudaMemcpy(got.data(),a,n*4,cudaMemcpyDeviceToHost));double d2h=seconds(copy),end_to_end=seconds(all);
+   if(got!=forward)throw std::runtime_error("GPU forward differs from CPU");
+   double gpu_inverse=kernel([&]{transform<<<(tiles+127)/128,128>>>(b,n,tile_log,true,logs,powers);});
+   kernel([&]{layout<<<(n+255)/256,256>>>(b,a,n,tile_log,true);});checked(cudaMemcpy(got.data(),a,n*4,cudaMemcpyDeviceToHost));
+   if(got!=original)throw std::runtime_error("GPU inverse mismatch");
+   std::cout<<"{\"kind\":\"tile\",\"n\":"<<n<<",\"tile\":"<<length<<",\"repeat\":"<<repeat<<",\"cpu_forward_seconds\":"<<cpu_forward<<",\"cpu_inverse_seconds\":"<<cpu_inverse<<",\"cpu_lookup_forward_seconds\":"<<cpu_lookup_forward<<",\"cpu_lookup_inverse_seconds\":"<<cpu_lookup_inverse<<",\"gpu_forward_seconds\":"<<gpu_forward<<",\"gpu_inverse_seconds\":"<<gpu_inverse<<",\"h2d_seconds\":"<<h2d<<",\"d2h_seconds\":"<<d2h<<",\"layout_in_seconds\":"<<layout_in<<",\"layout_out_seconds\":"<<layout_out<<",\"forward_end_to_end_seconds\":"<<end_to_end<<",\"allocation_seconds\":"<<alloc_seconds<<",\"owned_device_bytes\":"<<owned<<",\"forward_match\":true,\"inverse_match\":true}\n";
+  }
+  checked(cudaFree(a));checked(cudaFree(b));
+ }
+ checked(cudaFree(logs));checked(cudaFree(powers));
+}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

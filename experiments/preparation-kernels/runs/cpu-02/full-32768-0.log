@@ -1,0 +1,15 @@
+=== RUN   TestPreparationCrossoverFull
+    s15_firstuse_probe_test.go:115: executor-setup 10.42161ms
+    s15_firstuse_probe_test.go:115: discovery 1.602243338s
+    s15_firstuse_probe_test.go:115: save-basis 12.685504ms
+    s15_firstuse_probe_test.go:115: preparation 7.112162831s
+    s15_firstuse_probe_test.go:115: save-prepared 136.443966ms
+    s15_firstuse_probe_test.go:115: release-preparation 1.435797ms
+    s15_firstuse_probe_test.go:115: load-online 126.979234ms
+    s15_firstuse_probe_test.go:115: online-setup 3.208365ms
+    s15_firstuse_probe_test.go:115: encode-0 1.087106838s
+    s15_firstuse_probe_test.go:115: verify-0 32.690736ms
+    s15_firstuse_probe_test.go:115: pack-output 36.436073ms
+    s15_firstuse_probe_test.go:115: verify-packed 150.691686ms
+--- PASS: TestPreparationCrossoverFull (10.49s)
+PASS

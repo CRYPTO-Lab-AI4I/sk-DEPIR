@@ -71,11 +71,14 @@ design-selection/scaling step with these sub-steps:
 
 Sub-step 1 now passes in the [targeted profile](../experiments/preparation-profile/report.md):
 sampled Go leaf/merge work and native transforms remain distinct opportunities.
-Sub-step 2 is next, including calibration of the existing Go/native product
-crossover threshold. Root generation was smaller than product work in this
+Sub-step 2 now has [CPU kernel and crossover results](../experiments/preparation-kernels/report.md):
+direct private Go leaf loops are integrated and full smaller-code checks pass.
+Global cutoff remains unchanged; optimal choices depend on field/shape/workers.
+Root generation was smaller than product work in this
 sample, so defer sub-step 4 until product improvements are checked unless later
-integrated evidence changes the ranking. Large transforms are the first proposed
-GPU comparison target; device benefit remains unmeasured. Later sub-steps can be
+integrated evidence changes the ranking. The GPU tile results below justify a
+complete-transform comparison; benefit for that full operation remains unmeasured.
+Later sub-steps can be
 reordered or omitted with recorded measurement-based reasons.
 Initial profiling budget: one CPU-only Slurm job,
 four cores, 16 GiB requested, 12 GiB sampled process-group RSS guard, 30-minute
@@ -111,6 +114,26 @@ requests one device and caps explicit device allocations at 512 MiB. Keep all
 large-code caches intact and retain generated fixtures/profiles/binaries outside
 Git with checksums. No full s16 run is included. CPU and GPU experiments can run
 independently under these per-job bounds; log every attempt and any correction.
+
+### Completed comparison checkpoint and next integration
+
+The CPU trials pass specialized Go/C++ kernels and three cutoff settings in
+complete s10 codes. Direct private Go leaf loops are selected; they avoid adding
+a native-call API. The unchanged cutoff still needs wider field/shape calibration.
+The [GPU tile trials](../experiments/gpu-transform-tiles/report.md) also pass all
+exact forward/inverse comparisons. On one H200 NVL, warmed transfer-inclusive
+tiles at 2^22 values are 19–25× faster than the four-core CPU reference using the
+same lookup arithmetic. Context initialization is separate; no whole-encoder
+speedup is inferred. This completes the initial component trial in sub-step 5.
+
+Next integration: compose GPU tiles with matrix/Taylor conversion, transposes
+and persistent buffers; measure complete forward/inverse transforms and complete
+smaller-code preparation against the improved CPU path, including one-time setup,
+transfers and CPU core scaling. Validate row and arbitrary column bases, all
+canonical outputs, memory ownership and repeated calls. Record a new bounded
+budget before execution. This is a planned integration, not an implemented GPU
+backend. Keep CPU batch parallelism eligible, and revisit root reuse only if
+integrated profiles justify it. Full s16 readmission remains a later decision.
 
 ## Step 1: resource accounting
 

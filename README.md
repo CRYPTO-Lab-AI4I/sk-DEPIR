@@ -83,8 +83,8 @@ portability gaps, artifact transfer/checksums and budget review. Large caches ar
 not in Git. The [destination transfer receipt](message-board/2026-11-09-1316-codex-orient-001-completed.md)
 verifies the transferred s=13/14/15 reference data; preserve the source copies.
 [HPC setup](docs/hpc-setup.md) records the local Go installation and Slurm GPU
-inventory. The cached CPU baseline now passes on a Slurm compute node; GPU
-execution and s≥16 feasibility remain unverified.
+inventory. The cached CPU baseline now passes on a Slurm compute node; complete
+GPU encoding and s≥16 feasibility remain unverified.
 The [Linux compute-node validation](experiments/hpc-cached-s15/report.md) reuses
 the retained s=15 constants under bounded Slurm resources, separating correctness
 checks, staging, loading, encoding and output I/O. Both full suites and the complete
@@ -108,6 +108,13 @@ now includes targeted stage profiling, CPU kernel/batch/root improvements and
 matched GPU trials before another full-run admission decision.
 Its first sub-step is the [bounded stage profile](experiments/preparation-profile/report.md),
 using saved support and representative kernels with separate correctness checks.
+The [CPU kernel trials](experiments/preparation-kernels/report.md) now integrate
+direct private lookup loops and validate complete smaller-code outputs. An optional
+[GPU tile prototype](experiments/gpu-transform-tiles/report.md) passes exact
+forward/inverse comparisons on an H200 NVL: warmed, transfer-inclusive tiles are
+19–25× faster than the four-core lookup CPU reference at the largest tested buffer.
+Device initialization is separate. This is a transform component, not a complete
+GPU encoder or a full s16 speedup; the library retains its CPU backend.
 
 ## Implementation status and limits
 

@@ -1,0 +1,29 @@
+File: cpu.test
+Build ID: 540b380f2139e21284d80ab9c73c74645500802e
+Type: cpu
+Time: 2026-11-10 10:11:31 CET
+Duration: 1.57s, Total samples = 2.28s (144.82%)
+Showing nodes accounting for 2.19s, 96.05% of 2.28s total
+Dropped 33 nodes (cum <= 0.01s)
+Showing top 20 nodes out of 31
+      flat  flat%   sum%        cum   cum%
+     0.69s 30.26% 30.26%      0.72s 31.58%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     0.60s 26.32% 56.58%      0.60s 26.32%  [cpu.test]
+     0.52s 22.81% 79.39%      0.60s 26.32%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.lookupKaratsuba
+     0.28s 12.28% 91.67%      0.28s 12.28%  runtime.cgocall
+     0.04s  1.75% 93.42%      0.11s  4.82%  runtime.mallocgcSmallNoscan
+     0.02s  0.88% 94.30%      0.02s  0.88%  [libc.so.6]
+     0.02s  0.88% 95.18%      0.02s  0.88%  runtime.memclrNoHeapPointers
+     0.01s  0.44% 95.61%      0.03s  1.32%  runtime.(*mheap).allocSpan
+     0.01s  0.44% 96.05%      0.02s  0.88%  runtime.(*mheap).initSpan
+         0     0% 96.05%      0.27s 11.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0% 96.05%      0.27s 11.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0% 96.05%      0.27s 11.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0% 96.05%      0.27s 11.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+         0     0% 96.05%      0.27s 11.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*scalingPreparationCPP).apply
+         0     0% 96.05%      1.62s 71.05%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCPUTrials
+         0     0% 96.05%      0.72s 31.58%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+         0     0% 96.05%         1s 43.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0% 96.05%      0.04s  1.75%  runtime.(*mcache).nextFree
+         0     0% 96.05%      0.04s  1.75%  runtime.(*mcache).refill
+         0     0% 96.05%      0.03s  1.32%  runtime.(*mcentral).cacheSpan

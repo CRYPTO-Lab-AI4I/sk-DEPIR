@@ -37,6 +37,11 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [CPU preparation kernels](preparation-kernels/report.md): specialized Go/C++
+  polynomial loops, native-transform crossover and complete s10 comparisons.
+- [GPU transform tiles](gpu-transform-tiles/report.md): exact CPU/H200 forward/
+  inverse comparisons with same-arithmetic CPU reference, setup and transfers.
+
 - [Targeted preparation profile](preparation-profile/report.md): read-only saved
   s16 support sampling, root generation, lookup leaf products and bounded native
   convolution clocks/profiles; no whole s16 preparation or GPU claim.

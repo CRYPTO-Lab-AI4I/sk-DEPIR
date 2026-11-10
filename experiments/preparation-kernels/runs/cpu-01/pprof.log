@@ -1,0 +1,29 @@
+File: cpu.test
+Build ID: 5a71ec67d69a0d552b284089964daa95800d6bb6
+Type: cpu
+Time: 2026-11-10 10:06:51 CET
+Duration: 2.47s, Total samples = 3.04s (122.83%)
+Showing nodes accounting for 2.94s, 96.71% of 3.04s total
+Dropped 16 nodes (cum <= 0.02s)
+Showing top 20 nodes out of 38
+      flat  flat%   sum%        cum   cum%
+     1.19s 39.14% 39.14%      1.19s 39.14%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.48s 15.79% 54.93%      0.52s 17.11%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.lookupKaratsuba
+     0.47s 15.46% 70.39%      0.47s 15.46%  [cpu.test]
+     0.36s 11.84% 82.24%      1.62s 53.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     0.29s  9.54% 91.78%      0.29s  9.54%  runtime.cgocall
+     0.04s  1.32% 93.09%      0.11s  3.62%  runtime.mallocgcSmallNoscan
+     0.03s  0.99% 94.08%      0.03s  0.99%  runtime.memclrNoHeapPointers
+     0.02s  0.66% 94.74%      0.02s  0.66%  reflect.deepValueEqual
+     0.02s  0.66% 95.39%      0.02s  0.66%  runtime.(*mheap).freeSpanLocked
+     0.02s  0.66% 96.05%      0.02s  0.66%  runtime.scanObjectsSmall
+     0.01s  0.33% 96.38%      0.02s  0.66%  runtime.scanObject
+     0.01s  0.33% 96.71%      0.04s  1.32%  runtime.sweepone
+         0     0% 96.71%      0.29s  9.54%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0% 96.71%      0.29s  9.54%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0% 96.71%      0.29s  9.54%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0% 96.71%      0.29s  9.54%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+         0     0% 96.71%      0.29s  9.54%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*scalingPreparationCPP).apply
+         0     0% 96.71%      2.45s 80.59%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreparationCPUTrials
+         0     0% 96.71%      1.62s 53.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+         0     0% 96.71%      1.91s 62.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow

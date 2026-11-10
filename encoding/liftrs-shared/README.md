@@ -19,6 +19,10 @@ public code coefficients (less than 768 KiB through s16), released before online
 use. General field APIs remain table-free and artifact coordinates are unchanged.
 The [arithmetic experiment](../../experiments/preparation-arithmetic/report.md)
 records kernel and complete smaller-code checks; full s16 feasibility remains open.
+The [subsequent CPU comparison](../../experiments/preparation-kernels/report.md)
+also removes per-coefficient field dispatch inside private polynomial leaves,
+with exact prefix checks and complete smaller-code regressions. It leaves the
+general field path and global native-transform cutoff unchanged.
 
 
 The Go reference implements code preprocessing and systematic encoding for

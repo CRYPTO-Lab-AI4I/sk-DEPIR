@@ -55,7 +55,7 @@ At the 2026-11-09 inventory, the controller reported:
 Both partitions report a maximum wall time of 4 days 4 hours and allow all
 groups/accounts/QoS at the partition level. Node states and availability change;
 query Slurm again before admission. Account associations, QoS limits and actual
-GPU job admission have not been tested. The CPU-only baseline was admitted under
+GPU job admission were initially untested. The CPU-only baseline was admitted under
 account `crypto_login`, QoS `quota_crypto_gpuq`. `defq` has no nodes in this inventory.
 
 The interactive session is on `lnode02`; its CPU/RAM inventory is separate from
@@ -64,11 +64,15 @@ runs on `gnode02` (Xeon 6710E), with 16 allocated cores. A 64 GiB memory request
 did not configure a finite memory cgroup cap; the runner adds an explicit sampled
 RSS guard. Both full suites and cached s=15 validation pass. Perf profiling is
 denied; Go profiles and native stage counters remain retained.
-No GPU was allocated, and device memory, drivers and CUDA execution remain
-unvalidated. CUDA 12.9 and 13.0 toolkit modules are listed by the module system.
-Slurm resource descriptions do not establish a working GPU encoder: the current
-encoding implementation remains CPU-based. GPU acceleration remains eligible for
-measured evaluation under the existing protocol and correctness requirements.
+At that initial setup no GPU was allocated. Subsequent
+[tile trials](../experiments/gpu-transform-tiles/report.md) now validate one H200
+NVL on gnode15, with 150,109,880,320 bytes reported device memory, driver
+580.126.20, CUDA 12.9.86 and GCC 14.2.0. Forward/inverse tile outputs match the
+native CPU exactly. The jobs request `--gres=gpu:1` and four CPU cores; the toolkit
+module is `cuda12.9/toolkit/12.9.1`. CUDA remains an optional experiment dependency.
+These are warmed component measurements including separate transfer/setup clocks,
+not a working complete GPU encoder or consumer-GPU benchmark. The library
+encoding implementation remains CPU-based; full s16 feasibility remains open.
 
 ## Retained reference data
 

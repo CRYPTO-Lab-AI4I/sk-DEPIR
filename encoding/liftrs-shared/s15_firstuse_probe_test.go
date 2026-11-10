@@ -49,11 +49,12 @@ func TestS15FirstUse(t *testing.T) {
 
 // Private experiment configuration; public encoder defaults remain unchanged.
 type scalingFirstUseConfig struct {
-	spec             Spec
-	out, cache       string
-	workers, repeats int
-	memoryLimit      int64
-	onlineOnly       bool
+	spec              Spec
+	out, cache        string
+	workers, repeats  int
+	memoryLimit       int64
+	onlineOnly        bool
+	preparationCutoff int // Experiment-only override; zero preserves the default.
 }
 
 func runScalingFirstUse(t *testing.T, cfg scalingFirstUseConfig) {
@@ -238,6 +239,9 @@ func runScalingFirstUse(t *testing.T, cfg scalingFirstUseConfig) {
 			phase("preparation", func() map[string]any {
 				var err error
 				var checkpoints []map[string]any
+				if cfg.preparationCutoff > 0 {
+					basis.base.products.cutoff = cfg.preparationCutoff
+				}
 				prepared, err = basis.prepareCyclicScalingObserved(basis.extensionFFT, func(stage string, workspace uint64) {
 					label := stage
 					if strings.HasPrefix(stage, "progress-") {
