@@ -29,6 +29,13 @@ and end-to-end measurements, with reusable setup, memory and I/O accounted for.
 Keep the library usable on standard setups and implementations reviewable;
 report deployment costs rather than assuming the current architecture is best.
 
+**Make memory–time trade-offs explicit.** The current next step is memory
+optimization toward s17, as recorded in [the scaling plan](docs/encoding-scaling.md#current-step-memory-optimization-for-s17).
+Before adopting a material trade-off, present host/device memory savings, extra
+computation/transfers/I/O, storage requirements and setup/encoding latency;
+distinguish measured costs, projections and unknowns so the user can choose.
+Do not silently exchange lower memory for longer runtime or larger host/disk use.
+
 **Retain CPU and GPU client encoding paths.** GPU encoding is optional and must
 not replace the CPU path or make CUDA a dependency of ordinary builds. A client
 may have no GPU even when code preprocessing is delegated elsewhere. Both

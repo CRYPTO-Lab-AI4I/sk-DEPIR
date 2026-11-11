@@ -837,7 +837,7 @@ One cached mathematical run closes this admission gate, not fresh-repeat equalit
 application/cryptographic integration or TRL5. No further job is auto-launched.
 
 
-## Current step: optional primary CUDA client encoding
+## Completed step: optional primary CUDA client encoding
 
 Retain CPU (Go/C++) and CUDA as peer client paths; preprocessing origin does not
 select the client's encoding hardware. Promote reusable CUDA code to
@@ -882,8 +882,71 @@ passes full CPU canonical/packed hash agreement across both GPU calls. Encoding
 85.954/60.216 s, reusable setup7.193 s, owned device67.423 GiB, host RSS39.024 GiB,
 30m02s whole validation allocation. No guard tripped. The earlier32-thread CPU
 encode was1252.503 s; ratios14.6–20.8x are historical, not matched benchmarks.
-No next experiment is auto-launched. Profile-based follow-up priorities are matrix
-row/column kernels and reusable output buffers/transfer handling, with packing
-accounted for whenever a persistent word is required. First-download overhead
-needs diagnosis before attributing its cause. Application/cryptographic execution
-and TRL5 remain separate.
+No next experiment is auto-launched. Runtime opportunities remain in matrix
+row/column kernels, output-buffer/transfer reuse and packed writing. The next step
+below prioritizes memory feasibility before standalone runtime tuning.
+First-download overhead needs diagnosis before attributing its cause.
+Application/cryptographic execution and TRL5 remain separate.
+
+
+## Current step: memory optimization for s17
+
+User priority: reduce memory requirements before further standalone runtime tuning.
+Retain the verified s16 CPU/GPU encoders as baselines and maintained main paths.
+Do not assume that a larger GPU, more host RAM or multiple devices are available.
+Code parameters and output representation remain independent of backend choice.
+
+The [catalogue](../pirconfig/configs_catalogue.json) estimates K3,870,933,765 for
+s17,m2,t5; N=2^34 is exact. Relative to s16, N grows fourfold and internal field
+values grow from32 to34 bits. A straightforward64-bit internal representation
+therefore makes major arrays about eight times larger; base values still fit
+uint32 and final packed output is34 GiB. The existing GPU layout would need
+roughly530–550 GiB device memory plus220–260 GiB host RAM; the CPU path roughly
+500–600 GiB host RAM including allowance for overhead. These are rough port
+models, not measured peaks, memory bounds or admitted budgets. In particular,
+current arithmetic does not support s17 and this layout exceeds the measured
+H200's roughly140 GiB device capacity. Preprocessing requires its own analysis.
+
+1. **Audit memory by phase.** Count sizes and overlapping lifetimes for discovery,
+   preparation, save/load, reusable constants, encoding workspace, canonical
+   assembly, packing and validation. Separate peak host RAM, pinned host buffers,
+   owned GPU allocations/context, persistent storage and temporary disk. Compare
+   modeled s16 lifetimes with measured baselines before projecting s17. Identify
+   which34-bit quantities require wider arithmetic and which base values can
+   retain32-bit slots; do not widen all arrays indiscriminately.
+2. **Compare bounded-memory designs.** Evaluate buffer reuse and earlier release,
+   in-place transforms, streamed or recomputed code constants, tiled CPU/GPU
+   transforms and streamed packed output. Consider compact34-bit or split-word
+   internal layouts where useful, accounting for unpacking and arithmetic costs.
+   Streaming the final word alone cannot resolve the transform-workspace gap.
+   Whole-domain operations must retain correct padding, ordering and dependencies;
+   tiled kernels alone do not establish a bounded-memory encoder.
+3. **Present the memory–time choices before selecting one.** For each viable
+   option report peak host/device memory, disk requirements, extra CPU/GPU work,
+   transfer/I/O bytes and passes, setup cost, first-message and reused-session
+   encoding time, and implementation/deployment costs. Distinguish measurements,
+   estimates and unknowns. State explicitly when lower GPU memory moves data to
+   host RAM/disk or requires recomputation. Show the alternatives and recommendation
+   to the user before adopting a material memory–time trade-off; analysis may
+   continue without selecting that trade-off. No silent slower default, larger
+   resource budget or replacement of a maintained backend.
+4. **Validate the chosen schedule on s16 first.** After the choice, implement the
+   smallest representative prototype with explicit memory caps, profiles and
+   retained reusable data. Check CPU/GPU canonical and packed hashes against the
+   saved baseline; measure setup, transfers, encoding and I/O separately at matched
+   budgets where practical. Test the claimed peak-memory reduction, not only kernel
+   latency. Each experiment needs its own runner/report/results and any job over30
+   seconds must be submitted and handed off under rule8.
+5. **Gate s17 implementation and admission on the evidence.** Review actual host
+   and device capacity, the selected memory schedule and its measured time penalty
+   or benefit. Then extend field arithmetic, indices/metadata and tests for34-bit
+   values; audit preprocessing and storage as well as client encoding. Agree on
+   full-run resources/deadlines before submission. Update runtime estimates using
+   representative wider-arithmetic/streaming measurements; the earlier resident
+   GPU projection cannot predict a streamed encoder's runtime.
+
+Packing/writing and GPU row/column speed work follow memory feasibility unless
+needed by the chosen memory schedule (for example, streamed packed output).
+Maintain shared canonical field/record conventions and independent CPU builds.
+This step does not establish s17 feasibility, change PIR/security contracts or
+complete application/cryptographic integration or TRL5 acceptance.

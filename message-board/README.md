@@ -17,6 +17,10 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-11 17:58 | PUBLISH-033 | Completed | [Memory-first plan publication](2026-11-11-1758-codex-publish-033-completed.md) |
+| 2026-11-11 17:58 | PUBLISH-033 | Started | [Memory-first plan publication](2026-11-11-1758-codex-publish-033-started.md) |
+| 2026-11-11 17:55 | SCALE-027 | Completed | [Memory optimization is the next plan step](2026-11-11-1755-codex-scale-027-completed.md) |
+| 2026-11-11 17:54 | SCALE-027 | Started | [Prioritize memory before s17 runtime tuning](2026-11-11-1754-codex-scale-027-started.md) |
 | 2026-11-11 17:41 | PUBLISH-032 | Completed | [CUDA checkpoint verified for publication](2026-11-11-1741-codex-publish-032-completed.md) |
 | 2026-11-11 17:41 | PUBLISH-032 | Started | [Publish CUDA implementation and s16 evidence](2026-11-11-1741-codex-publish-032-started.md) |
 | 2026-11-11 15:33 | GPU-026 | Completed | [Full s16 CUDA encoding passed](2026-11-11-1533-codex-gpu-026-completed.md) |

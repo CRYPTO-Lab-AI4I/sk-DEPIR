@@ -50,6 +50,12 @@ peak sampled host RSS on H200 NVL. Encoding is about14.6–20.8x faster than the
 packing and independent verification are timed separately; the full validation
 job took30m02s. CPU-only clients remain supported.
 
+The [next step is memory optimization for s17](docs/encoding-scaling.md#current-step-memory-optimization-for-s17),
+before further standalone runtime tuning. Current full-array GPU storage would
+exceed the available device memory. Compare bounded-memory schedules on s16 first;
+make extra computation, transfers, host/disk storage and latency explicit so the
+user can choose each material memory–time trade-off. s17 is not yet supported.
+
 Fast encoding is an explicit priority. Language, compiler, algorithms, hardware,
 layout and parallelism remain open choices; select improvements through measured
 comparisons while preserving PIR functionality, correctness and usability on
