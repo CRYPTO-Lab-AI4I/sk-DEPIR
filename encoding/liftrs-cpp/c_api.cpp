@@ -254,6 +254,7 @@ extern "C" int liftrs_plan_prepare_taylor(liftrs_plan* plan,unsigned high_levels
 // Complete database-dependent cyclic encoding. All large arrays are borrowed
 // for this call. arena aliases prefix x/z with the later full convolution;
 // H must therefore be saved before clearing y. Constants remain immutable.
+// Output may reuse scratch exactly: no transform reads scratch after assembly starts.
 extern "C" int liftrs_online_encode(
     const liftrs_plan* pr, const liftrs_plan* pc,
     const liftrs_plan* fr, const liftrs_plan* fc,

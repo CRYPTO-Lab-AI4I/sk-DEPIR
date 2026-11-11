@@ -28,8 +28,10 @@ int liftrs_matrix_apply(const liftrs_plan* rows, const liftrs_plan* columns,
                         char* error, size_t error_capacity);
 /* One-time code-only preparation; caller must exclude concurrent execution. */
 int liftrs_plan_prepare_taylor(liftrs_plan*, unsigned high_levels, char*, size_t);
-/* Complete cyclic online path. Constants and distinct caller buffers are borrowed
+/* Complete cyclic online path. Constants and caller buffers are borrowed
  * only until return. arena has max(2*l,n) elements; h has k, scratch/word n.
+ * word may exactly equal scratch: assembly follows the final transform. All
+ * other overlap, including partial scratch/word overlap, is forbidden.
  * stats[6]: Taylor, columns/transposes, rows, buffer setup, products, assembly.
  * The Go binding checks all forbidden overlap before entering this function. */
 int liftrs_online_encode(const liftrs_plan*, const liftrs_plan*, const liftrs_plan*,

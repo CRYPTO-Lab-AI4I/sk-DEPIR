@@ -62,7 +62,18 @@ has been selected by that audit. The user subsequently chose buffer reuse first;
 the [opt-in prototype](experiments/cuda-buffer-reuse/report.md) now passes s16:
 51.43 GiB owned device memory (23.7% less),57.4/57.0 s encoding under a56 GiB cap,
 with matching CPU output hashes. Matched s10 encoding time is essentially unchanged;
-full-size timing versus the prior run is historical. Public CPU/GPU defaults remain unchanged.
+full-size timing versus the prior run is historical. The public GPU default remains unchanged.
+The [native CPU memory change](experiments/cpu-buffer-reuse/report.md) now transfers
+dead transpose scratch as owning output, targeting a further16 GiB saving at s16
+(about74→58 GiB principal arrays). Small ownership/correctness tests pass; full
+memory/runtime validation is pending. CPU execution still needs no GPU.
+
+Alongside that validation, the [next CPU/GPU memory steps](docs/encoding-scaling.md#next-part-shared-cpugpu-memory-schedules)
+are reducing transform scratch, streaming constants/output, then evaluating
+host/disk-backed transforms. **Slower memory-saving modes address insufficient
+memory. When the faster path fits, they require explicit command-line opt-in and
+must not become the default.** These are planned requirements; no new CLI option
+or streaming backend is implemented by this documentation update.
 
 Fast encoding is an explicit priority. Language, compiler, algorithms, hardware,
 layout and parallelism remain open choices; select improvements through measured

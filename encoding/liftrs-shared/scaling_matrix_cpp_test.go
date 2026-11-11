@@ -283,8 +283,14 @@ func TestCPPOnlineOverlap(t *testing.T) {
 	arena := w.work.x[:cap(w.work.x)]
 	_, err = liftrscpp.EncodeOnline(prefix.rows, prefix.columns, full.rows, full.columns, prefix.split, full.split, 2, p.basis.omega,
 		make([]uint32, p.k), p.p, p.spectrum, arena, w.work.h, w.scratch, w.scratch, l)
+	if err != nil {
+		t.Fatal("exact scratch/output alias rejected", err)
+	}
+	overlap := make([]uint32, p.Length()+1)
+	_, err = liftrscpp.EncodeOnline(prefix.rows, prefix.columns, full.rows, full.columns, prefix.split, full.split, 2, p.basis.omega,
+		make([]uint32, p.k), p.p, p.spectrum, arena, w.work.h, overlap[:p.Length()], overlap[1:], l)
 	if err == nil {
-		t.Fatal("accepted overlapping output/scratch")
+		t.Fatal("accepted partial scratch/output overlap")
 	}
 	// Shortening a workspace buffer must fail without entering the transform.
 	_, err = liftrscpp.EncodeOnline(prefix.rows, prefix.columns, full.rows, full.columns, prefix.split, full.split, 2, p.basis.omega,

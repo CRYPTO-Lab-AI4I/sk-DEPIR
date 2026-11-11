@@ -219,3 +219,6 @@ rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
 
 - [CUDA buffer reuse](cuda-buffer-reuse/report.md): opt-in two-work-array schedule,
   exact device-memory savings, oracle/memcheck checks and explicit latency comparison.
+
+- [Native CPU buffer reuse](cpu-buffer-reuse/report.md): owning scratch/output
+  transfer, alias boundaries, sanitizer checks and memory/runtime validation.

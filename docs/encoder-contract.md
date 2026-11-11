@@ -377,3 +377,22 @@ preprocessing. This remains standalone mathematical encoding under validation,
 not completion of the application/cryptographic requirements above. See the
 [backend ownership/deployment documentation](../encoding/liftrs-cuda/README.md)
 and [CPU/CUDA validation](../experiments/cuda-encoding/report.md).
+
+
+### Memory-mode selection requirements
+
+For CPU and optional GPU encoding, retain the faster validated mode as the default
+when it fits the admitted host/device memory budgets, allowing for setup, runtime
+and staging overhead. A slower memory-saving mode is justified when that faster
+mode cannot fit. When memory is sufficient, the slower mode must be optional and
+selected explicitly through a command-line option. It must not silently replace
+the faster path merely because it uses less memory.
+
+Document memory saved, displaced host/disk storage, extra passes/transfers/work,
+and setup/first/reused encoding time, with measured costs separated from estimates
+and unknowns. Preserve explicit backend selection, code parameters, canonical
+representation and owning-output API contracts. Streaming output needs a separate
+explicit interface. These are requirements for future memory modes and CLI
+selection, not claims that new flags or automatic capacity selection exist.
+The [CPU/GPU memory plan](encoding-scaling.md#next-part-shared-cpugpu-memory-schedules)
+records the ordered investigation and user decision gates.

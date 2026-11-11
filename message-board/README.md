@@ -17,6 +17,12 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-11 19:19 | PUBLISH-035 | Completed | [Publish memory policy and pending CPU checkpoint](2026-11-11-1919-codex-publish-035-completed.md) |
+| 2026-11-11 19:19 | PUBLISH-035 | Started | [Publish memory policy and pending CPU checkpoint](2026-11-11-1919-codex-publish-035-started.md) |
+| 2026-11-11 19:14 | SCALE-031 | Completed | [Shared memory plan and slower-mode policy recorded](2026-11-11-1914-codex-scale-031-completed.md) |
+| 2026-11-11 19:12 | SCALE-031 | Started | [Plan shared memory work and slower-mode policy](2026-11-11-1912-codex-scale-031-started.md) |
+| 2026-11-11 19:03 | CPU-030 | Handoff | [CPU scratch/output reuse validation submitted](2026-11-11-1903-codex-cpu-030-handoff.md) |
+| 2026-11-11 18:56 | CPU-030 | Started | [Reuse CPU scratch as owning output](2026-11-11-1856-codex-cpu-030-started.md) |
 | 2026-11-11 18:54 | PUBLISH-034 | Completed | [Publish validated GPU buffer reuse](2026-11-11-1854-codex-publish-034-completed.md) |
 | 2026-11-11 18:54 | PUBLISH-034 | Started | [Publish validated GPU buffer reuse](2026-11-11-1854-codex-publish-034-started.md) |
 | 2026-11-11 18:48 | GPU-029 | Completed | [Two-work-array reuse validated](2026-11-11-1848-codex-gpu-029-completed.md) |

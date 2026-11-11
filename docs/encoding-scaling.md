@@ -930,6 +930,10 @@ H200's roughly140 GiB device capacity. Preprocessing requires its own analysis.
    to the user before adopting a material memory–time trade-off; analysis may
    continue without selecting that trade-off. No silent slower default, larger
    resource budget or replacement of a maintained backend.
+   Preserve the faster validated mode as default whenever it fits the admitted
+   memory budgets. Slower memory-saving modes address insufficient memory; when
+   memory is sufficient they require explicit command-line opt-in. See the next
+   part below for shared CPU/GPU work and the selection rule.
 4. **Validate the chosen schedule on s16 first.** After the choice, implement the
    smallest representative prototype with explicit memory caps, profiles and
    retained reusable data. Check CPU/GPU canonical and packed hashes against the
@@ -999,3 +1003,89 @@ opt-in; no default switch is made by results review. The remaining s17 gate is
 still a material memory–time choice (new in-place/streamed-code schedule or
 host/disk-backed tiles), not more runtime tuning. No next job or budget increase
 is auto-authorized by successful completion.
+
+
+User authorized CPU memory optimization after publishing GPU checkpoint999f4a5.
+[CPU-030](../experiments/cpu-buffer-reuse/report.md) transfers dead native transpose
+scratch as owning output, detaching it from the workspace; future calls allocate
+fresh scratch so old results remain valid. Exact scratch/output alias only is
+admitted; other overlaps stay rejected. Same five transforms, no added copies or
+recomputation. s16 principal CPU target74.267→58.267 GiB when old outputs are
+released; retained caller results cost extra. Go reference/hybrid schedules stay
+as before. Validate ownership/errors/concurrency, ASAN/UBSAN, matched s10 buffer
+schedules and two s16 CPU calls under68 GiB RSS guard,128 GiB requested RAM,
+32cores/noGPU,64 GiB Go soft and prior2h time/cache limits. Full-size validation
+remains pending; no s17 route or runtime equivalence is selected by this step.
+
+
+## Next part: shared CPU/GPU memory schedules
+
+This planning track proceeds alongside the submitted
+[CPU-030 validation](../experiments/cpu-buffer-reuse/report.md), job73586. Its
+results remain pending until the user's completion ping; do not inspect the job,
+logs or results while doing independent documentation/design work. Use completed
+GPU-029 evidence and the source-based memory audit for current facts. New CPU
+measurements must wait for CPU-030 before evaluating its actual savings/latency.
+
+### Selection rule for memory modes
+
+Prefer the faster validated implementation whenever it fits the admitted host
+RAM and GPU-memory budgets, including runtime/driver/staging headroom. A memory
+optimization that slows execution is a capacity solution, not a general default:
+use it when the faster compatible path cannot fit. If memory is sufficient, that
+slower mode must remain optional and require explicit command-line selection.
+Keep the faster path available; saving memory alone does not justify a slowdown
+for a run that already fits. Do not infer an improvement from smaller allocations.
+
+Before adopting a trade-off, state which memory limit prevents the faster mode
+from fitting and quantify saved host/device bytes, disk requirements, added
+computation/transfers/I/O, setup and first/reused encoding latency. Distinguish
+measurements, projections and unknowns; an unmeasured penalty is not zero.
+Explain the selected mode/reason to the user and keep CPU/GPU backend selection
+explicit. CLI option names and automatic capacity selection are not implemented
+by this plan; future CLI exposure must obey this opt-in rule. Larger budgets
+and material trade-offs still need the existing user decision/admission step.
+
+### Ordered work for both backends
+
+1. **Remove full-size transform scratch while transforms run.** Investigate
+   in-place transposes, alternate layouts and bounded scratch tiles, starting
+   with the decomposition shared by native CPU and GPU. Current reuse only
+   reclaims scratch after transforms finish. Prove prefix/full and rectangular
+   layout dependencies, ordering and alias lifetimes before changing kernels.
+   CPU/GPU need separate execution kernels and locality measurements. Compare
+   RAM/VRAM saved with extra passes, synchronization and slower accesses; retain
+   the full-scratch fast mode if the smaller mode is slower.
+2. **Stream reusable preprocessing constants.** Load spectrum/P chunks when
+   needed instead of retaining full arrays. GPU host-to-device streaming saves
+   VRAM but retains host backing and repeats uploads; CPU streaming saves RAM
+   through disk reads, unless a different backing source is explicitly counted.
+   Assess mapped-file residency, pinned staging, disk/page-cache accounting and
+   cold versus reused code. Report lost setup amortization and recomputation
+   alternatives. This step complements scratch reduction; neither alone has
+   demonstrated s17 feasibility.
+3. **Stream canonical/packed output.** Evaluate a bounded output sink that avoids
+   retaining a full canonical word, accounting for scattered coordinate order,
+   routing buffers, packed writes, checksums and validation/readback. Preserve
+   existing owning-array APIs and their memory needs; introduce streaming as an
+   explicit mode/API rather than silently changing returned-output lifetime.
+   Measure extra routing/storage work and end-to-end latency, not just packing.
+4. **Evaluate host/disk-backed transforms if resident schedules still do not fit.**
+   Keep only working tiles on GPU or in CPU RAM while host RAM/disk backs large
+   arrays. Count every transform/Taylor pass, staging buffer, temporary file and
+   transfer, including page-cache/cgroup memory. Choose a bounded dependency
+   schedule before estimating runtime. Larger host/disk traffic is an explicit
+   penalty, not free GPU-memory savings. Preserve cache/checkpoint provenance.
+5. **Combine and validate before s17 admission.** Compare the viable schedules
+   under the same resource limits on small cases and s16, using exact baseline
+   words, owning/streamed-output checks, profiles and total peak memory. Review
+   the memory–time alternatives with the user before selecting a slower route
+   or changing budgets. Then extend34-bit arithmetic/serialization/indexing and
+   audit preprocessing separately. The roughly130 GiB one-array/streamed-code
+   s17 scenario is a model with tight headroom, not an implemented capacity or
+   runtime result. Slower routes remain capacity-driven or explicit CLI opt-ins.
+
+This records the next work; no new implementation, CLI flag, job or resource
+increase is introduced. Jobs over30 seconds keep the submit-and-handoff rule.
+CPU and GPU remain maintained, explicitly selected paths; mathematical encoding,
+application/cryptographic integration and TRL5 acceptance stay distinct.

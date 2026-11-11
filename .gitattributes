@@ -46,3 +46,6 @@ experiments/cuda-s16-encoding/runs/*/pprof-*.log whitespace=-blank-at-eol
 experiments/cuda-buffer-reuse/runs/*/compiler.log whitespace=-blank-at-eof
 experiments/cuda-buffer-reuse/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
 experiments/cuda-buffer-reuse/runs/*/pprof-*.log whitespace=-blank-at-eol
+experiments/cpu-buffer-reuse/runs/*/compiler.log whitespace=-blank-at-eof
+experiments/cpu-buffer-reuse/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
+experiments/cpu-buffer-reuse/runs/*/pprof-*.log whitespace=-blank-at-eol

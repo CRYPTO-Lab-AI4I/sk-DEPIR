@@ -157,3 +157,14 @@ The subsequent [cached s16 encoding](../../experiments/cached-s16-encoding/repor
 passes in20m52.5s at32 CPU workers with74.4 GiB sampled RSS and complete
 systematic/sampled-curve/packed-readback checks. This is one measured full-size
 run, not a matched s16 speedup or repeated-latency result.
+
+## Complete-encoding output ownership
+
+`EncodeOnline` permits exact scratch/output identity after the final inverse;
+partial overlap and other writable aliases remain rejected. Shared
+`ScalingCPPEncoder.EncodeWithStats` transfers that scratch buffer as the caller's
+owning result and replaces it on subsequent workspace use. Old words survive
+workspace reuse and encoder closure. `Bytes()` counts only currently owned arrays;
+Go reference/hybrid output scheduling remains unchanged. The
+[CPU memory experiment](../../experiments/cpu-buffer-reuse/report.md) tests retained
+outputs, alias boundaries, native sanitizers, memory reduction and runtime.

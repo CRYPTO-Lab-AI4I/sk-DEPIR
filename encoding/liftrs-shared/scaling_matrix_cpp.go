@@ -98,14 +98,16 @@ func (e *ScalingCPPEncoder) NewWorkspace() *ScalingCPPWorkspace {
 	return &ScalingCPPWorkspace{owner: e, work: e.source.NewWorkspace(), scratch: make([]uint32, e.source.basis.Length())}
 }
 
-// ScalingCPPWorkspace owns all mutable transform scratch; the output is separate.
+// ScalingCPPWorkspace owns transform scratch until complete encoding transfers it
+// to the caller as output. Later calls allocate fresh scratch, preserving old words.
 type ScalingCPPWorkspace struct {
 	owner   *ScalingCPPEncoder
 	work    *ScalingWorkspace
 	scratch []uint32
 }
 
-// Bytes counts working-array payload, excluding input, output and plan metadata.
+// Bytes counts currently owned working arrays, excluding input/output and plan
+// metadata. After complete Encode returns, transferred scratch is no longer owned.
 func (w *ScalingCPPWorkspace) Bytes() uint64 { return w.work.Bytes() + uint64(len(w.scratch))*4 }
 
 type matrixCPPExecutor struct {
@@ -152,8 +154,10 @@ type ScalingCPPStats struct {
 	RowsNS        uint64 `json:"rows_ns"`
 }
 
-// EncodeWithStats allocates the canonical output, then borrows constants and
-// workspace for one native call. Output allocation is included in caller timing;
+// EncodeWithStats reuses transpose scratch for canonical assembly, then transfers
+// ownership to the caller. Later calls allocate fresh scratch; earlier returned
+// words stay valid across workspace reuse and Close. Replacement allocation is
+// included in caller timing;
 // no large input, preprocessing or output copies cross the language boundary.
 func (e *ScalingCPPEncoder) EncodeWithStats(message []uint32, w *ScalingCPPWorkspace) ([]uint32, ScalingCPPStats, error) {
 	e.mu.RLock()
@@ -168,7 +172,10 @@ func (e *ScalingCPPEncoder) EncodeWithStats(message []uint32, w *ScalingCPPWorks
 	p := e.source
 	l := len(w.work.x)
 	prefix, full := e.plans[l], e.plans[p.basis.Length()]
-	word := make([]uint32, p.basis.Length())
+	if w.scratch == nil {
+		w.scratch = make([]uint32, p.basis.Length())
+	}
+	word := w.scratch
 	// NewWorkspace owns one arena; x and z partition its first 2L elements.
 	arena := w.work.x[:cap(w.work.x)]
 	native, err := liftrscpp.EncodeOnline(prefix.rows, prefix.columns, full.rows, full.columns, prefix.split, full.split, e.workers, p.basis.omega,
@@ -176,6 +183,9 @@ func (e *ScalingCPPEncoder) EncodeWithStats(message []uint32, w *ScalingCPPWorks
 	if err != nil {
 		return nil, stats, err
 	}
+	// Scratch is dead after the inverse. Detach only on success; no subsequent
+	// call may mutate the caller-owned canonical word through this workspace.
+	w.scratch = nil
 	stats = ScalingCPPStats{Calls: 5, BoundaryCalls: 1, TaylorNS: native.TaylorNS, ColumnsNS: native.ColumnsNS, RowsNS: native.RowsNS, BufferNS: native.BufferNS, PointwiseNS: native.PointwiseNS, AssemblyNS: native.AssemblyNS}
 	return word, stats, nil
 }
@@ -201,6 +211,9 @@ func (e *ScalingCPPEncoder) EncodeHybridWithStats(message []uint32, w *ScalingCP
 			}
 		}
 	}()
+	if w.scratch == nil {
+		w.scratch = make([]uint32, e.source.Length())
+	}
 	p := *e.source
 	b := p.basis
 	fft := *b.extensionFFT

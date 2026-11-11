@@ -362,7 +362,13 @@ With `-tags liftrs_cpp`, a verified minimal `ScalingOnlinePlan` can prepare
 encoding and call `encoder.Encode(message, workspace)` (or `EncodeWithStats`).
 The [runnable example](scaling_matrix_cpp_example_test.go) demonstrates this API.
 Close the encoder after its calls finish. Code P/spectrum is shared immutably;
-transpose scratch adds `4*N` bytes to the reusable workspace. This opt-in path
+transpose scratch initially adds `4*N` bytes to the workspace. Complete native
+encoding reuses it for final output and transfers the slice to the caller; the
+workspace allocates fresh scratch on its next complete or hybrid call. Earlier
+outputs remain valid, and `Bytes()` excludes transferred storage. Keeping old
+outputs still costs their full size. The Go/hybrid paths retain separate outputs.
+See [CPU memory validation](../../experiments/cpu-buffer-reuse/report.md) for the
+pending measured memory/runtime comparison. This opt-in path
 preserves the canonical codeword and information set. `Encode`/`EncodeWithStats`
 now run buffer setup, five transforms, pointwise products and assembly in one
 native call, without duplicating large preprocessing arrays. Preprocessing and

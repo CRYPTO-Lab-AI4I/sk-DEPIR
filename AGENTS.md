@@ -35,6 +35,13 @@ Before adopting a material trade-off, present host/device memory savings, extra
 computation/transfers/I/O, storage requirements and setup/encoding latency;
 distinguish measured costs, projections and unknowns so the user can choose.
 Do not silently exchange lower memory for longer runtime or larger host/disk use.
+Retain the faster validated path as the default whenever it fits the admitted
+host/device memory budgets, with runtime and allocation headroom accounted for.
+A slower memory-saving mode is justified by insufficient memory for that path.
+When sufficient memory is available, selecting a slower mode must be optional
+and require an explicit command-line option; do not enable it by default.
+Document the selected mode, memory constraint and measured or estimated runtime
+penalty. Unknown runtime cost is not evidence of a cost-free optimization.
 
 **Retain CPU and GPU client encoding paths.** GPU encoding is optional and must
 not replace the CPU path or make CUDA a dependency of ordinary builds. A client

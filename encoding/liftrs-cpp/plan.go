@@ -205,9 +205,10 @@ type OnlineStats struct {
 }
 
 // EncodeOnline executes complete cyclic codeword encoding in one cgo call.
-// P/spectrum and message are immutable. arena, h, scratch and word are distinct
-// mutable arrays with no overlap with constants/input; arena alone contains the
-// intentional prefix/full-buffer aliasing. All backing arrays are borrowed only
+// P/spectrum and message are immutable. Writable arrays are disjoint except that
+// word may exactly equal scratch: assembly starts after its last transform use.
+// Partial overlap is rejected. arena contains intentional prefix/full aliasing.
+// All backing arrays are borrowed only
 // until return; no native plan retains Go pointers or copies large constants.
 // The caller supplies trusted code parameters and canonical transform plans.
 func EncodeOnline(pr, pc, fr, fc *Plan, prefixSplit, fullSplit, workers int, omega uint32,
@@ -221,13 +222,16 @@ func EncodeOnline(pr, pc, fr, fc *Plan, prefixSplit, fullSplit, workers int, ome
 	}
 	arrays := [][]uint32{message, p, spectrum, arena, h, scratch, word}
 	// Constants may share backing storage with each other. All writable arrays
-	// must be disjoint from every other array, including partially overlapping slices.
+	// must be disjoint, except exact scratch/word identity after the final transform.
 	for i := 3; i < len(arrays); i++ {
 		a := uintptr(unsafe.Pointer(&arrays[i][0]))
 		size := uintptr(len(arrays[i])) * 4
 		for j := 0; j < i; j++ {
 			b := uintptr(unsafe.Pointer(&arrays[j][0]))
 			other := uintptr(len(arrays[j])) * 4
+			if i == 6 && j == 5 && a == b {
+				continue // Equal n-sized views; scratch is dead before assembly.
+			}
 			if a < b+other && b < a+size {
 				return result, errors.New("overlapping online arrays")
 			}

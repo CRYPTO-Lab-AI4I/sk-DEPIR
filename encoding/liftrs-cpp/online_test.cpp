@@ -56,6 +56,10 @@ int main() {
       std::cerr<<error<<"\n";return 3;
     }
     for(auto x:word)if(x!=7)return 4;
+    // The same array is scratch during transforms, output only after they join.
+    if(liftrs_online_encode(rows,columns,rows,columns,4,4,workers,omega,message.data(),p.data(),spectrum.data(),1,n,n,arena.data(),arena.size(),saved.data(),scratch.data(),scratch.data(),stages,error,sizeof(error)))return 6;
+    for(auto x:scratch)if(x!=7)return 7;
+
   }
   if(!liftrs_online_encode(rows,columns,rows,columns,4,4,4,1,message.data(),p.data(),spectrum.data(),1,n,n,arena.data(),arena.size(),saved.data(),scratch.data(),word.data(),stages,error,sizeof(error)))return 5;
   liftrs_plan_destroy(rows);liftrs_plan_destroy(columns);
