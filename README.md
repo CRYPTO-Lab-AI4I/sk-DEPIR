@@ -23,6 +23,11 @@ It completed s16 preparation in2h20m15s (2h24m15s allocation elapsed), with the
 full polynomial identity verified and72.6 GiB peak sampled process RSS. Saved
 constants are retained; a cached s16 database encoding has not yet been validated.
 
+A [cached s14 CPU profile](experiments/cpu-encoding-profile/report.md) measures
+249/141/91 s at8/16/32 threads on the HPC host, with exact reference-hash checks.
+Taylor conversion scales weakly and accounts for43% at32 threads, making it the
+next CPU optimization target; these timings do not establish s16 encoding latency.
+
 Fast encoding is an explicit priority. Language, compiler, algorithms, hardware,
 layout and parallelism remain open choices; select improvements through measured
 comparisons while preserving PIR functionality, correctness and usability on

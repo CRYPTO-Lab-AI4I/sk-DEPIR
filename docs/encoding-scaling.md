@@ -754,3 +754,48 @@ No full-domain synthetic sweep was needed. Next is separately admitted cached
 s16 database encoding and its output checks; do not restart preparation or launch
 encoding automatically. A matched full CPU baseline/whole-run speedup, application
 integration and TRL5 acceptance remain unverified.
+
+
+## CPU encoding profile after preparation
+
+The [cached s14 profile](../experiments/cpu-encoding-profile/report.md), job72955,
+passes six full canonical hashes. Median encoding248.7/140.7/91.2 s at8/16/32
+workers; Taylor49.9/40.9/38.9 s. At32 threads Taylor consumes42.7%, while rows and
+columns/transposes scale much better. Prioritize within-block CPU Taylor
+parallelism, using the validated gather algebra as a candidate and the current
+recurrence as reference. Do not first optimize the small buffer/pointwise/assembly
+stages from this evidence. No implementation selected or new job submitted;
+s16 memory-pressure/encoding validation and GPU-online integration remain open.
+
+
+### Current CPU step: parallelize inside Taylor blocks
+
+1. Implement the two-pass gather decomposition in native C++: correct the low
+   quotient coefficients from the untouched upper quotient, then compute the
+   remainder. Reverse the pass order for inverse conversion. Preserve the
+   existing recurrence as a one-worker/small-work reference, constant-product
+   maps, field coordinates and caller-owned in-place storage.
+2. Split coefficient ranges inside large blocks when independent block count
+   underuses requested workers. Each destination must have exactly one writer;
+   join workers between dependent passes. Avoid a full-size extra buffer and
+   retain coarse block scheduling where it already offers enough parallelism.
+3. Validate against independent sequential polynomial division, single-worker
+   transforms, forward/inverse round trips and complete canonical codewords.
+   Cover varied splits, sparse/dense lower terms, zero/one coefficients and
+   multiple worker counts. Run sanitizer checks plus existing native suites.
+4. Compare published recurrence and candidate in one CPU allocation at16/32
+   workers with two complete cached s14 encodings per case. Retain code/data
+   hashes, setup, CPU profiles, stage clocks, RSS and full output checks. Select
+   from whole-encoding and Taylor timings, including any regressions or extra
+   scheduling/memory cost; do not assume gather is faster on CPUs.
+5. If accepted, update the implementation/docs and reassess one cached s16
+   encoding under a separate reviewed memory/time budget. No GPU-online claim
+   or s16 speedup follows from the smaller run.
+
+Initial validation/comparison budget:one CPU-only32-core job,16 GiB requested
+host RAM,12 GiB sampled process RSS,30-minute allocation/25-minute controller,
+8 GiB new-cache cap. Existing preprocessing/profiles remain intact. Build old
+and candidate from recorded exact sources; no discovery or preprocessing.
+Submit once prepared, then hand off under rule8 and wait for the user's completion
+ping before analysis or dependent work. Implementation remains provisional until
+this correctness/comparison evidence is reviewed.

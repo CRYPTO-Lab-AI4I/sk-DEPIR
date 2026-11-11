@@ -1,0 +1,5 @@
+load 915.617129ms
+setup-w8 640.779µs
+workspace-w8 12.504µs
+encode-w8-r0-c0-native 23.758291ms
+verify-w8-r0-c0-native 224.979µs

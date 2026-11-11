@@ -1,0 +1,18 @@
+File: probe
+Build ID: f41a9177a09334c63855e004def676194d812b0b
+Type: cpu
+Time: 2026-11-10 22:11:51 CET
+Duration: 140.56s, Total samples = 1219.32s (867.47%)
+Showing nodes accounting for 1219.17s, 100% of 1219.32s total
+Dropped 6 nodes (cum <= 6.10s)
+      flat  flat%   sum%        cum   cum%
+  1079.54s 88.54% 88.54%   1079.54s 88.54%  [probe]
+   139.63s 11.45%   100%    139.63s 11.45%  runtime.cgocall
+         0     0%   100%    139.63s 11.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.EncodeOnline
+         0     0%   100%    139.63s 11.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_online_encode
+         0     0%   100%    139.76s 11.46%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPEncoder).EncodeWithStats
+         0     0%   100%    139.76s 11.46%  main.main
+         0     0%   100%    139.76s 11.46%  main.main.func2
+         0     0%   100%    139.76s 11.46%  main.main.func7
+         0     0%   100%   1079.56s 88.54%  runtime._ExternalCode
+         0     0%   100%    139.76s 11.46%  runtime.main

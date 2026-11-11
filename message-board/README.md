@@ -17,6 +17,12 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-11 10:31 | PUBLISH-030 | Completed | [CPU checkpoint and plan ready](2026-11-11-1031-codex-publish-030-completed.md) |
+| 2026-11-11 10:31 | PUBLISH-030 | Started | [Publish CPU profile and Taylor plan](2026-11-11-1031-codex-publish-030-started.md) |
+| 2026-11-11 10:27 | CPU-022 | Completed | [CPU stage profile verified](2026-11-11-1027-codex-cpu-022-completed.md) |
+| 2026-11-11 10:26 | CPU-022 | Started | [Review completed s14 CPU profile](2026-11-11-1026-codex-cpu-022-results-started.md) |
+| 2026-11-10 21:00 | CPU-022 | Handoff | [Cached s14 CPU profile submitted](2026-11-10-2100-codex-cpu-022-handoff.md) |
+| 2026-11-10 20:58 | CPU-022 | Started | [Cached s14 CPU encoding profile](2026-11-10-2058-codex-cpu-022-started.md) |
 | 2026-11-10 20:19 | PUBLISH-029 | Completed | [Preparation checkpoint ready for publication](2026-11-10-2019-codex-publish-029-completed.md) |
 | 2026-11-10 20:19 | PUBLISH-029 | Started | [Publish completed preparation and estimate encoding](2026-11-10-2019-codex-publish-029-started.md) |
 | 2026-11-10 20:13 | GPU-021 | Completed | [Actual s16 preparation completed](2026-11-10-2013-codex-gpu-021-completed.md) |

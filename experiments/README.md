@@ -198,3 +198,6 @@ rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
 
 - [Actual GPU-assisted s16 preparation](gpu-preparation/report.md): saved support,
   normalized-root restart checkpoint, complete identity checks and guarded resources.
+
+- [Cached s14 CPU encoding profile](cpu-encoding-profile/report.md): native stage
+  attribution and8/16/32-thread comparisons using retained preprocessing.

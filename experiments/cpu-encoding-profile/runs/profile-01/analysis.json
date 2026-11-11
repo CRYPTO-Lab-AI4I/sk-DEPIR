@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "job_id": "72955",
+  "sources_verified": 286,
+  "workers": [
+    {
+      "workers": 8,
+      "encoding_median_seconds": 248.6745909595,
+      "sample_seconds": [
+        249.215601338,
+        248.133580581
+      ],
+      "stage_median_seconds": {
+        "taylor_ns": 49.920778987999995,
+        "columns_transposes_ns": 84.324236496,
+        "rows_ns": 107.4361076475,
+        "buffer_ns": 0.44403397899999997,
+        "pointwise_ns": 5.2371227825,
+        "assembly_ns": 1.176894915
+      }
+    },
+    {
+      "workers": 16,
+      "encoding_median_seconds": 140.7460108325,
+      "sample_seconds": [
+        140.931916006,
+        140.560105659
+      ],
+      "stage_median_seconds": {
+        "taylor_ns": 40.937183544,
+        "columns_transposes_ns": 42.152903435,
+        "rows_ns": 53.883976972,
+        "buffer_ns": 0.32003321549999997,
+        "pointwise_ns": 2.631418713,
+        "assembly_ns": 0.519076754
+      }
+    },
+    {
+      "workers": 32,
+      "encoding_median_seconds": 91.163942048,
+      "sample_seconds": [
+        90.806208166,
+        91.52167593
+      ],
+      "stage_median_seconds": {
+        "taylor_ns": 38.9326729825,
+        "columns_transposes_ns": 22.189268742499998,
+        "rows_ns": 27.6125952045,
+        "buffer_ns": 0.3235535755,
+        "pointwise_ns": 1.4744133485,
+        "assembly_ns": 0.31211008949999997
+      }
+    }
+  ],
+  "peak_sampled_rss_bytes": 6006403072,
+  "limits": "Two sequential profiled s14 samples per worker count, fixed order. Full canonical hash checks; no s16 memory-pressure model or CPU instruction samples. No new discovery/preparation."
+}
