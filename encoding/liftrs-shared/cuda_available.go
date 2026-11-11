@@ -36,9 +36,14 @@ func newCUDAOnlineBackend(p *ScalingOnlinePlan, options CUDAOptions) (cudaOnline
 	return newCUDAOnlineBackendMode(p, options, false)
 }
 
-// The reuse mode is an opt-in experiment until its full-size validation passes.
+// Memory modes remain explicit experiments; compact output is not yet validated.
 // Public WithCUDA continues to select the previously verified resident layout.
 func newCUDAOnlineBackendMode(p *ScalingOnlinePlan, options CUDAOptions, reuse bool) (cudaOnlineBackend, error) {
+	return newCUDAOnlineBackendKind(p, options, reuse, false)
+}
+
+// Compact mode is selected only by an explicit opt-in experiment until measured.
+func newCUDAOnlineBackendKind(p *ScalingOnlinePlan, options CUDAOptions, reuse, compact bool) (cudaOnlineBackend, error) {
 	s, _, n, l, err := cudaShape(p)
 	if err != nil {
 		return nil, err
@@ -52,6 +57,9 @@ func newCUDAOnlineBackendMode(p *ScalingOnlinePlan, options CUDAOptions, reuse b
 	create := cuda.NewBounded
 	if reuse {
 		create = cuda.NewBoundedReuse
+	}
+	if compact {
+		create = cuda.NewBoundedCompact
 	}
 	engine, err := create(options.LibraryPath, s, p.basis.polynomial, p.basis.delta, table.log, table.powers, n, options.DeviceMemoryLimit)
 	if err != nil {

@@ -17,6 +17,13 @@ int gm_create_bounded(unsigned s,unsigned polynomial,unsigned delta,const uint32
  * bounds as bounded creation; requires2L<=N at SetOnline. Primitive Apply/Product
  * are rejected. Adds a small parity/error array; default constructors unchanged. */
 int gm_create_reuse(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t log_count,const uint32_t* powers,size_t power_count,size_t max_points,size_t device_cap,void** out,char*,size_t);
+/* Explicit compact online experiment: direct-row transforms, one full arena,
+ * bounded uint16 staging/assembly, half-sized bulk download and backwards host
+ * expansion to owning uint32 output. s<=16 and2L<=N; no default switch. */
+int gm_create_compact(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t log_count,const uint32_t* powers,size_t power_count,size_t max_points,size_t device_cap,void** out,char*,size_t);
+/* Last completed compact call: GPU compaction seconds, host expansion seconds,
+ * bulk download bytes (excludes the error flag). Single-caller stats snapshot. */
+int gm_compact_stats(void*,double* values,char*,size_t);
 /* Transform-only experiment: direct_rows=0 owns data+transpose scratch;
  * direct_rows=1 owns data only and operates rows in their original layout.
  * Product and SetOnline are rejected. Default online/primitive modes unchanged. */

@@ -4,6 +4,7 @@ package liftrs
 
 import (
 	cuda "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda"
+	"os"
 	"strings"
 	"testing"
 )
@@ -14,7 +15,7 @@ func cudaExperimentEncoder(p *ScalingOnlinePlan, options CUDAOptions, reuse bool
 	if !reuse {
 		return p.WithCUDA(options)
 	}
-	backend, err := newCUDAOnlineBackendMode(p, options, true)
+	backend, err := newCUDAOnlineBackendKind(p, options, true, os.Getenv("PIR_CUDA_COMPACT") == "1")
 	if err != nil {
 		return nil, err
 	}

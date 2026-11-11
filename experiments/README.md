@@ -225,3 +225,6 @@ rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
 
 - [GPU transform scratch study](gpu-transform-memory/report.md): explicit direct-row
   versus full-scratch layouts, exact memory counts and measured runtime trade-offs.
+
+- [Bounded GPU canonical output](gpu-output-memory/report.md): explicit compact
+  online mode, staged narrowing/disjoint assembly and memory–time validation.

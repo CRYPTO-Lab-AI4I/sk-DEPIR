@@ -21,6 +21,7 @@ typedef struct {
  int (*product)(void*,const uint32_t*,size_t,const uint32_t*,size_t,uint32_t*,size_t,size_t,double*,char*,size_t);
  int (*set_online)(void*,const uint32_t*,size_t,const uint32_t*,size_t,uint32_t,char*,size_t);
  int (*encode_online)(void*,const uint32_t*,size_t,uint32_t*,size_t,double*,char*,size_t);
+ int (*compact_stats)(void*,double*,char*,size_t);
  uint64_t (*owned)(void*);
  void (*destroy)(void*);
 } bridge;
@@ -29,14 +30,16 @@ static bridge* bridge_open(const char* path,unsigned s,unsigned poly,unsigned de
  b->library=dlopen(path,RTLD_NOW|RTLD_LOCAL);
  if(!b->library){snprintf(error,capacity,"%s",dlerror());free(b);return NULL;}
  b->create=dlsym(b->library,"gm_create");b->add=dlsym(b->library,"gm_add_plan");b->apply=dlsym(b->library,"gm_apply");b->owned=dlsym(b->library,"gm_owned_bytes");b->destroy=dlsym(b->library,"gm_destroy");
- b->bounded=dlsym(b->library,bounded==2?"gm_create_reuse":"gm_create_bounded");b->check=dlsym(b->library,"gm_check_plan");
+ b->bounded=dlsym(b->library,bounded==2?"gm_create_reuse":bounded==5?"gm_create_compact":"gm_create_bounded");b->check=dlsym(b->library,"gm_check_plan");
  b->set_online=dlsym(b->library,"gm_set_online");b->encode_online=dlsym(b->library,"gm_encode_online");
+ b->compact_stats=dlsym(b->library,"gm_compact_stats");
  b->transform=dlsym(b->library,"gm_create_transform");
  b->product=dlsym(b->library,"gm_product"); // Optional for old transform-only libraries.
  if(!b->create||!b->add||!b->apply||!b->owned||!b->destroy){snprintf(error,capacity,"missing GPU ABI symbol");dlclose(b->library);free(b);return NULL;}
- if(bounded>=3&&!b->transform){snprintf(error,capacity,"transform layout ABI unavailable");dlclose(b->library);free(b);return NULL;}
- if(bounded>0&&bounded<3&&!b->bounded){snprintf(error,capacity,bounded==2?"reuse GPU ABI unavailable":"bounded GPU ABI unavailable");dlclose(b->library);free(b);return NULL;}
- int status=bounded>=3?b->transform(bounded==4,s,poly,delta,logs,lc,powers,pc,max_points,device_cap,&b->engine,error,capacity):bounded?b->bounded(s,poly,delta,logs,lc,powers,pc,max_points,device_cap,&b->engine,error,capacity):b->create(s,poly,delta,logs,lc,powers,pc,&b->engine,error,capacity);
+ if((bounded==3||bounded==4)&&!b->transform){snprintf(error,capacity,"transform layout ABI unavailable");dlclose(b->library);free(b);return NULL;}
+ if(bounded>0&&bounded!=3&&bounded!=4&&!b->bounded){snprintf(error,capacity,bounded==2?"reuse GPU ABI unavailable":bounded==5?"compact GPU ABI unavailable":"bounded GPU ABI unavailable");dlclose(b->library);free(b);return NULL;}
+ if(bounded==5&&!b->compact_stats){snprintf(error,capacity,"compact stats ABI unavailable");dlclose(b->library);free(b);return NULL;}
+ int status=(bounded==3||bounded==4)?b->transform(bounded==4,s,poly,delta,logs,lc,powers,pc,max_points,device_cap,&b->engine,error,capacity):bounded?b->bounded(s,poly,delta,logs,lc,powers,pc,max_points,device_cap,&b->engine,error,capacity):b->create(s,poly,delta,logs,lc,powers,pc,&b->engine,error,capacity);
  if(status){dlclose(b->library);free(b);return NULL;}return b;
 }
 static int bridge_check(bridge* b,const uint32_t* words,size_t count,char* error,size_t capacity){if(!b->check){snprintf(error,capacity,"plan check ABI unavailable");return 1;}return b->check(b->engine,words,count,error,capacity);}
@@ -45,6 +48,7 @@ static int bridge_apply(bridge* b,uint32_t* words,size_t count,int inverse,doubl
 static int bridge_product(bridge* b,const uint32_t* a,size_t ac,const uint32_t* c,size_t cc,uint32_t* out,size_t oc,size_t n,double* stats,char* error,size_t capacity){if(!b->product){snprintf(error,capacity,"resident product ABI unavailable");return 1;}return b->product(b->engine,a,ac,c,cc,out,oc,n,stats,error,capacity);}
 static int bridge_set_online(bridge* b,const uint32_t* p,size_t pc,const uint32_t* spectrum,size_t n,uint32_t omega,char* error,size_t cap){if(!b->set_online){snprintf(error,cap,"online CUDA ABI unavailable");return 1;}return b->set_online(b->engine,p,pc,spectrum,n,omega,error,cap);}
 static int bridge_encode_online(bridge* b,const uint32_t* message,size_t k,uint32_t* word,size_t n,double* stats,char* error,size_t cap){if(!b->encode_online){snprintf(error,cap,"online CUDA ABI unavailable");return 1;}return b->encode_online(b->engine,message,k,word,n,stats,error,cap);}
+static int bridge_compact_stats(bridge* b,double* values,char* error,size_t capacity){if(!b->compact_stats){snprintf(error,capacity,"compact stats ABI unavailable");return 1;}return b->compact_stats(b->engine,values,error,capacity);}
 static uint64_t bridge_owned(bridge* b){return b->owned(b->engine);}
 static void bridge_close(bridge* b){if(b){b->destroy(b->engine);dlclose(b->library);free(b);}}
 */
@@ -95,6 +99,13 @@ func NewTransformBounded(path string, s int, polynomial, delta uint32, logs, pow
 		mode = 4
 	}
 	return newEngine(path, s, polynomial, delta, logs, powers, maxPoints, deviceBytes, mode)
+}
+
+// NewBoundedCompact is an explicit experimental online mode using one full
+// uint32 arena, direct rows, bounded uint16 compaction/scatter and host expansion.
+// It may run slower; s<=16 and2L<=N. Ordinary constructors are unchanged.
+func NewBoundedCompact(path string, s int, polynomial, delta uint32, logs, powers []uint32, maxPoints int, deviceBytes uint64) (*Engine, error) {
+	return newEngine(path, s, polynomial, delta, logs, powers, maxPoints, deviceBytes, 5)
 }
 
 func newEngine(path string, s int, polynomial, delta uint32, logs, powers []uint32, maxPoints int, deviceBytes uint64, mode int) (*Engine, error) {
@@ -257,6 +268,27 @@ func (e *Engine) EncodeOnline(input, word []uint32) ([10]float64, error) {
 	}
 	if code != 0 {
 		return out, fmt.Errorf("CUDA online encode: %s", C.GoString(&message[0]))
+	}
+	return out, nil
+}
+
+// CompactStats returns the last completed compact call's GPU compaction seconds,
+// host expansion seconds and bulk-download bytes. Calls serialize, but a caller
+// must exclude other encodes to associate this snapshot with its own encode.
+func (e *Engine) CompactStats() ([3]float64, error) {
+	e.mu.Lock()
+	defer e.mu.Unlock()
+	var out [3]float64
+	if e.handle == nil {
+		return out, fmt.Errorf("closed compact stats")
+	}
+	var values [3]C.double
+	var message [512]C.char
+	if C.bridge_compact_stats(e.handle, &values[0], &message[0], 512) != 0 {
+		return out, fmt.Errorf("compact stats: %s", C.GoString(&message[0]))
+	}
+	for i := range out {
+		out[i] = float64(values[i])
 	}
 	return out, nil
 }

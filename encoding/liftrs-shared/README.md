@@ -510,3 +510,10 @@ It requires2L<=N, shares two work arrays and adds small parity storage. Validati
 now passes with s16 CPU hash agreement,51.427 GiB device ownership and57.418/56.975 s
 encoding. The matched s10 comparison shows no observed encoding penalty; s16 timing
 comparison is historical. No public-default switch or s17 support is implied.
+
+The [bounded GPU output experiment](../../experiments/gpu-output-memory/report.md)
+adds a private compact constructor to opt-in tests (`PIR_CUDA_COMPACT=1`, selected
+by the runner's explicit `--memory-mode compact`). It returns the same owning
+uint32 canonical word after bounded device compaction and backwards host expansion.
+Normal WithCUDA and CPU paths are unchanged. Extra work and half-sized bulk
+download are measured separately; runtime/memory correctness remains pending.

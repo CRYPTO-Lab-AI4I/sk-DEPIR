@@ -26,7 +26,8 @@ func TestCUDAOnlineEncoding(t *testing.T) {
 	if cache == "" {
 		t.Fatal("persistent code fixture cache required")
 	}
-	reuse := os.Getenv("PIR_CUDA_REUSE") == "1"
+	compact := os.Getenv("PIR_CUDA_COMPACT") == "1"
+	reuse := os.Getenv("PIR_CUDA_REUSE") == "1" || compact
 	var results []map[string]any
 	for _, spec := range []Spec{{2, 2, 1}, {3, 2, 2}, {4, 2, 2}, {6, 2, 4}, {8, 2, 5}} {
 		basis, err := DiscoverOrbit(spec, OrbitOptions{Random: rand.New(rand.NewSource(2501))})
@@ -70,8 +71,17 @@ func TestCUDAOnlineEncoding(t *testing.T) {
 			if previous, err := cudaExperimentEncoder(plan, CUDAOptions{LibraryPath: old, DeviceMemoryLimit: 512 << 20}, reuse); err == nil {
 				previous.Close()
 				t.Fatal("old library exposes online encoding unexpectedly")
-			} else if !strings.Contains(err.Error(), map[bool]string{false: "online CUDA ABI unavailable", true: "reuse GPU ABI unavailable"}[reuse]) {
-				t.Fatal("unexpected old-library error", err)
+			} else {
+				expected := "online CUDA ABI unavailable"
+				if reuse {
+					expected = "reuse GPU ABI unavailable"
+				}
+				if compact {
+					expected = "compact GPU ABI unavailable"
+				}
+				if !strings.Contains(err.Error(), expected) {
+					t.Fatal("unexpected old-library error", err)
+				}
 			}
 		}
 		rng := rand.New(rand.NewSource(2502))
@@ -82,6 +92,8 @@ func TestCUDAOnlineEncoding(t *testing.T) {
 		original := append([]uint32(nil), input...)
 		cpuWork := plan.NewWorkspace()
 		var stages []CUDAEncodeStats
+		var retained []uint32
+		var retainedCopy []uint32
 		for repeat := 0; repeat < 3; repeat++ {
 			if repeat == 1 {
 				clear(input)
@@ -101,6 +113,19 @@ func TestCUDAOnlineEncoding(t *testing.T) {
 			}
 			if repeat != 1 && !reflect.DeepEqual(input, original) {
 				t.Fatal("CUDA changed message")
+			}
+			if repeat == 0 {
+				retained = got
+				retainedCopy = append([]uint32(nil), got...)
+			}
+			if !reflect.DeepEqual(retained, retainedCopy) {
+				t.Fatal("earlier CUDA output overwritten")
+			}
+			if compact {
+				extra, err := gpu.backend.(interface{ CompactStats() ([3]float64, error) }).CompactStats()
+				if err != nil || extra[0] < 0 || extra[1] < 0 || uint64(extra[2]) != 2*uint64(plan.Length()) {
+					t.Fatal("compact stats", extra, err)
+				}
 			}
 			stages = append(stages, stats)
 		}

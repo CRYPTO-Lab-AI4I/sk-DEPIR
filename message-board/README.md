@@ -17,6 +17,10 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-11 23:23 | PUBLISH-037 | Completed | [Publish pending GPU compact prototype](2026-11-11-2323-codex-publish-037-completed.md) |
+| 2026-11-11 23:23 | PUBLISH-037 | Started | [Publish pending GPU compact prototype](2026-11-11-2323-codex-publish-037-started.md) |
+| 2026-11-11 23:18 | GPU-033 | Handoff | [Compact GPU output validation submitted](2026-11-11-2318-codex-gpu-033-handoff.md) |
+| 2026-11-11 22:58 | GPU-033 | Started | [Bounded compact GPU canonical output](2026-11-11-2258-codex-gpu-033-started.md) |
 | 2026-11-11 22:57 | PUBLISH-036 | Completed | [Publish CPU and GPU memory evidence](2026-11-11-2257-codex-publish-036-completed.md) |
 | 2026-11-11 22:57 | PUBLISH-036 | Started | [Publish CPU and GPU memory evidence](2026-11-11-2257-codex-publish-036-started.md) |
 | 2026-11-11 22:24 | CPU-030 | Completed | [Completed CPU-030 validation](2026-11-11-2224-codex-cpu-030-completed.md) |

@@ -52,3 +52,6 @@ experiments/cpu-buffer-reuse/runs/*/pprof-*.log whitespace=-blank-at-eol
 experiments/gpu-transform-memory/runs/*/compiler.log whitespace=-blank-at-eof
 experiments/gpu-transform-memory/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
 experiments/gpu-transform-memory/runs/*/pprof-*.log whitespace=-blank-at-eol
+experiments/gpu-output-memory/runs/*/compiler.log whitespace=-blank-at-eof
+experiments/gpu-output-memory/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
+experiments/gpu-output-memory/runs/*/pprof-*.log whitespace=-blank-at-eol

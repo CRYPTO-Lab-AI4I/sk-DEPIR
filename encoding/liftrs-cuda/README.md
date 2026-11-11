@@ -97,3 +97,18 @@ at that size, with2.1% forward/2.8% inverse slowdown (larger tested cases roughl
 or explicitly selected. Public online defaults are unchanged; safe canonical
 output assembly remains a separate memory gate, so this is not fulls16 encoding
 memory/performance evidence.
+
+## Experimental compact online output
+
+`NewBoundedCompact` explicitly selects direct-row transforms and a single full
+arena. After the final inverse it compacts base values through a bounded2 MiB
+tile into one uint16 half, then writes canonical output into the disjoint other
+half. It downloads half as many bytes and expands backwards into the existing
+owning host uint32 result. Range checking precedes narrowing. Requires s<=16 and
+2L<=N; it may run slower from direct access, compaction and host conversion.
+`CompactStats` exposes those costs for the most recent call, interpreted only
+after successful EncodeOnline and with other encodes excluded. Older libraries
+missing optional symbols fail clearly. Public WithCUDA/default constructors are
+unchanged. The [explicit CLI experiment](../../experiments/gpu-output-memory/report.md)
+defaults resident; `--memory-mode compact` is required when trying this mode.
+Validation is pending; no s17 support or time benefit is claimed.

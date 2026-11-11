@@ -80,6 +80,11 @@ Direct mode now passes component checks through2^25 values: working buffers shri
 256→128 MiB, with forward/inverse time2.1%/2.8% slower at that size. It remains an
 explicit option, not the default. Complete-encoding output memory is still a
 separate gate; no fulls16 online memory saving is established by this component.
+The [bounded GPU output prototype](experiments/gpu-output-memory/report.md) now
+combines direct rows with staged base-value compaction and disjoint canonical
+assembly inside one arena. It explicitly requires `--memory-mode compact`, targets
+about35.43 GiB at s16, and separately measures extra GPU/host work against reduced
+download size. Runtime/memory validation is pending; normal defaults stay unchanged.
 
 Fast encoding is an explicit priority. Language, compiler, algorithms, hardware,
 layout and parallelism remain open choices; select improvements through measured

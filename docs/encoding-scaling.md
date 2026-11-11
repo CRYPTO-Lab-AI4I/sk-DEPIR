@@ -1133,3 +1133,17 @@ It is an unimplemented design, not another memory saving or an approved default.
 The extra runtime of direct rows and any output/code-streaming costs must be shown
 before selecting an end-to-end slower mode. No new job or budget is admitted by
 completion of these checkpoints. s17/preprocessing/cryptographic/TRL5 gates remain.
+
+
+GPU-033 prototypes the next output gate: [bounded canonical output](../experiments/gpu-output-memory/report.md).
+Direct-row transforms share one arena. Post-inverse base values are narrowed
+through ascending2 MiB staging, then source/output use disjoint uint16 halves;
+half-sized download is expanded backwards into owning uint32 host output. Proof
+obligations include staging/read ordering, primitive scatter, range checks before
+narrowing and host expansion lifetime. Small/boundary/memcheck cases precede two
+fulls16 calls under40 GiB device cap and prior host/time budgets. Model35.429 GiB
+versus51.427 GiB reuse, not measured yet. Extra compaction/host conversion and
+known direct-row cost require explicit `--memory-mode compact`; default resident
+is retained. s17 base values need more than16 bits, so this is not s17 support;
+code/spectrum streaming still remains separate. No measured speed/memory claim
+until the submitted workflow completes and the user pings.
