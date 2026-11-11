@@ -1,0 +1,193 @@
+{
+  "status": "passed",
+  "job_id": "73669",
+  "sources_verified": 333,
+  "measurements": [
+    {
+      "dimension": 8,
+      "n": 256,
+      "layout": "fast",
+      "owned_bytes": 800388,
+      "working_array_bytes": 2048,
+      "setup_seconds": 1.046217549,
+      "forward_median_seconds": 0.000360189,
+      "inverse_median_seconds": 0.000376921
+    },
+    {
+      "dimension": 8,
+      "n": 256,
+      "layout": "direct",
+      "owned_bytes": 799364,
+      "working_array_bytes": 1024,
+      "setup_seconds": 0.485869403,
+      "forward_median_seconds": 0.000324401,
+      "inverse_median_seconds": 0.000336512,
+      "forward_time_ratio_to_fast": 0.9006410523364122,
+      "inverse_time_ratio_to_fast": 0.8927918582408516,
+      "saved_device_bytes": 1024
+    },
+    {
+      "dimension": 9,
+      "n": 512,
+      "layout": "fast",
+      "owned_bytes": 802436,
+      "working_array_bytes": 4096,
+      "setup_seconds": 0.367089715,
+      "forward_median_seconds": 0.000519259,
+      "inverse_median_seconds": 0.000531076
+    },
+    {
+      "dimension": 9,
+      "n": 512,
+      "layout": "direct",
+      "owned_bytes": 800388,
+      "working_array_bytes": 2048,
+      "setup_seconds": 0.405978863,
+      "forward_median_seconds": 0.000486338,
+      "inverse_median_seconds": 0.000487695,
+      "forward_time_ratio_to_fast": 0.9366000396719171,
+      "inverse_time_ratio_to_fast": 0.918314892783707,
+      "saved_device_bytes": 2048
+    },
+    {
+      "dimension": 16,
+      "n": 65536,
+      "layout": "fast",
+      "owned_bytes": 1322628,
+      "working_array_bytes": 524288,
+      "setup_seconds": 0.359774685,
+      "forward_median_seconds": 0.008714626,
+      "inverse_median_seconds": 0.008554257
+    },
+    {
+      "dimension": 16,
+      "n": 65536,
+      "layout": "direct",
+      "owned_bytes": 1060484,
+      "working_array_bytes": 262144,
+      "setup_seconds": 0.307286938,
+      "forward_median_seconds": 0.009158758,
+      "inverse_median_seconds": 0.00914851,
+      "forward_time_ratio_to_fast": 1.0509639771115822,
+      "inverse_time_ratio_to_fast": 1.069468686760288,
+      "saved_device_bytes": 262144
+    },
+    {
+      "dimension": 17,
+      "n": 131072,
+      "layout": "fast",
+      "owned_bytes": 1846916,
+      "working_array_bytes": 1048576,
+      "setup_seconds": 0.310172917,
+      "forward_median_seconds": 0.014666737,
+      "inverse_median_seconds": 0.014443636
+    },
+    {
+      "dimension": 17,
+      "n": 131072,
+      "layout": "direct",
+      "owned_bytes": 1322628,
+      "working_array_bytes": 524288,
+      "setup_seconds": 0.316991903,
+      "forward_median_seconds": 0.015149224,
+      "inverse_median_seconds": 0.015057203,
+      "forward_time_ratio_to_fast": 1.032896683154542,
+      "inverse_time_ratio_to_fast": 1.0424800929627416,
+      "saved_device_bytes": 524288
+    },
+    {
+      "dimension": 20,
+      "n": 1048576,
+      "layout": "fast",
+      "owned_bytes": 9186948,
+      "working_array_bytes": 8388608,
+      "setup_seconds": 0.309203248,
+      "forward_median_seconds": 0.051555242,
+      "inverse_median_seconds": 0.050958214
+    },
+    {
+      "dimension": 20,
+      "n": 1048576,
+      "layout": "direct",
+      "owned_bytes": 4992644,
+      "working_array_bytes": 4194304,
+      "setup_seconds": 0.302620651,
+      "forward_median_seconds": 0.054966136,
+      "inverse_median_seconds": 0.054866929,
+      "forward_time_ratio_to_fast": 1.0661599842747318,
+      "inverse_time_ratio_to_fast": 1.0767043169919575,
+      "saved_device_bytes": 4194304
+    },
+    {
+      "dimension": 21,
+      "n": 2097152,
+      "layout": "fast",
+      "owned_bytes": 17575556,
+      "working_array_bytes": 16777216,
+      "setup_seconds": 0.318017547,
+      "forward_median_seconds": 0.086742012,
+      "inverse_median_seconds": 0.085751968
+    },
+    {
+      "dimension": 21,
+      "n": 2097152,
+      "layout": "direct",
+      "owned_bytes": 9186948,
+      "working_array_bytes": 8388608,
+      "setup_seconds": 0.303513278,
+      "forward_median_seconds": 0.09009278,
+      "inverse_median_seconds": 0.089720842,
+      "forward_time_ratio_to_fast": 1.0386291247198647,
+      "inverse_time_ratio_to_fast": 1.0462831826786763,
+      "saved_device_bytes": 8388608
+    },
+    {
+      "dimension": 24,
+      "n": 16777216,
+      "layout": "fast",
+      "owned_bytes": 135016068,
+      "working_array_bytes": 134217728,
+      "setup_seconds": 0.31277515,
+      "forward_median_seconds": 0.340775737,
+      "inverse_median_seconds": 0.333154986
+    },
+    {
+      "dimension": 24,
+      "n": 16777216,
+      "layout": "direct",
+      "owned_bytes": 67907204,
+      "working_array_bytes": 67108864,
+      "setup_seconds": 0.308542288,
+      "forward_median_seconds": 0.354363658,
+      "inverse_median_seconds": 0.351416765,
+      "forward_time_ratio_to_fast": 1.0398734989750753,
+      "inverse_time_ratio_to_fast": 1.0548146651480703,
+      "saved_device_bytes": 67108864
+    },
+    {
+      "dimension": 25,
+      "n": 33554432,
+      "layout": "fast",
+      "owned_bytes": 269233796,
+      "working_array_bytes": 268435456,
+      "setup_seconds": 0.318106241,
+      "forward_median_seconds": 0.583993519,
+      "inverse_median_seconds": 0.572088774
+    },
+    {
+      "dimension": 25,
+      "n": 33554432,
+      "layout": "direct",
+      "owned_bytes": 135016068,
+      "working_array_bytes": 134217728,
+      "setup_seconds": 0.313248729,
+      "forward_median_seconds": 0.596274239,
+      "inverse_median_seconds": 0.588209546,
+      "forward_time_ratio_to_fast": 1.0210288635069595,
+      "inverse_time_ratio_to_fast": 1.0281787945029663,
+      "saved_device_bytes": 134217728
+    }
+  ],
+  "peak_sampled_rss_bytes": 742064128,
+  "limits": "Transform component in s16 arithmetic through2^25 values; no fulls16 database encoding or s17 arithmetic/capacity claim. Fixed-order fast/direct comparison, three repeats. Direct mode may trade runtime for scratch memory and remains explicitly selected. Online output assembly is a separate memory gate; CPU job73586 was not inspected."
+}

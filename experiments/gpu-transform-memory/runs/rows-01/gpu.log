@@ -1,0 +1,2 @@
+name, uuid, driver_version, memory.total [MiB], compute_cap
+NVIDIA H200 NVL, GPU-ecab0126-a24b-9929-18b5-bccdc6358197, 580.126.20, 143771 MiB, 9.0

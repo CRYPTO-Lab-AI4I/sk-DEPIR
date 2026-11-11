@@ -83,3 +83,17 @@ for test-only selection, resource limits and completed measurements: s16 uses
 51.427 GiB owned device memory,23.7% less, with57.418/56.975 s encoding and matching
 CPU hashes. Matched s10 shows no observed encoding slowdown; s16 timing comparisons
 are historical across nodes. Public shared selection remains unchanged.
+
+## Transform-only scratch study
+
+`NewTransformBounded(..., directRows)` explicitly selects a component experiment:
+false owns data+full transpose scratch; true operates rows in original layout
+and owns data only, potentially trading coalescing/runtime for memory. Product
+and SetOnline are rejected. The [runner](../../experiments/gpu-transform-memory/report.md)
+defaults to `--layout fast`; testing the lower-memory mode requires `--layout direct`
+or `--layout compare`. Validation now passes through2^25 values; buffers256→128 MiB
+at that size, with2.1% forward/2.8% inverse slowdown (larger tested cases roughly
+2–8%). Per policy, fast stays default when it fits; direct remains capacity-driven
+or explicitly selected. Public online defaults are unchanged; safe canonical
+output assembly remains a separate memory gate, so this is not fulls16 encoding
+memory/performance evidence.

@@ -1,0 +1,11 @@
+=== RUN   TestCPUMemoryCached
+    s15_firstuse_probe_test.go:120: load-online 151.971187ms
+    s15_firstuse_probe_test.go:120: online-setup 4.945474ms
+    s15_firstuse_probe_test.go:120: encode-0 255.080732ms
+    s15_firstuse_probe_test.go:120: verify-0 36.32289ms
+    s15_firstuse_probe_test.go:120: encode-1 237.359682ms
+    s15_firstuse_probe_test.go:120: verify-1 32.837013ms
+    s15_firstuse_probe_test.go:120: pack-output 21.777814ms
+    s15_firstuse_probe_test.go:120: verify-packed 127.5095ms
+--- PASS: TestCPUMemoryCached (0.97s)
+PASS

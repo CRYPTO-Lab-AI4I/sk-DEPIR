@@ -17,6 +17,10 @@ int gm_create_bounded(unsigned s,unsigned polynomial,unsigned delta,const uint32
  * bounds as bounded creation; requires2L<=N at SetOnline. Primitive Apply/Product
  * are rejected. Adds a small parity/error array; default constructors unchanged. */
 int gm_create_reuse(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t log_count,const uint32_t* powers,size_t power_count,size_t max_points,size_t device_cap,void** out,char*,size_t);
+/* Transform-only experiment: direct_rows=0 owns data+transpose scratch;
+ * direct_rows=1 owns data only and operates rows in their original layout.
+ * Product and SetOnline are rejected. Default online/primitive modes unchanged. */
+int gm_create_transform(unsigned direct_rows,unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t log_count,const uint32_t* powers,size_t power_count,size_t max_points,size_t device_cap,void** out,char*,size_t);
 /* Descriptions: legacy [n,split,width,...] or v2 [0x324d474c,n_lo,n_hi,split,width,...].
  * Remaining rows/columns are unchanged. Check parses without device allocation;
  * Add also enforces engine limits and allocates workspace/plan. */

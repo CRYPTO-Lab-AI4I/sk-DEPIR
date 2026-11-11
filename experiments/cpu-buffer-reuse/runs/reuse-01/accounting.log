@@ -1,0 +1,3 @@
+JobID|JobName|State|Elapsed|AllocCPUS|ReqMem|MaxRSS|ExitCode
+73586|depir-cpu-reuse|COMPLETED|01:04:36|32|128G||0:0
+73586.batch|batch|COMPLETED|01:04:36|32||58.37G|0:0

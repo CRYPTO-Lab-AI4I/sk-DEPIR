@@ -1,0 +1,22 @@
+File: encoding.test
+Build ID: 7a0ba98fc8ab4304c0823be495f430165a208801
+Type: cpu
+Time: 2026-11-11 21:06:10 CET
+Duration: 1.81s, Total samples = 30ms ( 1.66%)
+Showing nodes accounting for 30ms, 100% of 30ms total
+      flat  flat%   sum%        cum   cum%
+      30ms   100%   100%       30ms   100%  internal/runtime/syscall/linux.Syscall6
+         0     0%   100%       30ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPUMemoryCached
+         0     0%   100%       30ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%       30ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func17
+         0     0%   100%       30ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%       30ms   100%  internal/poll.(*FD).Pread
+         0     0%   100%       30ms   100%  internal/poll.(*FD).Pread.func1 (inline)
+         0     0%   100%       30ms   100%  internal/poll.ignoringEINTR2[go.shape.int] (inline)
+         0     0%   100%       30ms   100%  os.(*File).ReadAt
+         0     0%   100%       30ms   100%  os.(*File).pread (inline)
+         0     0%   100%       30ms   100%  syscall.Pread (inline)
+         0     0%   100%       30ms   100%  syscall.RawSyscall6
+         0     0%   100%       30ms   100%  syscall.Syscall6
+         0     0%   100%       30ms   100%  syscall.pread
+         0     0%   100%       30ms   100%  testing.tRunner

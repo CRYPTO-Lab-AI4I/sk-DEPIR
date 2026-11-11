@@ -222,3 +222,6 @@ rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
 
 - [Native CPU buffer reuse](cpu-buffer-reuse/report.md): owning scratch/output
   transfer, alias boundaries, sanitizer checks and memory/runtime validation.
+
+- [GPU transform scratch study](gpu-transform-memory/report.md): explicit direct-row
+  versus full-scratch layouts, exact memory counts and measured runtime trade-offs.

@@ -14,6 +14,7 @@ typedef struct {
  void *library,*engine;
  int (*create)(unsigned,unsigned,unsigned,const uint32_t*,size_t,const uint32_t*,size_t,void**,char*,size_t);
  int (*bounded)(unsigned,unsigned,unsigned,const uint32_t*,size_t,const uint32_t*,size_t,size_t,size_t,void**,char*,size_t);
+ int (*transform)(unsigned,unsigned,unsigned,unsigned,const uint32_t*,size_t,const uint32_t*,size_t,size_t,size_t,void**,char*,size_t);
  int (*check)(void*,const uint32_t*,size_t,char*,size_t);
  int (*add)(void*,const uint32_t*,size_t,char*,size_t);
  int (*apply)(void*,uint32_t*,size_t,int,double*,char*,size_t);
@@ -30,10 +31,12 @@ static bridge* bridge_open(const char* path,unsigned s,unsigned poly,unsigned de
  b->create=dlsym(b->library,"gm_create");b->add=dlsym(b->library,"gm_add_plan");b->apply=dlsym(b->library,"gm_apply");b->owned=dlsym(b->library,"gm_owned_bytes");b->destroy=dlsym(b->library,"gm_destroy");
  b->bounded=dlsym(b->library,bounded==2?"gm_create_reuse":"gm_create_bounded");b->check=dlsym(b->library,"gm_check_plan");
  b->set_online=dlsym(b->library,"gm_set_online");b->encode_online=dlsym(b->library,"gm_encode_online");
+ b->transform=dlsym(b->library,"gm_create_transform");
  b->product=dlsym(b->library,"gm_product"); // Optional for old transform-only libraries.
  if(!b->create||!b->add||!b->apply||!b->owned||!b->destroy){snprintf(error,capacity,"missing GPU ABI symbol");dlclose(b->library);free(b);return NULL;}
- if(bounded&&!b->bounded){snprintf(error,capacity,bounded==2?"reuse GPU ABI unavailable":"bounded GPU ABI unavailable");dlclose(b->library);free(b);return NULL;}
- int status=bounded?b->bounded(s,poly,delta,logs,lc,powers,pc,max_points,device_cap,&b->engine,error,capacity):b->create(s,poly,delta,logs,lc,powers,pc,&b->engine,error,capacity);
+ if(bounded>=3&&!b->transform){snprintf(error,capacity,"transform layout ABI unavailable");dlclose(b->library);free(b);return NULL;}
+ if(bounded>0&&bounded<3&&!b->bounded){snprintf(error,capacity,bounded==2?"reuse GPU ABI unavailable":"bounded GPU ABI unavailable");dlclose(b->library);free(b);return NULL;}
+ int status=bounded>=3?b->transform(bounded==4,s,poly,delta,logs,lc,powers,pc,max_points,device_cap,&b->engine,error,capacity):bounded?b->bounded(s,poly,delta,logs,lc,powers,pc,max_points,device_cap,&b->engine,error,capacity):b->create(s,poly,delta,logs,lc,powers,pc,&b->engine,error,capacity);
  if(status){dlclose(b->library);free(b);return NULL;}return b;
 }
 static int bridge_check(bridge* b,const uint32_t* words,size_t count,char* error,size_t capacity){if(!b->check){snprintf(error,capacity,"plan check ABI unavailable");return 1;}return b->check(b->engine,words,count,error,capacity);}
@@ -80,6 +83,18 @@ func NewBounded(path string, s int, polynomial, delta uint32, logs, powers []uin
 // are unavailable in this mode; ordinary constructors retain their prior layout.
 func NewBoundedReuse(path string, s int, polynomial, delta uint32, logs, powers []uint32, maxPoints int, deviceBytes uint64) (*Engine, error) {
 	return newEngine(path, s, polynomial, delta, logs, powers, maxPoints, deviceBytes, 2)
+}
+
+// NewTransformBounded is an experimental transform-only engine. directRows=false
+// owns data plus full scratch; true removes scratch by using the original row
+// layout and may run slower. It is an explicit choice, never an online default.
+// Product and SetOnline are unavailable; caps exclude driver/context memory.
+func NewTransformBounded(path string, s int, polynomial, delta uint32, logs, powers []uint32, maxPoints int, deviceBytes uint64, directRows bool) (*Engine, error) {
+	mode := 3
+	if directRows {
+		mode = 4
+	}
+	return newEngine(path, s, polynomial, delta, logs, powers, maxPoints, deviceBytes, mode)
 }
 
 func newEngine(path string, s int, polynomial, delta uint32, logs, powers []uint32, maxPoints int, deviceBytes uint64, mode int) (*Engine, error) {

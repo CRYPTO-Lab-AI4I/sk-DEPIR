@@ -1,0 +1,33 @@
+File: encoding.test
+Build ID: 7a0ba98fc8ab4304c0823be495f430165a208801
+Type: cpu
+Time: 2026-11-11 20:07:12 CET
+Duration: 85.85ms, Total samples = 110ms (128.13%)
+Showing nodes accounting for 110ms, 100% of 110ms total
+Showing top 25 nodes out of 31
+      flat  flat%   sum%        cum   cum%
+      50ms 45.45% 45.45%       50ms 45.45%  runtime.(*mheap).setSpans
+      30ms 27.27% 72.73%       30ms 27.27%  internal/runtime/atomic.(*Uint32).Load (inline)
+      20ms 18.18% 90.91%       20ms 18.18%  runtime.(*mheap).allocNeedsZero
+      10ms  9.09%   100%       10ms  9.09%  runtime.memmove
+         0     0%   100%       70ms 63.64%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPEncoder).NewWorkspace
+         0     0%   100%       40ms 36.36%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).NewWorkspace (inline)
+         0     0%   100%       10ms  9.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).WithCPPMatrix
+         0     0%   100%       80ms 72.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPUMemoryCached
+         0     0%   100%       80ms 72.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPUMemoryCached.func1
+         0     0%   100%       10ms  9.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.cppDescription
+         0     0%   100%       10ms  9.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.cppDescription.func1 (inline)
+         0     0%   100%       10ms  9.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newMatrixCPP
+         0     0%   100%       10ms  9.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orderedCPP
+         0     0%   100%       80ms 72.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%       80ms 72.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func13
+         0     0%   100%       80ms 72.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%       70ms 63.64%  runtime.(*mcache).allocLarge
+         0     0%   100%       70ms 63.64%  runtime.(*mheap).alloc
+         0     0%   100%       70ms 63.64%  runtime.(*mheap).alloc.func1
+         0     0%   100%       70ms 63.64%  runtime.(*mheap).allocSpan
+         0     0%   100%       70ms 63.64%  runtime.(*mheap).initSpan
+         0     0%   100%       30ms 27.27%  runtime.gcBgMarkWorker
+         0     0%   100%       30ms 27.27%  runtime.gcBgMarkWorker.func2
+         0     0%   100%       30ms 27.27%  runtime.gcDrain
+         0     0%   100%       30ms 27.27%  runtime.gcDrainMarkWorkerIdle (inline)

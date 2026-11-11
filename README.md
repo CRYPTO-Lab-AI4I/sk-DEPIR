@@ -63,17 +63,23 @@ the [opt-in prototype](experiments/cuda-buffer-reuse/report.md) now passes s16:
 51.43 GiB owned device memory (23.7% less),57.4/57.0 s encoding under a56 GiB cap,
 with matching CPU output hashes. Matched s10 encoding time is essentially unchanged;
 full-size timing versus the prior run is historical. The public GPU default remains unchanged.
-The [native CPU memory change](experiments/cpu-buffer-reuse/report.md) now transfers
-dead transpose scratch as owning output, targeting a further16 GiB saving at s16
-(about74→58 GiB principal arrays). Small ownership/correctness tests pass; full
-memory/runtime validation is pending. CPU execution still needs no GPU.
+The [native CPU memory change](experiments/cpu-buffer-reuse/report.md) now passes
+full s16 validation: sampled RAM falls74.37→58.35 GiB, with both owning-output
+encodings matching CPU/GPU hashes. Encoding takes21m21s/20m47s; mixed small-run
+timing differences do not establish a stable runtime penalty or benefit.
+The two-encoding validation job took1h04m36s. CPU execution still needs no GPU.
 
 Alongside that validation, the [next CPU/GPU memory steps](docs/encoding-scaling.md#next-part-shared-cpugpu-memory-schedules)
 are reducing transform scratch, streaming constants/output, then evaluating
 host/disk-backed transforms. **Slower memory-saving modes address insufficient
 memory. When the faster path fits, they require explicit command-line opt-in and
-must not become the default.** These are planned requirements; no new CLI option
-or streaming backend is implemented by this documentation update.
+must not become the default.** Production streaming/memory-mode CLI support remains
+planned. The [GPU transform scratch study](experiments/gpu-transform-memory/report.md)
+now provides an experimental `--layout fast|direct|compare` selector (default fast).
+Direct mode now passes component checks through2^25 values: working buffers shrink
+256→128 MiB, with forward/inverse time2.1%/2.8% slower at that size. It remains an
+explicit option, not the default. Complete-encoding output memory is still a
+separate gate; no fulls16 online memory saving is established by this component.
 
 Fast encoding is an explicit priority. Language, compiler, algorithms, hardware,
 layout and parallelism remain open choices; select improvements through measured

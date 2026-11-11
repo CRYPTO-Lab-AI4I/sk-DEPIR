@@ -1,0 +1,194 @@
+[
+  {
+    "closed": true,
+    "delta": 2048,
+    "dimension": 8,
+    "field_s": 16,
+    "forward_seconds": [
+      0.016083227
+    ],
+    "forward_stages": [
+      [
+        0.000014943,
+        0.007284511834383011,
+        0.004354239940643311,
+        0.003681727886199951,
+        0.00024374400079250335,
+        0.00029994,
+        0,
+        0.016077507
+      ]
+    ],
+    "input_sha256": "9cc3646da98cdd8134f58c5f3f9fff28ab4c89ad9df33897621434db6b01ff7e",
+    "inverse_seconds": [
+      0.009241012
+    ],
+    "inverse_stages": [
+      [
+        0.000008506,
+        0.0014496960192918777,
+        0.003673311948776245,
+        0.0035739519596099853,
+        0.00011024000123143196,
+        0.000256515,
+        0,
+        0.009238917
+      ]
+    ],
+    "layout": "fast",
+    "matches": true,
+    "n": 256,
+    "owned_bytes": 800388,
+    "polynomial": 65581,
+    "reference_seconds": 0.001394496,
+    "reference_sha256": "fc0e3ede6a05ba4a67df9d995dc46ba1938ceb0692f75211d534a9b54f67476d",
+    "seed": 3208,
+    "setup_seconds": 1.595932355,
+    "table_bytes": 786424,
+    "working_array_bytes": 2048
+  },
+  {
+    "closed": true,
+    "delta": 2048,
+    "dimension": 8,
+    "field_s": 16,
+    "forward_seconds": [
+      0.010793121
+    ],
+    "forward_stages": [
+      [
+        0.000014836,
+        0.00225647996366024,
+        0.004256735801696778,
+        0.0038615360260009766,
+        0,
+        0.000241125,
+        0,
+        0.010788691
+      ]
+    ],
+    "input_sha256": "9cc3646da98cdd8134f58c5f3f9fff28ab4c89ad9df33897621434db6b01ff7e",
+    "inverse_seconds": [
+      0.00913099
+    ],
+    "inverse_stages": [
+      [
+        0.000007368,
+        0.0014284480065107348,
+        0.003682336091995239,
+        0.003644736051559448,
+        0,
+        0.000220331,
+        0,
+        0.009126926
+      ]
+    ],
+    "layout": "direct",
+    "matches": true,
+    "n": 256,
+    "owned_bytes": 799364,
+    "polynomial": 65581,
+    "reference_seconds": 0.001394496,
+    "reference_sha256": "fc0e3ede6a05ba4a67df9d995dc46ba1938ceb0692f75211d534a9b54f67476d",
+    "seed": 3208,
+    "setup_seconds": 0.312960847,
+    "table_bytes": 786424,
+    "working_array_bytes": 1024
+  },
+  {
+    "closed": true,
+    "delta": 2048,
+    "dimension": 9,
+    "field_s": 16,
+    "forward_seconds": [
+      0.018536441
+    ],
+    "forward_stages": [
+      [
+        0.000032305,
+        0.002593600004911423,
+        0.011299327850341797,
+        0.0037524480819702147,
+        0.00026825599744915963,
+        0.000334528,
+        0,
+        0.018515871
+      ]
+    ],
+    "input_sha256": "7b03cb1d6b41fa63ae5ec5d64a342e5bdfa12d5a5204f40380312c247963e3ad",
+    "inverse_seconds": [
+      0.016693014
+    ],
+    "inverse_stages": [
+      [
+        0.000007847,
+        0.001968576014041901,
+        0.010477375984191895,
+        0.003606368064880371,
+        0.00011548800021409989,
+        0.000304132,
+        0,
+        0.016688882
+      ]
+    ],
+    "layout": "fast",
+    "matches": true,
+    "n": 512,
+    "owned_bytes": 802436,
+    "polynomial": 65581,
+    "reference_seconds": 0.001889252,
+    "reference_sha256": "a90bf7bb7ff7502e2fc4891a203e0bc49ff80ab552347e22a0620ad69c1578fb",
+    "seed": 3209,
+    "setup_seconds": 0.350608595,
+    "table_bytes": 786424,
+    "working_array_bytes": 4096
+  },
+  {
+    "closed": true,
+    "delta": 2048,
+    "dimension": 9,
+    "field_s": 16,
+    "forward_seconds": [
+      0.01811188
+    ],
+    "forward_stages": [
+      [
+        0.000015147,
+        0.0026573120206594466,
+        0.011103839874267578,
+        0.0038604800701141358,
+        0,
+        0.000280579,
+        0,
+        0.018106641
+      ]
+    ],
+    "input_sha256": "7b03cb1d6b41fa63ae5ec5d64a342e5bdfa12d5a5204f40380312c247963e3ad",
+    "inverse_seconds": [
+      0.01663132
+    ],
+    "inverse_stages": [
+      [
+        0.000008258,
+        0.0019439360052347183,
+        0.010526368141174317,
+        0.0037079999446868895,
+        0,
+        0.000266838,
+        0,
+        0.016627477
+      ]
+    ],
+    "layout": "direct",
+    "matches": true,
+    "n": 512,
+    "owned_bytes": 800388,
+    "polynomial": 65581,
+    "reference_seconds": 0.001889252,
+    "reference_sha256": "a90bf7bb7ff7502e2fc4891a203e0bc49ff80ab552347e22a0620ad69c1578fb",
+    "seed": 3209,
+    "setup_seconds": 0.32032996,
+    "table_bytes": 786424,
+    "working_array_bytes": 2048
+  }
+]

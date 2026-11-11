@@ -1015,7 +1015,7 @@ released; retained caller results cost extra. Go reference/hybrid schedules stay
 as before. Validate ownership/errors/concurrency, ASAN/UBSAN, matched s10 buffer
 schedules and two s16 CPU calls under68 GiB RSS guard,128 GiB requested RAM,
 32cores/noGPU,64 GiB Go soft and prior2h time/cache limits. Full-size validation
-remains pending; no s17 route or runtime equivalence is selected by this step.
+now passes as recorded below; no s17 route or runtime equivalence is selected by this step.
 
 
 ## Next part: shared CPU/GPU memory schedules
@@ -1089,3 +1089,47 @@ This records the next work; no new implementation, CLI flag, job or resource
 increase is introduced. Jobs over30 seconds keep the submit-and-handoff rule.
 CPU and GPU remain maintained, explicitly selected paths; mathematical encoding,
 application/cryptographic integration and TRL5 acceptance stay distinct.
+
+
+GPU-032 starts the first shared-plan item on GPU: [transform scratch study](../experiments/gpu-transform-memory/report.md).
+Direct rows operate in the original layout, removing full scratch and physical
+transposes but potentially losing coalescing. A fair transform-only fast baseline
+owns data+scratch; direct mode owns data only. CLI defaults fast and requires
+`--layout direct`/`compare` for the potentially slower option. Validate square/
+rectangular forward/inverse/native/Go matches and memcheck through2^25 values,
+512 MiB device cap,16 GiB host/12 GiB RSS,16 CPU cores/one GPU,30m allocation/25m
+controller. No online-default switch or fulls16 encoding: safe canonical output
+still needs a separate memory schedule. CPU job73586 is left untouched and its
+results awaited the completion ping. Both completed reviews are recorded below.
+
+
+### Completed CPU-030 and GPU-032 checkpoints
+
+User confirmed both jobs finished. [CPU73586](../experiments/cpu-buffer-reuse/report.md)
+passes328 source identities, full repeated CPU/GPU canonical/packed hash agreement,
+retained-output/overlap/error/concurrency tests, native/Go suites, race/vet and
+ASAN/UBSAN. Sampled host peak58.351 GiB versus prior74.370 GiB,16.019 GiB lower,
+matching the one-array saving. Encoding1281.328/1247.173 s, full two-call validation
+allocation1h04m36s. Matched s10 times differ in both directions (+2.34% first,
+-0.73% second); historical full-size comparisons also have both signs. No stable
+runtime penalty/benefit or universal equality is established. Profiles/output kept.
+
+[GPU73669](../experiments/gpu-transform-memory/report.md) passes333 source identities,
+all square/rectangular forward/inverse/native/small-Go comparisons and zero CUDA
+memcheck errors/leaks. Direct rows save exactly4N bytes and perform no transpose.
+At2^25 values working arrays256→128 MiB, but forward/inverse medians are2.10%/2.82%
+slower. Larger tested cases show roughly2–8% penalties. Keep fast as default when
+memory fits; direct remains explicit CLI opt-in or a capacity solution. This
+proves only the transform component, not fulls16 online execution. Job2m14s,
+512 MiB cap, no guard tripped. CPU and GPU ran on separate allocated nodes.
+
+Next GPU gate: design safe canonical assembly/output without recreating a full
+scratch array after the transforms. Evaluate bounded routing/streaming or a proven
+in-place schedule, then combine with code/spectrum chunking. One candidate is
+narrowing the final base-field values before assembly, using bounded staging and
+disjoint compact source/destination regions; it needs alias/dependency proof,
+correctness tests and explicit accounting of compaction, conversion and I/O time.
+It is an unimplemented design, not another memory saving or an approved default.
+The extra runtime of direct rows and any output/code-streaming costs must be shown
+before selecting an end-to-end slower mode. No new job or budget is admitted by
+completion of these checkpoints. s17/preprocessing/cryptographic/TRL5 gates remain.

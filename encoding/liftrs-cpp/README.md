@@ -168,3 +168,9 @@ workspace reuse and encoder closure. `Bytes()` counts only currently owned array
 Go reference/hybrid output scheduling remains unchanged. The
 [CPU memory experiment](../../experiments/cpu-buffer-reuse/report.md) tests retained
 outputs, alias boundaries, native sanitizers, memory reduction and runtime.
+
+CPU job73586 now validates this ownership transfer on two full s16 calls:
+58.351 GiB peak sampled RSS versus74.370 GiB previously,21m21.3s/20m47.2s
+encoding with exact retained CPU/GPU hashes. Small matched timing differences
+have both signs; no general time equivalence or penalty is established. Full
+results and retained-output/race/sanitizer evidence are linked above.

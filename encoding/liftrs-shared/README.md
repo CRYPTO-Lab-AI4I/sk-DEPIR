@@ -368,7 +368,9 @@ workspace allocates fresh scratch on its next complete or hybrid call. Earlier
 outputs remain valid, and `Bytes()` excludes transferred storage. Keeping old
 outputs still costs their full size. The Go/hybrid paths retain separate outputs.
 See [CPU memory validation](../../experiments/cpu-buffer-reuse/report.md) for the
-pending measured memory/runtime comparison. This opt-in path
+completed memory/runtime comparison: s16 sampled RSS58.351 GiB, two complete
+outputs match CPU/GPU hashes and retained-output/overlap/race/sanitizer checks
+pass. Timing samples are mixed, not a general runtime-equivalence claim. This opt-in path
 preserves the canonical codeword and information set. `Encode`/`EncodeWithStats`
 now run buffer setup, five transforms, pointwise products and assembly in one
 native call, without duplicating large preprocessing arrays. Preprocessing and

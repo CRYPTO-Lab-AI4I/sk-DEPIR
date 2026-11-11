@@ -36,11 +36,14 @@ __host__ __device__ uint32_t multiply(uint32_t a,uint32_t b,unsigned s,uint32_t 
 __global__ void transpose(const uint32_t* src,uint32_t* dst,size_t rows,size_t cols){
  size_t i=size_t(blockIdx.x)*blockDim.x+threadIdx.x;if(i>=rows*cols)return;dst[(i%cols)*rows+i/cols]=src[i];
 }
-__global__ void tiles(uint32_t* data,size_t n,const Matrix* matrix,bool columns,bool inverse,const uint32_t* log,const uint32_t* powers){
+__global__ void tiles(uint32_t* data,size_t n,const Matrix* matrix,bool columns,bool inverse,bool contiguous,const uint32_t* log,const uint32_t* powers){
  const auto& m=*matrix;const auto& p=columns?m.columns:m.rows;
  unsigned level=columns?m.dimension-m.split:m.split;
  size_t length=size_t(1)<<level,jobs=n/length,tile=size_t(blockIdx.x)*blockDim.x+threadIdx.x;
  if(tile>=jobs)return;
+ // A row can stay in original layout: its coefficients use stride1. The fast
+ // transposed layout instead gives adjacent threads adjacent addresses.
+ size_t stride=contiguous?1:jobs,offset=contiguous?tile*length:tile;
  for(unsigned stage=0;stage<level;stage++){
   unsigned k=inverse?stage:level-1-stage;size_t size=size_t(1)<<(k+1),half=size/2;
   for(size_t group=0;group<length;group+=size){
@@ -48,13 +51,13 @@ __global__ void tiles(uint32_t* data,size_t n,const Matrix* matrix,bool columns,
    for(unsigned bit=0;bit<level;bit++)if((group>>bit)&1)point^=p.basis[bit];
    uint32_t c=0;for(unsigned bit=0;bit<2*m.s;bit++)if((point>>bit)&1)c^=p.values[k][bit];
    if(!inverse){
-    for(size_t i=size;i-- > half;){uint32_t z=data[(group+i)*jobs+tile];
-     for(unsigned t=0;t+1<p.count[k];t++)data[(group+i-half+p.degree[k][t])*jobs+tile]^=multiply(p.coef[k][t],z,m.s,m.delta,log,powers);
+    for(size_t i=size;i-- > half;){uint32_t z=data[(group+i)*stride+offset];
+     for(unsigned t=0;t+1<p.count[k];t++)data[(group+i-half+p.degree[k][t])*stride+offset]^=multiply(p.coef[k][t],z,m.s,m.delta,log,powers);
     }
-    for(size_t j=0;j<half;j++){size_t a=(group+j)*jobs+tile,b=(group+half+j)*jobs+tile;uint32_t v=data[b],left=data[a]^multiply(c,v,m.s,m.delta,log,powers);data[a]=left;data[b]=left^multiply(p.delta[k],v,m.s,m.delta,log,powers);}
+    for(size_t j=0;j<half;j++){size_t a=(group+j)*stride+offset,b=(group+half+j)*stride+offset;uint32_t v=data[b],left=data[a]^multiply(c,v,m.s,m.delta,log,powers);data[a]=left;data[b]=left^multiply(p.delta[k],v,m.s,m.delta,log,powers);}
    }else{
-    for(size_t j=0;j<half;j++){size_t a=(group+j)*jobs+tile,b=(group+half+j)*jobs+tile;uint32_t v=multiply(p.inverse[k],data[a]^data[b],m.s,m.delta,log,powers);data[a]^=multiply(c,v,m.s,m.delta,log,powers);data[b]=v;}
-    for(size_t j=0;j<half;j++){uint32_t v=data[(group+half+j)*jobs+tile];for(unsigned t=0;t+1<p.count[k];t++)data[(group+j+p.degree[k][t])*jobs+tile]^=multiply(p.coef[k][t],v,m.s,m.delta,log,powers);}
+    for(size_t j=0;j<half;j++){size_t a=(group+j)*stride+offset,b=(group+half+j)*stride+offset;uint32_t v=multiply(p.inverse[k],data[a]^data[b],m.s,m.delta,log,powers);data[a]^=multiply(c,v,m.s,m.delta,log,powers);data[b]=v;}
+    for(size_t j=0;j<half;j++){uint32_t v=data[(group+half+j)*stride+offset];for(unsigned t=0;t+1<p.count[k];t++)data[(group+j+p.degree[k][t])*stride+offset]^=multiply(p.coef[k][t],v,m.s,m.delta,log,powers);}
    }
   }
  }
@@ -100,16 +103,17 @@ template<class F>double measured(F fn){
 using Clock=std::chrono::steady_clock;
 double elapsed(Clock::time_point start){return std::chrono::duration<double>(Clock::now()-start).count();}
 struct Engine {
- unsigned s,polynomial;uint32_t delta;bool reuse=false;Device log,powers,a,b,scratch,code_p,code_spectrum,parity;size_t points=0,max_points,device_cap,online_k=0,online_n=0,online_l=0;uint32_t omega=0;
+ unsigned s,polynomial;uint32_t delta;bool reuse=false,transform_only=false,direct_rows=false;Device log,powers,a,b,scratch,code_p,code_spectrum,parity;size_t points=0,max_points,device_cap,online_k=0,online_n=0,online_l=0;uint32_t omega=0;
  std::unordered_map<size_t,std::unique_ptr<Device>> plans;
  std::vector<uint32_t> host_log,host_powers;
  uint64_t owned(){uint64_t bytes=log.bytes+powers.bytes+a.bytes+b.bytes+scratch.bytes+code_p.bytes+code_spectrum.bytes+parity.bytes;for(auto& kv:plans)bytes+=kv.second->bytes;return bytes;}
+ unsigned arrays()const{return transform_only?(direct_rows?1:2):(reuse?2:3);}
  void grow(size_t n){if(n>max_points||!n||(n&(n-1)))throw std::runtime_error("GPU shape bound");if(n<=points)return;
   auto retained=owned()-a.bytes-b.bytes-scratch.bytes;
-  if(retained>device_cap||n>(device_cap-retained)/(reuse?8:12))throw std::runtime_error("device allocation bound");
+  if(retained>device_cap||n>(device_cap-retained)/(4*arrays()))throw std::runtime_error("device allocation bound");
   // Synchronous single-caller calls leave no live values in workspace. Release
   // before growth so old plus replacement buffers cannot exceed the cap.
-  points=0;a.release();b.release();scratch.release();a.allocate(n*4);if(!reuse)b.allocate(n*4);scratch.allocate(n*4);points=n;
+  points=0;a.release();b.release();scratch.release();a.allocate(n*4);if(!reuse&&!transform_only)b.allocate(n*4);if(!direct_rows)scratch.allocate(n*4);points=n;
  }
  void apply(uint32_t* data,size_t n,bool inverse,double* stats){
   auto it=plans.find(n);if(it==plans.end())throw std::runtime_error("unprepared GPU matrix shape");auto* p=static_cast<Matrix*>(it->second->p);
@@ -118,10 +122,11 @@ struct Engine {
    if(!inverse){stats[1]+=measured([&]{taylor_pass<<<(n/2+255)/256,256>>>(data,n,p,k,true,log.words(),powers.words());});stats[1]+=measured([&]{taylor_pass<<<(n/2+255)/256,256>>>(data,n,p,k,false,log.words(),powers.words());});}
    else{stats[1]+=measured([&]{taylor_pass<<<(n/2+255)/256,256>>>(data,n,p,k,false,log.words(),powers.words());});stats[1]+=measured([&]{taylor_pass<<<(n/2+255)/256,256>>>(data,n,p,k,true,log.words(),powers.words());});}
   }};
-  auto columns=[&]{size_t jobs=size_t(1)<<split;stats[2]+=measured([&]{tiles<<<(jobs+127)/128,128>>>(data,n,p,true,inverse,log.words(),powers.words());});};
+  auto columns=[&]{size_t jobs=size_t(1)<<split;stats[2]+=measured([&]{tiles<<<(jobs+127)/128,128>>>(data,n,p,true,inverse,false,log.words(),powers.words());});};
   auto rows=[&]{size_t length=size_t(1)<<split,jobs=n/length;
+   if(direct_rows){stats[3]+=measured([&]{tiles<<<(jobs+127)/128,128>>>(data,n,p,false,inverse,true,log.words(),powers.words());});return;}
    stats[4]+=measured([&]{transpose<<<(n+255)/256,256>>>(data,scratch.words(),jobs,length);});
-   stats[3]+=measured([&]{tiles<<<(jobs+127)/128,128>>>(scratch.words(),n,p,false,inverse,log.words(),powers.words());});
+   stats[3]+=measured([&]{tiles<<<(jobs+127)/128,128>>>(scratch.words(),n,p,false,inverse,false,log.words(),powers.words());});
    stats[4]+=measured([&]{transpose<<<(n+255)/256,256>>>(scratch.words(),data,length,jobs);});
   };
   if(!inverse){convert();columns();rows();}else{rows();columns();convert();}
@@ -141,16 +146,20 @@ void read_tile(Reader& r,Tile& p,unsigned expected,unsigned s){
 }
 template<class F>int api(char* error,size_t capacity,F fn){try{fn();return 0;}catch(const std::exception& e){if(error&&capacity)std::snprintf(error,capacity,"%s",e.what());return 1;}}
 }
-static int create_engine(bool reuse,unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,size_t max_points,size_t device_cap,void** out,char* error,size_t capacity){return api(error,capacity,[&]{
+static int create_engine(bool reuse,bool transform_only,bool direct_rows,unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,size_t max_points,size_t device_cap,void** out,char* error,size_t capacity){return api(error,capacity,[&]{
  if(!out||!logs||!powers||s<2||s>16||lc!=(size_t(1)<<s)||pc!=2*(lc-1)||!delta||delta>=lc||polynomial>>s!=1)throw std::runtime_error("GPU field/table shape");
- if(max_points<4||max_points>domain_limit||(max_points&(max_points-1))||device_cap<(reuse?8:12)*max_points+lc*4+pc*4+sizeof(Matrix))throw std::runtime_error("GPU engine limits");
- auto e=std::make_unique<Engine>();e->reuse=reuse;e->max_points=max_points;e->device_cap=device_cap;e->s=s;e->polynomial=polynomial;e->delta=delta;check(cudaSetDevice(0));check(cudaFree(nullptr));
+ if(max_points<4||max_points>domain_limit||(max_points&(max_points-1))||device_cap<4*(transform_only?(direct_rows?1:2):(reuse?2:3))*max_points+lc*4+pc*4+sizeof(Matrix))throw std::runtime_error("GPU engine limits");
+ auto e=std::make_unique<Engine>();e->reuse=reuse;e->transform_only=transform_only;e->direct_rows=direct_rows;e->max_points=max_points;e->device_cap=device_cap;e->s=s;e->polynomial=polynomial;e->delta=delta;check(cudaSetDevice(0));check(cudaFree(nullptr));
  e->host_log.assign(logs,logs+lc);e->host_powers.assign(powers,powers+pc);
  for(size_t i=1;i<lc;i++)if(logs[i]>=lc-1||powers[logs[i]]!=i)throw std::runtime_error("GPU lookup coordinate");
  e->log.allocate(lc*4);e->powers.allocate(pc*4);check(cudaMemcpy(e->log.p,logs,lc*4,cudaMemcpyHostToDevice));check(cudaMemcpy(e->powers.p,powers,pc*4,cudaMemcpyHostToDevice));*out=e.release();
 });}
-extern "C" int gm_create_bounded(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,size_t max_points,size_t device_cap,void** out,char* error,size_t capacity){return create_engine(false,s,polynomial,delta,logs,lc,powers,pc,max_points,device_cap,out,error,capacity);}
-extern "C" int gm_create_reuse(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,size_t max_points,size_t device_cap,void** out,char* error,size_t capacity){return create_engine(true,s,polynomial,delta,logs,lc,powers,pc,max_points,device_cap,out,error,capacity);}
+extern "C" int gm_create_bounded(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,size_t max_points,size_t device_cap,void** out,char* error,size_t capacity){return create_engine(false,false,false,s,polynomial,delta,logs,lc,powers,pc,max_points,device_cap,out,error,capacity);}
+extern "C" int gm_create_reuse(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,size_t max_points,size_t device_cap,void** out,char* error,size_t capacity){return create_engine(true,false,false,s,polynomial,delta,logs,lc,powers,pc,max_points,device_cap,out,error,capacity);}
+extern "C" int gm_create_transform(unsigned direct,unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,size_t max_points,size_t device_cap,void** out,char* error,size_t capacity){
+ if(direct>1){if(error&&capacity)std::snprintf(error,capacity,"invalid transform layout");return 1;}
+ return create_engine(false,true,direct!=0,s,polynomial,delta,logs,lc,powers,pc,max_points,device_cap,out,error,capacity);
+}
 extern "C" int gm_create(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,void** out,char* error,size_t capacity){return gm_create_bounded(s,polynomial,delta,logs,lc,powers,pc,size_t(1)<<22,size_t(512)<<20,out,error,capacity);}
 namespace {
 Matrix read_matrix(Engine& e,const uint32_t* words,size_t count,size_t& n){
@@ -177,11 +186,12 @@ extern "C" int gm_apply(void* handle,uint32_t* data,size_t n,int inverse,double*
  if(!handle||!data||!stats||(inverse!=0&&inverse!=1))throw std::runtime_error("GPU apply arguments");auto& e=*static_cast<Engine*>(handle);if(e.reuse)throw std::runtime_error("reuse engine is online-only");if(!e.plans.count(n))throw std::runtime_error("GPU apply shape");e.grow(n);std::fill(stats,stats+8,0);auto start=Clock::now(),copy=Clock::now();check(cudaMemcpy(e.a.p,data,n*4,cudaMemcpyHostToDevice));stats[0]=elapsed(copy);e.apply(e.a.words(),n,inverse,stats);copy=Clock::now();check(cudaMemcpy(data,e.a.p,n*4,cudaMemcpyDeviceToHost));stats[5]=elapsed(copy);stats[7]=elapsed(start);
 });}
 extern "C" int gm_product(void* handle,const uint32_t* a,size_t ac,const uint32_t* b,size_t bc,uint32_t* out,size_t oc,size_t n,double* stats,char* error,size_t capacity){return api(error,capacity,[&]{
- if(!handle||!a||!b||!out||!stats)throw std::runtime_error("GPU convolution arguments");auto& e=*static_cast<Engine*>(handle);if(e.reuse)throw std::runtime_error("reuse engine is online-only");if(!e.plans.count(n)||!ac||!bc||ac>n||bc>n||ac>n-bc+1||!oc||oc>ac+bc-1)throw std::runtime_error("GPU convolution shape/prefix");e.grow(n);std::fill(stats,stats+8,0);auto start=Clock::now(),copy=Clock::now();check(cudaMemset(e.a.p,0,n*4));check(cudaMemset(e.b.p,0,n*4));check(cudaMemcpy(e.a.p,a,ac*4,cudaMemcpyHostToDevice));check(cudaMemcpy(e.b.p,b,bc*4,cudaMemcpyHostToDevice));stats[0]=elapsed(copy);e.apply(e.a.words(),n,false,stats);e.apply(e.b.words(),n,false,stats);stats[6]=measured([&]{pointwise<<<(n+255)/256,256>>>(e.a.words(),e.b.words(),n,e.s,e.delta,e.log.words(),e.powers.words());});e.apply(e.a.words(),n,true,stats);copy=Clock::now();check(cudaMemcpy(out,e.a.p,oc*4,cudaMemcpyDeviceToHost));stats[5]=elapsed(copy);stats[7]=elapsed(start);
+ if(!handle||!a||!b||!out||!stats)throw std::runtime_error("GPU convolution arguments");auto& e=*static_cast<Engine*>(handle);if(e.reuse)throw std::runtime_error("reuse engine is online-only");if(e.transform_only)throw std::runtime_error("transform-only engine");if(!e.plans.count(n)||!ac||!bc||ac>n||bc>n||ac>n-bc+1||!oc||oc>ac+bc-1)throw std::runtime_error("GPU convolution shape/prefix");e.grow(n);std::fill(stats,stats+8,0);auto start=Clock::now(),copy=Clock::now();check(cudaMemset(e.a.p,0,n*4));check(cudaMemset(e.b.p,0,n*4));check(cudaMemcpy(e.a.p,a,ac*4,cudaMemcpyHostToDevice));check(cudaMemcpy(e.b.p,b,bc*4,cudaMemcpyHostToDevice));stats[0]=elapsed(copy);e.apply(e.a.words(),n,false,stats);e.apply(e.b.words(),n,false,stats);stats[6]=measured([&]{pointwise<<<(n+255)/256,256>>>(e.a.words(),e.b.words(),n,e.s,e.delta,e.log.words(),e.powers.words());});e.apply(e.a.words(),n,true,stats);copy=Clock::now();check(cudaMemcpy(out,e.a.p,oc*4,cudaMemcpyDeviceToHost));stats[5]=elapsed(copy);stats[7]=elapsed(start);
 });}
 extern "C" int gm_convolution(void* handle,const uint32_t* a,const uint32_t* b,uint32_t* out,size_t n,double* stats,char* error,size_t capacity){return gm_product(handle,a,n/2,b,n/2,out,n?n-1:0,n,stats,error,capacity);}
 extern "C" int gm_set_online(void* handle,const uint32_t* p,size_t pc,const uint32_t* spectrum,size_t n,uint32_t omega,char* error,size_t cap){return api(error,cap,[&]{
  if(!handle||!p||!spectrum)throw std::runtime_error("null CUDA code data");auto& e=*static_cast<Engine*>(handle);
+ if(e.transform_only)throw std::runtime_error("transform-only engine");
  if(e.online_k||pc<2||n!=(size_t(1)<<(2*e.s))||pc-1>n/2||p[0]!=1)throw std::runtime_error("CUDA code shape/normalization or repeated setup");
  size_t k=pc-1,l=4;while(l<2*k-1)l*=2;
  if(e.reuse&&l>n/2)throw std::runtime_error("reuse prefix operands exceed shared arena");

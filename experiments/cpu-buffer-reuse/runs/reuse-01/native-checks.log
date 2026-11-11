@@ -1,0 +1,13 @@
+=== RUN   TestCPPOutputOwnership
+--- PASS: TestCPPOutputOwnership (0.08s)
+=== RUN   TestCPPMatrixEncoding
+--- PASS: TestCPPMatrixEncoding (0.09s)
+=== RUN   TestCPPMatrixConcurrent
+--- PASS: TestCPPMatrixConcurrent (0.00s)
+=== RUN   TestCPPOnlineNative
+--- PASS: TestCPPOnlineNative (0.56s)
+=== RUN   TestCPPOnlineOverlap
+--- PASS: TestCPPOnlineOverlap (0.00s)
+=== RUN   TestCPPTaylorParallelMatrix
+--- PASS: TestCPPTaylorParallelMatrix (0.73s)
+PASS

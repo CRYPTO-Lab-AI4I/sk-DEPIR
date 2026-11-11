@@ -1,0 +1,110 @@
+{
+  "status": "passed",
+  "job_id": "73586",
+  "sources_verified": 328,
+  "packed_payload_digest_recomputed": false,
+  "native_stage_seconds": {
+    "buffer_ns": 36.833531448,
+    "pointwise_ns": 25.049469608,
+    "assembly_ns": 6.48650382,
+    "taylor_ns": 202.265361311,
+    "columns_transposes_ns": 457.540952814,
+    "rows_ns": 551.283399385
+  },
+  "encoding": {
+    "s": 16,
+    "n": 4294967296,
+    "k": 918672421,
+    "canonical_sha256": "c538a1bc9b408dc4d283aba887f808825404a1c2b8dce693aa7f3015d1152a48",
+    "packed_sha256": "1c68bfe60f3914b06e31995afc67d5bb3d0a6776c4750af836f8c9794ee18bb9",
+    "encodings": [
+      {
+        "seconds": 1281.32832694,
+        "workspace_after_bytes": 20854558868,
+        "scratch_transferred": true
+      },
+      {
+        "seconds": 1247.173287198,
+        "workspace_after_bytes": 20854558868,
+        "scratch_transferred": true
+      }
+    ],
+    "phase_seconds": {
+      "load-online": 93.362065713,
+      "online-setup": 0.08583041,
+      "encode-0": 1281.32832694,
+      "verify-0": 470.721231117,
+      "encode-1": 1247.173287198,
+      "verify-1": 469.931119946,
+      "pack-output": 57.336773489,
+      "verify-packed": 1.806132261
+    }
+  },
+  "peak_sampled_rss_bytes": 62654431232,
+  "principal_memory_bytes": {
+    "old_principal_bytes": 79743545792,
+    "reuse_principal_bytes": 62563676608,
+    "saved_bytes": 17179869184
+  },
+  "matched_s10": {
+    "matched-baseline": {
+      "s": 10,
+      "n": 1048576,
+      "k": 146641,
+      "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+      "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+      "encodings": [
+        {
+          "seconds": 0.255080732,
+          "workspace_after_bytes": 8975172,
+          "scratch_transferred": false
+        },
+        {
+          "seconds": 0.237359682,
+          "workspace_after_bytes": 8975172,
+          "scratch_transferred": false
+        }
+      ],
+      "phase_seconds": {
+        "load-online": 0.151971187,
+        "online-setup": 0.004945474,
+        "encode-0": 0.255080732,
+        "verify-0": 0.03632289,
+        "encode-1": 0.237359682,
+        "verify-1": 0.032837013,
+        "pack-output": 0.021777814,
+        "verify-packed": 0.1275095
+      }
+    },
+    "matched-reuse": {
+      "s": 10,
+      "n": 1048576,
+      "k": 146641,
+      "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+      "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda",
+      "encodings": [
+        {
+          "seconds": 0.261055613,
+          "workspace_after_bytes": 4780868,
+          "scratch_transferred": true
+        },
+        {
+          "seconds": 0.235616077,
+          "workspace_after_bytes": 4780868,
+          "scratch_transferred": true
+        }
+      ],
+      "phase_seconds": {
+        "load-online": 0.011796589,
+        "online-setup": 0.002821297,
+        "encode-0": 0.261055613,
+        "verify-0": 0.032640528,
+        "encode-1": 0.235616077,
+        "verify-1": 0.033165006,
+        "pack-output": 0.035869963,
+        "verify-packed": 0.393316916
+      }
+    }
+  },
+  "limits": "Packed payload digest is the completed controller result, not a fresh bulk rehash. Two profiled cached mathematical encodings, owning-output tests, ASAN/UBSAN and matched s10 buffer schedules, all systematic positions, sampled independent curves and packed readback. Full s16 canonical/packed digests match retained CPU/GPU reference; timing comparison is historical. No cryptographic/application execution or TRL5 acceptance."
+}

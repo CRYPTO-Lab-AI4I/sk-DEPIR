@@ -1,6 +1,6 @@
 # Native CPU scratch/output reuse
 
-Status: implemented; validation submitted as Slurm73586, full results pending. The GPU checkpoint was published as
+Status: job73586 completed; full validation and evidence reconciliation pass. The GPU checkpoint was published as
 999f4a5 before this CPU change. The user authorized the same memory reduction on
 the native CPU encoder and correctness/memory/time validation. The Go reference
 and hybrid path keep their existing separate-output schedules; CUDA is not needed.
@@ -26,7 +26,7 @@ The hybrid path allocates scratch again if needed and still returns a separate w
 
 For s16,m2,t5,K918,672,421,N2^32,L2^31, principal arrays fall from
 `16N+12K+4` to `12N+12K+4` bytes: **74.267 to58.267 GiB**, saving16 GiB. This is
-an analytical target, not measured RSS. During complete encoding there is one
+an analytical target; completed RSS measurements are recorded below. During complete encoding there is one
 shared scratch/output allocation, not separate ones. If the caller retains old
 words, each still takes16 GiB; the saving is not a bound on arbitrary retained
 results. The benchmark releases the previous word and performs diagnostic GC
@@ -111,5 +111,76 @@ Pre-submission focused ownership, overlap, full-word and concurrency tests pass
 with `go test -tags liftrs_cpp ...` (0.138 s test execution; build separate).
 Python checks reject wrong metadata/digests, ownership/retention/repeat records
 and verify the16 GiB model. Sanitizers, broader checks and full RSS/time evidence
-remain pending. s17 still requires wider arithmetic and a different memory
+are recorded below. s17 still requires wider arithmetic and a different memory
 schedule; this is not application/cryptographic integration or TRL5 acceptance.
+
+
+## Completed result
+
+[Results](runs/reuse-01/results.json), [analysis](runs/reuse-01/analysis.json),
+[phases](runs/reuse-01/encoding/phases.json),
+[sanitizer output](runs/reuse-01/sanitizer.log) and
+[final accounting](runs/reuse-01/accounting.log) pass review:328 exact source
+identities, sealed evidence/cache digests, ownership-transfer metadata, full CPU/GPU
+canonical and packed digest matches. Both full encodes check every systematic
+position and16 sampled independent curves, then1027 packed readbacks pass.
+Native/Go-only suites, focused race/vet, alias/retained-output/error/concurrency
+tests and ASAN/UBSAN pass. No source correction was needed from this validation.
+Recorded-cache analysis checks packed metadata/length and the completed controller's
+8 GiB payload digest without a fresh bulk reread. Other cache/evidence digests are
+recomputed. Large caches, packed output and profiles remain retained.
+
+Actual source revision999f4a5 plus exact source snapshots in the manifest.
+Hardware gnode17, Xeon6710E,32 CPU workers, no GPU; GCC14.2.0, Go1.27.3.
+Allocation completed in **1h04m36s**, exit0:0, no guard tripped, below2h limit.
+This agrees with the50–75-minute forecast. Full worker3640.7 s includes both
+encodes, verification and I/O. Controller also runs builds/tests/profiles.
+
+| Memory | Prior CPU | Reuse CPU |
+|---|---:|---:|
+| Principal modeled arrays, GiB | 74.267 | 58.267 |
+| Peak sampled process-group RSS, GiB | 74.370 | 58.351 |
+| Slurm MaxRSS | — | 58.37G |
+
+Sampled peak decreases16.019 GiB (21.54%), consistent with one16 GiB allocation
+removed plus small runtime differences. The run stays below68 GiB RSS guard.
+Each successful Encode detaches exactly4N bytes, and replacement scratch on the
+second call does not retain the first output through the workspace. Output words
+remain caller-owned; keeping extra results still adds their storage. This result
+applies to the native complete path, not new memory savings in Go/hybrid execution.
+
+| Phase | Seconds |
+|---|---:|
+| Load/check online cache | 93.362 |
+| Native setup/workspace allocation | 0.086 |
+| First encoding | 1281.328 (21m21.3s) |
+| First independent verification | 470.721 |
+| Second encoding | 1247.173 (20m47.2s) |
+| Second independent verification | 469.931 |
+| Pack/write8 GiB | 57.337 |
+| Packed readback | 1.806 |
+
+Setup allocation reserves largely untouched pages; its short wall time does not
+mean subsequent memory commitment is free. Prior job73131 encoded once in1252.503 s
+on an earlier allocation of the same node/model. Current calls are2.30% slower
+and0.43% faster respectively; this historical comparison does not isolate a time
+penalty or prove equivalence.
+
+Matched s10 fixed-order32-thread schedule comparison, two calls each:
+
+| Layout | First encode, seconds | Second encode, seconds |
+|---|---:|---:|
+| Separate output baseline | 0.255081 | 0.237360 |
+| Scratch/output transfer | 0.261056 | 0.235616 |
+
+Differences have both signs (+2.34% first,-0.73% second), with too few samples to
+establish a stable runtime penalty/benefit. Same five transforms and no new
+arithmetic/copy passes are retained. Report the mixed samples, not a cost-free
+or faster-encoding claim. Native stages still dominate total latency.
+
+This closes selected CPU scratch/output validation. Public owning-output semantics
+and ordinary CPU-only builds are preserved. Further in-place/streamed CPU/GPU
+routes remain separate memory–time choices; a known slower mode must stay
+capacity-driven or explicitly selected on the command line when memory fits.
+No further job, new budget or default selection for a different route follows
+this results review. s17 and application/cryptographic/TRL5 gates remain open.

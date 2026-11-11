@@ -17,6 +17,14 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-11 22:57 | PUBLISH-036 | Completed | [Publish CPU and GPU memory evidence](2026-11-11-2257-codex-publish-036-completed.md) |
+| 2026-11-11 22:57 | PUBLISH-036 | Started | [Publish CPU and GPU memory evidence](2026-11-11-2257-codex-publish-036-started.md) |
+| 2026-11-11 22:24 | CPU-030 | Completed | [Completed CPU-030 validation](2026-11-11-2224-codex-cpu-030-completed.md) |
+| 2026-11-11 22:24 | GPU-032 | Completed | [Completed GPU-032 validation](2026-11-11-2224-codex-gpu-032-completed.md) |
+| 2026-11-11 22:18 | CPU-030 | Started | [Review completed CPU-030 evidence](2026-11-11-2218-codex-cpu-030-results-started.md) |
+| 2026-11-11 22:18 | GPU-032 | Started | [Review completed GPU-032 evidence](2026-11-11-2218-codex-gpu-032-results-started.md) |
+| 2026-11-11 19:31 | GPU-032 | Handoff | [GPU transform scratch comparison submitted](2026-11-11-1931-codex-gpu-032-handoff.md) |
+| 2026-11-11 19:19 | GPU-032 | Started | [Compare full scratch and direct GPU rows](2026-11-11-1919-codex-gpu-032-started.md) |
 | 2026-11-11 19:19 | PUBLISH-035 | Completed | [Publish memory policy and pending CPU checkpoint](2026-11-11-1919-codex-publish-035-completed.md) |
 | 2026-11-11 19:19 | PUBLISH-035 | Started | [Publish memory policy and pending CPU checkpoint](2026-11-11-1919-codex-publish-035-started.md) |
 | 2026-11-11 19:14 | SCALE-031 | Completed | [Shared memory plan and slower-mode policy recorded](2026-11-11-1914-codex-scale-031-completed.md) |

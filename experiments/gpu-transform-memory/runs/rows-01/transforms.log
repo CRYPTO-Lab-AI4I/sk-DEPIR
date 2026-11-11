@@ -1,0 +1,3 @@
+=== RUN   TestGPUDirectRows
+--- PASS: TestGPUDirectRows (40.19s)
+PASS

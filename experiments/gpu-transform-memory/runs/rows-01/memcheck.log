@@ -1,0 +1,6 @@
+========= COMPUTE-SANITIZER
+=== RUN   TestGPUDirectRows
+--- PASS: TestGPUDirectRows (3.21s)
+PASS
+========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+========= ERROR SUMMARY: 0 errors
