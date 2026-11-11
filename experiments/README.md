@@ -201,3 +201,6 @@ rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
 
 - [Cached s14 CPU encoding profile](cpu-encoding-profile/report.md): native stage
   attribution and8/16/32-thread comparisons using retained preprocessing.
+
+- [Within-block CPU Taylor parallelism](cpu-taylor/report.md): independent native
+  division checks, sanitizers and matched baseline/candidate cached s14 encoding.

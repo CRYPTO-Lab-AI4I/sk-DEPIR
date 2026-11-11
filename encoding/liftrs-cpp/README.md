@@ -139,3 +139,18 @@ The [s=15 admission experiment](../../experiments/parallel-s15/report.md) extend
 the native importer through s=15 (30-bit extension elements) after small-buffer
 Horner/inverse tests. The completed first-use and fresh cached runs establish standalone s=15
 execution: about 6.5 minutes per encoding and 18.46 GiB cached peak RSS. Ordinary public Go discovery limits are unchanged.
+
+
+## Within-block Taylor scheduling
+
+The [CPU Taylor experiment](../../experiments/cpu-taylor/report.md) adds parallel
+coefficient gathers when large Taylor stages expose fewer blocks than workers.
+The existing recurrence remains the one-worker/small/coarse-parallel reference.
+A join separates quotient correction and remainder calculation (inverse reverses
+passes); linearized lower-degree bounds make source ranges stable and each
+coefficient has one writer. It adds no field-value buffer or ABI requirement.
+Correctness suites, independent division/matrix tests and native address/undefined/
+thread sanitizers pass. Matched s14 encoding improves from87.9 to61.0 s at32
+workers (1.44x), with Taylor35.7 to8.8 s. The hybrid schedule is selected; the
+threshold/chunk choices and larger-size behavior remain subject to measurement.
+This is not yet an s16 encoding result.

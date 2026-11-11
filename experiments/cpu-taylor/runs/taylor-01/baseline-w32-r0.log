@@ -1,0 +1,5 @@
+load 1.652357883s
+setup-w32 5.722367ms
+workspace-w32 1.864468ms
+encode-w32-r0-c0-native 1m28.165305615s
+verify-w32-r0-c0-native 995.699359ms

@@ -154,19 +154,48 @@ liftrs::Product make_product(const liftrs::Field& f,uint32_t c){
   }return p;
 }
 uint32_t frobenius(const liftrs::Field& f,uint32_t c,unsigned k){while(k--)c=f.mul(c,c);return c;}
-// h-adic Taylor conversion. Within a quotient block the descending/ascending
-// dependency is preserved; sibling blocks are independent. This is in-memory,
-// not a disk algorithm. The high levels may be serial bottlenecks.
+// h-adic conversion: coarse independent blocks use the original recurrence.
+// When high levels expose too few blocks, linearized lower degrees d<=half/2
+// allow two gathers. Quotient q[j] reads only untouched q[half+j-d] in its
+// upper half; remainder then reads the completed quotient. Each destination has
+// one writer; joining between passes is essential. Inverse reverses the passes.
 void taylor(uint32_t* data,size_t n,const liftrs_plan& plan,unsigned split,unsigned v,unsigned workers,bool inverse){
   const auto& h=plan.transform;
   for(unsigned stage=0;stage<v;stage++){
     unsigned k=inverse?stage:v-1-stage;
-    size_t size=(size_t(1)<<split)<<(k+1),half=size/2;
+    size_t size=(size_t(1)<<split)<<(k+1),half=size/2,blocks=n/size;
     const auto& terms=plan.taylor_terms[k];
-    parallel_jobs(n/size,workers,[&](size_t b){auto* x=data+b*size;
-      if(!inverse){for(size_t i=size;i-- > half;){auto z=x[i];for(const auto& t:terms)x[i-half+t.degree]^=t.product.mul(h.f,z);}}
-      else{for(size_t i=0;i<half;i++){auto z=x[half+i];for(const auto& t:terms)x[i+t.degree]^=t.product.mul(h.f,z);}}
-    });
+    if(terms.empty())continue;
+    if(workers>1 && n>=32768 && blocks<workers){
+      // Terms are ordered powers of two below the monic degree. Only the first
+      // max_degree quotient entries can change; remaining entries stay intact.
+      const size_t max_degree=terms.back().degree;
+      auto gather=[&](bool quotient){
+        const size_t span=quotient?max_degree:half,total=blocks*span,chunk=8192;
+        parallel_jobs((total+chunk-1)/chunk,workers,[&](size_t job){
+          size_t begin=job*chunk,end=std::min(total,begin+chunk);
+          while(begin<end){
+            size_t block=begin/span,j=begin%span,count=std::min(end-begin,span-j);
+            auto* x=data+block*size;
+            for(size_t stop=j+count;j<stop;j++){
+              uint32_t value=x[(quotient?half:0)+j];
+              for(const auto& t:terms){
+                if(quotient){if(t.degree>j)value^=t.product.mul(h.f,x[2*half+j-t.degree]);}
+                else if(t.degree<=j)value^=t.product.mul(h.f,x[half+j-t.degree]);
+              }
+              x[(quotient?half:0)+j]=value;
+            }
+            begin+=count;
+          }
+        });
+      };
+      if(!inverse){gather(true);gather(false);}else{gather(false);gather(true);}
+    }else{
+      parallel_jobs(blocks,workers,[&](size_t b){auto* x=data+b*size;
+        if(!inverse){for(size_t i=size;i-- > half;){auto z=x[i];for(const auto& t:terms)x[i-half+t.degree]^=t.product.mul(h.f,z);}}
+        else{for(size_t i=0;i<half;i++){auto z=x[half+i];for(const auto& t:terms)x[i+t.degree]^=t.product.mul(h.f,z);}}
+      });
+    }
   }
 }
 void transpose(const uint32_t* src,uint32_t* dst,size_t rows,size_t cols,unsigned workers){

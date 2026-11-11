@@ -797,5 +797,16 @@ host RAM,12 GiB sampled process RSS,30-minute allocation/25-minute controller,
 8 GiB new-cache cap. Existing preprocessing/profiles remain intact. Build old
 and candidate from recorded exact sources; no discovery or preprocessing.
 Submit once prepared, then hand off under rule8 and wait for the user's completion
-ping before analysis or dependent work. Implementation remains provisional until
-this correctness/comparison evidence is reviewed.
+ping before analysis or dependent work. The accepted comparison below closes
+the smaller-code implementation gate; larger sizes retain their own validation gate.
+
+
+CPU-023 implementation and correctness/comparison gates1–4 now pass in
+[cpu-taylor](../experiments/cpu-taylor/report.md), job73099/taylor-01. Full suites,
+independent Taylor/matrix tests, ASan/UBSan/TSAN and eight complete s14 hashes pass.
+At16 workers encoding142.2 to118.5 s (1.20x), Taylor39.4 to15.4 s; at32 encoding
+87.9 to61.0 s (1.44x), Taylor35.7 to8.8 s (4.07x). Other transform stages remain
+close. Select the hybrid within-block schedule, preserving the recurrence for
+one-worker/small/coarse-parallel cases. Gate5 remains: review budget and validate
+one cached s16 encoding; do not assume this ratio at full size or launch it
+automatically. No new job was submitted during result review.

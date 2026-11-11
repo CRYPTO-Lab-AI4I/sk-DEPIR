@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "job_id": "73099",
+  "sources_verified": 292,
+  "baseline_revision": "e29258d",
+  "tsan": "passed",
+  "workers": [
+    {
+      "workers": 16,
+      "baseline": {
+        "seconds": 142.1778885345,
+        "samples_seconds": [
+          142.189044484,
+          142.166732585
+        ],
+        "stage_seconds": {
+          "taylor_ns": 39.4305710425,
+          "columns_transposes_ns": 44.848088266,
+          "rows_ns": 53.853352672,
+          "buffer_ns": 0.6862602725,
+          "pointwise_ns": 2.6238118075,
+          "assembly_ns": 0.6811623314999999
+        }
+      },
+      "candidate": {
+        "seconds": 118.53830110850001,
+        "samples_seconds": [
+          118.873121383,
+          118.203480834
+        ],
+        "stage_seconds": {
+          "taylor_ns": 15.429615847,
+          "columns_transposes_ns": 44.941517099,
+          "rows_ns": 53.661804466999996,
+          "buffer_ns": 0.881523668,
+          "pointwise_ns": 2.626273709,
+          "assembly_ns": 0.6602571665
+        }
+      },
+      "encoding_speedup": 1.1994257316406307,
+      "taylor_speedup": 2.5555121678655746
+    },
+    {
+      "workers": 32,
+      "baseline": {
+        "seconds": 87.92775183250001,
+        "samples_seconds": [
+          88.165305615,
+          87.69019805
+        ],
+        "stage_seconds": {
+          "taylor_ns": 35.674648215999994,
+          "columns_transposes_ns": 22.625649871999997,
+          "rows_ns": 27.083678665500003,
+          "buffer_ns": 0.71159303,
+          "pointwise_ns": 1.3277259945000002,
+          "assembly_ns": 0.44975614799999997
+        }
+      },
+      "candidate": {
+        "seconds": 61.0420731485,
+        "samples_seconds": [
+          61.204511646,
+          60.879634651
+        ],
+        "stage_seconds": {
+          "taylor_ns": 8.7681409745,
+          "columns_transposes_ns": 22.7170028245,
+          "rows_ns": 27.002579889,
+          "buffer_ns": 0.7180633925,
+          "pointwise_ns": 1.328264534,
+          "assembly_ns": 0.45280226300000004
+        }
+      },
+      "encoding_speedup": 1.4404450454786146,
+      "taylor_speedup": 4.068667271631582
+    }
+  ],
+  "peak_sampled_rss_bytes": 4931862528,
+  "limits": "Two interleaved profiled samples per worker/variant; full s14 canonical hashes. No s16 performance/pressure or native instruction attribution."
+}

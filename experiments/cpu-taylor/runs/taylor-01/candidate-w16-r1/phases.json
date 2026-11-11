@@ -1,0 +1,141 @@
+[
+  {
+    "allocated_bytes": 1280274176,
+    "elapsed_ns": 1660369148,
+    "go_sys_bytes": 1290713672,
+    "heap_after_bytes": 1280855680,
+    "heap_before_bytes": 665008,
+    "k": 50976325,
+    "max_rss_native_units": 1257808,
+    "n": 268435456,
+    "native_after": {
+      "steady_ns": 14504025833647219,
+      "wall_ns": 1794394065037583878,
+      "posix_monotonic_ns": 14504025833643698,
+      "process_cpu_ns": 1679523466
+    },
+    "native_before": {
+      "steady_ns": 14504024173265599,
+      "wall_ns": 1794394063377202865,
+      "posix_monotonic_ns": 14504024173259032,
+      "process_cpu_ns": 9668275
+    },
+    "phase": "load",
+    "plan_array_bytes": 1277647128,
+    "s": 14,
+    "small_load_includes_generation_if_missing": false,
+    "system_cpu_ns": 709441000,
+    "user_cpu_ns": 961005000
+  },
+  {
+    "allocated_bytes": 3539464,
+    "elapsed_ns": 5982233,
+    "go_sys_bytes": 1497037448,
+    "heap_after_bytes": 1486007560,
+    "heap_before_bytes": 1482468096,
+    "max_rss_native_units": 1458512,
+    "native_after": {
+      "steady_ns": 14504026262270080,
+      "wall_ns": 1794394065466206271,
+      "posix_monotonic_ns": 14504026262269389,
+      "process_cpu_ns": 2081230515
+    },
+    "native_before": {
+      "steady_ns": 14504026256283589,
+      "wall_ns": 1794394065460219871,
+      "posix_monotonic_ns": 14504026256282107,
+      "process_cpu_ns": 2075026977
+    },
+    "phase": "setup-w16",
+    "system_cpu_ns": 1174000,
+    "user_cpu_ns": 5283000,
+    "workers": 16
+  },
+  {
+    "allocated_bytes": 2353479080,
+    "elapsed_ns": 1960992,
+    "go_sys_bytes": 3857284296,
+    "heap_after_bytes": 3835903256,
+    "heap_before_bytes": 1482478608,
+    "input_bytes": 203905300,
+    "max_rss_native_units": 1460560,
+    "native_after": {
+      "steady_ns": 14504026302349489,
+      "wall_ns": 1794394065506285720,
+      "posix_monotonic_ns": 14504026302348281,
+      "process_cpu_ns": 2089510258
+    },
+    "native_before": {
+      "steady_ns": 14504026300364611,
+      "wall_ns": 1794394065504300839,
+      "posix_monotonic_ns": 14504026300363479,
+      "process_cpu_ns": 2086035312
+    },
+    "phase": "workspace-w16",
+    "system_cpu_ns": 1620000,
+    "user_cpu_ns": 1997000,
+    "workspace_bytes": 2351388948
+  },
+  {
+    "allocated_bytes": 1076646184,
+    "backend": "native",
+    "elapsed_ns": 118203480834,
+    "go_sys_bytes": 4933725640,
+    "heap_after_bytes": 4910528568,
+    "heap_before_bytes": 3833882384,
+    "max_rss_native_units": 4798584,
+    "native_after": {
+      "steady_ns": 14504144534798143,
+      "wall_ns": 1794394183738734601,
+      "posix_monotonic_ns": 14504144534796620,
+      "process_cpu_ns": 1874432070121
+    },
+    "native_before": {
+      "steady_ns": 14504026331294474,
+      "wall_ns": 1794394065535230716,
+      "posix_monotonic_ns": 14504026331293595,
+      "process_cpu_ns": 2095328506
+    },
+    "native_stages": {
+      "calls": 5,
+      "boundary_calls": 1,
+      "buffer_ns": 887569863,
+      "pointwise_ns": 2626696918,
+      "assembly_ns": 685042119,
+      "taylor_ns": 15449507764,
+      "columns_transposes_ns": 44822112199,
+      "rows_ns": 53677233750
+    },
+    "output_bytes": 1073741824,
+    "phase": "encode-w16-r0-c0-native",
+    "repeat": 0,
+    "system_cpu_ns": 43411714000,
+    "user_cpu_ns": 1828925217000,
+    "workers": 16
+  },
+  {
+    "allocated_bytes": 2129824,
+    "canonical_sha256": "b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c",
+    "elapsed_ns": 999180991,
+    "full_hash_match": true,
+    "go_sys_bytes": 4933987784,
+    "heap_after_bytes": 4909759424,
+    "heap_before_bytes": 4907629600,
+    "max_rss_native_units": 4798584,
+    "native_after": {
+      "steady_ns": 14504145546334670,
+      "wall_ns": 1794394184750271217,
+      "posix_monotonic_ns": 14504145546331105,
+      "process_cpu_ns": 1875439636665
+    },
+    "native_before": {
+      "steady_ns": 14504144547142975,
+      "wall_ns": 1794394183751079598,
+      "posix_monotonic_ns": 14504144547141973,
+      "process_cpu_ns": 1874438541391
+    },
+    "phase": "verify-w16-r0-c0-native",
+    "system_cpu_ns": 35000,
+    "user_cpu_ns": 1001389000
+  }
+]

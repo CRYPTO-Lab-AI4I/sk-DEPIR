@@ -1,0 +1,141 @@
+[
+  {
+    "allocated_bytes": 111286040,
+    "elapsed_ns": 906358833,
+    "go_sys_bytes": 23451912,
+    "heap_after_bytes": 2959720,
+    "heap_before_bytes": 665168,
+    "k": 3121,
+    "max_rss_native_units": 35240,
+    "n": 65536,
+    "native_after": {
+      "steady_ns": 14503587065157842,
+      "wall_ns": 1794393626269094447,
+      "posix_monotonic_ns": 14503587065154801,
+      "process_cpu_ns": 957336638
+    },
+    "native_before": {
+      "steady_ns": 14503586158789123,
+      "wall_ns": 1794393625362727194,
+      "posix_monotonic_ns": 14503586158781964,
+      "process_cpu_ns": 9394886
+    },
+    "phase": "load",
+    "plan_array_bytes": 274632,
+    "s": 8,
+    "small_load_includes_generation_if_missing": true,
+    "system_cpu_ns": 13764000,
+    "user_cpu_ns": 934291000
+  },
+  {
+    "allocated_bytes": 2290264,
+    "elapsed_ns": 642757,
+    "go_sys_bytes": 23460104,
+    "heap_after_bytes": 1920800,
+    "heap_before_bytes": 1105176,
+    "max_rss_native_units": 35240,
+    "native_after": {
+      "steady_ns": 14503587177133247,
+      "wall_ns": 1794393626381069431,
+      "posix_monotonic_ns": 14503587177132644,
+      "process_cpu_ns": 1062686052
+    },
+    "native_before": {
+      "steady_ns": 14503587176487471,
+      "wall_ns": 1794393626380423672,
+      "posix_monotonic_ns": 14503587176486746,
+      "process_cpu_ns": 1061751558
+    },
+    "phase": "setup-w16",
+    "system_cpu_ns": 0,
+    "user_cpu_ns": 1057000,
+    "workers": 16
+  },
+  {
+    "allocated_bytes": 2611728,
+    "elapsed_ns": 236938,
+    "go_sys_bytes": 23460104,
+    "heap_after_bytes": 2460128,
+    "heap_before_bytes": 1119544,
+    "input_bytes": 12484,
+    "max_rss_native_units": 35240,
+    "native_after": {
+      "steady_ns": 14503587186026808,
+      "wall_ns": 1794393626389962994,
+      "posix_monotonic_ns": 14503587186026351,
+      "process_cpu_ns": 1067256091
+    },
+    "native_before": {
+      "steady_ns": 14503587185787509,
+      "wall_ns": 1794393626389723702,
+      "posix_monotonic_ns": 14503587185786931,
+      "process_cpu_ns": 1066859952
+    },
+    "phase": "workspace-w16",
+    "system_cpu_ns": 407000,
+    "user_cpu_ns": 0,
+    "workspace_bytes": 536772
+  },
+  {
+    "allocated_bytes": 2346888,
+    "backend": "native",
+    "elapsed_ns": 27443950,
+    "go_sys_bytes": 23722248,
+    "heap_after_bytes": 2754024,
+    "heap_before_bytes": 1659976,
+    "max_rss_native_units": 35240,
+    "native_after": {
+      "steady_ns": 14503587244597965,
+      "wall_ns": 1794393626448534194,
+      "posix_monotonic_ns": 14503587244596671,
+      "process_cpu_ns": 1202485452
+    },
+    "native_before": {
+      "steady_ns": 14503587217142583,
+      "wall_ns": 1794393626421078916,
+      "posix_monotonic_ns": 14503587217141384,
+      "process_cpu_ns": 1071618337
+    },
+    "native_stages": {
+      "calls": 5,
+      "boundary_calls": 1,
+      "buffer_ns": 48624,
+      "pointwise_ns": 1766567,
+      "assembly_ns": 359060,
+      "taylor_ns": 13863669,
+      "columns_transposes_ns": 5621519,
+      "rows_ns": 5740129
+    },
+    "output_bytes": 262144,
+    "phase": "encode-w16-r0-c0-native",
+    "repeat": 0,
+    "system_cpu_ns": 28071000,
+    "user_cpu_ns": 103282000,
+    "workers": 16
+  },
+  {
+    "allocated_bytes": 2055016,
+    "canonical_sha256": "0f049a254e9da9413c1a12ec8cf57a761b61357feba536070fe0cb28631ba4bf",
+    "elapsed_ns": 201763,
+    "full_hash_match": true,
+    "go_sys_bytes": 23722248,
+    "heap_after_bytes": 2469768,
+    "heap_before_bytes": 1927864,
+    "max_rss_native_units": 35240,
+    "native_after": {
+      "steady_ns": 14503587253906362,
+      "wall_ns": 1794393626457842544,
+      "posix_monotonic_ns": 14503587253905791,
+      "process_cpu_ns": 1207368510
+    },
+    "native_before": {
+      "steady_ns": 14503587253701505,
+      "wall_ns": 1794393626457637742,
+      "posix_monotonic_ns": 14503587253700512,
+      "process_cpu_ns": 1207330136
+    },
+    "phase": "verify-w16-r0-c0-native",
+    "system_cpu_ns": 10000,
+    "user_cpu_ns": 223000
+  }
+]

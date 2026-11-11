@@ -17,6 +17,11 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-11 11:39 | PUBLISH-031 | Started | [Publish Taylor optimization before s16 encoding](2026-11-11-1139-codex-publish-031-started.md) |
+| 2026-11-11 11:30 | CPU-023 | Completed | [Parallel Taylor validated and selected](2026-11-11-1130-codex-cpu-023-completed.md) |
+| 2026-11-11 11:28 | CPU-023 | Started | [Review parallel Taylor comparison](2026-11-11-1128-codex-cpu-023-results-started.md) |
+| 2026-11-11 10:38 | CPU-023 | Handoff | [Parallel Taylor candidate validation submitted](2026-11-11-1038-codex-cpu-023-handoff.md) |
+| 2026-11-11 10:31 | CPU-023 | Started | [Within-block CPU Taylor implementation](2026-11-11-1031-codex-cpu-023-started.md) |
 | 2026-11-11 10:31 | PUBLISH-030 | Completed | [CPU checkpoint and plan ready](2026-11-11-1031-codex-publish-030-completed.md) |
 | 2026-11-11 10:31 | PUBLISH-030 | Started | [Publish CPU profile and Taylor plan](2026-11-11-1031-codex-publish-030-started.md) |
 | 2026-11-11 10:27 | CPU-022 | Completed | [CPU stage profile verified](2026-11-11-1027-codex-cpu-022-completed.md) |
