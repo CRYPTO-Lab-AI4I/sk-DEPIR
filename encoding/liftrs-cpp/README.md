@@ -153,4 +153,7 @@ Correctness suites, independent division/matrix tests and native address/undefin
 thread sanitizers pass. Matched s14 encoding improves from87.9 to61.0 s at32
 workers (1.44x), with Taylor35.7 to8.8 s. The hybrid schedule is selected; the
 threshold/chunk choices and larger-size behavior remain subject to measurement.
-This is not yet an s16 encoding result.
+The subsequent [cached s16 encoding](../../experiments/cached-s16-encoding/report.md)
+passes in20m52.5s at32 CPU workers with74.4 GiB sampled RSS and complete
+systematic/sampled-curve/packed-readback checks. This is one measured full-size
+run, not a matched s16 speedup or repeated-latency result.

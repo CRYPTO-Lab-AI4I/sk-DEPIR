@@ -3,8 +3,8 @@
 Use the shared encoder with C++ transforms as both **baseline and starting code**.
 Retain Go preprocessing and independent Go/dense correctness references. The
 [current checkpoint](encoding-algorithms.md#current-checkpoint-and-next-step)
-now validates experimental s=14/15 paths; public default discovery remains s≤13
-and s≥16 remains unmeasured. Keep the current
+now includes experimental s16 preparation and one cached CPU encoding; public
+default discovery remains s≤13 and larger sizes remain unmeasured. Keep the current
 information set and canonical field/grid representation, not just membership in
 the same code. The local 48 GiB machine now provides the verified s≤15 baseline;
 continue larger-scale work on a larger-memory CPU node using the
@@ -810,3 +810,80 @@ close. Select the hybrid within-block schedule, preserving the recurrence for
 one-worker/small/coarse-parallel cases. Gate5 remains: review budget and validate
 one cached s16 encoding; do not assume this ratio at full size or launch it
 automatically. No new job was submitted during result review.
+
+
+User authorized [one cached s16 CPU encoding](../experiments/cached-s16-encoding/report.md)
+after publishing the selected Taylor implementation. One32-worker/no-GPU job,
+256 GiB host request/224 GiB sampled RSS,2-hour allocation/110-minute controller/
+90-minute worker,16 GiB new-cache/scratch guards. Reuse verified actual-01 online
+constants; focused native checks and tiny cached smoke precede full systematic/
+curve/packed-readback checks. No code preparation or automatic second encoding.
+The attempt now passes as recorded below; any further job must be handed off
+under rule8 after submission.
+
+
+## Completed cached s16 CPU encoding
+
+[Encoding-01](../experiments/cached-s16-encoding/report.md), job73131, passes:
+32 CPU workers/no GPU,20m52.503s encoding and34m53s job elapsed. All918,672,421
+systematic positions,16 sampled independent curves and1027 packed readbacks pass.
+Peak sampled RSS74.370 GiB, packed output8 GiB retained with hashes/profiles.
+The accepted Taylor schedule now executes full s16; no matched old-code s16
+speedup ratio or independent complete-reference word was measured. Stage costs
+are rows44.1%, columns/transposes36.0%, Taylor16.0%; profiling alone does not pick
+a new optimization. Source/log/metadata reconciliation passes, with the packed
+digest taken from completed controller hashing rather than a fresh bulk reread.
+One cached mathematical run closes this admission gate, not fresh-repeat equality,
+application/cryptographic integration or TRL5. No further job is auto-launched.
+
+
+## Current step: optional primary CUDA client encoding
+
+Retain CPU (Go/C++) and CUDA as peer client paths; preprocessing origin does not
+select the client's encoding hardware. Promote reusable CUDA code to
+encoding/liftrs-cuda, leaving historical experiment shims/provenance intact.
+Share field/matrix/code data across backends without linking CUDA into ordinary
+CPU builds or requiring liftrs_cpp for CUDA-only builds. Parameterize by s within
+the current2..16 packed arithmetic bounds, with s16 as the full-size target.
+
+1. Add WithCUDA to verified online plans, explicit library/device cap, owned
+   resident code/workspace, serialization/Close and CPU-only unavailable behavior.
+2. Keep all five transforms, products and canonical assembly resident between
+   message upload and final word download; reuse code constants and buffers.
+3. Validate across small s against independent Go and optional native CPU paths,
+   repeated/zero/invalid inputs, error recovery and resource release. Preserve
+   CPU-only/CGO-disabled builds, old GPU library compatibility and existing
+   transform/preprocessing regressions. Record variable-time arithmetic limits.
+4. Submit one bounded validation job (one GPU/16 CPUs,16 GiB host/12 GiB RSS,
+   512 MiB explicit device,30-minute allocation/25-minute controller). Hand off
+   under rule8; no dependent full run until the user's completion ping.
+5. After validation, separately admit cached s16 GPU encoding against the retained
+   CPU canonical/packed hashes. Account for persistent19.42 GiB code plus48 GiB
+   arrays (~67.42 GiB total payload); provisionally96 GiB device cap and explicit
+   host/time limits. Include setup/transfers/checks/reuse, and distinguish any
+   historical CPU timing comparison from a matched allocation. No full run or
+   speedup claim before admission and verified completion.
+
+This is standalone mathematical client encoding, not full application/cryptographic
+encoding or server-side query computation. CPU remains a maintained main path.
+
+Validation job73243 passed (see the [report](../experiments/cuda-encoding/report.md)):
+small independent Go matches, complete s10 repeats, build compatibility, race/vet,
+historical matrix checks and zero CUDA memcheck errors/leaks. Steps1–4 are complete.
+Step5 is admitted in the [full cached s16 runner](../experiments/cuda-s16-encoding/report.md):
+one GPU/16 CPUs,96 GiB device cap,128 GiB requested host RAM/96 GiB RSS guard,
+64 GiB Go soft limit,2-hour allocation/110-minute controller/90-minute worker.
+It performs two same-message encodings through one session; no preprocessing or
+CPU re-encoding. Full-size performance and output agreement are recorded below.
+
+
+Step5 completed in job73257: [evidence](../experiments/cuda-s16-encoding/report.md)
+passes full CPU canonical/packed hash agreement across both GPU calls. Encoding
+85.954/60.216 s, reusable setup7.193 s, owned device67.423 GiB, host RSS39.024 GiB,
+30m02s whole validation allocation. No guard tripped. The earlier32-thread CPU
+encode was1252.503 s; ratios14.6–20.8x are historical, not matched benchmarks.
+No next experiment is auto-launched. Profile-based follow-up priorities are matrix
+row/column kernels and reusable output buffers/transfer handling, with packing
+accounted for whenever a persistent word is required. First-download overhead
+needs diagnosis before attributing its cause. Application/cryptographic execution
+and TRL5 remain separate.

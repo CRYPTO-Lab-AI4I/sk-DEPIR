@@ -9,7 +9,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	gpumatrix "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix"
+	gpumatrix "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda"
 	"io"
 	"os"
 	"os/signal"

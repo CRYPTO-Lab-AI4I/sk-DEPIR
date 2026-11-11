@@ -15,25 +15,12 @@ import (
 
 // Matrix descriptions are internal experiment fixtures, not a public format.
 func gpuMatrixDescription(f orbitField, dimension int) ([]uint32, []uint32, []uint32, error) {
-	split := dimension / 2
-	low := make([]uint32, split+1)
-	for j := range low {
-		low[j] = 1 << uint(j)
-	}
-	rows, err := orderedTransform(f, low)
+	m, err := buildMatrixBasis(f, dimension)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	gamma := make([]uint32, dimension-split)
-	for j := range gamma {
-		for _, term := range rows.terms[split] {
-			gamma[j] ^= f.mul(term.coefficient, f.pow(1<<uint(split+j), term.degree))
-		}
-	}
-	columns, err := orderedTransform(f, gamma)
-	if err != nil {
-		return nil, nil, nil, err
-	}
+	split := m.split
+	rows, columns, low, gamma := m.rows, m.columns, m.low, m.gamma
 	words := []uint32{1 << uint(dimension), uint32(split), uint32(2 * f.base.Degree())}
 	tile := func(a *additiveTransform, basis []uint32) {
 		words = append(words, uint32(len(basis)))

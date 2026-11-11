@@ -1,7 +1,9 @@
 # s=16 representation and memory gate
 
-The count/header extension is implemented and small-buffer boundary checks pass;
-full s=16 encoding and its memory bound remain unverified. The
+The count/header extension and small-buffer boundary checks pass. Full experimental
+s16 preparation, cached CPU encoding and repeated cached GPU encoding now pass
+as recorded below; no
+general memory bound, application execution or larger-size support is established. The
 [compatibility validation](../experiments/count-width-validation/report.md)
 records current verification. The [handoff](development-handoff.md) requires this gate after the
 verified s=15 checkpoint. The [Linux baseline](../experiments/hpc-cached-s15/report.md)
@@ -32,7 +34,7 @@ retains four-byte coefficients while separating counts from element values.
 | Native field/import | [transform.hpp](../encoding/liftrs-cpp/transform.hpp) uses a uint64 count; [c_api.cpp](../encoding/liftrs-cpp/c_api.cpp) reads versions 1/2 unchanged and 3/4 with one extra high count word; domain shifts use uint64 | Native field/value bounds reject s≥17 |
 | Minimal online file | [scaling_online.go](../encoding/liftrs-shared/scaling_online.go) reads both old 32-bit and new 64-bit counts, validating caps and host byte offsets before allocation | The caller still supplies a trusted digest and an explicit allocation cap |
 | Allocation/index boundaries | Counts remain wide during header checks and generator search; lengths use the host int/size_t | Full preprocessing lifetimes and allocation schedules still need memory/admission review |
-| Discovery/preparation | Experimental preparation now accepts s16 under the first-use controller; public discovery remains s≤13 | Large feasibility remains unverified; see the guarded experiment's current status |
+| Discovery/preparation | Experimental preparation now accepts s16 under the first-use controller; public discovery remains s≤13 | One full preparation/cached encoding configuration passes; public discovery and application scope remain limited |
 
 The existing online C ABI already uses size_t for K/N/buffer lengths, so it is not
 necessary to widen every argument. Input/output base-field symbols at s=16
@@ -105,5 +107,23 @@ Actual job72875 now completed preparation successfully: full polynomial identity
 verified, normalized root and final P/G/spectrum persisted,2h20m15s preparation
 and2h24m15s total allocation elapsed. Peak sampled RSS72.575 GiB under the224 GiB
 guard. See the linked report for hashes and reconciliation limits. This closes
-the actual preparation gate on the measured machine; cached s16 database encoding
-and application/cryptographic execution remain separate, unvalidated steps.
+the actual preparation gate on the measured machine. The later cached encoding
+checkpoint below is separate; application/cryptographic execution remains open.
+
+
+Cached CPU job73131 now passes [the encoding checkpoint](../experiments/cached-s16-encoding/report.md):
+20m52.503s encoding,34m53s total job elapsed,32 workers/no GPU and74.370 GiB
+sampled RSS. Every systematic position,16 independent sampled curve checks and
+1027 packed readbacks pass;8 GiB packed output is retained. This is a single
+profiled mathematical encoding with trusted prepared input, not independent
+full-reference/repeat equality or application/cryptographic/TRL5 acceptance.
+
+
+CUDA job73257 passes [full cached GPU encoding](../experiments/cuda-s16-encoding/report.md):
+two same-message calls with one session,85.954/60.216 s,7.193 s reusable setup,
+67.423 GiB owned device allocations and39.024 GiB sampled host RSS. Both full
+canonical hashes and the final tightly packed8 GiB hash match CPU job73131;
+all systematic positions, sampled curves and packed readback pass. The allocation
+lasted30m02s including independent verification, builds and I/O. CPU comparison
+is historical across allocations. This adds GPU repeat/cross-backend evidence;
+application/cryptographic/TRL5 acceptance and s17 support remain open.

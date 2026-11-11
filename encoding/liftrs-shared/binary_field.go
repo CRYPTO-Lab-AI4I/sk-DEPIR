@@ -1,5 +1,5 @@
 // Package liftrs provides shared code specifications, preprocessing and complete
-// encoding orchestration for Go and C++ transform execution.
+// encoding orchestration for Go, C++ and optional CUDA execution.
 package liftrs
 
 import commonfield "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field"

@@ -1,0 +1,19 @@
+=== RUN   TestCUDAEncodingWorkflow
+    s15_firstuse_probe_test.go:120: load-online 7.205345ms
+    s15_firstuse_probe_test.go:120: online-setup 2.744746ms
+    s15_firstuse_probe_test.go:120: encode-0 310.053216ms
+    s15_firstuse_probe_test.go:120: verify-0 32.509341ms
+    s15_firstuse_probe_test.go:120: encode-1 308.22911ms
+    s15_firstuse_probe_test.go:120: verify-1 29.870485ms
+    s15_firstuse_probe_test.go:120: pack-output 20.315862ms
+    s15_firstuse_probe_test.go:120: verify-packed 187.122019ms
+    s15_firstuse_probe_test.go:120: load-online 7.226726ms
+    s15_firstuse_probe_test.go:120: online-setup 850.499967ms
+    s15_firstuse_probe_test.go:120: encode-0 104.039856ms
+    s15_firstuse_probe_test.go:120: verify-0 33.444826ms
+    s15_firstuse_probe_test.go:120: encode-1 103.621245ms
+    s15_firstuse_probe_test.go:120: verify-1 31.261974ms
+    s15_firstuse_probe_test.go:120: pack-output 19.612607ms
+    s15_firstuse_probe_test.go:120: verify-packed 78.260007ms
+--- PASS: TestCUDAEncodingWorkflow (2.87s)
+PASS

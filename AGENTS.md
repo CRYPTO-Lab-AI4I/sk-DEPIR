@@ -29,6 +29,12 @@ and end-to-end measurements, with reusable setup, memory and I/O accounted for.
 Keep the library usable on standard setups and implementations reviewable;
 report deployment costs rather than assuming the current architecture is best.
 
+**Retain CPU and GPU client encoding paths.** GPU encoding is optional and must
+not replace the CPU path or make CUDA a dependency of ordinary builds. A client
+may have no GPU even when code preprocessing is delegated elsewhere. Both
+backends consume the same verified code data and canonical representation; keep
+backend selection explicit and code parameters independent of backend choice.
+
 **Target practical commodity hardware.** Benchmark on hardware actually available
 on this machine and respect the agreed experiment budgets. Target commodity CPU
 and GPU architectures; larger workloads may require more RAM, cores or GPU memory,

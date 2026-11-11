@@ -1,6 +1,6 @@
 # Shared Lift-RS encoding
 
-This package (Go name `liftrs`) supplies the public API used by **both** execution
+This package (Go name `liftrs`) supplies the public API used by the Go, C++ and optional CUDA execution
 paths: code specifications, field arithmetic, discovery, reusable preprocessing,
 polynomial multiplication strategy and codeword assembly. The dense oracle and
 reference tests also live here. `field/` holds common scalar arithmetic used by
@@ -18,7 +18,9 @@ Experimental scaling preparation uses a private base-field lookup table for
 public code coefficients (less than 768 KiB through s16), released before online
 use. General field APIs remain table-free and artifact coordinates are unchanged.
 The [arithmetic experiment](../../experiments/preparation-arithmetic/report.md)
-records kernel and complete smaller-code checks; full s16 feasibility remains open.
+records kernel and complete smaller-code checks; the later
+[full s16 preparation](../../experiments/gpu-preparation/report.md) and
+[GPU encoding](../../experiments/cuda-s16-encoding/report.md) checkpoints are separate.
 The [subsequent CPU comparison](../../experiments/preparation-kernels/report.md)
 also removes per-coefficient field dispatch inside private polynomial leaves,
 with exact prefix checks and complete smaller-code regressions. It leaves the
@@ -448,3 +450,47 @@ full generator identity check. Default callers use no checkpoint or persistence
 callback. Preparation-only mode streams complete constants, closes executors and
 stops before database encoding; atomic metadata distinguishes reusable files from
 unfinished writes. No intermediate root-batch checkpoint is implemented.
+
+
+### Explicit CPU and optional CUDA client encoding
+
+The same verified `ScalingOnlinePlan` supports ordinary Go `Encode`, native CPU
+`WithCPPMatrix(workers)` (liftrs_cpp,cgo), and optional `WithCUDA(options)`
+(liftrs_cuda,cgo). Preprocessing may be obtained elsewhere; it does not select
+client hardware. CPU-only builds require no CUDA toolkit, library or device.
+CUDA-only builds do not require the C++ CPU binding. No silent fallback occurs:
+choose CPU explicitly when GPU capability/resources are absent.
+
+```go
+// Native CPU client (build with liftrs_cpp,cgo):
+cpu, err := plan.WithCPPMatrix(32)
+if err != nil { return err }
+defer cpu.Close()
+word, err := cpu.Encode(message, cpu.NewWorkspace())
+```
+
+```go
+// Optional CUDA client (build with liftrs_cuda,cgo):
+gpu, err := plan.WithCUDA(liftrs.CUDAOptions{
+    LibraryPath: "/trusted/path/libliftrs-cuda.so",
+    DeviceMemoryLimit: 96 << 30, // Explicit full-s16 cap, not a universal default.
+})
+if err != nil { return err }
+defer gpu.Close()
+word, stats, err := gpu.EncodeWithStats(message)
+```
+
+Both return identical canonical uint32 arrays; packed storage remains s bits per
+symbol. `CUDAArrayBytes()` reports the plan/workspace array payload without GPU
+initialization; budget additional table/plan/driver overhead. GPU initialization
+copies immutable public code constants; its object does not retain host plan
+arrays. Calls serialize and Close waits; CPU workspaces remain independently
+owned. Reuse the GPU object to avoid repeating code upload/setup.
+
+Current GPU arithmetic bounds s2..16 are parameter-driven.
+[Full s16 GPU encoding](../../experiments/cuda-s16-encoding/report.md) passes two
+repeats against retained CPU word hashes:85.95/60.22 s with7.19 s setup,
+67.423 GiB owned device allocations and39.024 GiB peak sampled host RSS. See [CUDA deployment/ownership](../liftrs-cuda/README.md) and the
+[validation report](../../experiments/cuda-encoding/report.md). GPU table arithmetic
+is variable-time and does not add production-security or cryptographic/application
+encoding guarantees. Stable public discovery/TRL scope is unchanged.

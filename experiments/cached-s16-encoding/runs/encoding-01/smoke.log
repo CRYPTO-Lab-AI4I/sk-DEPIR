@@ -1,0 +1,9 @@
+=== RUN   TestS16FirstUse
+    s15_firstuse_probe_test.go:118: load-online 3.782322ms
+    s15_firstuse_probe_test.go:118: online-setup 276.507µs
+    s15_firstuse_probe_test.go:118: encode-0 5.474246ms
+    s15_firstuse_probe_test.go:118: verify-0 681.725µs
+    s15_firstuse_probe_test.go:118: pack-output 8.897088ms
+    s15_firstuse_probe_test.go:118: verify-packed 1.1648ms
+--- PASS: TestS16FirstUse (0.12s)
+PASS

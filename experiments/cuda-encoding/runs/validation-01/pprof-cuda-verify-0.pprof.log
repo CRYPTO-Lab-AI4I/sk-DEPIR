@@ -1,0 +1,16 @@
+File: online.test
+Build ID: 30b289c0dd55db11444eb817fba30f7e25583676
+Type: cpu
+Time: 2026-11-11 15:25:18 CET
+Duration: 33.40ms, Total samples = 40ms (119.75%)
+Showing nodes accounting for 40ms, 100% of 40ms total
+      flat  flat%   sum%        cum   cum%
+      20ms 50.00% 50.00%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func15
+      10ms 25.00% 75.00%       10ms 25.00%  crypto/internal/fips140/sha256.blockSHANI
+      10ms 25.00%   100%       10ms 25.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func15.1 (inline)
+         0     0%   100%       10ms 25.00%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%       10ms 25.00%  crypto/internal/fips140/sha256.block
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCUDAEncodingWorkflow
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%       40ms   100%  testing.tRunner

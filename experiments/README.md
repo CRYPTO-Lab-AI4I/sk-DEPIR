@@ -204,3 +204,12 @@ rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
 
 - [Within-block CPU Taylor parallelism](cpu-taylor/report.md): independent native
   division checks, sanitizers and matched baseline/candidate cached s14 encoding.
+
+- [Cached s16 CPU encoding](cached-s16-encoding/report.md): retained GPU-prepared
+  constants, selected CPU Taylor path and systematic/curve/packed-readback checks.
+
+- [Primary CPU/CUDA online encoding validation](cuda-encoding/report.md): optional
+  modular client backend, CPU-only builds and complete cross-backend output checks.
+
+- [Full cached s16 CUDA encoding](cuda-s16-encoding/report.md): two encodings with
+  reused device buffers, retained CPU digest checks and separately measured setup.

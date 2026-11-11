@@ -58,6 +58,8 @@ type scalingFirstUseConfig struct {
 	rootCheckpoint    bool
 	preparationCutoff int                               // Experiment-only override; zero preserves the default.
 	prepareExecutor   func(*OrbitBasis) (func(), error) // Optional experimental backend; cleanup follows the run.
+	// Optional test harness backend; default remains the native CPU session.
+	onlineSetup func(*ScalingOnlinePlan) (func([]uint32) ([]uint32, map[string]any, error), func(), map[string]any, error)
 }
 
 func runScalingFirstUse(t *testing.T, cfg scalingFirstUseConfig) {
@@ -357,16 +359,29 @@ func runScalingFirstUse(t *testing.T, cfg scalingFirstUseConfig) {
 		}
 		return map[string]any{"plan_bytes": plan.ResidentBytes(), "k": plan.k, "n": plan.Length()}
 	})
-	var encoder *ScalingCPPEncoder
-	var workspace *ScalingCPPWorkspace
+	var encode func([]uint32) ([]uint32, map[string]any, error)
+	var closeOnline func()
 	phase("online-setup", func() map[string]any {
-		var err error
-		encoder, err = plan.WithCPPMatrix(workers)
+		if cfg.onlineSetup != nil {
+			var metadata map[string]any
+			var err error
+			encode, closeOnline, metadata, err = cfg.onlineSetup(plan)
+			check(err)
+			return metadata
+		}
+		encoder, err := plan.WithCPPMatrix(workers)
 		check(err)
-		workspace = encoder.NewWorkspace()
+		workspace := encoder.NewWorkspace()
+		encode = func(message []uint32) ([]uint32, map[string]any, error) {
+			word, stats, err := encoder.EncodeWithStats(message, workspace)
+			return word, map[string]any{"native_stages": stats}, err
+		}
+		closeOnline = func() { encoder.Close() }
 		return map[string]any{"workers": workers, "workspace_bytes": workspace.Bytes()}
 	})
-	defer encoder.Close()
+	if closeOnline != nil {
+		defer closeOnline()
+	}
 	random := rand.New(rand.NewSource(71))
 	message := make([]uint32, plan.k)
 	for i := range message {
@@ -378,10 +393,12 @@ func runScalingFirstUse(t *testing.T, cfg scalingFirstUseConfig) {
 		word = nil
 		phase(fmt.Sprintf("encode-%d", repeat), func() map[string]any {
 			var err error
-			var stats ScalingCPPStats
-			word, stats, err = encoder.EncodeWithStats(message, workspace)
+			var result map[string]any
+			word, result, err = encode(message)
 			check(err)
-			return map[string]any{"native_stages": stats, "input_bytes": len(message) * 4, "output_bytes": len(word) * 4}
+			result["input_bytes"] = len(message) * 4
+			result["output_bytes"] = len(word) * 4
+			return result
 		})
 		phase(fmt.Sprintf("verify-%d", repeat), func() map[string]any {
 			point := plan.basis.omega
@@ -506,7 +523,7 @@ func runScalingFirstUse(t *testing.T, cfg scalingFirstUseConfig) {
 		}
 		return map[string]any{"positions_checked": len(positions), "readback_match": true}
 	})
-	runtime.KeepAlive(encoder)
-	runtime.KeepAlive(workspace)
+	runtime.KeepAlive(encode)
+	runtime.KeepAlive(closeOnline)
 	runtime.KeepAlive(word)
 }

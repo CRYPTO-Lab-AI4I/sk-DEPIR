@@ -367,3 +367,13 @@ preprocessing arrays are borrowed without duplication. Workspace and output
 ownership follow the existing matrix API; the previous hybrid path remains an
 explicit comparison method. This boundary concerns mathematical codeword
 encoding only, with no change to cryptographic encoding requirements.
+
+
+The optional client CUDA implementation now shares verified online code data and
+canonical coordinates with the maintained CPU paths. `WithCUDA` is explicit and
+parameter-driven within the current packed arithmetic bounds; it does not make
+CUDA mandatory for CPU clients or couple client hardware to delegated public-code
+preprocessing. This remains standalone mathematical encoding under validation,
+not completion of the application/cryptographic requirements above. See the
+[backend ownership/deployment documentation](../encoding/liftrs-cuda/README.md)
+and [CPU/CUDA validation](../experiments/cuda-encoding/report.md).

@@ -1,0 +1,3 @@
+Command: module load slurm/slurm/25.05; sacct -j 73131 --noheader --parsable2 --format=JobID,State,Elapsed,Start,End,ExitCode,MaxRSS
+73131|COMPLETED|00:34:53|2026-11-11T12:45:30|2026-11-11T13:20:23|0:0|
+73131.batch|COMPLETED|00:34:53|2026-11-11T12:45:30|2026-11-11T13:20:23|0:0|77994236K

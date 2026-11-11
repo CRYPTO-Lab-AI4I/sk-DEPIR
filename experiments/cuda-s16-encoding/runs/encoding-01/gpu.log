@@ -1,0 +1,2 @@
+name, uuid, driver_version, memory.total [MiB]
+NVIDIA H200 NVL, GPU-40bc0ec7-d0b6-2f1f-77e6-a1e8efc6c9e2, 580.126.20, 143771 MiB

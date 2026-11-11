@@ -17,6 +17,21 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-11 17:41 | PUBLISH-032 | Completed | [CUDA checkpoint verified for publication](2026-11-11-1741-codex-publish-032-completed.md) |
+| 2026-11-11 17:41 | PUBLISH-032 | Started | [Publish CUDA implementation and s16 evidence](2026-11-11-1741-codex-publish-032-started.md) |
+| 2026-11-11 15:33 | GPU-026 | Completed | [Full s16 CUDA encoding passed](2026-11-11-1533-codex-gpu-026-completed.md) |
+| 2026-11-11 15:31 | GPU-026 | Started | [Review completed full s16 CUDA encoding](2026-11-11-1531-codex-gpu-026-results-started.md) |
+| 2026-11-11 14:41 | GPU-026 | Handoff | [Full cached s16 GPU encoding submitted](2026-11-11-1441-codex-gpu-026-handoff.md) |
+| 2026-11-11 14:40 | GPU-025 | Completed | [Modular CUDA validation passed](2026-11-11-1440-codex-gpu-025-completed.md) |
+| 2026-11-11 14:34 | GPU-026 | Started | [Admit full cached s16 GPU encoding](2026-11-11-1434-codex-gpu-026-started.md) |
+| 2026-11-11 14:34 | GPU-025 | Started | [Review completed modular GPU validation](2026-11-11-1434-codex-gpu-025-results-started.md) |
+| 2026-11-11 14:22 | GPU-025 | Handoff | [Modular CUDA client encoding validation submitted](2026-11-11-1422-codex-gpu-025-handoff.md) |
+| 2026-11-11 13:53 | GPU-025 | Started | [Modular client GPU encoding alongside CPU](2026-11-11-1353-codex-gpu-025-started.md) |
+| 2026-11-11 13:37 | ENCODE-024 | Completed | [Cached s16 CPU encoding passed](2026-11-11-1337-codex-encode-024-completed.md) |
+| 2026-11-11 13:33 | ENCODE-024 | Started | [Review completed cached s16 encoding](2026-11-11-1333-codex-encode-024-results-started.md) |
+| 2026-11-11 11:46 | ENCODE-024 | Handoff | [Cached s16 CPU encoding submitted](2026-11-11-1146-codex-encode-024-handoff.md) |
+| 2026-11-11 11:41 | ENCODE-024 | Started | [Launch cached s16 CPU encoding](2026-11-11-1141-codex-encode-024-started.md) |
+| 2026-11-11 11:41 | PUBLISH-031 | Completed | [Taylor optimization published](2026-11-11-1141-codex-publish-031-completed.md) |
 | 2026-11-11 11:39 | PUBLISH-031 | Started | [Publish Taylor optimization before s16 encoding](2026-11-11-1139-codex-publish-031-started.md) |
 | 2026-11-11 11:30 | CPU-023 | Completed | [Parallel Taylor validated and selected](2026-11-11-1130-codex-cpu-023-completed.md) |
 | 2026-11-11 11:28 | CPU-023 | Started | [Review parallel Taylor comparison](2026-11-11-1128-codex-cpu-023-results-started.md) |

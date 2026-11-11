@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "job_id": "73257",
+  "sources_verified": 317,
+  "packed_payload_digest_recomputed": false,
+  "encoding": {
+    "s": 16,
+    "n": 4294967296,
+    "k": 918672421,
+    "canonical_sha256": "c538a1bc9b408dc4d283aba887f808825404a1c2b8dce693aa7f3015d1152a48",
+    "packed_sha256": "1c68bfe60f3914b06e31995afc67d5bb3d0a6776c4750af836f8c9794ee18bb9",
+    "encodings": [
+      {
+        "seconds": 85.954024212,
+        "cuda_stages": {
+          "host_to_device_ns": 438447992,
+          "taylor_ns": 6309237692,
+          "columns_ns": 20998223144,
+          "rows_ns": 24376814453,
+          "layout_ns": 642707748,
+          "device_to_host_ns": 31836640942,
+          "pointwise_ns": 204648357,
+          "native_total_ns": 85940745407,
+          "buffer_ns": 9969888,
+          "assembly_ns": 362595886,
+          "elapsed_ns": 85954004939,
+          "owned_device_bytes": 72394976680
+        }
+      },
+      {
+        "seconds": 60.216214977,
+        "cuda_stages": {
+          "host_to_device_ns": 442413298,
+          "taylor_ns": 6310329879,
+          "columns_ns": 21009344238,
+          "rows_ns": 24384380371,
+          "layout_ns": 642618976,
+          "device_to_host_ns": 1152153004,
+          "pointwise_ns": 204315223,
+          "native_total_ns": 55368251047,
+          "buffer_ns": 9823231,
+          "assembly_ns": 360428710,
+          "elapsed_ns": 60216190839,
+          "owned_device_bytes": 72394976680
+        }
+      }
+    ],
+    "phase_seconds": {
+      "load-online": 164.069908223,
+      "online-setup": 7.192815674,
+      "encode-0": 85.954024212,
+      "verify-0": 543.394890198,
+      "encode-1": 60.216214977,
+      "verify-1": 763.995495561,
+      "pack-output": 56.689197696,
+      "verify-packed": 1.62876777
+    }
+  },
+  "peak_sampled_rss_bytes": 41901670400,
+  "historical_cpu_encode_seconds": 1252.502870737,
+  "limits": "Packed payload digest is the completed controller result, not a fresh bulk rehash. Two profiled same-message encodings with a reused GPU session, full retained CPU digest agreement, all systematic positions, sampled independent curves and packed readback. CPU timing is historical, not a matched allocation. Not cryptographic/application execution or TRL5 acceptance."
+}

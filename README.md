@@ -21,7 +21,7 @@ The [actual GPU-assisted s16 preparation experiment](experiments/gpu-preparation
 reuses saved support and can restart from a verified normalized root checkpoint.
 It completed s16 preparation in2h20m15s (2h24m15s allocation elapsed), with the
 full polynomial identity verified and72.6 GiB peak sampled process RSS. Saved
-constants are retained; a cached s16 database encoding has not yet been validated.
+constants are retained and reused by the completed cached encoding below.
 
 A [cached s14 CPU profile](experiments/cpu-encoding-profile/report.md) measures
 249/141/91 s at8/16/32 threads on the HPC host, with exact reference-hash checks.
@@ -30,7 +30,25 @@ threads; these timings do not establish s16 encoding latency.
 The [within-block CPU Taylor change](experiments/cpu-taylor/report.md) passes
 correctness and native sanitizers. Matched s14 encoding improves from87.9 to61.0 s
 at32 threads (1.44x), with the original recurrence retained for smaller/coarse
-parallel cases. Larger-size encoding behavior remains unverified.
+parallel cases. Full-size cached CPU encoding is recorded below.
+A [cached s16 CPU encoding](experiments/cached-s16-encoding/report.md) now passes:
+20m52.5s encoding,34m53s total job wall time and74.4 GiB peak sampled RSS at32
+CPU threads, without a GPU. All systematic positions, sampled independent curves
+and packed readbacks pass; the8 GiB packed word is retained. This is one standalone
+mathematical encoding, not application/cryptographic integration or TRL5 acceptance.
+
+CPU (Go/C++) and optional [CUDA client encoding](encoding/liftrs-cuda/README.md)
+are maintained paths using the same verified code data. CUDA is opt-in and never
+a prerequisite for CPU clients, regardless of where preprocessing runs. The
+parameter-driven GPU online implementation passes [bounded validation](experiments/cuda-encoding/report.md)
+through complete s10 workflows, with zero CUDA memcheck errors/leaks. The
+[full cached s16 GPU run](experiments/cuda-s16-encoding/report.md) also passes:
+86.0 s first encoding and60.2 s second encoding, plus7.2 s reusable setup, with
+complete output hashes matching CPU. It uses67.4 GiB owned device memory and39.0 GiB
+peak sampled host RSS on H200 NVL. Encoding is about14.6–20.8x faster than the earlier
+32-thread CPU run (historical comparison, separate allocations). Cache loading,
+packing and independent verification are timed separately; the full validation
+job took30m02s. CPU-only clients remain supported.
 
 Fast encoding is an explicit priority. Language, compiler, algorithms, hardware,
 layout and parallelism remain open choices; select improvements through measured
@@ -39,13 +57,13 @@ standard setups. Target commodity CPUs and GPUs and measure on locally available
 hardware. Larger workloads may need larger machines, but hardware/software
 requirements should remain as generic as practical.
 
-Standalone mathematical encoding is validated through **s=14**; s=14 discovery/
-preparation currently uses an experimental harness, while default public discovery
-remains bounded to s≤13. The
+Standalone mathematical encoding now has an experimental **s=16** checkpoint;
+large-instance discovery/preparation/encoding use the linked harnesses, while
+default public discovery remains bounded to s≤13. The
 [scaling study](docs/encoding-scaling.md) now includes resource accounting,
 correctness prototypes, local calibration and an
 [opt-in parallel CPU integration](experiments/parallel-encoding/report.md).
-On this 48 GiB commodity host, three profiled s=13 encodings have medians of
+On the earlier48 GiB laptop, three profiled s=13 encodings have medians of
 **29.8 s at eight workers and 20.2 s at sixteen**, with identical full canonical
 outputs. Process peak RSS is **1.15 GiB**. The sixteen-worker time is about 7.6×
 faster than the retained 153.4-second serial native baseline; this is a historical
@@ -55,13 +73,13 @@ The new path uses arbitrary-basis/affine C++ transforms, parallel matrix/Taylor
 execution, blocked in-memory transposes, reusable workspace and buffered minimal
 preprocessing loading. Existing reference/default APIs remain available. Reusable
 large code preparation remains Go and is separate from these online timings.
-There is no disk-backed backend or validated s≥15 path yet. The [profiled s=14 first-use experiment](experiments/parallel-s14/report.md)
+There is no disk-backed backend. Historical [profiled s=14 first-use evidence](experiments/parallel-s14/report.md)
 now gives exact K=50,976,325 at m=2,t=5: 4 min 15 s discovery, 33 min 38 s reusable
 preparation and 90.53 s median encoding. First-use peak RSS is 13.73 GiB; a fresh
 cached encoding takes 92.12 s with 4.59 GiB peak RSS. Its 1.19 GiB online plan and
-other reusable constants/profiles are retained. This is mathematical encoding;
-s=15, cryptographic/application integration and larger-size feasibility remain
-separate gates. The [resource model](experiments/encoding-resources/report.md)
+other reusable constants/profiles are retained. These are historical laptop
+mathematical-encoding measurements; later s15/s16 checkpoints are linked separately.
+Cryptographic/application integration and larger-size feasibility remain separate gates. The [resource model](experiments/encoding-resources/report.md)
 retains historical analytical payloads, not measured larger-size RAM bounds.
 
 The opt-in matrix encoder now also has a
@@ -80,7 +98,7 @@ measurements on this host.
 
 The [s=15 preparation-memory audit](experiments/preparation-memory/report.md)
 now separates principal arrays (about 22 GiB) from allocation/GC overhead. A
-48 GiB machine remains plausible, but s=15 has not been run or admitted. Compact
+48 GiB machine was judged plausible before the completed s15 admission below. Compact
 validation, bounded factor batches and private preparation scratch reuse are now
 implemented and pass small reference checks; the
 [s=14 preparation checkpoint](experiments/preparation-checkpoint/report.md)
@@ -99,14 +117,15 @@ standalone local feasibility; application/cryptographic integration remains open
 
 Local encoding development stops at the verified s=15 checkpoint. Further scaling
 moves to a larger-memory commodity CPU environment, initially a single shared-memory
-node (provisionally 256 GiB RAM). s≥16 remains unverified. The
+node (provisionally 256 GiB RAM). Experimental s16 preparation and one cached
+CPU encoding now pass as linked above; larger sizes remain unverified. The
 [agent handoff](docs/development-handoff.md) records the baseline, first actions,
 portability gaps, artifact transfer/checksums and budget review. Large caches are
 not in Git. The [destination transfer receipt](message-board/2026-11-09-1316-codex-orient-001-completed.md)
 verifies the transferred s=13/14/15 reference data; preserve the source copies.
 [HPC setup](docs/hpc-setup.md) records the local Go installation and Slurm GPU
-inventory. The cached CPU baseline now passes on a Slurm compute node; complete
-GPU encoding and s≥16 feasibility remain unverified.
+inventory. Cached CPU encoding now passes through experimental s16 on Slurm;
+complete GPU database encoding and larger-size feasibility remain unverified.
 The [Linux compute-node validation](experiments/hpc-cached-s15/report.md) reuses
 the retained s=15 constants under bounded Slurm resources, separating correctness
 checks, staging, loading, encoding and output I/O. Both full suites and the complete
@@ -115,7 +134,7 @@ count/header handling without widening individual field values. Stored counts
 remain 32-bit through s=15 and use 64 bits at s=16. The
 [compatibility validation](experiments/count-width-validation/report.md) passes
 small-buffer boundaries, sanitizer/full-suite checks and complete cached s15
-output comparison; full s=16 feasibility remains open.
+output comparison; that boundary validation preceded the completed s16 runs above.
 The [guarded s16 first-use experiment](experiments/hpc-s16/report.md) now audits
 array/file lifetimes, validates the shared first-use harness on retained small
 fixtures and defines a bounded single-node CPU run. Its report records live status;
@@ -124,10 +143,11 @@ The first full run was stopped after discovery because preparation would exceed
 its time budget; discovery data is retained. A
 [bounded arithmetic comparison](experiments/preparation-arithmetic/report.md)
 measures 1.56× faster complete s10 preparation and a 3.55× faster s16 leaf kernel
-using a small private multiplication table. Full s16 preparation remains unverified.
+using a small private multiplication table. Those initial kernel trials were
+followed by the completed full preparation checkpoint above.
 The [current scaling step](docs/encoding-scaling.md#current-step-larger-memory-preparation-efficiency)
-now includes targeted stage profiling, CPU kernel/batch/root improvements and
-matched GPU trials before another full-run admission decision.
+records targeted stage profiling, CPU kernel/batch/root improvements, matched
+GPU trials and subsequent preparation/cached-encoding admission outcomes.
 Its first sub-step is the [bounded stage profile](experiments/preparation-profile/report.md),
 using saved support and representative kernels with separate correctness checks.
 The [CPU kernel trials](experiments/preparation-kernels/report.md) now integrate
@@ -143,8 +163,8 @@ At 2^22 values, complete GPU transforms take 0.137 s versus 0.760 s on 16 CPU
 cores, excluding reusable setup but including transfers. GPU-assisted s10
 preparation takes 2.719 s versus 6.806 s; complete worker times including setup,
 checks and I/O are 6.790 s versus 10.743 s. These are instrumented sequential
-measurements, not full s16 results or a complete GPU online encoder. CUDA remains
-an optional experiment; default library construction uses CPU.
+measurements of preparation and transform components, not full s16 online results.
+The optional primary CUDA client encoder is described above; default construction uses CPU.
 The [resident product integration](experiments/gpu-products/report.md) now handles
 unequal operands, low prefixes and overlap-add without returning intermediate
 transforms to the CPU. Complete s10 preparation measures 2.400 s at the existing

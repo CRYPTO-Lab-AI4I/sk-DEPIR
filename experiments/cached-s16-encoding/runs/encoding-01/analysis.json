@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "job_id": "73131",
+  "sources_verified": 296,
+  "packed_payload_digest_recomputed": false,
+  "native_stage_seconds": {
+    "buffer_ns": 14.831681721,
+    "pointwise_ns": 25.216242228,
+    "assembly_ns": 7.190402545,
+    "taylor_ns": 200.282221623,
+    "columns_transposes_ns": 451.468870237,
+    "rows_ns": 552.213910768
+  },
+  "encoding": {
+    "s": 16,
+    "k": 918672421,
+    "n": 4294967296,
+    "canonical_sha256": "c538a1bc9b408dc4d283aba887f808825404a1c2b8dce693aa7f3015d1152a48",
+    "packed_sha256": "1c68bfe60f3914b06e31995afc67d5bb3d0a6776c4750af836f8c9794ee18bb9",
+    "phase_seconds": {
+      "load-online": 262.33226256,
+      "online-setup": 10.213257616,
+      "encode-0": 1252.502870737,
+      "verify-0": 402.170986212,
+      "pack-output": 56.276966464,
+      "verify-packed": 1.50573865
+    }
+  },
+  "peak_sampled_rss_bytes": 79854313472,
+  "limits": "Packed payload digest is the completed controller result, not a fresh bulk rehash. One profiled cached mathematical encoding, all systematic positions, sampled independent curves and packed readback. No independent full s16 reference word, fresh-repeat equality, cryptographic/application execution or TRL5 acceptance."
+}

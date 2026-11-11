@@ -4,7 +4,7 @@ package liftrs
 
 import (
 	"encoding/json"
-	gpumatrix "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/gpu-matrix"
+	gpumatrix "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda"
 	"os"
 	"path/filepath"
 	"strconv"

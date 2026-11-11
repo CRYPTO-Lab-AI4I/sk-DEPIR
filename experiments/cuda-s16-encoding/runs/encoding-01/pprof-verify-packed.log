@@ -1,0 +1,33 @@
+File: encoding.test
+Build ID: d399812ab44b33c355a155cf65e7576ad916e343
+Type: cpu
+Time: 2026-11-11 16:10:08 CET
+Duration: 1.63s, Total samples = 490ms (30.08%)
+Showing nodes accounting for 490ms, 100% of 490ms total
+Showing top 25 nodes out of 30
+      flat  flat%   sum%        cum   cum%
+     440ms 89.80% 89.80%      440ms 89.80%  runtime.madvise
+      40ms  8.16% 97.96%       40ms  8.16%  internal/runtime/syscall/linux.Syscall6
+      10ms  2.04%   100%       10ms  2.04%  runtime.stealWork
+         0     0%   100%       40ms  8.16%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCUDACachedEncoding
+         0     0%   100%       40ms  8.16%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%       40ms  8.16%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func17
+         0     0%   100%       40ms  8.16%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%       40ms  8.16%  internal/poll.(*FD).Pread
+         0     0%   100%       40ms  8.16%  internal/poll.(*FD).Pread.func1 (inline)
+         0     0%   100%       40ms  8.16%  internal/poll.ignoringEINTR2[go.shape.int] (inline)
+         0     0%   100%       40ms  8.16%  os.(*File).ReadAt
+         0     0%   100%       40ms  8.16%  os.(*File).pread (inline)
+         0     0%   100%      440ms 89.80%  runtime.(*pageAlloc).scavenge
+         0     0%   100%      440ms 89.80%  runtime.(*pageAlloc).scavenge.func1
+         0     0%   100%      440ms 89.80%  runtime.(*pageAlloc).scavengeOne
+         0     0%   100%      440ms 89.80%  runtime.(*scavengerState).init.func2
+         0     0%   100%      440ms 89.80%  runtime.(*scavengerState).run
+         0     0%   100%      440ms 89.80%  runtime.bgscavenge
+         0     0%   100%       10ms  2.04%  runtime.findRunnable
+         0     0%   100%       10ms  2.04%  runtime.mcall
+         0     0%   100%       10ms  2.04%  runtime.park_m
+         0     0%   100%       10ms  2.04%  runtime.schedule
+         0     0%   100%      440ms 89.80%  runtime.sysUnused (inline)
+         0     0%   100%      440ms 89.80%  runtime.sysUnusedOS
+         0     0%   100%      440ms 89.80%  runtime.systemstack
