@@ -13,6 +13,10 @@ int gm_create(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs
  * Legacy gm_create retains 2^22/512 MiB. Full domain support is a format bound,
  * not an allocation promise. Bounded creation requires payload plus one plan. */
 int gm_create_bounded(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t log_count,const uint32_t* powers,size_t power_count,size_t max_points,size_t device_cap,void** out,char*,size_t);
+/* Experimental online-only two-work-array constructor. Same field/count/cap
+ * bounds as bounded creation; requires2L<=N at SetOnline. Primitive Apply/Product
+ * are rejected. Adds a small parity/error array; default constructors unchanged. */
+int gm_create_reuse(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t log_count,const uint32_t* powers,size_t power_count,size_t max_points,size_t device_cap,void** out,char*,size_t);
 /* Descriptions: legacy [n,split,width,...] or v2 [0x324d474c,n_lo,n_hi,split,width,...].
  * Remaining rows/columns are unchanged. Check parses without device allocation;
  * Add also enforces engine limits and allocates workspace/plan. */

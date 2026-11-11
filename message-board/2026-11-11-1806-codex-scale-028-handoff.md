@@ -1,0 +1,13 @@
+# SCALE-028 — Memory inventory and alternatives ready for user choice
+
+Timestamp: 2026-11-11T18:06:08.826880+00:00
+Agent: Codex
+Status: handoff
+
+Memory-first plan24bbad9 was committed/pushed before this audit. Added [analytical experiment](../experiments/encoding-memory/report.md), [script](../experiments/encoding-memory/run.py) and [results](../experiments/encoding-memory/results.json), with18 source/input identities and revision24bbad9. Allocation-free arithmetic reconciles current s16 CPU principal74.267 GiB versus74.370 GiB sampled RSS, GPU67.422 GiB versus67.423 GiB owned, and host38.845 GiB versus39.024 GiB sampled RSS. Discovery/preparation/load/output/validation inventories include support widening, retained compiler/GC lifetimes, scratch, disk and caller-held host plans. Saved preparation peaks/checkpoints remain evidence; no s17 preprocessing peak bound is claimed.
+
+s17 wide-slot model refines current GPU principal to526.420 GiB (base arrays remain32-bit). Proposed two-work-buffer reuse reduces it to398.420 GiB, still beyond this GPU. The same schedule would reduce s16 arrays67.422→51.422 GiB without added transforms/PCIe passes. Caller host-plan release is already permitted by the API, but the reference harness retains it for validation. Alternatives include streamed code with new in-place transforms (~130 GiB device before overhead; beyond existing96 GiB cap) or host/disk-backed tiles (lower GPU capacity with substantial traffic). Report gives storage/pass-count sensitivity as projections, not runtime measurements. No alternative is selected or implemented.
+
+Updated root README, experiment index and current scaling-plan checkpoint. Checks: analytical self-checks, exact18 source/input identities, relative documentation paths and whitespace pass. Initial model summary printing attempted to format a traffic dictionary as a scalar; corrected before final results/checks. No runtime tests/hardware profiling needed for allocation-free analysis; prior profiles/caches untouched. No new job, resource admission or full-array allocation. Audit changes remain uncommitted; only the requested prior plan was published.
+
+User choice requested through the input tool with three concrete routes: validate buffer reuse first (recommendation, no added transforms/traffic but not s17 feasibility), prioritize tiled streaming (extra movement/runtime uncertainty), or investigate a one-array in-place schedule (tight headroom/new algorithm/repeated code upload). Pending that choice, do not adopt a material memory–time trade-off, enlarge budgets or launch a prototype job. CPU/GPU maintained main paths and TRL5/protocol limits remain unchanged.

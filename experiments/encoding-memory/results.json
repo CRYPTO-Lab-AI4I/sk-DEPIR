@@ -1,0 +1,131 @@
+{
+  "kind": "analytical_models_with_retained_measured_baselines",
+  "revision": "24bbad9d06775f16cfd512ef7f134219408873e9",
+  "command": "python3 -B experiments/encoding-memory/run.py",
+  "source_sha256": {
+    "encoding/liftrs-cuda/matrix.cu": "287ba4de3c47479a120d5d0bffc2eb1129f8e77e21d54e0329916518fcf9112c",
+    "encoding/liftrs-shared/cuda_encoder.go": "c66d9240a6b6d44d12e01c2a4d81b08be7856db2f1e9a10a3a6d09d4a7e3a753",
+    "encoding/liftrs-shared/scaling_online.go": "d752b9c03a43c4b0aa45292b8467c7f002fe9f9060134e1e86bdc4233f1052af",
+    "encoding/liftrs-shared/scaling_experimental.go": "f6360460ff21781d501fa9dea8c05eae9bcb448878c4e854a86234022c3f5304",
+    "encoding/liftrs-shared/scaling_matrix_cpp.go": "4b7041e7e065298f6b57ecf49100cc5aaf81dd931512d014a1e60ba6b56f1bb3",
+    "encoding/liftrs-shared/orbit.go": "65c235257bcf38926ce4ef7cccb8e2110f570bfbca6ae6cd379e685929dc9734",
+    "encoding/liftrs-shared/exponent_set.go": "03be9daf598b07798475f92ac69ba713395cda9828178887625ddf1b4fcf377b",
+    "encoding/liftrs-shared/orbit_product.go": "526c6ca2040fc5a7ec142dd3917e1c9dc5f1e002d5c387f0929b7e5ed28f2b38",
+    "encoding/liftrs-shared/orbit_polynomial.go": "6e8daba9496ab20a5e47b513c97ae0fcb4b81280edc5e44cbfe676e4b404f18d",
+    "encoding/liftrs-shared/s15_firstuse_probe_test.go": "84954036c738f3bad90873de2882226f36a5b215ce0e974dbd368b891610e261",
+    "pirconfig/configs_catalogue.json": "8e217ea2e2405b1327e375a73f9a3d80733382ad50c8e58e6b428e395506b84e",
+    "experiments/cuda-s16-encoding/runs/encoding-01/results.json": "9a028990802da68363dc83df0c9566c97731133824c77602f73b4ab4713cdadc",
+    "experiments/cached-s16-encoding/runs/encoding-01/results.json": "5f7e0162b0e4dad82dbb3869b3fc3e1f58eb20bc36ef4fff2247deef70b4e9a7",
+    "experiments/gpu-preparation/runs/actual-01/results.json": "18bc14845ab97f27df191be1eeef40f828db35cedb2b8cc1615f56ca6563a83e",
+    "experiments/gpu-preparation/runs/actual-01/worker/checkpoints.json": "9e6effe4327c744ec3df4c8c010a388e46eb3ac97e00d19d875f34afd298f9df",
+    "experiments/cuda-s16-encoding/runs/encoding-01/encoding/phases.json": "1acb3cafa890bab8397c9553b2b6dd9e4d1c96ab37001e0934d59f1c1d1b496f",
+    "experiments/cached-s16-encoding/runs/encoding-01/encoding/phases.json": "c0741f6a6fd44099babb677d634846a279e4ea1549ae05a5fd022164bd0f0f5d",
+    "experiments/encoding-memory/run.py": "eda6d48b1edb9a6e326b8e53cc215a890b777034dd512965c14e07ac840979de"
+  },
+  "models": {
+    "s16_exact_k": {
+      "s": 16,
+      "n": 4294967296,
+      "k": 918672421,
+      "prefix_n": 2147483648,
+      "extension_slot_bytes": 4,
+      "base_slot_bytes": 4,
+      "wide_domain_bytes": 17179869184,
+      "p_bytes": 3674689688,
+      "message_bytes": 3674689684,
+      "canonical_word_bytes": 17179869184,
+      "packed_word_bytes": 8589934592,
+      "support_in_memory_bytes": 7349379368,
+      "support_file_bytes": 3674689684,
+      "online_plan_bytes": 20854558872,
+      "prepared_minimum_retained_bytes": 41709117740,
+      "identity_result_bytes": 17179869184,
+      "cpu_online_principal_bytes": 79743545792,
+      "gpu_online_principal_bytes": 72394166424,
+      "gpu_host_plan_retained_bytes": 41709117740,
+      "gpu_host_plan_released_peak_bytes": 20854558872,
+      "gpu_two_workspace_bytes": 55214297240,
+      "gpu_two_workspace_streamed_code_bytes": 36507222016,
+      "gpu_one_workspace_streamed_code_bytes": 19327352832,
+      "gpu_compact34_current_layout_bytes": null,
+      "streamed_code_extra_per_reused_encode_bytes": 20854558872,
+      "disk_backed_example_storage_bytes": 89574035608,
+      "disk_backed_example_scratch_bytes": 60129542144,
+      "tile_transfer_scenarios_bytes": {
+        "1": 120259084288,
+        "4": 481036337152,
+        "16": 1924145348608
+      }
+    },
+    "s17_estimated_k": {
+      "s": 17,
+      "n": 17179869184,
+      "k": 3870933765,
+      "prefix_n": 8589934592,
+      "extension_slot_bytes": 8,
+      "base_slot_bytes": 4,
+      "wide_domain_bytes": 137438953472,
+      "p_bytes": 15483735064,
+      "message_bytes": 15483735060,
+      "canonical_word_bytes": 68719476736,
+      "packed_word_bytes": 36507222016,
+      "support_in_memory_bytes": 30967470120,
+      "support_file_bytes": 30967470120,
+      "online_plan_bytes": 152922688536,
+      "prepared_minimum_retained_bytes": 237125900332,
+      "identity_result_bytes": 68719476736,
+      "cpu_online_principal_bytes": 527487542336,
+      "gpu_online_principal_bytes": 565239548952,
+      "gpu_host_plan_retained_bytes": 237125900332,
+      "gpu_host_plan_released_peak_bytes": 152922688536,
+      "gpu_two_workspace_bytes": 427800595480,
+      "gpu_two_workspace_streamed_code_bytes": 277025390592,
+      "gpu_one_workspace_streamed_code_bytes": 139586437120,
+      "gpu_compact34_current_layout_bytes": 307541511192,
+      "streamed_code_extra_per_reused_encode_bytes": 152922688536,
+      "disk_backed_example_storage_bytes": 601746770968,
+      "disk_backed_example_scratch_bytes": 412316860416,
+      "tile_transfer_scenarios_bytes": {
+        "1": 962072674304,
+        "4": 3848290697216,
+        "16": 15393162788864
+      }
+    }
+  },
+  "measured_s16": {
+    "gpu_job": "73257",
+    "cpu_job": "73131",
+    "preparation_job": "72875",
+    "gpu_owned_device_bytes": 72394976680,
+    "gpu_array_model_residual_bytes": 810256,
+    "gpu_host_peak_rss_bytes": 41901670400,
+    "cpu_peak_rss_bytes": 79854313472,
+    "preparation_peak_rss_bytes": 77926809600,
+    "preparation_max_live_heap_after_gc_bytes": 58958308368,
+    "preparation_complete_live_heap_after_gc_bytes": 58957566720,
+    "gpu_encode_seconds": [
+      85.954024212,
+      60.216214977
+    ],
+    "h2d_warmed_bytes_per_second": 8306010919.228744,
+    "d2h_warmed_bytes_per_second": 14911100456.584843
+  },
+  "s17_transfer_sensitivity_not_runtime_predictions": {
+    "1": {
+      "bytes": 962072674304,
+      "copy_seconds_at_s16_directional_rates": 90.17452740276931,
+      "disk_seconds_at_hypothetical_1_GiB_per_second_aggregate": 896.0
+    },
+    "4": {
+      "bytes": 3848290697216,
+      "copy_seconds_at_s16_directional_rates": 360.69810961107726,
+      "disk_seconds_at_hypothetical_1_GiB_per_second_aggregate": 3584.0
+    },
+    "16": {
+      "bytes": 15393162788864,
+      "copy_seconds_at_s16_directional_rates": 1442.792438444309,
+      "disk_seconds_at_hypothetical_1_GiB_per_second_aggregate": 14336.0
+    }
+  },
+  "limits": "No encoding, new hardware measurement, GPU allocation or s17 arithmetic implementation. Array payloads exclude allocator/context/pinning overhead; proposed schedules need dependency/correctness/latency validation. Preprocessing peak and storage are not bounded by retained-result sizes. Streaming PCIe/disk sensitivity is not a runtime prediction. No new job or memory-time selection."
+}

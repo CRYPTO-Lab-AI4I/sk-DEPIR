@@ -1,0 +1,3 @@
+JobID|JobName|State|Elapsed|AllocCPUS|ReqMem|MaxRSS|ExitCode
+73576|depir-cuda-reuse|COMPLETED|00:19:05|16|128G||0:0
+73576.batch|batch|COMPLETED|00:19:05|16||39.05G|0:0

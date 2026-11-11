@@ -28,11 +28,11 @@ static bridge* bridge_open(const char* path,unsigned s,unsigned poly,unsigned de
  b->library=dlopen(path,RTLD_NOW|RTLD_LOCAL);
  if(!b->library){snprintf(error,capacity,"%s",dlerror());free(b);return NULL;}
  b->create=dlsym(b->library,"gm_create");b->add=dlsym(b->library,"gm_add_plan");b->apply=dlsym(b->library,"gm_apply");b->owned=dlsym(b->library,"gm_owned_bytes");b->destroy=dlsym(b->library,"gm_destroy");
- b->bounded=dlsym(b->library,"gm_create_bounded");b->check=dlsym(b->library,"gm_check_plan");
+ b->bounded=dlsym(b->library,bounded==2?"gm_create_reuse":"gm_create_bounded");b->check=dlsym(b->library,"gm_check_plan");
  b->set_online=dlsym(b->library,"gm_set_online");b->encode_online=dlsym(b->library,"gm_encode_online");
  b->product=dlsym(b->library,"gm_product"); // Optional for old transform-only libraries.
  if(!b->create||!b->add||!b->apply||!b->owned||!b->destroy){snprintf(error,capacity,"missing GPU ABI symbol");dlclose(b->library);free(b);return NULL;}
- if(bounded&&!b->bounded){snprintf(error,capacity,"bounded GPU ABI unavailable");dlclose(b->library);free(b);return NULL;}
+ if(bounded&&!b->bounded){snprintf(error,capacity,bounded==2?"reuse GPU ABI unavailable":"bounded GPU ABI unavailable");dlclose(b->library);free(b);return NULL;}
  int status=bounded?b->bounded(s,poly,delta,logs,lc,powers,pc,max_points,device_cap,&b->engine,error,capacity):b->create(s,poly,delta,logs,lc,powers,pc,&b->engine,error,capacity);
  if(status){dlclose(b->library);free(b);return NULL;}return b;
 }
@@ -65,17 +65,24 @@ type Engine struct {
 // New loads the explicitly supplied optional shared library and copies
 // trusted base-field tables. The caller must use a checksum-verified binary.
 func New(path string, s int, polynomial, delta uint32, logs, powers []uint32) (*Engine, error) {
-	return newEngine(path, s, polynomial, delta, logs, powers, 1<<22, 512<<20, false)
+	return newEngine(path, s, polynomial, delta, logs, powers, 1<<22, 512<<20, 0)
 }
 
 // NewBounded explicitly admits a maximum domain and total device allocation cap.
 // It requires the bounded ABI. Values remain uint32; counts can reach 2^32 on
 // 64-bit hosts. The cap excludes CUDA driver/context allocations.
 func NewBounded(path string, s int, polynomial, delta uint32, logs, powers []uint32, maxPoints int, deviceBytes uint64) (*Engine, error) {
-	return newEngine(path, s, polynomial, delta, logs, powers, maxPoints, deviceBytes, true)
+	return newEngine(path, s, polynomial, delta, logs, powers, maxPoints, deviceBytes, 1)
 }
 
-func newEngine(path string, s int, polynomial, delta uint32, logs, powers []uint32, maxPoints int, deviceBytes uint64, bounded bool) (*Engine, error) {
+// NewBoundedReuse selects the experimental online-only two-work-array ABI.
+// SetOnline requires two padded prefix operands to fit maxPoints. Apply/Product
+// are unavailable in this mode; ordinary constructors retain their prior layout.
+func NewBoundedReuse(path string, s int, polynomial, delta uint32, logs, powers []uint32, maxPoints int, deviceBytes uint64) (*Engine, error) {
+	return newEngine(path, s, polynomial, delta, logs, powers, maxPoints, deviceBytes, 2)
+}
+
+func newEngine(path string, s int, polynomial, delta uint32, logs, powers []uint32, maxPoints int, deviceBytes uint64, mode int) (*Engine, error) {
 	if maxPoints < 4 || uint64(maxPoints) > uint64(1)<<32 || maxPoints&(maxPoints-1) != 0 || uint64(C.size_t(deviceBytes)) != deviceBytes {
 		return nil, fmt.Errorf("GPU engine limits")
 	}
@@ -85,10 +92,7 @@ func newEngine(path string, s int, polynomial, delta uint32, logs, powers []uint
 	name := C.CString(path)
 	defer C.free(unsafe.Pointer(name))
 	var message [512]C.char
-	flag := C.int(0)
-	if bounded {
-		flag = 1
-	}
+	flag := C.int(mode)
 	h := C.bridge_open(name, C.uint(s), C.uint(polynomial), C.uint(delta), (*C.uint32_t)(unsafe.Pointer(&logs[0])), C.size_t(len(logs)), (*C.uint32_t)(unsafe.Pointer(&powers[0])), C.size_t(len(powers)), C.size_t(maxPoints), C.size_t(deviceBytes), flag, &message[0], 512)
 	runtime.KeepAlive(logs)
 	runtime.KeepAlive(powers)

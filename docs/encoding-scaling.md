@@ -950,3 +950,52 @@ needed by the chosen memory schedule (for example, streamed packed output).
 Maintain shared canonical field/record conventions and independent CPU builds.
 This step does not establish s17 feasibility, change PIR/security contracts or
 complete application/cryptographic integration or TRL5 acceptance.
+
+
+### Memory audit checkpoint and choice
+
+The [source/measurement audit](../experiments/encoding-memory/report.md) and its
+[allocation-free model](../experiments/encoding-memory/run.py) reconcile large s16
+CPU/GPU arrays with saved measurements and inventory discovery/preparation/output
+lifetimes. This completes the initial inventory and alternatives comparison;
+transient preparation peaks, pinned staging and proposed-schedule timings remain
+unmeasured. No design selection, new budget or s17 support follows from the model.
+
+The s17 current GPU principal model is526.420 GiB if base arrays stay32-bit;
+sharing two work arrays lowers it to398.420 GiB. Buffer reuse alone cannot fit.
+An in-place work array plus streamed code models130 GiB before overhead (needs
+a new algorithm and separate cap/headroom review). Host/disk-backed tiles can
+use less GPU memory, with potentially large transfer/I/O costs. Compact34-bit
+storage alone still models286.420 GiB in the current layout.
+
+Recommendation: validate two-work-array reuse and host-plan release first on s16,
+with no added transforms/recomputation/transfer passes; keep resident baselines.
+Alternatively prioritize the tiled s17 route if the user prefers a direct capacity
+solution despite extra traffic. Present the in-place/tiled time-memory choices
+before selecting one. The report quantifies modeled traffic sensitivity and disk
+inventory, distinguishing all projections from measurements. Prototype and
+long-job admission await the user's choice; no experiment is auto-launched.
+
+
+User selected buffer reuse first. [GPU-029 prototype](../experiments/cuda-buffer-reuse/report.md)
+implements the two-array schedule as an opt-in online-only mode; public CUDA
+layout and CPU paths are retained. Validate small oracle/memcheck cases, matched
+s10 default/reuse timing and two full s16 reuse calls under56 GiB device cap,
+within previous host/time budgets. No added transforms or host transfers, but
+address/allocation effects on latency must be measured. Fulls16 comparison with
+job73257 is historical, not matched. No larger s17 memory–time route is selected.
+
+
+GPU-029 completed: [job73576](../experiments/cuda-buffer-reuse/report.md) passes
+323 source identities, all oracle/lifecycle/build checks,80 matrix records, zero
+CUDA memcheck errors/leaks and full CPU canonical/packed hash equality across both
+s16 calls. Owned device memory is51.427 GiB versus67.423 GiB (23.725% saved), exactly
+one full array minus parity/error storage, under56 GiB cap. Encoding57.418/56.975 s;
+matched s10 default/reuse differs by less than0.1%, with no observed slowdown.
+The prior fulls16 timing is historical on another node. Host RSS39.031 GiB;
+host-plan release remains unimplemented in this harness. Full job19m05s, no guards.
+This closes validation of the selected buffer-reuse prototype, which remains
+opt-in; no default switch is made by results review. The remaining s17 gate is
+still a material memory–time choice (new in-place/streamed-code schedule or
+host/disk-backed tiles), not more runtime tuning. No next job or budget increase
+is auto-authorized by successful completion.

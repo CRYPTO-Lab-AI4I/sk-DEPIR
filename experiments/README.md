@@ -213,3 +213,9 @@ rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
 
 - [Full cached s16 CUDA encoding](cuda-s16-encoding/report.md): two encodings with
   reused device buffers, retained CPU digest checks and separately measured setup.
+
+- [Encoding memory audit](encoding-memory/report.md): allocation-free phase
+  inventory, s16 measured-memory reconciliation and explicit s17 memory–time choices.
+
+- [CUDA buffer reuse](cuda-buffer-reuse/report.md): opt-in two-work-array schedule,
+  exact device-memory savings, oracle/memcheck checks and explicit latency comparison.

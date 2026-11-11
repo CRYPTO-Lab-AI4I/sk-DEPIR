@@ -3,6 +3,7 @@
 package liftrs
 
 import (
+	"fmt"
 	cuda "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda"
 	"math/bits"
 )
@@ -32,14 +33,27 @@ func cudaMatrixDescription(f orbitField, dimension int) ([]uint32, error) {
 }
 
 func newCUDAOnlineBackend(p *ScalingOnlinePlan, options CUDAOptions) (cudaOnlineBackend, error) {
+	return newCUDAOnlineBackendMode(p, options, false)
+}
+
+// The reuse mode is an opt-in experiment until its full-size validation passes.
+// Public WithCUDA continues to select the previously verified resident layout.
+func newCUDAOnlineBackendMode(p *ScalingOnlinePlan, options CUDAOptions, reuse bool) (cudaOnlineBackend, error) {
 	s, _, n, l, err := cudaShape(p)
 	if err != nil {
 		return nil, err
 	}
+	if reuse && l > n/2 {
+		return nil, fmt.Errorf("reuse prefix operands exceed shared arena")
+	}
 	// Build public field constants only; device arithmetic is variable-time,
 	// as documented for this prototype, not a constant-time secret primitive.
 	table := newPreparationProducts(p.basis.base.base)
-	engine, err := cuda.NewBounded(options.LibraryPath, s, p.basis.polynomial, p.basis.delta, table.log, table.powers, n, options.DeviceMemoryLimit)
+	create := cuda.NewBounded
+	if reuse {
+		create = cuda.NewBoundedReuse
+	}
+	engine, err := create(options.LibraryPath, s, p.basis.polynomial, p.basis.delta, table.log, table.powers, n, options.DeviceMemoryLimit)
 	if err != nil {
 		return nil, err
 	}

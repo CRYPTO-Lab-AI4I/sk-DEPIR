@@ -494,3 +494,11 @@ repeats against retained CPU word hashes:85.95/60.22 s with7.19 s setup,
 [validation report](../../experiments/cuda-encoding/report.md). GPU table arithmetic
 is variable-time and does not add production-security or cryptographic/application
 encoding guarantees. Stable public discovery/TRL scope is unchanged.
+
+The [buffer-reuse prototype](../../experiments/cuda-buffer-reuse/report.md) is
+selected only by opt-in tests (`PIR_CUDA_REUSE=1` with the CUDA cached/oracle
+workers). It does not change `WithCUDA`, `CUDAArrayBytes` or CPU selection.
+It requires2L<=N, shares two work arrays and adds small parity storage. Validation
+now passes with s16 CPU hash agreement,51.427 GiB device ownership and57.418/56.975 s
+encoding. The matched s10 comparison shows no observed encoding penalty; s16 timing
+comparison is historical. No public-default switch or s17 support is implied.

@@ -69,3 +69,17 @@ full outputs, s10 workflow and CUDA memcheck/leak checks pass. The
 85.95/60.22 s encoding,7.19 s reusable setup,67.423 GiB owned device allocations
 and39.024 GiB peak sampled host RSS. Transfers are included; load/packing/checks
 are separate. Timing comparisons with earlier CPU runs are historical.
+
+## Opt-in buffer-reuse experiment
+
+`NewBoundedReuse`/`gm_create_reuse` provide an experimental online-only engine
+with two work arrays; default constructors and the public shared `WithCUDA` keep
+the validated three-array layout. Reuse requires2L<=N; Apply/Product are rejected.
+Prefix operands share an arena, and final assembly uses dead transpose scratch
+with separate parity storage. Small shapes outside this prefix bound fail clearly,
+not through silent fallback. Old libraries without the reuse ABI remain usable
+for their existing operations. See the [validation runner/report](../../experiments/cuda-buffer-reuse/report.md)
+for test-only selection, resource limits and completed measurements: s16 uses
+51.427 GiB owned device memory,23.7% less, with57.418/56.975 s encoding and matching
+CPU hashes. Matched s10 shows no observed encoding slowdown; s16 timing comparisons
+are historical across nodes. Public shared selection remains unchanged.

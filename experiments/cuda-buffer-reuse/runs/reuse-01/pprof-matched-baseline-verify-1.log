@@ -1,0 +1,13 @@
+File: encoding.test
+Build ID: 2d8a34e3a25a64846b439f68836e7fb7457d4405
+Type: cpu
+Time: 2026-11-11 19:31:18 CET
+Duration: 32.70ms, Total samples = 30ms (91.74%)
+Showing nodes accounting for 30ms, 100% of 30ms total
+      flat  flat%   sum%        cum   cum%
+      20ms 66.67% 66.67%       20ms 66.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func15.1 (inline)
+      10ms 33.33%   100%       30ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func15
+         0     0%   100%       30ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCUDACachedEncoding
+         0     0%   100%       30ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%       30ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%       30ms   100%  testing.tRunner

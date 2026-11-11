@@ -1,0 +1,26 @@
+File: encoding.test
+Build ID: 2d8a34e3a25a64846b439f68836e7fb7457d4405
+Type: cpu
+Time: 2026-11-11 19:31:17 CET
+Duration: 537.88ms, Total samples = 210ms (39.04%)
+Showing nodes accounting for 210ms, 100% of 210ms total
+      flat  flat%   sum%        cum   cum%
+     200ms 95.24% 95.24%      200ms 95.24%  runtime.cgocall
+      10ms  4.76%   100%       10ms  4.76%  [libc.so.6]
+         0     0%   100%       10ms  4.76%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).AddPlan
+         0     0%   100%       10ms  4.76%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).AddPlan.func1 (inline)
+         0     0%   100%      190ms 90.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.NewBounded
+         0     0%   100%       10ms  4.76%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_bridge_add
+         0     0%   100%      190ms 90.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_bridge_open
+         0     0%   100%      190ms 90.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.newEngine
+         0     0%   100%      200ms 95.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).WithCUDA
+         0     0%   100%      200ms 95.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCUDACachedEncoding
+         0     0%   100%      200ms 95.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCUDACachedEncoding.func1
+         0     0%   100%      200ms 95.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.cudaExperimentEncoder
+         0     0%   100%      200ms 95.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newCUDAOnlineBackend (inline)
+         0     0%   100%      200ms 95.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newCUDAOnlineBackendMode
+         0     0%   100%      200ms 95.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%      200ms 95.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func13
+         0     0%   100%      200ms 95.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%       10ms  4.76%  runtime._ExternalCode
+         0     0%   100%      200ms 95.24%  testing.tRunner

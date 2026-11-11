@@ -55,6 +55,14 @@ before further standalone runtime tuning. Current full-array GPU storage would
 exceed the available device memory. Compare bounded-memory schedules on s16 first;
 make extra computation, transfers, host/disk storage and latency explicit so the
 user can choose each material memory–time trade-off. s17 is not yet supported.
+The [memory audit](experiments/encoding-memory/report.md) now reconciles s16
+measurements and compares buffer reuse, in-place transforms and host/disk-backed
+tiles. Its s17 sizes and transfer costs are models; no design or new run budget
+has been selected by that audit. The user subsequently chose buffer reuse first;
+the [opt-in prototype](experiments/cuda-buffer-reuse/report.md) now passes s16:
+51.43 GiB owned device memory (23.7% less),57.4/57.0 s encoding under a56 GiB cap,
+with matching CPU output hashes. Matched s10 encoding time is essentially unchanged;
+full-size timing versus the prior run is historical. Public CPU/GPU defaults remain unchanged.
 
 Fast encoding is an explicit priority. Language, compiler, algorithms, hardware,
 layout and parallelism remain open choices; select improvements through measured

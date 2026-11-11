@@ -1,0 +1,11 @@
+=== RUN   TestCUDACachedEncoding
+    s15_firstuse_probe_test.go:120: load-online 112.401979ms
+    s15_firstuse_probe_test.go:120: online-setup 537.890774ms
+    s15_firstuse_probe_test.go:120: encode-0 103.896626ms
+    s15_firstuse_probe_test.go:120: verify-0 30.752691ms
+    s15_firstuse_probe_test.go:120: encode-1 103.142581ms
+    s15_firstuse_probe_test.go:120: verify-1 31.075978ms
+    s15_firstuse_probe_test.go:120: pack-output 26.244865ms
+    s15_firstuse_probe_test.go:120: verify-packed 87.947906ms
+--- PASS: TestCUDACachedEncoding (1.23s)
+PASS

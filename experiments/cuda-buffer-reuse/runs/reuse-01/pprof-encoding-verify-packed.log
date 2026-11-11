@@ -1,0 +1,33 @@
+File: encoding.test
+Build ID: 2d8a34e3a25a64846b439f68836e7fb7457d4405
+Type: cpu
+Time: 2026-11-11 19:44:47 CET
+Duration: 1.27s, Total samples = 180ms (14.20%)
+Showing nodes accounting for 180ms, 100% of 180ms total
+Showing top 25 nodes out of 27
+      flat  flat%   sum%        cum   cum%
+     140ms 77.78% 77.78%      140ms 77.78%  runtime.madvise
+      30ms 16.67% 94.44%       30ms 16.67%  internal/runtime/syscall/linux.Syscall6
+      10ms  5.56%   100%       10ms  5.56%  runtime.mergeSummaries
+         0     0%   100%       30ms 16.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCUDACachedEncoding
+         0     0%   100%       30ms 16.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%       30ms 16.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func17
+         0     0%   100%       30ms 16.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%       30ms 16.67%  internal/poll.(*FD).Pread
+         0     0%   100%       30ms 16.67%  internal/poll.(*FD).Pread.func1 (inline)
+         0     0%   100%       30ms 16.67%  internal/poll.ignoringEINTR2[go.shape.int] (inline)
+         0     0%   100%       30ms 16.67%  os.(*File).ReadAt
+         0     0%   100%       30ms 16.67%  os.(*File).pread (inline)
+         0     0%   100%      150ms 83.33%  runtime.(*pageAlloc).scavenge
+         0     0%   100%      150ms 83.33%  runtime.(*pageAlloc).scavenge.func1
+         0     0%   100%      150ms 83.33%  runtime.(*pageAlloc).scavengeOne
+         0     0%   100%       10ms  5.56%  runtime.(*pageAlloc).update
+         0     0%   100%      150ms 83.33%  runtime.(*scavengerState).init.func2
+         0     0%   100%      150ms 83.33%  runtime.(*scavengerState).run
+         0     0%   100%      150ms 83.33%  runtime.bgscavenge
+         0     0%   100%      140ms 77.78%  runtime.sysUnused (inline)
+         0     0%   100%      140ms 77.78%  runtime.sysUnusedOS
+         0     0%   100%      150ms 83.33%  runtime.systemstack
+         0     0%   100%       30ms 16.67%  syscall.Pread (inline)
+         0     0%   100%       30ms 16.67%  syscall.RawSyscall6
+         0     0%   100%       30ms 16.67%  syscall.Syscall6

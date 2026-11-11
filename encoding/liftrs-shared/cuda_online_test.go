@@ -26,6 +26,7 @@ func TestCUDAOnlineEncoding(t *testing.T) {
 	if cache == "" {
 		t.Fatal("persistent code fixture cache required")
 	}
+	reuse := os.Getenv("PIR_CUDA_REUSE") == "1"
 	var results []map[string]any
 	for _, spec := range []Spec{{2, 2, 1}, {3, 2, 2}, {4, 2, 2}, {6, 2, 4}, {8, 2, 5}} {
 		basis, err := DiscoverOrbit(spec, OrbitOptions{Random: rand.New(rand.NewSource(2501))})
@@ -43,18 +44,33 @@ func TestCUDAOnlineEncoding(t *testing.T) {
 		if err = saveCUDAOnlineFixture(plan, filepath.Join(cache, fmt.Sprintf("s%d-code.bin", spec.FieldDegree))); err != nil {
 			t.Fatal(err)
 		}
+		if reuse {
+			_, _, n, l, _ := cudaShape(plan)
+			if l > n/2 {
+				candidate, err := cudaExperimentEncoder(plan, CUDAOptions{LibraryPath: os.Getenv("PIR_GPU_LIBRARY"), DeviceMemoryLimit: 512 << 20}, true)
+				if err == nil {
+					candidate.Close()
+					t.Fatal("reuse accepted oversized prefix")
+				}
+				results = append(results, map[string]any{"s": spec.FieldDegree, "unsupported_prefix": true})
+				continue
+			}
+		}
 		start := time.Now()
-		gpu, err := plan.WithCUDA(CUDAOptions{LibraryPath: os.Getenv("PIR_GPU_LIBRARY"), DeviceMemoryLimit: 512 << 20})
+		gpu, err := cudaExperimentEncoder(plan, CUDAOptions{LibraryPath: os.Getenv("PIR_GPU_LIBRARY"), DeviceMemoryLimit: 512 << 20}, reuse)
 		if err != nil {
 			t.Fatal(err)
 		}
 		defer gpu.Close()
+		if reuse {
+			checkCUDAReusePrimitives(t, gpu)
+		}
 		setup := time.Since(start).Seconds()
-		if old := os.Getenv("PIR_OLD_ONLINE_LIBRARY"); old != "" && spec.FieldDegree == 4 {
-			if previous, err := plan.WithCUDA(CUDAOptions{LibraryPath: old, DeviceMemoryLimit: 512 << 20}); err == nil {
+		if old := os.Getenv("PIR_OLD_ONLINE_LIBRARY"); old != "" && ((reuse && spec.FieldDegree == 6) || (!reuse && spec.FieldDegree == 4)) {
+			if previous, err := cudaExperimentEncoder(plan, CUDAOptions{LibraryPath: old, DeviceMemoryLimit: 512 << 20}, reuse); err == nil {
 				previous.Close()
 				t.Fatal("old library exposes online encoding unexpectedly")
-			} else if !strings.Contains(err.Error(), "online CUDA ABI unavailable") {
+			} else if !strings.Contains(err.Error(), map[bool]string{false: "online CUDA ABI unavailable", true: "reuse GPU ABI unavailable"}[reuse]) {
 				t.Fatal("unexpected old-library error", err)
 			}
 		}

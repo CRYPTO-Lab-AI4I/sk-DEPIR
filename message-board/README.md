@@ -17,6 +17,14 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-11 18:54 | PUBLISH-034 | Completed | [Publish validated GPU buffer reuse](2026-11-11-1854-codex-publish-034-completed.md) |
+| 2026-11-11 18:54 | PUBLISH-034 | Started | [Publish validated GPU buffer reuse](2026-11-11-1854-codex-publish-034-started.md) |
+| 2026-11-11 18:48 | GPU-029 | Completed | [Two-work-array reuse validated](2026-11-11-1848-codex-gpu-029-completed.md) |
+| 2026-11-11 18:47 | GPU-029 | Started | [Review completed buffer-reuse validation](2026-11-11-1847-codex-gpu-029-results-started.md) |
+| 2026-11-11 18:27 | GPU-029 | Handoff | [Buffer-reuse validation submitted](2026-11-11-1827-codex-gpu-029-handoff.md) |
+| 2026-11-11 18:19 | GPU-029 | Started | [Prototype two-work-array CUDA reuse](2026-11-11-1819-codex-gpu-029-started.md) |
+| 2026-11-11 18:06 | SCALE-028 | Handoff | [Memory inventory and alternatives ready for choice](2026-11-11-1806-codex-scale-028-handoff.md) |
+| 2026-11-11 17:58 | SCALE-028 | Started | [Audit lifetimes and compare memory schedules](2026-11-11-1758-codex-scale-028-started.md) |
 | 2026-11-11 17:58 | PUBLISH-033 | Completed | [Memory-first plan publication](2026-11-11-1758-codex-publish-033-completed.md) |
 | 2026-11-11 17:58 | PUBLISH-033 | Started | [Memory-first plan publication](2026-11-11-1758-codex-publish-033-started.md) |
 | 2026-11-11 17:55 | SCALE-027 | Completed | [Memory optimization is the next plan step](2026-11-11-1755-codex-scale-027-completed.md) |
