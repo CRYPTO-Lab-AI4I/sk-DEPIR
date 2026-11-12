@@ -1,0 +1,27 @@
+File: encoding.test
+Build ID: b3f251cac012ec084eb4b451e25361f3f5756d8c
+Type: cpu
+Time: 2026-11-12 09:58:37 CET
+Duration: 63.49s, Total samples = 63.99s (100.79%)
+Showing nodes accounting for 63.98s, 100% of 63.99s total
+Dropped 7 nodes (cum <= 0.32s)
+      flat  flat%   sum%        cum   cum%
+    56.93s 88.97% 88.97%     56.93s 88.97%  runtime.cgocall
+     6.54s 10.22% 99.19%      6.54s 10.22%  runtime.memclrNoHeapPointers
+     0.51s   0.8%   100%      0.51s   0.8%  [libc.so.6]
+         0     0%   100%     56.93s 88.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).EncodeOnlineStreamed
+         0     0%   100%     56.93s 88.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).EncodeOnlineStreamed.func1 (inline)
+         0     0%   100%     56.93s 88.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_bridge_encode_streamed
+         0     0%   100%     63.48s 99.20%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCUDAEncoder).EncodeWithStats
+         0     0%   100%     56.93s 88.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*cudaStreamedBackend).EncodeOnline
+         0     0%   100%     63.48s 99.20%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCUDACachedEncoding
+         0     0%   100%     63.48s 99.20%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCUDACachedEncoding.func1.1
+         0     0%   100%     63.48s 99.20%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%     63.48s 99.20%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func14
+         0     0%   100%     63.48s 99.20%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%      0.51s   0.8%  runtime._ExternalCode
+         0     0%   100%      6.55s 10.24%  runtime.makeslice
+         0     0%   100%      6.55s 10.24%  runtime.mallocgc
+         0     0%   100%      6.55s 10.24%  runtime.mallocgcLarge
+         0     0%   100%      6.54s 10.22%  runtime.memclrNoHeapPointersChunked
+         0     0%   100%     63.48s 99.20%  testing.tRunner

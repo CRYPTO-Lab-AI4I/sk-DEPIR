@@ -1,0 +1,25 @@
+File: encoding.test
+Build ID: b3f251cac012ec084eb4b451e25361f3f5756d8c
+Type: cpu
+Time: 2026-11-12 10:02:19 CET
+Duration: 58.85s, Total samples = 58.87s (  100%)
+Showing nodes accounting for 58.85s, 100% of 58.87s total
+Dropped 10 nodes (cum <= 0.29s)
+      flat  flat%   sum%        cum   cum%
+    56.99s 96.81% 96.81%     56.99s 96.81%  runtime.cgocall
+     1.86s  3.16%   100%      1.86s  3.16%  runtime.memclrNoHeapPointers
+         0     0%   100%     56.99s 96.81%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).EncodeOnlineStreamed
+         0     0%   100%     56.99s 96.81%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).EncodeOnlineStreamed.func1 (inline)
+         0     0%   100%     56.99s 96.81%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_bridge_encode_streamed
+         0     0%   100%     58.85s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCUDAEncoder).EncodeWithStats
+         0     0%   100%     56.99s 96.81%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*cudaStreamedBackend).EncodeOnline
+         0     0%   100%     58.85s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCUDACachedEncoding
+         0     0%   100%     58.85s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCUDACachedEncoding.func1.1
+         0     0%   100%     58.85s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%     58.85s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func14
+         0     0%   100%     58.85s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%      1.86s  3.16%  runtime.makeslice
+         0     0%   100%      1.86s  3.16%  runtime.mallocgc
+         0     0%   100%      1.86s  3.16%  runtime.mallocgcLarge
+         0     0%   100%      1.86s  3.16%  runtime.memclrNoHeapPointersChunked
+         0     0%   100%     58.85s   100%  testing.tRunner

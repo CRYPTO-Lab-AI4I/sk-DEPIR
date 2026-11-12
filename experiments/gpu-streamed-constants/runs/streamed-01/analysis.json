@@ -1,0 +1,193 @@
+{
+  "status": "passed",
+  "job_id": "73940",
+  "sources_verified": 350,
+  "packed_payload_digest_recomputed": false,
+  "encoding": {
+    "s": 16,
+    "n": 4294967296,
+    "k": 918672421,
+    "canonical_sha256": "c538a1bc9b408dc4d283aba887f808825404a1c2b8dce693aa7f3015d1152a48",
+    "packed_sha256": "1c68bfe60f3914b06e31995afc67d5bb3d0a6776c4750af836f8c9794ee18bb9",
+    "encodings": [
+      {
+        "seconds": 63.486765966,
+        "cuda_stages": {
+          "host_to_device_ns": 2628752887,
+          "taylor_ns": 6312086786,
+          "columns_ns": 20580879638,
+          "rows_ns": 23651123779,
+          "layout_ns": 645211898,
+          "device_to_host_ns": 1145337271,
+          "pointwise_ns": 205104740,
+          "native_total_ns": 56938514663,
+          "buffer_ns": 6299040,
+          "assembly_ns": 354806427,
+          "elapsed_ns": 63486737396,
+          "owned_device_bytes": 34364742932
+        },
+        "code_upload_seconds": 2.2344716129999993,
+        "code_upload_bytes": 20854558868,
+        "spectrum_chunks": 64,
+        "stream_tile_bytes": 268435456
+      },
+      {
+        "seconds": 58.850582705,
+        "cuda_stages": {
+          "host_to_device_ns": 2632885727,
+          "taylor_ns": 6311314586,
+          "columns_ns": 20571898193,
+          "rows_ns": 23709845703,
+          "layout_ns": 645276641,
+          "device_to_host_ns": 1145453460,
+          "pointwise_ns": 205051514,
+          "native_total_ns": 56991154557,
+          "buffer_ns": 6211263,
+          "assembly_ns": 354563232,
+          "elapsed_ns": 58850537993,
+          "owned_device_bytes": 34364742932
+        },
+        "code_upload_seconds": 2.2389566889999997,
+        "code_upload_bytes": 20854558868,
+        "spectrum_chunks": 64,
+        "stream_tile_bytes": 268435456
+      }
+    ],
+    "phase_seconds": {
+      "load-online": 26.480378499,
+      "online-setup": 1.803642365,
+      "encode-0": 63.486765966,
+      "verify-0": 158.299330797,
+      "encode-1": 58.850582705,
+      "verify-1": 159.350761997,
+      "pack-output": 54.920965651,
+      "verify-packed": 1.569759351
+    }
+  },
+  "peak_sampled_rss_bytes": 41907482624,
+  "historical_cpu_encode_seconds": 1252.502870737,
+  "memory_comparison": {
+    "resident_reuse_owned_bytes": 55219301804,
+    "candidate_owned_bytes": 34364742932,
+    "saved_device_bytes": 20854558872,
+    "streamed": true,
+    "comparison": "same fast layouts/tables/plans/parity; historical full reuse timing, matched s14 resident/streamed"
+  },
+  "matched_s14": {
+    "matched-baseline": {
+      "s": 14,
+      "n": 268435456,
+      "k": 50976325,
+      "canonical_sha256": "b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c",
+      "packed_sha256": "f56ca77b8b50416105b711f5d0399bee9fcd2f4fbd975587478ed2f22e9ed08c",
+      "encodings": [
+        {
+          "seconds": 5.17902179,
+          "cuda_stages": {
+            "host_to_device_ns": 21930645,
+            "taylor_ns": 181284257,
+            "columns_ns": 2620960327,
+            "rows_ns": 2012462097,
+            "layout_ns": 33313055,
+            "device_to_host_ns": 244528068,
+            "pointwise_ns": 3872608,
+            "native_total_ns": 5178145977,
+            "buffer_ns": 547039,
+            "assembly_ns": 18648607,
+            "elapsed_ns": 5178996349,
+            "owned_device_bytes": 3425613356
+          }
+        },
+        {
+          "seconds": 5.175887668,
+          "cuda_stages": {
+            "host_to_device_ns": 22449950,
+            "taylor_ns": 180974111,
+            "columns_ns": 2629757446,
+            "rows_ns": 2005674438,
+            "layout_ns": 33292512,
+            "device_to_host_ns": 71708211,
+            "pointwise_ns": 3832192,
+            "native_total_ns": 5014509043,
+            "buffer_ns": 542879,
+            "assembly_ns": 18624256,
+            "elapsed_ns": 5175868260,
+            "owned_device_bytes": 3425613356
+          }
+        }
+      ],
+      "phase_seconds": {
+        "load-online": 24.639343508,
+        "online-setup": 1.390195932,
+        "encode-0": 5.17902179,
+        "verify-0": 8.543834362,
+        "encode-1": 5.175887668,
+        "verify-1": 8.472092834,
+        "pack-output": 3.046825817,
+        "verify-packed": 1.099506095
+      }
+    },
+    "matched-candidate": {
+      "s": 14,
+      "n": 268435456,
+      "k": 50976325,
+      "canonical_sha256": "b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c",
+      "packed_sha256": "f56ca77b8b50416105b711f5d0399bee9fcd2f4fbd975587478ed2f22e9ed08c",
+      "encodings": [
+        {
+          "seconds": 5.52730122,
+          "cuda_stages": {
+            "host_to_device_ns": 159519011,
+            "taylor_ns": 181466816,
+            "columns_ns": 2627873626,
+            "rows_ns": 2011820281,
+            "layout_ns": 33336639,
+            "device_to_host_ns": 252843024,
+            "pointwise_ns": 3895232,
+            "native_total_ns": 5526302244,
+            "buffer_ns": 440799,
+            "assembly_ns": 18670560,
+            "elapsed_ns": 5527264977,
+            "owned_device_bytes": 2147966228
+          },
+          "code_upload_seconds": 0.13751445299999998,
+          "code_upload_bytes": 1277647124,
+          "spectrum_chunks": 4,
+          "stream_tile_bytes": 268435456
+        },
+        {
+          "seconds": 5.466594473,
+          "cuda_stages": {
+            "host_to_device_ns": 159678985,
+            "taylor_ns": 181017952,
+            "columns_ns": 2637604187,
+            "rows_ns": 2007622863,
+            "layout_ns": 33319328,
+            "device_to_host_ns": 71693934,
+            "pointwise_ns": 3884319,
+            "native_total_ns": 5350289264,
+            "buffer_ns": 448096,
+            "assembly_ns": 18651519,
+            "elapsed_ns": 5466569662,
+            "owned_device_bytes": 2147966228
+          },
+          "code_upload_seconds": 0.137477571,
+          "code_upload_bytes": 1277647124,
+          "spectrum_chunks": 4,
+          "stream_tile_bytes": 268435456
+        }
+      ],
+      "phase_seconds": {
+        "load-online": 1.783343769,
+        "online-setup": 1.248840618,
+        "encode-0": 5.52730122,
+        "verify-0": 8.55577911,
+        "encode-1": 5.466594473,
+        "verify-1": 8.480277805,
+        "pack-output": 3.262557207,
+        "verify-packed": 1.536723243
+      }
+    }
+  },
+  "limits": "Packed payload digest is the completed controller result, not a fresh bulk rehash. Two profiled same-message encodings with a reused GPU session, full retained CPU digest agreement, all systematic positions, sampled independent curves and packed readback. Full-size CPU/default-GPU timing is historical; s14 resident/streamed timings share an allocation. Not cryptographic/application execution or TRL5 acceptance."
+}

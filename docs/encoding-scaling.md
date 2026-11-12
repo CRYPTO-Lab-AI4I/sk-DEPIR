@@ -1188,3 +1188,74 @@ residency, preprocessing support and complete peak accounting remain open. Prese
 those memory–time alternatives before selecting a material trade-off. GPU row
 locality is a measured runtime opportunity, but does not replace the memory-first
 s17 gate. Application/cryptographic/TRL5 acceptance remains separate.
+
+
+### MEMORY-035: constants/representation audit and selected route
+
+[Allocation-free audit and design](../experiments/streamed-constants/report.md)
+with [reproducible results](../experiments/streamed-constants/results.json) closes
+the source-width/peak-inventory part of this gate. The recommended next prototype
+is fast-layout GPU streaming at s16: P uploads straight to the prefix arena and
+spectrum chunks borrow dead transpose scratch before inverse. Model32.005 GiB
+owned VRAM versus compact35.429 GiB, retaining fast rows and the host verified
+plan (~39 GiB host RAM). Extra19.422 GiB code upload per encoding replaces
+amortized resident setup; kernel/copy/synchronization latency remains unknown.
+No pinned staging or new GPU tile allocation is assumed. Keep resident fast default.
+
+Alternatives: one-arena/direct-row GPU streaming16.25 GiB arrays with the known
+compact access penalty; file-backed CPU streaming20.172 GiB principal RAM plus
+page-cache/runtime overhead, reading19.422 GiB per encode and initial integrity
+verification. Both require explicit selection and measured end-to-end costs.
+The user subsequently selected fast-layout streaming, implemented/validated by
+GPU-036 below. The audit itself introduced no mode/default or budget increase.
+
+At s17 (catalogue K still estimated), two fast GPU arrays alone256 GiB exceed
+available140.40 GiB. A uint64 one-arena layout with uint32 disjoint halves can
+potentially hold17-bit base output in128 GiB plus256 MiB staging, but requires
+wider coordinate arithmetic/ABI/plans and correctness proofs. Retained host plan
++message+output projects220.841 GiB; file-backed code reduces principal host
+storage to78.670 GiB plus cache/runtime overhead and142.420 GiB file backing.
+Bounded CPU file-backed arrays project144.670 GiB, before additional ownership
+copies if required. These exceed existing host/device admission or require new
+streaming/width code; the numerical projection is not feasibility evidence.
+
+
+### GPU-036: selected fast-layout streamed constants
+
+The user selected fast-layout GPU streaming after reviewing trade-offs.
+[Prototype/validation report](../experiments/gpu-streamed-constants/report.md)
+implements the MEMORY-035 recommendation without changing ordinary CPU/GPU or
+resident defaults. Optional streamed constructor installs verified shape; every
+call synchronously borrows host P/spectrum. P uploads directly to prefix arena;
+spectrum chunks borrow dead transpose scratch before inverse, retaining fast rows.
+No device code array or new GPU tile is allocated; no C/CUDA host pointer persists.
+Private Go adapter retains immutable host code until Close, unlike ordinary WithCUDA.
+
+Job73940 now passes on gnode03/H200 NVL, exit0:0,16m22s allocation, within
+admitted budgets and no guard tripped. Reconciliation resolves350 source identities
+and sealed evidence/cache digests. All systematic positions, sampled independent
+curves, retained CPU/GPU hashes, packed readbacks, small/boundary/ownership/range/
+old-ABI tests,80 matrix regressions, build combinations, race/vet and memchecks
+pass (0 errors/leaks). Existing profiles, verified caches and outputs are retained.
+
+Measured s16 owned34,364,742,932 bytes (32.005 GiB), saving19.422 GiB /37.77%
+versus resident reuse. Host RSS39.029 GiB is unchanged. Two full encodes63.487/
+58.851 s include19.422 GiB code uploads in2.234/2.239 s through64 scratch tiles
+of256 MiB. Rows remain fast at23.65–23.71 s, columns20.57–20.58 s; native totals
+56.94/56.99 s differ from outer Go latency. Code-copy time is already in H2D.
+Load/setup/independent checks/packing/I/O are separately reported; do not infer
+encoding speed from the much shorter complete validation allocation.
+
+Matched s14 resident5.1790/5.1759 s versus streamed5.5273/5.4666 s measures6.72%/
+5.62% extra encoding time, two fixed-order samples. Full s16 comparison against
+prior57.418/56.975 s on another allocation is historical, not a matched penalty.
+First-use setup and repeated code uploads remain separate costs. Explicit
+`--memory-mode streamed` is required; resident experiment and public defaults stay.
+
+This completes the selected s16 streamed-constants gate. No new job starts from
+this review. s17 fast two-array storage would still be256 GiB, beyond this GPU.
+Next capacity work must combine streaming with a reviewed one-arena layout and
+34-bit arithmetic/coordinates/artifacts, while accounting for host backing and
+preprocessing. Keep material one-arena/file-backed trade-offs explicit before
+selection; prior128.25 GiB one-arena s17 projection is not run admission or proven
+feasibility. s17/application/cryptographic/TRL5 gates remain open.

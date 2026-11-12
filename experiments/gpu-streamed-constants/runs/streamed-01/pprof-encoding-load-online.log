@@ -1,0 +1,33 @@
+File: encoding.test
+Build ID: b3f251cac012ec084eb4b451e25361f3f5756d8c
+Type: cpu
+Time: 2026-11-12 09:58:02 CET
+Duration: 26.48s, Total samples = 26.47s (  100%)
+Showing nodes accounting for 26.43s, 99.85% of 26.47s total
+Dropped 17 nodes (cum <= 0.13s)
+      flat  flat%   sum%        cum   cum%
+     9.87s 37.29% 37.29%      9.87s 37.29%  crypto/internal/fips140/sha256.blockSHANI
+     8.91s 33.66% 70.95%     26.47s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.LoadScalingOnline
+     6.68s 25.24% 96.18%      6.68s 25.24%  internal/runtime/syscall/linux.Syscall6
+     0.56s  2.12% 98.30%      0.56s  2.12%  runtime.memmove
+     0.23s  0.87% 99.17%      0.23s  0.87%  encoding/binary.littleEndian.Uint32 (inline)
+     0.17s  0.64% 99.81%      0.17s  0.64%  runtime.asyncPreempt
+     0.01s 0.038% 99.85%     17.13s 64.71%  io.ReadFull (inline)
+         0     0% 99.85%     17.12s 64.68%  bufio.(*Reader).Read
+         0     0% 99.85%      9.87s 37.29%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0% 99.85%      9.87s 37.29%  crypto/internal/fips140/sha256.block
+         0     0% 99.85%     26.47s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCUDACachedEncoding
+         0     0% 99.85%     26.47s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0% 99.85%     26.47s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func12
+         0     0% 99.85%     26.47s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0% 99.85%      6.69s 25.27%  internal/poll.(*FD).Read
+         0     0% 99.85%      6.68s 25.24%  internal/poll.ignoringEINTRIO (inline)
+         0     0% 99.85%     16.56s 62.56%  io.(*teeReader).Read
+         0     0% 99.85%     17.12s 64.68%  io.ReadAtLeast
+         0     0% 99.85%      6.69s 25.27%  os.(*File).Read
+         0     0% 99.85%      6.69s 25.27%  os.(*File).read (inline)
+         0     0% 99.85%      6.68s 25.24%  syscall.RawSyscall6
+         0     0% 99.85%      6.68s 25.24%  syscall.Read (inline)
+         0     0% 99.85%      6.68s 25.24%  syscall.Syscall
+         0     0% 99.85%      6.68s 25.24%  syscall.read
+         0     0% 99.85%     26.47s   100%  testing.tRunner

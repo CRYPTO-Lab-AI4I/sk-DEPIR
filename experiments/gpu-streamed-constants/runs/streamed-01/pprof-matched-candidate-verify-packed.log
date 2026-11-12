@@ -1,0 +1,29 @@
+File: encoding.test
+Build ID: b3f251cac012ec084eb4b451e25361f3f5756d8c
+Type: cpu
+Time: 2026-11-12 09:57:58 CET
+Duration: 1.54s, Total samples = 20ms ( 1.30%)
+Showing nodes accounting for 20ms, 100% of 20ms total
+      flat  flat%   sum%        cum   cum%
+      10ms 50.00% 50.00%       10ms 50.00%  internal/runtime/syscall/linux.Syscall6
+      10ms 50.00%   100%       10ms 50.00%  runtime.futex
+         0     0%   100%       20ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCUDACachedEncoding
+         0     0%   100%       20ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%       20ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func17
+         0     0%   100%       20ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%       20ms   100%  internal/poll.(*FD).Pread
+         0     0%   100%       20ms   100%  internal/poll.(*FD).Pread.func1 (inline)
+         0     0%   100%       20ms   100%  internal/poll.ignoringEINTR2[go.shape.int] (inline)
+         0     0%   100%       20ms   100%  os.(*File).ReadAt
+         0     0%   100%       20ms   100%  os.(*File).pread (inline)
+         0     0%   100%       10ms 50.00%  runtime.exitsyscall
+         0     0%   100%       10ms 50.00%  runtime.exitsyscall.func3
+         0     0%   100%       10ms 50.00%  runtime.exitsyscallTryGetP
+         0     0%   100%       10ms 50.00%  runtime.futexwakeup
+         0     0%   100%       10ms 50.00%  runtime.notewakeup
+         0     0%   100%       10ms 50.00%  runtime.systemstack
+         0     0%   100%       20ms   100%  syscall.Pread (inline)
+         0     0%   100%       10ms 50.00%  syscall.RawSyscall6
+         0     0%   100%       20ms   100%  syscall.Syscall6
+         0     0%   100%       20ms   100%  syscall.pread
+         0     0%   100%       20ms   100%  testing.tRunner

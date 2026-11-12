@@ -58,3 +58,6 @@ experiments/gpu-output-memory/runs/*/pprof-*.log whitespace=-blank-at-eol
 experiments/cpu-output-memory/runs/*/compiler.log whitespace=-blank-at-eof
 experiments/cpu-output-memory/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
 experiments/cpu-output-memory/runs/*/pprof-*.log whitespace=-blank-at-eol
+experiments/gpu-streamed-constants/runs/*/compiler.log whitespace=-blank-at-eof
+experiments/gpu-streamed-constants/runs/*/job.log whitespace=-blank-at-eol,-blank-at-eof
+experiments/gpu-streamed-constants/runs/*/pprof-*.log whitespace=-blank-at-eol

@@ -547,3 +547,20 @@ still planned. s16 principal memory is modeled at39.345 GiB with32 workers, vers
 and retained CPU/GPU hash agreement. Matched s14 compact is3.9–6.1% slower; full
 s16 timing comparison is historical. No s17 support, default switch or new
 cryptographic claim follows.
+
+
+The [fast-layout streamed GPU experiment](../../experiments/gpu-streamed-constants/report.md)
+is selected privately by `PIR_CUDA_STREAM=1`, driven by explicit
+`--memory-mode streamed` (runner default resident). Its adapter retains immutable
+host P/spectrum in Go until Close; C/CUDA borrow them per encode and retain no Go
+pointer. This differs deliberately from ordinary WithCUDA, which copies code once
+and need not retain the host plan. Both return owning canonical uint32 words.
+Streamed P initializes prefix data directly and spectrum tiles borrow dead scratch
+between full forward/inverse, retaining fast rows. Measured32.005 GiB device memory
+at s16, plus host plan/input/output about39 GiB; extra19.422 GiB uploads per encoding.
+Stream counters separate code bytes/time/chunks/tile without double-counting H2D.
+Validation passes both full s16 encodes with retained CPU hashes:63.49/58.85 s,
+about2.24 s code uploads, host RSS39.03 GiB. Matched s14 is5.6–6.7% slower; full
+s16 timing comparison is historical. Resident remains default when it fits, and
+ordinary CPU builds still require no CUDA. No s17/application/cryptographic
+support is added.

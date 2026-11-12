@@ -15,7 +15,7 @@ func cudaExperimentEncoder(p *ScalingOnlinePlan, options CUDAOptions, reuse bool
 	if !reuse {
 		return p.WithCUDA(options)
 	}
-	backend, err := newCUDAOnlineBackendKind(p, options, true, os.Getenv("PIR_CUDA_COMPACT") == "1")
+	backend, err := newCUDAOnlineBackendSchedule(p, options, true, os.Getenv("PIR_CUDA_COMPACT") == "1", os.Getenv("PIR_CUDA_STREAM") == "1")
 	if err != nil {
 		return nil, err
 	}
@@ -24,7 +24,10 @@ func cudaExperimentEncoder(p *ScalingOnlinePlan, options CUDAOptions, reuse bool
 
 func checkCUDAReusePrimitives(t *testing.T, gpu *ScalingCUDAEncoder) {
 	t.Helper()
-	engine := gpu.backend.(*cuda.Engine)
+	engine, ok := gpu.backend.(*cuda.Engine)
+	if !ok {
+		engine = gpu.backend.(*cudaStreamedBackend).Engine
+	}
 	if _, err := engine.Apply(make([]uint32, gpu.n), false); err == nil || !strings.Contains(err.Error(), "online-only") {
 		t.Fatal("reuse primitive transform rejection", err)
 	}

@@ -231,3 +231,9 @@ rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
 
 - [Bounded CPU canonical output](cpu-output-memory/report.md): explicit compact
   owning arena, bounded column scratch and measured memory–time validation.
+
+- [Streamed constants and s17 widths](streamed-constants/report.md): allocation-free
+  source/peak audit, scratch-borrowing GPU design and explicit transfer/I/O alternatives.
+
+- [Fast-layout GPU streamed constants](gpu-streamed-constants/report.md): explicit
+  P/spectrum uploads through dead scratch, matched s14 and full s16 validation.

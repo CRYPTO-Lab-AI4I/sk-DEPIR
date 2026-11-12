@@ -1,0 +1,6 @@
+========= COMPUTE-SANITIZER
+=== RUN   TestCUDAStreamBoundaries
+--- PASS: TestCUDAStreamBoundaries (1.39s)
+PASS
+========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+========= ERROR SUMMARY: 0 errors

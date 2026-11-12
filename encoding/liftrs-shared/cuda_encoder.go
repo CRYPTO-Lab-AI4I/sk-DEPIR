@@ -31,8 +31,9 @@ type cudaOnlineBackend interface {
 }
 
 // ScalingCUDAEncoder owns reusable device constants/workspace. Calls serialize;
-// Close waits for an active encode. The host ScalingOnlinePlan is not retained,
-// so callers may release it after construction or keep it for CPU execution.
+// Close waits for an active encode. Public WithCUDA does not retain host code,
+// so callers may release the plan after construction or keep it for CPU use.
+// Explicit experimental streaming retains immutable host code arrays until Close.
 // This is the same standalone mathematical encoder as the CPU path, not the
 // application/cryptographic encoder. Current packed arithmetic supports s2..16.
 type ScalingCUDAEncoder struct {

@@ -110,7 +110,7 @@ template<class F>double measured(F fn){
 using Clock=std::chrono::steady_clock;
 double elapsed(Clock::time_point start){return std::chrono::duration<double>(Clock::now()-start).count();}
 struct Engine {
- unsigned s,polynomial;uint32_t delta;bool reuse=false,transform_only=false,direct_rows=false,compact_output=false;double compact_seconds=0,expand_seconds=0;size_t download_bytes=0;Device log,powers,a,b,scratch,code_p,code_spectrum,parity,compact_tile;size_t points=0,max_points,device_cap,online_k=0,online_n=0,online_l=0;uint32_t omega=0;
+ unsigned s,polynomial;uint32_t delta;bool reuse=false,transform_only=false,direct_rows=false,compact_output=false,streamed=false;double stream_seconds=0;size_t stream_bytes=0,stream_chunks=0,stream_tile=0;double compact_seconds=0,expand_seconds=0;size_t download_bytes=0;Device log,powers,a,b,scratch,code_p,code_spectrum,parity,compact_tile;size_t points=0,max_points,device_cap,online_k=0,online_n=0,online_l=0;uint32_t omega=0;
  std::unordered_map<size_t,std::unique_ptr<Device>> plans;
  std::vector<uint32_t> host_log,host_powers;
  uint64_t owned(){uint64_t bytes=log.bytes+powers.bytes+a.bytes+b.bytes+scratch.bytes+code_p.bytes+code_spectrum.bytes+parity.bytes+compact_tile.bytes;for(auto& kv:plans)bytes+=kv.second->bytes;return bytes;}
@@ -164,6 +164,11 @@ static int create_engine(bool reuse,bool transform_only,bool direct_rows,bool co
 extern "C" int gm_create_bounded(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,size_t max_points,size_t device_cap,void** out,char* error,size_t capacity){return create_engine(false,false,false,false,s,polynomial,delta,logs,lc,powers,pc,max_points,device_cap,out,error,capacity);}
 extern "C" int gm_create_reuse(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,size_t max_points,size_t device_cap,void** out,char* error,size_t capacity){return create_engine(true,false,false,false,s,polynomial,delta,logs,lc,powers,pc,max_points,device_cap,out,error,capacity);}
 extern "C" int gm_create_compact(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,size_t max_points,size_t device_cap,void** out,char* error,size_t capacity){return create_engine(true,false,true,true,s,polynomial,delta,logs,lc,powers,pc,max_points,device_cap,out,error,capacity);}
+// Streamed code never retains a host pointer; constants are borrowed per encode.
+extern "C" int gm_create_streamed(unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,size_t max_points,size_t device_cap,void** out,char* error,size_t capacity){
+ int status=create_engine(true,false,false,false,s,polynomial,delta,logs,lc,powers,pc,max_points,device_cap,out,error,capacity);
+ if(!status)static_cast<Engine*>(*out)->streamed=true;return status;
+}
 extern "C" int gm_create_transform(unsigned direct,unsigned s,unsigned polynomial,unsigned delta,const uint32_t* logs,size_t lc,const uint32_t* powers,size_t pc,size_t max_points,size_t device_cap,void** out,char* error,size_t capacity){
  if(direct>1){if(error&&capacity)std::snprintf(error,capacity,"invalid transform layout");return 1;}
  return create_engine(false,true,direct!=0,false,s,polynomial,delta,logs,lc,powers,pc,max_points,device_cap,out,error,capacity);
@@ -210,26 +215,44 @@ extern "C" int gm_set_online(void* handle,const uint32_t* p,size_t pc,const uint
  if(!omega||uint64_t(omega)>=q||pow_host(omega,n-1)!=1)throw std::runtime_error("CUDA generator invalid");
  size_t order=n-1;for(size_t d=2;d<=order/d;d++){if(order%d)continue;if(pow_host(omega,(n-1)/d)==1)throw std::runtime_error("CUDA generator nonprimitive");while(order%d==0)order/=d;}
  if(order>1&&pow_host(omega,(n-1)/order)==1)throw std::runtime_error("CUDA generator nonprimitive");
- e.grow(n);size_t parity_words=e.reuse?(n-1+4095)/4096+1:0;size_t tile_words=e.compact_output?std::min(n,size_t(1)<<20):0;uint64_t extra=4*(uint64_t(pc)+n+parity_words)+2*tile_words;if(e.owned()>e.device_cap||extra>e.device_cap-e.owned())throw std::runtime_error("CUDA code device allocation cap");
- Device next_p,next_spectrum,next_parity,next_tile;if(tile_words)next_tile.allocate(tile_words*2);if(parity_words)next_parity.allocate(parity_words*4);next_p.allocate(pc*4);next_spectrum.allocate(n*4);check(cudaMemcpy(next_p.p,p,pc*4,cudaMemcpyHostToDevice));check(cudaMemcpy(next_spectrum.p,spectrum,n*4,cudaMemcpyHostToDevice));
+ e.grow(n);size_t parity_words=e.reuse?(n-1+4095)/4096+1:0;size_t tile_words=e.compact_output?std::min(n,size_t(1)<<20):0;uint64_t extra=4*(uint64_t(e.streamed?0:pc)+ (e.streamed?0:n)+parity_words)+2*tile_words;if(e.owned()>e.device_cap||extra>e.device_cap-e.owned())throw std::runtime_error("CUDA code device allocation cap");
+ Device next_p,next_spectrum,next_parity,next_tile;if(tile_words)next_tile.allocate(tile_words*2);if(parity_words)next_parity.allocate(parity_words*4);if(!e.streamed){next_p.allocate(pc*4);next_spectrum.allocate(n*4);check(cudaMemcpy(next_p.p,p,pc*4,cudaMemcpyHostToDevice));check(cudaMemcpy(next_spectrum.p,spectrum,n*4,cudaMemcpyHostToDevice));}
  e.code_p.swap(next_p);e.code_spectrum.swap(next_spectrum);e.parity.swap(next_parity);e.compact_tile.swap(next_tile);e.online_k=k;e.online_n=n;e.online_l=l;e.omega=omega;
 });}
-extern "C" int gm_encode_online(void* handle,const uint32_t* message,size_t k,uint32_t* word,size_t n,double* stats,char* error,size_t cap){return api(error,cap,[&]{
+static int encode_online(void* handle,const uint32_t* message,size_t k,uint32_t* word,size_t n,const uint32_t* host_p,size_t pc,const uint32_t* host_spectrum,size_t sc,size_t tile,double* stats,char* error,size_t cap){return api(error,cap,[&]{
  if(!handle||!message||!word||!stats)throw std::runtime_error("CUDA online arguments");auto& e=*static_cast<Engine*>(handle);
  if(!e.online_k||k!=e.online_k||n!=e.online_n)throw std::runtime_error("CUDA online shape/not prepared");
- e.grow(n);e.compact_seconds=0;e.expand_seconds=0;e.download_bytes=0;std::fill(stats,stats+10,0);auto began=Clock::now();for(size_t i=0;i<k;i++)if(message[i]>=(1u<<e.s))throw std::runtime_error("CUDA message outside base field");
+ auto began=Clock::now();
+ if(e.streamed){
+  if(!host_p||!host_spectrum||pc!=k+1||sc!=n||!tile||tile>std::min(n,size_t(1)<<26)||host_p[0]!=1)throw std::runtime_error("streamed code shape/tile");
+  for(size_t i=0;i<pc;i++)if(host_p[i]>=(1u<<e.s))throw std::runtime_error("streamed P outside base field");
+  uint64_t q=uint64_t(1)<<(2*e.s);if(q<(uint64_t(1)<<32))for(size_t i=0;i<n;i++)if(host_spectrum[i]>=q)throw std::runtime_error("streamed spectrum outside extension field");
+ }else if(host_p||host_spectrum)throw std::runtime_error("not a streamed engine");
+ if(e.streamed!=(host_p!=nullptr))throw std::runtime_error("streamed engine requires per-call code");
+ e.stream_seconds=0;e.stream_bytes=0;e.stream_chunks=0;e.stream_tile=0;
+ e.grow(n);e.compact_seconds=0;e.expand_seconds=0;e.download_bytes=0;std::fill(stats,stats+10,0);for(size_t i=0;i<k;i++)if(message[i]>=(1u<<e.s))throw std::runtime_error("CUDA message outside base field");
  // Prefix operands share one N arena only in the opt-in reuse mode. Their
  // transforms borrow the independent scratch buffer, so neither operand aliases
  // transform scratch. After the inverse, only the first K entries remain live.
  size_t l=e.online_l;auto* a=e.a.words();auto* b=e.reuse?a+l:e.b.words();
  auto copy=Clock::now();check(cudaMemcpy(b,message,k*4,cudaMemcpyHostToDevice));stats[0]+=elapsed(copy);
- stats[8]+=measured([&]{check(cudaMemset(a,0,l*4));check(cudaMemset(b+k,0,(l-k)*4));check(cudaMemcpy(a,e.code_p.p,k*4,cudaMemcpyDeviceToDevice));});
+ stats[8]+=measured([&]{check(cudaMemset(a,0,l*4));check(cudaMemset(b+k,0,(l-k)*4));if(!e.streamed)check(cudaMemcpy(a,e.code_p.p,k*4,cudaMemcpyDeviceToDevice));});
+ if(e.streamed){copy=Clock::now();check(cudaMemcpy(a,host_p,k*4,cudaMemcpyHostToDevice));double seconds=elapsed(copy);stats[0]+=seconds;e.stream_seconds+=seconds;e.stream_bytes+=k*4;}
  e.apply(a,l,false,stats);e.apply(b,l,false,stats);
  stats[6]+=measured([&]{pointwise<<<(l+255)/256,256>>>(a,b,l,e.s,e.delta,e.log.words(),e.powers.words());});e.apply(a,l,true,stats);
  auto* y=e.reuse?a:b;
  stats[8]+=measured([&]{if(!e.reuse)check(cudaMemcpy(y,a,k*4,cudaMemcpyDeviceToDevice));check(cudaMemset(y+k,0,(n-k)*4));});
  e.apply(y,n,false,stats);
- stats[6]+=measured([&]{pointwise<<<(n+255)/256,256>>>(y,e.code_spectrum.words(),n,e.s,e.delta,e.log.words(),e.powers.words());});e.apply(y,n,true,stats);
+ if(e.streamed){
+  // Forward has joined: scratch is dead until inverse. Synchronous copies and
+  // measured kernel joins prevent tile overwrite while a product still reads it.
+  e.stream_tile=tile*4;
+  for(size_t begin=0;begin<n;begin+=tile){size_t count=std::min(tile,n-begin);
+   copy=Clock::now();check(cudaMemcpy(e.scratch.p,host_spectrum+begin,count*4,cudaMemcpyHostToDevice));double seconds=elapsed(copy);stats[0]+=seconds;e.stream_seconds+=seconds;e.stream_bytes+=count*4;e.stream_chunks++;
+   stats[6]+=measured([&]{pointwise<<<(count+255)/256,256>>>(y+begin,e.scratch.words(),count,e.s,e.delta,e.log.words(),e.powers.words());});
+  }
+ }else{stats[6]+=measured([&]{pointwise<<<(n+255)/256,256>>>(y,e.code_spectrum.words(),n,e.s,e.delta,e.log.words(),e.powers.words());});}
+ e.apply(y,n,true,stats);
  // Full inverse has finished: transpose scratch is dead and can own canonical
  // output. Parity must then live separately, never overlap the scatter target.
  constexpr size_t chunk=4096;size_t jobs=(n-1+chunk-1)/chunk;
@@ -259,6 +282,12 @@ extern "C" int gm_encode_online(void* handle,const uint32_t* message,size_t k,ui
   e.expand_seconds=elapsed(expand);
  }
  stats[7]=elapsed(began);
+});}
+extern "C" int gm_encode_online(void* h,const uint32_t* message,size_t k,uint32_t* word,size_t n,double* stats,char* error,size_t cap){return encode_online(h,message,k,word,n,nullptr,0,nullptr,0,0,stats,error,cap);}
+extern "C" int gm_encode_streamed(void* h,const uint32_t* p,size_t pc,const uint32_t* spectrum,size_t sc,const uint32_t* message,size_t k,uint32_t* word,size_t n,size_t tile,double* stats,char* error,size_t cap){return encode_online(h,message,k,word,n,p,pc,spectrum,sc,tile,stats,error,cap);}
+extern "C" int gm_stream_stats(void* handle,double* values,char* error,size_t capacity){return api(error,capacity,[&]{
+ if(!handle||!values)throw std::runtime_error("stream stats state");auto& e=*static_cast<Engine*>(handle);if(!e.streamed)throw std::runtime_error("not a streamed engine");
+ values[0]=e.stream_seconds;values[1]=double(e.stream_bytes);values[2]=double(e.stream_chunks);values[3]=double(e.stream_tile);
 });}
 extern "C" int gm_compact_stats(void* handle,double* values,char* error,size_t capacity){return api(error,capacity,[&]{
  if(!handle||!values)throw std::runtime_error("compact stats state");auto& e=*static_cast<Engine*>(handle);

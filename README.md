@@ -92,6 +92,17 @@ CPU/GPU hashes. Matched s14 encoding is3.9–6.1% slower. Its explicit
 `NewCompactWorkspace` / `EncodeCompactWithStats` API keeps owning outputs;
 normal CPU encoding needs no CUDA. These are optional memory–time choices,
 not s17 support. Validation jobs took28m59s GPU /49m22s CPU.
+The [fast-layout streamed GPU mode](experiments/gpu-streamed-constants/report.md)
+now passes full s16 validation:32.005 GiB owned GPU memory versus51.427 GiB resident
+reuse (37.77% less), with63.49/58.85 s encoding and matching CPU/GPU hashes.
+Host RAM stays39.03 GiB. Repeated19.422 GiB code uploads take about2.24 s per call;
+matched s14 encoding is5.6–6.7% slower. Full-size timing versus prior57 s resident
+calls is historical. Streaming remains explicit opt-in; resident defaults stay.
+s17 still needs34-bit extension/coordinate handling and a one-arena/file-backed
+design; the current two-array route would need256 GiB GPU memory. No s17
+feasibility is claimed. The complete validation job took16m22s.
+
+
 
 
 Fast encoding is an explicit priority. Language, compiler, algorithms, hardware,

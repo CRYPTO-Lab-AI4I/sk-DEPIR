@@ -115,3 +115,29 @@ Validation passes two full s16 calls at35.429 GiB owned device memory and
 101.5/93.3 s encoding, versus prior resident-reuse51.427 GiB and57.4/57.0 s
 (historical timing comparison). Matched s10 compact is9.6–10.7% slower. Host RAM
 remains39.03 GiB. It stays explicit and optional; s17 is unsupported.
+
+
+## Experimental fast-layout streamed code
+
+`NewBoundedStreamed` retains the two-work-array fast-row layout but no device
+P/spectrum arrays. Add prefix/full plans and call `SetOnline` as usual; this
+constructor validates code and installs metadata without retaining host pointers.
+For each call, use `EncodeOnlineStreamed(message, word, p, spectrum, tileElements)`
+with the same verified immutable host code and a tile of1..min(N,2^26) elements.
+The method borrows code until synchronous return and rejects output/code overlap.
+Ordinary `EncodeOnline` rejects this engine because code must be supplied per call.
+Missing optional library symbols fail explicitly. Close and owning host outputs
+retain their ordinary lifetime rules; no automatic mode switch is added.
+
+P uploads directly to prefix data; spectrum tiles borrow dead transpose scratch
+between full forward/inverse. Copy/kernel joins precede tile overwrite and scratch
+reuse. `StreamStats()` reports code-copy seconds, bytes, spectrum chunks and tile
+bytes after a successful encode, excluding other encodes while reading it.
+Code-copy time is already included in H2D/native totals. The tile needs no extra
+GPU allocation. The [explicit experiment](../../experiments/gpu-streamed-constants/report.md)
+uses `--memory-mode streamed` (default resident) and now measures32.005 GiB at s16,
+with19.422 GiB code upload per encoding and unchanged resident host backing.
+Validation passes:63.49/58.85 s full s16 encodings with retained CPU hashes,
+about2.24 s code upload per call, and39.03 GiB host RSS. Matched s14 is5.6–6.7%
+slower than resident; full s16 timing comparisons are historical. Memchecks report
+0 errors/leaks. Public WithCUDA/CPU defaults remain unchanged; s17 is unsupported.

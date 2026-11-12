@@ -27,7 +27,7 @@ func TestCUDAOnlineEncoding(t *testing.T) {
 		t.Fatal("persistent code fixture cache required")
 	}
 	compact := os.Getenv("PIR_CUDA_COMPACT") == "1"
-	reuse := os.Getenv("PIR_CUDA_REUSE") == "1" || compact
+	reuse := os.Getenv("PIR_CUDA_REUSE") == "1" || compact || os.Getenv("PIR_CUDA_STREAM") == "1"
 	var results []map[string]any
 	for _, spec := range []Spec{{2, 2, 1}, {3, 2, 2}, {4, 2, 2}, {6, 2, 4}, {8, 2, 5}} {
 		basis, err := DiscoverOrbit(spec, OrbitOptions{Random: rand.New(rand.NewSource(2501))})
@@ -75,6 +75,9 @@ func TestCUDAOnlineEncoding(t *testing.T) {
 				expected := "online CUDA ABI unavailable"
 				if reuse {
 					expected = "reuse GPU ABI unavailable"
+				}
+				if os.Getenv("PIR_CUDA_STREAM") == "1" {
+					expected = "streamed GPU ABI unavailable"
 				}
 				if compact {
 					expected = "compact GPU ABI unavailable"

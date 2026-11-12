@@ -43,6 +43,15 @@ int gm_product(void*,const uint32_t* a,size_t a_count,const uint32_t* b,size_t b
  * stats[10] preserve first8 matrix slots and add buffer, canonical assembly. */
 int gm_set_online(void*,const uint32_t* p,size_t p_count,const uint32_t* spectrum,size_t n,uint32_t omega,char*,size_t);
 int gm_encode_online(void*,const uint32_t* message,size_t k,uint32_t* word,size_t n,double* stats,char*,size_t);
+/* Explicit streamed-code experiment. SetOnline validates code/installs shape,
+ * retaining no host code pointer or device constants. Encode borrows the same
+ * trusted immutable P/spectrum per call. Fast rows and two work arrays remain;
+ * spectrum tiles borrow dead transpose scratch, 1..min(N,2^26) uint32 values.
+ * stats[0] includes message and code H2D. stream_stats[4]: code-copy seconds,
+ * code bytes, spectrum chunks, tile bytes. Snapshot only after successful call. */
+int gm_create_streamed(unsigned,unsigned,unsigned,const uint32_t*,size_t,const uint32_t*,size_t,size_t,size_t,void**,char*,size_t);
+int gm_encode_streamed(void*,const uint32_t*,size_t,const uint32_t*,size_t,const uint32_t*,size_t,uint32_t*,size_t,size_t,double*,char*,size_t);
+int gm_stream_stats(void*,double*,char*,size_t);
 uint64_t gm_owned_bytes(void*);
 void gm_destroy(void*);
 #ifdef __cplusplus

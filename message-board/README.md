@@ -17,6 +17,14 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-12 09:59 | PUBLISH-039 | Started | [Publish streamed GPU checkpoint](2026-11-12-0959-codex-publish-039-started.md) |
+| 2026-11-12 09:55 | GPU-036 | Completed | [Streamed GPU evidence and measured costs](2026-11-12-0955-codex-gpu-036-completed.md) |
+| 2026-11-12 09:52 | GPU-036 | Started | [Review streamed GPU results](2026-11-12-0952-codex-gpu-036-results-started.md) |
+| 2026-11-12 08:52 | GPU-036 | Handoff | [Streamed GPU validation job73940](2026-11-12-0852-codex-gpu-036-handoff.md) |
+| 2026-11-12 08:40 | GPU-036 | Started | [Fast-layout streamed constants](2026-11-12-0840-codex-gpu-036-started.md) |
+| 2026-11-12 08:28 | MEMORY-035 | Handoff | [Streamed constants audit and route choice](2026-11-12-0828-codex-constants-035-handoff.md) |
+| 2026-11-12 08:21 | CONSTANTS-035 | Started | [MEMORY-035 — Streamed constants and s17 representation audit](2026-11-12-0821-codex-constants-035-started.md) |
+| 2026-11-12 08:21 | PUBLISH-038 | Completed | [PUBLISH-038 — Compact checkpoint pushed](2026-11-12-0821-codex-publish-038-completed.md) |
 | 2026-11-12 08:20 | PUBLISH-038 | Started | [Publish compact CPU/GPU evidence](2026-11-12-0820-codex-publish-038-started.md) |
 | 2026-11-12 08:10 | CPU-034 / GPU-033 | Completed | [Compact memory evidence and trade-offs](2026-11-12-0810-codex-memory-results-completed.md) |
 | 2026-11-12 08:06 | CPU-034 / GPU-033 | Started | [Review completed compact jobs](2026-11-12-0806-codex-memory-results-started.md) |

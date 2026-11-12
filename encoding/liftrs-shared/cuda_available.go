@@ -36,14 +36,22 @@ func newCUDAOnlineBackend(p *ScalingOnlinePlan, options CUDAOptions) (cudaOnline
 	return newCUDAOnlineBackendMode(p, options, false)
 }
 
-// Memory modes remain explicit experiments; compact output is not yet validated.
+// Memory modes remain explicit experiments; streamed code is not yet validated.
 // Public WithCUDA continues to select the previously verified resident layout.
 func newCUDAOnlineBackendMode(p *ScalingOnlinePlan, options CUDAOptions, reuse bool) (cudaOnlineBackend, error) {
 	return newCUDAOnlineBackendKind(p, options, reuse, false)
 }
 
-// Compact mode is selected only by an explicit opt-in experiment until measured.
+// Compact mode remains an explicit experiment after its s16 validation.
 func newCUDAOnlineBackendKind(p *ScalingOnlinePlan, options CUDAOptions, reuse, compact bool) (cudaOnlineBackend, error) {
+	return newCUDAOnlineBackendSchedule(p, options, reuse, compact, false)
+}
+
+// Streamed mode retains host constants in Go only; CUDA never retains Go pointers.
+func newCUDAOnlineBackendSchedule(p *ScalingOnlinePlan, options CUDAOptions, reuse, compact, streamed bool) (cudaOnlineBackend, error) {
+	if streamed && (!reuse || compact) {
+		return nil, fmt.Errorf("streamed mode requires fast reuse layout")
+	}
 	s, _, n, l, err := cudaShape(p)
 	if err != nil {
 		return nil, err
@@ -60,6 +68,9 @@ func newCUDAOnlineBackendKind(p *ScalingOnlinePlan, options CUDAOptions, reuse, 
 	}
 	if compact {
 		create = cuda.NewBoundedCompact
+	}
+	if streamed {
+		create = cuda.NewBoundedStreamed
 	}
 	engine, err := create(options.LibraryPath, s, p.basis.polynomial, p.basis.delta, table.log, table.powers, n, options.DeviceMemoryLimit)
 	if err != nil {
@@ -83,5 +94,21 @@ func newCUDAOnlineBackendKind(p *ScalingOnlinePlan, options CUDAOptions, reuse, 
 		engine.Close()
 		return nil, err
 	}
+	if streamed {
+		return &cudaStreamedBackend{Engine: engine, p: p.p, spectrum: p.spectrum, tile: minInt(n, 1<<26)}, nil
+	}
 	return engine, nil
 }
+
+// Only this explicit prototype retains host code; the ordinary backend does not.
+// The public verified plan's private arrays are immutable for this lifetime.
+type cudaStreamedBackend struct {
+	*cuda.Engine
+	p, spectrum []uint32
+	tile        int
+}
+
+func (e *cudaStreamedBackend) EncodeOnline(input, word []uint32) ([10]float64, error) {
+	return e.Engine.EncodeOnlineStreamed(input, word, e.p, e.spectrum, e.tile)
+}
+func (e *cudaStreamedBackend) Close() { e.Engine.Close(); e.p = nil; e.spectrum = nil }
