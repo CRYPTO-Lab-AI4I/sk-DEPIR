@@ -80,11 +80,19 @@ Direct mode now passes component checks through2^25 values: working buffers shri
 256→128 MiB, with forward/inverse time2.1%/2.8% slower at that size. It remains an
 explicit option, not the default. Complete-encoding output memory is still a
 separate gate; no fulls16 online memory saving is established by this component.
-The [bounded GPU output prototype](experiments/gpu-output-memory/report.md) now
-combines direct rows with staged base-value compaction and disjoint canonical
-assembly inside one arena. It explicitly requires `--memory-mode compact`, targets
-about35.43 GiB at s16, and separately measures extra GPU/host work against reduced
-download size. Runtime/memory validation is pending; normal defaults stay unchanged.
+The [bounded GPU output mode](experiments/gpu-output-memory/report.md) now passes
+two full s16 encodings:35.429 GiB owned device memory versus51.427 GiB in the
+prior reuse mode, with matching CPU hashes. Encoding takes101.5/93.3 s versus the
+prior57.4/57.0 s (historical comparison). Host RAM remains39.03 GiB. The matched
+s10 comparison measures9.6–10.7% slower encoding; compact requires explicit
+`--memory-mode compact`, and faster defaults stay unchanged.
+The [CPU counterpart](experiments/cpu-output-memory/report.md) also passes:
+39.409 GiB sampled RAM versus58.351 GiB previously,21m29.8s encoding and matching
+CPU/GPU hashes. Matched s14 encoding is3.9–6.1% slower. Its explicit
+`NewCompactWorkspace` / `EncodeCompactWithStats` API keeps owning outputs;
+normal CPU encoding needs no CUDA. These are optional memory–time choices,
+not s17 support. Validation jobs took28m59s GPU /49m22s CPU.
+
 
 Fast encoding is an explicit priority. Language, compiler, algorithms, hardware,
 layout and parallelism remain open choices; select improvements through measured

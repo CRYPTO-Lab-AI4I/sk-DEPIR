@@ -1,0 +1,23 @@
+File: encoding.test
+Build ID: de7a39872645836d58b362105cba9ac5ee4ea921
+Type: cpu
+Time: 2026-11-12 01:28:15 CET
+Duration: 2.03s, Total samples = 40ms ( 1.97%)
+Showing nodes accounting for 40ms, 100% of 40ms total
+      flat  flat%   sum%        cum   cum%
+      30ms 75.00% 75.00%       30ms 75.00%  internal/runtime/syscall/linux.Syscall6
+      10ms 25.00%   100%       10ms 25.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func2
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPUCompactCached
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func17
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%       30ms 75.00%  internal/poll.(*FD).Pread
+         0     0%   100%       30ms 75.00%  internal/poll.(*FD).Pread.func1 (inline)
+         0     0%   100%       30ms 75.00%  internal/poll.ignoringEINTR2[go.shape.int] (inline)
+         0     0%   100%       30ms 75.00%  os.(*File).ReadAt
+         0     0%   100%       30ms 75.00%  os.(*File).pread (inline)
+         0     0%   100%       30ms 75.00%  syscall.Pread (inline)
+         0     0%   100%       30ms 75.00%  syscall.RawSyscall6
+         0     0%   100%       30ms 75.00%  syscall.Syscall6
+         0     0%   100%       30ms 75.00%  syscall.pread
+         0     0%   100%       40ms   100%  testing.tRunner

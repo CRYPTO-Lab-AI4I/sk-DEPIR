@@ -41,7 +41,7 @@ def main():
     check_packed_metadata(summary,json.loads((cache/'encoding/word-metadata.json').read_text()),(cache/'encoding/word-packed.bin').stat().st_size)
     r_summary={'status':'passed','job_id':r['job_id'],'sources_verified':len(sources),'packed_payload_digest_recomputed':not recorded_cache,'encoding':summary,'peak_sampled_rss_bytes':max(c['peak_rss_bytes'] for c in r['commands']),
                'historical_cpu_encode_seconds':cpu['phase_seconds']['encode-0'],'memory_comparison':r['memory_comparison'],'matched_s10':{k:r[k] for k in ('matched-baseline','matched-candidate')},
-               'limits':('Packed payload digest is the completed controller result, not a fresh bulk rehash. ' if recorded_cache else '')+'Two profiled same-message encodings with a reused GPU session, full retained CPU digest agreement, all systematic positions, sampled independent curves and packed readback. Full-size CPU/default-GPU timing is historical; s10 default/reuse timings share an allocation. Not cryptographic/application execution or TRL5 acceptance.'}
+               'limits':('Packed payload digest is the completed controller result, not a fresh bulk rehash. ' if recorded_cache else '')+'Two profiled same-message encodings with a reused GPU session, full retained CPU digest agreement, all systematic positions, sampled independent curves and packed readback. Full-size CPU/default-GPU timing is historical; s10 resident/compact timings share an allocation. Not cryptographic/application execution or TRL5 acceptance.'}
     (out/'analysis.json').write_text(json.dumps(r_summary,indent=2)+'\n');print(json.dumps(r_summary,indent=2))
 
 def check_packed_metadata(summary,meta,size):

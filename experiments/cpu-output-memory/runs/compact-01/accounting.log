@@ -1,0 +1,5 @@
+JobID|JobName|State|ExitCode|Elapsed|MaxRSS|NodeList|AllocTRES
+73815|depir-gpu-output|COMPLETED|0:0|00:28:59||gnode17|billing=16,cpu=16,gres/gpu:h200=1,gres/gpu=1,node=1
+73815.batch|batch|COMPLETED|0:0|00:28:59|40939968K|gnode17|cpu=16,gres/gpu:h200=1,gres/gpu=1,mem=0,node=1
+73818|depir-cpu-output|COMPLETED|0:0|00:49:22||gnode17|billing=32,cpu=32,node=1
+73818.batch|batch|COMPLETED|0:0|00:49:22|41341424K|gnode17|cpu=32,mem=0,node=1

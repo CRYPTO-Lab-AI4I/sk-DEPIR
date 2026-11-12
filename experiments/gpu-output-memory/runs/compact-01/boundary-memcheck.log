@@ -1,0 +1,6 @@
+========= COMPUTE-SANITIZER
+=== RUN   TestCUDACompactBoundaries
+--- PASS: TestCUDACompactBoundaries (31.53s)
+PASS
+========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+========= ERROR SUMMARY: 0 errors

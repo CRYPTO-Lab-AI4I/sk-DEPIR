@@ -1,0 +1,26 @@
+[
+  {
+    "invalid_truncation_rejected": false,
+    "matches": 3,
+    "n": 4096,
+    "owned_bytes": 65568,
+    "s": 6,
+    "tile_relation": "smaller"
+  },
+  {
+    "invalid_truncation_rejected": false,
+    "matches": 3,
+    "n": 1048576,
+    "owned_bytes": 10522908,
+    "s": 10,
+    "tile_relation": "equal"
+  },
+  {
+    "invalid_truncation_rejected": true,
+    "matches": 3,
+    "n": 4194304,
+    "owned_bytes": 35704092,
+    "s": 11,
+    "tile_relation": "multiple"
+  }
+]

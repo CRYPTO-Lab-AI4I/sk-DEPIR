@@ -211,26 +211,81 @@ type OnlineStats struct {
 // All backing arrays are borrowed only
 // until return; no native plan retains Go pointers or copies large constants.
 // The caller supplies trusted code parameters and canonical transform plans.
-func EncodeOnline(pr, pc, fr, fc *Plan, prefixSplit, fullSplit, workers int, omega uint32,
-	message, p, spectrum, arena, h, scratch, word []uint32, prefixLength int) (OnlineStats, error) {
-	var result OnlineStats
+func EncodeOnline(pr, pc, fr, fc *Plan, prefixSplit, fullSplit, workers int, omega uint32, message, p, spectrum, arena, h, scratch, word []uint32, prefixLength int) (OnlineStats, error) {
+	result, err := encodeOnline(pr, pc, fr, fc, prefixSplit, fullSplit, workers, omega, message, p, spectrum, arena, h, scratch, word, prefixLength, false)
+	return result.OnlineStats, err
+}
+
+// CompactOnlineStats adds narrowing/move and expansion timings to the normal
+// native stages. It is experimental; the extra work is not assumed cost-free.
+type CompactOnlineStats struct {
+	OnlineStats
+	CompactionNS, ExpansionNS uint64
+}
+
+// BoundedColumnElements counts experimental column workspace in uint32 slots.
+// It uses up to 64 columns per worker, matching the native bounded batch contract.
+func BoundedColumnElements(count, split, workers int) (int, error) {
+	if count < 4 || uint64(count) > 1<<32 || count&(count-1) != 0 || split < 1 || split >= 63 || workers < 1 || workers > 64 {
+		return 0, errors.New("invalid bounded column shape")
+	}
+	n1 := 1 << uint(split)
+	if n1 >= count {
+		return 0, errors.New("invalid bounded split")
+	}
+	width := min(64, n1)
+	active := min(workers, n1/width)
+	return active * width * (count / n1), nil
+}
+
+// EncodeOnlineCompact explicitly borrows one arena as both working data and
+// owning-result storage. Output equals arena; no h is needed. All other arrays
+// must be disjoint; bounded scratch covers both domains. Requires 2L<=N and s<=16.
+func EncodeOnlineCompact(pr, pc, fr, fc *Plan, prefixSplit, fullSplit, workers int, omega uint32, message, p, spectrum, arena, columns []uint32, prefixLength int) (CompactOnlineStats, error) {
+	if len(arena) != len(spectrum) {
+		return CompactOnlineStats{}, errors.New("compact arena length")
+	}
+	return encodeOnline(pr, pc, fr, fc, prefixSplit, fullSplit, workers, omega, message, p, spectrum, arena, nil, columns, arena, prefixLength, true)
+}
+
+func encodeOnline(pr, pc, fr, fc *Plan, prefixSplit, fullSplit, workers int, omega uint32, message, p, spectrum, arena, h, scratch, word []uint32, prefixLength int, compact bool) (CompactOnlineStats, error) {
+	var result CompactOnlineStats
 	k, n, l := len(message), len(spectrum), prefixLength
 	if pr == nil || pc == nil || fr == nil || fc == nil || k == 0 || k > n/2 || len(p) != k+1 ||
-		l < 2*k-1 || l > n || l&(l-1) != 0 || len(arena) < max(2*l, n) || len(h) != k || len(scratch) != n || len(word) != n ||
+		l < 2*k-1 || l > n || l&(l-1) != 0 || len(arena) < max(2*l, n) || (!compact && (len(h) != k || len(scratch) != n)) || len(scratch) == 0 || len(word) != n || (compact && (len(h) != 0 || len(arena) != n || l > n/2)) ||
 		prefixSplit < 1 || fullSplit < 1 || workers < 1 || workers > 64 {
 		return result, errors.New("invalid online arrays/plans")
+	}
+	if compact {
+		pre, err := BoundedColumnElements(l, prefixSplit, workers)
+		if err != nil {
+			return result, err
+		}
+		full, err := BoundedColumnElements(n, fullSplit, workers)
+		if err != nil {
+			return result, err
+		}
+		if len(scratch) < max(pre, full) {
+			return result, errors.New("short bounded column workspace")
+		}
 	}
 	arrays := [][]uint32{message, p, spectrum, arena, h, scratch, word}
 	// Constants may share backing storage with each other. All writable arrays
 	// must be disjoint, except exact scratch/word identity after the final transform.
 	for i := 3; i < len(arrays); i++ {
+		if len(arrays[i]) == 0 {
+			continue
+		}
 		a := uintptr(unsafe.Pointer(&arrays[i][0]))
 		size := uintptr(len(arrays[i])) * 4
 		for j := 0; j < i; j++ {
+			if len(arrays[j]) == 0 {
+				continue
+			}
 			b := uintptr(unsafe.Pointer(&arrays[j][0]))
 			other := uintptr(len(arrays[j])) * 4
-			if i == 6 && j == 5 && a == b {
-				continue // Equal n-sized views; scratch is dead before assembly.
+			if i == 6 && ((!compact && j == 5) || (compact && j == 3)) && a == b {
+				continue // Exact permitted n-sized identity; schedule ensures safe reuse.
 			}
 			if a < b+other && b < a+size {
 				return result, errors.New("overlapping online arrays")
@@ -250,15 +305,27 @@ func EncodeOnline(pr, pc, fr, fc *Plan, prefixSplit, fullSplit, workers int, ome
 			return result, errors.New("online plan closed")
 		}
 	}
-	ptr := func(a []uint32) *C.uint32_t { return (*C.uint32_t)(unsafe.Pointer(&a[0])) }
-	var stages [6]C.uint64_t
+	ptr := func(a []uint32) *C.uint32_t {
+		if len(a) == 0 {
+			return nil
+		}
+		return (*C.uint32_t)(unsafe.Pointer(&a[0]))
+	}
+	var stages [8]C.uint64_t
 	var errorText [512]C.char
-	code := C.liftrs_online_encode(pr.handle, pc.handle, fr.handle, fc.handle, C.uint(prefixSplit), C.uint(fullSplit), C.uint(workers), C.uint32_t(omega),
-		ptr(message), ptr(p), ptr(spectrum), C.size_t(k), C.size_t(n), C.size_t(l), ptr(arena), C.size_t(len(arena)), ptr(h), ptr(scratch), ptr(word), &stages[0], &errorText[0], C.size_t(len(errorText)))
+	var code C.int
+	if compact {
+		code = C.liftrs_online_encode_compact(C.size_t(len(scratch)), pr.handle, pc.handle, fr.handle, fc.handle, C.uint(prefixSplit), C.uint(fullSplit), C.uint(workers), C.uint32_t(omega),
+			ptr(message), ptr(p), ptr(spectrum), C.size_t(k), C.size_t(n), C.size_t(l), ptr(arena), C.size_t(len(arena)), ptr(h), ptr(scratch), ptr(word), &stages[0], &errorText[0], C.size_t(len(errorText)))
+	} else {
+		code = C.liftrs_online_encode(pr.handle, pc.handle, fr.handle, fc.handle, C.uint(prefixSplit), C.uint(fullSplit), C.uint(workers), C.uint32_t(omega),
+			ptr(message), ptr(p), ptr(spectrum), C.size_t(k), C.size_t(n), C.size_t(l), ptr(arena), C.size_t(len(arena)), ptr(h), ptr(scratch), ptr(word), &stages[0], &errorText[0], C.size_t(len(errorText)))
+	}
+
 	runtime.KeepAlive(arrays)
 	if code != 0 {
 		return result, fmt.Errorf("C++ online encoding: %s", C.GoString(&errorText[0]))
 	}
-	result = OnlineStats{MatrixStats{uint64(stages[0]), uint64(stages[1]), uint64(stages[2])}, uint64(stages[3]), uint64(stages[4]), uint64(stages[5])}
+	result = CompactOnlineStats{OnlineStats: OnlineStats{MatrixStats{uint64(stages[0]), uint64(stages[1]), uint64(stages[2])}, uint64(stages[3]), uint64(stages[4]), uint64(stages[5])}, CompactionNS: uint64(stages[6]), ExpansionNS: uint64(stages[7])}
 	return result, nil
 }

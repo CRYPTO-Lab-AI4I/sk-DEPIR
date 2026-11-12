@@ -174,3 +174,31 @@ CPU job73586 now validates this ownership transfer on two full s16 calls:
 encoding with exact retained CPU/GPU hashes. Small matched timing differences
 have both signs; no general time equivalence or penalty is established. Full
 results and retained-output/race/sanitizer evidence are linked above.
+
+
+## Explicit compact CPU workspace
+
+The experimental [bounded CPU output route](../../experiments/cpu-output-memory/report.md)
+retains normal owning uint32 results while reducing scratch and assembly memory.
+Use separate compact methods; ordinary encoding remains the validated fast path:
+
+```go
+cpu, err := plan.WithCPPMatrix(32)
+if err != nil { return err }
+defer cpu.Close()
+workspace, err := cpu.NewCompactWorkspace()
+if err != nil { return err } // Requires s<=16 and 2L<=N.
+word, stats, err := cpu.EncodeCompactWithStats(message, workspace)
+```
+
+`stats` adds compaction/move and backwards expansion timings. Bounded column
+batches include gather/scatter in column timing. The workspace detaches its arena
+on success, preserving earlier words across calls/closure; `Bytes()` excludes that
+caller-owned result. Next use allocates a replacement. Slower execution is possible;
+when normal memory fits, this route requires an explicit CLI choice. The experiment
+provides `--memory-mode fast|compact` (default fast); production CLI integration is
+still planned. s16 principal memory is modeled at39.345 GiB with32 workers, versus
+58.351 GiB measured for the fast path. Compact validation now passes:39.409 GiB sampled RAM,21m29.8s full s16 encoding
+and retained CPU/GPU hash agreement. Matched s14 compact is3.9–6.1% slower; full
+s16 timing comparison is historical. No s17 support, default switch or new
+cryptographic claim follows.

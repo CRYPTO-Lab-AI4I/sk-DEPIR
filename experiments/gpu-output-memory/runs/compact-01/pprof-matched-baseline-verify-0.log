@@ -1,0 +1,16 @@
+File: encoding.test
+Build ID: 1c3f11f615a69780f855e4bfb2f9d18c2c18ac2e
+Type: cpu
+Time: 2026-11-12 00:21:17 CET
+Duration: 34.96ms, Total samples = 40ms (114.42%)
+Showing nodes accounting for 40ms, 100% of 40ms total
+      flat  flat%   sum%        cum   cum%
+      20ms 50.00% 50.00%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func15
+      10ms 25.00% 75.00%       10ms 25.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func15.1 (inline)
+      10ms 25.00%   100%       10ms 25.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCUDACachedEncoding
+         0     0%   100%       10ms 25.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%       40ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%       10ms 25.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+         0     0%   100%       40ms   100%  testing.tRunner

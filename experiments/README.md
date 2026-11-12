@@ -228,3 +228,6 @@ rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
 
 - [Bounded GPU canonical output](gpu-output-memory/report.md): explicit compact
   online mode, staged narrowing/disjoint assembly and memory–time validation.
+
+- [Bounded CPU canonical output](cpu-output-memory/report.md): explicit compact
+  owning arena, bounded column scratch and measured memory–time validation.

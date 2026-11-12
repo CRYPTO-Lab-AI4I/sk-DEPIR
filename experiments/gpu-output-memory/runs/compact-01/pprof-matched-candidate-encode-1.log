@@ -1,0 +1,30 @@
+File: encoding.test
+Build ID: 1c3f11f615a69780f855e4bfb2f9d18c2c18ac2e
+Type: cpu
+Time: 2026-11-12 00:21:19 CET
+Duration: 108.28ms, Total samples = 110ms (101.59%)
+Showing nodes accounting for 110ms, 100% of 110ms total
+      flat  flat%   sum%        cum   cum%
+     100ms 90.91% 90.91%      100ms 90.91%  runtime.cgocall
+      10ms  9.09%   100%       10ms  9.09%  runtime.(*spanSet).reset
+         0     0%   100%      100ms 90.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).EncodeOnline
+         0     0%   100%      100ms 90.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).EncodeOnline.func1 (inline)
+         0     0%   100%      100ms 90.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_bridge_encode_online
+         0     0%   100%      100ms 90.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCUDAEncoder).EncodeWithStats
+         0     0%   100%      100ms 90.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCUDACachedEncoding
+         0     0%   100%      100ms 90.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCUDACachedEncoding.func1.1
+         0     0%   100%      100ms 90.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%      100ms 90.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func14
+         0     0%   100%      100ms 90.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%       10ms  9.09%  runtime.finishsweep_m
+         0     0%   100%       10ms  9.09%  runtime.gcStart
+         0     0%   100%       10ms  9.09%  runtime.gcStart.func3
+         0     0%   100%       10ms  9.09%  runtime.mallocgc
+         0     0%   100%       10ms  9.09%  runtime.mallocgcSmallNoScanSC6
+         0     0%   100%       10ms  9.09%  runtime.slicebytetostring
+         0     0%   100%       10ms  9.09%  runtime.systemstack
+         0     0%   100%       10ms  9.09%  runtime/pprof.(*profileBuilder).readMapping
+         0     0%   100%       10ms  9.09%  runtime/pprof.newProfileBuilder
+         0     0%   100%       10ms  9.09%  runtime/pprof.parseProcSelfMaps
+         0     0%   100%       10ms  9.09%  runtime/pprof.profileWriter
+         0     0%   100%      100ms 90.91%  testing.tRunner

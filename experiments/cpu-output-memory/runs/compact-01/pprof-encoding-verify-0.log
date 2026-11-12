@@ -1,0 +1,20 @@
+File: encoding.test
+Build ID: de7a39872645836d58b362105cba9ac5ee4ea921
+Type: cpu
+Time: 2026-11-12 01:13:45 CET
+Duration: 806.78s, Total samples = 807.17s (  100%)
+Showing nodes accounting for 805.10s, 99.74% of 807.17s total
+Dropped 44 nodes (cum <= 4.04s)
+      flat  flat%   sum%        cum   cum%
+   776.92s 96.25% 96.25%    806.68s 99.94%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func15
+     9.41s  1.17% 97.42%      9.41s  1.17%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     8.60s  1.07% 98.48%      8.60s  1.07%  crypto/internal/fips140/sha256.blockSHANI
+     5.96s  0.74% 99.22%      5.96s  0.74%  encoding/binary.littleEndian.PutUint32 (inline)
+     2.31s  0.29% 99.51%     13.61s  1.69%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     1.88s  0.23% 99.74%     11.29s  1.40%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.01s 0.0012% 99.74%      8.62s  1.07%  crypto/internal/fips140/sha256.(*Digest).Write
+     0.01s 0.0012% 99.74%      8.61s  1.07%  crypto/internal/fips140/sha256.block
+         0     0% 99.74%    806.68s 99.94%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPUCompactCached
+         0     0% 99.74%    806.68s 99.94%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0% 99.74%    806.68s 99.94%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0% 99.74%    806.68s 99.94%  testing.tRunner

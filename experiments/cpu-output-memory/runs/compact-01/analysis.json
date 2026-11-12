@@ -1,0 +1,113 @@
+{
+  "status": "passed",
+  "job_id": "73818",
+  "sources_verified": 344,
+  "packed_payload_digest_recomputed": false,
+  "native_stage_seconds": {
+    "buffer_ns": 12.590294339,
+    "pointwise_ns": 26.143518571,
+    "assembly_ns": 9.126130351,
+    "taylor_ns": 215.182681657,
+    "columns_transposes_ns": 443.126825782,
+    "rows_ns": 552.599254854
+  },
+  "encoding": {
+    "s": 16,
+    "n": 4294967296,
+    "k": 918672421,
+    "canonical_sha256": "c538a1bc9b408dc4d283aba887f808825404a1c2b8dce693aa7f3015d1152a48",
+    "packed_sha256": "1c68bfe60f3914b06e31995afc67d5bb3d0a6776c4750af836f8c9794ee18bb9",
+    "encodings": [
+      {
+        "seconds": 1289.759054207,
+        "workspace_after_bytes": 536870912,
+        "compaction_ns": 23585914613,
+        "expansion_ns": 6064446257,
+        "arena_transferred": true
+      }
+    ],
+    "phase_seconds": {
+      "load-online": 74.087367932,
+      "online-setup": 25.549057643,
+      "encode-0": 1289.759054207,
+      "verify-0": 806.780092393,
+      "pack-output": 64.159032985,
+      "verify-packed": 2.03166149
+    }
+  },
+  "peak_sampled_rss_bytes": 42315292672,
+  "principal_memory_bytes": {
+    "fast_principal_bytes": 62563676608,
+    "compact_principal_bytes": 42245988652,
+    "column_bytes": 536870912
+  },
+  "matched_s14": {
+    "matched-baseline": {
+      "s": 14,
+      "n": 268435456,
+      "k": 50976325,
+      "canonical_sha256": "b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c",
+      "packed_sha256": "f56ca77b8b50416105b711f5d0399bee9fcd2f4fbd975587478ed2f22e9ed08c",
+      "encodings": [
+        {
+          "seconds": 64.462281693,
+          "workspace_after_bytes": 1277647124,
+          "compaction_ns": 0,
+          "expansion_ns": 0,
+          "arena_transferred": false
+        },
+        {
+          "seconds": 62.117106049,
+          "workspace_after_bytes": 1277647124,
+          "compaction_ns": 0,
+          "expansion_ns": 0,
+          "arena_transferred": false
+        }
+      ],
+      "phase_seconds": {
+        "load-online": 20.171401307,
+        "online-setup": 0.009478471,
+        "encode-0": 64.462281693,
+        "verify-0": 13.645442311,
+        "encode-1": 62.117106049,
+        "verify-1": 14.068749917,
+        "pack-output": 3.434050074,
+        "verify-packed": 1.042471396
+      }
+    },
+    "matched-candidate": {
+      "s": 14,
+      "n": 268435456,
+      "k": 50976325,
+      "canonical_sha256": "b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c",
+      "packed_sha256": "f56ca77b8b50416105b711f5d0399bee9fcd2f4fbd975587478ed2f22e9ed08c",
+      "encodings": [
+        {
+          "seconds": 68.413404367,
+          "workspace_after_bytes": 134217728,
+          "compaction_ns": 1239407053,
+          "expansion_ns": 177050864,
+          "arena_transferred": true
+        },
+        {
+          "seconds": 64.517022838,
+          "workspace_after_bytes": 134217728,
+          "compaction_ns": 1233985854,
+          "expansion_ns": 191064781,
+          "arena_transferred": true
+        }
+      ],
+      "phase_seconds": {
+        "load-online": 1.921204602,
+        "online-setup": 0.390171299,
+        "encode-0": 68.413404367,
+        "verify-0": 10.872714623,
+        "encode-1": 64.517022838,
+        "verify-1": 12.54718448,
+        "pack-output": 3.144728562,
+        "verify-packed": 0.537186343
+      }
+    }
+  },
+  "limits": "Packed payload digest is the completed controller result, not a fresh bulk rehash. One full s16 profiled encoding, owning-output tests, native sanitizers and matched s14 schedules, all systematic positions, sampled independent curves and packed readback. Full s16 canonical/packed digests match retained CPU/GPU reference; timing comparison is historical. No cryptographic/application execution or TRL5 acceptance."
+}

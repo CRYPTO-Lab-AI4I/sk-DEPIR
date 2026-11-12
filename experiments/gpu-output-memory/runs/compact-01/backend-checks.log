@@ -1,0 +1,7 @@
+=== RUN   TestCUDAEncoderLifecycle
+--- PASS: TestCUDAEncoderLifecycle (0.00s)
+=== RUN   TestCUDAAdmission
+--- PASS: TestCUDAAdmission (0.00s)
+=== RUN   TestCUDAMatrixDescriptions
+--- PASS: TestCUDAMatrixDescriptions (0.01s)
+PASS

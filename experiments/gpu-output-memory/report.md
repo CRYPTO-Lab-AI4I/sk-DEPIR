@@ -1,6 +1,6 @@
 # Bounded GPU canonical output
 
-Status: opt-in compact online prototype implemented; validation submitted as Slurm73815, runtime results pending.
+Status: opt-in compact online validation job73815 completed; evidence reconciliation passes.
 The user authorized this next gate after publishing CPU/GPU validation1800e0d.
 Public CPU/GPU defaults remain unchanged. The previous direct-row study established
 only transform scratch savings; this prototype addresses the later output peak.
@@ -41,7 +41,7 @@ At exact s16 N2^32,K918,672,421, expected owned device memory is the validated
 reuse count minus4N plus2 MiB staging:
 **38,041,529,772 bytes (~35.429 GiB)** versus55,219,301,804 (~51.427 GiB).
 This includes identical tables/plans and separate parity, excludes driver/context,
-and is a model until measured. The new40 GiB cap is below the old56 GiB cap.
+and the completed measured owned count matches it exactly. The new40 GiB cap is below the old56 GiB cap.
 Host plan/input/owning output remain approximately39 GiB in the validation harness;
 no host-plan release or streaming API is introduced.
 
@@ -58,7 +58,7 @@ older libraries fail clearly rather than silently falling back.
 Costs to report separately:
 
 - Direct row access: prior component measurements showed roughly2–8% larger-case
-  penalties; full-domain behavior remains unmeasured.
+  penalties; full-domain measurements below show a substantially larger cost.
 - GPU compaction: an extra read/write/staging pass,4096 ascending chunks at s16.
   Stage storage is bounded; approximate data traffic is10N bytes (40 GiB at s16)
   before canonical scatter, not another full GPU allocation.
@@ -130,7 +130,7 @@ Device count must exactly equal the prior reuse count minus4N plus staging.
 Compare full timing to job73576 only as historical; no full resident rerun is
 silently added. Loading/setup/checks/packing/readback remain separate from Encode.
 
-## Admission and pending evidence
+## Admission and pre-submission evidence
 
 One GPU16 CPU cores,128 GiB host request/96 GiB sampled RSS,64 GiB Go soft,
 40 GiB explicit device cap for compact (56 GiB resident),512 MiB small cases.
@@ -146,11 +146,81 @@ matrix-description tests pass (0.011 s test execution; builds separate).
 Compile-only source/header/library/hash provenance retained in
 `.cache/liftrs/gpu-output-memory/build-check/`, no GPU execution there. Python
 checks validate metadata/repeats/caps, exact compact counts, half-download bytes
-and nonnegative additional stages. Runtime correctness, memcheck, actual memory
-and time costs remain pending. Recorded-cache analysis uses controller hashing
+and nonnegative additional stages. Runtime correctness, memcheck, actual memory and time costs subsequently pass
+and are reported below. Recorded-cache analysis uses controller hashing
 for the8 GiB file, while rechecking metadata/length and other sealed evidence.
 
 s17 requires wider extension values and at least17-bit base storage; this uint16
 prototype does not support it. Code/spectrum residency remains a separate memory
 bottleneck. Application/cryptographic encoding, side-channel security and TRL5
 acceptance remain unproven; current variable-time arithmetic/contracts are unchanged.
+
+
+## Completed measurements
+
+[Manifest](runs/compact-01/results.json), [analysis](runs/compact-01/analysis.json),
+[full phases](runs/compact-01/encoding/phases.json),
+[memcheck](runs/compact-01/memcheck.log),
+[boundary memcheck](runs/compact-01/boundary-memcheck.log) and
+[final accounting](runs/compact-01/accounting.log) pass review. Reconciliation
+resolves338 exact source identities and checks sealed evidence/cache digests.
+Recorded-cache analysis checks the8 GiB payload's metadata/length and uses the
+completed controller's digest without another bulk reread. Exact source revision
+is1800e0d plus the recorded dirty-source snapshots (subsequently published as
+f1546ed). Boundary/oracle/ownership/error/lifecycle checks,80 matrix regressions,
+CPU-only/Go-only/CUDA-only/combined builds, race/vet and both memchecks pass.
+Memcheck reports0 errors and0 leaked bytes. Each of two full s16 calls checks all
+918,672,421 systematic positions and16 independent sampled curves. Full canonical
+and tight packed digests match retained CPU/GPU references;1027 packed readbacks
+pass. K1 staging-boundary cases and rejection before narrowing also pass.
+
+Hardware: gnode17, H200 NVL143,771 MiB, driver580.126.20,16 CPU cores,
+CUDA12.9.1/GCC14.2.0/Go1.27.3. Job completed exit0:0 in **28m59s**, below2h limit;
+no guard tripped. Accounting was collected after the completion ping and is
+additional evidence outside the controller's sealed map. No follow-on job starts.
+
+| Metric | Previous resident reuse | Compact |
+|---|---:|---:|
+| Owned device memory, GiB | 51.427 | 35.429 |
+| Full encoding first call, s | 57.418 | 101.526 |
+| Full encoding second call, s | 56.975 | 93.332 |
+| Bulk download per call, GiB | 16 | 8 |
+
+Device ownership decreases17,177,772,032 bytes (15.998 GiB,31.11%), exactly one
+16 GiB array removed plus2 MiB staging. Measured count38,041,529,772 bytes fits
+the40 GiB cap; driver/context overhead remains additional. Host peak39.028 GiB
+is effectively unchanged versus prior39.031 GiB. Packed disk output stays8 GiB;
+no new host/disk-backed transforms or full duplicate host output are introduced.
+Reusable host code constants remain resident.
+
+Full timing is **historical**, comparing separate allocations (prior gnode10,
+current gnode17), not a matched speedup/penalty measurement. The compact samples
+are76.8%/63.8% slower than the respective prior reuse calls; do not generalize
+that exact ratio. The large-case row stage is55.109/55.016 s versus prior
+23.940/23.952 s and is now the largest GPU stage. Columns remain about20.6 s,
+Taylor6.31 s. This is consistent with costly direct-row access at full size;
+it does not isolate its cause across separate runs. GPU compaction itself takes
+only0.0430/0.0421 s, so packing arithmetic is not the main bottleneck.
+
+Host expansion takes9.628/4.593 s. Device-to-host stage takes8.046/0.576 s;
+first-call page commitment/allocation and runtime effects are not controlled
+separately. Outer encoding includes allocation/telemetry beyond native stages.
+Do not sum compaction again: it is already included in buffer/native timing.
+Other phases: load/check178.669 s, reusable setup4.287 s, independent verification
+461.131/464.862 s, pack/write56.730 s, packed readback2.288 s. Full validation
+allocation time includes builds/tests/profiling, not only these encoding calls.
+
+Matched s10, same allocation, fixed resident-then-compact order:
+
+| Schedule | First encoding, s | Second encoding, s |
+|---|---:|---:|
+| Resident reuse | 0.099877 | 0.097885 |
+| Compact | 0.109461 | 0.108325 |
+| Compact penalty | 9.60% | 10.67% |
+
+Two small fixed-order samples are limited evidence and do not predict the full
+s16 penalty. Both sizes support retaining faster resident execution whenever it
+fits admitted budgets. Compact remains explicit `--memory-mode compact` and a
+capacity option. Public WithCUDA defaults stay unchanged. s17 still needs wider
+arithmetic/storage and further code/spectrum memory work; uint16 assembly does
+not extend to17-bit base values unchanged. No s17/cryptographic/TRL5 gate closes.

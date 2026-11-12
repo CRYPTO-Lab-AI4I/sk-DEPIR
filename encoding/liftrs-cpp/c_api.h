@@ -38,6 +38,11 @@ int liftrs_online_encode(const liftrs_plan*, const liftrs_plan*, const liftrs_pl
     const liftrs_plan*, unsigned, unsigned, unsigned, uint32_t,
     const uint32_t*, const uint32_t*, const uint32_t*, size_t, size_t, size_t,
     uint32_t*, size_t, uint32_t*, uint32_t*, uint32_t*, uint64_t*, char*, size_t);
+/* Explicit compact experiment: bounded columns, no h storage, word==arena,
+ * 2L<=N, uint16 compaction/disjoint scatter/backwards expansion. scratch_count
+ * covers min(workers,n1/min(64,n1))*min(64,n1)*n2 for each domain.
+ * stats[8] extend normal stages with compaction/move and expansion nanoseconds. */
+int liftrs_online_encode_compact(size_t scratch_count,const liftrs_plan*,const liftrs_plan*,const liftrs_plan*,const liftrs_plan*,unsigned,unsigned,unsigned,uint32_t,const uint32_t*,const uint32_t*,const uint32_t*,size_t,size_t,size_t,uint32_t*,size_t,uint32_t*,uint32_t*,uint32_t*,uint64_t*,char*,size_t);
 /* Diagnostic nanoseconds: stage steady_clock, system wall, POSIX monotonic,
  * process CPU (all threads). No encoding state or buffers are changed. */
 int liftrs_read_clocks(uint64_t* values, char* error, size_t capacity);

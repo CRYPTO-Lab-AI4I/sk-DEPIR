@@ -8,6 +8,7 @@
 #include <memory>
 #include <thread>
 #include <atomic>
+#include <cstring>
 
 struct liftrs_plan {
   liftrs::Transform transform;
@@ -208,7 +209,7 @@ void transpose(const uint32_t* src,uint32_t* dst,size_t rows,size_t cols,unsigne
   });
 }
 }
-extern "C" int liftrs_matrix_apply(const liftrs_plan* rows,const liftrs_plan* columns,
+static int matrix_apply(bool bounded,size_t scratch_count,const liftrs_plan* rows,const liftrs_plan* columns,
     uint32_t* data,uint32_t* scratch,size_t count,unsigned split,unsigned workers,int inverse,uint64_t* stage_ns,char* error,size_t capacity){
   try{
     if(!rows || !columns || !data || !scratch || data==scratch || !workers || workers>64 || (inverse!=0 && inverse!=1))
@@ -221,7 +222,21 @@ extern "C" int liftrs_matrix_apply(const liftrs_plan* rows,const liftrs_plan* co
       throw std::runtime_error("invalid matrix shape/fields");
     const size_t n1=size_t(1)<<split,n2=count/n1;
     auto do_rows=[&]{parallel_jobs(n2,workers,[&](size_t j){r.recurse(data+j*n1,n1,split,uint32_t(j*n1),inverse!=0);});};
+    const size_t width=std::min(size_t(64),n1),groups=n1/width;
+    const size_t active=std::min(size_t(workers),groups),tile=width*n2;
+    if(bounded && scratch_count<active*tile)throw std::runtime_error("short bounded column workspace");
     auto do_columns=[&]{
+      if(bounded){
+        // Each worker owns one bounded column batch. Gather/scatter use complete
+        // cache-line-sized rows; column transforms remain contiguous in the tile.
+        parallel_jobs(active,unsigned(active),[&](size_t worker){auto* temp=scratch+worker*tile;
+          for(size_t col=worker*width;col<n1;col+=active*width){
+            for(size_t row=0;row<n2;row++)for(size_t j=0;j<width;j++)temp[j*n2+row]=data[row*n1+col+j];
+            for(size_t j=0;j<width;j++)c.recurse(temp+j*n2,n2,dim-split,0,inverse!=0);
+            for(size_t row=0;row<n2;row++)for(size_t j=0;j<width;j++)data[row*n1+col+j]=temp[j*n2+row];
+          }
+        });return;
+      }
       transpose(data,scratch,n2,n1,workers);
       parallel_jobs(n1,workers,[&](size_t i){c.recurse(scratch+i*n2,n2,dim-split,0,inverse!=0);});
       transpose(scratch,data,n1,n2,workers);
@@ -233,6 +248,10 @@ extern "C" int liftrs_matrix_apply(const liftrs_plan* rows,const liftrs_plan* co
     return 0;
   }catch(const std::exception& e){fail(error,capacity,e.what());return 1;}
    catch(...){fail(error,capacity,"native matrix execution failed");return 1;}
+}
+
+extern "C" int liftrs_matrix_apply(const liftrs_plan* rows,const liftrs_plan* columns,uint32_t* data,uint32_t* scratch,size_t count,unsigned split,unsigned workers,int inverse,uint64_t* stages,char* error,size_t capacity){
+ return matrix_apply(false,count,rows,columns,data,scratch,count,split,workers,inverse,stages,error,capacity);
 }
 
 extern "C" int liftrs_plan_prepare_taylor(liftrs_plan* plan,unsigned high_levels,char* error,size_t capacity){
@@ -253,9 +272,10 @@ extern "C" int liftrs_plan_prepare_taylor(liftrs_plan* plan,unsigned high_levels
 
 // Complete database-dependent cyclic encoding. All large arrays are borrowed
 // for this call. arena aliases prefix x/z with the later full convolution;
-// H must therefore be saved before clearing y. Constants remain immutable.
+// Fast execution saves H before clearing y; compact execution keeps its prefix.
+// Constants remain immutable.
 // Output may reuse scratch exactly: no transform reads scratch after assembly starts.
-extern "C" int liftrs_online_encode(
+static int online_encode(bool compact,size_t scratch_count,
     const liftrs_plan* pr, const liftrs_plan* pc,
     const liftrs_plan* fr, const liftrs_plan* fc,
     unsigned ps, unsigned fs, unsigned workers, uint32_t omega,
@@ -265,9 +285,9 @@ extern "C" int liftrs_online_encode(
     uint64_t* stats, char* error, size_t capacity) {
   try {
     if (!pr || !pc || !fr || !fc || !message || !p || !spectrum ||
-        !arena || !h || !scratch || !word || !stats ||
+        !arena || (!compact&&!h) || !scratch || !word || !stats ||
         !k || k > n/2 || !l || (l & (l-1)) || l < 2*k-1 || l > n ||
-        arena_count < std::max(2*l, n) || !workers || workers > 64 ||
+        arena_count < std::max(2*l, n) || (compact&&(l>n/2||word!=arena)) || !workers || workers > 64 ||
         fr->transform.f.q != n) {
       throw std::runtime_error("invalid online shape/buffers");
     }
@@ -310,7 +330,7 @@ extern "C" int liftrs_online_encode(
         throw std::runtime_error("online input outside base field");
       }
     }
-    std::fill(stats, stats+6, 0);
+    std::fill(stats, stats+(compact?8:6), 0);
     auto measured = [&](unsigned stage, auto fn) {
       auto start = std::chrono::steady_clock::now();
       fn();
@@ -319,7 +339,7 @@ extern "C" int liftrs_online_encode(
     };
     auto fft = [&](bool prefix, uint32_t* data, bool inverse) {
       uint64_t stages[3] = {};
-      if (liftrs_matrix_apply(prefix ? pr : fr, prefix ? pc : fc,
+      if (matrix_apply(compact,scratch_count,prefix ? pr : fr, prefix ? pc : fc,
           data, scratch, prefix ? l : n, prefix ? ps : fs, workers,
           inverse, stages, error, capacity)) {
         throw std::runtime_error(error && capacity ? error : "online matrix failed");
@@ -346,13 +366,23 @@ extern "C" int liftrs_online_encode(
     measured(4, [&] { multiply(x, z, l); });
     fft(true, x, true);
     measured(3, [&] {
-      std::copy(x, x+k, h);
-      std::fill(arena, arena+n, 0);
-      std::copy(h, h+k, arena);
+      if(compact){std::fill(arena+k,arena+n,0);}else{
+        std::copy(x, x+k, h);std::fill(arena, arena+n, 0);std::copy(h, h+k, arena);
+      }
     });
     fft(false, arena, false);
     measured(4, [&] { multiply(arena, spectrum, n); });
     fft(false, arena, true);
+    auto* bytes=reinterpret_cast<unsigned char*>(arena);
+    if(compact)measured(6,[&]{
+      // Read each uint32 before writing its earlier byte representation. Forward
+      // order cannot overwrite a future source; last coefficient is unused.
+      for(size_t i=0;i<n;i++){
+        uint32_t value=i<n-1?arena[i]:0;
+        if(value>=(1u<<f.s))throw std::runtime_error("product escaped base field before compaction");
+        bytes[2*i]=static_cast<unsigned char>(value);bytes[2*i+1]=static_cast<unsigned char>(value>>8);
+      }
+    });
     measured(5, [&] {
       // One small fixed-constant lookup map replaces scalar multiplication by
       // omega. Each chunk starts at omega^(first+1), so no N-sized map is needed.
@@ -363,18 +393,22 @@ extern "C" int liftrs_online_encode(
       parallel_jobs(jobs, workers, [&](size_t job) {
         uint32_t point = power(omega, job*chunk+1), sum = 0;
         for (size_t i = job*chunk; i < std::min(n-1, (job+1)*chunk); i++) {
-          const uint32_t value = arena[i];
+          const uint32_t value = compact ? uint32_t(bytes[2*i])|(uint32_t(bytes[2*i+1])<<8) : arena[i];
           if (value >= (1u << f.s)) bad.store(true, std::memory_order_relaxed);
-          word[point] = value;
+          if(compact){auto* out=bytes+2*n;out[2*size_t(point)]=static_cast<unsigned char>(value);out[2*size_t(point)+1]=static_cast<unsigned char>(value>>8);}else{word[point]=value;}
           sum ^= value;
           point = step.mul(f, point);
         }
         parity[job] = sum;
       });
       if (bad.load()) throw std::runtime_error("product escaped base field");
-      word[0] = 0;
-      for (auto value : parity) word[0] ^= value;
+      uint32_t zero=0;for(auto value:parity)zero^=value;
+      if(compact){bytes[2*n]=static_cast<unsigned char>(zero);bytes[2*n+1]=static_cast<unsigned char>(zero>>8);}else{word[0]=zero;}
     });
+    if(compact){
+      measured(6,[&]{std::memcpy(bytes,bytes+2*n,2*n);});
+      measured(7,[&]{for(size_t i=n;i-->0;)arena[i]=uint32_t(bytes[2*i])|(uint32_t(bytes[2*i+1])<<8);});
+    }
     return 0;
   } catch (const std::exception& e) {
     fail(error, capacity, e.what());
@@ -384,6 +418,9 @@ extern "C" int liftrs_online_encode(
     return 1;
   }
 }
+
+extern "C" int liftrs_online_encode(const liftrs_plan* pr,const liftrs_plan* pc,const liftrs_plan* fr,const liftrs_plan* fc,unsigned ps,unsigned fs,unsigned workers,uint32_t omega,const uint32_t* message,const uint32_t* p,const uint32_t* spectrum,size_t k,size_t n,size_t l,uint32_t* arena,size_t arena_count,uint32_t* h,uint32_t* scratch,uint32_t* word,uint64_t* stats,char* error,size_t capacity){return online_encode(false,n,pr,pc,fr,fc,ps,fs,workers,omega,message,p,spectrum,k,n,l,arena,arena_count,h,scratch,word,stats,error,capacity);}
+extern "C" int liftrs_online_encode_compact(size_t scratch_count,const liftrs_plan* pr,const liftrs_plan* pc,const liftrs_plan* fr,const liftrs_plan* fc,unsigned ps,unsigned fs,unsigned workers,uint32_t omega,const uint32_t* message,const uint32_t* p,const uint32_t* spectrum,size_t k,size_t n,size_t l,uint32_t* arena,size_t arena_count,uint32_t* h,uint32_t* scratch,uint32_t* word,uint64_t* stats,char* error,size_t capacity){return online_encode(true,scratch_count,pr,pc,fr,fc,ps,fs,workers,omega,message,p,spectrum,k,n,l,arena,arena_count,h,scratch,word,stats,error,capacity);}
 
 // Read the same steady_clock used by native stage timers, plus independent
 // clocks for measurement diagnostics. These are observation only, not encoding.

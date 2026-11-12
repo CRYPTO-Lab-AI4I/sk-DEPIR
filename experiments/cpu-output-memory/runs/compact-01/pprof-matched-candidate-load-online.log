@@ -1,0 +1,33 @@
+File: encoding.test
+Build ID: de7a39872645836d58b362105cba9ac5ee4ea921
+Type: cpu
+Time: 2026-11-12 00:47:40 CET
+Duration: 1.92s, Total samples = 1.91s (99.41%)
+Showing nodes accounting for 1.91s, 100% of 1.91s total
+Showing top 25 nodes out of 26
+      flat  flat%   sum%        cum   cum%
+     0.63s 32.98% 32.98%      0.63s 32.98%  internal/runtime/syscall/linux.Syscall6
+     0.61s 31.94% 64.92%      0.61s 31.94%  crypto/internal/fips140/sha256.blockSHANI
+     0.59s 30.89% 95.81%      1.91s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.LoadScalingOnline
+     0.06s  3.14% 98.95%      0.06s  3.14%  runtime.memmove
+     0.01s  0.52% 99.48%      0.01s  0.52%  encoding/binary.littleEndian.Uint32 (inline)
+     0.01s  0.52%   100%      0.01s  0.52%  runtime.getcallerfp
+         0     0%   100%      1.31s 68.59%  bufio.(*Reader).Read
+         0     0%   100%      0.61s 31.94%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%      0.61s 31.94%  crypto/internal/fips140/sha256.block
+         0     0%   100%      1.91s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPUCompactCached
+         0     0%   100%      1.91s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%      1.91s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func12
+         0     0%   100%      1.91s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%      0.64s 33.51%  internal/poll.(*FD).Read
+         0     0%   100%      0.64s 33.51%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%      1.25s 65.45%  io.(*teeReader).Read
+         0     0%   100%      1.31s 68.59%  io.ReadAtLeast
+         0     0%   100%      1.31s 68.59%  io.ReadFull (inline)
+         0     0%   100%      0.64s 33.51%  os.(*File).Read
+         0     0%   100%      0.64s 33.51%  os.(*File).read (inline)
+         0     0%   100%      0.01s  0.52%  runtime.entersyscall
+         0     0%   100%      0.63s 32.98%  syscall.RawSyscall6
+         0     0%   100%      0.64s 33.51%  syscall.Read (inline)
+         0     0%   100%      0.64s 33.51%  syscall.Syscall
+         0     0%   100%      0.64s 33.51%  syscall.read

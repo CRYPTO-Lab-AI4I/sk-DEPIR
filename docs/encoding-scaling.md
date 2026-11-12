@@ -1135,15 +1135,56 @@ before selecting an end-to-end slower mode. No new job or budget is admitted by
 completion of these checkpoints. s17/preprocessing/cryptographic/TRL5 gates remain.
 
 
-GPU-033 prototypes the next output gate: [bounded canonical output](../experiments/gpu-output-memory/report.md).
-Direct-row transforms share one arena. Post-inverse base values are narrowed
-through ascending2 MiB staging, then source/output use disjoint uint16 halves;
-half-sized download is expanded backwards into owning uint32 host output. Proof
-obligations include staging/read ordering, primitive scatter, range checks before
-narrowing and host expansion lifetime. Small/boundary/memcheck cases precede two
-fulls16 calls under40 GiB device cap and prior host/time budgets. Model35.429 GiB
-versus51.427 GiB reuse, not measured yet. Extra compaction/host conversion and
-known direct-row cost require explicit `--memory-mode compact`; default resident
-is retained. s17 base values need more than16 bits, so this is not s17 support;
-code/spectrum streaming still remains separate. No measured speed/memory claim
-until the submitted workflow completes and the user pings.
+### Completed GPU-033 and CPU-034 compact-output gates
+
+[GPU-033](../experiments/gpu-output-memory/report.md) passes job73815: two full
+s16 compact calls match retained CPU/GPU words, all systematic positions, sampled
+curves and packed readback. Oracle/staging-boundary/ownership checks,80 matrix
+regressions, build compatibility, race/vet and memchecks pass with0 errors/leaks.
+Device ownership is35.429 GiB versus51.427 GiB prior reuse (31.11% less), exactly
+one16 GiB array removed plus2 MiB staging. Host peak remains39.028 GiB. Full
+encoding takes101.526/93.332 s versus prior57.418/56.975 s on a separate allocation;
+this historical comparison cannot isolate the penalty. Matched s10 compact is
+9.60%/10.67% slower. Direct rows take about55 s versus prior24 s; compaction only
+0.043 s, host expansion4.6–9.6 s. Setup/load/checks/I/O are separately reported.
+Allocation completes28m59s. Retain resident reuse as the experiment default;
+compact requires `--memory-mode compact`. Public WithCUDA defaults are unchanged.
+
+[CPU-034](../experiments/cpu-output-memory/report.md) passes job73818. Bounded
+columns replace full transpose scratch; the H prefix stays in place and checked
+two-byte assembly uses disjoint arena halves before backwards expansion and
+ownership transfer. Old words remain valid. Go reference/fast native APIs stay
+available. Go/native suites, ownership/alias/error checks, ASAN/UBSAN and TSAN
+pass; matched s14 and one full s16 word match retained hashes with complete
+systematic/sampled-curve/packed-readback checks. Peak RAM is39.409 GiB versus
+58.351 GiB fast (32.46% less), under48 GiB guard; modeled principal arrays39.345
+GiB plus overhead. Full encode1289.759 s (21m29.8s), compaction/move23.586 s and
+expansion6.064 s. Prior fast calls1247.173–1281.328 s are historical comparisons.
+Matched s14 compact costs3.86–6.13% more encoding time. Independent full validation
+806.8 s and setup25.5 s are separate costs; allocation completes49m22s. Normal
+fast methods remain default when memory fits; compact is an explicit API/CLI mode.
+
+Both jobs ran on gnode17 within admitted host/device/time budgets, with no guard
+tripped. Exact source/evidence reconciliation passes (GPU338 / CPU344 source
+identities); profiles, reusable preprocessing and packed outputs remain retained.
+The completed controller hashes, metadata and file lengths verify full8 GiB
+outputs without another bulk rehash during recorded-cache review. Accounting and
+analysis are linked in the reports. No new validation job or default switch follows.
+
+### Next decision: resident constants and s17 representation
+
+Transform/output memory gates now have measured s16 implementations on both
+backends. Continue the ordered plan with an allocation/representation audit and
+streamed reusable spectrum/P design. GPU streaming saves device memory through
+extra uploads and host backing; CPU streaming trades resident RAM for disk/page-
+cache reads. Count staging, pinned memory, retained host plans, code load/setup,
+repeated transfers and packing/I/O before proposing a concrete mode or job budget.
+Preserve faster resident paths and require explicit opt-in when memory fits.
+
+The compact uint16 schedule requires s<=16 and2L<=N. s17 has17-bit base values and
+34-bit extension values, so it needs wider arithmetic/storage and a reviewed
+assembly layout; current byte counts do not establish feasibility. Code/spectrum
+residency, preprocessing support and complete peak accounting remain open. Present
+those memory–time alternatives before selecting a material trade-off. GPU row
+locality is a measured runtime opportunity, but does not replace the memory-first
+s17 gate. Application/cryptographic/TRL5 acceptance remains separate.

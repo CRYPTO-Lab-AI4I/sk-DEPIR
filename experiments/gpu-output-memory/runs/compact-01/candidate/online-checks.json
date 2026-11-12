@@ -1,0 +1,122 @@
+[
+  {
+    "s": 2,
+    "unsupported_prefix": true
+  },
+  {
+    "s": 3,
+    "unsupported_prefix": true
+  },
+  {
+    "s": 4,
+    "unsupported_prefix": true
+  },
+  {
+    "closed": true,
+    "invalid_messages": true,
+    "k": 589,
+    "matches": 4,
+    "n": 4096,
+    "owned_bytes": 67920,
+    "s": 6,
+    "setup_seconds": 0.896214881,
+    "stages": [
+      {
+        "host_to_device_ns": 14806,
+        "taylor_ns": 856928,
+        "columns_ns": 1059712,
+        "rows_ns": 1130751,
+        "layout_ns": 0,
+        "device_to_host_ns": 50060,
+        "pointwise_ns": 34047,
+        "native_total_ns": 5267862,
+        "buffer_ns": 84192,
+        "assembly_ns": 1243935,
+        "elapsed_ns": 5274538,
+        "owned_device_bytes": 67920
+      },
+      {
+        "host_to_device_ns": 7774,
+        "taylor_ns": 584127,
+        "columns_ns": 716159,
+        "rows_ns": 745247,
+        "layout_ns": 0,
+        "device_to_host_ns": 27797,
+        "pointwise_ns": 17888,
+        "native_total_ns": 4192641,
+        "buffer_ns": 51360,
+        "assembly_ns": 1220991,
+        "elapsed_ns": 4197642,
+        "owned_device_bytes": 67920
+      },
+      {
+        "host_to_device_ns": 6011,
+        "taylor_ns": 584896,
+        "columns_ns": 1029343,
+        "rows_ns": 1131135,
+        "layout_ns": 0,
+        "device_to_host_ns": 25721,
+        "pointwise_ns": 19583,
+        "native_total_ns": 4880120,
+        "buffer_ns": 50400,
+        "assembly_ns": 1220800,
+        "elapsed_ns": 4884369,
+        "owned_device_bytes": 67920
+      }
+    ]
+  },
+  {
+    "closed": true,
+    "invalid_messages": true,
+    "k": 7381,
+    "matches": 4,
+    "n": 65536,
+    "owned_bytes": 711852,
+    "s": 8,
+    "setup_seconds": 0.535769724,
+    "stages": [
+      {
+        "host_to_device_ns": 18110,
+        "taylor_ns": 1213536,
+        "columns_ns": 4959872,
+        "rows_ns": 8484544,
+        "layout_ns": 0,
+        "device_to_host_ns": 80769,
+        "pointwise_ns": 38528,
+        "native_total_ns": 17277910,
+        "buffer_ns": 100511,
+        "assembly_ns": 1362272,
+        "elapsed_ns": 17327687,
+        "owned_device_bytes": 711852
+      },
+      {
+        "host_to_device_ns": 82350,
+        "taylor_ns": 769599,
+        "columns_ns": 2771072,
+        "rows_ns": 5564000,
+        "layout_ns": 0,
+        "device_to_host_ns": 63037,
+        "pointwise_ns": 22400,
+        "native_total_ns": 11692689,
+        "buffer_ns": 84735,
+        "assembly_ns": 1331807,
+        "elapsed_ns": 11744875,
+        "owned_device_bytes": 711852
+      },
+      {
+        "host_to_device_ns": 18007,
+        "taylor_ns": 808704,
+        "columns_ns": 4938304,
+        "rows_ns": 8495391,
+        "layout_ns": 0,
+        "device_to_host_ns": 57388,
+        "pointwise_ns": 20704,
+        "native_total_ns": 16709580,
+        "buffer_ns": 55904,
+        "assembly_ns": 1334815,
+        "elapsed_ns": 16758668,
+        "owned_device_bytes": 711852
+      }
+    ]
+  }
+]

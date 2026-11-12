@@ -111,4 +111,7 @@ after successful EncodeOnline and with other encodes excluded. Older libraries
 missing optional symbols fail clearly. Public WithCUDA/default constructors are
 unchanged. The [explicit CLI experiment](../../experiments/gpu-output-memory/report.md)
 defaults resident; `--memory-mode compact` is required when trying this mode.
-Validation is pending; no s17 support or time benefit is claimed.
+Validation passes two full s16 calls at35.429 GiB owned device memory and
+101.5/93.3 s encoding, versus prior resident-reuse51.427 GiB and57.4/57.0 s
+(historical timing comparison). Matched s10 compact is9.6–10.7% slower. Host RAM
+remains39.03 GiB. It stays explicit and optional; s17 is unsupported.

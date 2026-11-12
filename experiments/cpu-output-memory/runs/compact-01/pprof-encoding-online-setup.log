@@ -1,0 +1,20 @@
+File: encoding.test
+Build ID: de7a39872645836d58b362105cba9ac5ee4ea921
+Type: cpu
+Time: 2026-11-12 00:51:40 CET
+Duration: 25.55s, Total samples = 25.54s (  100%)
+Showing nodes accounting for 25.50s, 99.84% of 25.54s total
+Dropped 16 nodes (cum <= 0.13s)
+      flat  flat%   sum%        cum   cum%
+    25.50s 99.84% 99.84%     25.50s 99.84%  runtime.memclrNoHeapPointers
+         0     0% 99.84%     25.53s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPEncoder).NewCompactWorkspace
+         0     0% 99.84%     25.54s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPUCompactCached
+         0     0% 99.84%     25.54s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPUCompactCached.func1
+         0     0% 99.84%     25.54s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0% 99.84%     25.54s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func13
+         0     0% 99.84%     25.54s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0% 99.84%     25.53s   100%  runtime.makeslice
+         0     0% 99.84%     25.53s   100%  runtime.mallocgc
+         0     0% 99.84%     25.53s   100%  runtime.mallocgcLarge
+         0     0% 99.84%     25.50s 99.84%  runtime.memclrNoHeapPointersChunked
+         0     0% 99.84%     25.54s   100%  testing.tRunner

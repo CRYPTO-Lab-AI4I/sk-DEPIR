@@ -1,0 +1,3 @@
+=== RUN   TestCUDACompactBoundaries
+--- PASS: TestCUDACompactBoundaries (3.76s)
+PASS

@@ -1,0 +1,22 @@
+File: encoding.test
+Build ID: de7a39872645836d58b362105cba9ac5ee4ea921
+Type: cpu
+Time: 2026-11-12 00:47:43 CET
+Duration: 68.41s, Total samples = 835.90s (1221.83%)
+Showing nodes accounting for 835.83s, 100% of 835.90s total
+Dropped 1 node (cum <= 4.18s)
+      flat  flat%   sum%        cum   cum%
+   769.49s 92.06% 92.06%    769.49s 92.06%  [encoding.test]
+    61.14s  7.31% 99.37%     61.14s  7.31%  runtime.cgocall
+     5.20s  0.62%   100%      5.20s  0.62%  runtime._LostExternalCode
+         0     0%   100%     61.14s  7.31%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.EncodeOnlineCompact
+         0     0%   100%     61.14s  7.31%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_online_encode_compact
+         0     0%   100%     61.14s  7.31%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.encodeOnline
+         0     0%   100%     61.14s  7.31%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPEncoder).EncodeCompactWithStats
+         0     0%   100%     61.14s  7.31%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPUCompactCached
+         0     0%   100%     61.14s  7.31%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPUCompactCached.func1.1
+         0     0%   100%     61.14s  7.31%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%     61.14s  7.31%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func14
+         0     0%   100%     61.14s  7.31%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%    774.76s 92.69%  runtime._ExternalCode
+         0     0%   100%     61.14s  7.31%  testing.tRunner
