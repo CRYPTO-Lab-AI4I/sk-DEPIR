@@ -1,0 +1,20 @@
+{
+  "job_id": "74295",
+  "revision": "6083f56",
+  "submitted_utc": "2026-11-13T16:04:37.966789+00:00",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--output=experiments/s17-native/slurm-%j.log",
+    "experiments/s17-native/run.sbatch",
+    "kernel-01"
+  ],
+  "results": "experiments/s17-native/runs/kernel-01/",
+  "policy": {
+    "cpus": 4,
+    "host_request_bytes": 8589934592,
+    "rss_guard_bytes": 6442450944,
+    "gpu": false,
+    "slurm_seconds": 1200
+  }
+}

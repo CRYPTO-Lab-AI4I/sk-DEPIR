@@ -3,7 +3,8 @@
 This implements the kernel part of step2 in the
 [s17 execution plan](../../docs/encoding-scaling.md#current-execution-plan-for-s17),
 after [scalar reference validation74290](../s17-arithmetic/report.md). Runtime
-validation is pending. No full s17 encoder, wide C ABI, matrix schedule or code
+validation is submitted as **job74295**, source checkpoint6083f56;
+[submission record](submission.json). No post-submit monitoring. No full s17 encoder, wide C ABI, matrix schedule or code
 cache is admitted by this work.
 
 [Controller](run.py), [Slurm script](run.sbatch),
