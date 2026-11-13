@@ -126,5 +126,7 @@ sbatch --output=experiments/s17-matrix/slurm-%j.log \
   experiments/s17-matrix/run.sbatch matrix-02
 ```
 
+Corrected retry submitted as **job74330**, source checkpointdc57f45;
+[retry submission](retry-submission.json). No post-submit monitoring.
 Runtime validation remains pending for the corrected retry; no full s17 encoding
 or numeric scaling-table result is admitted by these partial checks.

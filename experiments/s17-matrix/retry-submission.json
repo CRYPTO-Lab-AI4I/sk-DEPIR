@@ -1,0 +1,21 @@
+{
+  "job_id": "74330",
+  "revision": "dc57f45",
+  "replaces": "74312",
+  "submitted_utc": "2026-11-13T17:20:22.321015+00:00",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--output=experiments/s17-matrix/slurm-%j.log",
+    "experiments/s17-matrix/run.sbatch",
+    "matrix-02"
+  ],
+  "results": "experiments/s17-matrix/runs/matrix-02/",
+  "policy": {
+    "cpus": 4,
+    "host_request_bytes": 8589934592,
+    "rss_guard_bytes": 6442450944,
+    "gpu": false,
+    "slurm_seconds": 1200
+  }
+}
