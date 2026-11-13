@@ -1,0 +1,19 @@
+{
+  "job_id": "74412",
+  "run": "encoding-01",
+  "revision": "0db6ec6225c4c9cabed18addb86a637117b64d83",
+  "submitted_utc": "2026-11-13T23:08:09.288312+00:00",
+  "command": "module load slurm/slurm/25.05; sbatch --parsable --output=experiments/s17-encoding/slurm-%j.log experiments/s17-encoding/run.sbatch encoding-01",
+  "results": "experiments/s17-encoding/runs/encoding-01/results.json",
+  "cache": ".cache/liftrs/s17-encoding/encoding-01/",
+  "cpus": 4,
+  "request_gib": 8,
+  "rss_guard_gib": 6,
+  "retained_cache_guard_gib": 2,
+  "scratch_guard_gib": 4,
+  "worker_seconds": 600,
+  "controller_seconds": 900,
+  "slurm_seconds": 1200,
+  "gpus": 0,
+  "monitoring": "none; await user completion ping"
+}

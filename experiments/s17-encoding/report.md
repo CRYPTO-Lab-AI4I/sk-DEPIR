@@ -8,7 +8,8 @@ continuing steps2–3 of the [s17 plan](../../docs/encoding-scaling.md#current-e
 [shared tests](../../encoding/liftrs-shared/scaling_wide_cpp_test.go),
 [raw API tests](../../encoding/liftrs-cpp/wide_online_test.go),
 [runnable example](../../encoding/liftrs-shared/scaling_wide_cpp_example_test.go).
-Validation is **pending**; no runtime, speedup or full s17 result is claimed.
+Validation is **pending job74412**, source checkpoint `0db6ec6`;
+[submission](submission.json). No runtime, speedup or full s17 result is claimed.
 The source revision, exact commands and source/cache/evidence SHA-256 values
 are recorded by the controller in `runs/encoding-01/results.json` after submission.
 
