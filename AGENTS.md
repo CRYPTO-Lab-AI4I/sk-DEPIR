@@ -29,6 +29,15 @@ and end-to-end measurements, with reusable setup, memory and I/O accounted for.
 Keep the library usable on standard setups and implementations reviewable;
 report deployment costs rather than assuming the current architecture is best.
 
+**Maintain the encoding scaling reference.** Target reasonable encoding performance
+through s=18 inclusive, retaining CPU and optional GPU paths. Keep s=19–20 as
+exploratory rows in [the results and capacity tables](docs/encoding-status.md).
+Update that reference with every relevant scaling measurement, layout or capacity
+change; distinguish measured results, projections and unknowns. Consider multiple
+GPUs/nodes when one is insufficient, with communication, host memory and headroom
+accounted for. Capacity estimates are not implementation support or authorization
+to increase experiment budgets. This performance goal is separate from TRL 5.
+
 **Make memory–time trade-offs explicit.** The current next step is memory
 optimization toward s17, as recorded in [the scaling plan](docs/encoding-scaling.md#current-step-memory-optimization-for-s17).
 Before adopting a material trade-off, present host/device memory savings, extra

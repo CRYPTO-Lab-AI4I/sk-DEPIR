@@ -1,14 +1,19 @@
 # Encoding scaling study
 
-Use the shared encoder with C++ transforms as both **baseline and starting code**.
-Retain Go preprocessing and independent Go/dense correctness references. The
-[current checkpoint](encoding-algorithms.md#current-checkpoint-and-next-step)
-now includes experimental s16 preparation and one cached CPU encoding; public
-default discovery remains s≤13 and larger sizes remain unmeasured. Keep the current
-information set and canonical field/grid representation, not just membership in
-the same code. The local 48 GiB machine now provides the verified s≤15 baseline;
-continue larger-scale work on a larger-memory CPU node using the
-[development handoff](development-handoff.md).
+The [encoding scaling reference](encoding-status.md) is the maintained source for
+preprocessing and CPU/GPU results, memory/runtime estimates and multi-GPU capacity.
+The performance goal is **reasonable performance through s=18 inclusive** on this
+HPC system; retain **s=19–20 as exploratory targets**. Update its tables with every
+relevant result or design change. Current standalone mathematical encoding is
+validated through s16; s≥17 requires implementation and validation. Numerical
+latency targets and larger experiment budgets still require agreement.
+
+Retain CPU and optional GPU paths, Go preprocessing and independent correctness
+references. Preserve the information set and canonical field/grid representation.
+The sections below retain the study's chronological plans and evidence, including
+the laptop s≤15 checkpoint and [larger-host handoff](development-handoff.md).
+Use the reference for current status and the
+[current memory-route status](#current-memory-route-status) for implementation work.
 
 Throughout, q=2^s, m=2, N=q² and K is the code's message dimension. Resource
 figures describe **one field-element database encoded under one code**. Encoding
@@ -31,8 +36,9 @@ before larger runs. Reuse comparable baseline results, durable preprocessing and
 profiles. Keep setup, cache loading, database encoding, output and validation
 separate. Measure temporary storage and bytes transferred as well as peak memory.
 
-The study is complete when measured prototypes justify a design and its target
-sizes/hardware requirements; implementing every size through s=20 is not required.
+The initial local study justified its prototype designs. The current scaling
+objective extends performance work through s18; s19–20 remain exploratory rather
+than required implementation milestones. See the maintained reference above.
 
 ## Current step: larger-memory preparation efficiency
 
@@ -893,7 +899,10 @@ Application/cryptographic execution and TRL5 remain separate.
 
 User priority: reduce memory requirements before further standalone runtime tuning.
 Retain the verified s16 CPU/GPU encoders as baselines and maintained main paths.
-Do not assume that a larger GPU, more host RAM or multiple devices are available.
+Use the [capacity reference](encoding-status.md#machine-capacity-and-feasibility)
+when evaluating larger host memory and multiple GPUs/nodes. Their observed
+availability does not authorize larger jobs; distributed execution needs its own
+implementation, communication measurements and budget review.
 Code parameters and output representation remain independent of backend choice.
 
 The [catalogue](../pirconfig/configs_catalogue.json) estimates K3,870,933,765 for
@@ -1507,6 +1516,11 @@ remain separate from completing the current disk online route.
 
 
 ### Current memory-route status
+
+The performance objective now extends through s18, with s19–20 exploratory.
+Use the [maintained results and capacity tables](encoding-status.md) for measured
+results and multi-GPU projections; the immediate work below remains the gate to
+s17 before progressing to s18.
 
 CPU-044 job74141 passes401 source identities and sealed cache/evidence checks,
 small Go oracles/ASan and two full s10 encodings per mode with systematic,
