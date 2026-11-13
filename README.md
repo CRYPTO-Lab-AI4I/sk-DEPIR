@@ -18,6 +18,9 @@ are projections pending implementation and validation. Update the reference as
 scaling progresses; the [scaling plan](docs/encoding-scaling.md) tracks the work.
 The [s17 aims](docs/encoding-status.md#aim-for-s17) distinguish the proposed
 large-RAM CPU baseline, multi-GPU target and preprocessing/implementation gates.
+The [active s17 execution plan](docs/encoding-scaling.md#current-execution-plan-for-s17)
+starts with a [bounded wide-arithmetic reference](experiments/s17-arithmetic/report.md);
+full encoding remains limited to s≤16.
 
 A [bounded HPC table-gap batch](experiments/encoding-table/report.md) measures
 22 missing encoding-mode cells at s10/14/15/16 using retained preprocessing.

@@ -14,6 +14,11 @@ stays Go. See the [overview and run commands](../README.md) and the examples bel
 The import is `github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared`;
 `encoding/liftrs-go` no longer contains the complete encoder API.
 
+The private [wide packed scalar reference](orbit_arithmetic64.go) starts the
+s17 port while retaining the existing tower and32-bit base values. Its
+[bounded validation](../../experiments/s17-arithmetic/report.md) does not extend
+encoder, cache or native/CUDA support beyond s16.
+
 Experimental scaling preparation uses a private base-field lookup table for
 public code coefficients (less than 768 KiB through s16), released before online
 use. General field APIs remain table-free and artifact coordinates are unchanged.

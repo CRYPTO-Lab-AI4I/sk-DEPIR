@@ -37,6 +37,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Wide s17 scalar arithmetic](s17-arithmetic/report.md): bounded CPU-only
+  uint64 packing/primitive-generator checks through s20 with independent scalar
+  oracles and s≤16 coordinate compatibility; full encoder limits unchanged.
+
 - [HPC encoding table gaps](encoding-table/report.md): bounded CPU/GPU runs for
   22 implemented but unmeasured cells through s16; retained preprocessing, explicit
   memory modes, separate HPC/laptop labels and whole-output correctness checks.

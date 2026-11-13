@@ -68,6 +68,10 @@ by dividing a single-GPU timing by the card count.
 
 ## Aim for s17
 
+The [approved execution sequence](encoding-scaling.md#current-execution-plan-for-s17)
+now starts with the [wide scalar reference](../experiments/s17-arithmetic/report.md);
+its validation is pending and does not change any measured table cell.
+
 Both CPU and GPU encoding are **potentially feasible on this system after the
 s17 port**, with preprocessing admitted separately. First target one large-RAM
 CPU node for a correctness and performance baseline, then a resident multi-GPU

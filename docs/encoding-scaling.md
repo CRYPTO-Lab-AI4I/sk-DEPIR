@@ -19,6 +19,39 @@ Throughout, q=2^s, m=2, N=q² and K is the code's message dimension. Resource
 figures describe **one field-element database encoded under one code**. Encoding
 an application layout can invoke several such encodings and reuse code-only setup.
 
+## Current execution plan for s17
+
+The user approved the [CPU-first/multi-GPU proposal](encoding-status.md#aim-for-s17).
+Proceed with independent implementation work while the existing table-gap jobs
+run; their results remain untouched until the user's completion ping. Preserve
+s≤16 CPU/GPU paths and code-cache compatibility throughout.
+
+| Step | Work and acceptance gate | Status |
+|---|---|---|
+| 1. Width audit and scalar reference | Inventory coordinates, counts, field values and narrowing boundaries. Establish uint64 packed extension arithmetic through s20 against an independent oracle and s≤16 coordinate ordering, without a full-domain allocation | Started: internal adapter and bounded CPU-only validation |
+| 2. Native CPU arithmetic and transforms | Port extension kernels/plans to uint64 while retaining uint32 base inputs/outputs. Compare small dense/Go/native cases, >32-bit boundary witnesses, sanitizer checks and s16 regressions; measure kernel overhead before whole-run forecasts | Pending scalar validation |
+| 3. Representation and reusable code data | Extend coordinates/counts/cache formats and loaders explicitly. Keep old32-bit artifacts readable; reject truncation, unsupported widths and incompatible specifications. Verify hashes and round trips; preserve existing caches | Pending audit/native design |
+| 4. s17 preprocessing admission | Discover exact K, verify polynomial identities, budget peak host/device memory, storage and setup time. Compare CPU and multi-GPU/streamed preparation; obtain reviewed numeric budgets before full setup | Pending wider implementation; capacity is not admission |
+| 5. First full CPU baseline | Prefer resident reuse (~427GiB principal arrays) on one large-RAM node when the admitted budget fits. Validate systematic values, independent curves, hashes and34GiB packed output; separately measure code loading, encoding, packing, verification and peaks | Pending verified s17 code data and host budget |
+| 6. Multi-GPU prototype and selection | Partition same-node arithmetic across GPUs; measure transfers, topology and synchronization. Compare fast-layout streamed constants (~256GiB aggregate/two-card capacity floor) with resident reuse (~398GiB/three-card floor), including all host/device lifetimes and headroom | Pending scalar/native interface; small prototypes may proceed before full preprocessing |
+| 7. Full GPU comparison | Validate exact canonical/packed agreement with the CPU baseline and independently check correctness. Compare complete measured latency and deployment cost; keep CPU available without CUDA | Pending measured multi-GPU design and admitted budgets |
+| 8. Progress toward s18 | Recompute preprocessing/encoding/communication capacities using measurements, then select same-node versus multi-node or memory-saving designs. Retain s19–20 exploratory rows | Pending s17 evidence |
+
+Steps1–3 are implementation prerequisites, not authorization for larger allocations.
+Any validation expected to exceed30seconds is submitted and handed off. Mode
+combinations remain candidates where a real memory constraint justifies them;
+they do not block a faster CPU baseline if it fits. Host-backed GPU and disk-backed
+CPU remain optional fallback routes with explicit transfer/I/O/runtime penalties.
+Unknown preprocessing peak and multi-GPU communication are separate gates. Update
+[the maintained reference](encoding-status.md) after every relevant measured result.
+
+Initial audit: the common component-field implementation already supports s2–20;
+`orbitField`, `OrbitBasis` coordinates, transform/preprocessing arrays, native
+C/Go bindings and CUDA descriptions still use32-bit packed extension values.
+Count headers alone were widened earlier and do not solve34-bit arithmetic.
+The [scalar-port experiment](../experiments/s17-arithmetic/report.md) starts step1
+with a private64-bit packed adapter; it does not raise public encoder limits.
+
 ## Five-step plan
 
 | Step | Work | Required output | Status |
@@ -1550,14 +1583,11 @@ implemented. Compact transforms/streamed constants/output do not all combine in
 one path yet. Existing stream/sink modes must not be mistaken for full backing
 or a total-RAM bound; cache/driver/runtime/retained outputs are additional.
 
-**Next: ordered item5, combinations and admission.** Count full lifetimes for
-candidate combinations (compact transforms plus streamed code and packed output,
-versus backed transforms), with measured s16 baselines and explicit host/device/
-storage/latency costs. Review which memory constraint rules out the faster path
-before choosing a slower combination or increasing budgets. CPU disk s16 alone
-requires32GiB new work files, above the16GiB new-cache budget; no such run is
-submitted. New small-only modes need larger validation before size claims.
-Then extend/test34-bit arithmetic/coordinates/serialization and audit s17
-preprocessing separately. Current execution still supports s<=16: no s17
-feasibility/runtime claim, no protocol/TRL5 scope change. No new job is launched
-by reconciling74141; completion pings are not budget increases.
+**Next: execute the [s17 CPU-first/multi-GPU plan](#current-execution-plan-for-s17).**
+Start width/scalar/native work independently of the running table-gap jobs.
+Combinations and full lifetimes remain part of mode selection, with host/device/
+storage/runtime costs explicit. Fulls16 CPU disk is now admitted under the user's
+64GiB retained-storage guard and submitted with extended deadlines; see the
+[retry report](../experiments/encoding-table/report.md#extended-cpu-retries).
+Current full execution still supports s≤16. Wider scalar reference work alone
+is not s17 encoding support, preprocessing admission or TRL5 acceptance.
