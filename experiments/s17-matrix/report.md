@@ -3,11 +3,11 @@
 Next stage of the [s17 implementation plan](../../docs/encoding-scaling.md#current-execution-plan-for-s17),
 after [bounded native recursion validation](../s17-native/report.md). New wide
 Go/C handles construct immutable ordered plans and canonical-grid matrix/Taylor
-metadata. First validation **job74312 failed in the regression harness**, source
-checkpoint71db6a7; [submission record](submission.json),
-[results](runs/matrix-01/results.json), [reconciled analysis](runs/matrix-01/analysis.json).
-Wide API/matrix/race checks passed, but the full interface gate remains open. Full s17 encoding, persistent wide code
-formats and preprocessing remain unimplemented.
+metadata. **Corrected retry job74330 passed**, source checkpointdc57f45;
+[retry submission](retry-submission.json), [results](runs/matrix-02/results.json),
+[reconciled analysis](runs/matrix-02/analysis.json). The original harness failure
+and its unchanged evidence remain documented below. Full s17 encoding,
+persistent wide code formats and preprocessing remain unimplemented.
 
 [Controller](run.py), [Slurm script](run.sbatch),
 [Go ownership/API](../../encoding/liftrs-cpp/wide.go),
@@ -18,8 +18,10 @@ formats and preprocessing remain unimplemented.
 [usage example](../../encoding/liftrs-cpp/wide_example_test.go),
 [direct C ABI sanitizer check](check.cpp).
 Results, exact revision/source hashes, commands/environment and profiles will be
-retained at `runs/matrix-01/`; fixture and all explicitly built/profiled binaries
-are retained at `.cache/liftrs/s17-matrix/matrix-01/` outside Git.
+retained at `runs/matrix-01/` and `runs/matrix-02/`; their fixtures and explicitly
+built/profiled binaries are retained under the corresponding
+`.cache/liftrs/s17-matrix/<run>/` directories outside Git. Use a fresh name when
+reproducing, for example matrix-03, to preserve both recorded attempts.
 
 ```sh
 python3 -B experiments/s17-matrix/run.py --check
@@ -88,8 +90,9 @@ Worker10minutes, controller15minutes, Slurm20minutes; no budget increase.
 Static C++/Python/shell syntax and source-format checks precede submission.
 No existing jobs are polled and no post-submit monitoring occurs.
 
-Passing would establish bounded interface ownership and parallel matrix execution,
-not a full-domain workload, integrated wide encoder or preprocessing feasibility.
+These checks establish bounded interface ownership and parallel matrix execution.
+Full-domain workloads, integrated wide encoding and preprocessing feasibility
+remain unvalidated.
 Next calibrate wider kernel overhead and integrate wide code data/encoding
 lifetimes before larger-run admission. Capacity remains projected at s≥17.
 
@@ -128,5 +131,36 @@ sbatch --output=experiments/s17-matrix/slurm-%j.log \
 
 Corrected retry submitted as **job74330**, source checkpointdc57f45;
 [retry submission](retry-submission.json). No post-submit monitoring.
-Runtime validation remains pending for the corrected retry; no full s17 encoding
-or numeric scaling-table result is admitted by these partial checks.
+The corrected retry passed the complete bounded validation; the failed first
+attempt is preserved. Neither run admits full s17 encoding or a full-encoding
+numeric scaling-table result.
+
+## Corrected validation result
+
+Job74330 passes all recorded commands without resource-guard failures:
+
+- Wide ordered/affine Go/C plans, independent dense matrix evaluations,1/4-worker
+  inverse checks, range/overlap/error recovery, lifecycle and example tests.
+- Parallel Taylor checks at32768/65536 values and34-level metadata counts without
+  a full-domain allocation; Go lifetime race checks.
+- All112 optimized and112 ASan/UBSan direct C matrix cases, and the existing32-bit
+  matrix sanitizer tests and shared CPU regression suite.
+- Repeated120 optimized/120 sanitizer recursive cases from the preceding stage.
+
+The analyzer reconciled421 source files againstdc57f45,31 evidence files and all10
+cached fixtures/binaries. [Binding checks](runs/matrix-02/binding-checks.log),
+[race check](runs/matrix-02/lifetime-race.log),
+[shared regressions](runs/matrix-02/shared-regressions.log),
+[direct C cases](runs/matrix-02/matrix.log),
+[sanitized C cases](runs/matrix-02/matrix-sanitizer.log),
+[legacy matrix checks](runs/matrix-02/legacy-matrix.log).
+
+```sh
+python3 -B experiments/s17-matrix/analyze.py matrix-02
+```
+
+This validates bounded interface/parallel-transform correctness, not performance
+at full s17 size. Larger kernel calibration, persistent wide code loading,
+preprocessing and full encoding integration remain separate gates. Profiles,
+matched executables and first-failure evidence are retained; no other jobs were
+inspected during this reconciliation.

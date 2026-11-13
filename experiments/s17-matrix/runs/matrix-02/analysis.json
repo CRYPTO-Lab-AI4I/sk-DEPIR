@@ -1,0 +1,190 @@
+{
+  "status": "passed",
+  "job_id": "74330",
+  "revision": "dc57f45ea8ce1a707e280f0c5031d7051dd16c59",
+  "source_files_verified": 421,
+  "evidence_files_verified": 31,
+  "cache_files_verified": 10,
+  "tests": [
+    "wide Go/C plan and matrix oracles",
+    "parallel Taylor",
+    "Go lifetime race",
+    "shared CPU regressions",
+    "direct C matrix oracle/ASan/UBSan",
+    "legacy matrix sanitizer"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 2.2463662326335907,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 2.2476620003581047,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 2.2478977274149656,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 2.250966675579548,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "seconds": 13.90854569338262,
+      "peak_rss_bytes": 325079040,
+      "exit_code": 0
+    },
+    {
+      "label": "arithmetic",
+      "seconds": 2.270620821043849,
+      "peak_rss_bytes": 8814592,
+      "exit_code": 0
+    },
+    {
+      "label": "profile",
+      "seconds": 12.368443364277482,
+      "peak_rss_bytes": 248512512,
+      "exit_code": 0
+    },
+    {
+      "label": "fixture",
+      "seconds": 4.569303471595049,
+      "peak_rss_bytes": 6230016,
+      "exit_code": 0
+    },
+    {
+      "label": "fixture-profile",
+      "seconds": 2.3460298143327236,
+      "peak_rss_bytes": 28221440,
+      "exit_code": 0
+    },
+    {
+      "label": "native-build",
+      "seconds": 4.579370994120836,
+      "peak_rss_bytes": 51662848,
+      "exit_code": 0
+    },
+    {
+      "label": "native",
+      "seconds": 2.285618679597974,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "sanitizer-build",
+      "seconds": 6.8746208399534225,
+      "peak_rss_bytes": 187572224,
+      "exit_code": 0
+    },
+    {
+      "label": "sanitizer",
+      "seconds": 2.330216098576784,
+      "peak_rss_bytes": 21114880,
+      "exit_code": 0
+    },
+    {
+      "label": "legacy-scalar-build",
+      "seconds": 2.293831877410412,
+      "peak_rss_bytes": 59379712,
+      "exit_code": 0
+    },
+    {
+      "label": "legacy-scalar",
+      "seconds": 2.2963905818760395,
+      "peak_rss_bytes": 3178496,
+      "exit_code": 0
+    },
+    {
+      "label": "binding-build",
+      "seconds": 9.186262669041753,
+      "peak_rss_bytes": 447631360,
+      "exit_code": 0
+    },
+    {
+      "label": "binding-checks",
+      "seconds": 2.309337316080928,
+      "peak_rss_bytes": 14176256,
+      "exit_code": 0
+    },
+    {
+      "label": "binding-profile",
+      "seconds": 6.928682122379541,
+      "peak_rss_bytes": 127971328,
+      "exit_code": 0
+    },
+    {
+      "label": "lifetime-race",
+      "seconds": 23.133814733475447,
+      "peak_rss_bytes": 478011392,
+      "exit_code": 0
+    },
+    {
+      "label": "shared-build",
+      "seconds": 11.781666658818722,
+      "peak_rss_bytes": 426409984,
+      "exit_code": 0
+    },
+    {
+      "label": "shared-regressions",
+      "seconds": 32.828843500465155,
+      "peak_rss_bytes": 1026482176,
+      "exit_code": 0
+    },
+    {
+      "label": "matrix-build",
+      "seconds": 4.626178884878755,
+      "peak_rss_bytes": 150921216,
+      "exit_code": 0
+    },
+    {
+      "label": "matrix",
+      "seconds": 2.3634045384824276,
+      "peak_rss_bytes": 4141056,
+      "exit_code": 0
+    },
+    {
+      "label": "matrix-sanitizer-build",
+      "seconds": 6.903973244130611,
+      "peak_rss_bytes": 176656384,
+      "exit_code": 0
+    },
+    {
+      "label": "matrix-sanitizer",
+      "seconds": 2.3186173755675554,
+      "peak_rss_bytes": 24272896,
+      "exit_code": 0
+    },
+    {
+      "label": "legacy-matrix-build",
+      "seconds": 9.257137151435018,
+      "peak_rss_bytes": 324681728,
+      "exit_code": 0
+    },
+    {
+      "label": "legacy-matrix",
+      "seconds": 2.3075807113200426,
+      "peak_rss_bytes": 24530944,
+      "exit_code": 0
+    }
+  ],
+  "scope": "bounded validation only; failed or unrun stages keep the interface gate open",
+  "checks": {
+    "binding-checks": "passed",
+    "lifetime-race": "passed",
+    "shared-regressions": "passed",
+    "matrix": "passed",
+    "matrix-sanitizer": "passed",
+    "legacy-matrix": "passed"
+  },
+  "error": null
+}

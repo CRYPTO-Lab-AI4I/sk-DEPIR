@@ -7,7 +7,7 @@ improve. This is the maintained capacity and results reference for the
 [scaling plan](encoding-scaling.md), separate from TRL 5 acceptance.
 
 Updated 2026-11-13; implementation checkpoint `026bbf1`. Standalone mathematical
-encoding is validated through s=16. **s≥17 is not implemented**; wider arithmetic,
+encoding is validated through s=16. **Full encoding at s≥17 is not implemented**; wider arithmetic,
 preprocessing, layouts and any multi-GPU execution must be implemented and
 validated before those projections become demonstrated capabilities. “Reasonable”
 has no agreed numerical latency threshold yet; select it using measured setup,
@@ -74,10 +74,11 @@ job74290 passed independent scalar and legacy-ordering checks, with all recorded
 source/binary/evidence hashes reconciled. The [native64-bit kernel prototype](../experiments/s17-native/report.md)
 passes120 optimized and120 sanitizer cases with shared CPU regressions and
 source/evidence reconciliation (job74295). Separate [wide Go/C plans and parallel
-matrix execution](../experiments/s17-matrix/report.md) pass initial API/matrix/race
-checks, but job74312 stopped at a regression working-directory error. Corrected
-retry/full sanitizer completion is pending; persistent wide code data and full
-encoding remain unimplemented.
+matrix execution](../experiments/s17-matrix/report.md) pass corrected validation
+job74330: bounded independent oracles, parallel Taylor, lifetime race,112 optimized
+and112 sanitized direct C matrix cases, and CPU/legacy regressions. All421 source,
+31 evidence and10 cache identities reconcile. Wide code-data, preprocessing and
+full encoding integration remain unimplemented; full-size latency is unknown.
 No full-encoding table cell changes from these kernel steps.
 
 Both CPU and GPU encoding are **potentially feasible on this system after the

@@ -1,0 +1,23 @@
+File: wide-binding.test
+Build ID: 71393c121a53f50656827c14da28c038a9b867df
+Type: cpu
+Time: 2026-11-13 18:21:14 CET
+Duration: 721.34ms, Total samples = 1.15s (159.43%)
+Showing nodes accounting for 1.15s, 100% of 1.15s total
+      flat  flat%   sum%        cum   cum%
+     0.65s 56.52% 56.52%      0.65s 56.52%  runtime.cgocall
+     0.46s 40.00% 96.52%      0.46s 40.00%  [wide-binding.test]
+     0.03s  2.61% 99.13%      0.03s  2.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.01s  0.87%   100%      0.01s  0.87%  [libc.so.6]
+         0     0%   100%      0.49s 42.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*WideMatrix).Apply
+         0     0%   100%      0.12s 10.43%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*WidePlan).ApplyAt
+         0     0%   100%      0.04s  3.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.NewWideMatrix
+         0     0%   100%      0.21s 18.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.TestWideMatrix
+         0     0%   100%      0.47s 40.87%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.TestWideMatrixParallelTaylor
+         0     0%   100%      0.49s 42.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_wide_matrix_apply
+         0     0%   100%      0.04s  3.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_wide_matrix_create
+         0     0%   100%      0.12s 10.43%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_wide_plan_apply
+         0     0%   100%      0.03s  2.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.wideTestEvaluate
+         0     0%   100%      0.03s  2.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.wideTestMul
+         0     0%   100%      0.47s 40.87%  runtime._ExternalCode
+         0     0%   100%      0.68s 59.13%  testing.tRunner

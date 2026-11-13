@@ -37,8 +37,9 @@ Neither API allocates a full domain at construction. Plans own metadata, retain
 no Go pointers and support concurrent disjoint calls; Close waits and is idempotent.
 OwnedBytes excludes caller buffers/allocator overhead and becomes zero after Close.
 See the [runnable example](wide_example_test.go) and
-[interface/parallel validation](../../experiments/s17-matrix/report.md), currently
-pending. These separate handles support field arithmetic at s2–20; this does not
+[interface/parallel validation](../../experiments/s17-matrix/report.md), passed by
+job74330 including matrix/range/lifetime/race/sanitizer and CPU regressions. These
+separate handles support field arithmetic at s2–20; this does not
 extend shared encoder/cache/preprocessing admission beyond s16. Native clocks
 include canonical-input scans; full setup/dispatch/buffer costs remain separate.
 
