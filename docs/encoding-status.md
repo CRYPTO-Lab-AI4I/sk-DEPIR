@@ -73,7 +73,9 @@ now starts with the [wide scalar reference](../experiments/s17-arithmetic/report
 job74290 passed independent scalar and legacy-ordering checks, with all recorded
 source/binary/evidence hashes reconciled. The [native64-bit kernel prototype](../experiments/s17-native/report.md)
 passes120 optimized and120 sanitizer cases with shared CPU regressions and
-source/evidence reconciliation (job74295). The C ABI/matrix/full encoder remain32-bit.
+source/evidence reconciliation (job74295). Separate [wide Go/C plans and parallel
+matrix execution](../experiments/s17-matrix/report.md) now have bounded validation
+pending; persistent wide code data and full encoding remain unimplemented.
 No full-encoding table cell changes from these kernel steps.
 
 Both CPU and GPU encoding are **potentially feasible on this system after the

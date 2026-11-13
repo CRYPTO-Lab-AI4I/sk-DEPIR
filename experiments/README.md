@@ -37,6 +37,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Wide CPU interface/matrix](s17-matrix/report.md): separate64-bit handles, Go
+  ownership, independent small-matrix oracles, parallel Taylor branch, count-width,
+  race/sanitizer and32-bit regressions; full encoding remains pending.
+
 - [Native64-bit transforms](s17-native/report.md): bounded high-bit/ordered-basis
   forward/inverse checks, independent Go polynomial evaluations, sanitizer and
   existing32-bit CPU regressions; wide ABI/full encoder remain pending.

@@ -23,8 +23,24 @@ are packed as a|(b<<s), with32-bit base components; degrees, offsets and table
 entries use the selected word width. The [bounded validation experiment](../../experiments/s17-native/report.md)
 compares independent Go evaluations, inverse round trips,32-bit agreement and
 sanitizers. Job74295 passes120 optimized and120 sanitizer cases plus shared CPU
-regressions. The C ABI, Go bindings and full CPU/matrix
-encoder remain32-bit and retain s≤16 admission; wide public loading is not added.
+regressions. The original C ABI/Plan and full CPU encoder remain32-bit. Separate
+experimental wide interfaces/matrix plans are described below; persistent wide
+code loading and full s17 encoding are not added.
+
+## Experimental wide plan API
+
+With liftrs_cpp/cgo, NewWidePlan accepts an independent uint64 ordered basis;
+ApplyAt evaluates/interpolates on its affine subspace. NewWideMatrix prepares
+canonical-grid Taylor/column/row metadata for N=2^dimension points. Apply borrows
+disjoint N-element uint64 data/scratch slices, with explicit worker count.
+Neither API allocates a full domain at construction. Plans own metadata, retain
+no Go pointers and support concurrent disjoint calls; Close waits and is idempotent.
+OwnedBytes excludes caller buffers/allocator overhead and becomes zero after Close.
+See the [runnable example](wide_example_test.go) and
+[interface/parallel validation](../../experiments/s17-matrix/report.md), currently
+pending. These separate handles support field arithmetic at s2–20; this does not
+extend shared encoder/cache/preprocessing admission beyond s16. Native clocks
+include canonical-input scans; full setup/dispatch/buffer costs remain separate.
 
 ## Optional Go integration
 
