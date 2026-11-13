@@ -7,8 +7,10 @@ Implements the format/loader part of step3 in the
 [tests](../../encoding/liftrs-shared/scaling_code_test.go),
 [example](../../encoding/liftrs-shared/scaling_code_example_test.go),
 [controller](run.py), [Slurm script](run.sbatch).
-Runtime validation submitted as **job74396**, source checkpointf24682c;
-[submission record](submission.json). No post-submit monitoring. No full s17 code data, discovery/preparation or
+Bounded validation **passed job74396**, source checkpointf24682c;
+[submission record](submission.json), [results](runs/data-01/results.json),
+[reconciled analysis](runs/data-01/analysis.json). Results were reviewed after the
+user reported completion. No full s17 code data, discovery/preparation or
 encoding is produced; only bounded compatibility/representation checks.
 
 New APIs read existing LRSprobe1/2 and LRSprobe3 at s17–20. P values remain uint32,
@@ -64,3 +66,28 @@ matching binaries are retained. Memory/latency clocks describe validation only,
 not encoding. One node,4CPU,8GiB RAM request/6GiB RSS guard,4GiB Go soft memory,
 2GiB new retained cache/4GiB scratch. Worker10m/controller15m/Slurm20m, no GPU,
 Go1.27.3/GCC14.2. No budget increase or post-submit monitoring.
+
+## Reconciled results
+
+All five targeted tests/examples pass, as do the full shared Go-only and
+liftrs_cpp regression suites; no recorded command or resource guard failed.
+[Targeted test log](runs/data-01/code-data.log),
+[Go regressions](runs/data-01/go-regressions.log),
+[CPU regressions](runs/data-01/cpp-regressions.log).
+
+The [analyzer](analyze.py) verifies426 source identities againstf24682c, all13
+sealed evidence files and both matched cached test executables. Profiles and
+commands remain in the recorded run directory; no earlier cache is overwritten.
+
+```sh
+python3 -B experiments/s17-code-data/analyze.py data-01
+```
+
+The bounded representation gate passes: real small legacy byte/RAM compatibility,
+stream verification, high counts/coordinates, new-header identity/width checks,
+allocation caps and malformed digest/value/EOF/error rejection agree. Wide value
+codecs are checked separately from full-domain headers. This is not a complete
+s17 payload round trip, mathematical preprocessing proof, encoder integration,
+full-size memory measurement or runtime forecast. Next integrate the wide data
+with preprocessing/native encoding and independently verify genuine code data
+before any larger allocation is admitted. Other jobs were not inspected.

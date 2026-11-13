@@ -1,0 +1,23 @@
+=== RUN   TestScalingCodeLegacy
+--- PASS: TestScalingCodeLegacy (0.00s)
+=== RUN   TestScalingCodeHeaderWidths
+--- PASS: TestScalingCodeHeaderWidths (0.00s)
+=== RUN   TestScalingCodeValidation
+=== RUN   TestScalingCodeValidation/base_range
+=== RUN   TestScalingCodeValidation/spectrum_range
+=== RUN   TestScalingCodeValidation/truncated
+=== RUN   TestScalingCodeValidation/trailing
+=== RUN   TestScalingCodeValidation/magic
+=== RUN   TestScalingCodeValidation/P_constant
+--- PASS: TestScalingCodeValidation (0.01s)
+    --- PASS: TestScalingCodeValidation/base_range (0.00s)
+    --- PASS: TestScalingCodeValidation/spectrum_range (0.00s)
+    --- PASS: TestScalingCodeValidation/truncated (0.00s)
+    --- PASS: TestScalingCodeValidation/trailing (0.00s)
+    --- PASS: TestScalingCodeValidation/magic (0.00s)
+    --- PASS: TestScalingCodeValidation/P_constant (0.00s)
+=== RUN   TestScalingCodeWideSlots
+--- PASS: TestScalingCodeWideSlots (0.00s)
+=== RUN   ExampleLoadScalingCode
+--- PASS: ExampleLoadScalingCode (0.00s)
+PASS

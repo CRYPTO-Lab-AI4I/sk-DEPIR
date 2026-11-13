@@ -78,8 +78,9 @@ matrix execution](../experiments/s17-matrix/report.md) pass corrected validation
 job74330: bounded independent oracles, parallel Taylor, lifetime race,112 optimized
 and112 sanitized direct C matrix cases, and CPU/legacy regressions. All421 source,
 31 evidence and10 cache identities reconcile. A [width-aware code-data prototype](scaling-code-data.md)
-now adds legacy-compatible load/write and bounded streaming verification, with
-validation pending. No genuine s17 cache or preprocessing/full-encoding
+now passes bounded legacy byte/slot compatibility, wide-header/value-codec,
+cap/digest/range/error and shared Go/CPU regressions (job74396). Its426 source,13
+evidence and2 binary identities reconcile. No genuine s17 cache or preprocessing/full-encoding
 integration is implemented; full-size latency is unknown.
 No full-encoding table cell changes from these kernel steps.
 

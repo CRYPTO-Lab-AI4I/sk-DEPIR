@@ -25,7 +25,8 @@ old code data without widening legacy values and add an explicit s17–20 spectr
 representation. LoadScalingCode requires trusted SHA-256 and count/byte caps;
 VerifyScalingCode checks a stream without resident arrays. See the
 [runnable example](scaling_code_example_test.go) and
-[bounded validation](../../experiments/s17-code-data/report.md), currently pending.
+[bounded validation](../../experiments/s17-code-data/report.md), passed as job74396
+with legacy/header/slot checks and shared Go/CPU regressions.
 This does not extend the shared encoder/cache-preprocessing admission beyond s16.
 
 Experimental scaling preparation uses a private base-field lookup table for

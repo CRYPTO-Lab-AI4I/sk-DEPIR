@@ -8,7 +8,9 @@ membership, cryptographic security or full s17 encoder support.
 
 [Implementation](../encoding/liftrs-shared/scaling_code.go),
 [API example](../encoding/liftrs-shared/scaling_code_example_test.go),
-[validation experiment](../experiments/s17-code-data/report.md).
+[validation experiment](../experiments/s17-code-data/report.md), passed as job74396
+for bounded legacy/header/slot and Go/CPU regression checks. Full s17 payload
+round trips and preprocessing/encoding integration remain unvalidated.
 
 ## Payload and size selection
 

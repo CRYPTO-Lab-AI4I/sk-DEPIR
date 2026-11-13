@@ -1,0 +1,82 @@
+{
+  "status": "passed",
+  "job_id": "74396",
+  "revision": "f24682c9448b65610802b326bf794a31ea501f33",
+  "source_files_verified": 426,
+  "evidence_files_verified": 13,
+  "cache_files_verified": 2,
+  "tests": [
+    "TestScalingCodeLegacy",
+    "TestScalingCodeHeaderWidths",
+    "TestScalingCodeValidation",
+    "TestScalingCodeWideSlots",
+    "ExampleLoadScalingCode"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 2.2324844747781754,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 2.274262197315693,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 2.2395086120814085,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 2.2469819579273462,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "seconds": 13.842423209920526,
+      "peak_rss_bytes": 161095680,
+      "exit_code": 0
+    },
+    {
+      "label": "code-data",
+      "seconds": 2.266548538580537,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "profile",
+      "seconds": 12.252814607694745,
+      "peak_rss_bytes": 333381632,
+      "exit_code": 0
+    },
+    {
+      "label": "go-regressions",
+      "seconds": 29.649360405281186,
+      "peak_rss_bytes": 1014308864,
+      "exit_code": 0
+    },
+    {
+      "label": "cpp-build",
+      "seconds": 9.278879741206765,
+      "peak_rss_bytes": 458108928,
+      "exit_code": 0
+    },
+    {
+      "label": "cpp-regressions",
+      "seconds": 32.1134175080806,
+      "peak_rss_bytes": 1020153856,
+      "exit_code": 0
+    }
+  ],
+  "scope": "small real legacy round trips and bounded wide headers/slot codecs; no genuine full s17 cache/preprocessing/encoding",
+  "regressions": [
+    "shared Go-only",
+    "shared liftrs_cpp"
+  ]
+}
