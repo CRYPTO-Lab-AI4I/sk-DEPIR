@@ -1,8 +1,17 @@
 {
-  "status": "prepared",
+  "status": "submitted",
   "cases": {
     "cpu-compact-s10": {
-      "job_id": null,
+      "job_id": "74194",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=16G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "cpu-compact-s10"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 17179869184,
@@ -10,14 +19,24 @@
         "cgroup_guard_bytes": 15032385536,
         "new_cache_guard_bytes": 17179869184,
         "scratch_guard_bytes": 17179869184,
-        "device_cap_bytes": 42949672960,
+        "device_cap_bytes": 0,
         "controller_seconds": 6600,
         "worker_seconds": 5400,
         "slurm_seconds": 7200
       }
     },
     "cpu-packed-s14": {
-      "job_id": null,
+      "job_id": "74195",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--dependency=afterany:74194",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "cpu-packed-s14"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -25,14 +44,24 @@
         "cgroup_guard_bytes": 32212254720,
         "new_cache_guard_bytes": 17179869184,
         "scratch_guard_bytes": 17179869184,
-        "device_cap_bytes": 42949672960,
+        "device_cap_bytes": 0,
         "controller_seconds": 6600,
         "worker_seconds": 5400,
         "slurm_seconds": 7200
       }
     },
     "cpu-disk-s14": {
-      "job_id": null,
+      "job_id": "74196",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--dependency=afterany:74195",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "cpu-disk-s14"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -40,14 +69,24 @@
         "cgroup_guard_bytes": 32212254720,
         "new_cache_guard_bytes": 17179869184,
         "scratch_guard_bytes": 17179869184,
-        "device_cap_bytes": 42949672960,
+        "device_cap_bytes": 0,
         "controller_seconds": 6600,
         "worker_seconds": 5400,
         "slurm_seconds": 7200
       }
     },
     "cpu-reuse-s15": {
-      "job_id": null,
+      "job_id": "74197",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--dependency=afterany:74196",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "cpu-reuse-s15"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -55,14 +94,24 @@
         "cgroup_guard_bytes": 32212254720,
         "new_cache_guard_bytes": 17179869184,
         "scratch_guard_bytes": 17179869184,
-        "device_cap_bytes": 42949672960,
+        "device_cap_bytes": 0,
         "controller_seconds": 6600,
         "worker_seconds": 5400,
         "slurm_seconds": 7200
       }
     },
     "cpu-compact-s15": {
-      "job_id": null,
+      "job_id": "74198",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--dependency=afterany:74197",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "cpu-compact-s15"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -70,14 +119,24 @@
         "cgroup_guard_bytes": 32212254720,
         "new_cache_guard_bytes": 17179869184,
         "scratch_guard_bytes": 17179869184,
-        "device_cap_bytes": 42949672960,
+        "device_cap_bytes": 0,
         "controller_seconds": 6600,
         "worker_seconds": 5400,
         "slurm_seconds": 7200
       }
     },
     "cpu-file-s15": {
-      "job_id": null,
+      "job_id": "74199",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--dependency=afterany:74198",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "cpu-file-s15"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -85,14 +144,24 @@
         "cgroup_guard_bytes": 32212254720,
         "new_cache_guard_bytes": 17179869184,
         "scratch_guard_bytes": 17179869184,
-        "device_cap_bytes": 42949672960,
+        "device_cap_bytes": 0,
         "controller_seconds": 6600,
         "worker_seconds": 5400,
         "slurm_seconds": 7200
       }
     },
     "cpu-packed-s15": {
-      "job_id": null,
+      "job_id": "74200",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--dependency=afterany:74199",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "cpu-packed-s15"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -100,14 +169,24 @@
         "cgroup_guard_bytes": 32212254720,
         "new_cache_guard_bytes": 17179869184,
         "scratch_guard_bytes": 17179869184,
-        "device_cap_bytes": 42949672960,
+        "device_cap_bytes": 0,
         "controller_seconds": 6600,
         "worker_seconds": 5400,
         "slurm_seconds": 7200
       }
     },
     "cpu-disk-s15": {
-      "job_id": null,
+      "job_id": "74201",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--dependency=afterany:74200",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "cpu-disk-s15"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -115,14 +194,24 @@
         "cgroup_guard_bytes": 32212254720,
         "new_cache_guard_bytes": 17179869184,
         "scratch_guard_bytes": 17179869184,
-        "device_cap_bytes": 42949672960,
+        "device_cap_bytes": 0,
         "controller_seconds": 6600,
         "worker_seconds": 5400,
         "slurm_seconds": 7200
       }
     },
     "cpu-packed-s16": {
-      "job_id": null,
+      "job_id": "74202",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=128G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--dependency=afterany:74201",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "cpu-packed-s16"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 137438953472,
@@ -130,14 +219,24 @@
         "cgroup_guard_bytes": 120259084288,
         "new_cache_guard_bytes": 17179869184,
         "scratch_guard_bytes": 17179869184,
-        "device_cap_bytes": 42949672960,
+        "device_cap_bytes": 0,
         "controller_seconds": 6600,
         "worker_seconds": 5400,
         "slurm_seconds": 7200
       }
     },
     "cpu-disk-s16": {
-      "job_id": null,
+      "job_id": "74203",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=128G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--dependency=afterany:74202",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "cpu-disk-s16"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 137438953472,
@@ -145,14 +244,24 @@
         "cgroup_guard_bytes": 120259084288,
         "new_cache_guard_bytes": 68719476736,
         "scratch_guard_bytes": 17179869184,
-        "device_cap_bytes": 42949672960,
+        "device_cap_bytes": 0,
         "controller_seconds": 6600,
         "worker_seconds": 5400,
         "slurm_seconds": 7200
       }
     },
     "gpu-stream-s10": {
-      "job_id": null,
+      "job_id": "74204",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=16G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--gres=gpu:h200:1",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "gpu-stream-s10"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 17179869184,
@@ -167,7 +276,18 @@
       }
     },
     "gpu-packed-s10": {
-      "job_id": null,
+      "job_id": "74205",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=16G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--gres=gpu:h200:1",
+        "--dependency=afterany:74204",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "gpu-packed-s10"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 17179869184,
@@ -182,7 +302,18 @@
       }
     },
     "gpu-original-s14": {
-      "job_id": null,
+      "job_id": "74206",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--gres=gpu:h200:1",
+        "--dependency=afterany:74205",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "gpu-original-s14"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -197,7 +328,18 @@
       }
     },
     "gpu-compact-s14": {
-      "job_id": null,
+      "job_id": "74207",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--gres=gpu:h200:1",
+        "--dependency=afterany:74206",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "gpu-compact-s14"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -212,7 +354,18 @@
       }
     },
     "gpu-host-s14": {
-      "job_id": null,
+      "job_id": "74208",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--gres=gpu:h200:1",
+        "--dependency=afterany:74207",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "gpu-host-s14"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -227,7 +380,18 @@
       }
     },
     "gpu-original-s15": {
-      "job_id": null,
+      "job_id": "74209",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--gres=gpu:h200:1",
+        "--dependency=afterany:74208",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "gpu-original-s15"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -242,7 +406,18 @@
       }
     },
     "gpu-reuse-s15": {
-      "job_id": null,
+      "job_id": "74210",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--gres=gpu:h200:1",
+        "--dependency=afterany:74209",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "gpu-reuse-s15"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -257,7 +432,18 @@
       }
     },
     "gpu-compact-s15": {
-      "job_id": null,
+      "job_id": "74211",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--gres=gpu:h200:1",
+        "--dependency=afterany:74210",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "gpu-compact-s15"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -272,7 +458,18 @@
       }
     },
     "gpu-stream-s15": {
-      "job_id": null,
+      "job_id": "74212",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--gres=gpu:h200:1",
+        "--dependency=afterany:74211",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "gpu-stream-s15"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -287,7 +484,18 @@
       }
     },
     "gpu-packed-s15": {
-      "job_id": null,
+      "job_id": "74213",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--gres=gpu:h200:1",
+        "--dependency=afterany:74212",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "gpu-packed-s15"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -302,7 +510,18 @@
       }
     },
     "gpu-host-s15": {
-      "job_id": null,
+      "job_id": "74214",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--gres=gpu:h200:1",
+        "--dependency=afterany:74213",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "gpu-host-s15"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -317,7 +536,18 @@
       }
     },
     "gpu-host-s16": {
-      "job_id": null,
+      "job_id": "74215",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=128G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--gres=gpu:h200:1",
+        "--dependency=afterany:74214",
+        "experiments/encoding-table/run.sbatch",
+        "fill-01",
+        "gpu-host-s16"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 137438953472,
@@ -331,5 +561,7 @@
         "slurm_seconds": 7200
       }
     }
-  }
+  },
+  "revision": "366f47477b21301d4851a37bb0f06f7656fe35cf",
+  "submitted_utc": "2026-11-13T10:27:05.255112+00:00"
 }

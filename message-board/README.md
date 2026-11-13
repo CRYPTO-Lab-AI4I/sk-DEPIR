@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-13 10:27 | SCALING-046 | Handoff | [Table-gap jobs74194–74215](2026-11-13-1027-codex-scaling-046-handoff.md) |
 | 2026-11-13 10:26 | SCALING-046 | Handoff | [Table-gap jobs prepared](2026-11-13-1026-codex-scaling-046-prepared.md) |
 | 2026-11-13 10:18 | SCALING-046 | Started | [Fill supported table gaps](2026-11-13-1018-codex-scaling-046-started.md) |
 | 2026-11-13 10:14 | SCALING-045 | Completed | [Encoding scaling reference](2026-11-13-1014-codex-scaling-045-completed.md) |

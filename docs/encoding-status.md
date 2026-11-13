@@ -13,10 +13,11 @@ validated before those projections become demonstrated capabilities. “Reasonab
 has no agreed numerical latency threshold yet; select it using measured setup,
 encoding, memory, I/O and deployment costs before accepting a scaling milestone.
 
-A [22-case HPC batch](../experiments/encoding-table/report.md) is prepared to fill
+A [22-case HPC batch](../experiments/encoding-table/report.md) was submitted to fill
 the supported unrun encoding cells through s16. Entries remain N until completed
 results are reconciled; existing L entries are historical laptop evidence, not HPC
-measurements. See its submission manifest for job identifiers.
+measurements. CPU jobs74194–74203 and GPU jobs74204–74215 are recorded in its
+submission manifest; no results have been reviewed.
 
 ## Reading the tables
 

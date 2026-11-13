@@ -6,7 +6,9 @@ CPU/GPU encoders and verified preprocessing are reused; only opt-in experiment
 harness controls change. Laptop preparation results remain labeled L, HPC results
 R. No s≥17 execution, new large preprocessing or multi-GPU implementation.
 
-Status: prepared for submission; full build/runtime checks run inside each job.
+Status: submitted as CPU jobs74194–74203 and GPU jobs74204–74215,
+source checkpoint366f474. Full build/runtime checks run inside each job;
+no scheduler/log/result monitoring has been performed.
 [Submission manifest and result directory](runs/fill-01/submissions.json) records
 exact case names, jobs and source revision. Per-case `results.json`, logs, phase
 JSON and CPU profiles will be written beneath `runs/fill-01/<case>/`.
