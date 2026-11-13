@@ -37,6 +37,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Width-aware code data](s17-code-data/report.md): legacy byte/slot compatibility,
+  explicit wide headers, trusted-digest/cap/range validation and bounded stream
+  verification; no full s17 cache or preprocessing admission.
+
 - [Wide CPU interface/matrix](s17-matrix/report.md): separate64-bit handles, Go
   ownership, independent small-matrix oracles, parallel Taylor branch, count-width,
   race/sanitizer and32-bit regressions; full encoding remains pending.

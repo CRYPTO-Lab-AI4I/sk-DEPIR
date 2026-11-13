@@ -25,7 +25,9 @@ Its scalar/oracle and legacy-ordering checks pass through s20. A
 independent forward/inverse checks, sanitizers and shared CPU regressions. Wide
 [Go/C interfaces and parallel matrix prototype](experiments/s17-matrix/report.md)
 pass bounded ownership, matrix, race, sanitizer and CPU regression checks. Full
-encoding remains limited to s≤16; wide code-data/preprocessing integration is next.
+encoding remains limited to s≤16. The [width-aware code-data APIs](docs/scaling-code-data.md)
+are implemented with bounded validation pending; wide preprocessing/encoding
+integration remains separate.
 
 A [bounded HPC table-gap batch](experiments/encoding-table/report.md) measures
 22 missing encoding-mode cells at s10/14/15/16 using retained preprocessing.

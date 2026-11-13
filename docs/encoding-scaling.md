@@ -30,7 +30,7 @@ s≤16 CPU/GPU paths and code-cache compatibility throughout.
 |---|---|---|
 | 1. Width audit and scalar reference | Inventory coordinates, counts, field values and narrowing boundaries. Establish uint64 packed extension arithmetic through s20 against an independent oracle and s≤16 coordinate ordering, without a full-domain allocation | Scalar reference validated: job74290; width audit continues |
 | 2. Native CPU arithmetic and transforms | Port extension kernels/plans to uint64 while retaining uint32 base inputs/outputs. Compare small dense/Go/native cases, >32-bit boundary witnesses, sanitizer checks and s16 regressions; measure kernel overhead before whole-run forecasts | Bounded wide interface/matrix/oracle/race/sanitizer/CPU regressions validated (74330); larger kernel calibration and full encoder integration remain |
-| 3. Representation and reusable code data | Extend coordinates/counts/cache formats and loaders explicitly. Keep old32-bit artifacts readable; reject truncation, unsupported widths and incompatible specifications. Verify hashes and round trips; preserve existing caches | Next: explicit wide value/count schemas and compatibility checks; native interface gate passed |
+| 3. Representation and reusable code data | Extend coordinates/counts/cache formats and loaders explicitly. Keep old32-bit artifacts readable; reject truncation, unsupported widths and incompatible specifications. Verify hashes and round trips; preserve existing caches | Width-aware format/loader/stream verifier implemented; bounded compatibility/header/high-slot validation pending; genuine s17 data remains unavailable |
 | 4. s17 preprocessing admission | Discover exact K, verify polynomial identities, budget peak host/device memory, storage and setup time. Compare CPU and multi-GPU/streamed preparation; obtain reviewed numeric budgets before full setup | Pending wider implementation; capacity is not admission |
 | 5. First full CPU baseline | Prefer resident reuse (~427GiB principal arrays) on one large-RAM node when the admitted budget fits. Validate systematic values, independent curves, hashes and34GiB packed output; separately measure code loading, encoding, packing, verification and peaks | Pending verified s17 code data and host budget |
 | 6. Multi-GPU prototype and selection | Partition same-node arithmetic across GPUs; measure transfers, topology and synchronization. Compare fast-layout streamed constants (~256GiB aggregate/two-card capacity floor) with resident reuse (~398GiB/three-card floor), including all host/device lifetimes and headroom | Pending scalar/native interface; small prototypes may proceed before full preprocessing |
@@ -62,8 +62,11 @@ passes corrected job74330 after the first harness cwd failure. Wide interfaces,
 small independent matrix oracles,32K/64K parallel Taylor, lifetime race,112 direct C
 optimized/112 sanitized matrix cases and shared/legacy CPU regressions all pass.
 All421 source files and31 evidence/10 cache digests reconcile. Next extend explicit
-wide code-data formats/loaders and preprocessing integration, with larger kernel
-calibration before runtime forecasts or full-run admission. Full s17 encoding is
+wide code-data formats/loaders and preprocessing integration. The
+[code-data prototype](../experiments/s17-code-data/report.md) now implements
+explicit width/field metadata, old-byte compatibility, resident caps and streaming
+verification; bounded validation is pending. Larger kernel calibration precedes
+runtime forecasts or full-run admission. Full s17 encoding is
 still unimplemented; no full-encoding memory/time cell changes from these checks.
 
 ## Five-step plan

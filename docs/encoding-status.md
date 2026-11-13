@@ -77,8 +77,10 @@ source/evidence reconciliation (job74295). Separate [wide Go/C plans and paralle
 matrix execution](../experiments/s17-matrix/report.md) pass corrected validation
 job74330: bounded independent oracles, parallel Taylor, lifetime race,112 optimized
 and112 sanitized direct C matrix cases, and CPU/legacy regressions. All421 source,
-31 evidence and10 cache identities reconcile. Wide code-data, preprocessing and
-full encoding integration remain unimplemented; full-size latency is unknown.
+31 evidence and10 cache identities reconcile. A [width-aware code-data prototype](scaling-code-data.md)
+now adds legacy-compatible load/write and bounded streaming verification, with
+validation pending. No genuine s17 cache or preprocessing/full-encoding
+integration is implemented; full-size latency is unknown.
 No full-encoding table cell changes from these kernel steps.
 
 Both CPU and GPU encoding are **potentially feasible on this system after the

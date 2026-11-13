@@ -20,6 +20,14 @@ s17 port while retaining the existing tower and32-bit base values. Its
 and legacy-ordering checks through s20. It does not extend
 encoder, cache or native/CUDA support beyond s16.
 
+The separate [ScalingCodeData APIs](../../docs/scaling-code-data.md) load/write
+old code data without widening legacy values and add an explicit s17–20 spectrum
+representation. LoadScalingCode requires trusted SHA-256 and count/byte caps;
+VerifyScalingCode checks a stream without resident arrays. See the
+[runnable example](scaling_code_example_test.go) and
+[bounded validation](../../experiments/s17-code-data/report.md), currently pending.
+This does not extend the shared encoder/cache-preprocessing admission beyond s16.
+
 Experimental scaling preparation uses a private base-field lookup table for
 public code coefficients (less than 768 KiB through s16), released before online
 use. General field APIs remain table-free and artifact coordinates are unchanged.
