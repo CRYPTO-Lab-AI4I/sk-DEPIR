@@ -66,6 +66,39 @@ by dividing a single-GPU timing by the card count.
   capacities appear below. New layouts, distributed execution or further memory
   savings may change these projections. They remain exploratory, not ruled out.
 
+## Aim for s17
+
+Both CPU and GPU encoding are **potentially feasible on this system after the
+s17 port**, with preprocessing admitted separately. First target one large-RAM
+CPU node for a correctness and performance baseline, then a resident multi-GPU
+encoder on one node. These are recommendations, not demonstrated support or
+approved larger allocations.
+
+| Route | Projected encoding payload | Intended role |
+|---|---|---|
+| CPU resident reuse | ~427 GiB host | First full CPU target; avoid external-memory work when sufficient RAM is admitted |
+| CPU file-streamed | ~270 GiB host, reusable code file ~142 GiB | Lower-RAM alternative; repeated reads/cache costs must be compared with resident reuse |
+| GPU fast-layout streamed | ~256 GiB aggregate device, ~221 GiB host | Two H200s are a capacity floor; first assess per-device headroom, partitioning and communication |
+| GPU resident reuse | ~398 GiB aggregate device, ~221 GiB host | Three H200s are a capacity floor; compare fewer repeated code transfers against the extra GPU |
+| GPU host-backed | Few MiB device tiles, ~349 GiB host | One-GPU fallback; repeated transfers may make it substantially slower |
+
+The CPU node advertises about907GiB schedulable RAM; device capacity is about
+140.4GiB per H200. Models exclude runtime/cache/context and allocation headroom.
+Do not force a slower memory mode when the faster validated path fits the admitted
+budget. Two/three GPU counts assume sharding; current code has no multi-GPU
+encoder. Test communication and full overlapping lifetimes before selecting a
+card count or claiming latency. s17 output is34GiB packed, versus64GiB for a
+canonical uint32 array; packed output does not eliminate transform workspace.
+
+The prerequisite work is wider34-bit internal arithmetic with boundary tests,
+compatible coordinates/counts/cache formats and independently verified s17 code
+preprocessing. Base-field values still fit32-bit slots. Preprocessing's peak RAM
+and latency are unknown; its current three-array GPU model alone is384GiB,
+a three-card capacity floor, so encoding capacity is not whole-workflow feasibility.
+Use small correctness tests and existing s16 regressions before full s17 runs.
+Runtime estimates remain unknown until wider arithmetic and CPU/GPU kernels are
+measured; capacity alone cannot predict useful performance.
+
 ## Preprocessing and CPU encoding
 
 Reuse aliases buffers after their last use. Compact bounds transform scratch.

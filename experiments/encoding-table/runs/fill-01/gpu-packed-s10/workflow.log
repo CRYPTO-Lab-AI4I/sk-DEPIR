@@ -1,0 +1,3 @@
+=== RUN   TestGPUPackedCached
+--- PASS: TestGPUPackedCached (1.44s)
+PASS

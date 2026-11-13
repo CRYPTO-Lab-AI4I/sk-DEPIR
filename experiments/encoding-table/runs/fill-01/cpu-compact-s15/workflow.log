@@ -1,0 +1,11 @@
+=== RUN   TestCPUCompactCached
+    s15_firstuse_probe_test.go:122: load-online 5.894002009s
+    s15_firstuse_probe_test.go:122: online-setup 9.640441ms
+    s15_firstuse_probe_test.go:122: encode-0 4m40.038265824s
+    s15_firstuse_probe_test.go:122: verify-0 43.349394542s
+    s15_firstuse_probe_test.go:122: encode-1 4m39.899611031s
+    s15_firstuse_probe_test.go:122: verify-1 42.163814894s
+    s15_firstuse_probe_test.go:122: pack-output 12.804832182s
+    s15_firstuse_probe_test.go:122: verify-packed 964.935708ms
+--- PASS: TestCPUCompactCached (666.80s)
+PASS

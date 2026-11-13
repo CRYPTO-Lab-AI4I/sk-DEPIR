@@ -16,6 +16,8 @@ multi-GPU estimates. The performance goal is **s≤18**; **s=19–20** remain
 exploratory. Current standalone encoding is validated through s=16; larger rows
 are projections pending implementation and validation. Update the reference as
 scaling progresses; the [scaling plan](docs/encoding-scaling.md) tracks the work.
+The [s17 aims](docs/encoding-status.md#aim-for-s17) distinguish the proposed
+large-RAM CPU baseline, multi-GPU target and preprocessing/implementation gates.
 
 A [bounded HPC table-gap batch](experiments/encoding-table/report.md) measures
 22 missing encoding-mode cells at s10/14/15/16 using retained preprocessing.

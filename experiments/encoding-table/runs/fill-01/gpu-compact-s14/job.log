@@ -1,0 +1,30 @@
+JobId=74207 JobName=depir-table
+   UserId=tmour(20200) GroupId=crypto_login(20200) MCS_label=N/A
+   Priority=1 Nice=0 Account=crypto_login QOS=quota_crypto_gpuq
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:00:13 TimeLimit=02:00:00 TimeMin=N/A
+   SubmitTime=2026-11-13T11:27:06 EligibleTime=2026-11-13T11:30:07
+   AccrueTime=Unknown
+   StartTime=2026-11-13T11:30:07 EndTime=2026-11-13T13:30:07 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-13T11:30:07 Scheduler=Main
+   Partition=gpuq AllocNode:Sid=lnode02:3546598
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=gnode14
+   BatchHost=gnode14
+   NumNodes=1 NumCPUs=32 NumTasks=1 CPUs/Task=32 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=32,mem=32G,node=1,billing=32,gres/gpu=1,gres/gpu:h200=1
+   AllocTRES=cpu=32,node=1,billing=32,gres/gpu=1,gres/gpu:h200=1
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=32 MinMemoryNode=32G MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null)
+   Command=/hpc/home/crypto/tmour/sk-DEPIR/experiments/encoding-table/run.sbatch
+   WorkDir=/hpc/home/crypto/tmour/sk-DEPIR
+   StdErr=/hpc/home/crypto/tmour/sk-DEPIR/experiments/encoding-table/slurm-74207.log
+   StdIn=/dev/null
+   StdOut=/hpc/home/crypto/tmour/sk-DEPIR/experiments/encoding-table/slurm-74207.log
+   TresPerNode=gres/gpu:h200:1
+   TresPerTask=cpu=32
+   
+

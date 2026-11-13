@@ -13,6 +13,18 @@ no scheduler/log/result monitoring has been performed.
 exact case names, jobs and source revision. Per-case `results.json`, logs, phase
 JSON and CPU profiles will be written beneath `runs/fill-01/<case>/`.
 
+## Evidence publication checkpoint
+
+The19 fill-01 cases previously confirmed completed with Slurm0:0 and saved
+`passed` summaries are archived with their logs, phase JSON and profiles. This
+publication does not perform full digest/cross-mode reconciliation or introduce
+new performance claims. Completed CPU cases: compact s10; packed/disk s14;
+reuse/compact/file/packed s15. All12 original GPU cases completed. Remaining
+original CPU cases were cancelled/replaced as described below. Active fill-02
+outputs and partial original files remain local for completion/reconciliation;
+this checkpoint does not inspect their status. Inputs/large outputs remain in
+the documented durable cache directories outside Git.
+
 ## Reproduction and parameters
 
 [Controller](run.py), [Slurm script](run.sbatch), [batch submission](submit.py),

@@ -1,0 +1,11 @@
+=== RUN   TestCPPDiskOnlineWorkflow
+    s15_firstuse_probe_test.go:122: load-online 1.165676098s
+    s15_firstuse_probe_test.go:122: online-setup 2.483µs
+    s15_firstuse_probe_test.go:122: encode-0 12m38.350032443s
+    s15_firstuse_probe_test.go:122: verify-0 12.224518179s
+    s15_firstuse_probe_test.go:122: encode-1 11m24.19980697s
+    s15_firstuse_probe_test.go:122: verify-1 12.722295661s
+    s15_firstuse_probe_test.go:122: pack-output 3.059446299s
+    s15_firstuse_probe_test.go:122: verify-packed 1.024307578s
+--- PASS: TestCPPDiskOnlineWorkflow (1473.24s)
+PASS

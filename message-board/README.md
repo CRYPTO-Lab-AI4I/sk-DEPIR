@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-13 13:23 | SCALING-048 | Completed | [Publish evidence and s17 aims](2026-11-13-1323-codex-scaling-048-completed.md) |
+| 2026-11-13 13:22 | SCALING-048 | Started | [Publish evidence and assess s17](2026-11-13-1322-codex-scaling-048-started.md) |
 | 2026-11-13 13:11 | SCALING-047 | Handoff | [Extended CPU jobs74251–74253](2026-11-13-1311-codex-scaling-047-handoff.md) |
 | 2026-11-13 13:08 | SCALING-047 | Started | [Relaunch remaining CPU cases](2026-11-13-1308-codex-scaling-047-started.md) |
 | 2026-11-13 10:27 | SCALING-046 | Handoff | [Table-gap jobs74194–74215](2026-11-13-1027-codex-scaling-046-handoff.md) |
