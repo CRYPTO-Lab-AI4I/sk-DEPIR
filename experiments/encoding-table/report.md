@@ -77,6 +77,8 @@ then selected **packed in parallel with a sequential disk queue**. Cancellation
 was requested for old jobs74201/74202/74203; their logs, partial workspace and
 results stay in fill-01. New attempts use fresh fill-02 output/cache paths;
 [retry manifest](runs/fill-02/submissions.json) records replacement identities.
+Submitted at source checkpointfb9bade: s16 packed74251, s15 disk74252, s16 disk74253.
+No post-submission scheduler/log checks or result analysis performed.
 
 | Retry case | Slurm maximum | Controller maximum | Go test/worker maximum |
 |---|---|---|---|

@@ -18,7 +18,8 @@ the supported unrun encoding cells through s16. Entries remain N until completed
 results are reconciled; existing L entries are historical laptop evidence, not HPC
 measurements. CPU jobs74194–74203 and GPU jobs74204–74215 are recorded in its
 submission manifest. The [three remaining CPU retries](../experiments/encoding-table/report.md#extended-cpu-retries)
-use fresh fill-02 paths and extended deadlines, replacing74201/74202/74203; table
+use fresh fill-02 paths and extended deadlines: packed s16 job74251, disk s15
+job74252, disk s16 job74253 replace74202/74201/74203 respectively; table
 updates still await full result reconciliation.
 
 ## Reading the tables

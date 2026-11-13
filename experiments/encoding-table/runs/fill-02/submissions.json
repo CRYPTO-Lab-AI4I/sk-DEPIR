@@ -1,5 +1,5 @@
 {
-  "status": "prepared",
+  "status": "submitted",
   "replaces": {
     "cpu-packed-s16": "74202",
     "cpu-disk-s15": "74201",
@@ -7,7 +7,19 @@
   },
   "cases": {
     "cpu-packed-s16": {
-      "job_id": null,
+      "job_id": "74251",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=128G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--time=240",
+        "--dependency=afterany:74201",
+        "experiments/encoding-table/run.sbatch",
+        "fill-02",
+        "cpu-packed-s16",
+        "--extended-limits"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 137438953472,
@@ -22,7 +34,19 @@
       }
     },
     "cpu-disk-s15": {
-      "job_id": null,
+      "job_id": "74252",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=32G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--time=720",
+        "--dependency=afterany:74201",
+        "experiments/encoding-table/run.sbatch",
+        "fill-02",
+        "cpu-disk-s15",
+        "--extended-limits"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 34359738368,
@@ -37,7 +61,19 @@
       }
     },
     "cpu-disk-s16": {
-      "job_id": null,
+      "job_id": "74253",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--mem=128G",
+        "--output=experiments/encoding-table/slurm-%j.log",
+        "--time=2880",
+        "--dependency=afterany:74252",
+        "experiments/encoding-table/run.sbatch",
+        "fill-02",
+        "cpu-disk-s16",
+        "--extended-limits"
+      ],
       "policy": {
         "cpus": 32,
         "host_request_bytes": 137438953472,
@@ -51,5 +87,7 @@
         "slurm_seconds": 172800
       }
     }
-  }
+  },
+  "revision": "fb9bade7392e9b6313a46f8d0e02fa534b693cc3",
+  "submitted_utc": "2026-11-13T13:11:16.959245+00:00"
 }
