@@ -7,7 +7,9 @@ coordinates, native buffers and artifacts still pack extension values into32 bit
 The new private scalar adapter uses uint64 for packed a+b*u, keeping its two base
 components uint32. It adds no domain array, public constructor or encoder admission.
 
-Status: implementation/static checks complete; runtime validation pending.
+Status: implementation/static checks complete; runtime validation submitted as
+**job74290**, source checkpoint5b9e706. [Submission record](submission.json).
+No post-submit monitoring; runtime validation remains pending.
 [Controller](run.py), [Slurm script](run.sbatch),
 [implementation](../../encoding/liftrs-shared/orbit_arithmetic64.go),
 [tests](../../encoding/liftrs-shared/orbit_arithmetic64_test.go).

@@ -1,0 +1,21 @@
+{
+  "job_id": "74290",
+  "revision": "5b9e706",
+  "submitted_utc": "2026-11-13T15:51:51.544588+00:00",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--output=experiments/s17-arithmetic/slurm-%j.log",
+    "experiments/s17-arithmetic/run.sbatch",
+    "scalar-01"
+  ],
+  "results": "experiments/s17-arithmetic/runs/scalar-01/",
+  "cache": ".cache/liftrs/s17-arithmetic/scalar-01/",
+  "policy": {
+    "cpus": 4,
+    "host_request_bytes": 8589934592,
+    "rss_guard_bytes": 6442450944,
+    "gpu": false,
+    "slurm_seconds": 1200
+  }
+}
