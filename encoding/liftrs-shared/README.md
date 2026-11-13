@@ -16,7 +16,8 @@ The import is `github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared`;
 
 The private [wide packed scalar reference](orbit_arithmetic64.go) starts the
 s17 port while retaining the existing tower and32-bit base values. Its
-[bounded validation](../../experiments/s17-arithmetic/report.md) does not extend
+[bounded validation](../../experiments/s17-arithmetic/report.md) passes scalar/oracle
+and legacy-ordering checks through s20. It does not extend
 encoder, cache or native/CUDA support beyond s16.
 
 Experimental scaling preparation uses a private base-field lookup table for

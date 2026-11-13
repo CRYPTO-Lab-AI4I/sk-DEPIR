@@ -17,6 +17,9 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-13 15:58 | SCALING-051 | Started | [Native wide transform kernel](2026-11-13-1558-codex-scaling-051-started.md) |
+| 2026-11-13 15:55 | SCALING-050 | Completed | [Wide scalar gate passed](2026-11-13-1555-codex-scaling-050-completed.md) |
+| 2026-11-13 15:54 | SCALING-050 | Started | [Review wide scalar validation](2026-11-13-1554-codex-scaling-050-started.md) |
 | 2026-11-13 15:51 | SCALING-049 | Handoff | [Wide scalar validation job74290](2026-11-13-1551-codex-scaling-049-handoff.md) |
 | 2026-11-13 15:48 | SCALING-049 | Started | [Start s17 implementation plan](2026-11-13-1548-codex-scaling-049-started.md) |
 | 2026-11-13 13:24 | SCALING-048 | Correction | [Raw-log verification scope](2026-11-13-1324-codex-scaling-048-correction.md) |

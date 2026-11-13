@@ -70,7 +70,10 @@ by dividing a single-GPU timing by the card count.
 
 The [approved execution sequence](encoding-scaling.md#current-execution-plan-for-s17)
 now starts with the [wide scalar reference](../experiments/s17-arithmetic/report.md);
-its validation is pending and does not change any measured table cell.
+job74290 passed independent scalar and legacy-ordering checks, with all recorded
+source/binary/evidence hashes reconciled. The [native64-bit kernel prototype](../experiments/s17-native/report.md)
+now has bounded validation pending; the C ABI/matrix/full encoder remain32-bit.
+No full-encoding table cell changes from these kernel steps.
 
 Both CPU and GPU encoding are **potentially feasible on this system after the
 s17 port**, with preprocessing admitted separately. First target one large-RAM

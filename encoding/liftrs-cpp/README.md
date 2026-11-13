@@ -14,6 +14,17 @@ records build flags, shared inputs, correctness checks, CPU-profile availability
 and measurements. The binary fixture format is internal to that experiment;
 large fixtures and matching binaries remain in the ignored local cache.
 
+## Wide transform prototype
+
+`FieldT`, `ProductT`, `TermT` and `TransformT` share scalar/fixed-product and
+recursive execution across uint32_t/uint64_t. Existing names remain32-bit aliases;
+`Field64`/`Transform64` are trusted-fixture kernels for the s17 port. Wide values
+are packed as a|(b<<s), with32-bit base components; degrees, offsets and table
+entries use the selected word width. The [bounded validation experiment](../../experiments/s17-native/report.md)
+compares independent Go evaluations, inverse round trips,32-bit agreement and
+sanitizers. Validation is pending. The C ABI, Go bindings and full CPU/matrix
+encoder remain32-bit and retain s≤16 admission; wide public loading is not added.
+
 ## Optional Go integration
 
 Build Go callers with `CGO_ENABLED=1`, `-tags liftrs_cpp` and a C++17 compiler

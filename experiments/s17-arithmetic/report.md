@@ -7,14 +7,16 @@ coordinates, native buffers and artifacts still pack extension values into32 bit
 The new private scalar adapter uses uint64 for packed a+b*u, keeping its two base
 components uint32. It adds no domain array, public constructor or encoder admission.
 
-Status: implementation/static checks complete; runtime validation submitted as
-**job74290**, source checkpoint5b9e706. [Submission record](submission.json).
-No post-submit monitoring; runtime validation remains pending.
+Status: **job74290 passed**, source checkpoint5b9e706.
+[Submission record](submission.json), [results](runs/scalar-01/results.json),
+[reconciled analysis](runs/scalar-01/analysis.json),
+[test log](runs/scalar-01/arithmetic.log), [CPU profile](runs/scalar-01/cpu.pprof).
+Results were reviewed after the user reported completion.
 [Controller](run.py), [Slurm script](run.sbatch),
 [implementation](../../encoding/liftrs-shared/orbit_arithmetic64.go),
 [tests](../../encoding/liftrs-shared/orbit_arithmetic64_test.go).
 Results, exact revision, source digests, commands, host/Go details and CPU profile
-will be retained in `runs/scalar-01/`; binaries/source/build cache remain in
+are retained in `runs/scalar-01/`; binaries/source/build cache remain in
 `.cache/liftrs/s17-arithmetic/scalar-01/` and `/tmp/sk-depir-wide-<job>/`.
 No preprocessing is created or reread; existing code caches/profiles remain intact.
 
@@ -58,3 +60,22 @@ preprocessing or encoding correctness/performance at s17. Runtime/capacity table
 remain projections. CPU profiles describe correctness validation, not encoding
 latency benchmarks. The new scalar path is a reference for subsequent native
 work, not a selected high-performance kernel or a change to existing defaults.
+
+## Reconciled result
+
+Both TestWideOrbitArithmetic and TestTableFreeFields pass on gnode17, Linux/amd64,
+Go1.27.3, CGO disabled. All recorded commands exited zero without resource guards.
+The [analyzer](analyze.py) verified187 Go source identities against the exact
+recorded Git revision, all8 evidence digests and the retained test binary digest.
+Reproduce this allocation-free reconciliation after completion with:
+
+```sh
+python3 -B experiments/s17-arithmetic/analyze.py scalar-01
+```
+
+The scalar reference gate passes: high extension bits, multiplication oracle,
+inverses/Frobenius identities, primitive-order checks and legacy ordering agree.
+The next implementation gate is native64-bit CPU arithmetic/plans and small
+transform validation. Code-cache widening, preprocessing admission and full s17
+encoding remain pending. No encoding latency or full-domain memory measurement
+was produced, and existing running table-gap jobs were not inspected.

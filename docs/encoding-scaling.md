@@ -28,8 +28,8 @@ s≤16 CPU/GPU paths and code-cache compatibility throughout.
 
 | Step | Work and acceptance gate | Status |
 |---|---|---|
-| 1. Width audit and scalar reference | Inventory coordinates, counts, field values and narrowing boundaries. Establish uint64 packed extension arithmetic through s20 against an independent oracle and s≤16 coordinate ordering, without a full-domain allocation | Started: internal adapter and bounded CPU-only validation |
-| 2. Native CPU arithmetic and transforms | Port extension kernels/plans to uint64 while retaining uint32 base inputs/outputs. Compare small dense/Go/native cases, >32-bit boundary witnesses, sanitizer checks and s16 regressions; measure kernel overhead before whole-run forecasts | Pending scalar validation |
+| 1. Width audit and scalar reference | Inventory coordinates, counts, field values and narrowing boundaries. Establish uint64 packed extension arithmetic through s20 against an independent oracle and s≤16 coordinate ordering, without a full-domain allocation | Scalar reference validated: job74290; width audit continues |
+| 2. Native CPU arithmetic and transforms | Port extension kernels/plans to uint64 while retaining uint32 base inputs/outputs. Compare small dense/Go/native cases, >32-bit boundary witnesses, sanitizer checks and s16 regressions; measure kernel overhead before whole-run forecasts | Native32/64 shared recursive kernel implemented; bounded validation pending, wide ABI/matrix work remains |
 | 3. Representation and reusable code data | Extend coordinates/counts/cache formats and loaders explicitly. Keep old32-bit artifacts readable; reject truncation, unsupported widths and incompatible specifications. Verify hashes and round trips; preserve existing caches | Pending audit/native design |
 | 4. s17 preprocessing admission | Discover exact K, verify polynomial identities, budget peak host/device memory, storage and setup time. Compare CPU and multi-GPU/streamed preparation; obtain reviewed numeric budgets before full setup | Pending wider implementation; capacity is not admission |
 | 5. First full CPU baseline | Prefer resident reuse (~427GiB principal arrays) on one large-RAM node when the admitted budget fits. Validate systematic values, independent curves, hashes and34GiB packed output; separately measure code loading, encoding, packing, verification and peaks | Pending verified s17 code data and host budget |
@@ -50,7 +50,12 @@ Initial audit: the common component-field implementation already supports s2–2
 C/Go bindings and CUDA descriptions still use32-bit packed extension values.
 Count headers alone were widened earlier and do not solve34-bit arithmetic.
 The [scalar-port experiment](../experiments/s17-arithmetic/report.md) starts step1
-with a private64-bit packed adapter; it does not raise public encoder limits.
+with a private64-bit packed adapter. Job74290 passes independent scalar and
+legacy-ordering checks through s20; source/binary/evidence hashes reconcile.
+This clears the scalar gate for native CPU work, without raising encoder limits.
+The [native kernel prototype](../experiments/s17-native/report.md) shares recursion
+across32/64-bit types; bounded fixture/oracle/ASan/UBSan and32-bit regressions are
+pending. No wide C ABI, parallel matrix schedule or full encoder is claimed.
 
 ## Five-step plan
 

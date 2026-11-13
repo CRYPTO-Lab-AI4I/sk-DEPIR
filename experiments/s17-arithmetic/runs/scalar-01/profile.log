@@ -1,0 +1,21 @@
+File: wide.test
+Build ID: 2ecacae1409eff0ee772e66915618b65798c438c
+Type: cpu
+Time: 2026-11-13 16:51:51 CET
+Duration: 156.16ms, Total samples = 160ms (102.46%)
+Showing nodes accounting for 160ms, 100% of 160ms total
+      flat  flat%   sum%        cum   cum%
+      90ms 56.25% 56.25%       90ms 56.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+      60ms 37.50% 93.75%       60ms 37.50%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.binaryOracleMul
+      10ms  6.25%   100%       40ms 25.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Pow
+         0     0%   100%      140ms 87.50%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestTableFreeFields
+         0     0%   100%       20ms 12.50%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestWideOrbitArithmetic
+         0     0%   100%       50ms 31.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.quadraticOracleMul
+         0     0%   100%       50ms 31.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.quadraticOracleMul.func1 (inline)
+         0     0%   100%       10ms  6.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.wideOrbitField.mul
+         0     0%   100%       10ms  6.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.wideOrbitField.pow
+         0     0%   100%       30ms 18.75%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Inverse
+         0     0%   100%       10ms  6.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Inverse
+         0     0%   100%       60ms 37.50%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+         0     0%   100%       50ms 31.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Pow
+         0     0%   100%      160ms   100%  testing.tRunner
