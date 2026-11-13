@@ -29,7 +29,7 @@ s≤16 CPU/GPU paths and code-cache compatibility throughout.
 | Step | Work and acceptance gate | Status |
 |---|---|---|
 | 1. Width audit and scalar reference | Inventory coordinates, counts, field values and narrowing boundaries. Establish uint64 packed extension arithmetic through s20 against an independent oracle and s≤16 coordinate ordering, without a full-domain allocation | Scalar reference validated: job74290; width audit continues |
-| 2. Native CPU arithmetic and transforms | Port extension kernels/plans to uint64 while retaining uint32 base inputs/outputs. Compare small dense/Go/native cases, >32-bit boundary witnesses, sanitizer checks and s16 regressions; measure kernel overhead before whole-run forecasts | Native recursion validated (74295); separate wide Go/C ownership and shared parallel matrix prototype implemented, validation pending |
+| 2. Native CPU arithmetic and transforms | Port extension kernels/plans to uint64 while retaining uint32 base inputs/outputs. Compare small dense/Go/native cases, >32-bit boundary witnesses, sanitizer checks and s16 regressions; measure kernel overhead before whole-run forecasts | Native recursion validated (74295); wide API/matrix/race checks pass, regression harness cwd fixed after74312; full corrected validation pending |
 | 3. Representation and reusable code data | Extend coordinates/counts/cache formats and loaders explicitly. Keep old32-bit artifacts readable; reject truncation, unsupported widths and incompatible specifications. Verify hashes and round trips; preserve existing caches | Pending audit/native design |
 | 4. s17 preprocessing admission | Discover exact K, verify polynomial identities, budget peak host/device memory, storage and setup time. Compare CPU and multi-GPU/streamed preparation; obtain reviewed numeric budgets before full setup | Pending wider implementation; capacity is not admission |
 | 5. First full CPU baseline | Prefer resident reuse (~427GiB principal arrays) on one large-RAM node when the admitted budget fits. Validate systematic values, independent curves, hashes and34GiB packed output; separately measure code loading, encoding, packing, verification and peaks | Pending verified s17 code data and host budget |
@@ -59,7 +59,9 @@ independent fixtures/oracles and shared CPU regressions;410 source files and all
 recorded cache/evidence hashes reconcile. Next are wide interfaces/ownership and
 parallel matrix execution; the [interface/matrix prototype](../experiments/s17-matrix/report.md)
 now implements both with bounded ownership/range/oracle/sanitizer/regression checks
-pending. No full encoder or preprocessing admission is claimed.
+pending. Job74312 passes wide API/matrix/race checks but fails the shared test
+harness working directory; a corrected fresh retry will complete the gate. No
+full encoder or preprocessing admission is claimed.
 
 ## Five-step plan
 

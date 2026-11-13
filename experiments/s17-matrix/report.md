@@ -3,8 +3,10 @@
 Next stage of the [s17 implementation plan](../../docs/encoding-scaling.md#current-execution-plan-for-s17),
 after [bounded native recursion validation](../s17-native/report.md). New wide
 Go/C handles construct immutable ordered plans and canonical-grid matrix/Taylor
-metadata. Runtime validation submitted as **job74312**, source checkpoint71db6a7;
-[submission record](submission.json). No post-submit monitoring. Full s17 encoding, persistent wide code
+metadata. First validation **job74312 failed in the regression harness**, source
+checkpoint71db6a7; [submission record](submission.json),
+[results](runs/matrix-01/results.json), [reconciled analysis](runs/matrix-01/analysis.json).
+Wide API/matrix/race checks passed, but the full interface gate remains open. Full s17 encoding, persistent wide code
 formats and preprocessing remain unimplemented.
 
 [Controller](run.py), [Slurm script](run.sbatch),
@@ -90,3 +92,39 @@ Passing would establish bounded interface ownership and parallel matrix executio
 not a full-domain workload, integrated wide encoder or preprocessing feasibility.
 Next calibrate wider kernel overhead and integrate wide code data/encoding
 lifetimes before larger-run admission. Capacity remains projected at s≥17.
+
+## First run and corrected retry
+
+Job74312 passes the120 optimized/120 sanitizer recursive cases, all wide plan,
+small matrix, parallel Taylor and example tests, and the Go lifetime race check.
+The retained shared regression executable was then launched from the repository
+root; unlike go test, direct test binaries do not automatically switch to their
+package directory. Relative example fixture paths consequently failed, ending the
+suite with exit2. This is a controller error, not a completed full regression.
+The optimized/direct C matrix, matrix ASan/UBSan and legacy matrix sanitizer
+stages were after that failure and **did not run**.
+
+[Analyzer](analyze.py) reconciles420 source identities to71db6a7,25 evidence
+files and7 retained cache files. It preserves the failed status and explicitly
+marks unrun stages; forensic hash verification never promotes a failed job.
+The scalar/recursive analyzers continue to enforce success by default.
+
+```sh
+python3 -B experiments/s17-matrix/analyze.py matrix-01
+```
+
+The controller now launches shared regressions from encoding/liftrs-shared in its
+isolated source copy, with assertions for the expected package-relative fixtures.
+No test selection, algorithm, resource limit or timing boundary changed. Retry
+uses fresh `runs/matrix-02/` and `.cache/liftrs/s17-matrix/matrix-02/`, preserving
+the failed attempt, profiles and sealed digests. Its shared-suite profile may be
+partial because the example panic stopped the original test executable.
+
+```sh
+module load slurm/slurm/25.05
+sbatch --output=experiments/s17-matrix/slurm-%j.log \
+  experiments/s17-matrix/run.sbatch matrix-02
+```
+
+Runtime validation remains pending for the corrected retry; no full s17 encoding
+or numeric scaling-table result is admitted by these partial checks.

@@ -106,7 +106,12 @@ def main():
         run('lifetime-race',[go,'test','-race','-tags','liftrs_cpp','./encoding/liftrs-cpp','-run','TestWidePlan|TestWideCloseConcurrent','-count=1','-timeout=10m'],source)
         regress=cache/'shared.test'
         run('shared-build',[go,'test','-tags','liftrs_cpp','-c','-o',str(regress),'./encoding/liftrs-shared'],source)
-        run('shared-regressions',[str(regress),'-test.timeout=10m','-test.cpuprofile='+str(out/'shared.pprof')],source)
+        # go test normally supplies the package cwd; a retained test binary does not.
+        package=source/'encoding/liftrs-shared'
+        for fixture_path in ('../../experiments/encoder-scaling/artifacts/s10-m2-t6-cyclic-fft.json',
+                             '../../experiments/encoder-comparison/artifacts/s04-m2-t2-cyclic-fft.json'):
+            assert (package/fixture_path).is_file(),fixture_path
+        run('shared-regressions',[str(regress),'-test.timeout=10m','-test.cpuprofile='+str(out/'shared.pprof')],package)
         for label,flags in [('matrix',['-O3']),('matrix-sanitizer',['-O1','-g','-fsanitize=address,undefined','-fno-sanitize-recover=all','-fno-omit-frame-pointer'])]:
             target=cache/label
             run(label+'-build',['g++','-std=c++17','-pthread',*flags,'-Iencoding/liftrs-cpp','experiments/s17-matrix/check.cpp','encoding/liftrs-cpp/wide_api.cpp','-o',str(target)],source)

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/s17-matrix/run.py", line 127, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/s17-matrix/run.py", line 109, in main
+    run('shared-regressions',[str(regress),'-test.timeout=10m','-test.cpuprofile='+str(out/'shared.pprof')],source)
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/s17-matrix/run.py", line 72, in run
+    if reason or proc.returncode:raise RuntimeError(label+': '+str(reason or proc.returncode))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: shared-regressions: 2

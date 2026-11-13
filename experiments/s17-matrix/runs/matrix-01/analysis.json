@@ -1,0 +1,154 @@
+{
+  "status": "failed",
+  "job_id": "74312",
+  "revision": "71db6a71822aa0e1d23dd732a2514a9846953cdf",
+  "source_files_verified": 420,
+  "evidence_files_verified": 25,
+  "cache_files_verified": 7,
+  "tests": [
+    "wide Go/C plan and matrix oracles",
+    "parallel Taylor",
+    "Go lifetime race",
+    "shared CPU regressions",
+    "direct C matrix oracle/ASan/UBSan",
+    "legacy matrix sanitizer"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 2.1913313642144203,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 2.3234755769371986,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 2.2439983673393726,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 2.255934864282608,
+      "peak_rss_bytes": 5353472,
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "seconds": 13.771236792206764,
+      "peak_rss_bytes": 120557568,
+      "exit_code": 0
+    },
+    {
+      "label": "arithmetic",
+      "seconds": 2.217094875872135,
+      "peak_rss_bytes": 5419008,
+      "exit_code": 0
+    },
+    {
+      "label": "profile",
+      "seconds": 14.333120780065656,
+      "peak_rss_bytes": 225779712,
+      "exit_code": 0
+    },
+    {
+      "label": "fixture",
+      "seconds": 4.537240765988827,
+      "peak_rss_bytes": 6004736,
+      "exit_code": 0
+    },
+    {
+      "label": "fixture-profile",
+      "seconds": 2.224325764924288,
+      "peak_rss_bytes": 27492352,
+      "exit_code": 0
+    },
+    {
+      "label": "native-build",
+      "seconds": 2.2636329997330904,
+      "peak_rss_bytes": 47030272,
+      "exit_code": 0
+    },
+    {
+      "label": "native",
+      "seconds": 2.283632295206189,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "sanitizer-build",
+      "seconds": 6.785958720371127,
+      "peak_rss_bytes": 188858368,
+      "exit_code": 0
+    },
+    {
+      "label": "sanitizer",
+      "seconds": 2.264747789129615,
+      "peak_rss_bytes": 15486976,
+      "exit_code": 0
+    },
+    {
+      "label": "legacy-scalar-build",
+      "seconds": 2.278841892257333,
+      "peak_rss_bytes": 53415936,
+      "exit_code": 0
+    },
+    {
+      "label": "legacy-scalar",
+      "seconds": 2.2323123328387737,
+      "peak_rss_bytes": 3178496,
+      "exit_code": 0
+    },
+    {
+      "label": "binding-build",
+      "seconds": 9.131819007918239,
+      "peak_rss_bytes": 450285568,
+      "exit_code": 0
+    },
+    {
+      "label": "binding-checks",
+      "seconds": 2.2707249466329813,
+      "peak_rss_bytes": 9498624,
+      "exit_code": 0
+    },
+    {
+      "label": "binding-profile",
+      "seconds": 6.888570429757237,
+      "peak_rss_bytes": 133865472,
+      "exit_code": 0
+    },
+    {
+      "label": "lifetime-race",
+      "seconds": 23.28754272311926,
+      "peak_rss_bytes": 402968576,
+      "exit_code": 0
+    },
+    {
+      "label": "shared-build",
+      "seconds": 9.159044671803713,
+      "peak_rss_bytes": 481783808,
+      "exit_code": 0
+    },
+    {
+      "label": "shared-regressions",
+      "seconds": 13.767528748139739,
+      "peak_rss_bytes": 1064480768,
+      "exit_code": 2
+    }
+  ],
+  "scope": "bounded validation only; failed or unrun stages keep the interface gate open",
+  "checks": {
+    "binding-checks": "passed",
+    "lifetime-race": "passed",
+    "shared-regressions": "failed",
+    "matrix": "not_run",
+    "matrix-sanitizer": "not_run",
+    "legacy-matrix": "not_run"
+  },
+  "error": "RuntimeError('shared-regressions: 2')"
+}

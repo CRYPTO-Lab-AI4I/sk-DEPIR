@@ -1,0 +1,14 @@
+File: wide.test
+Build ID: da4dd803d295ac7fb7109d31024359a8be06a421
+Type: cpu
+Time: 2026-11-13 17:38:39 CET
+Duration: 4.04s, Total samples = 4.03s (99.70%)
+Showing nodes accounting for 4.01s, 99.50% of 4.03s total
+Dropped 16 nodes (cum <= 0.02s)
+      flat  flat%   sum%        cum   cum%
+     3.97s 98.51% 98.51%      3.97s 98.51%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.binaryOracleMul
+     0.02s   0.5% 99.01%      3.99s 99.01%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.quadraticOracleMul.func1 (inline)
+     0.01s  0.25% 99.26%      4.01s 99.50%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestWideNativeFixtures.func2 (inline)
+     0.01s  0.25% 99.50%         4s 99.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.quadraticOracleMul
+         0     0% 99.50%      4.03s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestWideNativeFixtures
+         0     0% 99.50%      4.03s   100%  testing.tRunner

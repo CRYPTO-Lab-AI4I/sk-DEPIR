@@ -1,0 +1,30 @@
+--- FAIL: TestTableFreeLegacyOutputs (0.00s)
+    binary_field_test.go:144: open ../../experiments/encoder-comparison/results.json: no such file or directory
+--- FAIL: TestS9StoredArtifactCurveConstraints (0.00s)
+    binary_field_test.go:209: open ../../experiments/tablefree-encoding/artifacts/s09-m2-t7-cyclic-fft.json: no such file or directory
+--- FAIL: TestTableFreePreparedArtifactsStayIdentical (0.00s)
+    binary_field_test.go:261: open ../../experiments/encoder-comparison/artifacts/s08-m2-t8-basis.json: no such file or directory
+--- FAIL: TestConstantTablesPreserveArtifacts (0.00s)
+    orbit_constant_artifact_test.go:21: open ../../experiments/encoder-comparison/artifacts/s04-m2-t2-basis.json: no such file or directory
+--- FAIL: TestS10StoredArtifact (0.00s)
+    s10_checkpoint_test.go:14: open ../../experiments/encoder-scaling/artifacts/s10-m2-t6-cyclic-fft.json: no such file or directory
+--- FAIL: ExampleLoadCyclicEncoderWithLimit (0.00s)
+panic: open ../../experiments/encoder-comparison/artifacts/s04-m2-t2-cyclic-fft.json: no such file or directory [recovered, repanicked]
+
+goroutine 1 [running]:
+testing.(*InternalExample).processRunResult(0x1b2665695b60, {0x0, 0x0}, 0xffffffffffffff9c?, 0x0, {0x87bbc0, 0x1b265673db30})
+	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/example.go:92 +0x6e5
+testing.runExample.func2()
+	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/run_example.go:59 +0x113
+panic({0x87bbc0?, 0x1b265673db30?})
+	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/runtime/panic.go:859 +0x125
+github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.ExampleLoadCyclicEncoderWithLimit()
+	/tmp/sk-depir-wide-matrix-74312/repo/encoding/liftrs-shared/orbit_cache_example_test.go:13 +0x152
+testing.runExample({{0x6963e7, 0x21}, 0x8d4f50, {0x689237, 0x4}, 0x0})
+	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/run_example.go:63 +0x2bc
+testing.runExamples(0x18?, {0x8e30d0, 0x9, 0x6974a6?})
+	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/example.go:41 +0x126
+testing.(*M).Run(0x1b2653f90280)
+	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2604 +0x785
+main.main()
+	_testmain.go:272 +0x9b

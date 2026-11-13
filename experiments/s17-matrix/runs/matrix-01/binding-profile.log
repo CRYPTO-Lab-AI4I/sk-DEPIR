@@ -1,0 +1,30 @@
+File: wide-binding.test
+Build ID: 2496498d141c8c0c28de3ebccd06b60c6e7e193c
+Type: cpu
+Time: 2026-11-13 17:39:13 CET
+Duration: 680.18ms, Total samples = 1.12s (164.66%)
+Showing nodes accounting for 1.12s, 100% of 1.12s total
+      flat  flat%   sum%        cum   cum%
+     0.63s 56.25% 56.25%      0.63s 56.25%  runtime.cgocall
+     0.44s 39.29% 95.54%      0.44s 39.29%  [wide-binding.test]
+     0.03s  2.68% 98.21%      0.03s  2.68%  [libc.so.6]
+     0.01s  0.89% 99.11%      0.01s  0.89%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.01s  0.89%   100%      0.01s  0.89%  runtime.(*spanSet).push
+         0     0%   100%      0.45s 40.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*WideMatrix).Apply
+         0     0%   100%      0.12s 10.71%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*WidePlan).ApplyAt
+         0     0%   100%      0.05s  4.46%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.NewWideMatrix
+         0     0%   100%      0.01s  0.89%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.NewWidePlan
+         0     0%   100%      0.17s 15.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.TestWideMatrix
+         0     0%   100%      0.46s 41.07%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.TestWideMatrixParallelTaylor
+         0     0%   100%      0.01s  0.89%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.TestWidePlan
+         0     0%   100%      0.45s 40.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_wide_matrix_apply
+         0     0%   100%      0.05s  4.46%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_wide_matrix_create
+         0     0%   100%      0.12s 10.71%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_wide_plan_apply
+         0     0%   100%      0.01s  0.89%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_wide_plan_create
+         0     0%   100%      0.01s  0.89%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.wideTestEvaluate
+         0     0%   100%      0.01s  0.89%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.wideTestMul
+         0     0%   100%      0.01s  0.89%  runtime.(*sweepLocked).sweep
+         0     0%   100%      0.47s 41.96%  runtime._ExternalCode
+         0     0%   100%      0.01s  0.89%  runtime.bgsweep
+         0     0%   100%      0.01s  0.89%  runtime.sweepone
+         0     0%   100%      0.64s 57.14%  testing.tRunner

@@ -7,10 +7,10 @@ from pathlib import Path
 import subprocess
 
 
-def reconcile(out):
-    """Verify a completed experiment against sealed files and its Git source."""
+def reconcile(out, require_success=True):
+    """Verify sealed hashes; forensic failed-run review must opt out of success."""
     record=json.loads((out/'results.json').read_text())
-    assert record['status']=='passed'
+    if require_success: assert record['status']=='passed'
     def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
     for name,digest in record['evidence_sha256'].items():assert sha(out/name)==digest,name
     for name,digest in record['cache_sha256'].items():assert sha(Path(record['cache'])/name)==digest,name
@@ -25,8 +25,8 @@ def reconcile(out):
         size=int(header[2]);position=end+1
         assert hashlib.sha256(data[position:position+size]).hexdigest()==record['source_sha256'][name],name
         position+=size+1
-    assert all(c['exit_code']==0 and not c['guard'] for c in record['commands'])
-    result={'status':'passed','job_id':record['job_id'],'revision':record['revision'],
+    if require_success: assert all(c['exit_code']==0 and not c['guard'] for c in record['commands'])
+    result={'status':record['status'],'job_id':record['job_id'],'revision':record['revision'],
             'source_files_verified':len(names),'evidence_files_verified':len(record['evidence_sha256']),
             'cache_files_verified':len(record['cache_sha256']),
             'tests':['TestWideOrbitArithmetic','TestTableFreeFields'],
