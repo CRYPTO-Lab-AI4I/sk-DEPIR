@@ -57,18 +57,30 @@ CASES = {
 }
 
 
-def policy(case):
+EXTENDED_HOURS = {"cpu-packed-s16": 4, "cpu-disk-s15": 12, "cpu-disk-s16": 48}
+
+
+def policy(case, extended=False):
     s = CASES[case][0]
     ram = 16 if s == 10 else 32 if s < 16 else 128
-    return {'cpus': 32, 'host_request_bytes': ram * GIB,
+    limits = {'cpus': 32, 'host_request_bytes': ram * GIB,
             'rss_guard_bytes': min(96, ram * 3 // 4) * GIB,
             'cgroup_guard_bytes': min(112, ram - 2) * GIB,
             'new_cache_guard_bytes': (64 if case == 'cpu-disk-s16' else 16) * GIB,
             'scratch_guard_bytes': 16 * GIB, 'device_cap_bytes': 0 if case.startswith('cpu-') else (512 << 20) if '-host-' in case else 40 * GIB,
             'controller_seconds': 6600, 'worker_seconds': 5400, 'slurm_seconds': 7200}
+    if extended:
+        assert case in EXTENDED_HOURS, 'extended limits are admitted only for the three CPU retries'
+        wall = EXTENDED_HOURS[case] * 3600
+        limits.update(slurm_seconds=wall, controller_seconds=wall-900, worker_seconds=wall-1800)
+    return limits
 
 
 def check():
+    for case, hours in EXTENDED_HOURS.items():
+        limits = policy(case, True)
+        assert limits['worker_seconds'] < limits['controller_seconds'] < limits['slurm_seconds'] == hours * 3600
+        assert all(limits[key] == policy(case)[key] for key in limits if not key.endswith('_seconds'))
     assert len(CASES) == 22
     assert all(s in REFERENCES for s, _, _, _ in CASES.values())
     assert all(int(case.rsplit('s', 1)[1]) == row[0] for case, row in CASES.items())
@@ -82,6 +94,7 @@ def main():
     parser.add_argument('batch', nargs='?')
     parser.add_argument('case', nargs='?', choices=CASES)
     parser.add_argument('--check', action='store_true')
+    parser.add_argument('--extended-limits', action='store_true', help='explicit longer deadlines for the three CPU retry cases')
     args = parser.parse_args()
     check()
     if args.check:
@@ -92,7 +105,7 @@ def main():
     case = args.case
     s, test, switches, prefix = CASES[case]
     job = os.environ['SLURM_JOB_ID']
-    limits = policy(case)
+    limits = policy(case, args.extended_limits)
     out = HERE / 'runs' / args.batch / case
     out.mkdir(parents=True, exist_ok=False)
     cache = ROOT / '.cache/liftrs/encoding-table' / args.batch / case
@@ -205,7 +218,7 @@ def main():
             env['PIR_GPU_LIBRARY'] = str(library)
         run('build', [go, 'test', '-tags', 'liftrs_cpp,liftrs_cuda', '-c', '-o', str(binary), './encoding/liftrs-shared'], source)
         run('controls', [str(binary), '-test.run=^TestScalingTableControls$', '-test.v'], source)
-        run('workflow', [str(binary), '-test.run=^' + test + '$', '-test.v', '-test.timeout=90m'], source)
+        run('workflow', [str(binary), '-test.run=^' + test + '$', '-test.v', '-test.timeout=' + str(limits['worker_seconds']) + 's'], source)
         phases = list((out / 'workflow').rglob('phases.json'))
         assert phases, 'workflow must execute, not skip'
         for path in phases:

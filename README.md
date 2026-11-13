@@ -20,7 +20,9 @@ scaling progresses; the [scaling plan](docs/encoding-scaling.md) tracks the work
 A [bounded HPC table-gap batch](experiments/encoding-table/report.md) measures
 22 missing encoding-mode cells at s10/14/15/16 using retained preprocessing.
 Submissions and results are separate from validated entries; the reference keeps
-laptop and HPC evidence labeled independently.
+laptop and HPC evidence labeled independently. The three remaining CPU cases
+have [explicit extended retry limits](experiments/encoding-table/report.md#extended-cpu-retries),
+with packed output scheduled alongside a sequential disk queue.
 
 The optional [GPU scaling experiment](experiments/gpu-scaling/report.md) separates
 full-domain plan metadata from explicit per-engine allocation limits. Exact

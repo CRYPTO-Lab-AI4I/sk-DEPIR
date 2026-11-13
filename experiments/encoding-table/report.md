@@ -70,6 +70,44 @@ produce a complete entry. Ordinary faster defaults are unchanged. Profiles and
 cache artifacts survive errors/deadlines where termination permits; no automatic
 cleanup deletes useful evidence.
 
+## Extended CPU retries
+
+The user requested relaunch of the three remaining CPU jobs with adequate limits,
+then selected **packed in parallel with a sequential disk queue**. Cancellation
+was requested for old jobs74201/74202/74203; their logs, partial workspace and
+results stay in fill-01. New attempts use fresh fill-02 output/cache paths;
+[retry manifest](runs/fill-02/submissions.json) records replacement identities.
+
+| Retry case | Slurm maximum | Controller maximum | Go test/worker maximum |
+|---|---|---|---|
+| s16 CPU packed | 4h | 3h45m | 3h30m |
+| s15 CPU disk | 12h | 11h45m | 11h30m |
+| s16 CPU disk | 48h | 47h45m | 47h30m |
+
+These are explicit retry ceilings, not latency forecasts. The initial s14 disk
+case measured758/684s per encoding, while s15's first encoding was still active
+at about80minutes. Scaling crosses file-cache regimes; extrapolation from the
+small case is unreliable. A larger deadline does not establish completion.
+Partition gpuq reports a100-hour maximum, so these requests fit. Memory, cores,
+profiling, input checks and storage caps are unchanged (64GiB only for s16 disk).
+Original attempts have no mid-encoding checkpoint; retries restart encoding.
+
+`--extended-limits` is accepted only for these three CPU cases. The submitter
+passes the matching Slurm limit, controller limit and Go test timeout from one
+policy; historical two-hour defaults remain unchanged. Dry-run and allocation-free
+policy assertions verify ordering and unchanged non-time resource caps.
+
+```sh
+module load slurm/slurm/25.05
+python3 -B experiments/encoding-table/submit.py fill-02 \
+  --extended-limits --scheduling split --after-job 74201
+```
+
+The old-job dependency only prevents overlap during cancellation cleanup; retries
+are independent of the old results. The packed job and first disk job then run
+independently; the second disk job waits via afterany. No scheduler/log monitoring
+follows submission. Reconcile completed retry cases after the user's next ping.
+
 ## Inputs, correctness and measurement boundaries
 
 Trusted online digests for s10/14/15/16 are pinned in the controller; metadata,

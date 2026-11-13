@@ -1,0 +1,55 @@
+{
+  "status": "prepared",
+  "replaces": {
+    "cpu-packed-s16": "74202",
+    "cpu-disk-s15": "74201",
+    "cpu-disk-s16": "74203"
+  },
+  "cases": {
+    "cpu-packed-s16": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 137438953472,
+        "rss_guard_bytes": 103079215104,
+        "cgroup_guard_bytes": 120259084288,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 0,
+        "controller_seconds": 13500,
+        "worker_seconds": 12600,
+        "slurm_seconds": 14400
+      }
+    },
+    "cpu-disk-s15": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 0,
+        "controller_seconds": 42300,
+        "worker_seconds": 41400,
+        "slurm_seconds": 43200
+      }
+    },
+    "cpu-disk-s16": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 137438953472,
+        "rss_guard_bytes": 103079215104,
+        "cgroup_guard_bytes": 120259084288,
+        "new_cache_guard_bytes": 68719476736,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 0,
+        "controller_seconds": 171900,
+        "worker_seconds": 171000,
+        "slurm_seconds": 172800
+      }
+    }
+  }
+}
