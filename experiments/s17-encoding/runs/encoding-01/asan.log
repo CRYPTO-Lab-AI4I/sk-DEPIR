@@ -1,0 +1,7 @@
+=== RUN   TestScalingWideCPPEncoding
+--- PASS: TestScalingWideCPPEncoding (17.08s)
+=== RUN   TestScalingWideCPPLifetime
+--- PASS: TestScalingWideCPPLifetime (0.00s)
+=== RUN   ExampleScalingCodeData_WithWideCPP
+--- PASS: ExampleScalingCodeData_WithWideCPP (0.00s)
+PASS

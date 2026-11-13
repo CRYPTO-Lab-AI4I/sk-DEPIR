@@ -92,7 +92,7 @@ complete wide CPU metadata. Allocate `encoder.NewWorkspace(maxBytes)` using an
 explicit principal-workspace cap, then `Encode` or `EncodeWithStats` and `Close`.
 Ordinary builds return `ErrCPPUnavailable`. See the
 [runnable example](../encoding/liftrs-shared/scaling_wide_cpp_example_test.go) and
-[bounded validation plan](../experiments/s17-encoding/report.md). Validation is pending.
+[bounded validation plan](../experiments/s17-encoding/report.md). Bounded validation passes job74412; full s17 remains unvalidated.
 
 Code data remains immutable at its stored spectrum width; base messages/results
 remain uint32. With L=nextpow2(2K−1), arena=max(2L,N), workspace payload is

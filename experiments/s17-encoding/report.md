@@ -8,10 +8,11 @@ continuing steps2–3 of the [s17 plan](../../docs/encoding-scaling.md#current-e
 [shared tests](../../encoding/liftrs-shared/scaling_wide_cpp_test.go),
 [raw API tests](../../encoding/liftrs-cpp/wide_online_test.go),
 [runnable example](../../encoding/liftrs-shared/scaling_wide_cpp_example_test.go).
-Validation is **pending job74412**, source checkpoint `0db6ec6`;
+Bounded validation **passed job74412**, source checkpoint `0db6ec6`;
 [submission](submission.json). No runtime, speedup or full s17 result is claimed.
 The source revision, exact commands and source/cache/evidence SHA-256 values
-are recorded by the controller in `runs/encoding-01/results.json` after submission.
+are recorded in [results](runs/encoding-01/results.json);
+[reconciled analysis](runs/encoding-01/analysis.json).
 
 ## Reproduce and budgets
 
@@ -86,3 +87,32 @@ metadata setup, loading and packing. Validation command elapsed times include
 profiling/test overhead; they are not unprofiled encoding benchmarks. Genuine
 s17 code identities, preparation cost, admitted whole-process budgets and
 representative performance calibration remain subsequent gates.
+
+
+## Reconciled results and next step
+
+Reviewed after the user's completion ping. The [analyzer](analyze.py) reconciles
+438 source files against0db6ec6,24 sealed evidence files and18 cached binary/
+fixture identities. All commands pass without resource-guard failures.
+
+```sh
+python3 -B experiments/s17-encoding/analyze.py encoding-01
+```
+
+The [real-code schedule/ownership checks](runs/encoding-01/encoding.log) pass
+at s3/4/6/8, as do Go ASan/C++ UBSan, lifetime race, metadata-only large-count
+and raw width/rejection checks. The optimized and ASan/UBSan direct C checkers
+each pass12 independent synthetic arithmetic cases. Full shared Go-only and
+native regression suites pass. Profiles, matching binaries and small verified
+preprocessing remain retained. These are bounded correctness results, not full
+s17 encoding, preprocessing admission or representative performance evidence.
+
+**Recommended next: deduplicate the native CPU encoding sequence before further
+wide preprocessing or additional modes.** Arithmetic/transforms already share
+templates; the old and wide online sequences still duplicate mathematical steps.
+Extract one shared sequence, leaving width-specific buffers, code access and
+output assembly in small implementation modules. Keep current APIs, allocation
+counts, defaults and explicit memory-mode behavior intact. Validate both widths,
+existing memory modes and representative timing against this checkpoint. This
+review does not start that refactor or a new job. CPU/GPU kernels and independent
+Go correctness references need not be identical implementations.

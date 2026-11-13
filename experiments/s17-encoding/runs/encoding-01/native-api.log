@@ -1,0 +1,15 @@
+=== RUN   TestWideOnlineCounts
+--- PASS: TestWideOnlineCounts (0.08s)
+=== RUN   TestWideOnlineBorrowed
+--- PASS: TestWideOnlineBorrowed (0.00s)
+=== RUN   TestWidePlan
+--- PASS: TestWidePlan (0.00s)
+=== RUN   TestWideMatrix
+--- PASS: TestWideMatrix (0.20s)
+=== RUN   TestWideMatrixParallelTaylor
+--- PASS: TestWideMatrixParallelTaylor (0.47s)
+=== RUN   TestWideCloseConcurrent
+--- PASS: TestWideCloseConcurrent (0.00s)
+=== RUN   ExampleNewWideMatrix
+--- PASS: ExampleNewWideMatrix (0.00s)
+PASS

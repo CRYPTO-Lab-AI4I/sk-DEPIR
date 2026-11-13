@@ -760,4 +760,4 @@ Workspace caps exclude code/input, native metadata, transient parity, retained
 older results and runtime headroom. Do not copy/concurrently reuse workspaces.
 See the [full accounting](../../docs/scaling-code-data.md#optional-native-encoding)
 and [bounded validation experiment](../../experiments/s17-encoding/report.md),
-currently pending. Full s17 preprocessing, encoding and latency are unvalidated.
+passed in bounded job74412. Full s17 preprocessing, encoding and latency are unvalidated.

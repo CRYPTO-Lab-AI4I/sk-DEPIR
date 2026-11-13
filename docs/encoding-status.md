@@ -83,7 +83,9 @@ cap/digest/range/error and shared Go/CPU regressions (job74396). Its426 source,1
 evidence and2 binary identities reconcile. An explicit experimental
 [complete wide CPU schedule](../experiments/s17-encoding/report.md) now connects
 resident code data to five native transforms and canonical output; bounded
-validation is pending. No genuine s17 cache or full-size preprocessing/encoding
+validation passes job74412 with438 source,24 evidence and18 cache identities
+reconciled. Sharing the duplicated native encoding sequence is recommended
+before further wide integration. No genuine s17 cache or full-size preprocessing/encoding
 run exists; full-size latency is unknown. Its reuse model still retains 8N
 output backing bytes (4N logical uint32 bytes), and older returned words require
 additional live RAM. No full-size capacity or timing estimate changes.

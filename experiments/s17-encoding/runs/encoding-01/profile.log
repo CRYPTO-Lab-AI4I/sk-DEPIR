@@ -1,0 +1,49 @@
+File: shared-cpp.test
+Build ID: a3eeec5becd175324c2d310904196563434ac288
+Type: cpu
+Time: 2026-11-14 00:08:46 CET
+Duration: 2.25s, Total samples = 2.62s (116.70%)
+Showing nodes accounting for 2.54s, 96.95% of 2.62s total
+Dropped 22 nodes (cum <= 0.01s)
+      flat  flat%   sum%        cum   cum%
+     0.73s 27.86% 27.86%      0.73s 27.86%  runtime.cgocall
+     0.43s 16.41% 44.27%      0.43s 16.41%  [shared-cpp.test]
+     0.39s 14.89% 59.16%      0.79s 30.15%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).Recurse
+     0.36s 13.74% 72.90%      0.36s 13.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.28s 10.69% 83.59%      0.57s 21.76%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     0.16s  6.11% 89.69%      0.16s  6.11%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Product.Mul
+     0.14s  5.34% 95.04%      0.29s 11.07%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.03s  1.15% 96.18%      0.24s  9.16%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Field.mul
+     0.01s  0.38% 96.56%      0.43s 16.41%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+     0.01s  0.38% 96.95%      0.02s  0.76%  runtime.scanblock
+         0     0% 96.95%      0.74s 28.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*WideOnline).EncodeBorrowed
+         0     0% 96.95%      0.73s 27.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_wide_online_encode
+         0     0% 96.95%      1.01s 38.55%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclic
+         0     0% 96.95%      1.05s 40.08%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclicFFT
+         0     0% 96.95%      0.14s  5.34%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).Encode
+         0     0% 96.95%      0.75s 28.63%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingWideCPPEncoder).EncodeWithStats
+         0     0% 96.95%      0.35s 13.36%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0% 96.95%      0.44s 16.79%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0% 96.95%      0.15s  5.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.DiscoverOrbit
+         0     0% 96.95%      2.16s 82.44%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestScalingWideCPPEncoding
+         0     0% 96.95%      0.15s  5.73%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.discoverOrbitBasis
+         0     0% 96.95%      0.58s 22.14%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+         0     0% 96.95%      0.74s 28.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.nativeWideCPP.EncodeBorrowed
+         0     0% 96.95%      0.17s  6.49%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newProductTree
+         0     0% 96.95%      0.84s 32.06%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyDiv
+         0     0% 96.95%      0.25s  9.54%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyInverse
+         0     0% 96.95%      1.01s 38.55%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0% 96.95%      1.25s 47.71%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.wideCodeFixture
+         0     0% 96.95%      0.02s  0.76%  runtime.(*mcache).nextFree
+         0     0% 96.95%      0.02s  0.76%  runtime.(*mcache).refill
+         0     0% 96.95%      0.44s 16.79%  runtime._ExternalCode
+         0     0% 96.95%      0.02s  0.76%  runtime.gcBgMarkWorker
+         0     0% 96.95%      0.02s  0.76%  runtime.gcBgMarkWorker.func2
+         0     0% 96.95%      0.02s  0.76%  runtime.gcDrain
+         0     0% 96.95%      0.03s  1.15%  runtime.makeslice
+         0     0% 96.95%      0.04s  1.53%  runtime.mallocgc
+         0     0% 96.95%      0.03s  1.15%  runtime.mallocgcSmallNoscan
+         0     0% 96.95%      0.02s  0.76%  runtime.markroot
+         0     0% 96.95%      0.02s  0.76%  runtime.markrootBlock
+         0     0% 96.95%      0.02s  0.76%  runtime.systemstack
+         0     0% 96.95%      2.16s 82.44%  testing.tRunner

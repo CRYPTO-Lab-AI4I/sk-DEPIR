@@ -320,7 +320,7 @@ cyclic schedule with uint64 transform arrays and uint32 base inputs/results.
 The shared `ScalingCodeData.WithWideCPP` adapter borrows immutable P/spectrum
 arrays at their stored width. See [ownership/accounting](../../docs/scaling-code-data.md#optional-native-encoding),
 [example](../liftrs-shared/scaling_wide_cpp_example_test.go) and
-[validation](../../experiments/s17-encoding/report.md) (pending).
+[validation](../../experiments/s17-encoding/report.md) (bounded job74412 passed).
 
 Scratch becomes the returned canonical word without another allocation,
 retaining8N backing bytes for4N logical bytes. No typed uint64 access overlaps

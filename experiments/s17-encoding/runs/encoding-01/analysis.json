@@ -1,0 +1,141 @@
+{
+  "status": "passed",
+  "job_id": "74412",
+  "revision": "0db6ec6225c4c9cabed18addb86a637117b64d83",
+  "source_files_verified": 438,
+  "evidence_files_verified": 24,
+  "cache_files_verified": 18,
+  "tests": [
+    "TestScalingWideCPPEncoding",
+    "TestScalingWideCPPLifetime",
+    "ExampleScalingCodeData_WithWideCPP",
+    "TestWideOnlineCounts",
+    "TestWideOnlineBorrowed"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 2.1920883171260357,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 2.202636359259486,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 2.1714263260364532,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 2.174383958801627,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "seconds": 13.535493168979883,
+      "peak_rss_bytes": 124215296,
+      "exit_code": 0
+    },
+    {
+      "label": "go-regressions",
+      "seconds": 28.924609104171395,
+      "peak_rss_bytes": 1040744448,
+      "exit_code": 0
+    },
+    {
+      "label": "cpp-build",
+      "seconds": 11.178192120045424,
+      "peak_rss_bytes": 474271744,
+      "exit_code": 0
+    },
+    {
+      "label": "encoding",
+      "seconds": 4.419596808031201,
+      "peak_rss_bytes": 23564288,
+      "exit_code": 0
+    },
+    {
+      "label": "profile",
+      "seconds": 11.9528727568686,
+      "peak_rss_bytes": 258199552,
+      "exit_code": 0
+    },
+    {
+      "label": "cpp-regressions",
+      "seconds": 33.529383067041636,
+      "peak_rss_bytes": 1017409536,
+      "exit_code": 0
+    },
+    {
+      "label": "native-api-build",
+      "seconds": 9.01045859977603,
+      "peak_rss_bytes": 491233280,
+      "exit_code": 0
+    },
+    {
+      "label": "native-api",
+      "seconds": 2.2738656364381313,
+      "peak_rss_bytes": 16617472,
+      "exit_code": 0
+    },
+    {
+      "label": "lifetime-race",
+      "seconds": 22.8856129553169,
+      "peak_rss_bytes": 503169024,
+      "exit_code": 0
+    },
+    {
+      "label": "asan-build",
+      "seconds": 20.917560243979096,
+      "peak_rss_bytes": 523067392,
+      "exit_code": 0
+    },
+    {
+      "label": "asan",
+      "seconds": 17.95079918950796,
+      "peak_rss_bytes": 51130368,
+      "exit_code": 0
+    },
+    {
+      "label": "schedule-build",
+      "seconds": 6.912365399301052,
+      "peak_rss_bytes": 160411648,
+      "exit_code": 0
+    },
+    {
+      "label": "schedule",
+      "seconds": 2.242635115981102,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "schedule-sanitizer-build",
+      "seconds": 6.819640077650547,
+      "peak_rss_bytes": 274182144,
+      "exit_code": 0
+    },
+    {
+      "label": "schedule-sanitizer",
+      "seconds": 2.285127691924572,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    }
+  ],
+  "scope": "complete wide schedule on real s3/4/6/8 codes and synthetic small edges; metadata-only large counts; no full s17 preparation/encoding or latency estimate",
+  "regressions": [
+    "shared Go-only",
+    "shared liftrs_cpp",
+    "native API"
+  ],
+  "direct_cases": {
+    "optimized": 12,
+    "ASan/UBSan": 12
+  }
+}

@@ -29,7 +29,7 @@ encoding remains limited to s≤16. The [width-aware code-data APIs](docs/scalin
 pass bounded legacy/header/slot validation and Go/CPU regressions. Genuine s17
 code preparation remains separate. The explicit experimental
 [complete wide CPU encoder](experiments/s17-encoding/report.md) now consumes
-that code data; bounded correctness/ownership/sanitizer validation is pending.
+that code data; bounded correctness/ownership/sanitizer checks pass (job74412).
 Its returned uint32 word retains an 8N-byte backing allocation, counted in the
 workspace model. Existing CPU/GPU defaults are unchanged; full s17 is unvalidated.
 
