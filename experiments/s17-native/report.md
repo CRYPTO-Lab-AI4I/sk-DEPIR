@@ -3,8 +3,10 @@
 This implements the kernel part of step2 in the
 [s17 execution plan](../../docs/encoding-scaling.md#current-execution-plan-for-s17),
 after [scalar reference validation74290](../s17-arithmetic/report.md). Runtime
-validation is submitted as **job74295**, source checkpoint6083f56;
-[submission record](submission.json). No post-submit monitoring. No full s17 encoder, wide C ABI, matrix schedule or code
+validation **passed job74295**, source checkpoint6083f56;
+[submission record](submission.json), [results](runs/kernel-01/results.json),
+[reconciled analysis](runs/kernel-01/analysis.json). Results were inspected only
+after the user reported completion. No full s17 encoder, wide C ABI, matrix schedule or code
 cache is admitted by this work.
 
 [Controller](run.py), [Slurm script](run.sbatch),
@@ -70,3 +72,35 @@ Passing would establish bounded native forward/inverse arithmetic, not the
 preprocessing. Next integrate wide plans with explicit interface/ownership/range
 checks, measure native overhead, then extend reusable code formats and preparation.
 The maintained capacity/runtime table remains projected at s≥17.
+
+## Reconciled results
+
+[Analyzer](analyze.py), [optimized output](runs/kernel-01/native.log),
+[sanitizer output](runs/kernel-01/sanitizer.log),
+[shared CPU suite](runs/kernel-01/native-regressions.log),
+[binding build](runs/kernel-01/binding-regressions.log).
+
+All120 optimized cases and120 ASan/UBSan cases pass. Every fixture matches the
+independent polynomial evaluation, inverse round trip and canaries; overlapping
+s≤16 cases agree between32-bit and64-bit specializations. Invalid lengths/offsets
+are rejected. The legacy native scalar oracle and shared liftrs_cpp Go suite pass.
+The binding package builds and reports no test files; this is not a separate
+binding test pass. The profiled shared-suite executable created by go test is
+in the compute node’s isolated `/tmp/sk-depir-native-wide-74295/repo/` tree,
+rather than the sealed shared cache. Its retention depends on node scratch
+lifetime; the five sealed cache files cover the initial Go binary, native
+binaries and fixture. All profile files themselves are archived. No recorded command failed or triggered a guard.
+
+Source reconciliation verified410 files against6083f56,20 evidence files and all5
+retained cache files (fixture and binaries). The reusable scalar hash verifier is
+shared with the earlier experiment; rerunning its reconciliation still passes.
+
+```sh
+python3 -B experiments/s17-native/analyze.py kernel-01
+```
+
+The kernel gate passes for these bounded plans, not a complete34-level transform
+or full encoder. No full-domain RAM/latency measurements or speedup claims follow.
+Next implement explicit wide interface/plan ownership and parallel matrix
+execution, compare against the verified recursive/scalar kernels, then widen
+code-data formats and preprocessing. Existing CPU/GPU admission remains s≤16.

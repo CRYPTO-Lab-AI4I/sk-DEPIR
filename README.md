@@ -21,8 +21,9 @@ large-RAM CPU baseline, multi-GPU target and preprocessing/implementation gates.
 The [active s17 execution plan](docs/encoding-scaling.md#current-execution-plan-for-s17)
 starts with a [bounded wide-arithmetic reference](experiments/s17-arithmetic/report.md).
 Its scalar/oracle and legacy-ordering checks pass through s20. A
-[bounded native64-bit transform prototype](experiments/s17-native/report.md) is
-awaiting runtime validation; full encoding remains limited to s≤16.
+[bounded native64-bit transform prototype](experiments/s17-native/report.md) passes
+independent forward/inverse checks, sanitizers and shared CPU regressions. Wide
+interfaces/matrix execution remain pending; full encoding is limited to s≤16.
 
 A [bounded HPC table-gap batch](experiments/encoding-table/report.md) measures
 22 missing encoding-mode cells at s10/14/15/16 using retained preprocessing.

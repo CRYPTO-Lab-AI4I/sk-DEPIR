@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-13 16:21 | SCALING-052 | Completed | [Native64 kernel checks passed](2026-11-13-1621-codex-scaling-052-completed.md) |
+| 2026-11-13 16:20 | SCALING-052 | Started | [Reconcile native64 kernel](2026-11-13-1620-codex-scaling-052-started.md) |
 | 2026-11-13 16:04 | SCALING-051 | Handoff | [Native64 validation job74295](2026-11-13-1604-codex-scaling-051-handoff.md) |
 | 2026-11-13 15:58 | SCALING-051 | Started | [Native wide transform kernel](2026-11-13-1558-codex-scaling-051-started.md) |
 | 2026-11-13 15:55 | SCALING-050 | Completed | [Wide scalar gate passed](2026-11-13-1555-codex-scaling-050-completed.md) |

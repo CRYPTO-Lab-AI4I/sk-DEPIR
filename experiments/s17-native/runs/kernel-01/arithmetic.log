@@ -1,0 +1,5 @@
+=== RUN   TestTableFreeFields
+--- PASS: TestTableFreeFields (0.14s)
+=== RUN   TestWideOrbitArithmetic
+--- PASS: TestWideOrbitArithmetic (0.02s)
+PASS

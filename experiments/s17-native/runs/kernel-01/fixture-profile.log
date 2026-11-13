@@ -1,0 +1,25 @@
+File: wide.test
+Build ID: ad9f80945310add4b77cff703a48f7cd3781b609
+Type: cpu
+Time: 2026-11-13 17:04:58 CET
+Duration: 4.04s, Total samples = 4.03s (99.84%)
+Showing nodes accounting for 3.98s, 98.76% of 4.03s total
+Dropped 13 nodes (cum <= 0.02s)
+      flat  flat%   sum%        cum   cum%
+     3.90s 96.77% 96.77%      3.90s 96.77%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.binaryOracleMul
+     0.04s  0.99% 97.77%      0.04s  0.99%  internal/runtime/syscall/linux.Syscall6
+     0.02s   0.5% 98.26%      4.03s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestWideNativeFixtures
+     0.01s  0.25% 98.51%      3.92s 97.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestWideNativeFixtures.func2 (inline)
+     0.01s  0.25% 98.76%      3.91s 97.02%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.quadraticOracleMul
+         0     0% 98.76%      0.07s  1.74%  encoding/binary.Write
+         0     0% 98.76%      0.07s  1.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestWideNativeFixtures.func1 (inline)
+         0     0% 98.76%      3.90s 96.77%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.quadraticOracleMul.func1 (inline)
+         0     0% 98.76%      0.05s  1.24%  internal/poll.(*FD).Write
+         0     0% 98.76%      0.05s  1.24%  internal/poll.ignoringEINTRIO (inline)
+         0     0% 98.76%      0.05s  1.24%  os.(*File).Write
+         0     0% 98.76%      0.05s  1.24%  os.(*File).write (inline)
+         0     0% 98.76%      0.04s  0.99%  syscall.RawSyscall6
+         0     0% 98.76%      0.05s  1.24%  syscall.Syscall
+         0     0% 98.76%      0.05s  1.24%  syscall.Write (inline)
+         0     0% 98.76%      0.05s  1.24%  syscall.write
+         0     0% 98.76%      4.03s   100%  testing.tRunner

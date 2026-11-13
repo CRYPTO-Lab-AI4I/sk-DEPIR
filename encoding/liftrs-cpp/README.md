@@ -22,7 +22,8 @@ recursive execution across uint32_t/uint64_t. Existing names remain32-bit aliase
 are packed as a|(b<<s), with32-bit base components; degrees, offsets and table
 entries use the selected word width. The [bounded validation experiment](../../experiments/s17-native/report.md)
 compares independent Go evaluations, inverse round trips,32-bit agreement and
-sanitizers. Validation is pending. The C ABI, Go bindings and full CPU/matrix
+sanitizers. Job74295 passes120 optimized and120 sanitizer cases plus shared CPU
+regressions. The C ABI, Go bindings and full CPU/matrix
 encoder remain32-bit and retain s≤16 admission; wide public loading is not added.
 
 ## Optional Go integration

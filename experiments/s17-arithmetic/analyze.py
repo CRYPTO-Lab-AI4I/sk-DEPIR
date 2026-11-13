@@ -7,11 +7,8 @@ from pathlib import Path
 import subprocess
 
 
-def main():
-    parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('name')
-    args=parser.parse_args()
-    out=Path(__file__).resolve().parent/'runs'/args.name
+def reconcile(out):
+    """Verify a completed experiment against sealed files and its Git source."""
     record=json.loads((out/'results.json').read_text())
     assert record['status']=='passed'
     def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -35,8 +32,17 @@ def main():
             'tests':['TestWideOrbitArithmetic','TestTableFreeFields'],
             'commands':[{k:c[k] for k in ('label','seconds','peak_rss_bytes','exit_code')} for c in record['commands']],
             'scope':'scalar correctness; no transform/preprocessing/encoding capability at s17'}
+    return result
+
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('name')
+    args=parser.parse_args()
+    out=Path(__file__).resolve().parent/'runs'/args.name
+    result=reconcile(out)
     (out/'analysis.json').write_text(json.dumps(result,indent=2)+'\n')
-    print('passed:',len(names),'source files; evidence/cache hashes reconciled')
+    print('passed:',result['source_files_verified'],'source files; evidence/cache hashes reconciled')
 
 
 if __name__=='__main__':main()

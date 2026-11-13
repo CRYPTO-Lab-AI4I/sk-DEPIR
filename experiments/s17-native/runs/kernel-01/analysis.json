@@ -1,0 +1,125 @@
+{
+  "status": "passed",
+  "job_id": "74295",
+  "revision": "6083f5634c1100f97b4447cf9f259c8bc22dc45f",
+  "source_files_verified": 410,
+  "evidence_files_verified": 20,
+  "cache_files_verified": 5,
+  "tests": [
+    "TestWideOrbitArithmetic",
+    "TestTableFreeFields",
+    "TestWideNativeFixtures",
+    "native forward/inverse, independent polynomial oracle, scalar/tables,32/64 agreement, canaries, invalid shape/offset",
+    "ASan/UBSan",
+    "legacy native scalar",
+    "shared liftrs_cpp Go suite"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 2.285203706473112,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 2.2478763479739428,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 2.3187456354498863,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 2.2705347780138254,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "seconds": 13.993096645921469,
+      "peak_rss_bytes": 315539456,
+      "exit_code": 0
+    },
+    {
+      "label": "arithmetic",
+      "seconds": 2.306615261361003,
+      "peak_rss_bytes": 4976640,
+      "exit_code": 0
+    },
+    {
+      "label": "profile",
+      "seconds": 12.258020643144846,
+      "peak_rss_bytes": 276504576,
+      "exit_code": 0
+    },
+    {
+      "label": "fixture",
+      "seconds": 4.5761671010404825,
+      "peak_rss_bytes": 10870784,
+      "exit_code": 0
+    },
+    {
+      "label": "fixture-profile",
+      "seconds": 2.3397870678454638,
+      "peak_rss_bytes": 30343168,
+      "exit_code": 0
+    },
+    {
+      "label": "native-build",
+      "seconds": 4.5564000476151705,
+      "peak_rss_bytes": 56352768,
+      "exit_code": 0
+    },
+    {
+      "label": "native",
+      "seconds": 2.308613983914256,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "sanitizer-build",
+      "seconds": 6.907877983525395,
+      "peak_rss_bytes": 188444672,
+      "exit_code": 0
+    },
+    {
+      "label": "sanitizer",
+      "seconds": 2.279518086463213,
+      "peak_rss_bytes": 15814656,
+      "exit_code": 0
+    },
+    {
+      "label": "legacy-scalar-build",
+      "seconds": 2.313660802319646,
+      "peak_rss_bytes": 62337024,
+      "exit_code": 0
+    },
+    {
+      "label": "legacy-scalar",
+      "seconds": 2.292805066332221,
+      "peak_rss_bytes": 3178496,
+      "exit_code": 0
+    },
+    {
+      "label": "native-regressions",
+      "seconds": 41.56422312371433,
+      "peak_rss_bytes": 1056718848,
+      "exit_code": 0
+    },
+    {
+      "label": "binding-regressions",
+      "seconds": 2.309220213443041,
+      "peak_rss_bytes": 19083264,
+      "exit_code": 0
+    }
+  ],
+  "scope": "bounded recursive kernels only; wide C ABI/matrix/cache/preprocessing/full s17 encoder pending",
+  "native_cases": 120,
+  "sanitizer_cases": 120,
+  "binding_scope": "build only; package has no tests"
+}
