@@ -3,7 +3,8 @@
 Next stage of the [s17 implementation plan](../../docs/encoding-scaling.md#current-execution-plan-for-s17),
 after [bounded native recursion validation](../s17-native/report.md). New wide
 Go/C handles construct immutable ordered plans and canonical-grid matrix/Taylor
-metadata. Runtime validation is pending. Full s17 encoding, persistent wide code
+metadata. Runtime validation submitted as **job74312**, source checkpoint71db6a7;
+[submission record](submission.json). No post-submit monitoring. Full s17 encoding, persistent wide code
 formats and preprocessing remain unimplemented.
 
 [Controller](run.py), [Slurm script](run.sbatch),
