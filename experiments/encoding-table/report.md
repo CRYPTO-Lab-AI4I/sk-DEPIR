@@ -156,3 +156,13 @@ No new measured numbers are claimed here before reconciliation. After completion
 link the analysis and update the reference with HPC labels, memory boundaries,
 thread counts and stored-output versus encoding-only latency. Failed or timed-out
 cases remain unmeasured with their failure/deadline recorded.
+
+
+## Requested status check of disk s16
+
+[One-time scheduler/accounting snapshot](2026-11-13-2315-job-74253.json), checked at the user's explicit
+request after publication44c8a9c: job74253 (`fill-02/cpu-disk-s16`) RUNNING on
+gnode17, elapsed7h19m05s against48h,32CPU/128GiB requested RAM, zero restarts.
+This is an active-job snapshot, not a completed result or evidence of encoding
+progress; no live logs/processes/results were inspected. Resume the no-monitoring
+rule after this check and await a user completion ping.

@@ -1,0 +1,19 @@
+{
+  "checked_utc": "2026-11-13T23:15:18.893151+00:00",
+  "job_id": "74253",
+  "case": "cpu-disk-s16",
+  "run": "fill-02",
+  "state": "RUNNING",
+  "elapsed": "07:19:05",
+  "slurm_limit": "48:00:00",
+  "node": "gnode17",
+  "cpus": 32,
+  "requested_ram_gib": 128,
+  "restarts": 0,
+  "commands": [
+    "squeue -j 74253 -o %.18i/%.12T/%.12M/%.12l/%.20R",
+    "sacct -j 74253 --format=JobID,State,Elapsed,Timelimit,ExitCode,MaxRSS,NodeList --parsable2",
+    "scontrol show job 74253"
+  ],
+  "scope": "one-time user-requested scheduler/accounting check; no live logs/process/results inspection; no final outcome"
+}
