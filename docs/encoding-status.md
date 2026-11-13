@@ -6,9 +6,9 @@ exploratory targets**: keep their rows as algorithms, layouts and measurements
 improve. This is the maintained capacity and results reference for the
 [scaling plan](encoding-scaling.md), separate from TRL 5 acceptance.
 
-Updated 2026-11-13; implementation checkpoint `026bbf1`. Standalone mathematical
-encoding is validated through s=16. **Full encoding at s≥17 is not implemented**; wider arithmetic,
-preprocessing, layouts and any multi-GPU execution must be implemented and
+Updated 2026-11-14; validated code-data checkpoint `83c8469`. Standalone mathematical
+encoding is validated through s=16. **Full encoding at s≥17 is unvalidated**; verified larger
+preprocessing, layout admission and any multi-GPU execution must be implemented and
 validated before those projections become demonstrated capabilities. “Reasonable”
 has no agreed numerical latency threshold yet; select it using measured setup,
 encoding, memory, I/O and deployment costs before accepting a scaling milestone.
@@ -80,8 +80,13 @@ and112 sanitized direct C matrix cases, and CPU/legacy regressions. All421 sourc
 31 evidence and10 cache identities reconcile. A [width-aware code-data prototype](scaling-code-data.md)
 now passes bounded legacy byte/slot compatibility, wide-header/value-codec,
 cap/digest/range/error and shared Go/CPU regressions (job74396). Its426 source,13
-evidence and2 binary identities reconcile. No genuine s17 cache or preprocessing/full-encoding
-integration is implemented; full-size latency is unknown.
+evidence and2 binary identities reconcile. An explicit experimental
+[complete wide CPU schedule](../experiments/s17-encoding/report.md) now connects
+resident code data to five native transforms and canonical output; bounded
+validation is pending. No genuine s17 cache or full-size preprocessing/encoding
+run exists; full-size latency is unknown. Its reuse model still retains 8N
+output backing bytes (4N logical uint32 bytes), and older returned words require
+additional live RAM. No full-size capacity or timing estimate changes.
 No full-encoding table cell changes from these kernel steps.
 
 Both CPU and GPU encoding are **potentially feasible on this system after the

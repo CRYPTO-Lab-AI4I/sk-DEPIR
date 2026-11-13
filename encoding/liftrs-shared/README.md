@@ -743,3 +743,21 @@ passes small/ASan and complete s10 checks:2.86/1.14 s first/reused versus
 file-fast0.33/0.31 s on NFS. Native buffers1.125MiB plus4MiB owning output and
 8MiB backing files; cache/runtime extra. Full s16 storage/run is not admitted.
 No bounded packed sink for disk mode or s17 support is added.
+
+
+## Experimental wide CPU encoding
+
+`ScalingCodeData.WithWideCPP(workers)` connects verified width-aware code data
+to an optional complete native schedule; use `Resources`, capped `NewWorkspace`,
+`EncodeWithStats`, then `Close`. The [example](scaling_wide_cpp_example_test.go)
+shows the API. Source spectra stay32-bit through s16 and64-bit thereafter;
+messages and canonical results remain uint32. Ordinary builds return
+`ErrCPPUnavailable`; existing CPU/GPU defaults remain.
+
+Each successful result owns the dead scratch allocation:4N logical bytes retain
+8N backing bytes. Repeated calls allocate new scratch and preserve prior words.
+Workspace caps exclude code/input, native metadata, transient parity, retained
+older results and runtime headroom. Do not copy/concurrently reuse workspaces.
+See the [full accounting](../../docs/scaling-code-data.md#optional-native-encoding)
+and [bounded validation experiment](../../experiments/s17-encoding/report.md),
+currently pending. Full s17 preprocessing, encoding and latency are unvalidated.

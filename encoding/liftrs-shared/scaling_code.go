@@ -295,27 +295,35 @@ func readScalingCodeValues(r io.Reader, count uint64, width uint8, limit uint64,
 	return first, nil
 }
 
+func canonicalScalingCodeData(d *ScalingCodeData) (ScalingCodeHeader, error) {
+	if d == nil {
+		return ScalingCodeHeader{}, fmt.Errorf("nil scaling code")
+	}
+	h, _, err := canonicalScalingCodeHeader(d.header.Spec.FieldDegree, d.header.Spec.CurveDegree, d.header.K, d.header.N)
+	if err != nil {
+		return ScalingCodeHeader{}, err
+	}
+	if uint64(len(d.p)) != h.K+1 || h.ExtensionBytes == 4 && (uint64(len(d.spectrum32)) != h.N || len(d.spectrum64) != 0) || h.ExtensionBytes == 8 && (uint64(len(d.spectrum64)) != h.N || len(d.spectrum32) != 0) {
+		return ScalingCodeHeader{}, fmt.Errorf("scaling code array shape")
+	}
+	if d.header.Spec != h.Spec || d.header.Polynomial != h.Polynomial || d.header.Delta != h.Delta || d.header.Omega != h.Omega {
+		return ScalingCodeHeader{}, fmt.Errorf("noncanonical scaling code metadata")
+	}
+	if d.p[0] != 1 {
+		return ScalingCodeHeader{}, fmt.Errorf("invalid P constant")
+	}
+	return h, nil
+}
+
 // WriteScalingCode streams canonical size-dependent storage: old byte-compatible
 // headers/32-bit values through s16, or LRSprobe3 with explicit identifiers and
 // 64-bit spectrum at s17..20. It checks ranges, not code identities. The caller
 // owns atomic persistence, the output digest and provenance. Errors may leave a
 // partial destination; never overwrite a retained cache without atomic handling.
 func WriteScalingCode(destination io.Writer, d *ScalingCodeData) error {
-	if d == nil {
-		return fmt.Errorf("nil scaling code")
-	}
-	h, _, err := canonicalScalingCodeHeader(d.header.Spec.FieldDegree, d.header.Spec.CurveDegree, d.header.K, d.header.N)
+	h, err := canonicalScalingCodeData(d)
 	if err != nil {
 		return err
-	}
-	if uint64(len(d.p)) != h.K+1 || h.ExtensionBytes == 4 && (uint64(len(d.spectrum32)) != h.N || len(d.spectrum64) != 0) || h.ExtensionBytes == 8 && (uint64(len(d.spectrum64)) != h.N || len(d.spectrum32) != 0) {
-		return fmt.Errorf("scaling code array shape")
-	}
-	if d.header.Spec != h.Spec || d.header.Polynomial != h.Polynomial || d.header.Delta != h.Delta || d.header.Omega != h.Omega {
-		return fmt.Errorf("noncanonical scaling code metadata")
-	}
-	if d.p[0] != 1 {
-		return fmt.Errorf("invalid P constant")
 	}
 	w := bufio.NewWriterSize(destination, 64<<10)
 	if err = writeScalingCodeHeader(w, h); err != nil {

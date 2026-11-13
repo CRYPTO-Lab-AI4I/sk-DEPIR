@@ -69,7 +69,7 @@ bounded64KiB I/O buffers, field metadata, runtime/allocator and headroom beyond
 this cap. A header claiming too much is rejected before principal allocation.
 Loading checks every value and exact EOF while computing the digest in one pass.
 The returned data holds private arrays and exposes header, resident-byte count
-and zero-based systematic positions; it is not a larger online encoder plan.
+and zero-based systematic positions; it is not by itself an online encoder plan.
 
 VerifyScalingCode performs the same shape/range/P-constant/EOF/digest checks with
 bounded I/O memory and no resident payload arrays. Limits cap its logical payload
@@ -82,5 +82,32 @@ It checks metadata/ranges and owns neither a destination path nor publication.
 The caller must persist atomically and save the new digest/provenance; errors
 can leave a partial destination. It does not independently verify code identities.
 New s17 files require independently verified preparation before encoding admission.
-Full preprocessing, native code-data integration and encoding remain separate
+Full preprocessing and full-size encoding remain separate
 [plan gates](encoding-scaling.md#current-execution-plan-for-s17).
+
+## Optional native encoding
+
+With `liftrs_cpp` and cgo, `data.WithWideCPP(workers)` constructs experimental
+complete wide CPU metadata. Allocate `encoder.NewWorkspace(maxBytes)` using an
+explicit principal-workspace cap, then `Encode` or `EncodeWithStats` and `Close`.
+Ordinary builds return `ErrCPPUnavailable`. See the
+[runnable example](../encoding/liftrs-shared/scaling_wide_cpp_example_test.go) and
+[bounded validation plan](../experiments/s17-encoding/report.md). Validation is pending.
+
+Code data remains immutable at its stored spectrum width; base messages/results
+remain uint32. With L=nextpow2(2K−1), arena=max(2L,N), workspace payload is
+8arena+4K+8N bytes. This includes the scratch allocation subsequently transferred
+to the returned word: its logical bytes are4N, but backing bytes remain8N.
+`Resources` reports these sizes plus transient chunk-parity bytes; `OwnedBytes`
+counts native metadata. Code/input, retained older words, runtime/allocator and
+headroom are additional. A second encoding allocates new scratch when the prior
+word owns it. Do not copy or concurrently reuse a workspace.
+
+The full mathematical schedule runs in one native call. Reusing dead scratch
+avoids another output allocation and adds no transform, transfer, I/O or full
+compaction pass. Parallel output uses relaxed atomic byte stores to avoid
+aliasing/shared-location races in reused uint64 storage; assembly latency and
+its overhead are unmeasured. No faster validated default is replaced. Larger
+parameters still require independently verified preprocessing and explicit
+whole-process budgets; metadata construction at s17–20 proves neither capacity
+nor full encoding correctness.

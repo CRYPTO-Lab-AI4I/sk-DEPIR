@@ -24,8 +24,9 @@ entries use the selected word width. The [bounded validation experiment](../../e
 compares independent Go evaluations, inverse round trips,32-bit agreement and
 sanitizers. Job74295 passes120 optimized and120 sanitizer cases plus shared CPU
 regressions. The original C ABI/Plan and full CPU encoder remain32-bit. Separate
-experimental wide interfaces/matrix plans are described below; persistent wide
-code loading and full s17 encoding are not added.
+experimental wide interfaces/matrix plans are described below. Persistent wide
+code loading and a complete experimental schedule now exist; full s17 remains
+unvalidated.
 
 ## Experimental wide plan API
 
@@ -40,7 +41,7 @@ See the [runnable example](wide_example_test.go) and
 [interface/parallel validation](../../experiments/s17-matrix/report.md), passed by
 job74330 including matrix/range/lifetime/race/sanitizer and CPU regressions. These
 separate handles support field arithmetic at s2–20; this does not
-extend shared encoder/cache/preprocessing admission beyond s16. Native clocks
+extend full-size preprocessing/encoding admission beyond s16. Native clocks
 include canonical-input scans; full setup/dispatch/buffer costs remain separate.
 
 ## Optional Go integration
@@ -310,3 +311,24 @@ partial, not committed checkpoints. [Complete validation and trade-offs](../../e
 pass small/ASan and complete s10 correctness. Disk2.86/1.14 s first/reused versus
 file-fast0.33/0.31 s on NFS; filesystem effects vary. Full s16 storage/run is not
 admitted; faster resident/default paths remain unchanged.
+
+
+## Experimental complete wide CPU schedule
+
+`NewWideOnline` and the separate `liftrs_wide_online` C ABI execute the complete
+cyclic schedule with uint64 transform arrays and uint32 base inputs/results.
+The shared `ScalingCodeData.WithWideCPP` adapter borrows immutable P/spectrum
+arrays at their stored width. See [ownership/accounting](../../docs/scaling-code-data.md#optional-native-encoding),
+[example](../liftrs-shared/scaling_wide_cpp_example_test.go) and
+[validation](../../experiments/s17-encoding/report.md) (pending).
+
+Scratch becomes the returned canonical word without another allocation,
+retaining8N backing bytes for4N logical bytes. No typed uint64 access overlaps
+assembly. Relaxed atomic character stores permit aliasing and avoid races when
+two output words share an original uint64 memory location. They use GCC/Clang
+[atomic builtins](https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html);
+thread joins precede parity completion and return. This adds no full compaction
+pass, transform or I/O; its assembly cost is unmeasured. Mutable buffers must be
+disjoint from each other and code/input. The raw borrowed API requires scratch
+ownership transfer before reuse; the shared adapter handles it automatically.
+Existing32-bit CPU/GPU defaults and CUDA-free ordinary builds remain unchanged.

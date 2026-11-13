@@ -27,7 +27,11 @@ independent forward/inverse checks, sanitizers and shared CPU regressions. Wide
 pass bounded ownership, matrix, race, sanitizer and CPU regression checks. Full
 encoding remains limited to s≤16. The [width-aware code-data APIs](docs/scaling-code-data.md)
 pass bounded legacy/header/slot validation and Go/CPU regressions. Genuine s17
-code preparation and wide encoder integration remain separate.
+code preparation remains separate. The explicit experimental
+[complete wide CPU encoder](experiments/s17-encoding/report.md) now consumes
+that code data; bounded correctness/ownership/sanitizer validation is pending.
+Its returned uint32 word retains an 8N-byte backing allocation, counted in the
+workspace model. Existing CPU/GPU defaults are unchanged; full s17 is unvalidated.
 
 A [bounded HPC table-gap batch](experiments/encoding-table/report.md) measures
 22 missing encoding-mode cells at s10/14/15/16 using retained preprocessing.

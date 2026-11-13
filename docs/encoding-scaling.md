@@ -29,8 +29,8 @@ s≤16 CPU/GPU paths and code-cache compatibility throughout.
 | Step | Work and acceptance gate | Status |
 |---|---|---|
 | 1. Width audit and scalar reference | Inventory coordinates, counts, field values and narrowing boundaries. Establish uint64 packed extension arithmetic through s20 against an independent oracle and s≤16 coordinate ordering, without a full-domain allocation | Scalar reference validated: job74290; width audit continues |
-| 2. Native CPU arithmetic and transforms | Port extension kernels/plans to uint64 while retaining uint32 base inputs/outputs. Compare small dense/Go/native cases, >32-bit boundary witnesses, sanitizer checks and s16 regressions; measure kernel overhead before whole-run forecasts | Bounded wide interface/matrix/oracle/race/sanitizer/CPU regressions validated (74330); larger kernel calibration and full encoder integration remain |
-| 3. Representation and reusable code data | Extend coordinates/counts/cache formats and loaders explicitly. Keep old32-bit artifacts readable; reject truncation, unsupported widths and incompatible specifications. Verify hashes and round trips; preserve existing caches | Bounded format/loader/stream verification and shared Go/CPU regressions passed (74396); genuine wide cache/native data integration remains |
+| 2. Native CPU arithmetic and transforms | Port extension kernels/plans to uint64 while retaining uint32 base inputs/outputs. Compare small dense/Go/native cases, >32-bit boundary witnesses, sanitizer checks and s16 regressions; measure kernel overhead before whole-run forecasts | Bounded wide interface/matrix/oracle/race/sanitizer/CPU regressions validated (74330); complete experimental wide CPU integration implemented, bounded validation pending; larger kernel calibration remains |
+| 3. Representation and reusable code data | Extend coordinates/counts/cache formats and loaders explicitly. Keep old32-bit artifacts readable; reject truncation, unsupported widths and incompatible specifications. Verify hashes and round trips; preserve existing caches | Bounded format/loader/stream verification and shared Go/CPU regressions passed (74396); native data integration implemented, bounded validation pending; genuine wide cache remains |
 | 4. s17 preprocessing admission | Discover exact K, verify polynomial identities, budget peak host/device memory, storage and setup time. Compare CPU and multi-GPU/streamed preparation; obtain reviewed numeric budgets before full setup | Pending wider implementation; capacity is not admission |
 | 5. First full CPU baseline | Prefer resident reuse (~427GiB principal arrays) on one large-RAM node when the admitted budget fits. Validate systematic values, independent curves, hashes and34GiB packed output; separately measure code loading, encoding, packing, verification and peaks | Pending verified s17 code data and host budget |
 | 6. Multi-GPU prototype and selection | Partition same-node arithmetic across GPUs; measure transfers, topology and synchronization. Compare fast-layout streamed constants (~256GiB aggregate/two-card capacity floor) with resident reuse (~398GiB/three-card floor), including all host/device lifetimes and headroom | Pending scalar/native interface; small prototypes may proceed before full preprocessing |
@@ -67,7 +67,10 @@ wide code-data formats/loaders and preprocessing integration. The
 explicit width/field metadata, old-byte compatibility, resident caps and streaming
 verification; job74396 passes bounded legacy/header/slot and Go/CPU regressions,
 with426 source/13 evidence/2 binary identities reconciled. A genuine s17 cache,
-preprocessing proof and wide encoding integration remain. Larger kernel calibration precedes
+preprocessing proof remain. The [complete wide CPU schedule](../experiments/s17-encoding/report.md)
+now consumes loaded data explicitly; bounded validation is pending. It retains
+the ~427GiB s17 principal model, including 8N-byte output backing, without an
+extra output array or compaction pass. No full-size budget is admitted. Larger kernel calibration precedes
 runtime forecasts or full-run admission. Full s17 encoding is
 still unimplemented; no full-encoding memory/time cell changes from these checks.
 
