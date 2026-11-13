@@ -7,7 +7,8 @@ Implements the format/loader part of step3 in the
 [tests](../../encoding/liftrs-shared/scaling_code_test.go),
 [example](../../encoding/liftrs-shared/scaling_code_example_test.go),
 [controller](run.py), [Slurm script](run.sbatch).
-Runtime validation is pending. No full s17 code data, discovery/preparation or
+Runtime validation submitted as **job74396**, source checkpointf24682c;
+[submission record](submission.json). No post-submit monitoring. No full s17 code data, discovery/preparation or
 encoding is produced; only bounded compatibility/representation checks.
 
 New APIs read existing LRSprobe1/2 and LRSprobe3 at s17–20. P values remain uint32,

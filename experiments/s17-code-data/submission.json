@@ -1,0 +1,20 @@
+{
+  "job_id": "74396",
+  "revision": "f24682c",
+  "submitted_utc": "2026-11-13T20:22:29.252845+00:00",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--output=experiments/s17-code-data/slurm-%j.log",
+    "experiments/s17-code-data/run.sbatch",
+    "data-01"
+  ],
+  "results": "experiments/s17-code-data/runs/data-01/",
+  "policy": {
+    "cpus": 4,
+    "host_request_bytes": 8589934592,
+    "rss_guard_bytes": 6442450944,
+    "gpu": false,
+    "slurm_seconds": 1200
+  }
+}
