@@ -17,7 +17,11 @@ func TestCUDAEncodingWorkflow(t *testing.T) {
 		t.Skip("opt-in complete CUDA encoding workflow")
 	}
 	reference := os.Getenv("PIR_CUDA_WORKFLOW_REFERENCE")
-	for _, backend := range []string{"cpu", "cuda"} {
+	backends := []string{"cpu", "cuda"}
+	if os.Getenv("PIR_TABLE_S") != "" {
+		backends = []string{"cuda"}
+	}
+	for _, backend := range backends {
 		dest := filepath.Join(cache, backend)
 		if err := os.MkdirAll(dest, 0755); err != nil {
 			t.Fatal(err)
@@ -54,6 +58,9 @@ func TestCUDAEncodingWorkflow(t *testing.T) {
 			}
 		}
 		runScalingFirstUse(t, cfg)
+	}
+	if len(backends) == 1 {
+		return
 	}
 	var digests []string
 	for _, backend := range []string{"cpu", "cuda"} {

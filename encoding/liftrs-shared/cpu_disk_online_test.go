@@ -133,7 +133,11 @@ func TestCPPDiskOnlineWorkflow(t *testing.T) {
 	if out == "" {
 		t.Skip("opt-in full s10 disk workflow")
 	}
-	for _, mode := range []string{"file", "disk"} {
+	modes := []string{"file", "disk"}
+	if os.Getenv("PIR_TABLE_S") != "" {
+		modes = []string{"disk"}
+	}
+	for _, mode := range modes {
 		dest := filepath.Join(cache, mode)
 		if err := os.MkdirAll(dest, 0700); err != nil {
 			t.Fatal(err)

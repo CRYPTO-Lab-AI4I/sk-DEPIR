@@ -64,6 +64,7 @@ type scalingFirstUseConfig struct {
 }
 
 func runScalingFirstUse(t *testing.T, cfg scalingFirstUseConfig) {
+	cfg = scalingTableConfig(t, cfg)
 	spec, out, cache := cfg.spec, cfg.out, cfg.cache
 	s, curve := spec.FieldDegree, spec.CurveDegree
 	workers, repeats := cfg.workers, cfg.repeats

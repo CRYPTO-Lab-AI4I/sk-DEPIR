@@ -1517,6 +1517,10 @@ remain separate from completing the current disk online route.
 
 ### Current memory-route status
 
+A [bounded table-gap batch](../experiments/encoding-table/report.md) covers all22
+currently unmeasured, implemented encoding cells at s10/14/15/16 before the next
+design selection. It reuses code caches; no s≥17 support is implied.
+
 The performance objective now extends through s18, with s19–20 exploratory.
 Use the [maintained results and capacity tables](encoding-status.md) for measured
 results and multi-GPU projections; the immediate work below remains the gate to

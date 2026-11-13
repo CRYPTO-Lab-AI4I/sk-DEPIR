@@ -1,0 +1,335 @@
+{
+  "status": "prepared",
+  "cases": {
+    "cpu-compact-s10": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 17179869184,
+        "rss_guard_bytes": 12884901888,
+        "cgroup_guard_bytes": 15032385536,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "cpu-packed-s14": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "cpu-disk-s14": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "cpu-reuse-s15": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "cpu-compact-s15": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "cpu-file-s15": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "cpu-packed-s15": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "cpu-disk-s15": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "cpu-packed-s16": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 137438953472,
+        "rss_guard_bytes": 103079215104,
+        "cgroup_guard_bytes": 120259084288,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "cpu-disk-s16": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 137438953472,
+        "rss_guard_bytes": 103079215104,
+        "cgroup_guard_bytes": 120259084288,
+        "new_cache_guard_bytes": 68719476736,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "gpu-stream-s10": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 17179869184,
+        "rss_guard_bytes": 12884901888,
+        "cgroup_guard_bytes": 15032385536,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "gpu-packed-s10": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 17179869184,
+        "rss_guard_bytes": 12884901888,
+        "cgroup_guard_bytes": 15032385536,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "gpu-original-s14": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "gpu-compact-s14": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "gpu-host-s14": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 536870912,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "gpu-original-s15": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "gpu-reuse-s15": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "gpu-compact-s15": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "gpu-stream-s15": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "gpu-packed-s15": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 42949672960,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "gpu-host-s15": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 34359738368,
+        "rss_guard_bytes": 25769803776,
+        "cgroup_guard_bytes": 32212254720,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 536870912,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    },
+    "gpu-host-s16": {
+      "job_id": null,
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 137438953472,
+        "rss_guard_bytes": 103079215104,
+        "cgroup_guard_bytes": 120259084288,
+        "new_cache_guard_bytes": 17179869184,
+        "scratch_guard_bytes": 17179869184,
+        "device_cap_bytes": 536870912,
+        "controller_seconds": 6600,
+        "worker_seconds": 5400,
+        "slurm_seconds": 7200
+      }
+    }
+  }
+}

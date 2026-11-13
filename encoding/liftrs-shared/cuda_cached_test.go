@@ -40,6 +40,7 @@ func TestCUDACachedEncoding(t *testing.T) {
 		capBytes = 512 << 20
 		memory = 1 << 30
 	}
+	capBytes = scalingTableDeviceCap(capBytes)
 	cfg := scalingFirstUseConfig{spec: spec, out: out, cache: cache, workers: 16, repeats: 2, memoryLimit: memory, onlineOnly: true}
 	cfg.onlineSetup = func(plan *ScalingOnlinePlan) (func([]uint32) ([]uint32, map[string]any, error), func(), map[string]any, error) {
 		gpu, err := cudaExperimentEncoder(plan, CUDAOptions{LibraryPath: os.Getenv("PIR_GPU_LIBRARY"), DeviceMemoryLimit: capBytes}, reuse)

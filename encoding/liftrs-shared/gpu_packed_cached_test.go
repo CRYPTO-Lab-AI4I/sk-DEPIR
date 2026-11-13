@@ -92,6 +92,10 @@ func TestGPUPackedCached(t *testing.T) {
 		curve = 4
 		capBytes = 512 << 20
 	}
+	s = scalingTableDegree(t, s)
+	capBytes = scalingTableDeviceCap(capBytes)
+	cpuPacked := os.Getenv("PIR_TABLE_CPU_PACKED") == "1"
+	var cpu *ScalingCPPFileEncoder
 	debug.SetMemoryLimit(64 << 30)
 	check := func(err error) {
 		if err != nil {
@@ -149,11 +153,17 @@ func TestGPUPackedCached(t *testing.T) {
 		check(err)
 		var meta struct{ SHA256 string }
 		check(json.Unmarshal(raw, &meta))
-		f, err := os.Open(filepath.Join(cache, "online.bin"))
-		check(err)
-		defer f.Close()
-		plan, err = LoadScalingOnline(f, meta.SHA256, 1<<uint(2*s))
-		check(err)
+		if cpuPacked {
+			cpu, err = OpenScalingCPPFile(filepath.Join(cache, "online.bin"), meta.SHA256, 1<<uint(2*s), 32)
+			check(err)
+			plan = cpu.cpu.source
+		} else {
+			f, err := os.Open(filepath.Join(cache, "online.bin"))
+			check(err)
+			defer f.Close()
+			plan, err = LoadScalingOnline(f, meta.SHA256, 1<<uint(2*s))
+			check(err)
+		}
 		if plan.FieldDegree() != s || plan.basis.spec.CurveDegree != curve {
 			t.Fatal("packed code spec")
 		}
@@ -161,12 +171,19 @@ func TestGPUPackedCached(t *testing.T) {
 	})
 	var gpu *ScalingCUDAEncoder
 	phase("online-setup", func() map[string]any {
+		if cpuPacked {
+			return map[string]any{"backend": "cpu-file-packed", "workers": 32}
+		}
 		backend, err := newCUDAOnlineBackendSchedule(plan, CUDAOptions{LibraryPath: os.Getenv("PIR_GPU_LIBRARY"), DeviceMemoryLimit: capBytes}, true, false, streamed)
 		check(err)
 		gpu = &ScalingCUDAEncoder{backend: backend, k: plan.k, n: plan.Length()}
 		return map[string]any{"owned_device_bytes": gpu.OwnedBytes(), "device_cap_bytes": capBytes, "host_buffer_bytes": 8 << 20, "streamed_code": streamed}
 	})
-	defer gpu.Close()
+	if cpuPacked {
+		defer cpu.Close()
+	} else {
+		defer gpu.Close()
+	}
 	random := rand.New(rand.NewSource(71))
 	message := make([]uint32, plan.k)
 	for i := range message {
@@ -180,7 +197,11 @@ func TestGPUPackedCached(t *testing.T) {
 	readExpected := make([]uint32, len(readPositions))
 	var digest, packedDigest string
 	path := filepath.Join(cache, "word-packed.bin")
-	for repeat := 0; repeat < 2; repeat++ {
+	repeats := 2
+	if os.Getenv("PIR_TABLE_S") != "" && s == 16 {
+		repeats = 1
+	}
+	for repeat := 0; repeat < repeats; repeat++ {
 		// Retain one output within the16 GiB cache budget. Repeats intentionally
 		// overwrite only this experiment's previously verified same-input output;
 		// input preprocessing and all profiles/metadata remain. Errors leave evidence.
@@ -191,7 +212,12 @@ func TestGPUPackedCached(t *testing.T) {
 			var st CUDAPackedStats
 			var cpuPackNS int64
 			pipelineStart := time.Now()
-			if mode == "packed" {
+			var cpuStats CPUFilePackedStats
+			if cpuPacked {
+				cpuStats, err = cpu.EncodePackedTo(message, file, 1<<20)
+				check(err)
+				st.PackedBytes, st.PackedSHA256, st.HostBufferBytes = cpuStats.WrittenBytes, cpuStats.SHA256, cpuStats.BufferBytes
+			} else if mode == "packed" {
 				st, err = gpu.EncodePackedTo(message, file, 8<<20)
 				check(err)
 			} else {
@@ -218,7 +244,7 @@ func TestGPUPackedCached(t *testing.T) {
 			}
 			packedDigest = st.PackedSHA256
 			var extra [4]float64
-			if streamed {
+			if streamed && !cpuPacked {
 				extra, err = gpu.backend.(interface{ StreamStats() ([4]float64, error) }).StreamStats()
 				check(err)
 			}
@@ -226,7 +252,7 @@ func TestGPUPackedCached(t *testing.T) {
 			if mode == "owning" {
 				canonicalBytes = 4 * uint64(plan.Length())
 			}
-			return map[string]any{"packed_stats": st, "sync_ns": syncNS, "pipeline_ns": pipelineNS, "cpu_pack_write_ns": cpuPackNS, "output_mode": mode, "host_canonical_array_bytes": canonicalBytes, "code_upload_seconds": extra[0], "code_upload_bytes": uint64(extra[1]), "spectrum_chunks": uint64(extra[2]), "stream_tile_bytes": uint64(extra[3])}
+			return map[string]any{"cpu_packed": cpuPacked, "cpu_packed_stats": cpuStats, "packed_stats": st, "sync_ns": syncNS, "pipeline_ns": pipelineNS, "cpu_pack_write_ns": cpuPackNS, "output_mode": mode, "host_canonical_array_bytes": canonicalBytes, "code_upload_seconds": extra[0], "code_upload_bytes": uint64(extra[1]), "spectrum_chunks": uint64(extra[2]), "stream_tile_bytes": uint64(extra[3])}
 		})
 		phase(fmt.Sprintf("verify-%d", repeat), func() map[string]any {
 			file, err := os.Open(path)

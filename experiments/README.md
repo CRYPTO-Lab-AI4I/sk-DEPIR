@@ -37,6 +37,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [HPC encoding table gaps](encoding-table/report.md): bounded CPU/GPU runs for
+  22 implemented but unmeasured cells through s16; retained preprocessing, explicit
+  memory modes, separate HPC/laptop labels and whole-output correctness checks.
+
 - [Resident GPU products](gpu-products/report.md): unequal/truncated products,
   overlap-add/old-ABI/memcheck and complete CPU/transform-only/resident s10 trials.
 - [Bounded s16 resident intervals](s16-resident-intervals/report.md): verified
