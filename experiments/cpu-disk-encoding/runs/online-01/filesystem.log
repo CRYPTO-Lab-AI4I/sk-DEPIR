@@ -1,0 +1,2 @@
+Filesystem           Type   1K-blocks       Used   Available Use% Mounted on
+10.0.23.31:/hpc/home nfs  19531250688 5589612544 13941638144  29% /hpc/home

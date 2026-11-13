@@ -1,0 +1,341 @@
+//go:build liftrs_cpp && liftrs_cuda && cgo && linux
+
+package liftrs
+
+import (
+	"bytes"
+	"crypto/sha256"
+	"encoding/binary"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	cpp "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp"
+	"io"
+	"math/rand"
+	"os"
+	"os/signal"
+	"path/filepath"
+	"runtime"
+	"runtime/debug"
+	"runtime/pprof"
+	"syscall"
+	"testing"
+	"time"
+)
+
+func packedAt(data []byte, s, index int) uint32 {
+	if s == 16 {
+		j := 2 * index
+		return uint32(data[j]) | uint32(data[j+1])<<8
+	}
+	bit := uint64(index) * uint64(s)
+	offset := int(bit / 8)
+	shift := uint(bit % 8)
+	count := (s + int(shift) + 7) / 8
+	var value uint32
+	for j := 0; j < count; j++ {
+		value |= uint32(data[offset+j]) << uint(8*j)
+	}
+	return (value >> shift) & ((1 << uint(s)) - 1)
+}
+
+func TestPackedFileAccessor(t *testing.T) {
+	for s := 2; s <= 16; s++ {
+		word := make([]uint32, 257)
+		for i := range word {
+			word[i] = uint32(i*17+3) & ((1 << uint(s)) - 1)
+		}
+		packed := packedReference(word, s)
+		var sink bytes.Buffer
+		count, digest, err := writeCanonicalPacked(&sink, word, s)
+		hash := sha256.Sum256(packed)
+		if err != nil || count != uint64(len(packed)) || digest != hex.EncodeToString(hash[:]) || !bytes.Equal(sink.Bytes(), packed) {
+			t.Fatal("matched CPU packing", s, err)
+		}
+		for i, x := range word {
+			if packedAt(packed, s, i) != x {
+				t.Fatal("packed accessor", s, i)
+			}
+		}
+	}
+}
+
+// Streamed-output encoding never allocates a host canonical uint32 array.
+// Independent verification maps the packed artifact only, in a separate phase.
+func TestGPUPackedCached(t *testing.T) {
+	out, cache := os.Getenv("PIR_GPU_PACKED_OUT"), os.Getenv("PIR_GPU_PACKED_CACHE")
+	if out == "" {
+		t.Skip("opt-in GPU packed output")
+	}
+	if cache == "" {
+		t.Fatal("cache required")
+	}
+	s, curve := 16, 5
+	streamed := os.Getenv("PIR_GPU_PACKED_STREAM") == "1"
+	mode := os.Getenv("PIR_GPU_PACKED_MODE")
+	if mode == "" {
+		mode = "owning"
+	}
+	if mode != "owning" && mode != "packed" {
+		t.Fatal("packed mode")
+	}
+	capBytes := uint64(56 << 30)
+	if streamed {
+		capBytes = 40 << 30
+	}
+	if os.Getenv("PIR_GPU_PACKED_S14") == "1" {
+		s = 14
+		capBytes = 4 << 30
+	}
+	if os.Getenv("PIR_GPU_PACKED_SMOKE") == "1" {
+		s = 6
+		curve = 4
+		capBytes = 512 << 20
+	}
+	debug.SetMemoryLimit(64 << 30)
+	check := func(err error) {
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+	signals := make(chan os.Signal, 1)
+	signal.Notify(signals, syscall.SIGTERM, os.Interrupt)
+	defer signal.Stop(signals)
+	done := make(chan struct{})
+	defer close(done)
+	go func() {
+		select {
+		case <-signals:
+			pprof.StopCPUProfile()
+			os.Exit(4)
+		case <-done:
+		}
+	}()
+	var phases []map[string]any
+	phase := func(name string, fn func() map[string]any) {
+		runtime.GC()
+		var before, after runtime.MemStats
+		runtime.ReadMemStats(&before)
+		state, _ := json.Marshal(map[string]any{"phase": name, "event": "started", "timestamp_utc": time.Now().UTC().Format(time.RFC3339Nano)})
+		check(os.WriteFile(filepath.Join(out, "state.json"), state, 0644))
+		file, err := os.Create(filepath.Join(out, name+".pprof"))
+		check(err)
+		check(pprof.StartCPUProfile(file))
+		defer func() { pprof.StopCPUProfile(); file.Close() }()
+		clocks, err := cpp.ReadClocks()
+		check(err)
+		start := time.Now()
+		row := fn()
+		row["elapsed_ns"] = time.Since(start).Nanoseconds()
+		end, err := cpp.ReadClocks()
+		check(err)
+		pprof.StopCPUProfile()
+		check(file.Close())
+		runtime.ReadMemStats(&after)
+		row["phase"] = name
+		row["native_before"] = clocks
+		row["native_after"] = end
+		row["allocated_bytes"] = after.TotalAlloc - before.TotalAlloc
+		row["heap_before_bytes"] = before.HeapAlloc
+		row["heap_after_bytes"] = after.HeapAlloc
+		phases = append(phases, row)
+		raw, err := json.MarshalIndent(phases, "", "  ")
+		check(err)
+		check(os.WriteFile(filepath.Join(out, "phases.json"), raw, 0644))
+	}
+	var plan *ScalingOnlinePlan
+	phase("load-online", func() map[string]any {
+		raw, err := os.ReadFile(filepath.Join(cache, "online-metadata.json"))
+		check(err)
+		var meta struct{ SHA256 string }
+		check(json.Unmarshal(raw, &meta))
+		f, err := os.Open(filepath.Join(cache, "online.bin"))
+		check(err)
+		defer f.Close()
+		plan, err = LoadScalingOnline(f, meta.SHA256, 1<<uint(2*s))
+		check(err)
+		if plan.FieldDegree() != s || plan.basis.spec.CurveDegree != curve {
+			t.Fatal("packed code spec")
+		}
+		return map[string]any{"k": plan.k, "n": plan.Length(), "plan_bytes": plan.ResidentBytes()}
+	})
+	var gpu *ScalingCUDAEncoder
+	phase("online-setup", func() map[string]any {
+		backend, err := newCUDAOnlineBackendSchedule(plan, CUDAOptions{LibraryPath: os.Getenv("PIR_GPU_LIBRARY"), DeviceMemoryLimit: capBytes}, true, false, streamed)
+		check(err)
+		gpu = &ScalingCUDAEncoder{backend: backend, k: plan.k, n: plan.Length()}
+		return map[string]any{"owned_device_bytes": gpu.OwnedBytes(), "device_cap_bytes": capBytes, "host_buffer_bytes": 8 << 20, "streamed_code": streamed}
+	})
+	defer gpu.Close()
+	random := rand.New(rand.NewSource(71))
+	message := make([]uint32, plan.k)
+	for i := range message {
+		message[i] = uint32(random.Intn(1 << uint(s)))
+	}
+	randomPositions := rand.New(rand.NewSource(1605))
+	readPositions := []int{0, plan.Length() / 2, plan.Length() - 1}
+	for i := 0; i < 1024; i++ {
+		readPositions = append(readPositions, randomPositions.Intn(plan.Length()))
+	}
+	readExpected := make([]uint32, len(readPositions))
+	var digest, packedDigest string
+	path := filepath.Join(cache, "word-packed.bin")
+	for repeat := 0; repeat < 2; repeat++ {
+		// Retain one output within the16 GiB cache budget. Repeats intentionally
+		// overwrite only this experiment's previously verified same-input output;
+		// input preprocessing and all profiles/metadata remain. Errors leave evidence.
+		phase(fmt.Sprintf("encode-output-%d", repeat), func() map[string]any {
+			file, err := os.Create(path)
+			check(err)
+			defer file.Close()
+			var st CUDAPackedStats
+			var cpuPackNS int64
+			pipelineStart := time.Now()
+			if mode == "packed" {
+				st, err = gpu.EncodePackedTo(message, file, 8<<20)
+				check(err)
+			} else {
+				word, native, encodeErr := gpu.EncodeWithStats(message)
+				check(encodeErr)
+				st.CUDAEncodeStats = native
+				packStart := time.Now()
+				st.PackedBytes, st.PackedSHA256, err = writeCanonicalPacked(file, word, s)
+				cpuPackNS = time.Since(packStart).Nanoseconds()
+				check(err)
+				st.HostBufferBytes = 1 << 20
+				runtime.KeepAlive(word)
+			}
+			pipelineNS := time.Since(pipelineStart).Nanoseconds()
+			syncStart := time.Now()
+			check(file.Sync())
+			check(file.Close())
+			syncNS := time.Since(syncStart).Nanoseconds()
+			if st.PackedBytes != uint64(plan.Length())*uint64(s)/8 {
+				t.Fatal("packed output length")
+			}
+			if packedDigest != "" && st.PackedSHA256 != packedDigest {
+				t.Fatal("packed repeat digest")
+			}
+			packedDigest = st.PackedSHA256
+			var extra [4]float64
+			if streamed {
+				extra, err = gpu.backend.(interface{ StreamStats() ([4]float64, error) }).StreamStats()
+				check(err)
+			}
+			canonicalBytes := uint64(0)
+			if mode == "owning" {
+				canonicalBytes = 4 * uint64(plan.Length())
+			}
+			return map[string]any{"packed_stats": st, "sync_ns": syncNS, "pipeline_ns": pipelineNS, "cpu_pack_write_ns": cpuPackNS, "output_mode": mode, "host_canonical_array_bytes": canonicalBytes, "code_upload_seconds": extra[0], "code_upload_bytes": uint64(extra[1]), "spectrum_chunks": uint64(extra[2]), "stream_tile_bytes": uint64(extra[3])}
+		})
+		phase(fmt.Sprintf("verify-%d", repeat), func() map[string]any {
+			file, err := os.Open(path)
+			check(err)
+			defer file.Close()
+			info, err := file.Stat()
+			check(err)
+			if info.Size() != int64(plan.Length())*int64(s)/8 {
+				t.Fatal("packed artifact length")
+			}
+			data, err := syscall.Mmap(int(file.Fd()), 0, int(info.Size()), syscall.PROT_READ, syscall.MAP_SHARED)
+			check(err)
+			defer syscall.Munmap(data)
+			at := func(i int) uint32 { return packedAt(data, s, i) }
+			for j, index := range readPositions {
+				readExpected[j] = at(index)
+			}
+			point := plan.basis.omega
+			for _, x := range message {
+				if at(int(point)) != x {
+					t.Fatal("systematic mismatch")
+				}
+				point = plan.basis.extension.mul(point, plan.basis.omega)
+			}
+			// Independent carryless base arithmetic for degree-t curve restrictions.
+			mul := func(a, b uint32) uint32 {
+				var product uint64
+				for j := 0; j < s; j++ {
+					if b&(1<<uint(j)) != 0 {
+						product ^= uint64(a) << uint(j)
+					}
+				}
+				for j := 2*s - 2; j >= s; j-- {
+					if product&(1<<uint(j)) != 0 {
+						product ^= uint64(plan.basis.polynomial) << uint(j-s)
+					}
+				}
+				return uint32(product)
+			}
+			r := rand.New(rand.NewSource(1604))
+			for trial := 0; trial < 16; trial++ {
+				var curves [2][]uint32
+				for axis := range curves {
+					curves[axis] = make([]uint32, curve+1)
+					for j := range curves[axis] {
+						curves[axis][j] = uint32(r.Intn(1 << uint(s)))
+					}
+				}
+				var sum uint32
+				for z := uint32(0); z < 1<<uint(s); z++ {
+					var p [2]uint32
+					for axis := range curves {
+						for j := curve; j >= 0; j-- {
+							p[axis] = mul(p[axis], z) ^ curves[axis][j]
+						}
+					}
+					sum ^= at(int(p[0] + (1<<uint(s))*p[1]))
+				}
+				if sum != 0 {
+					t.Fatal("curve restriction")
+				}
+			}
+			h := sha256.New()
+			var block [65536]byte
+			for start := 0; start < plan.Length(); start += len(block) / 4 {
+				n := minInt(len(block)/4, plan.Length()-start)
+				for j := 0; j < n; j++ {
+					binary.LittleEndian.PutUint32(block[4*j:], at(start+j))
+				}
+				h.Write(block[:4*n])
+			}
+			got := hex.EncodeToString(h.Sum(nil))
+			if digest != "" && digest != got {
+				t.Fatal("repeat hash differs")
+			}
+			digest = got
+			return map[string]any{"canonical_sha256": got, "systematic_checked": len(message), "curves_checked": 16, "repeat_match": true}
+		})
+		phase(fmt.Sprintf("verify-packed-%d", repeat), func() map[string]any {
+			file, err := os.Open(path)
+			check(err)
+			defer file.Close()
+			hash := sha256.New()
+			_, err = io.CopyBuffer(hash, file, make([]byte, 8<<20))
+			check(err)
+			if hex.EncodeToString(hash.Sum(nil)) != packedDigest {
+				t.Fatal("persisted packed digest")
+			}
+			for j, index := range readPositions {
+				var data [4]byte
+				bit := uint64(index) * uint64(s)
+				shift := uint(bit % 8)
+				count := (s + int(shift) + 7) / 8
+				_, err = file.ReadAt(data[:count], int64(bit/8))
+				check(err)
+				var value uint32
+				for k := 0; k < count; k++ {
+					value |= uint32(data[k]) << uint(8*k)
+				}
+				value = (value >> shift) & ((1 << uint(s)) - 1)
+				if value != readExpected[j] {
+					t.Fatal("packed mapped/ReadAt mismatch")
+				}
+			}
+			return map[string]any{"positions_checked": len(readPositions), "readback_match": true, "packed_sha256": packedDigest}
+		})
+	}
+	metadata := map[string]any{"canonical_sha256": digest, "sha256": packedDigest, "packed_bytes": uint64(plan.Length()) * uint64(s) / 8, "seed": 71}
+	raw, err := json.MarshalIndent(metadata, "", "  ")
+	check(err)
+	check(os.WriteFile(filepath.Join(cache, "word-metadata.json"), raw, 0644))
+}

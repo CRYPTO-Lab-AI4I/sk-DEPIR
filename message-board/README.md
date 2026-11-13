@@ -17,6 +17,43 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-13 09:07 | PUBLISH-040 | Completed | [Publish memory-route checkpoint](2026-11-13-0907-codex-publish-040-completed.md) |
+| 2026-11-13 09:07 | PUBLISH-040 | Started | [Publish memory-route checkpoint](2026-11-13-0907-codex-publish-040-started.md) |
+| 2026-11-12 22:32 | CPU-044 | Completed | [Disk encoding validated; four-route status](2026-11-12-2232-codex-cpu-044-completed.md) |
+| 2026-11-12 22:27 | CPU-044 | Started | [Review full CPU disk encoding](2026-11-12-2227-codex-cpu-044-results-started.md) |
+| 2026-11-12 21:08 | CPU-044 | Handoff | [Full CPU disk encoding job74141](2026-11-12-2108-codex-cpu-044-handoff.md) |
+| 2026-11-12 20:51 | CPU-044 | Started | [CPU-044 started](2026-11-12-2051-codex-cpu-044-started.md) |
+| 2026-11-12 20:51 | CPU-043 | Completed | [CPU-043 completed](2026-11-12-2051-codex-cpu-043-completed.md) |
+| 2026-11-12 20:48 | CPU-043 | Started | [Review disk transform results](2026-11-12-2048-codex-cpu-043-results-started.md) |
+| 2026-11-12 20:33 | CPU-043 | Handoff | [CPU disk transform job74134](2026-11-12-2033-codex-cpu-043-handoff.md) |
+| 2026-11-12 20:22 | CPU-043 | Started | [CPU-043 started](2026-11-12-2022-codex-cpu-043-started.md) |
+| 2026-11-12 20:22 | CPU-042 | Completed | [CPU-042 completed](2026-11-12-2022-codex-cpu-042-completed.md) |
+| 2026-11-12 20:20 | CPU-042 | Started | [Review CPU packed sink](2026-11-12-2020-codex-cpu-042-results-started.md) |
+| 2026-11-12 20:14 | CPU-042 | Handoff | [CPU packed sink job74131](2026-11-12-2014-codex-cpu-042-handoff.md) |
+| 2026-11-12 20:05 | CPU-042 | Started | [CPU-042 started](2026-11-12-2005-codex-cpu-042-started.md) |
+| 2026-11-12 20:05 | GPU-041 | Completed | [GPU-041 completed](2026-11-12-2005-codex-gpu-041-completed.md) |
+| 2026-11-12 20:03 | GPU-041 | Started | [Review full host-backed encoding](2026-11-12-2003-codex-gpu-041-results-started.md) |
+| 2026-11-12 19:58 | GPU-041 | Handoff | [Full host-backed encoding job74129](2026-11-12-1958-codex-gpu-041-handoff.md) |
+| 2026-11-12 19:49 | GPU-041 | Started | [GPU-041 started](2026-11-12-1949-codex-gpu-041-started.md) |
+| 2026-11-12 19:49 | GPU-040 | Completed | [GPU-040 completed](2026-11-12-1949-codex-gpu-040-completed.md) |
+| 2026-11-12 19:47 | GPU-040 | Started | [Review parallel tile results](2026-11-12-1947-codex-gpu-040-results-started.md) |
+| 2026-11-12 19:39 | GPU-040 | Handoff | [Same-memory parallel GPU tiles job74125](2026-11-12-1939-codex-gpu-040-handoff.md) |
+| 2026-11-12 19:34 | GPU-040 | Started | [Parallel work inside bounded GPU tiles](2026-11-12-1934-codex-gpu-040-started.md) |
+| 2026-11-12 19:34 | GPU-039 | Completed | [Component evidence reconciled](2026-11-12-1934-codex-gpu-039-completed.md) |
+| 2026-11-12 19:32 | GPU-039 | Started | [Review component job74121](2026-11-12-1932-codex-gpu-039-results-started.md) |
+| 2026-11-12 19:13 | GPU-039 | Handoff | [Host-backed GPU component job74121](2026-11-12-1913-codex-gpu-039-handoff.md) |
+| 2026-11-12 18:58 | GPU-039 | Started | [gpu-039 started](2026-11-12-1858-codex-gpu-039-started.md) |
+| 2026-11-12 18:58 | GPU-038 | Completed | [gpu-038 completed](2026-11-12-1858-codex-gpu-038-completed.md) |
+| 2026-11-12 18:57 | GPU-038 | Started | [Review packed retry](2026-11-12-1857-codex-gpu-038-results-started.md) |
+| 2026-11-12 17:51 | GPU-038 | Handoff | [Parity fix and retry job74094](2026-11-12-1751-codex-gpu-038-correction-handoff.md) |
+| 2026-11-12 17:44 | GPU-038 | Started | [Investigate packed s8 oracle failure](2026-11-12-1744-codex-gpu-038-correction-started.md) |
+| 2026-11-12 17:37 | GPU-038 | Handoff | [GPU packed sink job74091 and remaining gates](2026-11-12-1737-codex-gpu-038-handoff.md) |
+| 2026-11-12 11:20 | GPU-038 | Started | [Remaining memory routes, GPU output first](2026-11-12-1120-codex-gpu-038-started.md) |
+| 2026-11-12 11:09 | CPU-037 | Completed | [CPU file-streaming memory/time evidence](2026-11-12-1109-codex-cpu-037-completed.md) |
+| 2026-11-12 11:05 | CPU-037 | Started | [Review CPU file-streaming evidence](2026-11-12-1105-codex-cpu-037-results-started.md) |
+| 2026-11-12 10:25 | CPU-037 | Handoff | [CPU file-streaming validation job73976](2026-11-12-1025-codex-cpu-037-handoff.md) |
+| 2026-11-12 10:01 | CPU-037 | Started | [cpu-037 started](2026-11-12-1001-codex-cpu-037-started.md) |
+| 2026-11-12 10:01 | PUBLISH-039 | Completed | [publish-039 completed](2026-11-12-1001-codex-publish-039-completed.md) |
 | 2026-11-12 09:59 | PUBLISH-039 | Started | [Publish streamed GPU checkpoint](2026-11-12-0959-codex-publish-039-started.md) |
 | 2026-11-12 09:55 | GPU-036 | Completed | [Streamed GPU evidence and measured costs](2026-11-12-0955-codex-gpu-036-completed.md) |
 | 2026-11-12 09:52 | GPU-036 | Started | [Review streamed GPU results](2026-11-12-0952-codex-gpu-036-results-started.md) |

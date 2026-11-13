@@ -36,7 +36,7 @@ __host__ __device__ uint32_t multiply(uint32_t a,uint32_t b,unsigned s,uint32_t 
 __global__ void transpose(const uint32_t* src,uint32_t* dst,size_t rows,size_t cols){
  size_t i=size_t(blockIdx.x)*blockDim.x+threadIdx.x;if(i>=rows*cols)return;dst[(i%cols)*rows+i/cols]=src[i];
 }
-__global__ void tiles(uint32_t* data,size_t n,const Matrix* matrix,bool columns,bool inverse,bool contiguous,const uint32_t* log,const uint32_t* powers){
+__global__ void tiles(uint32_t* data,size_t n,const Matrix* matrix,bool columns,bool inverse,bool contiguous,const uint32_t* log,const uint32_t* powers,size_t first_vector){
  const auto& m=*matrix;const auto& p=columns?m.columns:m.rows;
  unsigned level=columns?m.dimension-m.split:m.split;
  size_t length=size_t(1)<<level,jobs=n/length,tile=size_t(blockIdx.x)*blockDim.x+threadIdx.x;
@@ -47,7 +47,7 @@ __global__ void tiles(uint32_t* data,size_t n,const Matrix* matrix,bool columns,
  for(unsigned stage=0;stage<level;stage++){
   unsigned k=inverse?stage:level-1-stage;size_t size=size_t(1)<<(k+1),half=size/2;
   for(size_t group=0;group<length;group+=size){
-   uint32_t point=columns?0:uint32_t(tile*length);
+   uint32_t point=columns?0:uint32_t((tile+first_vector)*length);
    for(unsigned bit=0;bit<level;bit++)if((group>>bit)&1)point^=p.basis[bit];
    uint32_t c=0;for(unsigned bit=0;bit<2*m.s;bit++)if((point>>bit)&1)c^=p.values[k][bit];
    if(!inverse){
@@ -80,6 +80,9 @@ __global__ void taylor_pass(uint32_t* x,size_t n,const Matrix* matrix,unsigned k
   x[offset+j]=value;
  }
 }
+__global__ void backed_accumulate(uint32_t* destination,const uint32_t* source,size_t count,size_t offset,uint32_t coefficient,unsigned s,uint32_t delta,const uint32_t* log,const uint32_t* powers){
+ size_t i=size_t(blockIdx.x)*blockDim.x+threadIdx.x;if(i<count)destination[offset+i]^=multiply(coefficient,source[i],s,delta,log,powers);
+}
 __global__ void pointwise(uint32_t* a,const uint32_t* b,size_t n,unsigned s,uint32_t delta,const uint32_t* log,const uint32_t* powers){size_t i=size_t(blockIdx.x)*blockDim.x+threadIdx.x;if(i<n)a[i]=multiply(a[i],b[i],s,delta,log,powers);}
 __host__ __device__ uint32_t power(uint32_t x,size_t exponent,unsigned s,uint32_t delta,const uint32_t* log,const uint32_t* powers){
  uint32_t result=1;while(exponent){if(exponent&1)result=multiply(result,x,s,delta,log,powers);exponent>>=1;if(exponent)x=multiply(x,x,s,delta,log,powers);}return result;
@@ -97,6 +100,25 @@ template<class Value> __global__ void canonical_zero(Value* word,const uint32_t*
  __shared__ uint32_t sums[256];unsigned tid=threadIdx.x;uint32_t sum=0;for(size_t i=tid;i<jobs;i+=256)sum^=parity[i];sums[tid]=sum;__syncthreads();
  for(unsigned stride=128;stride;stride>>=1){if(tid<stride)sums[tid]^=sums[tid+stride];__syncthreads();}if(!tid)word[0]=sums[0];
 }
+// Canonical destinations own disjoint bit fields, but neighboring fields share
+// storage words. Atomic OR combines those writes after a complete zero fill.
+__global__ void canonical_packed(const uint32_t* y,uint32_t* packed,size_t n,uint32_t omega,unsigned s,uint32_t delta,const uint32_t* log,const uint32_t* powers,uint32_t* parity,uint32_t* bad){
+ constexpr size_t chunk=4096;size_t job=size_t(blockIdx.x)*blockDim.x+threadIdx.x,begin=job*chunk;if(begin>=n-1)return;
+ uint32_t point=power(omega,begin+1,s,delta,log,powers),sum=0;
+ size_t end=begin+chunk<n-1?begin+chunk:n-1;
+ for(size_t i=begin;i<end;i++){
+  uint32_t value=y[i];sum^=value;
+  if(value>=(1u<<s)){atomicOr(bad,1u);}else{
+   size_t bit=size_t(point)*s,word=bit/32;unsigned shift=bit%32;
+   atomicOr(packed+word,value<<shift);if(shift+s>32)atomicOr(packed+word+1,value>>(32-shift));
+  }
+  point=multiply(point,omega,s,delta,log,powers);
+ }parity[job]=sum;
+}
+__global__ void canonical_packed_zero(uint32_t* packed,const uint32_t* parity,size_t jobs){
+ __shared__ uint32_t sums[256];unsigned tid=threadIdx.x;uint32_t sum=0;for(size_t i=tid;i<jobs;i+=256)sum^=parity[i];sums[tid]=sum;__syncthreads();
+ for(unsigned stride=128;stride;stride>>=1){if(tid<stride)sums[tid]^=sums[tid+stride];__syncthreads();}if(!tid)atomicOr(packed,sums[0]);
+}
 // Narrow only after the final inverse. Each chunk is staged independently;
 // copying chunks in ascending order cannot overwrite a future uint32 source.
 __global__ void compact_base(const uint32_t* source,uint16_t* output,size_t count,size_t begin,size_t n,unsigned s,uint32_t* bad){
@@ -110,12 +132,14 @@ template<class F>double measured(F fn){
 using Clock=std::chrono::steady_clock;
 double elapsed(Clock::time_point start){return std::chrono::duration<double>(Clock::now()-start).count();}
 struct Engine {
+ bool host_backed=false;size_t backed_tile=0;std::unordered_map<size_t,Matrix> host_plans;
+ bool packed_ready=false;const void* packed_data=nullptr;size_t packed_bytes=0,packed_offset=0;
  unsigned s,polynomial;uint32_t delta;bool reuse=false,transform_only=false,direct_rows=false,compact_output=false,streamed=false;double stream_seconds=0;size_t stream_bytes=0,stream_chunks=0,stream_tile=0;double compact_seconds=0,expand_seconds=0;size_t download_bytes=0;Device log,powers,a,b,scratch,code_p,code_spectrum,parity,compact_tile;size_t points=0,max_points,device_cap,online_k=0,online_n=0,online_l=0;uint32_t omega=0;
  std::unordered_map<size_t,std::unique_ptr<Device>> plans;
  std::vector<uint32_t> host_log,host_powers;
  uint64_t owned(){uint64_t bytes=log.bytes+powers.bytes+a.bytes+b.bytes+scratch.bytes+code_p.bytes+code_spectrum.bytes+parity.bytes+compact_tile.bytes;for(auto& kv:plans)bytes+=kv.second->bytes;return bytes;}
  unsigned arrays()const{return compact_output?1:transform_only?(direct_rows?1:2):(reuse?2:3);}
- void grow(size_t n){if(n>max_points||!n||(n&(n-1)))throw std::runtime_error("GPU shape bound");if(n<=points)return;
+ void grow(size_t n){if(n>max_points||!n||(n&(n-1)))throw std::runtime_error("GPU shape bound");if(host_backed)n=std::min(n,backed_tile);if(n<=points)return;
   auto retained=owned()-a.bytes-b.bytes-scratch.bytes;
   if(retained>device_cap||n>(device_cap-retained)/(4*arrays()))throw std::runtime_error("device allocation bound");
   // Synchronous single-caller calls leave no live values in workspace. Release
@@ -129,11 +153,11 @@ struct Engine {
    if(!inverse){stats[1]+=measured([&]{taylor_pass<<<(n/2+255)/256,256>>>(data,n,p,k,true,log.words(),powers.words());});stats[1]+=measured([&]{taylor_pass<<<(n/2+255)/256,256>>>(data,n,p,k,false,log.words(),powers.words());});}
    else{stats[1]+=measured([&]{taylor_pass<<<(n/2+255)/256,256>>>(data,n,p,k,false,log.words(),powers.words());});stats[1]+=measured([&]{taylor_pass<<<(n/2+255)/256,256>>>(data,n,p,k,true,log.words(),powers.words());});}
   }};
-  auto columns=[&]{size_t jobs=size_t(1)<<split;stats[2]+=measured([&]{tiles<<<(jobs+127)/128,128>>>(data,n,p,true,inverse,false,log.words(),powers.words());});};
+  auto columns=[&]{size_t jobs=size_t(1)<<split;stats[2]+=measured([&]{tiles<<<(jobs+127)/128,128>>>(data,n,p,true,inverse,false,log.words(),powers.words(),0);});};
   auto rows=[&]{size_t length=size_t(1)<<split,jobs=n/length;
-   if(direct_rows){stats[3]+=measured([&]{tiles<<<(jobs+127)/128,128>>>(data,n,p,false,inverse,true,log.words(),powers.words());});return;}
+   if(direct_rows){stats[3]+=measured([&]{tiles<<<(jobs+127)/128,128>>>(data,n,p,false,inverse,true,log.words(),powers.words(),0);});return;}
    stats[4]+=measured([&]{transpose<<<(n+255)/256,256>>>(data,scratch.words(),jobs,length);});
-   stats[3]+=measured([&]{tiles<<<(jobs+127)/128,128>>>(scratch.words(),n,p,false,inverse,false,log.words(),powers.words());});
+   stats[3]+=measured([&]{tiles<<<(jobs+127)/128,128>>>(scratch.words(),n,p,false,inverse,false,log.words(),powers.words(),0);});
    stats[4]+=measured([&]{transpose<<<(n+255)/256,256>>>(scratch.words(),data,length,jobs);});
   };
   if(!inverse){convert();columns();rows();}else{rows();columns();convert();}
@@ -192,11 +216,12 @@ extern "C" int gm_check_plan(void* handle,const uint32_t* words,size_t count,cha
 });}
 extern "C" int gm_add_plan(void* handle,const uint32_t* words,size_t count,char* error,size_t capacity){return api(error,capacity,[&]{
  if(!handle)throw std::runtime_error("null GPU engine");auto& e=*static_cast<Engine*>(handle);size_t n;auto m=read_matrix(e,words,count,n);
+ if(e.host_backed&&std::max(size_t(1)<<m.split,size_t(1)<<(m.dimension-m.split))>e.backed_tile)throw std::runtime_error("host-backed tile shorter than vector");
  if(e.plans.count(n))throw std::runtime_error("repeated GPU plan");
- e.grow(n);if(e.owned()+sizeof(Matrix)>e.device_cap)throw std::runtime_error("device plan bound");auto device=std::make_unique<Device>();device->allocate(sizeof(Matrix));check(cudaMemcpy(device->p,&m,sizeof(m),cudaMemcpyHostToDevice));e.plans.emplace(n,std::move(device));
+ e.grow(n);if(e.owned()+sizeof(Matrix)>e.device_cap)throw std::runtime_error("device plan bound");auto device=std::make_unique<Device>();device->allocate(sizeof(Matrix));check(cudaMemcpy(device->p,&m,sizeof(m),cudaMemcpyHostToDevice));e.plans.emplace(n,std::move(device));if(e.host_backed)e.host_plans.emplace(n,m);
 });}
 extern "C" int gm_apply(void* handle,uint32_t* data,size_t n,int inverse,double* stats,char* error,size_t capacity){return api(error,capacity,[&]{
- if(!handle||!data||!stats||(inverse!=0&&inverse!=1))throw std::runtime_error("GPU apply arguments");auto& e=*static_cast<Engine*>(handle);if(e.reuse)throw std::runtime_error("reuse engine is online-only");if(!e.plans.count(n))throw std::runtime_error("GPU apply shape");e.grow(n);std::fill(stats,stats+8,0);auto start=Clock::now(),copy=Clock::now();check(cudaMemcpy(e.a.p,data,n*4,cudaMemcpyHostToDevice));stats[0]=elapsed(copy);e.apply(e.a.words(),n,inverse,stats);copy=Clock::now();check(cudaMemcpy(data,e.a.p,n*4,cudaMemcpyDeviceToHost));stats[5]=elapsed(copy);stats[7]=elapsed(start);
+ if(!handle||!data||!stats||(inverse!=0&&inverse!=1))throw std::runtime_error("GPU apply arguments");auto& e=*static_cast<Engine*>(handle);if(e.host_backed)throw std::runtime_error("use host-backed ApplyBacked");if(e.reuse)throw std::runtime_error("reuse engine is online-only");if(!e.plans.count(n))throw std::runtime_error("GPU apply shape");e.grow(n);std::fill(stats,stats+8,0);auto start=Clock::now(),copy=Clock::now();check(cudaMemcpy(e.a.p,data,n*4,cudaMemcpyHostToDevice));stats[0]=elapsed(copy);e.apply(e.a.words(),n,inverse,stats);copy=Clock::now();check(cudaMemcpy(data,e.a.p,n*4,cudaMemcpyDeviceToHost));stats[5]=elapsed(copy);stats[7]=elapsed(start);
 });}
 extern "C" int gm_product(void* handle,const uint32_t* a,size_t ac,const uint32_t* b,size_t bc,uint32_t* out,size_t oc,size_t n,double* stats,char* error,size_t capacity){return api(error,capacity,[&]{
  if(!handle||!a||!b||!out||!stats)throw std::runtime_error("GPU convolution arguments");auto& e=*static_cast<Engine*>(handle);if(e.reuse)throw std::runtime_error("reuse engine is online-only");if(e.transform_only)throw std::runtime_error("transform-only engine");if(!e.plans.count(n)||!ac||!bc||ac>n||bc>n||ac>n-bc+1||!oc||oc>ac+bc-1)throw std::runtime_error("GPU convolution shape/prefix");e.grow(n);std::fill(stats,stats+8,0);auto start=Clock::now(),copy=Clock::now();check(cudaMemset(e.a.p,0,n*4));check(cudaMemset(e.b.p,0,n*4));check(cudaMemcpy(e.a.p,a,ac*4,cudaMemcpyHostToDevice));check(cudaMemcpy(e.b.p,b,bc*4,cudaMemcpyHostToDevice));stats[0]=elapsed(copy);e.apply(e.a.words(),n,false,stats);e.apply(e.b.words(),n,false,stats);stats[6]=measured([&]{pointwise<<<(n+255)/256,256>>>(e.a.words(),e.b.words(),n,e.s,e.delta,e.log.words(),e.powers.words());});e.apply(e.a.words(),n,true,stats);copy=Clock::now();check(cudaMemcpy(out,e.a.p,oc*4,cudaMemcpyDeviceToHost));stats[5]=elapsed(copy);stats[7]=elapsed(start);
@@ -219,8 +244,9 @@ extern "C" int gm_set_online(void* handle,const uint32_t* p,size_t pc,const uint
  Device next_p,next_spectrum,next_parity,next_tile;if(tile_words)next_tile.allocate(tile_words*2);if(parity_words)next_parity.allocate(parity_words*4);if(!e.streamed){next_p.allocate(pc*4);next_spectrum.allocate(n*4);check(cudaMemcpy(next_p.p,p,pc*4,cudaMemcpyHostToDevice));check(cudaMemcpy(next_spectrum.p,spectrum,n*4,cudaMemcpyHostToDevice));}
  e.code_p.swap(next_p);e.code_spectrum.swap(next_spectrum);e.parity.swap(next_parity);e.compact_tile.swap(next_tile);e.online_k=k;e.online_n=n;e.online_l=l;e.omega=omega;
 });}
-static int encode_online(void* handle,const uint32_t* message,size_t k,uint32_t* word,size_t n,const uint32_t* host_p,size_t pc,const uint32_t* host_spectrum,size_t sc,size_t tile,double* stats,char* error,size_t cap){return api(error,cap,[&]{
- if(!handle||!message||!word||!stats)throw std::runtime_error("CUDA online arguments");auto& e=*static_cast<Engine*>(handle);
+static int encode_online(void* handle,const uint32_t* message,size_t k,uint32_t* word,size_t n,const uint32_t* host_p,size_t pc,const uint32_t* host_spectrum,size_t sc,size_t tile,double* stats,char* error,size_t cap,bool packed_output=false){return api(error,cap,[&]{
+ if(!handle||!message||(!packed_output&&!word)||!stats)throw std::runtime_error("CUDA online arguments");auto& e=*static_cast<Engine*>(handle);e.packed_ready=false;
+ if(packed_output&&e.compact_output)throw std::runtime_error("packed sink requires fast layout");
  if(!e.online_k||k!=e.online_k||n!=e.online_n)throw std::runtime_error("CUDA online shape/not prepared");
  auto began=Clock::now();
  if(e.streamed){
@@ -258,7 +284,10 @@ static int encode_online(void* handle,const uint32_t* message,size_t k,uint32_t*
  constexpr size_t chunk=4096;size_t jobs=(n-1+chunk-1)/chunk;
  auto* parity=e.reuse?e.parity.words():e.scratch.words();auto* flag=parity+jobs;check(cudaMemset(flag,0,4));
  const void* output=nullptr;size_t output_bytes=n*4;
- if(e.compact_output){
+ if(packed_output){
+  auto* packed=e.reuse?e.scratch.words():a;output_bytes=(n*e.s+7)/8;
+  stats[9]+=measured([&]{check(cudaMemset(packed,0,((n*e.s+31)/32)*4));canonical_packed<<<(jobs+127)/128,128>>>(y,packed,n,e.omega,e.s,e.delta,e.log.words(),e.powers.words(),parity,flag);canonical_packed_zero<<<1,256>>>(packed,parity,jobs);});output=packed;
+ }else if(e.compact_output){
   auto* packed=static_cast<uint16_t*>(e.a.p);auto* tile=static_cast<uint16_t*>(e.compact_tile.p);size_t tile_words=e.compact_tile.bytes/2;
   e.compact_seconds=measured([&]{for(size_t begin=0;begin<n;begin+=tile_words){
    size_t count=std::min(tile_words,n-begin);
@@ -273,7 +302,9 @@ static int encode_online(void* handle,const uint32_t* message,size_t k,uint32_t*
   auto* canonical=e.reuse?e.scratch.words():a;
   stats[9]+=measured([&]{canonical_chunks<<<(jobs+127)/128,128>>>(y,canonical,n,e.omega,e.s,e.delta,e.log.words(),e.powers.words(),parity,flag);canonical_zero<<<1,256>>>(canonical,parity,jobs);});output=canonical;
  }
- uint32_t bad=0;copy=Clock::now();check(cudaMemcpy(&bad,flag,4,cudaMemcpyDeviceToHost));if(bad)throw std::runtime_error("CUDA encoded product escaped base field");check(cudaMemcpy(word,output,output_bytes,cudaMemcpyDeviceToHost));stats[5]+=elapsed(copy);e.download_bytes=output_bytes;
+ uint32_t bad=0;copy=Clock::now();check(cudaMemcpy(&bad,flag,4,cudaMemcpyDeviceToHost));if(bad)throw std::runtime_error("CUDA encoded product escaped base field");
+ if(packed_output){e.packed_data=output;e.packed_bytes=output_bytes;e.packed_offset=0;e.packed_ready=true;}else{check(cudaMemcpy(word,output,output_bytes,cudaMemcpyDeviceToHost));}
+ stats[5]+=elapsed(copy);e.download_bytes=packed_output?0:output_bytes;
  if(e.compact_output){
   // Decode bytes (not aliased uint16 loads) and expand backwards: every store
   // lies above all unread packed inputs. The caller retains its owning uint32 API.
@@ -285,6 +316,13 @@ static int encode_online(void* handle,const uint32_t* message,size_t k,uint32_t*
 });}
 extern "C" int gm_encode_online(void* h,const uint32_t* message,size_t k,uint32_t* word,size_t n,double* stats,char* error,size_t cap){return encode_online(h,message,k,word,n,nullptr,0,nullptr,0,0,stats,error,cap);}
 extern "C" int gm_encode_streamed(void* h,const uint32_t* p,size_t pc,const uint32_t* spectrum,size_t sc,const uint32_t* message,size_t k,uint32_t* word,size_t n,size_t tile,double* stats,char* error,size_t cap){return encode_online(h,message,k,word,n,p,pc,spectrum,sc,tile,stats,error,cap);}
+extern "C" int gm_prepare_packed(void* h,const uint32_t* p,size_t pc,const uint32_t* spectrum,size_t sc,const uint32_t* message,size_t k,size_t n,size_t tile,double* stats,char* error,size_t cap){return encode_online(h,message,k,nullptr,n,p,pc,spectrum,sc,tile,stats,error,cap,true);}
+extern "C" int gm_read_packed(void* handle,size_t offset,unsigned char* output,size_t count,double* seconds,char* error,size_t cap){return api(error,cap,[&]{
+ if(!handle||!output||!seconds||!count||count>(size_t(64)<<20))throw std::runtime_error("packed download arguments");auto& e=*static_cast<Engine*>(handle);
+ if(!e.packed_ready||offset!=e.packed_offset||offset>e.packed_bytes||count>e.packed_bytes-offset)throw std::runtime_error("packed download state/range");
+ auto begin=Clock::now();check(cudaMemcpy(output,static_cast<const unsigned char*>(e.packed_data)+offset,count,cudaMemcpyDeviceToHost));*seconds=elapsed(begin);e.packed_offset+=count;e.download_bytes+=count;if(e.packed_offset==e.packed_bytes)e.packed_ready=false;
+});}
+extern "C" int gm_clear_packed(void* handle,char* error,size_t cap){return api(error,cap,[&]{if(!handle)throw std::runtime_error("packed clear state");auto& e=*static_cast<Engine*>(handle);e.packed_ready=false;e.packed_data=nullptr;e.packed_offset=0;e.packed_bytes=0;});}
 extern "C" int gm_stream_stats(void* handle,double* values,char* error,size_t capacity){return api(error,capacity,[&]{
  if(!handle||!values)throw std::runtime_error("stream stats state");auto& e=*static_cast<Engine*>(handle);if(!e.streamed)throw std::runtime_error("not a streamed engine");
  values[0]=e.stream_seconds;values[1]=double(e.stream_bytes);values[2]=double(e.stream_chunks);values[3]=double(e.stream_tile);
@@ -295,3 +333,5 @@ extern "C" int gm_compact_stats(void* handle,double* values,char* error,size_t c
 });}
 extern "C" uint64_t gm_owned_bytes(void* handle){return handle?static_cast<Engine*>(handle)->owned():0;}
 extern "C" void gm_destroy(void* handle){delete static_cast<Engine*>(handle);}
+
+#include "backed.hpp"

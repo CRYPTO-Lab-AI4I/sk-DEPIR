@@ -1,0 +1,15 @@
+{
+  "utc": "2026-11-12T20:13:42.861251+00:00",
+  "revision": "ce29557049fd5cfaf744c6ba3ce9a8a3b6616507",
+  "source_sha256": {
+    "encoding/liftrs-cpp/c_api.cpp": "002741c51668b013737576d0d4f8b380f45d63e3a13968dedca4d3ff48d41793",
+    "encoding/liftrs-cpp/c_api.h": "1b82b0ce8676f1c923889deb2030c511007707265768f3341080faec3864ca26",
+    "encoding/liftrs-cpp/plan.go": "7e4344778d54d99c8c76b209f85ab3cfb0010d7d7764fbe8f84848521d1ad6ce",
+    "encoding/liftrs-shared/cpu_file.go": "671bd1b903d25306e8eb5e3c6df6b73c9f24947c8d835b767321019e4e53bec9",
+    "encoding/liftrs-shared/cpu_file_packed.go": "9831b94a6d7c3cf98b1d94f001d7fd72cd3b9b17f4b385b4b699f3f8f56dd2f0",
+    "encoding/liftrs-shared/cpu_file_packed_test.go": "3ea4e5e1b60529b664a7e89f5a2cac97b3f4776780f3fcd8c487201cf80fb3d7",
+    "encoding/liftrs-shared/packed_writer_test.go": "239e05d168ede239cd870a870712adaf04ed88b920834ef814596a19352e5ca9",
+    "encoding/liftrs-shared/gpu_packed_cached_test.go": "6345c517a1a3092f55151da849e68546e342b7f9f25a5175af45450f56b1ca90"
+  },
+  "checks": "CPP and combined cpp/cuda short Go tests passed under20s test/25s command deadlines: TestCPPFileEncoding, TestPackedFileAccessor. New opt-in CPU packed tests compiled/skipped on login node. Byte-boundary/resource-record self-check and shell/Python syntax passed. ASan/runtime packed validation pending."
+}

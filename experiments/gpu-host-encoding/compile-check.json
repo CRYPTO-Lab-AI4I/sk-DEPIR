@@ -1,0 +1,20 @@
+{
+  "utc": "2026-11-12T19:58:03.194674+00:00",
+  "revision": "ce29557049fd5cfaf744c6ba3ce9a8a3b6616507",
+  "native_compile_exit_code": 0,
+  "command": "module load gcc/14.2.0 cuda12.9/toolkit/12.9.1; timeout 25s nvcc -std=c++17 -O3 -lineinfo -arch=sm_90 -shared -Xcompiler=-fPIC encoding/liftrs-cuda/matrix.cu -o .cache/liftrs/gpu-host-backed/build-check/libliftrs-cuda-online.so",
+  "library_path": ".cache/liftrs/gpu-host-backed/build-check/libliftrs-cuda-online.so",
+  "library_sha256": "b233c8d1de133fdc0aa3c4cf14d73f78fecf055314a2fdc1a43799353bb75c38",
+  "source_sha256": {
+    "encoding/liftrs-cuda/backed.hpp": "de51f90d503a34be22f2e89143ced1af0424d46d90b7457633a844e7f4ad26c8",
+    "encoding/liftrs-cuda/bridge.go": "7ec10f70ae699dfe5e5b0a8676f0060851d8c9d552d6cb28c65d62e4d0fde242",
+    "encoding/liftrs-cuda/gpu_api.h": "8c11cba5ebdc22d1e7b664788dba1f9b7e9ba5bbda9387fa414d0b07791f1962",
+    "encoding/liftrs-shared/cuda_host.go": "6612d634563d45efc3debf0ee0281ea710b8056adbdb841968a97ae07a7f45d7",
+    "encoding/liftrs-shared/cuda_host_available.go": "2f47ca2454e9c02b23d726da54ca11f7957c0d3a0594c55129b50e70c5aee778",
+    "encoding/liftrs-shared/cuda_host_unavailable.go": "5135a380c4a4dd66d99c1113fa5c0b970b14530ee24bc809e1b261f1a1afe1f3",
+    "encoding/liftrs-shared/cuda_host_test.go": "d419d002daf2446c698d751ccf796761b1a1ffed1c4017cc2fcd473e408a3a94",
+    "encoding/liftrs-shared/cuda_encoder.go": "67e5b556ba3371144678b5752ad70f4b1ed59cac32864d8c3a68102b05ae429d",
+    "encoding/liftrs-shared/cuda_workflow_test.go": "9eef22f7a27018631808e6d39b3c4eefc4550319635c4fb785dbb73d1d90ae42"
+  },
+  "checks": "Short Go-only unavailable/API, CUDA-only and combined API builds passed; opt-in GPU encoding tests skipped on login node. Controller resource-record self-check and Python/shell syntax passed."
+}

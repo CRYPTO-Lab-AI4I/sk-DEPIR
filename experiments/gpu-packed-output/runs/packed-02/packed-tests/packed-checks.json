@@ -1,0 +1,72 @@
+[
+  {
+    "buffer_bytes": 1,
+    "closed": true,
+    "matches": 3,
+    "mixed_owning": true,
+    "owned_bytes": 12244,
+    "s": 2,
+    "streamed": false,
+    "writer_errors": true
+  },
+  {
+    "buffer_bytes": 1,
+    "closed": true,
+    "matches": 3,
+    "mixed_owning": true,
+    "owned_bytes": 13120,
+    "s": 3,
+    "streamed": false,
+    "writer_errors": true
+  },
+  {
+    "buffer_bytes": 7,
+    "closed": true,
+    "matches": 3,
+    "mixed_owning": true,
+    "owned_bytes": 16588,
+    "s": 4,
+    "streamed": false,
+    "writer_errors": true
+  },
+  {
+    "buffer_bytes": 257,
+    "closed": true,
+    "matches": 3,
+    "mixed_owning": true,
+    "owned_bytes": 92488,
+    "s": 6,
+    "streamed": false,
+    "writer_errors": true
+  },
+  {
+    "buffer_bytes": 257,
+    "closed": true,
+    "matches": 3,
+    "mixed_owning": true,
+    "owned_bytes": 57368,
+    "s": 6,
+    "streamed": true,
+    "writer_errors": true
+  },
+  {
+    "buffer_bytes": 4096,
+    "closed": true,
+    "matches": 3,
+    "mixed_owning": true,
+    "owned_bytes": 1105000,
+    "s": 8,
+    "streamed": false,
+    "writer_errors": true
+  },
+  {
+    "buffer_bytes": 4096,
+    "closed": true,
+    "matches": 3,
+    "mixed_owning": true,
+    "owned_bytes": 551252,
+    "s": 8,
+    "streamed": true,
+    "writer_errors": true
+  }
+]

@@ -1,0 +1,5 @@
+=== RUN   TestCUDAPackedOutput
+--- PASS: TestCUDAPackedOutput (6.28s)
+=== RUN   TestCUDAPackedParity
+--- PASS: TestCUDAPackedParity (1.15s)
+PASS

@@ -33,7 +33,8 @@ type cudaOnlineBackend interface {
 // ScalingCUDAEncoder owns reusable device constants/workspace. Calls serialize;
 // Close waits for an active encode. Public WithCUDA does not retain host code,
 // so callers may release the plan after construction or keep it for CPU use.
-// Explicit experimental streaming retains immutable host code arrays until Close.
+// Explicit streaming/host-backed modes retain immutable host code until Close;
+// host-backed mode additionally owns a mutable host arena.
 // This is the same standalone mathematical encoder as the CPU path, not the
 // application/cryptographic encoder. Current packed arithmetic supports s2..16.
 type ScalingCUDAEncoder struct {
@@ -95,30 +96,39 @@ func (p *ScalingOnlinePlan) WithCUDA(options CUDAOptions) (*ScalingCUDAEncoder, 
 // clocks. Kernel stages use CUDA event durations. Their sum need not equal total
 // elapsed (validation, allocation, synchronization and wrapper overhead remain).
 type CUDAEncodeStats struct {
-	HostToDeviceNS   int64  `json:"host_to_device_ns"`
-	TaylorNS         int64  `json:"taylor_ns"`
-	ColumnsNS        int64  `json:"columns_ns"`
-	RowsNS           int64  `json:"rows_ns"`
-	LayoutNS         int64  `json:"layout_ns"`
-	DeviceToHostNS   int64  `json:"device_to_host_ns"`
-	PointwiseNS      int64  `json:"pointwise_ns"`
-	NativeTotalNS    int64  `json:"native_total_ns"`
-	BufferNS         int64  `json:"buffer_ns"`
-	AssemblyNS       int64  `json:"assembly_ns"`
-	ElapsedNS        int64  `json:"elapsed_ns"`
-	OwnedDeviceBytes uint64 `json:"owned_device_bytes"`
+	// Host-backed counters are zero for resident paths. HostArenaBytes excludes
+	// the owning result, immutable code/message, native staging and runtime.
+	HostArenaBytes    uint64 `json:"host_arena_bytes,omitempty"`
+	HostStageBytes    uint64 `json:"host_stage_bytes,omitempty"`
+	HostToDeviceBytes uint64 `json:"host_to_device_bytes,omitempty"`
+	DeviceToHostBytes uint64 `json:"device_to_host_bytes,omitempty"`
+	HostRoutingNS     int64  `json:"host_routing_ns,omitempty"`
+	Transforms        int    `json:"transforms,omitempty"`
+	HostToDeviceNS    int64  `json:"host_to_device_ns"`
+	TaylorNS          int64  `json:"taylor_ns"`
+	ColumnsNS         int64  `json:"columns_ns"`
+	RowsNS            int64  `json:"rows_ns"`
+	LayoutNS          int64  `json:"layout_ns"`
+	DeviceToHostNS    int64  `json:"device_to_host_ns"`
+	PointwiseNS       int64  `json:"pointwise_ns"`
+	NativeTotalNS     int64  `json:"native_total_ns"`
+	BufferNS          int64  `json:"buffer_ns"`
+	AssemblyNS        int64  `json:"assembly_ns"`
+	ElapsedNS         int64  `json:"elapsed_ns"`
+	OwnedDeviceBytes  uint64 `json:"owned_device_bytes"`
 }
 
 // Encode returns a new canonical uint32 codeword. Inputs remain unchanged;
-// device constants/workspace are reused. All five transforms, products and
-// canonical assembly stay on device; only the message and final word transfer.
+// device constants/workspace are reused. Resident mode keeps the full pipeline
+// on device; explicit host-backed mode adds host arrays and repeated transfers.
 func (e *ScalingCUDAEncoder) Encode(message []uint32) ([]uint32, error) {
 	word, _, err := e.EncodeWithStats(message)
 	return word, err
 }
 
 // EncodeWithStats includes host output allocation in ElapsedNS, separates the
-// native call's transfer/kernel stages and reports explicit resident device bytes.
+// native transfer/kernel stages and reports explicit device bytes. Host-backed
+// NativeTotalNS excludes admission; ElapsedNS includes admission/allocation.
 func (e *ScalingCUDAEncoder) EncodeWithStats(message []uint32) ([]uint32, CUDAEncodeStats, error) {
 	e.mu.Lock()
 	defer e.mu.Unlock()
@@ -145,6 +155,15 @@ func (e *ScalingCUDAEncoder) EncodeWithStats(message []uint32) ([]uint32, CUDAEn
 	stats.NativeTotalNS = ns(7)
 	stats.BufferNS = ns(8)
 	stats.AssemblyNS = ns(9)
+	if backend, ok := e.backend.(interface{ HostBackedDetails() [16]float64 }); ok {
+		st := backend.HostBackedDetails()
+		stats.HostToDeviceBytes = uint64(st[10])
+		stats.DeviceToHostBytes = uint64(st[11])
+		stats.HostStageBytes = uint64(st[12])
+		stats.HostRoutingNS = int64(st[13] * 1e9)
+		stats.Transforms = int(st[14])
+		stats.HostArenaBytes = uint64(st[15])
+	}
 	if err != nil {
 		return nil, stats, err
 	}
@@ -172,4 +191,18 @@ func (e *ScalingCUDAEncoder) Close() error {
 	}
 	e.closed = true
 	return nil
+}
+
+// CUDAPackedStats separates the explicit packed sink's native stages, bounded
+// host buffer, writer/hash costs and emitted-byte digest. NativeTotalNS includes
+// compute plus downloads; ElapsedNS also includes allocation/writer/hash work.
+// On failure PackedBytes may be partial and PackedSHA256 is not a full result.
+type CUDAPackedStats struct {
+	CUDAEncodeStats
+	PackedBytes     uint64 `json:"packed_bytes"`
+	PackedSHA256    string `json:"packed_sha256"`
+	HostBufferBytes int    `json:"host_buffer_bytes"`
+	DownloadNS      int64  `json:"packed_download_ns"`
+	WriteNS         int64  `json:"write_ns"`
+	HashNS          int64  `json:"hash_ns"`
 }

@@ -1,0 +1,30 @@
+JobId=74121 JobName=depir-gpu-backed
+   UserId=tmour(20200) GroupId=crypto_login(20200) MCS_label=N/A
+   Priority=1 Nice=0 Account=crypto_login QOS=quota_crypto_gpuq
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:00:08 TimeLimit=00:30:00 TimeMin=N/A
+   SubmitTime=2026-11-12T20:13:16 EligibleTime=2026-11-12T20:13:16
+   AccrueTime=2026-11-12T20:13:16
+   StartTime=2026-11-12T20:13:16 EndTime=2026-11-12T20:43:16 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-12T20:13:16 Scheduler=Main
+   Partition=gpuq AllocNode:Sid=lnode02:3195841
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=gnode17
+   BatchHost=gnode17
+   NumNodes=1 NumCPUs=16 NumTasks=1 CPUs/Task=16 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=16,mem=16G,node=1,billing=16,gres/gpu=1,gres/gpu:h200=1
+   AllocTRES=cpu=16,node=1,billing=16,gres/gpu=1,gres/gpu:h200=1
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=16 MinMemoryNode=16G MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null)
+   Command=/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-host-backed/run.sbatch
+   WorkDir=/hpc/home/crypto/tmour/sk-DEPIR
+   StdErr=/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-host-backed/slurm-74121.log
+   StdIn=/dev/null
+   StdOut=/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-host-backed/slurm-74121.log
+   TresPerNode=gres/gpu:h200:1
+   TresPerTask=cpu=16
+   
+

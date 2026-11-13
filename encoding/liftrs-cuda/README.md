@@ -141,3 +141,75 @@ Validation passes:63.49/58.85 s full s16 encodings with retained CPU hashes,
 about2.24 s code upload per call, and39.03 GiB host RSS. Matched s14 is5.6–6.7%
 slower than resident; full s16 timing comparisons are historical. Memchecks report
 0 errors/leaks. Public WithCUDA/CPU defaults remain unchanged; s17 is unsupported.
+
+
+## Explicit packed output sink
+
+`EncodePackedTo(message, writer, bufferBytes)` handles resident code;
+`EncodePackedStreamedTo(message, p, spectrum, writer, bufferBytes, codeTileElements)`
+borrows immutable streamed code. Both keep the engine lock through writes, so the
+writer must not reenter it. Buffer1 byte..64 MiB bounds encoder staging only. Optional
+ABI symbols fail clearly on older libraries. Fast resident/reuse layouts pack
+s-bit canonical output directly into dead scratch; compact/direct-row mode rejects
+this sink. Neighboring bit fields use atomic OR after zero fill, with range
+checking before writes and a joined parity reduction. No full canonical array is
+assembled on host or device; coefficient/transform arrays remain counted.
+
+The packed read state is sequential and cleared after completion/error. Native
+code retains no host pointer. Writer failures may leave a partial destination;
+caller handles publication/Sync. PackedStats SHA256 is valid as the full emitted
+result only on success. Write/hash timing is separate, download is included in
+native transfer/total timing. GPU workspace is unchanged. Validated s16 packed
+pipelines take65.5–66.2 s including writing/hash (23.01 GiB encoding RSS; separate
+verifier31.01 GiB). Matched s14 file pipelines are27–29% shorter in two fixed-order
+samples, including CPU packing in the owning reference. See the
+[measured boundaries and cache costs](../../experiments/gpu-packed-output/report.md).
+Owning/default constructors and s<=16 arithmetic bounds stay unchanged.
+
+## Explicit host-backed transform component
+
+`NewHostBacked(..., maxPoints, deviceBytes, tileElements)` and
+`ApplyBacked(hostData, inverse)` keep the mutable uint32 domain in caller RAM,
+with two device tiles and at most one host staging tile. AddPlan requires a tile
+large enough for a full row and column. All arithmetic runs on GPU; CPU gathers
+columns. Transfers repeat at each Taylor correction and row/column batch.
+Resident transforms remain the default. No host-backed online encoder exists yet.
+
+```go
+engine, err := liftrscuda.NewHostBacked(library, s, polynomial, delta,
+    logs, powers, maxPoints, deviceCap, tileElements)
+if err != nil { return err }
+defer engine.Close()
+if err := engine.AddPlan(matrixWords); err != nil { return err }
+stages, err := engine.ApplyBacked(hostData, false)
+if err != nil { return err } // hostData may be partially modified on GPU failure.
+_ = stages // Timing/transfer indices are documented in gpu_api.h.
+```
+
+Only s2..16 arithmetic; maxPoints<=2^32 is a format bound. Tile4..2^26 elements,
+explicit allocation cap includes plans/tables but excludes driver context. Host
+array4N bytes remains required, plus at most4T staging; GPU arrays8min(N,T).
+No host pointer survives a call. Calls/Close serialize. Product and ordinary
+Apply reject this engine. New ABI symbols are optional for older libraries.
+The initial [component experiment](../../experiments/gpu-host-backed/report.md)
+passed correctness, but N2^22/T65536 is60.5x slower than resident Apply despite
+32.76→1.26MiB device savings. Per-stage kernels now parallelize work within
+tiles at unchanged workspace/transfer bounds;
+[their GPU comparison](../../experiments/gpu-backed-parallel/report.md) is pending.
+Repeated transfers and extra launches can still make it much slower. Do not select this path
+when the faster validated resident path fits without an explicit CLI choice.
+
+
+`EncodeOnlineBacked(p,spectrum,message,arena,word,omega)` integrates five
+host-backed transforms with bounded GPU products and orbit point generation.
+Two disjoint host N buffers are required: one mutable workspace and one owning
+canonical output. Native CPU scatters values and XORs coordinate-zero parity;
+no N-sized orbit map is allocated. All borrowed pointers expire on return;
+Go checks all mutable/immutable overlaps, native validates shape/fields and
+primitive omega. Errors may leave workspace/output partial. The new online ABI
+is optional: older transform libraries still load and reject this operation.
+Stats[16] extends the ordinary10 online counters with bytes/staging/routing,
+transform count and arena size (see gpu_api.h). The total excludes admission.
+This is explicit and may be much slower: [validation and memory costs](../../experiments/gpu-host-encoding/report.md)
+passes complete s10 correctness:1.61 s, device560400 bytes, versus native CPU
+0.31–0.32 s. No full s16 runtime, host-backed packed sink or s17 support is claimed.

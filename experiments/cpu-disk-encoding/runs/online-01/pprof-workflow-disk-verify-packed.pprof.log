@@ -1,0 +1,22 @@
+File: disk.test
+Build ID: 0c7095b4c1532327cef26ffeccc034eea1b85dc1
+Type: cpu
+Time: 2026-11-12 22:15:45 CET
+Duration: 77.05ms, Total samples = 10ms (12.98%)
+Showing nodes accounting for 10ms, 100% of 10ms total
+      flat  flat%   sum%        cum   cum%
+      10ms   100%   100%       10ms   100%  internal/runtime/syscall/linux.Syscall6
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPPDiskOnlineWorkflow
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func17
+         0     0%   100%       10ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%       10ms   100%  internal/poll.(*FD).Pread
+         0     0%   100%       10ms   100%  internal/poll.(*FD).Pread.func1 (inline)
+         0     0%   100%       10ms   100%  internal/poll.ignoringEINTR2[go.shape.int] (inline)
+         0     0%   100%       10ms   100%  os.(*File).ReadAt
+         0     0%   100%       10ms   100%  os.(*File).pread (inline)
+         0     0%   100%       10ms   100%  syscall.Pread (inline)
+         0     0%   100%       10ms   100%  syscall.RawSyscall6
+         0     0%   100%       10ms   100%  syscall.Syscall6
+         0     0%   100%       10ms   100%  syscall.pread
+         0     0%   100%       10ms   100%  testing.tRunner

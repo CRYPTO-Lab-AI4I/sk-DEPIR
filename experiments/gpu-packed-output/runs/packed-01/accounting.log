@@ -1,0 +1,3 @@
+JobID|JobName|State|ExitCode|Elapsed|MaxRSS|NodeList
+74091|depir-gpu-packed|FAILED|1:0|00:04:37||gnode17
+74091.batch|batch|FAILED|1:0|00:04:37|302236K|gnode17

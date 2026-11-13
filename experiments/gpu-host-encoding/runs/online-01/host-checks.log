@@ -1,0 +1,3 @@
+=== RUN   TestCUDAHostOnline
+--- PASS: TestCUDAHostOnline (11.28s)
+PASS

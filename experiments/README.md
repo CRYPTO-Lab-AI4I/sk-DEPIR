@@ -237,3 +237,34 @@ rewriting measurement hashes. Archived RM benchmarks/plot are isolated in
 
 - [Fast-layout GPU streamed constants](gpu-streamed-constants/report.md): explicit
   P/spectrum uploads through dead scratch, matched s14 and full s16 validation.
+
+- [Fast CPU file-backed constants](cpu-streamed-constants/report.md): verified
+  descriptor reads through dead scratch, RSS/file-cache accounting and matched validation.
+
+- [GPU output to a bounded packed sink](gpu-packed-output/report.md): direct
+  atomic bit packing, bounded download/writer, matched output pipelines and
+  separately measured packed-file verification.
+
+- [GPU host-backed transform component](gpu-host-backed/report.md): bounded
+  device tiles, full host domain, dependency-safe Taylor batches and measured
+  transfer/allocation costs before full online integration.
+
+- [Parallel work inside host-backed GPU tiles](gpu-backed-parallel/report.md):
+  per-element stage kernels to address measured low parallelism, fixed-input
+  comparison at unchanged device/host staging and transfer counts.
+
+- [Complete host-backed GPU encoding](gpu-host-encoding/report.md): explicit
+  five-transform schedule, retained host code/workspace, bounded device tiles,
+  owning canonical output and matched full s10 CPU/reference validation.
+
+- [Direct CPU packed output](cpu-packed-output/report.md): canonical bit scatter
+  in dead scratch, bounded writer/hash, mixed owning/error checks and matched
+  cached s10 pipelines. Two full transform arrays remain counted.
+
+- [Bounded private-RAM CPU disk transforms](cpu-disk-transform/report.md): joined
+  file Taylor passes, blocked transposes, progressive oracles, I/O counters and
+  separate cache/cgroup accounting before full online integration.
+
+- [Complete CPU disk-backed encoding](cpu-disk-encoding/report.md): five native
+  file transforms, bounded products, owning canonical output and full matched
+  file-fast/disk s10 workflows; backing/cache costs remain explicit.

@@ -1,0 +1,33 @@
+File: encoding.test
+Build ID: 7cef4b9de871b2501f770d4015fa83ca4a92f5b1
+Type: cpu
+Time: 2026-11-12 18:57:48 CET
+Duration: 6.07s, Total samples = 5.84s (96.16%)
+Showing nodes accounting for 5.84s, 100% of 5.84s total
+Dropped 5 nodes (cum <= 0.03s)
+      flat  flat%   sum%        cum   cum%
+     5.38s 92.12% 92.12%      5.38s 92.12%  runtime.cgocall
+     0.26s  4.45% 96.58%      0.26s  4.45%  crypto/internal/fips140/sha256.blockSHANI
+     0.20s  3.42%   100%      0.20s  3.42%  internal/runtime/syscall/linux.Syscall6
+         0     0%   100%      0.26s  4.45%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%      0.26s  4.45%  crypto/internal/fips140/sha256.block
+         0     0%   100%      5.83s 99.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).EncodePackedStreamedTo (inline)
+         0     0%   100%      5.83s 99.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).encodePackedTo
+         0     0%   100%      5.33s 91.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).encodePackedTo.func2 (inline)
+         0     0%   100%      0.05s  0.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).encodePackedTo.func4 (inline)
+         0     0%   100%      5.33s 91.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_bridge_prepare_packed
+         0     0%   100%      0.05s  0.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_bridge_read_packed
+         0     0%   100%      5.83s 99.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCUDAEncoder).EncodePackedTo
+         0     0%   100%      5.83s 99.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*cudaStreamedBackend).EncodePackedTo
+         0     0%   100%      5.84s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPackedCached
+         0     0%   100%      5.84s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPackedCached.func3
+         0     0%   100%      5.84s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPackedCached.func6
+         0     0%   100%      0.19s  3.25%  internal/poll.(*FD).Write
+         0     0%   100%      0.19s  3.25%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%      0.19s  3.25%  os.(*File).Write
+         0     0%   100%      0.19s  3.25%  os.(*File).write (inline)
+         0     0%   100%      0.20s  3.42%  syscall.RawSyscall6
+         0     0%   100%      0.20s  3.42%  syscall.Syscall
+         0     0%   100%      0.19s  3.25%  syscall.Write (inline)
+         0     0%   100%      0.19s  3.25%  syscall.write
+         0     0%   100%      5.84s   100%  testing.tRunner

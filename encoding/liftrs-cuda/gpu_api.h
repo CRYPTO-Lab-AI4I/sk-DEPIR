@@ -52,6 +52,27 @@ int gm_encode_online(void*,const uint32_t* message,size_t k,uint32_t* word,size_
 int gm_create_streamed(unsigned,unsigned,unsigned,const uint32_t*,size_t,const uint32_t*,size_t,size_t,size_t,void**,char*,size_t);
 int gm_encode_streamed(void*,const uint32_t*,size_t,const uint32_t*,size_t,const uint32_t*,size_t,uint32_t*,size_t,size_t,double*,char*,size_t);
 int gm_stream_stats(void*,double*,char*,size_t);
+/* Packed-output experiment: no host canonical array. Prepare directly scatters
+ * s-bit little-endian output into dead workspace. Read sequential chunks <=64MiB;
+ * clear after completion/error. Single caller excludes all other engine activity.
+ * Existing owning encodes are unchanged. No host pointer retained between calls. */
+int gm_prepare_packed(void*,const uint32_t*,size_t,const uint32_t*,size_t,const uint32_t*,size_t,size_t,size_t,double*,char*,size_t);
+int gm_read_packed(void*,size_t,unsigned char*,size_t,double*,char*,size_t);
+int gm_clear_packed(void*,char*,size_t);
+/* Host-backed transform-only experiment. Full mutable data stays in borrowed
+ * host RAM; two bounded device tiles plus a bounded host column buffer. CPU
+ * stages data only; Taylor/row/column arithmetic executes on GPU. Tile must fit
+ * each complete row/column vector. Existing resident Apply/Product unchanged.
+ * stats[12]: H2D,Taylor,columns,rows,layout,D2H,host routing,total seconds,
+ * H2D bytes,D2H bytes,host staging bytes,row/column batches. */
+int gm_create_backed(unsigned,unsigned,unsigned,unsigned,const uint32_t*,size_t,const uint32_t*,size_t,size_t,size_t,void**,char*,size_t);
+int gm_apply_backed(void*,uint32_t*,size_t,int,double*,char*,size_t);
+/* Explicit host-backed online schedule. All pointers borrowed for one call;
+ * arena and word are separate writable N arrays, disjoint from immutable input.
+ * stats[16]: first10 follow online stats; H2D bytes,D2H bytes,host stage peak,
+ * CPU routing seconds,transform count,host arena bytes. Total excludes admission.
+ * Five transforms/products and orbit points GPU; native CPU scatter/XOR. */
+int gm_encode_backed(void*,const uint32_t*,size_t,const uint32_t*,const uint32_t*,size_t,uint32_t*,uint32_t*,size_t,uint32_t,double*,char*,size_t);
 uint64_t gm_owned_bytes(void*);
 void gm_destroy(void*);
 #ifdef __cplusplus

@@ -1,0 +1,26 @@
+File: backed.test
+Build ID: b4b9e169b81442a73d6202b8acf933da214bffad
+Type: cpu
+Time: 2026-11-12 20:40:45 CET
+Duration: 12.83s, Total samples = 8.73s (68.06%)
+Showing nodes accounting for 8.64s, 98.97% of 8.73s total
+Dropped 17 nodes (cum <= 0.04s)
+      flat  flat%   sum%        cum   cum%
+     8.60s 98.51% 98.51%      8.61s 98.63%  runtime.cgocall
+     0.04s  0.46% 98.97%      0.08s  0.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).Recurse
+         0     0% 98.97%      0.81s  9.28%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).Apply
+         0     0% 98.97%      0.81s  9.28%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).Apply.func1 (inline)
+         0     0% 98.97%      3.89s 44.56%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).ApplyBacked
+         0     0% 98.97%      3.89s 44.56%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).ApplyBacked.func1 (inline)
+         0     0% 98.97%      1.64s 18.79%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).Close
+         0     0% 98.97%      1.64s 18.79%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).Close.func1 (inline)
+         0     0% 98.97%      1.25s 14.32%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.NewHostBacked
+         0     0% 98.97%      1.02s 11.68%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.NewTransformBounded
+         0     0% 98.97%      0.81s  9.28%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_bridge_apply
+         0     0% 98.97%      3.89s 44.56%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_bridge_apply_backed
+         0     0% 98.97%      1.64s 18.79%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_bridge_close
+         0     0% 98.97%      2.27s 26.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_bridge_open
+         0     0% 98.97%      2.27s 26.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.newEngine
+         0     0% 98.97%      0.08s  0.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0% 98.97%      8.71s 99.77%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCUDAHostBacked
+         0     0% 98.97%      8.71s 99.77%  testing.tRunner

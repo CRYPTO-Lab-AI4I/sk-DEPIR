@@ -1,0 +1,34 @@
+File: packed.test
+Build ID: 263bd8d7f9e1f2a0edb5d908db370077b08cb552
+Type: cpu
+Time: 2026-11-12 21:15:32 CET
+Duration: 3.07s, Total samples = 4.20s (136.61%)
+Showing nodes accounting for 4.09s, 97.38% of 4.20s total
+Dropped 49 nodes (cum <= 0.02s)
+Showing top 25 nodes out of 30
+      flat  flat%   sum%        cum   cum%
+     1.57s 37.38% 37.38%      1.57s 37.38%  runtime.cgocall
+        1s 23.81% 61.19%         1s 23.81%  [packed.test]
+     0.61s 14.52% 75.71%      1.19s 28.33%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).Recurse
+     0.37s  8.81% 84.52%      0.37s  8.81%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Product.Mul
+     0.24s  5.71% 90.24%      0.24s  5.71%  [libc.so.6]
+     0.18s  4.29% 94.52%      0.18s  4.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.04s  0.95% 95.48%      0.21s  5.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Field.mul
+     0.03s  0.71% 96.19%      0.03s  0.71%  runtime.memclrNoHeapPointers
+     0.03s  0.71% 96.90%      0.03s  0.71%  time.runtimeNow
+     0.02s  0.48% 97.38%      1.18s 28.10%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).Encode
+         0     0% 97.38%      0.23s  5.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.EncodeOnlineFile
+         0     0% 97.38%      1.34s 31.90%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.EncodeOnlineFilePacked
+         0     0% 97.38%      0.23s  5.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_online_encode_file
+         0     0% 97.38%      1.34s 31.90%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_online_encode_file_packed
+         0     0% 97.38%      1.57s 37.38%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.encodeOnline
+         0     0% 97.38%      1.38s 32.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPFileEncoder).EncodePackedTo
+         0     0% 97.38%      0.23s  5.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPFileEncoder).EncodeWithStats
+         0     0% 97.38%      1.57s 37.38%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPFileEncoder).encodeFileLocked
+         0     0% 97.38%      1.03s 24.52%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0% 97.38%      0.16s  3.81%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0% 97.38%      2.90s 69.05%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPPFilePacked
+         0     0% 97.38%      0.03s  0.71%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.writeCanonicalPacked
+         0     0% 97.38%      1.26s 30.00%  runtime._ExternalCode
+         0     0% 97.38%      0.04s  0.95%  runtime.makeslice
+         0     0% 97.38%      0.05s  1.19%  runtime.mallocgc

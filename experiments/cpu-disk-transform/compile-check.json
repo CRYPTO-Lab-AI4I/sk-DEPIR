@@ -1,0 +1,12 @@
+{
+  "utc": "2026-11-12T20:32:02.818682+00:00",
+  "revision": "ce29557049fd5cfaf744c6ba3ce9a8a3b6616507",
+  "source_sha256": {
+    "encoding/liftrs-cpp/c_api.cpp": "e025555092a9552107947325924467fa84cb1e258105341c8e9bf535a302c761",
+    "encoding/liftrs-cpp/c_api.h": "bc132424a4f1260b913f94a43ff9c5501ed849759ae2cf36f2ae2aeec7b5c1c9",
+    "encoding/liftrs-cpp/disk.hpp": "ce5fcb74b084be2ee37f229a9816df826359454c6650a67b6c5dd006b14ab86c",
+    "encoding/liftrs-cpp/plan.go": "240bbd3855f33ea66ba2ca95c3c4a7d653c0d9ddcd2a99294d6f0a3eaa66f7fe",
+    "encoding/liftrs-shared/cpu_disk_test.go": "ae5a7dc5cebec1bff92313347839f913e103d5469a30fa2a03c72046aff8d620"
+  },
+  "checks": "CPP and combined cpp/cuda short compilation/tests passed under25s command/20s test deadlines: TestCPPFileEncoding and TestPackedFileAccessor; opt-in disk component compiled/skipped. Initial undefined test helper caught by compilation and replaced with Go builtin max. Blocked-transpose/dependency/resource self-check, Python/shell syntax passed. Native disk execution/ASan pending."
+}

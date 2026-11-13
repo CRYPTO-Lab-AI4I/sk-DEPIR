@@ -1,0 +1,12 @@
+{
+  "utc": "2026-11-12T21:07:00.900522+00:00",
+  "revision": "ce29557049fd5cfaf744c6ba3ce9a8a3b6616507",
+  "source_sha256": {
+    "encoding/liftrs-cpp/disk.hpp": "0edda5119e394f4cd2045f43d971ae58f71cbbbebc67ff41f4feca0e90c03fd3",
+    "encoding/liftrs-cpp/c_api.h": "7eaa8d5ac5a5a599b7dd26a0602fd2ad41987fd5addebb8e30dc61e84b5dcedc",
+    "encoding/liftrs-cpp/plan.go": "c27ec7cc3ab9c2f01688a2a9b8ccdd32ddffad569137a6042f7f8859b1d92d83",
+    "encoding/liftrs-shared/cpu_disk.go": "97c6dde1d5d9efe6518c0e64319f313c9c3d7f1027365cfd9a5a2c11345f66f6",
+    "encoding/liftrs-shared/cpu_disk_online_test.go": "8dc6de2f1714e36128e6a9240f1efc8a6b7f03f1d6c9d9454b53acddeb8a0bd4"
+  },
+  "checks": "Short CPP and combined cpp/cuda compilation/tests passed under25s command/20s test deadlines: TestCPPFileEncoding and TestPackedFileAccessor; new disk online opt-in tests compiled/skipped. Resource/unaligned code-offset and Python/shell syntax checks passed. An initial stats-counter type mismatch was caught/fixed before successful reruns. Code-offset alignment was corrected during review for25/33-byte probe headers and an explicit wide-header fixture was added. Native disk online execution/ASan/full s10 pending."
+}

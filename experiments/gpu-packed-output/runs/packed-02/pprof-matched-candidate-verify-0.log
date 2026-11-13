@@ -1,0 +1,22 @@
+File: encoding.test
+Build ID: 7cef4b9de871b2501f770d4015fa83ca4a92f5b1
+Type: cpu
+Time: 2026-11-12 18:57:55 CET
+Duration: 28.49s, Total samples = 12.83s (45.04%)
+Showing nodes accounting for 12.78s, 99.61% of 12.83s total
+Dropped 20 nodes (cum <= 0.06s)
+      flat  flat%   sum%        cum   cum%
+    10.59s 82.54% 82.54%     10.61s 82.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.packedAt
+     0.59s  4.60% 87.14%      0.59s  4.60%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     0.52s  4.05% 91.19%      0.52s  4.05%  crypto/internal/fips140/sha256.blockSHANI
+     0.34s  2.65% 93.84%      0.34s  2.65%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPackedCached.func7.2 (inline)
+     0.31s  2.42% 96.26%     12.82s 99.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPackedCached.func7
+     0.15s  1.17% 97.43%      0.87s  6.78%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.13s  1.01% 98.44%      0.72s  5.61%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.08s  0.62% 99.06%     10.69s 83.32%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPackedCached.func7.1 (inline)
+     0.07s  0.55% 99.61%      0.07s  0.55%  encoding/binary.littleEndian.PutUint32 (inline)
+         0     0% 99.61%      0.52s  4.05%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0% 99.61%      0.52s  4.05%  crypto/internal/fips140/sha256.block
+         0     0% 99.61%     12.82s 99.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPackedCached
+         0     0% 99.61%     12.82s 99.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPackedCached.func3
+         0     0% 99.61%     12.82s 99.92%  testing.tRunner

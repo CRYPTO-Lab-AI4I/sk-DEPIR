@@ -1,0 +1,30 @@
+File: encoding.test
+Build ID: 179a6cf4c68887a38163ebc741f56de2b5da4e9d
+Type: cpu
+Time: 2026-11-12 11:31:06 CET
+Duration: 3.10s, Total samples = 2.94s (94.92%)
+Showing nodes accounting for 2.94s, 100% of 2.94s total
+Dropped 5 nodes (cum <= 0.01s)
+      flat  flat%   sum%        cum   cum%
+     1.04s 35.37% 35.37%      2.94s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func16
+     0.96s 32.65% 68.03%      1.43s 48.64%  bufio.(*Writer).WriteByte
+     0.46s 15.65% 83.67%      0.46s 15.65%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func2
+     0.25s  8.50% 92.18%      0.25s  8.50%  crypto/internal/fips140/sha256.blockSHANI
+     0.21s  7.14% 99.32%      0.21s  7.14%  internal/runtime/syscall/linux.Syscall6
+     0.02s  0.68%   100%      0.02s  0.68%  bufio.(*Writer).Available (inline)
+         0     0%   100%      0.45s 15.31%  bufio.(*Writer).Flush
+         0     0%   100%      0.25s  8.50%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%      0.25s  8.50%  crypto/internal/fips140/sha256.block
+         0     0%   100%      2.94s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPUFileCached
+         0     0%   100%      2.94s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%      2.94s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%      0.20s  6.80%  internal/poll.(*FD).Write
+         0     0%   100%      0.20s  6.80%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%      0.45s 15.31%  io.(*multiWriter).Write
+         0     0%   100%      0.20s  6.80%  os.(*File).Write
+         0     0%   100%      0.20s  6.80%  os.(*File).write (inline)
+         0     0%   100%      0.21s  7.14%  syscall.RawSyscall6
+         0     0%   100%      0.21s  7.14%  syscall.Syscall
+         0     0%   100%      0.20s  6.80%  syscall.Write (inline)
+         0     0%   100%      0.20s  6.80%  syscall.write
+         0     0%   100%      2.94s   100%  testing.tRunner

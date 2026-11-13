@@ -1,0 +1,3 @@
+JobID|JobName|State|ExitCode|Elapsed|MaxRSS|NodeList|AllocTRES
+73976|depir-cpu-stream|COMPLETED|0:0|00:36:45||gnode17|billing=32,cpu=32,node=1
+73976.batch|batch|COMPLETED|0:0|00:36:45|37230472K|gnode17|cpu=32,mem=0,node=1

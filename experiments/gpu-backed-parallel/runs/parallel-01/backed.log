@@ -1,0 +1,3 @@
+=== RUN   TestCUDAHostBacked
+--- PASS: TestCUDAHostBacked (26.29s)
+PASS

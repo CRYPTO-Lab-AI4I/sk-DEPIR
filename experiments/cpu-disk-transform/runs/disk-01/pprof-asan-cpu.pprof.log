@@ -1,0 +1,33 @@
+File: disk.test
+Build ID: 235cc6817ec496ef68776ccc68a368dafdd8020f
+Type: cpu
+Time: 2026-11-12 21:35:02 CET
+Duration: 37.10s, Total samples = 1.62s ( 4.37%)
+Showing nodes accounting for 1.62s, 100% of 1.62s total
+Showing top 25 nodes out of 40
+      flat  flat%   sum%        cum   cum%
+     0.79s 48.77% 48.77%      0.79s 48.77%  runtime.debugCallWrap1.func1
+     0.49s 30.25% 79.01%      0.49s 30.25%  [disk.test]
+     0.09s  5.56% 84.57%      0.09s  5.56%  [libasan.so.8.0.0]
+     0.07s  4.32% 88.89%      0.65s 40.12%  runtime.newproc1
+     0.05s  3.09% 91.98%      0.11s  6.79%  runtime.nilinterhash
+     0.03s  1.85% 93.83%      0.03s  1.85%  runtime.mapdelete
+     0.02s  1.23% 95.06%      0.13s  8.02%  regexp/syntax.(*parser).repeat
+     0.02s  1.23% 96.30%      0.02s  1.23%  runtime.makemap
+     0.01s  0.62% 96.91%      0.01s  0.62%  encoding/binary.littleEndian.Uint32 (inline)
+     0.01s  0.62% 97.53%      0.01s  0.62%  internal/runtime/cgroup.readV1Number
+     0.01s  0.62% 98.15%      0.01s  0.62%  internal/runtime/maps.newarray
+     0.01s  0.62% 98.77%      0.01s  0.62%  runtime.call16777216
+     0.01s  0.62% 99.38%      0.01s  0.62%  runtime.initMetrics.func65
+     0.01s  0.62%   100%      0.12s  7.41%  runtime.panicwrap
+         0     0%   100%      0.01s  0.62%  debugCall2048
+         0     0%   100%      0.01s  0.62%  fmt.(*pp).fmtInteger
+         0     0%   100%      0.75s 46.30%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.ApplyMatrixFile
+         0     0%   100%      0.75s 46.30%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.ApplyMatrixFile.func1 (inline)
+         0     0%   100%      0.04s  2.47%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.ApplyMatrixWithStats (inline)
+         0     0%   100%      0.04s  2.47%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0%   100%      0.75s 46.30%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply_file
+         0     0%   100%      0.04s  2.47%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0%   100%      0.04s  2.47%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix.func1 (inline)
+         0     0%   100%      0.96s 59.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPPDiskTransform
+         0     0%   100%      0.01s  0.62%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPPDiskTransform.func2

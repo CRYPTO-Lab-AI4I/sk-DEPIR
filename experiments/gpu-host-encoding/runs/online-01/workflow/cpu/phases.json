@@ -1,0 +1,205 @@
+[
+  {
+    "allocated_bytes": 7171352,
+    "elapsed_ns": 8967829,
+    "go_sys_bytes": 22108424,
+    "heap_after_bytes": 7530120,
+    "heap_before_bytes": 421320,
+    "k": 146641,
+    "n": 1048576,
+    "native_after": {
+      "steady_ns": 14623685168555548,
+      "wall_ns": 1794513724372491887,
+      "posix_monotonic_ns": 14623685168553500,
+      "process_cpu_ns": 21485890
+    },
+    "native_before": {
+      "steady_ns": 14623685159580907,
+      "wall_ns": 1794513724363518662,
+      "posix_monotonic_ns": 14623685159574436,
+      "process_cpu_ns": 10062755
+    },
+    "phase": "load-online",
+    "plan_bytes": 4780872
+  },
+  {
+    "allocated_bytes": 11587184,
+    "elapsed_ns": 3249299,
+    "go_sys_bytes": 31021320,
+    "heap_after_bytes": 16314784,
+    "heap_before_bytes": 5329328,
+    "native_after": {
+      "steady_ns": 14623685193066148,
+      "wall_ns": 1794513724397002412,
+      "posix_monotonic_ns": 14623685193064538,
+      "process_cpu_ns": 31659518
+    },
+    "native_before": {
+      "steady_ns": 14623685189812588,
+      "wall_ns": 1794513724393748852,
+      "posix_monotonic_ns": 14623685189811462,
+      "process_cpu_ns": 24978071
+    },
+    "phase": "online-setup",
+    "workers": 16,
+    "workspace_bytes": 8975172
+  },
+  {
+    "allocated_bytes": 2218344,
+    "elapsed_ns": 319386195,
+    "go_sys_bytes": 31283464,
+    "heap_after_bytes": 17123640,
+    "heap_before_bytes": 14905296,
+    "input_bytes": 586564,
+    "native_after": {
+      "steady_ns": 14623685532610223,
+      "wall_ns": 1794513724736546573,
+      "posix_monotonic_ns": 14623685532609123,
+      "process_cpu_ns": 4137247016
+    },
+    "native_before": {
+      "steady_ns": 14623685213220359,
+      "wall_ns": 1794513724417156617,
+      "posix_monotonic_ns": 14623685213219157,
+      "process_cpu_ns": 34770655
+    },
+    "native_stages": {
+      "calls": 5,
+      "boundary_calls": 1,
+      "buffer_ns": 1480782,
+      "pointwise_ns": 18056533,
+      "assembly_ns": 1430166,
+      "taylor_ns": 59792340,
+      "columns_transposes_ns": 107963805,
+      "rows_ns": 130440443
+    },
+    "output_bytes": 4194304,
+    "phase": "encode-0"
+  },
+  {
+    "allocated_bytes": 2089856,
+    "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+    "curves_checked": 16,
+    "elapsed_ns": 39188541,
+    "go_sys_bytes": 31553800,
+    "heap_after_bytes": 17001208,
+    "heap_before_bytes": 14911352,
+    "native_after": {
+      "steady_ns": 14623685636409296,
+      "wall_ns": 1794513724840345591,
+      "posix_monotonic_ns": 14623685636406828,
+      "process_cpu_ns": 4177465010
+    },
+    "native_before": {
+      "steady_ns": 14623685597215159,
+      "wall_ns": 1794513724801151571,
+      "posix_monotonic_ns": 14623685597213784,
+      "process_cpu_ns": 4141707408
+    },
+    "phase": "verify-0",
+    "repeat_match": true,
+    "systematic_checked": 146641
+  },
+  {
+    "allocated_bytes": 6424064,
+    "elapsed_ns": 312775349,
+    "go_sys_bytes": 31561992,
+    "heap_after_bytes": 17142928,
+    "heap_before_bytes": 10718864,
+    "input_bytes": 586564,
+    "native_after": {
+      "steady_ns": 14623686152716942,
+      "wall_ns": 1794513725356653226,
+      "posix_monotonic_ns": 14623686152715522,
+      "process_cpu_ns": 8285292898
+    },
+    "native_before": {
+      "steady_ns": 14623685839937563,
+      "wall_ns": 1794513725043873818,
+      "posix_monotonic_ns": 14623685839936501,
+      "process_cpu_ns": 4181071672
+    },
+    "native_stages": {
+      "calls": 5,
+      "boundary_calls": 1,
+      "buffer_ns": 1320853,
+      "pointwise_ns": 21850799,
+      "assembly_ns": 2144970,
+      "taylor_ns": 60575955,
+      "columns_transposes_ns": 101772520,
+      "rows_ns": 124418879
+    },
+    "output_bytes": 4194304,
+    "phase": "encode-1"
+  },
+  {
+    "allocated_bytes": 2098624,
+    "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+    "curves_checked": 16,
+    "elapsed_ns": 31454493,
+    "go_sys_bytes": 31561992,
+    "heap_after_bytes": 17013664,
+    "heap_before_bytes": 14915040,
+    "native_after": {
+      "steady_ns": 14623686224639772,
+      "wall_ns": 1794513725428576047,
+      "posix_monotonic_ns": 14623686224638383,
+      "process_cpu_ns": 8321303845
+    },
+    "native_before": {
+      "steady_ns": 14623686193181990,
+      "wall_ns": 1794513725397118264,
+      "posix_monotonic_ns": 14623686193181004,
+      "process_cpu_ns": 8289898876
+    },
+    "phase": "verify-1",
+    "repeat_match": true,
+    "systematic_checked": 146641
+  },
+  {
+    "allocated_bytes": 3134328,
+    "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+    "elapsed_ns": 39550209,
+    "go_sys_bytes": 31561992,
+    "heap_after_bytes": 17462192,
+    "heap_before_bytes": 14327864,
+    "native_after": {
+      "steady_ns": 14623686288335582,
+      "wall_ns": 1794513725492271874,
+      "posix_monotonic_ns": 14623686288333785,
+      "process_cpu_ns": 8336057347
+    },
+    "native_before": {
+      "steady_ns": 14623686248781646,
+      "wall_ns": 1794513725452717940,
+      "posix_monotonic_ns": 14623686248780409,
+      "process_cpu_ns": 8325092622
+    },
+    "packed_bytes": 1310720,
+    "phase": "pack-output",
+    "seed": 71,
+    "sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda"
+  },
+  {
+    "allocated_bytes": 2088328,
+    "elapsed_ns": 156877538,
+    "go_sys_bytes": 31561992,
+    "heap_after_bytes": 16417096,
+    "heap_before_bytes": 14328768,
+    "native_after": {
+      "steady_ns": 14623686460158914,
+      "wall_ns": 1794513725664095104,
+      "posix_monotonic_ns": 14623686460158265,
+      "process_cpu_ns": 8346430665
+    },
+    "native_before": {
+      "steady_ns": 14623686303279684,
+      "wall_ns": 1794513725507215878,
+      "posix_monotonic_ns": 14623686303278599,
+      "process_cpu_ns": 8338873935
+    },
+    "phase": "verify-packed",
+    "positions_checked": 1027,
+    "readback_match": true
+  }
+]

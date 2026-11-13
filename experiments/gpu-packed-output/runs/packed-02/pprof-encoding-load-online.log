@@ -1,0 +1,33 @@
+File: encoding.test
+Build ID: 7cef4b9de871b2501f770d4015fa83ca4a92f5b1
+Type: cpu
+Time: 2026-11-12 18:58:59 CET
+Duration: 318.24s, Total samples = 37.51s (11.79%)
+Showing nodes accounting for 37.03s, 98.72% of 37.51s total
+Dropped 55 nodes (cum <= 0.19s)
+      flat  flat%   sum%        cum   cum%
+    13.34s 35.56% 35.56%     37.28s 99.39%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.LoadScalingOnline
+    12.61s 33.62% 69.18%     12.61s 33.62%  internal/runtime/syscall/linux.Syscall6
+     9.92s 26.45% 95.63%      9.92s 26.45%  crypto/internal/fips140/sha256.blockSHANI
+     0.78s  2.08% 97.71%      0.78s  2.08%  runtime.memmove
+     0.34s  0.91% 98.61%      0.34s  0.91%  encoding/binary.littleEndian.Uint32 (inline)
+     0.02s 0.053% 98.67%      9.94s 26.50%  crypto/internal/fips140/sha256.block
+     0.01s 0.027% 98.69%     22.64s 60.36%  io.(*teeReader).Read
+     0.01s 0.027% 98.72%      0.20s  0.53%  runtime.schedule
+         0     0% 98.72%     23.42s 62.44%  bufio.(*Reader).Read
+         0     0% 98.72%      9.94s 26.50%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0% 98.72%     37.28s 99.39%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPackedCached
+         0     0% 98.72%     37.28s 99.39%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPackedCached.func3
+         0     0% 98.72%     37.28s 99.39%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPackedCached.func4
+         0     0% 98.72%     12.69s 33.83%  internal/poll.(*FD).Read
+         0     0% 98.72%     12.67s 33.78%  internal/poll.ignoringEINTRIO (inline)
+         0     0% 98.72%     23.42s 62.44%  io.ReadAtLeast
+         0     0% 98.72%     23.42s 62.44%  io.ReadFull (inline)
+         0     0% 98.72%     12.69s 33.83%  os.(*File).Read
+         0     0% 98.72%     12.69s 33.83%  os.(*File).read (inline)
+         0     0% 98.72%      0.22s  0.59%  runtime.mcall
+         0     0% 98.72%     12.61s 33.62%  syscall.RawSyscall6
+         0     0% 98.72%     12.67s 33.78%  syscall.Read (inline)
+         0     0% 98.72%     12.67s 33.78%  syscall.Syscall
+         0     0% 98.72%     12.67s 33.78%  syscall.read
+         0     0% 98.72%     37.28s 99.39%  testing.tRunner

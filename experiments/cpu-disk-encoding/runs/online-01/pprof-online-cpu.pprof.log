@@ -1,0 +1,28 @@
+File: disk.test
+Build ID: 0c7095b4c1532327cef26ffeccc034eea1b85dc1
+Type: cpu
+Time: 2026-11-12 22:09:18 CET
+Duration: 175.58s, Total samples = 4.42s ( 2.52%)
+Showing nodes accounting for 4.37s, 98.87% of 4.42s total
+Dropped 27 nodes (cum <= 0.02s)
+      flat  flat%   sum%        cum   cum%
+     2.79s 63.12% 63.12%      2.79s 63.12%  runtime.cgocall
+     0.70s 15.84% 78.96%      0.70s 15.84%  [disk.test]
+     0.36s  8.14% 87.10%      0.61s 13.80%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).Recurse
+     0.22s  4.98% 92.08%      0.22s  4.98%  [libc.so.6]
+     0.15s  3.39% 95.48%      0.15s  3.39%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Product.Mul
+     0.10s  2.26% 97.74%      0.10s  2.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.03s  0.68% 98.42%      0.03s  0.68%  reflect.deepValueEqual
+     0.02s  0.45% 98.87%      0.10s  2.26%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Field.mul
+         0     0% 98.87%      2.79s 63.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.EncodeOnlineDisk
+         0     0% 98.87%      2.79s 63.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_online_encode_disk
+         0     0% 98.87%      2.79s 63.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPDiskEncoder).EncodeWithStats
+         0     0% 98.87%      0.61s 13.80%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).Encode
+         0     0% 98.87%      0.53s 11.99%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0% 98.87%      0.08s  1.81%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0% 98.87%      0.06s  1.36%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.OpenScalingCPPDisk
+         0     0% 98.87%      0.06s  1.36%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.OpenScalingCPPFile
+         0     0% 98.87%      3.49s 78.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPPDiskOnline
+         0     0% 98.87%      0.03s  0.68%  reflect.DeepEqual
+         0     0% 98.87%      0.92s 20.81%  runtime._ExternalCode
+         0     0% 98.87%      3.49s 78.96%  testing.tRunner

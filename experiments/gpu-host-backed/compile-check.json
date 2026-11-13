@@ -1,0 +1,16 @@
+{
+  "utc": "2026-11-12T19:13:04.964171+00:00",
+  "revision": "ce29557049fd5cfaf744c6ba3ce9a8a3b6616507",
+  "command": "module load gcc/14.2.0 cuda12.9/toolkit/12.9.1; timeout 25s nvcc -std=c++17 -O3 -lineinfo -arch=sm_90 -shared -Xcompiler=-fPIC encoding/liftrs-cuda/matrix.cu -o .cache/liftrs/gpu-host-backed/build-check/libliftrs-cuda.so",
+  "native_compile_exit_code": 0,
+  "library_path": ".cache/liftrs/gpu-host-backed/build-check/libliftrs-cuda.so",
+  "library_sha256": "fd1f1d55877cf505105ea7061c4795959be8b2ef20a28674976442b60f3a6b6a",
+  "source_sha256": {
+    "encoding/liftrs-cuda/matrix.cu": "99c458afaa9123adc1e8fb5ae75deba72126991d4cec9574d40365e6ca576ec5",
+    "encoding/liftrs-cuda/backed.hpp": "481edccd53ac76b9a7c3f576c63dae25960410a1e97fbbba715e3204a77a22ca",
+    "encoding/liftrs-cuda/gpu_api.h": "73c105cf532b3849ca154a91002c2241dbeabe1c5ecf09c96c91fa1af2c98d6a",
+    "encoding/liftrs-cuda/bridge.go": "8bf3c5148c3cacce77d207247349c1d981c1c25fdb71caad88c2ee2298bedd83",
+    "encoding/liftrs-shared/gpu_backed_test.go": "e96d2ef7f1753a25edbd59b2cd7bd585a2ddfc4e661a78d645e1a9225309c7af"
+  },
+  "checks": "CUDA-only and combined cpp/cuda short Go API checks passed; opt-in GPU runtime tests skipped on login node; controller self-check and shell syntax passed."
+}

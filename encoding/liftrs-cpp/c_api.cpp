@@ -9,6 +9,8 @@
 #include <thread>
 #include <atomic>
 #include <cstring>
+#include <unistd.h>
+#include <cerrno>
 
 struct liftrs_plan {
   liftrs::Transform transform;
@@ -275,19 +277,19 @@ extern "C" int liftrs_plan_prepare_taylor(liftrs_plan* plan,unsigned high_levels
 // Fast execution saves H before clearing y; compact execution keeps its prefix.
 // Constants remain immutable.
 // Output may reuse scratch exactly: no transform reads scratch after assembly starts.
-static int online_encode(bool compact,size_t scratch_count,
+static int online_encode(bool compact,size_t scratch_count,int code_fd,uint64_t p_offset,uint64_t spectrum_offset,size_t tile_count,
     const liftrs_plan* pr, const liftrs_plan* pc,
     const liftrs_plan* fr, const liftrs_plan* fc,
     unsigned ps, unsigned fs, unsigned workers, uint32_t omega,
     const uint32_t* message, const uint32_t* p, const uint32_t* spectrum,
     size_t k, size_t n, size_t l, uint32_t* arena, size_t arena_count,
     uint32_t* h, uint32_t* scratch, uint32_t* word,
-    uint64_t* stats, char* error, size_t capacity) {
+    uint64_t* stats, char* error, size_t capacity, bool packed=false) {
   try {
-    if (!pr || !pc || !fr || !fc || !message || !p || !spectrum ||
-        !arena || (!compact&&!h) || !scratch || !word || !stats ||
+    if ((packed&&(compact||code_fd<0)) || !pr || !pc || !fr || !fc || !message || (code_fd<0&&(!p || !spectrum)) ||
+        !arena || (!compact&&code_fd<0&&!h) || !scratch || !word || !stats ||
         !k || k > n/2 || !l || (l & (l-1)) || l < 2*k-1 || l > n ||
-        arena_count < std::max(2*l, n) || (compact&&(l>n/2||word!=arena)) || !workers || workers > 64 ||
+        arena_count < std::max(2*l, n) || ((compact||code_fd>=0)&&l>n/2) || (compact&&word!=arena) || !workers || workers > 64 ||
         fr->transform.f.q != n) {
       throw std::runtime_error("invalid online shape/buffers");
     }
@@ -326,16 +328,31 @@ static int online_encode(bool compact,size_t scratch_count,
       throw std::runtime_error("nonprimitive online generator");
     }
     for (size_t i = 0; i < k; i++) {
-      if (message[i] >= (1u << f.s) || p[i] >= (1u << f.s)) {
+      if (message[i] >= (1u << f.s) || (code_fd<0&&p[i] >= (1u << f.s))) {
         throw std::runtime_error("online input outside base field");
       }
     }
-    std::fill(stats, stats+(compact?8:6), 0);
+    if(code_fd>=0&&(p_offset>uint64_t(INT64_MAX)-uint64_t(k+1)*4||spectrum_offset>uint64_t(INT64_MAX)-uint64_t(n)*4))throw std::runtime_error("file offset overflow");
+    if(code_fd>=0 && (compact||word!=scratch||!tile_count||tile_count>std::min(n,size_t(1)<<26)))throw std::runtime_error("file streaming shape/tile");
+    std::fill(stats, stats+(code_fd>=0?11:compact?8:6), 0);
     auto measured = [&](unsigned stage, auto fn) {
       auto start = std::chrono::steady_clock::now();
       fn();
       stats[stage] += std::chrono::duration_cast<std::chrono::nanoseconds>(
           std::chrono::steady_clock::now()-start).count();
+    };
+    auto read_words=[&](uint32_t* dst,size_t count,uint64_t offset,uint64_t limit){
+      static_assert(sizeof(off_t)>=8,"file encoding requires wide offsets");
+      if(offset>uint64_t(INT64_MAX)||uint64_t(count)>((uint64_t(INT64_MAX)-offset)/4))throw std::runtime_error("file offset overflow");
+      auto begin=std::chrono::steady_clock::now();size_t total=count*4,done=0;auto* bytes=reinterpret_cast<unsigned char*>(dst);
+      while(done<total){ssize_t got=::pread(code_fd,bytes+done,std::min(total-done,size_t(1)<<22),off_t(offset+done));if(got<0&&errno==EINTR)continue;if(got<=0)throw std::runtime_error("code file read failed/truncated");done+=size_t(got);}
+      for(size_t i=0;i<count;i++){
+#if __BYTE_ORDER__ != __ORDER_LITTLE_ENDIAN__
+        dst[i]=uint32_t(bytes[4*i])|(uint32_t(bytes[4*i+1])<<8)|(uint32_t(bytes[4*i+2])<<16)|(uint32_t(bytes[4*i+3])<<24);
+#endif
+        if(uint64_t(dst[i])>=limit)throw std::runtime_error("file code element outside field");
+      }
+      stats[8]+=std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now()-begin).count();stats[9]+=total;stats[10]++;
     };
     auto fft = [&](bool prefix, uint32_t* data, bool inverse) {
       uint64_t stages[3] = {};
@@ -350,7 +367,10 @@ static int online_encode(bool compact,size_t scratch_count,
     auto* z = arena+l;
     measured(3, [&] {
       std::fill(arena, arena+2*l, 0);
-      std::copy(p, p+k, x);
+      if(code_fd>=0){
+        for(size_t first=0;first<k+1;first+=tile_count){size_t count=std::min(tile_count,k+1-first);read_words(x+first,count,p_offset+first*4,uint64_t(1)<<f.s);}
+        if(x[0]!=1)throw std::runtime_error("file P normalization");x[k]=0; // P[K] is verified but excluded by the existing prefix algorithm.
+      }else{std::copy(p, p+k, x);}
       std::copy(message, message+k, z);
     });
     fft(true, x, false);
@@ -366,12 +386,16 @@ static int online_encode(bool compact,size_t scratch_count,
     measured(4, [&] { multiply(x, z, l); });
     fft(true, x, true);
     measured(3, [&] {
-      if(compact){std::fill(arena+k,arena+n,0);}else{
+      if(compact||code_fd>=0){std::fill(arena+k,arena+n,0);}else{
         std::copy(x, x+k, h);std::fill(arena, arena+n, 0);std::copy(h, h+k, arena);
       }
     });
     fft(false, arena, false);
-    measured(4, [&] { multiply(arena, spectrum, n); });
+    if(code_fd>=0){
+      // Full forward has joined. Scratch is dead until inverse, so the file tile
+      // needs no allocation. Each product joins before the next read reuses it.
+      for(size_t first=0;first<n;first+=tile_count){size_t count=std::min(tile_count,n-first);read_words(scratch,count,spectrum_offset+first*4,f.q);measured(4,[&]{multiply(arena+first,scratch,count);});}
+    }else{measured(4, [&] { multiply(arena, spectrum, n); });}
     fft(false, arena, true);
     auto* bytes=reinterpret_cast<unsigned char*>(arena);
     if(compact)measured(6,[&]{
@@ -386,6 +410,15 @@ static int online_encode(bool compact,size_t scratch_count,
     measured(5, [&] {
       // One small fixed-constant lookup map replaces scalar multiplication by
       // omega. Each chunk starts at omega^(first+1), so no N-sized map is needed.
+      // Distinct field coordinates can share packed bytes. Atomic byte OR
+      // joins disjoint bit fields without endian-dependent word stores.
+      auto* packed_bytes=reinterpret_cast<unsigned char*>(word);
+      auto put_packed=[&](size_t point,uint32_t value){
+        size_t bit=point*f.s,first=bit/8;unsigned shift=bit%8;
+        uint32_t bits=value<<shift;
+        for(unsigned j=0;j<(shift+f.s+7)/8;j++)__atomic_fetch_or(packed_bytes+first+j,static_cast<unsigned char>(bits>>(8*j)),__ATOMIC_RELAXED);
+      };
+      if(packed)std::memset(packed_bytes,0,(n*f.s+7)/8);
       const auto step = make_product(f, omega);
       const size_t jobs = (n-1+chunk-1)/chunk;
       std::vector<uint32_t> parity(jobs);
@@ -395,7 +428,7 @@ static int online_encode(bool compact,size_t scratch_count,
         for (size_t i = job*chunk; i < std::min(n-1, (job+1)*chunk); i++) {
           const uint32_t value = compact ? uint32_t(bytes[2*i])|(uint32_t(bytes[2*i+1])<<8) : arena[i];
           if (value >= (1u << f.s)) bad.store(true, std::memory_order_relaxed);
-          if(compact){auto* out=bytes+2*n;out[2*size_t(point)]=static_cast<unsigned char>(value);out[2*size_t(point)+1]=static_cast<unsigned char>(value>>8);}else{word[point]=value;}
+          if(packed){if(value<(1u<<f.s))put_packed(point,value);}else if(compact){auto* out=bytes+2*n;out[2*size_t(point)]=static_cast<unsigned char>(value);out[2*size_t(point)+1]=static_cast<unsigned char>(value>>8);}else{word[point]=value;}
           sum ^= value;
           point = step.mul(f, point);
         }
@@ -403,7 +436,7 @@ static int online_encode(bool compact,size_t scratch_count,
       });
       if (bad.load()) throw std::runtime_error("product escaped base field");
       uint32_t zero=0;for(auto value:parity)zero^=value;
-      if(compact){bytes[2*n]=static_cast<unsigned char>(zero);bytes[2*n+1]=static_cast<unsigned char>(zero>>8);}else{word[0]=zero;}
+      if(packed){put_packed(0,zero);}else if(compact){bytes[2*n]=static_cast<unsigned char>(zero);bytes[2*n+1]=static_cast<unsigned char>(zero>>8);}else{word[0]=zero;}
     });
     if(compact){
       measured(6,[&]{std::memcpy(bytes,bytes+2*n,2*n);});
@@ -419,8 +452,15 @@ static int online_encode(bool compact,size_t scratch_count,
   }
 }
 
-extern "C" int liftrs_online_encode(const liftrs_plan* pr,const liftrs_plan* pc,const liftrs_plan* fr,const liftrs_plan* fc,unsigned ps,unsigned fs,unsigned workers,uint32_t omega,const uint32_t* message,const uint32_t* p,const uint32_t* spectrum,size_t k,size_t n,size_t l,uint32_t* arena,size_t arena_count,uint32_t* h,uint32_t* scratch,uint32_t* word,uint64_t* stats,char* error,size_t capacity){return online_encode(false,n,pr,pc,fr,fc,ps,fs,workers,omega,message,p,spectrum,k,n,l,arena,arena_count,h,scratch,word,stats,error,capacity);}
-extern "C" int liftrs_online_encode_compact(size_t scratch_count,const liftrs_plan* pr,const liftrs_plan* pc,const liftrs_plan* fr,const liftrs_plan* fc,unsigned ps,unsigned fs,unsigned workers,uint32_t omega,const uint32_t* message,const uint32_t* p,const uint32_t* spectrum,size_t k,size_t n,size_t l,uint32_t* arena,size_t arena_count,uint32_t* h,uint32_t* scratch,uint32_t* word,uint64_t* stats,char* error,size_t capacity){return online_encode(true,scratch_count,pr,pc,fr,fc,ps,fs,workers,omega,message,p,spectrum,k,n,l,arena,arena_count,h,scratch,word,stats,error,capacity);}
+extern "C" int liftrs_online_encode(const liftrs_plan* pr,const liftrs_plan* pc,const liftrs_plan* fr,const liftrs_plan* fc,unsigned ps,unsigned fs,unsigned workers,uint32_t omega,const uint32_t* message,const uint32_t* p,const uint32_t* spectrum,size_t k,size_t n,size_t l,uint32_t* arena,size_t arena_count,uint32_t* h,uint32_t* scratch,uint32_t* word,uint64_t* stats,char* error,size_t capacity){return online_encode(false,n,-1,0,0,0,pr,pc,fr,fc,ps,fs,workers,omega,message,p,spectrum,k,n,l,arena,arena_count,h,scratch,word,stats,error,capacity);}
+extern "C" int liftrs_online_encode_compact(size_t scratch_count,const liftrs_plan* pr,const liftrs_plan* pc,const liftrs_plan* fr,const liftrs_plan* fc,unsigned ps,unsigned fs,unsigned workers,uint32_t omega,const uint32_t* message,const uint32_t* p,const uint32_t* spectrum,size_t k,size_t n,size_t l,uint32_t* arena,size_t arena_count,uint32_t* h,uint32_t* scratch,uint32_t* word,uint64_t* stats,char* error,size_t capacity){return online_encode(true,scratch_count,-1,0,0,0,pr,pc,fr,fc,ps,fs,workers,omega,message,p,spectrum,k,n,l,arena,arena_count,h,scratch,word,stats,error,capacity);}
+
+// Explicit file-backed fast schedule: stats[11] add read/range-check ns, bytes,
+// logical chunks. P reads are also inside buffer time; do not sum that twice.
+extern "C" int liftrs_online_encode_file(int fd,uint64_t p_offset,uint64_t spectrum_offset,size_t tile,const liftrs_plan* pr,const liftrs_plan* pc,const liftrs_plan* fr,const liftrs_plan* fc,unsigned ps,unsigned fs,unsigned workers,uint32_t omega,const uint32_t* message,size_t k,size_t n,size_t l,uint32_t* arena,uint32_t* scratch,uint64_t* stats,char* error,size_t capacity){
+ if(fd<0){fail(error,capacity,"invalid code descriptor");return 1;}
+ return online_encode(false,n,fd,p_offset,spectrum_offset,tile,pr,pc,fr,fc,ps,fs,workers,omega,message,nullptr,nullptr,k,n,l,arena,n,nullptr,scratch,scratch,stats,error,capacity);
+}
 
 // Read the same steady_clock used by native stage timers, plus independent
 // clocks for measurement diagnostics. These are observation only, not encoding.
@@ -439,3 +479,9 @@ extern "C" int liftrs_read_clocks(uint64_t* values, char* error, size_t capacity
   values[3] = uint64_t(cpu.tv_sec)*1000000000 + cpu.tv_nsec;
   return 0;
 }
+
+extern "C" int liftrs_online_encode_file_packed(int fd,uint64_t p_offset,uint64_t spectrum_offset,size_t tile,const liftrs_plan* pr,const liftrs_plan* pc,const liftrs_plan* fr,const liftrs_plan* fc,unsigned ps,unsigned fs,unsigned workers,uint32_t omega,const uint32_t* message,size_t k,size_t n,size_t l,uint32_t* arena,uint32_t* scratch,uint64_t* stats,char* error,size_t capacity){
+ return online_encode(false,n,fd,p_offset,spectrum_offset,tile,pr,pc,fr,fc,ps,fs,workers,omega,message,nullptr,nullptr,k,n,l,arena,n,nullptr,scratch,scratch,stats,error,capacity,true);
+}
+
+#include "disk.hpp"

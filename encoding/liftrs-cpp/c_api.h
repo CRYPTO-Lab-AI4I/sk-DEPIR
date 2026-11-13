@@ -26,6 +26,19 @@ int liftrs_matrix_apply(const liftrs_plan* rows, const liftrs_plan* columns,
                         uint32_t* data, uint32_t* scratch, size_t count,
                         unsigned split, unsigned workers, int inverse, uint64_t* stage_ns,
                         char* error, size_t error_capacity);
+/* Explicit disk-backed transform component. Distinct exclusive regular files,
+ * pre-sized little-endian arrays; no fd retained, no fsync/checkpoint promise.
+ * Private payload <=8min(tile,count)+65536 bytes plus metadata/runtime; OS cache
+ * is additional. Errors may leave both files partially modified.
+ * stats[12]: Taylor,columns,rows,read,write ns; read/write bytes/syscalls;
+ * private buffer bytes,total ns,transpose passes. I/O times overlap phases. */
+int liftrs_matrix_apply_file(const liftrs_plan*,const liftrs_plan*,int,int,uint64_t,uint64_t,size_t,size_t,unsigned,unsigned,int,uint64_t*,char*,size_t);
+/* Full explicit disk online schedule. Code/data/scratch files distinct;
+ * owning host output N words plus bounded private native tiles remain required.
+ * stats[16]: first6 online stages; nested read/write ns,bytes,syscalls;
+ * conservative private buffers,total ns,transform count,backing bytes.
+ * Source/output pointers borrowed; no descriptors retained, fsync or rollback. */
+int liftrs_online_encode_disk(const liftrs_plan*,const liftrs_plan*,const liftrs_plan*,const liftrs_plan*,unsigned,unsigned,unsigned,uint32_t,int,uint64_t,uint64_t,int,int,size_t,const uint32_t*,size_t,size_t,size_t,uint32_t*,uint64_t*,char*,size_t);
 /* One-time code-only preparation; caller must exclude concurrent execution. */
 int liftrs_plan_prepare_taylor(liftrs_plan*, unsigned high_levels, char*, size_t);
 /* Complete cyclic online path. Constants and caller buffers are borrowed
@@ -43,6 +56,17 @@ int liftrs_online_encode(const liftrs_plan*, const liftrs_plan*, const liftrs_pl
  * covers min(workers,n1/min(64,n1))*min(64,n1)*n2 for each domain.
  * stats[8] extend normal stages with compaction/move and expansion nanoseconds. */
 int liftrs_online_encode_compact(size_t scratch_count,const liftrs_plan*,const liftrs_plan*,const liftrs_plan*,const liftrs_plan*,unsigned,unsigned,unsigned,uint32_t,const uint32_t*,const uint32_t*,const uint32_t*,size_t,size_t,size_t,uint32_t*,size_t,uint32_t*,uint32_t*,uint32_t*,uint64_t*,char*,size_t);
+/* File-backed fast experiment. Immutable verified little-endian code is read
+ * through a borrowed descriptor; no pointer/descriptor is retained. Requires
+ * 2L<=N, disjoint arena/scratch, each N elements. Scratch is bounded read tile
+ * between forward/inverse and owning output after inverse. tile<=min(N,2^26).
+ * stats[11]: normal6, two zero compact slots, read/range-check ns, bytes, chunks.
+ * Read time for prefix P overlaps buffer time; timings must not be double-counted. */
+int liftrs_online_encode_file(int,uint64_t,uint64_t,size_t,const liftrs_plan*,const liftrs_plan*,const liftrs_plan*,const liftrs_plan*,unsigned,unsigned,unsigned,uint32_t,const uint32_t*,size_t,size_t,size_t,uint32_t*,uint32_t*,uint64_t*,char*,size_t);
+/* Explicit direct s-bit little-endian packed output in dead N-word scratch.
+ * Transform workspace remains two N arrays. Bytes above ceil(N*s/8) are unused.
+ * Atomic byte writes combine neighboring fields; no full canonical word. */
+int liftrs_online_encode_file_packed(int,uint64_t,uint64_t,size_t,const liftrs_plan*,const liftrs_plan*,const liftrs_plan*,const liftrs_plan*,unsigned,unsigned,unsigned,uint32_t,const uint32_t*,size_t,size_t,size_t,uint32_t*,uint32_t*,uint64_t*,char*,size_t);
 /* Diagnostic nanoseconds: stage steady_clock, system wall, POSIX monotonic,
  * process CPU (all threads). No encoding state or buffers are changed. */
 int liftrs_read_clocks(uint64_t* values, char* error, size_t capacity);

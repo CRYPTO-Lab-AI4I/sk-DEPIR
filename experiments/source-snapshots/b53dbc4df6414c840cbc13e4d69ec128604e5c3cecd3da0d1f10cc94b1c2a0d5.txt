@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+"""Reject wrong packed-sink accounting without encoding or touching large files."""
+import json
+import runpy
+import tempfile
+from copy import deepcopy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+h=runpy.run_path(str(HERE/'run.py'))
+meta=dict(s=16,t=5,k=918672421,n=1<<32,identity_verified=True,sha256=h['EXPECTED'],bytes=20854558905)
+h['validate_metadata'](meta,meta['bytes'])
+for key,value in [('n',0),('sha256','bad'),('identity_verified',False)]:
+    bad=dict(meta);bad[key]=value
+    try:h['validate_metadata'](bad,meta['bytes'])
+    except AssertionError:pass
+    else:raise AssertionError('accepted invalid '+key)
+n,k=1<<28,50976325
+st={'packed_bytes':n*14//8,'packed_sha256':'packed','native_total_ns':1,'elapsed_ns':2,'host_buffer_bytes':8<<20,'owned_device_bytes':2<<30}
+rows=[{'phase':'load-online','elapsed_ns':0,'n':n,'k':k}]
+for repeat in (0,1):
+    rows.extend([{'phase':f'encode-output-{repeat}','elapsed_ns':3,'pipeline_ns':2,'sync_ns':0,'packed_stats':dict(st),'cpu_pack_write_ns':0,'output_mode':'packed','host_canonical_array_bytes':0,'code_upload_bytes':4*(n+k),'spectrum_chunks':4},
+                 {'phase':f'verify-{repeat}','elapsed_ns':1,'systematic_checked':k,'curves_checked':16,'repeat_match':True,'canonical_sha256':'canonical'},
+                 {'phase':f'verify-packed-{repeat}','elapsed_ns':1,'positions_checked':1027,'readback_match':True,'packed_sha256':'packed'}])
+with tempfile.TemporaryDirectory() as d:
+    out=Path(d)
+    def verify(values):
+        (out/'phases.json').write_text(json.dumps(values));return h['verify_packed'](out,14,'packed',True)
+    verify(rows)
+    for key,value in [('host_canonical_array_bytes',4*n),('code_upload_bytes',0),('spectrum_chunks',1),('cpu_pack_write_ns',1)]:
+        bad=deepcopy(rows);bad[1][key]=value
+        try:verify(bad)
+        except AssertionError:pass
+        else:raise AssertionError('accepted invalid '+key)
+    for key,value in [('host_buffer_bytes',16<<20),('packed_bytes',1),('owned_device_bytes',8<<30)]:
+        bad=deepcopy(rows);bad[1]['packed_stats'][key]=value
+        try:verify(bad)
+        except AssertionError:pass
+        else:raise AssertionError('accepted invalid packed '+key)
+print('Packed sink metadata, bounded allocation and transfer self-checks pass')

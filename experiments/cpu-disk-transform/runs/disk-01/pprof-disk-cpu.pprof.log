@@ -1,0 +1,21 @@
+File: disk.test
+Build ID: c0673421c6f0c8d5487a3d3cddccaf9290c00308
+Type: cpu
+Time: 2026-11-12 21:33:50 CET
+Duration: 57.35s, Total samples = 41s (71.49%)
+Showing nodes accounting for 40.55s, 98.90% of 41s total
+Dropped 48 nodes (cum <= 0.20s)
+      flat  flat%   sum%        cum   cum%
+    29.21s 71.24% 71.24%     29.21s 71.24%  [disk.test]
+    10.22s 24.93% 96.17%     10.22s 24.93%  runtime.cgocall
+     1.02s  2.49% 98.66%      1.02s  2.49%  [libc.so.6]
+     0.10s  0.24% 98.90%      0.29s  0.71%  reflect.deepValueEqual
+         0     0% 98.90%      9.54s 23.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.ApplyMatrixFile
+         0     0% 98.90%      0.68s  1.66%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply
+         0     0% 98.90%      9.54s 23.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_matrix_apply_file
+         0     0% 98.90%      0.68s  1.66%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.applyMatrix
+         0     0% 98.90%     10.72s 26.15%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPPDiskTransform
+         0     0% 98.90%      9.54s 23.27%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPPDiskTransform.func4
+         0     0% 98.90%      0.29s  0.71%  reflect.DeepEqual
+         0     0% 98.90%     30.26s 73.80%  runtime._ExternalCode
+         0     0% 98.90%     10.72s 26.15%  testing.tRunner

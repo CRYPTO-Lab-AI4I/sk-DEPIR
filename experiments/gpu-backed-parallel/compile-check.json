@@ -1,0 +1,13 @@
+{
+  "utc": "2026-11-12T19:37:30.078975+00:00",
+  "revision": "ce29557049fd5cfaf744c6ba3ce9a8a3b6616507",
+  "native_compile_exit_code": 0,
+  "command": "module load gcc/14.2.0 cuda12.9/toolkit/12.9.1; timeout 25s nvcc -std=c++17 -O3 -lineinfo -arch=sm_90 -shared -Xcompiler=-fPIC encoding/liftrs-cuda/matrix.cu -o .cache/liftrs/gpu-host-backed/build-check/libliftrs-cuda-parallel.so",
+  "library_path": ".cache/liftrs/gpu-host-backed/build-check/libliftrs-cuda-parallel.so",
+  "library_sha256": "2019619a159ec4d644ee637df81e6998bbf8a9793a2dbf5912393c6144b2c2ea",
+  "source_sha256": {
+    "encoding/liftrs-cuda/backed.hpp": "af109f19aeb51364b1c16efbd252fa214ff5934c35fccb867a830366c3265c9f",
+    "experiments/gpu-backed-parallel/check.py": "05641e82171283396afe05f24ba5bf533874b1be793b3466154f47db44d1dc84"
+  },
+  "checks": "Independent stage/layout/controller self-check and shell/Python syntax passed. GPU runtime checks pending."
+}

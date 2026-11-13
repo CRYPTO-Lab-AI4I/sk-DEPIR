@@ -1,0 +1,33 @@
+File: encoding.test
+Build ID: 179a6cf4c68887a38163ebc741f56de2b5da4e9d
+Type: cpu
+Time: 2026-11-12 11:28:50 CET
+Duration: 1.57s, Total samples = 1.57s (99.72%)
+Showing nodes accounting for 1.57s, 100% of 1.57s total
+Showing top 25 nodes out of 30
+      flat  flat%   sum%        cum   cum%
+     0.61s 38.85% 38.85%      0.61s 38.85%  crypto/internal/fips140/sha256.blockSHANI
+     0.45s 28.66% 67.52%      0.45s 28.66%  internal/runtime/syscall/linux.Syscall6
+     0.40s 25.48% 92.99%      1.57s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.LoadScalingOnline
+     0.04s  2.55% 95.54%      0.04s  2.55%  runtime.memmove
+     0.03s  1.91% 97.45%      0.03s  1.91%  encoding/binary.littleEndian.Uint32 (inline)
+     0.03s  1.91% 99.36%      0.03s  1.91%  runtime.asyncPreempt
+     0.01s  0.64%   100%      0.01s  0.64%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+         0     0%   100%      1.10s 70.06%  bufio.(*Reader).Read
+         0     0%   100%      0.61s 38.85%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%      0.61s 38.85%  crypto/internal/fips140/sha256.block
+         0     0%   100%      1.57s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPUFileCached
+         0     0%   100%      0.01s  0.64%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newSparseTransform
+         0     0%   100%      0.01s  0.64%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0%   100%      0.01s  0.64%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow
+         0     0%   100%      1.57s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse
+         0     0%   100%      1.57s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func12
+         0     0%   100%      1.57s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runScalingFirstUse.func3
+         0     0%   100%      0.01s  0.64%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+         0     0%   100%      0.45s 28.66%  internal/poll.(*FD).Read
+         0     0%   100%      0.45s 28.66%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%      1.06s 67.52%  io.(*teeReader).Read
+         0     0%   100%      1.10s 70.06%  io.ReadAtLeast
+         0     0%   100%      1.10s 70.06%  io.ReadFull (inline)
+         0     0%   100%      0.45s 28.66%  os.(*File).Read
+         0     0%   100%      0.45s 28.66%  os.(*File).read (inline)

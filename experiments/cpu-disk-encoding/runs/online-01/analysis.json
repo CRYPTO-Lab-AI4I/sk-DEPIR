@@ -1,0 +1,281 @@
+{
+  "status": "passed",
+  "job_id": "74141",
+  "sources_verified": 401,
+  "workflow": {
+    "file": {
+      "setup_seconds": 1.724e-06,
+      "load_seconds": 0.010318722,
+      "encode_seconds": [
+        0.331524995,
+        0.310606896
+      ],
+      "encoding": [
+        {
+          "allocated_bytes": 10605144,
+          "elapsed_ns": 331524995,
+          "file_stats": {
+            "calls": 5,
+            "boundary_calls": 1,
+            "buffer_ns": 2634344,
+            "pointwise_ns": 14618936,
+            "assembly_ns": 2119845,
+            "taylor_ns": 63739019,
+            "columns_transposes_ns": 113321801,
+            "rows_ns": 131073998,
+            "read_ns": 3691624,
+            "read_bytes": 4780872,
+            "read_chunks": 2
+          },
+          "go_sys_bytes": 22706440,
+          "heap_after_bytes": 11726088,
+          "heap_before_bytes": 1129728,
+          "input_bytes": 586564,
+          "native_after": {
+            "steady_ns": 14628101138880820,
+            "wall_ns": 1794518140342817188,
+            "posix_monotonic_ns": 14628101138878537,
+            "process_cpu_ns": 4177907539
+          },
+          "native_before": {
+            "steady_ns": 14628100807350392,
+            "wall_ns": 1794518140011286734,
+            "posix_monotonic_ns": 14628100807349199,
+            "process_cpu_ns": 26978531
+          },
+          "native_stages": {
+            "calls": 5,
+            "boundary_calls": 1,
+            "buffer_ns": 2634344,
+            "pointwise_ns": 14618936,
+            "assembly_ns": 2119845,
+            "taylor_ns": 63739019,
+            "columns_transposes_ns": 113321801,
+            "rows_ns": 131073998
+          },
+          "output_bytes": 4194304,
+          "phase": "encode-0"
+        },
+        {
+          "allocated_bytes": 6403472,
+          "elapsed_ns": 310606896,
+          "file_stats": {
+            "calls": 5,
+            "boundary_calls": 1,
+            "buffer_ns": 1496790,
+            "pointwise_ns": 13538876,
+            "assembly_ns": 2103810,
+            "taylor_ns": 60984693,
+            "columns_transposes_ns": 104781341,
+            "rows_ns": 124029072,
+            "read_ns": 3387638,
+            "read_bytes": 4780872,
+            "read_chunks": 2
+          },
+          "go_sys_bytes": 22968584,
+          "heap_after_bytes": 11732024,
+          "heap_before_bytes": 5342296,
+          "input_bytes": 586564,
+          "native_after": {
+            "steady_ns": 14628101512288353,
+            "wall_ns": 1794518140716224627,
+            "posix_monotonic_ns": 14628101512286880,
+            "process_cpu_ns": 8345504660
+          },
+          "native_before": {
+            "steady_ns": 14628101201678534,
+            "wall_ns": 1794518140405614831,
+            "posix_monotonic_ns": 14628101201677117,
+            "process_cpu_ns": 4217242402
+          },
+          "native_stages": {
+            "calls": 5,
+            "boundary_calls": 1,
+            "buffer_ns": 1496790,
+            "pointwise_ns": 13538876,
+            "assembly_ns": 2103810,
+            "taylor_ns": 60984693,
+            "columns_transposes_ns": 104781341,
+            "rows_ns": 124029072
+          },
+          "output_bytes": 4194304,
+          "phase": "encode-1"
+        }
+      ],
+      "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+      "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda"
+    },
+    "disk": {
+      "setup_seconds": 2.459e-06,
+      "load_seconds": 0.015591899,
+      "encode_seconds": [
+        2.860369308,
+        1.135626632
+      ],
+      "encoding": [
+        {
+          "allocated_bytes": 6399608,
+          "disk_stats": {
+            "calls": 5,
+            "boundary_calls": 1,
+            "buffer_ns": 5308495,
+            "pointwise_ns": 24181145,
+            "assembly_ns": 10642357,
+            "taylor_ns": 1669111306,
+            "columns_transposes_ns": 877890635,
+            "rows_ns": 167805483,
+            "ReadNS": 222117819,
+            "WriteNS": 1863864282,
+            "ReadBytes": 490210116,
+            "WriteBytes": 163054404,
+            "ReadCalls": 98637,
+            "WriteCalls": 40040,
+            "BufferBytes": 1179648,
+            "BackingBytes": 8388608,
+            "OutputBytes": 4194304,
+            "NativeTotalNS": 2859823500,
+            "ElapsedNS": 2860350326
+          },
+          "elapsed_ns": 2860369308,
+          "go_sys_bytes": 23238920,
+          "heap_after_bytes": 7541128,
+          "heap_before_bytes": 1150304,
+          "input_bytes": 586564,
+          "native_after": {
+            "steady_ns": 14628104592798817,
+            "wall_ns": 1794518143796735145,
+            "posix_monotonic_ns": 14628104592797336,
+            "process_cpu_ns": 13058302060
+          },
+          "native_before": {
+            "steady_ns": 14628101732425602,
+            "wall_ns": 1794518140936361888,
+            "posix_monotonic_ns": 14628101732424326,
+            "process_cpu_ns": 8424819540
+          },
+          "native_stages": {
+            "calls": 5,
+            "boundary_calls": 1,
+            "buffer_ns": 5308495,
+            "pointwise_ns": 24181145,
+            "assembly_ns": 10642357,
+            "taylor_ns": 1669111306,
+            "columns_transposes_ns": 877890635,
+            "rows_ns": 167805483
+          },
+          "output_bytes": 4194304,
+          "phase": "encode-0"
+        },
+        {
+          "allocated_bytes": 6400240,
+          "disk_stats": {
+            "calls": 5,
+            "boundary_calls": 1,
+            "buffer_ns": 3614596,
+            "pointwise_ns": 26420265,
+            "assembly_ns": 11637380,
+            "taylor_ns": 531370967,
+            "columns_transposes_ns": 232194030,
+            "rows_ns": 168304138,
+            "ReadNS": 219380435,
+            "WriteNS": 76470718,
+            "ReadBytes": 490210116,
+            "WriteBytes": 163054404,
+            "ReadCalls": 98637,
+            "WriteCalls": 40040,
+            "BufferBytes": 1179648,
+            "BackingBytes": 8388608,
+            "OutputBytes": 4194304,
+            "NativeTotalNS": 1123851155,
+            "ElapsedNS": 1135606266
+          },
+          "elapsed_ns": 1135626632,
+          "go_sys_bytes": 23517448,
+          "heap_after_bytes": 7550080,
+          "heap_before_bytes": 1163608,
+          "input_bytes": 586564,
+          "native_after": {
+            "steady_ns": 14628105791784742,
+            "wall_ns": 1794518144995721161,
+            "posix_monotonic_ns": 14628105791782320,
+            "process_cpu_ns": 17726120932
+          },
+          "native_before": {
+            "steady_ns": 14628104656150870,
+            "wall_ns": 1794518143860087067,
+            "posix_monotonic_ns": 14628104656149978,
+            "process_cpu_ns": 13099514677
+          },
+          "native_stages": {
+            "calls": 5,
+            "boundary_calls": 1,
+            "buffer_ns": 3614596,
+            "pointwise_ns": 26420265,
+            "assembly_ns": 11637380,
+            "taylor_ns": 531370967,
+            "columns_transposes_ns": 232194030,
+            "rows_ns": 168304138
+          },
+          "output_bytes": 4194304,
+          "phase": "encode-1"
+        }
+      ],
+      "canonical_sha256": "5ed3821437158f713eb44455d54d6280ccb7f54e6696cc5564da2d29ccb6e80d",
+      "packed_sha256": "12604f70b336d895f092799963d3c572d70267b92975040b01174c70479f6fda"
+    }
+  },
+  "peak_sampled_rss_bytes": 1056096256,
+  "job_cgroup": {
+    "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_74141/step_batch/user/task_0",
+    "current_bytes": 670199808,
+    "anon_bytes": 16957440,
+    "file_bytes": 629231616,
+    "peak_bytes": 1520631808
+  },
+  "retained_file_cache_bytes": {
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-0/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-0/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-1/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-1/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-2/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-2/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-3/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-3/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-4/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-4/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-5/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-5/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-6/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-6/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-7/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-7/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-8/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/case-8/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/asan/wide-code.bin": 20480,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-0/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-0/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-1/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-1/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-2/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-2/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-3/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-3/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-4/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-4/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-5/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-5/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-6/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-6/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-7/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-7/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-8/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/case-8/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/online/wide-code.bin": 20480,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/workflow/disk/word-packed.bin": 1310720,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/workflow/disk/workspace/data.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/workflow/disk/workspace/scratch.bin": 0,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-disk-encoding/online-01/workflow/file/word-packed.bin": 1310720,
+    "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-products/products-02/cpu-0/online.bin": 4784128
+  },
+  "limits": "Explicit owning disk encoder: full host output remains; code streamed. File cache/metadata/runtime additional. Profiled fixed-order s10 workflows on recorded filesystem; no fulls16 physical-disk/s17 feasibility claim."
+}

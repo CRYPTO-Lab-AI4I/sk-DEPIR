@@ -1,0 +1,18 @@
+[
+  {
+    "matches": 3,
+    "tile_elements": 1
+  },
+  {
+    "matches": 3,
+    "tile_elements": 64
+  },
+  {
+    "matches": 3,
+    "tile_elements": 255
+  },
+  {
+    "matches": 3,
+    "tile_elements": 256
+  }
+]

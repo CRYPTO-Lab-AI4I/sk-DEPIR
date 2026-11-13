@@ -34,14 +34,23 @@ func TestCUDAEncodingWorkflow(t *testing.T) {
 		cfg := scalingFirstUseConfig{spec: Spec{10, 2, 5}, out: results, cache: dest, workers: 16, repeats: 2, memoryLimit: 4 << 30, onlineOnly: true}
 		if backend == "cuda" {
 			cfg.onlineSetup = func(plan *ScalingOnlinePlan) (func([]uint32) ([]uint32, map[string]any, error), func(), map[string]any, error) {
-				gpu, err := plan.WithCUDA(CUDAOptions{LibraryPath: os.Getenv("PIR_GPU_LIBRARY"), DeviceMemoryLimit: 512 << 20})
+				options := CUDAOptions{LibraryPath: os.Getenv("PIR_GPU_LIBRARY"), DeviceMemoryLimit: 512 << 20}
+				var gpu *ScalingCUDAEncoder
+				var err error
+				mode := "cuda"
+				if os.Getenv("PIR_CUDA_HOST_WORKFLOW") == "1" {
+					gpu, err = plan.WithCUDAHostBacked(options, 65536)
+					mode = "cuda-host-backed"
+				} else {
+					gpu, err = plan.WithCUDA(options)
+				}
 				if err != nil {
 					return nil, nil, nil, err
 				}
 				return func(message []uint32) ([]uint32, map[string]any, error) {
 					word, stats, err := gpu.EncodeWithStats(message)
 					return word, map[string]any{"cuda_stages": stats}, err
-				}, func() { gpu.Close() }, map[string]any{"backend": "cuda", "device_bytes": gpu.OwnedBytes()}, nil
+				}, func() { gpu.Close() }, map[string]any{"backend": mode, "device_bytes": gpu.OwnedBytes()}, nil
 			}
 		}
 		runScalingFirstUse(t, cfg)

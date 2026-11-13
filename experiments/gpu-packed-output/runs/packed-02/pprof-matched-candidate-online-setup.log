@@ -1,0 +1,19 @@
+File: encoding.test
+Build ID: 7cef4b9de871b2501f770d4015fa83ca4a92f5b1
+Type: cpu
+Time: 2026-11-12 18:57:47 CET
+Duration: 1.27s, Total samples = 430ms (33.88%)
+Showing nodes accounting for 430ms, 100% of 430ms total
+      flat  flat%   sum%        cum   cum%
+     430ms   100%   100%      430ms   100%  runtime.cgocall
+         0     0%   100%      220ms 51.16%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).SetOnline
+         0     0%   100%      220ms 51.16%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Engine).SetOnline.func1 (inline)
+         0     0%   100%      210ms 48.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.NewBoundedStreamed
+         0     0%   100%      210ms 48.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_bridge_open
+         0     0%   100%      220ms 51.16%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_bridge_set_online
+         0     0%   100%      210ms 48.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.newEngine
+         0     0%   100%      430ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPackedCached
+         0     0%   100%      430ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPackedCached.func3
+         0     0%   100%      430ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPackedCached.func5
+         0     0%   100%      430ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newCUDAOnlineBackendSchedule
+         0     0%   100%      430ms   100%  testing.tRunner

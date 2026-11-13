@@ -202,3 +202,82 @@ still planned. s16 principal memory is modeled at39.345 GiB with32 workers, vers
 and retained CPU/GPU hash agreement. Matched s14 compact is3.9–6.1% slower; full
 s16 timing comparison is historical. No s17 support, default switch or new
 cryptographic claim follows.
+
+
+## Explicit CPU file-backed constants
+
+[CPU file streaming](../../experiments/cpu-streamed-constants/report.md) retains
+fast transforms while loading verified constants into existing work buffers:
+
+```go
+fileCPU, err := liftrs.OpenScalingCPPFile(path, trustedSHA256, maxElements, 32)
+if err != nil { return err }
+defer fileCPU.Close()
+word, stats, err := fileCPU.EncodeWithStats(message)
+```
+
+Build with liftrs_cpp,cgo, without CUDA. The opened LRSprobe1/2 source must come
+from verified preprocessing and remain immutable until Close. Open checks the
+whole expected SHA256, shape/field ranges and builds native metadata; byte identity
+alone is not mathematical validation. Descriptor identity survives path replacement;
+size/mtime checks detect common changes but not hostile concurrent writes. Encoding
+rejects read/truncation errors before returning a public word. Prevent external
+writes. Requires s<=16,2L<=N; ordinary resident/compact methods stay unchanged.
+
+P initializes prefix data directly. Spectrum tiles borrow dead transpose scratch
+between full forward/inverse, then scratch becomes detached owning output. Old
+words survive reuse/Close. WorkspaceBytes excludes detached words and file cache;
+first encoding lazily allocates two N arrays and later calls replace output scratch.
+No resident code/saved H or extra read tile is allocated. FileStats separates
+logical reads/range-check time, bytes and chunks; prefix read time overlaps buffer
+time. Reads can hit kernel cache, so counts are not physical disk traffic.
+
+Model35.422 GiB principal RAM at s16 versus58.267 GiB resident, but cached code can
+add19.422 GiB and packed output cache more. The experiment uses explicit
+`--memory-mode file` (default resident), records RSS/cache/cgroup observations and
+never drops shared caches. Validation passes:20m49.6s full s16 encoding,35.484 GiB
+sampled RSS and retained CPU/GPU hashes. Sampled RSS+tracked file pages reaches
+61.820 GiB; charged batch-task cgroup peaks around47.92 GiB, a different accounting
+view. This is not a total35 GiB cap. Matched cached s14 costs0.9–1.2% extra encoding
+time. No automatic default switch, s17 capability, cryptographic/application or
+TRL5 claim follows.
+
+
+`EncodeOnlineFilePacked` selects an explicit fast file-streaming output variant.
+It leaves canonical s-bit little-endian bytes in the initialized prefix of dead
+N-word scratch. Two full transform arrays are still needed; no lower peak is
+claimed. Atomic byte OR joins neighboring bit fields after zero fill and joined
+parity supplies coordinate0. Byte stores preserve format across host endianness.
+Ordinary owning/resident entry points stay unchanged. The shared
+`ScalingCPPFileEncoder.EncodePackedTo` holds the lock through bounded writer/hash
+calls and reuses scratch; metadata/immutable-file and borrowed-pointer contracts
+are unchanged. [Validation/cost boundaries](../../experiments/cpu-packed-output/report.md)
+remain pending. Source checksums establish identity, not mathematical validity.
+
+
+`ApplyMatrixFile` is an explicit disk-backed transform component: two distinct
+exclusive read/write little-endian files and two bounded RAM tiles replace full
+RAM arrays. File cache remains extra; it is not a total RAM bound. Caller offsets,
+lengths, field ranges and descriptor access are checked. Joined Taylor file
+passes, blocked file transposes and contiguous vectors preserve the resident
+arithmetic/global row origins. Private buffers, logical reads/writes/syscalls and
+nested timings are reported. No descriptors retained or fsync/checkpoint guarantee;
+errors leave partial files, so restore verified input before retrying.
+[Progressive validation/trade-offs](../../experiments/cpu-disk-transform/report.md)
+pass through2^22 values; full online s10 validation also passes below. s16 needs32GiB backing files and at
+least64GiB reads+64GiB writes per transform before Taylor passes, so it is not
+admitted under current storage budgets. Resident methods remain default.
+
+
+`EncodeOnlineDisk` integrates five file-backed transforms with tiled products,
+zeroing/code copies and canonical assembly into a caller-owned N-word result.
+All code/data/scratch files must be distinct and valid for the call; pointers/
+descriptors are borrowed only until return. Code P/spectrum byte offsets may be
+unaligned (existing25/33-byte headers). Native total excludes admission;
+I/O counters are logical and overlap some phase clocks. Four simultaneously
+live RAM tiles and conservative128KiB I/O staging are counted, plus owning output,
+input, metadata/runtime and OS cache. Errors leave private output/work files
+partial, not committed checkpoints. [Complete validation and trade-offs](../../experiments/cpu-disk-encoding/report.md)
+pass small/ASan and complete s10 correctness. Disk2.86/1.14 s first/reused versus
+file-fast0.33/0.31 s on NFS; filesystem effects vary. Full s16 storage/run is not
+admitted; faster resident/default paths remain unchanged.

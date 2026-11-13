@@ -1,0 +1,3 @@
+=== RUN   TestCUDAStreamBoundaries
+--- PASS: TestCUDAStreamBoundaries (1.30s)
+PASS

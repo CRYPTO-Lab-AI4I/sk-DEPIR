@@ -564,3 +564,167 @@ about2.24 s code uploads, host RSS39.03 GiB. Matched s14 is5.6–6.7% slower; fu
 s16 timing comparison is historical. Resident remains default when it fits, and
 ordinary CPU builds still require no CUDA. No s17/application/cryptographic
 support is added.
+
+
+## Explicit CPU file-backed constants
+
+[CPU file streaming](../../experiments/cpu-streamed-constants/report.md) retains
+fast transforms while loading verified constants into existing work buffers:
+
+```go
+fileCPU, err := liftrs.OpenScalingCPPFile(path, trustedSHA256, maxElements, 32)
+if err != nil { return err }
+defer fileCPU.Close()
+word, stats, err := fileCPU.EncodeWithStats(message)
+```
+
+Build with liftrs_cpp,cgo, without CUDA. The opened LRSprobe1/2 source must come
+from verified preprocessing and remain immutable until Close. Open checks the
+whole expected SHA256, shape/field ranges and builds native metadata; byte identity
+alone is not mathematical validation. Descriptor identity survives path replacement;
+size/mtime checks detect common changes but not hostile concurrent writes. Encoding
+rejects read/truncation errors before returning a public word. Prevent external
+writes. Requires s<=16,2L<=N; ordinary resident/compact methods stay unchanged.
+
+P initializes prefix data directly. Spectrum tiles borrow dead transpose scratch
+between full forward/inverse, then scratch becomes detached owning output. Old
+words survive reuse/Close. WorkspaceBytes excludes detached words and file cache;
+first encoding lazily allocates two N arrays and later calls replace output scratch.
+No resident code/saved H or extra read tile is allocated. FileStats separates
+logical reads/range-check time, bytes and chunks; prefix read time overlaps buffer
+time. Reads can hit kernel cache, so counts are not physical disk traffic.
+
+Model35.422 GiB principal RAM at s16 versus58.267 GiB resident, but cached code can
+add19.422 GiB and packed output cache more. The experiment uses explicit
+`--memory-mode file` (default resident), records RSS/cache/cgroup observations and
+never drops shared caches. Validation passes:20m49.6s full s16 encoding,35.484 GiB
+sampled RSS and retained CPU/GPU hashes. Sampled RSS+tracked file pages reaches
+61.820 GiB; charged batch-task cgroup peaks around47.92 GiB, a different accounting
+view. This is not a total35 GiB cap. Matched cached s14 costs0.9–1.2% extra encoding
+time. No automatic default switch, s17 capability, cryptographic/application or
+TRL5 claim follows.
+
+
+## Explicit GPU packed sink
+
+With the optional CUDA build, `gpu.EncodePackedTo(message, destination, bufferBytes)`
+returns `CUDAPackedStats` and writes the same canonical s-bit database format.
+It allocates no full host canonical uint32 array. The native fast-layout kernel
+packs directly into dead scratch, using atomic bit-field writes; streamed-code
+adapters retain their existing code upload contract. Ordinary Encode/EncodeWithStats
+remain owning APIs with unchanged defaults. Compact/direct-row constructors do
+not support this new sink. CPU-only builds provide an unavailable stub and need
+no CUDA dependency. Full s16 validation passes:65.5–66.2 s including writing/hash,
+23.01 GiB encoding RSS, separate verifier31.01 GiB; GPU32.005 GiB unchanged. See
+[GPU packed-output evidence](../../experiments/gpu-packed-output/report.md).
+
+```go
+stats, err := gpu.EncodePackedTo(message, outputFile, 8 << 20)
+if err != nil { return err } // Discard/retain partial output according to caller policy.
+// For files, Sync/Close and publish only after successful completion.
+```
+
+The sink buffer must be1 byte..64 MiB; destination-owned buffers/file cache are extra.
+The writer must consume bytes synchronously and must not reenter the encoder.
+Calls/Close serialize. Errors may leave partial output; the digest describes a
+full result only on success, not a durable-storage transaction. NativeTotalNS
+includes preparation+downloads; ElapsedNS includes buffer allocation/write/hash.
+WriteNS/HashNS are separate, download time already belongs to D2H/native totals.
+Keep this explicit slower-memory option optional when owning memory fits. s<=16
+and canonical coordinates/cryptographic scope remain unchanged; s17 unsupported.
+
+
+The next [host-backed GPU transform component](../../experiments/gpu-host-backed/report.md)
+uses explicit low-level `liftrscuda.NewHostBacked`/`ApplyBacked`; it is not yet
+integrated into ScalingCUDAEncoder. It retains the full host domain, bounds GPU
+tiles, and introduces repeated transfers. The first component passes correctness
+but costs60.5x resident latency at2^22 values with very small tiles;
+[parallel work inside each tile](../../experiments/gpu-backed-parallel/report.md)
+is being validated at unchanged memory/transfer bounds. These are component costs,
+not full encoder estimates.
+Resident shared encoder defaults remain unchanged; CPU output/backed gates follow.
+
+
+## Explicit host-backed GPU online encoding
+
+`plan.WithCUDAHostBacked(options,tileElements)` retains immutable host code and
+uses bounded GPU tiles for the complete five-transform online schedule. Select
+it explicitly for low device memory; `WithCUDA` and CPU defaults stay unchanged.
+It requires2L<=N and s<=16, one host4N arena, a new owning4N result and at most4T
+native staging, plus code/message. Products/transforms/orbit generation execute
+on GPU; native CPU scatters canonical values and XORs zero-coordinate parity.
+No full orbit map. It can be much slower than resident mode, even after the
+[validated tile parallelism](../../experiments/gpu-backed-parallel/report.md).
+
+```go
+gpu, err := plan.WithCUDAHostBacked(CUDAOptions{
+    LibraryPath: library, DeviceMemoryLimit: 512 << 20,
+}, 65536)
+if err != nil { return err }
+defer gpu.Close()
+word, stats, err := gpu.EncodeWithStats(message)
+// stats reports retained host arena, peak native staging and transferred bytes.
+```
+
+Code stays immutable/alive until Close. Calls/Close serialize; failed calls
+return no usable output and later calls initialize work again. Owning results
+are detached across calls. This mode rejects EncodePackedTo; the validated
+resident packed sink remains separate. CPU-only builds expose unavailable
+behavior without CUDA dependencies. [Complete encoding validation](../../experiments/gpu-host-encoding/report.md)
+passes full s10 correctness:1.61 s versus native CPU0.31–0.32 s, explicit GPU
+560400 bytes. Full s16 time/RAM and s17 support are not demonstrated.
+
+
+## Explicit CPU packed sink
+
+With `liftrs_cpp,cgo`, `OpenScalingCPPFile` also supports
+`EncodePackedTo(message,writer,bufferBytes)`. It packs canonical s-bit values
+into dead scratch and reuses both N-word transform arrays across calls. No full
+canonical uint32 result is detached or separately packed. The8N-byte transform
+peak remains; output storage, file cache and caller-retained words are extra.
+Atomic byte packing can cost runtime; owning methods remain unchanged/default.
+
+```go
+stats, err := encoder.EncodePackedTo(message, outputFile, 8 << 20)
+if err != nil { return err } // Partial destination may remain.
+// Sync/Close and publish separately after success.
+```
+
+The buffer must be1..64MiB. Writer consumption is synchronous; it must not reenter
+this encoder. Calls/Close serialize through emission. Full digest is populated
+only on success. Stats include workspace/read bytes, native stages, compute,
+writer/hash and whole-call times. [CPU validation](../../experiments/cpu-packed-output/report.md)
+passes small/reference/ASan checks and matched s10 file pipelines. The twoN
+transform arrays remain counted. Full s16/s17 timing is not demonstrated.
+
+
+## Explicit CPU disk-backed encoder
+
+With `liftrs_cpp,cgo`, `OpenScalingCPPDisk(codePath,digest,maxElements,workers,
+tileElements,workspaceDirectory)` streams verified code and creates exclusive
+`data.bin`/`scratch.bin` workspace files (4N bytes each). No existing work file is
+replaced. `EncodeWithStats` returns a new owning uint32 canonical word; it retains
+no full host transform/code arrays. All arithmetic and orchestration are native.
+Calls/Close serialize. Close preserves work files; callers manage their lifetime
+and must exclude other access/truncation. They are not resumable checkpoints.
+
+```go
+encoder, err := OpenScalingCPPDisk(codePath, digest, maxElements, 16,
+    65536, workspaceDirectory)
+if err != nil { return err }
+defer encoder.Close()
+word, stats, err := encoder.EncodeWithStats(message)
+```
+
+This explicit memory mode is slower than resident/file-fast paths. Owning output
+still costs4N bytes and message4K; native tiles conservatively16T+128KiB plus
+metadata/runtime. Two backing files8N and filesystem cache are additional. At
+s16, output/message project19.42GiB payload, backing32GiB; full storage is not
+admitted under current budgets. Slower selection must remain explicit in CLI
+programs; defaults stay unchanged. Stats label nested logical file I/O versus
+compute; no fsync is timed. Errors discard the returned output; retry starts the
+whole schedule after restoring workspace availability. [Full validation](../../experiments/cpu-disk-encoding/report.md)
+passes small/ASan and complete s10 checks:2.86/1.14 s first/reused versus
+file-fast0.33/0.31 s on NFS. Native buffers1.125MiB plus4MiB owning output and
+8MiB backing files; cache/runtime extra. Full s16 storage/run is not admitted.
+No bounded packed sink for disk mode or s17 support is added.

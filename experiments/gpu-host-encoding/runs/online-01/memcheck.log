@@ -1,0 +1,6 @@
+========= COMPUTE-SANITIZER
+=== RUN   TestCUDAHostOnline
+--- PASS: TestCUDAHostOnline (40.22s)
+PASS
+========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+========= ERROR SUMMARY: 0 errors

@@ -1,0 +1,245 @@
+{
+  "status": "passed",
+  "job_id": "74094",
+  "sources_verified": 366,
+  "packed_payload_digest_recomputed": false,
+  "encoding": {
+    "s": 16,
+    "n": 4294967296,
+    "k": 918672421,
+    "output_mode": "packed",
+    "canonical_sha256": "c538a1bc9b408dc4d283aba887f808825404a1c2b8dce693aa7f3015d1152a48",
+    "packed_sha256": "1c68bfe60f3914b06e31995afc67d5bb3d0a6776c4750af836f8c9794ee18bb9",
+    "encodings": [
+      {
+        "seconds": 66.226844597,
+        "phase_seconds": 68.171829372,
+        "packed_stats": {
+          "host_to_device_ns": 3331010580,
+          "taylor_ns": 6311756643,
+          "columns_ns": 20562868652,
+          "rows_ns": 23579583251,
+          "layout_ns": 645195877,
+          "device_to_host_ns": 843188376,
+          "pointwise_ns": 205312031,
+          "native_total_ns": 57449396647,
+          "buffer_ns": 6319807,
+          "assembly_ns": 398963592,
+          "elapsed_ns": 66226837894,
+          "owned_device_bytes": 34364742932,
+          "packed_bytes": 8589934592,
+          "packed_sha256": "1c68bfe60f3914b06e31995afc67d5bb3d0a6776c4750af836f8c9794ee18bb9",
+          "host_buffer_bytes": 8388608,
+          "packed_download_ns": 843062258,
+          "write_ns": 4597304220,
+          "hash_ns": 4176873203
+        },
+        "cpu_pack_write_ns": 0,
+        "sync_ns": 1943360427
+      },
+      {
+        "seconds": 65.48471282,
+        "phase_seconds": 68.69847981,
+        "packed_stats": {
+          "host_to_device_ns": 3424309305,
+          "taylor_ns": 6311557440,
+          "columns_ns": 20568004150,
+          "rows_ns": 23550734374,
+          "layout_ns": 645079582,
+          "device_to_host_ns": 816084621,
+          "pointwise_ns": 205204165,
+          "native_total_ns": 57549707206,
+          "buffer_ns": 6237600,
+          "assembly_ns": 399003814,
+          "elapsed_ns": 65484700119,
+          "owned_device_bytes": 34364742932,
+          "packed_bytes": 8589934592,
+          "packed_sha256": "1c68bfe60f3914b06e31995afc67d5bb3d0a6776c4750af836f8c9794ee18bb9",
+          "host_buffer_bytes": 8388608,
+          "packed_download_ns": 816039323,
+          "write_ns": 3752491928,
+          "hash_ns": 4177833921
+        },
+        "cpu_pack_write_ns": 0,
+        "sync_ns": 2267313222
+      }
+    ],
+    "phase_seconds": {
+      "load-online": 318.239032746,
+      "online-setup": 2.152404384,
+      "encode-output-0": 68.171829372,
+      "verify-0": 395.707653208,
+      "verify-packed-0": 5.930436028,
+      "encode-output-1": 68.69847981,
+      "verify-1": 393.753083129,
+      "verify-packed-1": 5.810725792
+    }
+  },
+  "matched_s14": {
+    "matched-baseline": {
+      "s": 14,
+      "n": 268435456,
+      "k": 50976325,
+      "output_mode": "owning",
+      "canonical_sha256": "b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c",
+      "packed_sha256": "f56ca77b8b50416105b711f5d0399bee9fcd2f4fbd975587478ed2f22e9ed08c",
+      "encodings": [
+        {
+          "seconds": 8.000096308,
+          "phase_seconds": 8.199243994,
+          "packed_stats": {
+            "host_to_device_ns": 167705138,
+            "taylor_ns": 181662623,
+            "columns_ns": 2625524078,
+            "rows_ns": 2007395690,
+            "layout_ns": 33485727,
+            "device_to_host_ns": 72873169,
+            "pointwise_ns": 3929088,
+            "native_total_ns": 5400191941,
+            "buffer_ns": 452031,
+            "assembly_ns": 18769983,
+            "elapsed_ns": 5632699182,
+            "owned_device_bytes": 2147966228,
+            "packed_bytes": 469762048,
+            "packed_sha256": "f56ca77b8b50416105b711f5d0399bee9fcd2f4fbd975587478ed2f22e9ed08c",
+            "host_buffer_bytes": 1048576,
+            "packed_download_ns": 0,
+            "write_ns": 0,
+            "hash_ns": 0
+          },
+          "cpu_pack_write_ns": 2367389998,
+          "sync_ns": 197423544
+        },
+        {
+          "seconds": 8.199044286,
+          "phase_seconds": 8.58151792,
+          "packed_stats": {
+            "host_to_device_ns": 166048502,
+            "taylor_ns": 181094527,
+            "columns_ns": 2627475280,
+            "rows_ns": 2006845031,
+            "layout_ns": 33420767,
+            "device_to_host_ns": 73084155,
+            "pointwise_ns": 3872576,
+            "native_total_ns": 5374421037,
+            "buffer_ns": 446719,
+            "assembly_ns": 18637311,
+            "elapsed_ns": 5597946038,
+            "owned_device_bytes": 2147966228,
+            "packed_bytes": 469762048,
+            "packed_sha256": "f56ca77b8b50416105b711f5d0399bee9fcd2f4fbd975587478ed2f22e9ed08c",
+            "host_buffer_bytes": 1048576,
+            "packed_download_ns": 0,
+            "write_ns": 0,
+            "hash_ns": 0
+          },
+          "cpu_pack_write_ns": 2601091358,
+          "sync_ns": 312168908
+        }
+      ],
+      "phase_seconds": {
+        "load-online": 32.293279499,
+        "online-setup": 1.323192542,
+        "encode-output-0": 8.199243994,
+        "verify-0": 22.1684624,
+        "verify-packed-0": 0.352037223,
+        "encode-output-1": 8.58151792,
+        "verify-1": 23.198129306,
+        "verify-packed-1": 0.347725065
+      }
+    },
+    "matched-candidate": {
+      "s": 14,
+      "n": 268435456,
+      "k": 50976325,
+      "output_mode": "packed",
+      "canonical_sha256": "b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c",
+      "packed_sha256": "f56ca77b8b50416105b711f5d0399bee9fcd2f4fbd975587478ed2f22e9ed08c",
+      "encodings": [
+        {
+          "seconds": 5.827478875,
+          "phase_seconds": 6.073391608,
+          "packed_stats": {
+            "host_to_device_ns": 164865880,
+            "taylor_ns": 181692864,
+            "columns_ns": 2625320129,
+            "rows_ns": 2010303222,
+            "layout_ns": 33505600,
+            "device_to_host_ns": 48429547,
+            "pointwise_ns": 3913215,
+            "native_total_ns": 5379028097,
+            "buffer_ns": 455200,
+            "assembly_ns": 18690111,
+            "elapsed_ns": 5827472560,
+            "owned_device_bytes": 2147966228,
+            "packed_bytes": 469762048,
+            "packed_sha256": "f56ca77b8b50416105b711f5d0399bee9fcd2f4fbd975587478ed2f22e9ed08c",
+            "host_buffer_bytes": 8388608,
+            "packed_download_ns": 48370068,
+            "write_ns": 219885594,
+            "hash_ns": 228269189
+          },
+          "cpu_pack_write_ns": 0,
+          "sync_ns": 223263084
+        },
+        {
+          "seconds": 5.804444808,
+          "phase_seconds": 6.144974798,
+          "packed_stats": {
+            "host_to_device_ns": 163044897,
+            "taylor_ns": 181403904,
+            "columns_ns": 2624866668,
+            "rows_ns": 2012442474,
+            "layout_ns": 33456960,
+            "device_to_host_ns": 47963889,
+            "pointwise_ns": 3877759,
+            "native_total_ns": 5350578658,
+            "buffer_ns": 452416,
+            "assembly_ns": 18808095,
+            "elapsed_ns": 5804439536,
+            "owned_device_bytes": 2147966228,
+            "packed_bytes": 469762048,
+            "packed_sha256": "f56ca77b8b50416105b711f5d0399bee9fcd2f4fbd975587478ed2f22e9ed08c",
+            "host_buffer_bytes": 8388608,
+            "packed_download_ns": 47919994,
+            "write_ns": 223820870,
+            "hash_ns": 228727972
+          },
+          "cpu_pack_write_ns": 0,
+          "sync_ns": 249515227
+        }
+      ],
+      "phase_seconds": {
+        "load-online": 1.607620563,
+        "online-setup": 1.269303465,
+        "encode-output-0": 6.073391608,
+        "verify-0": 28.487273327,
+        "verify-packed-0": 0.352563604,
+        "encode-output-1": 6.144974798,
+        "verify-1": 24.85238898,
+        "verify-packed-1": 0.348136408
+      }
+    }
+  },
+  "memory_comparison": {
+    "resident_reuse_owned_bytes": 55219301804,
+    "candidate_owned_bytes": 34364742932,
+    "saved_device_bytes": 20854558872,
+    "streamed": true,
+    "comparison": "same fast layouts/tables/plans/parity; historical full reuse timing, matched s14 resident/streamed"
+  },
+  "phase_sampled_rss_bytes": {
+    "load-online": 20198961152,
+    "online-setup": 23816462336,
+    "encode-output-0": 24708136960,
+    "verify-0": 33298460672,
+    "verify-packed-0": 24710287360,
+    "encode-output-1": 24710520832,
+    "verify-1": 33300508672,
+    "verify-packed-1": 24710586368
+  },
+  "peak_sampled_rss_bytes": 33300508672,
+  "tracked_file_cache_peak_bytes": 31548166144,
+  "rss_plus_tracked_cache_peak_bytes": 64848674816,
+  "limits": "Two complete packed files per mode, same-input repeat overwrites within new-cache budget. Fresh all-systematic/curves/canonical and packed hashes/readback through separately mapped packed artifact; verifier RSS/cache is separate. Full owning reference comparisons historical; matched s14 output pipelines include packing/writing/hash. No full s17/host-backed-transform/CPU-output claim."
+}

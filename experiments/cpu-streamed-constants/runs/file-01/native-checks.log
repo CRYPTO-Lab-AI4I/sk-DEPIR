@@ -1,0 +1,17 @@
+=== RUN   TestCPPCompactOwnership
+--- PASS: TestCPPCompactOwnership (1.69s)
+=== RUN   TestCPPCompactShape
+--- PASS: TestCPPCompactShape (0.00s)
+=== RUN   TestCPPFileEncoding
+--- PASS: TestCPPFileEncoding (0.09s)
+=== RUN   TestCPPOutputOwnership
+--- PASS: TestCPPOutputOwnership (0.06s)
+=== RUN   TestCPPMatrixEncoding
+--- PASS: TestCPPMatrixEncoding (0.08s)
+=== RUN   TestCPPMatrixConcurrent
+--- PASS: TestCPPMatrixConcurrent (0.00s)
+=== RUN   TestCPPOnlineNative
+--- PASS: TestCPPOnlineNative (0.35s)
+=== RUN   TestCPPOnlineOverlap
+--- PASS: TestCPPOnlineOverlap (0.00s)
+PASS

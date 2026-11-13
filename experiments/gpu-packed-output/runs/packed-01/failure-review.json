@@ -1,0 +1,9 @@
+{
+  "status": "failed-evidence-verified",
+  "job_id": "74091",
+  "sources_verified": 366,
+  "error": "RuntimeError('packed-tests: 1')",
+  "failed_command": "packed-tests",
+  "matched_full_runs_started": false,
+  "cause": "Packed coordinate-zero reduction wrote thread0 local sum instead of reduced sums[0]. Multi-chunk s8 catches it. Fixed source and independent16-chunk constant-word regression await new job."
+}

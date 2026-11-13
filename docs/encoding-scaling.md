@@ -1259,3 +1259,287 @@ Next capacity work must combine streaming with a reviewed one-arena layout and
 preprocessing. Keep material one-arena/file-backed trade-offs explicit before
 selection; prior128.25 GiB one-arena s17 projection is not run admission or proven
 feasibility. s17/application/cryptographic/TRL5 gates remain open.
+
+
+### CPU-037: selected file-backed fast CPU constants
+
+After publishing GPU-036 as ce29557, the user requests the CPU counterpart.
+[File streaming prototype](../experiments/cpu-streamed-constants/report.md) verifies
+existing LRSprobe1/2 bytes without retaining P/spectrum arrays. P reads directly
+into prefix data; preserve H prefix and clear only the tail; read spectrum through
+dead full transpose scratch between forward/inverse. Keep five fast transforms
+and detach scratch as owning output. No extra tile or compact passes; resident/
+compact CPU and GPU paths remain. Explicit `--memory-mode file`, default resident.
+
+Model s16 principal8N+4K =35.422 GiB versus58.267 GiB fast resident; savings include
+19.422 GiB constants and3.422 GiB saved H. Adds19.422 GiB logical reads per encode,
+initial checksum/range pass and potentially cache/disk pressure. No timing benefit
+assumed. Kernel file cache is additional memory, not hidden savings. Measure input/
+output page residency without faulting it into process RSS or dropping caches;
+record job-scoped cgroup memory if identifiable. Guard RSS48 GiB, RSS+tracked cache
+96 GiB and job cgroup96 GiB when available, within existing128 GiB host request.
+These are sampled observations and exclude untracked shared/node cache; do not
+claim a total35 GiB cap. Code backing must remain immutable; stat/descriptor checks
+are not protection against hostile concurrent writes. Existing formats stay intact.
+
+Job73976 now passes on gnode17,32 CPUs/no GPU, exit0:0 in36m45s, with no guard
+tripped. Reconciliation resolves358 exact sources/sealed evidence/cache digests.
+Go/reference/ownership/error/header/file mutation/chunk tests, ASAN/UBSAN/TSAN,
+normal/compact regression suites, Go-only build, race/vet, all systematic values,
+16 sampled curves,1027 packed readbacks and full retained CPU/GPU hashes pass.
+Profiles and backing caches remain retained. No kernel correction/default change.
+
+Measured full s16 encoding1249.616 s (20m49.6s), read/range-check8.963 s for exact
+19.422 GiB /78 logical chunks. Process RSS35.484 GiB versus prior58.351 GiB is
+39.19% lower, but tracked file cache adds RAM. Sampled RSS+tracked resident files
+peaks61.820 GiB; current charged batch-task subtree peaks47.917 GiB (recorded
+memory.peak47.919 GiB). Shared cache/charging differ, residency sampling30 s can
+miss peaks, and untracked node memory is excluded. No matched full-size resident
+cache/cgroup comparison exists; do not claim a39% total-memory saving or35 GiB
+total cap. Initial verification warms cache; cold-disk latency remains unmeasured.
+
+Matched s14 resident58.853/58.667 s versus file59.377/59.357 s costs0.89%/1.18%
+encoding time, two fixed-order cached samples. RSS3.595→2.214 GiB, inclusive tracked
+RSS+cache20.385→19.009 GiB. Full s16 timing versus prior resident is historical.
+Open/verify/native metadata37.181 s, independent checks178.754 s and pack55.768 s
+remain visible separately; first encoding includes work-array allocation.
+
+This closes the selected CPU file-streaming gate. Both CPU/GPU constant streaming
+now have s16 evidence and remain explicit options alongside resident fast defaults.
+Current fast CPU s17 two-array/message model~270.42 GiB before output-conversion
+copies/cache/overhead still exceeds
+256 GiB. Next capacity design must combine bounded/one-arena workspaces with
+streamed code, wider arithmetic/coordinates/artifacts and cache-aware admission.
+Prior144.67 GiB bounded CPU /128.25 GiB one-arena GPU projections are not total-
+memory guarantees, implemented s17 support or admitted runs. No new job follows
+this review; s17/application/cryptographic/TRL5 gates remain open.
+
+
+### Remaining output/backed-transform gates: GPU then CPU
+
+User authorizes finishing the two remaining options in this order:
+1. GPU packed output to a bounded sink, without a full host canonical word.
+2. GPU host-backed transforms with bounded VRAM and measured host/transfer costs.
+3. CPU packed output to a bounded sink, preserving existing owning results.
+4. CPU disk-backed transforms with bounded RAM and page-cache/I/O accounting.
+
+GPU-038 starts gate1: direct packed canonical scatter into dead GPU scratch and
+bounded packed download/writer. Retain fast workspace32.005 GiB in streamed-code
+mode; target~16 GiB less host encoding memory at s16, plus writer buffer. Extra
+atomic packing work and writer/hash costs unknown; transfer16→8 GiB. Output file
+8 GiB and OS cache remain counted. Benchmark verifies mapped packed artifact in
+a separate phase; no full uint32 verification array. Preserve existing APIs and
+resident/owning defaults; use explicit stream-output CLI. No s17 claim or budget
+increase. Gate2 needs dependency/transfer design and bounded checks before full
+admission; do not confuse streamed constants with backed transforms. Dependent
+work waits for the user's job-completion ping; no monitoring >30s jobs.
+
+GPU-038 packed-output validation submitted as job74091 (one explicit H200 under
+unchanged budgets). Gate1 remains pending; await completion ping without
+monitoring, then continue GPU backed transforms and both CPU gates.
+
+
+GPU-038 job74091 stopped at the s8 packed-output oracle before matched/full runs.
+The new coordinate-zero reduction wrote a local chunk sum instead of the joined
+shared sum; corrected to the established reduced value, with an independent
+16-chunk constant-word regression in both layouts. Failed evidence/profiles are
+retained. Retry uses a fresh run under unchanged budgets; GPU host-backed and
+CPU routes remain dependent on a passed output gate. No measured memory/time
+claim or completion of either remaining option follows from this failed run.
+
+Corrected GPU-038 retry submitted as job74094 /packed-02 under the same budgets.
+Await completion ping without monitoring before continuing dependent gates.
+
+
+GPU-038 retry74094 passes gate1: two full packed s16 outputs match CPU/GPU hashes,
+all systematic/curve/readback and parity/memcheck checks pass. Sink66.227/65.485 s
+includes packing/write/hash, plus Sync; encoding RSS~23.01 GiB, mapped verifier
+~31.01 GiB, GPU32.005 GiB unchanged. Matched s14 output pipelines27–29% shorter;
+not an encoding-only speedup. Source/evidence reconciled, caches/profiles retained.
+Proceed gate2 GPU host-backed transforms before CPU output/backed work. No default
+or s17/budget change.
+
+
+GPU-039 starts gate2 with an explicit host-backed **transform component**, before
+full online integration. Two device tiles replace two full arrays, while the
+full mutable uint32 array stays in host RAM plus one column staging tile.
+GPU arithmetic is unchanged; Taylor corrections and row/column batches add
+H2D/D2H transfers and launches. Runtime cost is unknown, never treated as free.
+[Component experiment](../experiments/gpu-host-backed/report.md) checks Go/resident
+agreement, inverse, batch tails, admission and exact allocation through2^22 values;
+full s16 metadata only. First job budgets: oneH20016CPU,16 GiB host request,
+12 GiB RSS,512 MiB device cap,20-minute controller/30-minute Slurm deadline.
+These are lower than previous admitted limits. Existing resident paths remain
+default; any slower backed encoding later needs explicit CLI selection and
+memory/time admission. Gate2 remains incomplete until online integration and
+validation; CPU packed output and CPU disk-backed transforms follow GPU work.
+
+GPU-039 component job74121 /backed-01 submitted under those reduced budgets.
+No monitoring: await the user completion ping; full online integration and both
+CPU gates remain dependent on measured validation and subsequent admission.
+
+GPU-039 job74121 passed/reconciled370 sources: full progressive correctness and
+memcheck/regressions pass. At2^22 values, GPU32.76→1.26MiB, host data16MiB+256KiB
+staging, but forward0.1278→7.7341s (60.5x slower), H2D1.105GiB/D2H0.160GiB.
+GPU-040 parallelizes arithmetic within tiles under the same memory cap before
+online integration; rows/columns dominate, not copies. Resident defaults remain
+unchanged. Full encoding integration and CPU output/disk-backed gates remain.
+
+GPU-040 implementation now uses one thread per butterfly pair within each
+bounded tile. Joined quotient stages read the unchanged high half; inverse
+corrections read immutable joined scratch. Row origins and column layout are
+preserved; explicit row transposes disappear. Native sm90 compilation and an
+independent sequential-vs-parallel GF(256) stage/layout check pass.
+[Fixed-input GPU comparison](../experiments/gpu-backed-parallel/report.md) repeats
+job74121 cases within identical budgets, requiring identical fixtures, tracked
+memory, host staging and transfer counts; runtime validation remains pending.
+Full online GPU integration and CPU gates remain subsequent work.
+
+GPU-040 same-memory comparison submitted as job74125 /parallel-01. Await the
+user completion ping without monitoring; GPU online integration and both CPU
+gates remain subsequent, dependent work.
+
+GPU-040 job74125 passes374-source reconciliation and full component validation.
+AtN2^22,T65536, forward7.734→1.338s, row/column GPU6.496→0.03943s; memory and
+transfers unchanged. Still10.47x the prior resident sample; tiny s4 cases20–43%
+slower. GPU-041 now integrates the complete five-transform online schedule as
+an explicit host-backed mode, retaining faster resident defaults. Host code,
+N arena plus N canonical output and bounded staging count toward RAM; repeated
+transfers/latency remain an explicit penalty. Small/cached s10 validation first,
+not a fulls16/s17 admission. CPU packed/backed gates follow GPU work.
+
+GPU-041 implements `WithCUDAHostBacked(options,tileElements)` plus optional
+native online ABI, five transforms, tiled products and GPU orbit generation;
+native CPU scatters canonical values/XOR parity. One hostN arena plus owning
+N output, retained code/message and one native tile are accounted. s16 principal
+host payload projects54.84GiB plus staging/runtime/cache; full runtime unknown.
+This explicitly trades VRAM for RAM/PCIe/latency and leaves faster resident
+defaults intact. Current backed output is owning; its packed sink still needs
+integration. [Validation](../experiments/gpu-host-encoding/report.md) covers
+s2/s3/s4 constant subcodes, retained s6/s8 and full s10 CPU/GPU workflows under
+512MiB device/16GiB requested host budgets before any large-run choice.
+Native/Go builds and controller self-check pass; runtime validation pending.
+
+GPU-041 complete small/cached-s10 validation submitted as job74129 /online-01,
+with explicit `--memory-mode host-backed` under the same reduced budgets.
+Await completion ping without monitoring; full backed packed output, large-run
+admission and both CPU gates remain subsequent work.
+
+GPU-041 job74129 passes382-source/evidence reconciliation and complete s10
+correctness. Backed GPU1.606–1.617s vs native CPU0.313–0.319s, device560400bytes,
+host4MiB arena+4MiB owning output+256KiB staging+code/message, H2D456069120/
+D2H128913404bytes. Keep explicit slower memory mode; no fulls16/s17 claim.
+Proceed CPU-042 direct packed sink on fast file-streaming path, retaining twoN
+transform arrays and reusing dead scratch for packed scatter and bounded writes.
+No reduction in two-array transform peak claimed; output detachment/extra pack
+pass avoided. CPU disk-backed transforms remain the next authorized gate.
+
+CPU-042 adds direct canonical s-bit packing in dead scratch through native
+atomic byte OR and joined coordinate-zero parity. File sink holds its lock
+through bounded copied writes/hash, preserves earlier owning results and reuses
+scratch. TwoN transform arrays remain counted; no peak transform-RAM reduction
+is claimed. [Validation](../experiments/cpu-packed-output/report.md) uses
+constant s2..8 and retained s6/s8 codes,1/16workers, writer/input/error recovery,
+ASan and matched cached s10 owning+pack versus direct-sink pipelines. CPP/combined
+local file-encoder/format checks and byte-boundary self-check pass; new runtime
+checks pending. CPU disk-backed transforms follow, with I/O trade-offs explicit.
+
+CPU-042 validation submitted as job74131 /packed-01 with explicit
+`--output-mode packed`,16CPU/16GiB requested RAM, no GPU,30min Slurm and
+20min controller. Await user completion ping without monitoring; CPU disk-backed
+transforms follow this output gate.
+
+CPU-042 job74131 passes389-source/cache/evidence reconciliation, small Go
+oracles/ASan and matched s10 packed hashes. Direct pipeline0.32457/0.32736s vs
+owning+pack0.33997/0.32778s, fixed-order two samples; no robust speedup claim.
+TwoN arrays remain; atomic assembly costs6.06/7.11ms vs2.16ms owning.
+CPU-043 starts remaining disk-backed transform component: two N-word files,
+two T-word RAM tiles, repeated Taylor/file transpose/row I/O, filesystem cache
+extra. s16 requires32GiB backing storage, beyond current16GiB new-cache budget;
+not admitted. Small/progressive N<=2^22 prototype fits current budgets and
+precedes full online integration. Runtime/physical-disk cost unknown.
+
+CPU-043 native component now uses exclusive pre-sized little-endian data/scratch
+files, joined bounded Taylor passes, blocked file transposes and native affine
+vector batches. No full array/mmap is allocated by execution; twoT private
+vectors plus64KiB serialization, with filesystem cache/metadata/runtime extra.
+[Component validation](../experiments/cpu-disk-transform/report.md) compares
+retained Go/GPU oracles and current resident CPU through2^22, offsets/canaries,
+FD/length/tile/range/error checks and ASan. Record logical I/O/time, filesystem,
+end-state retained-file cache and job-scoped cgroup when available. CPP/combined
+local builds and bounded transpose/dependency self-check pass; native runtime
+and full disk-backed online encoding remain pending. Fulls16 storage32GiB not
+admitted within current16GiB new-cache cap. No default path changes.
+
+CPU-043 component validation submitted as job74134 /disk-01, explicit
+`--memory-mode disk`,16CPU/noGPU/16GiB RAM request/16GiB new-cache guard,
+30min Slurm. Await user completion ping without monitoring; full disk-backed
+CPU online integration remains subsequent work.
+
+CPU-04374134 passes395-source/evidence reconciliation and full component/ASan
+checks. N2^22,T65536:589824bytes private buffers vs32MiB resident arrays,
+4.721s forward/2.600s inverse vsresident0.631s. Backing32MiB; logicalI/O
+1.137GiB read/0.191GiB write per transform. NFS/cache/writeback effects vary;
+end mincore0pages does not prove no cache during execution. Full job cgroup
+peak1.419GiB includes build/validation. CPU-044 integrates five-transform disk
+online encoding with one owning N-word host output plus bounded tiles; code
+stays streamed. s16 host payload projects19.42GiB+tiles/metadata/runtime,
+32GiB backing+code/output storage/cache extra. Fulls16 not admitted. Small/full
+s10 validation first, faster resident/file-fast defaults unchanged.
+
+CPU-044 now implements `OpenScalingCPPDisk` and one native online call containing
+five file transforms, bounded file products/code copies/zeroing and canonical
+assembly into a new owning N-word host result. Code stays streamed, mutable
+work files are created exclusively and retained after Close. Actual nested
+buffer liveness is counted conservatively as4T words+128KiB, not component2T.
+[Validation](../experiments/cpu-disk-encoding/report.md) covers CPU042 small
+Go fixtures/constant words,25/33-byte code headers, errors/recovery/ownership,
+ASan and complete cached s10 file-fast/disk workflows. Existing CPP/combined
+local checks and resource/offset self-check pass; runtime pending. Fulls16
+backing32GiB not admitted. Full output still4N private bytes; a disk packed
+sink is a separate combination, with no hidden large allocation/fallback.
+
+CPU-044 full small/cached-s10 validation submitted as job74141 /online-01,
+explicit `--memory-mode disk`, same16CPU/noGPU/16GiB requested RAM and16GiB
+new-cache cap,30min Slurm. Await user completion ping without monitoring;
+fulls16 disk storage remains unadmitted and optional output-mode combinations
+remain separate from completing the current disk online route.
+
+
+### Current memory-route status
+
+CPU-044 job74141 passes401 source identities and sealed cache/evidence checks,
+small Go oracles/ASan and two full s10 encodings per mode with systematic,
+independent-curve, canonical/packed hash and readback agreement. Disk encoder
+first/reused2.860/1.136s versus file-fast0.332/0.311s, owning output4MiB plus
+1.125MiB conservative native buffers and8MiB backing files. All comparisons are
+profiled fixed-order samples on NFS; file cache/runtime remain extra.
+
+The first four implementation investigations are now done for both backends.
+Validation sizes differ; this is not completion of combined s17 admission.
+
+| Approach | GPU evidence | CPU evidence |
+|---|---|---|
+| Bounded transform scratch/compact layout | [Compact path](../experiments/gpu-output-memory/report.md), full s16 | [Compact path](../experiments/cpu-output-memory/report.md), full s16 |
+| Stream preprocessing constants | [Fast streamed code](../experiments/gpu-streamed-constants/report.md), full s16 | [File-streamed code](../experiments/cpu-streamed-constants/report.md), full s16 |
+| Direct packed output without owning canonical word | [Bounded GPU sink](../experiments/gpu-packed-output/report.md), full s16 | [File CPU sink](../experiments/cpu-packed-output/report.md), small/ASan and matched s10 |
+| Back transforms with host RAM/disk | [Host-backed GPU](../experiments/gpu-host-encoding/report.md), small/ASan and full s10; components through2^22 | [Disk-backed CPU](../experiments/cpu-disk-encoding/report.md), small/ASan and full s10; components through2^22 |
+
+Owning API defaults, verified CPU/GPU paths and canonical representation remain.
+Slower modes stay explicit API/CLI choices; fitting faster paths remain default.
+Backed encoders currently return owning arrays: their packed sinks are not
+implemented. Compact transforms/streamed constants/output do not all combine in
+one path yet. Existing stream/sink modes must not be mistaken for full backing
+or a total-RAM bound; cache/driver/runtime/retained outputs are additional.
+
+**Next: ordered item5, combinations and admission.** Count full lifetimes for
+candidate combinations (compact transforms plus streamed code and packed output,
+versus backed transforms), with measured s16 baselines and explicit host/device/
+storage/latency costs. Review which memory constraint rules out the faster path
+before choosing a slower combination or increasing budgets. CPU disk s16 alone
+requires32GiB new work files, above the16GiB new-cache budget; no such run is
+submitted. New small-only modes need larger validation before size claims.
+Then extend/test34-bit arithmetic/coordinates/serialization and audit s17
+preprocessing separately. Current execution still supports s<=16: no s17
+feasibility/runtime claim, no protocol/TRL5 scope change. No new job is launched
+by reconciling74141; completion pings are not budget increases.

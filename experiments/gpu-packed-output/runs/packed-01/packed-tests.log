@@ -1,0 +1,4 @@
+=== RUN   TestCUDAPackedOutput
+    cuda_packed_test.go:114: packed oracle/digest/allocation {8 2 5} false <nil>
+--- FAIL: TestCUDAPackedOutput (4.78s)
+FAIL

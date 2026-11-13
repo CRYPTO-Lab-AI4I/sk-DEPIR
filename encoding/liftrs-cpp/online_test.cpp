@@ -7,6 +7,8 @@
 #include <iostream>
 #include <random>
 #include <cstring>
+#include <cstdio>
+#include <unistd.h>
 uint32_t power(const liftrs::Field& f,uint32_t x,uint32_t n){uint32_t y=1;while(n){if(n&1)y=f.mul(y,x);x=f.mul(x,x);n>>=1;}return y;}
 uint32_t evaluate(const liftrs::Field& f,const std::vector<uint32_t>& p,uint32_t x){uint32_t y=0;for(size_t j=0;j<p.size();j++)y^=f.mul(p[j],power(f,x,1u<<j));return y;}
 // Sparse S_k preparation without tables; constants remain canonical field values.
@@ -55,6 +57,11 @@ int main() {
   std::vector<uint32_t> spectrum(n,1),scratch(n),arena(2*n),saved(1),word(n),message{257},p{1,1};
   spectrum.back()=0;uint64_t stages[6];
   if(liftrs_matrix_apply(rows,columns,spectrum.data(),scratch.data(),n,f.s,4,0,stages,error,sizeof(error)))return 2;
+  // Anonymous file fixture uses canonical little-endian words, independent of
+  // host endianness. No expensive preprocessing cache is created or removed.
+  FILE* code=std::tmpfile();if(!code)return 12;
+  std::vector<unsigned char> file_bytes;for(auto* source:{&p,&spectrum})for(auto value:*source)for(unsigned j=0;j<4;j++)file_bytes.push_back(static_cast<unsigned char>(value>>(8*j)));
+  if(std::fwrite(file_bytes.data(),1,file_bytes.size(),code)!=file_bytes.size()||std::fflush(code))return 13;
   for(unsigned workers:{1u,4u}) {
     if(liftrs_online_encode(rows,columns,rows,columns,f.s,f.s,workers,omega,message.data(),p.data(),spectrum.data(),1,n,n,arena.data(),arena.size(),saved.data(),scratch.data(),word.data(),stages,error,sizeof(error))) {
       std::cerr<<error<<"\n";return 3;
@@ -66,6 +73,13 @@ int main() {
     uint64_t compact_stages[8];
     if(liftrs_online_encode_compact(scratch.size(),prefix_rows,prefix_columns,rows,columns,1,f.s,workers,omega,message.data(),p.data(),spectrum.data(),1,n,4,arena.data(),n,nullptr,scratch.data(),arena.data(),compact_stages,error,sizeof(error))){std::cerr<<error<<"\n";return 9;}
     for(size_t i=0;i<n;i++)if(arena[i]!=message[0])return 10;
+    uint64_t file_stages[11];
+    for(size_t tile:{size_t(257),size_t(65537)}){
+      if(liftrs_online_encode_file(fileno(code),0,8,tile,prefix_rows,prefix_columns,rows,columns,1,f.s,workers,omega,message.data(),1,n,4,arena.data(),scratch.data(),file_stages,error,sizeof(error))){std::cerr<<error<<"\n";return 14;}
+      for(auto value:scratch)if(value!=message[0])return 15;
+      if(file_stages[9]!=4*(n+2)||file_stages[10]!=1+(n+tile-1)/tile)return 16;
+    }
+    if(!liftrs_online_encode_file(fileno(code),0,8+4*n,257,prefix_rows,prefix_columns,rows,columns,1,f.s,workers,omega,message.data(),1,n,4,arena.data(),scratch.data(),file_stages,error,sizeof(error)))return 17;
     // Corrupt an extension coefficient above bit15: narrowing must not hide it.
     spectrum[0]^=1u<<16;
     int invalid=liftrs_online_encode_compact(scratch.size(),prefix_rows,prefix_columns,rows,columns,1,f.s,workers,omega,message.data(),p.data(),spectrum.data(),1,n,4,arena.data(),n,nullptr,scratch.data(),arena.data(),compact_stages,error,sizeof(error));
@@ -73,7 +87,8 @@ int main() {
     if(!invalid||!std::strstr(error,"escaped base field"))return 11;
   }
   if(!liftrs_online_encode(rows,columns,rows,columns,f.s,f.s,4,1,message.data(),p.data(),spectrum.data(),1,n,n,arena.data(),arena.size(),saved.data(),scratch.data(),word.data(),stages,error,sizeof(error)))return 5;
+  std::fclose(code);
   liftrs_plan_destroy(prefix_rows);liftrs_plan_destroy(prefix_columns);
   liftrs_plan_destroy(rows);liftrs_plan_destroy(columns);
-  std::cout<<"Complete online ABI, compact bounded columns and parallel scatter passed\n";
+  std::cout<<"Complete online ABI, compact/file schedules and parallel scatter passed\n";
 }

@@ -101,6 +101,39 @@ calls is historical. Streaming remains explicit opt-in; resident defaults stay.
 s17 still needs34-bit extension/coordinate handling and a one-arena/file-backed
 design; the current two-array route would need256 GiB GPU memory. No s17
 feasibility is claimed. The complete validation job took16m22s.
+The [CPU file-streaming counterpart](experiments/cpu-streamed-constants/report.md)
+now passes full s16 validation:20m49.6s encoding and35.484 GiB sampled process RSS,
+versus58.351 GiB previously, with matching CPU/GPU hashes. File cache adds memory:
+sampled RSS plus tracked resident file pages reaches61.820 GiB; charged batch-task
+cgroup peaks around47.92 GiB. These are different accounting views, not a total
+35 GiB cap. Matched cached s14 encoding is0.9–1.2% slower. The file route stays
+explicit opt-in, resident stays default, and ordinary CPU builds need no CUDA.
+The full validation job took36m45s; cold-disk behavior and s17 remain unproven.
+The validated [GPU packed-output path](experiments/gpu-packed-output/report.md)
+adds explicit `EncodePackedTo` without a full host canonical array. Direct GPU
+bit packing uses existing scratch, then bounded writer/hash buffers download the
+s-bit format. GPU workspace stays32.005 GiB in streamed-code mode; s16 host output
+staging falls16 GiB→8 MiB, with OS cache and a separately mapped verifier extra.
+Retry validation now passes the corrected parity regression and full s16 hashes:
+65.5–66.2 s including packing/writing/hash, about23.01 GiB encoding RSS and31.01 GiB
+separate verifier RSS. Matched s14 packed-file pipelines are27–29% shorter in two
+fixed-order samples. Cache/driver memory is extra; GPU workspace is unchanged.
+All four memory approaches now have CPU and GPU implementations; see the
+[validation sizes and remaining combinations](docs/encoding-scaling.md#current-memory-route-status).
+Owning/resident defaults remain. The
+[host-backed GPU component](experiments/gpu-host-backed/report.md) keeps the full
+host array and bounds device tiles, with measured component savings and costs: at2^22 values, device ownership
+32.76→1.26 MiB but forward time0.128→7.73 s. [Parallel work inside tiles](experiments/gpu-backed-parallel/report.md) now passes:
+that time falls to1.34 s with unchanged memory/transfers. It remains10.47x the
+prior resident sample. The explicit `WithCUDAHostBacked` five-transform online path is now implemented
+and [passes full s10 validation](experiments/gpu-host-encoding/report.md):
+1.61 s with0.534 MiB explicit device memory versus native CPU0.31–0.32 s. It
+retains host code and needs4N work+4N owning result, with repeated transfers;
+the faster resident defaults stay. No full s16/s17 timing or backed packed sink
+is claimed.
+
+
+
 
 
 
@@ -482,13 +515,39 @@ See the [encoding directory guide](encoding/README.md):
 - `liftrs-shared/`: common Go API, preprocessing, arithmetic, polynomial strategy,
   codeword assembly, correctness oracle and native adapter.
 - `liftrs-go/`: Go-only transform execution.
-- `liftrs-cpp/`: C++ transform kernels, C ABI and cgo binding.
+- `liftrs-cpp/`: C++ CPU kernels, file-backed execution, C ABI and cgo binding.
+- `liftrs-cuda/`: optional CUDA kernels and dynamically loaded cgo binding.
 - `rme_legacy/`: archived RM sources, subprocess driver, dependencies and benchmark artifacts.
 
-Import `encoding/liftrs-shared` (package `liftrs`) for either full encoder path.
+Import `encoding/liftrs-shared` (package `liftrs`) for the Go, C++ CPU and optional
+CUDA mathematical encoding paths.
 The Go path needs no C++ compiler. Enable `-tags liftrs_cpp` with cgo and a C++17
 compiler, call `WithCPPTransforms`, and close the native adapter when finished.
 Preprocessing remains Go. The [integration experiment](experiments/native-encoding/report.md)
 measured s=13 medians of 190.66 s and 153.41 s before directory reorganization,
 with identical codewords and about 2.26 GiB peak RSS. This move preserves algorithms
 and artifact formats; it does not constitute a new performance measurement.
+
+
+The explicit [CPU packed sink](experiments/cpu-packed-output/report.md) packs
+canonical values directly into dead scratch and writes through a bounded buffer.
+The two transform arrays still require 8N bytes. It avoids a detached canonical
+uint32 result and a separate packing pass. Small/reference/ASan checks pass;
+matched s=10 pipelines take 0.325–0.327 s versus owning-plus-packing 0.328–0.340 s
+(two fixed-order samples). Atomic assembly itself costs more, so no robust
+speedup is claimed. Owning/resident defaults remain.
+
+The [CPU disk-transform component](experiments/cpu-disk-transform/report.md)
+replaces full RAM arrays with bounded tiles and backing files. At 2²² values,
+576 KiB private buffers replace 32 MiB resident arrays, but forward time rises
+from 0.63 s to 4.72 s on NFS. Filesystem cache and runtime are extra.
+
+`OpenScalingCPPDisk` integrates the complete disk-backed CPU schedule with
+streamed code and an owning host output. [Full s=10 validation](experiments/cpu-disk-encoding/report.md)
+passes: first/reused encoding took 2.86/1.14 s versus file-fast 0.33/0.31 s on NFS.
+Native buffers of 1.125 MiB plus a 4 MiB owning result replace 8 MiB resident
+arrays at s=10, with 8 MiB backing files and additional cache/runtime memory.
+At s=16, workspace files alone require 32 GiB, exceeding the current experiment
+budget; no full-size disk timing is claimed. A disk-mode packed sink and other
+mode combinations remain separate. See the [consolidated plan status](docs/encoding-scaling.md#current-memory-route-status)
+before larger validation or s=17 admission.

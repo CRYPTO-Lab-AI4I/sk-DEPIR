@@ -59,6 +59,7 @@ type scalingFirstUseConfig struct {
 	preparationCutoff int                               // Experiment-only override; zero preserves the default.
 	prepareExecutor   func(*OrbitBasis) (func(), error) // Optional experimental backend; cleanup follows the run.
 	// Optional test harness backend; default remains the native CPU session.
+	onlineLoad  func(string, string, int) (*ScalingOnlinePlan, error) // Explicit thin file-backed experiment; resident loading stays default.
 	onlineSetup func(*ScalingOnlinePlan) (func([]uint32) ([]uint32, map[string]any, error), func(), map[string]any, error)
 }
 
@@ -349,10 +350,14 @@ func runScalingFirstUse(t *testing.T, cfg scalingFirstUseConfig) {
 		check(err)
 		var m struct{ SHA256 string }
 		check(json.Unmarshal(raw, &m))
-		file, err := os.Open(filepath.Join(cache, "online.bin"))
-		check(err)
-		defer file.Close()
-		plan, err = LoadScalingOnline(file, m.SHA256, 1<<uint(2*s))
+		if cfg.onlineLoad != nil {
+			plan, err = cfg.onlineLoad(filepath.Join(cache, "online.bin"), m.SHA256, 1<<uint(2*s))
+		} else {
+			file, openErr := os.Open(filepath.Join(cache, "online.bin"))
+			check(openErr)
+			defer file.Close()
+			plan, err = LoadScalingOnline(file, m.SHA256, 1<<uint(2*s))
+		}
 		check(err)
 		if plan.FieldDegree() != s || plan.basis.spec.CurveDegree != curve {
 			t.Fatal("online cache spec mismatch")

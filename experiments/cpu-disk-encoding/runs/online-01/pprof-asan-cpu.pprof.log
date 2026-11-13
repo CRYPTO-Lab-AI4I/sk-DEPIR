@@ -1,0 +1,34 @@
+File: disk.test
+Build ID: 57ae29f7d1e64400a42b27f4bb8874681c8053be
+Type: cpu
+Time: 2026-11-12 22:12:28 CET
+Duration: 190.44s, Total samples = 14.98s ( 7.87%)
+Showing nodes accounting for 14.71s, 98.20% of 14.98s total
+Dropped 57 nodes (cum <= 0.07s)
+Showing top 25 nodes out of 29
+      flat  flat%   sum%        cum   cum%
+     6.22s 41.52% 41.52%      7.85s 52.40%  runtime.newproc1
+     3.45s 23.03% 64.55%      3.45s 23.03%  runtime.debugCallWrap1.func1
+     1.11s  7.41% 71.96%      1.11s  7.41%  runtime.traceAdvance
+     0.92s  6.14% 78.10%      0.92s  6.14%  [disk.test]
+     0.69s  4.61% 82.71%      0.69s  4.61%  [libasan.so.8.0.0]
+     0.51s  3.40% 86.11%      2.47s 16.49%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).Recurse
+     0.48s  3.20% 89.32%      0.73s  4.87%  runtime.initMetrics.func64
+     0.35s  2.34% 91.66%      0.53s  3.54%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Product.Mul
+     0.19s  1.27% 92.92%      0.83s  5.54%  runtime.panicwrap
+     0.18s  1.20% 94.13%      0.64s  4.27%  runtime.nilinterhash
+     0.17s  1.13% 95.26%      0.17s  1.13%  runtime.makemap
+     0.15s  1.00% 96.26%      0.15s  1.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     0.13s  0.87% 97.13%      0.13s  0.87%  runtime.makemap_small
+     0.09s   0.6% 97.73%      0.09s   0.6%  internal/runtime/maps.newarray
+     0.04s  0.27% 98.00%      0.10s  0.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).offset (inline)
+     0.02s  0.13% 98.13%      0.18s  1.20%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Field.mul
+     0.01s 0.067% 98.20%      2.53s 16.89%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).Encode
+         0     0% 98.20%      3.45s 23.03%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.EncodeOnlineDisk
+         0     0% 98.20%      3.45s 23.03%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.EncodeOnlineDisk.func1 (inline)
+         0     0% 98.20%      3.45s 23.03%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_online_encode_disk
+         0     0% 98.20%      3.45s 23.03%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPDiskEncoder).EncodeWithStats
+         0     0% 98.20%      2.19s 14.62%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0% 98.20%      0.28s  1.87%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0% 98.20%      6.22s 41.52%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPPDiskOnline
+         0     0% 98.20%      6.22s 41.52%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPPDiskOnlineWorkflow

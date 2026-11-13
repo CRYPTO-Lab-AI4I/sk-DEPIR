@@ -1,0 +1,8 @@
+========= COMPUTE-SANITIZER
+=== RUN   TestCUDAPackedOutput
+--- PASS: TestCUDAPackedOutput (29.38s)
+=== RUN   TestCUDAPackedParity
+--- PASS: TestCUDAPackedParity (5.37s)
+PASS
+========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+========= ERROR SUMMARY: 0 errors

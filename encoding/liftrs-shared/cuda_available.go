@@ -36,7 +36,7 @@ func newCUDAOnlineBackend(p *ScalingOnlinePlan, options CUDAOptions) (cudaOnline
 	return newCUDAOnlineBackendMode(p, options, false)
 }
 
-// Memory modes remain explicit experiments; streamed code is not yet validated.
+// Memory modes remain explicit experiments after their s16 validation.
 // Public WithCUDA continues to select the previously verified resident layout.
 func newCUDAOnlineBackendMode(p *ScalingOnlinePlan, options CUDAOptions, reuse bool) (cudaOnlineBackend, error) {
 	return newCUDAOnlineBackendKind(p, options, reuse, false)

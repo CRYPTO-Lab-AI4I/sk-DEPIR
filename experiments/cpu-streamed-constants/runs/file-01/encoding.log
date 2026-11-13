@@ -1,0 +1,9 @@
+=== RUN   TestCPUFileCached
+    s15_firstuse_probe_test.go:121: load-online 37.180522069s
+    s15_firstuse_probe_test.go:121: online-setup 2.518µs
+    s15_firstuse_probe_test.go:121: encode-0 20m49.615814545s
+    s15_firstuse_probe_test.go:121: verify-0 2m58.754445089s
+    s15_firstuse_probe_test.go:121: pack-output 55.767710448s
+    s15_firstuse_probe_test.go:121: verify-packed 2.415217165s
+--- PASS: TestCPUFileCached (1530.46s)
+PASS
