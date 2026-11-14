@@ -21,7 +21,7 @@ module load slurm/slurm/25.05 gcc/14.2.0 cuda12.9/toolkit/12.9.1
 # Existing one-GPU budget:
 sbatch --output=experiments/gpu-s17-preprocessing/slurm-%j.log \
   experiments/gpu-s17-preprocessing/run.sbatch gpu-01 --devices 1
-# Requires approval for a second allocated GPU; not automatically authorized:
+# Two-GPU bounded validation explicitly approved by the user:
 sbatch --gres=gpu:h200:2 --output=experiments/gpu-s17-preprocessing/slurm-%j.log \
   experiments/gpu-s17-preprocessing/run.sbatch peer-01 --devices 2
 # Only after the completion ping:
@@ -145,5 +145,17 @@ without changing count, memory or deadline.
 One-H200 validation job74453 is submitted, source8828856 ([record](submission.json)).
 Results/logs/profiles: `runs/gpu-01/` and `slurm-74453.log`; reusable small caches
 and binaries: `.cache/liftrs/gpu-s17-preprocessing/gpu-01/`. No monitoring or
-result analysis until the completion ping. Two-GPU approval remains pending;
-no peer-validation job or full s17 job has been submitted.
+result analysis until the completion ping. At this initial submission, two-GPU approval was pending. The user subsequently
+approved bounded peer validation, recorded below. No full s17 job is admitted.
+
+## Approved two-GPU peer validation
+
+The user explicitly approved the two-card budget. Job74454 (`peer-01`) is now
+submitted with typed `gpu:h200:2`, source d5d2a3b ([record](peer-submission.json)).
+The same source kernels,256MiB/card (512MiB aggregate),4CPU/8GiB host and existing
+600/900/1200s guards apply. No implementation, timing boundary or full-size
+budget changes. The runner compares the same dense tile on one and two cards
+inside this allocation, verifies peer-layout hashes and records topology.
+Results/logs/profiles: `runs/peer-01/`, `slurm-74454.log`; retained small artifacts
+and matching binaries: `.cache/liftrs/gpu-s17-preprocessing/peer-01/`.
+No state polling, result analysis or monitoring until the completion ping.
