@@ -139,3 +139,11 @@ communication, sanitizer and regression results remain pending. No full preproce
 The cluster requires a typed GPU GRES request. An initial untyped submission
 was rejected before allocating a job; the script now requests `gpu:h200:1`
 without changing count, memory or deadline.
+
+## Submission
+
+One-H200 validation job74453 is submitted, source8828856 ([record](submission.json)).
+Results/logs/profiles: `runs/gpu-01/` and `slurm-74453.log`; reusable small caches
+and binaries: `.cache/liftrs/gpu-s17-preprocessing/gpu-01/`. No monitoring or
+result analysis until the completion ping. Two-GPU approval remains pending;
+no peer-validation job or full s17 job has been submitted.
