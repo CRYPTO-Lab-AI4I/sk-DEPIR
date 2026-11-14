@@ -1,6 +1,7 @@
 # Shared width-aware preprocessing validation
 
-Status: implementation and bounded validation prepared; results pending.
+Status: implementation committed as `ec12f1b89ee1db4c7eebdbcadf33a7b437948b80`; bounded validation
+job74424 submitted ([submission](submission.json)), results pending.
 This does not establish full s17 preprocessing or CUDA17 support.
 
 ## Reproduction and evidence

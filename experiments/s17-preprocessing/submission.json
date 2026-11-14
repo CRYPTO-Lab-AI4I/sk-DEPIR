@@ -1,0 +1,16 @@
+{
+  "job_id": "74424",
+  "revision": "ec12f1b89ee1db4c7eebdbcadf33a7b437948b80",
+  "submitted_utc": "2026-11-14T01:01:57.357126+00:00",
+  "run": "native-01",
+  "cpus": 4,
+  "host_request_bytes": 8589934592,
+  "rss_guard_bytes": 6442450944,
+  "gpu_count": 0,
+  "controller_seconds": 900,
+  "slurm_seconds": 1200,
+  "results": "experiments/s17-preprocessing/runs/native-01/results.json",
+  "log": "experiments/s17-preprocessing/slurm-74424.log",
+  "cache": ".cache/liftrs/s17-preprocessing/native-01",
+  "status": "submitted; not monitored"
+}
