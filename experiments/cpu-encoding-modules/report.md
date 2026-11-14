@@ -5,7 +5,8 @@ mathematical order, canonical representation, mode defaults and principal-array
 accounting. [Implementation guide](../../docs/cpu-encoding.md), [controller](run.py),
 [launcher](run.sbatch), [analyzer](analyze.py), [direct helper checks](check.cpp),
 [cross-mode/lifetime tests and benchmark](../../encoding/liftrs-shared/cpu_modules_test.go).
-Validation is **pending**. No speedup, full-size equivalence or s17 result is claimed.
+Validation is **pending job74419**, source checkpoint `c3544fd`;
+[submission](submission.json). No speedup, full-size equivalence or s17 result is claimed.
 The run manifest records exact revision, source hashes, commands, hardware and
 resource policy. Results will be under `runs/modules-01/results.json`.
 

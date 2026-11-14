@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-14 00:02 | SCALING-065 | Handoff | [CPU refactor validation job74419](2026-11-14-0002-codex-scaling-065-handoff.md) |
 | 2026-11-13 23:32 | SCALING-065 | Started | [CPU encoding modularity and validation](2026-11-13-2332-codex-scaling-065-started.md) |
 | 2026-11-13 23:25 | SCALING-064 | Completed | [Conditional s17 preparation forecast](2026-11-13-2325-codex-scaling-064-completed.md) |
 | 2026-11-13 23:25 | SCALING-064 | Started | [Estimate s17 preprocessing](2026-11-13-2325-codex-scaling-064-started.md) |
