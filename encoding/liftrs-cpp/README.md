@@ -357,5 +357,5 @@ The experimental [preprocessing guide](../../docs/preprocessing.md) describes
 the shared discovery/root/reciprocal procedure, width-selected native executor,
 explicit backend/budgets, ownership and trusted support/root artifacts. Source
 implementation extends through s17; bounded validation is pending and no full
-s17 cache or latency exists. CUDA execution remains s≤16; wider/multi-GPU server
-preparation is future work. Ordinary client builds remain CUDA-free.
+s17 cache or latency exists. The legacy CUDA adapter remains s≤16; the resident GPU server prototype now
+extends source support through s17, with CUDA/peer validation pending. Ordinary client builds remain CUDA-free.

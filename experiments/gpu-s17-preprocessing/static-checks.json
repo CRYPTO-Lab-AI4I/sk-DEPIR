@@ -1,0 +1,165 @@
+{
+  "utc": "2026-11-14T10:00:01.764722+00:00",
+  "base_revision": "8bc67d9ec57aa0fc1179af6e7f341ae5fe676d83",
+  "working_tree_changes": true,
+  "cases": [
+    {
+      "s": 4,
+      "word_bytes": 4,
+      "simulated_devices": 1,
+      "match": true
+    },
+    {
+      "s": 4,
+      "word_bytes": 8,
+      "simulated_devices": 1,
+      "match": true
+    },
+    {
+      "s": 17,
+      "word_bytes": 8,
+      "simulated_devices": 1,
+      "match": true
+    },
+    {
+      "s": 4,
+      "word_bytes": 4,
+      "simulated_devices": 2,
+      "match": true
+    },
+    {
+      "s": 4,
+      "word_bytes": 8,
+      "simulated_devices": 2,
+      "match": true
+    },
+    {
+      "s": 17,
+      "word_bytes": 8,
+      "simulated_devices": 2,
+      "match": true
+    },
+    {
+      "s": 4,
+      "word_bytes": 4,
+      "simulated_devices": 4,
+      "match": true
+    },
+    {
+      "s": 4,
+      "word_bytes": 8,
+      "simulated_devices": 4,
+      "match": true
+    },
+    {
+      "s": 17,
+      "word_bytes": 8,
+      "simulated_devices": 4,
+      "match": true
+    }
+  ],
+  "logging_self_checks": [
+    {
+      "utc": "2026-11-14T09:31:45Z",
+      "phase": "logging-self-check",
+      "work": "recurrence-cases",
+      "event": "completed",
+      "completed": 9,
+      "total": 9,
+      "elapsed_ms": 0,
+      "unit": "cases"
+    },
+    {
+      "utc": "2026-11-14T09:31:45Z",
+      "phase": "legacy-log-self-check",
+      "work": "recurrence-cases",
+      "event": "completed",
+      "completed": 9,
+      "total": 9,
+      "elapsed_ms": 0
+    }
+  ],
+  "checks": [
+    "compute90 PTX compilation for new preparation and legacy client translation units",
+    "native C++ ABI and dynamic C bridge syntax",
+    "Go formatting, Python AST/CLI and Bash syntax",
+    "32 scaling mode rows have labeled runtime/memory units; disk s16 labels verified",
+    "final combined CUDA library compiles/links at sm90 -O0; legacy and preparation ABI symbols exported",
+    "bounded high-index GPU monomial-window executable compiles/links; not executed locally"
+  ],
+  "source_sha256": {
+    "encoding/liftrs-cuda/matrix.cu": "8ae2d302280e7954c03725f28d01374273b39dbffaaddccb202ffe9848ac0079",
+    "encoding/liftrs-cuda/transform.cuh": "4c8f02dac5c7528b4f4c5d0c6dc8503e8224a138493f87b92519846154b9bbc4",
+    "encoding/liftrs-cuda/preparation.cu": "46a80e1c136d7e1974e6985ba4967ef9f39ada329249f11b98e8c0f511047b94",
+    "encoding/liftrs-cuda/preparation_kernels.cuh": "d56436d64b678fd8006cb8b1d756383fc6f7e68d096ef7de4d2966d7b58cf817",
+    "encoding/liftrs-cuda/preparation_plan.hpp": "ab07bce0df4097e788cca1514136926ddc96214c06a1c2510879786f06b876df",
+    "encoding/liftrs-cuda/preparation_api.h": "2b0a77c6212a7e0c0183257404c0f4660681ac62679c52d8b2e1b45dbbc0d6fa",
+    "encoding/liftrs-cuda/preparation_bridge.h": "143f14f27c2594066e7e5f4207b6ef00ad01027b2ca66be55b2383bba3267d8b",
+    "encoding/liftrs-cuda/preparation.go": "8dbff2a3ef21751e74426a1ce8b78274e5e9ecd11b85a47aad8ddc2fb2a7b63e",
+    "encoding/liftrs-cpp/prepare_plan.hpp": "c7cd8dfa8446cd27a62a63f1f26ff4adf5d1ba52d82f79f2d041d460200639f4",
+    "encoding/liftrs-cpp/plan.hpp": "29e70b4fa649149554d8abf75aec2870add0a264fa99a72aff1fc561a1ea138d",
+    "encoding/liftrs-cpp/transform.hpp": "72283459c0792ca4a62fbdc6c102841398c9498f0fba37b7408a4a5a16ab4e49",
+    "encoding/liftrs-cpp/arithmetic.hpp": "b3f21a214b4e891896448631113ad0fcb65f8fb6ce8556c6b88fa96cd301acda",
+    "encoding/liftrs-cpp/monomial.hpp": "ca2fa0e29bf68d22455e560337c320a1f32a65e7ee7f2d47e9f99fe85e591442",
+    "encoding/liftrs-cpp/progress.hpp": "a4ceb314b3dc163e1dbb87418f48485683cae7f114fe9e9b5901c2b8324fc586",
+    "encoding/liftrs-cpp/preparation.hpp": "3d3d8af3b50f5474b1bd98f69517366ddf6afb262925c6701fb000575a2c41e5",
+    "experiments/gpu-s17-preprocessing/check.cpp": "91a802e8d90f9ebdde83ce6b24605d964f19cda7a6058ea953f505044ff8a8a4",
+    "experiments/gpu-s17-preprocessing/check.cu": "00b5f188d47c756cd3564baf27e528748d9be538eb2a9c1d129b7a12a024db32",
+    "experiments/gpu-s17-preprocessing/run.py": "43c1120dc2877324e27e534dc10ac097dd7012c35cea8dc08db6fdc67489e58d",
+    "experiments/gpu-s17-preprocessing/analyze.py": "c3cf17f6ac413e248e9e9d6b95672b6515b4675292968bf1e7021791578305cd",
+    "experiments/gpu-s17-preprocessing/run.sbatch": "754e0f7185780a722ee07962a4c92fd5733263fa0ee4e9663b806b3767d1a125"
+  },
+  "limitation": "Host simulation, CUDA compilation/linking and symbol checks only; Go/cgo build, device execution, peer correctness, sanitizer and performance remain pending. Earlier PTX diagnostics are retained but final shared library is the sealed final-source GPU artifact.",
+  "artifacts": {
+    ".cache/liftrs/gpu-s17-preprocessing/local-check/sk-depir-shared-gpu-check": {
+      "bytes": 64440,
+      "sha256": "6950e2a2cfc7e00db21aee1f9db028219b38cc35d2dc1e138e9471f1c3678916"
+    },
+    ".cache/liftrs/gpu-s17-preprocessing/local-check/sk-depir-preparation-link.so": {
+      "bytes": 2325832,
+      "sha256": "e27750e3d2fa5b607f6f286580df6d29a8cbeb9ff326066695fd6d228f2d52ac"
+    },
+    ".cache/liftrs/gpu-s17-preprocessing/local-check/sk-depir-monomial-windows": {
+      "bytes": 1052544,
+      "sha256": "875032529486439ddbbf45e41f73a271529b3583a5a89a857c9b56e465dccd51"
+    }
+  },
+  "commands": [
+    {
+      "command": "nvcc -std=c++17 -O0 --ptx -arch=compute_90 encoding/liftrs-cuda/matrix.cu -o /tmp/sk-depir-legacy-matrix.ptx",
+      "exit_code": 0
+    },
+    {
+      "command": "nvcc -std=c++17 -O0 --ptx -arch=compute_90 encoding/liftrs-cuda/preparation.cu -o /tmp/sk-depir-preparation.ptx",
+      "exit_code": 0
+    },
+    {
+      "command": "nvcc -std=c++17 -O0 -arch=sm_90 -shared -Xcompiler=-fPIC encoding/liftrs-cuda/matrix.cu encoding/liftrs-cuda/preparation.cu -o /tmp/sk-depir-preparation-link.so",
+      "exit_code": 0
+    },
+    {
+      "command": "nvcc -std=c++17 -O0 -arch=sm_90 -Iencoding/liftrs-cuda experiments/gpu-s17-preprocessing/check.cu -o /tmp/sk-depir-monomial-windows",
+      "exit_code": 0
+    },
+    {
+      "command": "g++ -O1 -std=c++17 -pthread -Iencoding/liftrs-cuda experiments/gpu-s17-preprocessing/check.cpp -o /tmp/sk-depir-shared-gpu-check",
+      "exit_code": 0
+    },
+    {
+      "command": "/tmp/sk-depir-shared-gpu-check",
+      "exit_code": 0
+    },
+    {
+      "command": "cc -std=c11 -fsyntax-only -x c encoding/liftrs-cuda/preparation_bridge.h",
+      "exit_code": 0
+    },
+    {
+      "command": "g++ -std=c++17 -pthread -Iencoding/liftrs-cpp -fsyntax-only encoding/liftrs-cpp/preparation_api.cpp encoding/liftrs-cpp/wide_api.cpp encoding/liftrs-cpp/c_api.cpp",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/gpu-s17-preprocessing/run.py --check; Bash/Python syntax; Go formatting; git diff --check",
+      "exit_code": 0
+    }
+  ]
+}

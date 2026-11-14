@@ -2,6 +2,7 @@
 // Public code preparation only. It is not constant-time and sees no database.
 // Base polynomial algorithms live in the shared Go layer; this executor owns
 // width-selected transforms/products, batched roots and exact monomial discovery.
+#include "monomial.hpp"
 #include "online.hpp"
 #include "prepare_plan.hpp"
 #include <numeric>
@@ -9,22 +10,6 @@
 
 namespace liftrs::preparation {
 
-inline bool good_weights(const unsigned *weights, unsigned s, unsigned t) {
-  // Lemma4.8: a POSITIVE reachable sum j*(2^s-1) makes the monomial bad.
-  // Carry intervals implement that criterion without a q-sized DP per monomial.
-  for (unsigned j = 1; j <= 2 * t; j++) {
-    unsigned lo = j, hi = j;
-    for (unsigned k = 0; k < s; k++) {
-      lo = (lo + 1) / 2;
-      hi = (hi + t * weights[k]) / 2;
-      if (lo > hi)
-        break;
-    }
-    if (lo <= j && j <= hi)
-      return false;
-  }
-  return true;
-}
 inline bool good_pair(uint64_t index, unsigned s, unsigned t) {
   unsigned weights[20];
   for (unsigned k = 0; k < s; k++)

@@ -14,8 +14,8 @@ has no agreed numerical latency threshold yet; select it using measured setup,
 encoding, memory, I/O and deployment costs before accepting a scaling milestone.
 
 A [22-case HPC batch](../experiments/encoding-table/report.md) was submitted to fill
-the supported unrun encoding cells through s16. Entries remain N until completed
-results are reconciled; existing L entries are historical laptop evidence, not HPC
+the supported unrun encoding cells through s16. Entries remain “Not run” until completed
+results are reconciled; laptop entries are historical evidence, not HPC
 measurements. CPU jobs74194–74203 and GPU jobs74204–74215 are recorded in its
 submission manifest. The [three remaining CPU retries](../experiments/encoding-table/report.md#extended-cpu-retries)
 use fresh fill-02 paths and extended deadlines: packed s16 job74251, disk s15
@@ -24,12 +24,20 @@ job74252, disk s16 job74253 replace74202/74201/74203 respectively. The
 passes workflow/source/evidence review; independent large-cache reread is pending.
 Other table gaps still await their full result reconciliation.
 
+The active server-preprocessing target is the
+[resident GPU prototype](../experiments/gpu-s17-preprocessing/report.md), with
+width-selected kernels and same-node peer shards. Source implementation supports
+s17; bounded CUDA/peer validation and full-size admission are pending. Four H200s
+model96 GiB of product arrays each (384 GiB aggregate), excluding overhead. This
+prototype does not accept three-card shards; the older three-card figure is
+only an arithmetic capacity floor. CPU preprocessing is a reference path.
+
 ## Reading the tables
 
-All rows use m=2, t=5 and one field-element database. **R** means run on this HPC
-system, **L** means a historical laptop run, and **N** means not run. `~` marks a
-principal-array estimate, not measured peak memory. Memory is GiB unless stated;
-runtimes are seconds. `?` means unknown. Each mode column gives **memory; time**.
+All rows use m=2, t=5 and one field-element database. Every cell names its run
+status (HPC measured, laptop measured or not run), runtime units and memory
+measure. `~` marks an estimate rather than a measured peak. Unknown values are
+written explicitly; GPU counts in unrun cells are capacity projections.
 Preparation excludes discovery, cache loading/saving and database encoding.
 Ordinary encoding timings exclude output packing/storage unless marked **stored**;
 those stored timings include packing, writing and hashing.
@@ -99,7 +107,8 @@ sampling/root/reciprocal/identity procedure through s17 with explicit native
 execution and support-bound restart artifacts. Targeted bounded checks passed;
 full native/sanitizer validation is being retried after a test-fixture correction;
 there is no genuine s17 support/cache or measured full-size peak/runtime.
-CUDA execution remains s≤16; wider/multi-GPU preprocessing is still open.
+Legacy CUDA execution remains s≤16; the resident CUDA17 peer prototype is
+implemented in source with validation and full-size admission pending.
 The native fast product payload is384 GiB at s17, with Go arrays and overhead
 additional; a host peak around600 GiB or higher is an unmeasured scenario, not
 a capacity guarantee. No full-encoding measurement changes.
@@ -142,16 +151,50 @@ File streams code constants; packed file also writes packed output directly.
 Disk keeps transform work arrays in files but still returns an owning output.
 These are distinct modes; their savings cannot simply be added together.
 
-| s | Preprocessing: host RAM; preparation time | Original CPU | Reuse CPU | Compact CPU | File CPU | Packed file CPU, stored | Disk CPU |
-|---|---|---|---|---|---|---|---|
-| 10 | R ≤0.24 whole-command RSS; CPU 6.65 / GPU 1.53 | R ~17.7 MiB arrays; 0.308–0.310 | R ~13.7 MiB arrays; 0.313–0.319 | N ~13.1 MiB; ? | R ~8.6 MiB arrays; 0.311–0.332 | R ~9.6 MiB arrays; 0.325–0.327 | R ~5.7 MiB private +8 MiB files; 2.860 first /1.136 reused |
-| 14 | L 13.73; 2018 | R 5.594; 91.164 | R 3.595; 58.667–58.853 | R 2.526; 64.517–68.413 | R 2.214; 59.357–59.377 | N ~2.20; ? | N ~1.19 private +2 files; ? |
-| 15 | L 20.55; 11767† | R 18.465; 655.937 | N ~14.42; ? | N ~9.87; ? | N ~8.81; ? | N ~8.82; ? | N ~4.81 private +8 files; ? |
-| 16 | R 72.575; GPU 8415.469 | R 74.370; 1252.503 | R 58.351; 1247.173–1281.328 | R 39.409; 1289.759 | R 35.484; 1249.616 | N ~35.43; ? | R 19.469 RSS +32 files; 36759.871‡ |
-| 17 | N ≥~220.84 retained arrays, peak ?; ~12–24h preparation* | N ~491; ? | N ~427; ? | N ~287; ? | N ~270; ? | N ~270; ? | N ~78.4 private +256 files; ? |
-| 18 | N peak ?; ? | N ≥1024 transform arrays; ? | N ≥1024 transform arrays; ? | N ≥1024 transform arrays; ? | N ≥1024 transform arrays; ? | N ≥1024 transform arrays; ? | N ~317 private +1024 files; ? |
-| 19 | N peak ?; ? | N output alone 1024; ? | N output alone 1024; ? | N output alone 1024; ? | N output alone 1024; ? | N ≥4096 transform arrays; ? | N ~1279 private +4096 files; ? |
-| 20 | N peak ?; ? | N output alone 4096; ? | N output alone 4096; ? | N output alone 4096; ? | N output alone 4096; ? | N ≥16384 transform arrays; ? | N ~5162 private +16384 files; ? |
+### Preprocessing
+
+Each runtime below is **reusable preparation after discovery**; it is not database
+encoding time. Host memory excludes device allocations unless stated.
+
+| s | Run status | Host memory | Preparation runtime | Feasibility / evidence |
+|---|---|---|---|---|
+| 10 | HPC measured | Whole-command peak RSS: ≤0.24 GiB | CPU: 6.65 s; GPU: 1.53 s | Measured on this machine |
+| 14 | Laptop measured | Peak host process RSS: 13.73 GiB | 33 min 38 s | Measured on laptop |
+| 15 | Laptop measured | Peak host process RSS: 20.55 GiB | 3 h 16 min 7 s† | Measured on laptop |
+| 16 | HPC measured | Peak host process RSS: 72.575 GiB | GPU: 2 h 20 min 15.469 s | Measured on this machine |
+| 17 | Not run | Estimated retained host arrays: ≥~220.84 GiB<br>Peak RAM: unknown | GPU planning scenario: ~12–24 h after discovery*<br>Actual GPU/native CPU runtime: unknown | Resident GPU prototype: 4 H200s projected<br>CUDA/peer validation and full-run admission pending |
+| 18 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
+| 19 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
+| 20 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
+
+### CPU encoding: resident modes
+
+| s | Original CPU | Reuse CPU | Compact CPU |
+|---|---|---|---|
+| 10 | HPC measured<br>Runtime: 0.308 s–0.31 s<br>Array payload: ~17.7 MiB | HPC measured<br>Runtime: 0.313 s–0.319 s<br>Array payload: ~13.7 MiB | Not run<br>Runtime: unknown<br>Estimated array payload: ~13.1 MiB |
+| 14 | HPC measured<br>Runtime: 1 min 31.164 s<br>Peak process RSS: 5.594 GiB | HPC measured<br>Runtime: 58.667 s–58.853 s<br>Peak process RSS: 3.595 GiB | HPC measured<br>Runtime: 1 min 4.517 s–1 min 8.413 s<br>Peak process RSS: 2.526 GiB |
+| 15 | HPC measured<br>Runtime: 10 min 55.937 s<br>Peak process RSS: 18.465 GiB | Not run<br>Runtime: unknown<br>Estimated array payload: ~14.42 GiB | Not run<br>Runtime: unknown<br>Estimated array payload: ~9.87 GiB |
+| 16 | HPC measured<br>Runtime: 20 min 52.503 s<br>Peak process RSS: 74.370 GiB | HPC measured<br>Runtime: 20 min 47.173 s–21 min 21.328 s<br>Peak process RSS: 58.351 GiB | HPC measured<br>Runtime: 21 min 29.759 s<br>Peak process RSS: 39.409 GiB |
+| 17 | Not run<br>Runtime: unknown<br>Estimated array payload: ~491 GiB<br>Capacity: one-node RAM projected; full run unvalidated | Not run<br>Runtime: unknown<br>Estimated array payload: ~427 GiB<br>Capacity: one-node RAM projected; full run unvalidated | Not run<br>Runtime: unknown<br>Estimated array payload: ~287 GiB<br>Capacity: one-node RAM projected; full run unvalidated |
+| 18 | Not run<br>Runtime: unknown<br>Transform arrays: ≥1024 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Transform arrays: ≥1024 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Transform arrays: ≥1024 GiB<br>Capacity: exceeds one node's RAM |
+| 19 | Not run<br>Runtime: unknown<br>Output alone: 1024 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Output alone: 1024 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Output alone: 1024 GiB<br>Capacity: exceeds one node's RAM |
+| 20 | Not run<br>Runtime: unknown<br>Output alone: 4096 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Output alone: 4096 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Output alone: 4096 GiB<br>Capacity: exceeds one node's RAM |
+
+### CPU encoding: file and disk modes
+
+Packed-file runtime includes writing and hashing packed output. Other runtimes
+measure encoding; load, verification and separate packing are additional.
+
+| s | File CPU | Packed-file CPU (stored output) | Disk-backed CPU |
+|---|---|---|---|
+| 10 | HPC measured<br>Runtime: 0.311 s–0.332 s<br>Array payload: ~8.6 MiB | HPC measured<br>Runtime: 0.325 s–0.327 s<br>Array payload: ~9.6 MiB | HPC measured<br>Runtime: 2.86 s first; 1.136 s reused<br>Estimated private arrays: ~5.7 MiB<br>Work files: 8 MiB |
+| 14 | HPC measured<br>Runtime: 59.357 s–59.377 s<br>Peak process RSS: 2.214 GiB | Not run<br>Runtime: unknown<br>Estimated array payload: ~2.20 GiB | Not run<br>Runtime: unknown<br>Estimated private arrays: ~1.19 GiB<br>Work files: 2 GiB |
+| 15 | Not run<br>Runtime: unknown<br>Estimated array payload: ~8.81 GiB | Not run<br>Runtime: unknown<br>Estimated array payload: ~8.82 GiB | Not run<br>Runtime: unknown<br>Estimated private arrays: ~4.81 GiB<br>Work files: 8 GiB |
+| 16 | HPC measured<br>Runtime: 20 min 49.616 s<br>Peak process RSS: 35.484 GiB | Not run<br>Runtime: unknown<br>Estimated array payload: ~35.43 GiB | HPC measured<br>Runtime: 10 h 12 min 39.871 s‡<br>Peak process RSS: 19.469 GiB<br>Work files: 32 GiB<br>Peak tracked file residency: 59.271 GiB (additional) |
+| 17 | Not run<br>Runtime: unknown<br>Estimated array payload: ~270 GiB<br>Capacity: one-node RAM projected; full run unvalidated | Not run<br>Runtime: unknown<br>Estimated array payload: ~270 GiB<br>Capacity: one-node RAM projected; full run unvalidated | Not run<br>Runtime: unknown<br>Estimated private arrays: ~78.4 GiB<br>Work files: 256 GiB<br>Capacity: one-node RAM projected; full run unvalidated |
+| 18 | Not run<br>Runtime: unknown<br>Transform arrays: ≥1024 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Transform arrays: ≥1024 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Estimated private arrays: ~317 GiB<br>Work files: 1024 GiB<br>Capacity: one-node RAM projected; disk capacity unverified |
+| 19 | Not run<br>Runtime: unknown<br>Output alone: 1024 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Transform arrays: ≥4096 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Estimated private arrays: ~1279 GiB<br>Work files: 4096 GiB<br>Capacity: exceeds one node's RAM |
+| 20 | Not run<br>Runtime: unknown<br>Output alone: 4096 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Transform arrays: ≥16384 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Estimated private arrays: ~5162 GiB<br>Work files: 16384 GiB<br>Capacity: exceeds one node's RAM |
 
 * **Low-confidence s17 planning scenario, not measured or admitted:** allow
 roughly12–24h after discovery, or roughly24–48h for fresh discovery plus
@@ -190,7 +233,7 @@ CPU measurements use 16 cores at s10/s15 and 32 at s14/s16. Small-case payloads
 omit runtime/metadata. File-backed RSS does not include all filesystem cache:
 s16 file CPU reached **61.820 GiB RSS plus tracked cache** across the workflow,
 versus 35.484 GiB peak RSS. Disk-backed latency can vary substantially with
-filesystem/cache state; its full encoder is validated only at s10. File and disk
+filesystem/cache state; its full encoder is now measured at s10 and s16 (the s16 retained-cache reread is pending). File and disk
 capacity models do not establish storage throughput or runtime at larger sizes.
 
 Sources: [preparation s10](../experiments/gpu-products/report.md),
@@ -211,21 +254,41 @@ The s10 reuse comparison is from the matched CPU run in the GPU host-backed repo
 
 ## GPU encoding
 
-Each entry gives **device / host memory; encoding time; GPU count**.
+Every cell labels encoding runtime, device memory, host memory and GPU count.
 Stream uses the fast computation layout while streaming code constants. Packed
 stream also writes packed output directly. Host-backed keeps full arithmetic
 arrays in host RAM and transfers tiles; it is a slower memory alternative.
 
-| s | Original GPU | Reuse GPU | Compact GPU | Stream GPU | Packed stream GPU, stored | Host-backed GPU |
-|---|---|---|---|---|---|---|
-| 10 | R 16.6/9.1 MiB arrays; 0.104; 1 | R 12.6/9.1 MiB arrays; 0.103; 1 | R 10.6/9.1 MiB arrays; 0.108–0.109; 1 | N ~8/9.1 MiB; ?; 1 | N ~8/6.4 MiB; ?; 1 | R 0.534/13.4 MiB arrays; 1.606–1.617; 1 |
-| 14 | N ~4.19/2.38; ?; 1 | R 3.190/~2.38; 5.176–5.179; 1 | N ~2.19/2.38; ?; 1 | R 2.000/~2.38; 5.467–5.527; 1 | R 2.000/~1.39; 5.804–5.827; 1 | N <2 MiB/~3.38 GiB; ?; 1 |
-| 15 | N ~16.81/9.62; ?; 1 | N ~12.81/9.62; ?; 1 | N ~8.81/9.62; ?; 1 | N ~8/9.62; ?; 1 | N ~8/5.62; ?; 1 | N <2 MiB/~13.62 GiB; ?; 1 |
-| 16 | R 67.423/39.024; 60.216–85.954; 1 | R 51.427/39.031; 56.975–57.418; 1 | R 35.429/39.028; 93.332–101.526; 1 | R 32.005/39.029; 58.851–63.487; 1 | R 32.005/23.014; 65.485–66.227; 1 | N <2 MiB/~54.85 GiB; ?; 1 |
-| 17 | N ~526.42/220.84; ?; 4 | N ~398.42/220.84; ?; 3 | N ~270.42/220.84; ?; 2 | N ~256/220.84; ?; 2 | N ~256/156.84; ?; 2 | N few MiB/~348.84 GiB; ?; 1 |
-| 18 | N ~2109/889; ?; 16 | N ~1597/889; ?; 12 | N ~1085/889; ?; 8 | N ~1024/889; ?; 8 | N ~1024/633; ?; 8 | N few MiB/~1401 GiB; ?; 1 device, host exceeds node |
-| 19 | N ~8447/3581; ?; 61 | N ~6399/3581; ?; 46 | N ~4351/3581; ?; 31 | N ~4096/3581; ?; 30 | N ~4096/2557; ?; 30 | N few MiB/~5629 GiB; ?; 1 device, host exceeds node |
-| 20 | N ~33834/14420; ?; 241 | N ~33834/14420; ?; 241* | N ~25642/14420; ?; 183* | N ~24576/14420; ?; 176* | N ~24576/10324; ?; 176* | N few MiB/~30804 GiB; ?; 1 device, host exceeds node |
+### GPU encoding: resident modes
+
+Measured GPU memory is explicitly owned device allocation; measured host memory
+is sampled process RSS. `~` denotes estimated array payload. Multi-GPU payloads
+are aggregate, not per GPU. GPU counts in unrun cells are capacity projections,
+not implemented support; the feasibility discussion above still applies.
+
+| s | Original GPU | Reuse GPU | Compact GPU |
+|---|---|---|---|
+| 10 | HPC measured<br>Runtime: 0.104 s<br>GPU array payload: 16.6 MiB<br>Host array payload: 9.1 MiB<br>GPUs: 1 | HPC measured<br>Runtime: 0.103 s<br>GPU array payload: 12.6 MiB<br>Host array payload: 9.1 MiB<br>GPUs: 1 | HPC measured<br>Runtime: 0.108 s–0.109 s<br>GPU array payload: 10.6 MiB<br>Host array payload: 9.1 MiB<br>GPUs: 1 |
+| 14 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~4.19 GiB<br>Estimated host arrays: 2.38 GiB<br>GPUs: 1 | HPC measured<br>Runtime: 5.176 s–5.179 s<br>Owned GPU allocations: 3.190 GiB<br>Estimated host arrays: ~2.38 GiB<br>GPUs: 1 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~2.19 GiB<br>Estimated host arrays: 2.38 GiB<br>GPUs: 1 |
+| 15 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~16.81 GiB<br>Estimated host arrays: 9.62 GiB<br>GPUs: 1 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~12.81 GiB<br>Estimated host arrays: 9.62 GiB<br>GPUs: 1 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~8.81 GiB<br>Estimated host arrays: 9.62 GiB<br>GPUs: 1 |
+| 16 | HPC measured<br>Runtime: 1 min 0.216 s–1 min 25.954 s<br>Owned GPU allocations: 67.423 GiB<br>Peak host process RSS: 39.024 GiB<br>GPUs: 1 | HPC measured<br>Runtime: 56.975 s–57.418 s<br>Owned GPU allocations: 51.427 GiB<br>Peak host process RSS: 39.031 GiB<br>GPUs: 1 | HPC measured<br>Runtime: 1 min 33.332 s–1 min 41.526 s<br>Owned GPU allocations: 35.429 GiB<br>Peak host process RSS: 39.028 GiB<br>GPUs: 1 |
+| 17 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~526.42 GiB<br>Estimated host arrays: 220.84 GiB<br>GPUs: 4<br>Capacity: one node projected; implementation pending | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~398.42 GiB<br>Estimated host arrays: 220.84 GiB<br>GPUs: 3<br>Capacity: one node projected; implementation pending | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~270.42 GiB<br>Estimated host arrays: 220.84 GiB<br>GPUs: 2<br>Capacity: one node projected; implementation pending |
+| 18 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~2109 GiB<br>Estimated host arrays: 889 GiB<br>GPUs: 16<br>Capacity: multiple nodes required | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~1597 GiB<br>Estimated host arrays: 889 GiB<br>GPUs: 12<br>Capacity: multiple nodes required | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~1085 GiB<br>Estimated host arrays: 889 GiB<br>GPUs: 8<br>Capacity: multiple nodes required |
+| 19 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~8447 GiB<br>Estimated host arrays: 3581 GiB<br>GPUs: 61<br>Capacity: multiple nodes required | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~6399 GiB<br>Estimated host arrays: 3581 GiB<br>GPUs: 46<br>Capacity: multiple nodes required | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~4351 GiB<br>Estimated host arrays: 3581 GiB<br>GPUs: 31<br>Capacity: multiple nodes required |
+| 20 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~33834 GiB<br>Estimated host arrays: 14420 GiB<br>GPUs: 241<br>Capacity: exceeds this machine's GPUs or host RAM | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~33834 GiB<br>Estimated host arrays: 14420 GiB<br>GPUs: 241*<br>Capacity: exceeds this machine's GPUs or host RAM | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~25642 GiB<br>Estimated host arrays: 14420 GiB<br>GPUs: 183*<br>Capacity: exceeds this machine's GPUs or host RAM |
+
+### GPU encoding: streamed and host-backed modes
+
+| s | Stream GPU | Packed-stream GPU (stored output) | Host-backed GPU |
+|---|---|---|---|
+| 10 | Not run<br>Runtime: unknown<br>GPU array payload: ~8 MiB<br>Host array payload: 9.1 MiB<br>GPUs: 1 | Not run<br>Runtime: unknown<br>GPU array payload: ~8 MiB<br>Host array payload: 6.4 MiB<br>GPUs: 1 | HPC measured<br>Runtime: 1.606 s–1.617 s<br>GPU array payload: 0.534 MiB<br>Host array payload: 13.4 MiB<br>GPUs: 1 |
+| 14 | HPC measured<br>Runtime: 5.467 s–5.527 s<br>Owned GPU allocations: 2.000 GiB<br>Estimated host arrays: ~2.38 GiB<br>GPUs: 1 | HPC measured<br>Runtime: 5.804 s–5.827 s<br>Owned GPU allocations: 2.000 GiB<br>Estimated host arrays: ~1.39 GiB<br>GPUs: 1 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: <2 MiB<br>Estimated host arrays: ~3.38 GiB<br>GPUs: 1 |
+| 15 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~8 GiB<br>Estimated host arrays: 9.62 GiB<br>GPUs: 1 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~8 GiB<br>Estimated host arrays: 5.62 GiB<br>GPUs: 1 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: <2 MiB<br>Estimated host arrays: ~13.62 GiB<br>GPUs: 1 |
+| 16 | HPC measured<br>Runtime: 58.851 s–1 min 3.487 s<br>Owned GPU allocations: 32.005 GiB<br>Peak host process RSS: 39.029 GiB<br>GPUs: 1 | HPC measured<br>Runtime: 1 min 5.485 s–1 min 6.227 s<br>Owned GPU allocations: 32.005 GiB<br>Peak host process RSS: 23.014 GiB<br>GPUs: 1 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: <2 MiB<br>Estimated host arrays: ~54.85 GiB<br>GPUs: 1 |
+| 17 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~256 GiB<br>Estimated host arrays: 220.84 GiB<br>GPUs: 2<br>Capacity: one node projected; implementation pending | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~256 GiB<br>Estimated host arrays: 156.84 GiB<br>GPUs: 2<br>Capacity: one node projected; implementation pending | Not run<br>Runtime: unknown<br>Estimated GPU arrays: few MiB<br>Estimated host arrays: ~348.84 GiB<br>GPUs: 1<br>Capacity: one node projected; implementation pending |
+| 18 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~1024 GiB<br>Estimated host arrays: 889 GiB<br>GPUs: 8<br>Capacity: multiple nodes required | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~1024 GiB<br>Estimated host arrays: 633 GiB<br>GPUs: 8<br>Capacity: multiple nodes required | Not run<br>Runtime: unknown<br>Estimated GPU arrays: few MiB<br>Estimated host arrays: ~1401 GiB<br>GPUs: 1 (host exceeds node RAM) |
+| 19 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~4096 GiB<br>Estimated host arrays: 3581 GiB<br>GPUs: 30<br>Capacity: multiple nodes required | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~4096 GiB<br>Estimated host arrays: 2557 GiB<br>GPUs: 30<br>Capacity: multiple nodes required | Not run<br>Runtime: unknown<br>Estimated GPU arrays: few MiB<br>Estimated host arrays: ~5629 GiB<br>GPUs: 1 (host exceeds node RAM) |
+| 20 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~24576 GiB<br>Estimated host arrays: 14420 GiB<br>GPUs: 176*<br>Capacity: exceeds this machine's GPUs or host RAM | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~24576 GiB<br>Estimated host arrays: 10324 GiB<br>GPUs: 176*<br>Capacity: exceeds this machine's GPUs or host RAM | Not run<br>Runtime: unknown<br>Estimated GPU arrays: few MiB<br>Estimated host arrays: ~30804 GiB<br>GPUs: 1 device, host exceeds node<br>Capacity: exceeds this machine's GPUs or host RAM |
 
 Host estimates in multi-GPU rows are **aggregate**, not per node; distributing
 arrays or avoiding replication requires an explicit host as well as device design.

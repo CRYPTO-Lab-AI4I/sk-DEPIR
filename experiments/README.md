@@ -60,6 +60,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Resident GPU s17 preprocessing](gpu-s17-preprocessing/report.md): shared width
+  kernels, exact GPU classification/root/transform/product execution and same-node
+  peer shards; bounded CUDA/sanitizer validation pending.
+
 - [Shared s17 preprocessing](s17-preprocessing/report.md): width-selected native
   executor, shared sampling/root/reciprocal procedure, exact small references,
   high-bit kernels and support-bound checkpoint checks; validation pending.

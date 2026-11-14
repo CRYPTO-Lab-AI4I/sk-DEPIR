@@ -410,6 +410,7 @@ records the ordered investigation and user decision gates.
 The [shared preprocessing implementation](preprocessing.md) extends the m2
 discovery/root/reciprocal/identity flow through s17 in source. Native value width
 follows s; base coefficients and canonical code data retain existing conventions.
-Bounded validation is pending. Existing CUDA execution remains s≤16; wider and
-distributed GPU preparation and full-size admission are separate open gates.
+Bounded validation is pending. Legacy CUDA execution remains s≤16; the new resident width-selected peer
+preparation prototype exists in source with bounded CUDA/peer validation and
+full-size admission still pending.
 This adds no database/mask/grouped-storage or security acceptance claim.

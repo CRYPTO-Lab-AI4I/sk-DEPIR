@@ -213,3 +213,15 @@ transform count and arena size (see gpu_api.h). The total excludes admission.
 This is explicit and may be much slower: [validation and memory costs](../../experiments/gpu-host-encoding/report.md)
 passes complete s10 correctness:1.61 s, device560400 bytes, versus native CPU
 0.31–0.32 s. No full s16 runtime, host-backed packed sink or s17 support is claimed.
+
+## Resident GPU server preprocessing
+
+The [GPU preprocessing prototype](../../experiments/gpu-s17-preprocessing/report.md)
+implements width-selected kernels and1/2/4/8 same-node peer shards through s17,
+reusing the shared discovery/polynomial flow. Select `GPUDevices` explicitly in
+`PreprocessingOptions`; `GPUBytes` caps each card. Build the server library from
+both `matrix.cu` and `preparation.cu`. Common arithmetic/FFT/Taylor and sparse-plan
+headers avoid separate s17 algorithms. Ordinary clients remain CUDA-free.
+CUDA/peer validation is pending; source support is not a full s17 run or admission.
+The old empty-device CUDA32 adapter remains a reference through s16. GPU server
+execution is the active target; CPU preprocessing supplies correctness oracles.

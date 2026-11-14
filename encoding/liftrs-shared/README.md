@@ -781,5 +781,17 @@ The experimental [preprocessing guide](../../docs/preprocessing.md) describes
 the shared discovery/root/reciprocal procedure, width-selected native executor,
 explicit backend/budgets, ownership and trusted support/root artifacts. Source
 implementation extends through s17; bounded validation is pending and no full
-s17 cache or latency exists. CUDA execution remains s≤16; wider/multi-GPU server
-preparation is future work. Ordinary client builds remain CUDA-free.
+s17 cache or latency exists. The legacy CUDA adapter remains s≤16; the new resident GPU server prototype
+extends source support through s17 with validation pending. Ordinary client builds remain CUDA-free.
+
+## Resident GPU server preprocessing
+
+The [GPU preprocessing prototype](../../experiments/gpu-s17-preprocessing/report.md)
+implements width-selected kernels and1/2/4/8 same-node peer shards through s17,
+reusing the shared discovery/polynomial flow. Select `GPUDevices` explicitly in
+`PreprocessingOptions`; `GPUBytes` caps each card. Build the server library from
+both `matrix.cu` and `preparation.cu`. Common arithmetic/FFT/Taylor and sparse-plan
+headers avoid separate s17 algorithms. Ordinary clients remain CUDA-free.
+CUDA/peer validation is pending; source support is not a full s17 run or admission.
+The old empty-device CUDA32 adapter remains a reference through s16. GPU server
+execution is the active target; CPU preprocessing supplies correctness oracles.

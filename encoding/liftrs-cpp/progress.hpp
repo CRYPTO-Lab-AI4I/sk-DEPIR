@@ -32,17 +32,21 @@ private:
 };
 
 inline void progress_record(const char *phase, const char *work, const char *event,
-                            size_t completed, size_t total, uint64_t elapsed_ms) {
+                            size_t completed, size_t total, uint64_t elapsed_ms,
+                            const char *unit = nullptr) {
   char utc[32];
   const auto now = std::time(nullptr);
   std::tm value{};
   gmtime_r(&now, &value);
   std::strftime(utc, sizeof(utc), "%Y-%m-%dT%H:%M:%SZ", &value);
+  char unit_json[80] = "";
+  if (unit)
+    std::snprintf(unit_json, sizeof(unit_json), ",\"unit\":\"%s\"", unit);
   std::fprintf(stderr,
                "{\"utc\":\"%s\",\"phase\":\"%s\",\"work\":\"%s\",\"event\":\"%s\","
-               "\"completed\":%zu,\"total\":%zu,\"elapsed_ms\":%llu}\n",
+               "\"completed\":%zu,\"total\":%zu,\"elapsed_ms\":%llu%s}\n",
                utc, phase, work, event, completed, total,
-               static_cast<unsigned long long>(elapsed_ms));
+               static_cast<unsigned long long>(elapsed_ms), unit_json);
   std::fflush(stderr);
 }
 

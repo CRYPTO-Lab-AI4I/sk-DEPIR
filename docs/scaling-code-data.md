@@ -124,4 +124,4 @@ The experimental [server session](preprocessing.md) produces this same immutable
 code data after exact support discovery, normalized root construction and full
 P·G verification. It shares procedures across value widths and has support-bound
 restart artifacts. Source support extends through s17, with bounded validation
-pending; no genuine full s17 cache exists. CUDA17 remains unimplemented.
+pending; no genuine full s17 cache exists. The resident CUDA17 peer prototype now exists in source; validation remains pending.

@@ -13,7 +13,8 @@ import (
 // PreprocessingLimits admits explicit arrays, not total process RSS. MaxElements
 // caps the field grid before allocation. MaxHostArrayBytes caps each principal
 // Go array (including grid/support), not their sum or GC retention. NativeBytes
-// caps native payload/metadata; allocator/runtime/cache/headroom are additional.
+// caps the native CPU executor payload/metadata. The CUDA plugin adds bounded
+// host staging/temporary plans; allocator/runtime/cache/headroom are additional.
 // Full jobs need separately reviewed aggregate host/device/storage budgets.
 type PreprocessingLimits struct {
 	MaxElements, MaxHostArrayBytes, NativeBytes uint64
@@ -24,11 +25,14 @@ type PreprocessingLimits struct {
 // cuda; ordinary CPU client builds do not acquire a CUDA dependency. ProductCutoff
 // defaults to4096; smaller products use shared base-field polynomial kernels.
 type PreprocessingOptions struct {
-	Backend       string
-	Workers       int
-	Limits        PreprocessingLimits
-	GPUPath       string
-	GPUBytes      uint64
+	Backend  string
+	Workers  int
+	Limits   PreprocessingLimits
+	GPUPath  string
+	GPUBytes uint64
+	// GPUDevices explicitly selects the resident peer engine (1/2/4/8 cards).
+	// GPUBytes caps each selected card. Empty preserves the legacy CUDA32 adapter.
+	GPUDevices    []int
 	ProductCutoff int
 	Progress      func(PreprocessingProgress)
 }
@@ -112,7 +116,8 @@ type CodePreprocessor struct {
 }
 
 // NewCodePreprocessor constructs only bounded metadata. CPU native supports
-// s2..17, m2; the existing CUDA execution adapter remains s<=16. No automatic
+// s2..17, m2; explicit GPUDevices selects the resident CUDA width/peer prototype.
+// The legacy CUDA adapter remains s<=16. No automatic
 // CPU/streamed fallback is selected for an unavailable requested backend.
 func NewCodePreprocessor(spec Spec, options PreprocessingOptions) (*CodePreprocessor, error) {
 	s := spec.FieldDegree

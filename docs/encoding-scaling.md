@@ -23,7 +23,10 @@ an application layout can invoke several such encodings and reuse code-only setu
 
 ## Current execution plan for s17
 
-The user approved the [CPU-first/multi-GPU proposal](encoding-status.md#aim-for-s17).
+The [CPU baseline/multi-GPU client proposal](encoding-status.md#aim-for-s17) remains
+the encoding goal. **Server preprocessing proceeds GPU-first**: implement and
+validate resident width-selected multi-GPU preparation, using CPU arithmetic as
+a reference. Do not prioritize a full CPU preprocessing launch.
 Proceed with independent implementation work while the existing table-gap jobs
 run; their results remain untouched until the user's completion ping. Preserve
 s≤16 CPU/GPU paths and code-cache compatibility throughout.
@@ -33,7 +36,7 @@ s≤16 CPU/GPU paths and code-cache compatibility throughout.
 | 1. Width audit and scalar reference | Inventory coordinates, counts, field values and narrowing boundaries. Establish uint64 packed extension arithmetic through s20 against an independent oracle and s≤16 coordinate ordering, without a full-domain allocation | Scalar reference validated: job74290; width audit continues |
 | 2. Native CPU arithmetic and transforms | Port extension kernels/plans to uint64 while retaining uint32 base inputs/outputs. Compare small dense/Go/native cases, >32-bit boundary witnesses, sanitizer checks and s16 regressions; measure kernel overhead before whole-run forecasts | Bounded wide interface/matrix/oracle/race/sanitizer/CPU regressions validated (74330); Complete wide CPU integration passes bounded job74412; CPU schedule/modules deduplicated, validation pending; then larger kernel calibration |
 | 3. Representation and reusable code data | Extend coordinates/counts/cache formats and loaders explicitly. Keep old32-bit artifacts readable; reject truncation, unsupported widths and incompatible specifications. Verify hashes and round trips; preserve existing caches | Bounded format/loader/stream verification and shared Go/CPU regressions passed (74396); Native data integration passes bounded job74412; genuine wide cache remains |
-| 4. s17 preprocessing admission | Discover exact K, verify polynomial identities, budget peak host/device memory, storage and setup time. Compare CPU and multi-GPU/streamed preparation; obtain reviewed numeric budgets before full setup | Pending wider implementation; capacity is not admission |
+| 4. GPU s17 preprocessing | Implement width-selected GPU classification, roots, transforms/products and same-node resident peer shards; reuse shared sampling/polynomial flow. Validate independent small/wide cases, peer visibility and communication, then exact K/identities and reviewed full-size budgets | Source prototype implemented; bounded CUDA/peer validation pending; full run not admitted |
 | 5. First full CPU baseline | Prefer resident reuse (~427GiB principal arrays) on one large-RAM node when the admitted budget fits. Validate systematic values, independent curves, hashes and34GiB packed output; separately measure code loading, encoding, packing, verification and peaks | Pending verified s17 code data and host budget |
 | 6. Multi-GPU prototype and selection | Partition same-node arithmetic across GPUs; measure transfers, topology and synchronization. Compare fast-layout streamed constants (~256GiB aggregate/two-card capacity floor) with resident reuse (~398GiB/three-card floor), including all host/device lifetimes and headroom | Pending scalar/native interface; small prototypes may proceed before full preprocessing |
 | 7. Full GPU comparison | Validate exact canonical/packed agreement with the CPU baseline and independently check correctness. Compare complete measured latency and deployment cost; keep CPU available without CUDA | Pending measured multi-GPU design and admitted budgets |
@@ -1659,3 +1662,25 @@ job74253 completes and passes source/log/profile/phase evidence review:10h12m40s
 encoding,19.469GiB process RSS plus file cache,32GiB work files. Record in the
 [reference](encoding-status.md), independently reread retained cache in a bounded
 job, and keep the large time/I/O cost explicit. No full s17 run follows.
+
+### GPU preprocessing priority and table readability (SCALING-069)
+
+The active server route is the [resident GPU prototype](../experiments/gpu-s17-preprocessing/report.md).
+It shares value-width arithmetic, FFT/Taylor recurrences, sparse construction and
+membership logic; no independent s17 algorithm or CPU fallback. CUDA kernels cover
+classification, roots, base grid, extension transforms and products. One-node
+peer shards support1/2/4/8 cards in source; the available four-card nodes model
+96GiB/card for s17's384GiB product arrays, before metadata/runtime headroom.
+
+Validate one GPU with existing512MiB aggregate payload budget; request agreement
+before using two cards (256MiB/card, same aggregate memory) for peer/hash/tile
+comparison. Keep4CPU/8GiB host and600/900/1200s guards. Host simulation and metadata
+checks are not CUDA validation. After bounded proof, measure actual peer costs,
+calibrate larger resident GPU work within reviewed budgets and prepare the full
+checkpointed s17 GPU runner. CPU remains an oracle/client path, not the next full
+server preparation run. Cross-node GPU execution and full-size admission remain.
+
+The [reference](encoding-status.md) now splits the large tables and labels status,
+runtime units, host RSS versus arrays, device allocations, work files and cache
+explicitly. Formatting changes do not turn projections or unreviewed job output
+into measurements; s19–20 remain exploratory rows.

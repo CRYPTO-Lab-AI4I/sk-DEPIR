@@ -1,6 +1,7 @@
 // Optional CUDA transforms and complete online encoding; coordinates match CPU.
 #include "gpu_api.h"
 #include <cuda_runtime.h>
+#include "transform.cuh"
 #include <algorithm>
 #include <chrono>
 #include <cstdio>
@@ -27,40 +28,19 @@ struct Device {
  uint32_t* words(){return static_cast<uint32_t*>(p);}
  void swap(Device& other){std::swap(p,other.p);std::swap(bytes,other.bytes);}
 };
-__host__ __device__ uint32_t base_mul(uint32_t a,uint32_t b,const uint32_t* log,const uint32_t* powers){return a&&b?powers[log[a]+log[b]]:0;}
-__host__ __device__ uint32_t multiply(uint32_t a,uint32_t b,unsigned s,uint32_t delta,const uint32_t* log,const uint32_t* powers){
- if(!a||!b)return 0;if(a==1)return b;if(b==1)return a;
- uint32_t mask=(1u<<s)-1,aa=a&mask,ab=a>>s,ba=b&mask,bb=b>>s,ac=base_mul(aa,ba,log,powers),bd=base_mul(ab,bb,log,powers);
- return (ac^base_mul(delta,bd,log,powers))|((base_mul(aa^ab,ba^bb,log,powers)^ac)<<s);
-}
+__host__ __device__ uint32_t multiply(uint32_t a,uint32_t b,unsigned s,uint32_t delta,const uint32_t* log,const uint32_t* powers){return liftrs_cuda::multiply(a,b,s,delta,log,powers);}
 __global__ void transpose(const uint32_t* src,uint32_t* dst,size_t rows,size_t cols){
  size_t i=size_t(blockIdx.x)*blockDim.x+threadIdx.x;if(i>=rows*cols)return;dst[(i%cols)*rows+i/cols]=src[i];
 }
 __global__ void tiles(uint32_t* data,size_t n,const Matrix* matrix,bool columns,bool inverse,bool contiguous,const uint32_t* log,const uint32_t* powers,size_t first_vector){
- const auto& m=*matrix;const auto& p=columns?m.columns:m.rows;
+ const auto& m=*matrix;
  unsigned level=columns?m.dimension-m.split:m.split;
  size_t length=size_t(1)<<level,jobs=n/length,tile=size_t(blockIdx.x)*blockDim.x+threadIdx.x;
  if(tile>=jobs)return;
  // A row can stay in original layout: its coefficients use stride1. The fast
  // transposed layout instead gives adjacent threads adjacent addresses.
  size_t stride=contiguous?1:jobs,offset=contiguous?tile*length:tile;
- for(unsigned stage=0;stage<level;stage++){
-  unsigned k=inverse?stage:level-1-stage;size_t size=size_t(1)<<(k+1),half=size/2;
-  for(size_t group=0;group<length;group+=size){
-   uint32_t point=columns?0:uint32_t((tile+first_vector)*length);
-   for(unsigned bit=0;bit<level;bit++)if((group>>bit)&1)point^=p.basis[bit];
-   uint32_t c=0;for(unsigned bit=0;bit<2*m.s;bit++)if((point>>bit)&1)c^=p.values[k][bit];
-   if(!inverse){
-    for(size_t i=size;i-- > half;){uint32_t z=data[(group+i)*stride+offset];
-     for(unsigned t=0;t+1<p.count[k];t++)data[(group+i-half+p.degree[k][t])*stride+offset]^=multiply(p.coef[k][t],z,m.s,m.delta,log,powers);
-    }
-    for(size_t j=0;j<half;j++){size_t a=(group+j)*stride+offset,b=(group+half+j)*stride+offset;uint32_t v=data[b],left=data[a]^multiply(c,v,m.s,m.delta,log,powers);data[a]=left;data[b]=left^multiply(p.delta[k],v,m.s,m.delta,log,powers);}
-   }else{
-    for(size_t j=0;j<half;j++){size_t a=(group+j)*stride+offset,b=(group+half+j)*stride+offset;uint32_t v=multiply(p.inverse[k],data[a]^data[b],m.s,m.delta,log,powers);data[a]^=multiply(c,v,m.s,m.delta,log,powers);data[b]=v;}
-    for(size_t j=0;j<half;j++){uint32_t v=data[(group+half+j)*stride+offset];for(unsigned t=0;t+1<p.count[k];t++)data[(group+j+p.degree[k][t])*stride+offset]^=multiply(p.coef[k][t],v,m.s,m.delta,log,powers);}
-   }
-  }
- }
+ liftrs_cuda::vector_transform<uint32_t>(data,m,columns,inverse,length,tile,stride,offset,log,powers,first_vector);
 }
 // For linearized h, every lower degree d is <= half/2. Quotient correction
 // q[j] reads only the untouched upper half of q. A second gather computes the
@@ -68,25 +48,14 @@ __global__ void tiles(uint32_t* data,size_t n,const Matrix* matrix,bool columns,
 // no atomics or racy scatter updates are required.
 __global__ void taylor_pass(uint32_t* x,size_t n,const Matrix* matrix,unsigned k,bool quotient,const uint32_t* log,const uint32_t* powers){
  size_t index=size_t(blockIdx.x)*blockDim.x+threadIdx.x;if(index>=n/2)return;
- const auto& m=*matrix;const auto& p=m.taylor[k];size_t half=size_t(1)<<(m.split+k),j=index%half,offset=(index/half)*2*half;
- if(quotient){
-  if(j>=half/2)return;
-  uint32_t value=x[offset+half+j];
-  for(unsigned t=0;t<p.count;t++){auto d=p.degree[t];if(d>j)value^=multiply(p.coef[t],x[offset+2*half+j-d],m.s,m.delta,log,powers);}
-  x[offset+half+j]=value;
- }else{
-  uint32_t value=x[offset+j];
-  for(unsigned t=0;t<p.count;t++){auto d=p.degree[t];if(d<=j)value^=multiply(p.coef[t],x[offset+half+j-d],m.s,m.delta,log,powers);}
-  x[offset+j]=value;
- }
+ liftrs_cuda::taylor_update<uint32_t>(x,*matrix,k,index,quotient,log,powers);
 }
 __global__ void backed_accumulate(uint32_t* destination,const uint32_t* source,size_t count,size_t offset,uint32_t coefficient,unsigned s,uint32_t delta,const uint32_t* log,const uint32_t* powers){
  size_t i=size_t(blockIdx.x)*blockDim.x+threadIdx.x;if(i<count)destination[offset+i]^=multiply(coefficient,source[i],s,delta,log,powers);
 }
 __global__ void pointwise(uint32_t* a,const uint32_t* b,size_t n,unsigned s,uint32_t delta,const uint32_t* log,const uint32_t* powers){size_t i=size_t(blockIdx.x)*blockDim.x+threadIdx.x;if(i<n)a[i]=multiply(a[i],b[i],s,delta,log,powers);}
-__host__ __device__ uint32_t power(uint32_t x,size_t exponent,unsigned s,uint32_t delta,const uint32_t* log,const uint32_t* powers){
- uint32_t result=1;while(exponent){if(exponent&1)result=multiply(result,x,s,delta,log,powers);exponent>>=1;if(exponent)x=multiply(x,x,s,delta,log,powers);}return result;
-}
+__host__ __device__ uint32_t power(uint32_t x,size_t exponent,unsigned s,uint32_t delta,const uint32_t* log,const uint32_t* powers){return liftrs_cuda::power(x,uint64_t(exponent),s,delta,log,powers);}
+
 // A primitive omega makes destinations disjoint across all chunks. Source y is
 // immutable; scratch holds only per-chunk parity and one error flag after FFTs.
 template<class Value> __global__ void canonical_chunks(const Value* y,Value* word,size_t n,uint32_t omega,unsigned s,uint32_t delta,const uint32_t* log,const uint32_t* powers,uint32_t* parity,uint32_t* bad){

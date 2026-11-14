@@ -19,8 +19,11 @@ type cudaPreparationBackend struct {
 }
 
 func makeCUDAPreparationBackend(h ScalingCodeHeader, options PreprocessingOptions, native codePreparationBackend) (codePreparationBackend, error) {
+	if len(options.GPUDevices) != 0 {
+		return makeResidentCUDAPreparationBackend(h, options, native)
+	}
 	if h.Spec.FieldDegree > 16 {
-		return nil, fmt.Errorf("CUDA preprocessing still requires wider kernels and multi-GPU layout for s17")
+		return nil, fmt.Errorf("s17 CUDA preprocessing requires explicit GPUDevices and the resident preparation library")
 	}
 	_, extension, _, _ := orbitFields(h.Spec.FieldDegree, h.Polynomial)
 	base, _ := NewBinaryField(h.Spec.FieldDegree, h.Polynomial)
@@ -74,4 +77,38 @@ func (p *cudaPreparationBackend) DeviceOwnedBytes() uint64 { return p.engine.Own
 func (p *cudaPreparationBackend) Close() error {
 	p.engine.Close()
 	return p.codePreparationBackend.Close()
+}
+
+// The resident engine owns every heavy public-code kernel; the embedded native
+// metadata remains only for common bookkeeping/reference and has no grid arrays.
+type residentCUDAPreparationBackend struct {
+	*cuda.Preparation
+	native codePreparationBackend
+}
+
+func makeResidentCUDAPreparationBackend(h ScalingCodeHeader, options PreprocessingOptions, native codePreparationBackend) (codePreparationBackend, error) {
+	base, err := NewBinaryField(h.Spec.FieldDegree, h.Polynomial)
+	if err != nil {
+		return nil, err
+	}
+	table := newPreparationProducts(base)
+	engine, err := cuda.NewPreparation(cuda.PreparationOptions{Path: options.GPUPath, S: h.Spec.FieldDegree, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: table.log, Powers: table.powers, Devices: options.GPUDevices, MaxElements: h.N, DeviceBytes: options.GPUBytes})
+	if err != nil {
+		return nil, err
+	}
+	return &residentCUDAPreparationBackend{Preparation: engine, native: native}, nil
+}
+func (p *residentCUDAPreparationBackend) NativeOwnedBytes() uint64 {
+	return p.native.NativeOwnedBytes()
+}
+func (p *residentCUDAPreparationBackend) DeviceOwnedBytes() uint64 { return p.Preparation.OwnedBytes() }
+func (p *residentCUDAPreparationBackend) ReleaseProducts() {
+	if err := p.Preparation.ReleaseProducts(); err != nil {
+		panic(cppFailure{err})
+	}
+	p.native.ReleaseProducts()
+}
+func (p *residentCUDAPreparationBackend) Close() error {
+	p.Preparation.Close()
+	return p.native.Close()
 }

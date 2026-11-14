@@ -6,16 +6,17 @@ fastest measured server execution. CPU-only client encoding remains a separate
 requirement; the native preprocessing executor is an explicit backend, not an
 automatic fallback from GPU execution.
 
-The experimental `NewCodePreprocessor` session supports the m=2 algorithm through
-s=17 in source. **Targeted bounded preprocessing checks passed job74424; the broader native
-suite stopped at an unrelated memory-mode test-fixture error and is being retried.
-No full s=17 support discovery,
-preparation, cache or latency measurement exists.** The existing CUDA execution
-adapter supports s≤16. Selecting CUDA at s=17 returns an error: wider kernels and
-a distributed or explicitly chosen memory-saving layout remain future work.
+The experimental `NewCodePreprocessor` session implements the m=2 procedure
+through s17. Targeted native reference checks passed job74424; corrected broader
+validation remains pending. **GPU server execution is now the active target**:
+a width-selected resident peer engine implements the heavy preprocessing kernels
+on1/2/4/8 same-node GPUs in source. CUDA/peer validation is pending, and no full
+s17 discovery, preparation, cache, latency or admission exists. The legacy CUDA32
+adapter remains available through s16; the resident prototype is selected
+explicitly with nonempty `GPUDevices`. There is no CPU/host-backed fallback.
 See the [scaling reference](encoding-status.md),
 [plan](encoding-scaling.md#current-execution-plan-for-s17) and
-[validation report](../experiments/s17-preprocessing/report.md).
+[GPU validation report](../experiments/gpu-s17-preprocessing/report.md).
 
 ## One procedure, interchangeable execution
 
@@ -26,7 +27,8 @@ See the [scaling reference](encoding-status.md),
 | Root product, normalization, reciprocal and identity | `preprocessing_core.go: prepareCyclicPolynomials` | Verify the entire P·G=1+X^(N−1) before publication, including restart |
 | Small products and Newton reciprocal | Existing `orbit_product.go`, `preparation_products.go` | Base-field coefficients stay uint32; full convolution padding prevents prefix aliasing |
 | Transforms, large products, batched roots and enumeration | Native `preparation.hpp`, Go binding `preparation.go` | One C++ template selects uint32 through s16, uint64 at s17 |
-| CUDA32 transforms/products | `preprocessing_cuda.go` | Same sampling/polynomial flow; explicit library and device cap |
+| GPU discovery, roots, transforms/products | `liftrs-cuda/preparation.cu` and shared kernel headers | Same sampling/polynomial flow; width-selected peer shards and explicit per-device caps |
+| Legacy CUDA32 adapter | `preprocessing_cuda.go` | Retains existing explicit CUDA32 execution for reference/comparison |
 | Session, progress and publication boundary | `preprocessing.go` | Single caller; no retained Go pointers; returned Go data survives Close |
 | Support/root persistence | `preprocessing_artifacts.go` | Trusted manifests, checksums, exact EOF and support-bound restart |
 
@@ -94,6 +96,43 @@ canonical four/eight-byte width selected from s. No plaintext packing or masking
 changes. See [code data](scaling-code-data.md) and
 [representation conventions](data-representation.md).
 
+## Resident GPU selection
+
+Build the explicit server plugin with CUDA, leaving ordinary client builds alone:
+
+```sh
+nvcc -std=c++17 -O3 -lineinfo -arch=native -shared -Xcompiler=-fPIC \
+  encoding/liftrs-cuda/matrix.cu encoding/liftrs-cuda/preparation.cu \
+  -o /path/to/libliftrs-cuda.so
+```
+
+Set `Backend: "cuda"`, `GPUPath` to the verified plugin, `GPUDevices` to the
+visible device ordinals and `GPUBytes` to the cap **per selected GPU**. Keep
+`Workers`/host limits explicit as before. An empty device list retains the legacy
+CUDA32 adapter; it cannot execute s17. The resident engine selects uint32/uint64
+from s, uses all-pairs CUDA peer access and rejects unavailable topology/caps.
+
+For the bounded s8 example above, the GPU selection is:
+
+```go
+options.Backend = "cuda"
+options.GPUPath = "/path/to/libliftrs-cuda.so"
+options.GPUDevices = []int{0}
+options.GPUBytes = 512 << 20 // per-GPU cap; this example uses one card
+```
+
+Contexts/peer mappings are process-scoped; owned payloads are released on Close,
+and the calling thread's original CUDA device is restored. Errors drain queued
+work before borrowed Go pointers can be released.
+
+Large products use three sharded resident arrays, never host backing. At s17
+four cards model96 GiB each (384 GiB aggregate), with additional metadata and
+headroom. This power-of-two implementation does not accept three GPUs, despite
+three being an arithmetic capacity floor. GPU monomial classification and root
+warp scans are also implemented; host orchestration and small base-polynomial
+kernels reuse the existing shared code. See the report for communication and
+host staging costs; speedup and full-size peak remain unmeasured.
+
 ## Budgets, ownership and measurement
 
 Construction builds bounded metadata only. `MaxElements` must admit the complete
@@ -103,19 +142,20 @@ metadata; allocator/thread/runtime overhead remains additional. Caller arrays,
 Go garbage awaiting collection and filesystem cache also need aggregate headroom.
 These API limits do not authorize scheduler allocations or full-size runs.
 
-The fast native product keeps two operand arrays plus transpose scratch. At s17
+The CPU reference’s fast product keeps two operand arrays plus transpose scratch. At s17
 that is3·8·2^34 bytes =384 GiB, excluding Go arrays and metadata. A single native product returns its owned base-field result directly, avoiding
 a duplicate Go result/copy; overlap-add still accumulates when needed. Once products
 are dead, operands are released before allocating the final Go spectrum; scratch
 is reused without extra transforms or transfers. With the still-estimated s17 K,
 support, P and G add tens of GiB each, and a full Go identity result adds64 GiB.
 A host peak around600 GiB or higher is plausible, **not measured or bounded**.
-Full CUDA17 preparation would also need384 GiB device arrays in this layout,
-plus host data and communication buffers. GPU count alone does not implement it.
+The resident GPU prototype models384 GiB device arrays, partitioned over four
+cards, plus host data and communication costs. Its full-size peak remains
+unmeasured; source implementation and capacity alone do not admit a full run.
 
 No slower memory-saving mode is selected implicitly. Any future streaming,
 recomputation or disk trade-off must report memory, runtime, transfers and storage
-and remain explicit when the faster path fits. The new native route's speed is
+and remain explicit when the faster path fits. The CPU reference route's speed is
 unknown; it is not asserted faster than measured GPU-assisted s16 preparation.
 
 Use `Progress` for synchronous stage callbacks (do not reenter the session), or
