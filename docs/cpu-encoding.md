@@ -3,7 +3,8 @@
 This guide describes standalone mathematical Lift-RS encoding. Application
 partitioning, permutation/masks and storage publication are separate contracts;
 see [encoder requirements](encoder-contract.md). The CPU refactor is implemented
-but [validation is pending](../experiments/cpu-encoding-modules/report.md). Existing
+and [bounded correctness validation passes](../experiments/cpu-encoding-modules/report.md).
+Small s10 encoding medians are 1–3% slower; setup regressions remain under review. Existing
 full-size evidence remains through s16; no full s17 preparation/encoding is implied.
 
 ## One encoding algorithm, several storage strategies
@@ -122,5 +123,8 @@ The first refactor validation stopped at a test-fixture admission error: the
 s4,t2 code's padded prefix needs2L>N, which compact/file/disk modes correctly
 reject. The corrected all-mode fixture uses s4,t3; the denser code retains
 resident/wide correctness and explicit memory-mode rejection tests. Production
-layouts/guards are unchanged. Full regression and timing validation remain
-pending in the [retry](../experiments/cpu-encoding-modules/report.md).
+layouts/guards are unchanged. The [retry](../experiments/cpu-encoding-modules/report.md)
+passes regression, race and sanitizer checks. Matched s10 encoding medians are
+1–3% slower, while resident loading and file opening are 44% and 27% slower
+(about 2–3 ms each). These setup flags need profiling before claiming equivalent
+performance; small-code results do not establish full-size latency.

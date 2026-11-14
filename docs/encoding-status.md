@@ -21,13 +21,15 @@ submission manifest. The [three remaining CPU retries](../experiments/encoding-t
 use fresh fill-02 paths and extended deadlines: packed s16 job74251, disk s15
 job74252, disk s16 job74253 replace74202/74201/74203 respectively. The
 [s16 disk result](../experiments/encoding-table/report.md#completed-disk-s16) now
-passes workflow/source/evidence review; independent large-cache reread is pending.
-Other table gaps still await their full result reconciliation.
+passes complete source/evidence/large-cache reconciliation in job74447.
+All22 selected saved job records report passed; a separate bounded CPU-only
+checksum/cross-mode reconciliation will gate publication of the other cells.
 
 The active server-preprocessing target is the
 [resident GPU prototype](../experiments/gpu-s17-preprocessing/report.md), with
 width-selected kernels and same-node peer shards. Source implementation supports
-s17; bounded CUDA/peer validation and full-size admission are pending. Four H200s
+s17; one-GPU bounded validation passes. Two-GPU arithmetic agrees, but a
+peer-lifetime sanitizer failure needs a corrected retry. Full-size admission remains separate. Four H200s
 model96 GiB of product arrays each (384 GiB aggregate), excluding overhead. This
 prototype does not accept three-card shards; the older three-card figure is
 only an arithmetic capacity floor. CPU preprocessing is a reference path. GPU
@@ -65,7 +67,8 @@ budget; review current availability and agree budgets before larger submissions.
 GPU counts below are **capacity floors**, dividing aggregate array bytes by one
 card's memory and rounding up. They assume sharded arrays/constants rather than
 replication. Communication, staging, runtime and allocation headroom can require
-more GPUs. Multi-GPU execution is not implemented, and time cannot be estimated
+more GPUs. Multi-GPU client encoding is not implemented (bounded server
+preprocessing has a peer prototype), and time cannot be estimated
 by dividing a single-GPU timing by the card count.
 
 - s≤16: measured paths below fit this machine; unrun variants are capacity
@@ -99,8 +102,9 @@ evidence and2 binary identities reconcile. An explicit experimental
 resident code data to five native transforms and canonical output; bounded
 validation passes job74412 with438 source,24 evidence and18 cache identities
 reconciled. The [CPU implementation refactor](cpu-encoding.md) now shares that native
-sequence and supporting operations; cross-mode/sanitizer and matched timing
-validation is pending before further wide integration. No genuine s17 cache or full-size preprocessing/encoding
+sequence and supporting operations; bounded cross-mode/race/sanitizer validation
+passes job74448. Small s10 encoding medians are1–3% slower; setup costs increase
+27–44% (about2–3 ms), an unresolved regression requiring follow-up. No genuine s17 cache or full-size preprocessing/encoding
 run exists; full-size latency is unknown. Its reuse model still retains 8N
 output backing bytes (4N logical uint32 bytes), and older returned words require
 additional live RAM. No full-size capacity or timing estimate changes.
@@ -109,10 +113,11 @@ No full-encoding table cell changes from these kernel steps.
 The [shared preprocessing implementation](preprocessing.md) now extends the
 sampling/root/reciprocal/identity procedure through s17 with explicit native
 execution and support-bound restart artifacts. Targeted bounded checks passed;
-full native/sanitizer validation is being retried after a test-fixture correction;
+full bounded native/sanitizer validation passes corrected job74447;
 there is no genuine s17 support/cache or measured full-size peak/runtime.
 Legacy CUDA execution remains s≤16; the resident CUDA17 peer prototype is
-implemented in source with validation and full-size admission pending.
+implemented in source; one-GPU validation passes job74453, while job74454 needs
+a corrected peer-lifetime sanitizer retry. Full-size admission remains pending.
 The native fast product payload is384 GiB at s17, with Go arrays and overhead
 additional; a host peak around600 GiB or higher is an unmeasured scenario, not
 a capacity guarantee. No full-encoding measurement changes.
@@ -166,7 +171,7 @@ encoding time. Host memory excludes device allocations unless stated.
 | 14 | Laptop measured | Peak host process RSS: 13.73 GiB | 33 min 38 s | Measured on laptop |
 | 15 | Laptop measured | Peak host process RSS: 20.55 GiB | 3 h 16 min 7 s† | Measured on laptop |
 | 16 | HPC measured | Peak host process RSS: 72.575 GiB | GPU: 2 h 20 min 15.469 s | Measured on this machine |
-| 17 | Not run | Estimated retained host arrays: ≥~220.84 GiB<br>Peak RAM: unknown | GPU planning scenario: ~12–24 h after discovery*<br>Actual GPU/native CPU runtime: unknown | Resident GPU prototype: 4 H200s projected<br>CUDA/peer validation and full-run admission pending |
+| 17 | Not run | Estimated retained host arrays: ≥~220.84 GiB<br>Peak RAM: unknown | GPU planning scenario: ~12–24 h after discovery*<br>Actual GPU/native CPU runtime: unknown | Resident GPU prototype: 4 H200s projected<br>One-GPU bounded checks pass; peer sanitizer retry and full-run admission pending |
 | 18 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 | 19 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 | 20 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
@@ -237,7 +242,7 @@ CPU measurements use 16 cores at s10/s15 and 32 at s14/s16. Small-case payloads
 omit runtime/metadata. File-backed RSS does not include all filesystem cache:
 s16 file CPU reached **61.820 GiB RSS plus tracked cache** across the workflow,
 versus 35.484 GiB peak RSS. Disk-backed latency can vary substantially with
-filesystem/cache state; its full encoder is now measured at s10 and s16 (the s16 retained-cache reread is pending). File and disk
+filesystem/cache state; its full encoder is now measured at s10 and s16 (the s16 retained-cache reread passes job74447). File and disk
 capacity models do not establish storage throughput or runtime at larger sizes.
 
 Sources: [preparation s10](../experiments/gpu-products/report.md),
@@ -381,3 +386,19 @@ reconcile; independent large retained-cache reread is queued, not complete.
 Logical reads3.878TiB/writes0.808TiB explain a substantial I/O deployment cost;
 these are interface counts, not measured physical disk traffic. This slower
 memory mode remains explicit; it changes no default or full s17 admission.
+
+## Bounded preprocessing components (HPC, not full table rows)
+
+[GPU review](../experiments/gpu-s17-preprocessing/report.md#completed-bounded-gpu-review-and-peer-lifetime-correction-scaling-072)
+measures s17-width dense transforms at only2^22 values (32 MiB), on gnode02 H200
+NVL cards with NV6 peer connectivity. Warm/profiled/logged whole-call timings,
+one sample, include transfers. Full s17 preparation remains **Not run**.
+
+| GPUs | Forward runtime | Inverse runtime | Owned GPU memory (aggregate) | Validation |
+|---|---|---|---|---|
+| 1 | 183.296 ms | 158.537 ms | 65.57 MiB | Complete bounded job74453 passes |
+| 2 | 215.943 ms | 189.873 ms | 67.14 MiB | Hashes agree; job74454 failed peer-lifetime memcheck; corrected retry required |
+
+Two GPUs are17.8%/19.8% slower on this small component. Extra cards are not ruled
+out for larger workloads. Driver/context memory is additional; sampled command
+host RSS below1 GiB includes builds and is not isolated preparation memory.

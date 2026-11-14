@@ -7,10 +7,12 @@ requirement; the native preprocessing executor is an explicit backend, not an
 automatic fallback from GPU execution.
 
 The experimental `NewCodePreprocessor` session implements the m=2 procedure
-through s17. Targeted native reference checks passed job74424; corrected broader
-validation remains pending. **GPU server execution is now the active target**:
+through s17. Corrected bounded native/reference, regression, race and sanitizer
+validation passes job74447. **GPU server execution is now the active target**:
 a width-selected resident peer engine implements the heavy preprocessing kernels
-on1/2/4/8 same-node GPUs in source. CUDA/peer validation is pending, and no full
+on1/2/4/8 same-node GPUs in source. One-GPU checks pass job74453; two-GPU
+arithmetic agrees in job74454, but peer-link lifetime sanitizer validation needs
+a corrected retry. No full
 s17 discovery, preparation, cache, latency or admission exists. The legacy CUDA32
 adapter remains available through s16; the resident prototype is selected
 explicitly with nonempty `GPUDevices`. There is no CPU/host-backed fallback.
@@ -107,7 +109,7 @@ changes. See [code data](scaling-code-data.md) and
 Build the explicit server plugin with CUDA, leaving ordinary client builds alone:
 
 ```sh
-nvcc -std=c++17 -O3 -lineinfo -arch=native -shared -Xcompiler=-fPIC \
+nvcc -std=c++17 -O3 -lineinfo -arch=native -shared -Xcompiler=-fPIC,-pthread \
   encoding/liftrs-cuda/matrix.cu encoding/liftrs-cuda/preparation.cu \
   -o /path/to/libliftrs-cuda.so
 ```
@@ -127,7 +129,9 @@ options.GPUDevices = []int{0}
 options.GPUBytes = 512 << 20 // per-GPU cap; this example uses one card
 ```
 
-Contexts/peer mappings are process-scoped; owned payloads are released on Close,
+Contexts are process-scoped. Peer links are leased across live engines; Close
+releases owned payloads and the last owned link lease without disabling borrowed
+external mappings,
 and the calling thread's original CUDA device is restored. Errors drain queued
 work before borrowed Go pointers can be released.
 

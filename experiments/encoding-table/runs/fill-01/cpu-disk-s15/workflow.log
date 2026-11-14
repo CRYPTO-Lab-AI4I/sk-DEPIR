@@ -1,0 +1,3 @@
+=== RUN   TestCPPDiskOnlineWorkflow
+    s15_firstuse_probe_test.go:122: load-online 5.975014884s
+    s15_firstuse_probe_test.go:122: online-setup 2.479µs

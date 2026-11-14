@@ -6,6 +6,8 @@
 #include "transform.cuh"
 #include <array>
 #include <cuda_runtime.h>
+#include <map>
+#include <mutex>
 #include <unordered_map>
 #include <variant>
 
@@ -24,6 +26,76 @@ struct CurrentDevice {
   ~CurrentDevice() {
     if (valid)
       cudaSetDevice(previous);
+  }
+};
+// Peer state belongs to CUDA primary contexts, not a field-width
+// specialization. Share a lease across coexisting engines and undo only links
+// this plugin owns.
+struct PeerRegistry {
+  struct Entry {
+    size_t references;
+    bool owned;
+  };
+  std::mutex mutex;
+  std::map<std::pair<int, int>, Entry> links;
+};
+PeerRegistry &peer_registry() {
+  static PeerRegistry state;
+  return state;
+}
+class PeerLease {
+  std::vector<std::pair<int, int>> links_;
+
+public:
+  PeerLease() = default;
+  PeerLease(const PeerLease &) = delete;
+  PeerLease &operator=(const PeerLease &) = delete;
+  void acquire(int from, int to) {
+    auto &registry = peer_registry();
+    std::lock_guard<std::mutex> lock(registry.mutex);
+    const auto key = std::make_pair(from, to);
+    links_.push_back(key);
+    auto found = registry.links.find(key);
+    if (found != registry.links.end()) {
+      found->second.references++;
+      return;
+    }
+    try {
+      auto entry =
+          registry.links.emplace(key, PeerRegistry::Entry{1, false}).first;
+      check(cudaSetDevice(from));
+      const auto result = cudaDeviceEnablePeerAccess(to, 0);
+      if (result == cudaErrorPeerAccessAlreadyEnabled) {
+        // External mappings are borrowed, never disabled by our last lease.
+        cudaGetLastError();
+      } else {
+        check(result);
+        entry->second.owned = true;
+      }
+    } catch (...) {
+      registry.links.erase(key);
+      links_.pop_back();
+      throw;
+    }
+  }
+  ~PeerLease() {
+    if (links_.empty())
+      return;
+    CurrentDevice restore;
+    auto &registry = peer_registry();
+    std::lock_guard<std::mutex> lock(registry.mutex);
+    for (auto it = links_.rbegin(); it != links_.rend(); it++) {
+      auto entry = registry.links.find(*it);
+      if (entry == registry.links.end())
+        continue;
+      if (--entry->second.references == 0) {
+        if (entry->second.owned) {
+          cudaSetDevice(it->first);
+          cudaDeviceDisablePeerAccess(it->second);
+        }
+        registry.links.erase(entry);
+      }
+    }
   }
 };
 struct Buffer {
@@ -76,6 +148,8 @@ template <class Word> class Preparation {
   Word omega_;
   size_t maximum_;
   uint64_t cap_;
+  // Member destruction frees buffers before releasing their peer-access leases.
+  PeerLease peers_;
   std::vector<std::unique_ptr<Card>> cards_;
   size_t active_domain_ = 0;
   uint64_t good_count_ = 0;
@@ -413,11 +487,7 @@ public:
                                      std::to_string(c.id) + " -> " +
                                      std::to_string(other->id) +
                                      "; no fallback");
-          const auto result = cudaDeviceEnablePeerAccess(other->id, 0);
-          if (result == cudaErrorPeerAccessAlreadyEnabled)
-            cudaGetLastError();
-          else
-            check(result);
+          peers_.acquire(c.id, other->id);
         }
       size_t free = 0, total = 0;
       check(cudaMemGetInfo(&free, &total));

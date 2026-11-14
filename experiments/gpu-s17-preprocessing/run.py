@@ -53,7 +53,7 @@ def main():
                         'scratch_guard_bytes':4<<30,'worker_seconds':600,'controller_seconds':900,'slurm_seconds':1200,'gpus':args.devices,'aggregate_device_cap_bytes':512<<20,'per_device_cap_bytes':(512<<20)//args.devices},
               'cuda_visible_devices':env.get('CUDA_VISIBLE_DEVICES'),
               'slurm_job_gpus':env.get('SLURM_JOB_GPUS'),'visible_ordinals':list(range(args.devices)),
-              'commands':[]}
+              'peer_lifetime_check':True,'commands':[]}
     def save():
         (out/'results.json').write_text(json.dumps(record,indent=2)+'\n')
     def event(label, kind, **values):
@@ -105,7 +105,7 @@ def main():
         run('gpu',['nvidia-smi','--query-gpu=name,uuid,driver_version,memory.total,compute_cap','--format=csv'])
         run('topology',['nvidia-smi','topo','-m'])
         run('nvcc',['nvcc','--version'])
-        run('cuda-build',['nvcc','-std=c++17','-O3','-lineinfo','-arch=native','-shared','-Xcompiler=-fPIC','encoding/liftrs-cuda/matrix.cu','encoding/liftrs-cuda/preparation.cu','-o',str(library)],source)
+        run('cuda-build',['nvcc','-std=c++17','-O3','-lineinfo','-arch=native','-shared','-Xcompiler=-fPIC,-pthread','encoding/liftrs-cuda/matrix.cu','encoding/liftrs-cuda/preparation.cu','-o',str(library)],source)
         window=cache/'monomial-windows'
         run('window-build',['nvcc','-std=c++17','-O3','-lineinfo','-arch=native','-Iencoding/liftrs-cuda','experiments/gpu-s17-preprocessing/check.cu','-o',str(window)],source)
         run('wide-monomial-windows',[str(window)],source)
@@ -116,13 +116,13 @@ def main():
                    PIR_GPU_PREPARATION_DEVICES=','.join(str(d) for d in range(args.devices)),
                    PIR_GPU_PREPARATION_CAP=str((512<<20)//args.devices),
                    PIR_GPU_PREPARATION_CACHE=str(fixtures),PIR_GPU_PREPARATION_OUT=str(out))
-        target='^TestGPUPreparation(Small|Wide|Tile)$'
+        target='^TestGPUPreparation(Small|Wide|Tile|PeerLifetime)$'
         env['LIFTRS_CPU_PROGRESS']='1'
         run('gpu-preprocessing',[str(gpu),'-test.run='+target,'-test.v','-test.timeout=10m','-test.cpuprofile='+str(out/'gpu-preprocessing.pprof')],package)
         env.pop('LIFTRS_CPU_PROGRESS')
         env.pop('PIR_GPU_PREPARATION_CACHE');env.pop('PIR_GPU_PREPARATION_OUT')
         if not shutil.which('compute-sanitizer'):raise RuntimeError('compute-sanitizer required for GPU validation')
-        run('memcheck',['compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',str(gpu),'-test.run=^TestGPUPreparation(Small|Wide)$','-test.v','-test.timeout=10m'],package)
+        run('memcheck',['compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',str(gpu),'-test.run=^TestGPUPreparation(Small|Wide|PeerLifetime)$','-test.v','-test.timeout=10m'],package)
         env['PIR_CUDA_ONLINE_OUT']=str(out);env['PIR_CUDA_ONLINE_CACHE']=str(fixtures)
         run('legacy-online',[str(gpu),'-test.run=^TestCUDAOnlineEncoding$','-test.v','-test.timeout=10m','-test.cpuprofile='+str(out/'legacy-online.pprof')],package)
         env.pop('PIR_CUDA_ONLINE_OUT');env.pop('PIR_CUDA_ONLINE_CACHE')

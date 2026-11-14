@@ -5,7 +5,7 @@ mathematical order, canonical representation, mode defaults and principal-array
 accounting. [Implementation guide](../../docs/cpu-encoding.md), [controller](run.py),
 [launcher](run.sbatch), [analyzer](analyze.py), [direct helper checks](check.cpp),
 [cross-mode/lifetime tests and benchmark](../../encoding/liftrs-shared/cpu_modules_test.go).
-Validation is **pending job74419**, source checkpoint `c3544fd`;
+Initial validation used job74419, source checkpoint `c3544fd`;
 [submission](submission.json). No speedup, full-size equivalence or s17 result is claimed.
 The run manifest records exact revision, source hashes, commands, hardware and
 resource policy. Results will be under `runs/modules-01/results.json`.
@@ -140,3 +140,20 @@ remain pending; no performance equivalence is claimed from the failed attempt.
 
 Retry job74448 is submitted ([record](retry-submission.json)), source
 `2a2095e0b287a7751c9399d464285ea7a32aa02a`. No monitoring; results in `runs/modules-02/` await a completion ping.
+
+## Completed corrected validation (SCALING-072)
+
+Job74448 on gnode02 passes [reconciled validation](runs/modules-02/analysis.json):
+479 source,56 evidence,31 retained-cache and141 baseline-source identities.
+[Exact commands, timings and provenance](runs/modules-02/results.json) come from
+[the runner](run.py); [Slurm log](slurm-74448.log) and all logs/profiles remain beside
+these results. Go/native suites, vet, race, ASan/UBSan and direct kernels pass.
+
+Matched, unlogged s10 encoding median new/old ratios range1.010–1.028 across
+resident, compact, file, disk, packed, hybrid and wide modes. Setup flags exceed
+the1.2 review threshold: resident loading5.826→8.387 ms (1.440×), file opening
+7.714→9.789 ms (1.269×). These are unresolved regressions, not evidence of equal
+performance or full-size slowdown. Keep setup profiling as a follow-up; GPU
+server preprocessing remains the active scaling priority. Sampled command RSS
+peaks at about0.982 GiB including builds; this is not isolated encoder RAM.
+No fulls16/s17 rerun, memory-mode change or preprocessing admission follows.

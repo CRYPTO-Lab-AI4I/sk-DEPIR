@@ -1,0 +1,23 @@
+========= COMPUTE-SANITIZER
+=== RUN   TestGPUPreparationSmall
+=== RUN   TestGPUPreparationSmall/s3
+=== RUN   TestGPUPreparationSmall/s4
+=== RUN   TestGPUPreparationSmall/s6
+=== RUN   TestGPUPreparationSmall/s8
+--- PASS: TestGPUPreparationSmall (35.11s)
+    --- PASS: TestGPUPreparationSmall/s3 (1.87s)
+    --- PASS: TestGPUPreparationSmall/s4 (1.41s)
+    --- PASS: TestGPUPreparationSmall/s6 (3.97s)
+    --- PASS: TestGPUPreparationSmall/s8 (27.86s)
+=== RUN   TestGPUPreparationWide
+========= Program hit cudaErrorPeerAccessAlreadyEnabled (error 704) due to "peer access is already enabled" on CUDA API call to cudaGetLastError.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: (anonymous namespace)::Preparation<unsigned long>::Preparation(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [0x38873] in libliftrs-cuda.so
+=========         Host Frame: pg_create [0x22284] in libliftrs-cuda.so
+=========         Host Frame: _cgo_7d1981d68c36_Cfunc_pg_bridge_open in cgo-gcc-prolog:178 [0x317631] in shared-cuda.test
+=========         Host Frame: runtime.asmcgocall.abi0 in asm_amd64.s:970 [0x98443] in shared-cuda.test
+========= 
+--- PASS: TestGPUPreparationWide (1.52s)
+PASS
+========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+========= ERROR SUMMARY: 1 error

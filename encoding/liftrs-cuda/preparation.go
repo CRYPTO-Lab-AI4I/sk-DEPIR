@@ -32,8 +32,9 @@ type PreparationOptions struct {
 
 // Preparation is a synchronous, serialized, width-selected GPU preprocessing
 // executor. It owns device payloads and no borrowed Go pointer. Results remain
-// Go-owned after Close. Do not copy a live engine. CUDA contexts/peer mappings
-// are process-scoped; Close releases this engine's allocations, not the contexts.
+// Go-owned after Close. Do not copy a live engine. CUDA contexts are process-
+// scoped. Peer access is leased across live engines: Close releases payloads and
+// the last owned link lease, while leaving externally enabled mappings alone.
 type Preparation struct {
 	mu      sync.Mutex
 	bridge  *C.pg_bridge

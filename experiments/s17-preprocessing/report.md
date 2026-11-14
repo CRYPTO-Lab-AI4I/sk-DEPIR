@@ -114,3 +114,19 @@ separate from preprocessing measurements. Results and profiles go to
 
 Retry job74447 is submitted ([record](retry-submission.json)), source
 `2a2095e0b287a7751c9399d464285ea7a32aa02a`. No monitoring; results in `runs/native-02/` await a completion ping.
+
+## Completed corrected validation (SCALING-072)
+
+Job74447 on gnode02 passes [analysis](runs/native-02/analysis.json), reconciling
+479 source,29 evidence and29 retained-cache identities. See [runner](run.py),
+[exact commands/provenance](runs/native-02/results.json) and [Slurm log](slurm-74447.log).
+Independent small preparation/restart and high-bit s17 checks, Go/native suites,
+CUDA build compatibility, vet/race and ASan/UBSan pass. Sampled command RSS peaks
+at about0.981 GiB including builds, not a full preprocessing memory measurement.
+
+The separately timed `disk-s16-reconcile` command passes in156.9 seconds:
+all411 historical source,17 evidence and5 retained large-cache identities of
+job74253 now independently reconcile. [Disk analysis](../encoding-table/runs/fill-02/cpu-disk-s16/analysis.json)
+confirms the previously published result without rerunning encoding. This resolves
+the pending large-cache reread; historical review files remain unchanged.
+No complete s17 preparation/cache exists. GPU remains the server execution target.

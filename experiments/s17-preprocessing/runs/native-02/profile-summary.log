@@ -1,0 +1,56 @@
+File: shared-cpp.test
+Build ID: 17d667bd9c5cb9fc7ae689a0e3e27943a8d4b9dd
+Type: cpu
+Time: 2026-11-14 09:38:47 CET
+Duration: 4.09s, Total samples = 5.18s (126.52%)
+Showing nodes accounting for 5.09s, 98.26% of 5.18s total
+Dropped 36 nodes (cum <= 0.03s)
+      flat  flat%   sum%        cum   cum%
+     2.72s 52.51% 52.51%      2.72s 52.51%  runtime.cgocall
+     1.12s 21.62% 74.13%      1.12s 21.62%  [shared-cpp.test]
+     0.28s  5.41% 79.54%      0.55s 10.62%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).Recurse
+     0.27s  5.21% 84.75%      0.54s 10.42%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     0.25s  4.83% 89.58%      0.25s  4.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.14s  2.70% 92.28%      0.28s  5.41%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.12s  2.32% 94.59%      0.12s  2.32%  [libc.so.6]
+     0.10s  1.93% 96.53%      0.10s  1.93%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Product.Mul
+     0.06s  1.16% 97.68%      0.17s  3.28%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Field.mul
+     0.02s  0.39% 98.07%      0.57s 11.00%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+     0.01s  0.19% 98.26%      0.32s  6.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.discoverSupport[go.shape.uint32]
+         0     0% 98.26%      0.11s  2.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Preparation).Apply32
+         0     0% 98.26%      0.05s  0.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Preparation).BaseGrid32
+         0     0% 98.26%      2.44s 47.10%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Preparation).Product
+         0     0% 98.26%      0.10s  1.93%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Preparation).Spectrum32
+         0     0% 98.26%      0.10s  1.93%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Preparation).spectrum
+         0     0% 98.26%      0.16s  3.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Preparation).transform
+         0     0% 98.26%      0.11s  2.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_preparation_apply
+         0     0% 98.26%      0.05s  0.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_preparation_grid
+         0     0% 98.26%      2.44s 47.10%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_preparation_product
+         0     0% 98.26%      0.10s  1.93%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_preparation_spectrum
+         0     0% 98.26%      0.17s  3.28%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CodePreprocessor).Discover
+         0     0% 98.26%      0.16s  3.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CodePreprocessor).Discover.func2
+         0     0% 98.26%      0.05s  0.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CodePreprocessor).Discover.func2.1
+         0     0% 98.26%      0.11s  2.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CodePreprocessor).Discover.func2.2
+         0     0% 98.26%      2.54s 49.03%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CodePreprocessor).Prepare
+         0     0% 98.26%      0.10s  1.93%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CodePreprocessor).Prepare.func3
+         0     0% 98.26%      0.95s 18.34%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclic
+         0     0% 98.26%      0.99s 19.11%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclicFFT
+         0     0% 98.26%      0.19s  3.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0% 98.26%      0.36s  6.95%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0% 98.26%      0.38s  7.34%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*factorProductBuilder).finish
+         0     0% 98.26%      0.38s  7.34%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*factorProductBuilder).flush
+         0     0% 98.26%      2.82s 54.44%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+         0     0% 98.26%      0.27s  5.21%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationReporter).run
+         0     0% 98.26%      0.17s  3.28%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.DiscoverOrbit
+         0     0% 98.26%      3.87s 74.71%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestPreprocessingNative.func1
+         0     0% 98.26%      0.17s  3.28%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.discoverOrbitBasis
+         0     0% 98.26%      0.15s  2.90%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.discoverOrbitBasis.func1
+         0     0% 98.26%      0.16s  3.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newProductTree
+         0     0% 98.26%      0.79s 15.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyDiv
+         0     0% 98.26%      1.67s 32.24%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyInverse
+         0     0% 98.26%      3.39s 65.44%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0% 98.26%      2.44s 47.10%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.preparationConvolver.convolve
+         0     0% 98.26%      2.44s 47.10%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.prepareCyclicPolynomials
+         0     0% 98.26%      0.38s  7.34%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rootProduct
+         0     0% 98.26%      1.25s 24.13%  runtime._ExternalCode
+         0     0% 98.26%      3.90s 75.29%  testing.tRunner

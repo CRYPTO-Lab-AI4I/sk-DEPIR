@@ -34,9 +34,9 @@ s≤16 CPU/GPU paths and code-cache compatibility throughout.
 | Step | Work and acceptance gate | Status |
 |---|---|---|
 | 1. Width audit and scalar reference | Inventory coordinates, counts, field values and narrowing boundaries. Establish uint64 packed extension arithmetic through s20 against an independent oracle and s≤16 coordinate ordering, without a full-domain allocation | Scalar reference validated: job74290; width audit continues |
-| 2. Native CPU arithmetic and transforms | Port extension kernels/plans to uint64 while retaining uint32 base inputs/outputs. Compare small dense/Go/native cases, >32-bit boundary witnesses, sanitizer checks and s16 regressions; measure kernel overhead before whole-run forecasts | Bounded wide interface/matrix/oracle/race/sanitizer/CPU regressions validated (74330); Complete wide CPU integration passes bounded job74412; CPU schedule/modules deduplicated, validation pending; then larger kernel calibration |
+| 2. Native CPU arithmetic and transforms | Port extension kernels/plans to uint64 while retaining uint32 base inputs/outputs. Compare small dense/Go/native cases, >32-bit boundary witnesses, sanitizer checks and s16 regressions; measure kernel overhead before whole-run forecasts | Bounded wide interface/matrix/oracle/race/sanitizer/CPU regressions validated (74330); Complete wide CPU integration passes bounded job74412; CPU schedule/modules deduplicated; bounded correctness passes74448, small setup regression flagged; then larger kernel calibration |
 | 3. Representation and reusable code data | Extend coordinates/counts/cache formats and loaders explicitly. Keep old32-bit artifacts readable; reject truncation, unsupported widths and incompatible specifications. Verify hashes and round trips; preserve existing caches | Bounded format/loader/stream verification and shared Go/CPU regressions passed (74396); Native data integration passes bounded job74412; genuine wide cache remains |
-| 4. GPU s17 preprocessing | Implement width-selected GPU classification, roots, transforms/products and same-node resident peer shards; reuse shared sampling/polynomial flow. Validate independent small/wide cases, peer visibility and communication, then exact K/identities and reviewed full-size budgets | Source prototype implemented; bounded CUDA/peer validation pending; full run not admitted |
+| 4. GPU s17 preprocessing | Implement width-selected GPU classification, roots, transforms/products and same-node resident peer shards; reuse shared sampling/polynomial flow. Validate independent small/wide cases, peer visibility and communication, then exact K/identities and reviewed full-size budgets | Source prototype implemented; one-GPU checks pass74453; peer sanitizer retry required after74454; full run not admitted |
 | 5. First full CPU baseline | Prefer resident reuse (~427GiB principal arrays) on one large-RAM node when the admitted budget fits. Validate systematic values, independent curves, hashes and34GiB packed output; separately measure code loading, encoding, packing, verification and peaks | Pending verified s17 code data and host budget |
 | 6. Multi-GPU prototype and selection | Partition same-node arithmetic across GPUs; measure transfers, topology and synchronization. Compare fast-layout streamed constants (~256GiB aggregate/two-card capacity floor) with resident reuse (~398GiB/three-card floor), including all host/device lifetimes and headroom | Pending scalar/native interface; small prototypes may proceed before full preprocessing |
 | 7. Full GPU comparison | Validate exact canonical/packed agreement with the CPU baseline and independently check correctness. Compare complete measured latency and deployment cost; keep CPU available without CUDA | Pending measured multi-GPU design and admitted budgets |
@@ -1706,3 +1706,28 @@ by adding ordinals to the current same-node device list. Preserve explicit
 reviewed numeric budgets; the new performance policy does not infer unbounded
 allocations or silently change current job requests. Jobs already submitted are
 not monitored, modified or replaced by this documentation/test update.
+
+### Completed validation and next GPU work (SCALING-072)
+
+Jobs74447/74448 pass native preprocessing and CPU refactor correctness/race/
+sanitizer checks. CPU small s10 encode medians are1–3% slower; resident-load/file-
+open setup is44%/27% slower (about2–3 ms). Profile those setup flags later; do not
+claim performance equivalence. Disk s16 artifacts now pass a full independent
+retained-cache rehash. Reconcile all22 completed table cases in a CPU-only bounded
+analysis job before publishing remaining measured cells; retain original profiles.
+
+GPU job74453 passes complete bounded one-card validation. Peer job74454 passes
+arithmetic/hash comparisons but fails memcheck on repeated peer enabling. Correct
+peer lifecycle with shared leases and cross-width lifetime tests, then retry the
+same approved two-H200 budget. No full s17 launch follows this correction.
+The [component reference](encoding-status.md#bounded-preprocessing-components-hpc-not-full-table-rows)
+records the32 MiB tile: two GPUs17.8%/19.8% slower than one, not a full-size forecast.
+
+After clean peer validation, prototype whole-vector local FFTs with bulk peer
+redistribution and compare to current remote recurrence access. Proposed device
+payload stays3N words; four extra local transpose passes add about8N word traffic
+(~1 TiB local traffic per fulls17 FFT). Host/storage unchanged; setup/runtime
+benefit unknown. Present actual costs before changing defaults. Benchmark1/2/4
+cards, then larger groups/nodes when useful and admitted; no two-GPU speed ceiling.
+A full s17 run still requires exact support, complete invariants, checkpointed
+persistence and agreed host/device/storage/time headroom.

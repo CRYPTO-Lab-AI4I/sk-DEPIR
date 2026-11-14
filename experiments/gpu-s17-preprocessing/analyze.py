@@ -14,6 +14,7 @@ def main():
     for label in ('gpu-preprocessing','memcheck'):
         log=(out/(label+'.log')).read_text()
         assert '--- PASS: TestGPUPreparationSmall ' in log and '--- PASS: TestGPUPreparationWide ' in log,label
+        if record.get('peer_lifetime_check'):assert '--- PASS: TestGPUPreparationPeerLifetime ' in log,label
     assert 'ERROR SUMMARY: 0 errors' in (out/'memcheck.log').read_text()
     window_rows=[json.loads(line) for line in (out/'wide-monomial-windows.log').read_text().splitlines() if line.startswith('{')]
     assert any(r.get('kind')=='address-map' and r['match'] for r in window_rows)

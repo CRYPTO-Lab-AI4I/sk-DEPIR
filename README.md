@@ -41,12 +41,13 @@ workspace model. Existing CPU/GPU defaults are unchanged; full s17 is unvalidate
 The experimental [shared preprocessing pipeline](docs/preprocessing.md) now
 implements discovery, root/generator construction, verification and canonical
 code data through s17 with width-selected native execution. Targeted bounded checks
-pass; full regression/sanitizer validation is being retried after a memory-mode
+pass together with full bounded regression/sanitizer validation (job74447), after a memory-mode
 test-fixture correction ([report](experiments/s17-preprocessing/report.md)). No full s17 cache
 exists. GPU preprocessing is now the active implementation target: a
 [resident width-selected peer prototype](experiments/gpu-s17-preprocessing/report.md)
 shares kernels with the legacy CUDA path and supports same-node GPU shards in
-source. CUDA/peer validation is pending; no full s17 run is admitted.
+source. One-GPU validation passes; two-GPU arithmetic agrees, but a peer-link
+lifetime sanitizer failure requires a corrected retry. No full s17 run is admitted.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 
@@ -57,7 +58,9 @@ work files. File cache is additional; full correctness checks passed.
 The [CPU implementation guide](docs/cpu-encoding.md) documents the shared encoding
 sequence,32/64-bit kernels, storage/output strategies, ownership and diagnostics.
 The native CPU deduplication is implemented; [cross-mode, sanitizer and matched
-baseline validation](experiments/cpu-encoding-modules/report.md) is pending.
+baseline validation](experiments/cpu-encoding-modules/report.md) passes correctness
+checks. Small s10 encoding medians are 1–3% slower; setup regressions of 27–44%
+(about 2–3 ms) remain flagged for investigation.
 Independent Go references, existing APIs, memory-mode defaults and CUDA-free CPU
 builds are retained. New CPU experiment jobs can enable timestamped phase and
 native block/tile progress logs; baseline timing comparisons keep logging disabled.

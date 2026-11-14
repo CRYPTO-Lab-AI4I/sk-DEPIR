@@ -373,3 +373,55 @@ func TestGPUPreparationTile(t *testing.T) {
 		}
 	}
 }
+
+// Narrow/wide engines can overlap on the same peer links. Closing either one,
+// or failing another construction, must leave the surviving engine usable.
+func TestGPUPreparationPeerLifetime(t *testing.T) {
+	devices := gpuPreparationDevices(t)
+	create := func(s int) *cuda.Preparation {
+		t.Helper()
+		n := uint64(1) << uint(2*s)
+		h, _, err := canonicalScalingCodeHeader(s, 5, 1, n)
+		if err != nil {
+			t.Fatal(err)
+		}
+		base, _ := NewBinaryField(s, h.Polynomial)
+		table := newPreparationProducts(base)
+		p, err := cuda.NewPreparation(cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: s, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: table.log, Powers: table.powers, Devices: devices, MaxElements: min(n, 1024), DeviceBytes: gpuPreparationCap(t)})
+		if err != nil {
+			t.Fatal(err)
+		}
+		t.Cleanup(func() { p.Close() })
+		return p
+	}
+	narrow, wide := create(4), create(17)
+	narrow.Close()
+	input := make([]uint64, 16)
+	input[0] = 1 << 33
+	input[3] = (1 << 34) - 1
+	saved := append([]uint64(nil), input...)
+	if err := wide.Apply64(input, false); err != nil {
+		t.Fatal(err)
+	}
+	if err := wide.Apply64(input, true); err != nil || !reflect.DeepEqual(input, saved) {
+		t.Fatal("surviving wide lease", err)
+	}
+	second := create(4)
+	wide.Close()
+	small := make([]uint32, 16)
+	small[0] = 255
+	small[4] = 147
+	original := append([]uint32(nil), small...)
+	if err := second.Apply32(small, false); err != nil {
+		t.Fatal(err)
+	}
+	if err := second.Apply32(small, true); err != nil || !reflect.DeepEqual(small, original) {
+		t.Fatal("surviving narrow lease", err)
+	}
+	second.Close()
+	restarted := create(17)
+	if err := restarted.Apply64(input, false); err != nil {
+		t.Fatal("reacquire released peer links", err)
+	}
+	restarted.Close()
+}

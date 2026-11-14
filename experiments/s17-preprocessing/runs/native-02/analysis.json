@@ -1,0 +1,163 @@
+{
+  "status": "passed",
+  "job_id": "74447",
+  "revision": "2a2095e0b287a7751c9399d464285ea7a32aa02a",
+  "source_files_verified": 479,
+  "evidence_files_verified": 29,
+  "cache_files_verified": 29,
+  "tests": [
+    "exact small-code references and artifact/restart identities",
+    "high-bit s17 Horner/products/roots/monomials",
+    "forced32/64 small tensor/product schedules",
+    "Go/native regression suites; CUDA compile boundary",
+    "vet/race/ASan/UBSan"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 2.329003419727087,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 2.205321444198489,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 2.17540680244565,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 2.1738225035369396,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 2.20462516695261,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "disk-s16-reconcile",
+      "seconds": 156.90208731591702,
+      "peak_rss_bytes": 38060032,
+      "exit_code": 0
+    },
+    {
+      "label": "legacy-build",
+      "seconds": 4.622200084850192,
+      "peak_rss_bytes": 232361984,
+      "exit_code": 0
+    },
+    {
+      "label": "go-build",
+      "seconds": 11.870775057002902,
+      "peak_rss_bytes": 155877376,
+      "exit_code": 0
+    },
+    {
+      "label": "go-regressions",
+      "seconds": 30.114790303632617,
+      "peak_rss_bytes": 1022787584,
+      "exit_code": 0
+    },
+    {
+      "label": "go-builds",
+      "seconds": 30.59912500344217,
+      "peak_rss_bytes": 989089792,
+      "exit_code": 0
+    },
+    {
+      "label": "cpp-build",
+      "seconds": 16.571635883301497,
+      "peak_rss_bytes": 579665920,
+      "exit_code": 0
+    },
+    {
+      "label": "preprocessing",
+      "seconds": 4.721658384427428,
+      "peak_rss_bytes": 23171072,
+      "exit_code": 0
+    },
+    {
+      "label": "cpp-regressions",
+      "seconds": 41.947367602959275,
+      "peak_rss_bytes": 1011429376,
+      "exit_code": 0
+    },
+    {
+      "label": "cpp-builds",
+      "seconds": 57.79635937511921,
+      "peak_rss_bytes": 1053782016,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 4.613377062603831,
+      "peak_rss_bytes": 31383552,
+      "exit_code": 0
+    },
+    {
+      "label": "vet",
+      "seconds": 2.2915025893598795,
+      "peak_rss_bytes": 23515136,
+      "exit_code": 0
+    },
+    {
+      "label": "race",
+      "seconds": 39.34643062390387,
+      "peak_rss_bytes": 591585280,
+      "exit_code": 0
+    },
+    {
+      "label": "asan-build",
+      "seconds": 28.281624736264348,
+      "peak_rss_bytes": 706179072,
+      "exit_code": 0
+    },
+    {
+      "label": "asan",
+      "seconds": 20.619849257171154,
+      "peak_rss_bytes": 132993024,
+      "exit_code": 0
+    },
+    {
+      "label": "optimized-build",
+      "seconds": 9.250531455501914,
+      "peak_rss_bytes": 276369408,
+      "exit_code": 0
+    },
+    {
+      "label": "optimized",
+      "seconds": 2.3092475086450577,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "sanitized-build",
+      "seconds": 11.55528086796403,
+      "peak_rss_bytes": 391630848,
+      "exit_code": 0
+    },
+    {
+      "label": "sanitized",
+      "seconds": 2.3122639656066895,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "profile-summary",
+      "seconds": 9.509673856198788,
+      "peak_rss_bytes": 149012480,
+      "exit_code": 0
+    }
+  ],
+  "scope": "bounded validation only; no full s17 discovery/preparation, CUDA17 or admission",
+  "progress_records": 376
+}

@@ -1,0 +1,14 @@
+goos: linux
+goarch: amd64
+pkg: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared
+cpu: Intel(R) Xeon(R) 6710E
+BenchmarkCPUEncodingModules/resident-4         	       1	 998662597 ns/op	 4194912 B/op	       3 allocs/op
+BenchmarkCPUEncodingModules/hybrid-4           	       1	1044278658 ns/op	 4197560 B/op	      15 allocs/op
+BenchmarkCPUEncodingModules/wide-4             	       1	1068004640 ns/op	 8389184 B/op	       3 allocs/op
+BenchmarkCPUEncodingModules/compact-4          	       1	1066008578 ns/op	 4194912 B/op	       3 allocs/op
+BenchmarkCPUEncodingModules/file-4             	       1	1078260492 ns/op	 4195328 B/op	       5 allocs/op
+BenchmarkCPUEncodingModules/disk-4             	       1	1466563869 ns/op	 4195360 B/op	       5 allocs/op
+BenchmarkCPUEncodingModules/load-resident-4    	       1	   9130734 ns/op	 5081648 B/op	     406 allocs/op
+BenchmarkCPUEncodingModules/open-file-4        	       1	  11399142 ns/op	  855376 B/op	    1153 allocs/op
+BenchmarkCPUEncodingModules/packed-4           	       1	1075286197 ns/op	   66720 B/op	       8 allocs/op
+PASS

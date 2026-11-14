@@ -1,0 +1,55 @@
+{"utc": "2026-11-14T08:34:25.999958+00:00", "phase": "host", "event": "started", "completed_commands": 0, "elapsed_seconds": 14.610618649050593}
+{"utc": "2026-11-14T08:34:28.333251+00:00", "phase": "host", "event": "completed", "completed_commands": 1, "elapsed_seconds": 16.94390919432044, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T08:34:28.335045+00:00", "phase": "cpu", "event": "started", "completed_commands": 1, "elapsed_seconds": 16.94569292291999}
+{"utc": "2026-11-14T08:34:30.544290+00:00", "phase": "cpu", "event": "completed", "completed_commands": 2, "elapsed_seconds": 19.154945116490126, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T08:34:30.545873+00:00", "phase": "go", "event": "started", "completed_commands": 2, "elapsed_seconds": 19.156521771103144}
+{"utc": "2026-11-14T08:34:32.724712+00:00", "phase": "go", "event": "completed", "completed_commands": 3, "elapsed_seconds": 21.335367303341627, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T08:34:32.726231+00:00", "phase": "compiler", "event": "started", "completed_commands": 3, "elapsed_seconds": 21.336879301816225}
+{"utc": "2026-11-14T08:34:34.903811+00:00", "phase": "compiler", "event": "completed", "completed_commands": 4, "elapsed_seconds": 23.514466237276793, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T08:34:34.905763+00:00", "phase": "job", "event": "started", "completed_commands": 4, "elapsed_seconds": 23.51641983166337}
+{"utc": "2026-11-14T08:34:37.114227+00:00", "phase": "job", "event": "completed", "completed_commands": 5, "elapsed_seconds": 25.72489535063505, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T08:34:37.116322+00:00", "phase": "disk-s16-reconcile", "event": "started", "completed_commands": 5, "elapsed_seconds": 25.726970929652452}
+{"utc": "2026-11-14T08:35:09.137859+00:00", "phase": "disk-s16-reconcile", "event": "heartbeat", "completed_commands": 5, "elapsed_seconds": 57.74852840602398, "command_seconds": 32.02152950875461, "peak_rss_bytes": 38060032, "remaining_work": "unknown"}
+{"utc": "2026-11-14T08:35:41.060941+00:00", "phase": "disk-s16-reconcile", "event": "heartbeat", "completed_commands": 5, "elapsed_seconds": 89.67162027768791, "command_seconds": 63.94461187906563, "peak_rss_bytes": 38060032, "remaining_work": "unknown"}
+{"utc": "2026-11-14T08:36:12.999069+00:00", "phase": "disk-s16-reconcile", "event": "heartbeat", "completed_commands": 5, "elapsed_seconds": 121.60973179526627, "command_seconds": 95.88274057209492, "peak_rss_bytes": 38060032, "remaining_work": "unknown"}
+{"utc": "2026-11-14T08:36:44.749897+00:00", "phase": "disk-s16-reconcile", "event": "heartbeat", "completed_commands": 5, "elapsed_seconds": 153.36057685501873, "command_seconds": 127.63356683216989, "peak_rss_bytes": 38060032, "remaining_work": "unknown"}
+{"utc": "2026-11-14T08:37:14.023686+00:00", "phase": "disk-s16-reconcile", "event": "completed", "completed_commands": 6, "elapsed_seconds": 182.6343527212739, "peak_rss_bytes": 38060032, "guard": null}
+{"utc": "2026-11-14T08:37:14.025789+00:00", "phase": "legacy-build", "event": "started", "completed_commands": 6, "elapsed_seconds": 182.63643823936582}
+{"utc": "2026-11-14T08:37:18.651843+00:00", "phase": "legacy-build", "event": "completed", "completed_commands": 7, "elapsed_seconds": 187.26251297071576, "peak_rss_bytes": 232361984, "guard": null}
+{"utc": "2026-11-14T08:37:18.653414+00:00", "phase": "go-build", "event": "started", "completed_commands": 7, "elapsed_seconds": 187.26406176947057}
+{"utc": "2026-11-14T08:37:30.528102+00:00", "phase": "go-build", "event": "completed", "completed_commands": 8, "elapsed_seconds": 199.1387755293399, "peak_rss_bytes": 155877376, "guard": null}
+{"utc": "2026-11-14T08:37:30.529963+00:00", "phase": "go-regressions", "event": "started", "completed_commands": 8, "elapsed_seconds": 199.1406115554273}
+{"utc": "2026-11-14T08:38:00.649539+00:00", "phase": "go-regressions", "event": "completed", "completed_commands": 9, "elapsed_seconds": 229.2602053694427, "peak_rss_bytes": 1022787584, "guard": null}
+{"utc": "2026-11-14T08:38:00.652053+00:00", "phase": "go-builds", "event": "started", "completed_commands": 9, "elapsed_seconds": 229.26270328462124}
+{"utc": "2026-11-14T08:38:31.255615+00:00", "phase": "go-builds", "event": "completed", "completed_commands": 10, "elapsed_seconds": 259.8662913981825, "peak_rss_bytes": 989089792, "guard": null}
+{"utc": "2026-11-14T08:38:31.257500+00:00", "phase": "cpp-build", "event": "started", "completed_commands": 10, "elapsed_seconds": 259.8681497387588}
+{"utc": "2026-11-14T08:38:47.833461+00:00", "phase": "cpp-build", "event": "completed", "completed_commands": 11, "elapsed_seconds": 276.4441336262971, "peak_rss_bytes": 579665920, "guard": null}
+{"utc": "2026-11-14T08:38:47.837636+00:00", "phase": "preprocessing", "event": "started", "completed_commands": 11, "elapsed_seconds": 276.4482839461416}
+{"utc": "2026-11-14T08:38:52.563816+00:00", "phase": "preprocessing", "event": "completed", "completed_commands": 12, "elapsed_seconds": 281.17449220456183, "peak_rss_bytes": 23171072, "guard": null}
+{"utc": "2026-11-14T08:38:52.565962+00:00", "phase": "cpp-regressions", "event": "started", "completed_commands": 12, "elapsed_seconds": 281.1766106467694}
+{"utc": "2026-11-14T08:39:23.294658+00:00", "phase": "cpp-regressions", "event": "heartbeat", "completed_commands": 12, "elapsed_seconds": 311.9053318314254, "command_seconds": 30.72868850827217, "peak_rss_bytes": 996900864, "remaining_work": "unknown"}
+{"utc": "2026-11-14T08:39:34.517832+00:00", "phase": "cpp-regressions", "event": "completed", "completed_commands": 13, "elapsed_seconds": 323.1285024881363, "peak_rss_bytes": 1011429376, "guard": null}
+{"utc": "2026-11-14T08:39:34.520138+00:00", "phase": "cpp-builds", "event": "started", "completed_commands": 13, "elapsed_seconds": 323.13078726269305}
+{"utc": "2026-11-14T08:40:05.145546+00:00", "phase": "cpp-builds", "event": "heartbeat", "completed_commands": 13, "elapsed_seconds": 353.75621817447245, "command_seconds": 30.625401563942432, "peak_rss_bytes": 578490368, "remaining_work": "unknown"}
+{"utc": "2026-11-14T08:40:32.321355+00:00", "phase": "cpp-builds", "event": "completed", "completed_commands": 14, "elapsed_seconds": 380.93202005140483, "peak_rss_bytes": 1053782016, "guard": null}
+{"utc": "2026-11-14T08:40:32.323715+00:00", "phase": "cuda-build", "event": "started", "completed_commands": 14, "elapsed_seconds": 380.9343640655279}
+{"utc": "2026-11-14T08:40:36.941020+00:00", "phase": "cuda-build", "event": "completed", "completed_commands": 15, "elapsed_seconds": 385.5516902692616, "peak_rss_bytes": 31383552, "guard": null}
+{"utc": "2026-11-14T08:40:36.971811+00:00", "phase": "vet", "event": "started", "completed_commands": 15, "elapsed_seconds": 385.5824595987797}
+{"utc": "2026-11-14T08:40:39.267600+00:00", "phase": "vet", "event": "completed", "completed_commands": 16, "elapsed_seconds": 387.87827483937144, "peak_rss_bytes": 23515136, "guard": null}
+{"utc": "2026-11-14T08:40:39.269438+00:00", "phase": "race", "event": "started", "completed_commands": 16, "elapsed_seconds": 387.8800868541002}
+{"utc": "2026-11-14T08:41:09.709882+00:00", "phase": "race", "event": "heartbeat", "completed_commands": 16, "elapsed_seconds": 418.3205471895635, "command_seconds": 30.440439799800515, "peak_rss_bytes": 591585280, "remaining_work": "unknown"}
+{"utc": "2026-11-14T08:41:18.620749+00:00", "phase": "race", "event": "completed", "completed_commands": 17, "elapsed_seconds": 427.2314246855676, "peak_rss_bytes": 591585280, "guard": null}
+{"utc": "2026-11-14T08:41:18.644525+00:00", "phase": "asan-build", "event": "started", "completed_commands": 17, "elapsed_seconds": 427.2551744263619}
+{"utc": "2026-11-14T08:41:46.931979+00:00", "phase": "asan-build", "event": "completed", "completed_commands": 18, "elapsed_seconds": 455.54264840111136, "peak_rss_bytes": 706179072, "guard": null}
+{"utc": "2026-11-14T08:41:46.934070+00:00", "phase": "asan", "event": "started", "completed_commands": 18, "elapsed_seconds": 455.5447186026722}
+{"utc": "2026-11-14T08:42:07.558112+00:00", "phase": "asan", "event": "completed", "completed_commands": 19, "elapsed_seconds": 476.16877795383334, "peak_rss_bytes": 132993024, "guard": null}
+{"utc": "2026-11-14T08:42:07.561112+00:00", "phase": "optimized-build", "event": "started", "completed_commands": 19, "elapsed_seconds": 476.17176046408713}
+{"utc": "2026-11-14T08:42:16.817262+00:00", "phase": "optimized-build", "event": "completed", "completed_commands": 20, "elapsed_seconds": 485.4279303625226, "peak_rss_bytes": 276369408, "guard": null}
+{"utc": "2026-11-14T08:42:16.819070+00:00", "phase": "optimized", "event": "started", "completed_commands": 20, "elapsed_seconds": 485.42971914075315}
+{"utc": "2026-11-14T08:42:19.131893+00:00", "phase": "optimized", "event": "completed", "completed_commands": 21, "elapsed_seconds": 487.7425625100732, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T08:42:19.133436+00:00", "phase": "sanitized-build", "event": "started", "completed_commands": 21, "elapsed_seconds": 487.74408408626914}
+{"utc": "2026-11-14T08:42:30.692817+00:00", "phase": "sanitized-build", "event": "completed", "completed_commands": 22, "elapsed_seconds": 499.3034863937646, "peak_rss_bytes": 391630848, "guard": null}
+{"utc": "2026-11-14T08:42:30.694993+00:00", "phase": "sanitized", "event": "started", "completed_commands": 22, "elapsed_seconds": 499.30564273148775}
+{"utc": "2026-11-14T08:42:33.010932+00:00", "phase": "sanitized", "event": "completed", "completed_commands": 23, "elapsed_seconds": 501.6215965114534, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T08:42:33.012478+00:00", "phase": "profile-summary", "event": "started", "completed_commands": 23, "elapsed_seconds": 501.62312634103}
+{"utc": "2026-11-14T08:42:42.526791+00:00", "phase": "profile-summary", "event": "completed", "completed_commands": 24, "elapsed_seconds": 511.13745574094355, "peak_rss_bytes": 149012480, "guard": null}

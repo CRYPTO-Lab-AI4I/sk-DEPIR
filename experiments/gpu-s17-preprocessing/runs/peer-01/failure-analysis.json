@@ -1,0 +1,128 @@
+{
+  "status": "failed",
+  "job_id": "74454",
+  "revision": "d5d2a3b1b42f0fe1a5001e443d46f1b0a2a8d017",
+  "source_files_verified": 496,
+  "evidence_files_verified": 23,
+  "cache_files_verified": 29,
+  "tests": [
+    "forensic failed-job reconciliation only"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 2.279648305848241,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 2.238043924793601,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 2.2001188341528177,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 2.183906028047204,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 2.1709719635546207,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "legacy-build",
+      "seconds": 4.429921003058553,
+      "peak_rss_bytes": 228810752,
+      "exit_code": 0
+    },
+    {
+      "label": "go-build",
+      "seconds": 11.499500850215554,
+      "peak_rss_bytes": 172240896,
+      "exit_code": 0
+    },
+    {
+      "label": "go-regressions",
+      "seconds": 29.32815897092223,
+      "peak_rss_bytes": 1004589056,
+      "exit_code": 0
+    },
+    {
+      "label": "go-builds",
+      "seconds": 32.19215016439557,
+      "peak_rss_bytes": 1056718848,
+      "exit_code": 0
+    },
+    {
+      "label": "cpp-build",
+      "seconds": 16.064443223178387,
+      "peak_rss_bytes": 579506176,
+      "exit_code": 0
+    },
+    {
+      "label": "gpu",
+      "seconds": 2.291146382689476,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "topology",
+      "seconds": 2.2965092584490776,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 2.246803902089596,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 16.024013739079237,
+      "peak_rss_bytes": 233095168,
+      "exit_code": 0
+    },
+    {
+      "label": "window-build",
+      "seconds": 4.579381946474314,
+      "peak_rss_bytes": 15740928,
+      "exit_code": 0
+    },
+    {
+      "label": "wide-monomial-windows",
+      "seconds": 2.29403437115252,
+      "peak_rss_bytes": 10838016,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-go-build",
+      "seconds": 4.661367006599903,
+      "peak_rss_bytes": 102838272,
+      "exit_code": 0
+    },
+    {
+      "label": "gpu-preprocessing",
+      "seconds": 11.4574677310884,
+      "peak_rss_bytes": 290217984,
+      "exit_code": 0
+    },
+    {
+      "label": "memcheck",
+      "seconds": 37.912457302212715,
+      "peak_rss_bytes": 450826240,
+      "exit_code": 99
+    }
+  ],
+  "scope": "two-GPU arithmetic/hash checks passed; sanitizer API error704, later checks skipped"
+}

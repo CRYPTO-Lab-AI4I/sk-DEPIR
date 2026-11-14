@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "utc": "2026-11-14T10:55:57.104709+00:00",
+  "checks": [
+    "CUDA12.9 shared plugin link: timeout25s nvcc -std=c++17 -O0 -arch=sm_90 -shared -Xcompiler=-fPIC,-pthread encoding/liftrs-cuda/matrix.cu encoding/liftrs-cuda/preparation.cu -o /tmp/sk-depir-peer-lease-check.so; exit0",
+    "run.py --check --devices2",
+    "reconcile.py --check",
+    "Python AST parsing",
+    "bash -n reconcile.sbatch",
+    "gofmt",
+    "reconcile.py --check:22 latest passed result records and three replacement selections verified without cache rehash"
+  ],
+  "source_sha256": {
+    "encoding/liftrs-cuda/preparation.cu": "3a768c50aa67521e4d5287870c3f5c4ec4e990580a6febb45d3c1de19e01cd49",
+    "encoding/liftrs-cuda/preparation.go": "b06054ba9a1b7bf8f29edd179f099a0bc430f5c370f2d6c6f4f375832b97a948",
+    "encoding/liftrs-shared/preprocessing_gpu_test.go": "80938437318bb97d9ee7c58f1c40af4f9212bf72397735880f49d228bac7cd03",
+    "experiments/gpu-s17-preprocessing/run.py": "860ad3165494364178d27c31896bacd6b024421d91aea7b882b25fd542b2aec7",
+    "experiments/gpu-s17-preprocessing/analyze.py": "716f7327773634c1471ce791917a5f3715a14a1364db992a3f68bf72b4559aaf",
+    "experiments/encoding-table/reconcile.py": "f2650b8ef8af05e41ce19994d1e7ba308e4d002cf3409fdf6ec308dd484ef977",
+    "experiments/encoding-table/reconcile.sbatch": "5bc18239907e0a75cbd9b9502c4412b35f19c0a468640ee8492a8160c17c564e"
+  },
+  "limitations": [
+    "No local GPU execution; peer lifetime/memcheck and complete regression retry required.",
+    "CUDA link uses O0 for the short local check; scheduled runner retains its normal optimization flags.",
+    "CPU-only reconciliation runtime pending."
+  ]
+}

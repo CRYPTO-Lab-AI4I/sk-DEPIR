@@ -6,9 +6,9 @@ CPU/GPU encoders and verified preprocessing are reused; only opt-in experiment
 harness controls change. Laptop preparation results remain labeled L, HPC results
 R. No s≥17 execution, new large preprocessing or multi-GPU implementation.
 
-Status: submitted as CPU jobs74194–74203 and GPU jobs74204–74215,
-source checkpoint366f474. Full build/runtime checks run inside each job;
-no scheduler/log/result monitoring has been performed.
+Initial submission: CPU jobs74194–74203 and GPU jobs74204–74215,
+source checkpoint366f474. All22 selected saved results now report passed;
+complete artifact reconciliation is prepared below. No ongoing monitoring occurs.
 [Submission manifest and result directory](runs/fill-01/submissions.json) records
 exact case names, jobs and source revision. Per-case `results.json`, logs, phase
 JSON and CPU profiles will be written beneath `runs/fill-01/<case>/`.
@@ -217,3 +217,30 @@ cache and I/O are material. Native counters record137344658 reads and129293045
 writes; these are logical interface calls, not physical storage measurements.
 Keep the mode explicit and useful when fast-path memory is unavailable. No
 larger budget, extrapolated s17 ETA or full s17 feasibility claim is added.
+
+## Completed artifact review and all-case reconciliation (SCALING-072)
+
+Job74447 independently rehashes all411 source,17 evidence and5 retained-cache
+identities for disk s16. [Analysis](runs/fill-02/cpu-disk-s16/analysis.json) confirms
+its published encoding/runtime/memory result; no encoding rerun occurs.
+Historical review snapshots remain unchanged.
+
+All22 latest selected result records report passed. The new [CPU-only controller](reconcile.py)
+and [Slurm script](reconcile.sbatch) merge fill-01/fill-02 manifests first, selecting
+replacements rather than cancelled original cases. Each existing [analyzer](analyze.py)
+rehashes historical sources, evidence and retained caches, then the controller
+checks canonical hashes agree across modes at each s. Successful reviews produce
+`reviews/review-01/results.json`, per-case logs, source/evidence SHA256 identities,
+revision, exact commands and30-second progress heartbeats. Existing case-level
+analysis files are refreshed; cache/binary/profile evidence stays intact.
+
+Run: `sbatch --output=experiments/encoding-table/reconcile-slurm-%j.log experiments/encoding-table/reconcile.sbatch review-01`.
+Budget:4CPU,8 GiB requested host RAM,6 GiB sampled process-group RSS cap,2 GiB new
+review-output cap,600-second per-command/900-second controller/1200-second Slurm
+deadlines, no GPU. Existing large caches are read-only and not charged as new
+storage. No encoding/preprocessing rerun; CPU profiling is unnecessary for this
+checksum-only review, and original optimization profiles are retained. Review
+wall time is separate from all benchmark timings. Do not publish unreconciled
+rows as measurements; source status and hardware class remain explicit.
+
+The cancelled original disk-s15 partial evidence and completed replacement disk-s15/packed-s16 logs/profiles are retained in the original run directories; only the replacement records enter the22-case review.

@@ -1,7 +1,7 @@
 # Resident GPU preprocessing through s17
 
-Status: source prototype and bounded validation prepared; CUDA/peer execution
-has not yet been validated. No full s17 run, measured speedup or admission.
+Status: one-GPU bounded validation passes; two-GPU arithmetic agrees but a
+peer-lifetime memcheck failure requires a corrected retry. No full s17 run or admission.
 GPU execution is the primary server-preprocessing target; CPU supplies arithmetic
 oracles and a reference implementation rather than the next full preparation run.
 
@@ -134,8 +134,9 @@ CUDA device selection is restored so ordinary client calls can coexist.
 
 [Static/shared checks](static-checks.json) record host simulation and syntax checks.
 Both CUDA translation units compile to compute90 PTX; the shared host recurrence
-cases, C bridge/native syntax and table-label checks pass. CUDA execution, peer
-communication, sanitizer and regression results remain pending. No full preprocessing table cell changes to measured status.
+cases, C bridge/native syntax and table-label checks pass. Completed execution
+evidence and the peer-lifetime retry are recorded below. No full preprocessing
+table cell changes to measured status.
 
 The cluster requires a typed GPU GRES request. An initial untyped submission
 was rejected before allocating a job; the script now requests `gpu:h200:1`
@@ -179,3 +180,53 @@ and reviewed resources, rather than an arbitrary two- or four-card ceiling.
 
 [GPU-count preparation checks](gpu-count-checks.json) verify CLI/schema and
 small-test cap consistency only; no four-card runtime is claimed.
+
+## Completed bounded GPU review and peer-lifetime correction (SCALING-072)
+
+User completion ping authorizes this review. [One-GPU analysis](runs/gpu-01/analysis.json)
+passes job74453 on gnode02:496 source,35 evidence,36 retained-cache identities;
+small complete preparation through s8 versus Go, s17 high-bit and address/window
+checks, legacy CUDA/client/CPU regressions, race/vet and sanitizer checks pass.
+CUDA memcheck reports zero errors/leaks. See [commands/provenance](runs/gpu-01/results.json),
+[runner](run.py), [analyzer](analyze.py), [Slurm log](slurm-74453.log).
+
+[Two-GPU forensic analysis](runs/peer-01/failure-analysis.json), job74454 on the
+same node, reconciles496 source,23 evidence,29 cache identities. Arithmetic,
+checkpoint and tile hashes agree, but **the job failed**: CUDA memcheck reports
+one `cudaErrorPeerAccessAlreadyEnabled` (704) at `cudaGetLastError` while a second
+engine enables an existing peer mapping. There are zero leaked bytes; later
+regression stages were skipped after memcheck exit99. Preserve [original results](runs/peer-01/results.json)
+and [Slurm log](slurm-74454.log); arithmetic success does not make this a clean pass.
+
+Same-allocation warm/profiled/logged dense-tile comparison, s17 width,2^22 values
+(32 MiB), H200 NVL pair with NV6 topology, one sample per direction:
+
+| GPUs | Forward whole call | Inverse whole call | Aggregate owned GPU allocations |
+|---|---|---|---|
+| 1 | 183.296 ms | 158.537 ms | 65.57 MiB |
+| 2 | 215.943 ms | 189.873 ms | 67.14 MiB |
+
+[Tile results](runs/peer-01/tiles.json) include the common forward SHA256
+`60dd1c3cb32ce4eca3d4f55c2cf4b4ad111c80a08c6f90b4786987ec09fface7`.
+Two cards are17.8%/19.8% slower here. These are transform component measurements,
+including transfers; not full preparation timings or full-size speedup estimates.
+Driver/context headroom is extra. Whole-command sampled host RSS remains below
+1 GiB, including build commands; isolated preprocessing host peak is unmeasured.
+
+The correction shares process-scoped, reference-counted directional peer leases
+across32/64-bit engines, releases owned links after the last engine's buffers,
+and leaves external mappings intact. Constructor failure unwinds leases. This
+changes lifecycle bookkeeping, not arithmetic, layouts or ABI; setup overhead is
+unmeasured. New cross-width lifetime/reopen tests and existing failed-constructor
+checks run under memcheck, without suppressions. [Shared CUDA linking and local checks](peer-lease-checks.json) precede a fresh `peer-02 --devices 2` retry under the same approved
+512 MiB aggregate/256 MiB per-card,4CPU/8 GiB,600/900/1200-second guards.
+No full s17 run or four-card allocation is admitted by this retry.
+
+Next performance candidate: assign complete vectors to each GPU for local FFTs,
+using bulk peer redistribution rather than fine-grained remote recurrence reads.
+Source inspection suggests peer access costs; no profile yet attributes the
+measured slowdown. A proposed three-array schedule keeps the3N device payload,
+with four extra local transpose passes per FFT (about8N word transfers, roughly
+1 TiB local memory traffic at s17). Host arrays and retained storage stay the same;
+setup/latency benefit is unknown. Compare explicitly before adopting it; current
+defaults stay unchanged. More GPUs remain eligible when complete latency improves.

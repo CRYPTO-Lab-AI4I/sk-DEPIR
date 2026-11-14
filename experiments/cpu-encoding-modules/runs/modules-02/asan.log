@@ -1,0 +1,33 @@
+=== RUN   TestCPPCompactOwnership
+--- PASS: TestCPPCompactOwnership (18.83s)
+=== RUN   TestCPPCompactShape
+--- PASS: TestCPPCompactShape (0.00s)
+=== RUN   TestCPPOutputOwnership
+--- PASS: TestCPPOutputOwnership (0.36s)
+=== RUN   TestCPUWorkspaceLifetime
+--- PASS: TestCPUWorkspaceLifetime (0.01s)
+=== RUN   TestCPUEncodingModules
+=== RUN   TestCPUEncodingModules/s4/workers1
+=== RUN   TestCPUEncodingModules/s4/workers4
+=== RUN   TestCPUEncodingModules/s6/workers1
+=== RUN   TestCPUEncodingModules/s6/workers4
+=== RUN   TestCPUEncodingModules/s8/workers1
+=== RUN   TestCPUEncodingModules/s8/workers4
+--- PASS: TestCPUEncodingModules (23.97s)
+    --- PASS: TestCPUEncodingModules/s4/workers1 (0.02s)
+    --- PASS: TestCPUEncodingModules/s4/workers4 (0.15s)
+    --- PASS: TestCPUEncodingModules/s6/workers1 (0.29s)
+    --- PASS: TestCPUEncodingModules/s6/workers4 (0.39s)
+    --- PASS: TestCPUEncodingModules/s8/workers1 (5.89s)
+    --- PASS: TestCPUEncodingModules/s8/workers4 (3.95s)
+=== RUN   TestCPUEncodingModulesArenaAdmission
+--- PASS: TestCPUEncodingModulesArenaAdmission (0.01s)
+=== RUN   TestCPPOnlineOverlap
+--- PASS: TestCPPOnlineOverlap (0.01s)
+=== RUN   TestScalingWideCPPEncoding
+--- PASS: TestScalingWideCPPEncoding (17.24s)
+=== RUN   TestScalingWideCPPLifetime
+--- PASS: TestScalingWideCPPLifetime (0.00s)
+=== RUN   ExampleScalingCodeData_WithWideCPP
+--- PASS: ExampleScalingCodeData_WithWideCPP (0.00s)
+PASS

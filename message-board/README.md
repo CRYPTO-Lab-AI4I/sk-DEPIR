@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-14 10:57 | SCALING-072 | Handoff | [Validation review and peer correction prepared](2026-11-14-1057-codex-scaling-072-prepared.md) |
+| 2026-11-14 10:34 | SCALING-072 | Started | [Review completed validation and peer scaling](2026-11-14-1034-codex-scaling-072-started.md) |
 | 2026-11-14 10:27 | SCALING-071 | Completed | [GPU count selected for complete runtime](2026-11-14-1027-codex-scaling-071-completed.md) |
 | 2026-11-14 10:24 | SCALING-071 | Started | [Select preprocessing GPU count for speed](2026-11-14-1024-codex-scaling-071-started.md) |
 | 2026-11-14 10:21 | SCALING-070 | Handoff | [Two-H200 peer validation job74454](2026-11-14-1021-codex-scaling-070-handoff.md) |

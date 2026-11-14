@@ -1,0 +1,58 @@
+{"utc": "2026-11-14T10:05:29.638323+00:00", "phase": "host", "event": "started", "completed_commands": 0, "elapsed_seconds": 4.228389024734497}
+{"utc": "2026-11-14T10:05:31.930411+00:00", "phase": "host", "event": "completed", "completed_commands": 1, "elapsed_seconds": 6.520471332594752, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:05:31.932312+00:00", "phase": "cpu", "event": "started", "completed_commands": 1, "elapsed_seconds": 6.522364724427462}
+{"utc": "2026-11-14T10:05:34.171100+00:00", "phase": "cpu", "event": "completed", "completed_commands": 2, "elapsed_seconds": 8.761159425601363, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:05:34.172612+00:00", "phase": "go", "event": "started", "completed_commands": 2, "elapsed_seconds": 8.76266642101109}
+{"utc": "2026-11-14T10:05:36.383226+00:00", "phase": "go", "event": "completed", "completed_commands": 3, "elapsed_seconds": 10.973285747691989, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:05:36.384724+00:00", "phase": "compiler", "event": "started", "completed_commands": 3, "elapsed_seconds": 10.974777828902006}
+{"utc": "2026-11-14T10:05:38.599109+00:00", "phase": "compiler", "event": "completed", "completed_commands": 4, "elapsed_seconds": 13.189168468117714, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:05:38.600631+00:00", "phase": "job", "event": "started", "completed_commands": 4, "elapsed_seconds": 13.190684050321579}
+{"utc": "2026-11-14T10:05:40.792654+00:00", "phase": "job", "event": "completed", "completed_commands": 5, "elapsed_seconds": 15.38271270506084, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:05:40.794336+00:00", "phase": "legacy-build", "event": "started", "completed_commands": 5, "elapsed_seconds": 15.384389096871018}
+{"utc": "2026-11-14T10:05:45.295968+00:00", "phase": "legacy-build", "event": "completed", "completed_commands": 6, "elapsed_seconds": 19.886043172329664, "peak_rss_bytes": 228356096, "guard": null}
+{"utc": "2026-11-14T10:05:45.297907+00:00", "phase": "go-build", "event": "started", "completed_commands": 6, "elapsed_seconds": 19.887961391359568}
+{"utc": "2026-11-14T10:05:56.809120+00:00", "phase": "go-build", "event": "completed", "completed_commands": 7, "elapsed_seconds": 31.399198442697525, "peak_rss_bytes": 183971840, "guard": null}
+{"utc": "2026-11-14T10:05:56.811342+00:00", "phase": "go-regressions", "event": "started", "completed_commands": 7, "elapsed_seconds": 31.40139650925994}
+{"utc": "2026-11-14T10:06:26.089591+00:00", "phase": "go-regressions", "event": "completed", "completed_commands": 8, "elapsed_seconds": 60.67966292798519, "peak_rss_bytes": 1015517184, "guard": null}
+{"utc": "2026-11-14T10:06:26.092075+00:00", "phase": "go-builds", "event": "started", "completed_commands": 8, "elapsed_seconds": 60.68212943337858}
+{"utc": "2026-11-14T10:06:56.153266+00:00", "phase": "go-builds", "event": "heartbeat", "completed_commands": 8, "elapsed_seconds": 90.74334382638335, "command_seconds": 30.061183409765363, "peak_rss_bytes": 990404608, "remaining_work": "unknown"}
+{"utc": "2026-11-14T10:06:58.161129+00:00", "phase": "go-builds", "event": "completed", "completed_commands": 9, "elapsed_seconds": 92.75118692032993, "peak_rss_bytes": 990404608, "guard": null}
+{"utc": "2026-11-14T10:06:58.162840+00:00", "phase": "cpp-build", "event": "started", "completed_commands": 9, "elapsed_seconds": 92.75289295613766}
+{"utc": "2026-11-14T10:07:14.282306+00:00", "phase": "cpp-build", "event": "completed", "completed_commands": 10, "elapsed_seconds": 108.87238045223057, "peak_rss_bytes": 579153920, "guard": null}
+{"utc": "2026-11-14T10:07:14.284246+00:00", "phase": "gpu", "event": "started", "completed_commands": 10, "elapsed_seconds": 108.8743001576513}
+{"utc": "2026-11-14T10:07:16.597920+00:00", "phase": "gpu", "event": "completed", "completed_commands": 11, "elapsed_seconds": 111.18798457272351, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:07:16.599860+00:00", "phase": "topology", "event": "started", "completed_commands": 11, "elapsed_seconds": 111.18991297669709}
+{"utc": "2026-11-14T10:07:18.881119+00:00", "phase": "topology", "event": "completed", "completed_commands": 12, "elapsed_seconds": 113.47118018567562, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:07:18.882932+00:00", "phase": "nvcc", "event": "started", "completed_commands": 12, "elapsed_seconds": 113.47298573330045}
+{"utc": "2026-11-14T10:07:21.146016+00:00", "phase": "nvcc", "event": "completed", "completed_commands": 13, "elapsed_seconds": 115.73607721738517, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:07:21.147739+00:00", "phase": "cuda-build", "event": "started", "completed_commands": 13, "elapsed_seconds": 115.737791871652}
+{"utc": "2026-11-14T10:07:37.205037+00:00", "phase": "cuda-build", "event": "completed", "completed_commands": 14, "elapsed_seconds": 131.7951113767922, "peak_rss_bytes": 256872448, "guard": null}
+{"utc": "2026-11-14T10:07:37.206999+00:00", "phase": "window-build", "event": "started", "completed_commands": 14, "elapsed_seconds": 131.79705242812634}
+{"utc": "2026-11-14T10:07:41.843518+00:00", "phase": "window-build", "event": "completed", "completed_commands": 15, "elapsed_seconds": 136.43359151482582, "peak_rss_bytes": 135446528, "guard": null}
+{"utc": "2026-11-14T10:07:41.845481+00:00", "phase": "wide-monomial-windows", "event": "started", "completed_commands": 15, "elapsed_seconds": 136.43553489260375}
+{"utc": "2026-11-14T10:07:44.133336+00:00", "phase": "wide-monomial-windows", "event": "completed", "completed_commands": 16, "elapsed_seconds": 138.72340727038682, "peak_rss_bytes": 10809344, "guard": null}
+{"utc": "2026-11-14T10:07:44.135455+00:00", "phase": "cuda-go-build", "event": "started", "completed_commands": 16, "elapsed_seconds": 138.72550869733095}
+{"utc": "2026-11-14T10:07:48.749736+00:00", "phase": "cuda-go-build", "event": "completed", "completed_commands": 17, "elapsed_seconds": 143.3398115579039, "peak_rss_bytes": 151793664, "guard": null}
+{"utc": "2026-11-14T10:07:48.754181+00:00", "phase": "gpu-preprocessing", "event": "started", "completed_commands": 17, "elapsed_seconds": 143.34423495456576}
+{"utc": "2026-11-14T10:07:55.622893+00:00", "phase": "gpu-preprocessing", "event": "completed", "completed_commands": 18, "elapsed_seconds": 150.21296530775726, "peak_rss_bytes": 93843456, "guard": null}
+{"utc": "2026-11-14T10:07:55.626714+00:00", "phase": "memcheck", "event": "started", "completed_commands": 18, "elapsed_seconds": 150.21676818467677}
+{"utc": "2026-11-14T10:08:26.873023+00:00", "phase": "memcheck", "event": "completed", "completed_commands": 19, "elapsed_seconds": 181.46309545636177, "peak_rss_bytes": 210825216, "guard": null}
+{"utc": "2026-11-14T10:08:26.875174+00:00", "phase": "legacy-online", "event": "started", "completed_commands": 19, "elapsed_seconds": 181.4652272965759}
+{"utc": "2026-11-14T10:08:31.386402+00:00", "phase": "legacy-online", "event": "completed", "completed_commands": 20, "elapsed_seconds": 185.976474609226, "peak_rss_bytes": 75870208, "guard": null}
+{"utc": "2026-11-14T10:08:31.389144+00:00", "phase": "cpp-regressions", "event": "started", "completed_commands": 20, "elapsed_seconds": 185.97919746115804}
+{"utc": "2026-11-14T10:09:03.324068+00:00", "phase": "cpp-regressions", "event": "heartbeat", "completed_commands": 20, "elapsed_seconds": 217.91414481028914, "command_seconds": 31.934917826205492, "peak_rss_bytes": 1007411200, "remaining_work": "unknown"}
+{"utc": "2026-11-14T10:09:14.371181+00:00", "phase": "cpp-regressions", "event": "completed", "completed_commands": 21, "elapsed_seconds": 228.9612552728504, "peak_rss_bytes": 1015951360, "guard": null}
+{"utc": "2026-11-14T10:09:14.373103+00:00", "phase": "cuda-regressions", "event": "started", "completed_commands": 21, "elapsed_seconds": 228.96315676905215}
+{"utc": "2026-11-14T10:09:25.730605+00:00", "phase": "cuda-regressions", "event": "completed", "completed_commands": 22, "elapsed_seconds": 240.32067917473614, "peak_rss_bytes": 209924096, "guard": null}
+{"utc": "2026-11-14T10:09:25.732818+00:00", "phase": "vet", "event": "started", "completed_commands": 22, "elapsed_seconds": 240.32287209481}
+{"utc": "2026-11-14T10:09:28.016942+00:00", "phase": "vet", "event": "completed", "completed_commands": 23, "elapsed_seconds": 242.60702172107995, "peak_rss_bytes": 22441984, "guard": null}
+{"utc": "2026-11-14T10:09:28.018739+00:00", "phase": "optimized-build", "event": "started", "completed_commands": 23, "elapsed_seconds": 242.608792738989}
+{"utc": "2026-11-14T10:09:32.626975+00:00", "phase": "optimized-build", "event": "completed", "completed_commands": 24, "elapsed_seconds": 247.21705100126565, "peak_rss_bytes": 181747712, "guard": null}
+{"utc": "2026-11-14T10:09:32.628735+00:00", "phase": "optimized", "event": "started", "completed_commands": 24, "elapsed_seconds": 247.21878871321678}
+{"utc": "2026-11-14T10:09:34.933164+00:00", "phase": "optimized", "event": "completed", "completed_commands": 25, "elapsed_seconds": 249.52322798967361, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:09:34.934885+00:00", "phase": "sanitized-build", "event": "started", "completed_commands": 25, "elapsed_seconds": 249.5249386113137}
+{"utc": "2026-11-14T10:09:41.846785+00:00", "phase": "sanitized-build", "event": "completed", "completed_commands": 26, "elapsed_seconds": 256.4368588384241, "peak_rss_bytes": 223211520, "guard": null}
+{"utc": "2026-11-14T10:09:41.848267+00:00", "phase": "sanitized", "event": "started", "completed_commands": 26, "elapsed_seconds": 256.43832115642726}
+{"utc": "2026-11-14T10:09:44.140669+00:00", "phase": "sanitized", "event": "completed", "completed_commands": 27, "elapsed_seconds": 258.73073425516486, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:09:44.142248+00:00", "phase": "profile-summary", "event": "started", "completed_commands": 27, "elapsed_seconds": 258.7323014046997}
+{"utc": "2026-11-14T10:09:53.616336+00:00", "phase": "profile-summary", "event": "completed", "completed_commands": 28, "elapsed_seconds": 268.20641054213047, "peak_rss_bytes": 147107840, "guard": null}
