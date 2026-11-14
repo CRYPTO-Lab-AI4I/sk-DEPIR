@@ -133,85 +133,26 @@ func (b *OrbitBasis) prepareCyclicScalingCheckpointed(fft *additiveTransform, ob
 			observe(stage, workspace.bytes())
 		}
 	}
-	checkpoint("before-validation")
-	// Frobenius closure is checked independently of random discovery on every basis.
-	if err := b.validateSupport(); err != nil {
+	stages := func(stage string) {
+		if stage == "before-reciprocal" {
+			phase = "reciprocal"
+		}
+		if stage == "before-identity" {
+			phase = "identity"
+		}
+		checkpoint(stage)
+	}
+	progress := func(stage string, completed, total uint64, unit string) {
+		if observe != nil && stage == "root-product" && completed%(1<<20) == 0 {
+			observe(fmt.Sprintf("progress-root-exponents-%d-of-%d", completed, total), workspace.bytes())
+		}
+	}
+	p, g, err := prepareCyclicPolynomials(clone.base, b.support, b.Length(), b.base.q,
+		b.rootFactors, savedRoot, saveRoot, stages, progress)
+	if err != nil {
 		return nil, err
 	}
-	p := savedRoot
-	if p == nil {
-		checkpoint("before-root-product")
-		factors := newFactorProductBuilder(clone.base, minInt(32768, b.Dimension()))
-		order := b.Length() - 1
-		for index, i := range b.support {
-			if observe != nil && index > 0 && index%(1<<20) == 0 {
-				observe(fmt.Sprintf("progress-root-exponents-%d-of-%d", index, len(b.support)), workspace.bytes())
-			}
-			partner := int(uint64(i) * uint64(b.base.q) % uint64(order))
-			if partner < i {
-				continue
-			}
-			root := b.extension.inv(b.extension.pow(b.omega, i))
-			if partner == i {
-				if uint64(root) >= b.base.q {
-					return nil, fmt.Errorf("fixed root outside base field")
-				}
-				factors.add(root, 1, 0, 1)
-				continue
-			}
-			conjugate := b.extension.pow(root, int(b.base.q))
-			trace, norm := root^conjugate, b.extension.mul(root, conjugate)
-			if uint64(trace) >= b.base.q || uint64(norm) >= b.base.q {
-				return nil, fmt.Errorf("paired root factor outside base field")
-			}
-			factors.add(norm, trace, 1, 2)
-		}
-		p = factors.finish()
-		checkpoint("before-normalization")
-		if len(p) != b.Dimension()+1 {
-			return nil, fmt.Errorf("paired product degree mismatch")
-		}
-		scale := clone.base.inv(p[0])
-		for i := range p {
-			p[i] = clone.base.mul(p[i], scale)
-		}
 
-		if saveRoot != nil {
-			if err := saveRoot(p); err != nil {
-				return nil, err
-			}
-		}
-	} else {
-		checkpoint("reuse-normalized-root")
-		if len(p) != b.Dimension()+1 || p[0] != 1 {
-			return nil, fmt.Errorf("root checkpoint shape/normalization")
-		}
-		for _, value := range p {
-			if uint64(value) >= b.base.q {
-				return nil, fmt.Errorf("root checkpoint field")
-			}
-		}
-	}
-	phase = "reciprocal"
-	checkpoint("before-reciprocal")
-	g := polyInverse(clone.base, p, b.Length()-b.Dimension())
-	phase = "identity"
-	checkpoint("before-identity")
-	// Verify the defining identity independently of reciprocal truncation. This
-	// one-time full convolution is deliberately included in preparation timings.
-	identity := polyMul(clone.base, p, g)
-	if len(identity) != b.Length() {
-		return nil, fmt.Errorf("generator identity degree mismatch")
-	}
-	for i, x := range identity {
-		want := uint32(0)
-		if i == 0 || i == len(identity)-1 {
-			want = 1
-		}
-		if x != want {
-			return nil, fmt.Errorf("generator identity mismatch at %d", i)
-		}
-	}
 	release()
 	checkpoint("before-spectrum")
 	spectrum := make([]uint32, b.Length())

@@ -117,3 +117,11 @@ The [CPU modularity refactor](cpu-encoding.md) also routes legacy resident loadi
 and immutable-file verification through this decoder. It replays only a bounded
 header, reads each payload once and keeps existing32-bit admission guards. Full
 refactor validation is pending; job74412 describes the preceding implementation.
+
+## Preprocessing producer
+
+The experimental [server session](preprocessing.md) produces this same immutable
+code data after exact support discovery, normalized root construction and full
+P·G verification. It shares procedures across value widths and has support-bound
+restart artifacts. Source support extends through s17, with bounded validation
+pending; no genuine full s17 cache exists. CUDA17 remains unimplemented.

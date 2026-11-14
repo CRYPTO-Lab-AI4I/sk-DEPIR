@@ -404,3 +404,12 @@ explicit interface. These are requirements for future memory modes and CLI
 selection, not claims that new flags or automatic capacity selection exist.
 The [CPU/GPU memory plan](encoding-scaling.md#next-part-shared-cpugpu-memory-schedules)
 records the ordered investigation and user decision gates.
+
+### Experimental wide preprocessing session
+
+The [shared preprocessing implementation](preprocessing.md) extends the m2
+discovery/root/reciprocal/identity flow through s17 in source. Native value width
+follows s; base coefficients and canonical code data retain existing conventions.
+Bounded validation is pending. Existing CUDA execution remains s≤16; wider and
+distributed GPU preparation and full-size admission are separate open gates.
+This adds no database/mask/grouped-storage or security acceptance claim.

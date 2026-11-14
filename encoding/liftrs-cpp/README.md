@@ -350,3 +350,12 @@ pass, transform or I/O; its assembly cost is unmeasured. Mutable buffers must be
 disjoint from each other and code/input. The raw borrowed API requires scratch
 ownership transfer before reuse; the shared adapter handles it automatically.
 Existing32-bit CPU/GPU defaults and CUDA-free ordinary builds remain unchanged.
+
+## Shared server preprocessing
+
+The experimental [preprocessing guide](../../docs/preprocessing.md) describes
+the shared discovery/root/reciprocal procedure, width-selected native executor,
+explicit backend/budgets, ownership and trusted support/root artifacts. Source
+implementation extends through s17; bounded validation is pending and no full
+s17 cache or latency exists. CUDA execution remains s≤16; wider/multi-GPU server
+preparation is future work. Ordinary client builds remain CUDA-free.

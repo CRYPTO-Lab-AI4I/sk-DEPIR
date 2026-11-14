@@ -1631,3 +1631,20 @@ storage/runtime costs explicit. Fulls16 CPU disk is now admitted under the user'
 [retry report](../experiments/encoding-table/report.md#extended-cpu-retries).
 Current full execution still supports s≤16. Wider scalar reference work alone
 is not s17 encoding support, preprocessing admission or TRL5 acceptance.
+
+### Shared preprocessing extension (SCALING-066)
+
+Implement one sampling/support and root/reciprocal/identity procedure through s17,
+selecting native value width from s and reusing existing polynomial kernels and
+sparse plan construction. Persist support-bound root checkpoints and canonical
+code data; preserve independent scalar references. See the
+[implementation guide](preprocessing.md) and
+[bounded validation](../experiments/s17-preprocessing/report.md).
+
+Source implementation is in place; validation results are pending. First reconcile
+small exact references, high-bit s17 primitives, restart/artifact checks and
+regressions. Then validate CUDA32 execution compatibility, calibrate native work
+and implement wider/distributed GPU execution for the fastest-server target.
+Current CUDA preparation rejects s17 explicitly. Full s17 discovery/preparation
+needs reviewed aggregate host/device/storage/time budgets; existing kernel
+validation caps are not admission. No slower memory mode or default changes.

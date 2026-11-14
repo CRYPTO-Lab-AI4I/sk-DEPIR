@@ -66,26 +66,7 @@ func discoverOrbitBasis(b *OrbitBasis, options OrbitOptions) (*OrbitBasis, error
 			good = append(good, i)
 		}
 	}
-	found := newExponentSet(q * q)
-	count := 0
-	sampleBytes := 1
-	if spec.FieldDegree > 8 {
-		sampleBytes = 4
-	}
-	random := make([]byte, sampleBytes*len(good))
-	for b.samples < options.MaxSamples && count < len(good) {
-		if _, err := io.ReadFull(options.Random, random); err != nil {
-			return nil, fmt.Errorf("degree-set sampling: %w", err)
-		}
-		grid := make([]uint32, q*q)
-		for j, index := range good {
-			offset := sampleBytes * j
-			value := uint32(random[offset])
-			if sampleBytes == 4 {
-				value |= uint32(random[offset+1])<<8 | uint32(random[offset+2])<<16 | uint32(random[offset+3])<<24
-			}
-			grid[index] = value & uint32(q-1)
-		}
+	evaluate := func(grid []uint32) error {
 		for y := 0; y < q; y++ {
 			b.baseFFT.apply(grid[y*q:(y+1)*q], false)
 		}
@@ -99,26 +80,12 @@ func discoverOrbitBasis(b *OrbitBasis, options OrbitOptions) (*OrbitBasis, error
 				grid[x+q*y] = column[y]
 			}
 		}
-		// The extension's packed integer is phi^-1(x0,x1); it has the same index
-		// as the canonical grid, so interpolation needs no permutation table.
 		b.extensionFFT.apply(grid, true)
-		for i, c := range grid {
-			if c != 0 && !found.has(i) {
-				found.add(i)
-				count++
-			}
-		}
-		b.samples++
+		return nil
 	}
-	if count != len(good) {
-		return nil, fmt.Errorf("degree discovery incomplete: %d of %d exponents after %d samples", count, len(good), b.samples)
-	}
-	for i := 0; i < q*q; i++ {
-		if found.has(i) {
-			b.support = append(b.support, i)
-		}
-	}
-	if err := b.validateSupport(); err != nil {
+	var err error
+	b.support, b.samples, err = discoverSupport(spec, good, options, evaluate, nil)
+	if err != nil {
 		return nil, err
 	}
 	return b, nil
@@ -133,23 +100,7 @@ func newOrbitBasis(spec Spec, polynomial uint32) *OrbitBasis {
 	return &OrbitBasis{spec: spec, polynomial: polynomial, base: base, extension: extension, delta: delta, omega: omega, baseFFT: newAdditiveTransform(base), extensionFFT: fft}
 }
 func (b *OrbitBasis) validateSupport() error {
-	n := int(b.extension.q) - 1
-	if len(b.support) == 0 || len(b.support) > n {
-		return fmt.Errorf("invalid degree-set size")
-	}
-	seen := newExponentSet(n)
-	for j, i := range b.support {
-		if i < 0 || i >= n || (j > 0 && i <= b.support[j-1]) {
-			return fmt.Errorf("degree set must be sorted, distinct and exclude N-1")
-		}
-		seen.add(i)
-	}
-	for _, i := range b.support {
-		if !seen.has(int(uint64(i) * uint64(b.base.q) % uint64(n))) {
-			return fmt.Errorf("degree set is not Frobenius closed")
-		}
-	}
-	return nil
+	return validateExponentSupport(b.support, b.Length(), b.base.q)
 }
 
 // Dimension returns the exact message length established during preprocessing.

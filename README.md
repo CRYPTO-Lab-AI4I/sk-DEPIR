@@ -38,6 +38,12 @@ that code data; bounded correctness/ownership/sanitizer checks pass (job74412).
 Its returned uint32 word retains an 8N-byte backing allocation, counted in the
 workspace model. Existing CPU/GPU defaults are unchanged; full s17 is unvalidated.
 
+The experimental [shared preprocessing pipeline](docs/preprocessing.md) now
+implements discovery, root/generator construction, verification and canonical
+code data through s17 with width-selected native execution. Bounded validation
+is pending ([report](experiments/s17-preprocessing/report.md)); no full s17 cache
+exists. The CUDA adapter remains s≤16; wider/multi-GPU preparation is still open.
+
 The [CPU implementation guide](docs/cpu-encoding.md) documents the shared encoding
 sequence,32/64-bit kernels, storage/output strategies, ownership and diagnostics.
 The native CPU deduplication is implemented; [cross-mode, sanitizer and matched

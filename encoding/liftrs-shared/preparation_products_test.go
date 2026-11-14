@@ -32,14 +32,18 @@ func TestPreparationProductPrefixes(t *testing.T) {
 }
 
 func TestPreparationProducts(t *testing.T) {
-	for s := 2; s <= 16; s++ {
+	for s := 2; s <= 17; s++ {
 		polynomial, _ := BinaryPolynomial(s)
 		f, err := NewBinaryField(s, polynomial)
 		if err != nil {
 			t.Fatal(err)
 		}
 		lookup := newPreparationProducts(f)
-		if (len(lookup.log)+len(lookup.powers))*4 >= 768<<10 {
+		budget := 768 << 10
+		if s == 17 {
+			budget *= 2
+		}
+		if (len(lookup.log)+len(lookup.powers))*4 >= budget {
 			t.Fatal("table budget")
 		}
 		rng := rand.New(rand.NewSource(int64(s)))
@@ -68,7 +72,8 @@ func TestPreparationProducts(t *testing.T) {
 			}
 		}
 	}
-	f, _ = NewBinaryField(17, 0x20009)
+	polynomial, _ := BinaryPolynomial(18)
+	f, _ = NewBinaryField(18, polynomial)
 	if newPreparationProducts(f) != nil {
 		t.Fatal("unbounded table")
 	}

@@ -9,8 +9,8 @@ identical field operations in C++.
 
 Go-only transform execution is in [liftrs-go](../liftrs-go/README.md); native
 transforms and their binding are in [liftrs-cpp](../liftrs-cpp/README.md). The
-shared adapter chooses whole-buffer native calls explicitly. Code preparation
-stays Go. See the [overview and run commands](../README.md) and the examples below.
+shared adapter chooses whole-buffer native calls explicitly. Code preparation uses shared Go orchestration with explicit native/CUDA
+execution in the experimental server session. See the [overview and run commands](../README.md) and the examples below.
 The import is `github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared`;
 `encoding/liftrs-go` no longer contains the complete encoder API.
 
@@ -774,3 +774,12 @@ resident encoders return nil/error from workspace creation instead of allocating
 or panicking. Independent Go/dense/hybrid encoders remain correctness references.
 [Cross-mode and baseline validation](../../experiments/cpu-encoding-modules/report.md)
 is pending; this refactor does not establish s17 support or new memory savings.
+
+## Shared server preprocessing
+
+The experimental [preprocessing guide](../../docs/preprocessing.md) describes
+the shared discovery/root/reciprocal procedure, width-selected native executor,
+explicit backend/budgets, ownership and trusted support/root artifacts. Source
+implementation extends through s17; bounded validation is pending and no full
+s17 cache or latency exists. CUDA execution remains s≤16; wider/multi-GPU server
+preparation is future work. Ordinary client builds remain CUDA-free.

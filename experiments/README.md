@@ -60,6 +60,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Shared s17 preprocessing](s17-preprocessing/report.md): width-selected native
+  executor, shared sampling/root/reciprocal procedure, exact small references,
+  high-bit kernels and support-bound checkpoint checks; validation pending.
+
 - [CPU encoding modules](cpu-encoding-modules/report.md): shared native32/64-bit
   schedule, storage/output helpers, common data verification, cross-mode/
   lifetime/sanitizer checks and matched s10 old/new timing validation.

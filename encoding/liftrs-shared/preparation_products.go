@@ -2,14 +2,14 @@ package liftrs
 
 // preparationProducts accelerates public code coefficients, not secret data.
 // Its input-indexed tables are not constant-time. Only the base field is tabulated:
-// at s=16 the immutable log/duplicated-power arrays total less than 768 KiB.
+// at s=17 the immutable log/duplicated-power arrays total less than 1.5 MiB.
 // The polynomial coordinates and all persisted coefficients remain unchanged.
 type preparationProducts struct {
 	log, powers []uint32
 }
 
 func newPreparationProducts(f BinaryField) *preparationProducts {
-	if f.Degree() > 16 {
+	if f.Degree() > 17 {
 		return nil // Retain bounded memory if larger base fields are admitted later.
 	}
 	order := (1 << uint(f.Degree())) - 1

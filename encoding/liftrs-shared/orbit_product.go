@@ -6,6 +6,12 @@ package liftrs
 // Preparing/loading a code never caches message-dependent values. The cutoff
 // applies to both operands after truncation and is a performance choice only.
 type polynomialProducts struct {
+	// A direct public-code executor can use wider extension work arrays while
+	// keeping all base polynomial coefficients uint32. Existing FFT/GPU adapters
+	// retain their current dispatch when this optional backend is nil.
+	convolver residentConvolver
+	domain    uint64
+
 	transform *additiveTransform
 	cutoff    int
 	// Non-nil only in a private, single-caller code-preparation session.
@@ -13,7 +19,7 @@ type polynomialProducts struct {
 }
 
 // Optional private executor for code-only resident products. Default Go/native
-// executors do not implement it. Output must have exactly limit coefficients;
+// executors do not implement it. Output must own exactly limit coefficients;
 // caller slices stay immutable. Workspace ownership remains single-caller.
 type residentConvolver interface {
 	canConvolve(n int) bool
@@ -28,7 +34,7 @@ type residentConvolver interface {
 // If the full product exceeds the extension field, overlap-add with half-field
 // chunks keeps every local product within the available evaluation domain.
 func (p *polynomialProducts) multiply(a, b []uint32, limit int) []uint32 {
-	out := make([]uint32, limit)
+	var out []uint32
 	if p.workspace != nil {
 		if p.workspace.busy {
 			panic("recursive preparation workspace use")
@@ -36,7 +42,18 @@ func (p *polynomialProducts) multiply(a, b []uint32, limit int) []uint32 {
 		p.workspace.busy = true
 		defer func() { p.workspace.busy = false }()
 	}
-	chunk := int(p.transform.f.q) / 2
+	domain := p.domain
+	convolver := p.convolver
+	if p.transform != nil {
+		domain = p.transform.f.q
+		if convolver == nil {
+			convolver, _ = p.transform.executor.(residentConvolver)
+		}
+	}
+	if domain < 2 || domain > uint64(^uint(0)>>1) {
+		panic("invalid polynomial executor domain")
+	}
+	chunk := int(domain) / 2
 	for i := 0; i < len(a) && i < limit; i += chunk {
 		ai := a[i:minInt(i+chunk, len(a))]
 		for j := 0; j < len(b) && i+j < limit; j += chunk {
@@ -46,18 +63,29 @@ func (p *polynomialProducts) multiply(a, b []uint32, limit int) []uint32 {
 				n *= 2
 			}
 			count := minInt(limit-i-j, len(ai)+len(bj)-1)
-			if resident, ok := p.transform.executor.(residentConvolver); ok && resident.canConvolve(n) {
+			if convolver != nil && convolver.canConvolve(n) {
 				if p.workspace != nil && p.workspace.observe != nil {
 					p.workspace.observe(n)
 				}
-				product := resident.convolve(ai, bj, count, n)
+				product := convolver.convolve(ai, bj, count, n)
 				if len(product) != count {
 					panic("resident product length")
+				}
+				// A single complete local product already owns its output. Avoid
+				// a second full Go result/copy; overlap-add still accumulates.
+				if i == 0 && j == 0 && len(ai) == len(a) && len(bj) == len(b) && count == limit {
+					return product
+				}
+				if out == nil {
+					out = make([]uint32, limit)
 				}
 				for k, v := range product {
 					out[i+j+k] ^= v
 				}
 				continue
+			}
+			if p.transform == nil {
+				panic("direct polynomial executor rejected domain")
 			}
 			var x, y []uint32
 			if p.workspace != nil {
@@ -76,10 +104,16 @@ func (p *polynomialProducts) multiply(a, b []uint32, limit int) []uint32 {
 				x[k] = p.transform.f.mul(x[k], y[k])
 			}
 			p.transform.applySubspace(x, true)
+			if out == nil {
+				out = make([]uint32, limit)
+			}
 			for k := 0; k < count; k++ {
 				out[i+j+k] ^= x[k]
 			}
 		}
+	}
+	if out == nil {
+		out = make([]uint32, limit)
 	}
 	return out
 }

@@ -92,6 +92,15 @@ output backing bytes (4N logical uint32 bytes), and older returned words require
 additional live RAM. No full-size capacity or timing estimate changes.
 No full-encoding table cell changes from these kernel steps.
 
+The [shared preprocessing implementation](preprocessing.md) now extends the
+sampling/root/reciprocal/identity procedure through s17 with explicit native
+execution and support-bound restart artifacts. Bounded validation is pending;
+there is no genuine s17 support/cache or measured full-size peak/runtime.
+CUDA execution remains s≤16; wider/multi-GPU preprocessing is still open.
+The native fast product payload is384 GiB at s17, with Go arrays and overhead
+additional; a host peak around600 GiB or higher is an unmeasured scenario, not
+a capacity guarantee. No full-encoding measurement changes.
+
 Both CPU and GPU encoding are **potentially feasible on this system after the
 s17 port**, with preprocessing admitted separately. First target one large-RAM
 CPU node for a correctness and performance baseline, then a resident multi-GPU
@@ -151,6 +160,11 @@ width/communication effects. The12–24h construction range allows approximately
 1.1–2.3x over that model for wider values and integration costs; this allowance
 is a judgment, not a measured bound. The end-to-end range rounds their sum and
 allows persistence/checks, not queue time. Actual runtime may exceed it.
+
+This historical GPU scenario is not a runtime estimate for the new native
+executor. Native weight-class enumeration replaces per-monomial carry evaluation,
+so the old discovery extrapolation is no longer a calibrated model for that
+implementation. Its full s17 discovery/preparation latency remains unknown.
 
 This assumes a working wider server backend with adequate resident memory and
 useful parallelism. The three-array GPU payload is~384GiB: three H200s are a
