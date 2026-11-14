@@ -1,0 +1,153 @@
+{
+  "status": "passed",
+  "rows": [
+    {
+      "case": "cpu-compact-s15",
+      "job_id": "74198",
+      "status": "passed",
+      "machine_class": "hpc",
+      "s": 15,
+      "source_files_verified": 406,
+      "encoding": [
+        {
+          "allocated_bytes": 2998664,
+          "arena_transferred": true,
+          "compaction_ns": 4923513430,
+          "elapsed_ns": 280038265824,
+          "expansion_ns": 702310967,
+          "go_sys_bytes": 10630943464,
+          "heap_after_bytes": 10597633056,
+          "heap_before_bytes": 10594723872,
+          "input_bytes": 867656188,
+          "native_after": {
+            "steady_ns": 14678535427661983,
+            "wall_ns": 1794568574631598169,
+            "posix_monotonic_ns": 14678535427658429,
+            "process_cpu_ns": 8611026391271
+          },
+          "native_before": {
+            "steady_ns": 14678255389387598,
+            "wall_ns": 1794568294593324060,
+            "posix_monotonic_ns": 14678255389385776,
+            "process_cpu_ns": 7511716550
+          },
+          "native_stages": {
+            "calls": 5,
+            "boundary_calls": 1,
+            "buffer_ns": 1444345380,
+            "pointwise_ns": 5765955890,
+            "assembly_ns": 936602106,
+            "taylor_ns": 42997808233,
+            "columns_transposes_ns": 98977958210,
+            "rows_ns": 124068959489
+          },
+          "output_bytes": 4294967296,
+          "phase": "encode-0",
+          "workspace_after_bytes": 268435456,
+          "workspace_before_bytes": 4563402752
+        },
+        {
+          "allocated_bytes": 4297983280,
+          "arena_transferred": true,
+          "compaction_ns": 4927921061,
+          "elapsed_ns": 279899611031,
+          "expansion_ns": 766037528,
+          "go_sys_bytes": 10631475944,
+          "heap_after_bytes": 10597651536,
+          "heap_before_bytes": 6299788616,
+          "input_bytes": 867656188,
+          "native_after": {
+            "steady_ns": 14678858703992568,
+            "wall_ns": 1794568897907928921,
+            "posix_monotonic_ns": 14678858703988534,
+            "process_cpu_ns": 17242751028412
+          },
+          "native_before": {
+            "steady_ns": 14678578804372458,
+            "wall_ns": 1794568618008308724,
+            "posix_monotonic_ns": 14678578804371463,
+            "process_cpu_ns": 8654546437683
+          },
+          "native_stages": {
+            "calls": 5,
+            "boundary_calls": 1,
+            "buffer_ns": 1149862921,
+            "pointwise_ns": 5768953784,
+            "assembly_ns": 919358726,
+            "taylor_ns": 42674182681,
+            "columns_transposes_ns": 98983691217,
+            "rows_ns": 123992060984
+          },
+          "output_bytes": 4294967296,
+          "phase": "encode-1",
+          "workspace_after_bytes": 268435456,
+          "workspace_before_bytes": 268435456
+        }
+      ],
+      "setup": [
+        {
+          "allocated_bytes": 5165428536,
+          "elapsed_ns": 5894002009,
+          "go_sys_bytes": 5187870168,
+          "heap_after_bytes": 5166043144,
+          "heap_before_bytes": 730224,
+          "k": 216914047,
+          "n": 1073741824,
+          "native_after": {
+            "steady_ns": 14678253791188121,
+            "wall_ns": 1794568292995124507,
+            "posix_monotonic_ns": 14678253791183339,
+            "process_cpu_ns": 5942497737
+          },
+          "native_before": {
+            "steady_ns": 14678247897174946,
+            "wall_ns": 1794568287101112502,
+            "posix_monotonic_ns": 14678247897168072,
+            "process_cpu_ns": 10697771
+          },
+          "phase": "load-online",
+          "plan_bytes": 5162623488
+        },
+        {
+          "allocated_bytes": 4567495760,
+          "column_bytes": 268435456,
+          "compact": true,
+          "elapsed_ns": 9640441,
+          "go_sys_bytes": 9757082136,
+          "heap_after_bytes": 9731150864,
+          "heap_before_bytes": 5163655104,
+          "native_after": {
+            "steady_ns": 14678253837633000,
+            "wall_ns": 1794568293041569274,
+            "posix_monotonic_ns": 14678253837631002,
+            "process_cpu_ns": 5959036854
+          },
+          "native_before": {
+            "steady_ns": 14678253827988129,
+            "wall_ns": 1794568293031924465,
+            "posix_monotonic_ns": 14678253827986647,
+            "process_cpu_ns": 5949409521
+          },
+          "phase": "online-setup",
+          "workers": 32,
+          "workspace_bytes": 4563402752
+        }
+      ],
+      "memory": {
+        "label": "workflow",
+        "argv": [
+          "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/encoding-table/fill-01/cpu-compact-s15/encoding.test",
+          "-test.run=^TestCPUCompactCached$",
+          "-test.v",
+          "-test.timeout=90m"
+        ],
+        "seconds": 667.3633282128721,
+        "peak_rss_bytes": 10631507968,
+        "peak_tracked_cache_bytes": 6725148672,
+        "peak_rss_plus_tracked_cache_bytes": 17356619776,
+        "exit_code": 0,
+        "guard": null
+      }
+    }
+  ]
+}

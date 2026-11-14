@@ -1,0 +1,58 @@
+{"utc": "2026-11-14T10:57:42.411043+00:00", "phase": "host", "event": "started", "completed_commands": 0, "elapsed_seconds": 5.967341680079699}
+{"utc": "2026-11-14T10:57:44.643079+00:00", "phase": "host", "event": "completed", "completed_commands": 1, "elapsed_seconds": 8.199377495795488, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:57:44.644831+00:00", "phase": "cpu", "event": "started", "completed_commands": 1, "elapsed_seconds": 8.201121486723423}
+{"utc": "2026-11-14T10:57:46.880028+00:00", "phase": "cpu", "event": "completed", "completed_commands": 2, "elapsed_seconds": 10.436324516311288, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:57:46.881339+00:00", "phase": "go", "event": "started", "completed_commands": 2, "elapsed_seconds": 10.437629176303744}
+{"utc": "2026-11-14T10:57:49.100087+00:00", "phase": "go", "event": "completed", "completed_commands": 3, "elapsed_seconds": 12.656387396156788, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:57:49.102859+00:00", "phase": "compiler", "event": "started", "completed_commands": 3, "elapsed_seconds": 12.659149400889874}
+{"utc": "2026-11-14T10:57:51.330096+00:00", "phase": "compiler", "event": "completed", "completed_commands": 4, "elapsed_seconds": 14.886393824592233, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:57:51.331705+00:00", "phase": "job", "event": "started", "completed_commands": 4, "elapsed_seconds": 14.887995297089219}
+{"utc": "2026-11-14T10:57:53.556926+00:00", "phase": "job", "event": "completed", "completed_commands": 5, "elapsed_seconds": 17.11322378180921, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:57:53.559244+00:00", "phase": "legacy-build", "event": "started", "completed_commands": 5, "elapsed_seconds": 17.115533942356706}
+{"utc": "2026-11-14T10:57:58.046326+00:00", "phase": "legacy-build", "event": "completed", "completed_commands": 6, "elapsed_seconds": 21.602634605020285, "peak_rss_bytes": 228311040, "guard": null}
+{"utc": "2026-11-14T10:57:58.048205+00:00", "phase": "go-build", "event": "started", "completed_commands": 6, "elapsed_seconds": 21.60449568927288}
+{"utc": "2026-11-14T10:58:11.751402+00:00", "phase": "go-build", "event": "completed", "completed_commands": 7, "elapsed_seconds": 35.3077202886343, "peak_rss_bytes": 93470720, "guard": null}
+{"utc": "2026-11-14T10:58:11.800946+00:00", "phase": "go-regressions", "event": "started", "completed_commands": 7, "elapsed_seconds": 35.35723668895662}
+{"utc": "2026-11-14T10:58:40.940385+00:00", "phase": "go-regressions", "event": "completed", "completed_commands": 8, "elapsed_seconds": 64.49668345600367, "peak_rss_bytes": 988958720, "guard": null}
+{"utc": "2026-11-14T10:58:40.946241+00:00", "phase": "go-builds", "event": "started", "completed_commands": 8, "elapsed_seconds": 64.50253164023161}
+{"utc": "2026-11-14T10:59:12.815539+00:00", "phase": "go-builds", "event": "completed", "completed_commands": 9, "elapsed_seconds": 96.37184486724436, "peak_rss_bytes": 1048113152, "guard": null}
+{"utc": "2026-11-14T10:59:12.853195+00:00", "phase": "cpp-build", "event": "started", "completed_commands": 9, "elapsed_seconds": 96.4094857480377}
+{"utc": "2026-11-14T10:59:28.805125+00:00", "phase": "cpp-build", "event": "completed", "completed_commands": 10, "elapsed_seconds": 112.36143872328103, "peak_rss_bytes": 571256832, "guard": null}
+{"utc": "2026-11-14T10:59:28.807846+00:00", "phase": "gpu", "event": "started", "completed_commands": 10, "elapsed_seconds": 112.36413649655879}
+{"utc": "2026-11-14T10:59:31.081709+00:00", "phase": "gpu", "event": "completed", "completed_commands": 11, "elapsed_seconds": 114.63801282830536, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:59:31.083613+00:00", "phase": "topology", "event": "started", "completed_commands": 11, "elapsed_seconds": 114.63990318030119}
+{"utc": "2026-11-14T10:59:33.365934+00:00", "phase": "topology", "event": "completed", "completed_commands": 12, "elapsed_seconds": 116.922233780846, "peak_rss_bytes": 23048192, "guard": null}
+{"utc": "2026-11-14T10:59:33.402161+00:00", "phase": "nvcc", "event": "started", "completed_commands": 12, "elapsed_seconds": 116.95845186896622}
+{"utc": "2026-11-14T10:59:35.696810+00:00", "phase": "nvcc", "event": "completed", "completed_commands": 13, "elapsed_seconds": 119.25310856103897, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T10:59:35.708684+00:00", "phase": "cuda-build", "event": "started", "completed_commands": 13, "elapsed_seconds": 119.26497418619692}
+{"utc": "2026-11-14T10:59:51.595089+00:00", "phase": "cuda-build", "event": "completed", "completed_commands": 14, "elapsed_seconds": 135.15139917097986, "peak_rss_bytes": 281939968, "guard": null}
+{"utc": "2026-11-14T10:59:51.663434+00:00", "phase": "window-build", "event": "started", "completed_commands": 14, "elapsed_seconds": 135.21972434408963}
+{"utc": "2026-11-14T10:59:56.223242+00:00", "phase": "window-build", "event": "completed", "completed_commands": 15, "elapsed_seconds": 139.7795531321317, "peak_rss_bytes": 5537792, "guard": null}
+{"utc": "2026-11-14T10:59:56.226997+00:00", "phase": "wide-monomial-windows", "event": "started", "completed_commands": 15, "elapsed_seconds": 139.78328714333475}
+{"utc": "2026-11-14T10:59:58.496468+00:00", "phase": "wide-monomial-windows", "event": "completed", "completed_commands": 16, "elapsed_seconds": 142.05277326889336, "peak_rss_bytes": 10838016, "guard": null}
+{"utc": "2026-11-14T10:59:58.514722+00:00", "phase": "cuda-go-build", "event": "started", "completed_commands": 16, "elapsed_seconds": 142.07101225294173}
+{"utc": "2026-11-14T11:00:03.087711+00:00", "phase": "cuda-go-build", "event": "completed", "completed_commands": 17, "elapsed_seconds": 146.64402306452394, "peak_rss_bytes": 30244864, "guard": null}
+{"utc": "2026-11-14T11:00:03.092250+00:00", "phase": "gpu-preprocessing", "event": "started", "completed_commands": 17, "elapsed_seconds": 146.64854130893946}
+{"utc": "2026-11-14T11:00:16.700043+00:00", "phase": "gpu-preprocessing", "event": "completed", "completed_commands": 18, "elapsed_seconds": 160.2563552558422, "peak_rss_bytes": 410185728, "guard": null}
+{"utc": "2026-11-14T11:00:16.703214+00:00", "phase": "memcheck", "event": "started", "completed_commands": 18, "elapsed_seconds": 160.25950566492975}
+{"utc": "2026-11-14T11:00:48.309111+00:00", "phase": "memcheck", "event": "heartbeat", "completed_commands": 18, "elapsed_seconds": 191.86541837267578, "command_seconds": 31.605892151594162, "peak_rss_bytes": 424235008, "remaining_work": "unknown"}
+{"utc": "2026-11-14T11:00:57.023984+00:00", "phase": "memcheck", "event": "completed", "completed_commands": 19, "elapsed_seconds": 200.58029336109757, "peak_rss_bytes": 430301184, "guard": null}
+{"utc": "2026-11-14T11:00:57.025901+00:00", "phase": "legacy-online", "event": "started", "completed_commands": 19, "elapsed_seconds": 200.58219136111438}
+{"utc": "2026-11-14T11:01:03.774982+00:00", "phase": "legacy-online", "event": "completed", "completed_commands": 20, "elapsed_seconds": 207.3312819097191, "peak_rss_bytes": 176828416, "guard": null}
+{"utc": "2026-11-14T11:01:03.777189+00:00", "phase": "cpp-regressions", "event": "started", "completed_commands": 20, "elapsed_seconds": 207.33347883820534}
+{"utc": "2026-11-14T11:01:35.719412+00:00", "phase": "cpp-regressions", "event": "heartbeat", "completed_commands": 20, "elapsed_seconds": 239.27573342435062, "command_seconds": 31.942216703668237, "peak_rss_bytes": 1009643520, "remaining_work": "unknown"}
+{"utc": "2026-11-14T11:01:46.838341+00:00", "phase": "cpp-regressions", "event": "completed", "completed_commands": 21, "elapsed_seconds": 250.39465345442295, "peak_rss_bytes": 1028710400, "guard": null}
+{"utc": "2026-11-14T11:01:46.840407+00:00", "phase": "cuda-regressions", "event": "started", "completed_commands": 21, "elapsed_seconds": 250.3966979123652}
+{"utc": "2026-11-14T11:02:05.079427+00:00", "phase": "cuda-regressions", "event": "completed", "completed_commands": 22, "elapsed_seconds": 268.63572690822184, "peak_rss_bytes": 303144960, "guard": null}
+{"utc": "2026-11-14T11:02:05.081319+00:00", "phase": "vet", "event": "started", "completed_commands": 22, "elapsed_seconds": 268.6376089397818}
+{"utc": "2026-11-14T11:02:09.663071+00:00", "phase": "vet", "event": "completed", "completed_commands": 23, "elapsed_seconds": 273.21937241218984, "peak_rss_bytes": 31416320, "guard": null}
+{"utc": "2026-11-14T11:02:09.664906+00:00", "phase": "optimized-build", "event": "started", "completed_commands": 23, "elapsed_seconds": 273.2211966197938}
+{"utc": "2026-11-14T11:02:14.236842+00:00", "phase": "optimized-build", "event": "completed", "completed_commands": 24, "elapsed_seconds": 277.7931546457112, "peak_rss_bytes": 181710848, "guard": null}
+{"utc": "2026-11-14T11:02:14.238236+00:00", "phase": "optimized", "event": "started", "completed_commands": 24, "elapsed_seconds": 277.79452664777637}
+{"utc": "2026-11-14T11:02:16.560554+00:00", "phase": "optimized", "event": "completed", "completed_commands": 25, "elapsed_seconds": 280.11685747653246, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T11:02:16.561994+00:00", "phase": "sanitized-build", "event": "started", "completed_commands": 25, "elapsed_seconds": 280.1182846277952}
+{"utc": "2026-11-14T11:02:21.113301+00:00", "phase": "sanitized-build", "event": "completed", "completed_commands": 26, "elapsed_seconds": 284.6696027070284, "peak_rss_bytes": 221040640, "guard": null}
+{"utc": "2026-11-14T11:02:21.136800+00:00", "phase": "sanitized", "event": "started", "completed_commands": 26, "elapsed_seconds": 284.6930914968252}
+{"utc": "2026-11-14T11:02:23.438527+00:00", "phase": "sanitized", "event": "completed", "completed_commands": 27, "elapsed_seconds": 286.99482674896717, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T11:02:23.440120+00:00", "phase": "profile-summary", "event": "started", "completed_commands": 27, "elapsed_seconds": 286.99640954472125}
+{"utc": "2026-11-14T11:02:32.857088+00:00", "phase": "profile-summary", "event": "completed", "completed_commands": 28, "elapsed_seconds": 296.41338754445314, "peak_rss_bytes": 254717952, "guard": null}

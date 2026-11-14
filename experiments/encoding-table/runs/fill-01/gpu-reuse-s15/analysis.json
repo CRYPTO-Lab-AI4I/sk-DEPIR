@@ -1,0 +1,154 @@
+{
+  "status": "passed",
+  "rows": [
+    {
+      "case": "gpu-reuse-s15",
+      "job_id": "74210",
+      "status": "passed",
+      "machine_class": "hpc",
+      "s": 15,
+      "source_files_verified": 406,
+      "encoding": [
+        {
+          "allocated_bytes": 4297121736,
+          "cuda_stages": {
+            "host_to_device_ns": 99243526,
+            "taylor_ns": 1090516825,
+            "columns_ns": 7782282592,
+            "rows_ns": 6491002929,
+            "layout_ns": 150272927,
+            "device_to_host_ns": 287729072,
+            "pointwise_ns": 34657087,
+            "native_total_ns": 16233224227,
+            "buffer_ns": 2080512,
+            "assembly_ns": 93199516,
+            "elapsed_ns": 17756121576,
+            "owned_device_bytes": 13754023700
+          },
+          "elapsed_ns": 17756140690,
+          "go_sys_bytes": 10357490344,
+          "heap_after_bytes": 10328451352,
+          "heap_before_bytes": 6031329616,
+          "input_bytes": 867656188,
+          "native_after": {
+            "steady_ns": 14676516290611932,
+            "wall_ns": 1794566527259920954,
+            "posix_monotonic_ns": 14676516290609794,
+            "process_cpu_ns": 29490769789
+          },
+          "native_before": {
+            "steady_ns": 14676498534465804,
+            "wall_ns": 1794566509503775032,
+            "posix_monotonic_ns": 14676498534462907,
+            "process_cpu_ns": 11729803132
+          },
+          "output_bytes": 4294967296,
+          "phase": "encode-0"
+        },
+        {
+          "allocated_bytes": 4297147632,
+          "cuda_stages": {
+            "host_to_device_ns": 99500007,
+            "taylor_ns": 1086298400,
+            "columns_ns": 7785751220,
+            "rows_ns": 6494231750,
+            "layout_ns": 150347392,
+            "device_to_host_ns": 288492534,
+            "pointwise_ns": 34618144,
+            "native_total_ns": 16238367079,
+            "buffer_ns": 2067104,
+            "assembly_ns": 93304512,
+            "elapsed_ns": 16916806770,
+            "owned_device_bytes": 13754023700
+          },
+          "elapsed_ns": 16916836333,
+          "go_sys_bytes": 10357752488,
+          "heap_after_bytes": 10328499384,
+          "heap_before_bytes": 6031351752,
+          "input_bytes": 867656188,
+          "native_after": {
+            "steady_ns": 14676585297477788,
+            "wall_ns": 1794566596266786876,
+            "posix_monotonic_ns": 14676585297476188,
+            "process_cpu_ns": 98555969386
+          },
+          "native_before": {
+            "steady_ns": 14676568380637046,
+            "wall_ns": 1794566579349946252,
+            "posix_monotonic_ns": 14676568380633915,
+            "process_cpu_ns": 81646186674
+          },
+          "output_bytes": 4294967296,
+          "phase": "encode-1"
+        }
+      ],
+      "setup": [
+        {
+          "allocated_bytes": 5165392920,
+          "elapsed_ns": 9012942177,
+          "go_sys_bytes": 5183409624,
+          "heap_after_bytes": 5166009272,
+          "heap_before_bytes": 731984,
+          "k": 216914047,
+          "n": 1073741824,
+          "native_after": {
+            "steady_ns": 14676494195165344,
+            "wall_ns": 1794566505164474599,
+            "posix_monotonic_ns": 14676494195160787,
+            "process_cpu_ns": 7408706133
+          },
+          "native_before": {
+            "steady_ns": 14676485182209034,
+            "wall_ns": 1794566496151520395,
+            "posix_monotonic_ns": 14676485182201449,
+            "process_cpu_ns": 13338336
+          },
+          "phase": "load-online",
+          "plan_bytes": 5162623488
+        },
+        {
+          "allocated_bytes": 2941560,
+          "backend": "cuda",
+          "compact_output": false,
+          "device_array_payload_bytes": 13753606660,
+          "device_cap_bytes": 42949672960,
+          "elapsed_ns": 2800251881,
+          "go_sys_bytes": 5184204248,
+          "heap_after_bytes": 5166598616,
+          "heap_before_bytes": 5163657056,
+          "native_after": {
+            "steady_ns": 14676497014543291,
+            "wall_ns": 1794566507983852382,
+            "posix_monotonic_ns": 14676497014540103,
+            "process_cpu_ns": 10202271907
+          },
+          "native_before": {
+            "steady_ns": 14676494214284751,
+            "wall_ns": 1794566505183593877,
+            "posix_monotonic_ns": 14676494214282959,
+            "process_cpu_ns": 7416957150
+          },
+          "owned_device_bytes": 13754023700,
+          "phase": "online-setup",
+          "reuse_buffers": true,
+          "streamed_code": false
+        }
+      ],
+      "memory": {
+        "label": "workflow",
+        "argv": [
+          "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/encoding-table/fill-01/gpu-reuse-s15/encoding.test",
+          "-test.run=^TestCUDACachedEncoding$",
+          "-test.v",
+          "-test.timeout=90m"
+        ],
+        "seconds": 168.69201157800853,
+        "peak_rss_bytes": 10490384384,
+        "peak_tracked_cache_bytes": 5836869632,
+        "peak_rss_plus_tracked_cache_bytes": 16326201344,
+        "exit_code": 0,
+        "guard": null
+      }
+    }
+  ]
+}

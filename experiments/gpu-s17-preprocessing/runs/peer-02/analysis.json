@@ -1,0 +1,234 @@
+{
+  "status": "passed",
+  "job_id": "74466",
+  "revision": "10a362b49c5d178daea6de66d960c77529f6addf",
+  "source_files_verified": 498,
+  "evidence_files_verified": 35,
+  "cache_files_verified": 36,
+  "tests": [
+    "GPU exact small-code discovery/P/G/identity/spectrum/checkpoint bytes",
+    "s17 high-bit Horner/product/root kernels",
+    "complete resident tile hash/inverse and peer layout",
+    "legacy single-GPU online regression",
+    "compute-sanitizer memcheck/leaks; Go/native regressions; shared recurrence sanitizers"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 2.227916669100523,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 2.2282861210405827,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 2.212309777736664,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 2.223393138498068,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 2.220884468406439,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "legacy-build",
+      "seconds": 4.444415628910065,
+      "peak_rss_bytes": 228311040,
+      "exit_code": 0
+    },
+    {
+      "label": "go-build",
+      "seconds": 13.698520485311747,
+      "peak_rss_bytes": 93470720,
+      "exit_code": 0
+    },
+    {
+      "label": "go-regressions",
+      "seconds": 29.13565146178007,
+      "peak_rss_bytes": 988958720,
+      "exit_code": 0
+    },
+    {
+      "label": "go-builds",
+      "seconds": 31.863520700484514,
+      "peak_rss_bytes": 1048113152,
+      "exit_code": 0
+    },
+    {
+      "label": "cpp-build",
+      "seconds": 15.947564044967294,
+      "peak_rss_bytes": 571256832,
+      "exit_code": 0
+    },
+    {
+      "label": "gpu",
+      "seconds": 2.2703405898064375,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "topology",
+      "seconds": 2.2787309121340513,
+      "peak_rss_bytes": 23048192,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 2.291043573990464,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 15.882675044238567,
+      "peak_rss_bytes": 281939968,
+      "exit_code": 0
+    },
+    {
+      "label": "window-build",
+      "seconds": 4.556287167593837,
+      "peak_rss_bytes": 5537792,
+      "exit_code": 0
+    },
+    {
+      "label": "wide-monomial-windows",
+      "seconds": 2.265682937577367,
+      "peak_rss_bytes": 10838016,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-go-build",
+      "seconds": 4.568822333589196,
+      "peak_rss_bytes": 30244864,
+      "exit_code": 0
+    },
+    {
+      "label": "gpu-preprocessing",
+      "seconds": 13.586181765422225,
+      "peak_rss_bytes": 410185728,
+      "exit_code": 0
+    },
+    {
+      "label": "memcheck",
+      "seconds": 40.315789399668574,
+      "peak_rss_bytes": 430301184,
+      "exit_code": 0
+    },
+    {
+      "label": "legacy-online",
+      "seconds": 6.745256083086133,
+      "peak_rss_bytes": 176828416,
+      "exit_code": 0
+    },
+    {
+      "label": "cpp-regressions",
+      "seconds": 43.005989123135805,
+      "peak_rss_bytes": 1028710400,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-regressions",
+      "seconds": 18.233531184494495,
+      "peak_rss_bytes": 303144960,
+      "exit_code": 0
+    },
+    {
+      "label": "vet",
+      "seconds": 4.577998802065849,
+      "peak_rss_bytes": 31416320,
+      "exit_code": 0
+    },
+    {
+      "label": "optimized-build",
+      "seconds": 4.568189766258001,
+      "peak_rss_bytes": 181710848,
+      "exit_code": 0
+    },
+    {
+      "label": "optimized",
+      "seconds": 2.3184605222195387,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "sanitized-build",
+      "seconds": 4.539315929636359,
+      "peak_rss_bytes": 221040640,
+      "exit_code": 0
+    },
+    {
+      "label": "sanitized",
+      "seconds": 2.2983343191444874,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "profile-summary",
+      "seconds": 9.413411283865571,
+      "peak_rss_bytes": 254717952,
+      "exit_code": 0
+    }
+  ],
+  "scope": "bounded resident GPU prototype; no full s17 preprocessing, full-size admission or runtime forecast",
+  "tiles": [
+    {
+      "forward_seconds": 0.184709285,
+      "forward_sha256": "60dd1c3cb32ce4eca3d4f55c2cf4b4ad111c80a08c6f90b4786987ec09fface7",
+      "gpus": 1,
+      "input": "dense deterministic extension values",
+      "inverse_seconds": 0.158943393,
+      "owned_device_bytes": 68754188,
+      "profiled": true,
+      "s": 17,
+      "values": 4194304
+    },
+    {
+      "forward_seconds": 0.216765058,
+      "forward_sha256": "60dd1c3cb32ce4eca3d4f55c2cf4b4ad111c80a08c6f90b4786987ec09fface7",
+      "gpus": 2,
+      "input": "dense deterministic extension values",
+      "inverse_seconds": 0.190267937,
+      "owned_device_bytes": 70399512,
+      "profiled": true,
+      "s": 17,
+      "values": 4194304
+    }
+  ],
+  "wide_monomial_windows": [
+    {
+      "s": 17,
+      "first_index": 0,
+      "positions": 1088,
+      "owned_device_bytes": 129664595,
+      "match": true
+    },
+    {
+      "s": 17,
+      "first_index": 4294967296,
+      "positions": 1088,
+      "owned_device_bytes": 129664595,
+      "match": true
+    },
+    {
+      "s": 17,
+      "first_index": 17179868096,
+      "positions": 1088,
+      "owned_device_bytes": 129664595,
+      "match": true
+    }
+  ],
+  "progress_records": 730
+}

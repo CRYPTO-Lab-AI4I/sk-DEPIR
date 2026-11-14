@@ -1,0 +1,18 @@
+========= COMPUTE-SANITIZER
+=== RUN   TestGPUPreparationSmall
+=== RUN   TestGPUPreparationSmall/s3
+=== RUN   TestGPUPreparationSmall/s4
+=== RUN   TestGPUPreparationSmall/s6
+=== RUN   TestGPUPreparationSmall/s8
+--- PASS: TestGPUPreparationSmall (34.82s)
+    --- PASS: TestGPUPreparationSmall/s3 (1.73s)
+    --- PASS: TestGPUPreparationSmall/s4 (1.42s)
+    --- PASS: TestGPUPreparationSmall/s6 (4.00s)
+    --- PASS: TestGPUPreparationSmall/s8 (27.68s)
+=== RUN   TestGPUPreparationWide
+--- PASS: TestGPUPreparationWide (1.30s)
+=== RUN   TestGPUPreparationPeerLifetime
+--- PASS: TestGPUPreparationPeerLifetime (2.19s)
+PASS
+========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+========= ERROR SUMMARY: 0 errors

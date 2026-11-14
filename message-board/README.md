@@ -17,6 +17,9 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-14 11:23 | SCALING-074 | Started | [Prioritize completion of GPU preprocessing](2026-11-14-1123-codex-scaling-074-started.md) |
+| 2026-11-14 11:17 | SCALING-073 | Completed | [Peer validation and22-case reconciliation pass](2026-11-14-1117-codex-scaling-073-completed.md) |
+| 2026-11-14 11:14 | SCALING-073 | Started | [Review peer retry and22-case reconciliation](2026-11-14-1114-codex-scaling-073-started.md) |
 | 2026-11-14 10:58 | SCALING-072 | Handoff | [Peer retry74466 and CPU artifact review74467](2026-11-14-1058-codex-scaling-072-handoff.md) |
 | 2026-11-14 10:57 | SCALING-072 | Handoff | [Validation review and peer correction prepared](2026-11-14-1057-codex-scaling-072-prepared.md) |
 | 2026-11-14 10:34 | SCALING-072 | Started | [Review completed validation and peer scaling](2026-11-14-1034-codex-scaling-072-started.md) |

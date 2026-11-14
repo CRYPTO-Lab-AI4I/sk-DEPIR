@@ -249,3 +249,26 @@ CPU-only reconciliation job74467, source10a362b, is submitted
 ([record](review-submission.json)). Results: `reviews/review-01/`; log:
 `reconcile-slurm-74467.log`. No monitoring or new-result inspection until the
 user's completion ping. This submission does not alter any timing measurement.
+
+## Completed all-case review (SCALING-073)
+
+Job74467 passes in380.660 seconds (6 min20.660 s), source10a362b. All22 selected
+cases pass original source/evidence/retained-cache checks, with a single matching
+canonical hash at each of s10/14/15/16 across all modes. [Review results](reviews/review-01/results.json),
+[review verification](reviews/review-01/analysis.json), [controller](reconcile.py)
+and [Slurm log](reconcile-slurm-74467.log) retain exact commands, per-case analyses,
+source/evidence SHA256 identities and byte-progress logs. Local review verifies
+7 analyzer/controller source identities,23 saved review evidence hashes, both
+submission-manifest hashes and all22 per-case analysis hashes; large caches were
+rehash-verified inside74467 and not reread again locally.
+
+The maintained [reference](../../docs/encoding-status.md) now fills all22 cells,
+including s16 CPU packed-file (stored output)21 min32.972 s,43.487 GiB sampled
+workflow RSS; host-backed GPU61 min17.511 s,55.049 GiB workflow host RSS,
+1.273 MiB owned GPU allocations; disk CPU10 h12 min39.871 s,19.469 GiB process
+RSS plus file cache and32 GiB work files. These are different strategies with
+explicit memory/time costs, not new default choices. Workflow RSS includes
+verification/readback; timings preserve original encoding/stored boundaries.
+Other rows show the two-sample range. Jobs retain original profiling, caches,
+32-core Slurm allocations, source revisions and per-kernel worker settings.
+No new encoding ran during this review; s17 preprocessing/encoding remains unrun.

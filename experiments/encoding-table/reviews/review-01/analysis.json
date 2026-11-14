@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "job_id": "74467",
+  "revision": "10a362b49c5d178daea6de66d960c77529f6addf",
+  "review_source_files_verified": 7,
+  "review_evidence_files_verified": 23,
+  "selected_case_analyses_verified": 22,
+  "s_values": [
+    10,
+    14,
+    15,
+    16
+  ],
+  "elapsed_seconds": 380.6604354996234,
+  "scope": "Reconciles saved review manifests, logs and per-case analyses. Full retained-cache reread performed inside completed job74467, not repeated locally."
+}

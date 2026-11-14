@@ -238,3 +238,23 @@ Job74466, source10a362b, is submitted as `peer-02 --devices 2`
 `runs/peer-02/`; log: `slurm-74466.log`; cache:
 `.cache/liftrs/gpu-s17-preprocessing/peer-02/`. The existing approved two-H200
 budget is unchanged. No monitoring or new-result inspection until completion ping.
+
+## Completed corrected peer retry (SCALING-073)
+
+Job74466 on gnode02 **passes**. [Analysis](runs/peer-02/analysis.json) reconciles
+498 source,35 evidence and36 retained-cache identities against source10a362b.
+[Results/commands](runs/peer-02/results.json), [Slurm log](slurm-74466.log) and
+[runner](run.py) preserve the unchanged approved two-H200 budget and profiles.
+Cross-width engine overlap/close/reopen tests pass normally and under memcheck;
+CUDA reports **zero errors and zero bytes leaked**. Small complete preparation,
+s17 high-bit/windows/addresses, full tile forward hashes/inverses, legacy CUDA
+online/client and Go/native regression/vet/shared-recurrence sanitizers all pass.
+The prior peer-01 failure stays archived. No new lifetime failure is observed.
+
+Same32 MiB s17-width dense tile:1GPU forward184.709 ms/inverse158.943 ms;
+2GPU forward216.765 ms/inverse190.268 ms,17.4%/19.7% slower. Owned device totals
+remain65.57/67.14 MiB. Same complete forward SHA256 as peer-01. These warm/profiled
+component samples include transfers and do not forecast full-size preprocessing.
+Next is local-vector FFT/bulk peer communication optimization and measured GPU-
+count scaling, with the previously recorded traffic trade-off made explicit.
+No full s17 cache, complete run or reviewed full-size allocation exists yet.

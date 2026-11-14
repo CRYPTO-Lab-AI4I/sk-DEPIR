@@ -46,8 +46,8 @@ test-fixture correction ([report](experiments/s17-preprocessing/report.md)). No 
 exists. GPU preprocessing is now the active implementation target: a
 [resident width-selected peer prototype](experiments/gpu-s17-preprocessing/report.md)
 shares kernels with the legacy CUDA path and supports same-node GPU shards in
-source. One-GPU validation passes; two-GPU arithmetic agrees, but a peer-link
-lifetime sanitizer failure requires a corrected retry. No full s17 run is admitted.
+source. Bounded one- and two-GPU validation passes, including the corrected
+peer-link lifetime sanitizer checks (job74466). No full s17 run is admitted.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 
@@ -67,10 +67,11 @@ native block/tile progress logs; baseline timing comparisons keep logging disabl
 
 A [bounded HPC table-gap batch](experiments/encoding-table/report.md) measures
 22 missing encoding-mode cells at s10/14/15/16 using retained preprocessing.
-Submissions and results are separate from validated entries; the reference keeps
-laptop and HPC evidence labeled independently. The three remaining CPU cases
-have [explicit extended retry limits](experiments/encoding-table/report.md#extended-cpu-retries),
-with packed output scheduled alongside a sequential disk queue.
+All22 cases now pass source/evidence/cache and cross-mode hash reconciliation
+(job74467); their measured entries are published in the reference, with laptop
+and HPC evidence labeled independently. The three long CPU cases completed with
+[explicit extended retry limits](experiments/encoding-table/report.md#extended-cpu-retries),
+with packed output alongside a sequential disk queue.
 
 The optional [GPU scaling experiment](experiments/gpu-scaling/report.md) separates
 full-domain plan metadata from explicit per-engine allocation limits. Exact

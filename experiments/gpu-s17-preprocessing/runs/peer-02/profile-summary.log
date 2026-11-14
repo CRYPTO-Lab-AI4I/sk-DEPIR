@@ -1,0 +1,74 @@
+File: shared-cuda.test
+Build ID: 6117a58febe9a69beae6ee0004332faaddc05efa
+Type: cpu
+Time: 2026-11-14 12:00:03 CET
+Duration: 12.71s, Total samples = 7.79s (61.31%)
+Showing nodes accounting for 7.53s, 96.66% of 7.79s total
+Dropped 96 nodes (cum <= 0.04s)
+      flat  flat%   sum%        cum   cum%
+     6.26s 80.36% 80.36%      6.26s 80.36%  runtime.cgocall
+     0.30s  3.85% 84.21%      0.30s  3.85%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     0.24s  3.08% 87.29%      0.51s  6.55%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.(*Transform).Recurse
+     0.16s  2.05% 89.35%      0.35s  4.49%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+     0.15s  1.93% 91.27%      0.51s  6.55%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+     0.14s  1.80% 93.07%      0.14s  1.80%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Product.Mul
+     0.09s  1.16% 94.22%      0.24s  3.08%  reflect.deepValueEqual
+     0.05s  0.64% 94.87%      0.05s  0.64%  crypto/internal/fips140/sha256.blockSHANI
+     0.03s  0.39% 95.25%      0.08s  1.03%  crypto/internal/fips140/sha256.(*Digest).Write
+     0.03s  0.39% 95.64%      0.06s  0.77%  reflect.Value.Index
+     0.03s  0.39% 96.02%      0.04s  0.51%  runtime.ifaceeq
+     0.02s  0.26% 96.28%      2.25s 28.88%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPreparationTile
+     0.02s  0.26% 96.53%      0.26s  3.34%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+     0.01s  0.13% 96.66%      0.13s  1.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-go.Field.mul
+         0     0% 96.66%      0.05s  0.64%  crypto/internal/fips140/sha256.block
+         0     0% 96.66%      1.08s 13.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Preparation).Apply64
+         0     0% 96.66%      1.90s 24.39%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Preparation).Close
+         0     0% 96.66%      1.90s 24.39%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Preparation).Close.func1 (inline)
+         0     0% 96.66%      0.46s  5.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Preparation).Product
+         0     0% 96.66%      0.46s  5.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Preparation).Product.func1 (inline)
+         0     0% 96.66%      1.09s 13.99%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Preparation).transform
+         0     0% 96.66%      1.08s 13.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Preparation).transform.func2 (inline)
+         0     0% 96.66%      2.78s 35.69%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.NewPreparation
+         0     0% 96.66%      1.08s 13.86%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_pg_bridge_apply
+         0     0% 96.66%      1.90s 24.39%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_pg_bridge_close
+         0     0% 96.66%      2.78s 35.69%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_pg_bridge_open
+         0     0% 96.66%      0.46s  5.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_pg_bridge_product
+         0     0% 96.66%      0.89s 11.42%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CodePreprocessor).Close
+         0     0% 96.66%      0.49s  6.29%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CodePreprocessor).Prepare
+         0     0% 96.66%      0.92s 11.81%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclic
+         0     0% 96.66%      0.97s 12.45%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*OrbitBasis).PrepareCyclicFFT
+         0     0% 96.66%      0.13s  1.67%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).apply
+         0     0% 96.66%      0.38s  4.88%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*additiveTransform).applySubspace
+         0     0% 96.66%      0.26s  3.34%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*factorProductBuilder).finish
+         0     0% 96.66%      0.26s  3.34%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*factorProductBuilder).flush
+         0     0% 96.66%      0.86s 11.04%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+         0     0% 96.66%      0.05s  0.64%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationReporter).run
+         0     0% 96.66%      0.89s 11.42%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*residentCUDAPreparationBackend).Close
+         0     0% 96.66%      0.08s  1.03%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.DiscoverOrbit
+         0     0% 96.66%      1.40s 17.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.NewCodePreprocessor
+         0     0% 96.66%      1.05s 13.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPreparationPeerLifetime
+         0     0% 96.66%      0.61s  7.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPreparationPeerLifetime.func1
+         0     0% 96.66%      3.85s 49.42%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPreparationSmall.func1
+         0     0% 96.66%      0.54s  6.93%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPreparationWide
+         0     0% 96.66%      0.30s  3.85%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestGPUPreparationWide.func1 (inline)
+         0     0% 96.66%      0.08s  1.03%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.discoverOrbitBasis
+         0     0% 96.66%      0.08s  1.03%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.discoverOrbitBasis.func1
+         0     0% 96.66%      0.10s  1.28%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.discoverSupport[go.shape.uint32]
+         0     0% 96.66%      0.51s  6.55%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+         0     0% 96.66%      1.40s 17.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.makeCUDAPreparationBackend
+         0     0% 96.66%      1.40s 17.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.makeCodePreparationBackend
+         0     0% 96.66%      1.40s 17.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.makeResidentCUDAPreparationBackend
+         0     0% 96.66%      0.17s  2.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newProductTree
+         0     0% 96.66%      0.74s  9.50%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyDiv
+         0     0% 96.66%      0.36s  4.62%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyInverse
+         0     0% 96.66%      0.64s  8.22%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+         0     0% 96.66%      1.37s 17.59%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0% 96.66%      0.46s  5.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.preparationConvolver.convolve
+         0     0% 96.66%      0.46s  5.91%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.prepareCyclicPolynomials
+         0     0% 96.66%      0.26s  3.34%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rootProduct
+         0     0% 96.66%      0.24s  3.08%  reflect.DeepEqual
+         0     0% 96.66%      0.05s  0.64%  runtime.gcBgMarkWorker
+         0     0% 96.66%      0.05s  0.64%  runtime.gcBgMarkWorker.func2
+         0     0% 96.66%      0.05s  0.64%  runtime.gcDrain
+         0     0% 96.66%      0.08s  1.03%  runtime.systemstack
+         0     0% 96.66%      7.69s 98.72%  testing.tRunner

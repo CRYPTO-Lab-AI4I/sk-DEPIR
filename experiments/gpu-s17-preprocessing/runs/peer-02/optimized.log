@@ -1,0 +1,11 @@
+{"utc":"2026-11-14T11:02:14Z","phase":"logging-self-check","work":"recurrence-cases","event":"completed","completed":9,"total":9,"elapsed_ms":0,"unit":"cases"}
+{"utc":"2026-11-14T11:02:14Z","phase":"legacy-log-self-check","work":"recurrence-cases","event":"completed","completed":9,"total":9,"elapsed_ms":0}
+{"s":4,"word_bytes":4,"simulated_devices":1,"match":true}
+{"s":4,"word_bytes":8,"simulated_devices":1,"match":true}
+{"s":17,"word_bytes":8,"simulated_devices":1,"match":true}
+{"s":4,"word_bytes":4,"simulated_devices":2,"match":true}
+{"s":4,"word_bytes":8,"simulated_devices":2,"match":true}
+{"s":17,"word_bytes":8,"simulated_devices":2,"match":true}
+{"s":4,"word_bytes":4,"simulated_devices":4,"match":true}
+{"s":4,"word_bytes":8,"simulated_devices":4,"match":true}
+{"s":17,"word_bytes":8,"simulated_devices":4,"match":true}

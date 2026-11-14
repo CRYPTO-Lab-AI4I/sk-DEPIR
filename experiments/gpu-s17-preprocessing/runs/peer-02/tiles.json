@@ -1,0 +1,24 @@
+[
+  {
+    "forward_seconds": 0.184709285,
+    "forward_sha256": "60dd1c3cb32ce4eca3d4f55c2cf4b4ad111c80a08c6f90b4786987ec09fface7",
+    "gpus": 1,
+    "input": "dense deterministic extension values",
+    "inverse_seconds": 0.158943393,
+    "owned_device_bytes": 68754188,
+    "profiled": true,
+    "s": 17,
+    "values": 4194304
+  },
+  {
+    "forward_seconds": 0.216765058,
+    "forward_sha256": "60dd1c3cb32ce4eca3d4f55c2cf4b4ad111c80a08c6f90b4786987ec09fface7",
+    "gpus": 2,
+    "input": "dense deterministic extension values",
+    "inverse_seconds": 0.190267937,
+    "owned_device_bytes": 70399512,
+    "profiled": true,
+    "s": 17,
+    "values": 4194304
+  }
+]

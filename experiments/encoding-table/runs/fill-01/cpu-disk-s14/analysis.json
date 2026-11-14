@@ -1,0 +1,182 @@
+{
+  "status": "passed",
+  "rows": [
+    {
+      "case": "cpu-disk-s14",
+      "job_id": "74196",
+      "status": "passed",
+      "machine_class": "hpc",
+      "s": 14,
+      "source_files_verified": 406,
+      "encoding": [
+        {
+          "allocated_bytes": 1076437632,
+          "disk_stats": {
+            "calls": 5,
+            "boundary_calls": 1,
+            "buffer_ns": 1156182978,
+            "pointwise_ns": 9695808496,
+            "assembly_ns": 3130734758,
+            "taylor_ns": 284901808278,
+            "columns_transposes_ns": 279913525620,
+            "rows_ns": 175433932334,
+            "ReadNS": 99709411606,
+            "WriteNS": 114773020428,
+            "ReadBytes": 213071845652,
+            "WriteBytes": 50936830228,
+            "ReadCalls": 9374432,
+            "WriteCalls": 8072231,
+            "BufferBytes": 1179648,
+            "BackingBytes": 2147483648,
+            "OutputBytes": 1073741824,
+            "NativeTotalNS": 758308780931,
+            "ElapsedNS": 758350006156
+          },
+          "elapsed_ns": 758350032443,
+          "go_sys_bytes": 1300748872,
+          "heap_after_bytes": 1281218064,
+          "heap_before_bytes": 204862768,
+          "input_bytes": 203905300,
+          "native_after": {
+            "steady_ns": 14676612643952777,
+            "wall_ns": 1794566651847889138,
+            "posix_monotonic_ns": 14676612643950398,
+            "process_cpu_ns": 2178787014912
+          },
+          "native_before": {
+            "steady_ns": 14675854293912463,
+            "wall_ns": 1794565893497848853,
+            "posix_monotonic_ns": 14675854293909942,
+            "process_cpu_ns": 1541438313
+          },
+          "native_stages": {
+            "calls": 5,
+            "boundary_calls": 1,
+            "buffer_ns": 1156182978,
+            "pointwise_ns": 9695808496,
+            "assembly_ns": 3130734758,
+            "taylor_ns": 284901808278,
+            "columns_transposes_ns": 279913525620,
+            "rows_ns": 175433932334
+          },
+          "output_bytes": 1073741824,
+          "phase": "encode-0"
+        },
+        {
+          "allocated_bytes": 1076482840,
+          "disk_stats": {
+            "calls": 5,
+            "boundary_calls": 1,
+            "buffer_ns": 1104387956,
+            "pointwise_ns": 9983114777,
+            "assembly_ns": 3058388652,
+            "taylor_ns": 292372004275,
+            "columns_transposes_ns": 197762346525,
+            "rows_ns": 175543719414,
+            "ReadNS": 101224557084,
+            "WriteNS": 31605123539,
+            "ReadBytes": 213071845652,
+            "WriteBytes": 50936830228,
+            "ReadCalls": 9374432,
+            "WriteCalls": 8072231,
+            "BufferBytes": 1179648,
+            "BackingBytes": 2147483648,
+            "OutputBytes": 1073741824,
+            "NativeTotalNS": 683993493985,
+            "ElapsedNS": 684199787003
+          },
+          "elapsed_ns": 684199806970,
+          "go_sys_bytes": 1301051976,
+          "heap_after_bytes": 1281269352,
+          "heap_before_bytes": 204890912,
+          "input_bytes": 203905300,
+          "native_after": {
+            "steady_ns": 14677309108109533,
+            "wall_ns": 1794567348312045924,
+            "posix_monotonic_ns": 14677309108106722,
+            "process_cpu_ns": 4380352831889
+          },
+          "native_before": {
+            "steady_ns": 14676624908294863,
+            "wall_ns": 1794566664112231188,
+            "posix_monotonic_ns": 14676624908292828,
+            "process_cpu_ns": 2191069589348
+          },
+          "native_stages": {
+            "calls": 5,
+            "boundary_calls": 1,
+            "buffer_ns": 1104387956,
+            "pointwise_ns": 9983114777,
+            "assembly_ns": 3058388652,
+            "taylor_ns": 292372004275,
+            "columns_transposes_ns": 197762346525,
+            "rows_ns": 175543719414
+          },
+          "output_bytes": 1073741824,
+          "phase": "encode-1"
+        }
+      ],
+      "setup": [
+        {
+          "allocated_bytes": 6041456,
+          "elapsed_ns": 1165676098,
+          "go_sys_bytes": 18503944,
+          "heap_after_bytes": 6722232,
+          "heap_before_bytes": 729872,
+          "k": 50976325,
+          "n": 268435456,
+          "native_after": {
+            "steady_ns": 14675853913044837,
+            "wall_ns": 1794565893116981127,
+            "posix_monotonic_ns": 14675853913040922,
+            "process_cpu_ns": 1178516960
+          },
+          "native_before": {
+            "steady_ns": 14675852747360778,
+            "wall_ns": 1794565891951298454,
+            "posix_monotonic_ns": 14675852747353808,
+            "process_cpu_ns": 10342702
+          },
+          "phase": "load-online",
+          "plan_bytes": 0
+        },
+        {
+          "allocated_bytes": 2054312,
+          "elapsed_ns": 2483,
+          "go_sys_bytes": 19028232,
+          "heap_after_bytes": 3019984,
+          "heap_before_bytes": 965672,
+          "mode": "disk",
+          "native_after": {
+            "steady_ns": 14675853924167567,
+            "wall_ns": 1794565893128103741,
+            "posix_monotonic_ns": 14675853924167364,
+            "process_cpu_ns": 1183704590
+          },
+          "native_before": {
+            "steady_ns": 14675853924164089,
+            "wall_ns": 1794565893128100350,
+            "posix_monotonic_ns": 14675853924162444,
+            "process_cpu_ns": 1183704590
+          },
+          "phase": "online-setup"
+        }
+      ],
+      "memory": {
+        "label": "workflow",
+        "argv": [
+          "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/encoding-table/fill-01/cpu-disk-s14/encoding.test",
+          "-test.run=^TestCPPDiskOnlineWorkflow$",
+          "-test.v",
+          "-test.timeout=90m"
+        ],
+        "seconds": 1473.4524246156216,
+        "peak_rss_bytes": 1302794240,
+        "peak_tracked_cache_bytes": 3769905152,
+        "peak_rss_plus_tracked_cache_bytes": 5068259328,
+        "exit_code": 0,
+        "guard": null
+      }
+    }
+  ]
+}

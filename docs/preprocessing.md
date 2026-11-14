@@ -10,9 +10,8 @@ The experimental `NewCodePreprocessor` session implements the m=2 procedure
 through s17. Corrected bounded native/reference, regression, race and sanitizer
 validation passes job74447. **GPU server execution is now the active target**:
 a width-selected resident peer engine implements the heavy preprocessing kernels
-on1/2/4/8 same-node GPUs in source. One-GPU checks pass job74453; two-GPU
-arithmetic agrees in job74454, but peer-link lifetime sanitizer validation needs
-a corrected retry. No full
+on1/2/4/8 same-node GPUs in source. One-GPU checks pass job74453; corrected two-GPU validation
+passes job74466, including peer-link lifetime sanitizer checks. No full
 s17 discovery, preparation, cache, latency or admission exists. The legacy CUDA32
 adapter remains available through s16; the resident prototype is selected
 explicitly with nonempty `GPUDevices`. There is no CPU/host-backed fallback.
