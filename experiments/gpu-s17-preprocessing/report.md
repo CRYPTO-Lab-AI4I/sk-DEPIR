@@ -367,3 +367,8 @@ User explicitly approves the prepared4H200/4GiB aggregate owned-memory budget,
 1GiB/card, for256MiB tiles with3repetitions on1/2/4GPU prefixes and both layouts.
 All host/storage/deadline limits in calibration-plan.json stay unchanged. This
 approval is only bounded calibration; fulls17 preprocessing remains unadmitted.
+
+Job74635 submitted, sourcefc15997 ([submission/resource record](calibration-submission.json)).
+Results: `runs/calibration-01/`; log: `slurm-74635.log`; reusable caches/binaries:
+`.cache/liftrs/gpu-s17-preprocessing/calibration-01/`. sbatch returned successfully.
+No monitoring, polling or new-result inspection until user completion ping.
