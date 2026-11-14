@@ -431,4 +431,5 @@ fixed-order component samples are not fulls17 forecasts or a settled layout
 choice. Default peer and all capacity cells stay unchanged. Same2N transform/3N
 product payload; extra8 transpose passes add16N word reads/writes (~2 TiB at
 s17), with full-size runtime/link traffic unknown. A256 MiB repeated1/2/4GPU
-comparison is prepared, awaiting reviewed4GPU/4 GiB resources; not submitted.
+comparison now has explicit4GPU/4 GiB resource approval; submission and results
+are recorded in the experiment report. No capacity or full-size timing changes.

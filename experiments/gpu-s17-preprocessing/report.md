@@ -360,3 +360,10 @@ experiment budgets before increasing devices/memory; CLI capacity is not approva
 After approval, use the exact command in calibration-plan.json, then hand off
 without polling until completion ping. Performance choice, larger calibration,
 checkpointed full preparation and fulls17 resource admission remain separate.
+
+## Four-GPU resource approval (SCALING-076)
+
+User explicitly approves the prepared4H200/4GiB aggregate owned-memory budget,
+1GiB/card, for256MiB tiles with3repetitions on1/2/4GPU prefixes and both layouts.
+All host/storage/deadline limits in calibration-plan.json stay unchanged. This
+approval is only bounded calibration; fulls17 preprocessing remains unadmitted.

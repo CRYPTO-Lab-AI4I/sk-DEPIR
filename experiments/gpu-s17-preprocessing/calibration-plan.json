@@ -1,5 +1,5 @@
 {
-  "status": "prepared; awaiting resource agreement",
+  "status": "approved; ready for submission",
   "gpus": 4,
   "gpu_type": "h200",
   "aggregate_owned_device_cap_bytes": 4294967296,
@@ -27,5 +27,6 @@
   ],
   "command": "sbatch --gres=gpu:h200:4 --output=experiments/gpu-s17-preprocessing/slurm-%j.log experiments/gpu-s17-preprocessing/run.sbatch calibration-01 --devices 4 --vector-layout local --tile-power 25 --repetitions 3 --aggregate-device-mib 4096",
   "new_results": "experiments/gpu-s17-preprocessing/runs/calibration-01/",
-  "authorization": "No submission until explicit agreement to4GPU/4GiB bounded validation; capacity and CLI support do not authorize it."
+  "authorization": "Explicit user reply: Approve4GPUs/4GiB. All other numeric limits stay as presented.",
+  "approved_utc": "2026-11-14T18:23:44.852414+00:00"
 }

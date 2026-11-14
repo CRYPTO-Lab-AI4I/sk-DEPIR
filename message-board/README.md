@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-14 18:23 | SCALING-076 | Started | [Approved four-GPU repeated calibration](2026-11-14-1823-codex-scaling-076-started.md) |
 | 2026-11-14 14:39 | SCALING-075 | Handoff | [Local-vector validation passes; repeated calibration prepared](2026-11-14-1439-codex-scaling-075-handoff.md) |
 | 2026-11-14 14:35 | SCALING-075 | Started | [Review local-vector GPU comparison](2026-11-14-1435-codex-scaling-075-started.md) |
 | 2026-11-14 11:29 | SCALING-074 | Handoff | [Local-vector validation job74468](2026-11-14-1129-codex-scaling-074-handoff.md) |

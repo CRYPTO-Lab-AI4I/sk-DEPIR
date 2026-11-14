@@ -621,4 +621,5 @@ It keeps the resident array budget while gathering vectors before GPU computatio
 bounded correctness/sanitizer checks pass (job74468). On a32 MiB tile, local
 reduces two-GPU forward/inverse time18.9%/9.7% with unchanged owned memory. These
 are single component samples; the peer default stays while larger repeated
-GPU-count comparisons are prepared.
+GPU-count comparisons are approved under explicit bounded resources; no fulls17
+preprocessing run is admitted.
