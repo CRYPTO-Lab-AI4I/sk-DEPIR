@@ -22,7 +22,7 @@ module load slurm/slurm/25.05 gcc/14.2.0 cuda12.9/toolkit/12.9.1
 sbatch --output=experiments/gpu-s17-preprocessing/slurm-%j.log \
   experiments/gpu-s17-preprocessing/run.sbatch gpu-01 --devices 1
 # Requires approval for a second allocated GPU; not automatically authorized:
-sbatch --gres=gpu:2 --output=experiments/gpu-s17-preprocessing/slurm-%j.log \
+sbatch --gres=gpu:h200:2 --output=experiments/gpu-s17-preprocessing/slurm-%j.log \
   experiments/gpu-s17-preprocessing/run.sbatch peer-01 --devices 2
 # Only after the completion ping:
 python3 -B experiments/gpu-s17-preprocessing/analyze.py gpu-01
@@ -135,3 +135,7 @@ CUDA device selection is restored so ordinary client calls can coexist.
 Both CUDA translation units compile to compute90 PTX; the shared host recurrence
 cases, C bridge/native syntax and table-label checks pass. CUDA execution, peer
 communication, sanitizer and regression results remain pending. No full preprocessing table cell changes to measured status.
+
+The cluster requires a typed GPU GRES request. An initial untyped submission
+was rejected before allocating a job; the script now requests `gpu:h200:1`
+without changing count, memory or deadline.

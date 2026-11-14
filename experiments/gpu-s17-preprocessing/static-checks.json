@@ -107,7 +107,7 @@
     "experiments/gpu-s17-preprocessing/check.cu": "00b5f188d47c756cd3564baf27e528748d9be538eb2a9c1d129b7a12a024db32",
     "experiments/gpu-s17-preprocessing/run.py": "43c1120dc2877324e27e534dc10ac097dd7012c35cea8dc08db6fdc67489e58d",
     "experiments/gpu-s17-preprocessing/analyze.py": "c3cf17f6ac413e248e9e9d6b95672b6515b4675292968bf1e7021791578305cd",
-    "experiments/gpu-s17-preprocessing/run.sbatch": "754e0f7185780a722ee07962a4c92fd5733263fa0ee4e9663b806b3767d1a125"
+    "experiments/gpu-s17-preprocessing/run.sbatch": "4d8233e96f32e03caba1d0a45ed171acd37e10a2abb1a25a277aead4f60ccc75"
   },
   "limitation": "Host simulation, CUDA compilation/linking and symbol checks only; Go/cgo build, device execution, peer correctness, sanitizer and performance remain pending. Earlier PTX diagnostics are retained but final shared library is the sealed final-source GPU artifact.",
   "artifacts": {
