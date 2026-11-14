@@ -58,6 +58,16 @@ may have no GPU even when code preprocessing is delegated elsewhere. Both
 backends consume the same verified code data and canonical representation; keep
 backend selection explicit and code parameters independent of backend choice.
 
+**Optimize delegated preprocessing for speed on servers.** Code preprocessing
+need not support local/client hardware or a CPU-only fallback.
+Use the fastest measured CPU/GPU combination, including multiple GPUs/nodes when
+beneficial, within agreed budgets; CUDA/server requirements are acceptable for
+that separate toolchain. Retain useful independent CPU/Go correctness references
+and existing verified caches. No language or CPU/GPU boundary is fixed. Compare
+complete discovery, preparation, verification, transfers and persistence rather
+than GPU kernel time alone. This does not relax correctness, representation,
+reviewability or resource admission, and does not make CUDA a client dependency.
+
 **Target practical commodity hardware.** Benchmark on hardware actually available
 on this machine and respect the agreed experiment budgets. Target commodity CPU
 and GPU architectures; larger workloads may require more RAM, cores or GPU memory,
@@ -158,6 +168,20 @@ queries and responses. Keep agreed contracts distinct from implemented capabilit
    as experiments. Keep automatic resource guards, deadlines, profiling and
    checkpoint persistence active; those are part of job execution, not agent
    monitoring. Dependent work must wait for the user's completion ping.
+
+9. **Emit useful progress logs for long jobs.** Future jobs expected to exceed
+   30 seconds must save and flush timestamped phase start/completion/error events
+   and progress within long phases, including native CPU/GPU work. Report the
+   current stage and completed/total work (passes, blocks, tiles or elements),
+   elapsed time and periodic resource observations. Emit bounded updates roughly
+   every 30–60 seconds during long work; a heartbeat without increasing completed
+   work must not be presented as forward progress. A single “encoding started”
+   message and memory samples are insufficient. Include transform/pass identifiers
+   so a one-time inspection can locate the work. Give an ETA only when measured
+   progress supports it, label estimates and state when remaining work is unknown.
+   Retain logs with results and document logging overhead/measurement boundaries.
+   This is job-side instrumentation, not permission for agent monitoring: rule8
+   still applies. See [experiment logging conventions](experiments/README.md#long-job-progress-logs).
 
 ## Repository map
 

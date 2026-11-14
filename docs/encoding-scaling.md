@@ -8,8 +8,10 @@ relevant result or design change. Current standalone mathematical encoding is
 validated through s16; s≥17 requires implementation and validation. Numerical
 latency targets and larger experiment budgets still require agreement.
 
-Retain CPU and optional GPU paths, Go preprocessing and independent correctness
-references. Preserve the information set and canonical field/grid representation.
+Retain CPU and optional GPU client encoding paths and independent correctness
+references. Delegated preprocessing targets the fastest measured server execution;
+it has no local-hardware or CPU-only fallback requirement. CPU/GPU/language
+boundaries are open; preserve useful Go references and verified caches. Preserve the information set and canonical field/grid representation.
 The sections below retain the study's chronological plans and evidence, including
 the laptop s≤15 checkpoint and [larger-host handoff](development-handoff.md).
 Use the reference for current status and the
@@ -29,13 +31,24 @@ s≤16 CPU/GPU paths and code-cache compatibility throughout.
 | Step | Work and acceptance gate | Status |
 |---|---|---|
 | 1. Width audit and scalar reference | Inventory coordinates, counts, field values and narrowing boundaries. Establish uint64 packed extension arithmetic through s20 against an independent oracle and s≤16 coordinate ordering, without a full-domain allocation | Scalar reference validated: job74290; width audit continues |
-| 2. Native CPU arithmetic and transforms | Port extension kernels/plans to uint64 while retaining uint32 base inputs/outputs. Compare small dense/Go/native cases, >32-bit boundary witnesses, sanitizer checks and s16 regressions; measure kernel overhead before whole-run forecasts | Bounded wide interface/matrix/oracle/race/sanitizer/CPU regressions validated (74330); Complete wide CPU integration passes bounded job74412; deduplicate native schedule before further integration, then larger kernel calibration |
+| 2. Native CPU arithmetic and transforms | Port extension kernels/plans to uint64 while retaining uint32 base inputs/outputs. Compare small dense/Go/native cases, >32-bit boundary witnesses, sanitizer checks and s16 regressions; measure kernel overhead before whole-run forecasts | Bounded wide interface/matrix/oracle/race/sanitizer/CPU regressions validated (74330); Complete wide CPU integration passes bounded job74412; CPU schedule/modules deduplicated, validation pending; then larger kernel calibration |
 | 3. Representation and reusable code data | Extend coordinates/counts/cache formats and loaders explicitly. Keep old32-bit artifacts readable; reject truncation, unsupported widths and incompatible specifications. Verify hashes and round trips; preserve existing caches | Bounded format/loader/stream verification and shared Go/CPU regressions passed (74396); Native data integration passes bounded job74412; genuine wide cache remains |
 | 4. s17 preprocessing admission | Discover exact K, verify polynomial identities, budget peak host/device memory, storage and setup time. Compare CPU and multi-GPU/streamed preparation; obtain reviewed numeric budgets before full setup | Pending wider implementation; capacity is not admission |
 | 5. First full CPU baseline | Prefer resident reuse (~427GiB principal arrays) on one large-RAM node when the admitted budget fits. Validate systematic values, independent curves, hashes and34GiB packed output; separately measure code loading, encoding, packing, verification and peaks | Pending verified s17 code data and host budget |
 | 6. Multi-GPU prototype and selection | Partition same-node arithmetic across GPUs; measure transfers, topology and synchronization. Compare fast-layout streamed constants (~256GiB aggregate/two-card capacity floor) with resident reuse (~398GiB/three-card floor), including all host/device lifetimes and headroom | Pending scalar/native interface; small prototypes may proceed before full preprocessing |
 | 7. Full GPU comparison | Validate exact canonical/packed agreement with the CPU baseline and independently check correctness. Compare complete measured latency and deployment cost; keep CPU available without CUDA | Pending measured multi-GPU design and admitted budgets |
 | 8. Progress toward s18 | Recompute preprocessing/encoding/communication capacities using measurements, then select same-node versus multi-node or memory-saving designs. Retain s19–20 exploratory rows | Pending s17 evidence |
+
+For preprocessing, choose the fastest measured complete server workflow within
+agreed budgets; GPU and multi-GPU requirements are acceptable. A CPU-only
+preprocessing fallback is not an acceptance requirement. Existing s16 preparation
+already uses GPU products and the spectrum transform, while saved support is
+loaded and host root/small-product/assembly/persistence work remains Go. Its
+2h20m15s measured preparation excludes original support discovery; see the
+[phase report](../experiments/gpu-preparation/report.md#completed-actual-preparation).
+The s17 port must cover discovery and preparation, not just encoding kernels.
+Measure transfers, identity checks and saving as part of full setup cost. This
+clarification does not authorize larger allocations or remove CPU-only clients.
 
 Steps1–3 are implementation prerequisites, not authorization for larger allocations.
 Any validation expected to exceed30seconds is submitted and handed off. Mode
@@ -69,10 +82,11 @@ verification; job74396 passes bounded legacy/header/slot and Go/CPU regressions,
 with426 source/13 evidence/2 binary identities reconciled. A genuine s17 cache,
 preprocessing proof remain. The [complete wide CPU schedule](../experiments/s17-encoding/report.md)
 now consumes loaded data explicitly; bounded validation passes job74412
-(438 source/24 evidence/18 cache identities reconciled). Deduplicate the native
-online sequence next, preserving width/memory-specific operations and current
-APIs/defaults; revalidate both widths/modes and representative performance
-before further wide preprocessing integration. It retains
+(438 source/24 evidence/18 cache identities reconciled). The [CPU implementation](cpu-encoding.md) now shares the native
+online sequence, arithmetic/scatter, file I/O and output helpers, while retaining
+width/memory-specific adapters and existing APIs/defaults.
+[Cross-mode/sanitizer and matched timing validation](../experiments/cpu-encoding-modules/report.md)
+is pending before further wide preprocessing integration. It retains
 the ~427GiB s17 principal model, including 8N-byte output backing, without an
 extra output array or compaction pass. No full-size budget is admitted. Larger kernel calibration precedes
 runtime forecasts or full-run admission. Full s17 encoding is

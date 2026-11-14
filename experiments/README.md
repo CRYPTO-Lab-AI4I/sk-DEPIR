@@ -22,6 +22,29 @@ update its script, results, and report together, then post an update on the
 Do not put unreported measurements into the README. Link each new performance
 claim there to its experiment report.
 
+## Long-job progress logs
+
+Future jobs expected to exceed30 seconds must write durable, flushed progress
+logs beside their results. Record UTC timestamps and monotonic elapsed time,
+phase start/completion/error events and progress inside long phases, including
+native CPU/GPU transforms. Identify the transform/pass and completed/total
+blocks, tiles or elements, with units. “Encoding started” plus memory samples
+cannot establish progress; instrumentation must reach the long-running work.
+
+Rate-limit periodic updates to roughly30–60 seconds during long work, alongside
+resource observations and guard failures. Distinguish a heartbeat from advancing
+work counters. ETA is optional: report it only from measured progress with known
+remaining work, label its assumptions and leave it unknown otherwise. Keep log
+volume bounded and report instrumentation overhead and timing boundaries; avoid
+synchronizing GPU work per element or adding full data passes just for logging.
+Document a representative sample/schema in each new runner's report and check
+that progress records are actually emitted before admitting larger runs.
+
+This requirement applies to future runs; existing running jobs are not retrofitted
+by the policy change. Submission still ends with a handoff: do not poll state or
+follow logs until the user requests a check or reports completion, as required by
+[AGENTS.md](../AGENTS.md).
+
 ## Profiling and preprocessing retention
 
 During optimization, collect stage-specific CPU profiles and retain reusable
@@ -36,6 +59,10 @@ replace unprofiled latency baselines. Historical scripts/results retain their
 original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
+
+- [CPU encoding modules](cpu-encoding-modules/report.md): shared native32/64-bit
+  schedule, storage/output helpers, common data verification, cross-mode/
+  lifetime/sanitizer checks and matched s10 old/new timing validation.
 
 - [Width-aware code data](s17-code-data/report.md): legacy byte/slot compatibility,
   explicit wide headers, trusted-digest/cap/range validation and bounded stream

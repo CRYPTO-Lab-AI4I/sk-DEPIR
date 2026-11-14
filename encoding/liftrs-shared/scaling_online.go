@@ -2,9 +2,8 @@ package liftrs
 
 import (
 	"bufio"
-	"crypto/sha256"
+	"bytes"
 	"encoding/binary"
-	"encoding/hex"
 	"fmt"
 	"io"
 )
@@ -16,69 +15,33 @@ import (
 // maxElements limits N before allocation; input must end exactly after spectrum.
 // K must permit the ordinary prefix convolution to fit one field domain (2K-1≤N).
 func LoadScalingOnline(source io.Reader, digest string, maxElements int) (*ScalingOnlinePlan, error) {
-	hash := sha256.New()
-	r := bufio.NewReaderSize(io.TeeReader(source, hash), 64<<10)
-	var magic [9]byte
-	if _, err := io.ReadFull(r, magic[:]); err != nil {
+	// Inspect/replay only the bounded header, so legacy admission still rejects
+	// wide files before domain allocation. The common loader reads the payload
+	// once, validates its digest and transfers its arrays without copying them.
+	var header bytes.Buffer
+	h, err := ReadScalingCodeHeader(io.TeeReader(source, &header))
+	if err != nil {
 		return nil, err
 	}
-	if string(magic[:]) != "LRSprobe1" && string(magic[:]) != "LRSprobe2" {
-		return nil, fmt.Errorf("bad probe magic")
-	}
-	var spec [2]uint32
-	if err := binary.Read(r, binary.LittleEndian, &spec); err != nil {
-		return nil, err
-	}
-	var counts [2]uint64
-	if string(magic[:]) == "LRSprobe1" {
-		var narrow [2]uint32
-		if err := binary.Read(r, binary.LittleEndian, &narrow); err != nil {
-			return nil, err
-		}
-		counts = [2]uint64{uint64(narrow[0]), uint64(narrow[1])}
-	} else if err := binary.Read(r, binary.LittleEndian, &counts); err != nil {
-		return nil, err
-	}
-	s, t := int(spec[0]), int(spec[1])
-	// Check wide counts before converting to host lengths or allocating arrays.
-	if !validScalingOnlineCounts(s, t, counts[0], counts[1], maxElements) {
+	if h.ExtensionBytes != 4 || !validScalingOnlineCounts(h.Spec.FieldDegree, h.Spec.CurveDegree, h.K, h.N, maxElements) {
 		return nil, fmt.Errorf("invalid online probe shape/limit")
 	}
-	k, n := int(counts[0]), int(counts[1])
-	polynomial, _ := BinaryPolynomial(s)
-	base, extension, delta, omega := orbitFields(s, polynomial)
-	b := OrbitBasis{spec: Spec{s, 2, t}, polynomial: polynomial, delta: delta, omega: omega, base: base, extension: extension, extensionFFT: newSparseTransform(extension)}
-	p := &ScalingOnlinePlan{basis: b, k: k, p: make([]uint32, k+1), spectrum: make([]uint32, n)}
-	for j, values := range [][]uint32{p.p, p.spectrum} {
-		limit := base.q
-		if j == 1 {
-			limit = extension.q
-		}
-		var block [65536]byte
-		for start := 0; start < len(values); start += len(block) / 4 {
-			count := minInt(len(block)/4, len(values)-start)
-			if _, err := io.ReadFull(r, block[:4*count]); err != nil {
-				return nil, err
-			}
-			for j := 0; j < count; j++ {
-				x := binary.LittleEndian.Uint32(block[4*j:])
-				if uint64(x) >= limit {
-					return nil, fmt.Errorf("online element outside field")
-				}
-				values[start+j] = x
-			}
-		}
+	data, err := LoadScalingCode(io.MultiReader(bytes.NewReader(header.Bytes()), source), digest, ScalingCodeLimits{
+		MaxElements: uint64(maxElements), MaxPayloadBytes: h.Bytes - h.POffset,
+	})
+	if err != nil {
+		return nil, err
 	}
-	if p.p[0] != 1 {
-		return nil, fmt.Errorf("invalid P constant")
-	}
-	if _, err := r.ReadByte(); err != io.EOF {
-		return nil, fmt.Errorf("trailing probe data or read error")
-	}
-	if hex.EncodeToString(hash.Sum(nil)) != digest {
-		return nil, fmt.Errorf("online probe checksum differs from manifest")
-	}
-	return p, nil
+	return &ScalingOnlinePlan{basis: scalingOnlineBasis(h), k: int(h.K), p: data.p, spectrum: data.spectrum32}, nil
+}
+
+// Only legacy32-bit callers use this adapter; representation/admission checks
+// precede it. Metadata is shared across resident and immutable-file encoders.
+func scalingOnlineBasis(h ScalingCodeHeader) OrbitBasis {
+	s := h.Spec.FieldDegree
+	base, extension, delta, omega := orbitFields(s, h.Polynomial)
+	return OrbitBasis{spec: h.Spec, polynomial: h.Polynomial, delta: delta, omega: omega,
+		base: base, extension: extension, extensionFFT: newSparseTransform(extension)}
 }
 
 // Dimension returns the number of field elements supplied to Encode.

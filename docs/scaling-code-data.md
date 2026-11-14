@@ -111,3 +111,9 @@ its overhead are unmeasured. No faster validated default is replaced. Larger
 parameters still require independently verified preprocessing and explicit
 whole-process budgets; metadata construction at s17–20 proves neither capacity
 nor full encoding correctness.
+
+
+The [CPU modularity refactor](cpu-encoding.md) also routes legacy resident loading
+and immutable-file verification through this decoder. It replays only a bounded
+header, reads each payload once and keeps existing32-bit admission guards. Full
+refactor validation is pending; job74412 describes the preceding implementation.

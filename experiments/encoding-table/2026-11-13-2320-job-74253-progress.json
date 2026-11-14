@@ -1,0 +1,35 @@
+{
+  "checked_utc": "2026-11-13T23:20:22.435726+00:00",
+  "job_id": "74253",
+  "state": {
+    "event": "started",
+    "phase": "encode-0",
+    "timestamp_utc": "2026-11-13T15:57:51.203181521Z"
+  },
+  "completed_phases": [
+    {
+      "phase": "load-online",
+      "elapsed_ns": 92554865051
+    },
+    {
+      "phase": "online-setup",
+      "elapsed_ns": 2096
+    }
+  ],
+  "last_resource_record": {
+    "command": "workflow",
+    "rss_bytes": 3725352960,
+    "tracked_cache_bytes": 48372858880,
+    "cgroup": {
+      "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_74253/step_batch/user/task_0",
+      "current_bytes": 48249245696,
+      "anon_bytes": 3732635648,
+      "file_bytes": 44405309440,
+      "peak_bytes": 48278958080
+    },
+    "guard": null
+  },
+  "workflow_log": "=== RUN   TestCPPDiskOnlineWorkflow\n    s15_firstuse_probe_test.go:122: load-online 1m32.554865051s\n    s15_firstuse_probe_test.go:122: online-setup 2.096\u00b5s\n",
+  "conclusion": "Encoding started; no intermediate transform/fraction counters or saved completed encoding. No resource guard in inspected records. Remaining time cannot be inferred; no evidence to strengthen the low-confidence pre-48h expectation.",
+  "method": "Read saved state.json, phases.json, workflow.log, last progress.jsonl record and results.json; no live process or continuous monitoring."
+}

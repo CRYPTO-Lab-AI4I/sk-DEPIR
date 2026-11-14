@@ -761,3 +761,16 @@ older results and runtime headroom. Do not copy/concurrently reuse workspaces.
 See the [full accounting](../../docs/scaling-code-data.md#optional-native-encoding)
 and [bounded validation experiment](../../experiments/s17-encoding/report.md),
 passed in bounded job74412. Full s17 preprocessing, encoding and latency are unvalidated.
+
+
+## CPU implementation and validation
+
+The [CPU implementation guide](../../docs/cpu-encoding.md) explains shared native
+encoding order,32/64-bit kernels, resident/compact/file/disk/output modules,
+Go/native ownership and optional job progress. Public constructors remain
+compatible. Legacy resident and file loaders reuse the width-aware decoder/
+verifier; native prefix/full metadata setup is common. Closed/uninitialized
+resident encoders return nil/error from workspace creation instead of allocating
+or panicking. Independent Go/dense/hybrid encoders remain correctness references.
+[Cross-mode and baseline validation](../../experiments/cpu-encoding-modules/report.md)
+is pending; this refactor does not establish s17 support or new memory savings.

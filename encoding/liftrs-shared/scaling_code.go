@@ -266,6 +266,15 @@ func readScalingCodeValues(r io.Reader, count uint64, width uint8, limit uint64,
 		if _, err := io.ReadFull(r, block[:int(chunk)*int(width)]); err != nil {
 			return 0, err
 		}
+		// At s=16 every four-byte spectrum value is canonical. Streaming still
+		// reads/hashes every byte, but needs no element scan or resident copy.
+		if width == 4 && limit >= 1<<32 && narrow == nil && wide == nil {
+			if start == 0 {
+				first = uint64(binary.LittleEndian.Uint32(block[:]))
+			}
+			start += chunk
+			continue
+		}
 		for j := 0; j < int(chunk); j++ {
 			offset := j * int(width)
 			x := uint64(0)

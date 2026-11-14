@@ -19,9 +19,12 @@ type ScalingCPPCompactWorkspace struct {
 // both prefix operands to fit one full arena (2L<=N); normal NewWorkspace remains
 // available for other shapes. Returned words retain ordinary owning semantics.
 func (e *ScalingCPPEncoder) NewCompactWorkspace() (*ScalingCPPCompactWorkspace, error) {
+	if e == nil {
+		return nil, ErrCPPClosed
+	}
 	e.mu.RLock()
 	defer e.mu.RUnlock()
-	if e.closed {
+	if e.closed || e.source == nil {
 		return nil, ErrCPPClosed
 	}
 	n := e.source.Length()
@@ -44,7 +47,12 @@ func (e *ScalingCPPEncoder) NewCompactWorkspace() (*ScalingCPPCompactWorkspace, 
 }
 
 // Bytes counts currently owned arrays, excluding the detached caller-owned word.
-func (w *ScalingCPPCompactWorkspace) Bytes() uint64 { return uint64(len(w.arena)+len(w.columns)) * 4 }
+func (w *ScalingCPPCompactWorkspace) Bytes() uint64 {
+	if w == nil {
+		return 0
+	}
+	return uint64(len(w.arena)+len(w.columns)) * 4
+}
 
 // ScalingCPPCompactStats separates extra compaction/move and expansion stages.
 // Normal columns timing includes bounded gather/transform/scatter in this mode.
@@ -59,10 +67,13 @@ type ScalingCPPCompactStats struct {
 // backwards. On success it detaches the arena so later calls cannot alter old
 // words. Replacement allocation and extra passes are included in caller latency.
 func (e *ScalingCPPEncoder) EncodeCompactWithStats(message []uint32, w *ScalingCPPCompactWorkspace) ([]uint32, ScalingCPPCompactStats, error) {
+	if e == nil {
+		return nil, ScalingCPPCompactStats{}, ErrCPPClosed
+	}
 	e.mu.RLock()
 	defer e.mu.RUnlock()
 	var stats ScalingCPPCompactStats
-	if e.closed {
+	if e.closed || e.source == nil {
 		return nil, stats, ErrCPPClosed
 	}
 	if w == nil || w.owner != e || len(message) != e.source.k {

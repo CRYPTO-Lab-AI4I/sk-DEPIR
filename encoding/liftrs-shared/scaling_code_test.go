@@ -259,3 +259,29 @@ func TestScalingCodeWideSlots(t *testing.T) {
 		t.Fatal("unknown width")
 	}
 }
+
+// Full-width streaming verification needs to read/hash, but every uint32 is a
+// legal s16 extension value. Check the scan shortcut across a block boundary and
+// ensure it still consumes the entire input and reports truncation.
+func TestScalingCodeFullWidthStream(t *testing.T) {
+	const count = 16389
+	var raw bytes.Buffer
+	values := make([]uint32, count)
+	for i := range values {
+		values[i] = ^uint32(i * 17)
+	}
+	if err := binary.Write(&raw, binary.LittleEndian, values); err != nil {
+		t.Fatal(err)
+	}
+	reader := bytes.NewReader(raw.Bytes())
+	first, err := readScalingCodeValues(reader, count, 4, 1<<32, nil, nil)
+	if err != nil || first != uint64(values[0]) || reader.Len() != 0 {
+		t.Fatal(first, err, reader.Len())
+	}
+	if _, err := readScalingCodeValues(bytes.NewReader(raw.Bytes()[:raw.Len()-1]), count, 4, 1<<32, nil, nil); err == nil {
+		t.Fatal("truncated full-width stream")
+	}
+	if _, err := readScalingCodeValues(bytes.NewReader(raw.Bytes()), count, 4, 1<<31, nil, nil); err == nil {
+		t.Fatal("smaller field range")
+	}
+}

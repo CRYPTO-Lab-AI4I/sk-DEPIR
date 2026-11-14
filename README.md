@@ -18,6 +18,11 @@ are projections pending implementation and validation. Update the reference as
 scaling progresses; the [scaling plan](docs/encoding-scaling.md) tracks the work.
 The [s17 aims](docs/encoding-status.md#aim-for-s17) distinguish the proposed
 large-RAM CPU baseline, multi-GPU target and preprocessing/implementation gates.
+Delegated code preprocessing prioritizes the fastest measured server execution;
+it need not support local hardware or a CPU-only fallback. CPU-only client
+encoding remains supported. Existing [s16 preparation](experiments/gpu-preparation/report.md)
+is GPU-assisted: large products/spectrum transforms use GPU, with remaining
+host work in Go. Its measured preparation time excludes saved-support discovery.
 The [active s17 execution plan](docs/encoding-scaling.md#current-execution-plan-for-s17)
 starts with a [bounded wide-arithmetic reference](experiments/s17-arithmetic/report.md).
 Its scalar/oracle and legacy-ordering checks pass through s20. A
@@ -32,6 +37,14 @@ code preparation remains separate. The explicit experimental
 that code data; bounded correctness/ownership/sanitizer checks pass (job74412).
 Its returned uint32 word retains an 8N-byte backing allocation, counted in the
 workspace model. Existing CPU/GPU defaults are unchanged; full s17 is unvalidated.
+
+The [CPU implementation guide](docs/cpu-encoding.md) documents the shared encoding
+sequence,32/64-bit kernels, storage/output strategies, ownership and diagnostics.
+The native CPU deduplication is implemented; [cross-mode, sanitizer and matched
+baseline validation](experiments/cpu-encoding-modules/report.md) is pending.
+Independent Go references, existing APIs, memory-mode defaults and CUDA-free CPU
+builds are retained. New CPU experiment jobs can enable timestamped phase and
+native block/tile progress logs; baseline timing comparisons keep logging disabled.
 
 A [bounded HPC table-gap batch](experiments/encoding-table/report.md) measures
 22 missing encoding-mode cells at s10/14/15/16 using retained preprocessing.

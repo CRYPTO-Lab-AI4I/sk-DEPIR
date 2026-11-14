@@ -230,6 +230,14 @@ method preparation, serialization and process-local loading separately from
 per-database encoding. No published size budget is established for the large
 catalogue configurations; do not assume a full matrix or spectrum fits that budget.
 
+Delegated preprocessing is optimized for the fastest measured server execution;
+it need not support local setups or provide a CPU-only fallback. GPU/multi-GPU
+dependencies may belong to its separate toolchain. Independent CPU/Go references
+remain useful for correctness. Backend choice must account for full discovery,
+preparation, verification, transfers and artifact persistence within agreed
+budgets. Client encoding separately retains CPU and optional GPU backends,
+consuming the same verified representation without requiring client CUDA.
+
 The [five-step implementation plan](encoding-algorithms.md#6-five-step-implementation-plan)
 specifies arithmetic, compact artifacts, moderate-instance CPU checks, bounded-RAM
 encoding and optional GPU acceleration, with acceptance criteria for each stage.

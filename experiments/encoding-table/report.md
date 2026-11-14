@@ -166,3 +166,14 @@ gnode17, elapsed7h19m05s against48h,32CPU/128GiB requested RAM, zero restarts.
 This is an active-job snapshot, not a completed result or evidence of encoding
 progress; no live logs/processes/results were inspected. Resume the no-monitoring
 rule after this check and await a user completion ping.
+
+
+The user subsequently authorized a one-time
+[saved-progress inspection](2026-11-13-2320-job-74253-progress.json). Loading completed in92.555s and
+setup completed; saved state remains `encode-0` started. There are no saved
+transform-level/fraction counters or completed encoding timing. Inspected guard
+records show no failure, with process RSS about3.47GiB and charged cgroup memory
+about44.94GiB (including file cache). This indicates resource headroom, not
+encoding progress or a reliable ETA. The48h deadline remains a ceiling; the
+previous tentative expectation of finishing within it cannot be strengthened
+from these logs. No job changes or continued monitoring.

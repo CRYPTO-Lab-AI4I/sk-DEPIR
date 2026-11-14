@@ -70,12 +70,18 @@ func (p *ScalingOnlinePlan) WithCPPMatrix(workers int) (*ScalingCPPEncoder, erro
 	if p == nil || workers < 1 || workers > 64 {
 		return nil, fmt.Errorf("invalid matrix plan/workers")
 	}
-	e := &ScalingCPPEncoder{source: p, workers: workers, plans: make(map[int]*matrixCPPPlan)}
 	l := 1
 	for l < 2*p.k-1 {
 		l *= 2
 	}
-	if uint64(l) > uint64(p.basis.extension.q) {
+	return newScalingCPPEncoder(p, workers, l)
+}
+
+// Both resident and file-backed code need the same immutable prefix/full plans.
+// The caller selects prefix padding because historical file formats admit L>=4.
+func newScalingCPPEncoder(p *ScalingOnlinePlan, workers, l int) (*ScalingCPPEncoder, error) {
+	e := &ScalingCPPEncoder{source: p, workers: workers, plans: make(map[int]*matrixCPPPlan)}
+	if uint64(l) > p.basis.extension.q {
 		return nil, fmt.Errorf("prefix convolution exceeds matrix field domain")
 	}
 	for _, n := range []int{l, p.basis.Length()} {
@@ -93,8 +99,17 @@ func (p *ScalingOnlinePlan) WithCPPMatrix(workers int) (*ScalingCPPEncoder, erro
 }
 
 // NewWorkspace allocates reusable convolution and transpose storage. Instances
-// belong to this encoder and may not be used by simultaneous calls.
+// belong to this encoder and may not be used by simultaneous calls. Nil or
+// closed encoders return nil without allocating.
 func (e *ScalingCPPEncoder) NewWorkspace() *ScalingCPPWorkspace {
+	if e == nil {
+		return nil
+	}
+	e.mu.RLock()
+	defer e.mu.RUnlock()
+	if e.closed || e.source == nil {
+		return nil
+	}
 	return &ScalingCPPWorkspace{owner: e, work: e.source.NewWorkspace(), scratch: make([]uint32, e.source.basis.Length())}
 }
 
@@ -108,7 +123,12 @@ type ScalingCPPWorkspace struct {
 
 // Bytes counts currently owned working arrays, excluding input/output and plan
 // metadata. After complete Encode returns, transferred scratch is no longer owned.
-func (w *ScalingCPPWorkspace) Bytes() uint64 { return w.work.Bytes() + uint64(len(w.scratch))*4 }
+func (w *ScalingCPPWorkspace) Bytes() uint64 {
+	if w == nil || w.work == nil {
+		return 0
+	}
+	return w.work.Bytes() + uint64(len(w.scratch))*4
+}
 
 type matrixCPPExecutor struct {
 	encoder *ScalingCPPEncoder
@@ -160,10 +180,13 @@ type ScalingCPPStats struct {
 // included in caller timing;
 // no large input, preprocessing or output copies cross the language boundary.
 func (e *ScalingCPPEncoder) EncodeWithStats(message []uint32, w *ScalingCPPWorkspace) ([]uint32, ScalingCPPStats, error) {
+	if e == nil {
+		return nil, ScalingCPPStats{}, ErrCPPClosed
+	}
 	e.mu.RLock()
 	defer e.mu.RUnlock()
 	var stats ScalingCPPStats
-	if e.closed {
+	if e.closed || e.source == nil {
 		return nil, stats, ErrCPPClosed
 	}
 	if w == nil || w.owner != e || len(message) != e.source.k {
@@ -193,9 +216,12 @@ func (e *ScalingCPPEncoder) EncodeWithStats(message []uint32, w *ScalingCPPWorks
 // EncodeHybridWithStats retains the earlier Go orchestration/scalar arithmetic
 // path with five native transform calls for reference and measured comparisons.
 func (e *ScalingCPPEncoder) EncodeHybridWithStats(message []uint32, w *ScalingCPPWorkspace) (word []uint32, stats ScalingCPPStats, err error) {
+	if e == nil {
+		return nil, stats, ErrCPPClosed
+	}
 	e.mu.RLock()
 	defer e.mu.RUnlock()
-	if e.closed {
+	if e.closed || e.source == nil {
 		return nil, stats, ErrCPPClosed
 	}
 	if w == nil || w.owner != e {

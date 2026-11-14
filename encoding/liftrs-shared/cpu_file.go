@@ -3,13 +3,10 @@
 package liftrs
 
 import (
-	"bufio"
 	"crypto/sha256"
-	"encoding/binary"
 	"encoding/hex"
 	"fmt"
 	"io"
-	"math/bits"
 	"os"
 	"sync"
 
@@ -62,36 +59,17 @@ func OpenScalingCPPFile(path, digest string, maxElements, workers int) (*Scaling
 	if !info.Mode().IsRegular() {
 		return nil, fmt.Errorf("code backing must be a regular immutable file")
 	}
-	hash := sha256.New()
-	r := bufio.NewReaderSize(io.TeeReader(file, hash), 1<<20)
-	var magic [9]byte
-	if _, err = io.ReadFull(r, magic[:]); err != nil {
+	// Inspect the small header before streaming the payload: the existing file
+	// encoder remains32-bit even though the common verifier also knows wide files.
+	h, err := ReadScalingCodeHeader(file)
+	if err != nil {
 		return nil, err
 	}
-	if string(magic[:]) != "LRSprobe1" && string(magic[:]) != "LRSprobe2" {
-		return nil, fmt.Errorf("bad probe magic")
-	}
-	var spec [2]uint32
-	if err = binary.Read(r, binary.LittleEndian, &spec); err != nil {
-		return nil, err
-	}
-	var counts [2]uint64
-	header := uint64(33)
-	if string(magic[:]) == "LRSprobe1" {
-		var v [2]uint32
-		if err = binary.Read(r, binary.LittleEndian, &v); err != nil {
-			return nil, err
-		}
-		counts = [2]uint64{uint64(v[0]), uint64(v[1])}
-		header = 25
-	} else if err = binary.Read(r, binary.LittleEndian, &counts); err != nil {
-		return nil, err
-	}
-	s, t := int(spec[0]), int(spec[1])
-	if !validScalingOnlineCounts(s, t, counts[0], counts[1], maxElements) {
+	s, t := h.Spec.FieldDegree, h.Spec.CurveDegree
+	if h.ExtensionBytes != 4 || !validScalingOnlineCounts(s, t, h.K, h.N, maxElements) {
 		return nil, fmt.Errorf("invalid online file shape/limit")
 	}
-	k, n := int(counts[0]), int(counts[1])
+	k, n := int(h.K), int(h.N)
 	l := 4
 	for l < 2*k-1 {
 		l *= 2
@@ -99,39 +77,16 @@ func OpenScalingCPPFile(path, digest string, maxElements, workers int) (*Scaling
 	if l > n/2 {
 		return nil, fmt.Errorf("file prefix operands exceed arena")
 	}
-	if uint64(info.Size()) != header+4*(counts[0]+1+counts[1]) {
+	if uint64(info.Size()) != h.Bytes {
 		return nil, fmt.Errorf("code file length")
 	}
-	buffer := make([]byte, 1<<20)
-	for section, count := range []int{k + 1, n} {
-		limit := uint64(1) << uint(s)
-		if section == 1 {
-			limit = uint64(1) << uint(2*s)
-		}
-		for first := 0; first < count; {
-			take := minInt(len(buffer)/4, count-first)
-			if _, err = io.ReadFull(r, buffer[:4*take]); err != nil {
-				return nil, err
-			}
-			if section == 0 && first == 0 && binary.LittleEndian.Uint32(buffer) != 1 {
-				return nil, fmt.Errorf("invalid P constant")
-			}
-			// At s16 every uint32 is already a legal extension value.
-			if limit < 1<<32 {
-				for i := 0; i < take; i++ {
-					if uint64(binary.LittleEndian.Uint32(buffer[4*i:])) >= limit {
-						return nil, fmt.Errorf("file code element outside field")
-					}
-				}
-			}
-			first += take
-		}
+	if _, err = file.Seek(0, io.SeekStart); err != nil {
+		return nil, err
 	}
-	if _, err = r.ReadByte(); err != io.EOF {
-		return nil, fmt.Errorf("trailing code data or read error")
-	}
-	if hex.EncodeToString(hash.Sum(nil)) != digest {
-		return nil, fmt.Errorf("online file checksum differs from manifest")
+	if _, err = VerifyScalingCode(file, digest, ScalingCodeLimits{
+		MaxElements: uint64(maxElements), MaxPayloadBytes: h.Bytes - h.POffset,
+	}); err != nil {
+		return nil, err
 	}
 	after, err := file.Stat()
 	if err != nil {
@@ -140,23 +95,13 @@ func OpenScalingCPPFile(path, digest string, maxElements, workers int) (*Scaling
 	if !sameCodeFile(info, after) {
 		return nil, fmt.Errorf("code changed during verification")
 	}
-	polynomial, _ := BinaryPolynomial(s)
-	base, extension, delta, omega := orbitFields(s, polynomial)
-	plan := &ScalingOnlinePlan{basis: OrbitBasis{spec: Spec{s, 2, t}, polynomial: polynomial, delta: delta, omega: omega, base: base, extension: extension, extensionFFT: newSparseTransform(extension)}, k: k}
-	cpu := &ScalingCPPEncoder{source: plan, workers: workers, plans: make(map[int]*matrixCPPPlan)}
-	for _, count := range []int{l, n} {
-		if cpu.plans[count] != nil {
-			continue
-		}
-		v, err := newMatrixCPP(extension, bits.Len(uint(count))-1)
-		if err != nil {
-			cpu.Close()
-			return nil, err
-		}
-		cpu.plans[count] = v
+	plan := &ScalingOnlinePlan{basis: scalingOnlineBasis(h), k: k}
+	cpu, err := newScalingCPPEncoder(plan, workers, l)
+	if err != nil {
+		return nil, err
 	}
 	ok = true
-	return &ScalingCPPFileEncoder{file: file, identity: after, cpu: cpu, prefix: l, pOffset: header, spectrumOffset: header + 4*uint64(k+1)}, nil
+	return &ScalingCPPFileEncoder{file: file, identity: after, cpu: cpu, prefix: l, pOffset: h.POffset, spectrumOffset: h.SpectrumOffset}, nil
 }
 
 func sameCodeFile(a, b os.FileInfo) bool {

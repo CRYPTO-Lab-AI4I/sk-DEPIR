@@ -84,8 +84,9 @@ evidence and2 binary identities reconcile. An explicit experimental
 [complete wide CPU schedule](../experiments/s17-encoding/report.md) now connects
 resident code data to five native transforms and canonical output; bounded
 validation passes job74412 with438 source,24 evidence and18 cache identities
-reconciled. Sharing the duplicated native encoding sequence is recommended
-before further wide integration. No genuine s17 cache or full-size preprocessing/encoding
+reconciled. The [CPU implementation refactor](cpu-encoding.md) now shares that native
+sequence and supporting operations; cross-mode/sanitizer and matched timing
+validation is pending before further wide integration. No genuine s17 cache or full-size preprocessing/encoding
 run exists; full-size latency is unknown. Its reuse model still retains 8N
 output backing bytes (4N logical uint32 bytes), and older returned words require
 additional live RAM. No full-size capacity or timing estimate changes.
@@ -135,10 +136,30 @@ These are distinct modes; their savings cannot simply be added together.
 | 14 | L 13.73; 2018 | R 5.594; 91.164 | R 3.595; 58.667–58.853 | R 2.526; 64.517–68.413 | R 2.214; 59.357–59.377 | N ~2.20; ? | N ~1.19 private +2 files; ? |
 | 15 | L 20.55; 11767† | R 18.465; 655.937 | N ~14.42; ? | N ~9.87; ? | N ~8.81; ? | N ~8.82; ? | N ~4.81 private +8 files; ? |
 | 16 | R 72.575; GPU 8415.469 | R 74.370; 1252.503 | R 58.351; 1247.173–1281.328 | R 39.409; 1289.759 | R 35.484; 1249.616 | N ~35.43; ? | N ~19.43 private +32 files; ? |
-| 17 | N ≥~220.84 retained arrays, peak ?; ? | N ~491; ? | N ~427; ? | N ~287; ? | N ~270; ? | N ~270; ? | N ~78.4 private +256 files; ? |
+| 17 | N ≥~220.84 retained arrays, peak ?; ~12–24h preparation* | N ~491; ? | N ~427; ? | N ~287; ? | N ~270; ? | N ~270; ? | N ~78.4 private +256 files; ? |
 | 18 | N peak ?; ? | N ≥1024 transform arrays; ? | N ≥1024 transform arrays; ? | N ≥1024 transform arrays; ? | N ≥1024 transform arrays; ? | N ≥1024 transform arrays; ? | N ~317 private +1024 files; ? |
 | 19 | N peak ?; ? | N output alone 1024; ? | N output alone 1024; ? | N output alone 1024; ? | N output alone 1024; ? | N ≥4096 transform arrays; ? | N ~1279 private +4096 files; ? |
 | 20 | N peak ?; ? | N output alone 4096; ? | N output alone 4096; ? | N output alone 4096; ? | N output alone 4096; ? | N ≥16384 transform arrays; ? | N ~5162 private +16384 files; ? |
+
+* **Low-confidence s17 planning scenario, not measured or admitted:** allow
+roughly12–24h after discovery, or roughly24–48h for fresh discovery plus
+preparation/verification/persistence. Baselines are measured s16 GPU-assisted
+preparation8415.469s (2h20m15s, excludes discovery) and CPU discovery10597.545s
+(2h56m38s). N grows4x; an illustrative N·log2(N)^2 factor is
+4(34/32)^2≈4.52, giving10.56h preparation and13.29h discovery before extra
+width/communication effects. The12–24h construction range allows approximately
+1.1–2.3x over that model for wider values and integration costs; this allowance
+is a judgment, not a measured bound. The end-to-end range rounds their sum and
+allows persistence/checks, not queue time. Actual runtime may exceed it.
+
+This assumes a working wider server backend with adequate resident memory and
+useful parallelism. The three-array GPU payload is~384GiB: three H200s are a
+capacity floor, with four on one node a layout/headroom option, not implemented
+support. Communication, host peaks and exact K remain unknown. No linear
+speedup from GPU count is assumed. Faster GPU-assisted discovery/native host
+work could lower latency; streaming or poor inter-GPU scaling could raise it.
+These scenarios are not a promise that the present code can run s17. Use bounded
+wider preprocessing calibration before assigning full-run limits.
 
 † Historical s15 preparation has pause/clock complications; it is not a clean
 latency baseline or an HPC forecast. Discovery was additional: about 1.1 s at

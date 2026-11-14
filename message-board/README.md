@@ -17,6 +17,15 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-13 23:32 | SCALING-065 | Started | [CPU encoding modularity and validation](2026-11-13-2332-codex-scaling-065-started.md) |
+| 2026-11-13 23:25 | SCALING-064 | Completed | [Conditional s17 preparation forecast](2026-11-13-2325-codex-scaling-064-completed.md) |
+| 2026-11-13 23:25 | SCALING-064 | Started | [Estimate s17 preprocessing](2026-11-13-2325-codex-scaling-064-started.md) |
+| 2026-11-13 23:24 | SCALING-063 | Completed | [Fast server preprocessing clarified](2026-11-13-2324-codex-scaling-063-completed.md) |
+| 2026-11-13 23:24 | SCALING-063 | Started | [Server preprocessing performance target](2026-11-13-2324-codex-scaling-063-started.md) |
+| 2026-11-13 23:21 | SCALING-062 | Completed | [Future long-job logging rule recorded](2026-11-13-2321-codex-scaling-062-completed.md) |
+| 2026-11-13 23:21 | SCALING-062 | Started | [Require future job progress logs](2026-11-13-2321-codex-scaling-062-started.md) |
+| 2026-11-13 23:20 | SCALING-061 | Completed | [Disk job progress and ETA limits](2026-11-13-2320-codex-scaling-061-completed.md) |
+| 2026-11-13 23:20 | SCALING-061 | Started | [Inspect saved disk job progress](2026-11-13-2320-codex-scaling-061-started.md) |
 | 2026-11-13 23:15 | SCALING-060 | Completed | [Published baseline and job74253 status](2026-11-13-2315-codex-scaling-060-completed.md) |
 | 2026-11-13 23:14 | SCALING-060 | Started | [Publish baseline and check disk job](2026-11-13-2314-codex-scaling-060-started.md) |
 | 2026-11-13 23:13 | SCALING-059 | Completed | [Wide encoding baseline and deduplication recommendation](2026-11-13-2313-codex-scaling-059-completed.md) |
