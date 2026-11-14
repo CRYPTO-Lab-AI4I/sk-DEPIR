@@ -299,3 +299,8 @@ After completion ping: `python3 -B experiments/gpu-s17-preprocessing/analyze.py 
 Keep source revision, logs, profile and reusable small caches; no fulls17 run is
 admitted. Larger/more-card calibration and checkpointed full preparation follow
 only after correctness/performance review and full resource agreement.
+
+Job74468 is submitted, source62e626b ([submission](local-submission.json)).
+Results/log/profile: `runs/local-01/`, `slurm-74468.log`; caches/binaries:
+`.cache/liftrs/gpu-s17-preprocessing/local-01/`. No monitoring/result inspection
+until user completion ping. All approved numeric resource caps are unchanged.
