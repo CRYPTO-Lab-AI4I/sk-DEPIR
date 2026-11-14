@@ -244,3 +244,8 @@ wall time is separate from all benchmark timings. Do not publish unreconciled
 rows as measurements; source status and hardware class remain explicit.
 
 The cancelled original disk-s15 partial evidence and completed replacement disk-s15/packed-s16 logs/profiles are retained in the original run directories; only the replacement records enter the22-case review.
+
+CPU-only reconciliation job74467, source10a362b, is submitted
+([record](review-submission.json)). Results: `reviews/review-01/`; log:
+`reconcile-slurm-74467.log`. No monitoring or new-result inspection until the
+user's completion ping. This submission does not alter any timing measurement.

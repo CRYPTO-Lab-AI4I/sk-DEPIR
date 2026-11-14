@@ -1,0 +1,19 @@
+{
+  "job_id": "74467",
+  "run": "review-01",
+  "revision": "10a362b49c5d178daea6de66d960c77529f6addf",
+  "submitted_utc": "2026-11-14T10:58:10.268529+00:00",
+  "command": "sbatch --parsable --output=experiments/encoding-table/reconcile-slurm-%j.log experiments/encoding-table/reconcile.sbatch review-01",
+  "cpus": 4,
+  "host_request_bytes": 8589934592,
+  "rss_guard_bytes": 6442450944,
+  "output_guard_bytes": 2147483648,
+  "gpus": 0,
+  "worker_seconds": 600,
+  "controller_seconds": 900,
+  "slurm_seconds": 1200,
+  "results": "experiments/encoding-table/reviews/review-01/results.json",
+  "log": "experiments/encoding-table/reconcile-slurm-74467.log",
+  "monitoring": "none; await completion ping",
+  "scope": "read existing cache/evidence; refresh per-case analysis; cross-mode canonical hashes; no encoding/preprocessing rerun"
+}

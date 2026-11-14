@@ -230,3 +230,11 @@ with four extra local transpose passes per FFT (about8N word transfers, roughly
 1 TiB local memory traffic at s17). Host arrays and retained storage stay the same;
 setup/latency benefit is unknown. Compare explicitly before adopting it; current
 defaults stay unchanged. More GPUs remain eligible when complete latency improves.
+
+## Corrected peer retry submission
+
+Job74466, source10a362b, is submitted as `peer-02 --devices 2`
+([submission and exact resource policy](peer-retry-submission.json)). Results:
+`runs/peer-02/`; log: `slurm-74466.log`; cache:
+`.cache/liftrs/gpu-s17-preprocessing/peer-02/`. The existing approved two-H200
+budget is unchanged. No monitoring or new-result inspection until completion ping.
