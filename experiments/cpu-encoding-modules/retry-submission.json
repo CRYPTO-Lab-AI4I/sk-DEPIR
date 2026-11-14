@@ -1,0 +1,21 @@
+{
+  "job_id": "74448",
+  "run": "modules-02",
+  "revision": "2a2095e0b287a7751c9399d464285ea7a32aa02a",
+  "submitted_utc": "2026-11-14T08:34:36.893629+00:00",
+  "extra_arguments": [],
+  "cpus": 4,
+  "requested_ram_gib": 8,
+  "rss_guard_gib": 6,
+  "go_soft_gib": 4,
+  "retained_cache_guard_gib": 2,
+  "scratch_guard_gib": 4,
+  "worker_seconds": 600,
+  "controller_seconds": 900,
+  "slurm_seconds": 1200,
+  "gpus": 0,
+  "results": "experiments/cpu-encoding-modules/runs/modules-02/results.json",
+  "log": "experiments/cpu-encoding-modules/slurm-74448.log",
+  "cache": ".cache/liftrs/cpu-encoding-modules/modules-02/",
+  "monitoring": "none; await completion ping"
+}

@@ -1,0 +1,23 @@
+{
+  "job_id": "74447",
+  "run": "native-02",
+  "revision": "2a2095e0b287a7751c9399d464285ea7a32aa02a",
+  "submitted_utc": "2026-11-14T08:34:36.893629+00:00",
+  "extra_arguments": [
+    "--reconcile-disk"
+  ],
+  "cpus": 4,
+  "requested_ram_gib": 8,
+  "rss_guard_gib": 6,
+  "go_soft_gib": 4,
+  "retained_cache_guard_gib": 2,
+  "scratch_guard_gib": 4,
+  "worker_seconds": 600,
+  "controller_seconds": 900,
+  "slurm_seconds": 1200,
+  "gpus": 0,
+  "results": "experiments/s17-preprocessing/runs/native-02/results.json",
+  "log": "experiments/s17-preprocessing/slurm-74447.log",
+  "cache": ".cache/liftrs/s17-preprocessing/native-02/",
+  "monitoring": "none; await completion ping"
+}

@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-14 08:34 | SCALING-067 | Handoff | [Validation retries74447 and74448](2026-11-14-0834-codex-scaling-067-handoff.md) |
 | 2026-11-14 08:33 | SCALING-067 | Handoff | [Completed-run review and fixture correction](2026-11-14-0833-codex-scaling-067-prepared.md) |
 | 2026-11-14 08:28 | SCALING-067 | Started | [Review completed preprocessing and disk runs](2026-11-14-0828-codex-scaling-067-started.md) |
 | 2026-11-14 01:01 | SCALING-066 | Handoff | [Preprocessing validation job74424](2026-11-14-0101-codex-scaling-066-handoff.md) |

@@ -137,3 +137,6 @@ comparisons. The targeted selector includes that test. Retry `modules-02` keeps
 all previous budgets and benchmark boundaries, independently comparing the same
 baseline against the corrected new tree. Race/sanitizers and matched timings
 remain pending; no performance equivalence is claimed from the failed attempt.
+
+Retry job74448 is submitted ([record](retry-submission.json)), source
+`2a2095e0b287a7751c9399d464285ea7a32aa02a`. No monitoring; results in `runs/modules-02/` await a completion ping.

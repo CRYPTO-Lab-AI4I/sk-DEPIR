@@ -111,3 +111,6 @@ identities. The exact analyzer source is checked against the source snapshot.
 This is evidence analysis only, without another full encoding. Its wall time is
 separate from preprocessing measurements. Results and profiles go to
 `runs/native-02/`, with fresh retained cache outside Git; old evidence is kept.
+
+Retry job74447 is submitted ([record](retry-submission.json)), source
+`2a2095e0b287a7751c9399d464285ea7a32aa02a`. No monitoring; results in `runs/native-02/` await a completion ping.
