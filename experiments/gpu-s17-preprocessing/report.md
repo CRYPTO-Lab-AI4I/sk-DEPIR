@@ -258,3 +258,44 @@ component samples include transfers and do not forecast full-size preprocessing.
 Next is local-vector FFT/bulk peer communication optimization and measured GPU-
 count scaling, with the previously recorded traffic trade-off made explicit.
 No full s17 cache, complete run or reviewed full-size allocation exists yet.
+
+## Local-vector comparison (SCALING-074)
+
+After the clean peer retry, implement local vector ownership without duplicating
+FFT arithmetic. `run.py --vector-layout local` snapshots the explicit plugin
+selector; default remains `peer`. The new kernel calls the shared vector recurrence
+with the correct global vector offset. Gather/restore use existing peer transpose
+kernels; local transposes reuse existing value/scratch slabs. Taylor stages keep
+their current synchronization. Tiny shapes with fewer vectors than cards use the
+existing peer schedule. No ABI, canonical output, CPU build or default changes.
+
+**Trade-off before adoption:** same2N transform/3N product payload, same host
+arrays, cache/output storage and no additional transforms or host transfers.
+The straightforward schedule adds8 transpose passes per FFT (4 local,4 peer
+gather/restore),16N word reads/writes, ~2 TiB at s17. Earlier discussion's~1 TiB
+count covered only the four local transposes; gather/restore adds another~1 TiB
+of aggregate array traffic, with actual peer-link reads a subset. Metadata/setup
+are otherwise shared; overhead and latency benefit are unknown. This remains
+explicit, never an automatic switch or claimed speedup. Later fusion can remove
+redundant passes if measurements justify it.
+
+[Host checks](local-vector-host-checks.jsonl), [progress check](local-vector-progress-checks.jsonl),
+[static check commands/source hashes](local-vector-checks.json), [driver](check.cpp),
+[runner](run.py) and [analyzer](analyze.py) make the bounded comparison reproducible.
+18 optimized host checks pass: full dense independent Horner and inverse oracles
+at32/64-bit widths, s4/s17,1/2/4 simulated peer slabs and both layouts. CUDA shared
+linking passes under the25-second local check. These are not GPU runtime evidence.
+
+Run `sbatch --gres=gpu:h200:2 --output=experiments/gpu-s17-preprocessing/slurm-%j.log experiments/gpu-s17-preprocessing/run.sbatch local-01 --devices 2 --vector-layout local`.
+Use the same approved two-H200,512 MiB aggregate/256 MiB per-device,4CPU/8 GiB,
+6 GiB RSS,2 GiB new cache/4 GiB scratch,600/900/1200-second guards. Full small
+preparation/high-width checks and memcheck use local mode; the32 MiB dense tile
+compares both layouts on each1/2 GPU prefix in the same allocation, with equal
+owned payload asserted and identical full forward hash/inverse checks. Shared
+host recurrence sanitizer coverage expands from9 to18 cases. Profiling/logging
+stay enabled; samples are component timings, not full-size forecasts.
+
+After completion ping: `python3 -B experiments/gpu-s17-preprocessing/analyze.py local-01`.
+Keep source revision, logs, profile and reusable small caches; no fulls17 run is
+admitted. Larger/more-card calibration and checkpointed full preparation follow
+only after correctness/performance review and full resource agreement.

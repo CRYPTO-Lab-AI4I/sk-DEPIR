@@ -294,74 +294,77 @@ func TestGPUPreparationTile(t *testing.T) {
 	var records []map[string]any
 	// Compare each available power-of-two prefix in the same allocation. Two
 	// cards are an initial validation size, not a preprocessing design limit.
-	for count := 1; count <= len(devices); count *= 2 {
-		ids := devices[:count]
-		engine, err := cuda.NewPreparation(cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: 17, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: table.log, Powers: table.powers, Devices: ids, MaxElements: n, DeviceBytes: gpuPreparationCap(t)})
-		if err != nil {
-			t.Fatal(err)
-		}
-		defer engine.Close()
-		input := make([]uint64, n)
-		for j := 0; j < 16; j++ {
-			input[j] = uint64(170069+j*71317) ^ (1 << 33)
-		}
-		original := append([]uint64(nil), input...)
-		// Warm and verify sparse Horner first; timed data below is dense so
-		// zero shortcuts do not make these component timings misleading.
-		if err = engine.Apply64(input, false); err != nil {
-			t.Fatal(err)
-		}
-		for point := 0; point < n; point += n / 64 {
-			var expected uint64
-			for j := 15; j >= 0; j-- {
-				expected = f.mul(expected, uint64(point)) ^ original[j]
+	for _, layout := range []string{"peer", "local"} {
+		t.Setenv("LIFTRS_GPU_PREPARATION_VECTOR_LAYOUT", layout)
+		for count := 1; count <= len(devices); count *= 2 {
+			ids := devices[:count]
+			engine, err := cuda.NewPreparation(cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: 17, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: table.log, Powers: table.powers, Devices: ids, MaxElements: n, DeviceBytes: gpuPreparationCap(t)})
+			if err != nil {
+				t.Fatal(err)
 			}
-			if input[point] != expected {
-				t.Fatal("tile sparse Horner", len(ids), point)
+			defer engine.Close()
+			input := make([]uint64, n)
+			for j := 0; j < 16; j++ {
+				input[j] = uint64(170069+j*71317) ^ (1 << 33)
 			}
+			original := append([]uint64(nil), input...)
+			// Warm and verify sparse Horner first; timed data below is dense so
+			// zero shortcuts do not make these component timings misleading.
+			if err = engine.Apply64(input, false); err != nil {
+				t.Fatal(err)
+			}
+			for point := 0; point < n; point += n / 64 {
+				var expected uint64
+				for j := 15; j >= 0; j-- {
+					expected = f.mul(expected, uint64(point)) ^ original[j]
+				}
+				if input[point] != expected {
+					t.Fatal("tile sparse Horner", len(ids), point)
+				}
+			}
+			if err = engine.Apply64(input, true); err != nil || !reflect.DeepEqual(input, original) {
+				t.Fatal("sparse tile inverse", err)
+			}
+			state := uint64(170069)
+			var parity uint64
+			for j := range input {
+				state ^= state << 13
+				state ^= state >> 7
+				state ^= state << 17
+				input[j] = state & ((1 << 34) - 1)
+				original[j] = input[j]
+				parity ^= input[j]
+			}
+			began := time.Now()
+			if err = engine.Apply64(input, false); err != nil {
+				t.Fatal(err)
+			}
+			forward := time.Since(began)
+			if input[0] != original[0] || input[1] != parity {
+				t.Fatal("dense tile independent 0/1 evaluations")
+			}
+			// Hash the entire forward word, outside the timed transform boundary.
+			digest := sha256.New()
+			var element [8]byte
+			for _, value := range input {
+				binary.LittleEndian.PutUint64(element[:], value)
+				digest.Write(element[:])
+			}
+			fingerprint := hex.EncodeToString(digest.Sum(nil))
+			if len(records) > 0 && fingerprint != records[0]["forward_sha256"] {
+				t.Fatal("peer tile differs from single GPU")
+			}
+			began = time.Now()
+			if err = engine.Apply64(input, true); err != nil {
+				t.Fatal(err)
+			}
+			inverse := time.Since(began)
+			if !reflect.DeepEqual(input, original) {
+				t.Fatal("complete tile inverse")
+			}
+			records = append(records, map[string]any{"s": 17, "values": n, "gpus": len(ids), "forward_seconds": forward.Seconds(), "inverse_seconds": inverse.Seconds(), "owned_device_bytes": engine.OwnedBytes(), "forward_sha256": fingerprint, "profiled": true, "vector_layout": layout, "input": "dense deterministic extension values"})
+			engine.Close()
 		}
-		if err = engine.Apply64(input, true); err != nil || !reflect.DeepEqual(input, original) {
-			t.Fatal("sparse tile inverse", err)
-		}
-		state := uint64(170069)
-		var parity uint64
-		for j := range input {
-			state ^= state << 13
-			state ^= state >> 7
-			state ^= state << 17
-			input[j] = state & ((1 << 34) - 1)
-			original[j] = input[j]
-			parity ^= input[j]
-		}
-		began := time.Now()
-		if err = engine.Apply64(input, false); err != nil {
-			t.Fatal(err)
-		}
-		forward := time.Since(began)
-		if input[0] != original[0] || input[1] != parity {
-			t.Fatal("dense tile independent 0/1 evaluations")
-		}
-		// Hash the entire forward word, outside the timed transform boundary.
-		digest := sha256.New()
-		var element [8]byte
-		for _, value := range input {
-			binary.LittleEndian.PutUint64(element[:], value)
-			digest.Write(element[:])
-		}
-		fingerprint := hex.EncodeToString(digest.Sum(nil))
-		if len(records) > 0 && fingerprint != records[0]["forward_sha256"] {
-			t.Fatal("peer tile differs from single GPU")
-		}
-		began = time.Now()
-		if err = engine.Apply64(input, true); err != nil {
-			t.Fatal(err)
-		}
-		inverse := time.Since(began)
-		if !reflect.DeepEqual(input, original) {
-			t.Fatal("complete tile inverse")
-		}
-		records = append(records, map[string]any{"s": 17, "values": n, "gpus": len(ids), "forward_seconds": forward.Seconds(), "inverse_seconds": inverse.Seconds(), "owned_device_bytes": engine.OwnedBytes(), "forward_sha256": fingerprint, "profiled": true, "input": "dense deterministic extension values"})
-		engine.Close()
 	}
 	if directory := os.Getenv("PIR_GPU_PREPARATION_OUT"); directory != "" {
 		raw, err := json.MarshalIndent(records, "", "  ")

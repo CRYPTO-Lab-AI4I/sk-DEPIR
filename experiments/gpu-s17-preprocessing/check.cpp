@@ -23,7 +23,7 @@ template <class Word> struct View {
   }
 };
 template <class Word>
-void check(unsigned s, uint32_t polynomial, unsigned count) {
+void check(unsigned s, uint32_t polynomial, unsigned count, bool local) {
   const size_t n = 128;
   FieldT<Word> field;
   field.s = s;
@@ -84,19 +84,39 @@ void check(unsigned s, uint32_t polynomial, unsigned count) {
       }
     };
     const size_t length = size_t(1) << metadata.split, jobs = n / length;
-    auto columns = [&] {
-      for (size_t j = 0; j < length; j++)
-        liftrs_cuda::vector_transform<Word>(x, metadata, true, inverse, jobs, j,
-                                            length, j, logs.data(),
-                                            powers.data(), 0);
+    auto vectors = [&](View<Word> values, View<Word> other, bool columns,
+                       size_t vector_length, size_t vectors) {
+      if (!local) {
+        for (size_t j = 0; j < vectors; j++)
+          liftrs_cuda::vector_transform<Word>(
+              values, metadata, columns, inverse, vector_length, j, vectors, j,
+              logs.data(), powers.data(), 0);
+        return;
+      }
+      const size_t local_jobs = vectors / count;
+      for (size_t j = 0; j < n; j++)
+        other[j] = values[(j % vector_length) * vectors + j / vector_length];
+      for (unsigned d = 0; d < count; d++)
+        for (size_t j = 0; j < values.chunk; j++)
+          values.slabs[d][j] =
+              other.slabs[d][(j % local_jobs) * vector_length + j / local_jobs];
+      for (unsigned d = 0; d < count; d++)
+        for (size_t j = 0; j < local_jobs; j++)
+          liftrs_cuda::vector_transform<Word>(
+              values.slabs[d].data(), metadata, columns, inverse, vector_length,
+              j, local_jobs, j, logs.data(), powers.data(), d * local_jobs);
+      for (unsigned d = 0; d < count; d++)
+        for (size_t j = 0; j < values.chunk; j++)
+          other.slabs[d][j] = values.slabs[d][(j % vector_length) * local_jobs +
+                                              j / vector_length];
+      for (size_t j = 0; j < n; j++)
+        values[j] = other[(j % vectors) * vector_length + j / vectors];
     };
+    auto columns = [&] { vectors(x, tmp, true, jobs, length); };
     auto rows = [&] {
       for (size_t j = 0; j < n; j++)
         tmp[j] = x[(j % jobs) * length + j / jobs];
-      for (size_t j = 0; j < jobs; j++)
-        liftrs_cuda::vector_transform<Word>(tmp, metadata, false, inverse,
-                                            length, j, jobs, j, logs.data(),
-                                            powers.data(), 0);
+      vectors(tmp, x, false, length, jobs);
       for (size_t j = 0; j < n; j++)
         x[j] = tmp[(j % length) * jobs + j / length];
     };
@@ -124,19 +144,22 @@ void check(unsigned s, uint32_t polynomial, unsigned count) {
   for (size_t j = 0; j < n; j++)
     require(x[j] == original[j], "shared CUDA inverse recurrence");
   std::cout << "{\"s\":" << s << ",\"word_bytes\":" << sizeof(Word)
-            << ",\"simulated_devices\":" << count << ",\"match\":true}\n";
+            << ",\"simulated_devices\":" << count
+            << ",\"local_vectors\":" << (local ? "true" : "false")
+            << ",\"match\":true}\n";
 }
 int main() {
   try {
-    for (unsigned count : {1, 2, 4}) {
-      check<uint32_t>(4, 0x13, count);
-      check<uint64_t>(4, 0x13, count);
-      check<uint64_t>(17, 0x20009, count);
-    }
+    for (bool local : {false, true})
+      for (unsigned count : {1, 2, 4}) {
+        check<uint32_t>(4, 0x13, count, local);
+        check<uint64_t>(4, 0x13, count, local);
+        check<uint64_t>(17, 0x20009, count, local);
+      }
     liftrs::execution::progress_record("logging-self-check", "recurrence-cases",
-                                       "completed", 9, 9, 0, "cases");
+                                       "completed", 18, 18, 0, "cases");
     liftrs::execution::progress_record(
-        "legacy-log-self-check", "recurrence-cases", "completed", 9, 9, 0);
+        "legacy-log-self-check", "recurrence-cases", "completed", 18, 18, 0);
     return 0;
   } catch (const std::exception &e) {
     std::cerr << e.what() << '\n';

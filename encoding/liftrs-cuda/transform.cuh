@@ -1,6 +1,7 @@
 #pragma once
 // Arithmetic and per-vector recurrences shared by legacy client kernels and
-// width-selected server preparation. No backend chooses another memory layout.
+// width-selected server preparation. Backends adapt storage indexing without
+// duplicating the mathematical recurrences.
 #include <cstddef>
 #include <cstdint>
 #if defined(__CUDACC__)

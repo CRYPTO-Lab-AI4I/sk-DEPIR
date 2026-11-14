@@ -173,3 +173,28 @@ work within a phase; a heartbeat alone is not an ETA. Discovery, reusable
 preparation, persistence and database encoding must be timed separately. Retain
 CPU profiles and matching binaries during optimization. The bounded runner keeps
 small reusable caches, but no full s17 artifact or larger allocation is admitted.
+
+## Experimental local-vector scheduling
+
+The resident CUDA plugin snapshots `LIFTRS_GPU_PREPARATION_VECTOR_LAYOUT` at
+engine creation: `peer` (default) or `local`; other values are rejected. The
+bounded experiment exposes this as `run.py --vector-layout local`. This temporary
+experiment selector does not change the code specification, public data format
+or ordinary CPU/client builds. Do not mutate this process-wide variable while
+constructing engines concurrently. Tiny shapes with fewer vectors than GPUs
+retain the peer schedule because complete vectors cannot be partitioned evenly.
+
+Local mode gathers complete vectors onto their owner GPU, transposes each slab
+for coalesced local access, runs the existing recurrence with its original global
+vector offset, and restores canonical slabs. Both operands reuse the same scratch;
+no additional full-domain device/host array or cache is introduced. Taylor passes
+remain peer-aware and retain their cross-device synchronization. Whole operations
+return canonical results; no external layout or arithmetic changes.
+
+The initial schedule adds eight transposes per FFT: four local and four peer
+gather/restore passes,16N word reads/writes (~2 TiB at fulls17, excluding existing
+passes). Actual link traffic is a subset of that array traffic. Host/retained
+storage requirements are unchanged; allocation headroom and setup/latency cost
+remain unmeasured. This is an explicit performance candidate, not a lower-memory
+default. Compare independent oracles, memcheck, dense tile hashes and same-device
+latencies before selecting it. [Reproduction/evidence](../experiments/gpu-s17-preprocessing/report.md#local-vector-comparison-scaling-074).

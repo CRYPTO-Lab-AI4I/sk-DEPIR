@@ -23,6 +23,7 @@ def main():
     parser.add_argument('name', nargs='?')
     parser.add_argument('--check', action='store_true')
     parser.add_argument('--devices', type=int, choices=(1,2,4), default=1)
+    parser.add_argument('--vector-layout', choices=('peer','local'), default='peer')
     args = parser.parse_args()
     if args.check:
         ast.parse(Path(__file__).read_text())
@@ -38,7 +39,7 @@ def main():
     scratch = Path('/tmp') / ('sk-depir-gpu-preparation-' + os.environ['SLURM_JOB_ID'])
     scratch.mkdir(exist_ok=False)
     env = {k: v for k, v in os.environ.items() if not k.startswith('PIR_')}
-    env.update(CGO_ENABLED='0', GOMAXPROCS='4', GOFLAGS='-p=2', GOTOOLCHAIN='local',
+    env.update(LIFTRS_GPU_PREPARATION_VECTOR_LAYOUT=args.vector_layout, CGO_ENABLED='0', GOMAXPROCS='4', GOFLAGS='-p=2', GOTOOLCHAIN='local',
                GOPROXY='off', GOSUMDB='off', GOMEMLIMIT=str(4<<30),
                GOPATH=str(ROOT / '.cache/liftrs/toolchains/gopath'), GOCACHE=str(scratch / 'go-cache'), TMPDIR=str(scratch))
     go = str(ROOT / '.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go')
@@ -53,7 +54,7 @@ def main():
                         'scratch_guard_bytes':4<<30,'worker_seconds':600,'controller_seconds':900,'slurm_seconds':1200,'gpus':args.devices,'aggregate_device_cap_bytes':512<<20,'per_device_cap_bytes':(512<<20)//args.devices},
               'cuda_visible_devices':env.get('CUDA_VISIBLE_DEVICES'),
               'slurm_job_gpus':env.get('SLURM_JOB_GPUS'),'visible_ordinals':list(range(args.devices)),
-              'peer_lifetime_check':True,'commands':[]}
+              'peer_lifetime_check':True,'vector_layout_comparison':True,'vector_layout':args.vector_layout,'commands':[]}
     def save():
         (out/'results.json').write_text(json.dumps(record,indent=2)+'\n')
     def event(label, kind, **values):

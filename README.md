@@ -614,3 +614,8 @@ At s=16, workspace files alone require 32 GiB, exceeding the current experiment
 budget; no full-size disk timing is claimed. A disk-mode packed sink and other
 mode combinations remain separate. See the [consolidated plan status](docs/encoding-scaling.md#current-memory-route-status)
 before larger validation or s=17 admission.
+
+The GPU preprocessing experiment also offers an explicit
+[`--vector-layout local` comparison](experiments/gpu-s17-preprocessing/report.md#local-vector-comparison-scaling-074).
+It keeps the resident array budget while gathering vectors before GPU computation;
+extra redistribution cost is unmeasured and the validated peer layout stays default.

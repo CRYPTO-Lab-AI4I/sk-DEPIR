@@ -62,6 +62,20 @@ __global__ void vectors(Shards<Word> data, const Matrix<Word> *plan,
   liftrs_cuda::vector_transform<Word>(data, *plan, columns, inverse, length,
                                       vector, jobs, vector, logs, powers, 0);
 }
+// Complete vectors are stored locally with adjacent vectors interleaved, so
+// adjacent CUDA threads still read adjacent coefficients. Global vector offsets
+// remain essential to the row evaluation points in the shared recurrence.
+template <class Word>
+__global__ void
+local_vectors(Word *data, const Matrix<Word> *plan, bool columns, bool inverse,
+              size_t length, size_t jobs, size_t global_first, size_t first,
+              size_t count, const uint32_t *logs, const uint32_t *powers) {
+  const size_t j = first + size_t(blockIdx.x) * blockDim.x + threadIdx.x;
+  if (j >= first + count)
+    return;
+  liftrs_cuda::vector_transform<Word>(data, *plan, columns, inverse, length, j,
+                                      jobs, j, logs, powers, global_first);
+}
 template <class Word>
 __global__ void taylor(Shards<Word> data, const Matrix<Word> *plan, unsigned k,
                        bool quotient, size_t first, size_t count,

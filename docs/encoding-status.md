@@ -413,3 +413,9 @@ One encoding sample at s16, two at smaller sizes. New memory entries are sampled
 encoding peaks. File residency is additional and can overlap RSS; it is not an
 exact physical-RAM sum. All22 cases complete on this HPC system under their
 recorded budgets. Fulls17 remains unrun.
+
+A [local-vector GPU preparation comparison](../experiments/gpu-s17-preprocessing/report.md#local-vector-comparison-scaling-074)
+is implemented but not GPU-validated. It uses the same2N transform/3N product
+resident payload; no capacity cell changes. Its explicit extra8 transpose passes
+add16N word reads/writes (~2 TiB at s17); runtime and actual peer traffic are
+unknown. The validated peer layout stays default until measured selection.

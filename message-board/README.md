@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-14 11:29 | SCALING-074 | Handoff | [Local-vector comparison prepared](2026-11-14-1129-codex-scaling-074-prepared.md) |
 | 2026-11-14 11:23 | SCALING-074 | Started | [Prioritize completion of GPU preprocessing](2026-11-14-1123-codex-scaling-074-started.md) |
 | 2026-11-14 11:17 | SCALING-073 | Completed | [Peer validation and22-case reconciliation pass](2026-11-14-1117-codex-scaling-073-completed.md) |
 | 2026-11-14 11:14 | SCALING-073 | Started | [Review peer retry and22-case reconciliation](2026-11-14-1114-codex-scaling-073-started.md) |

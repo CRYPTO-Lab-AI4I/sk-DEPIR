@@ -5,6 +5,7 @@
 #include "preparation_kernels.cuh"
 #include "transform.cuh"
 #include <array>
+#include <cstdlib>
 #include <cuda_runtime.h>
 #include <map>
 #include <mutex>
@@ -148,6 +149,7 @@ template <class Word> class Preparation {
   Word omega_;
   size_t maximum_;
   uint64_t cap_;
+  bool local_vectors_ = false;
   // Member destruction frees buffers before releasing their peer-access leases.
   PeerLease peers_;
   std::vector<std::unique_ptr<Card>> cards_;
@@ -285,14 +287,37 @@ template <class Word> class Preparation {
       }
     });
   }
-  void vector_pass(size_t n, Shards<Word> values, bool columns, bool inverse,
-                   unsigned split, bool base = false) {
+  // Gather whole vectors, transpose each local slab for coalesced recurrence
+  // accesses, then restore canonical slabs. Reuse the existing scratch only.
+  void local_transpose(size_t n, Shards<Word> from, Shards<Word> to,
+                       size_t rows, size_t columns) {
+    stage("local-vector-transpose", n, active(n), [&](unsigned d) {
+      Shards<Word> local;
+      local.data[0] = from.data[d];
+      local.chunk = from.chunk;
+      local.shift = from.shift;
+      const size_t tiles = ((rows + 31) / 32) * ((columns + 31) / 32);
+      transpose_tiles<<<tiles, dim3(32, 8)>>>(local, to.data[d], 0, to.chunk,
+                                              rows, columns);
+    });
+  }
+  void vector_pass(size_t n, Shards<Word> values, Shards<Word> scratch,
+                   bool columns, bool inverse, unsigned split,
+                   bool base = false) {
     unsigned dim = 0;
     for (auto v = n; v > 1; v >>= 1)
       dim++;
     const size_t length = size_t(1) << (columns ? dim - split : split),
                  jobs = n / length;
     const unsigned count = std::min<unsigned>(active(n), unsigned(jobs));
+    // Tiny shapes with fewer vectors than cards retain the validated peer
+    // schedule; complete vectors cannot be evenly partitioned there.
+    const bool local = local_vectors_ && jobs >= active(n);
+    const size_t local_jobs = jobs / count;
+    if (local) {
+      transpose_array(n, values, scratch, length, jobs);
+      local_transpose(n, scratch, values, local_jobs, length);
+    }
     const char *label = base      ? "base-grid-vectors"
                         : columns ? "extension-columns"
                                   : "extension-rows";
@@ -318,10 +343,16 @@ template <class Word> class Preparation {
         check(cudaSetDevice(c.id));
         auto *metadata =
             base ? static_cast<Matrix<Word> *>(c.base.data) : plan(c, n);
-        vectors<<<(take + 127) / 128, 128>>>(
-            values, metadata, columns, inverse, length, jobs, first, take,
-            static_cast<uint32_t *>(c.logs.data),
-            static_cast<uint32_t *>(c.powers.data));
+        if (local)
+          local_vectors<<<(take + 127) / 128, 128>>>(
+              values.data[d], metadata, columns, inverse, length, local_jobs,
+              begin, first - begin, take, static_cast<uint32_t *>(c.logs.data),
+              static_cast<uint32_t *>(c.powers.data));
+        else
+          vectors<<<(take + 127) / 128, 128>>>(
+              values, metadata, columns, inverse, length, jobs, first, take,
+              static_cast<uint32_t *>(c.logs.data),
+              static_cast<uint32_t *>(c.powers.data));
         check(cudaGetLastError());
         advanced += take;
       }
@@ -331,6 +362,10 @@ template <class Word> class Preparation {
         event(label, "progress", completed, jobs, began);
         last = Clock::now();
       }
+    }
+    if (local) {
+      local_transpose(n, values, scratch, length, local_jobs);
+      transpose_array(n, scratch, values, jobs, length);
     }
     event(label, "completed", completed, jobs, began);
   }
@@ -377,16 +412,16 @@ template <class Word> class Preparation {
     auto rows = [&] {
       const size_t length = size_t(1) << split, jobs = n / length;
       transpose_array(n, values, scratch, jobs, length);
-      vector_pass(n, scratch, false, inverse, split);
+      vector_pass(n, scratch, values, false, inverse, split);
       transpose_array(n, scratch, values, length, jobs);
     };
     if (!inverse) {
       convert();
-      vector_pass(n, values, true, false, split);
+      vector_pass(n, values, scratch, true, false, split);
       rows();
     } else {
       rows();
-      vector_pass(n, values, true, true, split);
+      vector_pass(n, values, scratch, true, true, split);
       convert();
     }
   }
@@ -445,6 +480,11 @@ public:
               uint64_t cap)
       : s_(s), polynomial_(polynomial), delta_(delta), omega_(Word(omega)),
         maximum_(maximum), cap_(cap) {
+    const char *layout = std::getenv("LIFTRS_GPU_PREPARATION_VECTOR_LAYOUT");
+    if (layout && std::strcmp(layout, "peer") && std::strcmp(layout, "local"))
+      throw std::runtime_error(
+          "GPU preprocessing vector layout must be peer or local");
+    local_vectors_ = layout && !std::strcmp(layout, "local");
     liftrs::FieldT<Word> field;
     liftrs::preparation::set_field(field, s, polynomial, delta);
     if (s > 17 || !logs || !powers || lc != (size_t(1) << s) ||
@@ -539,9 +579,9 @@ public:
     auto values = shards(n, 0), scratch = shards(n, 2);
     upload(host, n, values);
     transpose_array(n, values, scratch, q, q);
-    vector_pass(n, scratch, true, false, s_, true);
+    vector_pass(n, scratch, values, true, false, s_, true);
     transpose_array(n, scratch, values, q, q);
-    vector_pass(n, values, true, false, s_, true);
+    vector_pass(n, values, scratch, true, false, s_, true);
     download(host, n, values);
   }
   void product(const uint32_t *a, size_t ac, const uint32_t *b, size_t bc,

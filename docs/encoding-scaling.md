@@ -1757,3 +1757,24 @@ communication, reproducible GPU-count comparisons, complete checkpointed s17
 preprocessing and resource admission. No fixed two-card limit; use measured
 complete latency, memory/headroom and deployment costs to choose GPU count.
 Existing experiment budgets remain in force; capacity is not allocation approval.
+
+### Local-vector prototype and remaining completion gates (SCALING-074)
+
+Implemented an explicit local-vector comparison using shared recurrences and
+existing buffers, retaining the validated peer default. Host oracles and CUDA
+linking pass; GPU runtime/sanitizers/timing remain pending. See the
+[experiment](../experiments/gpu-s17-preprocessing/report.md#local-vector-comparison-scaling-074).
+The implemented straightforward schedule adds8 transpose passes (4 local plus
+4 gather/restore), not just the previously discussed4 local passes. Total extra
+array read/write traffic is16N words (~2 TiB per fulls17 FFT); actual link traffic
+is a subset. Same2N/3N device payload, host/storage unchanged; latency unknown.
+
+Completion order: (1) validate/compare peer and local schedules under existing
+two-GPU caps; (2) select/fuse communication using measured costs and calibrate
+GPU count/larger components with reviewed budgets, including4GPU when admitted;
+(3) finish full checkpointed discovery/preparation/verification/persistence harness,
+verify exact support and complete code identities, and size concurrent host/device/
+storage/time headroom; (4) obtain full-run resource agreement, submit and hand off
+fulls17 preparation; (5) reconcile retained cache and update the reference before
+client encoding. No fulls17 cache or latency is claimed. CPU setup profiling stays
+deferred until GPU preprocessing is complete; CPU/client support is retained.

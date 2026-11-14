@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "utc": "2026-11-14T11:27:45.735236+00:00",
+  "base_revision": "728ddc6a24eb2aab0e500904a050779a500c1170",
+  "checks": [
+    "g++ -std=c++17 -O2 -pthread -Iencoding/liftrs-cuda experiments/gpu-s17-preprocessing/check.cpp -o /tmp/sk-depir-local-vector-check; exit0",
+    "timeout25s /tmp/sk-depir-local-vector-check:18 independent full-Horner/inverse cases; one/two/four simulated slabs,peer/local,32/64-bit fields",
+    "timeout25s nvcc -std=c++17 -O0 -arch=sm_90 -shared -Xcompiler=-fPIC,-pthread encoding/liftrs-cuda/matrix.cu encoding/liftrs-cuda/preparation.cu -o /tmp/sk-depir-local-vector-check.so; exit0",
+    "run.py --check --devices2 --vector-layout local",
+    "Python AST checks and gofmt"
+  ],
+  "source_sha256": {
+    "encoding/liftrs-cuda/preparation.cu": "fc1339067a35b2158a784095b93764f2e9fa8dd9b534d161c7165d4a33cc97dc",
+    "encoding/liftrs-cuda/preparation_kernels.cuh": "df33f6022da9560c45327d6a1993e8806a01b7977b8280cfc5d3041ee68c8b62",
+    "encoding/liftrs-cuda/transform.cuh": "f8a4864ad617bf52d083d34e62290595a33868843c1da9aea777c0fbfc1e05e1",
+    "encoding/liftrs-shared/preprocessing_gpu_test.go": "72a66812722f49279677758305593c9b328f4f5ff97171e4597ef892dacf1e62",
+    "experiments/gpu-s17-preprocessing/run.py": "698d21e564a1fe8b0ddcbcd097649e4ca0dd64507d6df2e31135b0153e0f4f3d",
+    "experiments/gpu-s17-preprocessing/analyze.py": "9354547d925028d161f21b48907eb5708cfb1ef8388634a8bd2c21b7395e9b81",
+    "experiments/gpu-s17-preprocessing/check.cpp": "c0e46d919464f6f2eafd865a1949ee503197fda3358e44187a587f3d6261766b"
+  },
+  "limitations": [
+    "New CUDA execution/sanitizers/tile comparisons pending; shared O0 linking is not runtime validation.",
+    "No fulls17 preprocessing or reviewed full-size allocation."
+  ]
+}
