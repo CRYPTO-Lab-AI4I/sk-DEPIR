@@ -1,0 +1,31 @@
+{
+  "status": "prepared; awaiting resource agreement",
+  "gpus": 4,
+  "gpu_type": "h200",
+  "aggregate_owned_device_cap_bytes": 4294967296,
+  "per_device_cap_bytes": 1073741824,
+  "cpus": 4,
+  "host_request_bytes": 8589934592,
+  "rss_guard_bytes": 6442450944,
+  "go_soft_limit_bytes": 4294967296,
+  "new_cache_guard_bytes": 2147483648,
+  "scratch_guard_bytes": 4294967296,
+  "worker_seconds": 600,
+  "controller_seconds": 900,
+  "slurm_seconds": 1200,
+  "tile_values": 33554432,
+  "tile_input_bytes": 268435456,
+  "repetitions": 3,
+  "gpu_prefixes": [
+    1,
+    2,
+    4
+  ],
+  "vector_layouts": [
+    "peer",
+    "local"
+  ],
+  "command": "sbatch --gres=gpu:h200:4 --output=experiments/gpu-s17-preprocessing/slurm-%j.log experiments/gpu-s17-preprocessing/run.sbatch calibration-01 --devices 4 --vector-layout local --tile-power 25 --repetitions 3 --aggregate-device-mib 4096",
+  "new_results": "experiments/gpu-s17-preprocessing/runs/calibration-01/",
+  "authorization": "No submission until explicit agreement to4GPU/4GiB bounded validation; capacity and CLI support do not authorize it."
+}

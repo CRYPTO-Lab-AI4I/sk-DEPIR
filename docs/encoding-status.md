@@ -414,8 +414,21 @@ encoding peaks. File residency is additional and can overlap RSS; it is not an
 exact physical-RAM sum. All22 cases complete on this HPC system under their
 recorded budgets. Fulls17 remains unrun.
 
-A [local-vector GPU preparation comparison](../experiments/gpu-s17-preprocessing/report.md#local-vector-comparison-scaling-074)
-is implemented but not GPU-validated. It uses the same2N transform/3N product
-resident payload; no capacity cell changes. Its explicit extra8 transpose passes
-add16N word reads/writes (~2 TiB at s17); runtime and actual peer traffic are
-unknown. The validated peer layout stays default until measured selection.
+The [local-vector comparison](../experiments/gpu-s17-preprocessing/report.md#completed-local-vector-validation-scaling-075)
+passes bounded GPU validation74468, including zero memcheck errors/leaks. Same
+s17-width32 MiB dense tile, one warm/profiled/logged whole-call sample per case:
+
+| Layout | GPUs | Forward runtime | Inverse runtime | Owned GPU memory (aggregate) |
+|---|---|---|---|---|
+| Peer | 1 | 197.515 ms | 170.759 ms | 65.57 MiB |
+| Peer | 2 | 233.538 ms | 197.709 ms | 67.14 MiB |
+| Local | 1 | 194.450 ms | 183.013 ms | 65.57 MiB |
+| Local | 2 | 189.407 ms | 178.511 ms | 67.14 MiB |
+
+Local reduces two-card time18.9%/9.7% versus peer, but two local cards gain only
+2.6%/2.5% over one local card. Single-card local inverse is7.2% slower. These
+fixed-order component samples are not fulls17 forecasts or a settled layout
+choice. Default peer and all capacity cells stay unchanged. Same2N transform/3N
+product payload; extra8 transpose passes add16N word reads/writes (~2 TiB at
+s17), with full-size runtime/link traffic unknown. A256 MiB repeated1/2/4GPU
+comparison is prepared, awaiting reviewed4GPU/4 GiB resources; not submitted.

@@ -1778,3 +1778,22 @@ storage/time headroom; (4) obtain full-run resource agreement, submit and hand o
 fulls17 preparation; (5) reconcile retained cache and update the reference before
 client encoding. No fulls17 cache or latency is claimed. CPU setup profiling stays
 deferred until GPU preprocessing is complete; CPU/client support is retained.
+
+### Local-vector result and repeated GPU-count comparison (SCALING-075)
+
+Bounded job74468 passes local preparation, high-width/peer lifetime checks, zero
+CUDA errors/leaks, shared recurrences and Go/native/legacy CUDA regressions.
+The32 MiB tile records18.9%/9.7% lower two-GPU forward/inverse time than peer,
+equal owned memory, but only2.6%/2.5% gains over one local GPU. One local inverse
+is7.2% slower than one peer inverse; fixed-order single samples are insufficient
+for default selection or fulls17 forecasting. Preserve peer default and profiles.
+
+Prepare256 MiB tiles with3 repeated samples for each peer/local and1/2/4 GPU
+prefix. [Exact plan](../experiments/gpu-s17-preprocessing/calibration-plan.json)
+uses4 H200s and4 GiB aggregate owned cap (1 GiB/card), unchanged4CPU/8 GiB host,
+6 GiB RSS,2 GiB cache/4 GiB scratch and600/900/1200s guards. The one-GPU prefix
+fits512 MiB transform arrays plus metadata. Runner/analyzer record and validate
+shape/repetitions/caps explicitly; previous defaults and evidence remain compatible.
+Await numeric resource agreement before submission. Then assess median costs/
+GPU-count benefit before full checkpointed s17 preparation admission. CPU setup
+investigation remains deferred; no fulls17 cache, encoding or latency is claimed.

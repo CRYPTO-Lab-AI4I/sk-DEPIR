@@ -24,7 +24,15 @@ def main():
     parser.add_argument('--check', action='store_true')
     parser.add_argument('--devices', type=int, choices=(1,2,4), default=1)
     parser.add_argument('--vector-layout', choices=('peer','local'), default='peer')
+    parser.add_argument('--tile-power', type=int, choices=(22,25), default=22)
+    parser.add_argument('--repetitions', type=int, choices=(1,3), default=1)
+    parser.add_argument('--aggregate-device-mib', type=int, choices=(512,4096), default=512)
     args = parser.parse_args()
+    per_device_cap=(args.aggregate_device_mib<<20)//args.devices
+    # Every allocation compares a one-GPU prefix too. Admit its complete two-
+    # array tile plus conservative metadata, not just the smallest shard.
+    if (2*(1<<args.tile_power)*8+(16<<20))>per_device_cap:
+        parser.error('one-GPU comparison tile plus metadata exceeds per-device cap')
     if args.check:
         ast.parse(Path(__file__).read_text())
         assert 600 < 900 < 1200
@@ -51,10 +59,10 @@ def main():
               'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
               'started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(), 'cache':str(cache),
               'policy':{'cpus':4,'request_bytes':8<<30,'rss_guard_bytes':6<<30,'cache_guard_bytes':2<<30,
-                        'scratch_guard_bytes':4<<30,'worker_seconds':600,'controller_seconds':900,'slurm_seconds':1200,'gpus':args.devices,'aggregate_device_cap_bytes':512<<20,'per_device_cap_bytes':(512<<20)//args.devices},
+                        'scratch_guard_bytes':4<<30,'worker_seconds':600,'controller_seconds':900,'slurm_seconds':1200,'gpus':args.devices,'aggregate_device_cap_bytes':args.aggregate_device_mib<<20,'per_device_cap_bytes':per_device_cap},
               'cuda_visible_devices':env.get('CUDA_VISIBLE_DEVICES'),
               'slurm_job_gpus':env.get('SLURM_JOB_GPUS'),'visible_ordinals':list(range(args.devices)),
-              'peer_lifetime_check':True,'vector_layout_comparison':True,'vector_layout':args.vector_layout,'commands':[]}
+              'peer_lifetime_check':True,'vector_layout_comparison':True,'vector_layout':args.vector_layout,'tile_power':args.tile_power,'repetitions':args.repetitions,'commands':[]}
     def save():
         (out/'results.json').write_text(json.dumps(record,indent=2)+'\n')
     def event(label, kind, **values):
@@ -115,7 +123,8 @@ def main():
         fixtures=cache/'fixtures';fixtures.mkdir()
         env.update(PIR_GPU_LIBRARY=str(library),PIR_GPU_PREPARATION_LIBRARY=str(library),
                    PIR_GPU_PREPARATION_DEVICES=','.join(str(d) for d in range(args.devices)),
-                   PIR_GPU_PREPARATION_CAP=str((512<<20)//args.devices),
+                   PIR_GPU_PREPARATION_CAP=str(per_device_cap),
+                   PIR_GPU_PREPARATION_TILE_POWER=str(args.tile_power), PIR_GPU_PREPARATION_REPETITIONS=str(args.repetitions),
                    PIR_GPU_PREPARATION_CACHE=str(fixtures),PIR_GPU_PREPARATION_OUT=str(out))
         target='^TestGPUPreparation(Small|Wide|Tile|PeerLifetime)$'
         env['LIFTRS_CPU_PROGRESS']='1'

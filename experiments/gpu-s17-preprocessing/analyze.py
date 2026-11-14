@@ -25,9 +25,14 @@ def main():
     expected={1<<power for power in range(record['policy']['gpus'].bit_length())}
     assert {r['gpus'] for r in tiles}==expected
     if record.get('vector_layout_comparison'):
-        assert len(tiles)==2*len(expected)
+        assert len(tiles)==2*len(expected)*record.get('repetitions',1)
         assert {(r['gpus'],r['vector_layout'])for r in tiles}=={(n,layout)for n in expected for layout in ('peer','local')}
+        assert all(r['values']==1<<record.get('tile_power',22) for r in tiles)
         for n in expected:
+            for layout in ('peer','local'):
+                samples=[r for r in tiles if r['gpus']==n and r['vector_layout']==layout]
+                assert len(samples)==record.get('repetitions',1)
+                assert {r.get('repetition',0)for r in samples}==set(range(record.get('repetitions',1)))
             pair=[r for r in tiles if r['gpus']==n]
             assert len({r['owned_device_bytes']for r in pair})==1,'layout changes allocation payload'
             assert all(r['owned_device_bytes']<=n*record['policy']['per_device_cap_bytes']for r in pair)

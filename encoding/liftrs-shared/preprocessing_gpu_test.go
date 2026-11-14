@@ -290,7 +290,20 @@ func TestGPUPreparationTile(t *testing.T) {
 	}
 	base, _ := NewBinaryField(17, h.Polynomial)
 	table := newPreparationProducts(base)
-	const n = 1 << 22
+	power, repetitions := 22, 1
+	for name, destination := range map[string]*int{"PIR_GPU_PREPARATION_TILE_POWER": &power, "PIR_GPU_PREPARATION_REPETITIONS": &repetitions} {
+		if value := os.Getenv(name); value != "" {
+			parsed, err := strconv.Atoi(value)
+			if err != nil {
+				t.Fatal(name, err)
+			}
+			*destination = parsed
+		}
+	}
+	if (power != 22 && power != 25) || (repetitions != 1 && repetitions != 3) {
+		t.Fatal("unsupported bounded tile/repetition parameters")
+	}
+	n := 1 << uint(power)
 	var records []map[string]any
 	// Compare each available power-of-two prefix in the same allocation. Two
 	// cards are an initial validation size, not a preprocessing design limit.
@@ -298,7 +311,7 @@ func TestGPUPreparationTile(t *testing.T) {
 		t.Setenv("LIFTRS_GPU_PREPARATION_VECTOR_LAYOUT", layout)
 		for count := 1; count <= len(devices); count *= 2 {
 			ids := devices[:count]
-			engine, err := cuda.NewPreparation(cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: 17, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: table.log, Powers: table.powers, Devices: ids, MaxElements: n, DeviceBytes: gpuPreparationCap(t)})
+			engine, err := cuda.NewPreparation(cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: 17, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: table.log, Powers: table.powers, Devices: ids, MaxElements: uint64(n), DeviceBytes: gpuPreparationCap(t)})
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -335,34 +348,37 @@ func TestGPUPreparationTile(t *testing.T) {
 				original[j] = input[j]
 				parity ^= input[j]
 			}
-			began := time.Now()
-			if err = engine.Apply64(input, false); err != nil {
-				t.Fatal(err)
+			for repetition := 0; repetition < repetitions; repetition++ {
+				t.Logf("UTC=%s tile layout=%s GPUs=%d repetition=%d/%d", time.Now().UTC().Format(time.RFC3339), layout, len(ids), repetition+1, repetitions)
+				began := time.Now()
+				if err = engine.Apply64(input, false); err != nil {
+					t.Fatal(err)
+				}
+				forward := time.Since(began)
+				if input[0] != original[0] || input[1] != parity {
+					t.Fatal("dense tile independent 0/1 evaluations")
+				}
+				// Hash the entire forward word, outside the timed transform boundary.
+				digest := sha256.New()
+				var element [8]byte
+				for _, value := range input {
+					binary.LittleEndian.PutUint64(element[:], value)
+					digest.Write(element[:])
+				}
+				fingerprint := hex.EncodeToString(digest.Sum(nil))
+				if len(records) > 0 && fingerprint != records[0]["forward_sha256"] {
+					t.Fatal("peer tile differs from single GPU")
+				}
+				began = time.Now()
+				if err = engine.Apply64(input, true); err != nil {
+					t.Fatal(err)
+				}
+				inverse := time.Since(began)
+				if !reflect.DeepEqual(input, original) {
+					t.Fatal("complete tile inverse")
+				}
+				records = append(records, map[string]any{"s": 17, "values": n, "gpus": len(ids), "forward_seconds": forward.Seconds(), "inverse_seconds": inverse.Seconds(), "owned_device_bytes": engine.OwnedBytes(), "forward_sha256": fingerprint, "profiled": true, "vector_layout": layout, "repetition": repetition, "input": "dense deterministic extension values"})
 			}
-			forward := time.Since(began)
-			if input[0] != original[0] || input[1] != parity {
-				t.Fatal("dense tile independent 0/1 evaluations")
-			}
-			// Hash the entire forward word, outside the timed transform boundary.
-			digest := sha256.New()
-			var element [8]byte
-			for _, value := range input {
-				binary.LittleEndian.PutUint64(element[:], value)
-				digest.Write(element[:])
-			}
-			fingerprint := hex.EncodeToString(digest.Sum(nil))
-			if len(records) > 0 && fingerprint != records[0]["forward_sha256"] {
-				t.Fatal("peer tile differs from single GPU")
-			}
-			began = time.Now()
-			if err = engine.Apply64(input, true); err != nil {
-				t.Fatal(err)
-			}
-			inverse := time.Since(began)
-			if !reflect.DeepEqual(input, original) {
-				t.Fatal("complete tile inverse")
-			}
-			records = append(records, map[string]any{"s": 17, "values": n, "gpus": len(ids), "forward_seconds": forward.Seconds(), "inverse_seconds": inverse.Seconds(), "owned_device_bytes": engine.OwnedBytes(), "forward_sha256": fingerprint, "profiled": true, "vector_layout": layout, "input": "dense deterministic extension values"})
 			engine.Close()
 		}
 	}

@@ -194,7 +194,9 @@ return canonical results; no external layout or arithmetic changes.
 The initial schedule adds eight transposes per FFT: four local and four peer
 gather/restore passes,16N word reads/writes (~2 TiB at fulls17, excluding existing
 passes). Actual link traffic is a subset of that array traffic. Host/retained
-storage requirements are unchanged; allocation headroom and setup/latency cost
-remain unmeasured. This is an explicit performance candidate, not a lower-memory
+storage requirements are unchanged; allocation headroom and full-size setup/latency cost
+remain unmeasured. Bounded local-mode correctness and CUDA memcheck pass74468;
+a32 MiB tile shows18.9%/9.7% lower two-card forward/inverse latency, with single
+samples and little two-card versus one-card gain. This is an explicit performance candidate, not a lower-memory
 default. Compare independent oracles, memcheck, dense tile hashes and same-device
 latencies before selecting it. [Reproduction/evidence](../experiments/gpu-s17-preprocessing/report.md#local-vector-comparison-scaling-074).

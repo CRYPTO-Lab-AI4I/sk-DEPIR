@@ -618,4 +618,7 @@ before larger validation or s=17 admission.
 The GPU preprocessing experiment also offers an explicit
 [`--vector-layout local` comparison](experiments/gpu-s17-preprocessing/report.md#local-vector-comparison-scaling-074).
 It keeps the resident array budget while gathering vectors before GPU computation;
-extra redistribution cost is unmeasured and the validated peer layout stays default.
+bounded correctness/sanitizer checks pass (job74468). On a32 MiB tile, local
+reduces two-GPU forward/inverse time18.9%/9.7% with unchanged owned memory. These
+are single component samples; the peer default stays while larger repeated
+GPU-count comparisons are prepared.

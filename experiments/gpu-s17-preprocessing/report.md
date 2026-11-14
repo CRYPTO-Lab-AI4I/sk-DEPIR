@@ -304,3 +304,59 @@ Job74468 is submitted, source62e626b ([submission](local-submission.json)).
 Results/log/profile: `runs/local-01/`, `slurm-74468.log`; caches/binaries:
 `.cache/liftrs/gpu-s17-preprocessing/local-01/`. No monitoring/result inspection
 until user completion ping. All approved numeric resource caps are unchanged.
+
+## Completed local-vector validation (SCALING-075)
+
+Job74468 passes on source62e626b, gnode02. [Analysis](runs/local-01/analysis.json)
+reconciles498 source,35 evidence and36 retained-cache identities. [Results](runs/local-01/results.json),
+[Slurm log](slurm-74468.log), [controller](run.py), [analyzer](analyze.py) preserve
+exact environment, commands, approved limits, binaries, profiles and small caches.
+Small complete GPU preparation matches Go, high-bit/window/address checks and
+full tile hashes/inverses pass, as do legacy CUDA/client and Go/native regressions,
+vet and18 optimized/18 sanitized shared-recurrence cases. CUDA memcheck reports
+**zero errors and zero leaked bytes**, including peer lifetime tests.
+
+Same-allocation warm/profiled/logged s17-width dense tile,2^22 values (32 MiB),
+one forward/inverse sample per layout/card count; wall times include transfers:
+
+| Vector layout | GPUs | Forward runtime | Inverse runtime | Owned GPU memory (aggregate) |
+|---|---|---|---|---|
+| Peer | 1 | 197.515 ms | 170.759 ms | 65.57 MiB |
+| Peer | 2 | 233.538 ms | 197.709 ms | 67.14 MiB |
+| Local | 1 | 194.450 ms | 183.013 ms | 65.57 MiB |
+| Local | 2 | 189.407 ms | 178.511 ms | 67.14 MiB |
+
+Local is18.9% faster forward and9.7% faster inverse than peer on two cards;
+owned memory is equal. Local two-card versus local one-card gains only2.6%/2.5%.
+Single-card local inverse is7.2% slower than peer. All four full forward hashes
+match previous tile references. These fixed-order single samples establish
+correctness and a candidate benefit, not a stable speedup or fulls17 forecast.
+Keep peer default; do not silently adopt extra traffic or change capacity models.
+
+### Prepared larger repeated comparison
+
+[Exact resource/command plan](calibration-plan.json), [static checks](calibration-checks.json).
+Runner controls now explicitly accept tile powers22/25, repetitions1/3 and
+aggregate owned GPU caps512/4096 MiB, retaining original defaults. Before creating
+outputs it checks the largest one-GPU prefix fits its per-device cap with16 MiB
+conservative metadata allowance; allocation accounting still enforces actual caps.
+The test preserves sparse independent evaluations, dense full hashes and exact
+inverses per repetition; analyzer checks every layout/count/repetition, equal
+owned payload across layouts and cap compliance. The retained32 MiB job remains
+compatible and reconciles with the updated analyzer. This changes future timing
+methodology explicitly: three repeated samples per layout/count, fixed order,
+profiled/logged; no unprofiled or statistically controlled speedup claim.
+
+Proposed `calibration-01`: four H200s,4 GiB aggregate owned cap (1 GiB/card),
+256 MiB input (2^25 values),1/2/4GPU prefixes, peer/local,3 repetitions each.
+Host4CPU/8 GiB requested/6 GiB RSS/4 GiB Go soft limit,2 GiB new cache/4 GiB scratch,
+and600/900/1200-second deadlines stay unchanged. Two host input arrays consume
+512 MiB before runtime/GC/profiles; reusable device transform arrays total512 MiB
+plus metadata, within per-card admission even on the one-GPU comparison. No large
+new retained input/output files, fulls17 support or preparation is created.
+
+**Await resource agreement before submission.** AGENTS.md requires reviewed
+experiment budgets before increasing devices/memory; CLI capacity is not approval.
+After approval, use the exact command in calibration-plan.json, then hand off
+without polling until completion ping. Performance choice, larger calibration,
+checkpointed full preparation and fulls17 resource admission remain separate.

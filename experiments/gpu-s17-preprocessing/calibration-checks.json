@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "utc": "2026-11-14T14:37:55.239898+00:00",
+  "checks": [
+    "gofmt and Python AST parsing",
+    "run.py --check --devices4 --vector-layout local --tile-power25 --repetitions3 --aggregate-device-mib4096",
+    "negative admission: tile25 with original512MiB cap is rejected before output directories are created",
+    "updated analyzer reconciles completed local-01 with unchanged default interpretation"
+  ],
+  "source_sha256": {
+    "experiments/gpu-s17-preprocessing/run.py": "90375ba6099fb25727d2a36eeb0179e5275f1fc098b9916ff7d3b44331c8ce2d",
+    "experiments/gpu-s17-preprocessing/analyze.py": "dac7351136fa8ef43582e89e4e1dcf7a055a170cee41e910513b4a96748182af",
+    "encoding/liftrs-shared/preprocessing_gpu_test.go": "e4c49ab75630d3d1308eea550db9c9d6a6b1c00c4a1ec3e6204c7f73cc918669"
+  },
+  "limitations": [
+    "larger repeated CUDA test and4GPU runtime pending resource approval; no new job submitted"
+  ]
+}
