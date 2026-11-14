@@ -7,7 +7,9 @@ requirement; the native preprocessing executor is an explicit backend, not an
 automatic fallback from GPU execution.
 
 The experimental `NewCodePreprocessor` session supports the m=2 algorithm through
-s=17 in source. **Bounded validation is pending; no full s=17 support discovery,
+s=17 in source. **Targeted bounded preprocessing checks passed job74424; the broader native
+suite stopped at an unrelated memory-mode test-fixture error and is being retried.
+No full s=17 support discovery,
 preparation, cache or latency measurement exists.** The existing CUDA execution
 adapter supports s≤16. Selecting CUDA at s=17 returns an error: wider kernels and
 a distributed or explicitly chosen memory-saving layout remain future work.

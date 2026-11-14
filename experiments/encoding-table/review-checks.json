@@ -1,0 +1,11 @@
+{
+  "utc": "2026-11-14T08:33:43.968922+00:00",
+  "checks": [
+    "correct streaming SHA-256 emits complete byte count",
+    "mismatch rejects and emits failed event",
+    "Python CLI/AST and Bash syntax",
+    "Go test-source formatting and git diff --check"
+  ],
+  "status": "passed",
+  "scope": "small analyzer self-check; full native validation and large cache reread pending"
+}

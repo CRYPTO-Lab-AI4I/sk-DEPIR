@@ -1,0 +1,20 @@
+{"utc": "2026-11-14T00:02:03.977508+00:00", "phase": "host", "event": "started", "completed_commands": 0, "elapsed_seconds": 5.60513255186379}
+{"utc": "2026-11-14T00:02:06.212418+00:00", "phase": "host", "event": "completed", "completed_commands": 1, "elapsed_seconds": 7.840039640665054, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T00:02:06.214352+00:00", "phase": "cpu", "event": "started", "completed_commands": 1, "elapsed_seconds": 7.841954503208399}
+{"utc": "2026-11-14T00:02:08.423103+00:00", "phase": "cpu", "event": "completed", "completed_commands": 2, "elapsed_seconds": 10.05071491189301, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T00:02:08.424544+00:00", "phase": "go", "event": "started", "completed_commands": 2, "elapsed_seconds": 10.052145559340715}
+{"utc": "2026-11-14T00:02:10.677313+00:00", "phase": "go", "event": "completed", "completed_commands": 3, "elapsed_seconds": 12.304926125332713, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T00:02:10.678839+00:00", "phase": "job", "event": "started", "completed_commands": 3, "elapsed_seconds": 12.306440705433488}
+{"utc": "2026-11-14T00:02:12.903159+00:00", "phase": "job", "event": "completed", "completed_commands": 4, "elapsed_seconds": 14.530769320204854, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T00:02:12.921744+00:00", "phase": "legacy-build", "event": "started", "completed_commands": 4, "elapsed_seconds": 14.54934512078762}
+{"utc": "2026-11-14T00:02:17.322354+00:00", "phase": "legacy-build", "event": "completed", "completed_commands": 5, "elapsed_seconds": 18.94997517950833, "peak_rss_bytes": 218824704, "guard": null}
+{"utc": "2026-11-14T00:02:17.323868+00:00", "phase": "go-build", "event": "started", "completed_commands": 5, "elapsed_seconds": 18.95147014223039}
+{"utc": "2026-11-14T00:02:30.804375+00:00", "phase": "go-build", "event": "completed", "completed_commands": 6, "elapsed_seconds": 32.431997418403625, "peak_rss_bytes": 135192576, "guard": null}
+{"utc": "2026-11-14T00:02:30.835579+00:00", "phase": "go-regressions", "event": "started", "completed_commands": 6, "elapsed_seconds": 32.463181123137474}
+{"utc": "2026-11-14T00:02:59.553559+00:00", "phase": "go-regressions", "event": "completed", "completed_commands": 7, "elapsed_seconds": 61.18118372373283, "peak_rss_bytes": 1007820800, "guard": null}
+{"utc": "2026-11-14T00:02:59.555606+00:00", "phase": "go-builds", "event": "started", "completed_commands": 7, "elapsed_seconds": 61.18320775590837}
+{"utc": "2026-11-14T00:03:31.049143+00:00", "phase": "go-builds", "event": "completed", "completed_commands": 8, "elapsed_seconds": 92.67676246725023, "peak_rss_bytes": 1043333120, "guard": null}
+{"utc": "2026-11-14T00:03:31.063362+00:00", "phase": "cpp-build", "event": "started", "completed_commands": 8, "elapsed_seconds": 92.69096447899938}
+{"utc": "2026-11-14T00:03:42.333652+00:00", "phase": "cpp-build", "event": "completed", "completed_commands": 9, "elapsed_seconds": 103.96127288788557, "peak_rss_bytes": 453328896, "guard": null}
+{"utc": "2026-11-14T00:03:42.337681+00:00", "phase": "modules", "event": "started", "completed_commands": 9, "elapsed_seconds": 103.96528260037303}
+{"utc": "2026-11-14T00:03:51.413309+00:00", "phase": "modules", "event": "failed", "completed_commands": 10, "elapsed_seconds": 113.04092906787992, "peak_rss_bytes": 25395200, "guard": null}

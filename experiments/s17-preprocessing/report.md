@@ -1,7 +1,7 @@
 # Shared width-aware preprocessing validation
 
 Status: implementation committed as `ec12f1b89ee1db4c7eebdbcadf33a7b437948b80`; bounded validation
-job74424 submitted ([submission](submission.json)), results pending.
+job74424 submitted ([submission](submission.json)), results reviewed below.
 This does not establish full s17 preprocessing or CUDA17 support.
 
 ## Reproduction and evidence
@@ -83,3 +83,31 @@ Pending the completion ping and evidence reconciliation. Existing s16 timing
 measurements remain historical; the native executor and weight-class enumeration
 need calibration. Wider CUDA execution and a reviewed full-size aggregate memory,
 storage and time budget are still required before fastest-server s17 admission.
+
+## Job74424 review and corrected retry
+
+The [sealed results](runs/native-01/results.json) are **failed**, with
+[forensic reconciliation](runs/native-01/failure-analysis.json) verifying479
+source,16 evidence and26 retained-cache identities. All targeted preprocessing
+checks passed, including complete small-code byte/root/generator/restart oracles,
+exact membership enumeration, high-bit s17 kernels, budget failures and artifact
+checks. Go-only regressions and encoding/PIR/configuration suites also passed.
+The broader native regression suite then stopped at `TestCPUEncodingModules`:
+its s4,t2 fixture has K97,N256 and L256, exceeding the documented2L≤N admission
+for file/disk/compact modes. No preprocessing oracle or mathematical identity
+failed. This is incomplete validation, not a successful whole job.
+
+The fixture is corrected to s4,t3 (K37,L128), retaining s6,t4 and s8,t5. A
+separate dense-prefix test checks explicit compact/file/disk rejection while
+comparing resident/wide outputs with Go. Production admission/layout is unchanged.
+Native suites, CUDA compilation, vet/race and sanitizer checks must still run.
+No full s17 or CUDA17 claim follows from the passing targeted checks.
+
+Retry `native-02 --reconcile-disk` keeps the same4CPU/8GiB and600/900/1200s
+limits. Before validation it uses the existing bounded command guard to invoke
+`encoding-table/analyze.py fill-02 --case cpu-disk-s16`, independently rehashing
+that completed job's retained large files and resolving historical source
+identities. The exact analyzer source is checked against the source snapshot.
+This is evidence analysis only, without another full encoding. Its wall time is
+separate from preprocessing measurements. Results and profiles go to
+`runs/native-02/`, with fresh retained cache outside Git; old evidence is kept.

@@ -22,6 +22,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('name', nargs='?')
     parser.add_argument('--check', action='store_true')
+    parser.add_argument('--reconcile-disk', action='store_true', help='rehash the completed s16 disk case before validation')
     args = parser.parse_args()
     if args.check:
         ast.parse(Path(__file__).read_text())
@@ -89,6 +90,10 @@ def main():
         shutil.copytree(ROOT,source,ignore=shutil.ignore_patterns('.git','.cache','runs','__pycache__','slurm-*.log'))
         record['source_sha256']={str(p.relative_to(source)):HELP['sha'](p) for p in source.rglob('*') if p.is_file() and p.suffix in ('.go','.cpp','.h','.hpp','.py','.sbatch')}
         for label,argv in [('host',['hostname']),('cpu',['lscpu']),('go',[go,'version']),('compiler',['g++','--version']),('job',['scontrol','show','job',record['job_id']])]:run(label,argv)
+        if args.reconcile_disk:
+            analyzer=ROOT/'experiments/encoding-table/analyze.py'
+            assert HELP['sha'](analyzer)==record['source_sha256']['experiments/encoding-table/analyze.py']
+            run('disk-s16-reconcile',['python3','-B',str(analyzer),'fill-02','--case','cpu-disk-s16'])
         run('legacy-build',['make','-C','encoding/rme_legacy','rme'],source)
         run('go-build',[go,'test','-c','-o',str(binary),'./encoding/liftrs-shared'],source)
         package=source/'encoding/liftrs-shared'

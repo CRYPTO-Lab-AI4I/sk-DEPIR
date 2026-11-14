@@ -99,7 +99,7 @@ def main():
         run('cpp-build',[go,'test','-tags','liftrs_cpp','-c','-o',str(native),'./encoding/liftrs-shared'],source)
         env['LIFTRS_CPU_PROGRESS']='1'
         fixtures=cache/'fixtures';fixtures.mkdir();env['PIR_WIDE_ENCODING_CACHE']=str(fixtures)
-        targeted='^(TestCPUEncodingModules|TestCPUWorkspaceLifetime|TestScalingWideCPP.*|TestCPP.*(Ownership|Overlap|Shape)|ExampleScalingCodeData_WithWideCPP)$'
+        targeted='^(TestCPUEncodingModules.*|TestCPUWorkspaceLifetime|TestScalingWideCPP.*|TestCPP.*(Ownership|Overlap|Shape)|ExampleScalingCodeData_WithWideCPP)$'
         run('modules',[str(native),'-test.run='+targeted,'-test.v','-test.timeout=10m','-test.cpuprofile='+str(out/'modules.pprof')],package)
         env.pop('LIFTRS_CPU_PROGRESS');env.pop('PIR_WIDE_ENCODING_CACHE')
         progress=[]

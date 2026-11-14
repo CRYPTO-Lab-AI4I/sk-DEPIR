@@ -122,3 +122,18 @@ python3 -B experiments/cpu-encoding-modules/analyze.py modules-01
 Ratios above1.2 are flagged for review, not automatically explained away as
 noise. Native metadata/file-cache costs are outside Go allocation counters;
 fulls16/s17 timing remains a separate gate.
+
+## Initial validation failure and fixture correction
+
+[Job74419 results](runs/modules-01/results.json) failed in the targeted module
+test. [Forensic reconciliation](runs/modules-01/failure-analysis.json) verifies
+460 source,13 evidence and14 cache identities. Go regressions passed. The s4,t2
+code has K97,N256,L256; the all-mode test incorrectly expected file/disk/compact
+execution despite their documented2L≤N bound. No production bound is changed.
+
+Use s4,t3 (K37,L128) for all-mode comparisons, plus an explicit dense-prefix
+admission test covering rejected file/disk/compact and valid resident/wide Go
+comparisons. The targeted selector includes that test. Retry `modules-02` keeps
+all previous budgets and benchmark boundaries, independently comparing the same
+baseline against the corrected new tree. Race/sanitizers and matched timings
+remain pending; no performance equivalence is claimed from the failed attempt.

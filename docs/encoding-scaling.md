@@ -1648,3 +1648,14 @@ and implement wider/distributed GPU execution for the fastest-server target.
 Current CUDA preparation rejects s17 explicitly. Full s17 discovery/preparation
 needs reviewed aggregate host/device/storage/time budgets; existing kernel
 validation caps are not admission. No slower memory mode or default changes.
+
+### Completed-job review (SCALING-067)
+
+Preprocessing job74424 passes targeted small-code and high-width checks but
+stops at the CPU all-mode fixture (s4,t2 exceeds2L≤N). Correct the fixture and
+retain a dense-prefix admission/oracle test; retry unchanged bounded validation
+and CPU refactor timing/sanitizers. No production admission change. Disk s16
+job74253 completes and passes source/log/profile/phase evidence review:10h12m40s
+encoding,19.469GiB process RSS plus file cache,32GiB work files. Record in the
+[reference](encoding-status.md), independently reread retained cache in a bounded
+job, and keep the large time/I/O cost explicit. No full s17 run follows.

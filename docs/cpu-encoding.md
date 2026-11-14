@@ -117,3 +117,10 @@ ASan/UBSan and high-width kernels. It also compares repeated s10 mode timings
 with exact pre-refactor sources. This does not establish s17 feasibility or
 full-size performance equivalence. Preserve caches and profiles; update the
 [scaling reference](encoding-status.md) when new evidence is reconciled.
+
+The first refactor validation stopped at a test-fixture admission error: the
+s4,t2 code's padded prefix needs2L>N, which compact/file/disk modes correctly
+reject. The corrected all-mode fixture uses s4,t3; the denser code retains
+resident/wide correctness and explicit memory-mode rejection tests. Production
+layouts/guards are unchanged. Full regression and timing validation remain
+pending in the [retry](../experiments/cpu-encoding-modules/report.md).

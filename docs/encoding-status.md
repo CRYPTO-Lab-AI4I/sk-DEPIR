@@ -19,8 +19,10 @@ results are reconciled; existing L entries are historical laptop evidence, not H
 measurements. CPU jobs74194–74203 and GPU jobs74204–74215 are recorded in its
 submission manifest. The [three remaining CPU retries](../experiments/encoding-table/report.md#extended-cpu-retries)
 use fresh fill-02 paths and extended deadlines: packed s16 job74251, disk s15
-job74252, disk s16 job74253 replace74202/74201/74203 respectively; table
-updates still await full result reconciliation.
+job74252, disk s16 job74253 replace74202/74201/74203 respectively. The
+[s16 disk result](../experiments/encoding-table/report.md#completed-disk-s16) now
+passes workflow/source/evidence review; independent large-cache reread is pending.
+Other table gaps still await their full result reconciliation.
 
 ## Reading the tables
 
@@ -94,7 +96,8 @@ No full-encoding table cell changes from these kernel steps.
 
 The [shared preprocessing implementation](preprocessing.md) now extends the
 sampling/root/reciprocal/identity procedure through s17 with explicit native
-execution and support-bound restart artifacts. Bounded validation is pending;
+execution and support-bound restart artifacts. Targeted bounded checks passed;
+full native/sanitizer validation is being retried after a test-fixture correction;
 there is no genuine s17 support/cache or measured full-size peak/runtime.
 CUDA execution remains s≤16; wider/multi-GPU preprocessing is still open.
 The native fast product payload is384 GiB at s17, with Go arrays and overhead
@@ -144,7 +147,7 @@ These are distinct modes; their savings cannot simply be added together.
 | 10 | R ≤0.24 whole-command RSS; CPU 6.65 / GPU 1.53 | R ~17.7 MiB arrays; 0.308–0.310 | R ~13.7 MiB arrays; 0.313–0.319 | N ~13.1 MiB; ? | R ~8.6 MiB arrays; 0.311–0.332 | R ~9.6 MiB arrays; 0.325–0.327 | R ~5.7 MiB private +8 MiB files; 2.860 first /1.136 reused |
 | 14 | L 13.73; 2018 | R 5.594; 91.164 | R 3.595; 58.667–58.853 | R 2.526; 64.517–68.413 | R 2.214; 59.357–59.377 | N ~2.20; ? | N ~1.19 private +2 files; ? |
 | 15 | L 20.55; 11767† | R 18.465; 655.937 | N ~14.42; ? | N ~9.87; ? | N ~8.81; ? | N ~8.82; ? | N ~4.81 private +8 files; ? |
-| 16 | R 72.575; GPU 8415.469 | R 74.370; 1252.503 | R 58.351; 1247.173–1281.328 | R 39.409; 1289.759 | R 35.484; 1249.616 | N ~35.43; ? | N ~19.43 private +32 files; ? |
+| 16 | R 72.575; GPU 8415.469 | R 74.370; 1252.503 | R 58.351; 1247.173–1281.328 | R 39.409; 1289.759 | R 35.484; 1249.616 | N ~35.43; ? | R 19.469 RSS +32 files; 36759.871‡ |
 | 17 | N ≥~220.84 retained arrays, peak ?; ~12–24h preparation* | N ~491; ? | N ~427; ? | N ~287; ? | N ~270; ? | N ~270; ? | N ~78.4 private +256 files; ? |
 | 18 | N peak ?; ? | N ≥1024 transform arrays; ? | N ≥1024 transform arrays; ? | N ≥1024 transform arrays; ? | N ≥1024 transform arrays; ? | N ≥1024 transform arrays; ? | N ~317 private +1024 files; ? |
 | 19 | N peak ?; ? | N output alone 1024; ? | N output alone 1024; ? | N output alone 1024; ? | N output alone 1024; ? | N ≥4096 transform arrays; ? | N ~1279 private +4096 files; ? |
@@ -299,3 +302,15 @@ retain the fastest validated mode by default when it fits agreed budgets. Slower
 memory-saving modes remain explicit command-line choices when memory is available.
 This target does not authorize larger allocations or change the rule to hand off
 jobs expected to exceed 30 seconds without monitoring.
+
+‡ Job74253, gnode17:32 cores allocated,16 native workers. One profiled s16 disk
+encoding took36759.871s; load92.555s, verification382.655s, packing60.636s and
+whole controller37504.672s are separate. Checks cover all918672421 systematic
+values and16 curves; canonical hash matches previous s16 encodings. Sampled
+tracked file residency peaked59.271GiB, and sampled RSS-plus-tracked-cache peaked
+78.736GiB; this sum is not exact physical or cgroup usage.32GiB work files and
+8GiB packed output are retained. Source and sealed logs/profiles/phase evidence
+reconcile; independent large retained-cache reread is queued, not complete.
+Logical reads3.878TiB/writes0.808TiB explain a substantial I/O deployment cost;
+these are interface counts, not measured physical disk traffic. This slower
+memory mode remains explicit; it changes no default or full s17 admission.

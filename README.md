@@ -40,9 +40,14 @@ workspace model. Existing CPU/GPU defaults are unchanged; full s17 is unvalidate
 
 The experimental [shared preprocessing pipeline](docs/preprocessing.md) now
 implements discovery, root/generator construction, verification and canonical
-code data through s17 with width-selected native execution. Bounded validation
-is pending ([report](experiments/s17-preprocessing/report.md)); no full s17 cache
+code data through s17 with width-selected native execution. Targeted bounded checks
+pass; full regression/sanitizer validation is being retried after a memory-mode
+test-fixture correction ([report](experiments/s17-preprocessing/report.md)). No full s17 cache
 exists. The CUDA adapter remains s≤16; wider/multi-GPU preparation is still open.
+
+The [s16 disk-backed CPU run](experiments/encoding-table/report.md#completed-disk-s16)
+completed encoding in10h12m40s with19.469 GiB sampled process RSS and32 GiB
+work files. File cache is additional; full correctness checks passed.
 
 The [CPU implementation guide](docs/cpu-encoding.md) documents the shared encoding
 sequence,32/64-bit kernels, storage/output strategies, ownership and diagnostics.

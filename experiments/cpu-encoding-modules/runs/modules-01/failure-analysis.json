@@ -1,0 +1,74 @@
+{
+  "status": "failed",
+  "job_id": "74419",
+  "revision": "c3544fddbd2805869f5da8fce22df7c7d1cbfe10",
+  "source_files_verified": 460,
+  "evidence_files_verified": 13,
+  "cache_files_verified": 14,
+  "tests": [
+    "saved logs only; failed cross-mode s4 fixture"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 2.230768445879221,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 2.2055254466831684,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 2.2491111159324646,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 2.1709510181099176,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "legacy-build",
+      "seconds": 4.396071931347251,
+      "peak_rss_bytes": 218824704,
+      "exit_code": 0
+    },
+    {
+      "label": "go-build",
+      "seconds": 13.468708474189043,
+      "peak_rss_bytes": 135192576,
+      "exit_code": 0
+    },
+    {
+      "label": "go-regressions",
+      "seconds": 28.713048623874784,
+      "peak_rss_bytes": 1007820800,
+      "exit_code": 0
+    },
+    {
+      "label": "go-builds",
+      "seconds": 31.48732073046267,
+      "peak_rss_bytes": 1043333120,
+      "exit_code": 0
+    },
+    {
+      "label": "cpp-build",
+      "seconds": 11.24570425786078,
+      "peak_rss_bytes": 453328896,
+      "exit_code": 0
+    },
+    {
+      "label": "modules",
+      "seconds": 9.045050462707877,
+      "peak_rss_bytes": 25395200,
+      "exit_code": 1
+    }
+  ],
+  "scope": "failed validation forensic review; no complete suite claim"
+}

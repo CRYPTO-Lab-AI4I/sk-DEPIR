@@ -1,0 +1,95 @@
+{
+  "reviewed_utc": "2026-11-14T08:31:03.189946+00:00",
+  "job_id": "74253",
+  "status": "passed workflow; retained cache rehash pending",
+  "revision": "4f8041c78f7c6edb18ca108472a10a011a23e4be",
+  "source_files_verified": 411,
+  "evidence_files_verified": 17,
+  "encoding_seconds": 36759.870907071,
+  "whole_controller_seconds": 37504.67224250175,
+  "workflow": {
+    "label": "workflow",
+    "argv": [
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/encoding-table/fill-02/cpu-disk-s16/encoding.test",
+      "-test.run=^TestCPPDiskOnlineWorkflow$",
+      "-test.v",
+      "-test.timeout=171000s"
+    ],
+    "seconds": 37309.25743309222,
+    "peak_rss_bytes": 20904239104,
+    "peak_tracked_cache_bytes": 63641485312,
+    "peak_rss_plus_tracked_cache_bytes": 84542238720,
+    "exit_code": 0,
+    "guard": null
+  },
+  "correctness": {
+    "allocated_bytes": 2507224,
+    "canonical_sha256": "c538a1bc9b408dc4d283aba887f808825404a1c2b8dce693aa7f3015d1152a48",
+    "curves_checked": 16,
+    "elapsed_ns": 382655230503,
+    "go_sys_bytes": 20906503288,
+    "heap_after_bytes": 20858102488,
+    "heap_before_bytes": 20855683232,
+    "native_after": {
+      "steady_ns": 14732574596427086,
+      "wall_ns": 1794622613800363693,
+      "posix_monotonic_ns": 14732574596423414,
+      "process_cpu_ns": 46631228517474
+    },
+    "native_before": {
+      "steady_ns": 14732191941184975,
+      "wall_ns": 1794622231145121340,
+      "posix_monotonic_ns": 14732191941183508,
+      "process_cpu_ns": 46249096595872
+    },
+    "phase": "verify-0",
+    "repeat_match": true,
+    "systematic_checked": 918672421
+  },
+  "packing": {
+    "allocated_bytes": 3447504,
+    "canonical_sha256": "c538a1bc9b408dc4d283aba887f808825404a1c2b8dce693aa7f3015d1152a48",
+    "elapsed_ns": 60635940656,
+    "go_sys_bytes": 20906765432,
+    "heap_after_bytes": 17184444712,
+    "heap_before_bytes": 17180997208,
+    "native_after": {
+      "steady_ns": 14732635249562328,
+      "wall_ns": 1794622674453499086,
+      "posix_monotonic_ns": 14732635249559846,
+      "process_cpu_ns": 46692015820972
+    },
+    "native_before": {
+      "steady_ns": 14732574613614311,
+      "wall_ns": 1794622613817550506,
+      "posix_monotonic_ns": 14732574613613030,
+      "process_cpu_ns": 46631244301815
+    },
+    "packed_bytes": 8589934592,
+    "phase": "pack-output",
+    "seed": 71,
+    "sha256": "1c68bfe60f3914b06e31995afc67d5bb3d0a6776c4750af836f8c9794ee18bb9"
+  },
+  "disk_stats": {
+    "calls": 5,
+    "boundary_calls": 1,
+    "buffer_ns": 45549662459,
+    "pointwise_ns": 160982028300,
+    "assembly_ns": 67216183919,
+    "taylor_ns": 6327661593701,
+    "columns_transposes_ns": 16307534521641,
+    "rows_ns": 13707997834587,
+    "ReadNS": 2615035818889,
+    "WriteNS": 3223154597388,
+    "ReadBytes": 4264275955860,
+    "WriteBytes": 888431661204,
+    "ReadCalls": 137344658,
+    "WriteCalls": 129293045,
+    "BufferBytes": 1179648,
+    "BackingBytes": 34359738368,
+    "OutputBytes": 17179869184,
+    "NativeTotalNS": 36759118061884,
+    "ElapsedNS": 36759870868565
+  },
+  "limitation": "Source and all sealed log/profile/phase evidence reconciled; independent reread of large retained cache files queued in bounded validation job."
+}

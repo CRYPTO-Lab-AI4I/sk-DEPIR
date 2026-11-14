@@ -1,0 +1,35 @@
+{"utc": "2026-11-14T01:01:42.601272+00:00", "phase": "host", "event": "started", "completed_commands": 0, "elapsed_seconds": 5.272775717079639}
+{"utc": "2026-11-14T01:01:44.818310+00:00", "phase": "host", "event": "completed", "completed_commands": 1, "elapsed_seconds": 7.489809539169073, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T01:01:44.820274+00:00", "phase": "cpu", "event": "started", "completed_commands": 1, "elapsed_seconds": 7.4917525835335255}
+{"utc": "2026-11-14T01:01:47.070371+00:00", "phase": "cpu", "event": "completed", "completed_commands": 2, "elapsed_seconds": 9.74186304397881, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T01:01:47.073103+00:00", "phase": "go", "event": "started", "completed_commands": 2, "elapsed_seconds": 9.744582034647465}
+{"utc": "2026-11-14T01:01:49.276881+00:00", "phase": "go", "event": "completed", "completed_commands": 3, "elapsed_seconds": 11.948370123282075, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T01:01:49.278420+00:00", "phase": "compiler", "event": "started", "completed_commands": 3, "elapsed_seconds": 11.949898179620504}
+{"utc": "2026-11-14T01:01:51.467773+00:00", "phase": "compiler", "event": "completed", "completed_commands": 4, "elapsed_seconds": 14.139261627569795, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T01:01:51.470389+00:00", "phase": "job", "event": "started", "completed_commands": 4, "elapsed_seconds": 14.141868064180017}
+{"utc": "2026-11-14T01:01:53.643864+00:00", "phase": "job", "event": "completed", "completed_commands": 5, "elapsed_seconds": 16.315365655347705, "peak_rss_bytes": 0, "guard": null}
+{"utc": "2026-11-14T01:01:53.653147+00:00", "phase": "legacy-build", "event": "started", "completed_commands": 5, "elapsed_seconds": 16.324625620618463}
+{"utc": "2026-11-14T01:01:58.135765+00:00", "phase": "legacy-build", "event": "completed", "completed_commands": 6, "elapsed_seconds": 20.80726247653365, "peak_rss_bytes": 220053504, "guard": null}
+{"utc": "2026-11-14T01:01:58.137512+00:00", "phase": "go-build", "event": "started", "completed_commands": 6, "elapsed_seconds": 20.80899109132588}
+{"utc": "2026-11-14T01:02:11.643904+00:00", "phase": "go-build", "event": "completed", "completed_commands": 7, "elapsed_seconds": 34.31540465168655, "peak_rss_bytes": 111849472, "guard": null}
+{"utc": "2026-11-14T01:02:11.645857+00:00", "phase": "go-regressions", "event": "started", "completed_commands": 7, "elapsed_seconds": 34.31733622774482}
+{"utc": "2026-11-14T01:02:40.562608+00:00", "phase": "go-regressions", "event": "completed", "completed_commands": 8, "elapsed_seconds": 63.234105214476585, "peak_rss_bytes": 997961728, "guard": null}
+{"utc": "2026-11-14T01:02:40.565236+00:00", "phase": "go-builds", "event": "started", "completed_commands": 8, "elapsed_seconds": 63.23671486414969}
+{"utc": "2026-11-14T01:03:12.214029+00:00", "phase": "go-builds", "event": "completed", "completed_commands": 9, "elapsed_seconds": 94.88553217984736, "peak_rss_bytes": 1039831040, "guard": null}
+{"utc": "2026-11-14T01:03:12.272499+00:00", "phase": "cpp-build", "event": "started", "completed_commands": 9, "elapsed_seconds": 94.94397887215018}
+{"utc": "2026-11-14T01:03:28.217812+00:00", "phase": "cpp-build", "event": "completed", "completed_commands": 10, "elapsed_seconds": 110.8893121201545, "peak_rss_bytes": 567525376, "guard": null}
+{"utc": "2026-11-14T01:03:28.221335+00:00", "phase": "preprocessing", "event": "started", "completed_commands": 10, "elapsed_seconds": 110.89281426370144}
+{"utc": "2026-11-14T01:03:32.722392+00:00", "phase": "preprocessing", "event": "completed", "completed_commands": 11, "elapsed_seconds": 115.39389040134847, "peak_rss_bytes": 22872064, "guard": null}
+{"utc": "2026-11-14T01:03:32.724447+00:00", "phase": "cpp-regressions", "event": "started", "completed_commands": 11, "elapsed_seconds": 115.39592563174665}
+{"utc": "2026-11-14T01:04:04.158201+00:00", "phase": "cpp-regressions", "event": "heartbeat", "completed_commands": 11, "elapsed_seconds": 146.8297009486705, "command_seconds": 31.433746732771397, "peak_rss_bytes": 996417536, "remaining_work": "unknown"}
+{"utc": "2026-11-14T01:04:15.090101+00:00", "phase": "cpp-regressions", "event": "failed", "completed_commands": 12, "elapsed_seconds": 157.76159954071045, "peak_rss_bytes": 1012899840, "guard": null}
+Traceback (most recent call last):
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/s17-preprocessing/run.py", line 130, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/s17-preprocessing/run.py", line 105, in main
+    run('cpp-regressions',[str(native),'-test.timeout=10m','-test.cpuprofile='+str(out/'cpp-regressions.pprof')],package)
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/s17-preprocessing/run.py", line 85, in run
+    if reason or proc.returncode:raise RuntimeError(label+': '+str(reason or proc.returncode))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: cpp-regressions: 1

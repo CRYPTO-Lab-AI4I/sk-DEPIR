@@ -1,0 +1,6 @@
+--- FAIL: TestCPUEncodingModules (4.32s)
+    --- FAIL: TestCPUEncodingModules/s4/workers1 (0.00s)
+        cpu_modules_test.go:257: file prefix operands exceed arena
+    --- FAIL: TestCPUEncodingModules/s4/workers4 (0.00s)
+        cpu_modules_test.go:257: file prefix operands exceed arena
+FAIL

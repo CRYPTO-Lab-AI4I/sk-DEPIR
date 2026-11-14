@@ -211,7 +211,9 @@ func rawUint32LE(values []uint32) []byte {
 // strategy, plus the independent Go schedule. Keep real small verified code
 // fixtures so a shared scheduling bug cannot hide behind mode agreement alone.
 func TestCPUEncodingModules(t *testing.T) {
-	for _, spec := range []Spec{{4, 2, 2}, {6, 2, 4}, {8, 2, 5}} {
+	// These fixtures satisfy the common compact/file/disk limit 2L<=N.
+	// The denser s4,t2 code is checked separately for explicit rejection.
+	for _, spec := range []Spec{{4, 2, 3}, {6, 2, 4}, {8, 2, 5}} {
 		data, plan := wideCodeFixture(t, spec)
 		for _, workers := range []int{1, 4} {
 			t.Run(fmt.Sprintf("s%d/workers%d", spec.FieldDegree, workers), func(t *testing.T) {
@@ -320,5 +322,65 @@ func TestCPUEncodingModules(t *testing.T) {
 				}
 			})
 		}
+	}
+}
+
+// A valid code can exceed the compact arena even while the general encoders
+// support it. Preserve admission checks rather than enlarging a memory mode.
+func TestCPUEncodingModulesArenaAdmission(t *testing.T) {
+	data, plan := wideCodeFixture(t, Spec{4, 2, 2})
+	if plan.Dimension() != 97 || plan.Length() != 256 {
+		t.Fatal("dense fixture changed")
+	}
+	cpu, err := plan.WithCPPMatrix(1)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer cpu.Close()
+	if _, err = cpu.NewCompactWorkspace(); err == nil {
+		t.Fatal("compact accepted expanded prefix")
+	}
+	var raw bytes.Buffer
+	if err = WriteScalingCode(&raw, data); err != nil {
+		t.Fatal(err)
+	}
+	path := filepath.Join(t.TempDir(), "online.bin")
+	if err = os.WriteFile(path, raw.Bytes(), 0600); err != nil {
+		t.Fatal(err)
+	}
+	digest := codeDigest(raw.Bytes())
+	if encoder, err := OpenScalingCPPFile(path, digest, plan.Length(), 1); err == nil {
+		encoder.Close()
+		t.Fatal("file accepted expanded prefix")
+	}
+	if encoder, err := OpenScalingCPPDisk(path, digest, plan.Length(), 1, 1536, filepath.Join(t.TempDir(), "work")); err == nil {
+		encoder.Close()
+		t.Fatal("disk accepted expanded prefix")
+	}
+	// Retain correctness coverage for this shape in the resident/wide paths.
+	message := make([]uint32, plan.Dimension())
+	for i := range message {
+		message[i] = uint32(7*i+3) & 15
+	}
+	expected, err := plan.Encode(message, plan.NewWorkspace())
+	if err != nil {
+		t.Fatal(err)
+	}
+	actual, err := cpu.Encode(message, cpu.NewWorkspace())
+	if err != nil || !reflect.DeepEqual(actual, expected) {
+		t.Fatal("resident expanded prefix", err)
+	}
+	wide, err := data.WithWideCPP(1)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer wide.Close()
+	work, err := wide.NewWorkspace(wide.Resources().WorkspaceBytes)
+	if err != nil {
+		t.Fatal(err)
+	}
+	actual, err = wide.Encode(message, work)
+	if err != nil || !reflect.DeepEqual(actual, expected) {
+		t.Fatal("wide expanded prefix", err)
 	}
 }

@@ -177,3 +177,43 @@ about44.94GiB (including file cache). This indicates resource headroom, not
 encoding progress or a reliable ETA. The48h deadline remains a ceiling; the
 previous tentative expectation of finishing within it cannot be strengthened
 from these logs. No job changes or continued monitoring.
+
+## Completed disk s16
+
+Job74253 completed successfully on gnode17, revision4f8041c, m2,t5,
+K918672421,N4294967296. [Saved results](runs/fill-02/cpu-disk-s16/results.json),
+[phases](runs/fill-02/cpu-disk-s16/workflow/disk/phases.json) and
+[review](runs/fill-02/cpu-disk-s16/review.json) distinguish workflow success from
+remaining independent retained-cache rehash.411 measured source identities and
+all17 sealed log/profile/phase evidence identities reconcile; the large cache
+reread runs through `analyze.py fill-02 --case cpu-disk-s16` on a bounded job.
+The new case selector preserves complete-batch analysis; source identity
+resolution is now also checked against historical measured bytes.
+
+| Boundary | Measured result |
+|---|---|
+| Load code | 92.555s |
+| One profiled encoding | 36759.871s (10h12m40s) |
+| Verify full systematic positions/16 curves | 382.655s |
+| Pack and store8GiB output | 60.636s |
+| Packed readback check | 1.709s |
+| Whole controller, excluding queue | 37504.672s (10h25m5s) |
+| Sampled process RSS peak | 19.469GiB |
+| Sampled tracked file residency peak | 59.271GiB |
+| Sampled RSS plus tracked residency peak | 78.736GiB (not exact physical usage) |
+| Work files | 32GiB |
+| Logical reads / writes | 3.878TiB /0.808TiB |
+
+32 cores were allocated; the existing disk harness uses16 native workers. The
+canonical word hash is `c538a1bc9b408dc4d283aba887f808825404a1c2b8dce693aa7f3015d1152a48`,
+matching earlier s16 modes. All918672421 systematic values,16 independent curves
+and1027 packed readback positions pass. The repeat flag is not a second timed
+encoding: this s16 case runs once. Profiles and the matching binary remain.
+
+The disk mode succeeds within48h but is about29 times slower than earlier fast
+CPU encoding; hardware/cache/revision differences prevent treating this as a
+controlled ratio. Low private RSS does not imply low total RAM: charged file
+cache and I/O are material. Native counters record137344658 reads and129293045
+writes; these are logical interface calls, not physical storage measurements.
+Keep the mode explicit and useful when fast-path memory is unavailable. No
+larger budget, extrapolated s17 ETA or full s17 feasibility claim is added.
