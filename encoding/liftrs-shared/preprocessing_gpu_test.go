@@ -292,10 +292,10 @@ func TestGPUPreparationTile(t *testing.T) {
 	table := newPreparationProducts(base)
 	const n = 1 << 22
 	var records []map[string]any
-	for _, ids := range [][]int{devices[:1], devices} {
-		if len(records) > 0 && len(ids) == 1 {
-			continue
-		}
+	// Compare each available power-of-two prefix in the same allocation. Two
+	// cards are an initial validation size, not a preprocessing design limit.
+	for count := 1; count <= len(devices); count *= 2 {
+		ids := devices[:count]
 		engine, err := cuda.NewPreparation(cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: 17, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: table.log, Powers: table.powers, Devices: ids, MaxElements: n, DeviceBytes: gpuPreparationCap(t)})
 		if err != nil {
 			t.Fatal(err)

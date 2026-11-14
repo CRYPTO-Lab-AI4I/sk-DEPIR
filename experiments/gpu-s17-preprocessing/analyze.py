@@ -18,10 +18,11 @@ def main():
     window_rows=[json.loads(line) for line in (out/'wide-monomial-windows.log').read_text().splitlines() if line.startswith('{')]
     assert any(r.get('kind')=='address-map' and r['match'] for r in window_rows)
     windows=[r for r in window_rows if 'first_index' in r]
-    assert len(windows)==3 and all(r['match'] and r['owned_device_bytes']<=256<<20 for r in windows)
+    assert len(windows)==3 and all(r['match'] and r['owned_device_bytes']<=min(256<<20,record['policy']['per_device_cap_bytes']) for r in windows)
     assert any(r['first_index']>=1<<32 for r in windows)
     tiles=json.loads((out/'tiles.json').read_text())
-    assert {r['gpus'] for r in tiles}=={1,record['policy']['gpus']}
+    expected={1<<power for power in range(record['policy']['gpus'].bit_length())}
+    assert {r['gpus'] for r in tiles}==expected
     assert len({r['forward_sha256'] for r in tiles})==1
     for mode in ('optimized','sanitized'):
         rows=[json.loads(line) for line in (out/(mode+'.log')).read_text().splitlines() if line.startswith('{')]

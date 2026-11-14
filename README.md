@@ -47,6 +47,8 @@ exists. GPU preprocessing is now the active implementation target: a
 [resident width-selected peer prototype](experiments/gpu-s17-preprocessing/report.md)
 shares kernels with the legacy CUDA path and supports same-node GPU shards in
 source. CUDA/peer validation is pending; no full s17 run is admitted.
+Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
+speed, comparing more cards and multiple nodes when beneficial.
 
 The [s16 disk-backed CPU run](experiments/encoding-table/report.md#completed-disk-s16)
 completed encoding in10h12m40s with19.469 GiB sampled process RSS and32 GiB

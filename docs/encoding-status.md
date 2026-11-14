@@ -30,7 +30,11 @@ width-selected kernels and same-node peer shards. Source implementation supports
 s17; bounded CUDA/peer validation and full-size admission are pending. Four H200s
 model96 GiB of product arrays each (384 GiB aggregate), excluding overhead. This
 prototype does not accept three-card shards; the older three-card figure is
-only an arithmetic capacity floor. CPU preprocessing is a reference path.
+only an arithmetic capacity floor. CPU preprocessing is a reference path. GPU
+counts in these projections describe capacity, not a performance ceiling. In
+particular, preprocessing is not limited to two GPUs: compare more cards and
+multiple nodes when they improve complete latency, within reviewed budgets.
+
 
 ## Reading the tables
 

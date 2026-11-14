@@ -58,15 +58,20 @@ may have no GPU even when code preprocessing is delegated elsewhere. Both
 backends consume the same verified code data and canonical representation; keep
 backend selection explicit and code parameters independent of backend choice.
 
-**Optimize delegated preprocessing for speed on servers.** Code preprocessing
-need not support local/client hardware or a CPU-only fallback.
-Use the fastest measured CPU/GPU combination, including multiple GPUs/nodes when
-beneficial, within agreed budgets; CUDA/server requirements are acceptable for
-that separate toolchain. Retain useful independent CPU/Go correctness references
-and existing verified caches. No language or CPU/GPU boundary is fixed. Compare
-complete discovery, preparation, verification, transfers and persistence rather
-than GPU kernel time alone. This does not relax correctness, representation,
-reviewability or resource admission, and does not make CUDA a client dependency.
+**Optimize delegated preprocessing for speed on servers.** Prioritize the GPU
+server implementation; preprocessing need not support local/client hardware or
+a CPU-only fallback. There is no fixed two-GPU ceiling: choose GPU/node count
+for the fastest complete workflow, rather than the smallest count that fits.
+Compare additional cards and multiple nodes when they can improve runtime.
+The initial two-GPU validation budget is not a design limit; explicit experiment
+budgets and resource admission still apply.
+
+Use the fastest measured CPU/GPU combination, with no fixed language/backend
+boundary. Include discovery, preparation, verification, setup, communication,
+host work and persistence, rather than kernel time alone. CUDA/server requirements
+are acceptable for that separate toolchain. Retain independent CPU/Go correctness
+references and verified caches. Correctness, representation and reviewability
+remain required; CPU client encoding stays available without CUDA.
 
 **Target practical commodity hardware.** Benchmark on hardware actually available
 on this machine and respect the agreed experiment budgets. Target commodity CPU

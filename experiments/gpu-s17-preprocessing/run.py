@@ -22,11 +22,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('name', nargs='?')
     parser.add_argument('--check', action='store_true')
-    parser.add_argument('--devices', type=int, choices=(1,2), default=1)
+    parser.add_argument('--devices', type=int, choices=(1,2,4), default=1)
     args = parser.parse_args()
     if args.check:
         ast.parse(Path(__file__).read_text())
         assert 600 < 900 < 1200
+        assert ((3**17)+(1<<17)*4+17*8+8) <= (512<<20)//4, "wide-window driver exceeds smallest per-card cap"
         print('syntax and worker/controller/Slurm deadline order checked')
         return
     if not args.name or not args.name.replace('-', '').isalnum(): parser.error('fresh run name required')

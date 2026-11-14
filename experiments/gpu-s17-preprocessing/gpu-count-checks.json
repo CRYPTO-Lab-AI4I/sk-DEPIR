@@ -1,0 +1,17 @@
+{
+  "utc": "2026-11-14T10:27:39.756284+00:00",
+  "status": "passed",
+  "checks": [
+    "runner accepts --devices4 and preserves deadline ordering",
+    "actual wide-window payload fits128MiB per-card cap under512MiB aggregate",
+    "comparison sets are{1},{1,2},{1,2,4} for the corresponding allocations",
+    "Python analyzer AST and Go formatting",
+    "authored diff whitespace check"
+  ],
+  "source_sha256": {
+    "encoding/liftrs-shared/preprocessing_gpu_test.go": "e18f782ef5199fa1bcf52511b6893685ddfcbe2d297127cef62e882706b07098",
+    "experiments/gpu-s17-preprocessing/run.py": "4651b21e559c0571a03c99da10836fe5b6d363c7313b98af5462df53f793aeeb",
+    "experiments/gpu-s17-preprocessing/analyze.py": "9ee7e84aa2c52e0229a890094212704159f9be79084cf2dff706565ffdba48e8"
+  },
+  "limitations": "No four-GPU build/runtime or performance result; production kernels unchanged. Current submitted jobs remain uninspected and no new job is submitted."
+}

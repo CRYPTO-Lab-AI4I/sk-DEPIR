@@ -31,8 +31,8 @@ python3 -B experiments/gpu-s17-preprocessing/analyze.py gpu-01
 The job requests4 CPU cores and8 GiB host RAM, with6 GiB sampled process RSS,
 4 GiB Go soft limit,2 GiB new retained cache and4 GiB scratch guards. Commands
 have600-second limits, controller900 seconds and Slurm1200 seconds. Owned device
-payload is capped at512 MiB aggregate:512 MiB on one GPU or256 MiB on each of
-two. CUDA contexts/peer mappings are additional; each card requires64 MiB free
+payload is capped at512 MiB aggregate:512 MiB on one GPU,256 MiB on each of
+two, or128 MiB on each of four. CUDA contexts/peer mappings are additional; each card requires64 MiB free
 headroom outside its cap. A second GPU increases allocated hardware, so its
 submission requires agreement even though aggregate payload memory is unchanged.
 Full s17 allocations are not admitted by these tests or maximum-size metadata.
@@ -73,11 +73,12 @@ this is address-mapping validation, not peer proof. These large-class windows
 are not memchecked, while
 the same kernels are memchecked in complete small domains.
 
-One or two-card resident tiles contain2^22 s17 extension values (32 MiB each).
+Resident tiles contain2^22 s17 extension values (32 MiB each), comparing all
+available1/2/4-card prefixes within one allocation.
 Untimed sparse degree15 Horner witnesses, timed dense field input, independent
 evaluation-at0/1 checks, full inverse identity and full forward hashes
-are checked; if two cards are approved, compare the same data with one card in
-the same allocation. Timings in `tiles.json` are profiled diagnostic whole-call
+are checked; each approved allocation compares the same data across its power-of-two
+device prefixes. Timings in `tiles.json` are profiled diagnostic whole-call
 seconds, including host range checks/uploads/downloads and peer synchronization.
 They are not complete preprocessing latency or an s17 speedup estimate. CPU
 profiles sample host activity and cannot substitute for a GPU kernel profile.
@@ -159,3 +160,22 @@ inside this allocation, verifies peer-layout hashes and records topology.
 Results/logs/profiles: `runs/peer-01/`, `slurm-74454.log`; retained small artifacts
 and matching binaries: `.cache/liftrs/gpu-s17-preprocessing/peer-01/`.
 No state polling, result analysis or monitoring until the completion ping.
+
+## GPU-count performance policy
+
+Preprocessing has no two-GPU design limit. Choose the count that minimizes
+measured complete latency, including preparation setup, communication, host
+work and persistence; fitting in memory is only an admission condition.
+The runner accepts `--devices 1`, `2` or `4` for the current same-node hardware.
+A four-card run compares1/2/4 in that one allocation with identical dense input
+and hashes. The512MiB aggregate cap becomes128MiB/card; the wide-window driver's
+actual payload is below that bound, checked by `run.py --check` and the analyzer.
+No current job or budget is changed and no four-card job is submitted here.
+
+Existing one/two-card result files remain compatible with the expanded analyzer.
+Real four-card runtime/topology validation remains pending. Larger groups and
+multiple nodes are future measured choices requiring distributed implementation
+and reviewed resources, rather than an arbitrary two- or four-card ceiling.
+
+[GPU-count preparation checks](gpu-count-checks.json) verify CLI/schema and
+small-test cap consistency only; no four-card runtime is claimed.

@@ -18,6 +18,12 @@ See the [scaling reference](encoding-status.md),
 [plan](encoding-scaling.md#current-execution-plan-for-s17) and
 [GPU validation report](../experiments/gpu-s17-preprocessing/report.md).
 
+GPU count is chosen for the fastest measured complete server workflow, without
+a two-card design ceiling. The current two-GPU test is only initial validation.
+Compare more cards and, where useful, multiple nodes; include setup, communication,
+host memory and persistence. The current peer engine handles same-node devices;
+a cross-node implementation is still required before larger distributed runs.
+
 ## One procedure, interchangeable execution
 
 | Responsibility | Implementation | Invariant |

@@ -43,8 +43,13 @@ s≤16 CPU/GPU paths and code-cache compatibility throughout.
 | 8. Progress toward s18 | Recompute preprocessing/encoding/communication capacities using measurements, then select same-node versus multi-node or memory-saving designs. Retain s19–20 exploratory rows | Pending s17 evidence |
 
 For preprocessing, choose the fastest measured complete server workflow within
-agreed budgets; GPU and multi-GPU requirements are acceptable. A CPU-only
-preprocessing fallback is not an acceptance requirement. Existing s16 preparation
+agreed budgets; GPU and multi-GPU requirements are acceptable. GPU count is a
+performance parameter, not a fixed two-card target or the minimum needed to fit.
+Compare1/2/4 GPUs on one node, then larger/multi-node groups where useful. Select
+using complete discovery/preparation/verification/persistence latency and setup,
+host memory, communication and I/O costs. A faster kernel alone is insufficient.
+The initial two-GPU validation budget is a bounded experiment, not a design cap.
+A CPU-only preprocessing fallback is not an acceptance requirement. Existing s16 preparation
 already uses GPU products and the spectrum transform, while saved support is
 loaded and host root/small-product/assembly/persistence work remains Go. Its
 2h20m15s measured preparation excludes original support discovery; see the
@@ -1684,3 +1689,20 @@ The [reference](encoding-status.md) now splits the large tables and labels statu
 runtime units, host RSS versus arrays, device allocations, work files and cache
 explicitly. Formatting changes do not turn projections or unreviewed job output
 into measurements; s19–20 remain exploratory rows.
+
+### Preprocessing GPU count is selected for speed (SCALING-071)
+
+User confirms no two-GPU limit. The current small peer check is an initial
+correctness experiment only. The resident backend already parameterizes1/2/4/8
+same-node shards; the available-node runner now accepts1/2/4 and compares every
+power-of-two prefix inside one allocation. The three-array s17 fit on four H200s
+is a capacity model, not a claim that four is the fastest achievable count.
+
+After completed-job evidence is reviewed, compare representative larger GPU
+workloads and full-stage timings on1/2/4 cards. Investigate more GPUs/multiple
+nodes when they can reduce complete preparation latency, including necessary
+host sharding and inter-node exchange. Cross-node execution is not implemented
+by adding ordinals to the current same-node device list. Preserve explicit
+reviewed numeric budgets; the new performance policy does not infer unbounded
+allocations or silently change current job requests. Jobs already submitted are
+not monitored, modified or replaced by this documentation/test update.
