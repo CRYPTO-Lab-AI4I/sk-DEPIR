@@ -1,0 +1,3 @@
+=== RUN   TestCUDAOnlineEncoding
+--- PASS: TestCUDAOnlineEncoding (7.04s)
+PASS

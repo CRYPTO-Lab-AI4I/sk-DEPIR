@@ -616,10 +616,18 @@ mode combinations remain separate. See the [consolidated plan status](docs/encod
 before larger validation or s=17 admission.
 
 The GPU preprocessing experiment also offers an explicit
-[`--vector-layout local` comparison](experiments/gpu-s17-preprocessing/report.md#local-vector-comparison-scaling-074).
-It keeps the resident array budget while gathering vectors before GPU computation;
-bounded correctness/sanitizer checks pass (job74468). On a32 MiB tile, local
-reduces two-GPU forward/inverse time18.9%/9.7% with unchanged owned memory. These
-are single component samples; the peer default stays while larger repeated
-GPU-count comparisons are approved under explicit bounded resources; no fulls17
-preprocessing run is admitted.
+[`--vector-layout local` comparison](experiments/gpu-s17-preprocessing/report.md#completed-four-gpu-calibration-scaling-077).
+Bounded1/2/4GPU correctness/sanitizer checks pass, including repeated256 MiB tile
+measurements (job74635). Four local GPUs take0.778 s forward/0.754 s inverse
+versus one peer GPU0.866 s/0.755 s; extra cards give modest gains at this size.
+Owned payload is unchanged between layouts. These are component measurements;
+peer remains default and no fulls17 preparation run or latency is demonstrated.
+
+An experimental [persistent server preprocessing CLI](cmd/pir-preprocess/README.md)
+now streams support, root checkpoints, canonical code and G into atomically
+published stage directories, retaining provenance/profiles and supporting verified
+restarts. Local native/Go-reference and failure-path tests pass; bounded complete
+GPU workflow validation is prepared in [this experiment](experiments/gpu-preprocessing-workflow/report.md).
+Fulls17 preprocessing is not admitted. Eight/sixteen GPUs remain eligible options,
+but using them across this machine's four-GPU nodes needs cross-node execution
+support; the present command uses one node.

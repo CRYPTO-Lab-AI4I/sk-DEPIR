@@ -28,7 +28,7 @@ in job74467; their measured HPC cells are now published below (marked§).
 The active server-preprocessing target is the
 [resident GPU prototype](../experiments/gpu-s17-preprocessing/report.md), with
 width-selected kernels and same-node peer shards. Source implementation supports
-s17; bounded one- and two-GPU validation passes, including the corrected
+s17; bounded one-, two- and four-GPU validation passes, including the corrected
 peer-lifetime sanitizer retry74466. Full-size admission remains separate. Four H200s
 model96 GiB of product arrays each (384 GiB aggregate), excluding overhead. This
 prototype does not accept three-card shards; the older three-card figure is
@@ -171,7 +171,7 @@ encoding time. Host memory excludes device allocations unless stated.
 | 14 | Laptop measured | Peak host process RSS: 13.73 GiB | 33 min 38 s | Measured on laptop |
 | 15 | Laptop measured | Peak host process RSS: 20.55 GiB | 3 h 16 min 7 s† | Measured on laptop |
 | 16 | HPC measured | Peak host process RSS: 72.575 GiB | GPU: 2 h 20 min 15.469 s | Measured on this machine |
-| 17 | Not run | Estimated retained host arrays: ≥~220.84 GiB<br>Peak RAM: unknown | GPU planning scenario: ~12–24 h after discovery*<br>Actual GPU/native CPU runtime: unknown | Resident GPU prototype: 4 H200s projected<br>Bounded one/two-GPU checks pass; full-run admission pending |
+| 17 | Not run | Estimated retained host arrays: ≥~220.84 GiB<br>Peak RAM: unknown | GPU planning scenario: ~12–24 h after discovery*<br>Actual GPU/native CPU runtime: unknown | Resident GPU prototype: 4 H200s projected<br>Bounded1/2/4GPU checks pass; full-run admission pending |
 | 18 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 | 19 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 | 20 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
@@ -433,3 +433,48 @@ product payload; extra8 transpose passes add16N word reads/writes (~2 TiB at
 s17), with full-size runtime/link traffic unknown. A256 MiB repeated1/2/4GPU
 comparison now has explicit4GPU/4 GiB resource approval; submission and results
 are recorded in the experiment report. No capacity or full-size timing changes.
+
+## Repeated GPU preprocessing calibration (HPC components)
+
+[Job74635](../experiments/gpu-s17-preprocessing/report.md#completed-four-gpu-calibration-scaling-077)
+passes complete bounded validation on four H200s (gnode02, NV6 peers), with zero
+CUDA errors/leaks, full tile hash/inverse agreement and reconciled evidence.
+256 MiB tiles (2^25 s17-width values),3 fixed-order warm/profiled/logged samples
+per case, whole-call wall time including transfers. Not fulls17 preparation.
+
+| Layout | GPUs | Forward median (range) | Inverse median (range) | Owned GPU memory, aggregate |
+|---|---|---|---|---|
+| peer | 1 | 0.865674 s (0.864669–0.865862 s) | 0.754588 s (0.754539–0.755842 s) | 513.57 MiB |
+| peer | 2 | 0.995857 s (0.995585–0.996306 s) | 0.884177 s (0.883658–0.884894 s) | 515.14 MiB |
+| peer | 4 | 1.088009 s (1.087734–1.089616 s) | 0.978584 s (0.976949–0.978659 s) | 518.28 MiB |
+| local | 1 | 0.855847 s (0.855641–0.855908 s) | 0.830580 s (0.830201–0.831150 s) | 513.57 MiB |
+| local | 2 | 0.915740 s (0.915194–0.915805 s) | 0.890322 s (0.889293–0.890732 s) | 515.14 MiB |
+| local | 4 | 0.778385 s (0.778306–0.778699 s) | 0.753873 s (0.751693–0.754376 s) | 518.28 MiB |
+
+Four-card local is28.5%/23.0% faster forward/inverse than four-card peer, but versus
+one-card peer gains10.1% forward and essentially nothing inverse. Sum of reported
+medians improves5.4%, not end-to-end preprocessing. Sampled whole GPU-test process-
+group RSS peaks1.615 GiB; device context/driver overhead is additional. Current
+small vector grids may limit scaling (source geometry, not measured occupancy).
+Full-domain latency and peak host memory remain unknown. Default/capacity rows
+are unchanged; finish persistent full-workflow admission before any fulls17 job.
+
+## Persistent preprocessing readiness
+
+The [server CLI and complete-path validation](../experiments/gpu-preprocessing-workflow/report.md)
+now implement atomic support/root/code cache stages and verified restarts, retaining
+profiles/provenance/logs. Local native/Go-oracle and failure-path checks pass;
+complete GPU executable validation is pending. No s17 full-run table cell changes.
+Projected retained s17 public preprocessing files total~235 GiB, with additional
+profiles, failed stages and storage headroom; fresh writes/readback add unmeasured
+I/O latency. Full host peak and budget admission remain outstanding.
+
+| s17 preprocessing route | Modeled product arrays per GPU | Implementation status | Full latency |
+|---|---|---|---|
+| 4 GPUs, one node | 96 GiB | Same-node kernels boundedly validated; persistent workflow validation pending | Unknown |
+| 8 GPUs, at least two nodes here | 48 GiB | User-authorized option; cross-node execution not implemented | Unknown |
+| 16 GPUs, at least four nodes here | 24 GiB | User-authorized option; cross-node execution not implemented | Unknown |
+
+These divide the384 GiB array model evenly, excluding runtime/staging/headroom,
+communication and possible host replication. They are not speedup estimates or
+full-resource admission; CPU/GPU client encoding support stays unchanged.

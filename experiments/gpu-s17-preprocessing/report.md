@@ -372,3 +372,61 @@ Job74635 submitted, sourcefc15997 ([submission/resource record](calibration-subm
 Results: `runs/calibration-01/`; log: `slurm-74635.log`; reusable caches/binaries:
 `.cache/liftrs/gpu-s17-preprocessing/calibration-01/`. sbatch returned successfully.
 No monitoring, polling or new-result inspection until user completion ping.
+
+## Completed four-GPU calibration (SCALING-077)
+
+Job74635 on gnode02 passes, sourcefc15997, under the explicitly approved four-
+H200/4 GiB aggregate owned cap (1 GiB/card),4CPU/8 GiB host and20-minute limit.
+[Analysis](runs/calibration-01/analysis.json) reconciles498 source,35 evidence,
+36 retained-cache identities. [Results/commands](runs/calibration-01/results.json),
+[Slurm log](slurm-74635.log), [runner](run.py), [analyzer](analyze.py) preserve
+parameters, instrumentation, commands and source identities. Small complete
+preparation and exact high-bit/window/address checks pass on four cards; peer
+lifetime and CUDA memcheck report zero errors/leaked bytes. Go/native/legacy CUDA,
+vet and18 optimized/18 sanitized shared-recurrence checks pass. All18 dense tile
+forward hashes and complete inverses agree. Profiles and reusable caches/binaries
+remain under the recorded `.cache/liftrs/gpu-s17-preprocessing/calibration-01/`.
+
+Dense s17-width2^25-value tiles (256 MiB),3 timed repetitions for each layout/count,
+warmed sparse oracles before timing. Reported wall calls include transfers and
+profiling/logging, exclude forward hashing and inverse comparison. All GPU pairs
+report NV6 topology. These are fixed-order component samples, not full preparation.
+
+| Layout | GPUs | Forward median (range) | Inverse median (range) | Owned GPU memory, aggregate |
+|---|---|---|---|---|
+| peer | 1 | 0.865674 s (0.864669–0.865862 s) | 0.754588 s (0.754539–0.755842 s) | 513.57 MiB |
+| peer | 2 | 0.995857 s (0.995585–0.996306 s) | 0.884177 s (0.883658–0.884894 s) | 515.14 MiB |
+| peer | 4 | 1.088009 s (1.087734–1.089616 s) | 0.978584 s (0.976949–0.978659 s) | 518.28 MiB |
+| local | 1 | 0.855847 s (0.855641–0.855908 s) | 0.830580 s (0.830201–0.831150 s) | 513.57 MiB |
+| local | 2 | 0.915740 s (0.915194–0.915805 s) | 0.890322 s (0.889293–0.890732 s) | 515.14 MiB |
+| local | 4 | 0.778385 s (0.778306–0.778699 s) | 0.753873 s (0.751693–0.754376 s) | 518.28 MiB |
+
+Equal owned payload across layouts is verified at each count; context/driver
+memory is additional. Sampled host process-group RSS for the entire GPU workflow
+peaks1.615 GiB, including other checks and transient Go memory, not an isolated
+full-preparation host-memory measurement. No caps fired; controller completes
+in about491 seconds (8 min11 s), including compilation/regression suites.
+
+Four-card local reduces forward/inverse latency28.5%/23.0% versus four-card peer.
+Against the current one-card peer baseline it reduces forward time10.1%, while
+inverse differs by less than0.1%. Sum of these medians improves5.4%; this is not
+end-to-end preprocessing speedup. Two-card local forward improves8.0% versus
+peer, inverse is0.7% slower. Four local cards are the best measured four-card
+component candidate, but useful full-size scaling is unestablished. Keep peer
+default; retain local as explicit comparison mode with its extra transpose traffic.
+
+The current kernel assigns one thread per vector. At2^25, four cards receive
+1024 column vectors (8blocks of128threads) and2048 row vectors (16blocks) each;
+at the full2^34 domain both phases would have32768vectors (256blocks total) per
+card. With current progress logging,8192-vector waves cap each launch at64blocks
+per card, rather than submitting all256 at once. This follows from source launch geometry, not an occupancy measurement. The
+small launch sizes may limit observed scaling; larger-domain benefit remains
+unknown and cannot be inferred by multiplying card count or these timings.
+
+Next finish the persistent full-workflow runner: discovery/support publication,
+root checkpoint save/reload, final P/G/spectrum identity checks, streamed canonical
+cache publication/readback, source/checksum provenance and restart/resource guards.
+Use this reviewed GPU candidate when preparing its explicit admission plan, with
+host/device/storage/time peaks and existing extra traffic shown. No further
+benchmark or fulls17 job is submitted here; fulls17 cache/latency remains unmeasured.
+CPU setup profiling stays deferred until GPU preprocessing completion.

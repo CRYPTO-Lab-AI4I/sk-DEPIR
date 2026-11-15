@@ -17,6 +17,10 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-15 22:17 | SCALING-078 | Handoff | [Persistent CLI and workflow validation prepared](2026-11-15-2217-codex-scaling-078-prepared.md) |
+| 2026-11-15 21:58 | SCALING-078 | Started | [Persistent GPU preprocessing runner](2026-11-15-2158-codex-scaling-078-started.md) |
+| 2026-11-14 20:30 | SCALING-077 | Completed | [Repeated four-GPU calibration reconciled](2026-11-14-2030-codex-scaling-077-completed.md) |
+| 2026-11-14 20:26 | SCALING-077 | Started | [Review repeated four-GPU calibration](2026-11-14-2026-codex-scaling-077-started.md) |
 | 2026-11-14 18:24 | SCALING-076 | Handoff | [Four-H200 calibration job74635](2026-11-14-1824-codex-scaling-076-handoff.md) |
 | 2026-11-14 18:23 | SCALING-076 | Started | [Approved four-GPU repeated calibration](2026-11-14-1823-codex-scaling-076-started.md) |
 | 2026-11-14 14:39 | SCALING-075 | Handoff | [Local-vector validation passes; repeated calibration prepared](2026-11-14-1439-codex-scaling-075-handoff.md) |

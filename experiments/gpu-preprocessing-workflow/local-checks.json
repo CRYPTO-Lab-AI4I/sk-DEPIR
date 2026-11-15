@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "utc": "2026-11-15T22:15:09.419904+00:00",
+  "commands": [
+    "CGO_ENABLED=0 timeout25s go test ./cmd/pir-preprocess -v -count=1",
+    "CGO_ENABLED=1 CXX=g++ timeout25s go test -tags liftrs_cpp ./cmd/pir-preprocess -v -count=1",
+    "gofmt cmd/pir-preprocess",
+    "run.py --check",
+    "Python AST run.py/analyze.py",
+    "bash -n run.sbatch",
+    "git diff --check"
+  ],
+  "source_sha256": {
+    "cmd/pir-preprocess/artifacts.go": "9b87487010ec5c514019171a8229e8b606912f8781dcd3dc59bbc258850dea41",
+    "cmd/pir-preprocess/artifacts_test.go": "447cac85769a1f354cb254625c11fb0c9be6fbccfca668cfed72ea671ebf6ac7",
+    "cmd/pir-preprocess/main.go": "30ccda0132f2081d8bd84dd75a6b8bfb597ec13debe4d9d8c6b44078f8620b4c",
+    "cmd/pir-preprocess/reference_test.go": "575e04275e4bac408833a101b85d06d1bc7897eda1956ec42eee9be667062bdf",
+    "experiments/gpu-preprocessing-workflow/run.py": "ac79cf2fdec72c9947366d26bc77486b64181d9871bff00eac40ded35afb4c06",
+    "experiments/gpu-preprocessing-workflow/run.sbatch": "95869041edcecc739f7e81926d9bafdad219f1449f79a4d343d2d8920d54333b",
+    "experiments/gpu-preprocessing-workflow/analyze.py": "21eada20caf251960d5269f6f0d8e88c5ab5e9486093d6048362f56fab3e321d"
+  },
+  "environment": {
+    "go": ".cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go",
+    "module": "gcc/14.2.0",
+    "GOCACHE": ".cache/liftrs/preprocessing-workflow-build-cache",
+    "GOPATH": ".cache/liftrs/toolchains/gopath",
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOSUMDB": "off"
+  },
+  "limitations": [
+    "CUDA executable workflows, race/ASan/vet still require scheduled validation.",
+    "Local short tests use temporary fixtures; profiles/caches from executable GPU validation will persist.",
+    "No fulls17 run or numeric full-resource admission."
+  ]
+}

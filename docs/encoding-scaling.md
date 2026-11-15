@@ -1797,3 +1797,41 @@ shape/repetitions/caps explicitly; previous defaults and evidence remain compati
 Await numeric resource agreement before submission. Then assess median costs/
 GPU-count benefit before full checkpointed s17 preparation admission. CPU setup
 investigation remains deferred; no fulls17 cache, encoding or latency is claimed.
+
+### Four-GPU calibration reconciled (SCALING-077)
+
+Job74635 passes source/evidence/cache, small full GPU preparation, high-width,
+peer-lifetime, regressions and zero CUDA errors/leaks. Three256MiB-tile samples
+per layout/count yield four-card local0.778 s forward/0.754 s inverse versus
+one-card peer0.866 s/0.755 s. Four-local versus four-peer improves28.5%/23.0%;
+versus one-peer, forward improves10.1% and inverse is essentially equal. No
+full-preparation speedup or default switch follows. Owned payload stays equal;
+profiles/caches and exact sample ranges remain in the report/reference.
+
+The approved repeated count-calibration step is complete. Next implement and
+validate the persistent complete-workflow runner rather than queue another tile
+benchmark: certified discovery/support publication, support-bound root checkpoint
+save/reload, final mathematical identities, streamed canonical cache publication/
+readback and restart/source/resource accounting. Present the full4GPU host/device/
+storage/time admission plan using the current explicit local candidate and its
+extra traffic; fulls17 execution still needs agreement. Full-domain vector grids
+are larger than these small tests (source inference), so avoid extrapolating their
+modest GPU scaling into a full-run promise. CPU setup investigation stays deferred.
+
+### Persistent workflow implementation (SCALING-078)
+
+Implement the server CLI using existing code preprocessing/artifact APIs, with
+atomic stage publication, source/binary/plugin/checksum provenance, unique profiles
+and advancing progress logs. Completed-cache verification streams without GPU setup
+or another code array; root restart skips discovery/root construction and repeats
+full identities. Local publication/corruption/Go-oracle/restart tests pass. Submit
+bounded complete s8/s4 workflows on the existing4H200/4GiB,4CPU/8GiB,2GiBcache/
+4GiBscratch and600/900/1200s budgets, then await completion ping.
+
+Fulls17 still needs exact support, concurrent host peak audit,~235GiB projected
+retained-file storage plus headroom and complete runtime/guard admission. Fresh
+persistence includes streamed writes and one readback, an explicit I/O cost.
+User permits8/16GPUs if needed; four-node16GPU and two-node8GPU require new
+cross-node execution/collectives, not a changed same-node ordinal list. Keep those
+options open without promising linear speedup or assuming replicated host arrays
+fit. No fixed GPU ceiling; choose by complete measured workflow costs.

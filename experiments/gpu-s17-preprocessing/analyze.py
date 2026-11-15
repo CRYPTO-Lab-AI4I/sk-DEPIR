@@ -4,6 +4,7 @@ import argparse
 import json
 from pathlib import Path
 import runpy
+import statistics
 HERE=Path(__file__).resolve().parent
 
 def main():
@@ -47,6 +48,20 @@ def main():
     log=(out/'legacy-online.log').read_text();assert '--- PASS: TestCUDAOnlineEncoding ' in log
     progress=[json.loads(line) for line in (out/'gpu-preprocessing.log').read_text().splitlines() if line.startswith('{')]
     assert any(r.get('work')=='gpu-preparation' and r.get('event')=='completed' and r.get('unit') for r in progress)
+    # Preserve raw samples and report medians/ranges without mixing layouts or
+    # card counts. Whole-call timings include transfers and instrumentation.
+    summaries=[]
+    groups=sorted({(r.get('vector_layout','peer'),r['gpus'])for r in tiles})
+    for layout,count in groups:
+        samples=[r for r in tiles if r.get('vector_layout','peer')==layout and r['gpus']==count]
+        summary={'vector_layout':layout,'gpus':count,'samples':len(samples),
+                 'values':samples[0]['values'],'owned_device_bytes':max(r['owned_device_bytes']for r in samples)}
+        for key in ('forward_seconds','inverse_seconds'):
+            values=[r[key]for r in samples]
+            summary[key]={'median':statistics.median(values),'min':min(values),'max':max(values)}
+        summaries.append(summary)
+    result['tile_summary']=summaries
+    result['timing_boundary']='warm, profiled/logged whole calls including transfers; fixed order; not full preparation'
     result.update(tests=['GPU exact small-code discovery/P/G/identity/spectrum/checkpoint bytes','s17 high-bit Horner/product/root kernels','complete resident tile hash/inverse and peer layout','legacy single-GPU online regression','compute-sanitizer memcheck/leaks; Go/native regressions; shared recurrence sanitizers'],
                   tiles=tiles,wide_monomial_windows=windows,progress_records=len(progress),scope='bounded resident GPU prototype; no full s17 preprocessing, full-size admission or runtime forecast')
     (out/'analysis.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

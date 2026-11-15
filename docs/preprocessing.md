@@ -200,3 +200,37 @@ a32 MiB tile shows18.9%/9.7% lower two-card forward/inverse latency, with single
 samples and little two-card versus one-card gain. This is an explicit performance candidate, not a lower-memory
 default. Compare independent oracles, memcheck, dense tile hashes and same-device
 latencies before selecting it. [Reproduction/evidence](../experiments/gpu-s17-preprocessing/report.md#local-vector-comparison-scaling-074).
+
+Repeated256 MiB calibration now passes on1/2/4H200 (job74635), including four-card
+small complete preparation, exact tile hashes/inverses and zero CUDA errors/leaks.
+Four-card local medians0.778 s/0.754 s compare with one-card peer0.866 s/0.755 s;
+this modest component gain does not establish full-preparation latency. Owned
+payload is equal across layouts. Source launch geometry yields few blocks at
+this tile size, a possible scaling limit rather than measured occupancy evidence.
+Keep peer default; finish persistent full-workflow/resource admission separately.
+See the [completed report](../experiments/gpu-s17-preprocessing/report.md#completed-four-gpu-calibration-scaling-077).
+
+## Persistent server command
+
+[`cmd/pir-preprocess`](../cmd/pir-preprocess/README.md) wraps the existing API with
+explicit backend/specification/resource flags, atomic stage directories and trusted
+source/digest manifests. It retains CPU profiles and advancing byte/native phase
+logs. Completed-cache restart verifies all files without GPU setup or a resident
+code copy; root restart skips discovery/root construction but rechecks the full
+identity. Fresh stages are streamed, synced and read back once; storage/readback
+cost is included rather than described as free. Failed partial stages are retained.
+
+[Bounded complete-workflow validation](../experiments/gpu-preprocessing-workflow/report.md)
+checks publication failure/corruption, independent Go bytes, fresh and root/final
+restart across processes,1/4GPU peer/local and CUDA-free readback. Local native
+checks pass; submitted GPU/race/sanitizer results are a separate gate. The CLI
+accepts s2..17 with explicit array/code caps, not an approved fulls17 allocation.
+Persistent fulls17 cache is projected~235 GiB before extra files/headroom; total
+peak RAM and persistence latency are unknown. The fixed small validation controller
+keeps its approved2 GiB cache guard and cannot launch a fulls17 job.
+
+User authorization includes considering8/16GPUs. Current same-node peer pointers
+do not implement cross-node execution; measured nodes have four GPUs. Larger
+groups need explicit distributed communication, host layout/headroom and end-to-end
+measurements. Retain this distinction in admission, rather than treating a GPU
+count option or arithmetic memory model as implementation support.
