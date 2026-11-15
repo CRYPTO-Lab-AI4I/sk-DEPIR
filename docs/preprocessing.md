@@ -234,3 +234,11 @@ do not implement cross-node execution; measured nodes have four GPUs. Larger
 groups need explicit distributed communication, host layout/headroom and end-to-end
 measurements. Retain this distinction in admission, rather than treating a GPU
 count option or arithmetic memory model as implementation support.
+
+Persistent workflow job75194 passes one-GPU fresh/root/final restart and CUDA-free
+readback, but fails during the first four-GPU discovery transpose on gnode03;
+Slurm reports GPUs requiring reset. Cause remains unproven; later local cases and
+CUDA memcheck are unrun. The retry adds a small runtime-copy/transpose preflight
+and bounds shutdown waits, retaining all failure evidence and resource caps.
+It targets the previously validated gnode02; a pass would not establish node03
+health. No fulls17 admission. [Failure review/reproduction](../experiments/gpu-preprocessing-workflow/report.md#job75194-failure-and-bounded-retry-scaling-079).

@@ -8,6 +8,9 @@ def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('name');args=p.parse_args();out=HERE/'runs'/args.name
  record=json.loads((out/'results.json').read_text())
  result=runpy.run_path(str(HERE.parent/'s17-arithmetic/analyze.py'))['reconcile'](out)
+ if record.get('peer_probe'):
+  probe=[json.loads(s)for s in(out/'peer-probe.log').read_text().splitlines()if s.startswith('{')]
+  assert all(any(r['phase']==phase and r['event']=='completed'for r in probe)for phase in('runtime-peer-copies','peer-transpose-probe'))
  assert len(record['cases'])==4
  assert {(c['layout'],c['gpus'])for c in record['cases']}=={(layout,n)for layout in('peer','local')for n in(1,4)}
  assert all(c['canonical_sha256']==record['independent_go_reference']['sha256']for c in record['cases'])

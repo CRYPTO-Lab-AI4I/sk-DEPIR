@@ -116,3 +116,54 @@ Results/logs: `runs/validation-01/`, `slurm-75194.log`; reusable cache/binaries/
 profiles: `.cache/liftrs/gpu-preprocessing-workflow/validation-01/`. sbatch returned
 successfully. No monitoring/polling/results inspection until user completion ping.
 No fulls17 run or increased host/storage/device/time budget is admitted.
+
+## Job75194 failure and bounded retry (SCALING-079)
+
+Job75194 **fails**, not a successful long preprocessing run. [Forensic analysis](runs/validation-01/failure-analysis.json)
+reconciles507 source,22 evidence,20 retained-cache identities; preserve [results](runs/validation-01/results.json)
+and the original [Slurm log](slurm-75194.log). CUDA-free/native unit tests, Go-oracle
+reference/publication/restarts, race, ASan, CUDA builds and vet all pass. The full
+one-GPU peer s8 workflow passes fresh, completed-cache, root restart and CUDA-free
+readback; both canonical outputs match the independent Go fixture and support/root
+manifests remain unchanged. These timings are not new scaling measurements.
+
+The next case, four-GPU peer fresh on **gnode03**, completes setup and exact
+monomial classification, then stalls at discovery base-grid's first
+`peer-transpose` (65536 elements). No support/root/code stage is published for
+that case. Child emits termination at about600 command seconds, but the prior
+shared `stop_group` waits without a timeout after SIGKILL. The controller therefore
+remains blocked until near1200 seconds. Slurm then reports repeated NVML
+`GPU requires reset`; accounting records FAILED/1:0,20min4s. This is GPU failure
+plus a shutdown guard defect, not evidence that s8 preparation needs20minutes.
+The four-card/local cases and final CUDA memcheck never execute. Whole validation
+is incomplete, so no fulls17 readiness claim follows.
+
+[One-time metadata observation](2026-11-15-job-75194-observation.json) records
+completed-job accounting and node status. IDLE does not certify GPU health.
+Previous four-card validation/calibration passed on gnode02. Logs do not establish
+whether this fault originated in application, driver, fabric or hardware; do not
+claim a proven node fault. No reset, administrative change or external message is
+attempted. Node03's four-card behavior remains unresolved even if a retry passes.
+
+The controller now uses local [bounded shutdown](run.py),5seconds after TERM then
+5seconds after KILL, recording unreaped workers and deferring allocation cleanup
+to Slurm rather than waiting indefinitely. Scheduler/driver cleanup is outside
+this guarantee. [Controller tests](test_controller.py), [saved outcomes](retry-controller-tests.log),
+[check record](retry-checks.json) cover a real owned worker and a simulated
+unkillable process; CUDA probe compilation/Python/diff checks pass. Original
+experiment helpers and historical results are unchanged.
+
+A new [peer probe](peer-probe.cu) runs before expensive Go builds: all12 directional
+CUDA runtime peer copies and the same 256x256 transpose kernel, checking every
+word, with only512KiB aggregate explicitly owned GPU buffers. It has60seconds,
+uses actual advancing device/link logs and performs no protocol/discovery/field
+arithmetic or GPU reset. It is diagnostic, not a profiled latency baseline. If it
+fails, stop before the full CLI suite. New success analysis requires both probe
+stages and all original workflow/sanitizer tests.
+
+Retry `validation-02` uses **gnode02 explicitly**, same4H200/4GiB,4CPU/8GiBhost,
+6GiBRSS,2GiBcache/4GiBscratch and600/900/1200s guards. New compiler/preflight logs,
+caches/profiles and exact source hashes are separate; original partial data is
+retained. Command: `sbatch --nodelist=gnode02 --output=experiments/gpu-preprocessing-workflow/slurm-%j.log experiments/gpu-preprocessing-workflow/run.sbatch validation-02`.
+No budget increase or fulls17 job. Submit and hand off without polling; review only
+after the next completion ping. Peer probe runtime and retry results remain pending.

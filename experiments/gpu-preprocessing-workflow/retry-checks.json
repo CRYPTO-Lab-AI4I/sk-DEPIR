@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "utc": "2026-11-15T22:43:54.775019+00:00",
+  "checks": [
+    "real owned process group terminates and reaps",
+    "simulated wait timeouts cause exactly SIGTERM/SIGKILL with finite waits; no unbounded wait",
+    "peer-probe CUDA12.9/gcc14.2 O0 sm90 executable compile exit0 under25seconds",
+    "run.py --check and Python AST",
+    "git diff --check",
+    "python3 -B test_controller.py: real owned process + simulated unkillable driver tests pass"
+  ],
+  "source_sha256": {
+    "experiments/gpu-preprocessing-workflow/run.py": "4ddf7ffd0d002faeee1e6bbbe4da74ff3e8b9c523b2ffd8a356db8b6664ab10a",
+    "experiments/gpu-preprocessing-workflow/peer-probe.cu": "802e355e2d67092c256a36266a508d5f1605f94aaa5269546906bd946574a325",
+    "experiments/gpu-preprocessing-workflow/analyze.py": "a45dcc87324de4a98ef555c4ac38c5a2ea618ed5f33bf26f1bb82d9b22af6f88",
+    "experiments/gpu-preprocessing-workflow/test_controller.py": "1f1e21eab2c8d69f9af8ccbf3cac3faa8f72c5d0c17c9cbec5f060ef96f35ab9"
+  },
+  "limitations": [
+    "No local CUDA peer probe execution; requires scheduled retry.",
+    "Original GPU fault cause remains unproven; no reset/admin operation attempted."
+  ]
+}

@@ -478,3 +478,9 @@ I/O latency. Full host peak and budget admission remain outstanding.
 These divide the384 GiB array model evenly, excluding runtime/staging/headroom,
 communication and possible host replication. They are not speedup estimates or
 full-resource admission; CPU/GPU client encoding support stays unchanged.
+
+Persistent workflow75194 passes the complete one-GPU s8 path and CPU/race/ASan/vet,
+but four-GPU discovery stalls on gnode03 with a later GPU-reset report. It is
+failed/incomplete, distinct from prior successful four-card kernels on gnode02.
+No fulls17 cell changes. [Forensic report and unchanged-budget retry](../experiments/gpu-preprocessing-workflow/report.md#job75194-failure-and-bounded-retry-scaling-079)
+retain unknown fault cause, partial caches and bounded-shutdown/preflight changes.

@@ -1,0 +1,24 @@
+{
+  "recorded_utc": "2026-11-15T22:45:01.739711+00:00",
+  "scope": "one-time completed-job/node metadata review; no reset/admin action",
+  "commands": [
+    "module load slurm/slurm/25.05; sacct -j75194 --format=JobID,State,ExitCode,Elapsed,NodeList,MaxRSS,Reason --parsable2",
+    "scontrol show node gnode03"
+  ],
+  "accounting": {
+    "job_id": "75194",
+    "state": "FAILED",
+    "exit_code": "1:0",
+    "elapsed": "00:20:04",
+    "node": "gnode03",
+    "batch_max_rss": "490532K"
+  },
+  "node_observation": {
+    "state": "IDLE",
+    "gres": "gpu:h200:4",
+    "real_memory_mib": 928610,
+    "gpu_health": "not established by IDLE state"
+  },
+  "gpu_fault_source": "original slurm-75194.log: NVML Failed to get usage(16): GPU requires reset",
+  "limitation": "The node IDLE state does not prove GPU health; GPU reset need does not establish application versus hardware/driver root cause."
+}

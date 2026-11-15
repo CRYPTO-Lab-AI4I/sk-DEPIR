@@ -1,0 +1,8 @@
+=== RUN   TestPublicationFailureAndReuse
+--- PASS: TestPublicationFailureAndReuse (0.00s)
+=== RUN   TestExplicitCLIAndDeviceBounds
+--- PASS: TestExplicitCLIAndDeviceBounds (0.00s)
+=== RUN   TestPersistentReferenceAndRestart
+--- PASS: TestPersistentReferenceAndRestart (0.04s)
+PASS
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/cmd/pir-preprocess	0.045s

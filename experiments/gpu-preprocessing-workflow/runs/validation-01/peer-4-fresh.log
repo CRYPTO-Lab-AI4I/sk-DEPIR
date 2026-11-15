@@ -1,0 +1,14 @@
+{"completed":0,"elapsed_seconds":0.000007816,"event":"started","phase":"workflow","total":1,"unit":"operations","utc":"2026-11-15T22:20:10.728565396Z"}
+{"completed":0,"elapsed_seconds":0.009054471,"event":"started","phase":"setup","total":1,"unit":"operations","utc":"2026-11-15T22:20:10.737615993Z"}
+{"completed":1,"elapsed_seconds":2.916903252,"event":"completed","phase":"setup","total":1,"unit":"operations","utc":"2026-11-15T22:20:13.645458429Z"}
+{"completed":0,"elapsed_seconds":2.916969227,"event":"started","phase":"discovery","total":1,"unit":"operations","utc":"2026-11-15T22:20:13.645531593Z"}
+{"completed":0,"elapsed_seconds":2.9169918409999998,"event":"started","phase":"exact-good-monomials","total":1,"unit":"operations","utc":"2026-11-15T22:20:13.645555621Z"}
+{"utc":"2026-11-15T22:20:13Z","phase":"GPU-good-expansion","work":"gpu-preparation","event":"started","completed":0,"total":65536,"elapsed_ms":0,"unit":"monomials"}
+{"utc":"2026-11-15T22:20:13Z","phase":"GPU-good-expansion","work":"gpu-preparation","event":"completed","completed":65536,"total":65536,"elapsed_ms":0,"unit":"monomials"}
+{"completed":1,"elapsed_seconds":2.919263494,"event":"completed","phase":"exact-good-monomials","total":1,"unit":"operations","utc":"2026-11-15T22:20:13.647823108Z"}
+{"completed":7381,"elapsed_seconds":2.919857446,"event":"progress","phase":"discovery-sample","total":7381,"unit":"coefficients","utc":"2026-11-15T22:20:13.648419353Z"}
+{"completed":0,"elapsed_seconds":2.919871505,"event":"started","phase":"discovery-base-grid","total":1,"unit":"operations","utc":"2026-11-15T22:20:13.64843477Z"}
+{"utc":"2026-11-15T22:20:13Z","phase":"host-to-device","work":"gpu-preparation","event":"started","completed":0,"total":65536,"elapsed_ms":0,"unit":"elements"}
+{"utc":"2026-11-15T22:20:13Z","phase":"host-to-device","work":"gpu-preparation","event":"completed","completed":65536,"total":65536,"elapsed_ms":0,"unit":"elements"}
+{"utc":"2026-11-15T22:20:13Z","phase":"peer-transpose","work":"gpu-preparation","event":"started","completed":0,"total":65536,"elapsed_ms":0,"unit":"elements"}
+{"event":"terminated","phase":"workflow","remaining_work":"unknown","utc":"2026-11-15T22:30:10.938577913Z"}

@@ -1835,3 +1835,14 @@ User permits8/16GPUs if needed; four-node16GPU and two-node8GPU require new
 cross-node execution/collectives, not a changed same-node ordinal list. Keep those
 options open without promising linear speedup or assuming replicated host arrays
 fit. No fixed GPU ceiling; choose by complete measured workflow costs.
+
+### Persistent workflow fault review (SCALING-079)
+
+Job75194 passes builds, native/Go-oracle, race/ASan/vet and one-GPU complete fresh/
+root/final/canonical readback. Four-GPU fresh stops at its first discovery transpose
+on gnode03; NVML later reports reset required, with cause unproven. No ordinary
+preprocessing runtime or fulls17 result follows. Later local/memcheck cases unrun.
+Fix bounded controller shutdown (old post-KILL wait was unlimited), add60second
+runtime-peer-copy/same-transpose preflight before builds, retry unchanged budget
+on the previously successful gnode02. Preserve all caches/profiles and unresolved
+node03 deployment evidence. No hardware reset or cross-node/full-size launch.

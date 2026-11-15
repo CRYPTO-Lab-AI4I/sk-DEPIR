@@ -1,0 +1,140 @@
+{
+  "status": "failed",
+  "job_id": "75194",
+  "revision": "ec8b9dc1b5dea7106951dddf13bca7273b421535",
+  "source_files_verified": 507,
+  "evidence_files_verified": 22,
+  "cache_files_verified": 20,
+  "tests": [
+    "forensic failed-job reconciliation; successful commands only, later phases unrun"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 1.2913150303065777,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 1.2312261573970318,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "gpu",
+      "seconds": 1.2505851928144693,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "topology",
+      "seconds": 1.2285845521837473,
+      "peak_rss_bytes": 22978560,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 1.2494867201894522,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 1.209270179271698,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 1.2262607458978891,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 1.171295428648591,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go-only-build",
+      "seconds": 14.390501655638218,
+      "peak_rss_bytes": 274989056,
+      "exit_code": 0
+    },
+    {
+      "label": "go-only-tests",
+      "seconds": 5.426460357382894,
+      "peak_rss_bytes": 29396992,
+      "exit_code": 0
+    },
+    {
+      "label": "native-tests",
+      "seconds": 14.088505998253822,
+      "peak_rss_bytes": 595288064,
+      "exit_code": 0
+    },
+    {
+      "label": "race",
+      "seconds": 30.14055691473186,
+      "peak_rss_bytes": 583024640,
+      "exit_code": 0
+    },
+    {
+      "label": "asan",
+      "seconds": 27.59694168716669,
+      "peak_rss_bytes": 601186304,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 17.49422688782215,
+      "peak_rss_bytes": 284270592,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-cli-build",
+      "seconds": 2.714156972244382,
+      "peak_rss_bytes": 29048832,
+      "exit_code": 0
+    },
+    {
+      "label": "vet",
+      "seconds": 4.120662000030279,
+      "peak_rss_bytes": 29257728,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-fresh",
+      "seconds": 2.665106475353241,
+      "peak_rss_bytes": 22507520,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-cached",
+      "seconds": 1.3113118223845959,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-root-restart",
+      "seconds": 2.56144230812788,
+      "peak_rss_bytes": 22724608,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-cuda-free-readback",
+      "seconds": 1.2499665319919586,
+      "peak_rss_bytes": 7811072,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-fresh",
+      "seconds": 1054.1829184237868,
+      "peak_rss_bytes": 479166464,
+      "exit_code": 143
+    }
+  ],
+  "scope": "Four-card first peer transpose stalled; scheduler reports GPU reset required; root cause unproven."
+}

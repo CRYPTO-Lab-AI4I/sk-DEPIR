@@ -6,6 +6,15 @@ ROOT=Path(__file__).resolve().parents[2];HERE=Path(__file__).resolve().parent
 HELP=runpy.run_path(str(ROOT/'experiments/hpc-cached-s15/run.py'))
 GUARD=runpy.run_path(str(ROOT/'experiments/hpc-s16/run.py'))
 
+def stop_process(process,wait_seconds=5):
+ """Bound both waits: a broken GPU driver can leave even SIGKILL unreaped."""
+ for sig in(signal.SIGTERM,signal.SIGKILL):
+  try:os.killpg(process.pid,sig)
+  except ProcessLookupError:return {'reaped':process.poll()is not None,'last_signal':int(sig)}
+  try:process.wait(timeout=wait_seconds);return {'reaped':True,'last_signal':int(sig)}
+  except subprocess.TimeoutExpired:pass
+ return {'reaped':False,'last_signal':int(signal.SIGKILL),'warning':'worker not reaped; scheduler must clean allocation'}
+
 def main():
  import argparse
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('name',nargs='?');p.add_argument('--check',action='store_true');args=p.parse_args()
@@ -22,14 +31,14 @@ def main():
  go=str(ROOT/'.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go')
  start=time.monotonic();cancelled=[];signal.signal(signal.SIGTERM,lambda *_:cancelled.append(True))
  record={'status':'running','job_id':os.environ['SLURM_JOB_ID'],'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'cache':str(cache),'commands':[],
- 'policy':{'cpus':4,'host_request_bytes':8<<30,'rss_guard_bytes':6<<30,'go_soft_limit_bytes':4<<30,'new_cache_guard_bytes':2<<30,'scratch_guard_bytes':4<<30,'gpus':4,'aggregate_owned_device_cap_bytes':4<<30,'per_device_cap_bytes':1<<30,'worker_seconds':600,'controller_seconds':900,'slurm_seconds':1200},'cases':[]}
+ 'policy':{'cpus':4,'host_request_bytes':8<<30,'rss_guard_bytes':6<<30,'go_soft_limit_bytes':4<<30,'new_cache_guard_bytes':2<<30,'scratch_guard_bytes':4<<30,'gpus':4,'aggregate_owned_device_cap_bytes':4<<30,'per_device_cap_bytes':1<<30,'worker_seconds':600,'controller_seconds':900,'slurm_seconds':1200},'cases':[],'peer_probe':True}
  def save():(out/'results.json').write_text(json.dumps(record,indent=2)+'\n')
  def event(label,kind,**fields):
   row=dict(utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),phase=label,event=kind,completed=len(record['commands']),unit='commands',elapsed_seconds=time.monotonic()-start,**fields)
   with(out/'progress.jsonl').open('a')as f:f.write(json.dumps(row)+'\n');f.flush()
   print(json.dumps(row),flush=True)
- def run(label,argv,cwd=ROOT,expect=0):
-  began=time.monotonic();last=began;peak=0;reason=None;event(label,'started')
+ def run(label,argv,cwd=ROOT,expect=0,timeout=600):
+  began=time.monotonic();last=began;peak=0;reason=None;shutdown=None;event(label,'started')
   with(out/(label+'.log')).open('w')as f:
    proc=subprocess.Popen(list(map(str,argv)),cwd=cwd,env=env,stdout=f,stderr=subprocess.STDOUT,start_new_session=True)
    try:
@@ -37,21 +46,27 @@ def main():
      peak=max(peak,HELP['group_rss'](proc.pid))
      if peak>6<<30:reason='RSS guard'
      if GUARD['tree_bytes'](cache)>2<<30 or GUARD['tree_bytes'](scratch)>4<<30:reason='storage guard'
-     if time.monotonic()-began>600 or time.monotonic()-start>900:reason='deadline'
+     if time.monotonic()-began>timeout or time.monotonic()-start>900:reason='deadline'
      if cancelled:reason='termination signal'
      if time.monotonic()-last>=30:event(label,'heartbeat',peak_rss_bytes=peak,remaining_work='unknown');last=time.monotonic()
-     if reason:GUARD['stop_group'](proc);break
+     if reason:shutdown=stop_process(proc);break
      time.sleep(1)
    finally:
-    if proc.poll()is None:GUARD['stop_group'](proc)
-  record['commands'].append(dict(label=label,argv=list(map(str,argv)),seconds=time.monotonic()-began,peak_rss_bytes=peak,exit_code=proc.returncode,expected_exit_code=expect,guard=reason));save()
+    if proc.poll()is None and shutdown is None:shutdown=stop_process(proc)
+  record['commands'].append(dict(label=label,argv=list(map(str,argv)),seconds=time.monotonic()-began,peak_rss_bytes=peak,exit_code=proc.returncode,expected_exit_code=expect,guard=reason,shutdown=shutdown,timeout_seconds=timeout));save()
   event(label,'failed'if reason or proc.returncode!=expect else'completed',peak_rss_bytes=peak,guard=reason)
+  if shutdown and not shutdown['reaped']:record['cleanup_incomplete']=True;save()
   if reason or proc.returncode!=expect:raise RuntimeError(label+': '+str(reason or proc.returncode))
  save()
  try:
   source=scratch/'repo';shutil.copytree(ROOT,source,ignore=shutil.ignore_patterns('.git','.cache','runs','reviews','__pycache__','slurm-*.log','reconcile-slurm-*.log'))
   record['source_sha256']={str(f.relative_to(source)):HELP['sha'](f)for f in source.rglob('*')if f.is_file()and(f.suffix in('.go','.h','.hpp','.cpp','.cu','.cuh','.py','.sbatch')or f.name in('go.mod','go.sum'))};save()
   for label,argv in [('host',['hostname']),('cpu',['lscpu']),('gpu',['nvidia-smi','--query-gpu=name,uuid,driver_version,memory.total','--format=csv']),('topology',['nvidia-smi','topo','-m']),('job',['scontrol','show','job',record['job_id']]),('go',[go,'version']),('compiler',['g++','--version']),('nvcc',['nvcc','--version'])]:run(label,argv)
+  run('controller-tests',['python3','-B','experiments/gpu-preprocessing-workflow/test_controller.py'],source)
+  env['LIFTRS_CPU_PROGRESS']='1'
+  probe=cache/'peer-probe'
+  run('peer-probe-build',['nvcc','-std=c++17','-O2','-arch=native','-Iencoding/liftrs-cuda','experiments/gpu-preprocessing-workflow/peer-probe.cu','-o',probe],source)
+  run('peer-probe',[str(probe)],source,timeout=60)
   plain=cache/'preprocess-go';cli=cache/'preprocess-cuda';library=cache/'libliftrs-cuda.so'
   ldflags='-X main.sourceRevision='+record['revision']
   run('go-only-build',[go,'build','-ldflags',ldflags,'-o',plain,'./cmd/pir-preprocess'],source)
