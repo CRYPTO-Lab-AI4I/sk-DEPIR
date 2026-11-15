@@ -108,3 +108,11 @@ boundedly validated. The larger counts are projections, with unknown communicati
 host distribution, replication, staging/headroom and latency. User willingness to
 use more GPUs is not a numeric host/storage/deadline admission. No new full job is
 submitted until runner validation and a reviewed complete resource plan.
+
+## Bounded submission
+
+Job75194 is submitted, sourceec8b9dc ([submission and exact caps](submission.json)).
+Results/logs: `runs/validation-01/`, `slurm-75194.log`; reusable cache/binaries/
+profiles: `.cache/liftrs/gpu-preprocessing-workflow/validation-01/`. sbatch returned
+successfully. No monitoring/polling/results inspection until user completion ping.
+No fulls17 run or increased host/storage/device/time budget is admitted.
