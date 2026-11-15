@@ -167,3 +167,9 @@ caches/profiles and exact source hashes are separate; original partial data is
 retained. Command: `sbatch --nodelist=gnode02 --output=experiments/gpu-preprocessing-workflow/slurm-%j.log experiments/gpu-preprocessing-workflow/run.sbatch validation-02`.
 No budget increase or fulls17 job. Submit and hand off without polling; review only
 after the next completion ping. Peer probe runtime and retry results remain pending.
+
+Retry job75342 is submitted ongnode02, source63d0442
+([submission/exact caps](retry-submission.json)). Results/logs:
+`runs/validation-02/`, `slurm-75342.log`; retained cache/profiles:
+`.cache/liftrs/gpu-preprocessing-workflow/validation-02/`. No monitoring/new-result
+inspection until completion ping; no GPU reset or fulls17 admission.

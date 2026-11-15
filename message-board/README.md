@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-15 22:47 | SCALING-079 | Handoff | [Persistent workflow retry75342](2026-11-15-2247-codex-scaling-079-handoff.md) |
 | 2026-11-15 22:47 | SCALING-079 | Handoff | [GPU fault review and bounded retry prepared](2026-11-15-2247-codex-scaling-079-prepared.md) |
 | 2026-11-15 22:40 | SCALING-079 | Started | [Review persistent workflow failure](2026-11-15-2240-codex-scaling-079-started.md) |
 | 2026-11-15 22:18 | SCALING-078 | Handoff | [Persistent workflow validation job75194](2026-11-15-2218-codex-scaling-078-handoff.md) |
