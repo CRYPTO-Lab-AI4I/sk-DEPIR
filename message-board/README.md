@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-16 23:21 | SCALING-090 | Handoff | [Full CPU76645 /GPU76646 submitted](2026-11-16-2321-codex-scaling-090-handoff.md) |
 | 2026-11-16 23:20 | SCALING-090 | Prepared | [Full CPU/GPU encoding recipe ready](2026-11-16-2320-codex-scaling-090-prepared.md) |
 | 2026-11-16 23:14 | SCALING-090 | Started | [Full s17 CPU and GPU encoding](2026-11-16-2314-codex-scaling-090-started.md) |
 | 2026-11-16 23:09 | SCALING-089 | Completed | [GPU client bounded validation passes](2026-11-16-2309-codex-scaling-089-completed.md) |

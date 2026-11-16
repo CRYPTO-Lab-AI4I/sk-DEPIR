@@ -1,0 +1,56 @@
+{
+  "utc": "2026-11-16T23:21:51.934121+00:00",
+  "status": "submitted;not monitored",
+  "frozen_revision": "ed0c026",
+  "source_policy": "git archive explicit committed revision, not execution-time dirty workspace",
+  "jobs": [
+    {
+      "backend": "cpu",
+      "job_id": "76645",
+      "command": "sbatch --parsable --output=experiments/s17-full-encoding/cpu-%j.log experiments/s17-full-encoding/cpu.sbatch first-01 --revision ed0c026",
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 824633720832,
+        "rss_guard_bytes": 755914244096,
+        "cgroup_guard_bytes": 798863917056,
+        "go_soft_bytes": 687194767360,
+        "workspace_cap_bytes": 343597383680,
+        "device_cap_bytes": 0,
+        "gpus": 0,
+        "retained_cap_bytes": 68719476736,
+        "scratch_cap_bytes": 17179869184,
+        "worker_seconds": 165600,
+        "controller_seconds": 169200,
+        "slurm_seconds": 172800
+      },
+      "results": "experiments/s17-full-encoding/runs/first-01/cpu/",
+      "slurm_log": "experiments/s17-full-encoding/cpu-76645.log",
+      "retained_output_profiles_binary": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-full-encoding/first-01/cpu",
+      "dependency": null
+    },
+    {
+      "backend": "gpu",
+      "job_id": "76646",
+      "command": "sbatch --parsable --output=experiments/s17-full-encoding/gpu-%j.log experiments/s17-full-encoding/gpu.sbatch first-01 --revision ed0c026",
+      "policy": {
+        "cpus": 32,
+        "host_request_bytes": 412316860416,
+        "rss_guard_bytes": 343597383680,
+        "cgroup_guard_bytes": 386547056640,
+        "go_soft_bytes": 309237645312,
+        "workspace_cap_bytes": 343597383680,
+        "device_cap_bytes": 120259084288,
+        "gpus": 4,
+        "retained_cap_bytes": 68719476736,
+        "scratch_cap_bytes": 17179869184,
+        "worker_seconds": 165600,
+        "controller_seconds": 169200,
+        "slurm_seconds": 172800
+      },
+      "results": "experiments/s17-full-encoding/runs/first-01/gpu/",
+      "slurm_log": "experiments/s17-full-encoding/gpu-76646.log",
+      "retained_output_profiles_binary": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-full-encoding/first-01/gpu",
+      "dependency": null
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # First full s17 CPU and resident GPU encoding
 
-Status: **prepared; full CPU/GPU encoding results pending**. User requests both
+Status: **CPU76645 andGPU76646 submitted independently; full results pending**. User requests both
 jobs after [full preprocessing75832](../gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088)
 and [bounded GPU integration76426](../gpu-code-encoding/report.md#completed-validation-scaling-089)
 pass. This measures standalone mathematical encoding, not application masking,
@@ -177,3 +177,13 @@ Local binary/fixture/output/profiles remain under
 GPU small backend smoke runs inside its submitted allocation; previous complete
 bounded integration already passed76426. No full performance/capacity claim follows
 from these checks or from sbatch acceptance.
+
+## First submissions
+
+[Exact jobs/budgets/commands](submission.json): **CPU76645**, **GPU76646**,
+source frozen to `ed0c026` for both. sbatch accepted both independent submissions;
+no scheduler/process/log/result checks afterward. Results:
+`runs/first-01/cpu/`, `runs/first-01/gpu/`; Slurm logs `cpu-76645.log`,
+`gpu-76646.log`. Outputs/profiles/binaries:
+`.cache/liftrs/s17-full-encoding/first-01/{cpu,gpu}/`. Queue/runtime unknown;
+48h is the scheduler limit, not predicted duration. Await user's completion ping.

@@ -2062,3 +2062,9 @@ complete CPU/GPU hashes after both pass. Timings include phase profiling/logging
 no unprofiled speedup claim. No full-domain encoder restart exists, so retain a
 conservative48h scheduler window and preserve completed phases/output/profiles.
 Submit and hand off immediately; user will ping after jobs finish.
+
+Fulls17 encoding jobs submitted: **CPU76645 /GPU76646**, independent, both frozen
+to revisioned0c026. [Exact submission/caps](../experiments/s17-full-encoding/submission.json).
+Results `experiments/s17-full-encoding/runs/first-01/{cpu,gpu}/`; logs
+`cpu-76645.log` /`gpu-76646.log` in that experiment directory. No monitoring or
+measurement claims after submission; await completion ping. Existing caches remain.

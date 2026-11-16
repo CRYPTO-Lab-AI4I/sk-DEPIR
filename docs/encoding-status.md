@@ -648,3 +648,9 @@ One full encode each, all systematic symbols,16independent curves, full canonica
 hash and34GiB tight packed output with full disk digest/readback. All timings are
 profiled and separate load/setup/encode/check/output boundaries. No full result
 or new table timing is claimed until completion and evidence reconciliation.
+
+Fulls17 encoding jobs submitted: **CPU76645 /GPU76646**, independent, both frozen
+to revisioned0c026. [Exact submission/caps](../experiments/s17-full-encoding/submission.json).
+Results `experiments/s17-full-encoding/runs/first-01/{cpu,gpu}/`; logs
+`cpu-76645.log` /`gpu-76646.log` in that experiment directory. No monitoring or
+measurement claims after submission; await completion ping. Existing caches remain.
