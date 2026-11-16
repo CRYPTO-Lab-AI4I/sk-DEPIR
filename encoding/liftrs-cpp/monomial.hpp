@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdint>
 // Exact public-code membership recurrence shared by CPU and CUDA. The Go
 // GoodMonomial implementation remains the independent paper criterion oracle.
 #if defined(__CUDACC__)
@@ -24,6 +25,21 @@ LIFTRS_MONOMIAL_HD inline bool good_weights(const unsigned *weights, unsigned s,
       return false;
   }
   return true;
+}
+// A ternary digit is the number of set bits at a position across x/y.
+// Digit1 has two assignments (10 or01); digits0/2 each have one. Thus each
+// class represents2^ones exact monomials, without a q^2 membership bitmap.
+LIFTRS_MONOMIAL_HD inline bool good_weight_class(uint64_t index, unsigned s, unsigned t,
+                                                 unsigned *ones = nullptr) {
+  unsigned weights[20], single = 0;
+  for (unsigned k = 0; k < s; k++) {
+    weights[k] = unsigned(index % 3);
+    index /= 3;
+    single += weights[k] == 1;
+  }
+  if (ones)
+    *ones = single;
+  return good_weights(weights, s, t);
 }
 } // namespace liftrs::preparation
 #undef LIFTRS_MONOMIAL_HD

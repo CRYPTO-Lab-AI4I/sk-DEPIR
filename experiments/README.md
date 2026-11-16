@@ -60,6 +60,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [s18 preprocessing admission](s18-preprocessing-admission/report.md): one-GPU
+  exact weighted-class dimension count, independent/known-size comparisons and
+  explicit host/device/storage lifetime models; full preprocessing remains deferred.
+
 - [Full s17 CPU/GPU encoding](s17-full-encoding/report.md): same verified code and
   database, frozen source, full mathematical/output checks and separate profiled
   load/setup/encoding/packed-output phases; first full results pending.

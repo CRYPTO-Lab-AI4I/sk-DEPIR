@@ -2068,3 +2068,20 @@ to revisioned0c026. [Exact submission/caps](../experiments/s17-full-encoding/sub
 Results `experiments/s17-full-encoding/runs/first-01/{cpu,gpu}/`; logs
 `cpu-76645.log` /`gpu-76646.log` in that experiment directory. No monitoring or
 measurement claims after submission; await completion ping. Existing caches remain.
+
+### s18 preprocessing: exact count before layout selection (SCALING-091)
+
+User authorizes initial count and audit. [Recipe](../experiments/s18-preprocessing-admission/report.md)
+uses oneGPU weighted sum of the existing3^s membership classes, avoiding an8GiB
+bitmap; independentGo small counts and historicals16/s17K gate the s18 result.
+Shared class decoder preserves criterion/normal classifier outputs; full APIs
+remain s<=17.1GPU/512MiB owned ceiling,4CPU/8GiBhost/6GiBRSS,2GiBretained/4GiBscratch,
+20min scheduler within prior small ceilings; immutable source and profiles/logs.
+Do not inspect/change encoding76645/76646 or monitor after submission.
+
+After exactK, update capacity/file models and present choice: distributed resident
+layout (current1536GiB product arrays imply16power-of-two GPUs at112GiB/card,
+at least4nodes) plus host-array distribution, versus an optional lower-memory
+strategy with explicit computation/transfers/I/O/time costs. Grid512GiB and final
+8K+768GiBhostarrays exclude transient/cache/headroom. No fulls18 run, new transport,
+large budgets or slower memory option authorized from this initial study alone.

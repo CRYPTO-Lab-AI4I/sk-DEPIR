@@ -1,0 +1,50 @@
+{
+  "utc": "2026-11-16T23:32:30.458948+00:00",
+  "base_revision": "9d315d0c1b6f74d473681659a3b17e068387f5b5",
+  "status": "bounded local checks passed; GPU runtime/count pending",
+  "checks": [
+    "g++ -std=c++17 -O2 class_test.cpp;class-test:weighted/direct membership and total multiplicity s2..8 passed",
+    "Independent Go reference built via temporary .go copy;profiled s2..7 dimensions passed",
+    "nvcc -std=c++17 -O3 -lineinfo -arch=sm_90 count.cu:compiled production classifier/shared helper and new GPU reduction without GPU allocation",
+    "go test -tags liftrs_cpp ./cmd/pir-preprocess ./encoding/liftrs-shared -run TestExactDimensionAdmission|TestCarryCriterion|TestGoodMonomial -count=1:passed (0.017s,0.076s)",
+    "test_admission.py:2 tests passed",
+    "run.py --check:oneGPU/deadlines verified;no launch",
+    "bash -n run.sbatch and git diff --check passed"
+  ],
+  "notes": [
+    "Initial go build on .go.txt rejected;the job uses an explicit .go copy,which builds and runs.",
+    "Initial selector TestPreprocessingDimension matched no tests;corrected specific criterion/count tests passed.",
+    "No full s18 cache/support/transform execution or encoding job inspection."
+  ],
+  "toolchain": {
+    "go": "Go1.27.3 retained local",
+    "compiler": "GCC14.2,nvcc12.9",
+    "local_cuda_arch": "sm_90 (H200)",
+    "go_mode": "GOTOOLCHAIN=local,GOPROXY=off,GOSUMDB=off,GOMAXPROCS=4,GOFLAGS=-p=4",
+    "command_timeout_seconds": 25
+  },
+  "source_sha256": {
+    "experiments/s18-preprocessing-admission/analyze.py": "b54fa286b93ec91067275a06004976166ecae71bb85d48e2916498c6ac58adc1",
+    "experiments/s18-preprocessing-admission/class_test.cpp": "c2e04d9b9b0bb636375a1af3710329559abc1c70727babe5415ce55c88ffc16b",
+    "experiments/s18-preprocessing-admission/count.cu": "fff93bf766cbfb68b4582cf70db81c3bb342c3c7589903e76c50190a48d2908f",
+    "experiments/s18-preprocessing-admission/memory.py": "df2560adaf300993b559bc58e12f746e6c771fec85dbfc87c949e6e9706f0afd",
+    "experiments/s18-preprocessing-admission/reference.go.txt": "654214524f68fac7e972bb425a39aa7bc9c3a48f7b3a52623dee07a76278fc83",
+    "experiments/s18-preprocessing-admission/run.py": "71c6fc9d7c30776645789328a713bdfc296011524c88cace28793528198a63c4",
+    "experiments/s18-preprocessing-admission/run.sbatch": "91b4653969f7f8491bef28d4ad9bba36f578008dc1be6723976b40c7b1c4baba",
+    "experiments/s18-preprocessing-admission/test_admission.py": "763c01657dc962bfbf52a0f4ddc4ab70bd9f5d64b03756fb1c7e4c04445f558b",
+    "encoding/liftrs-cpp/monomial.hpp": "00f8928fe1fbab1d7574104ebb2f424f1cc078fa7c9f08149b6f078211cb768e",
+    "encoding/liftrs-cuda/preparation_kernels.cuh": "d5f06c6c5eb8a23ca415f7aa5c1bd96b56d73671914c57d4410f3332e3c0e410"
+  },
+  "evidence_sha256": {
+    "local-class.log": "a815885e6b8859b69f8741adb2a332715b85f9375cb140670a5007a1ba875164",
+    "local-cuda-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "local-reference.log": "f69209e4dec7fb48a810dab39420bd36a5d78e3dfc722f119918a188d1b541e2"
+  },
+  "retained_local_cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s18-preprocessing-admission/local-check",
+  "cache_sha256": {
+    "class-test": "b4817004637da8b33033d97854c0d4c7e294d18d5c6574bf510ba446fb1691da",
+    "count": "3364abb68e55e666d506954bebc32c80dd7714738c72f07b32eeffeb75c1776a",
+    "reference": "37d1ea277fddcfb19524d2dac557b6a6c45068feeca2b543bb03c081df262e56",
+    "reference.pprof": "a7952ee9b23239bc5da3cd3880b9bbcb3c5c2eb4d1d6709d57a09ad395868b01"
+  }
+}

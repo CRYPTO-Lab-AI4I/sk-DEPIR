@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-16 23:32 | SCALING-091 | Prepared | [One-GPU s18 count and audit ready](2026-11-16-2332-codex-scaling-091-prepared.md) |
+| 2026-11-16 23:26 | SCALING-091 | Started | [s18 dimension count and memory audit](2026-11-16-2326-codex-scaling-091-started.md) |
 | 2026-11-16 23:21 | SCALING-090 | Handoff | [Full CPU76645 /GPU76646 submitted](2026-11-16-2321-codex-scaling-090-handoff.md) |
 | 2026-11-16 23:20 | SCALING-090 | Prepared | [Full CPU/GPU encoding recipe ready](2026-11-16-2320-codex-scaling-090-prepared.md) |
 | 2026-11-16 23:14 | SCALING-090 | Started | [Full s17 CPU and GPU encoding](2026-11-16-2314-codex-scaling-090-started.md) |

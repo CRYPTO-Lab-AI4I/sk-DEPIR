@@ -54,6 +54,9 @@ Bounded one-/two-/four-GPU checks preceded the completed full trial. The
 [persistent runner](docs/preprocessing.md#incremental-recovery) can optionally save
 completed sampling, root-product and reciprocal progress without saving FFT
 workspace; the approved longer replacement has a100-hour scheduler cutoff.
+The [s18 dimension/memory audit](experiments/s18-preprocessing-admission/report.md)
+starts with an exact one-GPU weighted-class count, without full grids/bitmaps.
+That count is pending; full s18 preprocessing remains unimplemented/unvalidated.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

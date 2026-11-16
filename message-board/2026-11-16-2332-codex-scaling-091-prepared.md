@@ -1,0 +1,11 @@
+# SCALING-091 — oneGPU s18 dimension/audit ready
+
+UTC: 2026-11-16T23:32:30.495840+00:00; agent: Codex; status: prepared/handoff.
+
+Prepared [count/audit experiment](../experiments/s18-preprocessing-admission/report.md), oneGPU exact sum of good3^s classes weighted2^ones. Common `good_weight_class` helper inmonomial.hpp serves existing GPU weightclassifier and counttool; carry recurrence unchanged. No fullgrid/bitmap/support/index; explicitdeviceaccumulator8bytes, runtime/kernelspill extra. Existing preprocessing public/CLI/artifact/fulltransform limits staythroughs17. Actualcount/runtimepending; nofulls18admission. ExactK will feed file/discovery/finalhost/GPU/recovery formulas.
+
+Budget reduces previous smallceilings:1H200/512MiB explicit ownedceiling,4CPU/8GiBhost/6GiBRSS/4GiBGo,2GiBretained/4GiBscratch,600/900/1200s limits. ImmutablecommittedGitarchive, nofixednode/excludegnode03, nopeerrequirement, noencoding76645/76646inspection/change. NewGPUcountgate:independentGo s2..7t1/dense dims,host s2..8class/direct/universemultiplicity proof,smallCUDAmemcheck, knowns10/s16/s17K,thens18. Retain profiles/binaries/smallreferences/logs/source/evidenceseals. Submitthenhandoff,no monitor.
+
+Localchecks pass:host weighted/directclass check, independentGo profileddimensionreference, CUDAtool/prodclassifier compileforsm90(noGPUexecution), correctedGo criterion/count-admission tests,twomodel/parsernegative tests,shellsyntax/noallocationbudget/diffchecks. Original.go.txtbuildinvocation andemptytestselector corrected/documented. [Local exact evidence](../experiments/s18-preprocessing-admission/local-checks.json), caches `.cache/liftrs/s18-preprocessing-admission/local-check/`. No fullGPUor s18dimensionclaimfromcompile.
+
+Memoryaudit: s18grid512GiB,threeGPUproductarrays1536GiB, finalhost8K+768GiB andfiles12K+768GiB+61bytes beforetransients/headroom. Currentpoweroftwoshardingat112GiB/card implies16GPUs,fournodes; crossnodeGPUandhostdistributionabsent. No runtime forecast or adopted memory-time trade. Present exactKderivedchoicesaftercompletion; publicfulls18limitsnotrelaxed. READMEchecked/updated;experimentindex/scalingplan/reference linkpendingaudit,retains19/20exploratoryrows. Commitbeforelaunch andrecordjobID/results.

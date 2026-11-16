@@ -654,3 +654,17 @@ to revisioned0c026. [Exact submission/caps](../experiments/s17-full-encoding/sub
 Results `experiments/s17-full-encoding/runs/first-01/{cpu,gpu}/`; logs
 `cpu-76645.log` /`gpu-76646.log` in that experiment directory. No monitoring or
 measurement claims after submission; await completion ping. Existing caches remain.
+
+## Initial s18 preprocessing admission study (SCALING-091)
+
+[Exact count/memory audit](../experiments/s18-preprocessing-admission/report.md)
+is prepared on oneGPU: sum existing good weight classes with2^ones multiplicity,
+without an8GiB bitmap or512GiB grid. Validate independentGo small counts and
+knowns16/s17 dimensions first. No fulls18 support/FFT/API admission is enabled.
+At exactK, compute support/root/generator/cache formulas; current array model
+needs1536GiB device products,512GiB host grid and8K+768GiB final host arrays,
+with transient/headroom additional. At112GiB/card and current power-of-two layout,
+16GPUs would be needed across at least4nodes; cross-node/host distribution is
+not implemented. Initial count job stays within existing oneGPU small ceilings,
+not authorization for full distribution or a slower memory mode. No table entry
+becomes measured until the count completes and evidence is reviewed.

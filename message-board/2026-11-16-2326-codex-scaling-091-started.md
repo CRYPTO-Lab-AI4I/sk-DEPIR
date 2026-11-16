@@ -1,0 +1,5 @@
+# SCALING-091 — s18 exact dimension and memory audit
+
+UTC: 2026-11-16T23:26:01.956328+00:00; agent: Codex; status: started.
+
+User authorizes proposed initials18 count/audit, not full distributed preprocessing. Read current shared/native/GPU limits and verifieds17 results. Existing count materializes N/8 membership bitmap; ats18 that is8GiB. Instead use exact3^s weight classes and sum2^number-of-one-digits multiplicity: the same existing good_weights criterion, no full grid/bitmap/index or field transform. Bounded standaloneGPU counting tool in new `experiments/s18-preprocessing-admission/`, shared classification kernel/helper; normal preprocessing/public support limits remain s17. Validate independentGo small dimensions and measureds16/s17 exactK before publishing s18K. OneGPU/512MiBownedcap,4CPU/8GiBhost/6GiBRSS,2GiBnewretained/4GiBscratch,20min cutoff within prior small ceilings; profiles/logs/provenance retained. ImmutableGit source archive for job. No encodingjob inspection/changes. Derive host/device/storage formulas from exactK after completion; prior forecast is not measured feasibility. No memory-time tradeoff or fullallocation adopted.

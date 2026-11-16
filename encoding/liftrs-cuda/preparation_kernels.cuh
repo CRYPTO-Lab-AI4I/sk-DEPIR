@@ -115,13 +115,7 @@ __global__ void weight_classes(unsigned char *out, size_t count, unsigned s,
   size_t i = size_t(blockIdx.x) * blockDim.x + threadIdx.x;
   if (i >= count)
     return;
-  size_t v = i;
-  unsigned weights[20];
-  for (unsigned k = 0; k < s; k++) {
-    weights[k] = unsigned(v % 3);
-    v /= 3;
-  }
-  out[i] = liftrs::preparation::good_weights(weights, s, t);
+  out[i] = liftrs::preparation::good_weight_class(i, s, t);
 }
 __global__ void ternary_indices(uint32_t *out, size_t count, unsigned s) {
   size_t i = size_t(blockIdx.x) * blockDim.x + threadIdx.x;

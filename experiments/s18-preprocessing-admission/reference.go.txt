@@ -1,0 +1,52 @@
+package main
+
+// Independent Go membership enumeration is bounded to small degrees. A CPU
+// profile is retained; the large exact count is delegated to the GPU tool.
+import (
+	"encoding/json"
+	"fmt"
+	lrs "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared"
+	"os"
+	"runtime/pprof"
+	"time"
+)
+
+func main() {
+	if len(os.Args) != 2 {
+		panic("profile path required")
+	}
+	file, err := os.Create(os.Args[1])
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	if err = pprof.StartCPUProfile(file); err != nil {
+		panic(err)
+	}
+	defer pprof.StopCPUProfile()
+	for s := 2; s <= 7; s++ {
+		choices := []int{1}
+		if dense := (1<<uint(s))/2 - 1; dense > 1 {
+			choices = append(choices, dense)
+		}
+		for _, t := range choices {
+			began := time.Now()
+			var count uint64
+			q := uint32(1) << uint(s)
+			for y := uint32(0); y < q; y++ {
+				for x := uint32(0); x < q; x++ {
+					good, e := lrs.GoodMonomial(lrs.Spec{FieldDegree: s, Dimension: 2, CurveDegree: t}, []uint32{x, y})
+					if e != nil {
+						panic(e)
+					}
+					if good {
+						count++
+					}
+				}
+			}
+			if err = json.NewEncoder(os.Stdout).Encode(map[string]any{"utc": time.Now().UTC().Format(time.RFC3339Nano), "phase": "independent-Go-dimension", "event": "completed", "s": s, "t": t, "k": count, "n": uint64(q) * uint64(q), "seconds": time.Since(began).Seconds()}); err != nil {
+				panic(fmt.Sprint(err))
+			}
+		}
+	}
+}
