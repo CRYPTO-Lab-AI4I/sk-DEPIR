@@ -2042,3 +2042,23 @@ match recorded revision. FullGPU client correctness validation is still limited
 to smaller complete domains and s17 components. Next is full CPU/GPU workload
 admission with genuine verifieds17 data/output checks; no automatic resource
 increase or large run launched during this review.
+
+### First full s17 CPU/GPU client jobs (SCALING-090)
+
+User requests both now that preprocessing75832 and boundedGPU76426 pass.
+[Shared probe/controller/report](../experiments/s17-full-encoding/report.md)
+freezes the exact committed source, independently launches CPU and GPU, retains
+profiles, phase/progress logs,34GiB packed outputs and all checks. CPU uses32cores/
+768GiBhost request; GPU32cores/384GiBhost plus4H200112GiB cap/card. RSS/cgroup/Go
+limits,64GiB new retained/16GiB scratch perjob and46/47/48h deadlines are explicit.
+Per-job ceilings stay below previous full-run budgets, combined new retained
+caps128GiB below512GiB envelope. No preprocessing rerun or existing cache deletion.
+
+Before large loading each worker runs a genuine small Go/CPU or Go/CPU/GPU
+pipeline, actual17-bit packing and34-bit verification-map checks. Full runs
+separately measure load, seeded input, setup, one encoding, complete systematic
+check,16scalar curves, canonical hash, tight output and disk readback. Compare
+complete CPU/GPU hashes after both pass. Timings include phase profiling/logging;
+no unprofiled speedup claim. No full-domain encoder restart exists, so retain a
+conservative48h scheduler window and preserve completed phases/output/profiles.
+Submit and hand off immediately; user will ping after jobs finish.

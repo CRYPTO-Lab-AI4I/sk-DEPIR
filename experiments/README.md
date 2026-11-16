@@ -60,6 +60,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Full s17 CPU/GPU encoding](s17-full-encoding/report.md): same verified code and
+  database, frozen source, full mathematical/output checks and separate profiled
+  load/setup/encoding/packed-output phases; first full results pending.
+
 - [Resident GPU client encoding](gpu-code-encoding/report.md): shared CPU/GPU
   schedule, explicit same-node resident code/workspaces, width/ownership/cap
   checks and bounded Go/CPU/CUDA-sanitizer validation (pending).

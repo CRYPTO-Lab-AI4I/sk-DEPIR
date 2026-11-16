@@ -1,0 +1,7 @@
+# SCALING-090 — full s17 CPU and GPU encoding
+
+UTC: 2026-11-16T23:14:49.855953+00:00; agent: Codex; status: started.
+
+User explicitly requests both full encoding jobs after verified preprocessing75832 and boundedGPU76426. Prepare two independent guarded resident fast-mode runs consuming exact verified canonical file, same seeded input, per-phase profiles/progress, full systematic checks, independent sampled curves, canonical hash and retained34GiB tight output. No new preprocessing or slower memory mode. Reuse existing native/optionalGPU APIs; shared experiment probe for both. New experiment `experiments/s17-full-encoding/` with immutable Git source revision at execution to avoid dirty snapshot problem. Separate load/setup/encode/verification/pack/readback timings.
+
+Proposed admissions within previously approved full-run upper ceilings perjob:CPU32workers/768GiBrequest/704GiBRSS/640GiBGo,noGPU;GPU32workers/384GiBrequest/320GiBRSS/288GiBGo,4H200112GiB percard. Each64GiB new retained output/log/profile,16GiB scratch,48hSlurm/47hcontroller/46hworker; combined outputs128GiB below prior512GiB retained envelope. Explicit guards and profile flush. Feasibility models~427GiB CPU/~221GiB GPUhost/~398.457GiB device; runtime unknown. No existing jobs changed or monitored; submit then hand off. Keep source/result/README/scaling references precise about admission versus unmeasured full client success.

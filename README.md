@@ -82,7 +82,9 @@ executor. It consumes the same verified data as CPU encoding, with explicit
 same-node devices and resident constants. Source supports s17; bounded1/2/4GPU
 runtime validation passes76426 ([experiment](experiments/gpu-code-encoding/report.md)).
 CPU/CUDA-free builds and legacy s≤16 GPU defaults remain unchanged. No fulls17
-GPU encoding result or speedup is claimed.
+GPU encoding result or speedup is claimed. [Full s17 CPU/GPU encoding jobs](experiments/s17-full-encoding/report.md)
+are being prepared from the verified cache, with separate setup/encoding/check/
+packed-output timings; full results remain pending.
 
 A [bounded HPC table-gap batch](experiments/encoding-table/report.md) measures
 22 missing encoding-mode cells at s10/14/15/16 using retained preprocessing.

@@ -1,0 +1,115 @@
+{
+  "status": "passed local bounded preparation checks; full jobs unrun",
+  "utc": "2026-11-16T23:20:49.539101+00:00",
+  "base_revision": "1d3e56b271d19ad843a72bf52ffb69133c31eec2",
+  "commands": [
+    "run.py cpu --check; run.py gpu --check (metadata/admission only)",
+    "test_runner.py:2 tests passed",
+    "Go overlay liftrs_cpp test-binary build passed",
+    "Go overlay liftrs_cpp,liftrs_cuda test-binary build passed (before final directory-fsync-only probe change)",
+    "Go overlay liftrs_cpp vet passed",
+    "TestFullEncodingProbeSmoke passed:17-bit packing/independent packer,corruption rejection,true34-bit fixed-step check",
+    "TestFullS17Encoding passed on s4 CPU:9profiled phases,Go whole-word oracle/systematic/curves/hash/pack/disk-readback",
+    "bash -n both sbatch scripts;git diff --check passed"
+  ],
+  "local_binary": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-full-encoding-local.test",
+  "source_sha256": {
+    "experiments/s17-full-encoding/analyze.py": "0aa1551e84ae2f0b8c062f094eea67391ce94e3d515c518092ca43ec3547ad4d",
+    "experiments/s17-full-encoding/cpu.sbatch": "21c2ab25845f75402f4f02f1daccf8ff28d975f5c03c9d449a7fbea3730a4251",
+    "experiments/s17-full-encoding/gpu.sbatch": "e5393f179d1f8ad950ff2f8cfd533ea22128cb36bf7524269710aff6f7dbfd25",
+    "experiments/s17-full-encoding/probe.go.txt": "fe2b8588ce58afc6dd43c3cce983d0c64733effc86d2d54ae23fc9f79f35d91b",
+    "experiments/s17-full-encoding/run.py": "41039301091dea587f52fcdfd1a1c098a70dfbaed899a8eb2a06574dd1908d11",
+    "experiments/s17-full-encoding/test_runner.py": "33f26f34db16c24dc500b93ad3c4ef35492d19cae1349ad25e01bcc17eae6c80"
+  },
+  "evidence_sha256": {
+    "local-final-fixture.log": "43d6b812ca85fc3e80b2933c1f2509f46203bf5480d1699b0b4ac2d37c970ddc",
+    "local-final-pipeline.log": "b655ce60792cb922c8578015de4ac9b04208c4ae9d7263dfb33bfc26aab13736",
+    "local-fixture.log": "18393fa2bc501ffde28e4d47aad77381067fe82e68435c6990c9a0b1211ed419",
+    "local-pipeline.log": "994cdcf31d710fbecb0e2f9f39e581cf97a7768fd616abd320771673b6224e57",
+    "local-sealed-fixture.log": "dc7d602a0fc6034f9f0020f5df3ee17fd61284571cdfd6d752995d7fa5fadd84",
+    "local-sealed-pipeline.log": "e26c5a3bca8805628f9bcd85eed00064c57083d07e32b1a46b4151a2be60e6e6"
+  },
+  "fixture_and_profiles": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-full-encoding/local-check/sealed-fixture",
+  "smoke_phases": {
+    "database": {
+      "array_bytes": 148,
+      "profiled": true,
+      "seconds": 0.000880813,
+      "seed": 71
+    },
+    "encoder-setup": {
+      "profiled": true,
+      "resources": {
+        "PrefixElements": 128,
+        "ArenaElements": 256,
+        "WorkspaceBytes": 4244,
+        "OutputBackingBytes": 2048,
+        "TransientBytes": 4
+      },
+      "seconds": 0.00512672
+    },
+    "encoding": {
+      "native": {
+        "Native": 9478619,
+        "Taylor": 800786,
+        "Columns": 261608,
+        "Rows": 256647,
+        "Buffer": 962,
+        "Pointwise": 15203,
+        "Assembly": 2110,
+        "Calls": 5,
+        "OutputBackingBytes": 2048,
+        "TransientBytes": 4
+      },
+      "profiled": true,
+      "resources": {
+        "PrefixElements": 128,
+        "ArenaElements": 256,
+        "WorkspaceBytes": 4244,
+        "OutputBackingBytes": 2048,
+        "TransientBytes": 4
+      },
+      "seconds": 0.009523323
+    },
+    "load-code": {
+      "profiled": true,
+      "seconds": 0.01609668,
+      "source_bytes": 1201,
+      "source_sha256": "ebfc56c7bfac632e32c2f3eade2ad7224939c2e17ba119788c753c991761c38c"
+    },
+    "pack-output": {
+      "bytes": 128,
+      "path": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-full-encoding/local-check/sealed-fixture/cpu/word-packed.bin",
+      "profiled": true,
+      "seconds": 0.051781529,
+      "sha256": "e96819451eef512c8b7d333be8ded033cc1cfc40fdc5052a773bd3f1b29c7ca4"
+    },
+    "readback-packed": {
+      "full_digest": "e96819451eef512c8b7d333be8ded033cc1cfc40fdc5052a773bd3f1b29c7ca4",
+      "positions": 1027,
+      "profiled": true,
+      "seconds": 0.001946761
+    },
+    "verify-canonical": {
+      "canonical_bytes": 1024,
+      "profiled": true,
+      "seconds": 3.3005e-05,
+      "sha256": "b7388cb5ad77136651392482d77edc2734974513deddb1196d16b3770e7ad8b2"
+    },
+    "verify-curves": {
+      "curves": 16,
+      "profiled": true,
+      "seconds": 0.010092903,
+      "seed": 1604
+    },
+    "verify-systematic": {
+      "profiled": true,
+      "seconds": 0.000842237,
+      "symbols": 37
+    }
+  },
+  "limits": [
+    "No full domain locally allocated; GPU runtime smoke is inside scheduled job.",
+    "First full times are profiled/logged, not an unprofiled speedup baseline."
+  ]
+}

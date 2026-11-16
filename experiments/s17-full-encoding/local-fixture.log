@@ -1,0 +1,16 @@
+=== RUN   TestFullEncodingProbeSmoke
+{"completed":1,"elapsed_seconds":9.24e-7,"event":"progress","phase":"pack-output","total":1,"unit":"elements","utc":"2026-11-16T23:16:35.53378728Z"}
+{"completed":1,"elapsed_seconds":0.000582583,"event":"progress","phase":"readback-packed","total":1,"unit":"bytes","utc":"2026-11-16T23:16:35.536798521Z"}
+{"completed":1,"elapsed_seconds":0.000606032,"event":"progress","phase":"readback-packed","total":1,"unit":"bytes","utc":"2026-11-16T23:16:35.536821333Z"}
+{"completed":3,"elapsed_seconds":7.54e-7,"event":"progress","phase":"pack-output","total":3,"unit":"elements","utc":"2026-11-16T23:16:35.539194401Z"}
+{"completed":2,"elapsed_seconds":0.000421887,"event":"progress","phase":"readback-packed","total":2,"unit":"bytes","utc":"2026-11-16T23:16:35.542219882Z"}
+{"completed":2,"elapsed_seconds":0.00043841,"event":"progress","phase":"readback-packed","total":2,"unit":"bytes","utc":"2026-11-16T23:16:35.542236053Z"}
+{"completed":256,"elapsed_seconds":0.000001323,"event":"progress","phase":"pack-output","total":256,"unit":"elements","utc":"2026-11-16T23:16:35.54509438Z"}
+{"completed":128,"elapsed_seconds":0.000388203,"event":"progress","phase":"readback-packed","total":128,"unit":"bytes","utc":"2026-11-16T23:16:35.548098517Z"}
+{"completed":128,"elapsed_seconds":0.000404438,"event":"progress","phase":"readback-packed","total":128,"unit":"bytes","utc":"2026-11-16T23:16:35.548114371Z"}
+{"completed":256,"elapsed_seconds":0.000003389,"event":"progress","phase":"pack-output","total":256,"unit":"elements","utc":"2026-11-16T23:16:35.550621617Z"}
+{"completed":128,"elapsed_seconds":0.000444714,"event":"progress","phase":"readback-packed","total":128,"unit":"bytes","utc":"2026-11-16T23:16:35.554163336Z"}
+{"completed":128,"elapsed_seconds":0.000464308,"event":"progress","phase":"readback-packed","total":128,"unit":"bytes","utc":"2026-11-16T23:16:35.55418198Z"}
+{"completed":37,"elapsed_seconds":0.000032194,"event":"progress","phase":"verify-systematic","total":37,"unit":"symbols","utc":"2026-11-16T23:16:35.554263669Z"}
+--- PASS: TestFullEncodingProbeSmoke (0.04s)
+PASS

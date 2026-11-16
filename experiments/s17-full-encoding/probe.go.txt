@@ -1,0 +1,642 @@
+//go:build liftrs_cpp && cgo
+
+// This experiment-only probe is copied unchanged into the shared package for
+// CPU/GPU builds. All production encoding remains in the existing public APIs.
+package liftrs
+
+import (
+	"bufio"
+	"bytes"
+	"crypto/sha256"
+	"encoding/binary"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"io"
+	"math/rand"
+	"os"
+	"os/signal"
+	"path/filepath"
+	"runtime"
+	"runtime/pprof"
+	"sync"
+	"sync/atomic"
+	"syscall"
+	"testing"
+	"time"
+)
+
+type fullEncodingConfig struct {
+	Code, Digest, Cache, Backend, Library string
+	Devices                               []int
+	S, T, Workers                         int
+	MaxPayload, Workspace, DeviceCap      uint64
+	Smoke                                 bool
+}
+
+type fullEncodingProgress struct {
+	phase, unit string
+	total       uint64
+	done        atomic.Uint64
+	last        time.Time
+	began       time.Time
+}
+
+func fullEncodingEvent(phase, event string, done, total uint64, unit string, fields map[string]any) {
+	row := map[string]any{"utc": time.Now().UTC().Format(time.RFC3339Nano), "phase": phase, "event": event, "completed": done, "total": total, "unit": unit}
+	for k, v := range fields {
+		row[k] = v
+	}
+	_ = json.NewEncoder(os.Stdout).Encode(row)
+}
+func (p *fullEncodingProgress) advance(n uint64) {
+	done := p.done.Add(n)
+	// Called by the single coordinating thread; workers only update done below.
+	if time.Since(p.last) >= 30*time.Second || done == p.total {
+		fullEncodingEvent(p.phase, "progress", done, p.total, p.unit, map[string]any{"elapsed_seconds": time.Since(p.began).Seconds()})
+		p.last = time.Now()
+	}
+}
+
+type fullEncodingReader struct {
+	io.Reader
+	p *fullEncodingProgress
+}
+
+func (r fullEncodingReader) Read(b []byte) (int, error) {
+	n, e := r.Reader.Read(b)
+	r.p.advance(uint64(n))
+	return n, e
+}
+
+type fullEncodingProbe struct {
+	t      *testing.T
+	cfg    fullEncodingConfig
+	phases map[string]any
+	start  time.Time
+}
+
+func (p *fullEncodingProbe) save() {
+	raw, err := json.MarshalIndent(map[string]any{"config": p.cfg, "phases": p.phases, "elapsed_seconds": time.Since(p.start).Seconds()}, "", "  ")
+	if err != nil {
+		p.t.Fatal(err)
+	}
+	path := filepath.Join(p.cfg.Cache, "phases.json.tmp")
+	if err = os.WriteFile(path, append(raw, '\n'), 0600); err != nil {
+		p.t.Fatal(err)
+	}
+	if err = os.Rename(path, filepath.Join(p.cfg.Cache, "phases.json")); err != nil {
+		p.t.Fatal(err)
+	}
+}
+func (p *fullEncodingProbe) phase(name string, fn func() (map[string]any, error)) {
+	p.t.Helper()
+	profile, err := os.OpenFile(filepath.Join(p.cfg.Cache, name+".pprof"), os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
+	if err != nil {
+		p.t.Fatal(err)
+	}
+	if err = pprof.StartCPUProfile(profile); err != nil {
+		p.t.Fatal(err)
+	}
+	fullEncodingEvent(name, "started", 0, 1, "operations", nil)
+	began := time.Now()
+	values, err := fn()
+	seconds := time.Since(began).Seconds()
+	pprof.StopCPUProfile()
+	closeErr := profile.Close()
+	if err == nil {
+		err = closeErr
+	}
+	if values == nil {
+		values = map[string]any{}
+	}
+	values["seconds"] = seconds
+	values["profiled"] = true
+	if err != nil {
+		values["error"] = err.Error()
+		p.phases[name] = values
+		p.save()
+		fullEncodingEvent(name, "failed", 0, 1, "operations", values)
+		p.t.Fatal(err)
+	}
+	p.phases[name] = values
+	p.save()
+	fullEncodingEvent(name, "completed", 1, 1, "operations", values)
+}
+func newFullProgress(phase, unit string, total uint64) *fullEncodingProgress {
+	return &fullEncodingProgress{phase: phase, unit: unit, total: total, last: time.Now(), began: time.Now()}
+}
+
+// Every lookup entry is derived from independent scalar tower arithmetic. The
+// fixed public omega map makes a complete systematic scan practical without an
+// N-element coordinate table or billions of scalar carryless multiplications.
+func fullFixedStep(f wideOrbitField, omega uint64) func(uint64) uint64 {
+	digits := (2*int(f.shift) + 3) / 4
+	table := make([][16]uint64, digits)
+	for d := range table {
+		for v := range table[d] {
+			table[d][v] = f.mul(uint64(v)<<uint(4*d), omega)
+		}
+	}
+	return func(x uint64) uint64 {
+		var y uint64
+		for d := 0; d < digits; d++ {
+			y ^= table[d][x&15]
+			x >>= 4
+		}
+		return y
+	}
+}
+func fullSystematicCheck(d *ScalingCodeData, message, word []uint32, workers int) error {
+	const block = 1 << 18
+	total := (len(message) + block - 1) / block
+	progress := newFullProgress("verify-systematic", "symbols", uint64(len(message)))
+	var next atomic.Int64
+	var failed atomic.Bool
+	var wg sync.WaitGroup
+	step := fullFixedStep(d.field, d.header.Omega)
+	for w := 0; w < workers; w++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for {
+				job := int(next.Add(1) - 1)
+				if job >= total {
+					return
+				}
+				first := job * block
+				end := min(first+block, len(message))
+				point := d.field.pow(d.header.Omega, uint64(first)+1)
+				for i := first; i < end; i++ {
+					if word[point] != message[i] {
+						failed.Store(true)
+					}
+					point = step(point)
+				}
+				progress.done.Add(uint64(end - first))
+			}
+		}()
+	}
+	stopped := make(chan struct{})
+	go func() { wg.Wait(); close(stopped) }()
+	ticker := time.NewTicker(30 * time.Second)
+	defer ticker.Stop()
+	for {
+		select {
+		case <-stopped:
+			fullEncodingEvent(progress.phase, "progress", progress.done.Load(), progress.total, progress.unit, map[string]any{"elapsed_seconds": time.Since(progress.began).Seconds()})
+			if failed.Load() {
+				return fmt.Errorf("systematic coordinate mismatch")
+			}
+			return nil
+		case <-ticker.C:
+			fullEncodingEvent(progress.phase, "progress", progress.done.Load(), progress.total, progress.unit, map[string]any{"elapsed_seconds": time.Since(progress.began).Seconds()})
+		}
+	}
+}
+
+// The scalar curve checker uses carryless base multiplication independent of the
+// native CPU/GPU kernels. A degree-t polynomial on GF(2^s) has zero field sum
+// for these t<q-1 codes. Sixteen fixed random degree-t curves retain prior method.
+func fullCurveCheck(h ScalingCodeHeader, word []uint32) error {
+	s := h.Spec.FieldDegree
+	q := uint32(1) << uint(s)
+	mul := func(a, b uint32) uint32 {
+		var product uint64
+		for j := 0; j < s; j++ {
+			if b&(1<<uint(j)) != 0 {
+				product ^= uint64(a) << uint(j)
+			}
+		}
+		for j := 2*s - 2; j >= s; j-- {
+			if product&(1<<uint(j)) != 0 {
+				product ^= uint64(h.Polynomial) << uint(j-s)
+			}
+		}
+		return uint32(product)
+	}
+	random := rand.New(rand.NewSource(1604))
+	for trial := 0; trial < 16; trial++ {
+		var curves [2][]uint32
+		for axis := range curves {
+			curves[axis] = make([]uint32, h.Spec.CurveDegree+1)
+			for j := range curves[axis] {
+				curves[axis][j] = uint32(random.Intn(int(q)))
+			}
+		}
+		var sum uint32
+		for z := uint32(0); z < q; z++ {
+			var point [2]uint32
+			for axis := range curves {
+				for j := h.Spec.CurveDegree; j >= 0; j-- {
+					point[axis] = mul(point[axis], z) ^ curves[axis][j]
+				}
+			}
+			sum ^= word[uint64(point[0])+uint64(q)*uint64(point[1])]
+		}
+		if sum != 0 {
+			return fmt.Errorf("curve restriction mismatch at trial%d", trial)
+		}
+		fullEncodingEvent("verify-curves", "progress", uint64(trial+1), 16, "curves", nil)
+	}
+	return nil
+}
+
+func fullWordHash(word []uint32, s int) (string, error) {
+	hash := sha256.New()
+	var block [65536]byte
+	progress := newFullProgress("verify-canonical", "elements", uint64(len(word)))
+	for first := 0; first < len(word); {
+		take := min(len(block)/4, len(word)-first)
+		for j, v := range word[first : first+take] {
+			if v >= uint32(1)<<uint(s) {
+				return "", fmt.Errorf("word outside base field")
+			}
+			binary.LittleEndian.PutUint32(block[4*j:], v)
+		}
+		_, _ = hash.Write(block[:take*4])
+		first += take
+		progress.advance(uint64(take))
+	}
+	return hex.EncodeToString(hash.Sum(nil)), nil
+}
+
+func fullPack(word []uint32, s int, path string) (string, uint64, error) {
+	f, err := os.OpenFile(path+".tmp", os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
+	if err != nil {
+		return "", 0, err
+	}
+	defer f.Close()
+	hash := sha256.New()
+	writer := bufio.NewWriterSize(io.MultiWriter(f, hash), 1<<20)
+	var block [65536]byte
+	used := 0
+	var acc uint64
+	bits := uint(0)
+	var written uint64
+	flush := func() error {
+		if used == 0 {
+			return nil
+		}
+		n, e := writer.Write(block[:used])
+		written += uint64(n)
+		used = 0
+		return e
+	}
+	progress := newFullProgress("pack-output", "elements", uint64(len(word)))
+	for first := 0; first < len(word); first += 65536 {
+		end := min(first+65536, len(word))
+		for _, v := range word[first:end] {
+			if v >= uint32(1)<<uint(s) {
+				return "", written, fmt.Errorf("packed value outside field")
+			}
+			acc |= uint64(v) << bits
+			bits += uint(s)
+			for bits >= 8 {
+				block[used] = byte(acc)
+				used++
+				acc >>= 8
+				bits -= 8
+				if used == len(block) {
+					if err = flush(); err != nil {
+						return "", written, err
+					}
+				}
+			}
+		}
+		progress.advance(uint64(end - first))
+	}
+	if bits != 0 {
+		block[used] = byte(acc)
+		used++
+	}
+	if err = flush(); err != nil {
+		return "", written, err
+	}
+	if err = writer.Flush(); err != nil {
+		return "", written, err
+	}
+	if err = f.Sync(); err != nil {
+		return "", written, err
+	}
+	if err = f.Close(); err != nil {
+		return "", written, err
+	}
+	if err = os.Rename(path+".tmp", path); err != nil {
+		return "", written, err
+	}
+	directory, err := os.Open(filepath.Dir(path))
+	if err != nil {
+		return "", written, err
+	}
+	syncErr := directory.Sync()
+	closeErr := directory.Close()
+	if syncErr != nil {
+		return "", written, syncErr
+	}
+	if closeErr != nil {
+		return "", written, closeErr
+	}
+	return hex.EncodeToString(hash.Sum(nil)), written, nil
+}
+func fullPackedReadback(path, digest string, word []uint32, s int) error {
+	f, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	stat, err := f.Stat()
+	if err != nil {
+		return err
+	}
+	expected := (uint64(len(word))*uint64(s) + 7) / 8
+	if uint64(stat.Size()) != expected {
+		return fmt.Errorf("packed size mismatch")
+	}
+	hash := sha256.New()
+	progress := newFullProgress("readback-packed", "bytes", expected)
+	if _, err = io.CopyBuffer(hash, fullEncodingReader{f, progress}, make([]byte, 1<<20)); err != nil {
+		return err
+	}
+	if hex.EncodeToString(hash.Sum(nil)) != digest {
+		return fmt.Errorf("packed disk digest mismatch")
+	}
+	random := rand.New(rand.NewSource(1605))
+	positions := []int{0, len(word) / 2, len(word) - 1}
+	for i := 0; i < 1024; i++ {
+		positions = append(positions, random.Intn(len(word)))
+	}
+	for _, index := range positions {
+		bit := uint64(index) * uint64(s)
+		need := int((bit%8 + uint64(s) + 7) / 8)
+		var buf [4]byte
+		if _, err = f.ReadAt(buf[:need], int64(bit/8)); err != nil {
+			return err
+		}
+		value := binary.LittleEndian.Uint32(buf[:]) >> uint(bit%8) & ((1 << uint(s)) - 1)
+		if value != word[index] {
+			return fmt.Errorf("packed position mismatch")
+		}
+	}
+	return nil
+}
+
+func TestFullS17Encoding(t *testing.T) {
+	configPath := os.Getenv("PIR_S17_ENCODING_CONFIG")
+	if configPath == "" {
+		t.Skip("explicit guarded experiment config required")
+	}
+	raw, err := os.ReadFile(configPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var cfg fullEncodingConfig
+	if err = json.Unmarshal(raw, &cfg); err != nil {
+		t.Fatal(err)
+	}
+	if cfg.S != 17 && !cfg.Smoke || cfg.Smoke && cfg.S != 4 || cfg.Workers < 1 || cfg.Workers > 32 || cfg.Cache == "" {
+		t.Fatal("bounded code/worker config")
+	}
+	if err = os.MkdirAll(cfg.Cache, 0700); err != nil {
+		t.Fatal(err)
+	}
+	signals := make(chan os.Signal, 1)
+	signal.Notify(signals, syscall.SIGTERM, os.Interrupt)
+	defer signal.Stop(signals)
+	stopped := make(chan struct{})
+	defer close(stopped)
+	go func() {
+		select {
+		case <-signals:
+			pprof.StopCPUProfile()
+			fullEncodingEvent("workflow", "terminated", 0, 1, "operations", nil)
+			os.Exit(143)
+		case <-stopped:
+		}
+	}()
+	probe := &fullEncodingProbe{t: t, cfg: cfg, phases: map[string]any{}, start: time.Now()}
+	var code *ScalingCodeData
+	probe.phase("load-code", func() (map[string]any, error) {
+		f, e := os.Open(cfg.Code)
+		if e != nil {
+			return nil, e
+		}
+		defer f.Close()
+		stat, e := f.Stat()
+		if e != nil {
+			return nil, e
+		}
+		var err error
+		code, err = LoadScalingCode(fullEncodingReader{f, newFullProgress("load-code", "bytes", uint64(stat.Size()))}, cfg.Digest, ScalingCodeLimits{1 << uint(2*cfg.S), cfg.MaxPayload})
+		return map[string]any{"source_sha256": cfg.Digest, "source_bytes": stat.Size()}, err
+	})
+	h := code.Header()
+	if h.Spec.FieldDegree != cfg.S || h.Spec.CurveDegree != cfg.T {
+		t.Fatal("unexpected loaded code")
+	}
+	if !cfg.Smoke && (h.K != 3876566203 || h.N != 1<<34) {
+		t.Fatal("unexpected full cardinality")
+	}
+	var message []uint32
+	probe.phase("database", func() (map[string]any, error) {
+		message = make([]uint32, int(h.K))
+		random := rand.New(rand.NewSource(71))
+		progress := newFullProgress("database", "values", h.K)
+		for first := 0; first < len(message); first += 65536 {
+			end := min(first+65536, len(message))
+			for j := first; j < end; j++ {
+				message[j] = uint32(random.Intn(1 << uint(cfg.S)))
+			}
+			progress.advance(uint64(end - first))
+		}
+		return map[string]any{"seed": 71, "array_bytes": h.K * 4}, nil
+	})
+	var encode func() ([]uint32, map[string]any, error)
+	var closeEncoder func()
+	probe.phase("encoder-setup", func() (map[string]any, error) {
+		if cfg.Backend == "cpu" {
+			cpu, e := code.WithWideCPP(cfg.Workers)
+			if e != nil {
+				return nil, e
+			}
+			closeEncoder = func() { _ = cpu.Close() }
+			resources := cpu.Resources()
+			work, e := cpu.NewWorkspace(cfg.Workspace)
+			if e != nil {
+				closeEncoder()
+				return nil, e
+			}
+			encode = func() ([]uint32, map[string]any, error) {
+				word, stats, e := cpu.EncodeWithStats(message, work)
+				return word, map[string]any{"native": stats, "resources": resources}, e
+			}
+			return map[string]any{"resources": resources}, nil
+		}
+		if cfg.Backend != "gpu" {
+			return nil, fmt.Errorf("explicit cpu/gpu backend required")
+		}
+		gpu, e := code.WithCUDA(CUDACodeOptions{LibraryPath: cfg.Library, Devices: cfg.Devices, DeviceMemoryLimit: cfg.DeviceCap, VectorLayout: "local"})
+		if e != nil {
+			return nil, e
+		}
+		closeEncoder = func() { _ = gpu.Close() }
+		encode = func() ([]uint32, map[string]any, error) {
+			word, stats, e := gpu.EncodeWithStats(message)
+			return word, map[string]any{"native": stats}, e
+		}
+		resources, _ := code.CUDAResources(len(cfg.Devices))
+		return map[string]any{"device_owned_bytes": gpu.OwnedBytes(), "array_model": resources}, nil
+	})
+	defer closeEncoder()
+	var word []uint32
+	probe.phase("encoding", func() (map[string]any, error) {
+		var values map[string]any
+		var e error
+		word, values, e = encode()
+		return values, e
+	})
+	if uint64(len(word)) != h.N {
+		t.Fatal("returned word length")
+	}
+	probe.phase("verify-systematic", func() (map[string]any, error) {
+		return map[string]any{"symbols": h.K}, fullSystematicCheck(code, message, word, cfg.Workers)
+	})
+	probe.phase("verify-curves", func() (map[string]any, error) {
+		return map[string]any{"curves": 16, "seed": 1604}, fullCurveCheck(h, word)
+	})
+	var canonical string
+	probe.phase("verify-canonical", func() (map[string]any, error) {
+		var e error
+		canonical, e = fullWordHash(word, cfg.S)
+		return map[string]any{"sha256": canonical, "canonical_bytes": h.N * 4}, e
+	})
+	if cfg.Smoke {
+		_, reference := wideCodeFixture(t, h.Spec)
+		expected, e := reference.Encode(message, reference.NewWorkspace())
+		if e != nil || !reflectFullWord(word, expected) {
+			t.Fatal("independent Go smoke output", e)
+		}
+	}
+	packed := filepath.Join(cfg.Cache, "word-packed.bin")
+	var digest string
+	var packedBytes uint64
+	probe.phase("pack-output", func() (map[string]any, error) {
+		var e error
+		digest, packedBytes, e = fullPack(word, cfg.S, packed)
+		return map[string]any{"sha256": digest, "bytes": packedBytes, "path": packed}, e
+	})
+	probe.phase("readback-packed", func() (map[string]any, error) {
+		return map[string]any{"positions": 1027, "full_digest": digest}, fullPackedReadback(packed, digest, word, cfg.S)
+	})
+	fullEncodingEvent("workflow", "completed", 1, 1, "operations", map[string]any{"canonical_sha256": canonical, "packed_sha256": digest, "packed_bytes": packedBytes, "n": h.N, "k": h.K})
+	runtime.KeepAlive(code)
+}
+func reflectFullWord(a, b []uint32) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i, v := range a {
+		if b[i] != v {
+			return false
+		}
+	}
+	return true
+}
+
+func TestFullEncodingProbeSmoke(t *testing.T) {
+	dir := os.Getenv("PIR_S17_SMOKE_CACHE")
+	if dir == "" {
+		t.Skip("explicit retained smoke fixture")
+	}
+	if err := os.MkdirAll(dir, 0700); err != nil {
+		t.Fatal(err)
+	}
+	code, plan := wideCodeFixture(t, Spec{4, 2, 3})
+	var data bytes.Buffer
+	if err := WriteScalingCode(&data, code); err != nil {
+		t.Fatal(err)
+	}
+	path := filepath.Join(dir, "online.bin")
+	if err := os.WriteFile(path, data.Bytes(), 0600); err != nil {
+		t.Fatal(err)
+	}
+	cfg := fullEncodingConfig{Code: path, Digest: codeDigest(data.Bytes()), Cache: filepath.Join(dir, "cpu"), Backend: "cpu", S: 4, T: 3, Workers: 2, MaxPayload: 1 << 20, Workspace: 1 << 20, Smoke: true}
+	raw, _ := json.MarshalIndent(cfg, "", "  ")
+	if err := os.WriteFile(filepath.Join(dir, "cpu.json"), raw, 0600); err != nil {
+		t.Fatal(err)
+	}
+	message := make([]uint32, plan.Dimension())
+	random := rand.New(rand.NewSource(71))
+	for i := range message {
+		message[i] = uint32(random.Intn(16))
+	}
+	expected, err := plan.Encode(message, plan.NewWorkspace())
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Compare the new experiment packer with the established canonical packer,
+	// including a non-byte-aligned prefix, and require negative corruption checks.
+	for _, size := range []int{1, 3, len(expected)} {
+		var reference bytes.Buffer
+		_, want, e := writeCanonicalPacked(&reference, expected[:size], 4)
+		if e != nil {
+			t.Fatal(e)
+		}
+		file := filepath.Join(dir, fmt.Sprintf("pack-%d.bin", size))
+		got, n, e := fullPack(expected[:size], 4, file)
+		if e != nil || got != want || int(n) != reference.Len() {
+			t.Fatal("packer", e)
+		}
+		if e = fullPackedReadback(file, got, expected[:size], 4); e != nil {
+			t.Fatal(e)
+		}
+	}
+	// Exercise actual17-bit byte crossings separately from small-code arithmetic.
+	for _, degree := range []int{4, 17} {
+		values := make([]uint32, 257)
+		r := rand.New(rand.NewSource(170090))
+		for i := range values {
+			values[i] = uint32(r.Intn(1 << uint(degree)))
+		}
+		for _, size := range []int{1, 3, 33, 257} {
+			var reference bytes.Buffer
+			_, want, e := writeCanonicalPacked(&reference, values[:size], degree)
+			if e != nil {
+				t.Fatal(e)
+			}
+			file := filepath.Join(dir, fmt.Sprintf("slots-%d-%d.bin", degree, size))
+			got, n, e := fullPack(values[:size], degree, file)
+			if e != nil || got != want || int(n) != reference.Len() {
+				t.Fatal("variable-width packed byte identity", degree, size, e)
+			}
+			if e = fullPackedReadback(file, got, values[:size], degree); e != nil {
+				t.Fatal(e)
+			}
+		}
+	}
+	h, f, e := canonicalScalingCodeHeader(17, 5, 1, 1<<34)
+	if e != nil {
+		t.Fatal(e)
+	}
+	step := fullFixedStep(f, h.Omega)
+	for _, value := range []uint64{0, 1, 1 << 32, (1 << 33) + 123, (1 << 34) - 1} {
+		if step(value) != f.mul(value, h.Omega) {
+			t.Fatal("fixed coordinate step", value)
+		}
+	}
+	changed := append([]uint32(nil), expected...)
+	changed[0] ^= 1
+	digest, _, err := fullPack(expected, 4, filepath.Join(dir, "corruption.bin"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = fullPackedReadback(filepath.Join(dir, "corruption.bin"), digest, changed, 4); err == nil {
+		t.Fatal("bad packed position accepted")
+	}
+	point, _ := code.SystematicPosition(0)
+	changed = append([]uint32(nil), expected...)
+	changed[point] ^= 1
+	if err = fullSystematicCheck(code, message, changed, 2); err == nil {
+		t.Fatal("bad systematic symbol accepted")
+	}
+}

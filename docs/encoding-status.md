@@ -636,3 +636,15 @@ reconciles544source (three unrelated exact review-script snapshots explicitly
 qualified),47evidence/76cache identities. GPU integration correctness gate is
 complete; fulls17 encoding/time/peak/packed-output rows remain unmeasured. No
 large-client job admission or runtime estimate follows from these small tests.
+
+## Full s17 encoding launch plan (SCALING-090)
+
+[CPU/GPU full-run recipe](../experiments/s17-full-encoding/report.md) uses the
+verified75832 code and common seed71 database, with immutable committed sources.
+CPU32workers/768GiB RAM request/noGPU; GPU32workers/384GiB host and4H200112GiB
+owned cap/card. Each has64GiB new output/log/profile storage,16GiB scratch and
+48hSlurm limit. Both select fast resident layouts, no implicit memory-time trade.
+One full encode each, all systematic symbols,16independent curves, full canonical
+hash and34GiB tight packed output with full disk digest/readback. All timings are
+profiled and separate load/setup/encode/check/output boundaries. No full result
+or new table timing is claimed until completion and evidence reconciliation.
