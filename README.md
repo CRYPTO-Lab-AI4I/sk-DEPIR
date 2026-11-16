@@ -644,4 +644,5 @@ checks/defaults are unchanged. A count is not certified support or prepared code
 The [full s17 launch configuration](experiments/gpu-s17-full-preprocessing/report.md)
 is prepared with explicit resource/time/checkpoint guards and advancing long
 host-scan counters. Independent reference/progress/controller checks pass; it is
-not approved/submitted. Full peak memory and latency remain unmeasured.
+approved for the first guarded local-layout trial. Full peak memory and latency
+remain unmeasured until the job completes and its evidence is reviewed.

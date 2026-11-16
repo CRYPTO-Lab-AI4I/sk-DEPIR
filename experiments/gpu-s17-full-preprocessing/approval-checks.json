@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "utc": "2026-11-16T10:16:06.350286+00:00",
+  "checks": [
+    "run.py --check: approved=True; no allocation/launch",
+    "test_controller.py passes approved plan/invalid budget/log-tail checks; original unapproved refusal check retained in historical evidence",
+    "bash -n run.sbatch",
+    "git diff --check"
+  ],
+  "source_sha256": {
+    "experiments/gpu-s17-full-preprocessing/budget.json": "710277cee12ced2870817f92add36cbb58324b6cd3438fb420c99880b930a538",
+    "experiments/gpu-s17-full-preprocessing/run.py": "f2ac40d48de8faffd4d283e22c4abb8b56adb41efb33c6f6b6fffeced53eea06",
+    "experiments/gpu-s17-full-preprocessing/run.sbatch": "6acb7f39c2dc7084fc0664a3bb55bbf4b5356951749fceb5e00dd34dabf30923",
+    "experiments/gpu-s17-full-preprocessing/test_controller.py": "77d3c3f3025bfca73602a623b2eb490a49152d3ada08988c99b8c6c0ffdfdfa3"
+  },
+  "scope": "approval/configuration only; no numeric budget change or full-runtime validation"
+}

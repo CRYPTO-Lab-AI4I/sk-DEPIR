@@ -1,5 +1,5 @@
 {
-  "status": "prepared; awaiting explicit user resource agreement",
+  "status": "approved; ready for first guarded full trial",
   "purpose": "fulls17,m2,t5 persistent GPU preprocessing; no database encoding",
   "gpu_route": {
     "gpus": 4,
@@ -40,12 +40,13 @@
     "exact counts and complete small workflow validated75810",
     "format-size calculation verified",
     "full controller guards and code checks complete",
-    "explicit user agreement to numeric RAM/storage/exclusive CPU/time budget; peak memory/runtime remain unmeasured"
+    "user directs proceeding with local full trial after numeric budget and trade-off presentation; runtime/peak remain unmeasured"
   ],
-  "no_launch_authorized": true,
-  "approved": false,
-  "approval_note": "",
+  "no_launch_authorized": false,
+  "approved": true,
+  "approval_note": "User: \"ok let's do local then\", following the explicit full numeric budget proposal and local/peer explanation. Proceed with unchanged proposed resources and local layout.",
   "exact_k": 3876566203,
   "n": 17179869184,
-  "vector_layout": "local"
+  "vector_layout": "local",
+  "approved_utc": "2026-11-16T10:15:15.163728+00:00"
 }

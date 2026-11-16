@@ -525,3 +525,9 @@ awaits agreement: exclusive128core node/32workers,864GiB host request,
 4H200112GiB owned/card,512GiB retained/16GiB scratch,48h scheduler cutoff. No full
 job submitted. Defaults and capacity implementation distinctions stay unchanged;
 8/16GPU options need cross-node support and do not imply linear speedup.
+
+The first full s17 local-layout trial is now approved under the concrete
+[experiment budget](../experiments/gpu-s17-full-preprocessing/budget.json):
+4H200112GiBowned/card, exclusive128cores/32workers,864GiBhost request,
+512GiBretained/16GiBscratch,48h scheduler cutoff. Submission is recorded in its
+report; table rows stay unmeasured until completion and evidence review.

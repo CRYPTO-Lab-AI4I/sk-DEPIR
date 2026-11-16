@@ -1,6 +1,6 @@
 # First guarded full s17 GPU preprocessing
 
-Status: configuration prepared, **not approved or submitted**. Exact count and
+Status: **approved for first local-layout full trial; submission follows**. Exact count and
 complete small workflow validation pass job75810; no full s17 support/cache or
 latency exists. [Budget](budget.json) must record explicit user numeric agreement
 before the controller launches. This experiment constructs public preprocessing,
@@ -40,7 +40,7 @@ without a new full pass or large array. GPU progress remains at existing kernel/
 wave boundaries; a long or blocked kernel cannot report subkernel completion.
 Instrumentation/GC overhead is unquantified and included in profiled timings.
 
-## Proposed resource budget (awaiting agreement)
+## Full trial resource budget
 
 | Resource | Proposal |
 |---|---|
@@ -124,3 +124,14 @@ and successful worker verification events; independent post-completion large-fil
 rehashing must be separately submitted as a CPU-only job if required, labeled
 outside preprocessing latency. Failed/unreaped workers are not successful runs.
 Full output cache and timings must not be published as measurements until review.
+
+## Full trial approval (SCALING-083)
+
+After the explicit numeric full resource proposal and local/peer trade-off
+comparison, user directs "ok let's do local then". Budget approval is recorded
+in budget.json for exactly the proposed4H200112GiB/card, exclusive128cores/
+32workers,864GiBhost/800GiBRSS/720GiBGo soft,512GiBretained/16GiBscratch and
+45/46/48-hour worker/controller/scheduler cutoffs. Local is explicit, peer
+library default remains unchanged. Existing historical preparation checks remain
+intact; no-allocation checks are rerun against the approved manifest. Approval
+and submission do not establish a completed s17 cache or measured peak/latency.

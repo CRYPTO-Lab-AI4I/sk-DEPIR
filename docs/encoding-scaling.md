@@ -1900,3 +1900,12 @@ normalization progress added without arithmetic changes/new large arrays;
 independent reference and cross-chunk/controller tests pass. Request full numeric
 agreement only after concrete configuration/reproduction is reviewable. No extra
 tile benchmark or full run during this review.
+
+### Approved first local-layout full trial (SCALING-083)
+
+User directs proceeding with local after numeric resources/trade-off review.
+Use exactly the proposed exclusive node/4H200/864GiBhost/512GiBretained/48h budget,
+recorded in the full experiment budget.json. No fixed node; excludegnode03.
+Configuration checks/commit precede submission, then reportID and yield without
+monitoring. All profiles/checkpoints and partial-stage retention remain active.
+Approval is not measured fulls17 feasibility, completion or a runtime estimate.
