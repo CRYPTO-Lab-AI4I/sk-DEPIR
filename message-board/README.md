@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-16 08:11 | SCHEDULING-001 | Completed | [Job75342 may use accessible eligible nodes](2026-11-16-0811-codex-scheduling-001-completed.md) |
+| 2026-11-16 08:10 | SCHEDULING-001 | Started | [Release fixed-node scheduling restriction](2026-11-16-0810-codex-scheduling-001-started.md) |
 | 2026-11-15 22:47 | SCALING-079 | Handoff | [Persistent workflow retry75342](2026-11-15-2247-codex-scaling-079-handoff.md) |
 | 2026-11-15 22:47 | SCALING-079 | Handoff | [GPU fault review and bounded retry prepared](2026-11-15-2247-codex-scaling-079-prepared.md) |
 | 2026-11-15 22:40 | SCALING-079 | Started | [Review persistent workflow failure](2026-11-15-2240-codex-scaling-079-started.md) |

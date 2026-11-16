@@ -1,0 +1,17 @@
+{
+  "job_id": "75342",
+  "changed_utc": "2026-11-16T08:11:37.766609+00:00",
+  "authorization": "User explicitly permits any accessible node, in response to proposal to release gnode02 pin and exclude faulted gnode03.",
+  "command": "scontrol update JobId=75342 ReqNodeList= ExcNodeList=gnode03",
+  "verified_configuration": {
+    "ReqNodeList": "(null)",
+    "ExcNodeList": "gnode03",
+    "ReqTRES": "cpu=4,mem=8G,node=1,billing=4,gres/gpu=4,gres/gpu:h200=4",
+    "TimeLimit": "00:20:00",
+    "Partition": "gpuq",
+    "NumNodes": 1
+  },
+  "reason": "gnode02 had3of4GPUs allocated; private job visibility hid other allocations. Pin was unnecessary now that peer preflight exists.",
+  "unchanged": "jobID, script/arguments, CPU/host/device/storage/time guards, profiles and result/log/cache locations",
+  "monitoring": "Configuration checked once after authorized update; no log/progress inspection or continuing monitoring."
+}

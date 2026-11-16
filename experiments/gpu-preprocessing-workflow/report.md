@@ -173,3 +173,21 @@ Retry job75342 is submitted ongnode02, source63d0442
 `runs/validation-02/`, `slurm-75342.log`; retained cache/profiles:
 `.cache/liftrs/gpu-preprocessing-workflow/validation-02/`. No monitoring/new-result
 inspection until completion ping; no GPU reset or fulls17 admission.
+
+## Placement update for75342 (SCHEDULING-001)
+
+User authorizes any accessible node. One-time diagnosis foundgnode02's3of4 GPUs
+allocated; PrivateData hides other users' jobs, so an empty visible queue does
+not imply free GPUs. The four-card job was blocked by its explicit node pin.
+Apply `scontrol update JobId=75342 ReqNodeList= ExcNodeList=gnode03`; one-time
+configuration verification confirms no required node, excludedgnode03, same
+4H200/4CPU/8GiB/20-minute request. [Exact update record](scheduling-update.json).
+
+JobID, arguments, resource guards, logs/results/cache locations remain unchanged.
+The initial retry-submission.json retains its historical pinned command; this
+record supersedes placement only. Current reproduction should use
+`sbatch --exclude=gnode03 --output=experiments/gpu-preprocessing-workflow/slurm-%j.log experiments/gpu-preprocessing-workflow/run.sbatch <fresh-name>`.
+Use accessible eligible nodes by default for future work, preserving a documented
+exclusion for unresolved faulty nodes rather than pinning to a busy one. The peer
+preflight checks selected devices before the full suite. No progress/log polling,
+GPU reset or budget increase; await completion ping before result analysis.
