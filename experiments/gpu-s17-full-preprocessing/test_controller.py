@@ -8,12 +8,16 @@ class FullControllerTests(unittest.TestCase):
  def setUp(self):self.plan=json.loads((HERE/'budget.json').read_text())
  def test_plan_and_rejection(self):
   MODULE['validate'](self.plan)
-  for group,key in [('host_route','process_group_rss_cap_bytes'),('storage','new_retained_cap_bytes'),('deadlines','slurm_seconds')]:
+  for group,key in [('host_route','process_group_rss_cap_bytes'),('storage','new_retained_cap_bytes'),('deadlines','slurm_seconds'),('deadlines','controller_seconds'),('deadlines','worker_seconds'),('deadlines','checkpoint_notice_seconds'),('recovery','interval_seconds')]:
    altered=copy.deepcopy(self.plan);altered[group][key]+=1
    with self.assertRaises(AssertionError):MODULE['validate'](altered)
   if not self.plan['approved']:
    process=subprocess.run(['python3','-B',str(HERE/'run.py'),'unapproved-test'],capture_output=True,text=True)
    self.assertNotEqual(process.returncode,0);self.assertIn('explicit numeric user budget approval',process.stderr)
+ def test_checkpoint_warning(self):
+  deadlines=self.plan['deadlines']
+  self.assertEqual(MODULE['checkpoint_notice_time'](100,97*3600,0,deadlines),100+96*3600)
+  self.assertEqual(MODULE['checkpoint_notice_time'](7200,97*3600,0,deadlines),97*3600)
  def test_worker_log_tail(self):
   with tempfile.TemporaryDirectory()as directory:
    path=Path(directory)/'worker.log'

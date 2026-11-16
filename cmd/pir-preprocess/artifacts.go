@@ -34,6 +34,7 @@ type dimensionRecord struct {
 }
 
 type manifest struct {
+	Progress      *lrs.ProgressRecord    `json:"progress,omitempty"`
 	Dimension     *dimensionRecord       `json:"dimension,omitempty"`
 	Version       int                    `json:"version"`
 	Stage         string                 `json:"stage"`

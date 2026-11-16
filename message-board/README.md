@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-16 10:49 | SCALING-084 | Prepared | [Recovery checks pass;100h replacement ready](2026-11-16-1049-codex-scaling-084-prepared.md) |
+| 2026-11-16 10:35 | SCALING-084 | Started | [Longer trial and incremental recovery](2026-11-16-1035-codex-scaling-084-started.md) |
 | 2026-11-16 10:16 | SCALING-083 | Handoff | [First fulls17 local preprocessing job75819](2026-11-16-1016-codex-scaling-083-handoff.md) |
 | 2026-11-16 10:15 | SCALING-083 | Started | [Launch local fulls17 trial under proposed budget](2026-11-16-1015-codex-scaling-083-started.md) |
 | 2026-11-16 10:09 | SCALING-082 | Handoff | [Exact counts pass; full resource plan prepared](2026-11-16-1009-codex-scaling-082-handoff.md) |

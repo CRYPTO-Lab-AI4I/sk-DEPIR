@@ -35,6 +35,8 @@ type PreprocessingOptions struct {
 	GPUDevices    []int
 	ProductCutoff int
 	Progress      func(PreprocessingProgress)
+	// Recovery is opt-in; Save runs only at completed host algorithm boundaries.
+	Recovery *PreprocessingRecovery
 }
 
 // PreprocessingProgress measures work inside one named stage, not an overall ETA.
@@ -265,7 +267,7 @@ func (p *CodePreprocessor) Discover(options OrbitOptions) (support *CodeSupport,
 			}
 			return reporter.run("discovery-extension-interpolation", func() error { return p.backend.Apply32(grid, true) })
 		}
-		indices, samples, err = discoverSupport(p.header.Spec, good, options, evaluate, reporter.notice)
+		indices, samples, err = discoverSupport(p.header.Spec, good, options, evaluate, reporter.notice, p.options.Recovery)
 	} else {
 		evaluate := func(grid []uint64) error {
 			if e := reporter.run("discovery-base-grid", func() error { return p.backend.BaseGrid64(grid) }); e != nil {
@@ -273,7 +275,7 @@ func (p *CodePreprocessor) Discover(options OrbitOptions) (support *CodeSupport,
 			}
 			return reporter.run("discovery-extension-interpolation", func() error { return p.backend.Apply64(grid, true) })
 		}
-		indices, samples, err = discoverSupport(p.header.Spec, good, options, evaluate, reporter.notice)
+		indices, samples, err = discoverSupport(p.header.Spec, good, options, evaluate, reporter.notice, p.options.Recovery)
 	}
 	if err != nil {
 		return nil, err
@@ -367,7 +369,7 @@ func (p *CodePreprocessor) Prepare(support *CodeSupport, reuse PreparationReuse)
 		}
 		saved = reuse.Root.values
 	}
-	if reuse.SaveRoot != nil && support.Checksum() == "" {
+	if (reuse.SaveRoot != nil || p.options.Recovery != nil) && support.Checksum() == "" {
 		return nil, fmt.Errorf("persist support identity before requesting root checkpoint")
 	}
 	baseField, err := NewBinaryField(info.Spec.FieldDegree, info.Polynomial)
@@ -393,7 +395,7 @@ func (p *CodePreprocessor) Prepare(support *CodeSupport, reuse PreparationReuse)
 		}
 		return nil
 	}
-	normalized, g, err := prepareCyclicPolynomials(base, support.exponents, int(info.N), base.q, p.backend.RootFactorsInto, saved, save, checkpoint, reporter.notice)
+	normalized, g, err := prepareCyclicPolynomials(base, support.exponents, int(info.N), base.q, p.backend.RootFactorsInto, saved, save, checkpoint, reporter.notice, &cyclicRecovery{recovery: p.options.Recovery, info: info, supportSHA: support.Checksum()})
 	if err != nil {
 		reporter.event(currentStage, "failed", 0, 1, "operations")
 		return nil, err
@@ -415,6 +417,12 @@ func (p *CodePreprocessor) Prepare(support *CodeSupport, reuse PreparationReuse)
 	}
 	if err != nil {
 		return nil, err
+	}
+	// A request arriving during the final transform gets a safe boundary too.
+	if p.options.Recovery != nil && p.options.Recovery.Save != nil {
+		if err = p.options.Recovery.Save(&PreprocessingCheckpoint{record: ProgressRecord{Kind: "reciprocal", Parameters: info, SupportSHA256: support.Checksum(), Next: uint64(len(g))}, sections: [][]uint32{g}}); err != nil {
+			return nil, err
+		}
 	}
 	return &PreparedCode{code: code, generator: g, root: root}, nil
 }

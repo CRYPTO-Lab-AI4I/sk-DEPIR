@@ -12,7 +12,8 @@ validation passes job74447. **GPU server execution is now the active target**:
 a width-selected resident peer engine implements the heavy preprocessing kernels
 on1/2/4/8 same-node GPUs in source. One-GPU checks pass job74453; corrected two-GPU validation
 passes job74466, including peer-link lifetime sanitizer checks. No full
-s17 discovery, preparation, cache, latency or admission exists. The legacy CUDA32
+s17 discovery, preparation, cache or latency result exists. A guarded full trial
+is admitted separately in the [full-run report](../experiments/gpu-s17-full-preprocessing/report.md). The legacy CUDA32
 adapter remains available through s16; the resident prototype is selected
 explicitly with nonempty `GPUDevices`. There is no CPU/host-backed fallback.
 See the [scaling reference](encoding-status.md),
@@ -172,7 +173,8 @@ Use `Progress` for synchronous stage callbacks (do not reenter the session), or
 work within a phase; a heartbeat alone is not an ETA. Discovery, reusable
 preparation, persistence and database encoding must be timed separately. Retain
 CPU profiles and matching binaries during optimization. The bounded runner keeps
-small reusable caches, but no full s17 artifact or larger allocation is admitted.
+small reusable caches. The separately admitted full s17 trial has its own
+[resource manifest](../experiments/gpu-s17-full-preprocessing/budget.json); no full artifact is yet verified.
 
 ## Experimental local-vector scheduling
 
@@ -283,3 +285,70 @@ Frobenius, normalization and root-field scans now report advancing65536-element
 chunks; arithmetic/check order and existing buffers remain unchanged. Independent
 Go/native results and cross-chunk progress/error tests pass. Instrumentation
 cost is included/unquantified, no new full data pass or slower memory mode.
+
+## Incremental recovery
+
+`pir-preprocess --checkpoint-interval 2h` enables optional partial-work recovery;
+`--resume` loads the newest intact matching generation (falling back to the
+previous one if damaged). Without this option there are no rolling checkpoint
+writes, and completed support/root/code reuse remains unchanged. Backend choice
+and code parameters do not change the recovery procedure.
+
+The library exposes `PreprocessingOptions.Recovery`: supply loaded
+`Discovery`/`Preparation` checkpoints and a synchronous `Save` callback. Stream
+`checkpoint.Write(writer)` and atomically publish its returned `ProgressRecord`
+with the bytes; restore using `ReadPreprocessingCheckpoint`. The callback borrows
+arrays only until it returns; never retain or mutate them. A callback error stops
+at that boundary. Persist support first, as for normalized-root reuse.
+
+| Save boundary | Persisted work | Work repeated on restart |
+|---|---|---|
+| Completed random sample/interpolation/support union | N-bit union, completed sample count and found count | Exact monomial enumeration, then any unfinished sample; previous random draws need not be replayed |
+| Completed root batch | Processed support offset, pending factors and occupied product-tree levels | Source validation/degree scan, unfinished batch and any later merges |
+| Completed Newton reciprocal iteration | Completed G prefix, bound to the same support as the normalized root | Unfinished iteration, full independent P·G identity and final spectrum |
+
+A snapshot is partial computation, not certified code data. Digests and source
+bindings protect a trusted local cache against damage/mixups; they do not certify
+arbitrary untrusted input. Final exact-dimension/support closure, full P·G identity
+and canonical-file checks remain mandatory. Empty carry levels and pending leaves
+are retained without forcing extra merges or transforms. No128 GiB FFT grid,
+CUDA context or in-flight native work is serialized.
+
+The CLI writes/hashes snapshots once through64 KiB buffers, fsyncs the payload and
+manifest, then publishes the directory atomically. It keeps the latest two complete
+generations **per phase**; only after successful publication does it prune older
+ones. Failed unpublished recovery writes are removed because they cannot resume
+and would exhaust the fixed storage budget. Ordinary failed canonical-stage
+artifacts, all profiles and logs remain retained.
+
+Periodic writes target about1% cumulative wall-time overhead. The first eligible
+save is after the requested interval; expensive measured saves stretch later
+intervals. A write exceeding its current allowance is abandoned between buffered
+writes. Filesystem calls/fsync can block, so this is a target, not a guaranteed
+bound. Full-size write cost remains unmeasured. Logs include write byte counters,
+phase timestamps and completed/failed recovery events; checkpoint time is included
+in profiled workflow latency.
+
+`SIGUSR1` asks the CLI to save and exit at its next recoverable boundary (exit75,
+workflow event `checkpointed`), bypassing the periodic write allowance. A completed
+normalized-root save is also a safe stopping point. A request arriving during the
+last spectrum can save the completed G afterward. The full controller requests
+this one hour before the earliest internal deadline, retaining hard TERM/KILL
+and resource guards. SIGTERM is still an emergency stop, not a guarantee of a new
+checkpoint. A long transform or blocked write may outlast the warning; only the
+last completed snapshot is then recoverable. No supported save point exists inside
+the final spectrum or an unfinished canonical-file publication.
+
+At s17, snapshots model up to2 GiB for discovery, about14.44 GiB for the root
+frontier (plus a bounded leaf buffer), and49.56 GiB for full G. Retaining two of
+each adds about132 GiB to235.324 GiB canonical payload, within the approved512 GiB
+retained-files guard before logs/profiles/partial-stage headroom. These are size
+projections, not measured filesystem/RSS costs. Writes introduce no new transforms,
+GPU transfers or grid copies. Restore may retain another2 GiB discovery bitmap;
+normalizing an aliased restored root level can require a14.44 GiB copy, and the
+root-frontier degree check scans the processed support once. Such restart costs
+are separate from ordinary uninterrupted execution.
+
+Small native interruption/resume, independent Go comparison, corruption/source
+rejection, two-generation retention and fallback checks are recorded in the
+[recovery validation report](../experiments/preprocessing-recovery/report.md).

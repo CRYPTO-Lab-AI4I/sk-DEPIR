@@ -23,7 +23,7 @@ func normalizedOrbitOptions(options OrbitOptions) (OrbitOptions, error) {
 }
 
 func discoverSupport[Word preparationWord](spec Spec, good []int, options OrbitOptions,
-	evaluate func([]Word) error, notice preparationNotice) (support []int, samples int, err error) {
+	evaluate func([]Word) error, notice preparationNotice, recoveries ...*PreprocessingRecovery) (support []int, samples int, err error) {
 	options, err = normalizedOrbitOptions(options)
 	if err != nil {
 		return nil, 0, err
@@ -38,6 +38,30 @@ func discoverSupport[Word preparationWord](spec Spec, good []int, options OrbitO
 	}
 	found := newExponentSet(n)
 	count := 0
+	var recovery *PreprocessingRecovery
+	if len(recoveries) > 0 {
+		recovery = recoveries[0]
+	}
+	var info SupportParameters
+	if recovery != nil {
+		h, _, e := canonicalScalingCodeHeader(spec.FieldDegree, spec.CurveDegree, 1, uint64(n))
+		if e != nil {
+			return nil, 0, e
+		}
+		info = SupportParameters{Spec: spec, K: uint64(len(good)), N: uint64(n), Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega}
+	}
+	if recovery != nil && recovery.Discovery != nil {
+		c := recovery.Discovery
+		if err = c.matches(info, "", "discovery"); err != nil {
+			return nil, 0, err
+		}
+		found = append(exponentSet(nil), c.bitmap...)
+		count = int(c.record.Count)
+		samples = c.record.Parameters.Samples
+		if samples > options.MaxSamples {
+			return nil, 0, fmt.Errorf("saved samples exceed current limit")
+		}
+	}
 	grid := make([]Word, n)
 	sampleBytes := 1
 	if spec.FieldDegree > 8 {
@@ -83,6 +107,13 @@ func discoverSupport[Word preparationWord](spec Spec, good []int, options OrbitO
 			}
 		}
 		samples++
+		if recovery != nil && recovery.Save != nil {
+			info.Samples = samples
+			c := &PreprocessingCheckpoint{record: ProgressRecord{Kind: "discovery", Parameters: info, Count: uint64(count)}, bitmap: found}
+			if err = recovery.Save(c); err != nil {
+				return nil, samples, err
+			}
+		}
 	}
 	if count != len(good) {
 		return nil, samples, fmt.Errorf("degree discovery incomplete: %d of %d exponents after %d samples", count, len(good), samples)
@@ -146,17 +177,44 @@ type rootFactorBatch func(indices []int, output [][4]uint32) error
 // Callers supply only extension-root arithmetic, products and stage observation.
 func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 	roots rootFactorBatch, savedRoot []uint32, saveRoot func([]uint32) error,
-	checkpoint func(string), notice preparationNotice) (p, g []uint32, err error) {
+	checkpoint func(string), notice preparationNotice, recoveries ...*cyclicRecovery) (p, g []uint32, err error) {
 	checkpoint("before-validation")
 	if err = validateExponentSupport(support, n, q, notice); err != nil {
 		return nil, nil, err
+	}
+	var recovery *cyclicRecovery
+	if len(recoveries) > 0 {
+		recovery = recoveries[0]
+	}
+	var progress *PreprocessingCheckpoint
+	if recovery != nil && recovery.recovery != nil {
+		progress = recovery.recovery.Preparation
+		if progress != nil {
+			if progress.record.Kind != "roots" && progress.record.Kind != "reciprocal" {
+				return nil, nil, fmt.Errorf("invalid preparation checkpoint kind")
+			}
+			if err = progress.matches(recovery.info, recovery.supportSHA, progress.record.Kind); err != nil {
+				return nil, nil, err
+			}
+			if progress.record.Kind == "reciprocal" && savedRoot == nil {
+				return nil, nil, fmt.Errorf("reciprocal requires completed root")
+			}
+		}
 	}
 	p = savedRoot
 	if p == nil {
 		checkpoint("before-root-product")
 		builder := newFactorProductBuilder(base, minInt(32768, len(support)))
 		batch := make([][4]uint32, minInt(65536, len(support)))
-		for first := 0; first < len(support); first += len(batch) {
+		firstSaved := 0
+		if progress != nil && progress.record.Kind == "roots" {
+			builder, err = progress.restoreBuilder(base, support, n, q, notice)
+			if err != nil {
+				return nil, nil, err
+			}
+			firstSaved = int(progress.record.Next)
+		}
+		for first := firstSaved; first < len(support); first += len(batch) {
 			take := minInt(len(batch), len(support)-first)
 			if err = roots(support[first:first+take], batch[:take]); err != nil {
 				return nil, nil, err
@@ -179,8 +237,26 @@ func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 			if notice != nil {
 				notice("root-product", uint64(first+take), uint64(len(support)), "exponents")
 			}
+			if recovery != nil && recovery.recovery != nil && recovery.recovery.Save != nil {
+				sections := make([][]uint32, 1, 1+len(builder.levels))
+				sections[0] = builder.storage[:3*len(builder.factors)]
+				sections = append(sections, builder.levels...)
+				if err = recovery.save("roots", uint64(first+take), sections); err != nil {
+					return nil, nil, err
+				}
+			}
 		}
 		p = builder.finish()
+		// finish may return one retained level directly; normalization must not mutate
+		// the caller's loaded checkpoint if it is reused again.
+		if progress != nil && progress.record.Kind == "roots" {
+			for _, level := range progress.sections[1:] {
+				if len(level) > 0 && len(p) > 0 && &p[0] == &level[0] {
+					p = append([]uint32(nil), p...)
+					break
+				}
+			}
+		}
 		checkpoint("before-normalization")
 		if len(p) != len(support)+1 {
 			return nil, nil, fmt.Errorf("paired product degree mismatch")
@@ -219,7 +295,19 @@ func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 		}
 	}
 	checkpoint("before-reciprocal")
-	g = polyInverse(base, p, n-len(support))
+	var prefix []uint32
+	if progress != nil && progress.record.Kind == "reciprocal" {
+		prefix = progress.sections[0]
+	}
+	g = polyInverseRecover(base, p, n-len(support), prefix, func(values []uint32) error {
+		if notice != nil {
+			notice("reciprocal-prefix", uint64(len(values)), uint64(n-len(support)), "coefficients")
+		}
+		if recovery == nil {
+			return nil
+		}
+		return recovery.save("reciprocal", uint64(len(values)), [][]uint32{values})
+	})
 	checkpoint("before-identity")
 	// This full, untruncated product is independent of Newton's prefix iteration.
 	// Verify before publishing code data, even when a root checkpoint was reused.
@@ -269,4 +357,19 @@ func (b *OrbitBasis) rootFactors(indices []int, out [][4]uint32) error {
 		}
 	}
 	return nil
+}
+
+// Optional recovery hooks surround the shared arithmetic; ordinary callers retain
+// the same algorithm and allocation ownership. Errors unwind through Prepare.
+type cyclicRecovery struct {
+	recovery   *PreprocessingRecovery
+	info       SupportParameters
+	supportSHA string
+}
+
+func (r *cyclicRecovery) save(kind string, next uint64, sections [][]uint32) error {
+	if r == nil || r.recovery == nil || r.recovery.Save == nil {
+		return nil
+	}
+	return r.recovery.Save(&PreprocessingCheckpoint{record: ProgressRecord{Kind: kind, Parameters: r.info, SupportSHA256: r.supportSHA, Next: next}, sections: sections})
 }

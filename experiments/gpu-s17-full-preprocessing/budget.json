@@ -1,5 +1,5 @@
 {
-  "status": "approved; ready for first guarded full trial",
+  "status": "approved longer replacement with incremental recovery",
   "purpose": "fulls17,m2,t5 persistent GPU preprocessing; no database encoding",
   "gpu_route": {
     "gpus": 4,
@@ -28,13 +28,14 @@
     "minimum_initial_shared_free_bytes": 618475290624,
     "strict_successful_payload_bound_bytes": 309237645373,
     "projected_retained_payload_bytes": 252677224705,
-    "notes": "Exact K supplies actual file sizes. Successful files get one write/readback. Partial failed stages retained; filesystem free space does not establish quota."
+    "notes": "Exact K supplies actual file sizes. Successful files get one write/readback. Partial failed stages retained; filesystem free space does not establish quota. Recovery retains two snapshots per phase (about132GiB additional worst case at s17); failed unpublished recovery writes are removed, superseded snapshots pruned. Original canonical failed-stage evidence is retained."
   },
   "deadlines": {
-    "slurm_seconds": 172800,
-    "controller_seconds": 165600,
-    "worker_seconds": 162000,
-    "notes": "Proposed cutoffs, not runtime estimates; complete latency is unknown."
+    "slurm_seconds": 360000,
+    "controller_seconds": 352800,
+    "worker_seconds": 349200,
+    "checkpoint_notice_seconds": 3600,
+    "notes": "User approved longer replacement:100h Slurm /98h controller /97h worker. Request checkpoint one hour before the earliest internal deadline; completion of an in-flight transform is not guaranteed."
   },
   "admission_gates": [
     "exact counts and complete small workflow validated75810",
@@ -44,9 +45,15 @@
   ],
   "no_launch_authorized": false,
   "approved": true,
-  "approval_note": "User: \"ok let's do local then\", following the explicit full numeric budget proposal and local/peer explanation. Proceed with unchanged proposed resources and local layout.",
+  "approval_note": "User: \"ok let's do local then\", following the explicit full numeric budget proposal and local/peer explanation. Proceed with unchanged proposed resources and local layout. User subsequently requests the larger available100h limit and low-overhead progress saving; compute/memory/storage caps unchanged.",
   "exact_k": 3876566203,
   "n": 17179869184,
   "vector_layout": "local",
-  "approved_utc": "2026-11-16T10:15:15.163728+00:00"
+  "approved_utc": "2026-11-16T10:15:15.163728+00:00",
+  "recovery": {
+    "interval_seconds": 7200,
+    "periodic_write_overhead_target_fraction": 0.01,
+    "completed_generations_per_phase": 2,
+    "notes": "Target, not measured full-run cost or a hard fsync/syscall bound. Saves at sample/root-batch/Newton boundaries only; no live transform workspace. Forced deadline saves bypass the periodic overhead target."
+  }
 }

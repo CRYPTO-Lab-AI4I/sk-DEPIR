@@ -1914,3 +1914,18 @@ Full local-layout preprocessing job75819 is submitted with the exact approved
 budget; [submission](../experiments/gpu-s17-full-preprocessing/submission.json).
 Resultsfirst-01; retain guards/checkpoints/profiles and yield without monitoring.
 No measured s17 cache/latency claim until completion and evidence review.
+
+### Longer full preprocessing attempt with recovery (SCALING-084)
+
+User requests100h available scheduler limit and inexpensive partial-work saves.
+Prepare a replacement for75819 under the same approved resource caps, with97h
+worker/98h controller, one-hour checkpoint warning, and explicit2h/adaptive
+rolling saves. Validate completed sample/root-batch/Newton-prefix restart against
+independent Go output, damage/source rejection and two-generation recovery before
+replacement. Save no FFT workspace and perform no extra transforms. Model about
+132GiB extra retained snapshots, within512GiB cap; full I/O overhead unmeasured,
+periodic target about1%, forced shutdown save excluded from that target. Completed
+canonical stages remain immutable; an in-flight transform is not recoverable.
+See [contract](preprocessing.md#incremental-recovery),
+[checks](../experiments/preprocessing-recovery/report.md), and
+[full-run report](../experiments/gpu-s17-full-preprocessing/report.md).

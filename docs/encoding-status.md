@@ -520,11 +520,10 @@ with product/Newton/identity/GC/runtime/driver/cache overhead additional and pea
 unknown. Existing~220.84GiB/~235GiB estimates are superseded by these exact-K
 calculations, not measured peaks.
 
-[Concrete full controller/resource proposal](../experiments/gpu-s17-full-preprocessing/report.md)
-awaits agreement: exclusive128core node/32workers,864GiB host request,
-4H200112GiB owned/card,512GiB retained/16GiB scratch,48h scheduler cutoff. No full
-job submitted. Defaults and capacity implementation distinctions stay unchanged;
-8/16GPU options need cross-node support and do not imply linear speedup.
+The [full controller](../experiments/gpu-s17-full-preprocessing/report.md) uses
+one exclusive128-core node/32workers,864GiB host request,4H200112GiB owned/card,
+512GiB retained and16GiB scratch. Eight/sixteen GPU options require cross-node
+support; no linear speedup is assumed.
 
 The first full s17 local-layout trial is now approved under the concrete
 [experiment budget](../experiments/gpu-s17-full-preprocessing/budget.json):
@@ -536,3 +535,11 @@ Full s17 public preprocessing is now submitted as job75819 (local layout), with
 [recorded approved limits](../experiments/gpu-s17-full-preprocessing/submission.json).
 Status is **submitted, not yet verified**; all full s17 runtime/peak-memory entries
 remain unmeasured until completion and reconciliation. No database encoding job.
+
+The approved replacement extends the scheduler cutoff to100h (97h worker/98h
+controller), with optional2h/adaptive recovery writes targeting about1% overhead.
+Two snapshots per discovery/root/reciprocal phase project about132GiB additional
+retained payload; compute/memory/storage limits remain unchanged. No FFT workspace
+is saved, and an interrupted transform is repeated. These are recovery/capacity
+changes, **not measured s17 preprocessing performance**. See the
+[recovery contract](preprocessing.md#incremental-recovery) and full-run report.

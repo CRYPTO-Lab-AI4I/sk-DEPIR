@@ -46,7 +46,16 @@ func karatsuba(f orbitField, a, b []uint32) []uint32 {
 	return c
 }
 func polyInverse(f orbitField, a []uint32, n int) []uint32 {
-	g := []uint32{f.inv(a[0])}
+	return polyInverseRecover(f, a, n, nil, nil)
+}
+
+// Resume only complete Newton prefixes; each iteration reads its input and
+// allocates its output. The full independent generator identity remains required.
+func polyInverseRecover(f orbitField, a []uint32, n int, prefix []uint32, save func([]uint32) error) []uint32 {
+	g := prefix
+	if g == nil {
+		g = []uint32{f.inv(a[0])}
+	}
 	for len(g) < n {
 		size := 2 * len(g)
 		if size > n {
@@ -69,6 +78,11 @@ func polyInverse(f orbitField, a []uint32, n int) []uint32 {
 		} else {
 			g = make([]uint32, size)
 			copy(g, next)
+		}
+		if save != nil {
+			if err := save(g); err != nil {
+				panic(cppFailure{err})
+			}
 		}
 	}
 	return g

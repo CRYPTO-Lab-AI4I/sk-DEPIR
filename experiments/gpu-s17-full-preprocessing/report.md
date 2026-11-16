@@ -1,6 +1,6 @@
 # First guarded full s17 GPU preprocessing
 
-Status: **first full local-layout trial submitted as job75819; results unreviewed**. Exact count and
+Status: **job75819 is the original48h attempt; a100h replacement with incremental recovery is being prepared**. Exact count and
 complete small workflow validation pass job75810; no full s17 support/cache or
 latency exists. [Budget](budget.json) must record explicit user numeric agreement
 before the controller launches. This experiment constructs public preprocessing,
@@ -51,7 +51,7 @@ Instrumentation/GC overhead is unquantified and included in profiled timings.
 | New retained files | 512 GiB total cache + result/log guard |
 | Local scratch | 16 GiB cap; initial32 GiB free required |
 | Shared filesystem | Initial576 GiB free; live64 GiB free headroom guard |
-| Wall cutoffs | Worker45 h,controller46 h,Slurm48 h; not runtime estimates |
+| Wall cutoffs | Worker97 h,controller98 h,Slurm100 h; original job75819 used45/46/48 h; these are not runtime estimates |
 | Profiles/checkpoints | Enabled and retained; immutable completed stage reuse |
 
 An exclusive node prevents competing batch jobs consuming unaccounted host RAM;
@@ -62,7 +62,7 @@ headroom. Device H200 memory measured140.4 GiB/card;112 GiB cap leaves about28 G
 outside it. Per-array host limit128 GiB/native128 MiB/code payload161 GiB are
 separate from aggregate RSS. Memory-limit/GC cost if reached is unknown. This is
 an admitted-budget first trial, not a proven bound on driver/GC/filesystem usage.
-48 h is within the configured100 h partition limit; QoS/association/quota still
+100 h uses the configured100 h partition limit; QoS/association/quota still
 matter. Available shared filesystem space is not authorization or quota.
 
 The GPU array model is3·8N=384 GiB (96/card) before metadata/staging. The initial
@@ -111,7 +111,8 @@ execution, guards RSS/storage/free headroom/deadlines and uses previously tested
 bounded TERM/KILL waits. It does not reset GPUs. Startup peer-copy/transpose probe
 aborts promptly on device failure before large allocations. SIGTERM retains a
 profile and completed checkpoints; a failed root tree before normalization is
-not a reusable root checkpoint. Sampling itself is restarted if interrupted.
+not a reusable root checkpoint. The original75819 source restarts an interrupted sample/root tree; replacement
+recovery at safe boundaries is described below.
 
 ## Evidence boundaries
 
@@ -145,3 +146,32 @@ Compilation binaries and native plugin remain in the parent cache with jobID.
 No node pin, excludegnode03. sbatch returned successfully; no scheduler/log/progress
 polling, waiting or result inspection after submission. Await completion ping.
 No full peak/latency/cache success is claimed merely from submission.
+
+## Longer replacement and partial-work recovery (SCALING-084)
+
+The user explicitly requests the available larger limit and progress persistence
+that does not substantially affect runtime. The updated [budget](budget.json)
+keeps compute/memory/storage caps unchanged and sets97h worker /98h controller /
+100h Slurm. The controller requests `SIGUSR1` one hour before the earliest internal
+deadline. A safe stop has exit75/status `checkpointed`, never `passed`; subsequent
+execution needs `--resume` and a new result name. Running job75819 cannot acquire
+these hooks or internal cutoffs live: its isolated source and deadlines are fixed.
+
+Replacement command adds `--checkpoint-interval 2h --resume`. Rolling snapshots
+save completed samples, unmerged root-tree frontiers and completed reciprocal
+prefixes, retaining two per phase. Estimated extra retained payload is about132GiB
+at s17; there is no extra FFT, device transfer or saved128GiB workspace. Periodic
+writes target1% cumulative overhead with adaptive intervals and bounded-write
+abandonment; forced shutdown saves bypass that target. Blocking filesystem calls
+and an in-flight transform may exceed the notice, so the previous completed
+snapshot remains the fallback. Full checkpoint I/O cost is unknown, not assumed
+free. All write/profile/log time stays within workflow timing. Read the precise
+[recovery contract](../../docs/preprocessing.md#incremental-recovery) and
+[small-instance verification](../preprocessing-recovery/report.md).
+
+The replacement performs native interruption/restart preflight before the full
+GPU workload. Canonical artifacts, independent final identities and validation
+methodology are unchanged. `progress.bin` is excluded from controller exit
+rehashing just like other large payloads: its streaming digest is sealed in the
+atomic stage manifest, and it is authenticated on restart. No full-size recovery
+measurement is claimed from the small tests.

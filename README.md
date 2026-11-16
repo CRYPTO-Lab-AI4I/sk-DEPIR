@@ -47,7 +47,11 @@ exists. GPU preprocessing is now the active implementation target: a
 [resident width-selected peer prototype](experiments/gpu-s17-preprocessing/report.md)
 shares kernels with the legacy CUDA path and supports same-node GPU shards in
 source. Bounded one- and two-GPU validation passes, including the corrected
-peer-link lifetime sanitizer checks (job74466). No full s17 run is admitted.
+peer-link lifetime sanitizer checks (job74466). A guarded full s17 GPU trial is
+admitted; full cache correctness and latency remain unmeasured. The
+[persistent runner](docs/preprocessing.md#incremental-recovery) can optionally save
+completed sampling, root-product and reciprocal progress without saving FFT
+workspace; the approved longer replacement has a100-hour scheduler cutoff.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

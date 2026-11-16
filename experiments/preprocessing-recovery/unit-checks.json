@@ -1,0 +1,39 @@
+{
+  "mode": "unit",
+  "utc": "2026-11-16T10:47:26.388285+00:00",
+  "revision": "e2aeda9ee7cdf07b0381ce4695f891c30afa302a",
+  "host": "lnode02",
+  "commands": [
+    {
+      "argv": [
+        "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go",
+        "test",
+        "-tags",
+        "liftrs_cpp",
+        "./cmd/pir-preprocess",
+        "./encoding/liftrs-shared",
+        "-run",
+        "Test.*Recovery|TestPersistent|TestPreprocessing",
+        "-count=1"
+      ],
+      "exit_code": 0,
+      "stdout": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/cmd/pir-preprocess\t0.090s\nok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t4.701s\n",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    "encoding/liftrs-shared/preprocessing_recovery.go": "a4df6542a591a529f3e12b2eb4254d4bd034a2c81766db7750a4f0b72b0c654e",
+    "encoding/liftrs-shared/preprocessing_recovery_test.go": "dcc507a8afdbd9b75aed7186e363a14c1feb9ee0b5d9a97759c0e15f2e94815b",
+    "cmd/pir-preprocess/artifacts.go": "9b63df8e1f478d3dd6f0f38d872accca141a80e25c8563305a8ace2cc1e3452a",
+    "cmd/pir-preprocess/artifacts_test.go": "447cac85769a1f354cb254625c11fb0c9be6fbccfca668cfed72ea671ebf6ac7",
+    "cmd/pir-preprocess/main.go": "5ac111a515eaf756f0e10c464f4985dfe088c422cf59852f822a769850299b52",
+    "cmd/pir-preprocess/recovery.go": "75454a33176094e6ac6ff2ab22697417385674f03c7499a2c84bd5c7e38a7a1b",
+    "cmd/pir-preprocess/recovery_test.go": "e505fd31da3d901a67e5b5f3d6f6978961c69231f2b227eb9bd2cb4ecb031056",
+    "cmd/pir-preprocess/reference_test.go": "3c479fceb55cd9dd271f8a7270d501d4d51e9f22beacfb990aa54dd9237b6305",
+    "encoding/liftrs-shared/preprocessing.go": "1cbf251e45c74e05723c2317771415b008f9311a9d99c4e5c7e0ac56add3c37f",
+    "encoding/liftrs-shared/preprocessing_core.go": "d5627de6662b37041c5cf72745f29987dbd813a48420c19674867d361829c491",
+    "encoding/liftrs-shared/orbit_polynomial.go": "d13b5f65da81f6de868c2e7dabfeffe4173b56f86480dd6c3c767b3ab0f7b809",
+    "experiments/preprocessing-recovery/check.py": "42d96ed93bd1d081080c5895930921584d4d45e271a4752994f57ffec0a1695f"
+  },
+  "status": "passed"
+}

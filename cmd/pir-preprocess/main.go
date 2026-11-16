@@ -5,6 +5,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	lrs "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared"
@@ -24,6 +25,7 @@ import (
 var sourceRevision = "unknown"
 
 type config struct {
+	checkpointInterval                                time.Duration
 	s, t, workers                                     int
 	backend, devices, library, layout, cache, profile string
 	arrayBytes, nativeBytes, gpuBytes, codeBytes      uint64
@@ -46,12 +48,13 @@ func parse(args []string) (config, error) {
 	f.Uint64Var(&c.nativeBytes, "native-bytes", 0, "required native executor cap")
 	f.Uint64Var(&c.gpuBytes, "gpu-bytes", 0, "required owned payload cap per GPU")
 	f.Uint64Var(&c.codeBytes, "max-code-bytes", 0, "required final canonical payload cap")
+	f.DurationVar(&c.checkpointInterval, "checkpoint-interval", 0, "opt-in recovery save interval (e.g. 2h); sparse writes target 1% overhead")
 	f.BoolVar(&c.dimensionOnly, "dimension-only", false, "compute exact K only; no support/grid/preparation arrays")
 	f.BoolVar(&c.resume, "resume", false, "reuse completed matching stages in this trusted cache")
 	if e := f.Parse(args); e != nil {
 		return c, e
 	}
-	if f.NArg() != 0 || c.s < 2 || c.s > 17 || c.t < 1 || c.t >= (1<<uint(c.s))-1 || c.workers < 1 || c.workers > 64 || c.cache == "" || c.arrayBytes == 0 || c.nativeBytes == 0 || (c.codeBytes == 0 && !c.dimensionOnly) || (c.backend != "cuda" && c.backend != "cpp") || (c.layout != "peer" && c.layout != "local") {
+	if c.checkpointInterval < 0 || f.NArg() != 0 || c.s < 2 || c.s > 17 || c.t < 1 || c.t >= (1<<uint(c.s))-1 || c.workers < 1 || c.workers > 64 || c.cache == "" || c.arrayBytes == 0 || c.nativeBytes == 0 || (c.codeBytes == 0 && !c.dimensionOnly) || (c.backend != "cuda" && c.backend != "cpp") || (c.layout != "peer" && c.layout != "local") {
 		return c, fmt.Errorf("explicit valid specification/backend/cache/byte limits required")
 	}
 	if c.backend == "cuda" && (c.library == "" || c.gpuBytes == 0) {
@@ -78,15 +81,23 @@ func devices(value string) ([]int, error) {
 }
 func main() {
 	signals := make(chan os.Signal, 1)
-	signal.Notify(signals, os.Interrupt, syscall.SIGTERM)
+	signal.Notify(signals, os.Interrupt, syscall.SIGTERM, syscall.SIGUSR1)
 	go func() {
-		<-signals
-		pprof.StopCPUProfile()
-		_ = json.NewEncoder(os.Stderr).Encode(map[string]any{"utc": time.Now().UTC().Format(time.RFC3339Nano), "phase": "workflow", "event": "terminated", "remaining_work": "unknown"})
-		os.Exit(143)
+		for sig := range signals {
+			if sig == syscall.SIGUSR1 {
+				checkpointRequested.Store(true)
+				continue
+			}
+			pprof.StopCPUProfile()
+			_ = json.NewEncoder(os.Stderr).Encode(map[string]any{"utc": time.Now().UTC().Format(time.RFC3339Nano), "phase": "workflow", "event": "terminated", "remaining_work": "unknown"})
+			os.Exit(143)
+		}
 	}()
 	if e := run(os.Args[1:], os.Stdout, os.Stderr); e != nil {
 		fmt.Fprintln(os.Stderr, e)
+		if errors.Is(e, errCheckpointed) {
+			os.Exit(75)
+		}
 		os.Exit(1)
 	}
 }
@@ -111,6 +122,12 @@ func run(args []string, out, events io.Writer) error {
 		return fmt.Errorf("cache already in use: %w", e)
 	}
 	stages := []string{"support", "root", "code"}
+	if !c.resume {
+		recovery, _ := filepath.Glob(filepath.Join(c.cache, "recovery-*"))
+		if len(recovery) > 0 {
+			return fmt.Errorf("recovery stages exist; use --resume")
+		}
+	}
 	if c.dimensionOnly {
 		stages = []string{"dimension"}
 	}
@@ -138,7 +155,11 @@ func run(args []string, out, events io.Writer) error {
 	r := &reporter{events, time.Now()}
 	r.event("workflow", "started", 0, 1, "operations")
 	if e = execute(c, ids, r); e != nil {
-		r.event("workflow", "failed", 0, 1, "operations")
+		if errors.Is(e, errCheckpointed) {
+			r.event("workflow", "checkpointed", 1, 1, "safe-stops")
+		} else {
+			r.event("workflow", "failed", 0, 1, "operations")
+		}
 		return e
 	}
 	r.event("workflow", "completed", 1, 1, "operations")
@@ -233,6 +254,24 @@ func execute(c config, ids []int, r *reporter) error {
 	if e = os.Setenv("LIFTRS_GPU_PREPARATION_VECTOR_LAYOUT", c.layout); e != nil {
 		return e
 	}
+	var store *recoveryStore
+	if c.checkpointInterval > 0 {
+		store = &recoveryStore{cache: c.cache, spec: spec, limits: limits, interval: c.checkpointInterval, last: time.Now(), reporter: r, fresh: fresh, now: time.Now}
+		recovery := &lrs.PreprocessingRecovery{Save: store.save}
+		if c.resume {
+			if supportManifest.Version == 0 {
+				recovery.Discovery, e = store.load("discovery")
+			} else if rootManifest.Version == 0 {
+				recovery.Preparation, e = store.load("roots")
+			} else {
+				recovery.Preparation, e = store.load("reciprocal")
+			}
+			if e != nil {
+				return e
+			}
+		}
+		options.Recovery = recovery
+	}
 	var session *lrs.CodePreprocessor
 	if e = r.phase("setup", func() error { var err error; session, err = lrs.NewCodePreprocessor(spec, options); return err }); e != nil {
 		return e
@@ -324,7 +363,13 @@ func execute(c config, ids []int, r *reporter) error {
 			if err != nil {
 				return err
 			}
-			return verifyFile(c.cache, "root", "root.bin", rootManifest.Files["root.bin"], r)
+			if err = verifyFile(c.cache, "root", "root.bin", rootManifest.Files["root.bin"], r); err != nil {
+				return err
+			}
+			if store != nil && checkpointRequested.Load() {
+				return errCheckpointed
+			}
+			return nil
 		}
 	}
 	if e = r.phase("preparation-and-identities", func() error { var err error; prepared, err = session.Prepare(support, reuse); return err }); e != nil {

@@ -7,6 +7,7 @@ HELP=runpy.run_path(str(ROOT/'experiments/hpc-cached-s15/run.py'))
 GUARD=runpy.run_path(str(ROOT/'experiments/hpc-s16/run.py'))
 STOP=runpy.run_path(str(ROOT/'experiments/gpu-preprocessing-workflow/run.py'))['stop_process']
 GIB=1<<30
+class CheckpointStop(Exception):pass
 
 def validate(plan):
  h=plan['host_route'];g=plan['gpu_route'];s=plan['storage'];d=plan['deadlines']
@@ -20,7 +21,13 @@ def validate(plan):
  assert s['new_retained_cap_bytes']==512*GIB and s['scratch_cap_bytes']==16*GIB
  assert s['minimum_initial_shared_free_bytes']==576*GIB
  assert s['projected_retained_payload_bytes']==12*plan['exact_k']+12*plan['n']+61
- assert d['worker_seconds']==45*3600<d['controller_seconds']==46*3600<d['slurm_seconds']==48*3600
+ assert d['worker_seconds']==97*3600<d['controller_seconds']==98*3600<d['slurm_seconds']==100*3600
+ assert d['checkpoint_notice_seconds']==3600
+ assert plan['recovery']['interval_seconds']==7200 and plan['recovery']['completed_generations_per_phase']==2
+ assert plan['recovery']['periodic_write_overhead_target_fraction']==0.01
+
+def checkpoint_notice_time(began,timeout,started,deadlines):
+ return min(began+timeout,started+deadlines['controller_seconds'])-deadlines['checkpoint_notice_seconds']
 
 def last_worker_event(path):
  if not path.exists():return None
@@ -68,7 +75,7 @@ def main():
   with(out/'progress.jsonl').open('a')as f:f.write(json.dumps(row)+'\n');f.flush()
   print(json.dumps(row),flush=True)
  def run(label,argv,cwd=ROOT,timeout=600):
-  began=time.monotonic();last=began;peak=0;reason=None;shutdown=None;sizes=(0,0);last_size=0
+  began=time.monotonic();last=began;peak=0;reason=None;shutdown=None;sizes=(0,0);last_size=0;checkpoint_notice=False
   event(label,'started');log_path=out/(label+'.log')
   with log_path.open('w')as log:
    proc=subprocess.Popen(list(map(str,argv)),cwd=cwd,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
@@ -82,6 +89,10 @@ def main():
      if GUARD['mem_available']()<32*GIB:reason='node available-memory headroom'
      if now-began>timeout or now-start>plan['deadlines']['controller_seconds']:reason='deadline'
      if cancelled:reason='termination signal'
+     if label=='preprocessing'and not reason and not checkpoint_notice and now>=checkpoint_notice_time(began,timeout,start,plan['deadlines']):
+      try:os.kill(proc.pid,signal.SIGUSR1)
+      except ProcessLookupError:pass
+      checkpoint_notice=True;event(label,'checkpoint-requested',remaining_work='unknown',note='save and stop at next recoverable boundary; hard guard remains active')
      # This is job-side validation of newly published support, never agent monitoring.
      support=stages/'support/manifest.json'
      if label=='preprocessing'and support.exists():
@@ -94,7 +105,8 @@ def main():
    finally:
     if proc.poll()is None and shutdown is None:shutdown=STOP(proc)
   record['commands'].append(dict(label=label,argv=list(map(str,argv)),seconds=time.monotonic()-began,peak_rss_bytes=peak,exit_code=proc.returncode,guard=reason,shutdown=shutdown));save()
-  event(label,'failed'if reason or proc.returncode else'completed',peak_rss_bytes=peak)
+  event(label,'checkpointed'if label=='preprocessing'and not reason and proc.returncode==75 else('failed'if reason or proc.returncode else'completed'),peak_rss_bytes=peak)
+  if label=='preprocessing'and not reason and proc.returncode==75:raise CheckpointStop('worker stopped at a persisted boundary')
   if reason or proc.returncode:raise RuntimeError(label+': '+str(reason or proc.returncode))
  save()
  try:
@@ -107,19 +119,23 @@ def main():
   run('peer-probe',[probe],source,timeout=60)
   run('cuda-build',['nvcc','-std=c++17','-O3','-lineinfo','-arch=native','-shared','-Xcompiler=-fPIC,-pthread','encoding/liftrs-cuda/matrix.cu','encoding/liftrs-cuda/preparation.cu','-o',library],source)
   run('cli-build',[go,'build','-tags','liftrs_cpp,liftrs_cuda','-ldflags','-X main.sourceRevision='+record['revision'],'-o',cli,'./cmd/pir-preprocess'],source)
+  # Recovery hooks share CPU/GPU control flow; independently exercise fresh
+  # native stop/restart before starting the large workload.
+  run('recovery-preflight',[go,'test','-tags','liftrs_cpp','./cmd/pir-preprocess','./encoding/liftrs-shared','-run','Test.*Recovery','-count=1'],source)
   h=plan['host_route'];g=plan['gpu_route']
-  command=[str(cli),'--s','17','--t','5','--workers',str(h['active_workers']),'--backend','cuda','--devices','0,1,2,3','--gpu-library',str(library),'--gpu-bytes',str(g['per_device_owned_cap_bytes']),'--max-array-bytes',str(h['principal_array_cap_bytes']),'--native-bytes',str(h['native_owned_cap_bytes']),'--max-code-bytes',str(h['final_code_payload_cap_bytes']),'--cache',str(stages),'--vector-layout',plan['vector_layout']]
+  command=[str(cli),'--s','17','--t','5','--workers',str(h['active_workers']),'--backend','cuda','--devices','0,1,2,3','--gpu-library',str(library),'--gpu-bytes',str(g['per_device_owned_cap_bytes']),'--max-array-bytes',str(h['principal_array_cap_bytes']),'--native-bytes',str(h['native_owned_cap_bytes']),'--max-code-bytes',str(h['final_code_payload_cap_bytes']),'--cache',str(stages),'--vector-layout',plan['vector_layout'],'--checkpoint-interval','2h']
   if args.resume:command.append('--resume')
   run('preprocessing',command,source,timeout=plan['deadlines']['worker_seconds'])
   support=json.loads((stages/'support/manifest.json').read_text());assert support['support']['parameters']['k']==plan['exact_k']
   record['stage_manifests']={name:json.loads((stages/name/'manifest.json').read_text())for name in('support','root','code')}
   record['status']='passed'
+ except CheckpointStop as error:record['status']='checkpointed';record['note']=str(error)
  except BaseException as error:record['status']='failed';record['error']=repr(error);raise
  finally:
   record['elapsed_seconds']=time.monotonic()-start
   # CLI hashes/readbacks large payloads once; do not silently rehash235GiB on exit.
   # Preserve manifests and raw logs. Large-file independent reconciliation is a
   # separately admitted post-completion operation, not hidden benchmark time.
-  record['cache_sha256']={str(f.relative_to(cache)):HELP['sha'](f)for f in cache.rglob('*')if f.is_file()and f.name not in('support.bin','root.bin','online.bin','generator.bin')}
+  record['cache_sha256']={str(f.relative_to(cache)):HELP['sha'](f)for f in cache.rglob('*')if f.is_file()and f.name not in('support.bin','root.bin','online.bin','generator.bin','progress.bin')}
   record['evidence_sha256']={str(f.relative_to(out)):HELP['sha'](f)for f in out.rglob('*')if f.is_file()and f.name not in('results.json','results.json.tmp')};save()
 if __name__=='__main__':main()
