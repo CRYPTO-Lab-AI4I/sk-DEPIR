@@ -1,6 +1,8 @@
 // Same-node resident public-code preprocessing. No CPU transform fallback and
 // no host-backed arithmetic arrays. All mathematical recurrences are shared.
+#include "../liftrs-cpp/cyclic_schedule.hpp"
 #include "../liftrs-cpp/progress.hpp"
+#include "code_encoding_kernels.cuh"
 #include "preparation_api.h"
 #include "preparation_kernels.cuh"
 #include "transform.cuh"
@@ -130,26 +132,30 @@ struct Buffer {
 };
 struct Card {
   int id = 0;
-  Buffer logs, powers, x, y, scratch, flag, base, roots, indices, jumps,
-      weights, ternary, good, total;
+  Buffer logs, powers, x, y, scratch, flag, base, roots, indices, jumps, weights,
+      ternary, good, total, code_p, code_spectrum, parity;
   std::unordered_map<size_t, std::unique_ptr<Buffer>> plans;
   uint64_t owned() const {
     uint64_t bytes = 0;
-    for (auto p : {&logs, &powers, &x, &y, &scratch, &flag, &base, &roots,
-                   &indices, &jumps, &weights, &ternary, &good, &total})
+    for (auto p :
+         {&logs, &powers, &x, &y, &scratch, &flag, &base, &roots, &indices, &jumps,
+          &weights, &ternary, &good, &total, &code_p, &code_spectrum, &parity})
       bytes += p->bytes;
     for (const auto &p : plans)
       bytes += p.second->bytes;
     return bytes;
   }
 };
-template <class Word> class Preparation {
+// Shared resident execution/storage for server preprocessing and client encoding.
+// Pipeline-specific sequences live outside this executor.
+template <class Word> class Resident {
   unsigned s_;
   uint32_t polynomial_, delta_;
   Word omega_;
   size_t maximum_;
   uint64_t cap_;
   bool local_vectors_ = false;
+  size_t encoding_k_ = 0, encoding_l_ = 0;
   // Member destruction frees buffers before releasing their peer-access leases.
   PeerLease peers_;
   std::vector<std::unique_ptr<Card>> cards_;
@@ -162,6 +168,9 @@ template <class Word> class Preparation {
     if (liftrs::execution::progress_enabled() &&
         (total >= 65536 || active_domain_ >= (1 << 20))) {
       const char *unit = "elements";
+      if (std::strstr(phase,"-bytes")) unit="bytes";
+      if (std::strstr(phase, "encoding-assembly"))
+        unit = "chunks";
       if (std::strstr(phase, "vectors") || std::strstr(phase, "columns") ||
           std::strstr(phase, "rows"))
         unit = "vectors";
@@ -371,6 +380,12 @@ template <class Word> class Preparation {
   }
 
   void transform(size_t n, Shards<Word> values, bool inverse) {
+    transform(n, values, shards(n, 2), inverse, nullptr);
+  }
+  // Client encoding can transform the old scratch while the dead arena becomes
+  // transpose scratch. Server preprocessing retains its original default views.
+  void transform(size_t n, Shards<Word> values, Shards<Word> scratch, bool inverse,
+                 double *stats) {
     active_domain_ = n;
     if (n == 1)
       return;
@@ -381,7 +396,6 @@ template <class Word> class Preparation {
     for (auto v = n; v > 1; v >>= 1)
       dim++;
     const unsigned split = dim / 2, levels = dim - split;
-    auto scratch = shards(n, 2);
     // Build all plan metadata before dispatch, keeping allocation admission
     // outside partially submitted multi-device stages.
     for (unsigned d = 0; d < count; d++) {
@@ -415,14 +429,23 @@ template <class Word> class Preparation {
       vector_pass(n, scratch, values, false, inverse, split);
       transpose_array(n, scratch, values, length, jobs);
     };
+    auto timed = [&](unsigned slot, auto fn) {
+      if (!stats) {
+        fn();
+        return;
+      }
+      auto began = Clock::now();
+      fn();
+      stats[slot] += std::chrono::duration<double>(Clock::now() - began).count();
+    };
     if (!inverse) {
-      convert();
-      vector_pass(n, values, scratch, true, false, split);
-      rows();
+      timed(1, convert);
+      timed(2, [&] { vector_pass(n, values, scratch, true, false, split); });
+      timed(3, rows);
     } else {
-      rows();
-      vector_pass(n, values, scratch, true, true, split);
-      convert();
+      timed(3, rows);
+      timed(2, [&] { vector_pass(n, values, scratch, true, true, split); });
+      timed(1, convert);
     }
   }
   void upload(const Word *host, size_t n, Shards<Word> target) {
@@ -468,16 +491,19 @@ template <class Word> class Preparation {
   }
 
 public:
+  // Resident client constants/workspaces; implementation and ownership invariants
+  // are in resident_encoding.cuh, separate from preprocessing mathematics.
+  void set_code(const uint32_t *, size_t, const Word *, size_t, int);
+  void encode_code(const uint32_t *, size_t, uint32_t *, size_t, double *);
   void drain() noexcept {
     for (const auto &c : cards_) {
       cudaSetDevice(c->id);
       cudaDeviceSynchronize();
     }
   }
-  Preparation(unsigned s, uint32_t polynomial, uint32_t delta, uint64_t omega,
-              const uint32_t *logs, size_t lc, const uint32_t *powers,
-              size_t pc, const int *ids, size_t count, size_t maximum,
-              uint64_t cap)
+  Resident(unsigned s, uint32_t polynomial, uint32_t delta, uint64_t omega,
+           const uint32_t *logs, size_t lc, const uint32_t *powers, size_t pc,
+           const int *ids, size_t count, size_t maximum, uint64_t cap)
       : s_(s), polynomial_(polynomial), delta_(delta), omega_(Word(omega)),
         maximum_(maximum), cap_(cap) {
     const char *layout = std::getenv("LIFTRS_GPU_PREPARATION_VECTOR_LAYOUT");
@@ -802,9 +828,11 @@ public:
     return bytes;
   }
 };
+#include "resident_encoding.cuh"
+
 struct Engine {
-  using Narrow = Preparation<uint32_t>;
-  using Wide = Preparation<uint64_t>;
+  using Narrow = Resident<uint32_t>;
+  using Wide = Resident<uint64_t>;
   std::variant<std::unique_ptr<Narrow>, std::unique_ptr<Wide>> state;
 };
 template <class Function> int api(char *error, size_t capacity, Function fn) {
@@ -940,4 +968,26 @@ extern "C" uint64_t pg_owned_bytes(void *h) {
 extern "C" void pg_destroy(void *h) {
   CurrentDevice restore;
   delete static_cast<Engine *>(h);
+}
+
+extern "C" int pg_set_code(void *handle, const uint32_t *p, size_t pc,
+                           const void *spectrum, size_t n, unsigned width, int layout,
+                           char *error, size_t capacity) {
+  return api(error, capacity, [&] {
+    visit(handle, [&](auto &state) {
+      using Word = std::conditional_t<
+          std::is_same_v<std::decay_t<decltype(state)>, Engine::Narrow>, uint32_t,
+          uint64_t>;
+      if (width != sizeof(Word))
+        throw std::runtime_error("GPU encoding spectrum width");
+      state.set_code(p, pc, static_cast<const Word *>(spectrum), n, layout);
+    });
+  });
+}
+extern "C" int pg_encode_code(void *handle, const uint32_t *message, size_t k,
+                              uint32_t *word, size_t n, double *stats, char *error,
+                              size_t capacity) {
+  return api(error, capacity, [&] {
+    visit(handle, [&](auto &state) { state.encode_code(message, k, word, n, stats); });
+  });
 }

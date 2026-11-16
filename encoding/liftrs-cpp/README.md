@@ -18,12 +18,16 @@ large fixtures and matching binaries remain in the ignored local cache.
 
 Read the [CPU implementation guide](../../docs/cpu-encoding.md) for the complete
 encoding sequence, module map and memory/ownership invariants. Arithmetic and
-transforms are shared across32/64-bit values. One native cyclic schedule now
+transforms are shared across32/64-bit values. One native cyclic schedule in `cyclic_schedule.hpp` now
 serves resident, wide and disk adapters, including compact/streamed/packed modes.
 Output representations and storage access remain small separate modules; C ABI
 fragments are included once, preserving standalone compiler commands. Go bindings
 are split into plan.go, matrix.go, online.go and disk.go, with common plan locking.
-[Refactor validation](../../experiments/cpu-encoding-modules/report.md) is pending.
+[Refactor correctness validation](../../experiments/cpu-encoding-modules/report.md)
+and the [matched larger CPU comparison](../../experiments/cpu-encoding-regression/report.md)
+pass. The experimental resident GPU adapter reuses `cyclic_schedule.hpp`; extracting
+that order does not introduce CUDA into CPU builds. Its GPU runtime checks are
+[pending separately](../../experiments/gpu-code-encoding/report.md).
 
 Set `LIFTRS_CPU_PROGRESS=1` in a job to emit timestamped phase/work JSON to stderr.
 It logs operation starts/completions/failures and periodic completed native blocks,

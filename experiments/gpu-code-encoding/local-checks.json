@@ -1,0 +1,95 @@
+{
+  "utc": "2026-11-16T14:36:37.114154+00:00",
+  "base_revision": "da789a3f6c5ed0e3005c3d89e255755609c09728",
+  "status": "local checks passed; native CUDA validation pending",
+  "commands": [
+    {
+      "command": "CGO_ENABLED=0 go test ./encoding/liftrs-shared -run ^TestCUDACode -count=1",
+      "outcome": "passed;0.004s test time"
+    },
+    {
+      "command": "go test -tags liftrs_cuda ./encoding/liftrs-shared -run ^TestCUDACodeResources$ -count=1",
+      "outcome": "passed; CUDA-only Go build, no GPU initialization"
+    },
+    {
+      "command": "go test -tags liftrs_cpp,liftrs_cuda ./encoding/liftrs-shared -run TestCPUEncodingModules|TestScalingWideCPPEncoding|TestCUDACodeResources -count=1",
+      "outcome": "passed;6.028s test time"
+    },
+    {
+      "command": "go test -tags liftrs_cpp,liftrs_cuda -c -o .cache/liftrs/gpu-code-encoding/local-check/shared.test ./encoding/liftrs-shared",
+      "outcome": "passed"
+    },
+    {
+      "command": "PIR_GPU_CODE_FIXTURES=<retained-cache>/fixtures shared.test -test.run=^TestCUDACodeNativeFixtures$ -test.v -test.cpuprofile=<retained-cache>/fixture.pprof",
+      "outcome": "passed;1.27s; independent Go/CPU fixture, actual34-bit expected positions"
+    },
+    {
+      "command": "go vet -tags liftrs_cpp,liftrs_cuda ./encoding/liftrs-shared ./encoding/liftrs-cuda",
+      "outcome": "passed"
+    },
+    {
+      "command": "python3 -B experiments/gpu-code-encoding/test_suite.py",
+      "outcome": "2 tests passed; correct GPU flags/caps and rejection of sanitizer errors"
+    },
+    {
+      "command": "python3 -B experiments/gpu-preprocessing-workflow/test_controller.py",
+      "outcome": "2 tests passed"
+    },
+    {
+      "command": "python3 -B experiments/gpu-code-encoding/run.py --check",
+      "outcome": "passed; no allocation/launch"
+    },
+    {
+      "command": "bash -n experiments/gpu-code-encoding/run.sbatch; git diff --check",
+      "outcome": "passed"
+    }
+  ],
+  "environment": {
+    "go": "retained Go1.27.3",
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOCACHE": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-workflow-build-cache",
+    "GOPATH": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/gopath",
+    "GOMAXPROCS": "4",
+    "GOFLAGS": "-p=4",
+    "per_command_timeout_seconds": 25
+  },
+  "source_sha256": {
+    "encoding/liftrs-cpp/cyclic_schedule.hpp": "f1b8e59f4ab68023c066f6a6652ae89d814f2843b9aaf4c5be64d59f559afc56",
+    "encoding/liftrs-cpp/online.hpp": "e4f29ae6bae6674afc04ceee0bfa233179fe7b9285eb65e2cd4b5360b9b16c10",
+    "encoding/liftrs-cuda/code_encoding_kernels.cuh": "036797bb8289253b8329ea0bda9b33eb0c6147656ec1ace7635b8501644afe4b",
+    "encoding/liftrs-cuda/preparation.cu": "a7f4c28e1e4779ffa5d2991edaefb9f55cc9fc555893c3ad198b09c316dc7036",
+    "encoding/liftrs-cuda/preparation.go": "5c7756607cefad3a0ce229fb697e9f4ac10991860b51aa05f62c026fd04777e7",
+    "encoding/liftrs-cuda/preparation_api.h": "d46c12fbf3ddd9bc30fe4ff1caaa49eaa806673e9188525a849a8efc90ac9e1c",
+    "encoding/liftrs-cuda/preparation_bridge.h": "540a5f5efe994142fc0e7dc48f90b68db33e1848e8e5eb55a7fb8d8cc2e4db35",
+    "encoding/liftrs-cuda/resident_encoding.cuh": "a077b1c69428ba8ecad26fc8daf604a8e570dad14991a7d243c062eeea766857",
+    "encoding/liftrs-shared/cuda_code.go": "b00321bbf3d15b354bed6a6cd1bf1d7b3cc0dc1ffe3325b6e99f07727244f837",
+    "encoding/liftrs-shared/cuda_code_disabled.go": "52ffdb7ea0005d8bbae9ff91406c50206a3f7992569d43cac59837839ae01850",
+    "encoding/liftrs-shared/cuda_code_enabled.go": "a4c9e08e404d3707761fd174c7f9d7ba8b67c6c7541a7dc61617342f5349081a",
+    "encoding/liftrs-shared/cuda_code_gpu_test.go": "1512d00beecaf4ea8e1094d8eece4f11913b803f19ee68968474d930fee35eb0",
+    "encoding/liftrs-shared/cuda_code_test.go": "251207f47eede8e62c90fd848a46f8e275f84d84addb07ac8ad8adae28cd9abe",
+    "encoding/liftrs-shared/cuda_code_unavailable_test.go": "0b91664beddfa3534d8cdebd3a158fe367cab5544973f52ac5934616496eb927",
+    "encoding/liftrs-shared/cuda_encoder.go": "8b8cd94346f109939fb4db6612dc06f7674199519cd0d23df537b227fc662d90",
+    "experiments/gpu-code-encoding/analyze.py": "f2df159007ba6d207b0c294b18bf4456c5c3436192f6f6c49b1e3d05255ebd93",
+    "experiments/gpu-code-encoding/check.cu": "55436873c0c4b6861f158e055c5e2dfabff4c2a407ddbf5fe5c30ba1f4d11a7b",
+    "experiments/gpu-code-encoding/run.py": "ec6d5f41501478de30844ba2d93d18f14ed22e63696f436116a7e1d0a5f5e249",
+    "experiments/gpu-code-encoding/run.sbatch": "57d9abb2e534ff3e5e7c7ebb14f242f466a8cabc991674f87b15884d635707e7",
+    "experiments/gpu-code-encoding/suite.py": "5d24135b6b56b3de25a438ea2b631c499359b98bdbae0d302e3acfd15331f59b",
+    "experiments/gpu-code-encoding/test_suite.py": "54b7b9596e68a4c2fe5a5d96e39a9276561c0d4de903e6a6d64e48f1a792294d",
+    "experiments/gpu-preprocessing-workflow/analyze.py": "3044de5f058d44aaa9b08dbd2c2762ef5352b4fef5365afef06ac03d6fa98b0b",
+    "experiments/gpu-preprocessing-workflow/run.py": "c18c8e53774e04fad5cfc6d4dabb9356ec99be15eb9bb3b87668a54334162464"
+  },
+  "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-code-encoding/local-check",
+  "cache_sha256": {
+    "fixture.pprof": "f29db860a06ddd3a25be04fc0e5488307818e3dcb7dd83f7ce4a6a8ecb60b987",
+    "shared.test": "f4dd35835aba028986e56b778cf8a838490c39df5526708ab768a50bd1b5af91",
+    "fixtures/native.bin": "1fa868161fe77165be9f0a2398194193bb22d38d89eca351c7ca1056011469dd"
+  },
+  "fixture_log_sha256": "38dbf2d12ae32b7f8a974c90554228c44970ca83609104e577b2d4121e75d218",
+  "limits": [
+    "No native CUDA compilation/execution or fulls17 result from these local checks.",
+    "GPU source/runtime/sanitizer validation is in the bounded submitted suite.",
+    "Preprocessing75832 remains untouched/uninspected."
+  ]
+}

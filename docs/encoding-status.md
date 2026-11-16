@@ -69,8 +69,8 @@ budget; review current availability and agree budgets before larger submissions.
 GPU counts below are **capacity floors**, dividing aggregate array bytes by one
 card's memory and rounding up. They assume sharded arrays/constants rather than
 replication. Communication, staging, runtime and allocation headroom can require
-more GPUs. Multi-GPU client encoding is not implemented (bounded server
-preprocessing has a peer prototype), and time cannot be estimated
+more GPUs. An experimental resident multi-GPU client now exists in source, with bounded
+validation pending (server preprocessing has validated peer kernels). Time cannot be estimated
 by dividing a single-GPU timing by the card count.
 
 - s≤16: measured paths below fit this machine; unrun variants are capacity
@@ -141,8 +141,8 @@ approved larger allocations.
 The CPU node advertises about907GiB schedulable RAM; device capacity is about
 140.4GiB per H200. Models exclude runtime/cache/context and allocation headroom.
 Do not force a slower memory mode when the faster validated path fits the admitted
-budget. Two/three GPU counts assume sharding; current code has no multi-GPU
-encoder. Test communication and full overlapping lifetimes before selecting a
+budget. Two/three GPU counts assume sharding; the resident multi-GPU client is implemented in source with runtime
+validation pending. Test communication and full overlapping lifetimes before selecting a
 card count or claiming latency. s17 output is34GiB packed, versus64GiB for a
 canonical uint32 array; packed output does not eliminate transform workspace.
 
@@ -572,3 +572,20 @@ The workspace median ratio is unstable, not evidence of a fixed38x penalty.
 The shared decoder is the setup profiling hotspot. This small larger-size
 encoding difference does not block GPU client integration; setup optimization
 remains a follow-up. No s17 performance or memory-capacity update follows.
+
+## Resident GPU client integration (SCALING-087)
+
+[Source/API](gpu-encoding.md) now implements resident code-data encoding through
+s17 with explicit1/2/4/8 same-node GPUs, common CPU/GPU cyclic order and shared
+width-selected GPU transforms. CPU defaults remain CUDA-free; legacy s16 GPU
+modes are unchanged. [Bounded validation](../experiments/gpu-code-encoding/report.md)
+is pending. Genuine s17 preprocessing/encoding measurements remain unknown;
+new code availability does not change any measured table cell.
+
+For exacts17K, principal resident code/work/parity payload projects398.457GiB
+aggregate and104.004GiB maximum on one of four GPUs, before metadata/context/
+headroom. Keeping source/message/canonical output projects220.883GiB host arrays;
+output is64GiB uint32. This refines the earlier~398GiB resident model, not measured
+peaks or full admission. The new path provides canonical words; s17 direct packed,
+streamed-code, compact and host-backed modes remain unimplemented. Compare full
+setup/transfers/peer routing/output latency after correctness and budget gates.

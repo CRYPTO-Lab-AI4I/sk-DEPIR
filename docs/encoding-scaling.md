@@ -1974,3 +1974,28 @@ code decoder setup optimization remains a follow-up; no CPU rewrite/new benchmar
 is needed first. Logging costs, one load outlier, allocator variability and all
 sample ranges remain visible in the [report](../experiments/cpu-encoding-regression/report.md#completed-comparison-scaling-086).
 Preprocessing75832 was untouched/not inspected; no fulls17 result is claimed.
+
+### GPU client integration and validation (SCALING-087)
+
+After the completed larger CPU comparison, implement the resident client from
+verified `ScalingCodeData`, preserving CPU and old GPU defaults. Share the native
+ten-step cyclic schedule; reuse width-selected GPU transforms, field recurrences,
+peer leases and slabs. Keep client views/transfers/assembly in dedicated adapters.
+No hidden slower memory mode or automatic fallback. [Design](gpu-encoding.md).
+
+1. Source integration, pure host capacity/ABI checks and CPU regressions.
+2. Bounded1/2/4GPU peer/local Go/CPU comparisons, both storage widths and actual
+   s17 high-bit kernel/mapping checks; ownership, invalid/retry/caps/lifetime;
+   shared preprocessing regressions and CUDA memcheck. Use the existing4GPU/
+   4GiB,4CPU/8GiBhost small-validation budget; submit and hand off.
+3. Reconcile evidence after completion; resolve correctness failures first.
+4. When genuine s17 preprocessing is verified, admit CPU/GPU complete workloads
+   separately and measure setup, encoding, communication, RAM/device peaks and
+   canonical/packed output. Fulls17 packed sink integration remains a separate
+   next step; resident source availability is not all memory-mode support.
+
+The four-card resident array model is398.457GiB aggregate/104.004GiB per-card
+maximum before metadata/headroom, with220.883GiB retained code/message/output
+host arrays. No new measured runtime or capacity claim. Full allocations still
+need explicit reviewed budgets. [Validation runner/report](../experiments/gpu-code-encoding/report.md).
+Preprocessing75832 stays untouched and uninspected while this work proceeds.

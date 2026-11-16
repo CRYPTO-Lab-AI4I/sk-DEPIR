@@ -1,0 +1,3 @@
+=== RUN   TestCUDACodeNativeFixtures
+--- PASS: TestCUDACodeNativeFixtures (1.27s)
+PASS

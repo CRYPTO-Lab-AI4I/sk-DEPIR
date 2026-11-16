@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-16 14:36 | SCALING-087 | Prepared | [Resident GPU client and validation ready](2026-11-16-1436-codex-scaling-087-prepared.md) |
+| 2026-11-16 13:51 | SCALING-087 | Started | [Shared-schedule GPU client encoding](2026-11-16-1351-codex-scaling-087-started.md) |
 | 2026-11-16 13:35 | SCALING-086 | Completed | [CPU comparison passes; GPU integration unblocked](2026-11-16-1335-codex-scaling-086-completed.md) |
 | 2026-11-16 13:30 | SCALING-086 | Started | [Review CPU comparison76055](2026-11-16-1330-codex-scaling-086-started.md) |
 | 2026-11-16 13:06 | SCALING-085 | Handoff | [CPU comparison job76055 submitted](2026-11-16-1306-codex-scaling-085-handoff.md) |

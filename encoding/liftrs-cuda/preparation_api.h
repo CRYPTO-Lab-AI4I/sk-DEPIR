@@ -22,6 +22,12 @@ int pg_roots(void *, const int64_t *, size_t, uint32_t *, char *, size_t);
 int pg_good_count(void *, unsigned, uint64_t *, char *, size_t);
 int pg_good_fill(void *, int64_t *, size_t, char *, size_t);
 int pg_release_products(void *, char *, size_t);
+// Optional resident client ABI. Constants are copied once; no host pointer is
+// retained. layout0=peer,1=local; width describes spectrum slots (4/8).
+int pg_set_code(void *, const uint32_t *, size_t, const void *, size_t, unsigned, int,
+                char *, size_t);
+int pg_encode_code(void *, const uint32_t *, size_t, uint32_t *, size_t, double *,
+                   char *, size_t);
 uint64_t pg_owned_bytes(void *);
 void pg_destroy(void *);
 #ifdef __cplusplus

@@ -795,3 +795,14 @@ headers avoid separate s17 algorithms. Ordinary clients remain CUDA-free.
 CUDA/peer validation is pending; source support is not a full s17 run or admission.
 The old empty-device CUDA32 adapter remains a reference through s16. GPU server
 execution is the active target; CPU preprocessing supplies correctness oracles.
+
+## Resident GPU encoding from code data
+
+`ScalingCodeData.WithCUDA(CUDACodeOptions)` explicitly selects the experimental
+same-node resident client path through s17, independent of CPU backend choice.
+It returns `ScalingCUDAEncoder` canonical uint32 words and shares the native
+cyclic order and verified code data with CPU. See the [API/buffer guide](../../docs/gpu-encoding.md)
+for source ownership, per-device/host admission, build/example and remaining
+s17 packing/memory modes. Optional CUDA is not needed for CPU-only builds.
+[Bounded runtime validation](../../experiments/gpu-code-encoding/report.md) is pending;
+fulls17 encoding remains unvalidated.

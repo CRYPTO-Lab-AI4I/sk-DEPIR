@@ -15,7 +15,7 @@ def stop_process(process,wait_seconds=5):
   except subprocess.TimeoutExpired:pass
  return {'reaped':False,'last_signal':int(signal.SIGKILL),'warning':'worker not reaped; scheduler must clean allocation'}
 
-def main(here=HERE,dimension_default=False):
+def main(here=HERE,dimension_default=False,extra_suite=None):
  import argparse
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('name',nargs='?');p.add_argument('--check',action='store_true');p.add_argument('--dimension-s17',action='store_true',default=dimension_default);args=p.parse_args()
  if args.check:
@@ -120,6 +120,7 @@ def main(here=HERE,dimension_default=False):
     if degree==16:assert dim['k']==918672421,'s16 measured exact dimension mismatch'
     assert not any((directory/stage).exists()for stage in('support','root','code'))
     record['dimensions'].append(dict(s=degree,**dim,cache=str(directory),manifest_sha256=HELP['sha'](directory/'dimension/manifest.json')));save()
+  if extra_suite is not None:extra_suite(dict(run=run,source=source,cache=cache,out=out,env=env,go=go,library=library))
   record['status']='passed'
  except BaseException as e:record['status']='failed';record['error']=repr(e);raise
  finally:

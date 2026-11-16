@@ -225,3 +225,15 @@ headers avoid separate s17 algorithms. Ordinary clients remain CUDA-free.
 CUDA/peer validation is pending; source support is not a full s17 run or admission.
 The old empty-device CUDA32 adapter remains a reference through s16. GPU server
 execution is the active target; CPU preprocessing supplies correctness oracles.
+
+## Width-selected resident client
+
+The new experimental `ScalingCodeData.WithCUDA(CUDACodeOptions)` selects explicit
+same-node devices and resident constants through s17. It reuses the preprocessing
+executor's width-selected transforms/peer storage and the CPU cyclic schedule;
+client views, transfers and canonical assembly are separate adapters. Build the
+plugin with both `matrix.cu` and `preparation.cu`, and `-Xcompiler=-fPIC,-pthread`.
+Read the [client API/ownership guide](../../docs/gpu-encoding.md) and
+[bounded integration experiment](../../experiments/gpu-code-encoding/report.md).
+Runtime validation is pending; no fulls17 result is implied. Existing legacy
+constructors/modes and CPU-only dependencies remain unchanged.

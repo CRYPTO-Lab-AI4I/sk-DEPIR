@@ -60,6 +60,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Resident GPU client encoding](gpu-code-encoding/report.md): shared CPU/GPU
+  schedule, explicit same-node resident code/workspaces, width/ownership/cap
+  checks and bounded Go/CPU/CUDA-sanitizer validation (pending).
+
 - [Larger CPU refactor comparison](cpu-encoding-regression/report.md): matcheds14
   resident encoding and separate setup, balanced old/new order, canonical-hash
   checks, explicit progress-only baseline instrumentation and separate profiles.

@@ -4,7 +4,7 @@ import argparse,json,runpy
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
 
-def main(here=HERE,require_dimension=False):
+def main(here=HERE,require_dimension=False,extra_review=None):
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('name');args=p.parse_args();out=here/'runs'/args.name
  record=json.loads((out/'results.json').read_text())
  if require_dimension:assert record.get('dimension_s17'),'admission run lacks exact dimensions'
@@ -49,5 +49,6 @@ def main(here=HERE,require_dimension=False):
  if record.get('dimension_s17'):
   result['tests'].append('count-only small CUDA memcheck, independent-Go s8/s16 dimension and full s17 enumeration without host support/grid')
   result['scope']='complete small workflows and exact dimension components; not full s17 discovery/support/preparation or full resource admission'
+ if extra_review is not None:extra_review(out,record,result)
  (out/'analysis.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
 if __name__=='__main__':main()

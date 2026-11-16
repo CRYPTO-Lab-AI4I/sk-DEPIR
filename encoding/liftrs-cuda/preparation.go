@@ -41,6 +41,7 @@ type Preparation struct {
 	width   int
 	maximum uint64
 	degree  int
+	codeK   int
 }
 
 // NewPreparation loads the explicit trusted library and builds bounded metadata
@@ -286,4 +287,59 @@ func (p *Preparation) ReleaseProducts() error {
 	}
 	var text [512]C.char
 	return preparationError(C.pg_bridge_release(p.bridge, &text[0], 512), &text[0])
+}
+
+// ConfigureEncoding copies canonical P/spectrum to device once and configures a
+// dedicated resident client. Spectrum slot width follows s. No Go pointer is
+// retained. The same resident executor/kernel arithmetic serves preprocessing;
+// this engine must have no prior workspace use and cannot be reconfigured.
+func (p *Preparation) ConfigureEncoding(code, s32 []uint32, s64 []uint64, layout string) error {
+	if p == nil {
+		return fmt.Errorf("nil resident engine")
+	}
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	n := int(p.maximum)
+	mode := 0
+	if layout == "local" {
+		mode = 1
+	} else if layout != "peer" {
+		return fmt.Errorf("explicit peer/local vector layout required")
+	}
+	if p.bridge == nil || p.codeK != 0 || len(code) < 2 || len(code)-1 > n/2 || p.width == 4 && (len(s32) != n || len(s64) != 0) || p.width == 8 && (len(s64) != n || len(s32) != 0) {
+		return fmt.Errorf("resident encoding code shape/state")
+	}
+	spectrum := preparationPointer(s32)
+	if p.width == 8 {
+		spectrum = preparationPointer(s64)
+	}
+	var text [512]C.char
+	status := C.pg_bridge_set_code(p.bridge, (*C.uint32_t)(preparationPointer(code)), C.size_t(len(code)), spectrum, C.size_t(n), C.uint(p.width), C.int(mode), &text[0], 512)
+	runtime.KeepAlive(code)
+	runtime.KeepAlive(s32)
+	runtime.KeepAlive(s64)
+	if err := preparationError(status, &text[0]); err != nil {
+		return err
+	}
+	p.codeK = len(code) - 1
+	return nil
+}
+
+// EncodeCode borrows host input/output only for this synchronous complete call.
+// Output must be disjoint from input. Constants and five transforms stay on the
+// selected GPUs; stats are synchronized host-wall phase seconds (not CUDA events).
+func (p *Preparation) EncodeCode(input, output []uint32) (stats [10]float64, err error) {
+	if p == nil {
+		return stats, fmt.Errorf("nil resident engine")
+	}
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if p.bridge == nil || p.codeK == 0 || len(input) != p.codeK || uint64(len(output)) != p.maximum {
+		return stats, fmt.Errorf("resident encoding input/state")
+	}
+	var text [512]C.char
+	status := C.pg_bridge_encode_code(p.bridge, (*C.uint32_t)(preparationPointer(input)), C.size_t(len(input)), (*C.uint32_t)(preparationPointer(output)), C.size_t(len(output)), (*C.double)(unsafe.Pointer(&stats[0])), &text[0], 512)
+	runtime.KeepAlive(input)
+	runtime.KeepAlive(output)
+	return stats, preparationError(status, &text[0])
 }

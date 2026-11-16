@@ -1,0 +1,9 @@
+# SCALING-087 — modular resident GPU client encoding
+
+UTC: 2026-11-16T13:51:11.720383+00:00; agent: Codex; status: started.
+
+User requests committing reviewed CPU results (already da789a3) and continuing GPU client encoding, explicitly preserving implementation modularity/readability/maintainability. Read board, current CPU/GPU encoding APIs, code-data formats, resident GPU preprocessing engine/bridge/kernels and scaling contracts. Leave75832 and its unreviewed artifacts untouched. No full GPU encoding job authorized/submitted by this work.
+
+Implement explicit `ScalingCodeData.WithCUDA` using the existing optional CUDA client interface and same canonical data as CPU. Share the ten-step native cyclic schedule with CPU; reuse the resident width-selected GPU transform executor and peer leases. Keep client glue/resource ownership separate from preprocessing mathematics. Resident constants are the intended fast route, not an implicit slower streamed mode. Use two workspace buffers with prefix views and promotion into dead scratch, plus resident base-field P/spectrum and bounded parity. For knowns17K, projected aggregate array bytes remain about398GiB with a four-card layout below112GiB/card (metadata/headroom extra); validate accounting before claims. No CPU path/CUDA-free default replacement.
+
+Bounded validation must compare genuine smaller codewords to independent Go and CPU results, exercise repeated/zero/invalid inputs, retained output ownership, cap/state errors, both widths and1/2/4-card layouts, and retain source/cache/profile/log evidence. Large-count metadata and true s17 arithmetic tests are distinct from a fulls17 encoder run. Reuse approved four-GPU/4GiBaggregate,4CPU/8GiBhost small-test budget; no full resource increase. New long job must log advancing native work, submit then hand off without monitoring. Track code/docs/README/scaling-reference changes and measured/projection limits.

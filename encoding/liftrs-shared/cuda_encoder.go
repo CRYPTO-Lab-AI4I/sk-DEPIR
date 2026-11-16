@@ -36,7 +36,8 @@ type cudaOnlineBackend interface {
 // Explicit streaming/host-backed modes retain immutable host code until Close;
 // host-backed mode additionally owns a mutable host arena.
 // This is the same standalone mathematical encoder as the CPU path, not the
-// application/cryptographic encoder. Current packed arithmetic supports s2..16.
+// application/cryptographic encoder. Legacy plan constructors support s2..16; the experimental code-data
+// constructor selects wider arithmetic through s17, without a full-size claim.
 type ScalingCUDAEncoder struct {
 	mu      sync.Mutex
 	backend cudaOnlineBackend
@@ -93,9 +94,13 @@ func (p *ScalingOnlinePlan) WithCUDA(options CUDAOptions) (*ScalingCUDAEncoder, 
 }
 
 // CUDAEncodeStats separates transfer-inclusive native call and whole Go call
-// clocks. Kernel stages use CUDA event durations. Their sum need not equal total
+// clocks. Legacy kernel stages use CUDA events; TimingSource labels other clocks.
+// Their sum need not equal total
 // elapsed (validation, allocation, synchronization and wrapper overhead remain).
 type CUDAEncodeStats struct {
+	// Empty preserves legacy CUDA event/mixed transfer clocks. Resident code-data
+	// encoding labels its synchronized host-wall phase clocks explicitly.
+	TimingSource string `json:"timing_source,omitempty"`
 	// Host-backed counters are zero for resident paths. HostArenaBytes excludes
 	// the owning result, immutable code/message, native staging and runtime.
 	HostArenaBytes    uint64 `json:"host_arena_bytes,omitempty"`
@@ -144,6 +149,9 @@ func (e *ScalingCUDAEncoder) EncodeWithStats(message []uint32) ([]uint32, CUDAEn
 	values, err := e.backend.EncodeOnline(message, word)
 	stats.ElapsedNS = time.Since(start).Nanoseconds()
 	stats.OwnedDeviceBytes = e.backend.OwnedBytes()
+	if source, ok := e.backend.(interface{ TimingSource() string }); ok {
+		stats.TimingSource = source.TimingSource()
+	}
 	ns := func(i int) int64 { return int64(values[i] * 1e9) }
 	stats.HostToDeviceNS = ns(0)
 	stats.TaylorNS = ns(1)

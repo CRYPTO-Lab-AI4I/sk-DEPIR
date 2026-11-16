@@ -74,6 +74,14 @@ slower), resident loading1.89→2.54 seconds and file opening1.50→2.04 seconds
 Both versions include progress logging; setup profiles identify the shared decoder
 as a follow-up. These costs do not block GPU client encoding integration.
 
+An experimental [resident GPU code-data encoder](docs/gpu-encoding.md) now
+connects the shared CPU/GPU cyclic sequence to the existing width-selected GPU
+executor. It consumes the same verified data as CPU encoding, with explicit
+same-node devices and resident constants. Source supports s17; bounded GPU
+runtime validation is pending ([experiment](experiments/gpu-code-encoding/report.md)).
+CPU/CUDA-free builds and legacy s≤16 GPU defaults remain unchanged. No fulls17
+GPU encoding result or speedup is claimed.
+
 A [bounded HPC table-gap batch](experiments/encoding-table/report.md) measures
 22 missing encoding-mode cells at s10/14/15/16 using retained preprocessing.
 All22 cases now pass source/evidence/cache and cross-mode hash reconciliation

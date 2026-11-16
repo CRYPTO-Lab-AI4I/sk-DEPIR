@@ -19,6 +19,10 @@ typedef struct pg_bridge {
   int (*good_count)(void *, unsigned, uint64_t *, char *, size_t);
   int (*good_fill)(void *, int64_t *, size_t, char *, size_t);
   int (*release)(void *, char *, size_t);
+  int (*set_code)(void *, const uint32_t *, size_t, const void *, size_t, unsigned, int,
+                  char *, size_t);
+  int (*encode_code)(void *, const uint32_t *, size_t, uint32_t *, size_t, double *,
+                     char *, size_t);
   uint64_t (*owned)(void *);
   void (*destroy)(void *);
 } pg_bridge;
@@ -52,6 +56,10 @@ static pg_bridge *pg_bridge_open(const char *path, unsigned s, uint32_t poly,
   b->good_count = dlsym(b->library, "pg_good_count");
   b->good_fill = dlsym(b->library, "pg_good_fill");
   b->release = dlsym(b->library, "pg_release_products");
+  // Optional additions: old preprocessing plugins remain compatible. Client
+  // construction explicitly checks these before configuring any code data.
+  b->set_code = dlsym(b->library, "pg_set_code");
+  b->encode_code = dlsym(b->library, "pg_encode_code");
   b->owned = dlsym(b->library, "pg_owned_bytes");
   b->destroy = dlsym(b->library, "pg_destroy");
   if (!create || !b->apply || !b->grid || !b->product || !b->spectrum ||
@@ -102,6 +110,24 @@ static int pg_bridge_good_fill(pg_bridge *b, int64_t *values, size_t count,
 }
 static int pg_bridge_release(pg_bridge *b, char *error, size_t capacity) {
   return b->release(b->engine, error, capacity);
+}
+static int pg_bridge_set_code(pg_bridge *b, const uint32_t *p, size_t pc,
+                              const void *spectrum, size_t n, unsigned width,
+                              int layout, char *error, size_t cap) {
+  if (!b || !b->set_code || !b->encode_code) {
+    snprintf(error, cap, "resident GPU client encoding ABI unavailable");
+    return 1;
+  }
+  return b->set_code(b->engine, p, pc, spectrum, n, width, layout, error, cap);
+}
+static int pg_bridge_encode_code(pg_bridge *b, const uint32_t *message, size_t k,
+                                 uint32_t *word, size_t n, double *stats, char *error,
+                                 size_t cap) {
+  if (!b || !b->encode_code) {
+    snprintf(error, cap, "resident GPU client encoding ABI unavailable");
+    return 1;
+  }
+  return b->encode_code(b->engine, message, k, word, n, stats, error, cap);
 }
 static uint64_t pg_bridge_owned(pg_bridge *b) {
   return b ? b->owned(b->engine) : 0;
