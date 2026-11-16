@@ -1,6 +1,6 @@
 # First guarded full s17 GPU preprocessing
 
-Status: **approved for first local-layout full trial; submission follows**. Exact count and
+Status: **first full local-layout trial submitted as job75819; results unreviewed**. Exact count and
 complete small workflow validation pass job75810; no full s17 support/cache or
 latency exists. [Budget](budget.json) must record explicit user numeric agreement
 before the controller launches. This experiment constructs public preprocessing,
@@ -135,3 +135,13 @@ in budget.json for exactly the proposed4H200112GiB/card, exclusive128cores/
 library default remains unchanged. Existing historical preparation checks remain
 intact; no-allocation checks are rerun against the approved manifest. Approval
 and submission do not establish a completed s17 cache or measured peak/latency.
+
+## First full submission
+
+Job75819 submitted, source0ac7da7 ([submission/exact approved budget](submission.json)).
+Results/logs/profile metadata: `runs/first-01/`, `slurm-75819.log`; persistent
+support/root/code/profile cache: `.cache/liftrs/gpu-s17-full-preprocessing/s17-m2-t5/`.
+Compilation binaries and native plugin remain in the parent cache with jobID.
+No node pin, excludegnode03. sbatch returned successfully; no scheduler/log/progress
+polling, waiting or result inspection after submission. Await completion ping.
+No full peak/latency/cache success is claimed merely from submission.

@@ -1,0 +1,66 @@
+{
+  "job_id": "75819",
+  "run": "first-01",
+  "revision": "0ac7da7b4a33bad32b6ff0bed4046b2aa02e2360",
+  "submitted_utc": "2026-11-16T10:16:59.906403+00:00",
+  "command": "sbatch --parsable --output=experiments/gpu-s17-full-preprocessing/slurm-%j.log experiments/gpu-s17-full-preprocessing/run.sbatch first-01",
+  "budget_sha256": "710277cee12ced2870817f92add36cbb58324b6cd3438fb420c99880b930a538",
+  "plan": {
+    "status": "approved; ready for first guarded full trial",
+    "purpose": "fulls17,m2,t5 persistent GPU preprocessing; no database encoding",
+    "gpu_route": {
+      "gpus": 4,
+      "nodes": 1,
+      "implementation": "same-node resident; local vector layout explicit candidate",
+      "per_device_owned_cap_bytes": 120259084288,
+      "aggregate_owned_cap_bytes": 481036337152,
+      "modeled_product_arrays_bytes": 412316860416,
+      "other_gpu_options": "8/16 permitted by user but cross-node implementation is not available; no linear-speedup assumption"
+    },
+    "host_route": {
+      "exclusive_node": true,
+      "allocated_cpu_cores": 128,
+      "active_workers": 32,
+      "requested_ram_bytes": 927712935936,
+      "process_group_rss_cap_bytes": 858993459200,
+      "go_soft_memory_limit_bytes": 773094113280,
+      "principal_array_cap_bytes": 137438953472,
+      "native_owned_cap_bytes": 134217728,
+      "final_code_payload_cap_bytes": 172872433664,
+      "limit_notes": "Projection/safety proposals, not measured peak. GC limit can add work if reached; effect unknown. Exclusive node costs128 allocated cores to avoid unaccounted shared host use."
+    },
+    "storage": {
+      "new_retained_cap_bytes": 549755813888,
+      "scratch_cap_bytes": 17179869184,
+      "minimum_initial_shared_free_bytes": 618475290624,
+      "strict_successful_payload_bound_bytes": 309237645373,
+      "projected_retained_payload_bytes": 252677224705,
+      "notes": "Exact K supplies actual file sizes. Successful files get one write/readback. Partial failed stages retained; filesystem free space does not establish quota."
+    },
+    "deadlines": {
+      "slurm_seconds": 172800,
+      "controller_seconds": 165600,
+      "worker_seconds": 162000,
+      "notes": "Proposed cutoffs, not runtime estimates; complete latency is unknown."
+    },
+    "admission_gates": [
+      "exact counts and complete small workflow validated75810",
+      "format-size calculation verified",
+      "full controller guards and code checks complete",
+      "user directs proceeding with local full trial after numeric budget and trade-off presentation; runtime/peak remain unmeasured"
+    ],
+    "no_launch_authorized": false,
+    "approved": true,
+    "approval_note": "User: \"ok let's do local then\", following the explicit full numeric budget proposal and local/peer explanation. Proceed with unchanged proposed resources and local layout.",
+    "exact_k": 3876566203,
+    "n": 17179869184,
+    "vector_layout": "local",
+    "approved_utc": "2026-11-16T10:15:15.163728+00:00"
+  },
+  "results": "experiments/gpu-s17-full-preprocessing/runs/first-01/results.json",
+  "log": "experiments/gpu-s17-full-preprocessing/slurm-75819.log",
+  "cache": ".cache/liftrs/gpu-s17-full-preprocessing/s17-m2-t5/",
+  "placement": "any eligible accessible node; exclude gnode03",
+  "monitoring": "none; await user completion ping",
+  "scope": "first fulls17 public preprocessing trial; no database encoding and no successful full cache claimed before evidence review"
+}

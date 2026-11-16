@@ -531,3 +531,8 @@ The first full s17 local-layout trial is now approved under the concrete
 4H200112GiBowned/card, exclusive128cores/32workers,864GiBhost request,
 512GiBretained/16GiBscratch,48h scheduler cutoff. Submission is recorded in its
 report; table rows stay unmeasured until completion and evidence review.
+
+Full s17 public preprocessing is now submitted as job75819 (local layout), with
+[recorded approved limits](../experiments/gpu-s17-full-preprocessing/submission.json).
+Status is **submitted, not yet verified**; all full s17 runtime/peak-memory entries
+remain unmeasured until completion and reconciliation. No database encoding job.

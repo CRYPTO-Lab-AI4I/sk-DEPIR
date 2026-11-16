@@ -1909,3 +1909,8 @@ recorded in the full experiment budget.json. No fixed node; excludegnode03.
 Configuration checks/commit precede submission, then reportID and yield without
 monitoring. All profiles/checkpoints and partial-stage retention remain active.
 Approval is not measured fulls17 feasibility, completion or a runtime estimate.
+
+Full local-layout preprocessing job75819 is submitted with the exact approved
+budget; [submission](../experiments/gpu-s17-full-preprocessing/submission.json).
+Resultsfirst-01; retain guards/checkpoints/profiles and yield without monitoring.
+No measured s17 cache/latency claim until completion and evidence review.

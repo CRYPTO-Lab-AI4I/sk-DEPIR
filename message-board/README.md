@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-16 10:16 | SCALING-083 | Handoff | [First fulls17 local preprocessing job75819](2026-11-16-1016-codex-scaling-083-handoff.md) |
 | 2026-11-16 10:15 | SCALING-083 | Started | [Launch local fulls17 trial under proposed budget](2026-11-16-1015-codex-scaling-083-started.md) |
 | 2026-11-16 10:09 | SCALING-082 | Handoff | [Exact counts pass; full resource plan prepared](2026-11-16-1009-codex-scaling-082-handoff.md) |
 | 2026-11-16 09:45 | SCALING-082 | Started | [Exact s17 count and full-run launch plan](2026-11-16-0945-codex-scaling-082-started.md) |
