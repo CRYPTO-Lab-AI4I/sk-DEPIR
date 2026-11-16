@@ -1,0 +1,24 @@
+File: old.test
+Build ID: 0b501d87a5af1889d09235f1d0cc7efaadad9736
+Type: cpu
+Time: 2026-11-16 14:24:16 CET
+Duration: 264.98ms, Total samples = 260ms (98.12%)
+Showing nodes accounting for 260ms, 100% of 260ms total
+      flat  flat%   sum%        cum   cum%
+     250ms 96.15% 96.15%      250ms 96.15%  runtime.memclrNoHeapPointers
+      10ms  3.85%   100%       10ms  3.85%  runtime.globrunqgetbatch
+         0     0%   100%      250ms 96.15%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPEncoder).NewWorkspace
+         0     0%   100%      250ms 96.15%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).NewWorkspace (inline)
+         0     0%   100%      250ms 96.15%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPURegressionSample
+         0     0%   100%      250ms 96.15%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPURegressionSample.func1
+         0     0%   100%      250ms 96.15%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPURegressionSample.func5
+         0     0%   100%       10ms  3.85%  runtime.findRunnable
+         0     0%   100%       10ms  3.85%  runtime.goschedImpl
+         0     0%   100%       10ms  3.85%  runtime.goschedguarded_m
+         0     0%   100%      250ms 96.15%  runtime.makeslice
+         0     0%   100%      250ms 96.15%  runtime.mallocgc
+         0     0%   100%      250ms 96.15%  runtime.mallocgcLarge
+         0     0%   100%       10ms  3.85%  runtime.mcall
+         0     0%   100%      250ms 96.15%  runtime.memclrNoHeapPointersChunked
+         0     0%   100%       10ms  3.85%  runtime.schedule
+         0     0%   100%      250ms 96.15%  testing.tRunner

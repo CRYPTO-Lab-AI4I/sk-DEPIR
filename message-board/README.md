@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-16 13:35 | SCALING-086 | Completed | [CPU comparison passes; GPU integration unblocked](2026-11-16-1335-codex-scaling-086-completed.md) |
+| 2026-11-16 13:30 | SCALING-086 | Started | [Review CPU comparison76055](2026-11-16-1330-codex-scaling-086-started.md) |
 | 2026-11-16 13:06 | SCALING-085 | Handoff | [CPU comparison job76055 submitted](2026-11-16-1306-codex-scaling-085-handoff.md) |
 | 2026-11-16 13:05 | SCALING-085 | Prepared | [Matched s14 CPU comparison ready](2026-11-16-1305-codex-scaling-085-prepared.md) |
 | 2026-11-16 11:27 | SCALING-085 | Started | [Larger CPU refactor comparison](2026-11-16-1127-codex-scaling-085-started.md) |

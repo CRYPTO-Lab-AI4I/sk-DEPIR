@@ -1,6 +1,6 @@
 # Larger CPU encoding refactor comparison
 
-Status: **submitted as job76055; full s14 results pending and not monitored**. This follows the
+Status: **job76055 passed; completed results reconciled after the user completion ping**. This follows the
 [small s10 comparison](../cpu-encoding-modules/report.md#completed-corrected-validation),
 which found encoding1–3% slower and resident/file setup about2–3ms slower after
 modularity changes. The purpose is to determine whether the difference matters
@@ -151,3 +151,83 @@ Job **76055**, submitted revision `e07f308`, accepted by sbatch; see the
 profiles: `.cache/liftrs/cpu-encoding-regression/comparison-01/`.
 No queue/process/log checks after submission. Fulls17 preprocessing75832 was
 neither changed nor inspected. Await the completion ping before analysis.
+
+## Completed comparison (SCALING-086)
+
+Job76055 completed successfully ongnode02 with32 CPU cores, no GPU,
+[scheduler elapsed23min24s, exit0:0](runs/comparison-01/scheduler-completion.txt).
+Controller elapsed1402.824s includes source preparation, builds, small correctness
+checks, eight comparison processes, two profiling processes and profile summaries.
+It is not the encoding latency. Submitted sourcee07f308; baseline671bf5e with
+only the disclosed progress patch. [Results/commands/source identities](runs/comparison-01/results.json),
+[reconciled analysis](runs/comparison-01/analysis.json), [Slurm output](slurm-76055.log).
+The analyzer verifies521 source,31 original evidence,17 retained cache and141
+pristine-baseline files, and exactly reproduces the logging-only modifications.
+All native schedules, small independent-Go checks and20 fulls14 warmup/measured
+output hashes pass. No deadline/resource guard fires.
+
+Unprofiled medians over four samples per version:
+
+| Operation | Before refactor | After refactor | Difference |
+|---|---|---|---|
+| Resident encoding after warmup | Runtime60.346 seconds | Runtime61.119 seconds | +0.773 seconds;1.28% slower |
+| First encoding/warmup | Runtime60.660 seconds | Runtime61.311 seconds | +0.651 seconds;1.07% slower |
+| Resident cache loading | Runtime1.894 seconds | Runtime2.540 seconds | +0.646 seconds;34.1% slower |
+| Verified file-backed encoder opening | Runtime1.501 seconds | Runtime2.042 seconds | +0.541 seconds;36.1% slower |
+| Native plan construction | Runtime5.813 milliseconds | Runtime5.869 milliseconds | +0.056 milliseconds;1.0% slower |
+
+Sampled encoding-process peak RSS is3.593–3.595GiB in both versions; profiled
+process peaks reach3.597GiB old and3.598GiB new. These include the process setup,
+code and message/workspace/output arrays, excluding filesystem cache. The cgroup
+and resource samples are retained separately; no memory-capacity model changes.
+
+Encoding ranges are60.312–60.570s old versus61.009–61.158s new; paired ratios
+show0.93–1.40% higher encoding times. This is a small repeatable difference in
+this instrumented comparison, not proof that it is random noise or solely caused
+by modularity. The first old resident load took21.457s, versus1.873–1.901s in
+its remaining samples. All samples are retained, including that I/O outlier;
+its cause was not established and the table reports the prescribed medians.
+
+Workspace-only medians are3.093ms old and118.542ms new, but the samples are
+bimodal: old2.946/3.047/3.138/228.169ms; new2.594/2.647/234.438/282.371ms
+(sorted). The38.3x ratio crosses those two clusters and must not be presented
+as a stable38x allocation regression. In the separate profiled samples,
+workspace duration is264.992ms old and228.583ms new; nearly all CPU samples in
+both are `runtime.memclrNoHeapPointers`, clearing allocated memory. These
+[old](runs/comparison-01/workspace-old-top.txt)/[new](runs/comparison-01/workspace-new-top.txt)
+summaries were derived during review from the already sealed profiles, not
+another benchmark. The distribution/allocator effect remains a limitation;
+absolute workspace cost stayed below0.283s in unprofiled samples.
+
+The separate [old resident-load profile](runs/comparison-01/profile-old-load-resident.log)
+and [new profile](runs/comparison-01/profile-new-load-resident.log) locate the
+extra CPU work in the shared `readScalingCodeValues` decoder: roughly1.22s flat
+versus0.52s in the previous loading loop. File-open profiles similarly show
+roughly0.70s in the shared decoder versus0.18s in the previous opener. Read and
+SHA CPU costs are comparable. These samples point to the decoder loop as the
+setup follow-up; they are not a proven explanation of every elapsed difference.
+Native encoding stage medians suggest the larger absolute differences are in
+columns/transposes and rows, with a smaller canonical-assembly increase; no
+single kernel cause has been isolated and no code fix is made here.
+
+**Decision:** the bounded larger-size comparison is complete. About1.3% encoding
+cost and0.5–0.6s additional load/open time do not justify delaying GPU client
+encoding integration. Retain the decoder improvement and allocator variability
+as follow-ups, with profiling evidence preserved. This is limited tos14 resident
+encoding/setup on this node, logging enabled in both versions; it does not
+validate larger memory modes or fulls17 execution. Preprocessing75832 was not
+inspected or modified during this review.
+
+Reproduce derived workspace summaries with the retained matching binaries:
+
+```sh
+export GOTOOLCHAIN=local
+export GOCACHE="$PWD/.cache/liftrs/preprocessing-workflow-build-cache"
+.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go tool pprof -top   .cache/liftrs/cpu-encoding-regression/comparison-01/old.test   .cache/liftrs/cpu-encoding-regression/comparison-01/profiles-old/workspace.pprof
+# Repeat with new.test and profiles-new/workspace.pprof.
+```
+
+[Review seals and commands](runs/comparison-01/review.json) identify the derived
+files. The two workspace summaries and scheduler-completion receipt are post-completion
+review artifacts; the original sealed results/evidence map is unchanged. The
+completion analyzer command above reproduces the measured comparison table.

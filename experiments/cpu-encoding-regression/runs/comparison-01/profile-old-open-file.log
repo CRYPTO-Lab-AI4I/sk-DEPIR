@@ -1,0 +1,35 @@
+File: old.test
+Build ID: 0b501d87a5af1889d09235f1d0cc7efaadad9736
+Type: cpu
+Time: 2026-11-16 14:24:14 CET
+Duration: 1.51s, Total samples = 1.51s (99.70%)
+Showing nodes accounting for 1.51s, 100% of 1.51s total
+      flat  flat%   sum%        cum   cum%
+     0.67s 44.37% 44.37%      0.67s 44.37%  crypto/internal/fips140/sha256.blockSHANI
+     0.63s 41.72% 86.09%      0.63s 41.72%  internal/runtime/syscall/linux.Syscall6
+     0.18s 11.92% 98.01%      1.51s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.OpenScalingCPPFile
+     0.01s  0.66% 98.68%      0.01s  0.66%  encoding/binary.littleEndian.Uint32 (inline)
+     0.01s  0.66% 99.34%      0.01s  0.66%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.BinaryField.Mul (inline)
+     0.01s  0.66%   100%      0.01s  0.66%  runtime.memmove
+         0     0%   100%      1.31s 86.75%  bufio.(*Reader).Read
+         0     0%   100%      0.67s 44.37%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%      0.67s 44.37%  crypto/internal/fips140/sha256.block
+         0     0%   100%      1.51s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPURegressionSample
+         0     0%   100%      1.51s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPURegressionSample.func1
+         0     0%   100%      1.51s   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPURegressionSample.func3
+         0     0%   100%      0.01s  0.66%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.newSparseTransform
+         0     0%   100%      0.01s  0.66%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.mul
+         0     0%   100%      0.01s  0.66%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.orbitField.pow
+         0     0%   100%      0.01s  0.66%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared/field.QuadraticField.Mul
+         0     0%   100%      0.63s 41.72%  internal/poll.(*FD).Read
+         0     0%   100%      0.63s 41.72%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%      1.30s 86.09%  io.(*teeReader).Read
+         0     0%   100%      1.31s 86.75%  io.ReadAtLeast
+         0     0%   100%      1.31s 86.75%  io.ReadFull (inline)
+         0     0%   100%      0.63s 41.72%  os.(*File).Read
+         0     0%   100%      0.63s 41.72%  os.(*File).read (inline)
+         0     0%   100%      0.63s 41.72%  syscall.RawSyscall6
+         0     0%   100%      0.63s 41.72%  syscall.Read (inline)
+         0     0%   100%      0.63s 41.72%  syscall.Syscall
+         0     0%   100%      0.63s 41.72%  syscall.read
+         0     0%   100%      1.51s   100%  testing.tRunner

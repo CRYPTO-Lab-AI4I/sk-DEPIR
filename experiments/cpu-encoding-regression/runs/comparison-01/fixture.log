@@ -1,0 +1,5 @@
+=== RUN   TestCPURegressionFixture
+{"utc":"2026-11-16T13:06:43.187426121Z","phase":"support-order-validation","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000001214}
+{"utc":"2026-11-16T13:06:43.189375721Z","phase":"support-Frobenius-validation","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.001950815}
+--- PASS: TestCPURegressionFixture (0.02s)
+PASS

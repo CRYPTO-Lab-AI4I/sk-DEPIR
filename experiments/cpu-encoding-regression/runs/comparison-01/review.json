@@ -1,0 +1,23 @@
+{
+  "utc": "2026-11-16T13:35:48.327838+00:00",
+  "job_id": "76055",
+  "status": "reviewed passed",
+  "benchmark_revision": "e07f308c3451e009b292adedfec4a502613a6d67",
+  "analysis_sha256": "ccfc73463e5476031049a616f3505fcb10e893d676aef246c0adac7a1a44737f",
+  "post_review_files_sha256": {
+    "scheduler-completion.txt": "c0b3fcf36878548465290b1ee1d20f2dc22d1aacb705070335439eabc0230e4d",
+    "workspace-old-top.txt": "40056de85181b859ecb0a2a0a0ea40aa46b73f8f9b7fb13dc0be16e82e6c7258",
+    "workspace-new-top.txt": "76f53071f3964db8bdc4e1f844f3f63ae2657b6355eb7df7636ba722ff82920d"
+  },
+  "commands": [
+    "python3 -B experiments/cpu-encoding-regression/analyze.py comparison-01",
+    "module load slurm/slurm/25.05; sacct -X -j 76055 --noheader --parsable2 --format=JobID,State,ExitCode,Elapsed,NodeList,AllocCPUS,ReqMem",
+    "GOTOOLCHAIN=local GOCACHE=$PWD/.cache/liftrs/preprocessing-workflow-build-cache .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go tool pprof -top .cache/liftrs/cpu-encoding-regression/comparison-01/{old,new}.test .cache/liftrs/cpu-encoding-regression/comparison-01/profiles-{old,new}/workspace.pprof (each version separately)"
+  ],
+  "decision": "Larger CPU comparison complete; small resident encoding cost does not block GPU client integration. Shared decoder setup optimization remains a follow-up. Workspace median ratio is unstable.",
+  "limits": [
+    "Progress enabled in both versions, explicit baseline logging-only patch; no pristine unlogged equivalence claim.",
+    "Four unprofiled pairs; one old loading I/O outlier retained, allocator variance visible.",
+    "No full s17 result or new GPU run; preprocessing75832 not inspected."
+  ]
+}

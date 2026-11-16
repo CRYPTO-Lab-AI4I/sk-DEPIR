@@ -1,0 +1,18 @@
+File: new.test
+Build ID: 8e3c29afba09a21d57540c69ae0653b16dcff52d
+Type: cpu
+Time: 2026-11-16 14:26:44 CET
+Duration: 228.61ms, Total samples = 220ms (96.24%)
+Showing nodes accounting for 220ms, 100% of 220ms total
+      flat  flat%   sum%        cum   cum%
+     220ms   100%   100%      220ms   100%  runtime.memclrNoHeapPointers
+         0     0%   100%      220ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPEncoder).NewWorkspace
+         0     0%   100%      220ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingOnlinePlan).NewWorkspace (inline)
+         0     0%   100%      220ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPURegressionSample
+         0     0%   100%      220ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPURegressionSample.func1
+         0     0%   100%      220ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPURegressionSample.func5
+         0     0%   100%      220ms   100%  runtime.makeslice
+         0     0%   100%      220ms   100%  runtime.mallocgc
+         0     0%   100%      220ms   100%  runtime.mallocgcLarge
+         0     0%   100%      220ms   100%  runtime.memclrNoHeapPointersChunked
+         0     0%   100%      220ms   100%  testing.tRunner

@@ -1,0 +1,2 @@
+Command: module load slurm/slurm/25.05; sacct -X -j 76055 --noheader --parsable2 --format=JobID,State,ExitCode,Elapsed,NodeList,AllocCPUS,ReqMem
+76055|COMPLETED|0:0|00:23:24|gnode02|32|32G

@@ -6,7 +6,7 @@ exploratory targets**: keep their rows as algorithms, layouts and measurements
 improve. This is the maintained capacity and results reference for the
 [scaling plan](encoding-scaling.md), separate from TRL 5 acceptance.
 
-Updated 2026-11-14; validated code-data checkpoint `83c8469`. Standalone mathematical
+Updated 2026-11-16; validated code-data checkpoint `83c8469`. Standalone mathematical
 encoding is validated through s=16. **Full encoding at s≥17 is unvalidated**; verified larger
 preprocessing, layout admission and any multi-GPU execution must be implemented and
 validated before those projections become demonstrated capabilities. “Reasonable”
@@ -550,9 +550,25 @@ accepted. Existing completed support is reusable. Results/logs and exact budget:
 [submission receipt](../experiments/gpu-s17-full-preprocessing/submission-resume-02.json).
 No new-job monitoring or full result review; s17 remains unmeasured.
 
-A [matched s14 CPU refactor comparison](../experiments/cpu-encoding-regression/report.md)
-is submitted as **job76055**, in parallel with preprocessing: separate setup/resident
-encoding, four balanced old/new pairs, identical verified input/output and separate
-profiles. Both versions log native progress; baseline instrumentation is an
-explicit measurement-only patch. No new latency or memory measurement is available
-until completion and reconciliation; existing table entries remain unchanged.
+## Matched CPU refactor comparison at s14
+
+[Job76055 passes](../experiments/cpu-encoding-regression/report.md#completed-comparison-scaling-086)
+on the HPC hostgnode02,32 CPU cores, no GPU: four balanced pairs, identical
+verified code/database, full canonical output hashes and separate profiles.
+Both versions log progress, with the old671bf5e baseline receiving an explicit
+logging-only patch; candidate revisione07f308. These matched measurements are
+separate from older table entries with different revisions/methodology.
+
+| Operation | Pre-refactor median | Refactored median | Difference |
+|---|---|---|---|
+| Resident encoding | Runtime60.346 seconds | Runtime61.119 seconds | +1.28% |
+| Resident cache loading | Runtime1.894 seconds | Runtime2.540 seconds | +34.1%;0.646 seconds |
+| File-backed encoder opening | Runtime1.501 seconds | Runtime2.042 seconds | +36.1%;0.541 seconds |
+
+Encoding-process peak sampled RSS is3.593–3.595GiB in both implementations,
+with filesystem cache additional. Workspace allocation varies2.6–282ms and the
+first old code load is an I/O outlier; all samples/ranges remain in the report.
+The workspace median ratio is unstable, not evidence of a fixed38x penalty.
+The shared decoder is the setup profiling hotspot. This small larger-size
+encoding difference does not block GPU client integration; setup optimization
+remains a follow-up. No s17 performance or memory-capacity update follows.

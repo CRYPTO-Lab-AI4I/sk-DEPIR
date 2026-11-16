@@ -1958,3 +1958,19 @@ Execution: CPU comparison **76055 submitted**, revisione07f308; exact
 Results `experiments/cpu-encoding-regression/runs/comparison-01/`, log
 `experiments/cpu-encoding-regression/slurm-76055.log`. Preprocessing75832 untouched
 and not inspected. No new-job monitoring; await the user's completion ping.
+
+### Larger CPU comparison complete (SCALING-086)
+
+76055 passes. See the authoritative [analysis](../experiments/cpu-encoding-regression/runs/comparison-01/analysis.json):
+521source/31evidence/17cache/141baseline identities reconciled, full canonical
+word checks pass,23min24s scheduler elapsed. Matched s14 encoding60.346→61.119s
+(+1.28%); resident load1.894→2.540s, file open1.501→2.042s. Native plan setup
+is essentially unchanged; workspace allocation samples are bimodal, with memory
+clearing dominant in both profiles, so no fixed38x penalty is established.
+
+The larger CPU regression gate is complete: record the small encoding cost and
+proceed to GPU client integration when its implementation work begins. Shared
+code decoder setup optimization remains a follow-up; no CPU rewrite/new benchmark
+is needed first. Logging costs, one load outlier, allocator variability and all
+sample ranges remain visible in the [report](../experiments/cpu-encoding-regression/report.md#completed-comparison-scaling-086).
+Preprocessing75832 was untouched/not inspected; no fulls17 result is claimed.

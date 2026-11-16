@@ -1,0 +1,35 @@
+File: new.test
+Build ID: 8e3c29afba09a21d57540c69ae0653b16dcff52d
+Type: cpu
+Time: 2026-11-16 14:26:39 CET
+Duration: 2.53s, Total samples = 2530ms (100.15%)
+Showing nodes accounting for 2510ms, 99.21% of 2530ms total
+Dropped 16 nodes (cum <= 12.65ms)
+      flat  flat%   sum%        cum   cum%
+    1220ms 48.22% 48.22%     2520ms 99.60%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.readScalingCodeValues
+     680ms 26.88% 75.10%      680ms 26.88%  internal/runtime/syscall/linux.Syscall6
+     520ms 20.55% 95.65%      520ms 20.55%  crypto/internal/fips140/sha256.blockSHANI
+      50ms  1.98% 97.63%       50ms  1.98%  encoding/binary.littleEndian.Uint32 (inline)
+      40ms  1.58% 99.21%       40ms  1.58%  runtime.memmove
+         0     0% 99.21%     1250ms 49.41%  bufio.(*Reader).Read
+         0     0% 99.21%      520ms 20.55%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0% 99.21%      520ms 20.55%  crypto/internal/fips140/sha256.block
+         0     0% 99.21%     2530ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.LoadScalingCode (inline)
+         0     0% 99.21%     2530ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.LoadScalingOnline
+         0     0% 99.21%     2530ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPURegressionSample
+         0     0% 99.21%     2530ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPURegressionSample.func1
+         0     0% 99.21%     2530ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPURegressionSample.func2
+         0     0% 99.21%     2530ms   100%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.readScalingCode
+         0     0% 99.21%      690ms 27.27%  internal/poll.(*FD).Read
+         0     0% 99.21%      690ms 27.27%  internal/poll.ignoringEINTRIO (inline)
+         0     0% 99.21%      690ms 27.27%  io.(*multiReader).Read
+         0     0% 99.21%     1210ms 47.83%  io.(*teeReader).Read
+         0     0% 99.21%     1250ms 49.41%  io.ReadAtLeast
+         0     0% 99.21%     1250ms 49.41%  io.ReadFull (inline)
+         0     0% 99.21%      690ms 27.27%  os.(*File).Read
+         0     0% 99.21%      690ms 27.27%  os.(*File).read (inline)
+         0     0% 99.21%      680ms 26.88%  syscall.RawSyscall6
+         0     0% 99.21%      690ms 27.27%  syscall.Read (inline)
+         0     0% 99.21%      690ms 27.27%  syscall.Syscall
+         0     0% 99.21%      690ms 27.27%  syscall.read
+         0     0% 99.21%     2530ms   100%  testing.tRunner

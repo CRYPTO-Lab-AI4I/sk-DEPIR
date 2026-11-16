@@ -1,0 +1,19 @@
+File: new.test
+Build ID: 8e3c29afba09a21d57540c69ae0653b16dcff52d
+Type: cpu
+Time: 2026-11-16 14:27:47 CET
+Duration: 61.38s, Total samples = 679.32s (1106.67%)
+Showing nodes accounting for 679.13s, 100% of 679.32s total
+Dropped 6 nodes (cum <= 3.40s)
+      flat  flat%   sum%        cum   cum%
+   618.20s 91.00% 91.00%    618.20s 91.00%  [new.test]
+    60.93s  8.97%   100%     60.93s  8.97%  runtime.cgocall
+         0     0%   100%     60.93s  8.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.EncodeOnline
+         0     0%   100%     60.93s  8.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_online_encode
+         0     0%   100%     60.93s  8.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.encodeOnline
+         0     0%   100%     61.06s  8.99%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*ScalingCPPEncoder).EncodeWithStats
+         0     0%   100%     61.06s  8.99%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPURegressionSample
+         0     0%   100%     61.06s  8.99%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPURegressionSample.func1
+         0     0%   100%     61.06s  8.99%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestCPURegressionSample.func8
+         0     0%   100%    618.26s 91.01%  runtime._ExternalCode
+         0     0%   100%     61.06s  8.99%  testing.tRunner
