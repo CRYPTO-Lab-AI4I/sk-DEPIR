@@ -115,3 +115,11 @@ Exact K, remaining heap-lifetime audit, guard configuration, free-space/quota
 checks and explicit user agreement to numeric host/storage/time/CPU budgets are
 still needed before full execution. Filesystem free space alone is not quota or
 job admission. No full budget increase is authorized by the bounded count run.
+
+## Bounded submission
+
+Job75810 submitted, sourcec63c4db ([exact submission/caps](submission.json)).
+Results/logs: `runs/counts-01/`, `slurm-75810.log`; count records/profiles/binaries:
+`.cache/liftrs/s17-preprocessing-admission/counts-01/`. No node pin; gnode03 excluded.
+No monitoring/new-result inspection until user completion ping. Full-budget draft
+remains unapproved; no fulls17 support/code preprocessing or client encoding run.

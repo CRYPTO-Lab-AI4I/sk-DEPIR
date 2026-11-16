@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-16 09:39 | SCALING-081 | Handoff | [Exact dimension admission job75810](2026-11-16-0939-codex-scaling-081-handoff.md) |
 | 2026-11-16 09:37 | SCALING-081 | Handoff | [Exact dimension and sizing prepared](2026-11-16-0937-codex-scaling-081-prepared.md) |
 | 2026-11-16 08:29 | SCALING-081 | Started | [Exact dimension and fulls17 resource admission](2026-11-16-0829-codex-scaling-081-started.md) |
 | 2026-11-16 08:17 | SCALING-080 | Completed | [Persistent workflow validation passes ongnode04](2026-11-16-0817-codex-scaling-080-completed.md) |

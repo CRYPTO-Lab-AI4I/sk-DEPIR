@@ -1,0 +1,29 @@
+{
+  "job_id": "75810",
+  "run": "counts-01",
+  "revision": "c63c4db80b4da7c77023b1eaeb3ad1adb7105eea",
+  "submitted_utc": "2026-11-16T09:39:03.708422+00:00",
+  "command": "sbatch --parsable --exclude=gnode03 --output=experiments/s17-preprocessing-admission/slurm-%j.log experiments/s17-preprocessing-admission/run.sbatch counts-01 --dimension-s17",
+  "gpus": 4,
+  "gpu_type": "h200",
+  "aggregate_owned_device_cap_bytes": 4294967296,
+  "per_device_cap_bytes": 1073741824,
+  "cpus": 4,
+  "host_request_bytes": 8589934592,
+  "rss_guard_bytes": 6442450944,
+  "go_soft_limit_bytes": 4294967296,
+  "new_cache_guard_bytes": 2147483648,
+  "scratch_guard_bytes": 4294967296,
+  "worker_seconds": 600,
+  "controller_seconds": 900,
+  "slurm_seconds": 1200,
+  "exclude_nodes": [
+    "gnode03"
+  ],
+  "results": "experiments/s17-preprocessing-admission/runs/counts-01/results.json",
+  "log": "experiments/s17-preprocessing-admission/slurm-75810.log",
+  "cache": ".cache/liftrs/s17-preprocessing-admission/counts-01/",
+  "purpose": "complete small regressions plus exact dimension-only GPU enumeration at s8/s16/s17; no full host grid/index list or full preprocessing",
+  "authorization": "Existing bounded4H200/4GiB/8GiBhost resources; full-budget draft is NOT approved/submitted.",
+  "monitoring": "none; await user completion ping"
+}
