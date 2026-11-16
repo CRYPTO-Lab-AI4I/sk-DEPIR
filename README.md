@@ -67,7 +67,10 @@ checks. Small s10 encoding medians are 1–3% slower; setup regressions of 27–
 (about 2–3 ms) remain flagged for investigation.
 Independent Go references, existing APIs, memory-mode defaults and CUDA-free CPU
 builds are retained. New CPU experiment jobs can enable timestamped phase and
-native block/tile progress logs; baseline timing comparisons keep logging disabled.
+native block/tile progress logs. Earlier small baseline comparisons disabled
+logging; the [larger s14 comparison](experiments/cpu-encoding-regression/report.md)
+includes progress logging in both implementations, with separate setup/encoding
+samples and profiles. Its results are pending.
 
 A [bounded HPC table-gap batch](experiments/encoding-table/report.md) measures
 22 missing encoding-mode cells at s10/14/15/16 using retained preprocessing.

@@ -1,0 +1,219 @@
+//go:build liftrs_cpp && cgo
+
+// Copied unchanged into both shared-package trees by run.py. All timers surround
+// public operations; verification, profiles and GC are kept outside latency samples.
+package liftrs
+
+import (
+	"crypto/sha256"
+	"encoding/binary"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"io"
+	"math/rand"
+	"os"
+	"path/filepath"
+	"runtime"
+	"runtime/pprof"
+	"testing"
+	"time"
+)
+
+type regressionInput struct {
+	Path       string `json:"path"`
+	CodeSHA256 string `json:"code_sha256"`
+	WordSHA256 string `json:"word_sha256"`
+	S          int    `json:"s"`
+}
+
+func regressionEvent(phase, event string, done, total uint64, unit string, extra map[string]any) {
+	row := map[string]any{"utc": time.Now().UTC().Format(time.RFC3339Nano), "phase": phase, "event": event, "completed": done, "total": total, "unit": unit}
+	for key, value := range extra {
+		row[key] = value
+	}
+	_ = json.NewEncoder(os.Stdout).Encode(row)
+}
+func regressionDigest(values []uint32) string {
+	h := sha256.New()
+	var buf [65536]byte
+	last := time.Now()
+	began := last
+	for first := 0; first < len(values); {
+		take := min(len(buf)/4, len(values)-first)
+		for j, v := range values[first : first+take] {
+			binary.LittleEndian.PutUint32(buf[4*j:], v)
+		}
+		_, _ = h.Write(buf[:4*take])
+		first += take
+		if time.Since(last) >= 30*time.Second {
+			regressionEvent("verify-word", "progress", uint64(first), uint64(len(values)), "elements", map[string]any{"elapsed_seconds": time.Since(began).Seconds()})
+			last = time.Now()
+		}
+	}
+	return hex.EncodeToString(h.Sum(nil))
+}
+func regressionMessage(plan *ScalingOnlinePlan) []uint32 {
+	message := make([]uint32, plan.Dimension())
+	r := rand.New(rand.NewSource(71))
+	for i := range message {
+		message[i] = uint32(r.Intn(1 << uint(plan.FieldDegree())))
+	}
+	return message
+}
+func TestCPURegressionFixture(t *testing.T) {
+	dir := os.Getenv("PIR_REGRESSION_FIXTURE")
+	if dir == "" {
+		t.Skip("explicit fixture destination required")
+	}
+	basis, err := DiscoverOrbit(Spec{4, 2, 3}, OrbitOptions{Random: rand.New(rand.NewSource(170085))})
+	if err != nil {
+		t.Fatal(err)
+	}
+	encoder, err := basis.PrepareCyclicFFT()
+	if err != nil {
+		t.Fatal(err)
+	}
+	plan, err := encoder.ScalingPlan()
+	if err != nil {
+		t.Fatal(err)
+	}
+	word, err := plan.Encode(regressionMessage(plan), plan.NewWorkspace())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.MkdirAll(dir, 0700); err != nil {
+		t.Fatal(err)
+	}
+	path := filepath.Join(dir, "online.bin")
+	f, err := os.Create(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	h := sha256.New()
+	err = WriteScalingOnline(io.MultiWriter(f, h), plan)
+	closeErr := f.Close()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if closeErr != nil {
+		t.Fatal(closeErr)
+	}
+	input := regressionInput{Path: path, CodeSHA256: hex.EncodeToString(h.Sum(nil)), WordSHA256: regressionDigest(word), S: 4}
+	raw, err := json.MarshalIndent(input, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(dir, "input.json"), append(raw, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+}
+func TestCPURegressionSample(t *testing.T) {
+	inputPath := os.Getenv("PIR_REGRESSION_INPUT")
+	if inputPath == "" {
+		t.Skip("explicit verified cache required")
+	}
+	raw, err := os.ReadFile(inputPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var input regressionInput
+	if err = json.Unmarshal(raw, &input); err != nil {
+		t.Fatal(err)
+	}
+	if input.S != 4 && input.S != 14 {
+		t.Fatal("bounded s4/s14 probe only")
+	}
+	workers := 32
+	if input.S == 4 {
+		workers = 2
+	}
+	profileDir := os.Getenv("PIR_REGRESSION_PROFILE")
+	phase := func(name string, fn func() error) {
+		var profile *os.File
+		if profileDir != "" {
+			profile, err = os.Create(filepath.Join(profileDir, name+".pprof"))
+			if err != nil {
+				t.Fatal(err)
+			}
+			if err = pprof.StartCPUProfile(profile); err != nil {
+				t.Fatal(err)
+			}
+		}
+		regressionEvent(name, "started", 0, 1, "operations", nil)
+		began := time.Now()
+		e := fn()
+		seconds := time.Since(began).Seconds()
+		if profile != nil {
+			pprof.StopCPUProfile()
+			if err = profile.Close(); err != nil {
+				t.Fatal(err)
+			}
+		}
+		if e != nil {
+			regressionEvent(name, "failed", 0, 1, "operations", map[string]any{"error": e.Error()})
+			t.Fatal(e)
+		}
+		regressionEvent(name, "completed", 1, 1, "operations", map[string]any{"seconds": seconds, "profiled": profileDir != ""})
+	}
+	maxN := 1 << uint(2*input.S)
+	var plan *ScalingOnlinePlan
+	phase("load-resident", func() error {
+		f, e := os.Open(input.Path)
+		if e != nil {
+			return e
+		}
+		defer f.Close()
+		plan, e = LoadScalingOnline(f, input.CodeSHA256, maxN)
+		return e
+	})
+	if plan.FieldDegree() != input.S || plan.Length() != maxN {
+		t.Fatal("code parameters")
+	}
+	var file *ScalingCPPFileEncoder
+	phase("open-file", func() error {
+		var e error
+		file, e = OpenScalingCPPFile(input.Path, input.CodeSHA256, maxN, workers)
+		return e
+	})
+	if err = file.Close(); err != nil {
+		t.Fatal(err)
+	}
+	file = nil
+	runtime.GC()
+	var cpu *ScalingCPPEncoder
+	phase("native-plan", func() error { var e error; cpu, e = plan.WithCPPMatrix(workers); return e })
+	defer cpu.Close()
+	var work *ScalingCPPWorkspace
+	phase("workspace", func() error {
+		work = cpu.NewWorkspace()
+		if work == nil {
+			return fmt.Errorf("nil workspace")
+		}
+		return nil
+	})
+	message := regressionMessage(plan)
+	verify := func(word []uint32) {
+		regressionEvent("verify-word", "started", 0, uint64(len(word)), "elements", nil)
+		if len(word) != maxN {
+			t.Fatal("word size")
+		}
+		// All coordinates, in canonical little-endian uint32 order. The s14 digest
+		// comes from the retained independent-curve/systematic-verified historical run.
+		got := regressionDigest(word)
+		if got != input.WordSHA256 {
+			t.Fatal("canonical word mismatch", got, input.WordSHA256)
+		}
+		regressionEvent("verify-word", "completed", uint64(len(word)), uint64(len(word)), "elements", map[string]any{"sha256": got})
+	}
+	var word []uint32
+	phase("warmup", func() error { var e error; word, e = cpu.Encode(message, work); return e })
+	verify(word)
+	word = nil
+	runtime.GC() // Same warm workspace/output-replacement boundary in both binaries.
+	var stats ScalingCPPStats
+	phase("encoding", func() error { var e error; word, stats, e = cpu.EncodeWithStats(message, work); return e })
+	verify(word)
+	regressionEvent("native-stats", "completed", 5, 5, "transforms", map[string]any{"stats": stats, "n": maxN, "k": plan.Dimension(), "workers": workers, "workspace_bytes_after": work.Bytes()})
+	runtime.KeepAlive(word)
+}

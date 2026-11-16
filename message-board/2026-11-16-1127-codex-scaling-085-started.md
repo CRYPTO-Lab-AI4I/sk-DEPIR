@@ -1,0 +1,7 @@
+# SCALING-085 — representative CPU refactor comparison
+
+UTC: 2026-11-16T11:27:02.661619+00:00; agent: Codex; status: started.
+
+User approves a bounded larger comparison before GPU client encoding integration, while fulls17 preprocessing proceeds independently. Read existing CPU modularity report/runner/benchmark and message board; reuse its pre-refactor baseline671bf5e and retained verifieds14,m2,t5 cache. Target32workers, resident full encoding plus separate resident load/native setup/file-open samples, alternating old/new order, canonical known-hash verification, separate profiles. No production arithmetic change or repeated preprocessing. Preserve all earlier evidence and running jobs; no scheduler/log checks on75832.
+
+New experiment `experiments/cpu-encoding-regression/` will contain runner, report, shared old/new probe and explicit baseline progress-only patch. Long native phases must emit progress: old baseline lacks instrumentation, so document/seal the measurement-only logging patch and include instrumentation cost in this comparison. Do not silently call it a pristine/unlogged historical baseline. Reuse existing approveds14 encoding-table budget upper limits:32CPU,32GiBrequest/24GiBRSS/30GiBcgroup,16GiB new retained/16GiB scratch,2hSlurm. Add noGPU. Review README and scaling references; changes will describe submitted tests, not performance outcomes. Submit and hand off without monitoring.

@@ -1934,3 +1934,21 @@ Execution: replacement75832 submitted from dd9d86a with `resume-02 --resume` and
 `afterany:75819`; old75819 then cancelled. Completed support observed and retained,
 so discovery is reusable. Do not monitor; await user's completion ping. Exact
 [submission](../experiments/gpu-s17-full-preprocessing/submission-resume-02.json).
+
+### Larger CPU refactor comparison before GPU client integration (SCALING-085)
+
+While fulls17 preprocessing runs, compare resident encoding at verifieds14,m2,t5
+against the same pre-refactor671bf5e baseline. Separate cache load, file open,
+native metadata and workspace setup from encoding. Four balanced old/new pairs,
+one warmup and one measured complete encoding per process; both outputs must
+match the historical independent-curve/systematic-verified canonical hash.
+Collect separate profiles in both versions. Old source receives an explicitly
+sealed progress-only patch so both versions emit native pass/block logs; timings
+include logging and cannot be called pristine unlogged comparisons.
+Reuse the previously approved32CPU/32GiBhost/24GiBRSS/30GiBcgroup/16GiBretained/
+16GiBscratch/2h s14 envelope, no GPU and no new preprocessing. See
+[runner/report](../experiments/cpu-encoding-regression/report.md).
+If larger-size encoding stays near the small1–3% difference and setup overhead
+is small in absolute time, record it and proceed with GPU integration; investigate
+a substantial repeatable larger regression first. No pass/fail or performance
+claim precedes completion and evidence reconciliation. Hand off without monitoring.

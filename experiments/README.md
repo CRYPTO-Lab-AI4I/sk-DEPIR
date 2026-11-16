@@ -60,6 +60,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Larger CPU refactor comparison](cpu-encoding-regression/report.md): matcheds14
+  resident encoding and separate setup, balanced old/new order, canonical-hash
+  checks, explicit progress-only baseline instrumentation and separate profiles.
+
 - [Resident GPU s17 preprocessing](gpu-s17-preprocessing/report.md): shared width
   kernels, exact GPU classification/root/transform/product execution and same-node
   peer shards; bounded CUDA/sanitizer validation pending.

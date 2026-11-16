@@ -1,0 +1,77 @@
+{
+  "utc": "2026-11-16T11:36:45.461333+00:00",
+  "base_revision": "c1e35396213810b727c249890e443772005367e4",
+  "status": "passed",
+  "scope": "s4 local admission and independent-Go/native probe checks; no s14 performance measurement",
+  "checks": [
+    "run.py --check validates existing input and inherited budget upper bounds",
+    "test_runner.py: exact671bf5e progress patch and repeat rejection",
+    "current probe Go-overlay build and independent-Go fixture",
+    "separate instrumented baseline build and native small probe",
+    "current direct test executable with phase-specific profiling",
+    "completion parser: phase timings, full-word digests, native passes and profile inclusion/exclusion",
+    "bash -n and Python parse",
+    "git diff --check"
+  ],
+  "notes": [
+    "Two earlier local parser wrapper attempts failed due trailing go-test package summary or omitted native stderr; successful direct-binary logs merge both streams as the submitted runner does.",
+    "No full s14 run, pristine-unlogged comparison, GPU allocation or preprocessing-job inspection."
+  ],
+  "commands": [
+    "python3 -B experiments/cpu-encoding-regression/run.py --check",
+    "python3 -B experiments/cpu-encoding-regression/test_runner.py",
+    "go test -overlay /tmp/sk-depir-regression-overlay.json -tags liftrs_cpp ./encoding/liftrs-shared -run ^TestCPURegressionFixture$ -count=1",
+    "go test -overlay /tmp/sk-depir-regression-overlay.json -tags liftrs_cpp -c -o .cache/liftrs/cpu-encoding-regression/local-check/current.test ./encoding/liftrs-shared",
+    "go test -tags liftrs_cpp -c -o .cache/liftrs/cpu-encoding-regression/local-check/old.test ./encoding/liftrs-shared (isolated instrumented671bf5e tree)",
+    "current.test -test.run=^TestCPURegressionSample$ -test.v (small fixture, merged logs, phase profiles)",
+    "old.test -test.run=^TestCPURegressionSample$ -test.v (same small fixture, merged logs)"
+  ],
+  "toolchain": {
+    "go": "Go1.27.3 local retained toolchain",
+    "GOMAXPROCS": "4",
+    "GOFLAGS": "-p=4",
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOSUMDB": "off"
+  },
+  "source_sha256": {
+    "experiments/cpu-encoding-regression/analyze.py": "cff61f890ec1720506315847b6c86559986ff5c420d68177605ab413998e466d",
+    "experiments/cpu-encoding-regression/baseline_progress.py": "620604f80e7ffb271543557a3867e983374fc2604f1a38dd92ce65e33ab44755",
+    "experiments/cpu-encoding-regression/probe.go.txt": "64f6c87254d4168324fbbbb25b946877e1fe584026f8432334db99c3e355c020",
+    "experiments/cpu-encoding-regression/run.py": "452801466f881c550823879929103d776cc3353dba275b40b7a697175370ba7e",
+    "experiments/cpu-encoding-regression/run.sbatch": "f1c732ab5561bd5eace521113efc996d55dbb81cbc44de9916f66cefee41967a",
+    "experiments/cpu-encoding-regression/test_runner.py": "4f2f98cdefa558f582cf37de079ecc11ecd2e2c93bb01761894a2987c3434d47"
+  },
+  "evidence_sha256": {
+    "local-baseline-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "local-baseline.log": "a6d7a0faa60a4b0bd7e823fb50d523e656664d454c614967bb149c4c2b760371",
+    "local-current-gotest.log": "5d0481a5b337bb040c8f7fa600da48832b41d2a16b44af3205d90596afb09942",
+    "local-current-stdout-only.log": "de76affa3e0affd838a14150106a8ddbeebeea5342e74588d864511b362dd2e7",
+    "local-current.log": "9fe34e5962fd1154bf025c8056846e014902df84dd64e0e32220b88a27883a5e"
+  },
+  "cache_path": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-encoding-regression/local-check",
+  "cache_sha256": {
+    "current.test": "474ddd2fd65088dc4ca7367eb0b3afcaeb954cae54e5306677d9e096d5bfac76",
+    "old.test": "12cf0ac345486dcfe5d0ad1343fe03dbec0a2a5f789bbe71aa47326d1f21f222",
+    "fixture/input.json": "05267cf26d29119e8a0bd3df018d841e1fcc8865597be159684f14eaf47f1ec2",
+    "fixture/online.bin": "ebfc56c7bfac632e32c2f3eade2ad7224939c2e17ba119788c753c991761c38c",
+    "profiles/encoding.pprof": "347e632e630031f786e508530456e5dfc54bec2c24e33a5ba566e281e4027325",
+    "profiles/load-resident.pprof": "23c7abaf0fcf5ca21d020696eeab17803f77ab47dca25ba3a48c8c412db841b1",
+    "profiles/native-plan.pprof": "f9b7d0ca7c06667f348fa205e0e75f99691ce4eb4601b5993c956d882af03f5a",
+    "profiles/open-file.pprof": "131d5349574dc5e9183706709e9ac7e388b1c6bb4fa6e3bc6bebe0c18090d802",
+    "profiles/warmup.pprof": "1dfa1ff35afa786725763dc74e7a63e84d37eefb5793a92ebb691d862f08fed4",
+    "profiles/workspace.pprof": "46f4b08597f0cc52dedd47fe74d882ebca6b2221795dc43a164101953bb2f19e",
+    "profiles-current-direct/encoding.pprof": "a8a7eca5bcfe38a4ce67b3deab8058d22a911270c528ad1a58339211158cce80",
+    "profiles-current-direct/load-resident.pprof": "1d1d3b2f9d561a5384f11127a0fdfc5dc4819e7c27f9f2fdb0a9a75893707beb",
+    "profiles-current-direct/native-plan.pprof": "24aef9e170d475f0a118627dc50f332e0a3e3d8ac65645987cb297aecd75c073",
+    "profiles-current-direct/open-file.pprof": "6d7bf329d6f6da776a4f976ec471258d4eab6bc0639ac2c3c82819d419153c8b",
+    "profiles-current-direct/warmup.pprof": "04de5d857fc40fa5c1562ce6d8d39d74af08213226759f0a44bfbd2a42969cb4",
+    "profiles-current-direct/workspace.pprof": "7a45b66dbc88a6208696af28756d222f80abb29f8b92ce912691c90a32c5f264",
+    "profiles-current-merged/encoding.pprof": "86a8ad3834da7c26d4520e6d0b67d854e295213da53284796a9cd008a5a82407",
+    "profiles-current-merged/load-resident.pprof": "c9c6252a7b6e217950269bd297dc419789530059bb271e1b30cca161910526d3",
+    "profiles-current-merged/native-plan.pprof": "464f3cbb8aca144138a031fd7830c573a3ae376a05624e21da9227d616244920",
+    "profiles-current-merged/open-file.pprof": "38693cae2d0d53cd920520c972a0df2ba107c79a048c70c4f792810bd37585ec",
+    "profiles-current-merged/warmup.pprof": "eab0032ef829ee7ca8288c1e735e5c684faf9364aba5c5e6c48919290204b664",
+    "profiles-current-merged/workspace.pprof": "418c1a1d03699310d30ae331985105e1119c5383517aa8717ff16f9afae11209"
+  }
+}

@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-16 13:05 | SCALING-085 | Prepared | [Matched s14 CPU comparison ready](2026-11-16-1305-codex-scaling-085-prepared.md) |
+| 2026-11-16 11:27 | SCALING-085 | Started | [Larger CPU refactor comparison](2026-11-16-1127-codex-scaling-085-started.md) |
 | 2026-11-16 10:50 | SCALING-084 | Handoff | [Resumable100h job75832 submitted](2026-11-16-1050-codex-scaling-084-handoff.md) |
 | 2026-11-16 10:49 | SCALING-084 | Prepared | [Recovery checks pass;100h replacement ready](2026-11-16-1049-codex-scaling-084-prepared.md) |
 | 2026-11-16 10:35 | SCALING-084 | Started | [Longer trial and incremental recovery](2026-11-16-1035-codex-scaling-084-started.md) |
