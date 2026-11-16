@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-16 23:09 | SCALING-089 | Completed | [GPU client bounded validation passes](2026-11-16-2309-codex-scaling-089-completed.md) |
+| 2026-11-16 23:07 | SCALING-089 | Started | [Review GPU client validation76426](2026-11-16-2307-codex-scaling-089-started.md) |
 | 2026-11-16 23:05 | SCALING-088 | Correction | [Preserve sealed raw-log whitespace](2026-11-16-2305-codex-scaling-088-evidence-note.md) |
 | 2026-11-16 23:05 | SCALING-088 | Completed | [Full s17 preprocessing verified](2026-11-16-2305-codex-scaling-088-completed.md) |
 | 2026-11-16 20:54 | SCALING-088 | Started | [Review full s17 preprocessing75832](2026-11-16-2054-codex-scaling-088-started.md) |

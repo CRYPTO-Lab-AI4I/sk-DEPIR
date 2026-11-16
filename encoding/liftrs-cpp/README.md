@@ -26,8 +26,8 @@ are split into plan.go, matrix.go, online.go and disk.go, with common plan locki
 [Refactor correctness validation](../../experiments/cpu-encoding-modules/report.md)
 and the [matched larger CPU comparison](../../experiments/cpu-encoding-regression/report.md)
 pass. The experimental resident GPU adapter reuses `cyclic_schedule.hpp`; extracting
-that order does not introduce CUDA into CPU builds. Its GPU runtime checks are
-[pending separately](../../experiments/gpu-code-encoding/report.md).
+that order does not introduce CUDA into CPU builds. Its bounded GPU runtime checks
+[pass76426](../../experiments/gpu-code-encoding/report.md).
 
 Set `LIFTRS_CPU_PROGRESS=1` in a job to emit timestamped phase/work JSON to stderr.
 It logs operation starts/completions/failures and periodic completed native blocks,

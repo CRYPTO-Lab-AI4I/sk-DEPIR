@@ -3,8 +3,8 @@
 `ScalingCodeData.WithCUDA(CUDACodeOptions)` is an experimental client encoder
 through s17. It consumes the same immutable canonical code data as `WithWideCPP`;
 preprocessing can be delegated elsewhere. CPU encoding and ordinary CUDA-free
-builds remain available. Full s17 GPU encoding is **not yet validated**. Small GPU
-runtime checks are prepared in the [integration experiment](../experiments/gpu-code-encoding/report.md).
+builds remain available. Full s17 GPU encoding is **not yet validated**. Bounded GPU
+runtime checks pass76426 in the [integration experiment](../experiments/gpu-code-encoding/report.md).
 The older `ScalingOnlinePlan.WithCUDA(CUDAOptions)` and its validated s≤16
 memory modes retain their existing implementation/defaults.
 

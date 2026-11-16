@@ -2029,3 +2029,16 @@ full GPU encoding. All s17 encoding, packing/output and runtime/memory claims
 remain unvalidated until those jobs pass; do not silently inherit preprocessing
 budgets for client encoding. No new encoding job is launched by this review;
 76426 is untouched and not inspected.
+
+### Bounded GPU client validation complete (SCALING-089)
+
+76426 passes ongnode10,4min28s. Genuine small codes1/2/4GPU peer/local,60direct
+native32/64-bit cases,12CUDA memcheck cases, true34-bit positions and s17 short
+kernel/peer regressions pass; zero CUDA errors/leaks. Shared preprocessing
+regressions pass. [Evidence/provenance](../experiments/gpu-code-encoding/report.md#completed-validation-scaling-089)
+reconciles544source/47evidence/76cache; three unrelated review-script snapshots
+are explicitly retained and matched to producer hashes, executed encoder sources
+match recorded revision. FullGPU client correctness validation is still limited
+to smaller complete domains and s17 components. Next is full CPU/GPU workload
+admission with genuine verifieds17 data/output checks; no automatic resource
+increase or large run launched during this review.

@@ -1,0 +1,339 @@
+{
+  "status": "passed",
+  "job_id": "76426",
+  "revision": "e4d2e94902a33acfcf716e01aab8692c25757c28",
+  "source_files_verified": 544,
+  "source_override_files_verified": [
+    "experiments/gpu-s17-full-preprocessing/analyze.py",
+    "experiments/gpu-s17-full-preprocessing/test_analysis.py",
+    "experiments/s17-arithmetic/analyze.py"
+  ],
+  "evidence_files_verified": 47,
+  "cache_files_verified": 76,
+  "tests": [
+    "atomic stage publication and failure retention",
+    "independent Go canonical bytes",
+    "fresh and completed-cache/root restarts",
+    "CUDA-free final-cache readback",
+    "corruption/source-binding rejection",
+    "race/ASan/vet",
+    "fresh executable CUDA memcheck",
+    "resident GPU client vs independent Go and wide CPU on genuine smaller codes",
+    "1/2/4GPU peer/local, ownership, zero/invalid/retry/cap/state/coexisting clients",
+    "forced32/64-bit client schedules, true34-bit positions and s17 kernel/lease regressions",
+    "client CUDA memcheck"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 1.2491404712200165,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 1.211651910096407,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "gpu",
+      "seconds": 1.2485495954751968,
+      "peak_rss_bytes": 21700608,
+      "exit_code": 0
+    },
+    {
+      "label": "topology",
+      "seconds": 1.1825626567006111,
+      "peak_rss_bytes": 21700608,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 1.1775449197739363,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 1.2159069795161486,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 1.1695188712328672,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 1.166516860947013,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "controller-tests",
+      "seconds": 1.1677811983972788,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe-build",
+      "seconds": 7.1058028396219015,
+      "peak_rss_bytes": 250462208,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe",
+      "seconds": 5.939569305628538,
+      "peak_rss_bytes": 243638272,
+      "exit_code": 0
+    },
+    {
+      "label": "go-only-build",
+      "seconds": 12.738331915810704,
+      "peak_rss_bytes": 179724288,
+      "exit_code": 0
+    },
+    {
+      "label": "go-only-tests",
+      "seconds": 5.180296614766121,
+      "peak_rss_bytes": 85753856,
+      "exit_code": 0
+    },
+    {
+      "label": "native-tests",
+      "seconds": 13.87573061324656,
+      "peak_rss_bytes": 600657920,
+      "exit_code": 0
+    },
+    {
+      "label": "race",
+      "seconds": 31.086598705500364,
+      "peak_rss_bytes": 602411008,
+      "exit_code": 0
+    },
+    {
+      "label": "asan",
+      "seconds": 27.354344461113214,
+      "peak_rss_bytes": 592494592,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 20.072566967457533,
+      "peak_rss_bytes": 348901376,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-cli-build",
+      "seconds": 3.935706313699484,
+      "peak_rss_bytes": 28409856,
+      "exit_code": 0
+    },
+    {
+      "label": "vet",
+      "seconds": 2.672057766467333,
+      "peak_rss_bytes": 29036544,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-fresh",
+      "seconds": 5.291577477008104,
+      "peak_rss_bytes": 23654400,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-cached",
+      "seconds": 1.31787352822721,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-root-restart",
+      "seconds": 3.7483802903443575,
+      "peak_rss_bytes": 21725184,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-cuda-free-readback",
+      "seconds": 1.2529210858047009,
+      "peak_rss_bytes": 10072064,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-fresh",
+      "seconds": 6.1475392282009125,
+      "peak_rss_bytes": 257548288,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-cached",
+      "seconds": 1.2319981753826141,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-root-restart",
+      "seconds": 6.29801307991147,
+      "peak_rss_bytes": 328818688,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-cuda-free-readback",
+      "seconds": 1.2303628120571375,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-fresh",
+      "seconds": 4.913959184661508,
+      "peak_rss_bytes": 23801856,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-cached",
+      "seconds": 1.2844394352287054,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-root-restart",
+      "seconds": 5.148248244076967,
+      "peak_rss_bytes": 23826432,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-cuda-free-readback",
+      "seconds": 1.2744595799595118,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-fresh",
+      "seconds": 6.237922854721546,
+      "peak_rss_bytes": 333541376,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-cached",
+      "seconds": 1.2673608027398586,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-root-restart",
+      "seconds": 6.261832360178232,
+      "peak_rss_bytes": 333119488,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-cuda-free-readback",
+      "seconds": 1.2520086821168661,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "memcheck",
+      "seconds": 7.45418388210237,
+      "peak_rss_bytes": 548995072,
+      "exit_code": 0
+    },
+    {
+      "label": "code-build",
+      "seconds": 5.402998941019177,
+      "peak_rss_bytes": 126873600,
+      "exit_code": 0
+    },
+    {
+      "label": "code-fixtures",
+      "seconds": 2.644514039158821,
+      "peak_rss_bytes": 21897216,
+      "exit_code": 0
+    },
+    {
+      "label": "code-wide-kernels",
+      "seconds": 6.36619577370584,
+      "peak_rss_bytes": 338132992,
+      "exit_code": 0
+    },
+    {
+      "label": "code-small",
+      "seconds": 8.84281337633729,
+      "peak_rss_bytes": 485117952,
+      "exit_code": 0
+    },
+    {
+      "label": "code-check-build",
+      "seconds": 14.113529721274972,
+      "peak_rss_bytes": 368078848,
+      "exit_code": 0
+    },
+    {
+      "label": "code-check",
+      "seconds": 10.040538683533669,
+      "peak_rss_bytes": 469925888,
+      "exit_code": 0
+    },
+    {
+      "label": "code-memcheck",
+      "seconds": 10.157087121158838,
+      "peak_rss_bytes": 564518912,
+      "exit_code": 0
+    }
+  ],
+  "scope": "bounded server regressions and complete small resident GPU client; no full s17 encoding/preprocessing performance or admission",
+  "cases": [
+    {
+      "layout": "peer",
+      "gpus": 1,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "0057803979ce3eb238d0a5666229595207f97fb0d29c5970f3d577ee65725ead",
+        "root": "a0ec8f8cc1dfe9a52f2e24a8fd0e0f87ceeee50009f6020ef0391f033e141cad",
+        "code": "9eac51c7b7fd41dc21c4a55716b56266bef5d6fef5f759033b36114290ed2922"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-code-encoding/validation-01/peer-1"
+    },
+    {
+      "layout": "peer",
+      "gpus": 4,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "d1b116c36eba909f5fc908e36b7390b967fdef632007d7b424d1ed9c78b357a2",
+        "root": "7803d9990673d7a8a9ff68034e5e1245391e383e91f3e700f843315fd96daa1e",
+        "code": "dedc1e04192b74d30f59044f40a1d3b10d2ee9b06e04381608ea647ad895255d"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-code-encoding/validation-01/peer-4"
+    },
+    {
+      "layout": "local",
+      "gpus": 1,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "aa4c9087ac47bdb81131fbd53a04277a63b3bf424421dcdc8efae8b4f1e4cc18",
+        "root": "59858afd4cf32b51cb9bd0ecb509d34ad8d9e10aa5dac7ec0c2cbbd69b7d102d",
+        "code": "18ebb4f5fbfbde1cc94a964c2428a9ab773a4e29c7e99d3e1e67bcec1f13e330"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-code-encoding/validation-01/local-1"
+    },
+    {
+      "layout": "local",
+      "gpus": 4,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "3d4ae6788729a27bc0f47baa42d404eb727a9a048d652d36abac43c80ae39c1e",
+        "root": "f250c6f8559ed2c8ba5126416e4785e8827dee64021d8b8ace42f3b6b3a6e1da",
+        "code": "82d35f9b993b1f04dd6e52b165c1b87e73dc893c1b6c56f5d741f08d08d1fe23"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-code-encoding/validation-01/local-4"
+    }
+  ],
+  "client_native_cases": 60,
+  "client_sanitizer_cases": 12
+}

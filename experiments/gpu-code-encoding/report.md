@@ -1,6 +1,6 @@
 # Resident GPU client encoding integration
 
-Status: **source implemented; bounded validation job76426 submitted, results pending**.
+Status: **bounded validation76426 passed and evidence reconciled; fulls17 encoding remains unrun**.
 The reviewed CPU refactor comparison (job76055) does not block this integration.
 Fulls17 preprocessing75832 is untouched and uninspected. No full GPU encoding run
 or speedup, memory peak or latency result is claimed.
@@ -138,3 +138,47 @@ budget ([receipt](submission.json)). Results/logs: `runs/validation-01/`,
 or result inspection after submission; await the user's completion ping. Source
 implementation and local CPU/build checks are distinct from pending GPU runtime
 validation. Preprocessing75832 remains untouched/uninspected.
+
+## Completed validation (SCALING-089)
+
+Job76426 completes0:0 ongnode10, scheduler4min28s; controller267.294s includes
+builds, server regressions, client checks and sanitizers. All43 controller commands
+pass with no resource/deadline failures. [Results](runs/validation-01/results.json),
+[reconciled analysis](runs/validation-01/analysis.json),
+[accounting](runs/validation-01/scheduler-completion.txt), [Slurm log](slurm-76426.log).
+
+Validated30 genuine small-code Go/CPU/GPU client combinations (five codes,
+1/2/4GPUs, peer/local);60 direct native cases including forced32/64-bit schedules;
+12 bounded native CUDA memcheck cases, plus genuine34-bit coordinate checks.
+The true s17 short transform/product/root and peer-lifetime tests pass. Invalid,
+zero/retry, output ownership, copied constants, buffer/cap/state and coexisting
+lease tests pass. CUDA memcheck reports zero errors and zero leaked bytes in both
+client and complete preprocessing workflows. The shared server workflow also
+passes native/race/ASan/vet, fresh/cache/root restarts and independent-Go readback.
+
+Source provenance requires an explicit qualification: sbatch was submitted from
+bf2bffc; at execution the recorded HEAD wase4d2e94, while three **unrelated review
+scripts** were being edited for preprocessing results. Their copied hashes differ
+from HEAD. No executed encoder/kernel/controller source differs from the recorded
+revision. Exact intermediate copies are retained under `review-source/`, with
+[reason/mapping](runs/validation-01/review-source.json): the full-preprocessing
+analyzer/test copies are reconstructed by removing their later summary/bounded-
+read-test additions, and the shared arithmetic analyzer copy matches its later
+committed streaming version. Each copy hashes exactly to the original producer
+seal. No original result/hash is rewritten or mismatch ignored.
+
+The analyzer now accepts only that explicit three-file review mapping for this
+client review, and the shared seal checker verifies every supplied snapshot
+against its original digest before replacing its Git comparison. Unknown source
+names or damaged snapshots fail; a new small test checks this. Reconciliation
+passes544source identities (541Git +3exact retained copies),47original evidence,
+76cache identities, and all client/server assertions. Three suite tests, three
+full-analysis tests and two shared controller tests pass after the review change.
+No GPU rerun was needed for an unrelated source-provenance qualification.
+
+These are bounded correctness/lifetime results, not fulls17 encoding or a
+performance baseline. Forced wide slots on small genuine codes and independent
+true34-bit position/kernel checks do not certify a full2^34-value codeword.
+Preprocessing75832 is verified separately. Next prepare full client encoding
+resource admission and complete-output verification, including packed persistence
+if requested; no full job is launched by this review.

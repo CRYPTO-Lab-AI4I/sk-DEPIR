@@ -4,11 +4,11 @@ import argparse,json,runpy
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
 
-def main(here=HERE,require_dimension=False,extra_review=None):
+def main(here=HERE,require_dimension=False,extra_review=None,source_overrides=None):
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('name');args=p.parse_args();out=here/'runs'/args.name
  record=json.loads((out/'results.json').read_text())
  if require_dimension:assert record.get('dimension_s17'),'admission run lacks exact dimensions'
- result=runpy.run_path(str(HERE.parent/'s17-arithmetic/analyze.py'))['reconcile'](out)
+ result=runpy.run_path(str(HERE.parent/'s17-arithmetic/analyze.py'))['reconcile'](out,source_overrides=source_overrides)
  if record.get('peer_probe'):
   probe=[json.loads(s)for s in(out/'peer-probe.log').read_text().splitlines()if s.startswith('{')]
   assert all(any(r['phase']==phase and r['event']=='completed'for r in probe)for phase in('runtime-peer-copies','peer-transpose-probe'))

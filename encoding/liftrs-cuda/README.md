@@ -235,5 +235,5 @@ client views, transfers and canonical assembly are separate adapters. Build the
 plugin with both `matrix.cu` and `preparation.cu`, and `-Xcompiler=-fPIC,-pthread`.
 Read the [client API/ownership guide](../../docs/gpu-encoding.md) and
 [bounded integration experiment](../../experiments/gpu-code-encoding/report.md).
-Runtime validation is pending; no fulls17 result is implied. Existing legacy
+Bounded runtime validation passes76426; no fulls17 encoding result is implied. Existing legacy
 constructors/modes and CPU-only dependencies remain unchanged.

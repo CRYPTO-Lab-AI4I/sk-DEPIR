@@ -1,0 +1,49 @@
+=== RUN   TestPublicationFailureAndReuse
+--- PASS: TestPublicationFailureAndReuse (0.00s)
+=== RUN   TestExplicitCLIAndDeviceBounds
+--- PASS: TestExplicitCLIAndDeviceBounds (0.00s)
+=== RUN   TestCLIRecoveryRestart
+=== RUN   TestCLIRecoveryRestart/discovery-support-union
+{"utc":"2026-11-16T21:06:00.424009507Z","phase":"write-support","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000017128}
+=== RUN   TestCLIRecoveryRestart/root-product
+{"utc":"2026-11-16T21:06:00.439582613Z","phase":"write-support","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000021651}
+{"utc":"2026-11-16T21:06:00.447495108Z","phase":"read-support","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.00000465}
+{"utc":"2026-11-16T21:06:00.447514866Z","phase":"support-order-validation","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":5.66e-7}
+{"utc":"2026-11-16T21:06:00.447518762Z","phase":"support-Frobenius-validation","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000004462}
+=== RUN   TestCLIRecoveryRestart/reciprocal-prefix
+{"utc":"2026-11-16T21:06:00.461994535Z","phase":"write-support","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000016273}
+{"utc":"2026-11-16T21:06:00.469311512Z","phase":"read-support","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000004988}
+{"utc":"2026-11-16T21:06:00.469324619Z","phase":"support-order-validation","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":4.23e-7}
+{"utc":"2026-11-16T21:06:00.469327586Z","phase":"support-Frobenius-validation","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.00000339}
+--- PASS: TestCLIRecoveryRestart (0.07s)
+    --- PASS: TestCLIRecoveryRestart/discovery-support-union (0.02s)
+    --- PASS: TestCLIRecoveryRestart/root-product (0.02s)
+    --- PASS: TestCLIRecoveryRestart/reciprocal-prefix (0.02s)
+=== RUN   TestRecoveryDeadlineWriter
+--- PASS: TestRecoveryDeadlineWriter (0.00s)
+=== RUN   TestRecoveryRollingRetentionAndFallback
+{"utc":"2026-11-16T21:06:00.477996595Z","phase":"exact-good-monomials","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":7.45e-7}
+{"utc":"2026-11-16T21:06:00.478035665Z","phase":"exact-good-monomials","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.000039816}
+{"utc":"2026-11-16T21:06:00.478051517Z","phase":"discovery-sample","event":"progress","completed":37,"total":37,"unit":"coefficients","elapsed_seconds":0.000055667}
+{"utc":"2026-11-16T21:06:00.478055558Z","phase":"discovery-base-grid","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.000059709}
+{"utc":"2026-11-16T21:06:00.478343204Z","phase":"discovery-base-grid","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.000347355}
+{"utc":"2026-11-16T21:06:00.478351329Z","phase":"discovery-extension-interpolation","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.00035548}
+{"utc":"2026-11-16T21:06:00.478737676Z","phase":"discovery-extension-interpolation","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.000741827}
+{"utc":"2026-11-16T21:06:00.478743959Z","phase":"discovery-support-union","event":"progress","completed":256,"total":256,"unit":"positions","elapsed_seconds":0.00074811}
+--- PASS: TestRecoveryRollingRetentionAndFallback (0.00s)
+=== RUN   TestPersistentReferenceAndRestart
+{"utc":"2026-11-16T21:06:00.488424974Z","phase":"write-support","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000019436}
+{"utc":"2026-11-16T21:06:00.492885143Z","phase":"support-order-validation","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000002196}
+{"utc":"2026-11-16T21:06:00.492932394Z","phase":"support-Frobenius-validation","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000049448}
+{"utc":"2026-11-16T21:06:00.508810243Z","phase":"read-support","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000002844}
+{"utc":"2026-11-16T21:06:00.508826278Z","phase":"support-order-validation","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":7.19e-7}
+{"utc":"2026-11-16T21:06:00.508830258Z","phase":"support-Frobenius-validation","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000004699}
+--- PASS: TestPersistentReferenceAndRestart (0.03s)
+=== RUN   TestExactDimensionAdmission
+{"utc":"2026-11-16T21:06:00.517564745Z","phase":"exact-dimension","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":7.01e-7}
+{"utc":"2026-11-16T21:06:00.520131894Z","phase":"exact-dimension","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.00256785}
+{"utc":"2026-11-16T21:06:00.520481262Z","phase":"support-order-validation","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":5.43e-7}
+{"utc":"2026-11-16T21:06:00.520489039Z","phase":"support-Frobenius-validation","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000008321}
+--- PASS: TestExactDimensionAdmission (0.01s)
+PASS
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/cmd/pir-preprocess	0.129s

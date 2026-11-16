@@ -7,7 +7,7 @@ from pathlib import Path
 import subprocess
 
 
-def reconcile(out, require_success=True):
+def reconcile(out, require_success=True, source_overrides=None):
     """Verify sealed hashes; forensic failed-run review must opt out of success."""
     record=json.loads((out/'results.json').read_text())
     if require_success: assert record['status']=='passed'
@@ -20,7 +20,12 @@ def reconcile(out, require_success=True):
         return digest.hexdigest()
     for name,digest in record['evidence_sha256'].items():assert sha(out/name)==digest,name
     for name,digest in record['cache_sha256'].items():assert sha(Path(record['cache'])/name)==digest,name
-    names=list(record['source_sha256'])
+    # Explicit review-only snapshots handle a documented dirty job-start tree.
+    # Every override must still match the producer's original sealed digest.
+    overrides=source_overrides or {}
+    assert set(overrides)<=set(record['source_sha256'])
+    for name,path in overrides.items():assert sha(path)==record['source_sha256'][name],name
+    names=[name for name in record['source_sha256']if name not in overrides]
     requests=''.join(f"{record['revision']}:{name}\n" for name in names)
     data=subprocess.check_output(['git','cat-file','--batch'],input=requests.encode())
     position=0
@@ -33,7 +38,8 @@ def reconcile(out, require_success=True):
         position+=size+1
     if require_success: assert all(c['exit_code']==0 and not c['guard'] for c in record['commands'])
     result={'status':record['status'],'job_id':record['job_id'],'revision':record['revision'],
-            'source_files_verified':len(names),'evidence_files_verified':len(record['evidence_sha256']),
+            'source_files_verified':len(record['source_sha256']),
+            'source_override_files_verified':sorted(overrides),'evidence_files_verified':len(record['evidence_sha256']),
             'cache_files_verified':len(record['cache_sha256']),
             'tests':['TestWideOrbitArithmetic','TestTableFreeFields'],
             'commands':[{k:c[k] for k in ('label','seconds','peak_rss_bytes','exit_code')} for c in record['commands']],

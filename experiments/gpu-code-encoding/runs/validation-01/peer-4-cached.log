@@ -1,0 +1,16 @@
+{"completed":0,"elapsed_seconds":0.000006755,"event":"started","phase":"workflow","total":1,"unit":"operations","utc":"2026-11-16T21:07:43.721767534Z"}
+{"completed":0,"elapsed_seconds":0.010308864,"event":"started","phase":"read-code-online.bin","total":1,"unit":"operations","utc":"2026-11-16T21:07:43.732072681Z"}
+{"completed":291697,"elapsed_seconds":0.011214564,"event":"progress","phase":"read-code-online.bin","total":291697,"unit":"bytes","utc":"2026-11-16T21:07:43.732978168Z"}
+{"completed":1,"elapsed_seconds":0.011225517,"event":"completed","phase":"read-code-online.bin","total":1,"unit":"operations","utc":"2026-11-16T21:07:43.732990507Z"}
+{"completed":0,"elapsed_seconds":0.01123378,"event":"started","phase":"read-support-support.bin","total":1,"unit":"operations","utc":"2026-11-16T21:07:43.73299943Z"}
+{"completed":29524,"elapsed_seconds":0.011745515,"event":"progress","phase":"read-support-support.bin","total":29524,"unit":"bytes","utc":"2026-11-16T21:07:43.733510869Z"}
+{"completed":1,"elapsed_seconds":0.01175626,"event":"completed","phase":"read-support-support.bin","total":1,"unit":"operations","utc":"2026-11-16T21:07:43.733520008Z"}
+{"completed":0,"elapsed_seconds":0.011763678,"event":"started","phase":"read-root-root.bin","total":1,"unit":"operations","utc":"2026-11-16T21:07:43.733527569Z"}
+{"completed":29528,"elapsed_seconds":0.012266927,"event":"progress","phase":"read-root-root.bin","total":29528,"unit":"bytes","utc":"2026-11-16T21:07:43.734032363Z"}
+{"completed":1,"elapsed_seconds":0.012277439,"event":"completed","phase":"read-root-root.bin","total":1,"unit":"operations","utc":"2026-11-16T21:07:43.734041639Z"}
+{"completed":0,"elapsed_seconds":0.012283151,"event":"started","phase":"read-code-generator.bin","total":1,"unit":"operations","utc":"2026-11-16T21:07:43.734048388Z"}
+{"completed":232620,"elapsed_seconds":0.013029556,"event":"progress","phase":"read-code-generator.bin","total":232620,"unit":"bytes","utc":"2026-11-16T21:07:43.734794516Z"}
+{"completed":1,"elapsed_seconds":0.013038025,"event":"completed","phase":"read-code-generator.bin","total":1,"unit":"operations","utc":"2026-11-16T21:07:43.734803623Z"}
+{"completed":1,"elapsed_seconds":0.013044484,"event":"completed","phase":"workflow","total":1,"unit":"operations","utc":"2026-11-16T21:07:43.734808786Z"}
+verified preprocessing cache: /hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-code-encoding/validation-01/peer-4
+CPU profile: /hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-code-encoding/validation-01/peer-4/cpu-1879642494.pprof

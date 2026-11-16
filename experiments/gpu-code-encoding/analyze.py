@@ -38,4 +38,19 @@ def review(out, record, result):
 
 if __name__ == '__main__':
     workflow = runpy.run_path(str(HERE.parent/'gpu-preprocessing-workflow/analyze.py'))
-    workflow['main'](here=HERE, extra_review=review)
+    # A pending job snapshots the workspace at execution, which can differ from
+    # HEAD. Reviewed copies below are unrelated to executed encoder code and must
+    # hash exactly to the original producer seal; no generic mismatch bypass.
+    import sys
+    overrides = None
+    if len(sys.argv) == 2:
+        manifest = HERE/'runs'/sys.argv[1]/'review-source.json'
+        if manifest.exists():
+            metadata = json.loads(manifest.read_text())
+            expected = {'experiments/gpu-s17-full-preprocessing/analyze.py',
+                        'experiments/gpu-s17-full-preprocessing/test_analysis.py',
+                        'experiments/s17-arithmetic/analyze.py'}
+            assert set(metadata['files']) == expected
+            overrides = {name: manifest.parent/path
+                         for name, path in metadata['files'].items()}
+    workflow['main'](here=HERE, extra_review=review, source_overrides=overrides)

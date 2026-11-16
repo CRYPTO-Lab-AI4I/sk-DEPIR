@@ -804,5 +804,5 @@ It returns `ScalingCUDAEncoder` canonical uint32 words and shares the native
 cyclic order and verified code data with CPU. See the [API/buffer guide](../../docs/gpu-encoding.md)
 for source ownership, per-device/host admission, build/example and remaining
 s17 packing/memory modes. Optional CUDA is not needed for CPU-only builds.
-[Bounded runtime validation](../../experiments/gpu-code-encoding/report.md) is pending;
+[Bounded runtime validation](../../experiments/gpu-code-encoding/report.md) passes76426;
 fulls17 encoding remains unvalidated.

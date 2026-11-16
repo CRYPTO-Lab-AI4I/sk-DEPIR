@@ -71,7 +71,7 @@ GPU counts below are **capacity floors**, dividing aggregate array bytes by one
 card's memory and rounding up. They assume sharded arrays/constants rather than
 replication. Communication, staging, runtime and allocation headroom can require
 more GPUs. An experimental resident multi-GPU client now exists in source, with bounded
-validation pending (server preprocessing has validated peer kernels). Time cannot be estimated
+validation passing76426 (server preprocessing is verified separately). Time cannot be estimated
 by dividing a single-GPU timing by the card count.
 
 - s≤16: measured paths below fit this machine; unrun variants are capacity
@@ -624,3 +624,15 @@ with sealed digest/selected events; streaming review passes without a redundant
 large-payload rehash. Encoding rows stay unmeasured at s17. The preprocessing
 prerequisite is complete; full CPU baseline/GPU validation, output and resource
 admission remain separate. GPU validation76426 was not inspected here.
+
+## GPU client bounded validation verified (SCALING-089)
+
+**76426 passes ongnode10,4min28s scheduler elapsed.** Genuine small-code client
+checks cover1/2/4GPUs, peer/local, independent Go/CPU equality and ownership/error/
+reuse/lease behavior. Sixty direct native32/64-bit cases and12sanitized cases pass;
+actuals17 short kernels and34-bit canonical positions pass. Zero CUDA errors/leaks.
+[Report/provenance](../experiments/gpu-code-encoding/report.md#completed-validation-scaling-089)
+reconciles544source (three unrelated exact review-script snapshots explicitly
+qualified),47evidence/76cache identities. GPU integration correctness gate is
+complete; fulls17 encoding/time/peak/packed-output rows remain unmeasured. No
+large-client job admission or runtime estimate follows from these small tests.

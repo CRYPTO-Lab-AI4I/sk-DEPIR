@@ -1,0 +1,8 @@
+{
+  "reason": "Job started while unrelated preprocessing result-review scripts were being edited. Exact intermediate files reconstructed from the reviewed final source by omitting later summary/bounded-read-test additions; producer SHA256 independently matches each retained copy. Executed encoding and controller sources match recorded Git revision. Original producer record unchanged.",
+  "files": {
+    "experiments/gpu-s17-full-preprocessing/analyze.py": "review-source/full-preprocessing-analyze.py",
+    "experiments/gpu-s17-full-preprocessing/test_analysis.py": "review-source/full-preprocessing-test-analysis.py",
+    "experiments/s17-arithmetic/analyze.py": "review-source/arithmetic-analyze.py"
+  }
+}

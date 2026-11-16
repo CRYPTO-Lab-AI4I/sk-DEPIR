@@ -63,6 +63,24 @@ class ClientSuiteTests(unittest.TestCase):
             with self.assertRaises(AssertionError):
                 review(out, {}, {'tests': []})
 
+    def test_source_override_requires_original_digest(self):
+        import hashlib
+        reconcile = runpy.run_path(str(HERE.parent/'s17-arithmetic/analyze.py'))['reconcile']
+        with tempfile.TemporaryDirectory() as directory:
+            out = Path(directory)
+            source = out/'snapshot.py'
+            source.write_text('verified snapshot')
+            record = dict(status='passed', job_id='test', revision='HEAD',
+                          cache=str(out), evidence_sha256={}, cache_sha256={},
+                          commands=[], source_sha256={'unrelated-review.py':
+                          hashlib.sha256(source.read_bytes()).hexdigest()})
+            (out/'results.json').write_text(json.dumps(record))
+            result = reconcile(out, source_overrides={'unrelated-review.py': source})
+            self.assertEqual(result['source_files_verified'], 1)
+            source.write_text('damaged snapshot')
+            with self.assertRaises(AssertionError):
+                reconcile(out, source_overrides={'unrelated-review.py': source})
+
 
 if __name__ == '__main__':
     unittest.main()

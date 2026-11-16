@@ -79,8 +79,8 @@ as a follow-up. These costs do not block GPU client encoding integration.
 An experimental [resident GPU code-data encoder](docs/gpu-encoding.md) now
 connects the shared CPU/GPU cyclic sequence to the existing width-selected GPU
 executor. It consumes the same verified data as CPU encoding, with explicit
-same-node devices and resident constants. Source supports s17; bounded GPU
-runtime validation is pending ([experiment](experiments/gpu-code-encoding/report.md)).
+same-node devices and resident constants. Source supports s17; bounded1/2/4GPU
+runtime validation passes76426 ([experiment](experiments/gpu-code-encoding/report.md)).
 CPU/CUDA-free builds and legacy s≤16 GPU defaults remain unchanged. No fulls17
 GPU encoding result or speedup is claimed.
 

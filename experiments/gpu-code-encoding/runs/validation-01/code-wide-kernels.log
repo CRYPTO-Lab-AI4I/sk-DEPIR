@@ -1,0 +1,5 @@
+=== RUN   TestGPUPreparationWide
+--- PASS: TestGPUPreparationWide (4.77s)
+=== RUN   TestGPUPreparationPeerLifetime
+--- PASS: TestGPUPreparationPeerLifetime (0.22s)
+PASS
