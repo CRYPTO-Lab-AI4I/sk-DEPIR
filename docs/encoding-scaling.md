@@ -1952,3 +1952,9 @@ If larger-size encoding stays near the small1–3% difference and setup overhead
 is small in absolute time, record it and proceed with GPU integration; investigate
 a substantial repeatable larger regression first. No pass/fail or performance
 claim precedes completion and evidence reconciliation. Hand off without monitoring.
+
+Execution: CPU comparison **76055 submitted**, revisione07f308; exact
+[receipt/budget](../experiments/cpu-encoding-regression/submission.json).
+Results `experiments/cpu-encoding-regression/runs/comparison-01/`, log
+`experiments/cpu-encoding-regression/slurm-76055.log`. Preprocessing75832 untouched
+and not inspected. No new-job monitoring; await the user's completion ping.

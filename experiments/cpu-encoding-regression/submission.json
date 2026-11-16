@@ -1,0 +1,31 @@
+{
+  "job_id": "76055",
+  "submitted_utc": "2026-11-16T13:06:07.332326+00:00",
+  "submitted_revision": "e07f308",
+  "status": "submitted; not monitored",
+  "command": "sbatch --parsable --output=experiments/cpu-encoding-regression/slurm-%j.log experiments/cpu-encoding-regression/run.sbatch comparison-01",
+  "results": "experiments/cpu-encoding-regression/runs/comparison-01/",
+  "slurm_log": "experiments/cpu-encoding-regression/slurm-76055.log",
+  "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/cpu-encoding-regression/comparison-01",
+  "policy": {
+    "cpus": 32,
+    "host_request_bytes": 34359738368,
+    "rss_guard_bytes": 25769803776,
+    "cgroup_guard_bytes": 32212254720,
+    "new_cache_guard_bytes": 17179869184,
+    "scratch_guard_bytes": 17179869184,
+    "go_soft_bytes": 21474836480,
+    "worker_seconds": 900,
+    "controller_seconds": 6600,
+    "slurm_seconds": 7200,
+    "gpus": 0
+  },
+  "baseline_revision": "671bf5e",
+  "input": {
+    "path": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/parallel-s14/s14-m2-t5/online.bin",
+    "code_sha256": "88d5ff39c5df8bdd4aa0f85fc19833ae673df95365b4fd862bb83936e5a0adf8",
+    "word_sha256": "b828d4dda538e95b78d914dce52fbfa7fc29a139e4781b0dad83f061f3e26d6c",
+    "s": 14
+  },
+  "preprocessing_job": "75832 untouched and not inspected"
+}

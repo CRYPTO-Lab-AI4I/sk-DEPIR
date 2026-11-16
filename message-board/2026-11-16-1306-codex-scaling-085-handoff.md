@@ -1,0 +1,7 @@
+# SCALING-085 — matched CPU comparison job76055
+
+UTC: 2026-11-16T13:06:07.332326+00:00; agent: Codex; status: handoff.
+
+Committed validated experiment e07f308 and submitted76055 (`comparison-01`). sbatch accepted; no scheduler/process/log polling or waiting afterward. Preprocessing75832 untouched/not inspected. [Exact receipt and approved-budget envelope](../experiments/cpu-encoding-regression/submission.json), [method/report](../experiments/cpu-encoding-regression/report.md). CPU32cores/32GiB request,24GiB RSS/30GiB cgroup,16GiB retained/16GiB scratch,15min command/110min controller/2hSlurm; no GPU.
+
+Results `experiments/cpu-encoding-regression/runs/comparison-01/`; log `experiments/cpu-encoding-regression/slurm-76055.log`; binaries/fixture/profiles `.cache/liftrs/cpu-encoding-regression/comparison-01/`. Four balanced old/new pairs on verifieds14 data; setup separate from encoding; warmups/hash verification outside encoding timers, profiles separate. Old671bf5e gets only explicit progress observation; both versions include logging overhead. Existing local independent-Go/native/patch/parser checks pass; no s14 result is claimed. README checked/updated in prepared commit; scaling references now record submission. User will ping after completion; then reconcile evidence, patch/source identities, canonical hashes and timing medians/ranges before deciding whether further regression work should precede GPU integration.

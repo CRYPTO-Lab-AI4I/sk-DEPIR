@@ -551,7 +551,7 @@ accepted. Existing completed support is reusable. Results/logs and exact budget:
 No new-job monitoring or full result review; s17 remains unmeasured.
 
 A [matched s14 CPU refactor comparison](../experiments/cpu-encoding-regression/report.md)
-is prepared as parallel work while preprocessing runs: separate setup/resident
+is submitted as **job76055**, in parallel with preprocessing: separate setup/resident
 encoding, four balanced old/new pairs, identical verified input/output and separate
 profiles. Both versions log native progress; baseline instrumentation is an
 explicit measurement-only patch. No new latency or memory measurement is available

@@ -1,6 +1,6 @@
 # Larger CPU encoding refactor comparison
 
-Status: **prepared; full s14 results pending**. This follows the
+Status: **submitted as job76055; full s14 results pending and not monitored**. This follows the
 [small s10 comparison](../cpu-encoding-modules/report.md#completed-corrected-validation),
 which found encoding1–3% slower and resident/file setup about2–3ms slower after
 modularity changes. The purpose is to determine whether the difference matters
@@ -142,3 +142,12 @@ Two local parser invocations initially used unsuitable log wrappers: ordinary
 stderr events. Direct test-binary invocation with merged stdout/stderr passes,
 matching the submitted runner's existing behavior. The earlier logs remain
 retained; no production or timing-probe bug was found from those wrapper errors.
+
+## Submission
+
+Job **76055**, submitted revision `e07f308`, accepted by sbatch; see the
+[exact submission/budget receipt](submission.json). Results:
+`runs/comparison-01/`; Slurm log: `slurm-76055.log`; retained binaries, fixture and
+profiles: `.cache/liftrs/cpu-encoding-regression/comparison-01/`.
+No queue/process/log checks after submission. Fulls17 preprocessing75832 was
+neither changed nor inspected. Await the completion ping before analysis.
