@@ -1929,3 +1929,8 @@ canonical stages remain immutable; an in-flight transform is not recoverable.
 See [contract](preprocessing.md#incremental-recovery),
 [checks](../experiments/preprocessing-recovery/report.md), and
 [full-run report](../experiments/gpu-s17-full-preprocessing/report.md).
+
+Execution: replacement75832 submitted from dd9d86a with `resume-02 --resume` and
+`afterany:75819`; old75819 then cancelled. Completed support observed and retained,
+so discovery is reusable. Do not monitor; await user's completion ping. Exact
+[submission](../experiments/gpu-s17-full-preprocessing/submission-resume-02.json).

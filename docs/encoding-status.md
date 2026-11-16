@@ -543,3 +543,9 @@ retained payload; compute/memory/storage limits remain unchanged. No FFT workspa
 is saved, and an interrupted transform is repeated. These are recovery/capacity
 changes, **not measured s17 preprocessing performance**. See the
 [recovery contract](preprocessing.md#incremental-recovery) and full-run report.
+
+Replacement **75832 submitted** with100h scheduler cutoff and incremental recovery;
+original75819 received a cancellation request only after the replacement was
+accepted. Existing completed support is reusable. Results/logs and exact budget:
+[submission receipt](../experiments/gpu-s17-full-preprocessing/submission-resume-02.json).
+No new-job monitoring or full result review; s17 remains unmeasured.

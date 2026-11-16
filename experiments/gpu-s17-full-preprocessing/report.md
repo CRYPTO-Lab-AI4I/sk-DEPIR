@@ -1,6 +1,6 @@
 # First guarded full s17 GPU preprocessing
 
-Status: **job75819 is the original48h attempt; a100h replacement with incremental recovery is being prepared**. Exact count and
+Status: **replacement75832 submitted with100h cutoff and incremental recovery; not monitored**. Original75819 received a cancellation request after replacement acceptance. Exact count and
 complete small workflow validation pass job75810; no full s17 support/cache or
 latency exists. [Budget](budget.json) must record explicit user numeric agreement
 before the controller launches. This experiment constructs public preprocessing,
@@ -175,3 +175,15 @@ methodology are unchanged. `progress.bin` is excluded from controller exit
 rehashing just like other large payloads: its streaming digest is sealed in the
 atomic stage manifest, and it is authenticated on restart. No full-size recovery
 measurement is claimed from the small tests.
+
+## Longer replacement submitted
+
+[Submission receipt and exact budget](submission-resume-02.json): job75832,
+submitted source dd9d86a, `resume-02 --resume`,100h scheduler cutoff. It depends on
+`afterany:75819`; only after successful sbatch acceptance was75819 cancelled.
+One-time pre-replacement inspection found completed support, no completed root/code,
+so discovery can be reused. Results: `runs/resume-02/`; log: `slurm-75832.log`;
+shared persistent cache remains `.cache/liftrs/gpu-s17-full-preprocessing/s17-m2-t5/`.
+Old logs/results/profile/partial files remain retained. Submission and cancellation
+requests succeeded; neither terminal old state nor new state/results were polled.
+Await user's completion ping before checking the new job.

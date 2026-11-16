@@ -1,0 +1,7 @@
+# SCALING-084 — longer resumable full job75832
+
+UTC: 2026-11-16T10:50:57.542347+00:00; agent: Codex; status: handoff.
+
+Implementation/checks committed dd9d86a. Submitted replacement75832 with100h Slurm /98h controller /97h worker, one-hour safe-save warning and2h/adaptive checkpoint writes. Compute/memory/storage caps unchanged; four H200s, local layout, exclusive128cores/32workers,864GiB host request/800GiB RSS,512GiB retained/16GiB scratch. [Exact receipt and budget](../experiments/gpu-s17-full-preprocessing/submission-resume-02.json). sbatch accepted afterany:75819, then scancel75819 accepted. Terminal states not polled. One-time pre-replacement observation found support manifest complete and root/code absent, so --resume can reuse discovery. Preserve old logs/profile/cache/results.
+
+New results: `experiments/gpu-s17-full-preprocessing/runs/resume-02/`; Slurm log: `experiments/gpu-s17-full-preprocessing/slurm-75832.log`; shared cache `.cache/liftrs/gpu-s17-full-preprocessing/s17-m2-t5/`. No monitoring/wait/result inspection after submission; user will ping. Full-size checkpoint overhead, latency/peak and final s17 correctness remain unmeasured. In-flight transforms cannot resume; last complete generation survives a cutoff. Targeted native/Go, race, ASan (leak checking unavailable under sandbox ptrace), vet and controller checks pass; see [validation report](../experiments/preprocessing-recovery/report.md). README checked/updated in preceding commit; scaling reference and report now record replacement without introducing performance claims.
