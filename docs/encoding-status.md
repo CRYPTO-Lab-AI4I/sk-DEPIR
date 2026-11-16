@@ -44,7 +44,8 @@ All rows use m=2, t=5 and one field-element database. Every cell names its run
 status (HPC measured, laptop measured or not run), runtime units and memory
 measure. `~` marks an estimate rather than a measured peak. Unknown values are
 written explicitly; GPU counts in unrun cells are capacity projections.
-Preparation excludes discovery, cache loading/saving and database encoding.
+Preparation excludes discovery, cache loading/saving and database encoding unless
+explicitly labeled otherwise (s17 construction includes root-checkpoint I/O).
 Ordinary encoding timings exclude output packing/storage unless marked **stored**;
 those stored timings include packing, writing and hashing.
 
@@ -106,8 +107,8 @@ validation passes job74412 with438 source,24 evidence and18 cache identities
 reconciled. The [CPU implementation refactor](cpu-encoding.md) now shares that native
 sequence and supporting operations; bounded cross-mode/race/sanitizer validation
 passes job74448. Small s10 encoding medians are1–3% slower; setup costs increase
-27–44% (about2–3 ms), an unresolved regression requiring follow-up. No genuine s17 cache or full-size preprocessing/encoding
-run exists; full-size latency is unknown. Its reuse model still retains 8N
+27–44% (about2–3 ms), an unresolved regression requiring follow-up. Fulls17 preprocessing now passes75832 and its genuine cache is retained;
+full-size CPU/GPU encoding latency remains unknown. Its reuse model still retains 8N
 output backing bytes (4N logical uint32 bytes), and older returned words require
 additional live RAM. No full-size capacity or timing estimate changes.
 No full-encoding table cell changes from these kernel steps.
@@ -116,10 +117,11 @@ The [shared preprocessing implementation](preprocessing.md) now extends the
 sampling/root/reciprocal/identity procedure through s17 with explicit native
 execution and support-bound restart artifacts. Targeted bounded checks passed;
 full bounded native/sanitizer validation passes corrected job74447;
-there is no genuine s17 support/cache or measured full-size peak/runtime.
+the full GPU run75832 now provides genuine support/cache and measured host
+RSS/runtime (see the preprocessing row/report).
 Legacy CUDA execution remains s≤16; the resident CUDA17 peer prototype is
 implemented in source; one-GPU validation passes job74453, followed by
-the corrected peer-lifetime sanitizer retry74466, which passes. Full-size admission remains pending.
+the corrected peer-lifetime sanitizer retry74466, which passes. Full GPU preprocessing75832 has completed under its separate admitted budget.
 The native fast product payload is384 GiB at s17, with Go arrays and overhead
 additional; a host peak around600 GiB or higher is an unmeasured scenario, not
 a capacity guarantee. No full-encoding measurement changes.
@@ -148,9 +150,9 @@ canonical uint32 array; packed output does not eliminate transform workspace.
 
 The prerequisite work is wider34-bit internal arithmetic with boundary tests,
 compatible coordinates/counts/cache formats and independently verified s17 code
-preprocessing. Base-field values still fit32-bit slots. Preprocessing's peak RAM
-and latency are unknown; its current three-array GPU model alone is384GiB,
-a three-card capacity floor, so encoding capacity is not whole-workflow feasibility.
+preprocessing. Base-field values still fit32-bit slots. GPU preprocessing now has a measured348.393GiB sampled host peak and full cache
+from75832. Its product arrays model384GiB across four implemented shards;
+CPU-only preprocessing and client encoding still need separate full measurements.
 Use small correctness tests and existing s16 regressions before full s17 runs.
 Runtime estimates remain unknown until wider arithmetic and CPU/GPU kernels are
 measured; capacity alone cannot predict useful performance.
@@ -164,8 +166,10 @@ These are distinct modes; their savings cannot simply be added together.
 
 ### Preprocessing
 
-Each runtime below is **reusable preparation after discovery**; it is not database
-encoding time. Host memory excludes device allocations unless stated.
+These are **reusable preparation** timings, not database encoding time. The s17
+row separates discovery, construction (including root checkpoint I/O) and the
+resumed verified worker; other rows use their historical boundaries. Host memory
+excludes device allocations unless stated.
 
 | s | Run status | Host memory | Preparation runtime | Feasibility / evidence |
 |---|---|---|---|---|
@@ -173,7 +177,7 @@ encoding time. Host memory excludes device allocations unless stated.
 | 14 | Laptop measured | Peak host process RSS: 13.73 GiB | 33 min 38 s | Measured on laptop |
 | 15 | Laptop measured | Peak host process RSS: 20.55 GiB | 3 h 16 min 7 s† | Measured on laptop |
 | 16 | HPC measured | Peak host process RSS: 72.575 GiB | GPU: 2 h 20 min 15.469 s | Measured on this machine |
-| 17 | Not run (exact dimension component measured)<br>K: 3876566203 | Calculated final retained principal arrays: 220.883 GiB<br>Peak RAM: unknown | GPU planning scenario: ~12–24 h after discovery*<br>Actual GPU/native CPU runtime: unknown | Resident GPU prototype: 4 H200s projected<br>Bounded1/2/4GPU checks pass; full-run admission pending |
+| 17 | **HPC measured; passed75832**<br>K:3876566203; support from75819 | **Peak sampled host RSS:348.393GiB**<br>Device peak:not sampled; product arrays384GiB aggregate (model)<br>Final device owned:256.009GiB observed | **Construction/identity/spectrum:9h16min46s**, includes root checkpoints<br>Verified resumed worker:9h58min38s<br>Earlier discovery:21min38s | **Demonstrated on this machine:4H200, one node**<br>Canonical preprocessing:235.324GiB<br>[Full evidence/boundaries](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088) |
 | 18 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 | 19 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 | 20 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
@@ -207,7 +211,8 @@ measure encoding; load, verification and separate packing are additional.
 | 19 | Not run<br>Runtime: unknown<br>Output alone: 1024 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Transform arrays: ≥4096 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Estimated private arrays: ~1279 GiB<br>Work files: 4096 GiB<br>Capacity: exceeds one node's RAM |
 | 20 | Not run<br>Runtime: unknown<br>Output alone: 4096 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Transform arrays: ≥16384 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Estimated private arrays: ~5162 GiB<br>Work files: 16384 GiB<br>Capacity: exceeds one node's RAM |
 
-* **Low-confidence s17 planning scenario, not measured or admitted:** allow
+* **Historical low-confidence forecast, superseded by the measured GPU row:** the
+pre-trial scenario allowed
 roughly12–24h after discovery, or roughly24–48h for fresh discovery plus
 preparation/verification/persistence. Baselines are measured s16 GPU-assisted
 preparation8415.469s (2h20m15s, excludes discovery) and CPU discovery10597.545s
@@ -221,12 +226,14 @@ allows persistence/checks, not queue time. Actual runtime may exceed it.
 This historical GPU scenario is not a runtime estimate for the new native
 executor. Native weight-class enumeration replaces per-monomial carry evaluation,
 so the old discovery extrapolation is no longer a calibrated model for that
-implementation. Its full s17 discovery/preparation latency remains unknown.
+implementation. Its GPU discovery/preparation is now measured by75819/75832;
+CPU-only full preparation remains unmeasured.
 
 This assumes a working wider server backend with adequate resident memory and
 useful parallelism. The three-array GPU payload is~384GiB: three H200s are a
 capacity floor, with four on one node a layout/headroom option, not implemented
-support. Communication, host peaks and exact K remain unknown. No linear
+support at the time of that forecast. Exact K and the four-card GPU workflow
+are now measured; cross-node communication remains unmeasured. No linear
 speedup from GPU count is assumed. Faster GPU-assisted discovery/native host
 work could lower latency; streaming or poor inter-GPU scaling could raise it.
 These scenarios are not a promise that the present code can run s17. Use bounded
@@ -328,14 +335,14 @@ Sources: [original s10](../experiments/cuda-encoding/report.md),
 
 ## Preprocessing GPU capacity projections
 
-All entries are **not run** and exclude device/runtime headroom. They model three
-resident extension-field arrays, not a distributed implementation. A streamed or
-external-memory preprocessing design may change these requirements. Preparation
-latency and peak host memory remain unknown at s≥17.
+Array counts below are **models excluding device/runtime headroom**. The s17
+four-card run is now demonstrated; s≥18 is not run. Three resident extension-field
+arrays are modeled; cross-node execution is not implemented. Streaming/external
+memory may change requirements. s≥18 runtime/peak host memory remains unknown.
 
 | s | Aggregate device arrays | GPU capacity floor | Host/machine feasibility |
 |---|---|---|---|
-| 17 | ~384 GiB | 3 | Retained host arrays ≥~221 GiB; peak unknown; potential single-node route after port |
+| 17 |384GiB modeled arrays |3 arithmetic floor;4 implemented |**HPC passed on4H200, one node**; sampled host peak348.393GiB; device metadata/headroom extra |
 | 18 | ~1536 GiB | 11 | At least 3 four-GPU nodes for this layout; host distribution and peak unknown |
 | 19 | ~6144 GiB | 44 | At least 11 four-GPU nodes; host distribution and peak unknown |
 | 20 | ~24576 GiB | 176 | Exceeds configured68-GPU inventory; needs a different layout or more hardware |
@@ -463,6 +470,8 @@ are unchanged; finish persistent full-workflow admission before any fulls17 job.
 
 ## Persistent preprocessing readiness
 
+Historical admission checkpoint, superseded by [completed full preprocessing](#full-s17-preprocessing-verified-scaling-088).
+
 The [server CLI and complete-path validation](../experiments/gpu-preprocessing-workflow/report.md)
 now implement atomic support/root/code cache stages and verified restarts, retaining
 profiles/provenance/logs. Local native/Go-oracle and failure-path checks pass;
@@ -506,6 +515,8 @@ Final RAM/storage/runtime admission and cross-node support remain separate.
 [Current configuration/free-space snapshot](../experiments/s17-preprocessing-admission/resource-snapshot.json) supports the admission draft; configuration, filesystem free space and blank QoS fields are not quota or resource approval.
 
 ## Exact s17 count and full admission readiness
+
+Historical admission checkpoint, superseded by [completed full preprocessing](#full-s17-preprocessing-verified-scaling-088).
 
 [Count75810](../experiments/s17-preprocessing-admission/report.md#completed-count-admission-scaling-082)
 passes all checks, with exact K3876566203,N17179869184 and no full host grid/list.
@@ -594,3 +605,22 @@ The bounded resident-client integration suite is submitted as **job76426**,
 sourcebf2bffc, within the prior4GPU/4GiB test budget. [Receipt](../experiments/gpu-code-encoding/submission.json)
 links results/logs. No monitoring or fulls17 encoding submission; runtime status
 remains pending until the completion ping and evidence reconciliation.
+
+## Full s17 preprocessing verified (SCALING-088)
+
+**75832 passes**:4H200,348.393GiB peak sampled host RSS; worker9h58min38s,
+including cache I/O/readback and reused support. Earlier discovery21min38s,
+2samples; complete P·G identity and canonical-file readback pass. Final reusable
+payload235.324GiB; clients need the142.441GiB `code/online.bin`. Four periodic
+root saves add78.525s (0.219% worker wall), with23.426GiB latest snapshots retained.
+Full device peak was not sampled;384GiB is the product-array model, while the
+final post-release observed owned total is256.009GiB. Do not conflate these.
+
+[Report/summary](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088)
+reconciles523source/17evidence/14cache identities. This is a resumed run, not an
+uninterrupted fresh baseline; profiled/logged root construction accounts for
+about86% of worker wall. Raw3.162GiB progress remains locally retained outside Git,
+with sealed digest/selected events; streaming review passes without a redundant
+large-payload rehash. Encoding rows stay unmeasured at s17. The preprocessing
+prerequisite is complete; full CPU baseline/GPU validation, output and resource
+admission remain separate. GPU validation76426 was not inspected here.

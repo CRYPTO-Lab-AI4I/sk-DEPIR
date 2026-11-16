@@ -1,0 +1,30 @@
+JobId=75832 JobName=depir-preprocess-s17
+   UserId=tmour(20200) GroupId=crypto_login(20200) MCS_label=N/A
+   Priority=1 Nice=0 Account=crypto_login QOS=quota_crypto_gpuq
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:00:09 TimeLimit=4-04:00:00 TimeMin=N/A
+   SubmitTime=2026-11-16T11:50:05 EligibleTime=2026-11-16T11:50:20
+   AccrueTime=Unknown
+   StartTime=2026-11-16T11:50:20 EndTime=2026-11-20T15:50:20 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-16T11:50:20 Scheduler=Main
+   Partition=gpuq AllocNode:Sid=lnode02:960919
+   ReqNodeList=(null) ExcNodeList=gnode03
+   NodeList=gnode06
+   BatchHost=gnode06
+   NumNodes=1 NumCPUs=128 NumTasks=1 CPUs/Task=32 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=32,mem=864G,node=1,billing=32,gres/gpu=4,gres/gpu:h200=4
+   AllocTRES=cpu=128,node=1,billing=128,gres/gpu=4,gres/gpu:h200=4
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=32 MinMemoryNode=864G MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=NO Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null)
+   Command=/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-s17-full-preprocessing/run.sbatch
+   WorkDir=/hpc/home/crypto/tmour/sk-DEPIR
+   StdErr=/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-s17-full-preprocessing/slurm-75832.log
+   StdIn=/dev/null
+   StdOut=/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-s17-full-preprocessing/slurm-75832.log
+   TresPerNode=gres/gpu:h200:4
+   TresPerTask=cpu=32
+   
+

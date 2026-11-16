@@ -107,7 +107,8 @@ type codePreparationBackend interface {
 // selected from s; discovery/root/polynomial logic is shared across backends.
 // Close waits for active calls and releases native/device workspace. Produced
 // support/code data is Go-owned and remains valid. Do not copy a live session.
-// This experimental API has not demonstrated a full s17 preparation run.
+// Full s17 GPU preprocessing passes job75832 (see the full-run report); CPU-only
+// full preparation and client encoding remain separate validation/resource gates.
 type CodePreprocessor struct {
 	mu      sync.Mutex
 	header  ScalingCodeHeader

@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-16 23:05 | SCALING-088 | Completed | [Full s17 preprocessing verified](2026-11-16-2305-codex-scaling-088-completed.md) |
+| 2026-11-16 20:54 | SCALING-088 | Started | [Review full s17 preprocessing75832](2026-11-16-2054-codex-scaling-088-started.md) |
 | 2026-11-16 14:39 | SCALING-087 | Handoff | [GPU client validation job76426 submitted](2026-11-16-1439-codex-scaling-087-handoff.md) |
 | 2026-11-16 14:36 | SCALING-087 | Prepared | [Resident GPU client and validation ready](2026-11-16-1436-codex-scaling-087-prepared.md) |
 | 2026-11-16 13:51 | SCALING-087 | Started | [Shared-schedule GPU client encoding](2026-11-16-1351-codex-scaling-087-started.md) |

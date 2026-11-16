@@ -12,8 +12,9 @@ validation passes job74447. **GPU server execution is now the active target**:
 a width-selected resident peer engine implements the heavy preprocessing kernels
 on1/2/4/8 same-node GPUs in source. One-GPU checks pass job74453; corrected two-GPU validation
 passes job74466, including peer-link lifetime sanitizer checks. No full
-s17 discovery, preparation, cache or latency result exists. A guarded full trial
-is admitted separately in the [full-run report](../experiments/gpu-s17-full-preprocessing/report.md). The legacy CUDA32
+s17 client encoding result exists. Full GPU preprocessing now passes75832:
+genuine discovered support, P/G/spectrum, full identity and complete cache
+readback; see [measured full-run results](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088). The legacy CUDA32
 adapter remains available through s16; the resident prototype is selected
 explicitly with nonempty `GPUDevices`. There is no CPU/host-backed fallback.
 See the [scaling reference](encoding-status.md),
@@ -174,7 +175,7 @@ work within a phase; a heartbeat alone is not an ETA. Discovery, reusable
 preparation, persistence and database encoding must be timed separately. Retain
 CPU profiles and matching binaries during optimization. The bounded runner keeps
 small reusable caches. The separately admitted full s17 trial has its own
-[resource manifest](../experiments/gpu-s17-full-preprocessing/budget.json); no full artifact is yet verified.
+[resource manifest](../experiments/gpu-s17-full-preprocessing/budget.json); its full mathematical preprocessing artifacts now pass75832.
 
 ## Experimental local-vector scheduling
 
@@ -225,11 +226,11 @@ cost is included rather than described as free. Failed partial stages are retain
 [Bounded complete-workflow validation](../experiments/gpu-preprocessing-workflow/report.md)
 checks publication failure/corruption, independent Go bytes, fresh and root/final
 restart across processes,1/4GPU peer/local and CUDA-free readback. Local native
-checks pass; submitted GPU/race/sanitizer results are a separate gate. The CLI
-accepts s2..17 with explicit array/code caps, not an approved fulls17 allocation.
-Persistent fulls17 cache is projected~235 GiB before extra files/headroom; total
-peak RAM and persistence latency are unknown. The fixed small validation controller
-keeps its approved2 GiB cache guard and cannot launch a fulls17 job.
+checks and complete GPU/race/sanitizer validation pass75342. The CLI accepts
+s2..17 with explicit array/code caps; those flags alone do not approve allocations.
+Fulls17 cache now passes75832,235.324GiB canonical files with348.393GiB sampled
+peak hostRSS. The fixed small validation controller keeps its approved2GiB cache
+guard; the separately admitted full controller produced that cache.
 
 User authorization includes considering8/16GPUs. Current same-node peer pointers
 do not implement cross-node execution; measured nodes have four GPUs. Larger
@@ -249,9 +250,8 @@ Persistent workflow validation now passes job75342 ongnode04: runtime peer-copy/
 transpose preflight, native/race/ASan/vet, all peer/local1/4GPU fresh/root/final
 restart cases, independent Go canonical bytes and CUDA-free readback, plus zero
 CUDA errors/leaks. Source/evidence/cache checks reconcile509/37/73 identities.
-The bounded complete-runner gate is complete; fulls17 cardinality/aggregate
-RAM/device/storage/time admission remains next. No fulls17 cache or latency is
-demonstrated. Gnode03's earlier reset cause stays unresolved.
+That bounded complete-runner gate preceded count/admission and the successful
+fulls17 cache75832. Gnode03's earlier reset cause stays unresolved.
 [Exact results](../experiments/gpu-preprocessing-workflow/report.md#completed-persistent-workflow-validation-scaling-080).
 
 ## Count-only admission
@@ -280,7 +280,7 @@ This is exact dimension, not sampled support or full preparation. Successful
 s17 files calculate to235.324 GiB. Discovery's conservative principal model is
 189.765 GiB (including union and validation bitmaps); final retained host arrays
 220.883 GiB, plus unmeasured temporaries/GC/runtime/cache. The [guarded full plan](../experiments/gpu-s17-full-preprocessing/report.md)
-is prepared and awaits numeric resource agreement. Long host support ordering/
+is now approved and completed75832, with sampled peak hostRSS348.393GiB. Long host support ordering/
 Frobenius, normalization and root-field scans now report advancing65536-element
 chunks; arithmetic/check order and existing buffers remain unchanged. Independent
 Go/native results and cross-chunk progress/error tests pass. Instrumentation
@@ -325,7 +325,8 @@ Periodic writes target about1% cumulative wall-time overhead. The first eligible
 save is after the requested interval; expensive measured saves stretch later
 intervals. A write exceeding its current allowance is abandoned between buffered
 writes. Filesystem calls/fsync can block, so this is a target, not a guaranteed
-bound. Full-size write cost remains unmeasured. Logs include write byte counters,
+bound. Full-run root snapshot writes now measure78.525s total across four saves;
+large reciprocal-snapshot cost remains unmeasured. Logs include write byte counters,
 phase timestamps and completed/failed recovery events; checkpoint time is included
 in profiled workflow latency.
 
@@ -352,3 +353,20 @@ are separate from ordinary uninterrupted execution.
 Small native interruption/resume, independent Go comparison, corruption/source
 rejection, two-generation retention and fallback checks are recorded in the
 [recovery validation report](../experiments/preprocessing-recovery/report.md).
+
+## Full s17 result
+
+Job75832 verifies the complete(s,m,t)=(17,2,5) public cache withK3876566203,
+N17179869184. Four H200s,32 active workers/128 allocated cores;348.393GiB sampled
+peak hostRSS and235.324GiB canonical payload. Resumed worker9h58min38s includes
+persistence/readback and reuses certified support from75819 (discovery21min38s,
+two samples). Construction/identity/spectrum9h16min46s includes checkpoint I/O.
+The root product takes8h33min57s; the phase includes host and GPU work, not an
+isolated GPU-kernel measurement. Native CPU-only full preprocessing remains
+unmeasured. [Full evidence and boundaries](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088).
+
+Root snapshot writes total78.525s (0.219% of worker wall); latest two occupy
+23.426GiB, besides canonical data. Full-size snapshots were not used to resume
+this successful attempt. Producer readback/hash checks pass; post-review verifies
+seals/bindings/sizes without reading235GiB again. Full resident client loading,
+CPU/GPU database encoding and packed persistence are separate validations.

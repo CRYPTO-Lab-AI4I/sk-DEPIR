@@ -1,0 +1,3 @@
+# Full native progress logs can be gigabytes. Retain locally; SHA-256 and
+# regeneration commands are sealed in results/report, with compact review events.
+runs/*/preprocessing.log

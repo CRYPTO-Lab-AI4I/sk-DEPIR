@@ -1,0 +1,545 @@
+{
+  "status": "passed",
+  "job_id": "75832",
+  "revision": "dd9d86a5550fe4ede53685f3ba042b1cf59393cb",
+  "source_files_verified": 523,
+  "evidence_files_verified": 17,
+  "cache_files_verified": 14,
+  "tests": [
+    "TestWideOrbitArithmetic",
+    "TestTableFreeFields"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 2.2704037595540285,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 2.2622412517666817,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 2.24525841511786,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "gpu",
+      "seconds": 2.223358226940036,
+      "peak_rss_bytes": 21721088,
+      "exit_code": 0
+    },
+    {
+      "label": "topology",
+      "seconds": 2.2155149653553963,
+      "peak_rss_bytes": 21721088,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 2.271301716566086,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 2.213622661307454,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 2.218992717564106,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "probe-build",
+      "seconds": 6.61687844991684,
+      "peak_rss_bytes": 162336768,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe",
+      "seconds": 6.739757502451539,
+      "peak_rss_bytes": 466526208,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 17.933548728004098,
+      "peak_rss_bytes": 274837504,
+      "exit_code": 0
+    },
+    {
+      "label": "cli-build",
+      "seconds": 20.21057939529419,
+      "peak_rss_bytes": 838139904,
+      "exit_code": 0
+    },
+    {
+      "label": "recovery-preflight",
+      "seconds": 6.8077641148120165,
+      "peak_rss_bytes": 139358208,
+      "exit_code": 0
+    },
+    {
+      "label": "preprocessing",
+      "seconds": 35917.8478085082,
+      "peak_rss_bytes": 374084280320,
+      "exit_code": 0
+    }
+  ],
+  "scope": "full CLI identities/readback plus sealed source/binary/log/manifest review; independent large-payload rehash not repeated here",
+  "phase_seconds": {
+    "recovery-roots": [
+      9.041808824000327,
+      14.841376124999442,
+      21.19563291799932,
+      33.44633732699731
+    ],
+    "root-product": [
+      30837.087809663
+    ],
+    "normalization": [
+      228.32177345700256
+    ],
+    "reciprocal": [
+      1462.146915868001
+    ],
+    "identity": [
+      545.0959919870038
+    ],
+    "generator-spectrum": [
+      243.75149655099813
+    ],
+    "preparation-and-identities": [
+      33406.125752206004
+    ],
+    "write-online.bin": [
+      246.13551906299836
+    ],
+    "write-generator.bin": [
+      133.0990346940016
+    ],
+    "verify-final-cache": [
+      1484.3436489089945
+    ],
+    "workflow": [
+      35915.14080619
+    ]
+  },
+  "review_events": [
+    {
+      "completed": 0,
+      "elapsed_seconds": 7.3475e-05,
+      "event": "started",
+      "phase": "workflow",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T10:51:41.802641665Z"
+    },
+    {
+      "completed": 0,
+      "elapsed_seconds": 142.024031165,
+      "event": "started",
+      "phase": "preparation-and-identities",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T10:54:03.826669367Z"
+    },
+    {
+      "completed": 0,
+      "elapsed_seconds": 231.596126995,
+      "event": "started",
+      "phase": "root-product",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T10:55:33.398765767Z"
+    },
+    {
+      "completed": 0,
+      "elapsed_seconds": 7200.923675944,
+      "event": "started",
+      "phase": "recovery-roots",
+      "total": 1,
+      "unit": "checkpoints",
+      "utc": "2026-11-16T12:51:42.726311481Z"
+    },
+    {
+      "completed": 1,
+      "elapsed_seconds": 7209.965484768,
+      "event": "completed",
+      "phase": "recovery-roots",
+      "total": 1,
+      "unit": "checkpoints",
+      "utc": "2026-11-16T12:51:51.768123034Z"
+    },
+    {
+      "completed": 0,
+      "elapsed_seconds": 14410.999864511,
+      "event": "started",
+      "phase": "recovery-roots",
+      "total": 1,
+      "unit": "checkpoints",
+      "utc": "2026-11-16T14:51:52.80250061Z"
+    },
+    {
+      "completed": 1,
+      "elapsed_seconds": 14425.841240636,
+      "event": "completed",
+      "phase": "recovery-roots",
+      "total": 1,
+      "unit": "checkpoints",
+      "utc": "2026-11-16T14:52:07.643879212Z"
+    },
+    {
+      "completed": 0,
+      "elapsed_seconds": 21626.016822737,
+      "event": "started",
+      "phase": "recovery-roots",
+      "total": 1,
+      "unit": "checkpoints",
+      "utc": "2026-11-16T16:52:07.819457013Z"
+    },
+    {
+      "completed": 1,
+      "elapsed_seconds": 21647.212455655,
+      "event": "completed",
+      "phase": "recovery-roots",
+      "total": 1,
+      "unit": "checkpoints",
+      "utc": "2026-11-16T16:52:29.015085935Z"
+    },
+    {
+      "completed": 0,
+      "elapsed_seconds": 28848.201529465,
+      "event": "started",
+      "phase": "recovery-roots",
+      "total": 1,
+      "unit": "checkpoints",
+      "utc": "2026-11-16T18:52:30.004168336Z"
+    },
+    {
+      "completed": 1,
+      "elapsed_seconds": 28881.647866792,
+      "event": "completed",
+      "phase": "recovery-roots",
+      "total": 1,
+      "unit": "checkpoints",
+      "utc": "2026-11-16T18:53:03.450489366Z"
+    },
+    {
+      "completed": 1,
+      "elapsed_seconds": 31068.683936658,
+      "event": "completed",
+      "phase": "root-product",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T19:29:30.486563803Z"
+    },
+    {
+      "completed": 0,
+      "elapsed_seconds": 31068.684080039,
+      "event": "started",
+      "phase": "normalization",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T19:29:30.486719074Z"
+    },
+    {
+      "completed": 1,
+      "elapsed_seconds": 31297.005853496,
+      "event": "completed",
+      "phase": "normalization",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T19:33:18.808491174Z"
+    },
+    {
+      "completed": 0,
+      "elapsed_seconds": 31297.005860133,
+      "event": "started",
+      "phase": "reciprocal",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T19:33:18.808499541Z"
+    },
+    {
+      "completed": 1,
+      "elapsed_seconds": 32759.152776001,
+      "event": "completed",
+      "phase": "reciprocal",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T19:57:40.955414812Z"
+    },
+    {
+      "completed": 0,
+      "elapsed_seconds": 32759.152787327,
+      "event": "started",
+      "phase": "identity",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T19:57:40.955426217Z"
+    },
+    {
+      "completed": 1,
+      "elapsed_seconds": 33304.248779314,
+      "event": "completed",
+      "phase": "identity",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T20:06:46.051417619Z"
+    },
+    {
+      "completed": 0,
+      "elapsed_seconds": 33304.398158924,
+      "event": "started",
+      "phase": "generator-spectrum",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T20:06:46.200793191Z"
+    },
+    {
+      "completed": 1,
+      "elapsed_seconds": 33548.149655475,
+      "event": "completed",
+      "phase": "generator-spectrum",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T20:10:49.952280816Z"
+    },
+    {
+      "completed": 1,
+      "elapsed_seconds": 33548.149783371,
+      "event": "completed",
+      "phase": "preparation-and-identities",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T20:10:49.952421782Z"
+    },
+    {
+      "completed": 0,
+      "elapsed_seconds": 33548.15232096,
+      "event": "started",
+      "phase": "write-online.bin",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T20:10:49.954959413Z"
+    },
+    {
+      "completed": 1,
+      "elapsed_seconds": 33794.287840023,
+      "event": "completed",
+      "phase": "write-online.bin",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T20:14:56.090478776Z"
+    },
+    {
+      "completed": 0,
+      "elapsed_seconds": 33794.287864402,
+      "event": "started",
+      "phase": "write-generator.bin",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T20:14:56.090502808Z"
+    },
+    {
+      "completed": 1,
+      "elapsed_seconds": 33927.386899096,
+      "event": "completed",
+      "phase": "write-generator.bin",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T20:17:09.189537575Z"
+    },
+    {
+      "completed": 0,
+      "elapsed_seconds": 34430.122497718,
+      "event": "started",
+      "phase": "verify-final-cache",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T20:25:31.925136224Z"
+    },
+    {
+      "completed": 1,
+      "elapsed_seconds": 35914.466146627,
+      "event": "completed",
+      "phase": "verify-final-cache",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T20:50:16.268730264Z"
+    },
+    {
+      "completed": 194792,
+      "elapsed_seconds": 35914.47689403,
+      "event": "observed",
+      "phase": "native-owned-bytes",
+      "total": 134217728,
+      "unit": "bytes",
+      "utc": "2026-11-16T20:50:16.279501719Z"
+    },
+    {
+      "completed": 274887510224,
+      "elapsed_seconds": 35914.47695702,
+      "event": "observed",
+      "phase": "device-owned-bytes",
+      "total": 481036337152,
+      "unit": "bytes",
+      "utc": "2026-11-16T20:50:16.279595589Z"
+    },
+    {
+      "completed": 1,
+      "elapsed_seconds": 35915.140879665,
+      "event": "completed",
+      "phase": "workflow",
+      "total": 1,
+      "unit": "operations",
+      "utc": "2026-11-16T20:50:16.943506181Z"
+    }
+  ],
+  "stage_manifests": {
+    "support": {
+      "version": 1,
+      "stage": "support",
+      "spec": {
+        "FieldDegree": 17,
+        "Dimension": 2,
+        "CurveDegree": 5
+      },
+      "producer": {
+        "gpu_plugin_sha256": "bf257cd6e59dc8dc600112c57bc6e42d6e26784ad28ce56bdf60a16e469c708d",
+        "revision": "0ac7da7b4a33bad32b6ff0bed4046b2aa02e2360",
+        "executable_sha256": "6461d499fe2dd145a98dc2ce6ef62571c235e073fdcb7167cf0bfa2541763085",
+        "backend": "cuda",
+        "devices": "0,1,2,3",
+        "vector_layout": "local",
+        "utc": "2026-11-16T10:17:34.238998328Z"
+      },
+      "files": {
+        "support.bin": {
+          "bytes": 31012529624,
+          "sha256": "1d5251ecf13148683a28bff04b7e3f1c5f71cd8e3094eb083e147cb28c2e2419"
+        }
+      },
+      "support": {
+        "version": 1,
+        "parameters": {
+          "spec": {
+            "FieldDegree": 17,
+            "Dimension": 2,
+            "CurveDegree": 5
+          },
+          "k": 3876566203,
+          "n": 17179869184,
+          "polynomial": 131081,
+          "delta": 1,
+          "omega": 131074,
+          "samples": 2
+        },
+        "element_bytes": 8,
+        "bytes": 31012529624,
+        "sha256": "1d5251ecf13148683a28bff04b7e3f1c5f71cd8e3094eb083e147cb28c2e2419"
+      }
+    },
+    "root": {
+      "version": 1,
+      "stage": "root",
+      "spec": {
+        "FieldDegree": 17,
+        "Dimension": 2,
+        "CurveDegree": 5
+      },
+      "producer": {
+        "gpu_plugin_sha256": "af4a45cdce4283fd794dcc3063ae20f5befe489edd4fb51ea85c5fee23dc5dcd",
+        "revision": "dd9d86a5550fe4ede53685f3ba042b1cf59393cb",
+        "executable_sha256": "e54329efefe23aca4f5ec8583bc4365135be8fe2ea4410f42af844c7c9ee34e1",
+        "backend": "cuda",
+        "devices": "0,1,2,3",
+        "vector_layout": "local",
+        "utc": "2026-11-16T10:51:41.901423196Z"
+      },
+      "files": {
+        "root.bin": {
+          "bytes": 15506264816,
+          "sha256": "a2cc6fad330cc73c3332390bc3422c04fd47adc8cc6e89d7a65d74abe7dd0b0f"
+        }
+      },
+      "root": {
+        "version": 1,
+        "parameters": {
+          "spec": {
+            "FieldDegree": 17,
+            "Dimension": 2,
+            "CurveDegree": 5
+          },
+          "k": 3876566203,
+          "n": 17179869184,
+          "polynomial": 131081,
+          "delta": 1,
+          "omega": 131074,
+          "samples": 2
+        },
+        "support_sha256": "1d5251ecf13148683a28bff04b7e3f1c5f71cd8e3094eb083e147cb28c2e2419",
+        "bytes": 15506264816,
+        "sha256": "a2cc6fad330cc73c3332390bc3422c04fd47adc8cc6e89d7a65d74abe7dd0b0f"
+      }
+    },
+    "code": {
+      "version": 1,
+      "stage": "code",
+      "spec": {
+        "FieldDegree": 17,
+        "Dimension": 2,
+        "CurveDegree": 5
+      },
+      "producer": {
+        "gpu_plugin_sha256": "af4a45cdce4283fd794dcc3063ae20f5befe489edd4fb51ea85c5fee23dc5dcd",
+        "revision": "dd9d86a5550fe4ede53685f3ba042b1cf59393cb",
+        "executable_sha256": "e54329efefe23aca4f5ec8583bc4365135be8fe2ea4410f42af844c7c9ee34e1",
+        "backend": "cuda",
+        "devices": "0,1,2,3",
+        "vector_layout": "local",
+        "utc": "2026-11-16T10:51:41.901423196Z"
+      },
+      "files": {
+        "generator.bin": {
+          "bytes": 53213211924,
+          "sha256": "8f5886ba351bd48c8340ef5132ce2fd1d21823ea8edeced5953078418cc5cec9"
+        },
+        "online.bin": {
+          "bytes": 152945218341,
+          "sha256": "bf61a05605bb446f633411151ef6da11a736b7d5065a777fde615aa9acc71076"
+        }
+      },
+      "header": {
+        "Spec": {
+          "FieldDegree": 17,
+          "Dimension": 2,
+          "CurveDegree": 5
+        },
+        "Version": 3,
+        "CountBytes": 8,
+        "ExtensionBytes": 8,
+        "K": 3876566203,
+        "N": 17179869184,
+        "Polynomial": 131081,
+        "Delta": 1,
+        "Omega": 131074,
+        "POffset": 53,
+        "SpectrumOffset": 15506264869,
+        "Bytes": 152945218341
+      },
+      "support_sha256": "1d5251ecf13148683a28bff04b7e3f1c5f71cd8e3094eb083e147cb28c2e2419",
+      "root_sha256": "a2cc6fad330cc73c3332390bc3422c04fd47adc8cc6e89d7a65d74abe7dd0b0f"
+    }
+  }
+}

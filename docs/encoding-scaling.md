@@ -2005,3 +2005,27 @@ Execution: integration validation **76426 submitted**, sourcebf2bffc;
 `experiments/gpu-code-encoding/runs/validation-01/`, log
 `experiments/gpu-code-encoding/slurm-76426.log`. No monitoring; await completion
 ping before dependent work. Running preprocessing75832 was not inspected/modified.
+
+### Full s17 preprocessing complete (SCALING-088)
+
+75832 passes with reusable genuine support/P/G/spectrum, complete polynomial
+identity and cache readback;523source/17evidence/14cache seals reconciled.
+[Measured report](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088):
+worker9h58min38s after reusing certified support (discovery21min38s in75819),
+construction/identity/spectrum9h16min46s, sampled hostRSS348.393GiB on4H200.
+Canonical data235.324GiB; client online file142.441GiB. Root construction8h33min57s
+is the largest phase; no CPU/kernel cause or logging speedup is established.
+
+Four periodic root saves cost78.525s (0.219% worker wall), retaining latest two
+snapshots23.426GiB. Full partial-snapshot restart remains unmeasured. Keep the
+large raw progress log/CPU profile; analyzer now streams large evidence and
+filters selected events instead of loading gigabytes of JSON at once. Future
+logging should reduce repeated short-stage volume while retaining phase/progress
+visibility; any performance claim needs a matched comparison.
+
+Preprocessing gate complete. Next admit a full CPU encoding baseline using the
+verified file and complete the separately submitted GPU client validation before
+full GPU encoding. All s17 encoding, packing/output and runtime/memory claims
+remain unvalidated until those jobs pass; do not silently inherit preprocessing
+budgets for client encoding. No new encoding job is launched by this review;
+76426 is untouched and not inspected.

@@ -1,0 +1,93 @@
+{
+  "status": "failed",
+  "job_id": "75819",
+  "revision": "0ac7da7b4a33bad32b6ff0bed4046b2aa02e2360",
+  "source_files_verified": 518,
+  "evidence_files_verified": 16,
+  "cache_files_verified": 6,
+  "tests": [
+    "TestWideOrbitArithmetic",
+    "TestTableFreeFields"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 2.263731360435486,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 2.2479162849485874,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 2.201428659260273,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "gpu",
+      "seconds": 2.2081046793609858,
+      "peak_rss_bytes": 21721088,
+      "exit_code": 0
+    },
+    {
+      "label": "topology",
+      "seconds": 2.178788762539625,
+      "peak_rss_bytes": 21721088,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 2.1799898352473974,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 2.1753250546753407,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 2.168432706966996,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "probe-build",
+      "seconds": 6.511623851954937,
+      "peak_rss_bytes": 183341056,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe",
+      "seconds": 6.663715774193406,
+      "peak_rss_bytes": 466526208,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 17.70462527871132,
+      "peak_rss_bytes": 277426176,
+      "exit_code": 0
+    },
+    {
+      "label": "cli-build",
+      "seconds": 17.772565541788936,
+      "peak_rss_bytes": 759341056,
+      "exit_code": 0
+    },
+    {
+      "label": "preprocessing",
+      "seconds": 1965.3887387979776,
+      "peak_rss_bytes": 203820441600,
+      "exit_code": 143
+    }
+  ],
+  "scope": "intentionally cancelled predecessor; discovery source used by successful resumed preparation, not a successful full preprocessing job"
+}

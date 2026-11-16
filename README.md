@@ -13,7 +13,7 @@ The current development target is **TRL 5**: a usable, validated client and prep
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)
 are the reference for preprocessing and CPU/GPU encoding modes, including
 multi-GPU estimates. The performance goal is **s≤18**; **s=19–20** remain
-exploratory. Current standalone encoding is validated through s=16; larger rows
+exploratory. Current standalone encoding is validated through s=16; larger encoding rows
 are projections pending implementation and validation. Update the reference as
 scaling progresses; the [scaling plan](docs/encoding-scaling.md) tracks the work.
 The [s17 aims](docs/encoding-status.md#aim-for-s17) distinguish the proposed
@@ -42,13 +42,15 @@ The experimental [shared preprocessing pipeline](docs/preprocessing.md) now
 implements discovery, root/generator construction, verification and canonical
 code data through s17 with width-selected native execution. Targeted bounded checks
 pass together with full bounded regression/sanitizer validation (job74447), after a memory-mode
-test-fixture correction ([report](experiments/s17-preprocessing/report.md)). No full s17 cache
-exists. GPU preprocessing is now the active implementation target: a
-[resident width-selected peer prototype](experiments/gpu-s17-preprocessing/report.md)
-shares kernels with the legacy CUDA path and supports same-node GPU shards in
-source. Bounded one- and two-GPU validation passes, including the corrected
-peer-link lifetime sanitizer checks (job74466). A guarded full s17 GPU trial is
-admitted; full cache correctness and latency remain unmeasured. The
+test-fixture correction ([report](experiments/s17-preprocessing/report.md)). A
+[full s17 GPU preprocessing cache](experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088)
+now passes:4H200,348.393GiB peak sampled host RSS,235.324GiB retained canonical
+payload. The resumed worker took9h58min38s, reusing support discovered earlier in
+21min38s; root construction dominated. Full database encoding remains unvalidated
+at s17. GPU preprocessing uses a
+[resident width-selected peer executor](experiments/gpu-s17-preprocessing/report.md),
+sharing kernels with the legacy CUDA path and supporting same-node GPU shards.
+Bounded one-/two-/four-GPU checks preceded the completed full trial. The
 [persistent runner](docs/preprocessing.md#incremental-recovery) can optionally save
 completed sampling, root-product and reciprocal progress without saving FFT
 workspace; the approved longer replacement has a100-hour scheduler cutoff.

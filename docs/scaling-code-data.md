@@ -9,8 +9,8 @@ membership, cryptographic security or full s17 encoder support.
 [Implementation](../encoding/liftrs-shared/scaling_code.go),
 [API example](../encoding/liftrs-shared/scaling_code_example_test.go),
 [validation experiment](../experiments/s17-code-data/report.md), passed as job74396
-for bounded legacy/header/slot and Go/CPU regression checks. Full s17 payload
-round trips and preprocessing/encoding integration remain unvalidated.
+for bounded legacy/header/slot and Go/CPU regression checks. Full s17 production/write/stream-verification now passes preprocessing75832;
+full resident loading and database encoding remain unvalidated.
 
 ## Payload and size selection
 
@@ -75,7 +75,9 @@ VerifyScalingCode performs the same shape/range/P-constant/EOF/digest checks wit
 bounded I/O memory and no resident payload arrays. Limits cap its logical payload
 extent, rather than allocated arrays. It is a standalone validation option, not
 an automatic second pass: calling Verify then Load would read/hash the data twice.
-No full s17 file has yet been prepared or verified by this prototype.
+The full142.441GiB s17 file is now produced and streamed through these checks in
+[preprocessing75832](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088).
+This does not yet validate full resident loading or database encoding.
 
 WriteScalingCode streams canonical slot/count widths without changing values.
 It checks metadata/ranges and owns neither a destination path nor publication.
@@ -115,13 +117,17 @@ nor full encoding correctness.
 
 The [CPU modularity refactor](cpu-encoding.md) also routes legacy resident loading
 and immutable-file verification through this decoder. It replays only a bounded
-header, reads each payload once and keeps existing32-bit admission guards. Full
-refactor validation is pending; job74412 describes the preceding implementation.
+header, reads each payload once and keeps existing32-bit admission guards. Bounded
+refactor validation passes74448; job74412 describes the preceding implementation.
+The larger matched CPU comparison76055 records small encoding/setup costs without
+claiming fulls17 client performance.
 
 ## Preprocessing producer
 
 The experimental [server session](preprocessing.md) produces this same immutable
 code data after exact support discovery, normalized root construction and full
 P·G verification. It shares procedures across value widths and has support-bound
-restart artifacts. Source support extends through s17, with bounded validation
-pending; no genuine full s17 cache exists. The resident CUDA17 peer prototype now exists in source; validation remains pending.
+restart artifacts. Full GPU preprocessing through s17 now passes75832, retaining a genuine support,
+normalized root, generator and canonical spectrum cache with complete identity
+and write/readback checks. Clients can use its trusted manifests/checksums;
+full-size CPU/GPU client encoding remains a separate gate.

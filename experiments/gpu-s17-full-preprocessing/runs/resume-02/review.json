@@ -1,0 +1,31 @@
+{
+  "utc": "2026-11-16T23:05:03.760174+00:00",
+  "status": "passed; evidence reconciled",
+  "job_id": "75832",
+  "commands": [
+    "python3 -B experiments/gpu-s17-full-preprocessing/analyze.py resume-02 (streaming review passed)",
+    "python3 -B experiments/gpu-s17-full-preprocessing/test_analysis.py (3 tests passed)",
+    "python3 -B experiments/gpu-s17-full-preprocessing/test_controller.py (3 tests passed)",
+    "sacct -X -j 75819,75832 --noheader --parsable2 --format=JobID,State,ExitCode,Elapsed,NodeList,AllocCPUS,ReqMem (one-time completed accounting)",
+    "git diff --check (passed)"
+  ],
+  "analysis_sha256": "8f499465cdb06a8cd414b949d38f3076d490e0eba314b109cdaca51d638cc28f",
+  "summary_sha256": "a14e65b5b41bedc0d3994008324919078e021a9f1c4f40641322a8b8922baca6",
+  "review_source_sha256": {
+    "experiments/gpu-s17-full-preprocessing/analyze.py": "252fb8d7da7e31ef7de1fc3cc714e7c968a93e804d60d5872d810c0f5e21f7e8",
+    "experiments/gpu-s17-full-preprocessing/test_analysis.py": "c86272521f82eb58ec5d1543f96709a37210582de51d709c35a26a76eeb1086f",
+    "experiments/s17-arithmetic/analyze.py": "d4b6182deac1d3b3ebaff4c7c82df0f75618c279cdccad6eabe94709888d78ab"
+  },
+  "original_worker_log": {
+    "path": "experiments/gpu-s17-full-preprocessing/runs/resume-02/preprocessing.log",
+    "bytes": 3394846591,
+    "sha256": "709aa3b12cd4da992da3baa61acc045ae89010b333e17dfa24d4f592f5f46790",
+    "retention": "original retained outside Git; no deletion or alteration"
+  },
+  "limits": [
+    "No independent235GiB payload rehash; producer full identity/write/readback and sealed manifests verified.",
+    "Resumed run reused support; not an uninterrupted fresh baseline.",
+    "GPU peak not sampled; final owned bytes and product-array model are labeled separately.",
+    "GPU encoding job76426 not inspected or changed."
+  ]
+}

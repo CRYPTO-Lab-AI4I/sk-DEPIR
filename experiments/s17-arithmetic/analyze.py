@@ -11,7 +11,13 @@ def reconcile(out, require_success=True):
     """Verify sealed hashes; forensic failed-run review must opt out of success."""
     record=json.loads((out/'results.json').read_text())
     if require_success: assert record['status']=='passed'
-    def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+    # Evidence logs can be gigabytes even when code/cache metadata is small.
+    # Keep verification byte-identical without retaining a whole file in RAM.
+    def sha(path):
+        digest=hashlib.sha256()
+        with Path(path).open('rb')as stream:
+            for block in iter(lambda:stream.read(1<<20),b''):digest.update(block)
+        return digest.hexdigest()
     for name,digest in record['evidence_sha256'].items():assert sha(out/name)==digest,name
     for name,digest in record['cache_sha256'].items():assert sha(Path(record['cache'])/name)==digest,name
     names=list(record['source_sha256'])

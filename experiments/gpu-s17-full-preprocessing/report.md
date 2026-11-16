@@ -1,10 +1,13 @@
 # First guarded full s17 GPU preprocessing
 
-Status: **replacement75832 submitted with100h cutoff and incremental recovery; not monitored**. Original75819 received a cancellation request after replacement acceptance. Exact count and
-complete small workflow validation pass job75810; no full s17 support/cache or
-latency exists. [Budget](budget.json) must record explicit user numeric agreement
-before the controller launches. This experiment constructs public preprocessing,
-not database encoding or storage-side protocol computation.
+Status: **fulls17 GPU preprocessing75832 passed and its evidence is reconciled**.
+It reuses certified support discovered in the intentionally cancelled75819, then
+constructs/verifies P/G/spectrum and publishes the complete cache. Resumed
+scheduler elapsed10h00m12s; sampled peak hostRSS348.393GiB. This is public
+preprocessing, not database encoding or storage-side protocol computation.
+[Measured results](#completed-full-preprocessing-scaling-088) supersede the
+historical proposal/submission status below; original numeric limits remain in
+[budget.json](budget.json).
 
 ## Scripts and validation
 
@@ -187,3 +190,112 @@ shared persistent cache remains `.cache/liftrs/gpu-s17-full-preprocessing/s17-m2
 Old logs/results/profile/partial files remain retained. Submission and cancellation
 requests succeeded; neither terminal old state nor new state/results were polled.
 Await user's completion ping before checking the new job.
+
+## Completed full preprocessing (SCALING-088)
+
+Job75832 completes0:0 ongnode06 with4H200,128 allocated CPU cores/32 active workers
+and864GiB RAM requested. [Scheduler receipt](runs/resume-02/scheduler-completion.txt),
+[sealed results/commands](runs/resume-02/results.json),
+[analysis](runs/resume-02/analysis.json), [derived totals](runs/resume-02/summary.json)
+and [Slurm log](slurm-75832.log). The analyzer reconciles523 source,17 original
+evidence and14 retained cache identities againstdd9d86a, including exact manifest
+bindings/field identifiers/counts/sizes. ExactK3876566203,N17179869184. Support
+uses two random samples and is inherited from0ac7da7/job75819; its earlier
+[forensic review](runs/first-01/review.json) reconciles518source/16evidence/6cache
+identities and correctly retains the intentionally cancelled run's failed status.
+
+The complete P·G identity and final cache readback pass; all controller commands
+succeed without resource/deadline/shutdown guards. Payload files were streamed,
+hashed and read back inside the worker. This review verifies their sealed
+manifests/current sizes, not an unnecessary independent235GiB rehash. Full
+resident file loading and client encoding are separate gates; no end-to-end
+s17 database encoding is claimed from preprocessing.
+
+| Measurement | Result and boundary |
+|---|---|
+| Earlier genuine support discovery | Runtime21min38.257s in75819;2 samples |
+| Resumed worker | Runtime9h58min37.848s; support loading, preparation, persistence/readback included |
+| Resumed controller | Runtime9h59min58.563s; builds/preflight/metadata included |
+| Scheduler allocation | Elapsed10h00min12s |
+| P/G construction, identity and final spectrum | Runtime9h16min46.126s; includes root checkpoint I/O and support validation |
+| Root product | Runtime8h33min57.088s; dominant stage, includes periodic checkpoint/log costs |
+| Reciprocal G | Runtime24min22.147s |
+| Full polynomial identity | Runtime9min05.096s |
+| Final generator spectrum | Runtime4min03.751s |
+| Final complete-cache verification | Runtime24min44.344s; part of worker total |
+| Peak sampled host process-group RSS |348.393GiB; predecessor189.823GiB; filesystem cache additional |
+| Peak device allocation |Not periodically sampled; product-array model384GiB aggregate/96GiB per GPU, metadata extra |
+| Device owned at final observation |256.009GiB aggregate after dead product buffers released; **not peak** |
+
+This is a resumed run after a deliberate replacement, not one uninterrupted
+fresh-discovery-to-cache baseline. Do not add the phase rows to the worker total:
+construction/identity/spectrum is inclusive of its component phases. The old
+allocation elapsed33min51s and was deliberately cancelled after support was saved;
+that includes more than discovery and is not another successful complete run.
+The host/device limits are admissions, not peak measurements. These profiled,
+logged timings are not an uninstrumented latency baseline.
+
+Root construction accounts for about86% of worker wall time. This locates the
+largest phase, not a proven CPU-versus-GPU/kernel bottleneck: the phase contains
+both host work and GPU execution. The retained CPU profile/binary can support
+later investigation. No profiling-based algorithm change is made in this review.
+
+### Retained data and recovery cost
+
+Canonical payloads (exclude manifests/profiles/logs/recovery):
+
+| File | Size |
+|---|---|
+| `support/support.bin` |28.883GiB |
+| `root/root.bin` |14.441GiB |
+| `code/online.bin` (P/spectrum client data) |142.441GiB |
+| `code/generator.bin` |49.559GiB |
+| Total |**235.324GiB** (252677224705bytes) |
+
+Cache: `.cache/liftrs/gpu-s17-full-preprocessing/s17-m2-t5/`. It is retained
+outside Git with source manifests/checksums. Clients consume `code/online.bin`
+with their explicit load/admission caps; other files retain reproducibility and
+verification/restart data. Preprocessing is reusable for multiple databases of
+the same code parameters, not part of every cached encoding call.
+
+Four successful periodic root snapshots took9.042/14.841/21.196/33.446s,
+**78.525s total,0.219% of worker wall time** (nested in root-product duration).
+Latest two snapshots are retained,23.426GiB including manifests; older complete
+generations were pruned only after replacement publication as documented.
+No reciprocal snapshot became due before completion. Full-run partial snapshots
+were written, not used for a restart here; restart correctness remains demonstrated
+by the smaller tests. No full-size partial-restart or independent snapshot
+payload rehash is implied. Checkpoint overhead met the1% periodic target in this
+run; this is not a guaranteed rate on other filesystems/parameters.
+
+### Large-log review and retention
+
+The native worker emitted3394846591bytes (3.162GiB) of progress output. It remains
+at `experiments/gpu-s17-full-preprocessing/runs/resume-02/preprocessing.log`,
+SHA256 `709aa3b12cd4da992da3baa61acc045ae89010b333e17dfa24d4f592f5f46790`.
+Worker progress logs are explicitly ignored by Git to avoid multi-gigabyte
+objects; original logs remain locally intact. Their sealed hashes and compact
+selected stage records remain in results/analysis. Other small raw evidence,
+metadata, profiles/cache links and scheduler records are preserved. The earlier
+12MiB worker log is likewise retained/ignored with its sealed record.
+
+The original analyzer assumed small logs and completed its initial reconciliation
+using whole-file reads. The reviewer was updated to stream hashes in1MiB blocks
+and select only relevant event lines without retaining/decoding millions of
+kernel records. The bounded streaming rerun passes the same source/evidence/cache
+checks and explicitly requires identity completion. No benchmark boundary,
+producer data, original seal or timing is changed. Three small
+[analysis tests](test_analysis.py) check bounded hash reads, noisy event filtering
+and repeated-checkpoint durations. The shared seal helper in
+`experiments/s17-arithmetic/analyze.py` now also uses bounded reads, with identical
+digests. Source/Go/native algorithm behavior is unchanged.
+
+Logging overhead is unquantified and included in the reported times. This large
+volume should be reduced in a future instrumentation follow-up while preserving
+phase/pass/advancing-work visibility; it is not evidence that logging was free.
+Do not silently delete the logs/profiles or claim a logging speedup without a
+matched measurement.
+
+Preprocessing is now available for fulls17 client encoding. CPU/GPU encoding
+validation, budgets, packed persistence and end-to-end measurements remain
+separate; job76426 was not checked or changed during this review.
