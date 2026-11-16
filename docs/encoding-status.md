@@ -668,3 +668,8 @@ with transient/headroom additional. At112GiB/card and current power-of-two layou
 not implemented. Initial count job stays within existing oneGPU small ceilings,
 not authorization for full distribution or a slower memory mode. No table entry
 becomes measured until the count completes and evidence is reviewed.
+
+s18 dimension/audit **76647 submitted**, frozen sourcebb524d3,1GPU/small ceilings.
+[Receipt/results locations](../experiments/s18-preprocessing-admission/submission.json).
+No monitoring; await completion ping. Fulls18 preprocessing is not submitted;
+CPU76645/GPU76646 unchanged/uninspected.

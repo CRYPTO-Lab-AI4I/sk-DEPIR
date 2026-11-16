@@ -1,6 +1,6 @@
 # s18 preprocessing: exact dimension and memory admission
 
-Status: **count-only GPU experiment prepared; exact s18 K and full workflow
+Status: **count-only job76647 submitted; exact s18 K and full workflow
 remain unmeasured**. User authorizes the initial dimension/memory audit after
 fulls17 preprocessing passes, while CPU/GPU encoding jobs run separately.
 No existing job is inspected/changed; no fulls18 preprocessing run is authorized
@@ -137,3 +137,12 @@ After the exact count, present a concrete choice between distributed resident
 preprocessing and a lower-memory design, including headroom, data movement,
 persistence/checkpoint cost and unknown runtime. Fulls18 implementation and
 large-budget agreement remain subsequent gates. s19/20 stay exploratory rows.
+
+## Submission
+
+Job **76647**, immutable source `bb524d3`, accepted by sbatch. [Exact receipt/caps](submission.json).
+Results `runs/counts-01/`, log `slurm-76647.log`, retained tools/reference/profile
+`.cache/liftrs/s18-preprocessing-admission/counts-01/`. No scheduler/process/log
+polling or result analysis after submission. Wait for the user's completion ping.
+Encoding76645/76646 were not inspected/changed. Fulls18 preprocessing remains blocked
+on reviewed exact sizes, design choice/implementation and explicit large budgets.

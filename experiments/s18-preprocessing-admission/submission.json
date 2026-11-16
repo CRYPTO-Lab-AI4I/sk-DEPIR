@@ -1,0 +1,24 @@
+{
+  "job_id": "76647",
+  "utc": "2026-11-16T23:33:36.138500+00:00",
+  "status": "submitted;not monitored",
+  "frozen_revision": "bb524d3",
+  "command": "sbatch --parsable --output=experiments/s18-preprocessing-admission/slurm-%j.log experiments/s18-preprocessing-admission/run.sbatch counts-01 --revision bb524d3",
+  "policy": {
+    "cpus": 4,
+    "gpus": 1,
+    "owned_device_cap_bytes": 536870912,
+    "requested_host_bytes": 8589934592,
+    "rss_guard_bytes": 6442450944,
+    "retained_cap_bytes": 2147483648,
+    "scratch_cap_bytes": 4294967296,
+    "worker_seconds": 600,
+    "controller_seconds": 900,
+    "slurm_seconds": 1200
+  },
+  "results": "experiments/s18-preprocessing-admission/runs/counts-01/",
+  "slurm_log": "experiments/s18-preprocessing-admission/slurm-76647.log",
+  "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s18-preprocessing-admission/counts-01",
+  "scope": "exact s18 dimension and capacity model only;no support/full preprocessing/encoding admission",
+  "other_jobs": "CPU76645/GPU76646 untouched and not inspected"
+}

@@ -2085,3 +2085,8 @@ at least4nodes) plus host-array distribution, versus an optional lower-memory
 strategy with explicit computation/transfers/I/O/time costs. Grid512GiB and final
 8K+768GiBhostarrays exclude transient/cache/headroom. No fulls18 run, new transport,
 large budgets or slower memory option authorized from this initial study alone.
+
+s18 dimension/audit **76647 submitted**, frozen sourcebb524d3,1GPU/small ceilings.
+[Receipt/results locations](../experiments/s18-preprocessing-admission/submission.json).
+No monitoring; await completion ping. Fulls18 preprocessing is not submitted;
+CPU76645/GPU76646 unchanged/uninspected.
