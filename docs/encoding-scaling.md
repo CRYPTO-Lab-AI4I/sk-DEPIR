@@ -1999,3 +1999,9 @@ maximum before metadata/headroom, with220.883GiB retained code/message/output
 host arrays. No new measured runtime or capacity claim. Full allocations still
 need explicit reviewed budgets. [Validation runner/report](../experiments/gpu-code-encoding/report.md).
 Preprocessing75832 stays untouched and uninspected while this work proceeds.
+
+Execution: integration validation **76426 submitted**, sourcebf2bffc;
+[exact receipt](../experiments/gpu-code-encoding/submission.json). Results
+`experiments/gpu-code-encoding/runs/validation-01/`, log
+`experiments/gpu-code-encoding/slurm-76426.log`. No monitoring; await completion
+ping before dependent work. Running preprocessing75832 was not inspected/modified.

@@ -1,6 +1,6 @@
 # Resident GPU client encoding integration
 
-Status: **implemented in source; bounded GPU runtime validation pending**.
+Status: **source implemented; bounded validation job76426 submitted, results pending**.
 The reviewed CPU refactor comparison (job76055) does not block this integration.
 Fulls17 preprocessing75832 is untouched and uninspected. No full GPU encoding run
 or speedup, memory peak or latency result is claimed.
@@ -128,3 +128,13 @@ no-allocation budget checks pass. [Local evidence](local-checks.json) and
 profile remain under `.cache/liftrs/gpu-code-encoding/local-check/`.
 Native CUDA compilation and execution/sanitizer checks run in the submitted
 allocation and remain pending; source/Go-build success is not GPU validation.
+
+## Submission
+
+Job **76426**, source `bf2bffc`, accepted by sbatch under the unchanged small-test
+budget ([receipt](submission.json)). Results/logs: `runs/validation-01/`,
+`slurm-76426.log`; matching binaries/fixtures/profiles remain in
+`.cache/liftrs/gpu-code-encoding/validation-01/`. No scheduler/log/process polling
+or result inspection after submission; await the user's completion ping. Source
+implementation and local CPU/build checks are distinct from pending GPU runtime
+validation. Preprocessing75832 remains untouched/uninspected.

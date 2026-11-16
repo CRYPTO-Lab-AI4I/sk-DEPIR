@@ -589,3 +589,8 @@ output is64GiB uint32. This refines the earlier~398GiB resident model, not measu
 peaks or full admission. The new path provides canonical words; s17 direct packed,
 streamed-code, compact and host-backed modes remain unimplemented. Compare full
 setup/transfers/peer routing/output latency after correctness and budget gates.
+
+The bounded resident-client integration suite is submitted as **job76426**,
+sourcebf2bffc, within the prior4GPU/4GiB test budget. [Receipt](../experiments/gpu-code-encoding/submission.json)
+links results/logs. No monitoring or fulls17 encoding submission; runtime status
+remains pending until the completion ping and evidence reconciliation.

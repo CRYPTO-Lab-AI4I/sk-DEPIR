@@ -1,0 +1,26 @@
+{
+  "job_id": "76426",
+  "submitted_utc": "2026-11-16T14:39:16.977067+00:00",
+  "submitted_revision": "bf2bffc",
+  "status": "submitted; not monitored",
+  "command": "sbatch --parsable --output=experiments/gpu-code-encoding/slurm-%j.log experiments/gpu-code-encoding/run.sbatch validation-01",
+  "results": "experiments/gpu-code-encoding/runs/validation-01/",
+  "slurm_log": "experiments/gpu-code-encoding/slurm-76426.log",
+  "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-code-encoding/validation-01",
+  "policy": {
+    "cpus": 4,
+    "gpus": 4,
+    "per_device_owned_cap_bytes": 1073741824,
+    "aggregate_owned_cap_bytes": 4294967296,
+    "host_request_bytes": 8589934592,
+    "rss_guard_bytes": 6442450944,
+    "go_soft_bytes": 4294967296,
+    "new_cache_cap_bytes": 2147483648,
+    "scratch_cap_bytes": 4294967296,
+    "worker_seconds": 600,
+    "controller_seconds": 900,
+    "slurm_seconds": 1200
+  },
+  "scope": "small complete client/server regressions, forced widths, real34-bit coordinates, CUDA sanitizer; not fulls17 encoding",
+  "preprocessing_job": "75832 untouched and uninspected"
+}
