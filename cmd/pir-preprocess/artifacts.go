@@ -28,7 +28,13 @@ type producer struct {
 
 // Manifests certify only artifacts produced in this trusted local cache. A hash
 // supplied alongside arbitrary data is not a mathematical certificate.
+type dimensionRecord struct {
+	K uint64 `json:"k"`
+	N uint64 `json:"n"`
+}
+
 type manifest struct {
+	Dimension     *dimensionRecord       `json:"dimension,omitempty"`
 	Version       int                    `json:"version"`
 	Stage         string                 `json:"stage"`
 	Spec          lrs.Spec               `json:"spec"`

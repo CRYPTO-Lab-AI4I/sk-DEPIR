@@ -27,7 +27,7 @@ type config struct {
 	s, t, workers                                     int
 	backend, devices, library, layout, cache, profile string
 	arrayBytes, nativeBytes, gpuBytes, codeBytes      uint64
-	resume                                            bool
+	resume, dimensionOnly                             bool
 }
 
 func parse(args []string) (config, error) {
@@ -46,11 +46,12 @@ func parse(args []string) (config, error) {
 	f.Uint64Var(&c.nativeBytes, "native-bytes", 0, "required native executor cap")
 	f.Uint64Var(&c.gpuBytes, "gpu-bytes", 0, "required owned payload cap per GPU")
 	f.Uint64Var(&c.codeBytes, "max-code-bytes", 0, "required final canonical payload cap")
+	f.BoolVar(&c.dimensionOnly, "dimension-only", false, "compute exact K only; no support/grid/preparation arrays")
 	f.BoolVar(&c.resume, "resume", false, "reuse completed matching stages in this trusted cache")
 	if e := f.Parse(args); e != nil {
 		return c, e
 	}
-	if f.NArg() != 0 || c.s < 2 || c.s > 17 || c.t < 1 || c.t >= (1<<uint(c.s))-1 || c.workers < 1 || c.workers > 64 || c.cache == "" || c.arrayBytes == 0 || c.nativeBytes == 0 || c.codeBytes == 0 || (c.backend != "cuda" && c.backend != "cpp") || (c.layout != "peer" && c.layout != "local") {
+	if f.NArg() != 0 || c.s < 2 || c.s > 17 || c.t < 1 || c.t >= (1<<uint(c.s))-1 || c.workers < 1 || c.workers > 64 || c.cache == "" || c.arrayBytes == 0 || c.nativeBytes == 0 || (c.codeBytes == 0 && !c.dimensionOnly) || (c.backend != "cuda" && c.backend != "cpp") || (c.layout != "peer" && c.layout != "local") {
 		return c, fmt.Errorf("explicit valid specification/backend/cache/byte limits required")
 	}
 	if c.backend == "cuda" && (c.library == "" || c.gpuBytes == 0) {
@@ -109,7 +110,11 @@ func run(args []string, out, events io.Writer) error {
 	if e = syscall.Flock(int(lock.Fd()), syscall.LOCK_EX|syscall.LOCK_NB); e != nil {
 		return fmt.Errorf("cache already in use: %w", e)
 	}
-	for _, stage := range []string{"support", "root", "code"} {
+	stages := []string{"support", "root", "code"}
+	if c.dimensionOnly {
+		stages = []string{"dimension"}
+	}
+	for _, stage := range stages {
 		if _, err := os.Lstat(filepath.Join(c.cache, stage)); err == nil && !c.resume {
 			return fmt.Errorf("cache contains %s; use --resume or a fresh directory", stage)
 		} else if err != nil && !os.IsNotExist(err) {
@@ -137,7 +142,11 @@ func run(args []string, out, events io.Writer) error {
 		return e
 	}
 	r.event("workflow", "completed", 1, 1, "operations")
-	_, e = fmt.Fprintf(out, "verified preprocessing cache: %s\nCPU profile: %s\n", c.cache, profile.Name())
+	kind := "verified preprocessing cache"
+	if c.dimensionOnly {
+		kind = "exact dimension record (not support/code data)"
+	}
+	_, e = fmt.Fprintf(out, "%s: %s\nCPU profile: %s\n", kind, c.cache, profile.Name())
 	return e
 }
 func execute(c config, ids []int, r *reporter) error {
@@ -155,8 +164,45 @@ func execute(c config, ids []int, r *reporter) error {
 		return e
 	}
 	origin := producer{Revision: sourceRevision, ExecutableSHA256: executableSHA, Backend: c.backend, Devices: c.devices, VectorLayout: c.layout, UTC: time.Now().UTC().Format(time.RFC3339Nano)}
+	options := lrs.PreprocessingOptions{Backend: c.backend, Workers: c.workers, Limits: limits, GPUPath: c.library, GPUBytes: c.gpuBytes}
+	if c.backend == "cuda" {
+		options.GPUDevices = ids
+	}
+	options.Progress = func(p lrs.PreprocessingProgress) { r.event(p.Phase, p.Event, p.Completed, p.Total, p.Unit) }
 	fresh := func(stage string) manifest {
 		return manifest{Version: 1, Stage: stage, Spec: spec, Producer: origin, Files: map[string]fileRecord{}}
+	}
+
+	if c.dimensionOnly {
+		previous, err := readManifest(c.cache, "dimension", spec)
+		if err == nil {
+			if previous.Dimension == nil || previous.Dimension.N != n || previous.Dimension.K == 0 || previous.Dimension.K >= n {
+				return fmt.Errorf("invalid cached exact dimension")
+			}
+			r.event("exact-dimension-cached", "completed", previous.Dimension.K, n, "monomials")
+			return nil
+		}
+		if !os.IsNotExist(err) {
+			return err
+		}
+		if c.backend == "cuda" {
+			origin.GPUPluginSHA256, e = digestPath(c.library)
+			if e != nil {
+				return e
+			}
+		}
+		if e = os.Setenv("LIFTRS_GPU_PREPARATION_VECTOR_LAYOUT", c.layout); e != nil {
+			return e
+		}
+		k, err := lrs.CountCodeMonomials(spec, options)
+		if err != nil {
+			return err
+		}
+		_, err = publish(c.cache, "dimension", fresh("dimension"), func(_ string, m *manifest) error { m.Dimension = &dimensionRecord{K: k, N: n}; return nil })
+		if err == nil {
+			r.event("exact-dimension-result", "completed", k, n, "monomials")
+		}
+		return err
 	}
 	supportManifest, e := readManifest(c.cache, "support", spec)
 	if e != nil && !os.IsNotExist(e) {
@@ -187,11 +233,6 @@ func execute(c config, ids []int, r *reporter) error {
 	if e = os.Setenv("LIFTRS_GPU_PREPARATION_VECTOR_LAYOUT", c.layout); e != nil {
 		return e
 	}
-	options := lrs.PreprocessingOptions{Backend: c.backend, Workers: c.workers, Limits: limits, GPUPath: c.library, GPUBytes: c.gpuBytes}
-	if c.backend == "cuda" {
-		options.GPUDevices = ids
-	}
-	options.Progress = func(p lrs.PreprocessingProgress) { r.event(p.Phase, p.Event, p.Completed, p.Total, p.Unit) }
 	var session *lrs.CodePreprocessor
 	if e = r.phase("setup", func() error { var err error; session, err = lrs.NewCodePreprocessor(spec, options); return err }); e != nil {
 		return e

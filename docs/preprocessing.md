@@ -251,3 +251,23 @@ The bounded complete-runner gate is complete; fulls17 cardinality/aggregate
 RAM/device/storage/time admission remains next. No fulls17 cache or latency is
 demonstrated. Gnode03's earlier reset cause stays unresolved.
 [Exact results](../experiments/gpu-preprocessing-workflow/report.md#completed-persistent-workflow-validation-scaling-080).
+
+## Count-only admission
+
+`CountCodeMonomials(spec, options)` returns exact K from the requested native or
+resident CUDA executor without an N-element host grid or K-element index list.
+It privately constructs/closes metadata and enumeration state, reusing the same
+count routine as normal discovery; it never exposes a session with relaxed array
+admission. `NewCodePreprocessor` retains its existing full-grid limits. Count
+still obeys MaxElements, metadata/native and GPU byte caps. GPU counting requires
+explicit resident devices and never silently uses CPU.
+
+For example, a count-only GPU call at s17 may use MaxElements=1<<34,
+MaxHostArrayBytes=8<<20, NativeBytes=64<<20 and GPUBytes=1<<30 on four devices;
+ordinary s17 preprocessing rejects that host-array budget. This has~2.5 GiB
+modeled count-device state, distinct from384 GiB product arrays or actual RSS.
+`pir-preprocess --dimension-only` publishes a separate trusted dimension record
+and profile; no support/root/code payloads or discovery sampling occur. The
+record cannot certify support or skip full discovery/preparation. The device
+bitmap is discarded on Close instead of adding a2 GiB host/file copy; full
+discovery later re-enumerates it. [Validation, provenance and exact size models](../experiments/s17-preprocessing-admission/report.md).

@@ -1,0 +1,38 @@
+{
+  "recorded_utc": "2026-11-16T09:33:53.518264+00:00",
+  "scope": "configuration/capacity observations for draft; not reservation/quota/admission",
+  "commands": [
+    "scontrol show partition gpuq",
+    "sacctmgr -nP show qos name=quota_crypto_gpuq format=Name,MaxWall,MaxTRESPerJob,MaxTRESPerUser",
+    "df -h . /tmp"
+  ],
+  "partition": {
+    "name": "gpuq",
+    "max_time": "4-04:00:00",
+    "nodes": "gnode[01-17]",
+    "configured_cpus": 2176,
+    "configured_gpus": 68,
+    "configured_nodes": 17,
+    "oversubscribe": "NO",
+    "memory_max": "UNLIMITED"
+  },
+  "qos_reported": {
+    "name": "quota_crypto_gpuq",
+    "MaxWall": "",
+    "MaxTRESPerJob": "",
+    "MaxTRESPerUser": ""
+  },
+  "notes": [
+    "Blank QoS fields do not establish all association/quota permissions.",
+    "Configured GPUs are not a healthy/free/reserved inventory; gnode03 remains excluded.",
+    "Shared filesystem free space does not establish user quota."
+  ],
+  "project": {
+    "available_bytes": 14170071236608,
+    "total_bytes": 20000000704512
+  },
+  "local_scratch": {
+    "available_bytes": 431791038464,
+    "total_bytes": 462521126912
+  }
+}

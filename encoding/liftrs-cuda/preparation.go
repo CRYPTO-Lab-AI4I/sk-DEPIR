@@ -221,6 +221,32 @@ func (p *Preparation) RootFactorsInto(indices []int, out [][4]uint32) error {
 	return preparationError(code, &text[0])
 }
 
+// GoodMonomialCount returns the exact count without allocating/transferring a
+// host index array. Executor-owned membership buffers remain until reuse/Close.
+func (p *Preparation) GoodMonomialCount(t int) (uint64, error) {
+	if p == nil {
+		return 0, fmt.Errorf("nil preparation")
+	}
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	return p.goodCountLocked(t)
+}
+func (p *Preparation) goodCountLocked(t int) (uint64, error) {
+	if p.bridge == nil || t < 1 || t >= (1<<uint(p.degree))-1 {
+		return 0, fmt.Errorf("GPU monomial state/degree")
+	}
+	var count C.uint64_t
+	var text [512]C.char
+	if err := preparationError(C.pg_bridge_good_count(p.bridge, C.uint(t), &count, &text[0], 512), &text[0]); err != nil {
+		return 0, err
+	}
+	k := uint64(count)
+	if k == 0 || k >= p.maximum {
+		return 0, fmt.Errorf("invalid exact monomial count")
+	}
+	return k, nil
+}
+
 // GoodMonomials evaluates ternary weight classes and grid membership on GPUs,
 // then streams the bitmap into a capped sorted Go index array. It is exact, not
 // a sampled dimension estimate; the temporary bitmap is released after filling.
@@ -230,16 +256,12 @@ func (p *Preparation) GoodMonomials(t int, hostArrayBytes uint64) ([]int, error)
 	}
 	p.mu.Lock()
 	defer p.mu.Unlock()
-	if p.bridge == nil || t < 1 || t >= (1<<uint(p.degree))-1 {
-		return nil, fmt.Errorf("GPU monomial state/degree")
-	}
-	var count C.uint64_t
-	var text [512]C.char
-	if err := preparationError(C.pg_bridge_good_count(p.bridge, C.uint(t), &count, &text[0], 512), &text[0]); err != nil {
+	k, err := p.goodCountLocked(t)
+	if err != nil {
 		return nil, err
 	}
-	k := uint64(count)
-	if k == 0 || k >= p.maximum || k > uint64(^uint(0)>>1)/8 || k*8 > hostArrayBytes {
+	var text [512]C.char
+	if k > uint64(^uint(0)>>1)/8 || k*8 > hostArrayBytes {
 		return nil, fmt.Errorf("GPU monomial host-array cap")
 	}
 	out := make([]int, int(k))

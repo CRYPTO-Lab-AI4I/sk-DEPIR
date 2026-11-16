@@ -120,6 +120,12 @@ type CodePreprocessor struct {
 // The legacy CUDA adapter remains s<=16. No automatic
 // CPU/streamed fallback is selected for an unavailable requested backend.
 func NewCodePreprocessor(spec Spec, options PreprocessingOptions) (*CodePreprocessor, error) {
+	return newCodePreprocessor(spec, options, false)
+}
+
+// countOnly bypasses only the unused full-grid HOST array admission. The session
+// remains private to CountCodeMonomials and cannot escape into Discover/Prepare.
+func newCodePreprocessor(spec Spec, options PreprocessingOptions, countOnly bool) (*CodePreprocessor, error) {
 	s := spec.FieldDegree
 	if s < 2 || s > 17 || spec.Dimension != 2 || options.Workers < 1 || options.Workers > 64 ||
 		(options.Backend != "cpp" && options.Backend != "cuda") {
@@ -132,7 +138,11 @@ func NewCodePreprocessor(spec Spec, options PreprocessingOptions) (*CodePreproce
 	}
 	width := uint64(h.ExtensionBytes)
 	limits := options.Limits
-	if limits.MaxElements < n || limits.MaxHostArrayBytes < max(n*width, uint64(1<<20)) || limits.NativeBytes == 0 || n > uint64(^uint(0)>>1)/8 {
+	requiredHost := max(n*width, uint64(1<<20))
+	if countOnly {
+		requiredHost = 1 << 20
+	}
+	if limits.MaxElements < n || limits.MaxHostArrayBytes < requiredHost || limits.NativeBytes == 0 || n > uint64(^uint(0)>>1)/8 {
 		return nil, fmt.Errorf("preprocessing count/host-array/native limits not admitted")
 	}
 	if options.Backend == "cuda" && options.GPUBytes == 0 {
@@ -149,6 +159,30 @@ func NewCodePreprocessor(spec Spec, options PreprocessingOptions) (*CodePreproce
 		return nil, err
 	}
 	return &CodePreprocessor{header: h, field: f, options: options, backend: backend}, nil
+}
+
+// CountCodeMonomials returns exact K using the requested executor, without a
+// sampled support, N-element host grid or K-element host index list. Ordinary
+// preprocessing's full-array admission remains unchanged. Native/device owned
+// memory caps still apply to complete enumeration tables/bitmaps. A count alone
+// does not certify a support or produce reusable encoding data.
+func CountCodeMonomials(spec Spec, options PreprocessingOptions) (uint64, error) {
+	if options.Backend == "cuda" && len(options.GPUDevices) == 0 {
+		return 0, fmt.Errorf("exact GPU count requires explicit resident devices")
+	}
+	p, err := newCodePreprocessor(spec, options, true)
+	if err != nil {
+		return 0, err
+	}
+	defer p.Close()
+	counter, ok := p.backend.(interface{ GoodMonomialCount(int) (uint64, error) })
+	if !ok {
+		return 0, fmt.Errorf("requested executor has no count-only operation")
+	}
+	var k uint64
+	reporter := newPreparationReporter(options.Progress)
+	err = reporter.run("exact-dimension", func() error { var e error; k, e = counter.GoodMonomialCount(spec.CurveDegree); return e })
+	return k, err
 }
 
 // SupportParameters describes a certified/trusted reusable code support, not a

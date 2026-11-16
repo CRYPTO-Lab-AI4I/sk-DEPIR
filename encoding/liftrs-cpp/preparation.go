@@ -75,6 +75,32 @@ func (p *Preparation) Close() error {
 	return nil
 }
 
+// GoodMonomialCount returns the exact count without allocating/transferring a
+// host index array. Executor-owned membership buffers remain until reuse/Close.
+func (p *Preparation) GoodMonomialCount(t int) (uint64, error) {
+	if p == nil {
+		return 0, fmt.Errorf("nil preparation")
+	}
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	return p.goodCountLocked(t)
+}
+func (p *Preparation) goodCountLocked(t int) (uint64, error) {
+	if p.handle == nil || t < 1 {
+		return 0, fmt.Errorf("closed/invalid preparation")
+	}
+	var count C.uint64_t
+	var text [512]C.char
+	if C.liftrs_preparation_good_count(p.handle, C.uint(t), &count, &text[0], 512) != 0 {
+		return 0, fmt.Errorf("good monomials: %s", C.GoString(&text[0]))
+	}
+	k := uint64(count)
+	if k == 0 || k >= p.maximum {
+		return 0, fmt.Errorf("invalid exact monomial count")
+	}
+	return k, nil
+}
+
 // GoodMonomials enumerates the exact m2 good monomials once via ternary weight
 // classes, then transfers sorted indices to an admitted host array. The temporary
 // native bitset/table is released after filling; no full host duplicate exists.
@@ -84,16 +110,12 @@ func (p *Preparation) GoodMonomials(t int, maxHostArrayBytes uint64) ([]int, err
 	}
 	p.mu.Lock()
 	defer p.mu.Unlock()
-	if p.handle == nil || t < 1 {
-		return nil, fmt.Errorf("closed/invalid preparation")
+	k, err := p.goodCountLocked(t)
+	if err != nil {
+		return nil, err
 	}
-	var count C.uint64_t
 	var text [512]C.char
-	if C.liftrs_preparation_good_count(p.handle, C.uint(t), &count, &text[0], 512) != 0 {
-		return nil, fmt.Errorf("good monomials: %s", C.GoString(&text[0]))
-	}
-	k := uint64(count)
-	if k == 0 || k >= p.maximum || k > uint64(^uint(0)>>1)/8 || maxHostArrayBytes == 0 || k*8 > maxHostArrayBytes {
+	if k > uint64(^uint(0)>>1)/8 || maxHostArrayBytes == 0 || k*8 > maxHostArrayBytes {
 		return nil, fmt.Errorf("good monomial host count/byte cap")
 	}
 	indices := make([]int, int(k))

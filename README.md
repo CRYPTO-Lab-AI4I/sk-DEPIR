@@ -634,3 +634,9 @@ The earlier gnode03 GPU-reset cause remains unresolved and its evidence is retai
 Fulls17 preprocessing is not admitted. Eight/sixteen GPUs remain eligible options,
 but using them across this machine's four-GPU nodes needs cross-node execution
 support; the present command uses one node.
+
+The [s17 admission step](experiments/s17-preprocessing-admission/report.md) adds
+`CountCodeMonomials` and `pir-preprocess --dimension-only`: exact GPU/native counts
+without the full host grid/index list. Local reference/admission tests pass;
+s16/s17 GPU counting is pending bounded validation. Normal preprocessing array
+checks/defaults are unchanged. A count is not certified support or prepared code.

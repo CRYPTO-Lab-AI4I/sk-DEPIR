@@ -1860,3 +1860,20 @@ cardinality/support and aggregate live host/device/storage/time admission plus
 full-job guard configuration. Existing384GiB device arrays/~235GiB retained
 files are projections, not the full budget. User permits8/16GPUs if helpful;
 cross-node execution still needs implementation. No fulls17 run launched here.
+
+### Exact dimension and admission preparation (SCALING-081)
+
+Workflow results committed40fdaaa; requested HTTPS push failed for missing session
+credentials. Continue admission independently. Add shared count-only native/GPU
+APIs and CLI dimension stage, reusing enumeration/ABIs without full host grid or
+index list. Ordinary preparation admission unchanged; local independent-Go s4,
+known s10 K146641, restart/failure tests pass. Bounded run will repeat small
+workflow/race/sanitizer checks, verify s16 K918672421 and obtain exact s17 K under
+existing4GPU/4GiB/8GiBhost caps. Not another tile benchmark or full preparation.
+
+[Exact size calculator and draft](../experiments/s17-preprocessing-admission/report.md)
+separate counts, representation-derived file sizes and unknown peak RSS/runtime.
+Successful retained payload ≤288 GiB+61 bytes forK≤N/2; incomplete stages and
+headroom additional. Draft full-node RAM/storage/time/exclusive-CPU budget is
+not approved. Finish count/heap/resource checks and obtain numeric full agreement
+before launching s17.8/16GPU options remain eligible but need cross-node execution.

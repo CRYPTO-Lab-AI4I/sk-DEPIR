@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "utc": "2026-11-16T09:36:46.039030+00:00",
+  "commands": [
+    "timeout25s go test -tags liftrs_cpp ./cmd/pir-preprocess -v -count=1",
+    "CGO_ENABLED=0 timeout25s go test ./cmd/pir-preprocess -count=1",
+    "timeout25s go test -tags liftrs_cpp,liftrs_cuda ./cmd/pir-preprocess -run ^$ -count=1 (compile/link only; no GPU)",
+    "python3 -B experiments/s17-preprocessing-admission/run.py --check --dimension-s17",
+    "python3 -B experiments/s17-preprocessing-admission/sizes.py --check",
+    "python3 -B experiments/gpu-preprocessing-workflow/test_controller.py",
+    "updated shared analyzer reconciles historical validation-02 unchanged",
+    "Python AST, bash -n and gofmt; git diff --check"
+  ],
+  "environment": {
+    "go": "local Go1.27.3",
+    "compiler": "gcc/14.2.0",
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOCACHE": ".cache/liftrs/preprocessing-workflow-build-cache"
+  },
+  "source_sha256": {
+    "cmd/pir-preprocess/main.go": "3358b9e79b35df7517b8b53fb086aa6b4d6c75beafe4aa9bd9560444dbe9fee6",
+    "cmd/pir-preprocess/artifacts.go": "e214547caaef01eca9441776fc2ec6ab6ac2171563297e217dda738ce03bc323",
+    "cmd/pir-preprocess/reference_test.go": "3c479fceb55cd9dd271f8a7270d501d4d51e9f22beacfb990aa54dd9237b6305",
+    "encoding/liftrs-cpp/preparation.go": "80e439fbeedf0532c1267772e2e255a4d09bd1ff5f532014a6e05459319bb611",
+    "encoding/liftrs-cuda/preparation.go": "e3bc62e98d5fa5ac31472c0a84d9ca2c5e4f5f37b7db3b9a913e842eba469552",
+    "encoding/liftrs-shared/preprocessing.go": "ae641962aeb3558f8035a47778dc07765b1c447a8e485ead80d3367c15c1bbf0",
+    "experiments/s17-preprocessing-admission/analyze.py": "d77cd20e51568f74f4d8711807bc5dbd38223bf42404c5871b9cfba87cb0f77c",
+    "experiments/s17-preprocessing-admission/run.py": "7bfc76ab9dc2b1a9c7ec428f285a1573b147511ac2945f0c05a3f0cca1ab74db",
+    "experiments/s17-preprocessing-admission/sizes.py": "c3a41886192e94c47203fde98cc6ece44cfdad8ac5aedff447eb65ec11f33edf",
+    "experiments/gpu-preprocessing-workflow/run.py": "fe1ada9e3b39cf1ea7e2c51d057e0716e07eecfb2bf0bd7417d10bd72db46898",
+    "experiments/gpu-preprocessing-workflow/analyze.py": "795846243761dfcc941063c1d040c65ad8720f10f3b506b967dbb55aa30434ad"
+  },
+  "limitations": [
+    "s8/s16/s17 GPU count execution and new count-only CUDA memcheck pending scheduled job.",
+    "No fulls17 support/cache/preparation or numeric full-resource admission.",
+    "Full budget draft and array/file models are not measured peaks or latency."
+  ]
+}

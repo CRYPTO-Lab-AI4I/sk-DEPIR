@@ -15,23 +15,24 @@ def stop_process(process,wait_seconds=5):
   except subprocess.TimeoutExpired:pass
  return {'reaped':False,'last_signal':int(signal.SIGKILL),'warning':'worker not reaped; scheduler must clean allocation'}
 
-def main():
+def main(here=HERE,dimension_default=False):
  import argparse
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('name',nargs='?');p.add_argument('--check',action='store_true');args=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('name',nargs='?');p.add_argument('--check',action='store_true');p.add_argument('--dimension-s17',action='store_true',default=dimension_default);args=p.parse_args()
  if args.check:
   ast.parse(Path(__file__).read_text());assert 600<900<1200
   assert 4*(1<<30)==4<<30
-  print('syntax and bounded deadline/device policy checked; no full s17 mode');return
+  if args.dimension_s17:assert 3**17+(1<<17)*4+(1<<34)//8//4+(4<<20)<1<<30
+  print('syntax and bounded deadline/device policy checked; no full s17 preparation launch');return
  if not args.name or not args.name.replace('-','').isalnum():p.error('fresh alphanumeric/hyphen name required')
- out=HERE/'runs'/args.name;out.mkdir(parents=True,exist_ok=False)
- cache=ROOT/'.cache/liftrs/gpu-preprocessing-workflow'/args.name;cache.mkdir(parents=True,exist_ok=False)
+ out=here/'runs'/args.name;out.mkdir(parents=True,exist_ok=False)
+ cache=ROOT/'.cache/liftrs'/here.name/args.name;cache.mkdir(parents=True,exist_ok=False)
  scratch=Path('/tmp')/('depir-preprocessing-workflow-'+os.environ['SLURM_JOB_ID']);scratch.mkdir(exist_ok=False)
  env={k:v for k,v in os.environ.items()if not k.startswith('PIR_')}
  env.update(GOTOOLCHAIN='local',GOPROXY='off',GOSUMDB='off',GOPATH=str(ROOT/'.cache/liftrs/toolchains/gopath'),GOCACHE=str(scratch/'go-cache'),TMPDIR=str(scratch),CGO_ENABLED='0',GOMAXPROCS='4',GOFLAGS='-p=2',GOMEMLIMIT=str(4<<30))
  go=str(ROOT/'.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go')
  start=time.monotonic();cancelled=[];signal.signal(signal.SIGTERM,lambda *_:cancelled.append(True))
  record={'status':'running','job_id':os.environ['SLURM_JOB_ID'],'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'cache':str(cache),'commands':[],
- 'policy':{'cpus':4,'host_request_bytes':8<<30,'rss_guard_bytes':6<<30,'go_soft_limit_bytes':4<<30,'new_cache_guard_bytes':2<<30,'scratch_guard_bytes':4<<30,'gpus':4,'aggregate_owned_device_cap_bytes':4<<30,'per_device_cap_bytes':1<<30,'worker_seconds':600,'controller_seconds':900,'slurm_seconds':1200},'cases':[],'peer_probe':True}
+ 'policy':{'cpus':4,'host_request_bytes':8<<30,'rss_guard_bytes':6<<30,'go_soft_limit_bytes':4<<30,'new_cache_guard_bytes':2<<30,'scratch_guard_bytes':4<<30,'gpus':4,'aggregate_owned_device_cap_bytes':4<<30,'per_device_cap_bytes':1<<30,'worker_seconds':600,'controller_seconds':900,'slurm_seconds':1200},'cases':[],'peer_probe':True,'dimension_s17':args.dimension_s17,'dimensions':[]}
  def save():(out/'results.json').write_text(json.dumps(record,indent=2)+'\n')
  def event(label,kind,**fields):
   row=dict(utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),phase=label,event=kind,completed=len(record['commands']),unit='commands',elapsed_seconds=time.monotonic()-start,**fields)
@@ -105,6 +106,20 @@ def main():
   # checks in separate processes above retain profiles and compare with Go.
   run('memcheck',['compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',str(cli),'--s','4','--t','3','--cache',str(cache/'memcheck'),'--backend','cuda','--gpu-library',str(library),'--devices','0,1,2,3','--gpu-bytes',str(1<<30),'--max-array-bytes',str(1<<20),'--native-bytes',str(8<<20),'--max-code-bytes',str(1<<20),'--vector-layout','local'],source)
   log=(out/'memcheck.log').read_text();assert 'ERROR SUMMARY: 0 errors'in log and'LEAK SUMMARY: 0 bytes'in log
+  if args.dimension_s17:
+   run('dimension-memcheck',['compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',str(cli),'--s','4','--t','3','--cache',str(cache/'dimension-memcheck'),'--backend','cuda','--gpu-library',str(library),'--devices','0,1,2,3','--gpu-bytes',str(1<<30),'--max-array-bytes',str(1<<20),'--native-bytes',str(8<<20),'--dimension-only'],source)
+   assert 'ERROR SUMMARY: 0 errors'in(out/'dimension-memcheck.log').read_text()
+   for degree in(8,16,17):
+    directory=cache/('dimension-s'+str(degree))
+    command=[str(cli),'--s',str(degree),'--t','5','--cache',str(directory),'--backend','cuda','--gpu-library',str(library),'--devices','0,1,2,3','--gpu-bytes',str(1<<30),'--max-array-bytes',str(8<<20),'--native-bytes',str(64<<20),'--dimension-only']
+    run('dimension-s'+str(degree),command,source)
+    manifest=json.loads((directory/'dimension/manifest.json').read_text());dim=manifest['dimension']
+    assert dim['n']==1<<(2*degree) and 0<dim['k']<=dim['n']//2
+    if degree==8:
+     reference_manifest=json.loads((cache/'peer-1/support/manifest.json').read_text());assert dim['k']==reference_manifest['support']['parameters']['k']
+    if degree==16:assert dim['k']==918672421,'s16 measured exact dimension mismatch'
+    assert not any((directory/stage).exists()for stage in('support','root','code'))
+    record['dimensions'].append(dict(s=degree,**dim,cache=str(directory),manifest_sha256=HELP['sha'](directory/'dimension/manifest.json')));save()
   record['status']='passed'
  except BaseException as e:record['status']='failed';record['error']=repr(e);raise
  finally:

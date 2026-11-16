@@ -72,3 +72,15 @@ engine accepts1/2/4/8 device ordinals; measured nodes here have four GPUs. Eight
 sixteen GPUs on this machine require cross-node orchestration/communication that
 is not implemented. The command rejects16; this is an implementation boundary,
 not a preprocessing design ceiling.
+
+## Exact dimension without full host arrays
+
+`--dimension-only` uses `CountCodeMonomials` and publishes only
+`dimension/manifest.json` plus a unique profile. It needs no `--max-code-bytes`,
+N-element host grid or K-element index list; ordinary preprocessing's array
+admission is unchanged. Native/device extent and allocation caps still apply.
+Use the [bounded admission experiment](../../experiments/s17-preprocessing-admission/report.md)
+for s16/s17 GPU counts. A dimension record is not certified sampled support or
+code data, and does not admit full preprocessing. Complete execution still
+enumerates indices, samples support and checks all identities. `--resume` may
+reuse only the trusted dimension record in this mode.

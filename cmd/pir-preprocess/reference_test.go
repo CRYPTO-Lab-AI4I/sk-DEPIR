@@ -108,3 +108,46 @@ func TestPersistentReferenceAndRestart(t *testing.T) {
 		t.Fatal("corrupt evidence altered")
 	}
 }
+
+// Count-only admission never exposes the privately constructed session to grid
+// operations. Normal preparation still rejects the same insufficient array cap.
+func TestExactDimensionAdmission(t *testing.T) {
+	opts := lrs.PreprocessingOptions{Backend: "cpp", Workers: 2, Limits: lrs.PreprocessingLimits{MaxElements: 1 << 20, MaxHostArrayBytes: 1 << 20, NativeBytes: 64 << 20}}
+	spec := lrs.Spec{FieldDegree: 10, Dimension: 2, CurveDegree: 5}
+	if _, err := lrs.NewCodePreprocessor(spec, opts); err == nil {
+		t.Fatal("ordinary full-grid admission weakened")
+	}
+	k, err := lrs.CountCodeMonomials(spec, opts)
+	if err != nil || k != 146641 {
+		t.Fatal("s10 historical exact count", k, err)
+	}
+	basis, err := lrs.DiscoverOrbit(lrs.Spec{FieldDegree: 4, Dimension: 2, CurveDegree: 3}, lrs.OrbitOptions{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	cache := t.TempDir()
+	args := []string{"--s", "4", "--t", "3", "--backend", "cpp", "--cache", cache, "--max-array-bytes", "1048576", "--native-bytes", "8388608", "--dimension-only"}
+	var events bytes.Buffer
+	if err = run(args, io.Discard, &events); err != nil {
+		t.Fatal(err)
+	}
+	var m manifest
+	data, err := os.ReadFile(filepath.Join(cache, "dimension", "manifest.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = json.Unmarshal(data, &m); err != nil || m.Dimension == nil || m.Dimension.K != uint64(basis.Dimension()) || len(m.Files) != 0 {
+		t.Fatal("count-only versus independent Go", err)
+	}
+	for _, stage := range []string{"support", "root", "code"} {
+		if _, err = os.Stat(filepath.Join(cache, stage)); !os.IsNotExist(err) {
+			t.Fatal("count-only wrote support/code")
+		}
+	}
+	if strings.Contains(events.String(), `"phase":"discovery"`) {
+		t.Fatal("count invoked sampling")
+	}
+	if err = run(append(args, "--resume"), io.Discard, io.Discard); err != nil {
+		t.Fatal(err)
+	}
+}

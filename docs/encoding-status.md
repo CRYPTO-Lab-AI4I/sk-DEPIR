@@ -57,11 +57,13 @@ profiles, source identities, scripts and results remain in the linked reports.
 
 ## Machine capacity and feasibility
 
-Observed Slurm inventory: 17 GPU nodes, each with 128 CPU cores and 928610 MiB
-scheduler RAM (about **907 GiB**); 16 nodes advertise four H200 GPUs and one three,
-**67 GPUs total**. The measured H200 NVL has 143771 MiB (**140.40 GiB**) device RAM.
-Inventory was read with `module load slurm/slurm/25.05` and
-`sinfo -p gpuq -N -o '%N %c %m %G'`. Inventory is not a reservation or an experiment
+Scheduler configuration read2026-11-16 lists17 GPU nodes and **68 configured GPUs**,
+superseding the older67-card inventory snapshot. Observed nodes have128 CPU cores,
+928610 MiB scheduler RAM (about **907 GiB**) and four H200s. Configured totals do
+not certify availability/health; gnode03 remains excluded after its unresolved fault. The measured H200 NVL has 143771 MiB (**140.40 GiB**) device RAM.
+Node inventory uses `module load slurm/slurm/25.05` and
+`sinfo -p gpuq -N -o '%N %c %m %G'`; current partition totals are recorded in the
+[configuration snapshot](../experiments/s17-preprocessing-admission/resource-snapshot.json). Inventory is not a reservation or an experiment
 budget; review current availability and agree budgets before larger submissions.
 
 GPU counts below are **capacity floors**, dividing aggregate array bytes by one
@@ -336,7 +338,7 @@ latency and peak host memory remain unknown at s≥17.
 | 17 | ~384 GiB | 3 | Retained host arrays ≥~221 GiB; peak unknown; potential single-node route after port |
 | 18 | ~1536 GiB | 11 | At least 3 four-GPU nodes for this layout; host distribution and peak unknown |
 | 19 | ~6144 GiB | 44 | At least 11 four-GPU nodes; host distribution and peak unknown |
-| 20 | ~24576 GiB | 176 | Exceeds observed 67-GPU inventory; needs a different layout or more hardware |
+| 20 | ~24576 GiB | 176 | Exceeds configured68-GPU inventory; needs a different layout or more hardware |
 
 ## Projection assumptions and upkeep
 
@@ -492,3 +494,13 @@ leaks pass;509/37/73 source/evidence/cache identities reconcile. This completes
 the small persistent-runner gate, not any fulls17 measurement or capacity claim.
 Full support/cardinality, concurrent RAM/device/storage/time budget and guarded
 launch admission remain next. [Report](../experiments/gpu-preprocessing-workflow/report.md#completed-persistent-workflow-validation-scaling-080).
+
+[Exact count-only admission](../experiments/s17-preprocessing-admission/report.md)
+is implemented with local references passing; full s17 GPU count remains pending.
+No full-preparation cell changes. Format-derived successful retained files are
+12K+12N+61 bytes at s17 (≤288 GiB+61 forK≤N/2), before logs/profiles/partial stages
+and headroom. New count-only mode avoids the large host list/grid; its~2.5 GiB
+modeled GPU enumeration payload is not a full preprocessing memory reduction.
+Final RAM/storage/runtime admission and cross-node support remain separate.
+
+[Current configuration/free-space snapshot](../experiments/s17-preprocessing-admission/resource-snapshot.json) supports the admission draft; configuration, filesystem free space and blank QoS fields are not quota or resource approval.
