@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-16 08:17 | SCALING-080 | Completed | [Persistent workflow validation passes ongnode04](2026-11-16-0817-codex-scaling-080-completed.md) |
+| 2026-11-16 08:16 | SCALING-080 | Started | [Review completed persistent workflow retry](2026-11-16-0816-codex-scaling-080-started.md) |
 | 2026-11-16 08:11 | SCHEDULING-001 | Completed | [Job75342 may use accessible eligible nodes](2026-11-16-0811-codex-scheduling-001-completed.md) |
 | 2026-11-16 08:10 | SCHEDULING-001 | Started | [Release fixed-node scheduling restriction](2026-11-16-0810-codex-scheduling-001-started.md) |
 | 2026-11-15 22:47 | SCALING-079 | Handoff | [Persistent workflow retry75342](2026-11-15-2247-codex-scaling-079-handoff.md) |

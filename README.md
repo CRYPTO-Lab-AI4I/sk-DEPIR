@@ -626,10 +626,11 @@ peer remains default and no fulls17 preparation run or latency is demonstrated.
 An experimental [persistent server preprocessing CLI](cmd/pir-preprocess/README.md)
 now streams support, root checkpoints, canonical code and G into atomically
 published stage directories, retaining provenance/profiles and supporting verified
-restarts. Local native/Go-reference, race/ASan and failure-path tests pass. The one-GPU
-complete workflow passes; four-GPU validation stalled on gnode03 with a GPU-reset
-report and remains incomplete. A bounded peer probe and shutdown fix precede the
-[unchanged-budget retry](experiments/gpu-preprocessing-workflow/report.md#job75194-failure-and-bounded-retry-scaling-079).
+restarts. Local native/Go-reference, race/ASan and failure-path tests pass. Complete1/4GPU
+peer/local fresh and checkpoint workflows now pass ongnode04 (job75342), including
+CUDA-free readback and zero CUDA errors/leaks; see the
+[completed validation](experiments/gpu-preprocessing-workflow/report.md#completed-persistent-workflow-validation-scaling-080).
+The earlier gnode03 GPU-reset cause remains unresolved and its evidence is retained.
 Fulls17 preprocessing is not admitted. Eight/sixteen GPUs remain eligible options,
 but using them across this machine's four-GPU nodes needs cross-node execution
 support; the present command uses one node.

@@ -242,3 +242,12 @@ CUDA memcheck are unrun. The retry adds a small runtime-copy/transpose preflight
 and bounds shutdown waits, retaining all failure evidence and resource caps.
 It targets the previously validated gnode02; a pass would not establish node03
 health. No fulls17 admission. [Failure review/reproduction](../experiments/gpu-preprocessing-workflow/report.md#job75194-failure-and-bounded-retry-scaling-079).
+
+Persistent workflow validation now passes job75342 ongnode04: runtime peer-copy/
+transpose preflight, native/race/ASan/vet, all peer/local1/4GPU fresh/root/final
+restart cases, independent Go canonical bytes and CUDA-free readback, plus zero
+CUDA errors/leaks. Source/evidence/cache checks reconcile509/37/73 identities.
+The bounded complete-runner gate is complete; fulls17 cardinality/aggregate
+RAM/device/storage/time admission remains next. No fulls17 cache or latency is
+demonstrated. Gnode03's earlier reset cause stays unresolved.
+[Exact results](../experiments/gpu-preprocessing-workflow/report.md#completed-persistent-workflow-validation-scaling-080).

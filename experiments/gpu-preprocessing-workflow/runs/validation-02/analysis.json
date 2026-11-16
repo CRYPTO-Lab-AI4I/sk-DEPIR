@@ -1,0 +1,286 @@
+{
+  "status": "passed",
+  "job_id": "75342",
+  "revision": "209c4f9e1838beed515161c396f9a437e227a75c",
+  "source_files_verified": 509,
+  "evidence_files_verified": 37,
+  "cache_files_verified": 73,
+  "tests": [
+    "atomic stage publication and failure retention",
+    "independent Go canonical bytes",
+    "fresh and completed-cache/root restarts",
+    "CUDA-free final-cache readback",
+    "corruption/source-binding rejection",
+    "race/ASan/vet",
+    "fresh executable CUDA memcheck"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 1.279370406176895,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 1.1900991760194302,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "gpu",
+      "seconds": 1.250786921940744,
+      "peak_rss_bytes": 21684224,
+      "exit_code": 0
+    },
+    {
+      "label": "topology",
+      "seconds": 1.1608029738999903,
+      "peak_rss_bytes": 21684224,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 1.1613344210200012,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 1.1855671633966267,
+      "peak_rss_bytes": 1273856,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 1.1541811968199909,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 1.1882068738341331,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "controller-tests",
+      "seconds": 1.1514135329052806,
+      "peak_rss_bytes": 26173440,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe-build",
+      "seconds": 8.085995465982705,
+      "peak_rss_bytes": 191213568,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe",
+      "seconds": 5.947395948693156,
+      "peak_rss_bytes": 466489344,
+      "exit_code": 0
+    },
+    {
+      "label": "go-only-build",
+      "seconds": 16.449320670217276,
+      "peak_rss_bytes": 263770112,
+      "exit_code": 0
+    },
+    {
+      "label": "go-only-tests",
+      "seconds": 5.215485716704279,
+      "peak_rss_bytes": 91791360,
+      "exit_code": 0
+    },
+    {
+      "label": "native-tests",
+      "seconds": 14.40787230571732,
+      "peak_rss_bytes": 581406720,
+      "exit_code": 0
+    },
+    {
+      "label": "race",
+      "seconds": 30.413674314972013,
+      "peak_rss_bytes": 590147584,
+      "exit_code": 0
+    },
+    {
+      "label": "asan",
+      "seconds": 26.870355837978423,
+      "peak_rss_bytes": 577916928,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 18.323282551020384,
+      "peak_rss_bytes": 275296256,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-cli-build",
+      "seconds": 3.935397007036954,
+      "peak_rss_bytes": 26796032,
+      "exit_code": 0
+    },
+    {
+      "label": "vet",
+      "seconds": 3.961995247285813,
+      "peak_rss_bytes": 29249536,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-fresh",
+      "seconds": 5.128170148003846,
+      "peak_rss_bytes": 21450752,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-cached",
+      "seconds": 1.2411362947896123,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-root-restart",
+      "seconds": 3.65897024795413,
+      "peak_rss_bytes": 19521536,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-cuda-free-readback",
+      "seconds": 1.2322934800758958,
+      "peak_rss_bytes": 7196672,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-fresh",
+      "seconds": 6.119367705192417,
+      "peak_rss_bytes": 359653376,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-cached",
+      "seconds": 1.2356603844091296,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-root-restart",
+      "seconds": 6.099984331987798,
+      "peak_rss_bytes": 287838208,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-cuda-free-readback",
+      "seconds": 1.2103956858627498,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-fresh",
+      "seconds": 4.963281074073166,
+      "peak_rss_bytes": 50749440,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-cached",
+      "seconds": 1.2323565538972616,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-root-restart",
+      "seconds": 3.8417470026761293,
+      "peak_rss_bytes": 19714048,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-cuda-free-readback",
+      "seconds": 1.2796390033327043,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-fresh",
+      "seconds": 6.1981032197363675,
+      "peak_rss_bytes": 360488960,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-cached",
+      "seconds": 1.2550210519693792,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-root-restart",
+      "seconds": 6.244514998048544,
+      "peak_rss_bytes": 353251328,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-cuda-free-readback",
+      "seconds": 1.254450268112123,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "memcheck",
+      "seconds": 8.88165857642889,
+      "peak_rss_bytes": 544493568,
+      "exit_code": 0
+    }
+  ],
+  "scope": "bounded complete persistent GPU preprocessing; not full s17 admission or latency",
+  "cases": [
+    {
+      "layout": "peer",
+      "gpus": 1,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "9bc6c4ed95dfb26a42149cf4d5f98b580ff447ccffe4b9fe804c413c2cf7ea60",
+        "root": "b4e51af7f13f7ffba32d9638ccf9d09e80a8909846a3338c6e46700d63385670",
+        "code": "542a114328b0db82d782f1bc859217898dac4c3d5da3c4b16c5ac57f2fc046f8"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-preprocessing-workflow/validation-02/peer-1"
+    },
+    {
+      "layout": "peer",
+      "gpus": 4,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "148c5366600ddde36ea500b1ce729056241727bfef5537446a20575a0c925ca6",
+        "root": "aa5c381f6a7913d71e2b69192d4c9b50ed51c5381df0066531409019db5293bf",
+        "code": "17c44aa5bb4aa56564a637c59d447e3a122cb83730be59b0d34af7c15636ac26"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-preprocessing-workflow/validation-02/peer-4"
+    },
+    {
+      "layout": "local",
+      "gpus": 1,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "62dfd5a6aee9c30feae026ab9c4e7aa01af4aa2b5f43fee32a16c6ee47e97c66",
+        "root": "fe40373d1d653a30159334d14f6f7f4ea55971733b084125c78e367ef99406b1",
+        "code": "18f57192bd73e366707874e813e1ad7c905208312f29778e98371b90369721ee"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-preprocessing-workflow/validation-02/local-1"
+    },
+    {
+      "layout": "local",
+      "gpus": 4,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "bd31c0f8475455dd759f7a5166f92003edca9c08383f02ed917cf1b03811a69d",
+        "root": "9ffe5a01dc08beb3da8bb2af74f9e9a6bdf79b97f491b55bc71ed0acaf0ce74f",
+        "code": "9b84377d32cff972a945b30bb61e0abe4f96f718c7e2d14227a8d72b51cc64ef"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-preprocessing-workflow/validation-02/local-4"
+    }
+  ]
+}

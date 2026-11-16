@@ -484,3 +484,11 @@ but four-GPU discovery stalls on gnode03 with a later GPU-reset report. It is
 failed/incomplete, distinct from prior successful four-card kernels on gnode02.
 No fulls17 cell changes. [Forensic report and unchanged-budget retry](../experiments/gpu-preprocessing-workflow/report.md#job75194-failure-and-bounded-retry-scaling-079)
 retain unknown fault cause, partial caches and bounded-shutdown/preflight changes.
+
+Persistent complete-path validation75342 passes ongnode04 in3min42s including
+builds/tests. Peer/local1/4GPU fresh/root/completed-cache cases, CUDA-free
+readback, independent Go bytes, peer preflight, race/ASan/vet and zero CUDA errors/
+leaks pass;509/37/73 source/evidence/cache identities reconcile. This completes
+the small persistent-runner gate, not any fulls17 measurement or capacity claim.
+Full support/cardinality, concurrent RAM/device/storage/time budget and guarded
+launch admission remain next. [Report](../experiments/gpu-preprocessing-workflow/report.md#completed-persistent-workflow-validation-scaling-080).

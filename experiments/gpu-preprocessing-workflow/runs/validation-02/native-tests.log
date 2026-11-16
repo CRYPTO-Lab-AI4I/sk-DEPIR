@@ -1,0 +1,10 @@
+=== RUN   TestPublicationFailureAndReuse
+--- PASS: TestPublicationFailureAndReuse (0.00s)
+=== RUN   TestExplicitCLIAndDeviceBounds
+--- PASS: TestExplicitCLIAndDeviceBounds (0.00s)
+=== RUN   TestPersistentReferenceAndRestart
+{"utc":"2026-11-16T08:11:03.722845775Z","phase":"write-support","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000017019}
+{"utc":"2026-11-16T08:11:03.744776154Z","phase":"read-support","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000003169}
+--- PASS: TestPersistentReferenceAndRestart (0.04s)
+PASS
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/cmd/pir-preprocess	0.046s

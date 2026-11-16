@@ -1846,3 +1846,17 @@ Fix bounded controller shutdown (old post-KILL wait was unlimited), add60second
 runtime-peer-copy/same-transpose preflight before builds, retry unchanged budget
 on the previously successful gnode02. Preserve all caches/profiles and unresolved
 node03 deployment evidence. No hardware reset or cross-node/full-size launch.
+
+### Persistent workflow validation complete (SCALING-080)
+
+Job75342 ongnode04 passes in3min42s including builds and every small complete
+peer/local1/4GPU workflow, checkpoint/final/CPUreadback path, independent Go bytes,
+peer probe, native/race/ASan/vet and fresh CUDA memcheck (zero errors/leaks).
+509source/37evidence/73cache identities reconcile. Retain all profiles/cache and
+prior gnode03 failure; node04 success does not establish its reset cause.
+
+Mark persistent-runner small validation complete. Next finish fulls17 exact
+cardinality/support and aggregate live host/device/storage/time admission plus
+full-job guard configuration. Existing384GiB device arrays/~235GiB retained
+files are projections, not the full budget. User permits8/16GPUs if helpful;
+cross-node execution still needs implementation. No fulls17 run launched here.

@@ -191,3 +191,34 @@ Use accessible eligible nodes by default for future work, preserving a documente
 exclusion for unresolved faulty nodes rather than pinning to a busy one. The peer
 preflight checks selected devices before the full suite. No progress/log polling,
 GPU reset or budget increase; await completion ping before result analysis.
+
+## Completed persistent workflow validation (SCALING-080)
+
+Job75342 **passes** ongnode04, schedulerCOMPLETED0:0,elapsed3min42s;
+controller221.366s including builds and all checks. It ran after the authorized
+node pin removal, retaining4H200/4GiB,4CPU/8GiBhost and all prior guards. Actual
+recorded source is209c4f9; [analysis](runs/validation-02/analysis.json) reconciles
+509 source,37 evidence and73 retained-cache identities against that revision.
+[Results/exact commands](runs/validation-02/results.json), [Slurm log](slurm-75342.log),
+[runner](run.py), [analyzer](analyze.py), original submission and placement-update
+records preserve the full provenance chain. Profiles/caches/binaries remain in
+`.cache/liftrs/gpu-preprocessing-workflow/validation-02/`.
+
+All12 directional runtime copies and the complete peer-transpose probe pass.
+CUDA-free/native publication/failure-retention/Go-reference/corruption/binding tests,
+race, ASan, CUDA builds and vet pass. Four s8 cases (peer/local,1/4cards) each pass
+fresh discovery/preparation/full identities/publication, completed-cache resume,
+root-checkpoint replay and CUDA-free readback. Canonical bytes match the retained
+independent-Go fixture; support/root source identities persist across replay.
+Each invocation retains its unique profile. The standalone fresh four-card s4
+local executable reports **zero CUDA memcheck errors and zero bytes leaked**.
+No shutdown/resource guard fires. These are complete small workflows, not fulls17
+execution, an unprofiled performance baseline or a full-size memory guarantee.
+
+Persistent workflow validation gate is complete. Next prepare exact fulls17
+support/cardinality and concurrent host/device/storage/time admission with the
+existing~384GiB product-array/~235GiB retained-cache projections; do not infer
+latency from these tiny cases or launch without an agreed complete budget.
+Four/eight/sixteen GPU choices remain eligible, with8/16here requiring cross-node
+implementation. Prior gnode03 reset cause stays unresolved; passinggnode04 does
+not prove hardware versus application origin. All failed evidence remains intact.
