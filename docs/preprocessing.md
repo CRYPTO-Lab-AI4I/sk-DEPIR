@@ -271,3 +271,15 @@ and profile; no support/root/code payloads or discovery sampling occur. The
 record cannot certify support or skip full discovery/preparation. The device
 bitmap is discarded on Close instead of adding a2 GiB host/file copy; full
 discovery later re-enumerates it. [Validation, provenance and exact size models](../experiments/s17-preprocessing-admission/report.md).
+
+Count admission75810 passes exhaustive s17 K=3876566203 with s8 Go/s16 cache
+references, complete small workflows, race/ASan/vet and zero CUDA errors/leaks.
+This is exact dimension, not sampled support or full preparation. Successful
+s17 files calculate to235.324 GiB. Discovery's conservative principal model is
+189.765 GiB (including union and validation bitmaps); final retained host arrays
+220.883 GiB, plus unmeasured temporaries/GC/runtime/cache. The [guarded full plan](../experiments/gpu-s17-full-preprocessing/report.md)
+is prepared and awaits numeric resource agreement. Long host support ordering/
+Frobenius, normalization and root-field scans now report advancing65536-element
+chunks; arithmetic/check order and existing buffers remain unchanged. Independent
+Go/native results and cross-chunk progress/error tests pass. Instrumentation
+cost is included/unquantified, no new full data pass or slower memory mode.

@@ -1,0 +1,10 @@
+========= COMPUTE-SANITIZER
+{"completed":0,"elapsed_seconds":0.000007333,"event":"started","phase":"workflow","total":1,"unit":"operations","utc":"2026-11-16T09:42:16.143658275Z"}
+{"completed":0,"elapsed_seconds":4.659401326,"event":"started","phase":"exact-dimension","total":1,"unit":"operations","utc":"2026-11-16T09:42:20.803056229Z"}
+{"completed":1,"elapsed_seconds":4.67877157,"event":"completed","phase":"exact-dimension","total":1,"unit":"operations","utc":"2026-11-16T09:42:20.822424877Z"}
+{"completed":37,"elapsed_seconds":5.17357563,"event":"completed","phase":"exact-dimension-result","total":256,"unit":"monomials","utc":"2026-11-16T09:42:21.317230219Z"}
+{"completed":1,"elapsed_seconds":5.17359882,"event":"completed","phase":"workflow","total":1,"unit":"operations","utc":"2026-11-16T09:42:21.317254722Z"}
+exact dimension record (not support/code data): /hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-preprocessing-admission/counts-01/dimension-memcheck
+CPU profile: /hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-preprocessing-admission/counts-01/dimension-memcheck/cpu-1870659358.pprof
+========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+========= ERROR SUMMARY: 0 errors

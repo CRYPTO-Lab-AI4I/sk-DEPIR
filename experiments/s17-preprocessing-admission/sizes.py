@@ -8,7 +8,7 @@ def model(k):
  if not 0<k<=n//2:raise ValueError('current s17 code requires0<K<=N/2')
  files={'support':8*k,'root':4*(k+1),'canonical_code':53+4*(k+1)+8*n,'generator':4*(n-k)}
  return {'s':17,'n':n,'k':k,'file_bytes':files,'retained_file_bytes':sum(files.values()),'retained_bound_bytes':18*n+61,
- 'device_product_array_bytes':3*8*n,'discovery_principal_host_bytes':16*k+8*n+n//8,
+ 'device_product_array_bytes':3*8*n,'discovery_principal_host_bytes':16*k+8*n+2*(n//8),
  'final_retained_principal_host_bytes':8*k+12*n+4,'peak_host_rss_bytes':None,'full_latency_seconds':None,
  'limitations':'Array/file models only; extra product/Newton temporaries, GC retention, runtime, driver, filesystem cache, staging, logs/profiles, partial stages and headroom additional. Not admission.'}
 

@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-16 10:09 | SCALING-082 | Handoff | [Exact counts pass; full resource plan prepared](2026-11-16-1009-codex-scaling-082-handoff.md) |
+| 2026-11-16 09:45 | SCALING-082 | Started | [Exact s17 count and full-run launch plan](2026-11-16-0945-codex-scaling-082-started.md) |
 | 2026-11-16 09:39 | SCALING-081 | Handoff | [Exact dimension admission job75810](2026-11-16-0939-codex-scaling-081-handoff.md) |
 | 2026-11-16 09:37 | SCALING-081 | Handoff | [Exact dimension and sizing prepared](2026-11-16-0937-codex-scaling-081-prepared.md) |
 | 2026-11-16 08:29 | SCALING-081 | Started | [Exact dimension and fulls17 resource admission](2026-11-16-0829-codex-scaling-081-started.md) |

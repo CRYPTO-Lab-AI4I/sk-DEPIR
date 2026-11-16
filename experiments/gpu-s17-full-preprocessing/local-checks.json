@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "utc": "2026-11-16T10:05:17.415485+00:00",
+  "checks": [
+    "full-controller test_plan_and_rejection and log-tail handling",
+    "run.py --check: approved=False, no allocation/launch",
+    "bash -n run.sbatch and Python AST",
+    "native Go-oracle/restart/count tests pass after progress-only loop changes",
+    "cross-chunk support validation/progress and duplicate rejection test passes (Go-only)",
+    "gofmt and git diff --check",
+    "budget/count admission JSON bytes are snapshotted once with matching record hashes; no mutable-plan ambiguity"
+  ],
+  "source_sha256": {
+    "experiments/gpu-s17-full-preprocessing/run.py": "f2ac40d48de8faffd4d283e22c4abb8b56adb41efb33c6f6b6fffeced53eea06",
+    "experiments/gpu-s17-full-preprocessing/run.sbatch": "6acb7f39c2dc7084fc0664a3bb55bbf4b5356951749fceb5e00dd34dabf30923",
+    "experiments/gpu-s17-full-preprocessing/analyze.py": "b974e58c0d61f51f73b95b88f9bbc6736ecb024325650297c5e6d3a25ed6be6b",
+    "experiments/gpu-s17-full-preprocessing/test_controller.py": "77d3c3f3025bfca73602a623b2eb490a49152d3ada08988c99b8c6c0ffdfdfa3",
+    "experiments/gpu-s17-full-preprocessing/budget.json": "d2d2d321d3f8d9a58e24946cd72f94227b545ebbfe9d286c8edd0d36a28b9ac3",
+    "encoding/liftrs-shared/preprocessing_core.go": "4ec8968fa7c6bc4455cdc14fb6799e6e4543888994c0ab6f31900cee9a23bdc9",
+    "encoding/liftrs-shared/preprocessing_progress_test.go": "ae64b572ccf4363137e251d54d3b98063cc02afde63a1a3f895e7dfcf91b5a82",
+    "experiments/s17-preprocessing-admission/sizes.py": "68c43b8db2ac647dae238a0b93531c21c29c9d8b35d507d648abc8f56a2f3057"
+  },
+  "limitations": [
+    "No fulls17 execution, measured peak RSS or full latency.",
+    "New full controller tested without allocating large resources; uses previously validated CLI and guard helpers.",
+    "Numeric full-job resources await user agreement; not submitted."
+  ]
+}

@@ -1,0 +1,62 @@
+========= COMPUTE-SANITIZER
+{"completed":0,"elapsed_seconds":0.000004836,"event":"started","phase":"workflow","total":1,"unit":"operations","utc":"2026-11-16T09:42:08.8924485Z"}
+{"completed":0,"elapsed_seconds":0.011380439,"event":"started","phase":"setup","total":1,"unit":"operations","utc":"2026-11-16T09:42:08.903825036Z"}
+{"completed":1,"elapsed_seconds":5.901832605,"event":"completed","phase":"setup","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.794272229Z"}
+{"completed":0,"elapsed_seconds":5.901932589,"event":"started","phase":"discovery","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.794378459Z"}
+{"completed":0,"elapsed_seconds":5.9019592020000005,"event":"started","phase":"exact-good-monomials","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.794405662Z"}
+{"completed":1,"elapsed_seconds":5.9253759200000005,"event":"completed","phase":"exact-good-monomials","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.817820284Z"}
+{"completed":37,"elapsed_seconds":5.925471313,"event":"progress","phase":"discovery-sample","total":37,"unit":"coefficients","utc":"2026-11-16T09:42:14.817917888Z"}
+{"completed":0,"elapsed_seconds":5.925484609,"event":"started","phase":"discovery-base-grid","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.817931175Z"}
+{"completed":1,"elapsed_seconds":5.943475116,"event":"completed","phase":"discovery-base-grid","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.835919908Z"}
+{"completed":0,"elapsed_seconds":5.943541173,"event":"started","phase":"discovery-extension-interpolation","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.835987264Z"}
+{"completed":1,"elapsed_seconds":5.963292667,"event":"completed","phase":"discovery-extension-interpolation","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.855737666Z"}
+{"completed":256,"elapsed_seconds":5.963386445,"event":"progress","phase":"discovery-support-union","total":256,"unit":"positions","utc":"2026-11-16T09:42:14.855832403Z"}
+{"completed":256,"elapsed_seconds":5.963397337,"event":"progress","phase":"discovery-support-output","total":256,"unit":"positions","utc":"2026-11-16T09:42:14.855843317Z"}
+{"completed":1,"elapsed_seconds":5.963405632,"event":"completed","phase":"discovery","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.855851984Z"}
+{"completed":0,"elapsed_seconds":5.965095253,"event":"started","phase":"write-support.bin","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.857541028Z"}
+{"utc":"2026-11-16T09:42:14.860004076Z","phase":"write-support","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000013342}
+{"completed":148,"elapsed_seconds":5.968593143,"event":"progress","phase":"write-support.bin","total":148,"unit":"bytes","utc":"2026-11-16T09:42:14.861039301Z"}
+{"completed":1,"elapsed_seconds":5.968602942,"event":"completed","phase":"write-support.bin","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.861049074Z"}
+{"completed":0,"elapsed_seconds":6.021542524,"event":"started","phase":"read-support-support.bin","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.913987289Z"}
+{"completed":148,"elapsed_seconds":6.022240996,"event":"progress","phase":"read-support-support.bin","total":148,"unit":"bytes","utc":"2026-11-16T09:42:14.91466821Z"}
+{"completed":1,"elapsed_seconds":6.022254184,"event":"completed","phase":"read-support-support.bin","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.914700228Z"}
+{"completed":0,"elapsed_seconds":6.02226116,"event":"started","phase":"preparation-and-identities","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.914707694Z"}
+{"completed":0,"elapsed_seconds":6.022279412,"event":"started","phase":"validation","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.91472607Z"}
+{"completed":1,"elapsed_seconds":6.022286163,"event":"completed","phase":"validation","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.914732906Z"}
+{"completed":0,"elapsed_seconds":6.022291438,"event":"started","phase":"root-product","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.91473813Z"}
+{"completed":37,"elapsed_seconds":6.027127949,"event":"progress","phase":"root-product","total":37,"unit":"exponents","utc":"2026-11-16T09:42:14.9195725Z"}
+{"completed":1,"elapsed_seconds":6.027172553,"event":"completed","phase":"root-product","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.919618946Z"}
+{"completed":0,"elapsed_seconds":6.027181278,"event":"started","phase":"normalization","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.919627206Z"}
+{"completed":0,"elapsed_seconds":6.046634524,"event":"started","phase":"write-root.bin","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.939078643Z"}
+{"completed":152,"elapsed_seconds":6.049873956,"event":"progress","phase":"write-root.bin","total":152,"unit":"bytes","utc":"2026-11-16T09:42:14.942318688Z"}
+{"completed":1,"elapsed_seconds":6.049895403,"event":"completed","phase":"write-root.bin","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.942340445Z"}
+{"completed":0,"elapsed_seconds":6.054764047,"event":"started","phase":"read-root-root.bin","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.947209076Z"}
+{"completed":152,"elapsed_seconds":6.055338649,"event":"progress","phase":"read-root-root.bin","total":152,"unit":"bytes","utc":"2026-11-16T09:42:14.947784017Z"}
+{"completed":1,"elapsed_seconds":6.055350538,"event":"completed","phase":"read-root-root.bin","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.947795916Z"}
+{"completed":1,"elapsed_seconds":6.055358459,"event":"completed","phase":"normalization","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.947805062Z"}
+{"completed":0,"elapsed_seconds":6.055364299,"event":"started","phase":"reciprocal","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.947810957Z"}
+{"completed":1,"elapsed_seconds":6.055404557,"event":"completed","phase":"reciprocal","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.947851246Z"}
+{"completed":0,"elapsed_seconds":6.055409831,"event":"started","phase":"identity","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.94785642Z"}
+{"completed":256,"elapsed_seconds":6.055442525,"event":"progress","phase":"identity-verification","total":256,"unit":"coefficients","utc":"2026-11-16T09:42:14.947889023Z"}
+{"completed":1,"elapsed_seconds":6.055449014,"event":"completed","phase":"identity","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.947895694Z"}
+{"completed":0,"elapsed_seconds":6.055812041,"event":"started","phase":"generator-spectrum","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.948257889Z"}
+{"completed":1,"elapsed_seconds":6.073274536,"event":"completed","phase":"generator-spectrum","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.965718137Z"}
+{"completed":1,"elapsed_seconds":6.073420341,"event":"completed","phase":"preparation-and-identities","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.965852102Z"}
+{"completed":0,"elapsed_seconds":6.074975415,"event":"started","phase":"write-online.bin","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.96742064Z"}
+{"completed":1201,"elapsed_seconds":6.090736148,"event":"progress","phase":"write-online.bin","total":1201,"unit":"bytes","utc":"2026-11-16T09:42:14.983181725Z"}
+{"completed":1,"elapsed_seconds":6.09074916,"event":"completed","phase":"write-online.bin","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.983193865Z"}
+{"completed":0,"elapsed_seconds":6.090762889,"event":"started","phase":"write-generator.bin","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.983207988Z"}
+{"completed":876,"elapsed_seconds":6.093371998,"event":"progress","phase":"write-generator.bin","total":876,"unit":"bytes","utc":"2026-11-16T09:42:14.985817777Z"}
+{"completed":1,"elapsed_seconds":6.093380425,"event":"completed","phase":"write-generator.bin","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.985826599Z"}
+{"completed":0,"elapsed_seconds":6.093386755,"event":"started","phase":"read-.-generator.bin","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.98583343Z"}
+{"completed":876,"elapsed_seconds":6.093776592,"event":"progress","phase":"read-.-generator.bin","total":876,"unit":"bytes","utc":"2026-11-16T09:42:14.986221576Z"}
+{"completed":1,"elapsed_seconds":6.093794633,"event":"completed","phase":"read-.-generator.bin","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.98624016Z"}
+{"completed":0,"elapsed_seconds":6.094219637,"event":"started","phase":"verify-final-cache","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.98666608Z"}
+{"completed":1,"elapsed_seconds":6.094253288,"event":"completed","phase":"verify-final-cache","total":1,"unit":"operations","utc":"2026-11-16T09:42:14.986699803Z"}
+{"completed":12040,"elapsed_seconds":6.118977005,"event":"observed","phase":"native-owned-bytes","total":8388608,"unit":"bytes","utc":"2026-11-16T09:42:15.011421454Z"}
+{"completed":148432,"elapsed_seconds":6.118990642,"event":"observed","phase":"device-owned-bytes","total":4294967296,"unit":"bytes","utc":"2026-11-16T09:42:15.011435652Z"}
+{"completed":1,"elapsed_seconds":6.686401974,"event":"completed","phase":"workflow","total":1,"unit":"operations","utc":"2026-11-16T09:42:15.578842846Z"}
+verified preprocessing cache: /hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-preprocessing-admission/counts-01/memcheck
+CPU profile: /hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-preprocessing-admission/counts-01/memcheck/cpu-839890979.pprof
+========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+========= ERROR SUMMARY: 0 errors

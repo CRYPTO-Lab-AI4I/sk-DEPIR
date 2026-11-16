@@ -1877,3 +1877,26 @@ Successful retained payload ≤288 GiB+61 bytes forK≤N/2; incomplete stages an
 headroom additional. Draft full-node RAM/storage/time/exclusive-CPU budget is
 not approved. Finish count/heap/resource checks and obtain numeric full agreement
 before launching s17.8/16GPU options remain eligible but need cross-node execution.
+
+### Exact counts validated; full resource agreement next (SCALING-082)
+
+75810 passes513source/41evidence/85cache identities, all workflows/references,
+race/ASan/vet and zero CUDA errors/leaks. Exact s17 K3876566203,N17179869184;
+235.324GiB successful files from the verified format. No full sampled support or
+prepared s17 cache yet.189.765GiB discovery principal model includes both possible
+bitmaps,220.883GiB final retained arrays; transient/GC/driver/cache peak unknown.
+
+[Full guarded controller/budget](../experiments/gpu-s17-full-preprocessing/report.md)
+prepared: one exclusive node128allocated cores/32workers,864GiB RAM request,
+800GiB RSS/720GiB Go soft limit,4H200112GiB owned/card,512GiB retained/16GiBscratch,
+45hworker/46hcontroller/48hSlurm cutoffs. Explicit local layout candidate; peer
+library default retained. No resource agreement or submission yet.8/16GPU options
+remain available for future distributed execution; existing four-card route fits
+the device array model, not a proven full-runtime guarantee.
+
+Audit controller startup/source/count guards, bounded shutdown, shared/storage/
+RSS/headroom watches and no hidden235GiB exit rehash. Long host validation and
+normalization progress added without arithmetic changes/new large arrays;
+independent reference and cross-chunk/controller tests pass. Request full numeric
+agreement only after concrete configuration/reproduction is reviewable. No extra
+tile benchmark or full run during this review.

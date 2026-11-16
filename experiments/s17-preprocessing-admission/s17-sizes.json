@@ -1,0 +1,29 @@
+{
+  "s": 17,
+  "n": 17179869184,
+  "k": 3876566203,
+  "file_bytes": {
+    "support": 31012529624,
+    "root": 15506264816,
+    "canonical_code": 152945218341,
+    "generator": 53213211924
+  },
+  "retained_file_bytes": 252677224705,
+  "retained_bound_bytes": 309237645373,
+  "device_product_array_bytes": 412316860416,
+  "discovery_principal_host_bytes": 203758980016,
+  "final_retained_principal_host_bytes": 237170959836,
+  "peak_host_rss_bytes": null,
+  "full_latency_seconds": null,
+  "limitations": "Array/file models only; extra product/Newton temporaries, GC retention, runtime, driver, filesystem cache, staging, logs/profiles, partial stages and headroom additional. Not admission.",
+  "dimension_manifest_sha256": "383604f5d01b560f7dac5811da922e054d924412f115ae243758f1765d070fd0",
+  "count_producer": {
+    "gpu_plugin_sha256": "816d811109c421abc005688783f6b4c51559dd0f76f8241861d63f02125edd3e",
+    "revision": "c63c4db80b4da7c77023b1eaeb3ad1adb7105eea",
+    "executable_sha256": "fe957df2b29285358d599e52391a0cae87dbea0684e9a2dad5fb9711bac5439a",
+    "backend": "cuda",
+    "devices": "0,1,2,3",
+    "vector_layout": "peer",
+    "utc": "2026-11-16T09:42:35.295601975Z"
+  }
+}

@@ -1,0 +1,11 @@
+{"completed":0,"elapsed_seconds":0.000008502,"event":"started","phase":"workflow","total":1,"unit":"operations","utc":"2026-11-16T09:42:28.874924674Z"}
+{"completed":0,"elapsed_seconds":4.594317637,"event":"started","phase":"exact-dimension","total":1,"unit":"operations","utc":"2026-11-16T09:42:33.469238304Z"}
+{"utc":"2026-11-16T09:42:33Z","phase":"GPU-good-weight-classes","work":"gpu-preparation","event":"started","completed":0,"total":43046721,"elapsed_ms":0,"unit":"classes per GPU"}
+{"utc":"2026-11-16T09:42:33Z","phase":"GPU-good-weight-classes","work":"gpu-preparation","event":"completed","completed":43046721,"total":43046721,"elapsed_ms":4,"unit":"classes per GPU"}
+{"utc":"2026-11-16T09:42:33Z","phase":"GPU-good-expansion","work":"gpu-preparation","event":"started","completed":0,"total":4294967296,"elapsed_ms":0,"unit":"monomials"}
+{"utc":"2026-11-16T09:42:33Z","phase":"GPU-good-expansion","work":"gpu-preparation","event":"completed","completed":4294967296,"total":4294967296,"elapsed_ms":10,"unit":"monomials"}
+{"completed":1,"elapsed_seconds":4.614482246,"event":"completed","phase":"exact-dimension","total":1,"unit":"operations","utc":"2026-11-16T09:42:33.489402026Z"}
+{"completed":918672421,"elapsed_seconds":5.104963713,"event":"completed","phase":"exact-dimension-result","total":4294967296,"unit":"monomials","utc":"2026-11-16T09:42:33.979882433Z"}
+{"completed":1,"elapsed_seconds":5.104993453,"event":"completed","phase":"workflow","total":1,"unit":"operations","utc":"2026-11-16T09:42:33.979914786Z"}
+exact dimension record (not support/code data): /hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-preprocessing-admission/counts-01/dimension-s16
+CPU profile: /hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-preprocessing-admission/counts-01/dimension-s16/cpu-502771248.pprof

@@ -1,0 +1,14 @@
+=== RUN   TestPublicationFailureAndReuse
+--- PASS: TestPublicationFailureAndReuse (0.00s)
+=== RUN   TestExplicitCLIAndDeviceBounds
+--- PASS: TestExplicitCLIAndDeviceBounds (0.00s)
+=== RUN   TestPersistentReferenceAndRestart
+{"utc":"2026-11-16T09:39:50.746603222Z","phase":"write-support","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000014999}
+{"utc":"2026-11-16T09:39:50.768688387Z","phase":"read-support","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000004607}
+--- PASS: TestPersistentReferenceAndRestart (0.04s)
+=== RUN   TestExactDimensionAdmission
+{"utc":"2026-11-16T09:39:50.778873178Z","phase":"exact-dimension","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":7.36e-7}
+{"utc":"2026-11-16T09:39:50.781560674Z","phase":"exact-dimension","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.002688748}
+--- PASS: TestExactDimensionAdmission (0.01s)
+PASS
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/cmd/pir-preprocess	0.063s

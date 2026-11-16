@@ -1,0 +1,334 @@
+{
+  "status": "passed",
+  "job_id": "75810",
+  "revision": "c63c4db80b4da7c77023b1eaeb3ad1adb7105eea",
+  "source_files_verified": 513,
+  "evidence_files_verified": 41,
+  "cache_files_verified": 85,
+  "tests": [
+    "atomic stage publication and failure retention",
+    "independent Go canonical bytes",
+    "fresh and completed-cache/root restarts",
+    "CUDA-free final-cache readback",
+    "corruption/source-binding rejection",
+    "race/ASan/vet",
+    "fresh executable CUDA memcheck",
+    "count-only small CUDA memcheck, independent-Go s8/s16 dimension and full s17 enumeration without host support/grid"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 1.2871439456939697,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 1.20938821695745,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "gpu",
+      "seconds": 1.1828197687864304,
+      "peak_rss_bytes": 21700608,
+      "exit_code": 0
+    },
+    {
+      "label": "topology",
+      "seconds": 1.1665995866060257,
+      "peak_rss_bytes": 21700608,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 1.1590956673026085,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 1.1560661010444164,
+      "peak_rss_bytes": 417792,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 1.1518326569348574,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 1.1646765060722828,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "controller-tests",
+      "seconds": 1.155589409172535,
+      "peak_rss_bytes": 26181632,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe-build",
+      "seconds": 8.178491646423936,
+      "peak_rss_bytes": 184934400,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe",
+      "seconds": 5.958208087831736,
+      "peak_rss_bytes": 243650560,
+      "exit_code": 0
+    },
+    {
+      "label": "go-only-build",
+      "seconds": 14.96946595609188,
+      "peak_rss_bytes": 265306112,
+      "exit_code": 0
+    },
+    {
+      "label": "go-only-tests",
+      "seconds": 5.336351772770286,
+      "peak_rss_bytes": 29437952,
+      "exit_code": 0
+    },
+    {
+      "label": "native-tests",
+      "seconds": 14.427037756890059,
+      "peak_rss_bytes": 603934720,
+      "exit_code": 0
+    },
+    {
+      "label": "race",
+      "seconds": 30.72375674918294,
+      "peak_rss_bytes": 606679040,
+      "exit_code": 0
+    },
+    {
+      "label": "asan",
+      "seconds": 27.080804040655494,
+      "peak_rss_bytes": 606601216,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 18.476165987551212,
+      "peak_rss_bytes": 275189760,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-cli-build",
+      "seconds": 4.0158366933465,
+      "peak_rss_bytes": 121581568,
+      "exit_code": 0
+    },
+    {
+      "label": "vet",
+      "seconds": 4.009264225140214,
+      "peak_rss_bytes": 30814208,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-fresh",
+      "seconds": 5.103728948161006,
+      "peak_rss_bytes": 19386368,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-cached",
+      "seconds": 1.242565168067813,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-root-restart",
+      "seconds": 4.9153746999800205,
+      "peak_rss_bytes": 19566592,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-cuda-free-readback",
+      "seconds": 1.232778837904334,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-fresh",
+      "seconds": 6.1181958224624395,
+      "peak_rss_bytes": 484118528,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-cached",
+      "seconds": 1.2421133760362864,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-root-restart",
+      "seconds": 6.256945740431547,
+      "peak_rss_bytes": 285364224,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-cuda-free-readback",
+      "seconds": 1.264439919963479,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-fresh",
+      "seconds": 3.7205027006566525,
+      "peak_rss_bytes": 21651456,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-cached",
+      "seconds": 1.2301787864416838,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-root-restart",
+      "seconds": 3.7327845878899097,
+      "peak_rss_bytes": 21671936,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-cuda-free-readback",
+      "seconds": 1.2311025466769934,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-fresh",
+      "seconds": 6.114676054567099,
+      "peak_rss_bytes": 482312192,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-cached",
+      "seconds": 1.2433293275535107,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-root-restart",
+      "seconds": 6.435000279918313,
+      "peak_rss_bytes": 365043712,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-cuda-free-readback",
+      "seconds": 1.2439179923385382,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "memcheck",
+      "seconds": 7.720684546977282,
+      "peak_rss_bytes": 558178304,
+      "exit_code": 0
+    },
+    {
+      "label": "dimension-memcheck",
+      "seconds": 6.486507499590516,
+      "peak_rss_bytes": 426446848,
+      "exit_code": 0
+    },
+    {
+      "label": "dimension-s8",
+      "seconds": 6.256402024999261,
+      "peak_rss_bytes": 253218816,
+      "exit_code": 0
+    },
+    {
+      "label": "dimension-s16",
+      "seconds": 6.377576481550932,
+      "peak_rss_bytes": 362962944,
+      "exit_code": 0
+    },
+    {
+      "label": "dimension-s17",
+      "seconds": 6.276123927906156,
+      "peak_rss_bytes": 358674432,
+      "exit_code": 0
+    }
+  ],
+  "scope": "complete small workflows and exact dimension components; not full s17 discovery/support/preparation or full resource admission",
+  "dimensions": [
+    {
+      "s": 8,
+      "k": 7381,
+      "n": 65536,
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-preprocessing-admission/counts-01/dimension-s8",
+      "manifest_sha256": "e14e143cc64acd96fc398f359e151f9c567dbdd449a7a304ad40abe8796e7b5e"
+    },
+    {
+      "s": 16,
+      "k": 918672421,
+      "n": 4294967296,
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-preprocessing-admission/counts-01/dimension-s16",
+      "manifest_sha256": "31bcb3479109480b166c1d93a2d1ac833e74dba099276d19c6a1c30f808b9a88"
+    },
+    {
+      "s": 17,
+      "k": 3876566203,
+      "n": 17179869184,
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-preprocessing-admission/counts-01/dimension-s17",
+      "manifest_sha256": "383604f5d01b560f7dac5811da922e054d924412f115ae243758f1765d070fd0"
+    }
+  ],
+  "cases": [
+    {
+      "layout": "peer",
+      "gpus": 1,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "78134cb7ea94a0cbd985a4360be3654c5d14b5dc8dd78d5e4f543d7e9d67ae42",
+        "root": "3c4131903fa5585b41a2ebdb467398c196abac1072ba45e88044937b97ab0a6b",
+        "code": "e3f7dc5a017461536299d6529e0258f8ea7c4cf2ac593b0816b431356006b76e"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-preprocessing-admission/counts-01/peer-1"
+    },
+    {
+      "layout": "peer",
+      "gpus": 4,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "5813ef8b0ada01ac9cd966a0e55b9568e552fbba8929972ba8170657ee130f8b",
+        "root": "3f26b94a25ffbce2f1b7a5f545b64cf65eee56c4ce87ab2b24258735a637df9b",
+        "code": "2feb7396fb635f85b36ebe5bdd54eca61d40d6fee5cb987931fe7ee52cae5cc5"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-preprocessing-admission/counts-01/peer-4"
+    },
+    {
+      "layout": "local",
+      "gpus": 1,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "3be2635ee3f8eea4f416b361f5aa993b86ba83a4ffa64fc07d066f077eede866",
+        "root": "2adc54c2bedb9a18f01994e11dc55f7e0b06e404f33e2b46f251d61eb41a86bd",
+        "code": "86384913357fcbfe365420a5d38825dec45514ed34504842c5fe88bfadabbfa6"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-preprocessing-admission/counts-01/local-1"
+    },
+    {
+      "layout": "local",
+      "gpus": 4,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "2e5042f512551e2febdd5e505a71ff674c4e2d64fa894e888942169c8d26cfe4",
+        "root": "dfdb77974521a8701f86f79537399f3163bc2e6c53bfaaa10b2898c343e5cfc4",
+        "code": "3e05f4d994c2a5df6a3e42ccb829950354fa05d2dec1a6dda6e609876858cc6e"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-preprocessing-admission/counts-01/local-4"
+    }
+  ]
+}

@@ -95,8 +95,8 @@ for the current admitted shape0<K≤N/2. These are format-derived sizes, not mea
 storage/peak RAM. Failed partial stages, metadata/logs/profiles and headroom are
 additional. Fresh persistence writes/hashes and reads back each payload once.
 
-Discovery principal live-array model is16K+8N+N/8 bytes (two index lists, grid,
-bitmap); final retained arrays are8K+12N+4 bytes (support,P,G,spectrum, with the
+Discovery principal live-array model is16K+8N+2(N/8) bytes (two index lists,
+grid and union/validation bitmaps); final retained arrays are8K+12N+4 bytes (support,P,G,spectrum, with the
 saved root sharing P). Root/Newton products, old GC-retained buffers, native/
 runtime/staging and filesystem cache are additional. These formulas do not bound
 full process RSS. Existing~600 GiB host scenarios remain unmeasured.
@@ -123,3 +123,37 @@ Results/logs: `runs/counts-01/`, `slurm-75810.log`; count records/profiles/binar
 `.cache/liftrs/s17-preprocessing-admission/counts-01/`. No node pin; gnode03 excluded.
 No monitoring/new-result inspection until user completion ping. Full-budget draft
 remains unapproved; no fulls17 support/code preprocessing or client encoding run.
+
+## Completed count admission (SCALING-082)
+
+Job75810 passes ongnode06, sourcec63c4db. [Analysis](runs/counts-01/analysis.json)
+reconciles513 source,41 evidence,85 retained-cache identities. All complete small
+workflow/peer probe/Go-reference/race/ASan/vet and workflow/count-only CUDA memcheck
+checks pass, zero errors/leaks. Controller duration245.873 s includes all builds
+and checks, not full preprocessing. [Results/exact commands](runs/counts-01/results.json),
+[Slurm log](slurm-75810.log), [reproduction runner](run.py) retain the evidence;
+profiles/manifests/binaries persist at the submitted cache path.
+
+| s | Exact K | N | Count-only executable wall time (setup/profile/metadata included) |
+|---|---|---|---|
+| 8 | 7381 | 65536 | 6.256 s |
+| 16 | 918672421 | 4294967296 | 6.378 s |
+| 17 | 3876566203 | 17179869184 | 6.276 s |
+
+s8 agrees with independent Go-certified support; s16 matches the previous verified
+full cache dimension. s17 exhaustively evaluates membership, without full host
+support/grid allocation, and remains a dimension record rather than certified
+sampled support. Count speed says nothing about FFT/product/discovery latency.
+
+[Exact s17 file/array models](s17-sizes.json) now give support28.883 GiB,
+root14.441 GiB, canonical P/spectrum142.441 GiB, G49.559 GiB, total235.324 GiB.
+The conservative principal discovery model includes both possibly live2 GiB
+bitmaps (union and closure validation), totaling189.765 GiB; final retained
+support/P/G/spectrum model220.883 GiB. Additional Newton/tree/identity/GC/runtime/
+driver/cache remains unmeasured; neither number is peak RAM.
+
+The [guarded full launch plan](../gpu-s17-full-preprocessing/report.md) is concrete
+and checked, but awaiting explicit numeric resource agreement. It retains the
+same algorithm and stream-verification contract, adds long host-scan progress,
+and proposes864 GiB host/4H200 with112 GiB/card/512 GiB retained/exclusive128cores
+(32active)/48h cutoff. No full run submitted by this count review.

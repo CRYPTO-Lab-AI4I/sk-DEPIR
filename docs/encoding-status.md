@@ -173,7 +173,7 @@ encoding time. Host memory excludes device allocations unless stated.
 | 14 | Laptop measured | Peak host process RSS: 13.73 GiB | 33 min 38 s | Measured on laptop |
 | 15 | Laptop measured | Peak host process RSS: 20.55 GiB | 3 h 16 min 7 s† | Measured on laptop |
 | 16 | HPC measured | Peak host process RSS: 72.575 GiB | GPU: 2 h 20 min 15.469 s | Measured on this machine |
-| 17 | Not run | Estimated retained host arrays: ≥~220.84 GiB<br>Peak RAM: unknown | GPU planning scenario: ~12–24 h after discovery*<br>Actual GPU/native CPU runtime: unknown | Resident GPU prototype: 4 H200s projected<br>Bounded1/2/4GPU checks pass; full-run admission pending |
+| 17 | Not run (exact dimension component measured)<br>K: 3876566203 | Calculated final retained principal arrays: 220.883 GiB<br>Peak RAM: unknown | GPU planning scenario: ~12–24 h after discovery*<br>Actual GPU/native CPU runtime: unknown | Resident GPU prototype: 4 H200s projected<br>Bounded1/2/4GPU checks pass; full-run admission pending |
 | 18 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 | 19 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 | 20 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
@@ -504,3 +504,24 @@ modeled GPU enumeration payload is not a full preprocessing memory reduction.
 Final RAM/storage/runtime admission and cross-node support remain separate.
 
 [Current configuration/free-space snapshot](../experiments/s17-preprocessing-admission/resource-snapshot.json) supports the admission draft; configuration, filesystem free space and blank QoS fields are not quota or resource approval.
+
+## Exact s17 count and full admission readiness
+
+[Count75810](../experiments/s17-preprocessing-admission/report.md#completed-count-admission-scaling-082)
+passes all checks, with exact K3876566203,N17179869184 and no full host grid/list.
+Count-only executable6.276s includes setup/profiling/metadata; it is not discovery
+or preparation latency.513source/41evidence/85cache identities reconcile, zero
+CUDA errors/leaks. No s17 full-preparation/encoding row becomes measured.
+
+Successful public preprocessing files calculate to235.324GiB: support28.883,
+root14.441, canonical P/spectrum142.441 and G49.559GiB. Discovery principal host
+model189.765GiB (two index lists/grid/two bitmaps); final retained host220.883GiB,
+with product/Newton/identity/GC/runtime/driver/cache overhead additional and peak
+unknown. Existing~220.84GiB/~235GiB estimates are superseded by these exact-K
+calculations, not measured peaks.
+
+[Concrete full controller/resource proposal](../experiments/gpu-s17-full-preprocessing/report.md)
+awaits agreement: exclusive128core node/32workers,864GiB host request,
+4H200112GiB owned/card,512GiB retained/16GiB scratch,48h scheduler cutoff. No full
+job submitted. Defaults and capacity implementation distinctions stay unchanged;
+8/16GPU options need cross-node support and do not imply linear speedup.

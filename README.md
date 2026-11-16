@@ -637,6 +637,11 @@ support; the present command uses one node.
 
 The [s17 admission step](experiments/s17-preprocessing-admission/report.md) adds
 `CountCodeMonomials` and `pir-preprocess --dimension-only`: exact GPU/native counts
-without the full host grid/index list. Local reference/admission tests pass;
-s16/s17 GPU counting is pending bounded validation. Normal preprocessing array
+without the full host grid/index list. GPU count-only validation passes job75810: exact s17 K=3876566203;
+retained preprocessing files calculate to235.324 GiB. Normal preprocessing array
 checks/defaults are unchanged. A count is not certified support or prepared code.
+
+The [full s17 launch configuration](experiments/gpu-s17-full-preprocessing/report.md)
+is prepared with explicit resource/time/checkpoint guards and advancing long
+host-scan counters. Independent reference/progress/controller checks pass; it is
+not approved/submitted. Full peak memory and latency remain unmeasured.

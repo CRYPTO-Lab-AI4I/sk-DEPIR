@@ -98,7 +98,7 @@ func discoverSupport[Word preparationWord](spec Spec, good []int, options OrbitO
 			notice("discovery-support-output", uint64(minInt(n, first+65536)), uint64(n), "positions")
 		}
 	}
-	if err = validateExponentSupport(support, n, uint64(q)); err != nil {
+	if err = validateExponentSupport(support, n, uint64(q), notice); err != nil {
 		return nil, samples, err
 	}
 	return support, samples, nil
@@ -106,22 +106,35 @@ func discoverSupport[Word preparationWord](spec Spec, good []int, options OrbitO
 
 // Cardinality and q-Frobenius arithmetic remain64-bit even when field values
 // fit32-bit slots. The input index slice is immutable and sorted by discovery.
-func validateExponentSupport(support []int, n int, q uint64) error {
+func validateExponentSupport(support []int, n int, q uint64, notices ...preparationNotice) error {
+	notice := newPreparationReporter(nil).notice
+	if len(notices) > 0 && notices[0] != nil {
+		notice = notices[0]
+	}
 	order := n - 1
 	if n < 4 || len(support) == 0 || len(support) > order {
 		return fmt.Errorf("invalid degree-set size")
 	}
 	seen := newExponentSet(order)
-	for j, i := range support {
-		if i < 0 || i >= order || (j > 0 && i <= support[j-1]) {
-			return fmt.Errorf("degree set must be sorted, distinct and exclude N-1")
+	for first := 0; first < len(support); first += 65536 {
+		end := minInt(first+65536, len(support))
+		for j := first; j < end; j++ {
+			i := support[j]
+			if i < 0 || i >= order || (j > 0 && i <= support[j-1]) {
+				return fmt.Errorf("degree set must be sorted, distinct and exclude N-1")
+			}
+			seen.add(i)
 		}
-		seen.add(i)
+		notice("support-order-validation", uint64(end), uint64(len(support)), "exponents")
 	}
-	for _, i := range support {
-		if !seen.has(int(uint64(i) * q % uint64(order))) {
-			return fmt.Errorf("degree set is not Frobenius closed")
+	for first := 0; first < len(support); first += 65536 {
+		end := minInt(first+65536, len(support))
+		for _, i := range support[first:end] {
+			if !seen.has(int(uint64(i) * q % uint64(order))) {
+				return fmt.Errorf("degree set is not Frobenius closed")
+			}
 		}
+		notice("support-Frobenius-validation", uint64(end), uint64(len(support)), "exponents")
 	}
 	return nil
 }
@@ -135,7 +148,7 @@ func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 	roots rootFactorBatch, savedRoot []uint32, saveRoot func([]uint32) error,
 	checkpoint func(string), notice preparationNotice) (p, g []uint32, err error) {
 	checkpoint("before-validation")
-	if err = validateExponentSupport(support, n, q); err != nil {
+	if err = validateExponentSupport(support, n, q, notice); err != nil {
 		return nil, nil, err
 	}
 	p = savedRoot
@@ -173,8 +186,15 @@ func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 			return nil, nil, fmt.Errorf("paired product degree mismatch")
 		}
 		scale := base.inv(p[0])
-		for i := range p {
-			p[i] = base.mul(p[i], scale)
+		for first := 0; first < len(p); first += 65536 {
+			end := minInt(first+65536, len(p))
+			block := p[first:end]
+			for i := range block {
+				block[i] = base.mul(block[i], scale)
+			}
+			if notice != nil {
+				notice("normalization", uint64(end), uint64(len(p)), "coefficients")
+			}
 		}
 		if saveRoot != nil {
 			if err = saveRoot(p); err != nil {
@@ -186,9 +206,15 @@ func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 		if len(p) != len(support)+1 || p[0] != 1 {
 			return nil, nil, fmt.Errorf("root checkpoint shape/normalization")
 		}
-		for _, value := range p {
-			if uint64(value) >= q {
-				return nil, nil, fmt.Errorf("root checkpoint field")
+		for first := 0; first < len(p); first += 65536 {
+			end := minInt(first+65536, len(p))
+			for _, value := range p[first:end] {
+				if uint64(value) >= q {
+					return nil, nil, fmt.Errorf("root checkpoint field")
+				}
+			}
+			if notice != nil {
+				notice("root-field-validation", uint64(end), uint64(len(p)), "coefficients")
 			}
 		}
 	}
