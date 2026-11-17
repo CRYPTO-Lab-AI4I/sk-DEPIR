@@ -1,6 +1,8 @@
 # First full s17 CPU and resident GPU encoding
 
-Status: **fullCPU76645 passed; fullGPU76646 failed its host/cgroup memory guard before completing encoding; GPU retry76706 submitted with640 GiB host RAM/608 GiB total guard**. User requests both
+Status: **CPU76645 and full four-H200 GPU retry76706 passed, with identical
+canonical and packed output hashes**. Earlier GPU76646 failed its host-memory
+guard and is retained as a historical first attempt. User requests both
 jobs after [full preprocessing75832](../gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088)
 and [bounded GPU integration76426](../gpu-code-encoding/report.md#completed-validation-scaling-089)
 pass. This measures standalone mathematical encoding, not application masking,
@@ -361,3 +363,83 @@ Prepared controller9855919; frozen encoding/probeed0c026. Results
 `.cache/liftrs/s17-full-encoding/gpu-retry-02/gpu/`. No dependency, fixed node or
 CPU rerun; four same-node GPUs with gnode03 excluded. No status polling, log
 following or result analysis after submission. Await the user's completion ping.
+
+## Completed full GPU retry (SCALING-102)
+
+**76706 passed**, HPCgnode04,4H200 NVL,32 CPU cores,640 GiB requested host RAM,
+608 GiB total-memory guard,320 GiB RSS/288 GiB Go,112 GiB/card owned cap.
+Slurm **COMPLETED0:0**, **22 min11 s**. Frozen arithmetic/probe source
+`ed0c0260c2eeea183658a788561517c96cd4a2de`, updated controller verified bytewise
+against commit`9855919` and its recorded SHA256 sidecar. [Producer results](runs/gpu-retry-02/gpu/results.json),
+[analysis](runs/gpu-retry-02/gpu/analysis.json), [review summary](runs/gpu-retry-02/gpu/review.json),
+[accounting](runs/gpu-retry-02/gpu/scheduler-completion.txt), [scheduler log](gpu-76706.log).
+**554 source /18 evidence /39 retained-cache identities** reconcile, with no
+source overrides. The copied reviewed CPU reference equals the original76645
+record, including full code identity. No expensive setup was regenerated and no
+CPU rerun was needed. Actual toolchain/hardware/topology remain in environment
+logs; GPU driver580.126.20, H200 NVL140.40 GiB/card, Go1.27.3, GCC14.2.0,CUDA12.9.
+
+| Phase / boundary | GPU76706 measured runtime |
+|---|---:|
+| Load/hash verified142.441 GiB reusable code |318.948 s (5 min18.948 s) |
+| Generate deterministic input, seed71 |36.369 s |
+| GPU code/workspace setup |106.844 s (1 min46.844 s) |
+| **Complete encoding call** |**434.930 s (7 min14.930 s)** |
+| Check all3,876,566,203 systematic positions |28.338 s |
+| Independent scalar curve checks,16 curves |4.629 s |
+| All-value range and64 GiB canonical hash |66.937 s |
+| Tight34 GiB packed write/hash/fsync |130.606 s (2 min10.606 s) |
+| Full packed disk hash and1027 decoded positions |104.256 s (1 min44.256 s) |
+| Worker pipeline |1232.023 s (20 min32.023 s) |
+| Main test command including profile/cleanup overhead |1242.219 s |
+| Controller |1330.502 s |
+| Complete Slurm job, including build/smoke/provenance |1331 s (22 min11 s) |
+
+All phases are profiled/logged. The synchronized native stage subtotal is
+359.866 s inside the434.930 s encoding call; the remaining time is not classified
+as additional transforms by this review. Keep the complete-call time as the
+encoding figure. This is one successful encoding, not a repeated unprofiled
+latency baseline.
+
+### Memory and budget outcome
+
+- **Peak sampled process-group RSS:221.591 GiB** (237931851776 bytes).
+- **Owned device allocations:398.463 GiB aggregate**, observed at setup and
+  encoding return (427846627660 bytes both times). The per-card maximum104.004 GiB
+  is an array model, not a measured peak;112 GiB/card is the explicit cap.
+  Whole-device peak, context/driver and transient overhead were not sampled.
+- **Cgroup reported peak:261.071 GiB**, including charged file cache. Maximum
+  periodic current sample259.139 GiB; largest periodic file charge37.384 GiB.
+  Keep these separate from RSS and GPU-owned memory.
+- No memory/storage/deadline guard triggered. The640/608 GiB admission leaves
+  substantial margin. Lower charge than the failed first attempt reflects
+  differing cache/ownership state, not a measured reduction in algorithm arrays.
+  Do not tighten budgets automatically based on this run.
+- The34 GiB packed word, profiles and reusable binary/plugin stay at
+  `.cache/liftrs/s17-full-encoding/gpu-retry-02/gpu/`; the word is outside Git.
+  Review checks producer full readback/size and sealed digests, without another
+  hidden34 GiB reread. Original failed-attempt and CPU artifacts remain intact.
+
+### Exact CPU/GPU agreement and observed ratio
+
+Both CPU76645 and GPU76706 passed full correctness/output checks on the same
+s17,m2,t5 code (K3876566203,N17179869184), verified preprocessing digest and seed71.
+Complete canonical SHA256:
+`4fc38b3e28ade50b4de5923d0ee3685ccfa1a1dec51a29c8d51126b3a323554a`.
+Complete tightly packed34 GiB SHA256:
+`90bbdca5a34ca09b13bf44d274e7a9ec93b859d94b6778061ce62c2ebadb42f1`.
+The controller required equality before success, and the analyzer independently
+checks the preserved CPU reference and every completed GPU phase.
+
+CPU encoding6311.087 s versus GPU434.930 s gives **14.51× observed encoding-stage
+ratio**. This compares single profiled/logged runs on different HPC nodes
+(CPUgnode02, GPUgnode04). Code loading differs sharply (CPU1752.498 s versus
+GPU318.948 s), with uncontrolled filesystem/cache state. Do not report a
+controlled end-to-end speedup, linear multi-GPU scaling or general performance
+bound. CPU/GPU memory figures describe different host/device placement and must
+not be collapsed into a claim of lower total-system memory.
+
+Full resident CPU and GPU s17 checkpoints are now demonstrated on HPC. Other s17
+allocation/storage modes remain unvalidated, and fulls18 admission is separate.
+Continue the s18 host-backed transform and split-product investigation; the
+passed small export gate76710 does not remove those device/earlier-stage needs.

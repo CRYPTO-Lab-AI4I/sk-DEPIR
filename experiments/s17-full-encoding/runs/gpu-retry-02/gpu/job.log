@@ -1,0 +1,30 @@
+JobId=76706 JobName=depir-encode-s17-gpu
+   UserId=tmour(20200) GroupId=crypto_login(20200) MCS_label=N/A
+   Priority=1 Nice=0 Account=crypto_login QOS=quota_crypto_gpuq
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:00:14 TimeLimit=2-00:00:00 TimeMin=N/A
+   SubmitTime=2026-11-17T09:49:24 EligibleTime=2026-11-17T09:49:24
+   AccrueTime=2026-11-17T09:49:24
+   StartTime=2026-11-17T09:49:25 EndTime=2026-11-19T09:49:25 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-17T09:49:25 Scheduler=Main
+   Partition=gpuq AllocNode:Sid=lnode02:1503851
+   ReqNodeList=(null) ExcNodeList=gnode03
+   NodeList=gnode04
+   BatchHost=gnode04
+   NumNodes=1 NumCPUs=32 NumTasks=1 CPUs/Task=32 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=32,mem=640G,node=1,billing=32,gres/gpu=4,gres/gpu:h200=4
+   AllocTRES=cpu=32,node=1,billing=32,gres/gpu=4,gres/gpu:h200=4
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=32 MinMemoryNode=640G MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null)
+   Command=/hpc/home/crypto/tmour/sk-DEPIR/experiments/s17-full-encoding/gpu.sbatch
+   WorkDir=/hpc/home/crypto/tmour/sk-DEPIR
+   StdErr=/hpc/home/crypto/tmour/sk-DEPIR/experiments/s17-full-encoding/gpu-76706.log
+   StdIn=/dev/null
+   StdOut=/hpc/home/crypto/tmour/sk-DEPIR/experiments/s17-full-encoding/gpu-76706.log
+   TresPerNode=gres/gpu:h200:4
+   TresPerTask=cpu=32
+   
+

@@ -12,6 +12,11 @@ encoding, supports packed arithmetic s2..16, and returns the same canonical
 uint32 codeword. This is standalone mathematical encoding, not masking,
 application/cryptographic integration or production-security validation.
 
+For the width-selected `ScalingCodeData.WithCUDA(CUDACodeOptions)` client API,
+full resident s17 encoding passes76706 on4H200, with CPU-identical canonical and
+packed output. See [API and measured boundaries](../../docs/gpu-encoding.md#full-s17-resident-gpu-validation).
+The older API's s≤16 limits/memory modes remain unchanged.
+
 ## Build and deployment
 
 On a CUDA machine, build a trusted shared library for its target architecture:

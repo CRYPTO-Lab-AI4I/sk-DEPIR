@@ -6,24 +6,25 @@ exploratory targets**: keep their rows as algorithms, layouts and measurements
 improve. This is the maintained capacity and results reference for the
 [scaling plan](encoding-scaling.md), separate from TRL 5 acceptance.
 
-Updated 2026-11-17; full s17 encoding source `ed0c026`, reviewed in `284c991`. Standalone mathematical
-CPU encoding is validated through **s=17** (resident wide, job76645); GPU encoding
-is validated through s=16 plus bounded wider integration. **Full s17 GPU76646 was
-attempted and failed its host/cgroup guard before completing encoding.** **Retry76706 is submitted with640 GiB requested host RAM/608 GiB total guard;
-its result is pending.** Other s17 modes and s≥18 full encoding remain unvalidated; projections are not support. “Reasonable”
-has no agreed numerical latency threshold yet; select it using measured setup,
-encoding, memory, I/O and deployment costs before accepting a scaling milestone.
+Updated 2026-11-17; full s17 encoding source `ed0c026`.
+**Resident CPU encoding76645 and four-H200 GPU encoding76706 both passed at s17**,
+using the same verified preprocessing and deterministic database. Complete
+canonical and tightly packed output hashes match. GPU retry76706 supersedes the
+failed first GPU attempt76646. Other s17 modes and s≥18 full encoding remain
+unvalidated; projections are not support. “Reasonable” has no agreed numerical
+latency threshold yet; select it using measured setup, encoding, memory, I/O and
+deployment costs before accepting a scaling milestone.
 
 ## Current s=17 results
 
 | s | Preprocessing | CPU encoding | GPU encoding |
 |---|---|---|---|
-| **17** | **HPC: passed, job 75832**<br>Verified resumed worker: **9 h 58 min 38 s**; earlier discovery: **21 min 38 s**<br>Peak sampled process RSS: **348.393 GiB**<br>Hardware: one HPC node, 32 active CPU workers, 4 H200 GPUs | **HPC: passed, job 76645 — resident reuse mode**<br>Encoding: **1 h 45 min 11.087 s** (profiled)<br>Peak sampled process RSS: **427.845 GiB**<br>Hardware: one HPC node, 32 CPU cores, 768 GiB requested RAM, no GPU<br>Verified packed output: **34 GiB**; complete job: **2 h 22 min 49 s** | **HPC: attempted, job 76646 — resident reuse mode; failed host-memory guard**<br>Encoding time: **unknown; did not complete**<br>Setup owned device allocations: **398.463 GiB across 4 H200 GPUs**<br>Peak sampled process RSS before stopping: **221.577 GiB**; file cache additional<br>Hardware: one HPC node, 32 CPU cores, 384 GiB requested RAM<br>**Retry 76706 submitted:** 640 GiB host RAM / 608 GiB total guard; result pending |
+| **17** | **HPC: passed, job 75832**<br>Verified resumed worker: **9 h 58 min 38 s**; earlier discovery: **21 min 38 s**<br>Peak sampled process RSS: **348.393 GiB**<br>Hardware: one HPC node, 32 active CPU workers, 4 H200 GPUs | **HPC: passed, job 76645 — resident reuse mode**<br>Encoding: **1 h 45 min 11.087 s** (profiled)<br>Peak sampled process RSS: **427.845 GiB**<br>Hardware: one HPC node, 32 CPU cores, 768 GiB requested RAM, no GPU<br>Verified packed output: **34 GiB**; complete job: **2 h 22 min 49 s** | **HPC: passed, job 76706 — resident reuse mode**<br>Encoding: **7 min 14.930 s**, profiled<br>Peak sampled process RSS: **221.591 GiB**<br>Owned device allocations: **398.463 GiB aggregate**, measured at setup and return<br>Hardware: one HPC node, **4 H200 GPUs, 32 CPU cores, 640 GiB requested RAM**<br>Verified packed output: **34 GiB**, identical to CPU<br>Complete job: **22 min 11 s**<br>**Feasible: one HPC node** |
 
 Sources: [preprocessing result](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088)
 and [CPU/GPU encoding results](../experiments/s17-full-encoding/report.md#completed-first-attempts-scaling-093).
 The detailed tables put **resident reuse first**, with CPU76645 marked passed
-and GPU76646 marked attempted/failed. Other s17 modes are labeled **projection
+and GPU76706 marked passed. Other s17 modes are labeled **projection
 only; no full measurement for this mode**. They have no measured runtime or peak
 memory and must not inherit resident results. Packing
 resident CPU output after encoding does not validate a direct packed-output mode.
@@ -85,7 +86,9 @@ profiles, source identities, scripts and results remain in the linked reports.
 
 For the full s17 attempts, CPU76645 used 32 CPU cores and 768 GiB requested host
 RAM without a GPU; GPU76646 used 32 CPU cores, 384 GiB requested host RAM and
-four H200s with a 112 GiB owned-memory cap per card. Requested RAM and allocation
+four H200s with a 112 GiB owned-memory cap per card. That was the failed first
+GPU attempt; successful retry76706 requested640 GiB host RAM with the same cores
+and device caps. Requested RAM and allocation
 caps are separate from measured memory in the result cells.
 
 ## HPC capacity and feasibility
@@ -109,8 +112,8 @@ by dividing a single-GPU timing by the card count.
 - s≤16: measured paths below fit the HPC system; unrun variants are capacity
   projections, with runtime unknown. Existing job budgets still apply.
 - s=17: CPU array models fit one large-memory node. Resident GPU modes project
-  two to four GPUs; the four-H200 resident reuse attempt failed its host-memory
-  guard. CPU resident reuse passed; other modes remain unvalidated. Host-backed
+  two to four GPUs; **four-H200 resident reuse passed76706** after the host/cache
+  budget correction. CPU resident reuse also passed; other modes remain unvalidated. Host-backed
   encoding projects one GPU with about 349 GiB host arrays.
 - s=18: disk-backed CPU encoding projects about 317 GiB private arrays and 1 TiB
   work files. Streamed resident GPU encoding projects eight GPUs across at least
@@ -136,20 +139,26 @@ separately. The [shared CPU implementation](cpu-encoding.md),
 checks behind the full run. CPU-only client builds remain CUDA-free.
 
 The [resident GPU integration](../experiments/gpu-code-encoding/report.md) passes
-bounded correctness checks. Its full s17 attempt completed setup on four H200s
-but stopped at the 360 GiB total host-memory guard before the first transform;
-process RSS and source-file cache together exceeded the admitted budget. The authorized retry is being prepared with **640 GiB requested host RAM and a
-608 GiB total-memory guard**, superseding the512/480 GiB proposal and keeping
-the320 GiB process-RSS limit and112 GiB/card owned-memory cap. **Job76706 is
-submitted; result pending**; [budget and recipe](../experiments/s17-full-encoding/report.md#gpu-retry-with-conservative-host-headroom-scaling-098). Full GPU encoding time and CPU/GPU output agreement remain
-unknown. This is a host/cache admission issue observed during this attempt, not
-a demonstrated full GPU encoding success.
+bounded correctness checks, and **full GPU encoding76706 now passes** with CPU
+canonical/packed hash agreement. Encoding takes **434.930 s (7 min14.930 s)**
+versus CPU6311.087 s: an observed **14.51× encoding-stage ratio**, based on single
+profiled/logged runs on different HPC nodes. The142.441 GiB code loads in318.948 s
+on GPU retry versus1752.498 s on CPU; filesystem/cache state differs, so these
+are not controlled end-to-end speedups. GPU setup is106.844 s and complete job
+22 min11 s, including correctness/output checks.
+
+GPU sampled process RSS is221.591 GiB. Owned device allocations are398.463 GiB
+aggregate at setup and return; CUDA context/driver and unobserved transient peak
+are separate. Requested640 GiB host RAM/608 GiB total guard provides admission
+headroom; observed cgroup peak261.071 GiB includes charged cache and differs from
+process RSS. The earlier76646 guard failure is retained in the report as history,
+not the current result. [Full GPU evidence and boundaries](../experiments/s17-full-encoding/report.md#completed-full-gpu-retry-scaling-102).
 
 | s17 route | Current evidence or projected payload | Next action |
 |---|---|---|
 | CPU resident reuse | **Measured: 427.845 GiB peak process RSS; encoding 1 h 45 min 11.087 s** | Full run passed; no repeat needed for correctness |
 | CPU file-streamed | Unrun mode; ~270 GiB host arrays, reusable code file ~142 GiB (projections) | Optional lower-RAM alternative; measure repeated reads/cache costs if needed |
-| GPU resident reuse | **Attempted: 398.463 GiB setup device allocations; full encoding incomplete** | Retry with reviewed host/cache headroom |
+| GPU resident reuse | **Measured: 7 min14.930 s encoding; 221.591 GiB sampled host RSS; 398.463 GiB owned device allocations** | Passed on4H200; CPU canonical/packed hashes match |
 | GPU fast-layout streamed | Unrun mode; ~256 GiB aggregate device, ~221 GiB host arrays (projections) | Separate wider port/validation; two H200s are only a capacity floor |
 | GPU host-backed | Unrun mode; few MiB device tiles, ~349 GiB host arrays (projections) | Separate wider port/validation; transfer cost unknown |
 
@@ -260,13 +269,13 @@ is sampled process RSS. `~` denotes estimated array payload. Multi-GPU payloads
 are aggregate, not per GPU. GPU counts in unrun cells are capacity projections,
 not implemented support; the feasibility discussion above still applies.
 
-| s | **Resident GPU reuse (current full-size attempt)** | Original GPU allocation (historical comparison) | Compact GPU |
+| s | **Resident GPU reuse (current baseline)** | Original GPU allocation (historical comparison) | Compact GPU |
 |---|---|---|---|
 | 10 | HPC measured<br>Runtime: 0.103 s<br>GPU array payload: 12.6 MiB<br>Host array payload: 9.1 MiB<br>GPUs: 1 | HPC measured<br>Runtime: 0.104 s<br>GPU array payload: 16.6 MiB<br>Host array payload: 9.1 MiB<br>GPUs: 1 | HPC measured<br>Runtime: 0.108 s–0.109 s<br>GPU array payload: 10.6 MiB<br>Host array payload: 9.1 MiB<br>GPUs: 1 |
 | 14 | HPC measured<br>Runtime: 5.176 s–5.179 s<br>Owned GPU allocations: 3.190 GiB<br>Estimated host arrays: ~2.38 GiB<br>GPUs: 1 | HPC measured§<br>Runtime: 5.155 s–5.257 s<br>Owned GPU allocations: 4.190 GiB<br>Peak workflow host RSS: 2.521 GiB<br>GPUs: 1 | HPC measured§<br>Runtime: 5.800 s–5.860 s<br>Owned GPU allocations: 2.192 GiB<br>Peak workflow host RSS: 2.525 GiB<br>GPUs: 1 |
 | 15 | HPC measured§<br>Runtime: 16.917 s–17.756 s<br>Owned GPU allocations: 12.809 GiB<br>Peak workflow host RSS: 9.770 GiB<br>GPUs: 1 | HPC measured§<br>Runtime: 16.853 s–17.497 s<br>Owned GPU allocations: 16.808 GiB<br>Peak workflow host RSS: 9.768 GiB<br>GPUs: 1 | HPC measured§<br>Runtime: 20.487 s–20.873 s<br>Owned GPU allocations: 8.811 GiB<br>Peak workflow host RSS: 9.770 GiB<br>GPUs: 1 |
 | 16 | HPC measured<br>Runtime: 56.975 s–57.418 s<br>Owned GPU allocations: 51.427 GiB<br>Peak host process RSS: 39.031 GiB<br>GPUs: 1 | HPC measured<br>Runtime: 1 min 0.216 s–1 min 25.954 s<br>Owned GPU allocations: 67.423 GiB<br>Peak host process RSS: 39.024 GiB<br>GPUs: 1 | HPC measured<br>Runtime: 1 min 33.332 s–1 min 41.526 s<br>Owned GPU allocations: 35.429 GiB<br>Peak host process RSS: 39.028 GiB<br>GPUs: 1 |
-| 17 | **HPC: attempted, job 76646; failed host-memory guard**<br>Encoding time: **unknown; did not complete**<br>Setup owned device allocation: **398.463 GiB aggregate, 4 H200 GPUs**<br>Peak sampled process RSS: **221.577 GiB**; file cache additional<br>Host request: **384 GiB**; total-memory guard: **360 GiB**, insufficient<br>**Retry 76706 submitted:** 640 GiB host RAM / 608 GiB total guard<br>Result pending; full GPU encoding unvalidated | **Projection only: original GPU**<br>No full s17 measurement for this mode<br>Runtime: unknown<br>Estimated GPU arrays: ~526.44 GiB<br>Estimated host arrays: 220.88 GiB<br>GPUs: 4<br>Capacity: one node projected; implementation pending | **Projection only: compact GPU**<br>No full s17 measurement for this mode<br>Runtime: unknown<br>Estimated GPU arrays: ~270.44 GiB<br>Estimated host arrays: 220.88 GiB<br>GPUs: 2<br>Capacity: one node projected; implementation pending |
+| 17 | **HPC: passed, job 76706 — resident reuse mode**<br>Encoding: **7 min 14.930 s**, profiled<br>Peak sampled process RSS: **221.591 GiB**<br>Owned device allocations: **398.463 GiB aggregate**, measured at setup and return<br>Hardware: one HPC node, **4 H200 GPUs, 32 CPU cores, 640 GiB requested RAM**<br>Verified packed output: **34 GiB**, identical to CPU<br>Complete job: **22 min 11 s**<br>**Feasible: one HPC node** | **Projection only: original GPU**<br>No full s17 measurement for this mode<br>Runtime: unknown<br>Estimated GPU arrays: ~526.44 GiB<br>Estimated host arrays: 220.88 GiB<br>GPUs: 4<br>Capacity: one node projected; implementation pending | **Projection only: compact GPU**<br>No full s17 measurement for this mode<br>Runtime: unknown<br>Estimated GPU arrays: ~270.44 GiB<br>Estimated host arrays: 220.88 GiB<br>GPUs: 2<br>Capacity: one node projected; implementation pending |
 | 18 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~1597 GiB<br>Estimated host arrays: 889 GiB<br>GPUs: 12<br>Capacity: multiple nodes required | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~2109 GiB<br>Estimated host arrays: 889 GiB<br>GPUs: 16<br>Capacity: multiple nodes required | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~1085 GiB<br>Estimated host arrays: 889 GiB<br>GPUs: 8<br>Capacity: multiple nodes required |
 | 19 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~6399 GiB<br>Estimated host arrays: 3581 GiB<br>GPUs: 46<br>Capacity: multiple nodes required | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~8447 GiB<br>Estimated host arrays: 3581 GiB<br>GPUs: 61<br>Capacity: multiple nodes required | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~4351 GiB<br>Estimated host arrays: 3581 GiB<br>GPUs: 31<br>Capacity: multiple nodes required |
 | 20 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~33834 GiB<br>Estimated host arrays: 14420 GiB<br>GPUs: 241*<br>Capacity: exceeds HPC GPU inventory or per-node host RAM | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~33834 GiB<br>Estimated host arrays: 14420 GiB<br>GPUs: 241<br>Capacity: exceeds HPC GPU inventory or per-node host RAM | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~25642 GiB<br>Estimated host arrays: 14420 GiB<br>GPUs: 183*<br>Capacity: exceeds HPC GPU inventory or per-node host RAM |
@@ -355,10 +364,9 @@ needs together, and explain changed assumptions. Keep s19–20 visible even when
 projections look unfavorable. The scaling plan records implementation steps;
 this reference records current evidence and capacity.
 
-Next work is the host-budget correction for the attempted s17 GPU resident run
-and the [s18 preprocessing memory prototypes](#s18-lower-memory-preprocessing-work).
-Full s17 preprocessing and the resident CPU baseline have passed; wider
-arithmetic is implemented and validated for those completed paths. Present memory–time/I/O trade-offs before adopting them;
+Next work is the [s18 preprocessing memory prototypes](#s18-lower-memory-preprocessing-work).
+Full s17 preprocessing, resident CPU and four-H200 GPU encoding have passed;
+wider arithmetic is validated for those completed paths. Present memory–time/I/O trade-offs before adopting them;
 retain the fastest validated mode by default when it fits agreed budgets. Slower
 memory-saving modes remain explicit command-line choices when memory is available.
 This target does not authorize larger allocations or change the rule to hand off

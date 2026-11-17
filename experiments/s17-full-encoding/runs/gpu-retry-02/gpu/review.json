@@ -1,0 +1,65 @@
+{
+  "reviewed_utc": "2026-11-17T09:45:44.934192+00:00",
+  "status": "passed",
+  "job_id": "76706",
+  "encoding_revision": "ed0c0260c2eeea183658a788561517c96cd4a2de",
+  "controller_revision_verified": "9855919",
+  "controller_sha256": "824cb3349902f1680ba1a757cdccbc6828bfa775c05c52b38ae025675fe3a59b",
+  "reference_cpu_job": "76645",
+  "comparison": "CPU/GPU complete canonical and packed hashes match reviewed CPU reference",
+  "source_files_verified": 554,
+  "evidence_files_verified": 18,
+  "cache_files_verified": 39,
+  "scheduler": {
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed_seconds": 1331,
+    "node": "gnode04",
+    "cpus": 32,
+    "gpus": 4,
+    "gpu_model": "H200 NVL",
+    "requested_host_gib": 640
+  },
+  "controller_seconds": 1330.5017532203346,
+  "worker_pipeline_seconds": 1232.022553359,
+  "command_seconds": 1242.218573086895,
+  "peak_sampled_process_group_rss_bytes": 237931851776,
+  "periodic_cgroup_maxima_bytes": {
+    "current_bytes": 278247968768,
+    "peak_bytes": 280322789376,
+    "file_bytes": 40140967936,
+    "anon_bytes": 237523591168
+  },
+  "device_owned_setup_bytes": 427846627660,
+  "device_owned_return_bytes": 427846627660,
+  "modeled_max_card_bytes": 111673344004,
+  "canonical_sha256": "4fc38b3e28ade50b4de5923d0ee3685ccfa1a1dec51a29c8d51126b3a323554a",
+  "packed_sha256": "90bbdca5a34ca09b13bf44d274e7a9ec93b859d94b6778061ce62c2ebadb42f1",
+  "packed_output_bytes": 36507222016,
+  "phase_seconds": {
+    "database": 36.369354409,
+    "encoder-setup": 106.843527706,
+    "encoding": 434.930484784,
+    "load-code": 318.947986028,
+    "pack-output": 130.60611985,
+    "readback-packed": 104.255573291,
+    "verify-canonical": 66.936516756,
+    "verify-curves": 4.629364457,
+    "verify-systematic": 28.337732822
+  },
+  "cpu_encoding_seconds": 6311.087113286,
+  "observed_cpu_over_gpu_encoding_ratio": 14.510565099662495,
+  "limits": [
+    "One profiled/logged sample per backend on different HPC nodes, not a controlled speedup comparison.",
+    "Source-file load/cache state differs: CPU1752.498s, GPU318.948s.",
+    "Device owned allocations observed at setup and return, not sampled whole-device/transient peak.",
+    "Cgroup cache charge is execution-state dependent; do not reduce budgets from this warm/differently charged run alone.",
+    "Producer verified full34GiB packed readback; review seals size/digests without a second redundant payload pass.",
+    "Standalone mathematical encoding, not masking/application/PIR upload performance or production security."
+  ],
+  "review_evidence_sha256": {
+    "gpu-76706.log": "21cc48fc1d61447f48c78e1a65b3262c6d5f877beb2b3fc616d9bcc259228fb4",
+    "runs/gpu-retry-02/gpu/analysis.json": "f8751475a174e8c56ffc5e04e11521dd84b92bb36817e3d6bf7c2ee8768b6790",
+    "runs/gpu-retry-02/gpu/scheduler-completion.txt": "bde75c7224ab92d24ec3365412a748c1a299c37872dbf0a653eed63eb06fef09"
+  }
+}

@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-17 09:50 | SCALING-102 | Completed | [Full GPU76706 passes; primary s17 tables updated](2026-11-17-0950-codex-scaling-102-completed.md) |
+| 2026-11-17 09:39 | SCALING-102 | Started | [Review full GPU retry76706](2026-11-17-0939-codex-scaling-102-started.md) |
 | 2026-11-17 09:36 | SCALING-101 | Completed | [Complete stream export76710 verified](2026-11-17-0936-codex-scaling-101-completed.md) |
 | 2026-11-17 09:29 | SCALING-101 | Started | [Review full export validation76710](2026-11-17-0929-codex-scaling-101-started.md) |
 | 2026-11-17 09:17 | SCALING-100 | Handoff | [Stream publication validation76710 submitted](2026-11-17-0917-codex-scaling-100-handoff.md) |

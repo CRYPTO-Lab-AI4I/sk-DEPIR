@@ -11,8 +11,9 @@ through s17. Corrected bounded native/reference, regression, race and sanitizer
 validation passes job74447. **GPU server execution is now the active target**:
 a width-selected resident peer engine implements the heavy preprocessing kernels
 on1/2/4/8 same-node GPUs in source. One-GPU checks pass job74453; corrected two-GPU validation
-passes job74466, including peer-link lifetime sanitizer checks. Full resident s17 CPU client encoding passes76645; GPU client encoding
-remains a separate validation gate. Full GPU preprocessing now passes75832:
+passes job74466, including peer-link lifetime sanitizer checks. Full resident s17 client encoding passes CPU76645 and four-H200 GPU76706
+with identical canonical/packed hashes; preprocessing and encoding remain
+separate measured phases. Full GPU preprocessing now passes75832:
 genuine discovered support, P/G/spectrum, full identity and complete cache
 readback; see [measured full-run results](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088). The legacy CUDA32
 adapter remains available through s16; the resident prototype is selected

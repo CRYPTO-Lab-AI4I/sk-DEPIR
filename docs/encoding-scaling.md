@@ -5,8 +5,8 @@ preprocessing and CPU/GPU results, memory/runtime estimates and multi-GPU capaci
 The performance goal is **reasonable performance through s=18 inclusive** on
 the HPC system; retain **s=19–20 as exploratory targets**. Update its tables with every
 relevant result or design change. Current standalone mathematical encoding is
-validated through s17 on resident CPU reuse; full s17 GPU encoding was attempted
-and failed its host-memory guard. Other wider modes remain unvalidated. Numerical
+validated through s17 on resident CPU reuse and four-H200 resident GPU reuse,
+with complete canonical/packed hash agreement (76645/76706). Other wider modes remain unvalidated. Numerical
 latency targets and larger experiment budgets still require agreement.
 
 Retain CPU and optional GPU client encoding paths and independent correctness
@@ -24,8 +24,8 @@ an application layout can invoke several such encodings and reuse code-only setu
 
 ## Current execution plan for s17
 
-The [CPU baseline/multi-GPU client proposal](encoding-status.md#aim-for-s17) remains
-the encoding goal. **Server preprocessing proceeds GPU-first**: implement and
+The [resident CPU and four-H200 client baselines](encoding-status.md#aim-for-s17)
+now both pass at s17; current scaling work targets the remaining s18 memory gates. **Server preprocessing proceeds GPU-first**: implement and
 validate resident width-selected multi-GPU preparation, using CPU arithmetic as
 a reference. Do not prioritize a full CPU preprocessing launch.
 The table-gap batch and full s17 runs have reviewed results in the maintained
@@ -40,9 +40,9 @@ s≤16 CPU/GPU paths and code-cache compatibility throughout.
 | 3. Representation and reusable code data | Extend coordinates/counts/cache formats and loaders explicitly. Keep old32-bit artifacts readable; reject truncation, unsupported widths and incompatible specifications. Verify hashes and round trips; preserve existing caches | Bounded format/loader/stream verification and shared Go/CPU regressions passed (74396); Native data integration passes bounded job74412; genuine s17 cache verified in75832 |
 | 4. GPU s17 preprocessing | Implement width-selected GPU classification, roots, transforms/products and same-node resident peer shards; reuse shared sampling/polynomial flow. Validate independent small/wide cases, peer visibility and communication, then exact K/identities and reviewed full-size budgets | **Full HPC run75832 passed**; 348.393 GiB sampled RSS, 9 h 58 min 38 s resumed worker plus prior discovery |
 | 5. First full CPU baseline | Prefer resident reuse (~427GiB principal arrays) on one large-RAM node when the admitted budget fits. Validate systematic values, independent curves, hashes and34GiB packed output; separately measure code loading, encoding, packing, verification and peaks | **Full HPC run76645 passed**; 1 h 45 min 11.087 s encoding, 427.845 GiB sampled RSS, verified34 GiB packed output |
-| 6. Multi-GPU prototype and selection | Partition same-node arithmetic across GPUs; measure transfers, topology and synchronization. Compare fast-layout streamed constants (~256GiB aggregate/two-card capacity floor) with resident reuse (~398GiB/three-card floor), including all host/device lifetimes and headroom | Bounded resident1/2/4GPU integration passed76426; wider streamed/compact modes remain separate |
-| 7. Full GPU comparison | Validate exact canonical/packed agreement with the CPU baseline and independently check correctness. Compare complete measured latency and deployment cost; keep CPU available without CUDA | **Attempted76646; failed host/cgroup guard before completed encoding**. Device setup398.463 GiB on4H200 succeeded; **retry76706 submitted with640 GiB host/608 GiB total guard; result pending** |
-| 8. Progress toward s18 | Recompute preprocessing/encoding/communication capacities using measurements, then select same-node versus multi-node or memory-saving designs. Retain s19–20 exploratory rows | **Active:** exact s18 K verified76647; begin [concrete memory prototypes](#s18-preprocessing-memory-design-and-comparison-scaling-096) before choosing four-GPU hybrid versus sixteen-GPU distributed execution |
+| 6. Multi-GPU prototype and selection | Partition same-node arithmetic across GPUs; measure transfers, topology and synchronization. Compare fast-layout streamed constants (~256GiB aggregate/two-card capacity floor) with resident reuse (~398GiB/three-card floor), including all host/device lifetimes and headroom | Bounded resident1/2/4GPU integration passed76426; full four-H200 resident baseline passed76706. Other full-size card counts and streamed/compact modes remain separate |
+| 7. Full GPU comparison | Validate exact canonical/packed agreement with the CPU baseline and independently check correctness. Compare complete measured latency and deployment cost; keep CPU available without CUDA | **Full retry76706 passed**,7 min14.930 s encoding,221.591 GiB sampled RSS,398.463 GiB device-owned; CPU canonical/packed hashes match. Observed14.51× encoding-stage ratio, not controlled end-to-end speedup;76646 remains historical guard failure |
+| 8. Progress toward s18 | Recompute preprocessing/encoding/communication capacities using measurements, then select same-node versus multi-node or memory-saving designs. Retain s19–20 exploratory rows | **Active:** exact s18 K verified76647; bounded spectrum76704 and complete export76710 passed. Next: host-backed tiled transform and split product per [memory plan](#s18-preprocessing-memory-design-and-comparison-scaling-096), before four-GPU hybrid versus sixteen-GPU selection |
 
 For preprocessing, choose the fastest measured complete server workflow within
 agreed budgets; GPU and multi-GPU requirements are acceptable. GPU count is a
@@ -2262,3 +2262,21 @@ full-size memory/time and256.001 GiB final-stage model remain unmeasured.
 Proceed to step3 host-backed tiled transform and step4 split product, followed by
 end-to-end four-versus-sixteen-H200 tradeoff selection. No fulls18 admission or
 new job from this review. GPU encoding retry76706 remains uninspected.
+
+### Full resident s17 GPU retry verified (SCALING-102)
+
+76706passes, HPCgnode04/4H200/32cores/640 GiB host request;22 min11 s scheduler.
+Encoding434.930 s (7 min14.930 s), code load318.948 s, setup106.844 s; sampled
+host RSS221.591 GiB, owneddevice398.463 GiB at setup and return, cgroup peak
+261.071 GiB including cache. All systematic/curve/range/hash/34 GiB packing/full
+readback checks pass; complete CPU76645 canonical and packed hashes match.
+554source/18evidence/39cache identities reconcile, plus exact controller9855919
+and reviewed CPU-reference snapshot. Original failed76646 remains historical.
+[Measured phases and limits](../experiments/s17-full-encoding/report.md#completed-full-gpu-retry-scaling-102).
+
+Observed encoding-only ratio14.51× is one profiled sample on different HPC nodes;
+load/cache state differs and whole-workflow ratios are not controlled speedups.
+No automatic budget reduction or large rebenchmark follows. Resident CPU and GPU
+s17 gates now pass. Continue s18 memory work (export gate76710 passed; host-backed
+tiled transform and split product next), retaining alternative modes as unvalidated
+projections and fulls18 admission separate. No new job from this results review.

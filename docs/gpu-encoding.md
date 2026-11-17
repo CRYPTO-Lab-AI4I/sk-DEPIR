@@ -3,7 +3,9 @@
 `ScalingCodeData.WithCUDA(CUDACodeOptions)` is an experimental client encoder
 through s17. It consumes the same immutable canonical code data as `WithWideCPP`;
 preprocessing can be delegated elsewhere. CPU encoding and ordinary CUDA-free
-builds remain available. Full s17 GPU encoding is **not yet validated**. Bounded GPU
+builds remain available. Full s17 resident GPU encoding **passes76706** on4H200:7 min14.930 s,
+221.591 GiB sampled host RSS,398.463 GiB aggregate owned device allocations.
+Canonical and34 GiB packed output hashes match CPU76645. Bounded GPU
 runtime checks pass76426 in the [integration experiment](../experiments/gpu-code-encoding/report.md).
 The older `ScalingOnlinePlan.WithCUDA(CUDAOptions)` and its validated s≤16
 memory modes retain their existing implementation/defaults.
@@ -35,7 +37,7 @@ resources, err := code.CUDAResources(4)
 encoder, err := code.WithCUDA(liftrs.CUDACodeOptions{
     LibraryPath: "/path/to/libliftrs-cuda.so",
     Devices: []int{0, 1, 2, 3},
-    DeviceMemoryLimit: 112 << 30, // per GPU; illustrative full-s17 cap
+    DeviceMemoryLimit: 112 << 30, // per GPU; used by full s17 validation76706
     VectorLayout: "local",       // explicit "peer" or "local"
 })
 // Check err; defer encoder.Close().
@@ -130,8 +132,25 @@ a production-security or constant-time claim.
 76646 successfully loads the genuine file and allocates398.463GiB aggregate
 resident device state on4H200, then fails the360GiB host/cgroup guard during host
 output allocation/message validation. ProcessRSS221.577GiB is within its320GiB
-limit, but source-file cache adds~143GiB. No complete GPU encoding or verified
-GPU word is available. CPU76645 passes with the same input, providing canonical/
+limit, but source-file cache adds~143GiB. That attempt produced no complete GPU encoding or verified GPU word. CPU76645 passes with the same input, providing canonical/
 packed reference digests. [Full review/retry proposal](../experiments/s17-full-encoding/report.md#completed-first-attempts-scaling-093)
 keeps fast resident mode and suggests more host/cache admission, not slower
-computation. No retry launched in this review; full GPU validation remains pending.
+computation. That first-attempt review did not launch a retry; **retry76706 subsequently
+passed**, as recorded below.
+
+## Full s17 resident GPU validation
+
+**76706 passes**, HPCgnode04,4H200/32 CPU cores/640 GiB requested host RAM,
+with112 GiB/card owned cap and608 GiB total-memory guard. Encoding434.930 s,
+code load318.948 s, setup106.844 s; complete scheduler22 min11 s includes full
+correctness and34 GiB packed output write/readback. All3876566203 systematic
+positions,16 scalar curves, all-value range/canonical hash and packed hash/
+readback pass; complete canonical and packed digests match CPU76645 exactly.
+[Evidence and measurement boundaries](../experiments/s17-full-encoding/report.md#completed-full-gpu-retry-scaling-102).
+
+Peak sampled process RSS221.591 GiB is separate from398.463 GiB device-owned
+allocations observed at setup/return and261.071 GiB cgroup peak including cache.
+Whole-device/driver/context peak was not sampled. Single profiled encoding-stage
+ratio to CPU is14.51×; different nodes/cache states and setup costs preclude a
+controlled end-to-end speedup claim. Other s17 memory modes and fulls18 remain
+unvalidated. Retain explicit backend choice and CUDA-free CPU client builds.

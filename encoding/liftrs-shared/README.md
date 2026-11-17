@@ -760,7 +760,8 @@ Workspace caps exclude code/input, native metadata, transient parity, retained
 older results and runtime headroom. Do not copy/concurrently reuse workspaces.
 See the [full accounting](../../docs/scaling-code-data.md#optional-native-encoding)
 and [bounded validation experiment](../../experiments/s17-encoding/report.md),
-passed in bounded job74412. Full s17 preprocessing, encoding and latency are unvalidated.
+passed in bounded job74412. Full s17 preprocessing75832, resident CPU76645 and four-H200 resident GPU76706
+now pass; see the maintained scaling reference for measured phase boundaries.
 
 
 ## CPU implementation and validation
@@ -773,16 +774,18 @@ verifier; native prefix/full metadata setup is common. Closed/uninitialized
 resident encoders return nil/error from workspace creation instead of allocating
 or panicking. Independent Go/dense/hybrid encoders remain correctness references.
 [Cross-mode and baseline validation](../../experiments/cpu-encoding-modules/report.md)
-is pending; this refactor does not establish s17 support or new memory savings.
+passes74448; the [larger s14 comparison](../../experiments/cpu-encoding-regression/report.md)
+passes76055. Full resident CPU76645 also passes at s17; other wider memory modes
+remain unvalidated.
 
 ## Shared server preprocessing
 
 The experimental [preprocessing guide](../../docs/preprocessing.md) describes
 the shared discovery/root/reciprocal procedure, width-selected native executor,
 explicit backend/budgets, ownership and trusted support/root artifacts. Source
-implementation extends through s17; bounded validation is pending and no full
-s17 cache or latency exists. The legacy CUDA adapter remains s≤16; the new resident GPU server prototype
-extends source support through s17 with validation pending. Ordinary client builds remain CUDA-free.
+implementation extends through s17, with full GPU preprocessing75832 and
+verified reusable cache measured. The legacy CUDA adapter remains s≤16; the new resident GPU server prototype
+extends through s17 with full validation75832 passed. Ordinary client builds remain CUDA-free.
 
 ## Resident GPU server preprocessing
 
@@ -792,7 +795,8 @@ reusing the shared discovery/polynomial flow. Select `GPUDevices` explicitly in
 `PreprocessingOptions`; `GPUBytes` caps each card. Build the server library from
 both `matrix.cu` and `preparation.cu`. Common arithmetic/FFT/Taylor and sparse-plan
 headers avoid separate s17 algorithms. Ordinary clients remain CUDA-free.
-CUDA/peer validation is pending; source support is not a full s17 run or admission.
+Bounded CUDA/peer validation and full s17 preprocessing75832 pass; larger
+parameters remain separate implementations/admissions.
 The old empty-device CUDA32 adapter remains a reference through s16. GPU server
 execution is the active target; CPU preprocessing supplies correctness oracles.
 
@@ -805,7 +809,9 @@ cyclic order and verified code data with CPU. See the [API/buffer guide](../../d
 for source ownership, per-device/host admission, build/example and remaining
 s17 packing/memory modes. Optional CUDA is not needed for CPU-only builds.
 [Bounded runtime validation](../../experiments/gpu-code-encoding/report.md) passes76426;
-fulls17 GPU encoding remains unvalidated; resident CPU encoding passes76645.
+fulls17 resident GPU encoding passes76706 (7 min14.930 s on4H200), with complete
+canonical/packed hashes matching passedCPU76645. Other s17 memory modes remain
+unvalidated; see [current measurements](../../docs/encoding-status.md).
 
 ### Verified polynomial stage and canonical export
 

@@ -78,7 +78,8 @@ original methodology; apply this policy to new optimization runs.
 
 - [Full s17 CPU/GPU encoding](s17-full-encoding/report.md): same verified code and
   database, frozen source, full mathematical/output checks and separate profiled
-  load/setup/encoding/packed-output phases; first full results pending.
+  load/setup/encoding/packed-output phases; CPU76645 and four-H200 GPU76706 pass
+  with identical canonical/packed hashes.
 
 - [Resident GPU client encoding](gpu-code-encoding/report.md): shared CPU/GPU
   schedule, explicit same-node resident code/workspaces, width/ownership/cap

@@ -79,7 +79,8 @@ an automatic second pass: calling Verify then Load would read/hash the data twic
 The full142.441GiB s17 file is now produced and streamed through these checks in
 [preprocessing75832](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088).
 Full resident loading and CPU mathematical encoding subsequently pass76645;
-full GPU encoding remains unverified.
+full resident GPU encoding passes76706 on4H200 with canonical/packed hashes
+matching CPU76645; other memory modes remain unvalidated.
 
 WriteScalingCode streams canonical slot/count widths without changing values.
 It checks metadata/ranges and owns neither a destination path nor publication.

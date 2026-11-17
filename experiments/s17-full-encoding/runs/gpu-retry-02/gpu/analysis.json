@@ -1,0 +1,191 @@
+{
+  "status": "passed",
+  "job_id": "76706",
+  "revision": "ed0c0260c2eeea183658a788561517c96cd4a2de",
+  "source_files_verified": 554,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 18,
+  "cache_files_verified": 39,
+  "tests": [
+    "full code hash/load",
+    "all3876566203systematic symbols",
+    "16 independent scalar curves",
+    "all-value range/canonical SHA256",
+    "34GiB tight packing/full disk digest/1027 positions"
+  ],
+  "commands": [
+    {
+      "label": "source-extract",
+      "seconds": 2.2182096713222563,
+      "peak_rss_bytes": 3006464,
+      "exit_code": 0
+    },
+    {
+      "label": "host",
+      "seconds": 2.1990718939341605,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 2.2244783481583,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 2.1465573851019144,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 2.139088451862335,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 2.1316496948711574,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "gpu",
+      "seconds": 2.1270698830485344,
+      "peak_rss_bytes": 21716992,
+      "exit_code": 0
+    },
+    {
+      "label": "topology",
+      "seconds": 2.1330526839010417,
+      "peak_rss_bytes": 21716992,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe-build",
+      "seconds": 6.490261758212,
+      "peak_rss_bytes": 141328384,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe",
+      "seconds": 6.618237046059221,
+      "peak_rss_bytes": 357208064,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 19.879092776682228,
+      "peak_rss_bytes": 322002944,
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "seconds": 22.284921742975712,
+      "peak_rss_bytes": 814530560,
+      "exit_code": 0
+    },
+    {
+      "label": "smoke-fixture",
+      "seconds": 2.21164161991328,
+      "peak_rss_bytes": 18743296,
+      "exit_code": 0
+    },
+    {
+      "label": "smoke-pipeline",
+      "seconds": 6.5203952123411,
+      "peak_rss_bytes": 477487104,
+      "exit_code": 0
+    },
+    {
+      "label": "encoding-pipeline",
+      "seconds": 1242.218573086895,
+      "peak_rss_bytes": 237931851776,
+      "exit_code": 0
+    }
+  ],
+  "scope": "full s17 standalone mathematical encoding with profiled timing; producer packed readback, no extra34GiB rehash in review",
+  "backend": "gpu",
+  "digests": {
+    "canonical_sha256": "4fc38b3e28ade50b4de5923d0ee3685ccfa1a1dec51a29c8d51126b3a323554a",
+    "packed_sha256": "90bbdca5a34ca09b13bf44d274e7a9ec93b859d94b6778061ce62c2ebadb42f1"
+  },
+  "comparison": "CPU/GPU complete canonical and packed hashes match reviewed CPU reference",
+  "phases": {
+    "database": {
+      "array_bytes": 15506264812,
+      "profiled": true,
+      "seconds": 36.369354409,
+      "seed": 71
+    },
+    "encoder-setup": {
+      "array_model": {
+        "PrefixElements": 8589934592,
+        "ArenaElements": 17179869184,
+        "CodeBytes": 152945218284,
+        "DeviceWorkspaceBytes": 274894684176,
+        "MaxDeviceArrayBytes": 111673344004,
+        "HostOutputBytes": 68719476736
+      },
+      "device_owned_bytes": 427846627660,
+      "profiled": true,
+      "seconds": 106.843527706
+    },
+    "encoding": {
+      "native": {
+        "timing_source": "synchronized-host-wall",
+        "host_to_device_ns": 3274263177,
+        "taylor_ns": 32252187694,
+        "columns_ns": 134595512625,
+        "rows_ns": 171648272056,
+        "layout_ns": 166071514,
+        "device_to_host_ns": 9090224234,
+        "pointwise_ns": 237521359,
+        "native_total_ns": 359865744871,
+        "buffer_ns": 10114172,
+        "assembly_ns": 555297662,
+        "elapsed_ns": 434930388412,
+        "owned_device_bytes": 427846627660
+      },
+      "profiled": true,
+      "seconds": 434.930484784
+    },
+    "load-code": {
+      "profiled": true,
+      "seconds": 318.947986028,
+      "source_bytes": 152945218341,
+      "source_sha256": "bf61a05605bb446f633411151ef6da11a736b7d5065a777fde615aa9acc71076"
+    },
+    "pack-output": {
+      "bytes": 36507222016,
+      "path": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-full-encoding/gpu-retry-02/gpu/word-packed.bin",
+      "profiled": true,
+      "seconds": 130.60611985,
+      "sha256": "90bbdca5a34ca09b13bf44d274e7a9ec93b859d94b6778061ce62c2ebadb42f1"
+    },
+    "readback-packed": {
+      "full_digest": "90bbdca5a34ca09b13bf44d274e7a9ec93b859d94b6778061ce62c2ebadb42f1",
+      "positions": 1027,
+      "profiled": true,
+      "seconds": 104.255573291
+    },
+    "verify-canonical": {
+      "canonical_bytes": 68719476736,
+      "profiled": true,
+      "seconds": 66.936516756,
+      "sha256": "4fc38b3e28ade50b4de5923d0ee3685ccfa1a1dec51a29c8d51126b3a323554a"
+    },
+    "verify-curves": {
+      "curves": 16,
+      "profiled": true,
+      "seconds": 4.629364457,
+      "seed": 1604
+    },
+    "verify-systematic": {
+      "profiled": true,
+      "seconds": 28.337732822,
+      "symbols": 3876566203
+    }
+  }
+}

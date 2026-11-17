@@ -1,0 +1,4 @@
+JobID|State|ExitCode|Elapsed|NodeList|AllocCPUS|ReqMem
+76706|COMPLETED|0:0|00:22:11|gnode04|32|640G
+76706.batch|COMPLETED|0:0|00:22:11|gnode04|32|
+76706.0|COMPLETED|0:0|00:22:11|gnode04|32|
