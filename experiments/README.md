@@ -72,6 +72,9 @@ original methodology; apply this policy to new optimization runs.
   and split products follow separately. Bounded primitive validation76704 passes;
   full export integration and full-size memory/runtime remain pending.
 
+- [Host-backed transforms and split products](preprocessing-tiles/report.md):
+  shared-kernel bounded comparison, independent CPU fixtures and memory/transfer
+  counters; GPU validation pending, no full-size admission or default change.
 - [s18 preprocessing admission](s18-preprocessing-admission/report.md): one-GPU
   exact weighted-class dimension count, independent/known-size comparisons and
   explicit host/device/storage lifetime models; full preprocessing remains deferred.

@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-17 14:50 | SCALING-103 | Prepared | [Component prototypes and bounded validation ready](2026-11-17-1450-codex-scaling-103-prepared.md) |
+| 2026-11-17 10:01 | SCALING-103 | Started | [Tiled transform and split product](2026-11-17-1001-codex-scaling-103-started.md) |
 | 2026-11-17 09:50 | SCALING-102 | Completed | [Full GPU76706 passes; primary s17 tables updated](2026-11-17-0950-codex-scaling-102-completed.md) |
 | 2026-11-17 09:39 | SCALING-102 | Started | [Review full GPU retry76706](2026-11-17-0939-codex-scaling-102-started.md) |
 | 2026-11-17 09:36 | SCALING-101 | Completed | [Complete stream export76710 verified](2026-11-17-0936-codex-scaling-101-completed.md) |

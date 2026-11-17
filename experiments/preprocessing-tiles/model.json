@@ -1,0 +1,39 @@
+{
+  "s18_projection": {
+    "n": 68719476736,
+    "k": 16300262095,
+    "block": 8589934592,
+    "p": 16300262096,
+    "g": 52419214641,
+    "subproducts": 14,
+    "max_subdomain": 17179869184,
+    "resident_device_arrays": 1649267441664,
+    "split_device_arrays": 412316860416,
+    "retained_output_bytes": 274877906944,
+    "max_temporary_host_bytes": 68719476732,
+    "resident_h2d_coefficient_bytes": 274877906948,
+    "split_h2d_coefficient_bytes": 875761055816,
+    "resident_d2h_coefficient_bytes": 274877906944,
+    "split_d2h_coefficient_bytes": 875761055760,
+    "transform_work_ratio": 3.1840277777777777
+  },
+  "bounded_component": {
+    "n": 4194304,
+    "k": 994889,
+    "block": 524288,
+    "p": 994890,
+    "g": 3199415,
+    "subproducts": 14,
+    "max_subdomain": 1048576,
+    "resident_device_arrays": 100663296,
+    "split_device_arrays": 25165824,
+    "retained_output_bytes": 16777216,
+    "max_temporary_host_bytes": 4194300,
+    "resident_h2d_coefficient_bytes": 16777220,
+    "split_h2d_coefficient_bytes": 53452240,
+    "resident_d2h_coefficient_bytes": 16777216,
+    "split_d2h_coefficient_bytes": 53452184,
+    "transform_work_ratio": 3.0625
+  },
+  "scope": "Payload model excludes runtime/context/cache; work ratio is not a measured time penalty."
+}

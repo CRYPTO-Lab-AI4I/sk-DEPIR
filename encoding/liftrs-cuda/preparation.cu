@@ -148,7 +148,9 @@ struct Card {
 };
 // Shared resident execution/storage for server preprocessing and client encoding.
 // Pipeline-specific sequences live outside this executor.
+template <class Word> class HostTiled;
 template <class Word> class Resident {
+  template <class> friend class HostTiled;
   unsigned s_;
   uint32_t polynomial_, delta_;
   Word omega_;

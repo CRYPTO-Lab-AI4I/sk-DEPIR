@@ -75,6 +75,9 @@ full disk/export latency and memory savings remain unvalidated. Canonical export
 `--spectrum-tile-bytes` and shared verified P/G preparation. [Complete bounded
 GPU validation76710 passed](experiments/preprocessing-export/report.md). No default or full
 preprocessing limit changes.
+The [bounded tiled-transform/split-product comparison](experiments/preprocessing-tiles/report.md)
+now has shared-kernel prototypes ready for GPU validation; full-size memory/runtime
+remain projections. It adds no default preprocessing mode.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

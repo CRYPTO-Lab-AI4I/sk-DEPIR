@@ -259,3 +259,15 @@ removes the full host spectrum allocation but keeps resident device workspace;
 bounded scalar/memcheck validation passes76704. The32 MiB in-memory hash-sink
 component is measured; full-size transfer/disk latency remains unmeasured. The existing resident path/default
 and s<=17 engine limit remain. See [tests, budget and lifetime model](../../experiments/preprocessing-memory/report.md).
+
+## Experimental preprocessing components
+
+`tiled_preparation.cuh` and `split_preparation.cuh` are diagnostic adapters
+compiled with `preparation.cu` by the [bounded component driver](../../experiments/preprocessing-tiles/report.md).
+They reuse field validation, allocation caps, plans and arithmetic recurrences.
+The tiled adapter borrows a fresh resident executor exclusively; the caller owns
+the full host array, with bounded per-card staging and device tiles. Split
+products borrow immutable inputs and assemble characteristic-two overlaps by XOR.
+These prototypes introduce no public ABI, automatic fallback or default change.
+GPU validation and measured latency penalties remain pending; the report states
+projected host/device savings, extra work and measurement boundaries.

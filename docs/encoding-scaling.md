@@ -2160,6 +2160,10 @@ scripts, source-derived lifetime models, validation and eventual measurements.
    and independent CPU products. Measure every subproduct, transfers, overlap
    accumulation, host output and temporary files. The proposed2-by-7 block final
    identity entails14 smaller products; actual runtime penalty remains unknown.
+   Steps3/4 implementation status (SCALING-103): [shared-kernel component prototypes
+   and bounded comparison](../experiments/preprocessing-tiles/report.md) prepared.
+   Compare complete independent CPU outputs, timings, allocation payloads and
+   transfers before adopting a mode. GPU correctness/timing validation pending.
 5. **Present a four-GPU versus sixteen-GPU decision.** Combine measured stage
    costs and memory lifetimes for a four-H200 hybrid; compare with a distributed
    resident layout on16H200/four HPC nodes. Include discovery, roots, Newton,
