@@ -1,6 +1,9 @@
 # Host-backed transform and split-product comparison
 
-Status: prototypes prepared; GPU correctness and timing validation pending.
+Status: bounded job **76756 submitted**; GPU correctness and timing validation
+pending. [Submission receipt](submission.json), [results directory](runs/components-01/),
+[Slurm log](slurm-76756.log). Prepared revision `10b5f9a`; the runner records
+its actual revision and per-file source hashes. No monitoring after submission.
 Work: SCALING-103. No full s18 preprocessing run or default change.
 
 ## Reproduction and evidence

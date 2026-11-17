@@ -2163,7 +2163,9 @@ scripts, source-derived lifetime models, validation and eventual measurements.
    Steps3/4 implementation status (SCALING-103): [shared-kernel component prototypes
    and bounded comparison](../experiments/preprocessing-tiles/report.md) prepared.
    Compare complete independent CPU outputs, timings, allocation payloads and
-   transfers before adopting a mode. GPU correctness/timing validation pending.
+   transfers before adopting a mode. GPU correctness/timing validation pending:
+   bounded job **76756 submitted**, [receipt and result locations](../experiments/preprocessing-tiles/submission.json).
+   No monitoring; await completion ping.
 5. **Present a four-GPU versus sixteen-GPU decision.** Combine measured stage
    costs and memory lifetimes for a four-H200 hybrid; compare with a distributed
    resident layout on16H200/four HPC nodes. Include discovery, roots, Newton,

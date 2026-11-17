@@ -420,7 +420,8 @@ unchanged.
 
 The [tiled-transform and split-product prototypes](../experiments/preprocessing-tiles/report.md)
 are prepared for bounded validation on HPC (4 H200, 4 CPU cores, 8 GiB host
-request). No GPU results yet. The split final-product geometry projects aggregate
+request), job **76756 submitted** ([receipt](../experiments/preprocessing-tiles/submission.json)).
+No GPU results yet. The split final-product geometry projects aggregate
 device arrays **1536 → 384 GiB**, retaining the 256 GiB host output and adding
 a host temporary of up to 64 GiB minus 4 bytes, fourteen product calls and about
 3.19 times the coefficient transfers. Runtime penalty and full workflow peak

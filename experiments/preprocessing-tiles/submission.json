@@ -1,0 +1,22 @@
+{
+  "job_id": "76756",
+  "name": "components-01",
+  "submitted_utc": "2026-11-17T14:51:39.495094+00:00",
+  "prepared_revision": "10b5f9a",
+  "status": "submitted; not monitored",
+  "results": "experiments/preprocessing-tiles/runs/components-01/results.json",
+  "log": "experiments/preprocessing-tiles/slurm-76756.log",
+  "cache": ".cache/liftrs/preprocessing-tiles/components-01/",
+  "resources": {
+    "gpus": "4 H200, same HPC node; exclude gnode03",
+    "cpu_cores": 4,
+    "host_requested_gib": 8,
+    "rss_guard_gib": 6,
+    "aggregate_owned_device_cap_gib": 4,
+    "component_per_device_cap_mib": 128,
+    "new_retained_cap_gib": 2,
+    "scratch_cap_gib": 4,
+    "controller_minutes": 15,
+    "scheduler_minutes": 20
+  }
+}
