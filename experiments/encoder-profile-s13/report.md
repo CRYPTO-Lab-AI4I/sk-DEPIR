@@ -21,7 +21,7 @@ GOCACHE=/tmp/sk-depir-go-cache python3 experiments/encoder-profile-s13/run.py \
 ```
 
 The preparation command requires the default cache to be absent; use it on a
-fresh checkout/machine. On this machine the cache already exists, so use the
+fresh checkout/machine. On the laptop the cache already exists, so use the
 reuse command with an unused run name. For a separate regeneration while retaining
 the existing cache, build `./experiments/encoder-profile-s13` and pass a different
 `-cache` directory to [the driver](main.go), retaining the recorded source provenance.
@@ -29,7 +29,7 @@ the existing cache, build `./experiments/encoder-profile-s13` and pass a differe
 It records exact source hashes, revision, policy, environment, CPU profiles,
 phase/memory observations and verification. [policy.json](policy.json) retains
 the two-hour whole-case timeout, 12 GiB Go-memory guard and one encoding call.
-The host is the same Apple M5 Pro/48 GB machine as the unprofiled run; runtime
+The laptop is the same Apple M5 Pro/48 GB system as the unprofiled run; runtime
 metadata is recorded again. No tests or other benchmarks run beside timing.
 
 ## Cache retention and boundaries

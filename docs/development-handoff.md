@@ -66,7 +66,7 @@ Implementation boundaries:
 
 1. **Establish the environment.** Record revision, CPU model/ISA, physical cores,
    NUMA topology, RAM and actual job/cgroup allocation, OS, compiler flags, storage
-   filesystem/capacity and profiling permissions. Rebuild binaries for this host.
+   filesystem/capacity and profiling permissions. Rebuild binaries for the target HPC node.
    Do not compare different machines as an isolated algorithm speedup.
 2. **Validate portability and small cases.** Use generic C++17 `-O3` first, with
    CGO enabled and the native build tag. Keep Go/dense references. Record native

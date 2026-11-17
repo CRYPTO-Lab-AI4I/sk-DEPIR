@@ -146,7 +146,7 @@ encoding from the experimental cache; public default discovery, application
 integration and production-security qualification are separate. Historical
 planning/cost reports retain their original catalogue snapshots and are not rerun.
 
-The measured s=14 path is practical on this machine under the stated budgets.
+The measured s=14 path is practical on the laptop (Apple M5 Pro, 48 GiB RAM) under the stated budgets.
 This is not an s=15 result or proof that its preparation fits. Next assess s=15
 using measured first-use/online lifetimes and profiles before setting its budget.
 

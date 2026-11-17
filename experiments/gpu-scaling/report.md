@@ -47,7 +47,7 @@ separate. CPU has one timing sample per operation; GPU has two in fixed order.
 Checks/hashing are outside operation clocks. CPU profiles cover each whole size,
 including checks, allocation and both backends. GPU event stage clocks plus wall
 transfer/total clocks are retained; native instruction profiling is unavailable on
-this host, so Go profiles do not identify native/CUDA instruction hotspots.
+the HPC node, so Go profiles do not identify native/CUDA instruction hotspots.
 
 Budget per job: one GPU/16 CPUs,16 GiB host request,12 GiB sampled process-group
 RSS guard,512 MiB explicit device allocations,30-minute allocation/25-minute

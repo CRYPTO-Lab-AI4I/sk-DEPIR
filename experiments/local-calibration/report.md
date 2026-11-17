@@ -69,7 +69,7 @@ file, time fsync separately, then read it. Three repeats truncate/rewrite the sa
 per-size file. Full content is checked outside timing. Timed buffers are allocated
 before measurements. Logical bytes/calls are recorded explicitly.
 
-On this host the helper requests `F_NOCACHE=48`, verified from the local SDK's
+On the laptop the helper requests `F_NOCACHE=48`, verified from the local SDK's
 `sys/fcntl.h`. This asks macOS to bypass its file data cache for the descriptor;
 it does not disable SSD/controller caches, guarantee physical device traffic or
 make a small transfer representative of sustained multi-terabyte encoding. The
@@ -217,7 +217,7 @@ runtime behavior before budgeting a complete s=14/15 encoding process.
 or GPU benchmark was attempted. This is a toolchain-availability observation, not
 an assertion that GPU execution is impossible or slower. CPU concurrency already
 provides a substantial measured avenue without choosing a vendor API. A GPU shares
-this machine's RAM budget; it does not remove large preprocessing or file costs.
+the laptop's 48 GiB RAM budget; it does not remove large preprocessing or file costs.
 A discrete GPU or larger CPU server remains an option after an integrated design
 has measured capacity/throughput requirements.
 

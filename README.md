@@ -12,7 +12,9 @@ The current development target is **TRL 5**: a usable, validated client and prep
 
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)
 are the reference for preprocessing and CPU/GPU encoding modes, including
-multi-GPU estimates. The performance goal is **s≤18**; **s=19–20** remain
+multi-GPU estimates. The [current s17 summary](docs/encoding-status.md#current-s17-results)
+distinguishes the passed preprocessing/CPU runs from the failed GPU attempt and
+the other unrun encoding modes. The performance goal is **s≤18**; **s=19–20** remain
 exploratory. Standalone CPU encoding now passes through s=17 (resident wide); GPU encoding
 passes through s=16 plus bounded wider integration. Other larger encoding rows
 remain unvalidated projections. Update the reference as
@@ -31,9 +33,9 @@ Its scalar/oracle and legacy-ordering checks pass through s20. A
 independent forward/inverse checks, sanitizers and shared CPU regressions. Wide
 [Go/C interfaces and parallel matrix prototype](experiments/s17-matrix/report.md)
 pass bounded ownership, matrix, race, sanitizer and CPU regression checks. Full
-encoding remains limited to s≤16. The [width-aware code-data APIs](docs/scaling-code-data.md)
-pass bounded legacy/header/slot validation and Go/CPU regressions. Genuine s17
-code preparation remains separate. The explicit experimental
+resident CPU encoding now passes at s17; full GPU encoding remains unverified.
+The [width-aware code-data APIs](docs/scaling-code-data.md)
+pass bounded legacy/header/slot validation and Go/CPU regressions. Genuine s17 code preparation has passed the full GPU run linked below. The explicit experimental
 [complete wide CPU encoder](experiments/s17-encoding/report.md) now consumes
 that code data; bounded correctness/ownership/sanitizer checks pass (job74412).
 Its returned uint32 word retains an 8N-byte backing allocation, counted in the
@@ -275,7 +277,7 @@ and host variance make the speed comparison inconclusive. The original transform
 and two complete AC pairs: 84.47 s full C++ versus 94.55 s hybrid, about 10.7%
 less elapsed time with similar CPU cost and 4.59 GiB process peak RSS. The initial
 power-transition pair is reported separately; these are profiled, warm-workspace
-measurements on this host.
+measurements on the laptop (Apple M5 Pro, 48 GiB RAM, 16 native workers).
 
 The [s=15 preparation-memory audit](experiments/preparation-memory/report.md)
 now separates principal arrays (about 22 GiB) from allocation/GC overhead. A
@@ -662,7 +664,7 @@ CUDA-free readback and zero CUDA errors/leaks; see the
 [completed validation](experiments/gpu-preprocessing-workflow/report.md#completed-persistent-workflow-validation-scaling-080).
 The earlier gnode03 GPU-reset cause remains unresolved and its evidence is retained.
 Fulls17 preprocessing is not admitted. Eight/sixteen GPUs remain eligible options,
-but using them across this machine's four-GPU nodes needs cross-node execution
+but using them across the HPC system's four-GPU nodes needs cross-node execution
 support; the present command uses one node.
 
 The [s17 admission step](experiments/s17-preprocessing-admission/report.md) adds

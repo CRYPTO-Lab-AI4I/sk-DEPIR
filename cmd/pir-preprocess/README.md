@@ -68,8 +68,8 @@ from unprofiled preparation/kernel baselines.
 [Workflow validation and reproducible scripts](../../experiments/gpu-preprocessing-workflow/report.md)
 cover publication failure, corruption/binding rejection, Go-oracle equality,
 fresh execution, complete-cache reuse and root-checkpoint reuse. The same-node
-engine accepts1/2/4/8 device ordinals; measured nodes here have four GPUs. Eight or
-sixteen GPUs on this machine require cross-node orchestration/communication that
+engine accepts1/2/4/8 device ordinals; measured HPC nodes have four H200 GPUs. Eight or
+sixteen GPUs on the HPC system require cross-node orchestration/communication that
 is not implemented. The command rejects16; this is an implementation boundary,
 not a preprocessing design ceiling.
 

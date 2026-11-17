@@ -108,7 +108,7 @@ coefficients, coordinates, fixed-product tables and starts; its importer explici
 rejects s>16. The CUDA field/kernel/bridge likewise borrows uint32 pointers,
 uses32-bit generator/scatter positions and stores only32 coordinate bits per
 plan lookup row. Review C ABI descriptions, limits and all casts; host size_t/Go
-int are already64-bit on this machine, but that does not widen field values.
+int are already64-bit on the HPC system, but that does not widen field values.
 CUDA row plans also need18 basis levels for a17-bit split, beyond current17.
 Base-field log/power table entries can remain uint32; widening all arrays would
 waste memory. Bound degree/index shifts separately from their storage types.

@@ -120,7 +120,7 @@ from `time -v`. The runner's one-second sampled process-group peak is
 CPU profiles for all six probe phases remain beside the results. `go tool pprof`
 can read the encoding profile with the retained binary, but 88.9% of its samples
 appear as unsymbolized `[probe]`, with most remaining samples at `runtime.cgocall`.
-The denied perf event prevents detailed native attribution on this host; stage
+The denied perf event prevents detailed native attribution on the HPC node; stage
 counters and Go profiles remain available. Sampled CPU totals are not calibrated
 aggregate process CPU measurements. This single shared-node run is not a speedup
 trial against the laptop or an optimization-selection experiment.

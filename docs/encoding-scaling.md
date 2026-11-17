@@ -394,7 +394,7 @@ cache effects and the output scatter. No new CPU-time prediction is made here.
    constructor now verifies this; default constructors still use dense setup.
 2. **The cyclic product tree retains information it will discard.** Logical tree
    coefficients satisfy C(1)=2 and C(K)=K+1+C(floor(K/2))+C(ceil(K/2)); node headers
-   are 72 bytes on this host. At s=15, coefficients plus headers alone account for
+   are 72 bytes on the laptop. At s=15, coefficients plus headers alone account for
    about **54 GiB**, excluding allocator/capacity overhead. A cyclic-specific
    consuming product builder can retain only a frontier; division scratch must
    also be bounded. Do not remove the tree from the paper reference solver.
@@ -462,7 +462,7 @@ payload is R=b(K+1)+eN. The modeled principal schedule is the larger of
 `R+2bK+2eL` (prefix) and `R+2bK+(e+b)N` (assembly). At s=15 this is about 14.42 GiB,
 which makes a local prototype worth testing. Setup, allocator/GC and actual
 lifetimes still need measurement. At s=16 the same schedule is about 58 GiB;
-it does not fit this machine simply by tuning arithmetic. A hybrid retaining
+it does not fit the 48 GiB laptop simply by tuning arithmetic. A hybrid retaining
 in-memory transforms but routing output to disk removes the full word array;
 its principal payload is about 42 GiB at s=16, **before** routing buffers and runtime
 overhead. This borderline option deserves measurement, not a claim of feasibility.
@@ -533,7 +533,7 @@ budget; the host still needs a complete preprocessing/output schedule. A GPU doe
 not solve the tree, cache distribution or canonical scatter by itself.
 
 Compare kernel time plus uploads/downloads and synchronization against CPU tile
-execution. This host's integrated GPU shares memory; it does not add a separate
+execution. The laptop's integrated GPU shares memory; it does not add a separate
 RAM pool. A discrete GPU may supply a different bandwidth/capacity balance, but
 no vendor stack, GPU requirement or performance gain is selected in this study.
 
@@ -596,7 +596,7 @@ native tiles scale 6.87–6.99× at eight workers and 12.42–12.77× at sixteen
 speedup of complete encoding or generalized image-basis matrix stages.
 
 MiB-sized transfers substantially reduce file-call overhead compared with 4 KiB
-calls. F_NOCACHE is explicitly requested on this host, but the 256 MiB tests are
+calls. F_NOCACHE is explicitly requested on the laptop, but the 256 MiB tests are
 short filesystem/device-path calibrations, not sustained or durable-media
 bandwidth promises. Simple one-compute-stage overlap gives no material improvement.
 Retain this distinction before extrapolating the external-memory model.
@@ -653,7 +653,7 @@ scratch is counted, and no disk/GPU implementation or larger support is implied.
 Large discovery/preparation remains a separate measured gate: proceed to s=14
 under reviewed time/RAM/storage budgets before admitting s=15. For larger sizes,
 retain the same mathematical/tile semantics with larger commodity hosts or bounded
-file schedules as needed, rather than assuming all state fits this host.
+file schedules as needed, rather than assuming all state fits the laptop.
 
 ## Measured s=14 checkpoint
 
@@ -743,7 +743,7 @@ HPC/GPU or external-memory work is not yet required by the evidence.
 
 1. Use the completed audit and diagnostic s=14 live-heap/RSS measurements to
    review s=15 time/RAM/storage limits. Online encoding suggests roughly 6–9
-   minutes and 18–22 GiB RAM on this host; these remain planning estimates.
+   minutes and 18–22 GiB RAM on the laptop; these remain planning estimates.
    Preparation has a roughly 22 GiB principal-array model plus runtime/native
    overhead. Neither multiplying historical RSS nor extrapolating live heap
    alone establishes its process RSS.
@@ -980,7 +980,7 @@ Application/cryptographic execution and TRL5 remain separate.
 
 User priority: reduce memory requirements before further standalone runtime tuning.
 Retain the verified s16 CPU/GPU encoders as baselines and maintained main paths.
-Use the [capacity reference](encoding-status.md#machine-capacity-and-feasibility)
+Use the [capacity reference](encoding-status.md#hpc-capacity-and-feasibility)
 when evaluating larger host memory and multiple GPUs/nodes. Their observed
 availability does not authorize larger jobs; distributed execution needs its own
 implementation, communication measurements and budget review.

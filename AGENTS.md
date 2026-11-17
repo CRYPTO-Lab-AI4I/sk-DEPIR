@@ -74,13 +74,21 @@ references and verified caches. Correctness, representation and reviewability
 remain required; CPU client encoding stays available without CUDA.
 
 **Target practical commodity hardware.** Benchmark on hardware actually available
-on this machine and respect the agreed experiment budgets. Target commodity CPU
-and GPU architectures; larger workloads may require more RAM, cores or GPU memory,
+on the HPC system or laptop used for the measurement, respecting the agreed
+experiment budgets. Target commodity CPU and GPU architectures; larger workloads may require more RAM, cores or GPU memory,
 but keep hardware/software requirements as generic as practical. Avoid making
 specialized hardware or unnecessary vendor-specific dependencies prerequisites.
 Evaluate architecture-specific acceleration by its measured benefit and deployment
 cost, retaining a practical generic path. Clearly label projections for unavailable
 hardware; do not present them as measurements.
+
+**Identify benchmark environments explicitly.** Use “HPC” or “laptop” in
+performance and capacity documentation instead of relative machine references.
+The current development environment is HPC; historical laptop results
+remain labeled laptop. Where useful, state CPU workers/cores, requested host RAM,
+GPU model/count and device-memory limits. Distinguish hardware capacity, job
+allocations and measured memory; link detailed resources instead of repeating
+them in every table cell.
 
 ## Current development environment and handoff
 

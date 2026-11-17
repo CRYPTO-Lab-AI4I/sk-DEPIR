@@ -139,7 +139,7 @@ race, loader, example and vet checks were repeated after this guard. It does not
 change the measured s=13 codeword path. Measured source versions remain recoverable through content-addressed snapshots
 after comment clarifications and the final guard. The final binding also adds
 explicit `-pthread` compile/link flags; focused tests pass with those flags on
-this host. This is not Linux platform qualification or a new timing baseline. Go race instrumentation does
+the laptop. This is not Linux platform qualification or a new timing baseline. Go race instrumentation does
 not cover native memory; address/UB sanitizers do not establish absence of races.
 The original ABI fixture is retained at `.cache/liftrs/language-s13/transform.bin`;
 regenerate it using the [kernel-language experiment](../kernel-languages/report.md).

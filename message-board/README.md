@@ -17,6 +17,10 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-17 08:24 | DOC-095 | Completed | [Current s17 tables reconciled](2026-11-17-0824-codex-doc-095-completed.md) |
+| 2026-11-17 08:22 | DOC-095 | Started | [Reconcile current s17 tables](2026-11-17-0822-codex-doc-095-started.md) |
+| 2026-11-17 08:17 | DOC-094 | Completed | [HPC/laptop labels and hardware context](2026-11-17-0817-codex-doc-094-completed.md) |
+| 2026-11-17 08:16 | DOC-094 | Started | [Explicit HPC/laptop labels](2026-11-17-0816-codex-doc-094-started.md) |
 | 2026-11-17 08:10 | SCALING-093 | Completed | [Full CPU passes; GPU guard failure recorded](2026-11-17-0810-codex-scaling-093-completed.md) |
 | 2026-11-17 08:06 | SCALING-093 | Started | [Review full CPU76645/GPU76646 results](2026-11-17-0806-codex-scaling-093-started.md) |
 | 2026-11-17 07:58 | SCALING-092 | Completed | [s18 exact dimension and capacity verified](2026-11-17-0758-codex-scaling-092-completed.md) |

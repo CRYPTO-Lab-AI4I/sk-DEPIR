@@ -48,12 +48,12 @@ preparation timing is labeled separately. s≥16 remains unmeasured.
 
 **Earlier serial-path expectations are unmeasured.** These online-time/RSS
 extrapolations predate the parallel integration below and are preserved as
-historical scenarios, not forecasts for the new backend. On the 48 GiB host, s=14 appears
+historical scenarios, not forecasts for the new backend. On the 48 GiB laptop, s=14 appears
 practical with an increased setup budget: approximately 12–13 minutes per encoding,
 10 GiB loading/encoding RAM, 3 hours and 23 GiB RAM to generate preprocessing.
 s=15 is borderline for encoding from an already available cache (roughly 55–63
 minutes and 41 GiB RAM, leaving little headroom). Its estimated 17-hour/97 GiB
-preprocessing does not fit this host; it needs memory improvements or a larger
+preprocessing does not fit the laptop; it needs memory improvements or a larger
 machine. Those forecasts did not establish support; later s=14/15 measurements above
 supersede them. They were not admissions
 under the previous 12 GiB memory guard or two-hour case timeout.
@@ -292,8 +292,8 @@ for a particular step. Preserve standard-setup usability and report deployment
 and maintenance costs alongside speed, memory and I/O.
 
 Hardware choice is constrained by practical deployment: measure using what is
-available on this machine, within the agreed resource budgets, and target
-commodity CPUs/GPUs. More RAM, cores or GPU memory are acceptable at larger
+available on the HPC system or laptop used for the measurement, within the agreed
+resource budgets, and target commodity CPUs/GPUs. More RAM, cores or GPU memory are acceptable at larger
 scales, while hardware/software requirements should stay as generic as practical.
 Architecture-specific acceleration must justify its deployment cost and preserve
 a practical generic path. Specialized hardware is not the default solution;
