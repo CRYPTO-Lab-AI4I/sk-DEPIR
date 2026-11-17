@@ -2239,3 +2239,8 @@ small resident native/race/ASan workflows exercise the refactored common helper.
 Runtime/publication/peak saving remain pending. Next after this gate: tiled FFT
 and split-product measurements, then present the four-versus-sixteen-GPU tradeoff.
 GPU encoding retry76706 remains uninspected. Submit and hand off without monitoring.
+
+SCALING-100 **76710 submitted**, fresh `export-01`, implementation1deb2ef,
+existing bounded resources. [Receipt/results](../experiments/preprocessing-export/report.md#first-validation-submission).
+No monitoring; await completion ping before accepting export correctness or
+choosing representative larger-memory/latency measurements.76706 remains uninspected.

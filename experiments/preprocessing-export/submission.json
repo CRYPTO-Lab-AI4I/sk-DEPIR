@@ -1,0 +1,24 @@
+{
+  "submitted_utc": "2026-11-17T09:17:03.366038+00:00",
+  "job_id": "76710",
+  "prepared_revision": "1deb2ef",
+  "run_name": "export-01",
+  "status": "submitted; not monitored",
+  "command": "sbatch --parsable --output=experiments/preprocessing-export/slurm-%j.log experiments/preprocessing-export/run.sbatch export-01",
+  "results": "experiments/preprocessing-export/runs/export-01/",
+  "scheduler_log": "experiments/preprocessing-export/slurm-76710.log",
+  "cache": ".cache/liftrs/preprocessing-export/export-01/",
+  "resources": {
+    "gpus": 4,
+    "gpu_model": "H200",
+    "per_gpu_owned_cap_gib": 1,
+    "cpus": 4,
+    "host_request_gib": 8,
+    "rss_guard_gib": 6,
+    "go_soft_limit_gib": 4,
+    "retained_cap_gib": 2,
+    "scratch_cap_gib": 4,
+    "scheduler_minutes": 20
+  },
+  "scope": "bounded complete canonical export + resident regressions; not fulls17 stream or fulls18"
+}

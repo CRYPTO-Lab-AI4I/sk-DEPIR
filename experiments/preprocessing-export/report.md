@@ -1,6 +1,6 @@
 # Explicit streamed canonical preprocessing export
 
-Status: **implemented; bounded GPU validation pending**. This is step2 of the
+Status: **implemented; bounded GPU validation76710 submitted**. This is step2 of the
 [s18 memory plan](../../docs/encoding-scaling.md#s18-preprocessing-memory-design-and-comparison-scaling-096),
 following the [passed primitive76704](../preprocessing-memory/report.md#completed-bounded-validation-scaling-099).
 It does not admit fulls18 preprocessing or replace the faster resident default.
@@ -100,3 +100,14 @@ remain separately logged. The preparation phase includes spectrum in resident
 mode but excludes it in streamed mode; compare complete workflows rather than
 that phase alone. Small-case whole-command RSS cannot establish full-size memory
 saving or large I/O penalty. Full s17 streamed and fulls18 remain unvalidated.
+
+## First validation submission
+
+**76710 submitted**, source implementation and recipe committed as`1deb2ef`.
+[Receipt](submission.json); results `runs/export-01/`, scheduler log
+`slurm-76710.log`, retained output/profiles/binaries
+`.cache/liftrs/preprocessing-export/export-01/`. The controller records its
+execution-start Git revision and exact copied code hashes; later receipt/board
+changes do not change producer implementation. No job polling or log following;
+await the user's completion ping before interpreting results. No inspection or
+change to the separate GPU encoding retry76706.

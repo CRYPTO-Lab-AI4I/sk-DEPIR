@@ -1,6 +1,8 @@
 # Lower-memory server preprocessing prototypes
 
-Status: **bounded spectrum streaming validation76704 passed; export integration remains next**.
+Status: **bounded spectrum streaming validation76704 passed**. The subsequent
+[export integration](../preprocessing-export/report.md) is implemented, with
+validation76710 submitted; full-size memory/time remains unmeasured.
 This starts the [s18 design sequence](../../docs/encoding-scaling.md#s18-preprocessing-memory-design-and-comparison-scaling-096).
 It does not extend full preprocessing beyond s17 or change any default mode.
 
