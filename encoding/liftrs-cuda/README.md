@@ -251,5 +251,6 @@ plugins still load, but return an error if streaming symbols are unavailable.
 
 This is a low-level server prototype, not an integrated preprocessing mode. It
 removes the full host spectrum allocation but keeps resident device workspace;
-chunk transfer/write latency is unmeasured. The existing resident path/default
+bounded scalar/memcheck validation passes76704. The32 MiB in-memory hash-sink
+component is measured; full-size transfer/disk latency remains unmeasured. The existing resident path/default
 and s<=17 engine limit remain. See [tests, budget and lifetime model](../../experiments/preprocessing-memory/report.md).

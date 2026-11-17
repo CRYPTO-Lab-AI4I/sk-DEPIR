@@ -63,7 +63,8 @@ original methodology; apply this policy to new optimization runs.
 - [Preprocessing memory prototypes](preprocessing-memory/report.md): host-lifetime
   audit and bounded GPU spectrum export, with independent scalar/failure checks
   and transfer-inclusive comparison; full export integration, tiled transforms
-  and split products follow separately. Runtime validation pending.
+  and split products follow separately. Bounded primitive validation76704 passes;
+  full export integration and full-size memory/runtime remain pending.
 
 - [s18 preprocessing admission](s18-preprocessing-admission/report.md): one-GPU
   exact weighted-class dimension count, independent/known-size comparisons and

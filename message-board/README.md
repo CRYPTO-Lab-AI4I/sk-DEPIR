@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-17 08:54 | SCALING-099 | Completed | [Spectrum76704 verified; export integration next](2026-11-17-0854-codex-scaling-099-completed.md) |
+| 2026-11-17 08:51 | SCALING-099 | Started | [Review spectrum validation76704](2026-11-17-0851-codex-scaling-099-started.md) |
 | 2026-11-17 08:50 | SCALING-098 | Handoff | [Full GPU retry76706 submitted](2026-11-17-0850-codex-scaling-098-handoff.md) |
 | 2026-11-17 08:48 | SCALING-098 | Prepared | [Full GPU retry budget and checks ready](2026-11-17-0848-codex-scaling-098-prepared.md) |
 | 2026-11-17 08:46 | SCALING-098 | Started | [Roomier full s17 GPU retry](2026-11-17-0846-codex-scaling-098-started.md) |

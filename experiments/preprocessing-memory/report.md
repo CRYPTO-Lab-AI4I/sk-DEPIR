@@ -1,6 +1,6 @@
 # Lower-memory server preprocessing prototypes
 
-Status: **spectrum streaming primitive implemented; validation job76704 submitted**.
+Status: **bounded spectrum streaming validation76704 passed; export integration remains next**.
 This starts the [s18 design sequence](../../docs/encoding-scaling.md#s18-preprocessing-memory-design-and-comparison-scaling-096).
 It does not extend full preprocessing beyond s17 or change any default mode.
 
@@ -13,8 +13,9 @@ The runner reuses the [existing guarded controller](../gpu-preprocessing-workflo
 and its complete small-workflow/regression/sanitizer checks. The copied source is
 hashed against the job's recorded revision; commit the producer before submission.
 Runtime results and logs: `runs/stream-01/`; retained binaries, reference caches
-and profiles: `.cache/liftrs/preprocessing-memory/stream-01/`. No runtime result is
-claimed before the completion ping and source/evidence/cache reconciliation.
+and profiles: `.cache/liftrs/preprocessing-memory/stream-01/`. The [completed analysis](runs/stream-01/analysis.json), [review summary](runs/stream-01/review.json)
+and [raw producer results](runs/stream-01/results.json) now provide reconciled
+bounded runtime evidence. Full-size preprocessing remains unmeasured.
 
 ```sh
 python3 -B experiments/preprocessing-memory/memory.py
@@ -124,3 +125,45 @@ above. [Receipt](submission.json); results `runs/stream-01/`, scheduler log
 The controller records its execution-start Git revision and exact copied source
 hashes; later message-board/receipt updates do not change executable sources.
 No scheduler polling or log inspection follows submission; await completion ping.
+
+## Completed bounded validation (SCALING-099)
+
+**76704 passed**, HPC nodegnode04,4H200 NVL,4 CPU cores,8 GiB requested host RAM.
+Slurm **COMPLETED0:0**, **3 min 59 s**; controller **236.909 s**. Go1.27.3,
+GCC14.2.0,CUDA12.9.86,driver580.126.20; producer revision
+`46d16d22d247364dd05cbf0dbcac50a7d8cd6d89`. [Raw results](runs/stream-01/results.json),
+[analysis](runs/stream-01/analysis.json), [review](runs/stream-01/review.json),
+[accounting](runs/stream-01/scheduler-completion.txt), [scheduler log](slurm-76704.log).
+Reconciliation verifies **561 source /43 evidence /74 retained-cache files**,
+without source overrides. Sampled maximum command process-group RSS is
+**0.565 GiB**, including build/validation work; it is not isolated stream memory.
+Retained binaries/cache are31,275,710 bytes, outside Git at the path above.
+Profiles and complete small preprocessing fixtures remain reusable.
+
+Twelve scalar-Horner cases pass at s8 and true s17 extension width with1/2/4GPUs,
+peer/local, all points checked, including tiny/tail/cross-shard stream chunks.
+Writer short/error, field/shape/tile bounds, closed state and engine reuse after
+failure pass. Stream CUDA memcheck reports **0 errors /0 leaked bytes**; inherited
+four-GPU complete-workflow memcheck also passes. Existing small canonical-byte,
+fresh/cache/root-restart/CUDA-free readback, native regression/race/ASan/vet checks
+pass. This validates the primitive, not full streamed artifact publication.
+
+| Component on4H200, s17 arithmetic,32 MiB spectrum | Sample1 | Sample2 | Mean |
+|---|---:|---:|---:|
+| Resident transform + output hash/write |242.058 ms |221.534 ms |231.796 ms |
+| Stream transform + output hash/write,1 MiB tile |217.848 ms |215.225 ms |216.536 ms |
+
+All four full hashes match. Stream mean is **6.58% lower** in these two balanced
+samples; no slowdown is observed here. Do not infer a full-size speedup or a
+cost-free512 GiB export: both timings include profiling/logging, use an in-memory
+hash sink rather than disk, and have different input preparation boundaries.
+There is no confidence bound, end-to-end preprocessing comparison or measured
+RSS saving (the resident array is intentionally retained during both strategies).
+
+The final-stage s18 array projection stays889.446→377.447 GiB with1 MiB streaming,
+not a measured peak. Earlier discovery/product pressure and full publication
+remain unsolved. **Next:** integrate explicit canonical streaming with scoped
+host ownership and atomic verified publication on small complete codes, then
+measure representative host-backed transforms and split products before selecting
+the four-versus-sixteen-H200 route. Resident defaults and fulls18 admission stay
+unchanged. GPU encoding retry76706 was not inspected during this review.

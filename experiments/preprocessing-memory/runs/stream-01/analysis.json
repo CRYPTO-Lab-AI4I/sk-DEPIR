@@ -1,0 +1,352 @@
+{
+  "status": "passed",
+  "job_id": "76704",
+  "revision": "46d16d22d247364dd05cbf0dbcac50a7d8cd6d89",
+  "source_files_verified": 561,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 43,
+  "cache_files_verified": 74,
+  "tests": [
+    "atomic stage publication and failure retention",
+    "independent Go canonical bytes",
+    "fresh and completed-cache/root restarts",
+    "CUDA-free final-cache readback",
+    "corruption/source-binding rejection",
+    "race/ASan/vet",
+    "fresh executable CUDA memcheck",
+    "s8/s17 streamed slots vs independent scalar Horner; 1/2/4GPU peer/local",
+    "short/error writer, shape/tile/field, reuse after failure and closed state",
+    "balanced resident/streamed dense spectrum hashes; bounded CUDA memcheck"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 1.2558451578952372,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 1.2236718111671507,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "gpu",
+      "seconds": 1.184099718928337,
+      "peak_rss_bytes": 21716992,
+      "exit_code": 0
+    },
+    {
+      "label": "topology",
+      "seconds": 1.1769530619494617,
+      "peak_rss_bytes": 21716992,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 1.1716535757295787,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 1.1648033689707518,
+      "peak_rss_bytes": 7360512,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 1.213999297004193,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 1.207863292656839,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "controller-tests",
+      "seconds": 1.1896973890252411,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe-build",
+      "seconds": 7.237736789975315,
+      "peak_rss_bytes": 242618368,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe",
+      "seconds": 6.155943649820983,
+      "peak_rss_bytes": 243634176,
+      "exit_code": 0
+    },
+    {
+      "label": "go-only-build",
+      "seconds": 12.713648919947445,
+      "peak_rss_bytes": 326402048,
+      "exit_code": 0
+    },
+    {
+      "label": "go-only-tests",
+      "seconds": 5.251069972291589,
+      "peak_rss_bytes": 29446144,
+      "exit_code": 0
+    },
+    {
+      "label": "native-tests",
+      "seconds": 14.385355916805565,
+      "peak_rss_bytes": 596389888,
+      "exit_code": 0
+    },
+    {
+      "label": "race",
+      "seconds": 30.43504429794848,
+      "peak_rss_bytes": 606908416,
+      "exit_code": 0
+    },
+    {
+      "label": "asan",
+      "seconds": 26.783162725158036,
+      "peak_rss_bytes": 575336448,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 19.19488195097074,
+      "peak_rss_bytes": 317837312,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-cli-build",
+      "seconds": 3.992194075137377,
+      "peak_rss_bytes": 28508160,
+      "exit_code": 0
+    },
+    {
+      "label": "vet",
+      "seconds": 2.6487307609058917,
+      "peak_rss_bytes": 29151232,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-fresh",
+      "seconds": 3.869133735075593,
+      "peak_rss_bytes": 21688320,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-cached",
+      "seconds": 1.251399717759341,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-root-restart",
+      "seconds": 3.7081262380816042,
+      "peak_rss_bytes": 23781376,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-cuda-free-readback",
+      "seconds": 1.221363517921418,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-fresh",
+      "seconds": 6.286470092833042,
+      "peak_rss_bytes": 257531904,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-cached",
+      "seconds": 1.2585457619279623,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-root-restart",
+      "seconds": 6.148722775746137,
+      "peak_rss_bytes": 257544192,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-cuda-free-readback",
+      "seconds": 1.2336590602062643,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-fresh",
+      "seconds": 4.934513249900192,
+      "peak_rss_bytes": 21651456,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-cached",
+      "seconds": 1.2735814680345356,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-root-restart",
+      "seconds": 3.7082370878197253,
+      "peak_rss_bytes": 23793664,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-cuda-free-readback",
+      "seconds": 1.2697721789591014,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-fresh",
+      "seconds": 6.1152057577855885,
+      "peak_rss_bytes": 257527808,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-cached",
+      "seconds": 1.226184796076268,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-root-restart",
+      "seconds": 6.251869852654636,
+      "peak_rss_bytes": 478580736,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-cuda-free-readback",
+      "seconds": 1.2543385680764914,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "memcheck",
+      "seconds": 6.39795518387109,
+      "peak_rss_bytes": 547168256,
+      "exit_code": 0
+    },
+    {
+      "label": "spectrum-build",
+      "seconds": 5.395297741051763,
+      "peak_rss_bytes": 263102464,
+      "exit_code": 0
+    },
+    {
+      "label": "spectrum-correctness",
+      "seconds": 7.612773207947612,
+      "peak_rss_bytes": 476962816,
+      "exit_code": 0
+    },
+    {
+      "label": "spectrum-transfer",
+      "seconds": 6.3259530030190945,
+      "peak_rss_bytes": 530485248,
+      "exit_code": 0
+    },
+    {
+      "label": "spectrum-memcheck",
+      "seconds": 5.073122894857079,
+      "peak_rss_bytes": 204124160,
+      "exit_code": 0
+    }
+  ],
+  "scope": "bounded streamed-spectrum primitive and existing small complete workflows; not integrated streamed preprocessing or fulls18",
+  "cases": [
+    {
+      "layout": "peer",
+      "gpus": 1,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "02be3040b2ac53dca72683b2e7b0d0fee8c2ad728e3bf77731b849592aa86664",
+        "root": "c89b2184f984b966100e3cc826876d0b5e19c5ee3f890fa8f9128bfca7372fad",
+        "code": "f74ab20497097031d48f8466583aa7678fd1379239571dd5196c964f4f1283d4"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-memory/stream-01/peer-1"
+    },
+    {
+      "layout": "peer",
+      "gpus": 4,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "1299f7e1efe6b364f7bcbc26f1473c3877c9ea54f1f65fbd22e1e837cdda21f5",
+        "root": "14cb48c315135af422ce52a0938c04ec2ab7c9dd195d48d2da4102e15d7653fd",
+        "code": "aa76d46dbc12ae391c45839d09745d623ff6cf524d5d6093fdda0d4f5ce27631"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-memory/stream-01/peer-4"
+    },
+    {
+      "layout": "local",
+      "gpus": 1,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "8ae822960e471942810c94ec49f2f283ae285d74a544f59d50fb46984e3a2dee",
+        "root": "b73758a65b020436e6b1bac93d78380f456c9ff45ca0356b0a1af2fa0fe83fb9",
+        "code": "03b225ed661b235b84f798670f5fc58be08f97fe3fdb37a7802eae2df0018967"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-memory/stream-01/local-1"
+    },
+    {
+      "layout": "local",
+      "gpus": 4,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "184c55a95790efc5b3eb8441535b2c6e008f16d0efe6d140a17ea77d38d87c09",
+        "root": "8e0eca8c38c9a7583ec3635e82714ca72c9dea7e4bd1d1164b5f69e5f569670a",
+        "code": "312996066089082fc47b9c0484bcbd3eaab56e077d1c8370bd6f609610f8ff3a"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-memory/stream-01/local-4"
+    }
+  ],
+  "spectrum_transfer": [
+    {
+      "n": 4194304,
+      "resident_output_bytes": 33554432,
+      "sample": 0,
+      "seconds": 0.242057938,
+      "sha256": "55d6de124855f9f48a0f535c0c4ecb6c0bbd9501a8314a412c374002274c2765",
+      "stream_tile_bytes": 1048576,
+      "streamed": false
+    },
+    {
+      "n": 4194304,
+      "resident_output_bytes": 33554432,
+      "sample": 0,
+      "seconds": 0.217847765,
+      "sha256": "55d6de124855f9f48a0f535c0c4ecb6c0bbd9501a8314a412c374002274c2765",
+      "stream_tile_bytes": 1048576,
+      "streamed": true
+    },
+    {
+      "n": 4194304,
+      "resident_output_bytes": 33554432,
+      "sample": 1,
+      "seconds": 0.215224908,
+      "sha256": "55d6de124855f9f48a0f535c0c4ecb6c0bbd9501a8314a412c374002274c2765",
+      "stream_tile_bytes": 1048576,
+      "streamed": true
+    },
+    {
+      "n": 4194304,
+      "resident_output_bytes": 33554432,
+      "sample": 1,
+      "seconds": 0.221533528,
+      "sha256": "55d6de124855f9f48a0f535c0c4ecb6c0bbd9501a8314a412c374002274c2765",
+      "stream_tile_bytes": 1048576,
+      "streamed": false
+    }
+  ]
+}

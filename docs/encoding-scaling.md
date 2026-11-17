@@ -2138,8 +2138,9 @@ scripts, source-derived lifetime models, validation and eventual measurements.
    buffers are already released before the final transform. Prototype a bounded
    download-to-writer using the same GPU transform; final s18 host-array payload
    projects889.446→377.447 GiB with a1 MiB tile, while earlier discovery and product
-   peaks remain. Status: audit and low-level primitive implemented; runtime and
-   full workflow memory savings unvalidated.
+   peaks remain. Status: audit and low-level primitive correctness/memcheck passed76704; bounded
+   transfer component measured. Full workflow memory savings and disk costs remain
+   unvalidated; proceed to step2.
 2. **Validate/integrate explicit export with scoped host ownership.** First
    compare small canonical spectra against independent scalar arithmetic, then
    integrate atomic canonical code/G publication and safe release of dead caller
@@ -2198,3 +2199,20 @@ encoding/probeed0c026 and prepared controller9855919. [Receipt](../experiments/s
 Results `experiments/s17-full-encoding/runs/gpu-retry-02/gpu/`; scheduler log
 `experiments/s17-full-encoding/gpu-76706.log`. CPU76645 remains the output reference.
 No monitoring, result claim or unrelated-job inspection; await completion ping.
+
+### Bounded spectrum primitive passes; integrate publication next (SCALING-099)
+
+76704 passes on HPCgnode04/4H200/4CPU/8 GiB host,3 min59 s whole job;
+561source/43evidence/74cache identities reconcile. All independent scalar s8/s17,
+1/2/4GPU peer/local, error/reuse and CUDA memcheck checks pass, plus inherited
+complete small workflows/regressions.32 MiB spectrum component: resident222–242 ms,
+streamed215–218 ms with1 MiB tile; mean6.58% lower over two balanced samples.
+This memory-hash-sink component is not disk publication, an end-to-end speedup or
+a measured memory reduction. Full-size penalty/RSS remains unknown.
+[Evidence/boundaries](../experiments/preprocessing-memory/report.md#completed-bounded-validation-scaling-099).
+
+Step1 primitive gate is passed. Continue step2: explicit canonical artifact export
+and scoped host ownership, atomic manifests, complete P*G and byte/digest/readback
+checks against resident output. Retain resident defaults; no s18 admission follows.
+Host-backed transform and split-product measurements remain steps3/4 before the
+four-versus-sixteen-GPU choice. GPU encoding retry76706 remains uninspected.

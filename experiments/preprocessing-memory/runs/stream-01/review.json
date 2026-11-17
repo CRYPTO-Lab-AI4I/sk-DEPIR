@@ -1,0 +1,63 @@
+{
+  "reviewed_utc": "2026-11-17T08:53:51.064281+00:00",
+  "job_id": "76704",
+  "status": "passed",
+  "revision": "46d16d22d247364dd05cbf0dbcac50a7d8cd6d89",
+  "scheduler": {
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed_seconds": 239,
+    "node": "gnode04",
+    "cpus": 4,
+    "host_request_gib": 8,
+    "gpus": 4,
+    "gpu_model": "NVIDIA H200 NVL"
+  },
+  "controller_seconds": 236.90933267679065,
+  "source_files_verified": 561,
+  "evidence_files_verified": 43,
+  "cache_files_verified": 74,
+  "peak_sampled_command_rss_bytes": 606908416,
+  "component": {
+    "n": 4194304,
+    "spectrum_bytes": 33554432,
+    "stream_tile_bytes": 1048576,
+    "resident_seconds": [
+      0.242057938,
+      0.221533528
+    ],
+    "stream_seconds": [
+      0.217847765,
+      0.215224908
+    ],
+    "resident_mean_seconds": 0.231795733,
+    "stream_mean_seconds": 0.21653633649999998,
+    "stream_mean_change_percent": -6.583122261357599,
+    "sha256": "55d6de124855f9f48a0f535c0c4ecb6c0bbd9501a8314a412c374002274c2765",
+    "boundary": "transform + download + hash/write; profiled/logged; setup excluded; in-memory hash sink, not disk",
+    "limitations": [
+      "Two samples per strategy, balanced order; no statistical confidence bound.",
+      "Resident generic transform initialization differs from streamed base-coefficient upload.",
+      "Resident comparison array remains live in both modes, so RSS difference is not measured.",
+      "No integrated streamed preprocessing or fulls18 peak/runtime result."
+    ]
+  },
+  "tests": [
+    "12 independent scalar-Horner cases: s8/s17,1/2/4 GPUs,peer/local",
+    "short/error writer, field/shape/tile limits, closed state and reuse after failure",
+    "stream CUDA memcheck on1GPU, inherited complete-workflow memcheck on4GPUs",
+    "four complete small fresh/cache/root-restart/CUDA-free-readback workflows",
+    "native regression, race, ASan, vet"
+  ],
+  "remaining_steps": [
+    "integrate canonical streamed publication and safe host-array lifetimes",
+    "measure host-backed tiled transform",
+    "measure split polynomial product",
+    "compare four-H200 hybrid and sixteen-H200 distributed designs"
+  ],
+  "review_evidence_sha256": {
+    "slurm-76704.log": "6fe13c6c558e02d839e8ef1723f7fa7e40b49526ea7416c5377ea02abde5c1d6",
+    "runs/stream-01/analysis.json": "0c1f174a93d0df0bd00e8e986c7da83c3028afccaff6956504e0635ff6cb8f32",
+    "runs/stream-01/scheduler-completion.txt": "138b28e8f3f8ce47a42e57ab962014f1977b6eeea8ebb958320bc8397adf42a3"
+  }
+}

@@ -1,0 +1,70 @@
+========= COMPUTE-SANITIZER
+=== RUN   TestGPUPreparationStreamedSpectrum
+=== RUN   TestGPUPreparationStreamedSpectrum/s8/peer/1
+{"completed":0,"elapsed_seconds":0.000015278,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:32.540208299Z"}
+{"completed":4096,"elapsed_seconds":0.084987715,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:32.625189081Z"}
+{"completed":0,"elapsed_seconds":0.000001883,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:32.665903034Z"}
+{"completed":4096,"elapsed_seconds":0.029638693,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:32.695526881Z"}
+{"completed":0,"elapsed_seconds":0.00001064,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:32.737107162Z"}
+{"completed":4096,"elapsed_seconds":0.001012138,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:32.738112115Z"}
+{"completed":0,"elapsed_seconds":0.000009219,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:32.779148206Z"}
+{"completed":4096,"elapsed_seconds":0.000747954,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:32.779886373Z"}
+{"completed":0,"elapsed_seconds":0.000006238,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:32.820907266Z"}
+{"completed":0,"elapsed_seconds":0.000118039,"event":"failed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:32.821021011Z"}
+{"completed":0,"elapsed_seconds":0.000005931,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:32.861960179Z"}
+{"completed":0,"elapsed_seconds":0.000088967,"event":"failed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:32.862044233Z"}
+{"completed":0,"elapsed_seconds":0.000011932,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:32.903537377Z"}
+{"completed":4096,"elapsed_seconds":0.029824102,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:32.933336502Z"}
+=== RUN   TestGPUPreparationStreamedSpectrum/s8/local/1
+{"completed":0,"elapsed_seconds":0.000010646,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:32.982234209Z"}
+{"completed":4096,"elapsed_seconds":0.082690345,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.064916666Z"}
+{"completed":0,"elapsed_seconds":0.000001876,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.104607362Z"}
+{"completed":4096,"elapsed_seconds":0.029305119,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.133908121Z"}
+{"completed":0,"elapsed_seconds":0.000001594,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.173634461Z"}
+{"completed":4096,"elapsed_seconds":0.000798156,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.174429733Z"}
+{"completed":0,"elapsed_seconds":0.000024066,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.214030772Z"}
+{"completed":4096,"elapsed_seconds":0.00010834,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.214137274Z"}
+{"completed":0,"elapsed_seconds":0.000002782,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.253759942Z"}
+{"completed":0,"elapsed_seconds":0.000060777,"event":"failed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.253819177Z"}
+{"completed":0,"elapsed_seconds":0.000001686,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.293440577Z"}
+{"completed":0,"elapsed_seconds":0.000058427,"event":"failed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.293497724Z"}
+{"completed":0,"elapsed_seconds":0.000001514,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.333222954Z"}
+{"completed":4096,"elapsed_seconds":0.028832233,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.362053669Z"}
+=== RUN   TestGPUPreparationStreamedSpectrum/s17/peer/1
+{"completed":0,"elapsed_seconds":0.000005876,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.414072394Z"}
+{"completed":4096,"elapsed_seconds":0.1647438,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.57880847Z"}
+{"completed":0,"elapsed_seconds":0.000002133,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.618808018Z"}
+{"completed":4096,"elapsed_seconds":0.058552764,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.677356178Z"}
+{"completed":0,"elapsed_seconds":0.000003031,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.717355793Z"}
+{"completed":4096,"elapsed_seconds":0.001569733,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.718923284Z"}
+{"completed":0,"elapsed_seconds":0.000002072,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.758827Z"}
+{"completed":4096,"elapsed_seconds":0.000088492,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.758913514Z"}
+{"completed":0,"elapsed_seconds":0.000001448,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.798795786Z"}
+{"completed":0,"elapsed_seconds":0.000058612,"event":"failed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.798852978Z"}
+{"completed":0,"elapsed_seconds":0.000001378,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.838813909Z"}
+{"completed":0,"elapsed_seconds":0.000057862,"event":"failed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.838869218Z"}
+{"completed":0,"elapsed_seconds":0.000001536,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.878874067Z"}
+{"completed":4096,"elapsed_seconds":0.055575481,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.934448051Z"}
+=== RUN   TestGPUPreparationStreamedSpectrum/s17/local/1
+{"completed":0,"elapsed_seconds":0.000006018,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:33.981763834Z"}
+{"completed":4096,"elapsed_seconds":0.165424561,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:34.147180828Z"}
+{"completed":0,"elapsed_seconds":0.000005582,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:34.185812513Z"}
+{"completed":4096,"elapsed_seconds":0.057878416,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:34.243687252Z"}
+{"completed":0,"elapsed_seconds":0.000002243,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:34.282194155Z"}
+{"completed":4096,"elapsed_seconds":0.001518778,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:34.283710858Z"}
+{"completed":0,"elapsed_seconds":0.000193698,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:34.32246407Z"}
+{"completed":4096,"elapsed_seconds":0.00073848,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:34.322996363Z"}
+{"completed":0,"elapsed_seconds":0.000002778,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:34.36153637Z"}
+{"completed":0,"elapsed_seconds":0.000071972,"event":"failed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:34.361600067Z"}
+{"completed":0,"elapsed_seconds":0.000002079,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:34.400110004Z"}
+{"completed":0,"elapsed_seconds":0.000057863,"event":"failed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:34.400166088Z"}
+{"completed":0,"elapsed_seconds":0.000001591,"event":"started","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:34.438586506Z"}
+{"completed":4096,"elapsed_seconds":0.057295806,"event":"completed","phase":"GPU-spectrum-stream","total":4096,"unit":"elements","utc":"2026-11-17T08:39:34.495875426Z"}
+--- PASS: TestGPUPreparationStreamedSpectrum (4.34s)
+    --- PASS: TestGPUPreparationStreamedSpectrum/s8/peer/1 (2.78s)
+    --- PASS: TestGPUPreparationStreamedSpectrum/s8/local/1 (0.43s)
+    --- PASS: TestGPUPreparationStreamedSpectrum/s17/peer/1 (0.57s)
+    --- PASS: TestGPUPreparationStreamedSpectrum/s17/local/1 (0.56s)
+PASS
+========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+========= ERROR SUMMARY: 0 errors
