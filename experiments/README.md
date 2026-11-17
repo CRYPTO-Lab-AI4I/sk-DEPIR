@@ -63,7 +63,8 @@ original methodology; apply this policy to new optimization runs.
 - [Explicit streamed preprocessing export](preprocessing-export/report.md): shared
   verified polynomial stage, bounded canonical output with atomic publication,
   support/recovery lifetimes and complete stream/resident correctness validation
-  (GPU job pending); resident defaults and s18 admission unchanged.
+  (76710 passed); full-size savings/costs unmeasured, resident defaults and s18
+  admission unchanged.
 
 - [Preprocessing memory prototypes](preprocessing-memory/report.md): host-lifetime
   audit and bounded GPU spectrum export, with independent scalar/failure checks

@@ -1,0 +1,14 @@
+{"completed":0,"elapsed_seconds":0.000007301,"event":"started","phase":"workflow","total":1,"unit":"operations","utc":"2026-11-17T09:21:01.076536267Z"}
+{"completed":0,"elapsed_seconds":0.009309672,"event":"started","phase":"read-code-online.bin","total":1,"unit":"operations","utc":"2026-11-17T09:21:01.085843292Z"}
+{"completed":291697,"elapsed_seconds":0.020271261,"event":"progress","phase":"read-code-online.bin","total":291697,"unit":"bytes","utc":"2026-11-17T09:21:01.096804497Z"}
+{"completed":1,"elapsed_seconds":0.020286098,"event":"completed","phase":"read-code-online.bin","total":1,"unit":"operations","utc":"2026-11-17T09:21:01.096819741Z"}
+{"completed":0,"elapsed_seconds":0.020294458,"event":"started","phase":"read-support-support.bin","total":1,"unit":"operations","utc":"2026-11-17T09:21:01.096827911Z"}
+{"completed":29524,"elapsed_seconds":0.022367835,"event":"progress","phase":"read-support-support.bin","total":29524,"unit":"bytes","utc":"2026-11-17T09:21:01.098901566Z"}
+{"completed":1,"elapsed_seconds":0.022383444,"event":"completed","phase":"read-support-support.bin","total":1,"unit":"operations","utc":"2026-11-17T09:21:01.09891706Z"}
+{"completed":0,"elapsed_seconds":0.022389196,"event":"started","phase":"read-root-root.bin","total":1,"unit":"operations","utc":"2026-11-17T09:21:01.098923354Z"}
+{"completed":29528,"elapsed_seconds":0.024326476,"event":"progress","phase":"read-root-root.bin","total":29528,"unit":"bytes","utc":"2026-11-17T09:21:01.100859957Z"}
+{"completed":1,"elapsed_seconds":0.024339895,"event":"completed","phase":"read-root-root.bin","total":1,"unit":"operations","utc":"2026-11-17T09:21:01.100874019Z"}
+{"completed":0,"elapsed_seconds":0.024345963,"event":"started","phase":"read-code-generator.bin","total":1,"unit":"operations","utc":"2026-11-17T09:21:01.10087976Z"}
+{"completed":0,"elapsed_seconds":0.0586913,"event":"failed","phase":"read-code-generator.bin","total":1,"unit":"operations","utc":"2026-11-17T09:21:01.135225211Z"}
+{"completed":0,"elapsed_seconds":0.058703215,"event":"failed","phase":"workflow","total":1,"unit":"operations","utc":"2026-11-17T09:21:01.135237008Z"}
+generator.bin checksum mismatch

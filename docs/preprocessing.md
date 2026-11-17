@@ -406,5 +406,7 @@ Source-derived final s18 export arrays project256.001 GiB with1 MiB tile versus
 intermediates, device arrays, runtime and filesystem cache remain additional.
 No extra transform or canonical output bytes are introduced, but chunk I/O and
 GC timing can change runtime. Full preprocessing still stops at s17. This export
-integration is **implemented, GPU validation pending**; the lower-level primitive
-passed76704. See [reproduction, tests and tradeoffs](../experiments/preprocessing-export/report.md).
+integration **passes complete bounded GPU validation76710**, including independent
+canonical/G bytes, publication/restart/corruption checks and API/CLI memcheck;
+the lower-level s17-width primitive passed76704. Full-size savings/costs remain
+unmeasured. See [reproduction, tests and tradeoffs](../experiments/preprocessing-export/report.md).

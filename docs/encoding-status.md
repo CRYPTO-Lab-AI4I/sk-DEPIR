@@ -396,11 +396,16 @@ saving is established. [Results and boundaries](../experiments/preprocessing-mem
 
 The [explicit export integration](../experiments/preprocessing-export/report.md)
 is implemented with shared P/G verification, atomic publication and command-owned
-support/recovery release; **bounded GPU validation76710 is submitted**, result pending. With that release, final s18
+support/recovery release; **bounded complete export validation76710 passed** on HPCgnode04
+(4H200,4CPU,8 GiB host request;5 min28 s whole job). Independent/resident canonical
+and G bytes, atomic publication, restart/corruption/failure checks and four-GPU
+API/CLI memcheck pass;568source/74evidence/169cache identities reconcile. With that release, final s18
 export-stage arrays project **256.001 GiB** with1 MiB tile, versus377.447 GiB
 when support stays referenced. Earlier-stage/device requirements are unchanged;
-this is not measured RSS or full s18 feasibility. Next: validate complete streamed
-publication, then measure host-backed tiled transforms and split products. Full
+this is not measured RSS or full s18 feasibility. Single small complete fresh
+commands take3.755–6.174 s streamed, including setup/I/O/profile; fixed sample
+ordering prevents a speedup claim. Next: measure host-backed tiled transforms
+and split products. Full
 preprocessing limits, faster defaults and all full-size measurement cells remain
 unchanged.
 

@@ -2191,8 +2191,8 @@ is about907 GiB; all resources remain single-node and gnode03 stays excluded.
 Persist exact guard-trigger resource samples and compare final canonical/packed
 hashes to passedCPU76645, without repeating the CPU run. Record the actual updated
 controller separately from frozen arithmetic. [Recipe and checks](../experiments/s17-full-encoding/report.md#gpu-retry-with-conservative-host-headroom-scaling-098).
-Submit and hand off; no monitoring. Separate spectrum validation76704 remains
-uninspected and unrelated to this retry's encoder source.
+The separate spectrum validation76704 passed in its own review and is unrelated
+to this retry's frozen encoder source.
 
 SCALING-098 full GPU retry **76706 submitted**, fresh `gpu-retry-02`, frozen
 encoding/probeed0c026 and prepared controller9855919. [Receipt](../experiments/s17-full-encoding/submission-gpu-retry-02.json).
@@ -2244,3 +2244,21 @@ SCALING-100 **76710 submitted**, fresh `export-01`, implementation1deb2ef,
 existing bounded resources. [Receipt/results](../experiments/preprocessing-export/report.md#first-validation-submission).
 No monitoring; await completion ping before accepting export correctness or
 choosing representative larger-memory/latency measurements.76706 remains uninspected.
+
+### Complete bounded export gate passed (SCALING-101)
+
+76710passes, HPCgnode04/4H200/4CPU/8 GiB host request,5 min28 s whole job.
+568source/74evidence/169cache identities reconcile without overrides. Six1/2/4GPU
+peer/local API cases and four complete s8 CLI stream workflows match independent/
+resident canonical+G bytes. Root/cache restarts, immutability, error/reuse,
+CUDA-free readback, corruption rejection and unpublished-output recovery pass;
+API/CLI CUDA memcheck0errors/0leaks. Shared native/race/ASan regressions pass.
+[Evidence and timing boundaries](../experiments/preprocessing-export/report.md#completed-export-validation-scaling-101).
+
+Reviewer was corrected to recognize exactly two declared negative exits and their
+specific reasons; default strict zero-success and all guard/hash checks remain.
+No execution/producer data was modified or rerun. Step2 correctness gate passes;
+full-size memory/time and256.001 GiB final-stage model remain unmeasured.
+Proceed to step3 host-backed tiled transform and step4 split product, followed by
+end-to-end four-versus-sixteen-H200 tradeoff selection. No fulls18 admission or
+new job from this review. GPU encoding retry76706 remains uninspected.

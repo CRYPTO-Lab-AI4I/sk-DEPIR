@@ -72,8 +72,8 @@ hybrid or sixteen-GPU distributed route. The [first prototype](experiments/prepr
 shares existing GPU arithmetic and passes bounded correctness/CUDA memcheck
 (job76704). A32 MiB component takes215–218 ms streamed versus222–242 ms resident;
 full disk/export latency and memory savings remain unvalidated. Canonical export integration is now implemented via explicit
-`--spectrum-tile-bytes` and shared verified P/G preparation, with [GPU validation
-job76710 submitted; result pending](experiments/preprocessing-export/report.md). No default or full
+`--spectrum-tile-bytes` and shared verified P/G preparation. [Complete bounded
+GPU validation76710 passed](experiments/preprocessing-export/report.md). No default or full
 preprocessing limit changes.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.

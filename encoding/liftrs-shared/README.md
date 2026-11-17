@@ -815,6 +815,6 @@ a bounded resident-GPU tile; `PreparedPolynomials.WriteGenerator` writes G.
 This shares all polynomial arithmetic/full identities with the default `Prepare`
 path and preserves caller-owned support/checkpoints. Publication remains the
 caller's responsibility; the CLI integrates existing atomic verification via
-`--spectrum-tile-bytes`. GPU integration validation is pending; see
+`--spectrum-tile-bytes`. Complete bounded GPU validation76710 passes; full-size costs remain unmeasured. See
 [API usage and lifetime rules](../../docs/preprocessing.md#explicit-bounded-host-canonical-export)
 and [reproduction](../../experiments/preprocessing-export/report.md).

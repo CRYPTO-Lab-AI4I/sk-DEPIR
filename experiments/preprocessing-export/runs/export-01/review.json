@@ -1,0 +1,78 @@
+{
+  "reviewed_utc": "2026-11-17T09:33:49.472802+00:00",
+  "job_id": "76710",
+  "status": "passed",
+  "source_revision": "1deb2ef2da3bc2882db12aa6f6da7dc2173d3787",
+  "scheduler": {
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed_seconds": 328,
+    "node": "gnode04",
+    "cpu_cores": 4,
+    "gpus": 4,
+    "gpu_model": "H200 NVL",
+    "requested_host_gib": 8
+  },
+  "controller_seconds": 327.2737324498594,
+  "source_files_verified": 568,
+  "evidence_files_verified": 74,
+  "cache_files_verified": 169,
+  "peak_sampled_command_rss_bytes": 604389376,
+  "expected_negative_commands": {
+    "export-corruption": 1,
+    "export-admission-failure": 1
+  },
+  "small_fresh_comparisons": [
+    {
+      "layout": "peer",
+      "gpus": 1,
+      "resident_fresh_seconds": 5.115515457931906,
+      "stream_fresh_seconds": 3.755227400921285
+    },
+    {
+      "layout": "peer",
+      "gpus": 4,
+      "resident_fresh_seconds": 6.1328413700684905,
+      "stream_fresh_seconds": 6.146890047006309
+    },
+    {
+      "layout": "local",
+      "gpus": 1,
+      "resident_fresh_seconds": 4.938820248004049,
+      "stream_fresh_seconds": 3.78841222403571
+    },
+    {
+      "layout": "local",
+      "gpus": 4,
+      "resident_fresh_seconds": 6.152024450246245,
+      "stream_fresh_seconds": 6.17436312418431
+    }
+  ],
+  "canonical_code_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+  "generator_sha256": "0e9756d0f2034ad396ccc331635fcbd25a024e3ae926d21cbaf8c050328c6f7a",
+  "full_stream_cases": 4,
+  "api_layout_cases": 6,
+  "cuda_memcheck": {
+    "api_errors": 0,
+    "api_leaked_bytes": 0,
+    "cli_errors": 0,
+    "cli_leaked_bytes": 0
+  },
+  "scope": "Complete small s8 CLI publication and s4 GPU API correctness; bounded s17-width primitive is separately validated in76704. No fulls17 streamed or fulls18 run.",
+  "limits": [
+    "One fresh sample per layout/card/mode, resident cases before stream cases; no controlled speedup comparison.",
+    "Whole-command timings include setup/discovery/profile/fsync/verification; preparation-phase boundaries differ by mode.",
+    "Sampled command RSS includes build/validation work, not isolated stream peak or measured memory savings.",
+    "169 retained-cache identities include a labeled deliberately corrupt negative-test copy."
+  ],
+  "next_steps": [
+    "host-backed tiled transform component",
+    "split polynomial product component",
+    "four-versus-sixteen-H200 end-to-end tradeoff comparison"
+  ],
+  "review_evidence_sha256": {
+    "slurm-76710.log": "e8bd3fa084a0d10fe53dcb233c6f8ff2521ae17daa85f920d804753012eea279",
+    "runs/export-01/analysis.json": "7e3c84813d2c3034cb2f547b809148af9a1fc78a583ec72a3765e5258f036dac",
+    "runs/export-01/scheduler-completion.txt": "ac034ea809a57466f0803f77253409814c1855fdcce661f8725a7a57df8b5ba6"
+  }
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "layout": "peer",
+    "gpus": 1,
+    "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-export/export-01/export-peer-1",
+    "sha256": {
+      "online.bin": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "generator.bin": "0e9756d0f2034ad396ccc331635fcbd25a024e3ae926d21cbaf8c050328c6f7a"
+    },
+    "tile_bytes": 1048576,
+    "first_manifests": {
+      "support": "90064f09f5dfc5d682397529fd8a540669b8c3582fce0952d9a2ab2695e9c213",
+      "root": "8cc666d5e1213175eed4c10001b202f099c2365721def47ec9a01ea3b1a31d6c",
+      "code": "d399889fd2f02e99cdbb3828aa8a39b2060035ff5bf967fc9fc0894a1ebac4db"
+    }
+  },
+  {
+    "layout": "peer",
+    "gpus": 4,
+    "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-export/export-01/export-peer-4",
+    "sha256": {
+      "online.bin": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "generator.bin": "0e9756d0f2034ad396ccc331635fcbd25a024e3ae926d21cbaf8c050328c6f7a"
+    },
+    "tile_bytes": 1048576,
+    "first_manifests": {
+      "support": "c40952a0849877518a26b45d7bf77f6488408052a69549c3c0321eb0bf2068fd",
+      "root": "ec0c11bb66daea4cac400be315e459898c60f14af66fc4e06618955ab0ba2f10",
+      "code": "81a598a4a53b470b8739ff4398bc853648891cc5acdd906c01374b8e6b9275ba"
+    }
+  },
+  {
+    "layout": "local",
+    "gpus": 1,
+    "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-export/export-01/export-local-1",
+    "sha256": {
+      "online.bin": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "generator.bin": "0e9756d0f2034ad396ccc331635fcbd25a024e3ae926d21cbaf8c050328c6f7a"
+    },
+    "tile_bytes": 1048576,
+    "first_manifests": {
+      "support": "827dfe9dc7285a9acaffc016355e0c244286d72a7da21f287545265035b3f466",
+      "root": "8807e37f9109c2c2fc3e4aa6d70c31418ba415ee8464a53c0d057dd180a48b49",
+      "code": "723e1f14c8d6084037e2baa3f948a3e1be258d43cacebaa91804e880d94049ec"
+    }
+  },
+  {
+    "layout": "local",
+    "gpus": 4,
+    "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-export/export-01/export-local-4",
+    "sha256": {
+      "online.bin": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "generator.bin": "0e9756d0f2034ad396ccc331635fcbd25a024e3ae926d21cbaf8c050328c6f7a"
+    },
+    "tile_bytes": 1048576,
+    "first_manifests": {
+      "support": "a21b4a23ec142bec85454c2d6947ceba587e5e70169721565e41591d63cc5650",
+      "root": "4fde50a86251111b1e55fc2aab56dee8a8e277fb4189348cfd0349ec0a4c1507",
+      "code": "5b9171b868c7d5125d31b1d430ecd2fd1797c5a40da3a67f850baa4e5052e81d"
+    }
+  }
+]

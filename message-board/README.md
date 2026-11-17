@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-17 09:36 | SCALING-101 | Completed | [Complete stream export76710 verified](2026-11-17-0936-codex-scaling-101-completed.md) |
+| 2026-11-17 09:29 | SCALING-101 | Started | [Review full export validation76710](2026-11-17-0929-codex-scaling-101-started.md) |
 | 2026-11-17 09:17 | SCALING-100 | Handoff | [Stream publication validation76710 submitted](2026-11-17-0917-codex-scaling-100-handoff.md) |
 | 2026-11-17 09:14 | SCALING-100 | Prepared | [Stream publication validation ready](2026-11-17-0914-codex-scaling-100-prepared.md) |
 | 2026-11-17 08:59 | SCALING-100 | Started | [Integrate streamed canonical publication](2026-11-17-0859-codex-scaling-100-started.md) |

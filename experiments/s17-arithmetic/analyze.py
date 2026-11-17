@@ -7,7 +7,20 @@ from pathlib import Path
 import subprocess
 
 
-def reconcile(out, require_success=True, source_overrides=None):
+def check_commands(commands, expected_failures=None):
+    """Only named, positive expected failures may pass; guards/crashes never do."""
+    expected = expected_failures or {}
+    assert all(isinstance(code, int) and code > 0 for code in expected.values())
+    for label in expected:
+        assert sum(c['label'] == label for c in commands) == 1, label
+    for command in commands:
+        wanted = expected.get(command['label'], 0)
+        assert not command.get('guard'), command['label']
+        assert command['exit_code'] == wanted, command['label']
+        assert command.get('expected_exit_code', 0) == wanted, command['label']
+
+
+def reconcile(out, require_success=True, source_overrides=None, expected_failures=None):
     """Verify sealed hashes; forensic failed-run review must opt out of success."""
     record=json.loads((out/'results.json').read_text())
     if require_success: assert record['status']=='passed'
@@ -36,7 +49,7 @@ def reconcile(out, require_success=True, source_overrides=None):
         size=int(header[2]);position=end+1
         assert hashlib.sha256(data[position:position+size]).hexdigest()==record['source_sha256'][name],name
         position+=size+1
-    if require_success: assert all(c['exit_code']==0 and not c['guard'] for c in record['commands'])
+    if require_success: check_commands(record['commands'], expected_failures)
     result={'status':record['status'],'job_id':record['job_id'],'revision':record['revision'],
             'source_files_verified':len(record['source_sha256']),
             'source_override_files_verified':sorted(overrides),'evidence_files_verified':len(record['evidence_sha256']),
@@ -44,6 +57,7 @@ def reconcile(out, require_success=True, source_overrides=None):
             'tests':['TestWideOrbitArithmetic','TestTableFreeFields'],
             'commands':[{k:c[k] for k in ('label','seconds','peak_rss_bytes','exit_code')} for c in record['commands']],
             'scope':'scalar correctness; no transform/preprocessing/encoding capability at s17'}
+    if expected_failures: result['expected_failure_commands_verified'] = dict(expected_failures)
     return result
 
 

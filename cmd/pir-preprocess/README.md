@@ -99,5 +99,6 @@ references before exporting P/spectrum/G. Persisted checkpoints remain intact.
 The existing atomic publication, digests, full range/EOF verification and cached
 CUDA-free readback apply to both modes. No new manifest fields are required and
 canonical files remain byte-compatible. Failed temporary stages stay unpublished
-for diagnosis. The integration is implemented with bounded GPU validation pending;
+for diagnosis. Complete bounded GPU validation76710 passes, including atomic/restart/error and
+API/CLI memory checks; full-size memory/latency remain unmeasured;
 see [experiment and source-linked tests](../../experiments/preprocessing-export/report.md).

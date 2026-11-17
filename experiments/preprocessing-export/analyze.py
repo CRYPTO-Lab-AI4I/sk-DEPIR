@@ -23,11 +23,13 @@ def review(out,record,result):
     assert '--- PASS: TestPreprocessingPolynomialStage ' in (out/'polynomial-stage.log').read_text()
     for label in ('export-api-memcheck','export-cli-memcheck'):
         text=(out/(label+'.log')).read_text();assert 'ERROR SUMMARY: 0 errors' in text and 'LEAK SUMMARY: 0 bytes' in text
-    for label in ('export-corruption','export-admission-failure'):
+    for label,reason in [('export-corruption','generator.bin checksum mismatch'),
+                         ('export-admission-failure','canonical payload exceeds --max-code-bytes')]:
         assert next(c for c in record['commands'] if c['label']==label)['exit_code']==1
+        assert reason in (out/(label+'.log')).read_text()
     result['export_cases']=cases
     result['tests'].extend(['shared verified polynomial stage','complete canonical/G stream vs resident and independent Go','stream cache/root restarts and CUDA-free readback','writer/reuse/parameter errors; no partial stage publication; corruption rejection','four-GPU API/CLI CUDA memcheck'])
     result['scope']='bounded complete explicit stream publication; not fulls17 stream or fulls18 preprocessing, peak memory saving or large-size latency'
 
 if __name__=='__main__':
-    runpy.run_path(str(HERE.parent/'gpu-preprocessing-workflow/analyze.py'))['main'](here=HERE,extra_review=review)
+    runpy.run_path(str(HERE.parent/'gpu-preprocessing-workflow/analyze.py'))['main'](here=HERE,extra_review=review,expected_failures={"export-corruption":1,"export-admission-failure":1})

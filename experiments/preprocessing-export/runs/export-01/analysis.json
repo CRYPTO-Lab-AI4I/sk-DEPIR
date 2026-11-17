@@ -1,0 +1,532 @@
+{
+  "status": "passed",
+  "job_id": "76710",
+  "revision": "1deb2ef2da3bc2882db12aa6f6da7dc2173d3787",
+  "source_files_verified": 568,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 74,
+  "cache_files_verified": 169,
+  "tests": [
+    "atomic stage publication and failure retention",
+    "independent Go canonical bytes",
+    "fresh and completed-cache/root restarts",
+    "CUDA-free final-cache readback",
+    "corruption/source-binding rejection",
+    "race/ASan/vet",
+    "fresh executable CUDA memcheck",
+    "shared verified polynomial stage",
+    "complete canonical/G stream vs resident and independent Go",
+    "stream cache/root restarts and CUDA-free readback",
+    "writer/reuse/parameter errors; no partial stage publication; corruption rejection",
+    "four-GPU API/CLI CUDA memcheck"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 1.258222496137023,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 1.2239503413438797,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "gpu",
+      "seconds": 1.187365459278226,
+      "peak_rss_bytes": 21716992,
+      "exit_code": 0
+    },
+    {
+      "label": "topology",
+      "seconds": 1.2033653687685728,
+      "peak_rss_bytes": 21716992,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 1.1744900420308113,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 1.1695126458071172,
+      "peak_rss_bytes": 5328896,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 1.184431361965835,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 1.163461459800601,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "controller-tests",
+      "seconds": 1.1724598417058587,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe-build",
+      "seconds": 7.233992358669639,
+      "peak_rss_bytes": 216449024,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe",
+      "seconds": 6.0518892128020525,
+      "peak_rss_bytes": 211222528,
+      "exit_code": 0
+    },
+    {
+      "label": "go-only-build",
+      "seconds": 13.10304933367297,
+      "peak_rss_bytes": 320811008,
+      "exit_code": 0
+    },
+    {
+      "label": "go-only-tests",
+      "seconds": 5.2324811629951,
+      "peak_rss_bytes": 133881856,
+      "exit_code": 0
+    },
+    {
+      "label": "native-tests",
+      "seconds": 13.95864115608856,
+      "peak_rss_bytes": 600842240,
+      "exit_code": 0
+    },
+    {
+      "label": "race",
+      "seconds": 30.193311522714794,
+      "peak_rss_bytes": 591925248,
+      "exit_code": 0
+    },
+    {
+      "label": "asan",
+      "seconds": 27.758766738232225,
+      "peak_rss_bytes": 604389376,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 20.450094492174685,
+      "peak_rss_bytes": 340660224,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-cli-build",
+      "seconds": 3.8570997351780534,
+      "peak_rss_bytes": 28946432,
+      "exit_code": 0
+    },
+    {
+      "label": "vet",
+      "seconds": 2.6265899669378996,
+      "peak_rss_bytes": 29089792,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-fresh",
+      "seconds": 5.115515457931906,
+      "peak_rss_bytes": 23879680,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-cached",
+      "seconds": 1.220930237788707,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-root-restart",
+      "seconds": 3.729150826577097,
+      "peak_rss_bytes": 23875584,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-cuda-free-readback",
+      "seconds": 1.2323687290772796,
+      "peak_rss_bytes": 6504448,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-fresh",
+      "seconds": 6.1328413700684905,
+      "peak_rss_bytes": 257630208,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-cached",
+      "seconds": 1.2223403486423194,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-root-restart",
+      "seconds": 6.100446607917547,
+      "peak_rss_bytes": 257605632,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-cuda-free-readback",
+      "seconds": 1.232592542655766,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-fresh",
+      "seconds": 4.938820248004049,
+      "peak_rss_bytes": 23871488,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-cached",
+      "seconds": 1.2309999032877386,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-root-restart",
+      "seconds": 3.6529052881523967,
+      "peak_rss_bytes": 23887872,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-cuda-free-readback",
+      "seconds": 1.2368850936181843,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-fresh",
+      "seconds": 6.152024450246245,
+      "peak_rss_bytes": 335687680,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-cached",
+      "seconds": 1.2261493671685457,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-root-restart",
+      "seconds": 6.116731428075582,
+      "peak_rss_bytes": 257617920,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-cuda-free-readback",
+      "seconds": 1.2221062509343028,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "memcheck",
+      "seconds": 6.131115159019828,
+      "peak_rss_bytes": 565342208,
+      "exit_code": 0
+    },
+    {
+      "label": "export-build",
+      "seconds": 5.340470161288977,
+      "peak_rss_bytes": 285020160,
+      "exit_code": 0
+    },
+    {
+      "label": "polynomial-stage",
+      "seconds": 5.164551809895784,
+      "peak_rss_bytes": 25153536,
+      "exit_code": 0
+    },
+    {
+      "label": "export-api-peer-1",
+      "seconds": 3.8120257277041674,
+      "peak_rss_bytes": 21209088,
+      "exit_code": 0
+    },
+    {
+      "label": "export-api-peer-2",
+      "seconds": 5.033305527176708,
+      "peak_rss_bytes": 24457216,
+      "exit_code": 0
+    },
+    {
+      "label": "export-api-peer-4",
+      "seconds": 6.357318300753832,
+      "peak_rss_bytes": 365207552,
+      "exit_code": 0
+    },
+    {
+      "label": "export-api-local-1",
+      "seconds": 3.7593498788774014,
+      "peak_rss_bytes": 100605952,
+      "exit_code": 0
+    },
+    {
+      "label": "export-api-local-2",
+      "seconds": 5.165827397722751,
+      "peak_rss_bytes": 23326720,
+      "exit_code": 0
+    },
+    {
+      "label": "export-api-local-4",
+      "seconds": 6.363924195989966,
+      "peak_rss_bytes": 367427584,
+      "exit_code": 0
+    },
+    {
+      "label": "export-peer-1-fresh",
+      "seconds": 3.755227400921285,
+      "peak_rss_bytes": 23863296,
+      "exit_code": 0
+    },
+    {
+      "label": "export-peer-1-cached",
+      "seconds": 1.2497906642965972,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "export-peer-1-root-restart",
+      "seconds": 3.7046383838169277,
+      "peak_rss_bytes": 23855104,
+      "exit_code": 0
+    },
+    {
+      "label": "export-peer-1-cuda-free-readback",
+      "seconds": 1.2301965518854558,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "export-peer-4-fresh",
+      "seconds": 6.146890047006309,
+      "peak_rss_bytes": 255524864,
+      "exit_code": 0
+    },
+    {
+      "label": "export-peer-4-cached",
+      "seconds": 1.2796445759013295,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "export-peer-4-root-restart",
+      "seconds": 6.331905936822295,
+      "peak_rss_bytes": 257601536,
+      "exit_code": 0
+    },
+    {
+      "label": "export-peer-4-cuda-free-readback",
+      "seconds": 1.271359310951084,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "export-local-1-fresh",
+      "seconds": 3.78841222403571,
+      "peak_rss_bytes": 23887872,
+      "exit_code": 0
+    },
+    {
+      "label": "export-local-1-cached",
+      "seconds": 1.2619208497926593,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "export-local-1-root-restart",
+      "seconds": 3.7257534842938185,
+      "peak_rss_bytes": 23883776,
+      "exit_code": 0
+    },
+    {
+      "label": "export-local-1-cuda-free-readback",
+      "seconds": 1.241877302993089,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "export-local-4-fresh",
+      "seconds": 6.17436312418431,
+      "peak_rss_bytes": 328880128,
+      "exit_code": 0
+    },
+    {
+      "label": "export-local-4-cached",
+      "seconds": 1.293300000950694,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "export-local-4-root-restart",
+      "seconds": 6.17288017924875,
+      "peak_rss_bytes": 255475712,
+      "exit_code": 0
+    },
+    {
+      "label": "export-local-4-cuda-free-readback",
+      "seconds": 1.2253971989266574,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "export-corruption",
+      "seconds": 1.264206552412361,
+      "peak_rss_bytes": 0,
+      "exit_code": 1
+    },
+    {
+      "label": "export-admission-failure",
+      "seconds": 3.7207601252011955,
+      "peak_rss_bytes": 23818240,
+      "exit_code": 1
+    },
+    {
+      "label": "export-admission-restart",
+      "seconds": 3.7801187597215176,
+      "peak_rss_bytes": 24547328,
+      "exit_code": 0
+    },
+    {
+      "label": "export-api-memcheck",
+      "seconds": 6.248306484892964,
+      "peak_rss_bytes": 571281408,
+      "exit_code": 0
+    },
+    {
+      "label": "export-cli-memcheck",
+      "seconds": 5.110569867771119,
+      "peak_rss_bytes": 547352576,
+      "exit_code": 0
+    }
+  ],
+  "scope": "bounded complete explicit stream publication; not fulls17 stream or fulls18 preprocessing, peak memory saving or large-size latency",
+  "expected_failure_commands_verified": {
+    "export-corruption": 1,
+    "export-admission-failure": 1
+  },
+  "cases": [
+    {
+      "layout": "peer",
+      "gpus": 1,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "365a60ee265bea8c30f620d71e316dd72fbb29f83573f104f3a511afdb27984a",
+        "root": "bc5126f2baacbd52a8940ef7eb0edcb01e7d3ed644fb23d737b0c125513445dd",
+        "code": "89eacfa4de5bb163082e7d27256199e33bfe45dd6c94d59f5fcdc53b846b272e"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-export/export-01/peer-1"
+    },
+    {
+      "layout": "peer",
+      "gpus": 4,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "744891f589f6ffd3c3ae710d3f62fabf860ff7f9ae4dc00c99cab41467659e45",
+        "root": "42148463d4372f03f9214fa644e58970e5fecf4a9e67ebc8e69f259b32a216f7",
+        "code": "12a3f9acca7976a4a6d825eb53fb794310ad99e7b3200564b1d607af699df55c"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-export/export-01/peer-4"
+    },
+    {
+      "layout": "local",
+      "gpus": 1,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "e9e7a46301c689567bdb8deffed806b9a420840bb2d61dcb1a9824f765cc0330",
+        "root": "6aa62e0cd7563ae188d9af9bc8bcd4ac1263bf2ef7f19f80f32dd3ec584bcc5e",
+        "code": "1b426f0f72e1c493cfa037241f76a02d20c16b780509b387f4fe2bd8eaabb5df"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-export/export-01/local-1"
+    },
+    {
+      "layout": "local",
+      "gpus": 4,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "40c5f09fead85fabd647fccf6b962d3e79ed51ea039b8ab65a5bcb3243d26c86",
+        "root": "8c6fcb583da3fcd25adaf4150bad4e71b1f2e0631457f1a47237022ad7b9e2e9",
+        "code": "d41d88b9856d7f20761abc55e918d79ddb282820e03409ca2f62414b5104c6d9"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-export/export-01/local-4"
+    }
+  ],
+  "export_cases": [
+    {
+      "layout": "peer",
+      "gpus": 1,
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-export/export-01/export-peer-1",
+      "sha256": {
+        "online.bin": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+        "generator.bin": "0e9756d0f2034ad396ccc331635fcbd25a024e3ae926d21cbaf8c050328c6f7a"
+      },
+      "tile_bytes": 1048576,
+      "first_manifests": {
+        "support": "90064f09f5dfc5d682397529fd8a540669b8c3582fce0952d9a2ab2695e9c213",
+        "root": "8cc666d5e1213175eed4c10001b202f099c2365721def47ec9a01ea3b1a31d6c",
+        "code": "d399889fd2f02e99cdbb3828aa8a39b2060035ff5bf967fc9fc0894a1ebac4db"
+      }
+    },
+    {
+      "layout": "peer",
+      "gpus": 4,
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-export/export-01/export-peer-4",
+      "sha256": {
+        "online.bin": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+        "generator.bin": "0e9756d0f2034ad396ccc331635fcbd25a024e3ae926d21cbaf8c050328c6f7a"
+      },
+      "tile_bytes": 1048576,
+      "first_manifests": {
+        "support": "c40952a0849877518a26b45d7bf77f6488408052a69549c3c0321eb0bf2068fd",
+        "root": "ec0c11bb66daea4cac400be315e459898c60f14af66fc4e06618955ab0ba2f10",
+        "code": "81a598a4a53b470b8739ff4398bc853648891cc5acdd906c01374b8e6b9275ba"
+      }
+    },
+    {
+      "layout": "local",
+      "gpus": 1,
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-export/export-01/export-local-1",
+      "sha256": {
+        "online.bin": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+        "generator.bin": "0e9756d0f2034ad396ccc331635fcbd25a024e3ae926d21cbaf8c050328c6f7a"
+      },
+      "tile_bytes": 1048576,
+      "first_manifests": {
+        "support": "827dfe9dc7285a9acaffc016355e0c244286d72a7da21f287545265035b3f466",
+        "root": "8807e37f9109c2c2fc3e4aa6d70c31418ba415ee8464a53c0d057dd180a48b49",
+        "code": "723e1f14c8d6084037e2baa3f948a3e1be258d43cacebaa91804e880d94049ec"
+      }
+    },
+    {
+      "layout": "local",
+      "gpus": 4,
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-export/export-01/export-local-4",
+      "sha256": {
+        "online.bin": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+        "generator.bin": "0e9756d0f2034ad396ccc331635fcbd25a024e3ae926d21cbaf8c050328c6f7a"
+      },
+      "tile_bytes": 1048576,
+      "first_manifests": {
+        "support": "a21b4a23ec142bec85454c2d6947ceba587e5e70169721565e41591d63cc5650",
+        "root": "4fde50a86251111b1e55fc2aab56dee8a8e277fb4189348cfd0349ec0a4c1507",
+        "code": "5b9171b868c7d5125d31b1d430ecd2fd1797c5a40da3a67f850baa4e5052e81d"
+      }
+    }
+  ]
+}

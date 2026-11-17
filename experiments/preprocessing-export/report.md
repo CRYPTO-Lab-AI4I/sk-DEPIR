@@ -1,6 +1,6 @@
 # Explicit streamed canonical preprocessing export
 
-Status: **implemented; bounded GPU validation76710 submitted**. This is step2 of the
+Status: **complete bounded GPU export validation76710 passed**; full-size costs remain unmeasured. This is step2 of the
 [s18 memory plan](../../docs/encoding-scaling.md#s18-preprocessing-memory-design-and-comparison-scaling-096),
 following the [passed primitive76704](../preprocessing-memory/report.md#completed-bounded-validation-scaling-099).
 It does not admit fulls18 preprocessing or replace the faster resident default.
@@ -68,7 +68,8 @@ small resident regression workflows to the [shared controller](../gpu-preprocess
 Commit producer sources before submission; execution-start revision and all
 copied source hashes are recorded. Binaries/profiles/reference caches remain at
 `.cache/liftrs/preprocessing-export/export-01/`; raw results and progress logs at
-`runs/export-01/`. Result paths are pending, not completed evidence yet.
+`runs/export-01/`. Completed [raw results](runs/export-01/results.json), [analysis](runs/export-01/analysis.json)
+and [review](runs/export-01/review.json) are retained below.
 
 ```sh
 python3 -B experiments/preprocessing-export/run.py --check
@@ -111,3 +112,65 @@ execution-start Git revision and exact copied code hashes; later receipt/board
 changes do not change producer implementation. No job polling or log following;
 await the user's completion ping before interpreting results. No inspection or
 change to the separate GPU encoding retry76706.
+
+## Completed export validation (SCALING-101)
+
+**76710 passed** on HPCgnode04,4H200 NVL,4CPU cores,8 GiB requested RAM;
+Slurm **COMPLETED0:0**, **5 min28 s**, controller **327.274 s**. Producer source
+`1deb2ef2da3bc2882db12aa6f6da7dc2173d3787`. [Results](runs/export-01/results.json),
+[analysis](runs/export-01/analysis.json), [review](runs/export-01/review.json),
+[accounting](runs/export-01/scheduler-completion.txt), [log](slurm-76710.log).
+**568 source /74 evidence /169 retained-cache identities** reconcile without
+source overrides. Cache includes an explicitly labeled intentionally corrupted
+copy for negative testing; hash reconciliation is not a claim that it is usable
+preprocessing data. Valid fixtures/profiles remain at the cache path above
+(35.264 MiB total including binaries/negative fixtures). Sampled maximum command
+process-group RSS **0.563 GiB**, including builds/validation, is not an isolated
+spectrum peak or measurement of saved memory. Exact hardware/toolchain and UUIDs
+are retained in the environment logs and source revision in results.
+
+Shared polynomial-stage/native independent-byte/recovery tests pass. Six GPU API
+combinations cover1/2/4GPUs with peer/local layouts, independent canonical bytes,
+root/support immutability, failed/short writers, reuse, wrong-session parameters,
+closed state and bounded verification. Four complete s8 streamed CLI workflows
+match resident canonical and generator files. Fresh/cached/root-restart and
+CUDA-free final-cache verification pass. Corrupted generator is rejected with
+`generator.bin checksum mismatch`; output cap failure reports
+`canonical payload exceeds --max-code-bytes`, leaves no published code, and
+resumes from retained support/root successfully. Four-GPU API and CLI memcheck
+both report **0 errors /0 leaked bytes**; inherited resident CLI/race/ASan/vet
+checks pass.
+
+| Small s8 complete fresh command | Resident | Streamed,1 MiB tile |
+|---|---:|---:|
+| Peer,1H200 |5.116 s |3.755 s |
+| Peer,4H200 |6.133 s |6.147 s |
+| Local,1H200 |4.939 s |3.788 s |
+| Local,4H200 |6.152 s |6.174 s |
+
+These are single profiled/logged command samples including discovery, setup,
+publication/fsync/readback, with all resident cases run before streamed cases.
+They are **not controlled speedups or full-size forecasts**; small command startup
+and GPU/context work dominate. Preparation phase boundaries differ: resident
+preparation includes spectrum computation; streamed preparation defers it to
+publication. Compare complete commands, not those phase clocks alone. Full s17
+streamed/fulls18 memory, filesystem-cache behavior and latency remain unmeasured.
+
+### Review correction for expected negative tests
+
+The first reconciliation stopped because the shared reviewer required zero exit
+status for every command, including deliberately failing negative tests. The
+producer/scheduler succeeded; no GPU arithmetic rerun was needed. The shared
+[review helper](../s17-arithmetic/analyze.py) now accepts a reviewer-supplied exact
+allowlist; [this analyzer](analyze.py) names only `export-corruption:1` and
+`export-admission-failure:1`, and checks the precise diagnostic reasons. Guards,
+signals, unexpected failures, missing/duplicate negative commands and mismatched
+expected status are rejected; the default still requires zero throughout.
+[Review tests](test_review.py) pass, and successful source/evidence/cache sealing
+is unchanged. Original producer files are preserved byte-for-byte.
+
+**Next:** measure a representative host-backed tiled transform and split product,
+then compare four-H200 hybrid versus sixteen-H200 distributed preprocessing with
+all communication/I/O/lifetime costs. The final-stage256.001 GiB model is unchanged;
+this correctness gate does not establish peak memory or admit fulls18. Resident
+remains default, slower memory modes explicit. GPU retry76706 was not inspected.
