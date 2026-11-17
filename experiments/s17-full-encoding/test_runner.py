@@ -18,6 +18,27 @@ class EncodingAdmissionTests(unittest.TestCase):
         self.assertEqual(RUN['policy']('gpu')['gpus'], 4)
         self.assertEqual(sum(RUN['policy'](b)['retained_cap_bytes'] for b in ('cpu', 'gpu')), 128 << 30)
 
+    def test_gpu_host_cache_headroom(self):
+        p = RUN['policy']('gpu')
+        self.assertEqual(p['host_request_bytes'], 640 << 30)
+        self.assertEqual(p['cgroup_guard_bytes'], 608 << 30)
+        code_bytes = RUN['validate']()['files']['online.bin']['bytes']
+        # Allow the full process guard AND both complete files charged as cache.
+        self.assertGreater(p['cgroup_guard_bytes'] - p['rss_guard_bytes'] - code_bytes - (34 << 30), 100 << 30)
+        launcher = (HERE/'gpu.sbatch').read_text()
+        self.assertIn('#SBATCH --mem=640G', launcher)
+
+    def test_cpu_reference_rejects_different_outputs(self):
+        reference = dict(status='passed', backend='cpu', code_manifest={'identity': 'same'},
+                         phases={'phases': {p: {'sha256': p} for p in ('verify-canonical', 'pack-output')}})
+        gpu = copy.deepcopy(reference)
+        RUN['compare_cpu_reference'](gpu, reference)
+        for phase in ('verify-canonical', 'pack-output'):
+            bad = copy.deepcopy(gpu)
+            bad['phases']['phases'][phase]['sha256'] = 'wrong'
+            with self.assertRaises(AssertionError):
+                RUN['compare_cpu_reference'](bad, reference)
+
     def test_reject_incomplete_results(self):
         phases = {name: dict(seconds=1, profiled=True) for name in ANALYZE['PHASES']}
         phases['verify-systematic']['symbols'] = 3876566203

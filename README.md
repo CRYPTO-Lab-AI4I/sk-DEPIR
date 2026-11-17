@@ -103,7 +103,10 @@ GPU encoding result or speedup is claimed. [Full s17 CPU/GPU encoding jobs](expe
 now have reviewed outcomes:CPU76645 passes in1h45min11s encoding with427.845GiB
 peak sampled processRSS and34GiB tight packed output. GPU76646 completes device
 setup but stops at the host/cgroup guard before encoding completes; retry needs
-more file-cache headroom. FullGPU encoding time/speedup remains unknown.
+more file-cache headroom. The [authorized retry recipe](experiments/s17-full-encoding/report.md#gpu-retry-with-conservative-host-headroom-scaling-098)
+uses640 GiB requested host RAM/608 GiB total-memory guard with unchanged device
+caps and an explicit comparison against the passed CPU hashes. FullGPU encoding
+time/speedup remains unknown.
 
 A [bounded HPC table-gap batch](experiments/encoding-table/report.md) measures
 22 missing encoding-mode cells at s10/14/15/16 using retained preprocessing.

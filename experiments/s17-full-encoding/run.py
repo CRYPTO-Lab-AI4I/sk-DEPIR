@@ -23,14 +23,22 @@ PREPROCESSING = ROOT/'.cache/liftrs/gpu-s17-full-preprocessing/s17-m2-t5'
 
 
 def policy(backend):
-    return dict(cpus=32, host_request_bytes=(768 if backend == 'cpu' else 384)*GIB,
+    return dict(cpus=32, host_request_bytes=(768 if backend == 'cpu' else 640)*GIB,
                 rss_guard_bytes=(704 if backend == 'cpu' else 320)*GIB,
-                cgroup_guard_bytes=(744 if backend == 'cpu' else 360)*GIB,
+                cgroup_guard_bytes=(744 if backend == 'cpu' else 608)*GIB,
                 go_soft_bytes=(640 if backend == 'cpu' else 288)*GIB,
                 workspace_cap_bytes=320*GIB, device_cap_bytes=112*GIB if backend == 'gpu' else 0,
                 gpus=4 if backend == 'gpu' else 0, retained_cap_bytes=64*GIB,
                 scratch_cap_bytes=16*GIB, worker_seconds=46*3600,
                 controller_seconds=47*3600, slurm_seconds=48*3600)
+
+
+def compare_cpu_reference(record, reference):
+    """Compare the same full code and deterministic database, without a rerun."""
+    assert reference['status'] == 'passed' and reference['backend'] == 'cpu'
+    assert record['code_manifest'] == reference['code_manifest']
+    for phase in ('verify-canonical', 'pack-output'):
+        assert record['phases']['phases'][phase]['sha256'] == reference['phases']['phases'][phase]['sha256'], phase
 
 
 def validate():
@@ -57,6 +65,7 @@ def main():
     parser.add_argument('name', nargs='?')
     parser.add_argument('--revision')
     parser.add_argument('--check', action='store_true')
+    parser.add_argument('--reference-run', help='reviewed CPU run whose complete GPU output hashes must match')
     args = parser.parse_args()
     manifest = validate()
     if args.check:
@@ -66,6 +75,13 @@ def main():
         parser.error('fresh name and explicit committed revision required')
     job = os.environ['SLURM_JOB_ID']
     budget = policy(args.backend)
+    reference = None
+    if args.reference_run:
+        if args.backend != 'gpu' or not args.reference_run.replace('-', '').isalnum():
+            parser.error('reference-run requires GPU and an alphanumeric/hyphen run name')
+        reference = json.loads((HERE/'runs'/args.reference_run/'cpu'/'results.json').read_text())
+        assert reference['status'] == 'passed' and reference['backend'] == 'cpu'
+        assert reference['code_manifest'] == manifest
     assert int(os.environ.get('SLURM_CPUS_PER_TASK', '0')) >= budget['cpus']
     assert int(os.environ.get('SLURM_MEM_PER_NODE', '0')) >= budget['host_request_bytes']//(1 << 20)
     revision = subprocess.check_output(['git', 'rev-parse', args.revision+'^{commit}'], cwd=ROOT, text=True).strip()
@@ -88,6 +104,14 @@ def main():
     record = dict(status='running', job_id=job, revision=revision, backend=args.backend,
                   started_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),
                   cache=str(cache), policy=budget, code_manifest=manifest, commands=[])
+
+    # Pipeline arithmetic is frozen separately from this updated controller.
+    controller = out/'controller.py.txt'
+    shutil.copyfile(Path(__file__), controller)
+    record['controller_sha256'] = HELP['sha'](controller)
+    if reference is not None:
+        (out/'cpu-reference.json').write_text(json.dumps(reference, indent=2)+'\n')
+        record['reference_run'] = args.reference_run
 
     def save():
         temp = out/'results.json.tmp'
@@ -138,6 +162,11 @@ def main():
                               retained_bytes=storage[0], scratch_bytes=storage[1], remaining_work='unknown')
                         last = now
                     if reason:
+                        observation = dict(phase=label, reason=reason, peak_rss_bytes=peak,
+                                           cgroup=cgroup, retained_bytes=storage[0], scratch_bytes=storage[1])
+                        record['guard_observation'] = observation
+                        event(label, 'guard-triggered', **{k: v for k, v in observation.items() if k != 'phase'})
+                        save()
                         shutdown = STOP(proc)
                         break
                     time.sleep(2)
@@ -215,6 +244,9 @@ def main():
         record['phases'] = json.loads((cache/'phases.json').read_text())
         assert record['phases']['phases']['pack-output']['bytes'] == 34*GIB
         assert (cache/'word-packed.bin').stat().st_size == 34*GIB
+        if reference is not None:
+            compare_cpu_reference(record, reference)
+            record['cpu_comparison'] = 'complete canonical and packed SHA256 match reviewed CPU run'
         record['status'] = 'passed'
     except BaseException as error:
         record['status'] = 'failed'

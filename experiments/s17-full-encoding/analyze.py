@@ -57,9 +57,19 @@ def main():
     assert any(row.get('event') == 'completed' and row.get('canonical_sha256') ==
                digests['canonical_sha256'] and row.get('packed_sha256') == digests['packed_sha256']
                for row in rows)
+    if record.get('controller_sha256'):
+        import hashlib
+        assert hashlib.sha256((out/'controller.py.txt').read_bytes()).hexdigest() == record['controller_sha256']
+    if record.get('reference_run'):
+        reference = json.loads((out/'cpu-reference.json').read_text())
+        assert reference['status'] == 'passed' and reference['backend'] == 'cpu'
+        assert reference == json.loads((HERE/'runs'/record['reference_run']/'cpu'/'results.json').read_text())
+        assert inspect_phases(reference['phases']['phases'], 'cpu') == digests
+        assert reference['code_manifest'] == record['code_manifest']
     other = 'gpu' if args.backend == 'cpu' else 'cpu'
     peer = out.parent/other/'results.json'
-    comparison = 'other result not available/passed yet'
+    comparison = ('CPU/GPU complete canonical and packed hashes match reviewed CPU reference'
+                  if record.get('reference_run') else 'other result not available/passed yet')
     if peer.exists():
         other_result = json.loads(peer.read_text())
         if other_result['status'] == 'passed':

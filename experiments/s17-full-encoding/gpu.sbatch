@@ -4,7 +4,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=32
-#SBATCH --mem=384G
+#SBATCH --mem=640G
 #SBATCH --gres=gpu:h200:4
 #SBATCH --exclude=gnode03
 #SBATCH --time=2-00:00:00

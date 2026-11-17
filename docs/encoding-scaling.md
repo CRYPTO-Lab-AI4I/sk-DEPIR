@@ -2177,3 +2177,18 @@ SCALING-096 bounded stream validation **76704 submitted**, executable prototype
 commit46d16d2. [Receipt and results](../experiments/preprocessing-memory/report.md#first-validation-submission).
 Existing4GPU/4GiB-owned,4CPU/8GiB-host and20min scheduler limits; no monitoring.
 Wait for the completion ping before export integration or interpreting timings.
+
+### Full s17 GPU retry with host/cache headroom (SCALING-098)
+
+User authorizes retry and adequate guard margins. Prepare GPU-only fresh
+`gpu-retry-02`, retaining encoding sourceed0c026,4H200112 GiB/card,32 CPU cores,
+320 GiB RSS/288 GiB Go,64 GiB retained/16 GiB scratch and46/47/48 h deadlines.
+Increase host request to640 GiB and total-memory guard to608 GiB: full320 GiB
+process guard plus142.441 GiB source cache and34 GiB output cache leaves111.559 GiB
+additional margin. This supersedes the512/480 GiB proposal. Existing node capacity
+is about907 GiB; all resources remain single-node and gnode03 stays excluded.
+Persist exact guard-trigger resource samples and compare final canonical/packed
+hashes to passedCPU76645, without repeating the CPU run. Record the actual updated
+controller separately from frozen arithmetic. [Recipe and checks](../experiments/s17-full-encoding/report.md#gpu-retry-with-conservative-host-headroom-scaling-098).
+Submit and hand off; no monitoring. Separate spectrum validation76704 remains
+uninspected and unrelated to this retry's encoder source.

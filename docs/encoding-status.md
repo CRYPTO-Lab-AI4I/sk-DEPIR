@@ -138,10 +138,10 @@ checks behind the full run. CPU-only client builds remain CUDA-free.
 The [resident GPU integration](../experiments/gpu-code-encoding/report.md) passes
 bounded correctness checks. Its full s17 attempt completed setup on four H200s
 but stopped at the 360 GiB total host-memory guard before the first transform;
-process RSS and source-file cache together exceeded the admitted budget. A retry
-is proposed with 512 GiB requested host RAM and a 480 GiB total-memory guard,
-keeping the 320 GiB process-RSS limit and 112 GiB/card owned-memory cap. It has
-not been submitted. Full GPU encoding time and CPU/GPU output agreement remain
+process RSS and source-file cache together exceeded the admitted budget. The authorized retry is being prepared with **640 GiB requested host RAM and a
+608 GiB total-memory guard**, superseding the512/480 GiB proposal and keeping
+the320 GiB process-RSS limit and112 GiB/card owned-memory cap. It has not yet
+been submitted; [budget and recipe](../experiments/s17-full-encoding/report.md#gpu-retry-with-conservative-host-headroom-scaling-098). Full GPU encoding time and CPU/GPU output agreement remain
 unknown. This is a host/cache admission issue observed during this attempt, not
 a demonstrated full GPU encoding success.
 

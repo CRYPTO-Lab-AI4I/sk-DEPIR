@@ -39,13 +39,14 @@ yield with identifiers/result locations, without agent monitoring. A fresh name
 is mandatory; no existing cache/output is overwritten. No new preprocessing.
 All local paths below resolve under the repository unless absolute.
 
-## Explicit resource admission
+## Original first-attempt resource admission
 
 User authorization: "let's launch encoding jobs for both cpu and gpu" following
 presentation of the resident route and verified prerequisites. The chosen
 per-job ceilings are below the previously reviewed full-run host/device/storage/
 time upper bounds; these are new client runs, not reuse of preprocessing memory
-measurements as proven client capacity. Numeric plans and commands are recorded
+measurements as proven client capacity. The table below records the original first attempts; the current GPU retry uses
+the larger budget in the SCALING-098 section. Numeric plans and commands are recorded
 at submission; no other memory modes or automatic fallbacks are selected.
 
 | Resource | CPU resident wide | GPU resident |
@@ -298,3 +299,56 @@ python3 -B experiments/s17-full-encoding/test_runner.py
 Source/document checks pass; raw sealed logs retain original whitespace. The
 reference now labels CPU measured/passed and GPU attempted/failed, preserving
 s18–20 exploratory rows and mode-specific unvalidated status.
+
+## GPU retry with conservative host headroom (SCALING-098)
+
+The user authorizes the retry and asks that resource guards leave adequate room.
+Use a fresh **gpu-retry-02** run and the **same encoding arithmetic/probe source
+`ed0c026`** as CPU76645/GPU76646; the new spectrum prototype is not part of this
+retry. The updated controller and its exact SHA256 are retained separately as
+`controller.py.txt`. Source arithmetic hashes and controller evidence therefore
+have explicit, separate provenance. No CPU rerun or preprocessing is needed.
+
+| Resource | Retry budget / justification |
+|---|---|
+| Host RAM request | **640 GiB** on one HPC node (about907 GiB schedulable capacity) |
+| Total cgroup guard | **608 GiB**, including charged filesystem cache |
+| Process RSS guard / Go soft target | **320 GiB / 288 GiB**, unchanged; prior sampled process peak221.577 GiB |
+| GPUs | **4 H200**, **112 GiB/card** owned cap; modeled maximum~104 GiB/card; contexts/driver use the remaining physical capacity |
+| Active CPU cores | **32**, unchanged |
+| New retained / scratch caps | **64 GiB / 16 GiB**, unchanged; tight output34 GiB, no duplicate code file |
+| Worker / controller / Slurm deadlines | **46 h / 47 h / 48 h**, unchanged |
+
+The earlier512 GiB host/480 GiB guard proposal is superseded for this retry.
+Even if process RSS reaches its full320 GiB guard while all142.441 GiB source and
+34 GiB output remain charged as file cache, the608 GiB total guard leaves
+**111.559 GiB additional margin**. Observed process RAM was much lower. The32 GiB
+gap between the cgroup guard and requested RAM allows controller/sampler and
+scheduler headroom. This is an admission allowance, not a guaranteed peak or
+runtime. Guard failures now flush the exact cgroup/RSS/storage observation before
+termination, fixing the first attempt's missing trigger sample. Hardware/peer
+preflight, phase/pass progress, profiles and failure retention remain active.
+Shared-storage free space was12900.7 GiB and login-node `/tmp`401.9 GiB at recipe
+review; these are observations, not quota or compute-node reservations. The job
+rechecks assigned-node scratch and shared-storage headroom before work.
+
+The controller accepts `--reference-run first-01`, preserves the reviewed CPU
+reference in its evidence and requires both complete canonical and packed hashes
+to match CPU76645 before reporting success. The analyzer repeats this cross-run
+comparison, in addition to all systematic/curve/range/hash/packed readback checks.
+
+```sh
+python3 -B experiments/s17-full-encoding/test_runner.py
+python3 -B experiments/s17-full-encoding/run.py gpu --check
+module load slurm/slurm/25.05
+sbatch --output=experiments/s17-full-encoding/gpu-%j.log   experiments/s17-full-encoding/gpu.sbatch gpu-retry-02   --revision ed0c026 --reference-run first-01
+# After the user's completion ping only:
+python3 -B experiments/s17-full-encoding/analyze.py gpu-retry-02 gpu
+```
+
+Four no-allocation policy/completion tests pass, including pessimistic host/cache
+margin and rejection of mismatched reference hashes; controller manifest checks,
+Python syntax, launcher shell syntax and whitespace checks pass. No full output
+or large preprocessing data was rehashed for preparation. Runtime remains unknown
+until this retry completes. Results will be `runs/gpu-retry-02/gpu/`, retained
+output/profiles/binaries `.cache/liftrs/s17-full-encoding/gpu-retry-02/gpu/`.
