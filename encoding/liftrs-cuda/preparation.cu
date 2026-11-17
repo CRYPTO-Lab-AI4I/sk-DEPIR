@@ -156,6 +156,7 @@ template <class Word> class Resident {
   uint64_t cap_;
   bool local_vectors_ = false;
   size_t encoding_k_ = 0, encoding_l_ = 0;
+  size_t spectrum_ready_ = 0;
   // Member destruction frees buffers before releasing their peer-access leases.
   PeerLease peers_;
   std::vector<std::unique_ptr<Card>> cards_;
@@ -216,6 +217,7 @@ template <class Word> class Resident {
       throw std::runtime_error("GPU preprocessing domain limit");
   }
   void grow(size_t n, bool product = false) {
+    spectrum_ready_ = 0;
     shape(n);
     const unsigned count = active(n);
     const size_t bytes = n / count * sizeof(Word);
@@ -663,8 +665,12 @@ public:
                               cudaMemcpyDeviceToHost));
     });
   }
-  void spectrum(const uint32_t *g, size_t count, Word *out, size_t n) {
-    if (!g || !out || !count || count > n || n != (size_t(1) << (2 * s_)))
+  // Both output strategies use exactly the same upload and forward transform.
+  // begin/read is serialized by the Go engine lock; no borrowed pointer survives.
+  void spectrum_begin(const uint32_t *g, size_t count, size_t n) {
+    spectrum_ready_ = 0;
+    shape(n);
+    if (!g || !count || count > n || n < 4)
       throw std::runtime_error("GPU spectrum shape");
     for (size_t j = 0; j < count; j++)
       if (g[j] >= (1u << s_))
@@ -673,7 +679,29 @@ public:
     auto values = shards(n, 0);
     upload_base(g, count, n, values);
     transform(n, values, false);
-    download(out, n, values);
+    spectrum_ready_ = n;
+  }
+  void spectrum_read(Word *out, size_t first, size_t count) {
+    if (!out || !spectrum_ready_ || first > spectrum_ready_ || !count ||
+        count > spectrum_ready_ - first)
+      throw std::runtime_error("GPU spectrum read range/state");
+    auto values = shards(spectrum_ready_, 0);
+    for (size_t copied = 0; copied < count;) {
+      const size_t position = first + copied;
+      const unsigned d = unsigned(position / values.chunk);
+      const size_t offset = position % values.chunk,
+                   take = std::min(count - copied, values.chunk - offset);
+      check(cudaSetDevice(cards_[d]->id));
+      check(cudaMemcpy(out + copied, values.data[d] + offset,
+                       take * sizeof(Word), cudaMemcpyDeviceToHost));
+      copied += take;
+    }
+  }
+  void spectrum(const uint32_t *g, size_t count, Word *out, size_t n) {
+    if (!out || n != (size_t(1) << (2 * s_)))
+      throw std::runtime_error("GPU spectrum shape");
+    spectrum_begin(g, count, n);
+    download(out, n, shards(n, 0));
   }
   void roots(const int64_t *input, size_t count, uint32_t *out) {
     const uint64_t order = (uint64_t(1) << (2 * s_)) - 1;
@@ -932,6 +960,25 @@ extern "C" int pg_spectrum(void *h, const uint32_t *g, size_t count, void *out,
       if (width != sizeof(Word))
         throw std::runtime_error("GPU spectrum width");
       state.spectrum(g, count, static_cast<Word *>(out), n);
+    });
+  });
+}
+extern "C" int pg_spectrum_begin(void *h, const uint32_t *g, size_t count,
+                                  size_t n, char *error, size_t capacity) {
+  return api(error, capacity, [&] {
+    visit(h, [&](auto &state) { state.spectrum_begin(g, count, n); });
+  });
+}
+extern "C" int pg_spectrum_read(void *h, void *out, size_t first, size_t count,
+                                 unsigned width, char *error, size_t capacity) {
+  return api(error, capacity, [&] {
+    visit(h, [&](auto &state) {
+      using Word = std::conditional_t<
+          std::is_same_v<std::decay_t<decltype(state)>, Engine::Narrow>,
+          uint32_t, uint64_t>;
+      if (width != sizeof(Word))
+        throw std::runtime_error("GPU spectrum read width");
+      state.spectrum_read(static_cast<Word *>(out), first, count);
     });
   });
 }

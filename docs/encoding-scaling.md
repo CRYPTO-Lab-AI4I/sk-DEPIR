@@ -2,10 +2,11 @@
 
 The [encoding scaling reference](encoding-status.md) is the maintained source for
 preprocessing and CPU/GPU results, memory/runtime estimates and multi-GPU capacity.
-The performance goal is **reasonable performance through s=18 inclusive** on this
-HPC system; retain **s=19–20 as exploratory targets**. Update its tables with every
+The performance goal is **reasonable performance through s=18 inclusive** on
+the HPC system; retain **s=19–20 as exploratory targets**. Update its tables with every
 relevant result or design change. Current standalone mathematical encoding is
-validated through s16; s≥17 requires implementation and validation. Numerical
+validated through s17 on resident CPU reuse; full s17 GPU encoding was attempted
+and failed its host-memory guard. Other wider modes remain unvalidated. Numerical
 latency targets and larger experiment budgets still require agreement.
 
 Retain CPU and optional GPU client encoding paths and independent correctness
@@ -27,20 +28,21 @@ The [CPU baseline/multi-GPU client proposal](encoding-status.md#aim-for-s17) rem
 the encoding goal. **Server preprocessing proceeds GPU-first**: implement and
 validate resident width-selected multi-GPU preparation, using CPU arithmetic as
 a reference. Do not prioritize a full CPU preprocessing launch.
-Proceed with independent implementation work while the existing table-gap jobs
-run; their results remain untouched until the user's completion ping. Preserve
+The table-gap batch and full s17 runs have reviewed results in the maintained
+reference. Continue with the s18 prototypes below; hand off new long jobs until
+the user's completion ping. Preserve
 s≤16 CPU/GPU paths and code-cache compatibility throughout.
 
 | Step | Work and acceptance gate | Status |
 |---|---|---|
 | 1. Width audit and scalar reference | Inventory coordinates, counts, field values and narrowing boundaries. Establish uint64 packed extension arithmetic through s20 against an independent oracle and s≤16 coordinate ordering, without a full-domain allocation | Scalar reference validated: job74290; width audit continues |
 | 2. Native CPU arithmetic and transforms | Port extension kernels/plans to uint64 while retaining uint32 base inputs/outputs. Compare small dense/Go/native cases, >32-bit boundary witnesses, sanitizer checks and s16 regressions; measure kernel overhead before whole-run forecasts | Bounded wide interface/matrix/oracle/race/sanitizer/CPU regressions validated (74330); Complete wide CPU integration passes bounded job74412; CPU schedule/modules deduplicated; bounded correctness passes74448, small setup regression flagged; then larger kernel calibration |
-| 3. Representation and reusable code data | Extend coordinates/counts/cache formats and loaders explicitly. Keep old32-bit artifacts readable; reject truncation, unsupported widths and incompatible specifications. Verify hashes and round trips; preserve existing caches | Bounded format/loader/stream verification and shared Go/CPU regressions passed (74396); Native data integration passes bounded job74412; genuine wide cache remains |
-| 4. GPU s17 preprocessing | Implement width-selected GPU classification, roots, transforms/products and same-node resident peer shards; reuse shared sampling/polynomial flow. Validate independent small/wide cases, peer visibility and communication, then exact K/identities and reviewed full-size budgets | Source prototype implemented; one-GPU checks pass74453; corrected peer sanitizer retry74466 passes; full run not admitted |
-| 5. First full CPU baseline | Prefer resident reuse (~427GiB principal arrays) on one large-RAM node when the admitted budget fits. Validate systematic values, independent curves, hashes and34GiB packed output; separately measure code loading, encoding, packing, verification and peaks | Pending verified s17 code data and host budget |
-| 6. Multi-GPU prototype and selection | Partition same-node arithmetic across GPUs; measure transfers, topology and synchronization. Compare fast-layout streamed constants (~256GiB aggregate/two-card capacity floor) with resident reuse (~398GiB/three-card floor), including all host/device lifetimes and headroom | Pending scalar/native interface; small prototypes may proceed before full preprocessing |
-| 7. Full GPU comparison | Validate exact canonical/packed agreement with the CPU baseline and independently check correctness. Compare complete measured latency and deployment cost; keep CPU available without CUDA | Pending measured multi-GPU design and admitted budgets |
-| 8. Progress toward s18 | Recompute preprocessing/encoding/communication capacities using measurements, then select same-node versus multi-node or memory-saving designs. Retain s19–20 exploratory rows | Pending s17 evidence |
+| 3. Representation and reusable code data | Extend coordinates/counts/cache formats and loaders explicitly. Keep old32-bit artifacts readable; reject truncation, unsupported widths and incompatible specifications. Verify hashes and round trips; preserve existing caches | Bounded format/loader/stream verification and shared Go/CPU regressions passed (74396); Native data integration passes bounded job74412; genuine s17 cache verified in75832 |
+| 4. GPU s17 preprocessing | Implement width-selected GPU classification, roots, transforms/products and same-node resident peer shards; reuse shared sampling/polynomial flow. Validate independent small/wide cases, peer visibility and communication, then exact K/identities and reviewed full-size budgets | **Full HPC run75832 passed**; 348.393 GiB sampled RSS, 9 h 58 min 38 s resumed worker plus prior discovery |
+| 5. First full CPU baseline | Prefer resident reuse (~427GiB principal arrays) on one large-RAM node when the admitted budget fits. Validate systematic values, independent curves, hashes and34GiB packed output; separately measure code loading, encoding, packing, verification and peaks | **Full HPC run76645 passed**; 1 h 45 min 11.087 s encoding, 427.845 GiB sampled RSS, verified34 GiB packed output |
+| 6. Multi-GPU prototype and selection | Partition same-node arithmetic across GPUs; measure transfers, topology and synchronization. Compare fast-layout streamed constants (~256GiB aggregate/two-card capacity floor) with resident reuse (~398GiB/three-card floor), including all host/device lifetimes and headroom | Bounded resident1/2/4GPU integration passed76426; wider streamed/compact modes remain separate |
+| 7. Full GPU comparison | Validate exact canonical/packed agreement with the CPU baseline and independently check correctness. Compare complete measured latency and deployment cost; keep CPU available without CUDA | **Attempted76646; failed host/cgroup guard before completed encoding**. Device setup398.463 GiB on4H200 succeeded; propose512 GiB host/480 GiB total guard retry; not submitted |
+| 8. Progress toward s18 | Recompute preprocessing/encoding/communication capacities using measurements, then select same-node versus multi-node or memory-saving designs. Retain s19–20 exploratory rows | **Active:** exact s18 K verified76647; begin [concrete memory prototypes](#s18-preprocessing-memory-design-and-comparison-scaling-096) before choosing four-GPU hybrid versus sixteen-GPU distributed execution |
 
 For preprocessing, choose the fastest measured complete server workflow within
 agreed budgets; GPU and multi-GPU requirements are acceptable. GPU count is a
@@ -2121,3 +2123,52 @@ Initialhost/cgroupplaninsufficient forcache;finiteTERM/KILLcouldnotreapworker,
 SlurmFAILED1:0. Propose512GiBhost/480GiBcgroup with unchangeddevice/RSS/Go/compute
 caps,fastresidentlayout,andCPUhashmatch;no replacementsubmitted inthisreview.
 [Exactmeasurements/failure](../experiments/s17-full-encoding/report.md#completed-first-attempts-scaling-093).
+
+### s18 preprocessing memory design and comparison (SCALING-096)
+
+User authorizes these concrete prototypes and measurements before choosing the
+full s18 route. This work proceeds alongside the separate s17 GPU encoding retry
+proposal; it does not rerun CPU encoding or authorize full s18 preprocessing.
+The [experiment report](../experiments/preprocessing-memory/report.md) tracks
+scripts, source-derived lifetime models, validation and eventual measurements.
+
+1. **Audit host lifetimes and prototype streamed spectrum output.** Identify
+   support/P/root/G/recovery aliases and stage boundaries. Do not count the root
+   checkpoint twice or alter caller-owned immutable data. Existing GPU product
+   buffers are already released before the final transform. Prototype a bounded
+   download-to-writer using the same GPU transform; final s18 host-array payload
+   projects889.446→377.447 GiB with a1 MiB tile, while earlier discovery and product
+   peaks remain. Status: audit and low-level primitive implemented; runtime and
+   full workflow memory savings unvalidated.
+2. **Validate/integrate explicit export with scoped host ownership.** First
+   compare small canonical spectra against independent scalar arithmetic, then
+   integrate atomic canonical code/G publication and safe release of dead caller
+   references. Preserve P*G verification, format/digests and recovery guarantees.
+   Measure host RSS, cgroup/cache and device allocations, setup, transform,
+   transfers, persistence and readback separately. No full-size mode is claimed
+   from the low-level primitive alone. Keep resident preprocessing as default.
+3. **Measure one representative host-backed tiled transform.** Reuse existing
+   finite-field/vector kernels; introduce an explicit bounded slab schedule and
+   all required transpose passes. Compare equal inputs/order/hashes with resident
+   execution. Record host/device peaks, bytes and time for every pass, staging,
+   optional scratch I/O and setup. Start within existing small budgets; agree any
+   increase before submitting. Existing resident tile calibration is a reference,
+   not a measurement of this host-backed schedule.
+4. **Measure one split polynomial product.** Reuse the current product kernel,
+   assemble overlapping coefficient blocks and compare against complete current
+   and independent CPU products. Measure every subproduct, transfers, overlap
+   accumulation, host output and temporary files. The proposed2-by-7 block final
+   identity entails14 smaller products; actual runtime penalty remains unknown.
+5. **Present a four-GPU versus sixteen-GPU decision.** Combine measured stage
+   costs and memory lifetimes for a four-H200 hybrid; compare with a distributed
+   resident layout on16H200/four HPC nodes. Include discovery, roots, Newton,
+   identity, spectrum, verification, communication, checkpointing and publication.
+   Separate measured costs, projections and unknown network/implementation costs;
+   do not infer linear card scaling. Ask the user to choose any material
+   memory–time/storage tradeoff before adopting it. Full s18 budgets remain separate.
+
+Streaming adds no transforms or canonical output bytes, but synchronous chunk
+transfers/writes may cost time and filesystem cache remains charged host memory.
+No runtime penalty is assumed zero. Slower modes remain explicit command-line
+choices when memory is available; use them for insufficient-memory cases only
+when needed. The fastest validated resident path remains the default when it fits.

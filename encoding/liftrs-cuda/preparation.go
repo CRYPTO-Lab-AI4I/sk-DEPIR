@@ -9,9 +9,14 @@ package liftrscuda
 import "C"
 
 import (
+	"encoding/binary"
+	"encoding/json"
 	"fmt"
+	"io"
+	"os"
 	"runtime"
 	"sync"
+	"time"
 	"unsafe"
 )
 
@@ -202,6 +207,78 @@ func (p *Preparation) Spectrum64(g []uint32, out []uint64) error {
 	err := p.spectrum(g, preparationPointer(out), len(out), 8)
 	runtime.KeepAlive(out)
 	return err
+}
+
+// SpectrumTo writes the forward transform of zero-padded base coefficients as
+// canonical little-endian extension slots. n must be a power of two within the
+// admitted domain; use 1<<(2*s) for a complete generator spectrum. tileBytes is
+// an explicit host payload cap (8 bytes..64 MiB), rounded down to an 8-byte boundary.
+// It allocates one tile rather than an n-element host spectrum. Device workspace
+// and transform count match resident execution; smaller transfers/writes may cost
+// time. This explicit server prototype does not change preprocessing defaults.
+// A writer failure leaves partial output: the caller must publish atomically only
+// after success. The writer must not reenter this serialized engine. No pointer
+// is retained after return; a later call can reuse the engine after an error.
+func (p *Preparation) SpectrumTo(g []uint32, n int, destination io.Writer, tileBytes int) error {
+	if p == nil || len(g) == 0 || destination == nil || tileBytes < 8 || tileBytes > 64<<20 {
+		return fmt.Errorf("GPU streamed spectrum buffers/tile cap")
+	}
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if p.bridge == nil || n < 4 || n&(n-1) != 0 || uint64(n) > p.maximum || len(g) > n {
+		return fmt.Errorf("GPU streamed spectrum shape/state")
+	}
+	var text [512]C.char
+	status := C.pg_bridge_spectrum_begin(p.bridge, (*C.uint32_t)(preparationPointer(g)), C.size_t(len(g)), C.size_t(n), &text[0], 512)
+	runtime.KeepAlive(g)
+	if err := preparationError(status, &text[0]); err != nil {
+		return err
+	}
+	// One aligned allocation is viewed as bytes only while converting/writing it.
+	words := min(n, (tileBytes/8*8)/p.width)
+	tile := make([]uint64, (words*p.width+7)/8)
+	raw := unsafe.Slice((*byte)(unsafe.Pointer(&tile[0])), words*p.width)
+	began, last := time.Now(), time.Now()
+	progress := func(event string, done int) {
+		if os.Getenv("LIFTRS_CPU_PROGRESS") == "1" {
+			_ = json.NewEncoder(os.Stderr).Encode(map[string]any{"utc": time.Now().UTC().Format(time.RFC3339Nano), "phase": "GPU-spectrum-stream", "event": event, "completed": done, "total": n, "unit": "elements", "elapsed_seconds": time.Since(began).Seconds()})
+		}
+	}
+	progress("started", 0)
+	for first := 0; first < n; {
+		take := min(words, n-first)
+		status = C.pg_bridge_spectrum_read(p.bridge, unsafe.Pointer(&tile[0]), C.size_t(first), C.size_t(take), C.uint(p.width), &text[0], 512)
+		runtime.KeepAlive(tile)
+		if err := preparationError(status, &text[0]); err != nil {
+			progress("failed", first)
+			return err
+		}
+		// Convert host slots explicitly; canonical disk bytes are little-endian.
+		for j := 0; j < take; j++ {
+			if p.width == 4 {
+				value := *(*uint32)(unsafe.Pointer(&raw[4*j]))
+				binary.LittleEndian.PutUint32(raw[4*j:], value)
+			} else {
+				binary.LittleEndian.PutUint64(raw[8*j:], tile[j])
+			}
+		}
+		block := raw[:take*p.width]
+		written, err := destination.Write(block)
+		if err == nil && written != len(block) {
+			err = io.ErrShortWrite
+		}
+		if err != nil {
+			progress("failed", first)
+			return err
+		}
+		first += take
+		if time.Since(last) >= 30*time.Second {
+			progress("progress", first)
+			last = time.Now()
+		}
+	}
+	progress("completed", n)
+	return nil
 }
 
 // RootFactorsInto fills normalized-input-independent[constant,linear,quadratic,

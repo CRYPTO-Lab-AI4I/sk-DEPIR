@@ -15,6 +15,8 @@ typedef struct pg_bridge {
                  uint32_t *, size_t, size_t, char *, size_t);
   int (*spectrum)(void *, const uint32_t *, size_t, void *, size_t, unsigned,
                   char *, size_t);
+  int (*spectrum_begin)(void *, const uint32_t *, size_t, size_t, char *, size_t);
+  int (*spectrum_read)(void *, void *, size_t, size_t, unsigned, char *, size_t);
   int (*roots)(void *, const int64_t *, size_t, uint32_t *, char *, size_t);
   int (*good_count)(void *, unsigned, uint64_t *, char *, size_t);
   int (*good_fill)(void *, int64_t *, size_t, char *, size_t);
@@ -52,6 +54,8 @@ static pg_bridge *pg_bridge_open(const char *path, unsigned s, uint32_t poly,
   b->grid = dlsym(b->library, "pg_grid");
   b->product = dlsym(b->library, "pg_product");
   b->spectrum = dlsym(b->library, "pg_spectrum");
+  b->spectrum_begin = dlsym(b->library, "pg_spectrum_begin");
+  b->spectrum_read = dlsym(b->library, "pg_spectrum_read");
   b->roots = dlsym(b->library, "pg_roots");
   b->good_count = dlsym(b->library, "pg_good_count");
   b->good_fill = dlsym(b->library, "pg_good_fill");
@@ -95,6 +99,23 @@ static int pg_bridge_spectrum(pg_bridge *b, const uint32_t *g, size_t count,
                               void *out, size_t n, unsigned width, char *error,
                               size_t cap) {
   return b->spectrum(b->engine, g, count, out, n, width, error, cap);
+}
+static int pg_bridge_spectrum_begin(pg_bridge *b, const uint32_t *g, size_t count,
+                                     size_t n, char *error, size_t cap) {
+  if (!b->spectrum_begin || !b->spectrum_read) {
+    snprintf(error, cap, "GPU streamed spectrum ABI unavailable");
+    return 1;
+  }
+  return b->spectrum_begin(b->engine, g, count, n, error, cap);
+}
+static int pg_bridge_spectrum_read(pg_bridge *b, void *out, size_t first,
+                                    size_t count, unsigned width,
+                                    char *error, size_t cap) {
+  if (!b->spectrum_read) {
+    snprintf(error, cap, "GPU streamed spectrum ABI unavailable");
+    return 1;
+  }
+  return b->spectrum_read(b->engine, out, first, count, width, error, cap);
 }
 static int pg_bridge_roots(pg_bridge *b, const int64_t *indices, size_t count,
                            uint32_t *output, char *error, size_t cap) {

@@ -1,0 +1,42 @@
+[
+  {
+    "s": 17,
+    "k": 3876566203,
+    "n": 17179869184,
+    "resident_final_array_bytes": 237170959836,
+    "spectrum_array_bytes": 137438953472,
+    "stream_tile_bytes": 1048576,
+    "streamed_final_array_bytes": 99733054940,
+    "saved_final_array_bytes": 137437904896,
+    "caller_support_bytes": 31012529624,
+    "support_release_candidate_final_bytes": 68720525316,
+    "identity_stage_principal_bytes": 168451483100,
+    "discovery_principal_bytes": 203758980016,
+    "device_product_array_bytes": 412316860416,
+    "additional_transforms": 0,
+    "additional_canonical_file_bytes": 0,
+    "runtime_penalty_seconds": null,
+    "measured_peak_rss_bytes": null,
+    "scope": "Source-derived final-stage model. Caller support release not implemented; discovery/products unchanged. Runtime, cache and earlier temporaries additional."
+  },
+  {
+    "s": 18,
+    "k": 16300262095,
+    "n": 68719476736,
+    "resident_final_array_bytes": 955035817596,
+    "spectrum_array_bytes": 549755813888,
+    "stream_tile_bytes": 1048576,
+    "streamed_final_array_bytes": 405281052284,
+    "saved_final_array_bytes": 549754765312,
+    "caller_support_bytes": 130402096760,
+    "support_release_candidate_final_bytes": 274878955524,
+    "identity_stage_principal_bytes": 680157910652,
+    "discovery_principal_bytes": 827739876592,
+    "device_product_array_bytes": 1649267441664,
+    "additional_transforms": 0,
+    "additional_canonical_file_bytes": 0,
+    "runtime_penalty_seconds": null,
+    "measured_peak_rss_bytes": null,
+    "scope": "Source-derived final-stage model. Caller support release not implemented; discovery/products unchanged. Runtime, cache and earlier temporaries additional."
+  }
+]

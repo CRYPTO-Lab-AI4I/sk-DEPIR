@@ -63,6 +63,12 @@ starts with an exact one-GPU weighted-class count, without full grids/bitmaps.
 The count passes76647:K16300262095. Current-layout projections are889.446GiB
 final host arrays,1536GiB GPU product arrays and950.170GiB reusable files;
 full s18 preprocessing still needs a distributed/lower-memory design and validation.
+The [s18 memory plan](docs/encoding-scaling.md#s18-preprocessing-memory-design-and-comparison-scaling-096)
+now audits host lifetimes and prototypes bounded spectrum output, followed by
+host-backed transform and split-product measurements before choosing a four-GPU
+hybrid or sixteen-GPU distributed route. The [first prototype](experiments/preprocessing-memory/report.md)
+shares existing GPU arithmetic; validation and runtime costs are pending. It
+changes no default or full preprocessing limit.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

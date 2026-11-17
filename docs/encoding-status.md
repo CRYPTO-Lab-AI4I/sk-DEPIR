@@ -400,6 +400,20 @@ Logical reads3.878TiB/writes0.808TiB explain a substantial I/O deployment cost;
 these are interface counts, not measured physical disk traffic. This slower
 memory mode remains explicit; it changes no default or full s17 admission.
 
+## s18 lower-memory preprocessing work
+
+The [concrete plan](encoding-scaling.md#s18-preprocessing-memory-design-and-comparison-scaling-096)
+now starts with host lifetimes and a bounded streamed-spectrum prototype, then
+measures a host-backed tiled transform and a split product before comparing
+four-H200 hybrid versus sixteen-H200 distributed preprocessing.
+[Source-derived model and validation recipe](../experiments/preprocessing-memory/report.md):
+streaming the final spectrum projects final s18 host arrays **889.446 → 377.447 GiB**
+with a 1 MiB tile. This is a final-stage projection, **not peak RSS or demonstrated
+s18 feasibility**: discovery (~770.893 GiB) and device product arrays (1536 GiB)
+are unchanged, and other intermediates/cache/headroom remain. The low-level GPU
+primitive is implemented; validation and transfer/write penalty are pending. Full
+preprocessing limits, faster defaults and all measured table cells are unchanged.
+
 ## Historical milestones
 
 The sections below preserve the sequence of implementation, submissions and

@@ -237,3 +237,19 @@ Read the [client API/ownership guide](../../docs/gpu-encoding.md) and
 [bounded integration experiment](../../experiments/gpu-code-encoding/report.md).
 Bounded runtime validation passes76426; no fulls17 encoding result is implied. Existing legacy
 constructors/modes and CPU-only dependencies remain unchanged.
+
+## Bounded server spectrum export prototype
+
+`Preparation.SpectrumTo(g, n, writer, tileBytes)` shares the resident generator
+spectrum's zero-padding/upload/forward transform and streams canonical extension
+slots through one bounded host tile. The explicit tile cap is8 bytes..64 MiB,
+rounded down to an8-byte boundary. Use n=2^(2s) for a full generator spectrum;
+smaller admitted powers of two are diagnostic transforms. The writer runs under
+the engine lock and must not reenter it. Errors leave partial output, which the
+caller must not publish; no caller pointer survives return. Old preprocessing
+plugins still load, but return an error if streaming symbols are unavailable.
+
+This is a low-level server prototype, not an integrated preprocessing mode. It
+removes the full host spectrum allocation but keeps resident device workspace;
+chunk transfer/write latency is unmeasured. The existing resident path/default
+and s<=17 engine limit remain. See [tests, budget and lifetime model](../../experiments/preprocessing-memory/report.md).

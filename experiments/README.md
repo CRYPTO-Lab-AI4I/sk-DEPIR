@@ -60,6 +60,11 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Preprocessing memory prototypes](preprocessing-memory/report.md): host-lifetime
+  audit and bounded GPU spectrum export, with independent scalar/failure checks
+  and transfer-inclusive comparison; full export integration, tiled transforms
+  and split products follow separately. Runtime validation pending.
+
 - [s18 preprocessing admission](s18-preprocessing-admission/report.md): one-GPU
   exact weighted-class dimension count, independent/known-size comparisons and
   explicit host/device/storage lifetime models; full preprocessing remains deferred.

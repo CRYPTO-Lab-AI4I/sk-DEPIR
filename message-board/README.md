@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-17 08:34 | SCALING-096 | Prepared | [Spectrum prototype validation ready](2026-11-17-0834-codex-scaling-096-prepared.md) |
+| 2026-11-17 08:26 | SCALING-096 | Started | [s18 preprocessing memory prototypes](2026-11-17-0826-codex-scaling-096-started.md) |
 | 2026-11-17 08:24 | DOC-095 | Completed | [Current s17 tables reconciled](2026-11-17-0824-codex-doc-095-completed.md) |
 | 2026-11-17 08:22 | DOC-095 | Started | [Reconcile current s17 tables](2026-11-17-0822-codex-doc-095-started.md) |
 | 2026-11-17 08:17 | DOC-094 | Completed | [HPC/laptop labels and hardware context](2026-11-17-0817-codex-doc-094-completed.md) |

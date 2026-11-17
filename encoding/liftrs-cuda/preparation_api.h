@@ -18,6 +18,11 @@ int pg_product(void *, const uint32_t *, size_t, const uint32_t *, size_t,
                uint32_t *, size_t, size_t, char *, size_t);
 int pg_spectrum(void *, const uint32_t *, size_t, void *, size_t, unsigned,
                 char *, size_t);
+// Optional bounded-host export: begin computes one zero-padded forward FFT;
+// read copies canonical contiguous slots. Serialize through the final read.
+// Any subsequent operation that grows/reuses transform storage invalidates it.
+int pg_spectrum_begin(void *, const uint32_t *, size_t, size_t, char *, size_t);
+int pg_spectrum_read(void *, void *, size_t, size_t, unsigned, char *, size_t);
 int pg_roots(void *, const int64_t *, size_t, uint32_t *, char *, size_t);
 int pg_good_count(void *, unsigned, uint64_t *, char *, size_t);
 int pg_good_fill(void *, int64_t *, size_t, char *, size_t);
