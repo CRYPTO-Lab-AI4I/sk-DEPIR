@@ -104,7 +104,8 @@ now have reviewed outcomes:CPU76645 passes in1h45min11s encoding with427.845GiB
 peak sampled processRSS and34GiB tight packed output. GPU76646 completes device
 setup but stops at the host/cgroup guard before encoding completes; retry needs
 more file-cache headroom. The [authorized retry recipe](experiments/s17-full-encoding/report.md#gpu-retry-with-conservative-host-headroom-scaling-098)
-uses640 GiB requested host RAM/608 GiB total-memory guard with unchanged device
+is submitted as **job76706**, using640 GiB requested host RAM/608 GiB total-memory
+guard with unchanged device
 caps and an explicit comparison against the passed CPU hashes. FullGPU encoding
 time/speedup remains unknown.
 

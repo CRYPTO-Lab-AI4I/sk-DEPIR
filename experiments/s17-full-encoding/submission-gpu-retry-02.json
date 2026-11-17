@@ -1,0 +1,31 @@
+{
+  "utc": "2026-11-17T08:50:03.184384+00:00",
+  "status": "submitted; not monitored",
+  "job_id": "76706",
+  "backend": "gpu",
+  "run_name": "gpu-retry-02",
+  "encoding_revision": "ed0c026",
+  "prepared_controller_revision": "9855919",
+  "reference_cpu_run": "first-01",
+  "reference_cpu_job_id": "76645",
+  "command": "sbatch --parsable --output=experiments/s17-full-encoding/gpu-%j.log experiments/s17-full-encoding/gpu.sbatch gpu-retry-02 --revision ed0c026 --reference-run first-01",
+  "policy": {
+    "cpus": 32,
+    "host_request_bytes": 687194767360,
+    "rss_guard_bytes": 343597383680,
+    "cgroup_guard_bytes": 652835028992,
+    "go_soft_bytes": 309237645312,
+    "workspace_cap_bytes": 343597383680,
+    "device_cap_bytes": 120259084288,
+    "gpus": 4,
+    "retained_cap_bytes": 68719476736,
+    "scratch_cap_bytes": 17179869184,
+    "worker_seconds": 165600,
+    "controller_seconds": 169200,
+    "slurm_seconds": 172800
+  },
+  "results": "experiments/s17-full-encoding/runs/gpu-retry-02/gpu/",
+  "slurm_log": "experiments/s17-full-encoding/gpu-76706.log",
+  "retained_output_profiles_binary": ".cache/liftrs/s17-full-encoding/gpu-retry-02/gpu/",
+  "dependency": null
+}

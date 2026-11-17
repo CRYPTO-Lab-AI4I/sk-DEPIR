@@ -41,7 +41,7 @@ s≤16 CPU/GPU paths and code-cache compatibility throughout.
 | 4. GPU s17 preprocessing | Implement width-selected GPU classification, roots, transforms/products and same-node resident peer shards; reuse shared sampling/polynomial flow. Validate independent small/wide cases, peer visibility and communication, then exact K/identities and reviewed full-size budgets | **Full HPC run75832 passed**; 348.393 GiB sampled RSS, 9 h 58 min 38 s resumed worker plus prior discovery |
 | 5. First full CPU baseline | Prefer resident reuse (~427GiB principal arrays) on one large-RAM node when the admitted budget fits. Validate systematic values, independent curves, hashes and34GiB packed output; separately measure code loading, encoding, packing, verification and peaks | **Full HPC run76645 passed**; 1 h 45 min 11.087 s encoding, 427.845 GiB sampled RSS, verified34 GiB packed output |
 | 6. Multi-GPU prototype and selection | Partition same-node arithmetic across GPUs; measure transfers, topology and synchronization. Compare fast-layout streamed constants (~256GiB aggregate/two-card capacity floor) with resident reuse (~398GiB/three-card floor), including all host/device lifetimes and headroom | Bounded resident1/2/4GPU integration passed76426; wider streamed/compact modes remain separate |
-| 7. Full GPU comparison | Validate exact canonical/packed agreement with the CPU baseline and independently check correctness. Compare complete measured latency and deployment cost; keep CPU available without CUDA | **Attempted76646; failed host/cgroup guard before completed encoding**. Device setup398.463 GiB on4H200 succeeded; propose512 GiB host/480 GiB total guard retry; not submitted |
+| 7. Full GPU comparison | Validate exact canonical/packed agreement with the CPU baseline and independently check correctness. Compare complete measured latency and deployment cost; keep CPU available without CUDA | **Attempted76646; failed host/cgroup guard before completed encoding**. Device setup398.463 GiB on4H200 succeeded; **retry76706 submitted with640 GiB host/608 GiB total guard; result pending** |
 | 8. Progress toward s18 | Recompute preprocessing/encoding/communication capacities using measurements, then select same-node versus multi-node or memory-saving designs. Retain s19–20 exploratory rows | **Active:** exact s18 K verified76647; begin [concrete memory prototypes](#s18-preprocessing-memory-design-and-comparison-scaling-096) before choosing four-GPU hybrid versus sixteen-GPU distributed execution |
 
 For preprocessing, choose the fastest measured complete server workflow within
@@ -2192,3 +2192,9 @@ hashes to passedCPU76645, without repeating the CPU run. Record the actual updat
 controller separately from frozen arithmetic. [Recipe and checks](../experiments/s17-full-encoding/report.md#gpu-retry-with-conservative-host-headroom-scaling-098).
 Submit and hand off; no monitoring. Separate spectrum validation76704 remains
 uninspected and unrelated to this retry's encoder source.
+
+SCALING-098 full GPU retry **76706 submitted**, fresh `gpu-retry-02`, frozen
+encoding/probeed0c026 and prepared controller9855919. [Receipt](../experiments/s17-full-encoding/submission-gpu-retry-02.json).
+Results `experiments/s17-full-encoding/runs/gpu-retry-02/gpu/`; scheduler log
+`experiments/s17-full-encoding/gpu-76706.log`. CPU76645 remains the output reference.
+No monitoring, result claim or unrelated-job inspection; await completion ping.

@@ -1,6 +1,6 @@
 # First full s17 CPU and resident GPU encoding
 
-Status: **fullCPU76645 passed; fullGPU76646 failed its host/cgroup memory guard before completing encoding**. User requests both
+Status: **fullCPU76645 passed; fullGPU76646 failed its host/cgroup memory guard before completing encoding; GPU retry76706 submitted with640 GiB host RAM/608 GiB total guard**. User requests both
 jobs after [full preprocessing75832](../gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088)
 and [bounded GPU integration76426](../gpu-code-encoding/report.md#completed-validation-scaling-089)
 pass. This measures standalone mathematical encoding, not application masking,
@@ -352,3 +352,12 @@ Python syntax, launcher shell syntax and whitespace checks pass. No full output
 or large preprocessing data was rehashed for preparation. Runtime remains unknown
 until this retry completes. Results will be `runs/gpu-retry-02/gpu/`, retained
 output/profiles/binaries `.cache/liftrs/s17-full-encoding/gpu-retry-02/gpu/`.
+
+### Retry submission
+
+**GPU job76706 submitted**, fresh `gpu-retry-02`; [exact receipt](submission-gpu-retry-02.json).
+Prepared controller9855919; frozen encoding/probeed0c026. Results
+`runs/gpu-retry-02/gpu/`, scheduler log`gpu-76706.log`, retained data
+`.cache/liftrs/s17-full-encoding/gpu-retry-02/gpu/`. No dependency, fixed node or
+CPU rerun; four same-node GPUs with gnode03 excluded. No status polling, log
+following or result analysis after submission. Await the user's completion ping.
