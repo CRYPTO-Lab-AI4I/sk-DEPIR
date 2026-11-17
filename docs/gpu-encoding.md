@@ -124,3 +124,14 @@ updates. Logs expose public code dimensions/progress, not message values. Loggin
 and CPU profiling costs are included in validation timings, not claimed zero.
 This is standalone mathematical encoding, not application/masking integration or
 a production-security or constant-time claim.
+
+## Full s17 first attempt
+
+76646 successfully loads the genuine file and allocates398.463GiB aggregate
+resident device state on4H200, then fails the360GiB host/cgroup guard during host
+output allocation/message validation. ProcessRSS221.577GiB is within its320GiB
+limit, but source-file cache adds~143GiB. No complete GPU encoding or verified
+GPU word is available. CPU76645 passes with the same input, providing canonical/
+packed reference digests. [Full review/retry proposal](../experiments/s17-full-encoding/report.md#completed-first-attempts-scaling-093)
+keeps fast resident mode and suggests more host/cache admission, not slower
+computation. No retry launched in this review; full GPU validation remains pending.

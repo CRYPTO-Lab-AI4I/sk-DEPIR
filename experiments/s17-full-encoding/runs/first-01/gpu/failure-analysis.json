@@ -1,0 +1,106 @@
+{
+  "status": "failed",
+  "job_id": "76646",
+  "revision": "ed0c0260c2eeea183658a788561517c96cd4a2de",
+  "source_files_verified": 554,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 16,
+  "cache_files_verified": 34,
+  "tests": [
+    "source/evidence/cache seals only"
+  ],
+  "commands": [
+    {
+      "label": "source-extract",
+      "seconds": 2.2258266150020063,
+      "peak_rss_bytes": 3006464,
+      "exit_code": 0
+    },
+    {
+      "label": "host",
+      "seconds": 2.1941106361337006,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 2.1794589362107217,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 2.1452043601311743,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 2.1563744163140655,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 2.134409883990884,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "gpu",
+      "seconds": 2.1356559130363166,
+      "peak_rss_bytes": 21716992,
+      "exit_code": 0
+    },
+    {
+      "label": "topology",
+      "seconds": 2.1348140737973154,
+      "peak_rss_bytes": 21716992,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe-build",
+      "seconds": 6.479661467950791,
+      "peak_rss_bytes": 15953920,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe",
+      "seconds": 6.606214319821447,
+      "peak_rss_bytes": 357216256,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 19.804953364189714,
+      "peak_rss_bytes": 319959040,
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "seconds": 22.407784071285278,
+      "peak_rss_bytes": 752934912,
+      "exit_code": 0
+    },
+    {
+      "label": "smoke-fixture",
+      "seconds": 2.2370164478197694,
+      "peak_rss_bytes": 17125376,
+      "exit_code": 0
+    },
+    {
+      "label": "smoke-pipeline",
+      "seconds": 6.553182361647487,
+      "peak_rss_bytes": 477454336,
+      "exit_code": 0
+    },
+    {
+      "label": "encoding-pipeline",
+      "seconds": 2116.4825191851705,
+      "peak_rss_bytes": 237916069888,
+      "exit_code": null
+    }
+  ],
+  "scope": "forensic reconciliation of failed attempt; no verified full encoding",
+  "failure": "RuntimeError('encoding-pipeline: cgroup memory guard')"
+}

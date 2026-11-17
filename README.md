@@ -13,8 +13,9 @@ The current development target is **TRL 5**: a usable, validated client and prep
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)
 are the reference for preprocessing and CPU/GPU encoding modes, including
 multi-GPU estimates. The performance goal is **s≤18**; **s=19–20** remain
-exploratory. Current standalone encoding is validated through s=16; larger encoding rows
-are projections pending implementation and validation. Update the reference as
+exploratory. Standalone CPU encoding now passes through s=17 (resident wide); GPU encoding
+passes through s=16 plus bounded wider integration. Other larger encoding rows
+remain unvalidated projections. Update the reference as
 scaling progresses; the [scaling plan](docs/encoding-scaling.md) tracks the work.
 The [s17 aims](docs/encoding-status.md#aim-for-s17) distinguish the proposed
 large-RAM CPU baseline, multi-GPU target and preprocessing/implementation gates.
@@ -36,7 +37,8 @@ code preparation remains separate. The explicit experimental
 [complete wide CPU encoder](experiments/s17-encoding/report.md) now consumes
 that code data; bounded correctness/ownership/sanitizer checks pass (job74412).
 Its returned uint32 word retains an 8N-byte backing allocation, counted in the
-workspace model. Existing CPU/GPU defaults are unchanged; full s17 is unvalidated.
+workspace model. Full s17 resident CPU encoding now passes76645; the existing
+CPU/GPU defaults remain unchanged and full s17 GPU encoding is not yet verified.
 
 The experimental [shared preprocessing pipeline](docs/preprocessing.md) now
 implements discovery, root/generator construction, verification and canonical
@@ -46,8 +48,8 @@ test-fixture correction ([report](experiments/s17-preprocessing/report.md)). A
 [full s17 GPU preprocessing cache](experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088)
 now passes:4H200,348.393GiB peak sampled host RSS,235.324GiB retained canonical
 payload. The resumed worker took9h58min38s, reusing support discovered earlier in
-21min38s; root construction dominated. Full database encoding remains unvalidated
-at s17. GPU preprocessing uses a
+21min38s; root construction dominated. Full resident CPU mathematical encoding now passes
+at s17; GPU full encoding remains unverified. GPU preprocessing uses a
 [resident width-selected peer executor](experiments/gpu-s17-preprocessing/report.md),
 sharing kernels with the legacy CUDA path and supporting same-node GPU shards.
 Bounded one-/two-/four-GPU checks preceded the completed full trial. The
@@ -88,8 +90,10 @@ same-node devices and resident constants. Source supports s17; bounded1/2/4GPU
 runtime validation passes76426 ([experiment](experiments/gpu-code-encoding/report.md)).
 CPU/CUDA-free builds and legacy s≤16 GPU defaults remain unchanged. No fulls17
 GPU encoding result or speedup is claimed. [Full s17 CPU/GPU encoding jobs](experiments/s17-full-encoding/report.md)
-are submitted (CPU76645/GPU76646) from the verified cache, with separate setup/encoding/check/
-packed-output timings; full results remain pending.
+now have reviewed outcomes:CPU76645 passes in1h45min11s encoding with427.845GiB
+peak sampled processRSS and34GiB tight packed output. GPU76646 completes device
+setup but stops at the host/cgroup guard before encoding completes; retry needs
+more file-cache headroom. FullGPU encoding time/speedup remains unknown.
 
 A [bounded HPC table-gap batch](experiments/encoding-table/report.md) measures
 22 missing encoding-mode cells at s10/14/15/16 using retained preprocessing.

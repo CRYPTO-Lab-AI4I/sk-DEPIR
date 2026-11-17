@@ -10,7 +10,8 @@ membership, cryptographic security or full s17 encoder support.
 [API example](../encoding/liftrs-shared/scaling_code_example_test.go),
 [validation experiment](../experiments/s17-code-data/report.md), passed as job74396
 for bounded legacy/header/slot and Go/CPU regression checks. Full s17 production/write/stream-verification now passes preprocessing75832;
-full resident loading and database encoding remain unvalidated.
+full resident loading and CPU mathematical encoding now pass76645; full GPU
+encoding remains unverified.
 
 ## Payload and size selection
 
@@ -77,7 +78,8 @@ extent, rather than allocated arrays. It is a standalone validation option, not
 an automatic second pass: calling Verify then Load would read/hash the data twice.
 The full142.441GiB s17 file is now produced and streamed through these checks in
 [preprocessing75832](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088).
-This does not yet validate full resident loading or database encoding.
+Full resident loading and CPU mathematical encoding subsequently pass76645;
+full GPU encoding remains unverified.
 
 WriteScalingCode streams canonical slot/count widths without changing values.
 It checks metadata/ranges and owns neither a destination path nor publication.
@@ -94,7 +96,8 @@ complete wide CPU metadata. Allocate `encoder.NewWorkspace(maxBytes)` using an
 explicit principal-workspace cap, then `Encode` or `EncodeWithStats` and `Close`.
 Ordinary builds return `ErrCPPUnavailable`. See the
 [runnable example](../encoding/liftrs-shared/scaling_wide_cpp_example_test.go) and
-[bounded validation plan](../experiments/s17-encoding/report.md). Bounded validation passes job74412; full s17 remains unvalidated.
+[bounded validation plan](../experiments/s17-encoding/report.md). Bounded validation passes74412; full s17 resident CPU encoding now passes76645,
+with separate code-load/setup/encoding/output measurements in the full-run report.
 
 Code data remains immutable at its stored spectrum width; base messages/results
 remain uint32. With L=nextpow2(2K−1), arena=max(2L,N), workspace payload is
@@ -130,4 +133,5 @@ P·G verification. It shares procedures across value widths and has support-boun
 restart artifacts. Full GPU preprocessing through s17 now passes75832, retaining a genuine support,
 normalized root, generator and canonical spectrum cache with complete identity
 and write/readback checks. Clients can use its trusted manifests/checksums;
-full-size CPU/GPU client encoding remains a separate gate.
+full-size resident CPU encoding now passes76645; full GPU encoding and other
+wide memory modes remain separate gates.

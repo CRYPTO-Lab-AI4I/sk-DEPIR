@@ -805,4 +805,4 @@ cyclic order and verified code data with CPU. See the [API/buffer guide](../../d
 for source ownership, per-device/host admission, build/example and remaining
 s17 packing/memory modes. Optional CUDA is not needed for CPU-only builds.
 [Bounded runtime validation](../../experiments/gpu-code-encoding/report.md) passes76426;
-fulls17 encoding remains unvalidated.
+fulls17 GPU encoding remains unvalidated; resident CPU encoding passes76645.

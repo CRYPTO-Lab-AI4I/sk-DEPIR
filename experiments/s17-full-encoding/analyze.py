@@ -28,10 +28,17 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('name')
     parser.add_argument('backend', choices=('cpu', 'gpu'))
+    parser.add_argument('--forensic', action='store_true', help='seal review of a failed attempt; never mark it passed')
     args = parser.parse_args()
     out = HERE/'runs'/args.name/args.backend
     record = json.loads((out/'results.json').read_text())
-    result = runpy.run_path(str(HERE.parent/'s17-arithmetic/analyze.py'))['reconcile'](out)
+    result = runpy.run_path(str(HERE.parent/'s17-arithmetic/analyze.py'))['reconcile'](out, require_success=not args.forensic)
+    if args.forensic:
+        assert record['status'] != 'passed', 'use normal successful validation'
+        result.update(scope='forensic reconciliation of failed attempt; no verified full encoding', tests=['source/evidence/cache seals only'], failure=record.get('error'))
+        (out/'failure-analysis.json').write_text(json.dumps(result, indent=2)+'\n')
+        print(json.dumps(result, indent=2))
+        return
     assert record['backend'] == args.backend
     assert record['probe_sha256'] == record['source_sha256']['experiments/s17-full-encoding/probe.go.txt']
     phases = record['phases']['phases']
@@ -60,6 +67,7 @@ def main():
             assert other_result['code_manifest'] == record['code_manifest']
             comparison = 'CPU/GPU complete canonical and packed hashes match'
     result.update(backend=args.backend, digests=digests, comparison=comparison,
+                  tests=['full code hash/load', 'all3876566203systematic symbols', '16 independent scalar curves', 'all-value range/canonical SHA256', '34GiB tight packing/full disk digest/1027 positions'],
                   phases=phases, scope='full s17 standalone mathematical encoding with profiled timing; producer packed readback, no extra34GiB rehash in review')
     (out/'analysis.json').write_text(json.dumps(result, indent=2)+'\n')
     print(json.dumps(result, indent=2))

@@ -1,0 +1,139 @@
+{
+  "cpu": {
+    "job_id": "76645",
+    "status": "passed",
+    "controller_seconds": 8568.295485364273,
+    "pipeline_command_seconds": 8521.243855688721,
+    "peak_sampled_process_rss_bytes": 459395461120,
+    "peak_sampled_process_rss_gib": 427.84536361694336,
+    "periodic_cgroup_maxima_bytes": {
+      "current_bytes": 643275436032,
+      "anon_bytes": 459401592832,
+      "file_bytes": 189776048128,
+      "peak_bytes": 646839578624
+    },
+    "phases": {
+      "database": {
+        "array_bytes": 15506264812,
+        "profiled": true,
+        "seconds": 55.145354487,
+        "seed": 71
+      },
+      "encoder-setup": {
+        "profiled": true,
+        "resources": {
+          "PrefixElements": 8589934592,
+          "ArenaElements": 17179869184,
+          "WorkspaceBytes": 290384171756,
+          "OutputBackingBytes": 137438953472,
+          "TransientBytes": 16777216
+        },
+        "seconds": 0.561144263
+      },
+      "encoding": {
+        "native": {
+          "Native": 6311086955713,
+          "Taylor": 1095008654317,
+          "Columns": 2099162218214,
+          "Rows": 2527510180598,
+          "Buffer": 327203371455,
+          "Pointwise": 171857163961,
+          "Assembly": 90344632387,
+          "Calls": 5,
+          "OutputBackingBytes": 137438953472,
+          "TransientBytes": 16777216
+        },
+        "profiled": true,
+        "resources": {
+          "PrefixElements": 8589934592,
+          "ArenaElements": 17179869184,
+          "WorkspaceBytes": 290384171756,
+          "OutputBackingBytes": 137438953472,
+          "TransientBytes": 16777216
+        },
+        "seconds": 6311.087113286
+      },
+      "load-code": {
+        "profiled": true,
+        "seconds": 1752.498202587,
+        "source_bytes": 152945218341,
+        "source_sha256": "bf61a05605bb446f633411151ef6da11a736b7d5065a777fde615aa9acc71076"
+      },
+      "pack-output": {
+        "bytes": 36507222016,
+        "path": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-full-encoding/first-01/cpu/word-packed.bin",
+        "profiled": true,
+        "seconds": 142.346243807,
+        "sha256": "90bbdca5a34ca09b13bf44d274e7a9ec93b859d94b6778061ce62c2ebadb42f1"
+      },
+      "readback-packed": {
+        "full_digest": "90bbdca5a34ca09b13bf44d274e7a9ec93b859d94b6778061ce62c2ebadb42f1",
+        "positions": 1027,
+        "profiled": true,
+        "seconds": 110.053922663
+      },
+      "verify-canonical": {
+        "canonical_bytes": 68719476736,
+        "profiled": true,
+        "seconds": 58.424575487,
+        "sha256": "4fc38b3e28ade50b4de5923d0ee3685ccfa1a1dec51a29c8d51126b3a323554a"
+      },
+      "verify-curves": {
+        "curves": 16,
+        "profiled": true,
+        "seconds": 4.248745109,
+        "seed": 1604
+      },
+      "verify-systematic": {
+        "profiled": true,
+        "seconds": 26.896683491,
+        "symbols": 3876566203
+      }
+    },
+    "scope": "CPU full correctness/packed output verified",
+    "failure": null
+  },
+  "gpu": {
+    "job_id": "76646",
+    "status": "failed",
+    "controller_seconds": 2207.4987188698724,
+    "pipeline_command_seconds": 2116.4825191851705,
+    "peak_sampled_process_rss_bytes": 237916069888,
+    "peak_sampled_process_rss_gib": 221.57660675048828,
+    "periodic_cgroup_maxima_bytes": {
+      "current_bytes": 377536966656,
+      "anon_bytes": 225230741504,
+      "file_bytes": 154138845184,
+      "peak_bytes": 377536966656
+    },
+    "phases": {
+      "database": {
+        "array_bytes": 15506264812,
+        "profiled": true,
+        "seconds": 45.580418747,
+        "seed": 71
+      },
+      "encoder-setup": {
+        "array_model": {
+          "PrefixElements": 8589934592,
+          "ArenaElements": 17179869184,
+          "CodeBytes": 152945218284,
+          "DeviceWorkspaceBytes": 274894684176,
+          "MaxDeviceArrayBytes": 111673344004,
+          "HostOutputBytes": 68719476736
+        },
+        "device_owned_bytes": 427846627660,
+        "profiled": true,
+        "seconds": 69.057484989
+      },
+      "load-code": {
+        "profiled": true,
+        "seconds": 1929.73685063,
+        "source_bytes": 152945218341,
+        "source_sha256": "bf61a05605bb446f633411151ef6da11a736b7d5065a777fde615aa9acc71076"
+      }
+    },
+    "scope": "GPU setup allocation observed;encoding interrupted at cgroup guard before first transform;no valid encoding/output",
+    "failure": "RuntimeError('encoding-pipeline: cgroup memory guard')"
+  }
+}

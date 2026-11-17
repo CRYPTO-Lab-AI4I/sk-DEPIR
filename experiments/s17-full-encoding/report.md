@@ -1,6 +1,6 @@
 # First full s17 CPU and resident GPU encoding
 
-Status: **CPU76645 andGPU76646 submitted independently; full results pending**. User requests both
+Status: **fullCPU76645 passed; fullGPU76646 failed its host/cgroup memory guard before completing encoding**. User requests both
 jobs after [full preprocessing75832](../gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088)
 and [bounded GPU integration76426](../gpu-code-encoding/report.md#completed-validation-scaling-089)
 pass. This measures standalone mathematical encoding, not application masking,
@@ -187,3 +187,114 @@ no scheduler/process/log/result checks afterward. Results:
 `gpu-76646.log`. Outputs/profiles/binaries:
 `.cache/liftrs/s17-full-encoding/first-01/{cpu,gpu}/`. Queue/runtime unknown;
 48h is the scheduler limit, not predicted duration. Await user's completion ping.
+
+## Completed first attempts (SCALING-093)
+
+[CPU analysis](runs/first-01/cpu/analysis.json),
+[GPU forensic analysis](runs/first-01/gpu/failure-analysis.json),
+[combined measured summary](runs/first-01/summary.json),
+[final accounting](runs/first-01/scheduler-completion.txt).
+Sources frozened0c026. CPU seals554source/11evidence/37cache reconcile;
+GPU failure seals554source/16evidence/34cache reconcile. The latter is not a
+successful encoding or a CPU/GPU output match. Normal successful analyzer still
+rejects failed records; explicit `--forensic` retains failure status and verifies
+only saved seals, not mathematical success.
+
+### CPU76645: full s17 mathematical encoding passed
+
+On gnode02,32CPU workers,768GiB host requested,noGPU. SchedulerCOMPLETED0:0,
+elapsed2h22min49s. Whole controller8568.295s; main pipeline8521.244s includes
+process startup/cleanup and sampling boundaries, while individual phase clocks
+exclude those. Exactly one complete encoding, no warmup/repeat; profiles/logging
+enabled throughout. This is a first full correctness run, not an unprofiled
+latency baseline. It preserves the CPU path without CUDA.
+
+| CPU phase / resource | Measurement |
+|---|---|
+| Full142.441GiB code load/hash/validation |29min12.498s |
+| Database generation |55.145s |
+| Native plan/workspace setup |0.561s (lazy host page touching affects this boundary) |
+| **Complete encoding** |**1h45min11.087s** |
+| Full3,876,566,203 systematic checks |26.897s |
+|16independent scalar curve checks |4.249s |
+| All-value validation/canonical64GiB hash |58.425s |
+| Tight34GiB pack/write/hash/fsync |2min22.346s |
+| Full packed disk hash +1027decoded positions |1min50.054s |
+| **Peak sampled process RSS** |**427.845GiB** |
+| Periodic cgroup sample maximum |599.097GiB, including charged file cache |
+| Cgroup recorded peak in periodic observations |602.416GiB, includes cache/other charges |
+| Highest periodic file-cache observation |176.743GiB; not process RSS |
+
+Native encoding stages: Taylor1095.009s, columns/transposes2099.162s,
+rows2527.510s, buffers327.203s, pointwise171.857s, assembly90.345s. Those are
+nested inside the complete call and not additional to its elapsed time. No full
+s17 performance comparison with GPU is available. Cold-cache or other-node load
+latency is not established by one source-file read.
+
+Every symbol/curve/range/output check passes; output has36507222016bytes exactly,
+17bits per canonical value without per-value type padding. It is resident
+encoding followed by packing; this does not validate the distinct streamed-code
+packed-file mode at s17. Canonical uint32 array uses64GiB logical bytes and128GiB
+owning backing in the wide CPU encoder; those in-memory allocations remain part
+of measured RSS. Packed file uses34GiB only.
+
+Canonical SHA256:
+`4fc38b3e28ade50b4de5923d0ee3685ccfa1a1dec51a29c8d51126b3a323554a`.
+Packed SHA256:
+`90bbdca5a34ca09b13bf44d274e7a9ec93b859d94b6778061ce62c2ebadb42f1`.
+Retained word/profiles/executable are at
+`.cache/liftrs/s17-full-encoding/first-01/cpu/`.
+The packed producer readback already rehashes the full file; review does not
+silently reread34GiB, nor repeat expensive encoding.
+
+### GPU76646: successful setup, failed host-memory admission
+
+On gnode04,fourH200/32CPU/384GiB requested host. SchedulerFAILED1:0 after36min56s;
+controller2207.499s. Source loading1929.737s, database45.580s and encoder
+setup69.057s complete. Full-sized resident GPU allocation reports**398.463GiB
+aggregate owned device memory**, including metadata, under4×112GiB caps. This
+confirms setup/allocation on four cards; it is not a measured GPU memory peak
+through all runtime phases or proof of complete full-domain encoding correctness.
+
+The call allocates its64GiB host output and then starts native message validation.
+The controller triggers the **360GiB cgroup memory guard** before a full transform
+is logged. Sampled process RSS reaches**221.577GiB**, below its320GiB RSS guard.
+Periodic cgroup samples show about141–144GiB charged file cache in addition to
+anonymous memory; a142.441GiB source read can therefore push total charged memory
+over360GiB as the output is materialized. Last logged heartbeat is351.609GiB;
+the actual guard-trigger sample exceeds360GiB but was not persisted separately.
+Do not label351.609GiB as the final cgroup peak or claim a Slurm OOM: the saved
+cause is our controller's cgroup guard, not an encoder/field validation failure.
+
+[Incomplete persisted phases](runs/first-01/gpu/incomplete-phases.json),
+[raw phase/native log](runs/first-01/gpu/encoding-pipeline.log),
+[resource observations](runs/first-01/gpu/progress.jsonl), [Slurm log](gpu-76646.log).
+TERM produces a flushed profile/termination event; after bounded TERM/KILL waits,
+worker is unreaped and Slurm ultimately closes the failed allocation. The failed
+attempt has no completed encoding phase, verified canonical word or packed result.
+No CUDA OOM,reset or arithmetic fault is reported in these logs, but successful
+full encoding is not established by absence of such a message. All failure
+artifacts/profiles/plugin/source/code remain retained.
+
+The original384GiBhost/360GiBcgroup plan allowed insufficient file-cache margin
+for this workload; this is an experiment-admission mistake. No slower memory
+mode is needed from current evidence. A concrete retry recommendation is
+**512GiB requested host /480GiB cgroup guard**, retaining320GiB RSS/288GiB Go soft,
+4H200112GiB/device,32cores and all correctness/output checks. That gives room
+around~221GiB process +~143GiB source cache +34GiB output cache, with additional
+headroom. This is a proposal, not a guarantee of GPU runtime/health or approval
+to relax other resource guards. Full GPU encoding would still have to pass all
+mathematical/output checks and match the now-known CPU digests. No replacement
+job is submitted during this review; no CPU rerun is necessary.
+
+Reproduce reviews (small sealed evidence only):
+
+```sh
+python3 -B experiments/s17-full-encoding/analyze.py first-01 cpu
+python3 -B experiments/s17-full-encoding/analyze.py first-01 gpu --forensic
+python3 -B experiments/s17-full-encoding/test_runner.py
+```
+
+Source/document checks pass; raw sealed logs retain original whitespace. The
+reference now labels CPU measured/passed and GPU attempted/failed, preserving
+s18–20 exploratory rows and mode-specific unvalidated status.

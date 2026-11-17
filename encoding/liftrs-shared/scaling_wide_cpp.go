@@ -31,7 +31,8 @@ type wideCPPOnline interface {
 // ScalingWideCPPEncoder is an explicit optional complete cyclic encoding path
 // using64-bit extension workspace and unchanged uint32 messages/results. It
 // consumes immutable verified code data but does not perform preprocessing or
-// authenticate its code identities. No full s17 encoding has yet been validated.
+// authenticate its code identities. Full resident s17 CPU encoding passes76645;
+// other wide memory modes and GPU full encoding remain separate validations.
 // Calls may run concurrently on distinct workspaces; Close waits for active calls.
 type ScalingWideCPPEncoder struct {
 	mu        sync.RWMutex

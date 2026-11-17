@@ -5,7 +5,8 @@ partitioning, permutation/masks and storage publication are separate contracts;
 see [encoder requirements](encoder-contract.md). The CPU refactor is implemented
 and [bounded correctness validation passes](../experiments/cpu-encoding-modules/report.md).
 Small s10 encoding medians are 1–3% slower; setup regressions remain under review. Existing
-full-size evidence remains through s16; no full s17 preparation/encoding is implied.
+full-size resident CPU evidence now includes s17 (76645), while other wide
+memory modes remain unvalidated. See the [full encoding report](../experiments/s17-full-encoding/report.md#completed-first-attempts-scaling-093).
 
 ## One encoding algorithm, several storage strategies
 

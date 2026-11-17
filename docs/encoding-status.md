@@ -6,10 +6,11 @@ exploratory targets**: keep their rows as algorithms, layouts and measurements
 improve. This is the maintained capacity and results reference for the
 [scaling plan](encoding-scaling.md), separate from TRL 5 acceptance.
 
-Updated 2026-11-16; validated code-data checkpoint `83c8469`. Standalone mathematical
-encoding is validated through s=16. **Full encoding at s≥17 is unvalidated**; verified larger
-preprocessing, layout admission and any multi-GPU execution must be implemented and
-validated before those projections become demonstrated capabilities. “Reasonable”
+Updated 2026-11-17; validated code-data checkpoint `83c8469`. Standalone mathematical
+CPU encoding is validated through **s=17** (resident wide, job76645); GPU encoding
+is validated through s=16 plus bounded wider integration. **Full s17 GPU76646 was
+attempted and failed its host/cgroup guard before completing encoding.** Other
+s17 modes and s≥18 full encoding remain unvalidated; projections are not support. “Reasonable”
 has no agreed numerical latency threshold yet; select it using measured setup,
 encoding, memory, I/O and deployment costs before accepting a scaling milestone.
 
@@ -190,7 +191,7 @@ excludes device allocations unless stated.
 | 14 | HPC measured<br>Runtime: 1 min 31.164 s<br>Peak process RSS: 5.594 GiB | HPC measured<br>Runtime: 58.667 s–58.853 s<br>Peak process RSS: 3.595 GiB | HPC measured<br>Runtime: 1 min 4.517 s–1 min 8.413 s<br>Peak process RSS: 2.526 GiB |
 | 15 | HPC measured<br>Runtime: 10 min 55.937 s<br>Peak process RSS: 18.465 GiB | HPC measured§<br>Runtime: 4 min 34.704 s–4 min 41.715 s<br>Peak workflow process RSS: 14.460 GiB | HPC measured§<br>Runtime: 4 min 39.900 s–4 min 40.038 s<br>Peak workflow process RSS: 9.901 GiB |
 | 16 | HPC measured<br>Runtime: 20 min 52.503 s<br>Peak process RSS: 74.370 GiB | HPC measured<br>Runtime: 20 min 47.173 s–21 min 21.328 s<br>Peak process RSS: 58.351 GiB | HPC measured<br>Runtime: 21 min 29.759 s<br>Peak process RSS: 39.409 GiB |
-| 17 | Not run<br>Runtime: unknown<br>Estimated array payload: ~491 GiB<br>Capacity: one-node RAM projected; full run unvalidated | Not run<br>Runtime: unknown<br>Estimated array payload: ~427 GiB<br>Capacity: one-node RAM projected; full run unvalidated | Not run<br>Runtime: unknown<br>Estimated array payload: ~287 GiB<br>Capacity: one-node RAM projected; full run unvalidated |
+| 17 | Not run:original allocation variant<br>Runtime:unknown<br>Estimated arrays:~491GiB<br>Not validated at s17 | **HPC measured:wide resident reuse,passed76645**<br>Encoding:**1h45min11.087s**, profiled<br>Peak process RSS:**427.845GiB**<br>Whole job:2h22min49s; separate34GiBpacked output passes<br>**Feasible:one CPU node** | Not run; s17 compact port unvalidated<br>Runtime:unknown<br>Estimated arrays:~287GiB<br>Capacity projection only |
 | 18 | Not run<br>Runtime: unknown<br>Transform arrays: ≥1024 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Transform arrays: ≥1024 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Transform arrays: ≥1024 GiB<br>Capacity: exceeds one node's RAM |
 | 19 | Not run<br>Runtime: unknown<br>Output alone: 1024 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Output alone: 1024 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Output alone: 1024 GiB<br>Capacity: exceeds one node's RAM |
 | 20 | Not run<br>Runtime: unknown<br>Output alone: 4096 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Output alone: 4096 GiB<br>Capacity: exceeds one node's RAM | Not run<br>Runtime: unknown<br>Output alone: 4096 GiB<br>Capacity: exceeds one node's RAM |
@@ -291,7 +292,7 @@ not implemented support; the feasibility discussion above still applies.
 | 14 | HPC measured§<br>Runtime: 5.155 s–5.257 s<br>Owned GPU allocations: 4.190 GiB<br>Peak workflow host RSS: 2.521 GiB<br>GPUs: 1 | HPC measured<br>Runtime: 5.176 s–5.179 s<br>Owned GPU allocations: 3.190 GiB<br>Estimated host arrays: ~2.38 GiB<br>GPUs: 1 | HPC measured§<br>Runtime: 5.800 s–5.860 s<br>Owned GPU allocations: 2.192 GiB<br>Peak workflow host RSS: 2.525 GiB<br>GPUs: 1 |
 | 15 | HPC measured§<br>Runtime: 16.853 s–17.497 s<br>Owned GPU allocations: 16.808 GiB<br>Peak workflow host RSS: 9.768 GiB<br>GPUs: 1 | HPC measured§<br>Runtime: 16.917 s–17.756 s<br>Owned GPU allocations: 12.809 GiB<br>Peak workflow host RSS: 9.770 GiB<br>GPUs: 1 | HPC measured§<br>Runtime: 20.487 s–20.873 s<br>Owned GPU allocations: 8.811 GiB<br>Peak workflow host RSS: 9.770 GiB<br>GPUs: 1 |
 | 16 | HPC measured<br>Runtime: 1 min 0.216 s–1 min 25.954 s<br>Owned GPU allocations: 67.423 GiB<br>Peak host process RSS: 39.024 GiB<br>GPUs: 1 | HPC measured<br>Runtime: 56.975 s–57.418 s<br>Owned GPU allocations: 51.427 GiB<br>Peak host process RSS: 39.031 GiB<br>GPUs: 1 | HPC measured<br>Runtime: 1 min 33.332 s–1 min 41.526 s<br>Owned GPU allocations: 35.429 GiB<br>Peak host process RSS: 39.028 GiB<br>GPUs: 1 |
-| 17 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~526.42 GiB<br>Estimated host arrays: 220.84 GiB<br>GPUs: 4<br>Capacity: one node projected; implementation pending | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~398.42 GiB<br>Estimated host arrays: 220.84 GiB<br>GPUs: 3<br>Capacity: one node projected; implementation pending | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~270.42 GiB<br>Estimated host arrays: 220.84 GiB<br>GPUs: 2<br>Capacity: one node projected; implementation pending |
+| 17 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~526.42 GiB<br>Estimated host arrays: 220.84 GiB<br>GPUs: 4<br>Capacity: one node projected; implementation pending | **Attempted:76646 failed host/cgroup guard**<br>Encoding runtime:unknown, not completed<br>Setup owned device allocation:**398.463GiB aggregate**,4H200<br>Process RSS at abort:**221.577GiB**; file cache additional<br>384GiBhost request/360GiBtotal guard insufficient<br>Retry needs host/cache headroom; not validated full encoding | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~270.42 GiB<br>Estimated host arrays: 220.84 GiB<br>GPUs: 2<br>Capacity: one node projected; implementation pending |
 | 18 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~2109 GiB<br>Estimated host arrays: 889 GiB<br>GPUs: 16<br>Capacity: multiple nodes required | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~1597 GiB<br>Estimated host arrays: 889 GiB<br>GPUs: 12<br>Capacity: multiple nodes required | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~1085 GiB<br>Estimated host arrays: 889 GiB<br>GPUs: 8<br>Capacity: multiple nodes required |
 | 19 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~8447 GiB<br>Estimated host arrays: 3581 GiB<br>GPUs: 61<br>Capacity: multiple nodes required | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~6399 GiB<br>Estimated host arrays: 3581 GiB<br>GPUs: 46<br>Capacity: multiple nodes required | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~4351 GiB<br>Estimated host arrays: 3581 GiB<br>GPUs: 31<br>Capacity: multiple nodes required |
 | 20 | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~33834 GiB<br>Estimated host arrays: 14420 GiB<br>GPUs: 241<br>Capacity: exceeds this machine's GPUs or host RAM | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~33834 GiB<br>Estimated host arrays: 14420 GiB<br>GPUs: 241*<br>Capacity: exceeds this machine's GPUs or host RAM | Not run<br>Runtime: unknown<br>Estimated GPU arrays: ~25642 GiB<br>Estimated host arrays: 14420 GiB<br>GPUs: 183*<br>Capacity: exceeds this machine's GPUs or host RAM |
@@ -690,3 +691,24 @@ Two recovery generations per phase model another528.001GiB before overhead;
 prior512GiB retained cap is insufficient. Propose distributed resident versus
 explicit lower-memory tradeoffs before implementation/large resource admission.
 Fulls18 runtime/peaks remain unknown; encoding76645/76646 not inspected.
+
+## Full s17 CPU result and GPU attempt (SCALING-093)
+
+[Completed review](../experiments/s17-full-encoding/report.md#completed-first-attempts-scaling-093):
+**CPU76645 passes** ongnode02/32cores,1h45min11.087s encoding,427.845GiB peak
+sampled processRSS; full142.441GiBcode loading29min12.498s. Packed write/hash/fsync
+2min22.346s plus readback1min50.054s;34GiB output is tight. All3876566203systematic
+positions,16scalar curves,all values/hash and packed readback pass. Scheduler
+2h22min49s. Profiler/logging included; this is not an unprofiled repeat baseline.
+Cgroup observation reaches602.416GiB recorded peak including cache, distinctfromRSS.
+
+**GPU76646 failed** ongnode04:398.463GiB resident owned device setup succeeds,
+then total-memory guard360GiB triggers while host output allocation/message
+validation begins. ProcessRSS221.577GiB remains below320GiBguard, but source
+file cache adds~143GiB. No complete encoding/output/hash or GPU speedup exists.
+No SlurmOOM/arithmetic failure reported; bounded shutdown leaves worker unreaped,
+Slurm recordsFAILED1:0. Preserve all failure evidence. Propose512GiBhostrequest/
+480GiBtotal guard with unchangeddevice/RSS/Go/compute caps; no retry submitted.
+CPU success/source554/11evidence/37cache reconcile; GPU failedsource554/16evidence/
+34cache reconcile separately. Other s17 file/compact/disk/packed-stream modes are
+still unrun; separate packing of resident CPU output does not validate those modes.

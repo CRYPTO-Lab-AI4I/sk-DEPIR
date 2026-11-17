@@ -1,0 +1,28 @@
+{
+  "utc": "2026-11-17T08:10:53.663332+00:00",
+  "jobs": {
+    "cpu": "76645 passed;full math/output validation",
+    "gpu": "76646 failed cgroup guard;setup only"
+  },
+  "commands": [
+    "analyze.py first-01 cpu:554source/11evidence/37cache reconciled,fullchecks passed",
+    "analyze.py first-01 gpu --forensic:554source/16evidence/34cache reconciled;failure retained",
+    "sacct -X -j 76645,76646:CPUCOMPLETED0:0/GPUFAILED1:0",
+    "test_runner.py:2tests passed",
+    "git diff --check:source/document changes passed;sealedrawlogs preserved"
+  ],
+  "derived_files_sha256": {
+    "summary.json": "3aa3406e6c08aaf6d4c9f97a0e19e4f0d6dd97bd453d895b5b95315be35a15fe",
+    "scheduler-completion.txt": "b3a65ef91073bb8de0d24f5b3dc1277cf2593470e76ac8aae5b8722e40a4e2f4",
+    "cpu/analysis.json": "7efe3632015af3d00ed2a89ae8c253e2b9392ce2bdc59c1c9c4769c14ae273e9",
+    "gpu/failure-analysis.json": "39e3420510ce6f4bdc3b277a7d8bbff6d90902e9aa2a041afb3a71d6c87bfe28",
+    "gpu/incomplete-phases.json": "ddbf65a46380cff2ee540a6756dba695cb3f7965806e7d905162209070d8fd3e"
+  },
+  "gpu_diagnosis": "Total cgroup guard360GiB triggered despite221.577GiB processRSS below320GiB guard;periodic filecache~141-144GiB. Actual guard-trigger cgroup sample not saved separately. No completed encoding/word or GPU arithmetic success claim.",
+  "retry_proposal": "512GiBhost/480GiBcgroup,unchanged320GiBRSS/288GiBGo/4H200112GiBcap,32workers;not submitted",
+  "limits": [
+    "Profiled/logged first CPU encode;not unprofiled latency baseline.",
+    "Packed files producer-hashed/readback;no redundant34GiB review rehash.",
+    "GPU worker unreaped after bounded shutdown;Slurm finalfailed,not proof of device fault."
+  ]
+}

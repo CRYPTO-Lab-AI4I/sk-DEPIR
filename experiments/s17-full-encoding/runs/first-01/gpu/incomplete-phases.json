@@ -1,0 +1,31 @@
+{
+  "source": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/s17-full-encoding/first-01/gpu/phases.json",
+  "note": "postmortem copy of producer-persisted completed phases only; no successful encoding phase",
+  "phases": {
+    "database": {
+      "array_bytes": 15506264812,
+      "profiled": true,
+      "seconds": 45.580418747,
+      "seed": 71
+    },
+    "encoder-setup": {
+      "array_model": {
+        "PrefixElements": 8589934592,
+        "ArenaElements": 17179869184,
+        "CodeBytes": 152945218284,
+        "DeviceWorkspaceBytes": 274894684176,
+        "MaxDeviceArrayBytes": 111673344004,
+        "HostOutputBytes": 68719476736
+      },
+      "device_owned_bytes": 427846627660,
+      "profiled": true,
+      "seconds": 69.057484989
+    },
+    "load-code": {
+      "profiled": true,
+      "seconds": 1929.73685063,
+      "source_bytes": 152945218341,
+      "source_sha256": "bf61a05605bb446f633411151ef6da11a736b7d5065a777fde615aa9acc71076"
+    }
+  }
+}

@@ -2106,3 +2106,18 @@ storage tradeoffs; neither chosen/implemented by this count review. Audit easy
 host-lifetime savings, retain modular shared kernels, and do not relax existing
 full APIs or claim runtime from count speed. [Evidence/audit](../experiments/s18-preprocessing-admission/report.md#completed-exact-count-and-memory-audit-scaling-092).
 No new GPU job/fullallocation or encoding76645/76646 inspection.
+
+### Full s17 CPU baseline passed; GPU guard correction next (SCALING-093)
+
+76645passes:fullcode load29min12.498s,encoding1h45min11.087s,sampledRSS427.845GiB,
+scheduler2h22min49s. Allsystematic/16scalarcurves/range/hash/34GiBpacking/diskreadback
+checks pass, CPU-only with32workers. Source554/11evidence/37cache reconciled.
+Record as measuredresidentwide,not validation of all proposed memorymodes.
+
+76646fails cgroupguard360GiB before firsttransform:GPUsetup398.463GiB owned
+aggregate succeeds;processRSS221.577GiB below320GiBguard,sourcecache~143GiB pushes
+total. No verifiedword/timing, failedrecord554/16evidence/34cache reconciled.
+Initialhost/cgroupplaninsufficient forcache;finiteTERM/KILLcouldnotreapworker,
+SlurmFAILED1:0. Propose512GiBhost/480GiBcgroup with unchangeddevice/RSS/Go/compute
+caps,fastresidentlayout,andCPUhashmatch;no replacementsubmitted inthisreview.
+[Exactmeasurements/failure](../experiments/s17-full-encoding/report.md#completed-first-attempts-scaling-093).

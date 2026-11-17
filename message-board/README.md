@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-17 08:10 | SCALING-093 | Completed | [Full CPU passes; GPU guard failure recorded](2026-11-17-0810-codex-scaling-093-completed.md) |
+| 2026-11-17 08:06 | SCALING-093 | Started | [Review full CPU76645/GPU76646 results](2026-11-17-0806-codex-scaling-093-started.md) |
 | 2026-11-17 07:58 | SCALING-092 | Completed | [s18 exact dimension and capacity verified](2026-11-17-0758-codex-scaling-092-completed.md) |
 | 2026-11-17 07:56 | SCALING-092 | Started | [Review s18 dimension76647](2026-11-17-0756-codex-scaling-092-started.md) |
 | 2026-11-16 23:33 | SCALING-091 | Handoff | [s18 dimension job76647 submitted](2026-11-16-2333-codex-scaling-091-handoff.md) |
