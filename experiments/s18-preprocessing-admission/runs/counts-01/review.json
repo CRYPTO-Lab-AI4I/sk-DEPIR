@@ -1,0 +1,14 @@
+{
+  "utc": "2026-11-17T07:58:30.483628+00:00",
+  "job_id": "76647",
+  "status": "reconciled passed",
+  "analysis_sha256": "f4549fc5b3688f330066ce1951c437ba744414916bac3fbde9d53a6886ccd054",
+  "scheduler_receipt_sha256": "b2436ac68e36b4b91efa8cded8458793ddb077dfa430ff766ea61e5650af79d2",
+  "checks": [
+    "analyze.py counts-01:560source/29evidence/4cache verified",
+    "test_admission.py:2 tests pass",
+    "one-time sacct:COMPLETED0:0,59s,gnode05",
+    "source/document whitespace check passed;raw sealed logs preserved verbatim"
+  ],
+  "scope": "exact dimension/memory models;no fulls18 support/preprocessing or encoding-job inspection"
+}

@@ -2090,3 +2090,19 @@ s18 dimension/audit **76647 submitted**, frozen sourcebb524d3,1GPU/small ceiling
 [Receipt/results locations](../experiments/s18-preprocessing-admission/submission.json).
 No monitoring; await completion ping. Fulls18 preprocessing is not submitted;
 CPU76645/GPU76646 unchanged/uninspected.
+
+### s18 exact count/audit complete; choose full design next (SCALING-092)
+
+76647passes:K16300262095,N68719476736,37.4ms weighted GPU sum excluding setup,
+59s suite;560source/29evidence/4cache seals and independent/known references pass.
+Exact current-layout files950.170GiB, final host889.446GiB, discovery770.893GiB,
+device products1536GiB; peaks unknown.16power-of-two cards at112GiB/card implies
+fournodes and still needs host distribution. Existing single-node RAM/512GiB
+storage budget does not admit fulls18. Recovery envelope another528.001GiB.
+
+Present distributed resident design (preferred speed-first direction) versus
+optional lower-memory route with concrete memory/time/transfers/network/I/O/
+storage tradeoffs; neither chosen/implemented by this count review. Audit easy
+host-lifetime savings, retain modular shared kernels, and do not relax existing
+full APIs or claim runtime from count speed. [Evidence/audit](../experiments/s18-preprocessing-admission/report.md#completed-exact-count-and-memory-audit-scaling-092).
+No new GPU job/fullallocation or encoding76645/76646 inspection.

@@ -1,0 +1,5 @@
+========= COMPUTE-SANITIZER
+{"utc":"2026-11-16T23:34:03Z","phase":"exact-weighted-dimension","event":"started","s":8,"t":5,"completed":0,"total":6561,"unit":"weight classes","seconds":0,"k":0,"n":65536,"owned_device_bytes":8}
+{"utc":"2026-11-16T23:34:03Z","phase":"exact-weighted-dimension","event":"completed","s":8,"t":5,"completed":6561,"total":6561,"unit":"weight classes","seconds":0.00477352,"k":7381,"n":65536,"owned_device_bytes":8}
+========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+========= ERROR SUMMARY: 0 errors

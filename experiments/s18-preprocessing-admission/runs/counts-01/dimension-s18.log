@@ -1,0 +1,2 @@
+{"utc":"2026-11-16T23:34:09Z","phase":"exact-weighted-dimension","event":"started","s":18,"t":5,"completed":0,"total":387420489,"unit":"weight classes","seconds":0,"k":0,"n":68719476736,"owned_device_bytes":8}
+{"utc":"2026-11-16T23:34:09Z","phase":"exact-weighted-dimension","event":"completed","s":18,"t":5,"completed":387420489,"total":387420489,"unit":"weight classes","seconds":0.0373797,"k":16300262095,"n":68719476736,"owned_device_bytes":8}

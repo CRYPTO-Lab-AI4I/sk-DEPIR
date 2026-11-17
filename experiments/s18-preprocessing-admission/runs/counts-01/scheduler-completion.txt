@@ -1,0 +1,2 @@
+Command: sacct -X -j 76647 --noheader --parsable2 --format=JobID,State,ExitCode,Elapsed,NodeList
+76647|COMPLETED|0:0|00:00:59|gnode05

@@ -1,7 +1,6 @@
 # s18 preprocessing: exact dimension and memory admission
 
-Status: **count-only job76647 submitted; exact s18 K and full workflow
-remain unmeasured**. User authorizes the initial dimension/memory audit after
+Status: **exact s18 dimension76647 passed; full preprocessing remains unimplemented/unrun**. User authorizes the initial dimension/memory audit after
 fulls17 preprocessing passes, while CPU/GPU encoding jobs run separately.
 No existing job is inspected/changed; no fulls18 preprocessing run is authorized
 or submitted here.
@@ -146,3 +145,69 @@ Results `runs/counts-01/`, log `slurm-76647.log`, retained tools/reference/profi
 polling or result analysis after submission. Wait for the user's completion ping.
 Encoding76645/76646 were not inspected/changed. Fulls18 preprocessing remains blocked
 on reviewed exact sizes, design choice/implementation and explicit large budgets.
+
+## Completed exact count and memory audit (SCALING-092)
+
+Job76647 completes0:0 ongnode05,59s scheduler elapsed,59.180s controller including
+builds, all references and CUDA memcheck. Frozen sourcebb524d3.
+[Results/commands](runs/counts-01/results.json), [analysis](runs/counts-01/analysis.json),
+[model](runs/counts-01/memory-model.json), [accounting](runs/counts-01/scheduler-completion.txt),
+[Slurm log](slurm-76647.log). Source/evidence/cache reconciliation passes560/29/4
+identities. IndependentGo11small(s,t)cases match; host multiplicity/direct checks
+pass; CUDA memcheck has zero errors/leaks. s10/16/17counts exactly match verified
+historical dimensions. No resource/deadline failures. All tools/profile retained
+at the submitted cache path.
+
+**s18,m2,t5 exactK16300262095,N68719476736.** Weighted GPU class sum takes
+0.0373797s (~37.4ms) over387420489classes, after device initialization; the complete
+count command is sampled at1.298s by the one-second controller loop. Those are
+different measurement boundaries, not evidence that preprocessing is fast.
+Whole-suite peak sampled processRSS266.133MiB includes compilation, not full
+preprocessing or an isolated GPU count peak. Explicit device accumulator8bytes;
+CUDA context/runtime/kernel spills additional, unmeasured. No spectrum/support
+or encoding artifact is produced by this exact count.
+
+Exact-K dense-layout projections:
+
+| Resource | Size / practical implication |
+|---|---|
+| Support file |121.446GiB |
+| Normalized root |60.723GiB |
+| Canonical P/spectrum file |572.723GiB |
+| Generator G file |195.277GiB |
+| All canonical reusable files |**950.170GiB** (1020236866033bytes), before other files |
+| Discovery principal host arrays |**770.893GiB**, before transients/runtime/cache |
+| Final retained host arrays |**889.446GiB**, before runtime/headroom |
+| Full identity result at its stage |256GiB; do not sum indiscriminately across phases |
+| GPU product arrays |**1536GiB**, before metadata/driver/headroom |
+| Devices at112GiB owned cap/card |14arithmetic floor;16cards under power-of-two sharding, at least4nodes |
+| Conservative two snapshots per phase |About528.001GiB plus filesystem/manifests/logs |
+
+Final host arrays alone exceed the prior864GiB request/800GiB RSS limit and leave
+only~17.6GiB under a907GiB schedulable node, before Go/native/runtime/cache
+requirements. This is insufficient admission headroom; merely requesting a
+slightly larger single-node budget is not a demonstrated solution. Newton/root
+intermediates are additional at earlier phases. Canonical files alone exceed
+512GiB previously authorized retained storage. With full two-generation snapshot
+retention, payload/storage model approaches1478.171GiB (~1.44TiB), before headroom;
+that storage is not approved by this count job.
+
+### Design choice still required
+
+| Route to prototype | Expected memory effect | Added cost / implementation gap |
+|---|---|---|
+| Distributed resident preprocessing | Split1536GiB device arrays and host-owned code/work data across16GPUs/fournodes; per-card product arrays96GiB before overhead | New cross-node transforms/communication, host ownership/distribution and distributed persistence; latency/communication cost unknown |
+| Lower-memory preprocessing on fewer nodes | Stream/release selected host data, reduce device workspace or use recomputation/disk; exact savings depend on design | Additional reads/transfers/recomputation and possibly disk workspace; no quantified runtime or validated s18 layout yet |
+
+Prefer investigating the distributed resident route for delegated preprocessing
+speed, while auditing easy host-lifetime savings shared with existing code.
+Neither option is adopted here. Do not assume16cards gives linear speedup or
+that GPU distribution solves Go host-array pressure. Before coding a material
+memory-time tradeoff, present concrete stage lifetimes, host/device savings,
+network/transfers/I/O, storage/checkpoints and latency estimates/unknowns for user
+choice. Keep faster paths/defaults when they fit. Fulls18 preprocessing and new
+multi-node/storage budgets remain separate approvals. Runtime remains unknown;
+s17root8h34min is a useful baseline but not an s18 estimate.
+
+The memory/model and completion tests are rerun for publication. No new GPU run,
+full allocation, encoding-job inspection or algorithm tradeoff is performed.

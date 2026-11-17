@@ -178,7 +178,7 @@ excludes device allocations unless stated.
 | 15 | Laptop measured | Peak host process RSS: 20.55 GiB | 3 h 16 min 7 s† | Measured on laptop |
 | 16 | HPC measured | Peak host process RSS: 72.575 GiB | GPU: 2 h 20 min 15.469 s | Measured on this machine |
 | 17 | **HPC measured; passed75832**<br>K:3876566203; support from75819 | **Peak sampled host RSS:348.393GiB**<br>Device peak:not sampled; product arrays384GiB aggregate (model)<br>Final device owned:256.009GiB observed | **Construction/identity/spectrum:9h16min46s**, includes root checkpoints<br>Verified resumed worker:9h58min38s<br>Earlier discovery:21min38s | **Demonstrated on this machine:4H200, one node**<br>Canonical preprocessing:235.324GiB<br>[Full evidence/boundaries](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088) |
-| 18 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
+| 18 | Full preprocessing:not run<br>**Exact dimension measured76647:K16300262095** | Projected final host arrays:889.446GiB<br>Projected discovery arrays:770.893GiB<br>Peak RSS:unknown | Full preprocessing:unknown<br>Count-only GPU sum:37.4ms, excludes setup |1536GiB device product arrays (model)<br>16GPU power-of-two projection across4nodes at112GiB/card<br>Distributed host/GPU implementation and larger storage admission required |
 | 19 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 | 20 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 
@@ -343,7 +343,7 @@ memory may change requirements. s≥18 runtime/peak host memory remains unknown.
 | s | Aggregate device arrays | GPU capacity floor | Host/machine feasibility |
 |---|---|---|---|
 | 17 |384GiB modeled arrays |3 arithmetic floor;4 implemented |**HPC passed on4H200, one node**; sampled host peak348.393GiB; device metadata/headroom extra |
-| 18 | ~1536 GiB | 11 | At least 3 four-GPU nodes for this layout; host distribution and peak unknown |
+| 18 |1536GiB modeled arrays |11physical floor;14at112GiB cap;16power-of-two |At least4nodes for16cards; final host arrays889.446GiB, distributed host/transport unimplemented; peak unknown |
 | 19 | ~6144 GiB | 44 | At least 11 four-GPU nodes; host distribution and peak unknown |
 | 20 | ~24576 GiB | 176 | Exceeds configured68-GPU inventory; needs a different layout or more hardware |
 
@@ -673,3 +673,20 @@ s18 dimension/audit **76647 submitted**, frozen sourcebb524d3,1GPU/small ceiling
 [Receipt/results locations](../experiments/s18-preprocessing-admission/submission.json).
 No monitoring; await completion ping. Fulls18 preprocessing is not submitted;
 CPU76645/GPU76646 unchanged/uninspected.
+
+## s18 exact dimension verified (SCALING-092)
+
+76647passes ongnode05,59s total suite,560source/29evidence/4cache identities
+reconciled; Go small references/knowns16/s17 counts agree, zero CUDA errors/leaks.
+ExactK16300262095,N68719476736. The37.4ms GPU weighted sum excludes initialization;
+it produces no support/FFT/cache and is not a preprocessing latency estimate.
+[Report/formulas](../experiments/s18-preprocessing-admission/report.md#completed-exact-count-and-memory-audit-scaling-092).
+
+Current-layout canonical files950.170GiB (code572.723GiB), final host arrays
+889.446GiB and discovery770.893GiB before temporary/runtime/cache/headroom. No
+safe single-node admission follows. Device products1536GiB; power-of-two route
+at112GiB/card projects16cards/fournodes, with cross-node/host distribution absent.
+Two recovery generations per phase model another528.001GiB before overhead;
+prior512GiB retained cap is insufficient. Propose distributed resident versus
+explicit lower-memory tradeoffs before implementation/large resource admission.
+Fulls18 runtime/peaks remain unknown; encoding76645/76646 not inspected.

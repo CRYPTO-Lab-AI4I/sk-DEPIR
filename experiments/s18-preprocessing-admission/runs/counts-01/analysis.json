@@ -1,0 +1,265 @@
+{
+  "status": "passed",
+  "job_id": "76647",
+  "revision": "bb524d351632ad31de34d2f325fdeff8425d1dc8",
+  "source_files_verified": 560,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 29,
+  "cache_files_verified": 4,
+  "tests": [
+    "TestWideOrbitArithmetic",
+    "TestTableFreeFields"
+  ],
+  "commands": [
+    {
+      "label": "source-extract",
+      "seconds": 1.3389419000595808,
+      "peak_rss_bytes": 2998272,
+      "exit_code": 0
+    },
+    {
+      "label": "host",
+      "seconds": 1.280883991974406,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 1.2691441109636799,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 1.2419024410191923,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 1.242335852002725,
+      "peak_rss_bytes": 4378624,
+      "exit_code": 0
+    },
+    {
+      "label": "gpu",
+      "seconds": 1.24133696698118,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "reference-build",
+      "seconds": 11.930733227054588,
+      "peak_rss_bytes": 279060480,
+      "exit_code": 0
+    },
+    {
+      "label": "reference",
+      "seconds": 1.2934754180023447,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "class-build",
+      "seconds": 1.2987630660645664,
+      "peak_rss_bytes": 3510272,
+      "exit_code": 0
+    },
+    {
+      "label": "class-check",
+      "seconds": 1.2937459530076012,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 5.202611218905076,
+      "peak_rss_bytes": 247173120,
+      "exit_code": 0
+    },
+    {
+      "label": "reference-0",
+      "seconds": 1.3142234259285033,
+      "peak_rss_bytes": 10833920,
+      "exit_code": 0
+    },
+    {
+      "label": "reference-1",
+      "seconds": 1.295795906917192,
+      "peak_rss_bytes": 10878976,
+      "exit_code": 0
+    },
+    {
+      "label": "reference-2",
+      "seconds": 1.3050443190149963,
+      "peak_rss_bytes": 10878976,
+      "exit_code": 0
+    },
+    {
+      "label": "reference-3",
+      "seconds": 1.3020589699735865,
+      "peak_rss_bytes": 10878976,
+      "exit_code": 0
+    },
+    {
+      "label": "reference-4",
+      "seconds": 1.2994264750741422,
+      "peak_rss_bytes": 10878976,
+      "exit_code": 0
+    },
+    {
+      "label": "reference-5",
+      "seconds": 1.299719271948561,
+      "peak_rss_bytes": 10878976,
+      "exit_code": 0
+    },
+    {
+      "label": "reference-6",
+      "seconds": 1.2949243589537218,
+      "peak_rss_bytes": 10878976,
+      "exit_code": 0
+    },
+    {
+      "label": "reference-7",
+      "seconds": 1.296501828939654,
+      "peak_rss_bytes": 10878976,
+      "exit_code": 0
+    },
+    {
+      "label": "reference-8",
+      "seconds": 1.295335091999732,
+      "peak_rss_bytes": 10878976,
+      "exit_code": 0
+    },
+    {
+      "label": "reference-9",
+      "seconds": 1.2910885429009795,
+      "peak_rss_bytes": 10878976,
+      "exit_code": 0
+    },
+    {
+      "label": "reference-10",
+      "seconds": 1.3037071760045364,
+      "peak_rss_bytes": 10878976,
+      "exit_code": 0
+    },
+    {
+      "label": "memcheck",
+      "seconds": 2.6001675670268014,
+      "peak_rss_bytes": 162566144,
+      "exit_code": 0
+    },
+    {
+      "label": "dimension-s10",
+      "seconds": 1.2938326681032777,
+      "peak_rss_bytes": 10911744,
+      "exit_code": 0
+    },
+    {
+      "label": "dimension-s16",
+      "seconds": 1.373608739930205,
+      "peak_rss_bytes": 10911744,
+      "exit_code": 0
+    },
+    {
+      "label": "dimension-s17",
+      "seconds": 1.2970929129514843,
+      "peak_rss_bytes": 10911744,
+      "exit_code": 0
+    },
+    {
+      "label": "dimension-s18",
+      "seconds": 1.2976170401088893,
+      "peak_rss_bytes": 10911744,
+      "exit_code": 0
+    }
+  ],
+  "scope": "exact s18 dimension only plus capacity models; no support/discovery/full preprocessing or multi-node implementation",
+  "dimensions": [
+    {
+      "utc": "2026-11-16T23:34:05Z",
+      "phase": "exact-weighted-dimension",
+      "event": "completed",
+      "s": 10,
+      "t": 5,
+      "completed": 59049,
+      "total": 59049,
+      "unit": "weight classes",
+      "seconds": 0.000272432,
+      "k": 146641,
+      "n": 1048576,
+      "owned_device_bytes": 8
+    },
+    {
+      "utc": "2026-11-16T23:34:06Z",
+      "phase": "exact-weighted-dimension",
+      "event": "completed",
+      "s": 16,
+      "t": 5,
+      "completed": 43046721,
+      "total": 43046721,
+      "unit": "weight classes",
+      "seconds": 0.00402221,
+      "k": 918672421,
+      "n": 4294967296,
+      "owned_device_bytes": 8
+    },
+    {
+      "utc": "2026-11-16T23:34:07Z",
+      "phase": "exact-weighted-dimension",
+      "event": "completed",
+      "s": 17,
+      "t": 5,
+      "completed": 129140163,
+      "total": 129140163,
+      "unit": "weight classes",
+      "seconds": 0.0120889,
+      "k": 3876566203,
+      "n": 17179869184,
+      "owned_device_bytes": 8
+    },
+    {
+      "utc": "2026-11-16T23:34:09Z",
+      "phase": "exact-weighted-dimension",
+      "event": "completed",
+      "s": 18,
+      "t": 5,
+      "completed": 387420489,
+      "total": 387420489,
+      "unit": "weight classes",
+      "seconds": 0.0373797,
+      "k": 16300262095,
+      "n": 68719476736,
+      "owned_device_bytes": 8
+    }
+  ],
+  "memory_model": {
+    "s": 18,
+    "k": 16300262095,
+    "n": 68719476736,
+    "file_bytes": {
+      "support": 130402096760,
+      "root": 65201048384,
+      "code": 614956862325,
+      "generator": 209676858564
+    },
+    "canonical_retained_bytes": 1020236866033,
+    "discovery_grid_bytes": 549755813888,
+    "discovery_principal_host_bytes": 827739876592,
+    "final_retained_host_bytes": 955035817596,
+    "identity_result_bytes": 274877906944,
+    "device_product_arrays_bytes": 1649267441664,
+    "device_capacity_floor_140_4gib": 11,
+    "device_capacity_floor_112gib_cap": 14,
+    "power_of_two_device_count_for_112gib_cap": 16,
+    "two_each_phase_snapshot_upper_bytes": 566936470024,
+    "measured_peak_host_bytes": null,
+    "runtime_seconds": null,
+    "limits": [
+      "Principal live-array/file formulas; not peak RSS, driver or filesystem use.",
+      "P/G products, Newton temporaries, GC, staging and cache/headroom are additional.",
+      "Multiple-node GPU and distributed host implementation absent.",
+      "No new material memory-time tradeoff selected or measured."
+    ]
+  }
+}

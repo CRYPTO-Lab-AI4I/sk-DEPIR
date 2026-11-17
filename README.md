@@ -56,7 +56,9 @@ completed sampling, root-product and reciprocal progress without saving FFT
 workspace; the approved longer replacement has a100-hour scheduler cutoff.
 The [s18 dimension/memory audit](experiments/s18-preprocessing-admission/report.md)
 starts with an exact one-GPU weighted-class count, without full grids/bitmaps.
-That count is pending; full s18 preprocessing remains unimplemented/unvalidated.
+The count passes76647:K16300262095. Current-layout projections are889.446GiB
+final host arrays,1536GiB GPU product arrays and950.170GiB reusable files;
+full s18 preprocessing still needs a distributed/lower-memory design and validation.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 
