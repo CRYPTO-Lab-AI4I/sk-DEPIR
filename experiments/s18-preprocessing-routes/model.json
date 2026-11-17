@@ -1,0 +1,611 @@
+{
+  "s": 18,
+  "k": 16300262095,
+  "n": 68719476736,
+  "sources": {
+    "full_s17": "experiments/gpu-s17-full-preprocessing/runs/resume-02/results.json",
+    "full_s17_analysis": "experiments/gpu-s17-full-preprocessing/runs/resume-02/analysis.json",
+    "bounded_components": "experiments/preprocessing-tiles/runs/components-01/components.json",
+    "exact_s18": "experiments/s18-preprocessing-admission/runs/counts-01/memory-model.json"
+  },
+  "input_source_sha256": {
+    "experiments/gpu-s17-full-preprocessing/runs/resume-02/results.json": "03b6f03df85a9c8d7ee3d5649de13e320d8ef22b08dd799cfb105020e1a0a9a0",
+    "experiments/gpu-s17-full-preprocessing/runs/resume-02/analysis.json": "8f499465cdb06a8cd414b949d38f3076d490e0eba314b109cdaca51d638cc28f",
+    "experiments/preprocessing-tiles/runs/components-01/components.json": "1411cf7e4daaa56e382994cb196070b9522abb2ef2b6e737904ab4bde3d95a9c",
+    "experiments/s18-preprocessing-admission/runs/counts-01/memory-model.json": "50f4e3558de0c966d028a20d5a5b78d84181ac1b36949acf3c462056781db4e6",
+    "experiments/s18-preprocessing-routes/model.py": "74c662802e414bdca653e4d5eba1b12cbd3fc0dfcf8d35ee51e498e9bd3acb87",
+    "experiments/s18-preprocessing-admission/memory.py": "df2560adaf300993b559bc58e12f746e6c771fec85dbfc87c949e6e9706f0afd",
+    "experiments/preprocessing-tiles/model.py": "43053b205ab92d99b0fb75cb91118dd6adfe5c821aa440ef60b4ffa9b0d2a48c",
+    "encoding/liftrs-shared/orbit_polynomial.go": "d13b5f65da81f6de868c2e7dabfeffe4173b56f86480dd6c3c767b3ab0f7b809",
+    "encoding/liftrs-shared/orbit_product.go": "359cffd7e2b00a7f8a469e87352cea0c889c7d3a337b79070219a934ab9d2958",
+    "encoding/liftrs-shared/preprocessing_core.go": "d5627de6662b37041c5cf72745f29987dbd813a48420c19674867d361829c491",
+    "encoding/liftrs-cuda/preparation.cu": "a33bbdcc0cd9ab998237c1e7787c3be865f057d23107346cbc0c2ee169151e7c"
+  },
+  "measured_s17_phase_seconds": {
+    "recovery-roots": [
+      9.041808824000327,
+      14.841376124999442,
+      21.19563291799932,
+      33.44633732699731
+    ],
+    "root-product": [
+      30837.087809663
+    ],
+    "normalization": [
+      228.32177345700256
+    ],
+    "reciprocal": [
+      1462.146915868001
+    ],
+    "identity": [
+      545.0959919870038
+    ],
+    "generator-spectrum": [
+      243.75149655099813
+    ],
+    "preparation-and-identities": [
+      33406.125752206004
+    ],
+    "write-online.bin": [
+      246.13551906299836
+    ],
+    "write-generator.bin": [
+      133.0990346940016
+    ],
+    "verify-final-cache": [
+      1484.3436489089945
+    ],
+    "workflow": [
+      35915.14080619
+    ]
+  },
+  "routes": {
+    "hybrid": {
+      "gpus": 4,
+      "nodes": 1,
+      "max_product_array_bytes": 412316860416,
+      "max_product_array_bytes_per_gpu": 103079215104,
+      "host_stage_principal_bytes": {
+        "discovery": 827739876592,
+        "root_merge": 260804193528,
+        "newton": 680157910648,
+        "identity": 680157910652,
+        "final_streamed_export": 274878955524
+      },
+      "split_newton_host_principal_bytes": 748877387380,
+      "old_prefix_retention_envelope_bytes": 886316340852,
+      "candidate_early_support_release_newton_bytes": 618475290620,
+      "missing": [
+        "tiled base-grid discovery",
+        "tiled final spectrum and canonical export integration",
+        "prefix-aware split products in Newton/backend dispatch",
+        "host lifetime/headroom validation"
+      ]
+    },
+    "distributed": {
+      "gpus": 16,
+      "nodes": 4,
+      "max_product_array_bytes": 1649267441664,
+      "max_product_array_bytes_per_gpu": 103079215104,
+      "sharded_host_stage_principal_bytes_per_node": {
+        "discovery": 206934969148,
+        "root_merge": 65201048382,
+        "newton": 170039477662,
+        "identity": 170039477663,
+        "final_streamed_export": 68719738881
+      },
+      "missing": [
+        "cross-node transform transport/schedule",
+        "sharded discovery/support and polynomial state",
+        "parallel root work and deterministic merge",
+        "distributed atomic checkpoints/publication"
+      ]
+    }
+  },
+  "newton": [
+    {
+      "old": 1,
+      "square_backing": 1,
+      "output": 2,
+      "a": 2,
+      "b": 1,
+      "resident_domain": 4,
+      "host_principal_bytes": 195603145156,
+      "square_stage_host_bytes": 195603145152,
+      "product_stage_host_bytes": 195603145156,
+      "old_prefix_retention_envelope_bytes": 195603145160
+    },
+    {
+      "old": 2,
+      "square_backing": 3,
+      "output": 4,
+      "a": 4,
+      "b": 3,
+      "resident_domain": 8,
+      "host_principal_bytes": 195603145172,
+      "square_stage_host_bytes": 195603145164,
+      "product_stage_host_bytes": 195603145172,
+      "old_prefix_retention_envelope_bytes": 195603145180
+    },
+    {
+      "old": 4,
+      "square_backing": 7,
+      "output": 8,
+      "a": 8,
+      "b": 7,
+      "resident_domain": 16,
+      "host_principal_bytes": 195603145204,
+      "square_stage_host_bytes": 195603145188,
+      "product_stage_host_bytes": 195603145204,
+      "old_prefix_retention_envelope_bytes": 195603145220
+    },
+    {
+      "old": 8,
+      "square_backing": 15,
+      "output": 16,
+      "a": 16,
+      "b": 15,
+      "resident_domain": 32,
+      "host_principal_bytes": 195603145268,
+      "square_stage_host_bytes": 195603145236,
+      "product_stage_host_bytes": 195603145268,
+      "old_prefix_retention_envelope_bytes": 195603145300
+    },
+    {
+      "old": 16,
+      "square_backing": 31,
+      "output": 32,
+      "a": 32,
+      "b": 31,
+      "resident_domain": 64,
+      "host_principal_bytes": 195603145396,
+      "square_stage_host_bytes": 195603145332,
+      "product_stage_host_bytes": 195603145396,
+      "old_prefix_retention_envelope_bytes": 195603145460
+    },
+    {
+      "old": 32,
+      "square_backing": 63,
+      "output": 64,
+      "a": 64,
+      "b": 63,
+      "resident_domain": 128,
+      "host_principal_bytes": 195603145652,
+      "square_stage_host_bytes": 195603145524,
+      "product_stage_host_bytes": 195603145652,
+      "old_prefix_retention_envelope_bytes": 195603145780
+    },
+    {
+      "old": 64,
+      "square_backing": 127,
+      "output": 128,
+      "a": 128,
+      "b": 127,
+      "resident_domain": 256,
+      "host_principal_bytes": 195603146164,
+      "square_stage_host_bytes": 195603145908,
+      "product_stage_host_bytes": 195603146164,
+      "old_prefix_retention_envelope_bytes": 195603146420
+    },
+    {
+      "old": 128,
+      "square_backing": 255,
+      "output": 256,
+      "a": 256,
+      "b": 255,
+      "resident_domain": 512,
+      "host_principal_bytes": 195603147188,
+      "square_stage_host_bytes": 195603146676,
+      "product_stage_host_bytes": 195603147188,
+      "old_prefix_retention_envelope_bytes": 195603147700
+    },
+    {
+      "old": 256,
+      "square_backing": 511,
+      "output": 512,
+      "a": 512,
+      "b": 511,
+      "resident_domain": 1024,
+      "host_principal_bytes": 195603149236,
+      "square_stage_host_bytes": 195603148212,
+      "product_stage_host_bytes": 195603149236,
+      "old_prefix_retention_envelope_bytes": 195603150260
+    },
+    {
+      "old": 512,
+      "square_backing": 1023,
+      "output": 1024,
+      "a": 1024,
+      "b": 1023,
+      "resident_domain": 2048,
+      "host_principal_bytes": 195603153332,
+      "square_stage_host_bytes": 195603151284,
+      "product_stage_host_bytes": 195603153332,
+      "old_prefix_retention_envelope_bytes": 195603155380
+    },
+    {
+      "old": 1024,
+      "square_backing": 2047,
+      "output": 2048,
+      "a": 2048,
+      "b": 2047,
+      "resident_domain": 4096,
+      "host_principal_bytes": 195603161524,
+      "square_stage_host_bytes": 195603157428,
+      "product_stage_host_bytes": 195603161524,
+      "old_prefix_retention_envelope_bytes": 195603165620
+    },
+    {
+      "old": 2048,
+      "square_backing": 4095,
+      "output": 4096,
+      "a": 4096,
+      "b": 4095,
+      "resident_domain": 8192,
+      "host_principal_bytes": 195603177908,
+      "square_stage_host_bytes": 195603169716,
+      "product_stage_host_bytes": 195603177908,
+      "old_prefix_retention_envelope_bytes": 195603186100
+    },
+    {
+      "old": 4096,
+      "square_backing": 8191,
+      "output": 8192,
+      "a": 8192,
+      "b": 8191,
+      "resident_domain": 16384,
+      "host_principal_bytes": 195603210676,
+      "square_stage_host_bytes": 195603194292,
+      "product_stage_host_bytes": 195603210676,
+      "old_prefix_retention_envelope_bytes": 195603227060
+    },
+    {
+      "old": 8192,
+      "square_backing": 16383,
+      "output": 16384,
+      "a": 16384,
+      "b": 16383,
+      "resident_domain": 32768,
+      "host_principal_bytes": 195603276212,
+      "square_stage_host_bytes": 195603243444,
+      "product_stage_host_bytes": 195603276212,
+      "old_prefix_retention_envelope_bytes": 195603308980
+    },
+    {
+      "old": 16384,
+      "square_backing": 32767,
+      "output": 32768,
+      "a": 32768,
+      "b": 32767,
+      "resident_domain": 65536,
+      "host_principal_bytes": 195603407284,
+      "square_stage_host_bytes": 195603341748,
+      "product_stage_host_bytes": 195603407284,
+      "old_prefix_retention_envelope_bytes": 195603472820
+    },
+    {
+      "old": 32768,
+      "square_backing": 65535,
+      "output": 65536,
+      "a": 65536,
+      "b": 65535,
+      "resident_domain": 131072,
+      "host_principal_bytes": 195603669428,
+      "square_stage_host_bytes": 195603538356,
+      "product_stage_host_bytes": 195603669428,
+      "old_prefix_retention_envelope_bytes": 195603800500
+    },
+    {
+      "old": 65536,
+      "square_backing": 131071,
+      "output": 131072,
+      "a": 131072,
+      "b": 131071,
+      "resident_domain": 262144,
+      "host_principal_bytes": 195604193716,
+      "square_stage_host_bytes": 195603931572,
+      "product_stage_host_bytes": 195604193716,
+      "old_prefix_retention_envelope_bytes": 195604455860
+    },
+    {
+      "old": 131072,
+      "square_backing": 262143,
+      "output": 262144,
+      "a": 262144,
+      "b": 262143,
+      "resident_domain": 524288,
+      "host_principal_bytes": 195605242292,
+      "square_stage_host_bytes": 195604718004,
+      "product_stage_host_bytes": 195605242292,
+      "old_prefix_retention_envelope_bytes": 195605766580
+    },
+    {
+      "old": 262144,
+      "square_backing": 524287,
+      "output": 524288,
+      "a": 524288,
+      "b": 524287,
+      "resident_domain": 1048576,
+      "host_principal_bytes": 195607339444,
+      "square_stage_host_bytes": 195606290868,
+      "product_stage_host_bytes": 195607339444,
+      "old_prefix_retention_envelope_bytes": 195608388020
+    },
+    {
+      "old": 524288,
+      "square_backing": 1048575,
+      "output": 1048576,
+      "a": 1048576,
+      "b": 1048575,
+      "resident_domain": 2097152,
+      "host_principal_bytes": 195611533748,
+      "square_stage_host_bytes": 195609436596,
+      "product_stage_host_bytes": 195611533748,
+      "old_prefix_retention_envelope_bytes": 195613630900
+    },
+    {
+      "old": 1048576,
+      "square_backing": 2097151,
+      "output": 2097152,
+      "a": 2097152,
+      "b": 2097151,
+      "resident_domain": 4194304,
+      "host_principal_bytes": 195619922356,
+      "square_stage_host_bytes": 195615728052,
+      "product_stage_host_bytes": 195619922356,
+      "old_prefix_retention_envelope_bytes": 195624116660
+    },
+    {
+      "old": 2097152,
+      "square_backing": 4194303,
+      "output": 4194304,
+      "a": 4194304,
+      "b": 4194303,
+      "resident_domain": 8388608,
+      "host_principal_bytes": 195636699572,
+      "square_stage_host_bytes": 195628310964,
+      "product_stage_host_bytes": 195636699572,
+      "old_prefix_retention_envelope_bytes": 195645088180
+    },
+    {
+      "old": 4194304,
+      "square_backing": 8388607,
+      "output": 8388608,
+      "a": 8388608,
+      "b": 8388607,
+      "resident_domain": 16777216,
+      "host_principal_bytes": 195670254004,
+      "square_stage_host_bytes": 195653476788,
+      "product_stage_host_bytes": 195670254004,
+      "old_prefix_retention_envelope_bytes": 195687031220
+    },
+    {
+      "old": 8388608,
+      "square_backing": 16777215,
+      "output": 16777216,
+      "a": 16777216,
+      "b": 16777215,
+      "resident_domain": 33554432,
+      "host_principal_bytes": 195737362868,
+      "square_stage_host_bytes": 195703808436,
+      "product_stage_host_bytes": 195737362868,
+      "old_prefix_retention_envelope_bytes": 195770917300
+    },
+    {
+      "old": 16777216,
+      "square_backing": 33554431,
+      "output": 33554432,
+      "a": 33554432,
+      "b": 33554431,
+      "resident_domain": 67108864,
+      "host_principal_bytes": 195871580596,
+      "square_stage_host_bytes": 195804471732,
+      "product_stage_host_bytes": 195871580596,
+      "old_prefix_retention_envelope_bytes": 195938689460
+    },
+    {
+      "old": 33554432,
+      "square_backing": 67108863,
+      "output": 67108864,
+      "a": 67108864,
+      "b": 67108863,
+      "resident_domain": 134217728,
+      "host_principal_bytes": 196140016052,
+      "square_stage_host_bytes": 196005798324,
+      "product_stage_host_bytes": 196140016052,
+      "old_prefix_retention_envelope_bytes": 196274233780
+    },
+    {
+      "old": 67108864,
+      "square_backing": 134217727,
+      "output": 134217728,
+      "a": 134217728,
+      "b": 134217727,
+      "resident_domain": 268435456,
+      "host_principal_bytes": 196676886964,
+      "square_stage_host_bytes": 196408451508,
+      "product_stage_host_bytes": 196676886964,
+      "old_prefix_retention_envelope_bytes": 196945322420
+    },
+    {
+      "old": 134217728,
+      "square_backing": 268435455,
+      "output": 268435456,
+      "a": 268435456,
+      "b": 268435455,
+      "resident_domain": 536870912,
+      "host_principal_bytes": 197750628788,
+      "square_stage_host_bytes": 197213757876,
+      "product_stage_host_bytes": 197750628788,
+      "old_prefix_retention_envelope_bytes": 198287499700
+    },
+    {
+      "old": 268435456,
+      "square_backing": 536870911,
+      "output": 536870912,
+      "a": 536870912,
+      "b": 536870911,
+      "resident_domain": 1073741824,
+      "host_principal_bytes": 199898112436,
+      "square_stage_host_bytes": 198824370612,
+      "product_stage_host_bytes": 199898112436,
+      "old_prefix_retention_envelope_bytes": 200971854260
+    },
+    {
+      "old": 536870912,
+      "square_backing": 1073741823,
+      "output": 1073741824,
+      "a": 1073741824,
+      "b": 1073741823,
+      "resident_domain": 2147483648,
+      "host_principal_bytes": 204193079732,
+      "square_stage_host_bytes": 202045596084,
+      "product_stage_host_bytes": 204193079732,
+      "old_prefix_retention_envelope_bytes": 206340563380
+    },
+    {
+      "old": 1073741824,
+      "square_backing": 2147483647,
+      "output": 2147483648,
+      "a": 2147483648,
+      "b": 2147483647,
+      "resident_domain": 4294967296,
+      "host_principal_bytes": 212783014324,
+      "square_stage_host_bytes": 208488047028,
+      "product_stage_host_bytes": 212783014324,
+      "old_prefix_retention_envelope_bytes": 217077981620
+    },
+    {
+      "old": 2147483648,
+      "square_backing": 4294967295,
+      "output": 4294967296,
+      "a": 4294967296,
+      "b": 4294967295,
+      "resident_domain": 8589934592,
+      "host_principal_bytes": 229962883508,
+      "square_stage_host_bytes": 221372948916,
+      "product_stage_host_bytes": 229962883508,
+      "old_prefix_retention_envelope_bytes": 238552818100
+    },
+    {
+      "old": 4294967296,
+      "square_backing": 8589934591,
+      "output": 8589934592,
+      "a": 8589934592,
+      "b": 8589934591,
+      "resident_domain": 17179869184,
+      "host_principal_bytes": 264322621876,
+      "square_stage_host_bytes": 247142752692,
+      "product_stage_host_bytes": 264322621876,
+      "old_prefix_retention_envelope_bytes": 281502491060
+    },
+    {
+      "old": 8589934592,
+      "square_backing": 17179869183,
+      "output": 17179869184,
+      "a": 16300262096,
+      "b": 17179869183,
+      "resident_domain": 34359738368,
+      "host_principal_bytes": 333042098612,
+      "square_stage_host_bytes": 298682360244,
+      "product_stage_host_bytes": 333042098612,
+      "old_prefix_retention_envelope_bytes": 367401836980,
+      "split_prefix": {
+        "calls": 3,
+        "max_domain": 17179869184,
+        "max_temporary_bytes": 68719476732
+      }
+    },
+    {
+      "old": 17179869184,
+      "square_backing": 34359738367,
+      "output": 34359738368,
+      "a": 16300262096,
+      "b": 34359738367,
+      "resident_domain": 68719476736,
+      "host_principal_bytes": 470481052084,
+      "square_stage_host_bytes": 401761575348,
+      "product_stage_host_bytes": 470481052084,
+      "old_prefix_retention_envelope_bytes": 539200528820,
+      "split_prefix": {
+        "calls": 7,
+        "max_domain": 17179869184,
+        "max_temporary_bytes": 68719476732
+      }
+    },
+    {
+      "old": 34359738368,
+      "square_backing": 68719476735,
+      "output": 52419214641,
+      "a": 16300262096,
+      "b": 52419214641,
+      "resident_domain": 68719476736,
+      "host_principal_bytes": 680157910648,
+      "square_stage_host_bytes": 607920005556,
+      "product_stage_host_bytes": 680157910648,
+      "old_prefix_retention_envelope_bytes": 817596864120,
+      "split_prefix": {
+        "calls": 13,
+        "max_domain": 17179869184,
+        "max_temporary_bytes": 68719476732
+      }
+    }
+  ],
+  "oversized_newton_count": 3,
+  "final_identity": {
+    "n": 68719476736,
+    "k": 16300262095,
+    "block": 8589934592,
+    "p": 16300262096,
+    "g": 52419214641,
+    "subproducts": 14,
+    "max_subdomain": 17179869184,
+    "resident_device_arrays": 1649267441664,
+    "split_device_arrays": 412316860416,
+    "retained_output_bytes": 274877906944,
+    "max_temporary_host_bytes": 68719476732,
+    "resident_h2d_coefficient_bytes": 274877906948,
+    "split_h2d_coefficient_bytes": 875761055816,
+    "resident_d2h_coefficient_bytes": 274877906944,
+    "split_d2h_coefficient_bytes": 875761055760,
+    "transform_work_ratio": 3.1840277777777777
+  },
+  "storage": {
+    "canonical_bytes": 1020236866033,
+    "two_each_phase_snapshot_upper_bytes": 566936470024,
+    "canonical_plus_snapshots_bytes": 1587173336057,
+    "excludes": "logs/profiles, filesystem overhead, failed attempts and simultaneous replacement of an existing complete stage"
+  },
+  "network_scenarios": [
+    {
+      "redistributions_per_transform": 2,
+      "cross_node_bytes_per_full_transform": 824633720832,
+      "cross_node_bytes_per_full_product": 2473901162496,
+      "optimistic_seconds_by_per_node_egress_GiBs": {
+        "3": 192.0,
+        "12": 48.0,
+        "25": 23.04
+      },
+      "excludes": "Taylor source exchanges, roots, host uploads/downloads, synchronization/latency, contention and persistence; no bandwidth measured."
+    },
+    {
+      "redistributions_per_transform": 6,
+      "cross_node_bytes_per_full_transform": 2473901162496,
+      "cross_node_bytes_per_full_product": 7421703487488,
+      "optimistic_seconds_by_per_node_egress_GiBs": {
+        "3": 576.0,
+        "12": 144.0,
+        "25": 69.12
+      },
+      "excludes": "Taylor source exchanges, roots, host uploads/downloads, synchronization/latency, contention and persistence; no bandwidth measured."
+    }
+  ],
+  "root_work_scenarios": {
+    "baseline_seconds": 30837.087809663,
+    "linear_K_work_seconds": 129664.39555579968,
+    "K_log2K_squared_work_seconds": 147082.9528141013,
+    "caveat": "Same effective root throughput scenarios only, not route forecasts or confidence limits; no fourfold GPU scaling assumed."
+  },
+  "complete_route_runtime_seconds": null,
+  "scope": "Source-derived principal payloads and hypothetical work/communication scenarios; not execution support, peak RAM, measured network, runtime forecast or budget admission."
+}

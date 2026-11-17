@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-17 15:35 | SCALING-105 | Completed | [Full workflow route comparison and recommendation](2026-11-17-1535-codex-scaling-105-completed.md) |
+| 2026-11-17 15:26 | SCALING-105 | Started | [Compare four/sixteen-GPU s18 workflows](2026-11-17-1526-codex-scaling-105-started.md) |
 | 2026-11-17 15:19 | SCALING-104 | Completed | [Component validation76756 passes; trade-offs measured](2026-11-17-1519-codex-scaling-104-completed.md) |
 | 2026-11-17 15:16 | SCALING-104 | Started | [Review component validation76756](2026-11-17-1516-codex-scaling-104-started.md) |
 | 2026-11-17 14:51 | SCALING-103 | Handoff | [Component comparison76756 submitted](2026-11-17-1451-codex-scaling-103-handoff.md) |

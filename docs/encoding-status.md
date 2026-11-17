@@ -190,7 +190,7 @@ excludes device allocations unless stated.
 | 15 | Laptop measured | Peak host process RSS: 20.55 GiB | 3 h 16 min 7 s† | Measured on laptop |
 | 16 | HPC measured | Peak host process RSS: 72.575 GiB | GPU: 2 h 20 min 15.469 s | Measured on HPC |
 | 17 | **HPC measured; passed75832**<br>K:3876566203; support from75819 | **Peak sampled host RSS:348.393GiB**<br>Device peak:not sampled; product arrays384GiB aggregate (model)<br>Final device owned:256.009GiB observed | **Construction/identity/spectrum:9h16min46s**, includes root checkpoints<br>Verified resumed worker:9h58min38s<br>Earlier discovery:21min38s | **Demonstrated on HPC:4H200,32 active CPU workers, one node**<br>Canonical preprocessing:235.324GiB<br>[Full evidence/boundaries](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088) |
-| 18 | Full preprocessing:not run<br>**Exact dimension measured76647:K16300262095**<br>Bounded export76710 and transform/split components76756 passed; see [component results](#s18-lower-memory-preprocessing-work) | Projected final host arrays:889.446GiB<br>Projected discovery arrays:770.893GiB<br>Peak RSS:unknown | Full preprocessing:unknown<br>Count-only GPU sum:37.4ms, excludes setup |1536GiB device product arrays (model)<br>16GPU power-of-two projection across4nodes at112GiB/card<br>Distributed host/GPU implementation and larger storage admission required<br>Alternative: split final-product arrays project384 GiB on4 GPUs; complete hybrid unimplemented |
+| 18 | Full preprocessing:not run<br>**Exact dimension measured76647:K16300262095**<br>Bounded export76710 and transform/split components76756 passed; see [component results](#s18-lower-memory-preprocessing-work) | Projected final host arrays:889.446GiB<br>Projected discovery arrays:770.893GiB<br>Peak RSS:unknown | Full preprocessing:unknown<br>Count-only GPU sum:37.4ms, excludes setup |1536GiB device product arrays (model)<br>16GPU power-of-two projection across4nodes at112GiB/card<br>Distributed host/GPU implementation and larger storage admission required<br>Alternative: split final-product arrays project384 GiB on4 GPUs; [complete route comparison](#s18-complete-preprocessing-route-decision) records Newton/discovery host limits |
 | 19 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 | 20 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 
@@ -435,9 +435,30 @@ measured, but full-size runtime penalties and workflow peak remain unknown.
 The split final-product geometry projects device arrays **1536 → 384 GiB** at
 s18, retaining the256 GiB host output and adding up to64 GiB minus4 bytes of host
 temporary. Earlier discovery/root/reciprocal lifetimes still need admission.
-No full s18 feasibility or default change follows. Next: compare complete
-four-GPU hybrid versus sixteen-GPU distributed workflows, addressing repeated
-Taylor traffic and launch overhead in the current tiled schedule.
+No full s18 feasibility or default change follows. The complete design comparison is below; addressing repeated Taylor traffic and
+launch overhead remains necessary for the one-node hybrid.
+
+## s18 complete preprocessing route decision
+
+The [complete route comparison](../experiments/s18-preprocessing-routes/report.md)
+recommends distributing **host/root work as well as GPUs** for speed. The model
+is reproducible and distinguishes measured inputs, principal payload projections
+and unknown communication/runtime. Neither route is fully implemented or admitted.
+
+| s18 design (projection) | Device arrays | Host arrays and headroom | Runtime / implementation status |
+|---|---|---|---|
+| Four H200 GPUs, one HPC node, hybrid | Largest split/root product:384 GiB aggregate,96 GiB/card | Discovery:770.893 GiB; last Newton product:697.446 GiB including split temporary, before overhead; uncollected old prefix can raise retention to825.446 GiB. Earlier support release projects576 GiB stage payload, unimplemented. Tiled spectrum also retains a512 GiB host arena; post-transform streamed-export payload256.001 GiB is not its peak. | Complete runtime:unknown. Bounded prototypes are slower. Missing tiled base-grid discovery, prefix-aware Newton splitting and final-spectrum integration; device capacity alone does not establish feasibility. |
+| Sixteen H200 GPUs, four HPC nodes, distributed | Resident full product:1536 GiB aggregate,96 GiB/card | Balanced sharding projects discovery192.723 GiB/node and Newton158.362 GiB/node, before staging/runtime/cache. Requires genuinely sharded support/polynomial state, not a full coordinator copy. | Complete runtime:unknown; network unmeasured. Cross-node execution, parallel root work, distributed checkpoints/publication unimplemented. **Recommended design direction for speed**, not proven faster or supported. |
+
+The last **three Newton products**, not just the final identity, exceed the
+four-card resident capacity. Prefix-aware splitting needs3/7/13 contributing
+block pairs, versus14 for the full identity. Host lifetime improvements benefit
+both designs. Canonical files remain950.170 GiB aggregate; conservative recovery
+retention brings the payload envelope to1478.170 GiB before storage headroom.
+No GPU count reduces canonical data size. No full-size runtime forecast follows
+from the small-component ratios; root construction dominated fulls17.
+User route selection and concrete new experiment budgets precede implementation
+of a material trade-off or any multi-node/fullsize submission.
 
 ## Measurement boundaries for batch entries
 

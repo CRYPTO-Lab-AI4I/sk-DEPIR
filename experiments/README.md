@@ -76,6 +76,10 @@ original methodology; apply this policy to new optimization runs.
   shared-kernel bounded comparison, independent CPU fixtures and memory/transfer
   counters; bounded validation76756 passes. Measured lower-memory options are
   slower; full-size costs remain unknown, with no admission or default change.
+- [s18 preprocessing route comparison](s18-preprocessing-routes/report.md):
+  reproducible whole-workflow host/device/Newton/storage models and hypothetical
+  communication/work scaling; distributed host/root/GPU design recommended for
+  speed, pending route selection and measured network/integration. No new job.
 - [s18 preprocessing admission](s18-preprocessing-admission/report.md): one-GPU
   exact weighted-class dimension count, independent/known-size comparisons and
   explicit host/device/storage lifetime models; full preprocessing remains deferred.

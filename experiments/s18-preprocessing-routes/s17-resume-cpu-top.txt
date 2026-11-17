@@ -1,0 +1,21 @@
+File: preprocess-75832
+Build ID: 864da014ea27b7ea694683133f86563b392a442e
+Type: cpu
+Time: 2026-11-16 11:51:41 CET
+Duration: 9.98hrs, Total samples = 9.69hrs (97.12%)
+Showing nodes accounting for 9.13hrs, 94.23% of 9.69hrs total
+Dropped 561 nodes (cum <= 0.05hrs)
+Showing top 12 nodes out of 90
+      flat  flat%   sum%        cum   cum%
+   5.74hrs 59.27% 59.27%    5.74hrs 59.28%  runtime.cgocall
+   1.79hrs 18.52% 77.79%    2.59hrs 26.75%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).addProduct (inline)
+   0.81hrs  8.41% 86.20%    0.81hrs  8.41%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationProducts).mul (inline)
+   0.19hrs  2.00% 88.20%    2.85hrs 29.43%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+   0.14hrs  1.42% 89.62%    0.14hrs  1.42%  internal/runtime/syscall/linux.Syscall6
+   0.08hrs  0.83% 90.45%    0.08hrs  0.83%  runtime.memclrNoHeapPointers
+   0.07hrs  0.73% 91.18%    0.07hrs  0.73%  runtime.(*fixalloc).alloc
+   0.07hrs   0.7% 91.88%    0.07hrs   0.7%  crypto/internal/fips140/sha256.blockSHANI
+   0.07hrs  0.68% 92.56%    0.18hrs  1.83%  runtime.sweepone
+   0.06hrs  0.63% 93.19%    0.06hrs  0.63%  runtime.(*mspan).init
+   0.05hrs  0.56% 93.75%    3.16hrs 32.65%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+   0.05hrs  0.48% 94.23%    5.73hrs 59.19%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply

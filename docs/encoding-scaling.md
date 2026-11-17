@@ -42,7 +42,7 @@ s≤16 CPU/GPU paths and code-cache compatibility throughout.
 | 5. First full CPU baseline | Prefer resident reuse (~427GiB principal arrays) on one large-RAM node when the admitted budget fits. Validate systematic values, independent curves, hashes and34GiB packed output; separately measure code loading, encoding, packing, verification and peaks | **Full HPC run76645 passed**; 1 h 45 min 11.087 s encoding, 427.845 GiB sampled RSS, verified34 GiB packed output |
 | 6. Multi-GPU prototype and selection | Partition same-node arithmetic across GPUs; measure transfers, topology and synchronization. Compare fast-layout streamed constants (~256GiB aggregate/two-card capacity floor) with resident reuse (~398GiB/three-card floor), including all host/device lifetimes and headroom | Bounded resident1/2/4GPU integration passed76426; full four-H200 resident baseline passed76706. Other full-size card counts and streamed/compact modes remain separate |
 | 7. Full GPU comparison | Validate exact canonical/packed agreement with the CPU baseline and independently check correctness. Compare complete measured latency and deployment cost; keep CPU available without CUDA | **Full retry76706 passed**,7 min14.930 s encoding,221.591 GiB sampled RSS,398.463 GiB device-owned; CPU canonical/packed hashes match. Observed14.51× encoding-stage ratio, not controlled end-to-end speedup;76646 remains historical guard failure |
-| 8. Progress toward s18 | Recompute preprocessing/encoding/communication capacities using measurements, then select same-node versus multi-node or memory-saving designs. Retain s19–20 exploratory rows | **Active:** exact s18 K verified76647; bounded spectrum76704 and complete export76710 passed. Bounded host-backed transform and split product76756 passed; measured penalties are recorded in the [memory plan](#s18-preprocessing-memory-design-and-comparison-scaling-096). Next: four-GPU hybrid versus sixteen-GPU workflow comparison |
+| 8. Progress toward s18 | Recompute preprocessing/encoding/communication capacities using measurements, then select same-node versus multi-node or memory-saving designs. Retain s19–20 exploratory rows | **Active:** exact s18 K verified76647; bounded spectrum76704 and complete export76710 passed. Bounded host-backed transform and split product76756 passed; measured penalties are recorded in the [memory plan](#s18-preprocessing-memory-design-and-comparison-scaling-096). Route comparison completed (SCALING-105): [four-node distributed host/root/GPU design recommended](../experiments/s18-preprocessing-routes/report.md); route selection pending, network and complete runtimes unknown |
 
 For preprocessing, choose the fastest measured complete server workflow within
 agreed budgets; GPU and multi-GPU requirements are acceptable. GPU count is a
@@ -2179,6 +2179,23 @@ scripts, source-derived lifetime models, validation and eventual measurements.
    Separate measured costs, projections and unknown network/implementation costs;
    do not infer linear card scaling. Ask the user to choose any material
    memory–time/storage tradeoff before adopting it. Full s18 budgets remain separate.
+
+Step5 comparison (SCALING-105) is [recorded with a reproducible model](../experiments/s18-preprocessing-routes/report.md).
+The four-GPU hybrid requires tiled **base-grid discovery**, prefix-aware splitting
+of the last three Newton products (3/7/13 contributing pairs), and final-spectrum
+integration. Stage-aware Newton arrays plus one split temporary project697.446 GiB,
+before overhead; an uncollected old prefix can raise retention to825.446 GiB.
+Releasing command-owned support after root publication could reduce the live
+stage model to576 GiB, but is not implemented. Discovery remains770.893 GiB.
+The256.001 GiB export model is post-transform, not the host-tiled spectrum peak.
+Sixteen GPUs across four nodes project96 GiB product arrays/card and balanced
+host discovery/Newton payloads192.723/158.362 GiB/node, with genuinely sharded
+host state. Network, checkpoints/publication and parallel roots are missing.
+Recommend the distributed route for speed, including independent root work;
+adding GPUs alone does not accelerate serial host polynomial work. Complete
+runtimes remain unknown. User selection is pending; no new job/budget or mode
+adoption. After selection, validate shared support lifetimes, independent root
+subtrees and a bounded cross-node transport schedule before full integration.
 
 Streaming adds no transforms or canonical output bytes, but synchronous chunk
 transfers/writes may cost time and filesystem cache remains charged host memory.

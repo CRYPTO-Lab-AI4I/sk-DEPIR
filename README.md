@@ -81,6 +81,11 @@ host-backed forward transformation takes1.303–1.305 s versus235.820–236.090 
 resident; split multiplication takes3.019–3.020 s versus539.435–539.450 ms.
 Both save GPU memory, with extra host storage/work/transfers; full-size costs
 remain unknown. It adds no default preprocessing mode.
+The [complete s18 route comparison](experiments/s18-preprocessing-routes/report.md)
+recommends a four-node, sixteen-GPU design with distributed host/root work for
+speed. The four-GPU hybrid still has tight host memory and missing discovery/Newton
+integration. Neither complete route is implemented; network and total runtime
+remain unmeasured, with no new full-run budget or default selected.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 
