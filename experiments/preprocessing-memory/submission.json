@@ -1,0 +1,22 @@
+{
+  "job_id": "76704",
+  "submitted_utc": "2026-11-17T08:36:12.117921+00:00",
+  "prepared_revision": "46d16d2",
+  "run_name": "stream-01",
+  "results": "experiments/preprocessing-memory/runs/stream-01/",
+  "scheduler_log": "experiments/preprocessing-memory/slurm-76704.log",
+  "cache": ".cache/liftrs/preprocessing-memory/stream-01/",
+  "resources": {
+    "gpus": 4,
+    "gpu_model": "H200",
+    "cpus": 4,
+    "requested_host_gib": 8,
+    "rss_guard_gib": 6,
+    "per_gpu_owned_cap_gib": 1,
+    "retained_cap_gib": 2,
+    "scratch_cap_gib": 4,
+    "scheduler_minutes": 20
+  },
+  "source_policy": "Controller records execution-start Git revision and exact copied source hashes; preparation commit fixes executable sources.",
+  "monitoring": "No state/log inspection after submission; await user completion ping."
+}

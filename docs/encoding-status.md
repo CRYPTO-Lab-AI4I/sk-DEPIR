@@ -411,7 +411,8 @@ streaming the final spectrum projects final s18 host arrays **889.446 → 377.44
 with a 1 MiB tile. This is a final-stage projection, **not peak RSS or demonstrated
 s18 feasibility**: discovery (~770.893 GiB) and device product arrays (1536 GiB)
 are unchanged, and other intermediates/cache/headroom remain. The low-level GPU
-primitive is implemented; validation and transfer/write penalty are pending. Full
+primitive is implemented; bounded validation job **76704** is submitted, and
+transfer/write penalty remains unknown. Full
 preprocessing limits, faster defaults and all measured table cells are unchanged.
 
 ## Historical milestones

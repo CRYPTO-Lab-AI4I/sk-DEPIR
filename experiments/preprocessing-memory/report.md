@@ -1,6 +1,6 @@
 # Lower-memory server preprocessing prototypes
 
-Status: **spectrum streaming primitive implemented; GPU validation pending**.
+Status: **spectrum streaming primitive implemented; validation job76704 submitted**.
 This starts the [s18 design sequence](../../docs/encoding-scaling.md#s18-preprocessing-memory-design-and-comparison-scaling-096).
 It does not extend full preprocessing beyond s17 or change any default mode.
 
@@ -115,3 +115,12 @@ before interpreting the timing ratio.
    explicit unmeasured communication costs. Present uncertainty and ask the user
    to select any material tradeoff before full implementation/admission. Neither
    cross-node execution nor fulls18 storage is admitted by this bounded run.
+
+## First validation submission
+
+Job **76704**, prepared executable sources at commit `46d16d2`, uses the budget
+above. [Receipt](submission.json); results `runs/stream-01/`, scheduler log
+`slurm-76704.log`, retained binaries/cache `.cache/liftrs/preprocessing-memory/stream-01/`.
+The controller records its execution-start Git revision and exact copied source
+hashes; later message-board/receipt updates do not change executable sources.
+No scheduler polling or log inspection follows submission; await completion ping.

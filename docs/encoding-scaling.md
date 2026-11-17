@@ -2172,3 +2172,8 @@ transfers/writes may cost time and filesystem cache remains charged host memory.
 No runtime penalty is assumed zero. Slower modes remain explicit command-line
 choices when memory is available; use them for insufficient-memory cases only
 when needed. The fastest validated resident path remains the default when it fits.
+
+SCALING-096 bounded stream validation **76704 submitted**, executable prototype
+commit46d16d2. [Receipt and results](../experiments/preprocessing-memory/report.md#first-validation-submission).
+Existing4GPU/4GiB-owned,4CPU/8GiB-host and20min scheduler limits; no monitoring.
+Wait for the completion ping before export integration or interpreting timings.
