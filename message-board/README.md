@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-17 09:14 | SCALING-100 | Prepared | [Stream publication validation ready](2026-11-17-0914-codex-scaling-100-prepared.md) |
+| 2026-11-17 08:59 | SCALING-100 | Started | [Integrate streamed canonical publication](2026-11-17-0859-codex-scaling-100-started.md) |
 | 2026-11-17 08:54 | SCALING-099 | Completed | [Spectrum76704 verified; export integration next](2026-11-17-0854-codex-scaling-099-completed.md) |
 | 2026-11-17 08:51 | SCALING-099 | Started | [Review spectrum validation76704](2026-11-17-0851-codex-scaling-099-started.md) |
 | 2026-11-17 08:50 | SCALING-098 | Handoff | [Full GPU retry76706 submitted](2026-11-17-0850-codex-scaling-098-handoff.md) |

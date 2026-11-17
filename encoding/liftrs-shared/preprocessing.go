@@ -352,6 +352,34 @@ func (p *CodePreprocessor) Prepare(support *CodeSupport, reuse PreparationReuse)
 		return nil, fmt.Errorf("preprocessor closed")
 	}
 	defer recoverPreparation(&err)
+	reporter := newPreparationReporter(p.options.Progress)
+	polynomials, err := p.preparePolynomials(support, reuse, reporter)
+	if err != nil {
+		return nil, err
+	}
+	h, f := polynomials.header, polynomials.field
+	normalized, g, root := polynomials.p, polynomials.generator, polynomials.root
+	code := &ScalingCodeData{header: h, field: f, p: normalized}
+	if h.ExtensionBytes == 4 {
+		code.spectrum32 = make([]uint32, int(h.N))
+		err = reporter.run("generator-spectrum", func() error { return p.backend.Spectrum32(g, code.spectrum32) })
+	} else {
+		code.spectrum64 = make([]uint64, int(h.N))
+		err = reporter.run("generator-spectrum", func() error { return p.backend.Spectrum64(g, code.spectrum64) })
+	}
+	if err != nil {
+		return nil, err
+	}
+	if err = p.savePreparedRecovery(polynomials); err != nil {
+		return nil, err
+	}
+	return &PreparedCode{code: code, generator: g, root: root}, nil
+}
+
+// preparePolynomials requires the session lock. It never allocates a spectrum;
+// normalized P/root alias one allocation, and all verification precedes export.
+func (p *CodePreprocessor) preparePolynomials(support *CodeSupport, reuse PreparationReuse, reporter *preparationReporter) (result *PreparedPolynomials, err error) {
+	defer recoverPreparation(&err)
 	if support == nil {
 		return nil, fmt.Errorf("certified support required")
 	}
@@ -379,7 +407,6 @@ func (p *CodePreprocessor) Prepare(support *CodeSupport, reuse PreparationReuse)
 	}
 	base := orbitField{q: uint64(1) << uint(info.Spec.FieldDegree), base: baseField, lookup: newPreparationProducts(baseField)}
 	base.products = &polynomialProducts{domain: info.N, convolver: preparationConvolver{p.backend}, cutoff: p.options.ProductCutoff}
-	reporter := newPreparationReporter(p.options.Progress)
 	currentStage := ""
 	checkpoint := func(stage string) {
 		if currentStage != "" {
@@ -408,24 +435,14 @@ func (p *CodePreprocessor) Prepare(support *CodeSupport, reuse PreparationReuse)
 	// Product operands are dead. Release them before allocating final spectrum;
 	// keep only reusable transpose scratch. No recomputation/transfer is added.
 	p.backend.ReleaseProducts()
-	code := &ScalingCodeData{header: h, field: f, p: normalized}
-	if h.ExtensionBytes == 4 {
-		code.spectrum32 = make([]uint32, int(h.N))
-		err = reporter.run("generator-spectrum", func() error { return p.backend.Spectrum32(g, code.spectrum32) })
-	} else {
-		code.spectrum64 = make([]uint64, int(h.N))
-		err = reporter.run("generator-spectrum", func() error { return p.backend.Spectrum64(g, code.spectrum64) })
-	}
-	if err != nil {
-		return nil, err
-	}
-	// A request arriving during the final transform gets a safe boundary too.
+	return &PreparedPolynomials{header: h, field: f, p: normalized, generator: g, root: root, parameters: info, supportSHA: support.Checksum()}, nil
+}
+
+func (p *CodePreprocessor) savePreparedRecovery(polynomials *PreparedPolynomials) error {
 	if p.options.Recovery != nil && p.options.Recovery.Save != nil {
-		if err = p.options.Recovery.Save(&PreprocessingCheckpoint{record: ProgressRecord{Kind: "reciprocal", Parameters: info, SupportSHA256: support.Checksum(), Next: uint64(len(g))}, sections: [][]uint32{g}}); err != nil {
-			return nil, err
-		}
+		return p.options.Recovery.Save(&PreprocessingCheckpoint{record: ProgressRecord{Kind: "reciprocal", Parameters: polynomials.parameters, SupportSHA256: polynomials.supportSHA, Next: uint64(len(polynomials.generator))}, sections: [][]uint32{polynomials.generator}})
 	}
-	return &PreparedCode{code: code, generator: g, root: root}, nil
+	return nil
 }
 
 // OwnedBytes reports explicit native/device payloads. Go arrays and overhead

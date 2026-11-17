@@ -11,8 +11,8 @@ through s17. Corrected bounded native/reference, regression, race and sanitizer
 validation passes job74447. **GPU server execution is now the active target**:
 a width-selected resident peer engine implements the heavy preprocessing kernels
 on1/2/4/8 same-node GPUs in source. One-GPU checks pass job74453; corrected two-GPU validation
-passes job74466, including peer-link lifetime sanitizer checks. No full
-s17 client encoding result exists. Full GPU preprocessing now passes75832:
+passes job74466, including peer-link lifetime sanitizer checks. Full resident s17 CPU client encoding passes76645; GPU client encoding
+remains a separate validation gate. Full GPU preprocessing now passes75832:
 genuine discovered support, P/G/spectrum, full identity and complete cache
 readback; see [measured full-run results](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088). The legacy CUDA32
 adapter remains available through s16; the resident prototype is selected
@@ -370,3 +370,41 @@ Root snapshot writes total78.525s (0.219% of worker wall); latest two occupy
 this successful attempt. Producer readback/hash checks pass; post-review verifies
 seals/bindings/sizes without reading235GiB again. Full resident client loading,
 CPU/GPU database encoding and packed persistence are separate validations.
+
+## Explicit bounded-host canonical export
+
+The resident `Prepare` API remains the default. For an explicit memory-saving
+GPU server path, `PreparePolynomials` performs the same root/reciprocal/full P*G
+verification and returns immutable P/G without a spectrum. `WriteCode` computes
+and writes canonical header/P/spectrum through bounded GPU download tiles;
+`WriteGenerator` preserves G. No caller-owned support/checkpoint is mutated.
+Returned polynomials survive the producing session; a compatible resident GPU
+session is required for `WriteCode`. No CPU or host-backed fallback is selected.
+
+Inside a caller that already owns admitted sessions, certified support and fresh
+atomic staging writers:
+
+```go
+polynomials, err := session.PreparePolynomials(support, reuse)
+if err != nil { return err }
+// A caller may now release its support/recovery references; keep persisted files.
+if err = session.WriteCode(codeWriter, polynomials, 1<<20); err != nil { return err }
+if err = polynomials.WriteGenerator(generatorWriter); err != nil { return err }
+// Hash, fsync, verify and atomically publish both files only after success.
+```
+
+The CLI provides that persistence workflow with `--spectrum-tile-bytes 1048576`.
+Omitted/zero retains resident mode; the explicit option requires CUDA and8 bytes
+through64 MiB (rounded down to8-byte alignment). Selected size is logged with
+command metadata; canonical bytes and strict manifest schema remain compatible.
+The CLI releases its support/recovery references after P/G verification and final
+P/G references after writing, before bounded readback. It preserves checkpoint
+files and save callbacks; GC/RSS reclamation is not guaranteed by reference release.
+
+Source-derived final s18 export arrays project256.001 GiB with1 MiB tile versus
+889.446 GiB resident; this is not a peak measurement. Discovery, Newton/product
+intermediates, device arrays, runtime and filesystem cache remain additional.
+No extra transform or canonical output bytes are introduced, but chunk I/O and
+GC timing can change runtime. Full preprocessing still stops at s17. This export
+integration is **implemented, GPU validation pending**; the lower-level primitive
+passed76704. See [reproduction, tests and tradeoffs](../experiments/preprocessing-export/report.md).

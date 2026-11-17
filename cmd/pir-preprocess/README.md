@@ -84,3 +84,20 @@ for s16/s17 GPU counts. A dimension record is not certified sampled support or
 code data, and does not admit full preprocessing. Complete execution still
 enumerates indices, samples support and checks all identities. `--resume` may
 reuse only the trusted dimension record in this mode.
+
+## Explicit streamed spectrum output
+
+Append `--spectrum-tile-bytes 1048576` to an admitted CUDA preprocessing command
+to opt into canonical export with a1 MiB host tile. Zero/omitted keeps resident
+output. The option requires CUDA and8 bytes..64 MiB; it is invalid with the native
+reference backend or `--dimension-only`. The selected size appears in progress
+logs. It adds no transforms/output payload but may change transfer/write and GC
+latency. Full-size costs are unmeasured; do not choose this for speed by default.
+
+The shared verified polynomial stage lets this CLI release its support/recovery
+references before exporting P/spectrum/G. Persisted checkpoints remain intact.
+The existing atomic publication, digests, full range/EOF verification and cached
+CUDA-free readback apply to both modes. No new manifest fields are required and
+canonical files remain byte-compatible. Failed temporary stages stay unpublished
+for diagnosis. The integration is implemented with bounded GPU validation pending;
+see [experiment and source-linked tests](../../experiments/preprocessing-export/report.md).

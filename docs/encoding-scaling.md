@@ -2216,3 +2216,26 @@ and scoped host ownership, atomic manifests, complete P*G and byte/digest/readba
 checks against resident output. Retain resident defaults; no s18 admission follows.
 Host-backed transform and split-product measurements remain steps3/4 before the
 four-versus-sixteen-GPU choice. GPU encoding retry76706 remains uninspected.
+
+### Explicit canonical export integration (SCALING-100)
+
+User authorizes step2. Shared `PreparePolynomials` performs the existing complete
+P/G construction and identity once; `WriteCode` exports canonical header/P/spectrum
+using the passed streaming primitive. `Prepare` remains the resident default,
+sharing the same private polynomial helper. CLI `--spectrum-tile-bytes` is explicit;
+it drops only command-owned support/recovery references after identity, preserves
+checkpoints/save callbacks, and uses existing hash/fsync/readback/atomic publication.
+P/G references can die before final bounded readback; no forced GC is added.
+Manifest schema and canonical bytes remain compatible. Source-derived final s18
+export-stage arrays project256.001 GiB with1 MiB tile; earlier discovery, products,
+device workspace and cache/headroom are unchanged. No fulls18 admission follows.
+
+Bounded validation will compare complete streams with independent Go and resident
+files, root/cache restart, CUDA-free verification, writer/range/lifecycle errors,
+corruption and failed-publication recovery, plus API/CLI CUDA memcheck. Existing
+small resident native/race/ASan workflows exercise the refactored common helper.
+[Report/scripts/budget](../experiments/preprocessing-export/report.md): existing
+4H200/4GiB aggregate-owned,4CPU/8GiBhost,2GiBretained/4GiBscratch,20min scheduler.
+Runtime/publication/peak saving remain pending. Next after this gate: tiled FFT
+and split-product measurements, then present the four-versus-sixteen-GPU tradeoff.
+GPU encoding retry76706 remains uninspected. Submit and hand off without monitoring.

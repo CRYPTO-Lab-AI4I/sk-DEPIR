@@ -29,6 +29,7 @@ type config struct {
 	s, t, workers                                     int
 	backend, devices, library, layout, cache, profile string
 	arrayBytes, nativeBytes, gpuBytes, codeBytes      uint64
+	spectrumTile                                      uint64
 	resume, dimensionOnly                             bool
 }
 
@@ -48,6 +49,7 @@ func parse(args []string) (config, error) {
 	f.Uint64Var(&c.nativeBytes, "native-bytes", 0, "required native executor cap")
 	f.Uint64Var(&c.gpuBytes, "gpu-bytes", 0, "required owned payload cap per GPU")
 	f.Uint64Var(&c.codeBytes, "max-code-bytes", 0, "required final canonical payload cap")
+	f.Uint64Var(&c.spectrumTile, "spectrum-tile-bytes", 0, "explicit streamed CUDA export tile (8..67108864); zero keeps resident default")
 	f.DurationVar(&c.checkpointInterval, "checkpoint-interval", 0, "opt-in recovery save interval (e.g. 2h); sparse writes target 1% overhead")
 	f.BoolVar(&c.dimensionOnly, "dimension-only", false, "compute exact K only; no support/grid/preparation arrays")
 	f.BoolVar(&c.resume, "resume", false, "reuse completed matching stages in this trusted cache")
@@ -59,6 +61,9 @@ func parse(args []string) (config, error) {
 	}
 	if c.backend == "cuda" && (c.library == "" || c.gpuBytes == 0) {
 		return c, fmt.Errorf("CUDA library and per-device cap required")
+	}
+	if c.spectrumTile != 0 && (c.spectrumTile < 8 || c.spectrumTile > 64<<20 || c.backend != "cuda" || c.dimensionOnly) {
+		return c, fmt.Errorf("spectrum tile requires CUDA export,8bytes..64MiB; not dimension-only")
 	}
 	return c, nil
 }
@@ -342,6 +347,8 @@ func execute(c config, ids []int, r *reporter) error {
 		}
 	}
 	var prepared *lrs.PreparedCode
+	var polynomials *lrs.PreparedPolynomials
+	var h lrs.ScalingCodeHeader
 	reuse := lrs.PreparationReuse{Root: root}
 	if root == nil {
 		reuse.SaveRoot = func(root *lrs.RootCheckpoint) error {
@@ -372,29 +379,67 @@ func execute(c config, ids []int, r *reporter) error {
 			return nil
 		}
 	}
-	if e = r.phase("preparation-and-identities", func() error { var err error; prepared, err = session.Prepare(support, reuse); return err }); e != nil {
+	if e = r.phase("preparation-and-identities", func() error {
+		var err error
+		if c.spectrumTile == 0 {
+			prepared, err = session.Prepare(support, reuse)
+			if err == nil {
+				h = prepared.CodeData().Header()
+			}
+		} else {
+			polynomials, err = session.PreparePolynomials(support, reuse)
+			if err == nil {
+				h = polynomials.Header()
+			}
+		}
+		return err
+	}); e != nil {
 		return e
 	}
+	if h.Bytes-h.POffset > c.codeBytes {
+		return fmt.Errorf("canonical payload exceeds --max-code-bytes")
+	}
+	if c.spectrumTile != 0 {
+		// Only this command's references die. Certified support/root files remain on
+		// disk; P/root aliases and G remain owned by the verified polynomial object.
+		support = nil
+		root = nil
+		reuse = lrs.PreparationReuse{}
+		if options.Recovery != nil {
+			options.Recovery.Discovery = nil
+			options.Recovery.Preparation = nil
+		}
+	}
+	r.event("spectrum-tile-bytes", "selected", c.spectrumTile, 64<<20, "bytes; zero=resident")
 	// Stream final bytes without a second resident code copy; verify boundedly
 	// before atomically publishing the completed stage.
 	codeManifest, e = publish(c.cache, "code", fresh("code"), func(dir string, m *manifest) error {
-		h := prepared.CodeData().Header()
-		if h.Bytes-h.POffset > c.codeBytes {
-			return fmt.Errorf("canonical payload exceeds --max-code-bytes")
-		}
 		m.Header = &h
 		m.SupportSHA256 = supportManifest.Support.SHA256
 		m.RootSHA256 = rootManifest.Root.SHA256
-		file, err := writePayload(dir, "online.bin", h.Bytes, r, hashed(func(w io.Writer) error { return lrs.WriteScalingCode(w, prepared.CodeData()) }))
+		file, err := writePayload(dir, "online.bin", h.Bytes, r, hashed(func(w io.Writer) error {
+			if c.spectrumTile != 0 {
+				return session.WriteCode(w, polynomials, int(c.spectrumTile))
+			}
+			return lrs.WriteScalingCode(w, prepared.CodeData())
+		}))
 		if err != nil {
 			return err
 		}
 		m.Files["online.bin"] = file
-		file, err = writePayload(dir, "generator.bin", 4*(h.N-h.K), r, hashed(prepared.WriteGenerator))
+		file, err = writePayload(dir, "generator.bin", 4*(h.N-h.K), r, hashed(func(w io.Writer) error {
+			if c.spectrumTile != 0 {
+				return polynomials.WriteGenerator(w)
+			}
+			return prepared.WriteGenerator(w)
+		}))
 		if err != nil {
 			return err
 		}
 		m.Files["generator.bin"] = file
+		// The bounded file verification below no longer needs P/G or a resident word.
+		prepared = nil
+		polynomials = nil
 		if err = verifyFile(dir, ".", "generator.bin", m.Files["generator.bin"], r); err != nil {
 			return err
 		}

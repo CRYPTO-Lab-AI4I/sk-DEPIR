@@ -394,9 +394,15 @@ pass;561 source/43 evidence/74cache files reconcile. For a32 MiB spectrum with
 sink, not disk output or full preprocessing. No full-size runtime penalty or RSS
 saving is established. [Results and boundaries](../experiments/preprocessing-memory/report.md#completed-bounded-validation-scaling-099).
 
-Next: integrate explicit verified canonical publication and scoped host lifetimes,
-then measure host-backed tiled transforms and split products. Full preprocessing
-limits, faster defaults and all full-size measurement cells are unchanged.
+The [explicit export integration](../experiments/preprocessing-export/report.md)
+is implemented with shared P/G verification, atomic publication and command-owned
+support/recovery release; GPU validation is pending. With that release, final s18
+export-stage arrays project **256.001 GiB** with1 MiB tile, versus377.447 GiB
+when support stays referenced. Earlier-stage/device requirements are unchanged;
+this is not measured RSS or full s18 feasibility. Next: validate complete streamed
+publication, then measure host-backed tiled transforms and split products. Full
+preprocessing limits, faster defaults and all full-size measurement cells remain
+unchanged.
 
 
 ## Measurement boundaries for batch entries

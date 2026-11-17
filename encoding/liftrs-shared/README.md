@@ -806,3 +806,15 @@ for source ownership, per-device/host admission, build/example and remaining
 s17 packing/memory modes. Optional CUDA is not needed for CPU-only builds.
 [Bounded runtime validation](../../experiments/gpu-code-encoding/report.md) passes76426;
 fulls17 GPU encoding remains unvalidated; resident CPU encoding passes76645.
+
+### Verified polynomial stage and canonical export
+
+`CodePreprocessor.PreparePolynomials` returns immutable verified P/G without a
+spectrum. `CodePreprocessor.WriteCode` explicitly streams canonical code through
+a bounded resident-GPU tile; `PreparedPolynomials.WriteGenerator` writes G.
+This shares all polynomial arithmetic/full identities with the default `Prepare`
+path and preserves caller-owned support/checkpoints. Publication remains the
+caller's responsibility; the CLI integrates existing atomic verification via
+`--spectrum-tile-bytes`. GPU integration validation is pending; see
+[API usage and lifetime rules](../../docs/preprocessing.md#explicit-bounded-host-canonical-export)
+and [reproduction](../../experiments/preprocessing-export/report.md).
