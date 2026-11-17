@@ -1722,7 +1722,7 @@ GPU job74453 passes complete bounded one-card validation. Peer job74454 passes
 arithmetic/hash comparisons but fails memcheck on repeated peer enabling. Correct
 peer lifecycle with shared leases and cross-width lifetime tests, then retry the
 same approved two-H200 budget. No full s17 launch follows this correction.
-The [component reference](encoding-status.md#bounded-preprocessing-components-hpc-not-full-table-rows)
+The [component reference](encoding-history.md#bounded-preprocessing-components-hpc-not-full-table-rows)
 records the32 MiB tile: two GPUs17.8%/19.8% slower than one, not a full-size forecast.
 
 After clean peer validation, prototype whole-vector local FFTs with bulk peer

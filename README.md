@@ -13,8 +13,10 @@ The current development target is **TRL 5**: a usable, validated client and prep
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)
 are the reference for preprocessing and CPU/GPU encoding modes, including
 multi-GPU estimates. The [current s17 summary](docs/encoding-status.md#current-s17-results)
-distinguishes the passed preprocessing/CPU runs from the failed GPU attempt and
-the other unrun encoding modes. The performance goal is **s≤18**; **s=19–20** remain
+shows the passed preprocessing/CPU runs and the failed GPU attempt. Detailed
+mode tables put the measured resident path first; unmeasured alternatives are
+explicit projections. Superseded plans/calibration tables live in the separate
+[scaling history](docs/encoding-history.md). The performance goal is **s≤18**; **s=19–20** remain
 exploratory. Standalone CPU encoding now passes through s=17 (resident wide); GPU encoding
 passes through s=16 plus bounded wider integration. Other larger encoding rows
 remain unvalidated projections. Update the reference as

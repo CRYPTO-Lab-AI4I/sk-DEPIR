@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-17 08:42 | DOC-097 | Completed | [Active scaling tables corrected; history separated](2026-11-17-0842-codex-doc-097-completed.md) |
+| 2026-11-17 08:40 | DOC-097 | Started | [Make active scaling reference current](2026-11-17-0840-codex-doc-097-started.md) |
 | 2026-11-17 08:36 | SCALING-096 | Handoff | [Stream validation76704 submitted](2026-11-17-0836-codex-scaling-096-handoff.md) |
 | 2026-11-17 08:34 | SCALING-096 | Prepared | [Spectrum prototype validation ready](2026-11-17-0834-codex-scaling-096-prepared.md) |
 | 2026-11-17 08:26 | SCALING-096 | Started | [s18 preprocessing memory prototypes](2026-11-17-0826-codex-scaling-096-started.md) |
