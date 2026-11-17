@@ -190,7 +190,7 @@ excludes device allocations unless stated.
 | 15 | Laptop measured | Peak host process RSS: 20.55 GiB | 3 h 16 min 7 s† | Measured on laptop |
 | 16 | HPC measured | Peak host process RSS: 72.575 GiB | GPU: 2 h 20 min 15.469 s | Measured on HPC |
 | 17 | **HPC measured; passed75832**<br>K:3876566203; support from75819 | **Peak sampled host RSS:348.393GiB**<br>Device peak:not sampled; product arrays384GiB aggregate (model)<br>Final device owned:256.009GiB observed | **Construction/identity/spectrum:9h16min46s**, includes root checkpoints<br>Verified resumed worker:9h58min38s<br>Earlier discovery:21min38s | **Demonstrated on HPC:4H200,32 active CPU workers, one node**<br>Canonical preprocessing:235.324GiB<br>[Full evidence/boundaries](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088) |
-| 18 | Full preprocessing:not run<br>**Exact dimension measured76647:K16300262095** | Projected final host arrays:889.446GiB<br>Projected discovery arrays:770.893GiB<br>Peak RSS:unknown | Full preprocessing:unknown<br>Count-only GPU sum:37.4ms, excludes setup |1536GiB device product arrays (model)<br>16GPU power-of-two projection across4nodes at112GiB/card<br>Distributed host/GPU implementation and larger storage admission required |
+| 18 | Full preprocessing:not run<br>**Exact dimension measured76647:K16300262095**<br>Bounded export76710 and transform/split components76756 passed; see [component results](#s18-lower-memory-preprocessing-work) | Projected final host arrays:889.446GiB<br>Projected discovery arrays:770.893GiB<br>Peak RSS:unknown | Full preprocessing:unknown<br>Count-only GPU sum:37.4ms, excludes setup |1536GiB device product arrays (model)<br>16GPU power-of-two projection across4nodes at112GiB/card<br>Distributed host/GPU implementation and larger storage admission required<br>Alternative: split final-product arrays project384 GiB on4 GPUs; complete hybrid unimplemented |
 | 19 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 | 20 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 
@@ -412,20 +412,32 @@ export-stage arrays project **256.001 GiB** with1 MiB tile, versus377.447 GiB
 when support stays referenced. Earlier-stage/device requirements are unchanged;
 this is not measured RSS or full s18 feasibility. Single small complete fresh
 commands take3.755–6.174 s streamed, including setup/I/O/profile; fixed sample
-ordering prevents a speedup claim. Next: measure host-backed tiled transforms
-and split products. Full
-preprocessing limits, faster defaults and all full-size measurement cells remain
-unchanged.
+ordering prevents a speedup claim. The subsequent bounded transform/product
+results are below. Full preprocessing limits, faster defaults and all full-size
+measurement cells remain unchanged.
 
 
-The [tiled-transform and split-product prototypes](../experiments/preprocessing-tiles/report.md)
-are prepared for bounded validation on HPC (4 H200, 4 CPU cores, 8 GiB host
-request), job **76756 submitted** ([receipt](../experiments/preprocessing-tiles/submission.json)).
-No GPU results yet. The split final-product geometry projects aggregate
-device arrays **1536 → 384 GiB**, retaining the 256 GiB host output and adding
-a host temporary of up to 64 GiB minus 4 bytes, fourteen product calls and about
-3.19 times the coefficient transfers. Runtime penalty and full workflow peak
-remain unknown; these projections do not establish s18 feasibility.
+The [tiled-transform and split-product comparison](../experiments/preprocessing-tiles/report.md#completed-component-validation-scaling-104)
+**passed bounded validation76756** on HPC gnode04 (4 H200 GPUs, 4 CPU cores,
+8 GiB requested host RAM; complete job11 min44 s). All independent CPU/output
+hash checks and CUDA memcheck pass;578source/45evidence/377cache identities
+reconcile. For **2^22 points in the s17 field**, warm profiled measurements are:
+
+| Component, four H200 GPUs | Resident | Lower-memory prototype | Memory–time trade-off |
+|---|---|---|---|
+| Forward transform, 32 MiB host array | Runtime:235.820–236.090 ms<br>Owned GPU allocations:70.276 MiB aggregate | Host-backed,8 MiB/card tile<br>Runtime:1.303–1.305 s<br>Owned GPU allocations:38.276 MiB aggregate<br>Extra host staging:32 MiB | About5.53 times the forward latency; each direction uploads3230.969 MiB and downloads327.914 MiB versus32 MiB each resident |
+| Final-product geometry,16 MiB host output | Runtime:539.435–539.450 ms<br>Owned GPU allocations:102.276 MiB aggregate | Fourteen split products<br>Runtime:3.019–3.020 s<br>Owned GPU allocations:30.414 MiB aggregate<br>Extra host temporary:4 MiB minus4 bytes | About5.60 times the latency; about3.19 times coefficient transfers; host output unchanged |
+
+Each range contains two timed samples, with profiling/logging included and
+setup/first-call/persistence reported separately. **These are bounded component
+results, not complete s17/s18 preprocessing measurements.** Lower memory is
+measured, but full-size runtime penalties and workflow peak remain unknown.
+The split final-product geometry projects device arrays **1536 → 384 GiB** at
+s18, retaining the256 GiB host output and adding up to64 GiB minus4 bytes of host
+temporary. Earlier discovery/root/reciprocal lifetimes still need admission.
+No full s18 feasibility or default change follows. Next: compare complete
+four-GPU hybrid versus sixteen-GPU distributed workflows, addressing repeated
+Taylor traffic and launch overhead in the current tiled schedule.
 
 ## Measurement boundaries for batch entries
 
@@ -438,7 +450,7 @@ One encoding sample at s16, two at smaller sizes. New memory entries are sampled
 encoding peaks. File residency is additional and can overlap RSS; it is not an
 exact physical-RAM sum. All22 cases complete on the HPC system under their
 recorded budgets. These batch measurements stop at s16; the separate s17
-resident CPU pass and GPU guard failure are recorded in the current tables.
+resident CPU pass and successful GPU retry are recorded in the current tables.
 
 
 Historical intermediate plans and calibration tables are preserved in the

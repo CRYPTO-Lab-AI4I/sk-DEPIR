@@ -42,7 +42,7 @@ s≤16 CPU/GPU paths and code-cache compatibility throughout.
 | 5. First full CPU baseline | Prefer resident reuse (~427GiB principal arrays) on one large-RAM node when the admitted budget fits. Validate systematic values, independent curves, hashes and34GiB packed output; separately measure code loading, encoding, packing, verification and peaks | **Full HPC run76645 passed**; 1 h 45 min 11.087 s encoding, 427.845 GiB sampled RSS, verified34 GiB packed output |
 | 6. Multi-GPU prototype and selection | Partition same-node arithmetic across GPUs; measure transfers, topology and synchronization. Compare fast-layout streamed constants (~256GiB aggregate/two-card capacity floor) with resident reuse (~398GiB/three-card floor), including all host/device lifetimes and headroom | Bounded resident1/2/4GPU integration passed76426; full four-H200 resident baseline passed76706. Other full-size card counts and streamed/compact modes remain separate |
 | 7. Full GPU comparison | Validate exact canonical/packed agreement with the CPU baseline and independently check correctness. Compare complete measured latency and deployment cost; keep CPU available without CUDA | **Full retry76706 passed**,7 min14.930 s encoding,221.591 GiB sampled RSS,398.463 GiB device-owned; CPU canonical/packed hashes match. Observed14.51× encoding-stage ratio, not controlled end-to-end speedup;76646 remains historical guard failure |
-| 8. Progress toward s18 | Recompute preprocessing/encoding/communication capacities using measurements, then select same-node versus multi-node or memory-saving designs. Retain s19–20 exploratory rows | **Active:** exact s18 K verified76647; bounded spectrum76704 and complete export76710 passed. Next: host-backed tiled transform and split product per [memory plan](#s18-preprocessing-memory-design-and-comparison-scaling-096), before four-GPU hybrid versus sixteen-GPU selection |
+| 8. Progress toward s18 | Recompute preprocessing/encoding/communication capacities using measurements, then select same-node versus multi-node or memory-saving designs. Retain s19–20 exploratory rows | **Active:** exact s18 K verified76647; bounded spectrum76704 and complete export76710 passed. Bounded host-backed transform and split product76756 passed; measured penalties are recorded in the [memory plan](#s18-preprocessing-memory-design-and-comparison-scaling-096). Next: four-GPU hybrid versus sixteen-GPU workflow comparison |
 
 For preprocessing, choose the fastest measured complete server workflow within
 agreed budgets; GPU and multi-GPU requirements are acceptable. GPU count is a
@@ -2159,13 +2159,19 @@ scripts, source-derived lifetime models, validation and eventual measurements.
    assemble overlapping coefficient blocks and compare against complete current
    and independent CPU products. Measure every subproduct, transfers, overlap
    accumulation, host output and temporary files. The proposed2-by-7 block final
-   identity entails14 smaller products; actual runtime penalty remains unknown.
-   Steps3/4 implementation status (SCALING-103): [shared-kernel component prototypes
-   and bounded comparison](../experiments/preprocessing-tiles/report.md) prepared.
-   Compare complete independent CPU outputs, timings, allocation payloads and
-   transfers before adopting a mode. GPU correctness/timing validation pending:
-   bounded job **76756 submitted**, [receipt and result locations](../experiments/preprocessing-tiles/submission.json).
-   No monitoring; await completion ping.
+   identity entails14 smaller products; full-size runtime penalty remains unknown.
+   Steps3/4 status (SCALING-104): **bounded validation76756 passed**;
+   [measured results and boundaries](../experiments/preprocessing-tiles/report.md#completed-component-validation-scaling-104).
+   All independent CPU comparisons, hashes and CUDA memcheck pass. On four H200s
+   at2^22 points, the8 MiB/card host-backed forward transform takes1.303–1.305 s
+   versus235.820–236.090 ms resident, reducing owned allocations70.276→38.276 MiB
+   aggregate while adding32 MiB host staging. Fourteen split products take
+   3.019–3.020 s versus539.435–539.450 ms, reducing owned allocations
+   102.276→30.414 MiB and adding4 MiB-minus4bytes host temporary. These are
+   profiled bounded components, not fullsize time/peak measurements. The current
+   tiled transform repeatedly gathers Taylor sources (3230.969 MiB H2D per32 MiB
+   array) and launches thousands of waves. Review those costs in step5; do not
+   adopt this schedule as a fast default or extrapolate its penalty to fulls18.
 5. **Present a four-GPU versus sixteen-GPU decision.** Combine measured stage
    costs and memory lifetimes for a four-H200 hybrid; compare with a distributed
    resident layout on16H200/four HPC nodes. Include discovery, roots, Newton,

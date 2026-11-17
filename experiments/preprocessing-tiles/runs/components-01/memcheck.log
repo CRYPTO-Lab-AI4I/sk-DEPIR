@@ -1,0 +1,70 @@
+========= COMPUTE-SANITIZER
+{"completed":0,"elapsed_seconds":0.00002526,"event":"started","phase":"workflow","total":1,"unit":"operations","utc":"2026-11-17T14:54:33.959346366Z"}
+{"completed":0,"elapsed_seconds":0.010848022,"event":"started","phase":"setup","total":1,"unit":"operations","utc":"2026-11-17T14:54:33.970190202Z"}
+{"completed":1,"elapsed_seconds":4.844458002,"event":"completed","phase":"setup","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.803767837Z"}
+{"completed":0,"elapsed_seconds":4.844511403,"event":"started","phase":"discovery","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.803855922Z"}
+{"completed":0,"elapsed_seconds":4.844532887,"event":"started","phase":"exact-good-monomials","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.803877882Z"}
+{"completed":1,"elapsed_seconds":4.861537724,"event":"completed","phase":"exact-good-monomials","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.820880055Z"}
+{"completed":37,"elapsed_seconds":4.861805477,"event":"progress","phase":"discovery-sample","total":37,"unit":"coefficients","utc":"2026-11-17T14:54:38.821144827Z"}
+{"completed":0,"elapsed_seconds":4.86182199,"event":"started","phase":"discovery-base-grid","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.821166527Z"}
+{"completed":1,"elapsed_seconds":4.88810956,"event":"completed","phase":"discovery-base-grid","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.847452619Z"}
+{"completed":0,"elapsed_seconds":4.888149035,"event":"started","phase":"discovery-extension-interpolation","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.847493521Z"}
+{"completed":1,"elapsed_seconds":4.909586927,"event":"completed","phase":"discovery-extension-interpolation","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.868930235Z"}
+{"completed":256,"elapsed_seconds":4.909623339,"event":"progress","phase":"discovery-support-union","total":256,"unit":"positions","utc":"2026-11-17T14:54:38.868967732Z"}
+{"completed":256,"elapsed_seconds":4.909646007,"event":"progress","phase":"discovery-support-output","total":256,"unit":"positions","utc":"2026-11-17T14:54:38.868990058Z"}
+{"completed":37,"elapsed_seconds":4.909661761,"event":"progress","phase":"support-order-validation","total":37,"unit":"exponents","utc":"2026-11-17T14:54:38.869006399Z"}
+{"completed":37,"elapsed_seconds":4.909668839,"event":"progress","phase":"support-Frobenius-validation","total":37,"unit":"exponents","utc":"2026-11-17T14:54:38.869013977Z"}
+{"completed":1,"elapsed_seconds":4.909677058,"event":"completed","phase":"discovery","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.869021184Z"}
+{"completed":0,"elapsed_seconds":4.911690407,"event":"started","phase":"write-support.bin","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.871034803Z"}
+{"utc":"2026-11-17T14:54:38.873504329Z","phase":"write-support","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000013698}
+{"completed":148,"elapsed_seconds":4.915016466,"event":"progress","phase":"write-support.bin","total":148,"unit":"bytes","utc":"2026-11-17T14:54:38.874361006Z"}
+{"completed":1,"elapsed_seconds":4.915027139,"event":"completed","phase":"write-support.bin","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.874371637Z"}
+{"completed":0,"elapsed_seconds":4.92006541,"event":"started","phase":"read-support-support.bin","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.879409855Z"}
+{"completed":148,"elapsed_seconds":4.920770164,"event":"progress","phase":"read-support-support.bin","total":148,"unit":"bytes","utc":"2026-11-17T14:54:38.880114855Z"}
+{"completed":1,"elapsed_seconds":4.920780315,"event":"completed","phase":"read-support-support.bin","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.880123897Z"}
+{"completed":0,"elapsed_seconds":4.920787026,"event":"started","phase":"preparation-and-identities","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.880131648Z"}
+{"completed":0,"elapsed_seconds":4.920800228,"event":"started","phase":"validation","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.880145384Z"}
+{"completed":37,"elapsed_seconds":4.920816035,"event":"progress","phase":"support-order-validation","total":37,"unit":"exponents","utc":"2026-11-17T14:54:38.880161166Z"}
+{"completed":37,"elapsed_seconds":4.920821582,"event":"progress","phase":"support-Frobenius-validation","total":37,"unit":"exponents","utc":"2026-11-17T14:54:38.880166729Z"}
+{"completed":1,"elapsed_seconds":4.920836756,"event":"completed","phase":"validation","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.880172314Z"}
+{"completed":0,"elapsed_seconds":4.920842101,"event":"started","phase":"root-product","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.880187083Z"}
+{"completed":37,"elapsed_seconds":4.926495222,"event":"progress","phase":"root-product","total":37,"unit":"exponents","utc":"2026-11-17T14:54:38.885837631Z"}
+{"completed":1,"elapsed_seconds":4.926540753,"event":"completed","phase":"root-product","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.885885176Z"}
+{"completed":0,"elapsed_seconds":4.92655057,"event":"started","phase":"normalization","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.885894833Z"}
+{"completed":38,"elapsed_seconds":4.926559402,"event":"progress","phase":"normalization","total":38,"unit":"coefficients","utc":"2026-11-17T14:54:38.885903873Z"}
+{"completed":0,"elapsed_seconds":4.928066115,"event":"started","phase":"write-root.bin","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.887410531Z"}
+{"completed":152,"elapsed_seconds":4.960418998,"event":"progress","phase":"write-root.bin","total":152,"unit":"bytes","utc":"2026-11-17T14:54:38.919763559Z"}
+{"completed":1,"elapsed_seconds":4.960447581,"event":"completed","phase":"write-root.bin","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.919776274Z"}
+{"completed":0,"elapsed_seconds":4.965391093,"event":"started","phase":"read-root-root.bin","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.924735288Z"}
+{"completed":152,"elapsed_seconds":4.9665340780000005,"event":"progress","phase":"read-root-root.bin","total":152,"unit":"bytes","utc":"2026-11-17T14:54:38.925878329Z"}
+{"completed":1,"elapsed_seconds":4.966544637,"event":"completed","phase":"read-root-root.bin","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.925889086Z"}
+{"completed":1,"elapsed_seconds":4.966551544,"event":"completed","phase":"normalization","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.925896434Z"}
+{"completed":0,"elapsed_seconds":4.966557961,"event":"started","phase":"reciprocal","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.925902359Z"}
+{"completed":2,"elapsed_seconds":4.966564258,"event":"progress","phase":"reciprocal-prefix","total":219,"unit":"coefficients","utc":"2026-11-17T14:54:38.925908994Z"}
+{"completed":219,"elapsed_seconds":4.966615415,"event":"progress","phase":"reciprocal-prefix","total":219,"unit":"coefficients","utc":"2026-11-17T14:54:38.925960076Z"}
+{"completed":1,"elapsed_seconds":4.966621163,"event":"completed","phase":"reciprocal","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.925966256Z"}
+{"completed":0,"elapsed_seconds":4.966626297,"event":"started","phase":"identity","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.925970955Z"}
+{"completed":256,"elapsed_seconds":4.966645821,"event":"progress","phase":"identity-verification","total":256,"unit":"coefficients","utc":"2026-11-17T14:54:38.925990746Z"}
+{"completed":1,"elapsed_seconds":4.966651423,"event":"completed","phase":"identity","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.925996411Z"}
+{"completed":0,"elapsed_seconds":4.966993391,"event":"started","phase":"generator-spectrum","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.926338415Z"}
+{"completed":1,"elapsed_seconds":4.984849287,"event":"completed","phase":"generator-spectrum","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.944193518Z"}
+{"completed":1,"elapsed_seconds":4.984864776,"event":"completed","phase":"preparation-and-identities","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.944209172Z"}
+{"completed":0,"elapsed_seconds":4.984871656,"event":"selected","phase":"spectrum-tile-bytes","total":67108864,"unit":"bytes; zero=resident","utc":"2026-11-17T14:54:38.944216348Z"}
+{"completed":0,"elapsed_seconds":4.986327511,"event":"started","phase":"write-online.bin","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.945671469Z"}
+{"completed":1201,"elapsed_seconds":4.990330852,"event":"progress","phase":"write-online.bin","total":1201,"unit":"bytes","utc":"2026-11-17T14:54:38.949673498Z"}
+{"completed":1,"elapsed_seconds":4.9903404479999995,"event":"completed","phase":"write-online.bin","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.949685324Z"}
+{"completed":0,"elapsed_seconds":4.9903469959999995,"event":"started","phase":"write-generator.bin","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.949692125Z"}
+{"completed":876,"elapsed_seconds":4.992913264,"event":"progress","phase":"write-generator.bin","total":876,"unit":"bytes","utc":"2026-11-17T14:54:38.952257116Z"}
+{"completed":1,"elapsed_seconds":4.992920827,"event":"completed","phase":"write-generator.bin","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.952265821Z"}
+{"completed":0,"elapsed_seconds":4.992926464,"event":"started","phase":"read-.-generator.bin","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.952271573Z"}
+{"completed":876,"elapsed_seconds":4.99332447,"event":"progress","phase":"read-.-generator.bin","total":876,"unit":"bytes","utc":"2026-11-17T14:54:38.952668863Z"}
+{"completed":1,"elapsed_seconds":4.993334394,"event":"completed","phase":"read-.-generator.bin","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.952678643Z"}
+{"completed":0,"elapsed_seconds":4.993772543,"event":"started","phase":"verify-final-cache","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.953117351Z"}
+{"completed":1,"elapsed_seconds":4.993804792,"event":"completed","phase":"verify-final-cache","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.953149235Z"}
+{"completed":12040,"elapsed_seconds":5.009193286,"event":"observed","phase":"native-owned-bytes","total":8388608,"unit":"bytes","utc":"2026-11-17T14:54:38.968537186Z"}
+{"completed":148432,"elapsed_seconds":5.009202569,"event":"observed","phase":"device-owned-bytes","total":4294967296,"unit":"bytes","utc":"2026-11-17T14:54:38.968547328Z"}
+{"completed":1,"elapsed_seconds":5.015562041,"event":"completed","phase":"workflow","total":1,"unit":"operations","utc":"2026-11-17T14:54:38.974905254Z"}
+verified preprocessing cache: /hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-tiles/components-01/memcheck
+CPU profile: /hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-tiles/components-01/memcheck/cpu-1968566623.pprof
+========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+========= ERROR SUMMARY: 0 errors

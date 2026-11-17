@@ -76,8 +76,11 @@ full disk/export latency and memory savings remain unvalidated. Canonical export
 GPU validation76710 passed](experiments/preprocessing-export/report.md). No default or full
 preprocessing limit changes.
 The [bounded tiled-transform/split-product comparison](experiments/preprocessing-tiles/report.md)
-now has shared-kernel prototypes ready for GPU validation; full-size memory/runtime
-remain projections. It adds no default preprocessing mode.
+passes correctness and CUDA memcheck in job76756. At2^22 points on four H200s,
+host-backed forward transformation takes1.303–1.305 s versus235.820–236.090 ms
+resident; split multiplication takes3.019–3.020 s versus539.435–539.450 ms.
+Both save GPU memory, with extra host storage/work/transfers; full-size costs
+remain unknown. It adds no default preprocessing mode.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

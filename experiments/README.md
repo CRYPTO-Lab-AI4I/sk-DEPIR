@@ -74,7 +74,8 @@ original methodology; apply this policy to new optimization runs.
 
 - [Host-backed transforms and split products](preprocessing-tiles/report.md):
   shared-kernel bounded comparison, independent CPU fixtures and memory/transfer
-  counters; GPU validation pending, no full-size admission or default change.
+  counters; bounded validation76756 passes. Measured lower-memory options are
+  slower; full-size costs remain unknown, with no admission or default change.
 - [s18 preprocessing admission](s18-preprocessing-admission/report.md): one-GPU
   exact weighted-class dimension count, independent/known-size comparisons and
   explicit host/device/storage lifetime models; full preprocessing remains deferred.

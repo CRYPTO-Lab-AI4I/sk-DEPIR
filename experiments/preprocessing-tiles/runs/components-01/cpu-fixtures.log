@@ -1,0 +1,35 @@
+=== RUN   TestPreprocessingTileFixtures
+{"completed":0,"elapsed_seconds":0.000017598,"event":"started","phase":"fixture-transform-s4-d2","total":4,"unit":"points","utc":"2026-11-17T14:54:46.006710089Z"}
+{"completed":4,"elapsed_seconds":0.001319853,"event":"completed","phase":"fixture-transform-s4-d2","total":4,"unit":"points","utc":"2026-11-17T14:54:46.008015835Z"}
+{"completed":0,"elapsed_seconds":0.000001648,"event":"started","phase":"fixture-transform-s4-d5","total":32,"unit":"points","utc":"2026-11-17T14:54:46.008025945Z"}
+{"completed":32,"elapsed_seconds":0.001198412,"event":"completed","phase":"fixture-transform-s4-d5","total":32,"unit":"points","utc":"2026-11-17T14:54:46.009222745Z"}
+{"completed":0,"elapsed_seconds":0.000001509,"event":"started","phase":"fixture-transform-s4-d6","total":64,"unit":"points","utc":"2026-11-17T14:54:46.009231844Z"}
+{"completed":64,"elapsed_seconds":0.001085327,"event":"completed","phase":"fixture-transform-s4-d6","total":64,"unit":"points","utc":"2026-11-17T14:54:46.010315547Z"}
+{"completed":0,"elapsed_seconds":0.000001336,"event":"started","phase":"fixture-transform-s4-d8","total":256,"unit":"points","utc":"2026-11-17T14:54:46.010323484Z"}
+{"completed":256,"elapsed_seconds":0.002811454,"event":"completed","phase":"fixture-transform-s4-d8","total":256,"unit":"points","utc":"2026-11-17T14:54:46.01313296Z"}
+{"completed":0,"elapsed_seconds":0.000009905,"event":"started","phase":"fixture-transform-s17-d2","total":4,"unit":"points","utc":"2026-11-17T14:54:46.015516605Z"}
+{"completed":4,"elapsed_seconds":0.005677724,"event":"completed","phase":"fixture-transform-s17-d2","total":4,"unit":"points","utc":"2026-11-17T14:54:46.021185664Z"}
+{"completed":0,"elapsed_seconds":0.000002775,"event":"started","phase":"fixture-transform-s17-d7","total":128,"unit":"points","utc":"2026-11-17T14:54:46.021216916Z"}
+{"completed":128,"elapsed_seconds":0.007127339,"event":"completed","phase":"fixture-transform-s17-d7","total":128,"unit":"points","utc":"2026-11-17T14:54:46.02833932Z"}
+{"completed":0,"elapsed_seconds":0.000002876,"event":"started","phase":"fixture-transform-s17-d12","total":4096,"unit":"points","utc":"2026-11-17T14:54:46.028398758Z"}
+{"completed":1,"elapsed_seconds":0.005883418,"event":"progress","phase":"fixture-transform-s17-d12-scalar-check","total":4,"unit":"points","utc":"2026-11-17T14:54:46.034278166Z"}
+{"completed":2,"elapsed_seconds":0.006034697,"event":"progress","phase":"fixture-transform-s17-d12-scalar-check","total":4,"unit":"points","utc":"2026-11-17T14:54:46.034430048Z"}
+{"completed":3,"elapsed_seconds":0.006180476,"event":"progress","phase":"fixture-transform-s17-d12-scalar-check","total":4,"unit":"points","utc":"2026-11-17T14:54:46.03457627Z"}
+{"completed":4,"elapsed_seconds":0.006324405,"event":"progress","phase":"fixture-transform-s17-d12-scalar-check","total":4,"unit":"points","utc":"2026-11-17T14:54:46.034720544Z"}
+{"completed":4096,"elapsed_seconds":0.009068801,"event":"completed","phase":"fixture-transform-s17-d12","total":4096,"unit":"points","utc":"2026-11-17T14:54:46.037464158Z"}
+{"completed":0,"elapsed_seconds":0.000002367,"event":"started","phase":"fixture-transform-s17-d22","total":4194304,"unit":"points","utc":"2026-11-17T14:54:46.037481119Z"}
+{"completed":1,"elapsed_seconds":2.495661649,"event":"progress","phase":"fixture-transform-s17-d22-scalar-check","total":4,"unit":"points","utc":"2026-11-17T14:54:48.533130716Z"}
+{"completed":2,"elapsed_seconds":2.652787,"event":"progress","phase":"fixture-transform-s17-d22-scalar-check","total":4,"unit":"points","utc":"2026-11-17T14:54:48.690262224Z"}
+{"completed":3,"elapsed_seconds":2.819703884,"event":"progress","phase":"fixture-transform-s17-d22-scalar-check","total":4,"unit":"points","utc":"2026-11-17T14:54:48.857180243Z"}
+{"completed":4,"elapsed_seconds":2.986422105,"event":"progress","phase":"fixture-transform-s17-d22-scalar-check","total":4,"unit":"points","utc":"2026-11-17T14:54:49.023899144Z"}
+{"completed":4194304,"elapsed_seconds":3.186227711,"event":"completed","phase":"fixture-transform-s17-d22","total":4194304,"unit":"points","utc":"2026-11-17T14:54:49.223693753Z"}
+{"completed":0,"elapsed_seconds":0.000010803,"event":"started","phase":"fixture-wide-origin","total":131072,"unit":"points","utc":"2026-11-17T14:54:49.324215017Z"}
+{"completed":131072,"elapsed_seconds":0.19108106,"event":"completed","phase":"fixture-wide-origin","total":131072,"unit":"points","utc":"2026-11-17T14:54:49.515288123Z"}
+{"completed":0,"elapsed_seconds":0.000013118,"event":"started","phase":"fixture-product-s4-n64","total":64,"unit":"points","utc":"2026-11-17T14:54:49.522530356Z"}
+{"completed":64,"elapsed_seconds":0.001970104,"event":"completed","phase":"fixture-product-s4-n64","total":64,"unit":"points","utc":"2026-11-17T14:54:49.524488273Z"}
+{"completed":0,"elapsed_seconds":0.000004772,"event":"started","phase":"fixture-product-s17-n512","total":512,"unit":"points","utc":"2026-11-17T14:54:49.527070564Z"}
+{"completed":512,"elapsed_seconds":0.007231809,"event":"completed","phase":"fixture-product-s17-n512","total":512,"unit":"points","utc":"2026-11-17T14:54:49.534297782Z"}
+{"completed":0,"elapsed_seconds":0.000007737,"event":"started","phase":"fixture-product-s17-n4194304","total":4194304,"unit":"points","utc":"2026-11-17T14:54:49.562073964Z"}
+{"completed":4194304,"elapsed_seconds":7.326597711,"event":"completed","phase":"fixture-product-s17-n4194304","total":4194304,"unit":"points","utc":"2026-11-17T14:54:56.888660438Z"}
+--- PASS: TestPreprocessingTileFixtures (11.09s)
+PASS

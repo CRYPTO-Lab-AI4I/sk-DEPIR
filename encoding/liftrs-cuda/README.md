@@ -269,5 +269,7 @@ The tiled adapter borrows a fresh resident executor exclusively; the caller owns
 the full host array, with bounded per-card staging and device tiles. Split
 products borrow immutable inputs and assemble characteristic-two overlaps by XOR.
 These prototypes introduce no public ABI, automatic fallback or default change.
-GPU validation and measured latency penalties remain pending; the report states
-projected host/device savings, extra work and measurement boundaries.
+Bounded GPU validation76756 passes complete independent CPU/hash comparisons
+and CUDA memcheck. The report gives measured allocation savings and substantial
+latency penalties (about5.53 times forward-transform latency and5.60 times product
+latency on four cards at2^22 points). Full-size costs/feasibility remain unknown.

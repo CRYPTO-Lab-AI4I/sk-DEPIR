@@ -1,0 +1,4 @@
+Command: module load slurm/slurm/25.05; sacct -j 76756 --format=JobID,State,ExitCode,Elapsed,NodeList,AllocCPUS,ReqMem,MaxRSS -P
+JobID|State|ExitCode|Elapsed|NodeList|AllocCPUS|ReqMem|MaxRSS
+76756|COMPLETED|0:0|00:11:44|gnode04|4|8G|
+76756.batch|COMPLETED|0:0|00:11:44|gnode04|4||686108K
