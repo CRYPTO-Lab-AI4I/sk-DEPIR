@@ -282,7 +282,9 @@ native CPU arithmetic to validate a GPU-producer/D2H/MPI/H2D/GPU-consumer pipeli
 Each rank uses one GPU and bounded pinned buffers; MPI sees host pointers only.
 It introduces no backend/CLI default, public API, distributed transform/root
 support or CUDA-aware-MPI requirement. Normal CPU-client builds stay independent.
-First approved job77241 failed during source preparation before any GPU/MPI
-command. Snapshot selection is corrected and real-snapshot builds pass; same-budget
-retry77281 is submitted. GPU-direct capability and fulls18 costs remain
-unmeasured.
+Retry77281 passed on two HPC nodes with one H200 NVL and2CPU/4GiB requested
+host RAM each. At32MiB input/rank, median complete pipeline is11.827ms versus
+2.269ms matched host-only exchange. Full CPU/result/roundtrip checks and both
+CUDA memchecks pass. Peak normal rank RSS421.016MiB; largest owned device
+allocation33.500MiB/card. Actual root-polynomial transfer/merge is next;
+GPU-direct, distributed preprocessing and fulls18 costs remain unmeasured.

@@ -2,6 +2,7 @@
 from pathlib import Path
 import runpy
 import tempfile
+import json
 import unittest
 from unittest import mock
 HELP=runpy.run_path(str(Path(__file__).with_name('run.py')))
@@ -34,6 +35,23 @@ class Review(unittest.TestCase):
         with self.assertRaises(AssertionError):HELP['verify'](rows)
         rows=fixture();rows[14]['host']='node0'
         with self.assertRaises(AssertionError):HELP['verify'](rows)
+    def test_optional_command_summary_does_not_invent_RSS(self):
+        shared=runpy.run_path(str(Path(__file__).resolve().parent.parent/'s17-arithmetic/analyze.py'))['reconcile']
+        with tempfile.TemporaryDirectory()as temporary, mock.patch('subprocess.check_output',return_value=b''):
+            out=Path(temporary)
+            record=dict(status='passed',job_id='test',revision='test',cache=temporary,
+                source_sha256={},cache_sha256={},evidence_sha256={},commands=[dict(label='transfer',seconds=1,exit_code=0)])
+            (out/'results.json').write_text(json.dumps(record))
+            with self.assertRaises(KeyError):shared(out)
+            result=shared(out,command_fields=('label','seconds','exit_code'))
+            self.assertEqual(result['commands'],record['commands'])
+            self.assertNotIn('peak_rss_bytes',result['commands'][0])
+            for bad in (dict(exit_code=1),dict(guard='RSS')):
+                record['commands'][0].update(bad)
+                (out/'results.json').write_text(json.dumps(record))
+                with self.assertRaises(AssertionError):
+                    shared(out,command_fields=('label','seconds','exit_code'))
+                record['commands'][0]=dict(label='transfer',seconds=1,exit_code=0)
     def test_snapshot_is_git_blob_not_ignored_worktree(self):
         blob=b'package fixture\n';config=b'{}'
         tree=('100644 blob '+'a'*40+' '+str(len(blob))+'\tcode.go\n'

@@ -20,8 +20,14 @@ def check_commands(commands, expected_failures=None):
         assert command.get('expected_exit_code', 0) == wanted, command['label']
 
 
-def reconcile(out, require_success=True, source_overrides=None, expected_failures=None):
-    """Verify sealed hashes; forensic failed-run review must opt out of success."""
+def reconcile(out, require_success=True, source_overrides=None, expected_failures=None,
+              command_fields=('label','seconds','peak_rss_bytes','exit_code')):
+    """Verify seals; callers may explicitly report only collected command fields.
+
+    Default command schema stays strict. Rank-local probes can omit unmeasured
+    process-group RSS from summaries without inventing a zero measurement.
+    Success/exit/guard and source/evidence/cache verification are independent.
+    """
     record=json.loads((out/'results.json').read_text())
     if require_success: assert record['status']=='passed'
     # Evidence logs can be gigabytes even when code/cache metadata is small.
@@ -55,7 +61,7 @@ def reconcile(out, require_success=True, source_overrides=None, expected_failure
             'source_override_files_verified':sorted(overrides),'evidence_files_verified':len(record['evidence_sha256']),
             'cache_files_verified':len(record['cache_sha256']),
             'tests':['TestWideOrbitArithmetic','TestTableFreeFields'],
-            'commands':[{k:c[k] for k in ('label','seconds','peak_rss_bytes','exit_code')} for c in record['commands']],
+            'commands':[{k:c[k] for k in command_fields} for c in record['commands']],
             'scope':'scalar correctness; no transform/preprocessing/encoding capability at s17'}
     if expected_failures: result['expected_failure_commands_verified'] = dict(expected_failures)
     return result

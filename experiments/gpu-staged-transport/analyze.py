@@ -24,14 +24,14 @@ def summarize(rows):
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('name');args=parser.parse_args()
     out=HERE/'runs'/args.name;record=json.loads((out/'results.json').read_text())
-    result=runpy.run_path(str(HERE.parent/'s17-arithmetic/analyze.py'))['reconcile'](out)
+    result=runpy.run_path(str(HERE.parent/'s17-arithmetic/analyze.py'))['reconcile'](out,command_fields=('label','seconds','exit_code'))
     helper=runpy.run_path(str(HERE/'run.py'))
     rows=helper['parse'](out/'normal.log');helper['verify'](rows)
     sanitized=helper['parse'](out/'memcheck.log');helper['verify'](sanitized,small=True)
     assert rows==record['measurements'] and sanitized==record['sanitized']
     text=(out/'memcheck.log').read_text()
     assert text.count('ERROR SUMMARY: 0 errors')==2 and text.count('LEAK SUMMARY: 0 bytes')==2
-    result.update(summary=summarize(rows),tests=['canonical Go field fixture','full polynomial-basis CPU producer oracle',
+    result.update(summary=summarize(rows),command_RSS='not sampled; rank RSS is recorded in measurements, not an aggregate process-group peak',tests=['canonical Go field fixture','full polynomial-basis CPU producer oracle',
         'receiving GPU ownership/inverse plus full CPU output','full reverse ownership exchange',
         'two distinct nodes and paired timing coverage','two-rank CUDA memcheck and retained native/fixture profiles'],
         scope='two-node host-staged GPU communication component; no GPU-direct, distributed FFT/root pipeline, four-node or fullsize runtime')

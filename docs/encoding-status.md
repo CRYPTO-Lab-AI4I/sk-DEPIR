@@ -506,24 +506,37 @@ O(KlogK) searches in the already sorted indices. The K-index partition copy rema
 Allocation payload, sampled RSS and permanent Newton state are distinct measures.
 
 **Next:** use the explicit sorted option for these measured sparse root-worker
-workloads and proceed to GPU node-to-node staging/synchronization/rank ownership,
-then separately buffered persistent output. Ordinary full-support/cache/discovery
+workloads. GPU node-to-node staging/synchronization/rank ownership passed below;
+next integrate actual root-polynomial transfer/merge, then separately buffered
+persistent output. Ordinary full-support/cache/discovery
 validation stays bitmap; dense/fullsize search cost and complete s18 performance
 remain unknown. No automatic density/field switch, fullsize job or final GPU-count
 selection follows. Fulls17 CPU/GPU and fulls18-unrun cells are unchanged.
 
 The [GPU staged-transport gate](../experiments/gpu-staged-transport/report.md)
-**job77241 failed before any build/GPU/MPI command**
-([failure review](../experiments/gpu-staged-transport/runs/staged-01/failure-review.json)).
-An unrelated historical artifact exceeded the source file cap. Snapshot selection
-is corrected and real-snapshot CPU/CUDA builds pass; **same-budget retry77281
-is submitted** ([receipt/results](../experiments/gpu-staged-transport/submission-retry-02.json)).
-Runtime remains unmeasured. Allocation:2 HPC nodes with1 H200 and2CPU/4GiB requested
-RAM each,128MiB owned-device cap/card,64MiB pinned staging/rank and2GiB RSS guard/rank,
-15min scheduler. GPU production, copies, direct messages, receiving-GPU ownership,
-CPU oracle and roundtrip are separate checks/timings. The user explicitly approved this
-two-node GPU budget. Fulls18 capacity/runtime cells and
-ordinary CPU/GPU defaults remain unchanged.
+**retry 77281 passed**, following the corrected pre-compute snapshot failure
+77241. [Verified results](../experiments/gpu-staged-transport/runs/staged-02/analysis.json).
+HPC:2 nodes (gnode04/05),1 H200 NVL and2 CPU/4 GiB requested host RAM per node;
+128 MiB owned-device cap/card,64 MiB pinned staging/rank,2 GiB RSS guard/rank,
+15-minute scheduler cutoff. Actual job elapsed **34 seconds**.
+
+| Bounded input per rank | Matched host-only exchange | Complete GPU/staging/exchange pipeline | Remote payload rate per node (MPI / complete pipeline) |
+|---|---|---|---|
+| 1 MiB | 0.0817 ms | 0.4518 ms | 2.717 / 1.081 GiB/s |
+| 8 MiB | 0.5849 ms | 3.0172 ms | 2.497 / 1.295 GiB/s |
+| 32 MiB | 2.2691 ms | 11.8274 ms | 2.568 / 1.321 GiB/s |
+
+Three-pass medians after warm-up; slowest-rank timing maxima. Remote payload is
+half the input per node; complete-pipeline rate is not network bandwidth.
+Normal peak rank RSS:421.016 MiB /411.207 MiB; largest owned device allocation:
+33.500 MiB/card; pinned host buffers:64 MiB/rank. This is not total job memory.
+Full CPU arithmetic/result, GPU ownership, reverse exchange and both CUDA
+memchecks pass. Profiling/logging are included; independent correctness checks
+and builds are outside pipeline timing but inside job duration.
+Next is actual normalized-root polynomial computation/transfer/merge across ranks.
+No distributed FFT/root pipeline, GPU-direct, four-node/full-size throughput or
+fulls18 capacity/runtime is established. Fulls17 CPU/GPU results and fulls18-unrun
+cells remain unchanged; ordinary CPU/GPU defaults remain unchanged.
 
 ## Measurement boundaries for batch entries
 

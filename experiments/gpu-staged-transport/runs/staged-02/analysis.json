@@ -1,0 +1,138 @@
+{
+  "status": "passed",
+  "job_id": "77281",
+  "revision": "6931f6c9e3a96110704bed9457c516a6d16ca21e",
+  "source_files_verified": 613,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 16,
+  "cache_files_verified": 9,
+  "tests": [
+    "canonical Go field fixture",
+    "full polynomial-basis CPU producer oracle",
+    "receiving GPU ownership/inverse plus full CPU output",
+    "full reverse ownership exchange",
+    "two distinct nodes and paired timing coverage",
+    "two-rank CUDA memcheck and retained native/fixture profiles"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.019038558937609196,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.03511850209906697,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.9698674692772329,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 0.026041803881525993,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.06883036671206355,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.03778053680434823,
+      "exit_code": 0
+    },
+    {
+      "label": "fixture-build",
+      "seconds": 16.010192443151027,
+      "exit_code": 0
+    },
+    {
+      "label": "field-fixture",
+      "seconds": 0.3389818971045315,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 2.972125992644578,
+      "exit_code": 0
+    },
+    {
+      "label": "link",
+      "seconds": 0.2680597617290914,
+      "exit_code": 0
+    },
+    {
+      "label": "normal",
+      "seconds": 4.583738447632641,
+      "exit_code": 0
+    },
+    {
+      "label": "memcheck",
+      "seconds": 2.426291558891535,
+      "exit_code": 0
+    },
+    {
+      "label": "native-profile-0",
+      "seconds": 0.009610957931727171,
+      "exit_code": 0
+    },
+    {
+      "label": "native-profile-1",
+      "seconds": 0.010621502995491028,
+      "exit_code": 0
+    }
+  ],
+  "scope": "two-node host-staged GPU communication component; no GPU-direct, distributed FFT/root pipeline, four-node or fullsize runtime",
+  "summary": [
+    {
+      "input_MiB_per_rank": 1.0,
+      "remote_MiB_per_node": 0.5,
+      "median_seconds": {
+        "host_seconds": 8.1699e-05,
+        "producer_seconds": 2.0908e-05,
+        "d2h_seconds": 0.000159467,
+        "exchange_seconds": 0.000179735,
+        "h2d_seconds": 0.000159475,
+        "consumer_seconds": 3.4755e-05,
+        "pipeline_seconds": 0.000451793
+      },
+      "remote_payload_GiBs_per_node": 2.716673157704398,
+      "effective_pipeline_payload_GiBs_per_node": 1.080763203502489
+    },
+    {
+      "input_MiB_per_rank": 8.0,
+      "remote_MiB_per_node": 4.0,
+      "median_seconds": {
+        "host_seconds": 0.000584942,
+        "producer_seconds": 4.1782e-05,
+        "d2h_seconds": 0.001185716,
+        "exchange_seconds": 0.001564182,
+        "h2d_seconds": 0.001181249,
+        "consumer_seconds": 6.4055e-05,
+        "pipeline_seconds": 0.003017188
+      },
+      "remote_payload_GiBs_per_node": 2.497311693907742,
+      "effective_pipeline_payload_GiBs_per_node": 1.2946657616297028
+    },
+    {
+      "input_MiB_per_rank": 32.0,
+      "remote_MiB_per_node": 16.0,
+      "median_seconds": {
+        "host_seconds": 0.002269115,
+        "producer_seconds": 9.2911e-05,
+        "d2h_seconds": 0.004692944,
+        "exchange_seconds": 0.006084437,
+        "h2d_seconds": 0.00468267,
+        "consumer_seconds": 0.000153512,
+        "pipeline_seconds": 0.011827406
+      },
+      "remote_payload_GiBs_per_node": 2.5680272472210657,
+      "effective_pipeline_payload_GiBs_per_node": 1.321084268181882
+    }
+  ],
+  "command_RSS": "not sampled; rank RSS is recorded in measurements, not an aggregate process-group peak"
+}

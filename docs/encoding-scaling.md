@@ -2224,10 +2224,11 @@ zero GPUs,2CPU/4GiB requested RAM per node,5s whole job. Complete34bit pattern
 and roundtrip checks pass. At32MiB input/node, median forward time2.447ms
 corresponds to6.385GiB/s remote payload per node (16MiB remote bytes/node).
 Four-node GPU transport and distributed preprocessing remain unmeasured.
-With the shared-root prerequisite reviewed, independent root-worker timing is
-next, before staged GPU/rank communication. Large buffered persistence remains
-a separate gate. Full distributed roots/transforms remain unimplemented; the
-bounded same-node prototype below does not establish their performance.
+Independent root-worker timing and staged GPU/rank communication now pass the
+bounded gates below. Next integrate actual normalized-root subsets and polynomial
+transfer/merge across ranks. Large buffered persistence remains a separate gate.
+Full distributed roots/transforms remain unimplemented; bounded components do not
+establish their full-size performance.
 
 SCALING-109 next-work order is explicit:
 
@@ -2255,23 +2256,21 @@ SCALING-109 next-work order is explicit:
 3. Then measure node-to-node GPU computation/communication, including host staging,
    synchronization and deterministic rank ownership. Host-only77127 is insufficient
    to select GPU count or claim a four-node full-size bandwidth.
-   SCALING-113: [two-node GPU staged pipeline](../experiments/gpu-staged-transport/report.md)
-   **job77241 failed in snapshot preparation before any compute command**
-   ([failure review](../experiments/gpu-staged-transport/runs/staged-01/failure-review.json)).
-   SCALING-115 corrects build-input selection, excluding historical artifacts and
-   preflighting file/total sizes. The real tracked snapshot (613files,2.9MB) passes
-   CPU fixture and profiled CUDA/MPI builds. **Same-budget retry77281 submitted**,
-   fresh staged-02 ([receipt/results](../experiments/gpu-staged-transport/submission-retry-02.json)).
-   No monitoring; await completion ping. No GPU runtime evidence yet. One GPU/rank produces field values with maintained CUDA
-   arithmetic, D2H pinned staging, direct MPI ownership exchange, H2D and verified
-   GPU consumption. Full CPU polynomial oracle and reverse ownership checks;
-   matched host baseline and phase/max/pipeline clocks, profiles and small two-rank
-   CUDA memcheck. No filesystem array workspace or GPU-direct/FFT/root claim.
-   Freeze tracked Git inputs; retain field metadata/binaries/logs/profiles. Budget
-   explicitly approved:2nodes/2H200/4CPU/8GiBhost total,128MiB owned/card,64MiB pinned
-   and2GiB RSS/rank,15min scheduler; previous two-node gate used0GPUs/10min.
-   After pass, integrate actual normalized-root subsets and joined polynomial
-   transfer/merge across ranks using existing helpers and explicit subset mode.
+   SCALING-116: [two-node GPU staged pipeline](../experiments/gpu-staged-transport/report.md)
+   **retry77281 passed**, after correcting snapshot selection from failed77241.
+   HPC2nodes/2H200/4CPU/8GiB requested host RAM total;34s job elapsed. At32MiB
+   input/rank, matched host exchange is2.269ms and complete GPU/D2H/MPI/H2D/GPU
+   pipeline is11.827ms (three-pass medians). Peak normal rank RSS421.016MiB;
+   largest owned device allocation33.500MiB/card, pinned buffers64MiB/rank.
+   Independent CPU/ownership/reverse-exchange checks and both CUDA memchecks pass;
+   source/evidence/cache seals and profiles retained. Phase maxima are not additive,
+   pipeline timing excludes independent correctness checks; job duration includes
+   them. Field multiplication is the bounded producer/consumer, not a distributed
+   FFT/root pipeline. No GPU-direct/four-node/fullsize inference or budget increase.
+   **Next: integrate actual normalized-root subsets and joined polynomial
+   transfer/merge across ranks**, using existing helpers and explicit sorted subset
+   validation for the measured sparse cases. Include complete transfer, merge and
+   canonical/CPU checks in workflow elapsed time; keep intermediate arrays in RAM.
 4. Separately validate large buffered persistence and controlled writer concurrency.
 5. Compare complete elapsed time across practical allocations before choosing the
    final GPU/node count or giving a fulls18 runtime estimate. Preserve fast defaults,

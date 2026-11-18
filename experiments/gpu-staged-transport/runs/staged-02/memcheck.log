@@ -1,0 +1,102 @@
+1: [2026-11-18T16:07:36.709] error: couldn't chdir to `/tmp/depir-gpu-exchange-77281/source': No such file or directory: going to /tmp instead
+1: [2026-11-18T16:07:36.716] error: couldn't chdir to `/tmp/depir-gpu-exchange-77281/source': No such file or directory: going to /tmp instead
+1: ========= COMPUTE-SANITIZER
+0: ========= COMPUTE-SANITIZER
+1: --------------------------------------------------------------------------
+1: WARNING: No preset parameters were found for the device that Open MPI
+1: detected:
+1: 
+1:   Local host:            gnode05
+1:   Device name:           mlx5_0
+1:   Device vendor ID:      0x02c9
+1:   Device vendor part ID: 4129
+1: 
+1: Default device parameters will be used, which may result in lower
+1: performance.  You can edit any of the files specified by the
+1: btl_openib_device_param_files MCA parameter to set values for your
+1: device.
+1: 
+1: NOTE: You can turn off this warning by setting the MCA parameter
+1:       btl_openib_warn_no_device_params_found to 0.
+1: --------------------------------------------------------------------------
+1: --------------------------------------------------------------------------
+1: WARNING: There was an error initializing an OpenFabrics device.
+1: 
+1:   Local host:   gnode05
+1:   Local device: mlx5_1
+1: --------------------------------------------------------------------------
+0: --------------------------------------------------------------------------
+0: WARNING: No preset parameters were found for the device that Open MPI
+0: detected:
+0: 
+0:   Local host:            gnode04
+0:   Device name:           mlx5_0
+0:   Device vendor ID:      0x02c9
+0:   Device vendor part ID: 4129
+0: 
+0: Default device parameters will be used, which may result in lower
+0: performance.  You can edit any of the files specified by the
+0: btl_openib_device_param_files MCA parameter to set values for your
+0: device.
+0: 
+0: NOTE: You can turn off this warning by setting the MCA parameter
+0:       btl_openib_warn_no_device_params_found to 0.
+0: --------------------------------------------------------------------------
+0: --------------------------------------------------------------------------
+0: WARNING: There was an error initializing an OpenFabrics device.
+0: 
+0:   Local host:   gnode04
+0:   Local device: mlx5_1
+0: --------------------------------------------------------------------------
+0: {"kind":"host","rank":0,"host":"gnode04","gpu":"NVIDIA H200 NVL","device_capacity_bytes":150109880320,"cuda_runtime_version":12090,"cuda_driver_api_version":13000}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"staged-exchange","event":"started","completed":0,"total":2,"unit":"passes","bytes":32768,"elapsed_seconds":0.596078798,"peak_rss_bytes":413978624}
+1: {"kind":"host","rank":1,"host":"gnode05","gpu":"NVIDIA H200 NVL","device_capacity_bytes":150109880320,"cuda_runtime_version":12090,"cuda_driver_api_version":13000}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"staged-exchange","event":"started","completed":0,"total":2,"unit":"passes","bytes":32768,"elapsed_seconds":0.914059717,"peak_rss_bytes":402472960}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"host-ownership-reference","event":"started","completed":0,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.917141711,"peak_rss_bytes":413978624}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"host-ownership-reference","event":"completed","completed":4096,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.917166094,"peak_rss_bytes":413978624}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"host-ownership-reference","event":"started","completed":0,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.914297884,"peak_rss_bytes":402472960}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"host-ownership-reference","event":"completed","completed":4096,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.914316713,"peak_rss_bytes":402472960}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"CPU-producer-reference","event":"started","completed":0,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.918575081,"peak_rss_bytes":416075776}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"CPU-producer-reference","event":"started","completed":0,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.91574238,"peak_rss_bytes":403521536}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"CPU-producer-reference","event":"completed","completed":4096,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.915904311,"peak_rss_bytes":403521536}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"CPU-consumer-reference","event":"started","completed":0,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.915926885,"peak_rss_bytes":403521536}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"CPU-consumer-reference","event":"completed","completed":4096,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.915941071,"peak_rss_bytes":403521536}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"reverse-ownership-reference","event":"started","completed":0,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.91600452,"peak_rss_bytes":403521536}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"reverse-ownership-reference","event":"completed","completed":4096,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.916025313,"peak_rss_bytes":403521536}
+1: {"kind":"measurement","rank":1,"bytes":32768,"sample":-1,"host_seconds":0.00015413,"producer_seconds":0.00097879,"d2h_seconds":2.7113e-05,"exchange_seconds":4.469e-05,"h2d_seconds":2.0191e-05,"consumer_seconds":0.000336455,"pipeline_seconds":0.001379927,"setup_seconds_local":0.001940861,"owned_device_bytes":1605628,"pinned_host_bytes":65536,"peak_rss_bytes":403521536,"matches":true}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"staged-exchange","event":"completed","completed":1,"total":2,"unit":"passes","bytes":32768,"elapsed_seconds":0.916035741,"peak_rss_bytes":403521536}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"staged-exchange","event":"started","completed":1,"total":2,"unit":"passes","bytes":32768,"elapsed_seconds":0.916038598,"peak_rss_bytes":403521536}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"host-ownership-reference","event":"started","completed":0,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.916057443,"peak_rss_bytes":403521536}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"host-ownership-reference","event":"completed","completed":4096,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.916071033,"peak_rss_bytes":403521536}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"CPU-producer-reference","event":"started","completed":0,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.916444866,"peak_rss_bytes":403521536}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"CPU-producer-reference","event":"completed","completed":4096,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.916603933,"peak_rss_bytes":403521536}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"CPU-consumer-reference","event":"started","completed":0,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.916624611,"peak_rss_bytes":403521536}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"CPU-consumer-reference","event":"completed","completed":4096,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.916638535,"peak_rss_bytes":403521536}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"reverse-ownership-reference","event":"started","completed":0,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.916651955,"peak_rss_bytes":403521536}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"reverse-ownership-reference","event":"completed","completed":4096,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.916658769,"peak_rss_bytes":403521536}
+1: {"kind":"measurement","rank":1,"bytes":32768,"sample":0,"host_seconds":1.4118e-05,"producer_seconds":0.000141621,"d2h_seconds":2.2349e-05,"exchange_seconds":1.5629e-05,"h2d_seconds":1.9635e-05,"consumer_seconds":0.000167127,"pipeline_seconds":0.000361599,"setup_seconds_local":0.001940861,"owned_device_bytes":1605628,"pinned_host_bytes":65536,"peak_rss_bytes":403521536,"matches":true}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"staged-exchange","event":"completed","completed":2,"total":2,"unit":"passes","bytes":32768,"elapsed_seconds":0.916665712,"peak_rss_bytes":403521536}
+1: {"utc":"2026-11-18T15:07:38Z","rank":1,"phase":"workflow","event":"completed","completed":1,"total":1,"unit":"passes","bytes":32768,"elapsed_seconds":0.917290256,"peak_rss_bytes":403521536}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"CPU-producer-reference","event":"completed","completed":4096,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.918727505,"peak_rss_bytes":416075776}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"CPU-consumer-reference","event":"started","completed":0,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.918759485,"peak_rss_bytes":416075776}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"CPU-consumer-reference","event":"completed","completed":4096,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.918774258,"peak_rss_bytes":416075776}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"reverse-ownership-reference","event":"started","completed":0,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.918838927,"peak_rss_bytes":416075776}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"reverse-ownership-reference","event":"completed","completed":4096,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.918847807,"peak_rss_bytes":416075776}
+0: {"kind":"measurement","rank":0,"bytes":32768,"sample":-1,"host_seconds":0.00015413,"producer_seconds":0.00097879,"d2h_seconds":2.7113e-05,"exchange_seconds":4.469e-05,"h2d_seconds":2.0191e-05,"consumer_seconds":0.000336455,"pipeline_seconds":0.001379927,"setup_seconds_local":0.001867735,"owned_device_bytes":1605628,"pinned_host_bytes":65536,"peak_rss_bytes":416075776,"matches":true}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"staged-exchange","event":"completed","completed":1,"total":2,"unit":"passes","bytes":32768,"elapsed_seconds":0.918855932,"peak_rss_bytes":416075776}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"staged-exchange","event":"started","completed":1,"total":2,"unit":"passes","bytes":32768,"elapsed_seconds":0.918858426,"peak_rss_bytes":416075776}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"host-ownership-reference","event":"started","completed":0,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.91889264,"peak_rss_bytes":416075776}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"host-ownership-reference","event":"completed","completed":4096,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.918905769,"peak_rss_bytes":416075776}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"CPU-producer-reference","event":"started","completed":0,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.919276429,"peak_rss_bytes":416075776}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"CPU-producer-reference","event":"completed","completed":4096,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.919425286,"peak_rss_bytes":416075776}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"CPU-consumer-reference","event":"started","completed":0,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.919449131,"peak_rss_bytes":416075776}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"CPU-consumer-reference","event":"completed","completed":4096,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.919462306,"peak_rss_bytes":416075776}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"reverse-ownership-reference","event":"started","completed":0,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.919485873,"peak_rss_bytes":416075776}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"reverse-ownership-reference","event":"completed","completed":4096,"total":4096,"unit":"words","bytes":32768,"elapsed_seconds":0.919491943,"peak_rss_bytes":416075776}
+0: {"kind":"measurement","rank":0,"bytes":32768,"sample":0,"host_seconds":1.4118e-05,"producer_seconds":0.000141621,"d2h_seconds":2.2349e-05,"exchange_seconds":1.5629e-05,"h2d_seconds":1.9635e-05,"consumer_seconds":0.000167127,"pipeline_seconds":0.000361599,"setup_seconds_local":0.001867735,"owned_device_bytes":1605628,"pinned_host_bytes":65536,"peak_rss_bytes":416075776,"matches":true}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"staged-exchange","event":"completed","completed":2,"total":2,"unit":"passes","bytes":32768,"elapsed_seconds":0.919498488,"peak_rss_bytes":416075776}
+0: {"utc":"2026-11-18T15:07:38Z","rank":0,"phase":"workflow","event":"completed","completed":1,"total":1,"unit":"passes","bytes":32768,"elapsed_seconds":0.920147719,"peak_rss_bytes":416075776}
+1: ========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+1: ========= ERROR SUMMARY: 0 errors
+0: ========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+0: ========= ERROR SUMMARY: 0 errors
