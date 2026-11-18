@@ -1,0 +1,23 @@
+{
+  "job_id": "77127",
+  "name": "exchange-01",
+  "submitted_utc": "2026-11-18T09:53:08.048840+00:00",
+  "prepared_source_revision": "9a1bbf7",
+  "submission_base_revision": "e06a33d",
+  "status": "submitted; not monitored",
+  "approval": "User explicitly approved two-node transport test",
+  "results": "experiments/preprocessing-transport/runs/exchange-01/results.json",
+  "log": "experiments/preprocessing-transport/slurm-77127.log",
+  "cache": ".cache/liftrs/preprocessing-transport/exchange-01/",
+  "resources": {
+    "nodes": 2,
+    "ranks": 2,
+    "cpu_cores_per_node": 2,
+    "host_requested_GiB_per_node": 4,
+    "gpus": 0,
+    "owned_buffers_MiB_per_rank": 64,
+    "rss_guard_GiB_per_rank": 1,
+    "mpi_timeout_seconds": 300,
+    "scheduler_minutes": 10
+  }
+}

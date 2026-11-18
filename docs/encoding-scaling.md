@@ -2217,8 +2217,9 @@ support or prove a memory saving. [Native/GPU recovery validation](../experiment
 is **submitted as job77126**, within the existing single-node budget
 ([receipt/results](../experiments/preprocessing-root-boundary/submission.json)).
 No monitoring; await completion ping. [Two-node RAM transport gate](../experiments/preprocessing-transport/report.md)
-is compiled/prepared with no GPU dependency; second-node resource agreement is
-required before submission. Full parallel roots and distributed transforms remain
+is **submitted as job77127**, after explicit second-node budget agreement
+([receipt/results](../experiments/preprocessing-transport/submission.json)); zero GPUs,
+2CPU/4GiB requested RAM per node,10min scheduler. No monitoring. Full parallel roots and distributed transforms remain
 unimplemented. Keep computation and persistent-write gates separate.
 
 Streaming adds no transforms or canonical output bytes, but synchronous chunk

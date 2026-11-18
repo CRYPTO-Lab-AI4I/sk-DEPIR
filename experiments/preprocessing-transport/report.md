@@ -1,6 +1,9 @@
 # Two-node memory redistribution gate
 
-Status: compiled/prepared, **not submitted**; multi-node budget approval pending.
+Status: **job77127 submitted**, following explicit two-node budget approval.
+[Receipt](submission.json), [results](runs/exchange-01/), [Slurm log](slurm-77127.log).
+Prepared probe/controller source `9a1bbf7`; the runner seals its actual revision
+and source identities. No monitoring after submission.
 Work SCALING-106. No distributed GPU/root performance or bandwidth established.
 
 [Probe](probe.cpp), [guarded runner](run.py), [review tests](test_review.py), [Slurm entry](run.sbatch).
@@ -30,7 +33,7 @@ traffic remain unmeasured. Timestamped pass start/completion events flush at eac
 bounded exchange; if a single exchange stalls, remaining work is unknown and the
 controller deadline terminates it rather than reporting false progress.
 
-Prepared budget, **requiring agreement because it adds a second node**:
+Approved budget (explicit user agreement recorded in the submission receipt):
 
 | Resource | Limit |
 |---|---|

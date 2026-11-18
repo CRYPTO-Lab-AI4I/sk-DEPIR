@@ -81,7 +81,7 @@ original methodology; apply this policy to new optimization runs.
   backend/recovery validation pending, no measured memory saving.
 - [Two-node RAM redistribution](preprocessing-transport/report.md): compiled
   optional MPI host-memory probe, no shared-file intermediates; two-node budget
-  approval pending, zero GPUs, not a distributed transform/root benchmark.
+  approved and job77127 submitted, zero GPUs; not a distributed transform/root benchmark.
 - [s18 preprocessing route comparison](s18-preprocessing-routes/report.md):
   reproducible whole-workflow host/device/Newton/storage models and hypothetical
   communication/work scaling; distributed host/root/GPU design recommended for

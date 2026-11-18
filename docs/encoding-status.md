@@ -461,7 +461,8 @@ Distributed prototyping is selected. The [shared root boundary](../experiments/p
 is implemented with local subset-merge tests passing; full backend/recovery
 validation **job77126 submitted** ([receipt](../experiments/preprocessing-root-boundary/submission.json)).
 A [two-node host-memory exchange](../experiments/preprocessing-transport/report.md)
-is compiled/prepared but needs a concrete two-node budget approval. Intermediates
+is **submitted as job77127**, after explicit two-node budget approval
+([receipt](../experiments/preprocessing-transport/submission.json)). Intermediates
 stay in RAM/direct messages; buffered persistent output and bounded writer
 concurrency are a separate validation gate. No new full-size measurement or RAM
 saving is established; existing CPU/GPU resident results remain unchanged.

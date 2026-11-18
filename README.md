@@ -89,7 +89,7 @@ remain unmeasured, with no new full-run budget or default selected. Distributed 
 Distributed preprocessing prototyping now separates the shared normalized-root
 and generator stages, preserving existing arithmetic and recovery. [Bounded
 backend validation](experiments/preprocessing-root-boundary/report.md) and a
-[prepared two-node RAM exchange gate](experiments/preprocessing-transport/report.md)
+[two-node RAM exchange gate](experiments/preprocessing-transport/report.md)
 precede integration. Intermediate exchanges stay in memory; checkpoint/final
 writes are a separate buffered, controlled-concurrency validation gate.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
