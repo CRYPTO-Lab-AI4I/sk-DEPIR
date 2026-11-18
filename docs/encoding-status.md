@@ -477,7 +477,9 @@ The next measurement is [independent root workers including complete merge](../e
 before node-to-node GPU staging/communication and separately buffered persistence.
 A same-node1/2/4-worker prototype uses shared arithmetic, one genuine small support
 and bounded synthetic s12/s17 root subsets with complete CPU references. It is
-implemented but unmeasured; fulls18 speed and final GPU count remain undecided.
+implemented but unmeasured; **job77148 submitted**
+([receipt/results](../experiments/parallel-root-workers/submission.json)). Fulls18
+speed and final GPU count remain undecided.
 
 ## Measurement boundaries for batch entries
 

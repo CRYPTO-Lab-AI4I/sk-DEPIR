@@ -1,6 +1,9 @@
 # Independent GPU root workers, including merge
 
-Status: prototype prepared; GPU performance/correctness validation pending.
+Status: **job77148 submitted**; GPU performance/correctness validation pending.
+[Receipt](submission.json), [results](runs/roots-01/), [Slurm log](slurm-77148.log).
+Prepared source `00360cc`; the controller seals actual revision and copied sources.
+No monitoring after submission.
 Work SCALING-109. [Prerequisite root-boundary validation77126 passed](../preprocessing-root-boundary/report.md#completed-validation-and-source-reconciliation-scaling-109).
 This is a same-node scheduling component, not distributed preprocessing support.
 

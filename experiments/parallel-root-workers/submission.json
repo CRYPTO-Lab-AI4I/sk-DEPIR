@@ -1,0 +1,25 @@
+{
+  "job_id": "77148",
+  "name": "roots-01",
+  "submitted_utc": "2026-11-18T11:05:02.731008+00:00",
+  "prepared_revision": "00360cc",
+  "status": "submitted; not monitored",
+  "results": "experiments/parallel-root-workers/runs/roots-01/results.json",
+  "log": "experiments/parallel-root-workers/slurm-77148.log",
+  "cache": ".cache/liftrs/parallel-root-workers/roots-01/",
+  "resources": {
+    "nodes": 1,
+    "gpus": 4,
+    "gpu_model": "H200",
+    "cpu_cores": 4,
+    "host_requested_GiB": 8,
+    "rss_guard_GiB": 6,
+    "go_target_GiB": 4,
+    "owned_device_cap_GiB": 4,
+    "new_executor_per_card_cap_MiB": 128,
+    "retained_cap_GiB": 2,
+    "scratch_cap_GiB": 4,
+    "controller_minutes": 15,
+    "scheduler_minutes": 20
+  }
+}

@@ -2234,7 +2234,9 @@ SCALING-109 next-work order is explicit:
 1. Root/backend prerequisite77126 passed; use the same root/product arithmetic.
 2. **Measure independent root workers including final merge first.** The
    [same-node1/2/4GPU worker prototype](../experiments/parallel-root-workers/report.md)
-   is implemented for bounded validation; compare whole-root scheduling, setup,
+   is implemented; **bounded job77148 submitted**
+   ([receipt/results](../experiments/parallel-root-workers/submission.json)).
+   Compare whole-root scheduling, setup,
    partitioning, worker wall time and merge, with full CPU polynomial agreement.
    This is a component gate, not fulls18 or cross-node speed evidence.
 3. Then measure node-to-node GPU computation/communication, including host staging,
