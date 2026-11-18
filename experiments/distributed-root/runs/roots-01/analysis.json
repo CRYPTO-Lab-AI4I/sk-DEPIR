@@ -1,0 +1,142 @@
+{
+  "status": "passed",
+  "job_id": "77285",
+  "revision": "f80a6858f3e3c2155627ee983e867ba875ce6fad",
+  "source_files_verified": 621,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 20,
+  "cache_files_verified": 35,
+  "tests": [
+    "shared-fixture historical digests",
+    "complete normalized CPU root coefficients",
+    "independent scalar root witnesses",
+    "cross-rank saved polynomial equality",
+    "two distinct ranks/nodes",
+    "full receiving-GPU merge equality",
+    "both CUDA memchecks",
+    "source/evidence/cache seals"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.02020945301046595,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.0361795459757559,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 1.0709849250270054,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 0.07093163800891489,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.03889728803187609,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.5230466580251232,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 19.59756699204445,
+      "exit_code": 0
+    },
+    {
+      "label": "root-build",
+      "seconds": 36.97319495299598,
+      "exit_code": 0
+    },
+    {
+      "label": "fixture-regression",
+      "seconds": 18.50310663395794,
+      "exit_code": 0
+    },
+    {
+      "label": "partition-tests",
+      "seconds": 2.0297215979662724,
+      "exit_code": 0
+    },
+    {
+      "label": "partition-race",
+      "seconds": 19.151300520985387,
+      "exit_code": 0
+    },
+    {
+      "label": "normal",
+      "seconds": 24.85676901199622,
+      "exit_code": 0
+    },
+    {
+      "label": "memcheck",
+      "seconds": 3.624835708993487,
+      "exit_code": 0
+    },
+    {
+      "label": "profile-0",
+      "seconds": 19.417633939010557,
+      "exit_code": 0
+    },
+    {
+      "label": "profile-1",
+      "seconds": 1.120731440023519,
+      "exit_code": 0
+    }
+  ],
+  "scope": "bounded distributed root products/host-polynomial exchange/replicated GPU merge; no generator, spectrum, full s18, scalable support discovery or multi-level merge tree",
+  "summary": [
+    {
+      "case": 0,
+      "s": 8,
+      "support_count": 7381,
+      "median_seconds": {
+        "seconds": 0.012815883,
+        "partition_seconds": 0.000995924,
+        "root_seconds": 0.00608969,
+        "exchange_seconds": 0.0003260905,
+        "merge_seconds": 0.0053919805,
+        "verify_seconds": 0.000153742
+      },
+      "remote_bytes_rank0": 14764
+    },
+    {
+      "case": 1,
+      "s": 17,
+      "support_count": 65536,
+      "median_seconds": {
+        "seconds": 0.27436338250000003,
+        "partition_seconds": 0.014111496000000001,
+        "root_seconds": 0.216356881,
+        "exchange_seconds": 0.008748354,
+        "merge_seconds": 0.042891252,
+        "verify_seconds": 0.0010331024999999999
+      },
+      "remote_bytes_rank0": 131076
+    },
+    {
+      "case": 2,
+      "s": 17,
+      "support_count": 262144,
+      "median_seconds": {
+        "seconds": 1.1798287825,
+        "partition_seconds": 0.0631594285,
+        "root_seconds": 1.0103933925000002,
+        "exchange_seconds": 0.023985885,
+        "merge_seconds": 0.1016595015,
+        "verify_seconds": 0.0037337985
+      },
+      "remote_bytes_rank0": 524292
+    }
+  ],
+  "command_RSS": "not sampled; rank high-water RSS in measurements is not aggregate job memory"
+}

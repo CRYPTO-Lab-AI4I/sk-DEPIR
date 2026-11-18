@@ -1,9 +1,12 @@
 # Cross-node GPU root products and polynomial merge
 
-Status: implemented and locally checked; **two-node validation job77285 submitted**,
-results not reviewed. [Submission receipt](submission.json),
-results/profiles: `runs/roots-01/`, progress: `slurm-77285.log`.
-Work SCALING-117. This follows the passed
+Status: **two-node validation 77285 passed**, reviewed as SCALING-118.
+HPC gnode16/gnode17, one H200 and2 CPU/4 GiB requested host RAM per node.
+Scheduler elapsed **2 minutes 36 seconds**; controller elapsed **155.737 seconds**.
+Exact implementation revision `f80a6858f3e3c2155627ee983e867ba875ce6fad`.
+[Submission receipt](submission.json), [raw results](runs/roots-01/results.json),
+[verified analysis](runs/roots-01/analysis.json), [accounting](runs/roots-01/accounting.txt),
+[progress/Slurm log](slurm-77285.log). This follows the passed
 [staged GPU exchange](../gpu-staged-transport/report.md) and
 [independent root workers](../root-subset-validation/report.md).
 No full s=18 preprocessing run or latency is claimed.
@@ -117,7 +120,7 @@ This uses the already approved two-node GPU envelope; no increase is requested:
 The largest retained merged polynomial is1,048,580bytes (262,145 uint32 values);
 the largest local/remote polynomial is about512 KiB. Principal GPU arrays are
 bounded by maximum524,288 elements, with allocations checked against the128MiB
-executor cap; exact peak rank/device memory remains unmeasured. Duplicated support,
+executor cap; measured rank/device peaks are reported below (not a full-size projection). Duplicated support,
 CPU references and final merges are test overhead, not a full-size memory-saving
 design. The existing faster resident default remains unchanged. No full-size
 memory/runtime trade-off is adopted by this gate.
@@ -143,6 +146,85 @@ hashes, stdout/stderr, progress, profiles and resource policy are saved under
 same runner/fresh run name. Prior caches/results are preserved.
 
 After submission, hand off job ID and result paths without monitoring. Following
-completion review, use the measured complete root/transfer/merge costs to plan
+this passed completion review, use the measured complete root/transfer/merge costs to plan
 scalable rank ownership and later generator/transform integration; separately
 validate buffered persistence before choosing a full GPU/node allocation.
+
+## Completed cross-node root review (SCALING-118)
+
+The completion reviewer verified **621 frozen Git source files,20 evidence files
+and35 retained cache files**, with no source overrides or modified producer
+results. All15 commands exited zero: historical fixture hashes, ordinary partition
+checks and race checks, tagged CUDA/MPI build, normal two-rank execution, both
+CUDA memchecks and both profile summaries. Every one of18 normal measurements
+(3 cases ×2 ranks ×warm-up/2 timed passes) and6 sanitized s=8 measurements passes.
+Complete CPU roots, independent scalar witnesses, cross-rank saved local/peer
+polynomial equality and full receiving-GPU merged/reference byte equality pass.
+Both sanitizer processes report0 errors/0 leaked bytes. Explicit sorted membership
+and unchanged canonical-field helpers are used throughout.
+
+Medians below use two timed passes after a warm-up. Timings are slowest-rank
+maxima; phase maxima may come from different ranks and must not be added. The
+pipeline includes partition, local root, full host-polynomial exchange, GPU merge
+and complete coefficient comparison; reference construction/setup and saved-array
+writes are separate. Small sample count and profiling/logging prevent a controlled
+speedup claim against earlier jobs.
+
+| Field/input | Support exponents | Complete pipeline | Partition | Local root | Exchange/peer validation | GPU merge | Full coefficient comparison | Sent polynomial per node |
+|---|---|---|---|---|---|---|---|---|
+| s=8, genuine support | 7,381 | 12.816 ms | 0.996 ms | 6.090 ms | 0.326 ms | 5.392 ms | 0.154 ms | 14,764 bytes rank0;14,768 bytes rank1 |
+| s=17, synthetic subset | 65,536 | 274.363 ms | 14.111 ms | 216.357 ms | 8.748 ms | 42.891 ms | 1.033 ms | 128 KiB +4 bytes per node |
+| s=17, synthetic subset | 262,144 | 1.179829 s | 63.159 ms | 1.010393 s | 23.986 ms | 101.660 ms | 3.734 ms | 512 KiB +4 bytes per node |
+
+Root construction dominates the largest pipeline; this result does not isolate
+GPU kernel time from Go leaf/product work and copies. Exchange includes waiting
+for the other rank to finish its root, count exchange, payload and peer checks.
+In the largest timed passes, rank0 transfer start/completion events span0.780 and
+0.824ms while rank1 spans23.900 and24.081ms. This rank-local evidence is consistent
+with arrival skew; it is **not** evidence of a24ms intrinsic link transfer. No
+network bandwidth estimate or bottleneck claim is derived from this phase clock.
+The earlier matched transport probe remains the isolated communication evidence.
+
+Largest case setup took75.1ms rank0/70.3ms rank1; complete CPU reference plus
+scalar witnesses took13.920s/13.889s, outside pipeline timing. First s=8 setup
+includes first executor/context-related work and took1.253s/0.979s. These and
+compilation (19.598s CUDA,36.973s test binary), regression checks, profiling/export,
+sanitized execution and persistence are included in the156s whole-job duration.
+Do not interpret156s as root-only preprocessing latency. Profile summarization
+alone took19.418s for the first rank; it is reporting overhead, not root work.
+
+| Memory measure | Measured value |
+|---|---|
+| Normal rank0 peak process RSS | 401.129 MiB |
+| Normal rank1 peak process RSS | 410.523 MiB |
+| Small memcheck maximum rank RSS | 409.246 MiB |
+| Largest owned GPU payload per card | 15.241 MiB |
+| New pinned staging | None; host polynomials are Go-owned arrays |
+| Sealed retained cache (35 files) | 20.498 MiB |
+
+RSS is process high-water memory, not summed concurrent host/node/job peak.
+Owned device payload excludes driver/context memory. Scheduler step MaxRSS is
+launcher accounting and does not replace rank observations. All ranks stay well
+within2 GiB RSS guards and128 MiB/card owned caps. Host request remains4 GiB/node.
+The cache is `.cache/liftrs/distributed-root/roots-01/`, outside Git, with matching
+binary/library/wrapper and complete normal/sanitized arrays. Checksums remain in
+raw results. Four rank/run profiles are retained:
+[normal0](runs/roots-01/normal-0.pprof), [normal1](runs/roots-01/normal-1.pprof),
+[memcheck0](runs/roots-01/memcheck-0.pprof), [memcheck1](runs/roots-01/memcheck-1.pprof).
+[Rank0 summary](runs/roots-01/profile-0.log) and
+[rank1 summary](runs/roots-01/profile-1.log) mostly attribute native work to
+`runtime.cgocall`, including the long CPU reference. They cannot isolate GPU
+instructions or justify moving the whole host implementation to native code.
+
+Verification: completion analyzer, four distributed reviewer regressions, five
+staged reviewer regressions and three shared-review regressions pass; Python
+syntax, documentation links and edited-text whitespace checks pass. Raw results,
+profiles and logs are retained bytewise. No new job was submitted in this review.
+
+Next planned measurement: buffered sequential checkpoint/final publication with
+controlled writer concurrency, retaining compute/intermediate exchanges in RAM.
+Scalable support/rank ownership, a multi-level merge tree, generator/Newton and
+distributed transforms remain implementation/validation work before a full s=18
+run. This bounded component does not update full-size memory/runtime projections
+or change faster resident defaults; full-size communication/persistence costs
+and final GPU/node-count selection remain unknown.

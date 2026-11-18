@@ -1,0 +1,194 @@
+1: [2026-11-18T16:52:37.108] error: couldn't chdir to `/tmp/depir-distributed-root-77285/source': No such file or directory: going to /tmp instead
+1: [2026-11-18T16:52:37.115] error: couldn't chdir to `/tmp/depir-distributed-root-77285/source': No such file or directory: going to /tmp instead
+1: ========= COMPUTE-SANITIZER
+1: === RUN   TestDistributedRootProducts
+1: --------------------------------------------------------------------------
+1: WARNING: No preset parameters were found for the device that Open MPI
+1: detected:
+1: 
+1:   Local host:            gnode17
+1:   Device name:           mlx5_0
+1:   Device vendor ID:      0x02c9
+1:   Device vendor part ID: 4129
+1: 
+1: Default device parameters will be used, which may result in lower
+1: performance.  You can edit any of the files specified by the
+1: btl_openib_device_param_files MCA parameter to set values for your
+1: device.
+1: 
+1: NOTE: You can turn off this warning by setting the MCA parameter
+1:       btl_openib_warn_no_device_params_found to 0.
+1: --------------------------------------------------------------------------
+1: --------------------------------------------------------------------------
+1: WARNING: There was an error initializing an OpenFabrics device.
+1: 
+1:   Local host:   gnode17
+1:   Local device: mlx5_1
+1: --------------------------------------------------------------------------
+0: ========= COMPUTE-SANITIZER
+0: === RUN   TestDistributedRootProducts
+0: --------------------------------------------------------------------------
+0: WARNING: No preset parameters were found for the device that Open MPI
+0: detected:
+0: 
+0:   Local host:            gnode16
+0:   Device name:           mlx5_0
+0:   Device vendor ID:      0x02c9
+0:   Device vendor part ID: 4129
+0: 
+0: Default device parameters will be used, which may result in lower
+0: performance.  You can edit any of the files specified by the
+0: btl_openib_device_param_files MCA parameter to set values for your
+0: device.
+0: 
+0: NOTE: You can turn off this warning by setting the MCA parameter
+0:       btl_openib_warn_no_device_params_found to 0.
+0: --------------------------------------------------------------------------
+0: --------------------------------------------------------------------------
+0: WARNING: There was an error initializing an OpenFabrics device.
+0: 
+0:   Local host:   gnode16
+0:   Local device: mlx5_1
+0: --------------------------------------------------------------------------
+1: {"elapsed_seconds":0.00001698,"host":"gnode17","kind":"host","peak_rss_bytes":257667072,"rank":1,"utc":"2026-11-18T15:52:38.265213311Z","visible_devices":"0"}
+1: {"case":0,"completed":0,"elapsed_seconds":0.000185817,"event":"started","host":"gnode17","kind":"progress","peak_rss_bytes":257667072,"phase":"fixture","rank":1,"total":1,"unit":"fixtures","utc":"2026-11-18T15:52:38.265383696Z"}
+0: {"elapsed_seconds":0.000028194,"host":"gnode16","kind":"host","peak_rss_bytes":260300800,"rank":0,"utc":"2026-11-18T15:52:38.265907698Z","visible_devices":"0"}
+0: {"case":0,"completed":0,"elapsed_seconds":0.000287418,"event":"started","host":"gnode16","kind":"progress","peak_rss_bytes":260300800,"phase":"fixture","rank":0,"total":1,"unit":"fixtures","utc":"2026-11-18T15:52:38.266171647Z"}
+0: {"utc":"2026-11-18T15:52:38.423536399Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000019524}
+0: {"utc":"2026-11-18T15:52:38.423659387Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000142515}
+1: {"utc":"2026-11-18T15:52:38.424863043Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.00001811}
+1: {"utc":"2026-11-18T15:52:38.424954032Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000109101}
+1: {"case":0,"elapsed_seconds":1.26298854,"event":"started","host":"gnode17","kind":"stage","peak_rss_bytes":410775552,"phase":"CPU-reference/before-validation","rank":1,"sample":-2,"utc":"2026-11-18T15:52:39.528185019Z"}
+1: {"case":0,"completed":7381,"elapsed_seconds":1.263053948,"host":"gnode17","kind":"progress","peak_rss_bytes":410775552,"phase":"CPU-reference/support-order-validation","rank":1,"sample":-2,"total":7381,"unit":"exponents","utc":"2026-11-18T15:52:39.528251783Z"}
+1: {"case":0,"completed":7381,"elapsed_seconds":1.263637511,"host":"gnode17","kind":"progress","peak_rss_bytes":410775552,"phase":"CPU-reference/support-Frobenius-validation","rank":1,"sample":-2,"total":7381,"unit":"exponents","utc":"2026-11-18T15:52:39.528835583Z"}
+1: {"case":0,"elapsed_seconds":1.26364934,"event":"started","host":"gnode17","kind":"stage","peak_rss_bytes":410775552,"phase":"CPU-reference/before-root-product","rank":1,"sample":-2,"utc":"2026-11-18T15:52:39.528847428Z"}
+1: {"case":0,"completed":7381,"elapsed_seconds":1.264426579,"host":"gnode17","kind":"progress","peak_rss_bytes":410775552,"phase":"CPU-reference/root-product","rank":1,"sample":-2,"total":7381,"unit":"exponents","utc":"2026-11-18T15:52:39.529624564Z"}
+1: {"case":0,"elapsed_seconds":1.280364173,"event":"started","host":"gnode17","kind":"stage","peak_rss_bytes":410775552,"phase":"CPU-reference/before-normalization","rank":1,"sample":-2,"utc":"2026-11-18T15:52:39.545561035Z"}
+1: {"case":0,"completed":7382,"elapsed_seconds":1.280458754,"host":"gnode17","kind":"progress","peak_rss_bytes":410775552,"phase":"CPU-reference/normalization","rank":1,"sample":-2,"total":7382,"unit":"coefficients","utc":"2026-11-18T15:52:39.545656713Z"}
+1: {"case":0,"elapsed_seconds":1.294897676,"event":"completed","genuine_support":true,"host":"gnode17","kind":"fixture","peak_rss_bytes":410775552,"rank":1,"reference_seconds":0.018527754,"s":8,"setup_seconds":1.262726701,"sha256":"346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a","support_count":7381,"utc":"2026-11-18T15:52:39.560095406Z"}
+0: {"case":0,"elapsed_seconds":1.7032484970000001,"event":"started","host":"gnode16","kind":"stage","peak_rss_bytes":413839360,"phase":"CPU-reference/before-validation","rank":0,"sample":-2,"utc":"2026-11-18T15:52:39.969129902Z"}
+0: {"case":0,"completed":7381,"elapsed_seconds":1.703356195,"host":"gnode16","kind":"progress","peak_rss_bytes":413839360,"phase":"CPU-reference/support-order-validation","rank":0,"sample":-2,"total":7381,"unit":"exponents","utc":"2026-11-18T15:52:39.969240725Z"}
+0: {"case":0,"completed":7381,"elapsed_seconds":1.7039359379999999,"host":"gnode16","kind":"progress","peak_rss_bytes":413839360,"phase":"CPU-reference/support-Frobenius-validation","rank":0,"sample":-2,"total":7381,"unit":"exponents","utc":"2026-11-18T15:52:39.969820549Z"}
+0: {"case":0,"elapsed_seconds":1.70394717,"event":"started","host":"gnode16","kind":"stage","peak_rss_bytes":413839360,"phase":"CPU-reference/before-root-product","rank":0,"sample":-2,"utc":"2026-11-18T15:52:39.969831842Z"}
+0: {"case":0,"completed":7381,"elapsed_seconds":1.7047461080000001,"host":"gnode16","kind":"progress","peak_rss_bytes":413839360,"phase":"CPU-reference/root-product","rank":0,"sample":-2,"total":7381,"unit":"exponents","utc":"2026-11-18T15:52:39.9706306Z"}
+0: {"case":0,"elapsed_seconds":1.7207540460000001,"event":"started","host":"gnode16","kind":"stage","peak_rss_bytes":414887936,"phase":"CPU-reference/before-normalization","rank":0,"sample":-2,"utc":"2026-11-18T15:52:39.986637599Z"}
+0: {"case":0,"completed":7382,"elapsed_seconds":1.720859194,"host":"gnode16","kind":"progress","peak_rss_bytes":414887936,"phase":"CPU-reference/normalization","rank":0,"sample":-2,"total":7382,"unit":"coefficients","utc":"2026-11-18T15:52:39.986743596Z"}
+0: {"case":0,"elapsed_seconds":1.7262855799999999,"event":"completed","genuine_support":true,"host":"gnode16","kind":"fixture","peak_rss_bytes":414887936,"rank":0,"reference_seconds":0.018658739,"s":8,"setup_seconds":1.7028914830000002,"sha256":"346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a","support_count":7381,"utc":"2026-11-18T15:52:39.992169803Z"}
+0: {"utc":"2026-11-18T15:52:39.992714746Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000019122}
+1: {"utc":"2026-11-18T15:52:39.993054693Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.00004957}
+0: {"utc":"2026-11-18T15:52:39.993309068Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000613444}
+1: {"utc":"2026-11-18T15:52:39.993651845Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000646722}
+0: {"case":0,"elapsed_seconds":1.727818415,"event":"started","host":"gnode16","kind":"stage","peak_rss_bytes":414887936,"phase":"local-root","rank":0,"sample":-1,"utc":"2026-11-18T15:52:39.993703057Z"}
+0: {"case":0,"elapsed_seconds":1.727839261,"event":"started","host":"gnode16","kind":"stage","peak_rss_bytes":414887936,"phase":"local-root/before-validation","rank":0,"sample":-1,"utc":"2026-11-18T15:52:39.993723875Z"}
+0: {"case":0,"completed":3690,"elapsed_seconds":1.727856405,"host":"gnode16","kind":"progress","peak_rss_bytes":414887936,"phase":"local-root/support-order-validation","rank":0,"sample":-1,"total":3690,"unit":"exponents","utc":"2026-11-18T15:52:39.99374112Z"}
+1: {"case":0,"elapsed_seconds":1.7288567910000001,"event":"started","host":"gnode17","kind":"stage","peak_rss_bytes":422825984,"phase":"local-root","rank":1,"sample":-1,"utc":"2026-11-18T15:52:39.994054773Z"}
+1: {"case":0,"elapsed_seconds":1.728891037,"event":"started","host":"gnode17","kind":"stage","peak_rss_bytes":422825984,"phase":"local-root/before-validation","rank":1,"sample":-1,"utc":"2026-11-18T15:52:39.994089013Z"}
+1: {"case":0,"completed":3691,"elapsed_seconds":1.7289099719999999,"host":"gnode17","kind":"progress","peak_rss_bytes":422825984,"phase":"local-root/support-order-validation","rank":1,"sample":-1,"total":3691,"unit":"exponents","utc":"2026-11-18T15:52:39.994108196Z"}
+0: {"case":0,"completed":3690,"elapsed_seconds":1.7281523490000001,"host":"gnode16","kind":"progress","peak_rss_bytes":414887936,"phase":"local-root/support-Frobenius-validation","rank":0,"sample":-1,"total":3690,"unit":"exponents","utc":"2026-11-18T15:52:39.994036928Z"}
+0: {"case":0,"elapsed_seconds":1.728161971,"event":"started","host":"gnode16","kind":"stage","peak_rss_bytes":414887936,"phase":"local-root/before-root-product","rank":0,"sample":-1,"utc":"2026-11-18T15:52:39.994046728Z"}
+1: {"case":0,"completed":3691,"elapsed_seconds":1.7291909250000002,"host":"gnode17","kind":"progress","peak_rss_bytes":422825984,"phase":"local-root/support-Frobenius-validation","rank":1,"sample":-1,"total":3691,"unit":"exponents","utc":"2026-11-18T15:52:39.994389172Z"}
+1: {"case":0,"elapsed_seconds":1.729200478,"event":"started","host":"gnode17","kind":"stage","peak_rss_bytes":422825984,"phase":"local-root/before-root-product","rank":1,"sample":-1,"utc":"2026-11-18T15:52:39.994398746Z"}
+0: {"case":0,"completed":3690,"elapsed_seconds":1.738273213,"host":"gnode16","kind":"progress","peak_rss_bytes":420130816,"phase":"local-root/root-product","rank":0,"sample":-1,"total":3690,"unit":"exponents","utc":"2026-11-18T15:52:40.00415555Z"}
+1: {"case":0,"completed":3691,"elapsed_seconds":1.740349468,"host":"gnode17","kind":"progress","peak_rss_bytes":428077056,"phase":"local-root/root-product","rank":1,"sample":-1,"total":3691,"unit":"exponents","utc":"2026-11-18T15:52:40.005546264Z"}
+0: {"case":0,"elapsed_seconds":1.743534865,"event":"started","host":"gnode16","kind":"stage","peak_rss_bytes":420130816,"phase":"local-root/before-normalization","rank":0,"sample":-1,"utc":"2026-11-18T15:52:40.00941858Z"}
+0: {"case":0,"completed":3691,"elapsed_seconds":1.743573987,"host":"gnode16","kind":"progress","peak_rss_bytes":420130816,"phase":"local-root/normalization","rank":0,"sample":-1,"total":3691,"unit":"coefficients","utc":"2026-11-18T15:52:40.009458557Z"}
+0: {"case":0,"completed":3690,"elapsed_seconds":1.743584864,"event":"completed","host":"gnode16","kind":"progress","peak_rss_bytes":420130816,"phase":"local-root","rank":0,"sample":-1,"total":3690,"unit":"exponents","utc":"2026-11-18T15:52:40.009469073Z"}
+0: {"case":0,"completed":0,"elapsed_seconds":1.743594047,"event":"started","host":"gnode16","kind":"progress","peak_rss_bytes":420130816,"phase":"polynomial-transfer","rank":0,"sample":-1,"total":3691,"unit":"coefficients","utc":"2026-11-18T15:52:40.009478444Z"}
+1: {"case":0,"elapsed_seconds":1.745539385,"event":"started","host":"gnode17","kind":"stage","peak_rss_bytes":428077056,"phase":"local-root/before-normalization","rank":1,"sample":-1,"utc":"2026-11-18T15:52:40.010736771Z"}
+1: {"case":0,"completed":3692,"elapsed_seconds":1.7455775660000001,"host":"gnode17","kind":"progress","peak_rss_bytes":428077056,"phase":"local-root/normalization","rank":1,"sample":-1,"total":3692,"unit":"coefficients","utc":"2026-11-18T15:52:40.010775684Z"}
+1: {"case":0,"completed":3691,"elapsed_seconds":1.745589055,"event":"completed","host":"gnode17","kind":"progress","peak_rss_bytes":428077056,"phase":"local-root","rank":1,"sample":-1,"total":3691,"unit":"exponents","utc":"2026-11-18T15:52:40.010786727Z"}
+1: {"case":0,"completed":0,"elapsed_seconds":1.7455981569999999,"event":"started","host":"gnode17","kind":"progress","peak_rss_bytes":428077056,"phase":"polynomial-transfer","rank":1,"sample":-1,"total":3692,"unit":"coefficients","utc":"2026-11-18T15:52:40.010795938Z"}
+1: {"case":0,"completed":3691,"elapsed_seconds":1.745835003,"event":"completed","host":"gnode17","kind":"progress","peak_rss_bytes":428077056,"phase":"polynomial-transfer","rank":1,"sample":-1,"total":3691,"unit":"coefficients","utc":"2026-11-18T15:52:40.011032327Z"}
+0: {"case":0,"completed":3692,"elapsed_seconds":1.744882208,"event":"completed","host":"gnode16","kind":"progress","peak_rss_bytes":421179392,"phase":"polynomial-transfer","rank":0,"sample":-1,"total":3692,"unit":"coefficients","utc":"2026-11-18T15:52:40.010747001Z"}
+1: {"case":0,"completed":0,"elapsed_seconds":1.7458467739999999,"event":"started","host":"gnode17","kind":"progress","peak_rss_bytes":428077056,"phase":"GPU-merge","rank":1,"sample":-1,"total":1,"unit":"products","utc":"2026-11-18T15:52:40.011044472Z"}
+0: {"case":0,"completed":0,"elapsed_seconds":1.7448952530000001,"event":"started","host":"gnode16","kind":"progress","peak_rss_bytes":421179392,"phase":"GPU-merge","rank":0,"sample":-1,"total":1,"unit":"products","utc":"2026-11-18T15:52:40.010779288Z"}
+1: {"case":0,"completed":1,"elapsed_seconds":1.751163035,"event":"completed","host":"gnode17","kind":"progress","peak_rss_bytes":428077056,"phase":"GPU-merge","rank":1,"sample":-1,"total":1,"unit":"products","utc":"2026-11-18T15:52:40.016359055Z"}
+1: {"case":0,"completed":0,"elapsed_seconds":1.751181071,"event":"started","host":"gnode17","kind":"progress","peak_rss_bytes":428077056,"phase":"verify","rank":1,"sample":-1,"total":7382,"unit":"coefficients","utc":"2026-11-18T15:52:40.016378421Z"}
+1: {"case":0,"completed":7382,"elapsed_seconds":1.751296806,"event":"completed","host":"gnode17","kind":"progress","peak_rss_bytes":428077056,"phase":"verify","rank":1,"sample":-1,"total":7382,"unit":"coefficients","utc":"2026-11-18T15:52:40.016494603Z"}
+0: {"case":0,"completed":1,"elapsed_seconds":1.75045554,"event":"completed","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"GPU-merge","rank":0,"sample":-1,"total":1,"unit":"products","utc":"2026-11-18T15:52:40.016338076Z"}
+0: {"case":0,"completed":0,"elapsed_seconds":1.75047615,"event":"started","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"verify","rank":0,"sample":-1,"total":7382,"unit":"coefficients","utc":"2026-11-18T15:52:40.016360021Z"}
+1: {"case":0,"elapsed_seconds":1.7516526730000002,"exchange_seconds":0.001265152,"host":"gnode17","kind":"measurement","local_count":3691,"matches":true,"merge_seconds":0.005591288,"owned_device_bytes":109984,"partition_seconds":0.001046708,"peak_rss_bytes":428077056,"peer_count":3690,"rank":1,"remote_bytes":14768,"root_seconds":0.016736391,"s":8,"sample":-1,"seconds":0.023795326,"sha256":"346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a","support_count":7381,"utc":"2026-11-18T15:52:40.016850838Z","verify_seconds":0.000117924}
+1: {"utc":"2026-11-18T15:52:40.016895828Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000020461}
+0: {"case":0,"completed":7382,"elapsed_seconds":1.750593783,"event":"completed","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"verify","rank":0,"sample":-1,"total":7382,"unit":"coefficients","utc":"2026-11-18T15:52:40.016477782Z"}
+0: {"case":0,"elapsed_seconds":1.750683118,"exchange_seconds":0.001265152,"host":"gnode16","kind":"measurement","local_count":3690,"matches":true,"merge_seconds":0.005591288,"owned_device_bytes":109960,"partition_seconds":0.001046708,"peak_rss_bytes":422227968,"peer_count":3691,"rank":0,"remote_bytes":14764,"root_seconds":0.016736391,"s":8,"sample":-1,"seconds":0.023795326,"sha256":"346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a","support_count":7381,"utc":"2026-11-18T15:52:40.016567742Z","verify_seconds":0.000117924}
+0: {"utc":"2026-11-18T15:52:40.016605641Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000018406}
+0: {"utc":"2026-11-18T15:52:40.017187877Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000600642}
+1: {"utc":"2026-11-18T15:52:40.017478642Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000603275}
+1: {"case":0,"elapsed_seconds":1.752671815,"event":"started","host":"gnode17","kind":"stage","peak_rss_bytes":428077056,"phase":"local-root","rank":1,"sample":0,"utc":"2026-11-18T15:52:40.017869921Z"}
+0: {"case":0,"elapsed_seconds":1.751692839,"event":"started","host":"gnode16","kind":"stage","peak_rss_bytes":422227968,"phase":"local-root","rank":0,"sample":0,"utc":"2026-11-18T15:52:40.017577519Z"}
+1: {"case":0,"elapsed_seconds":1.752682821,"event":"started","host":"gnode17","kind":"stage","peak_rss_bytes":428077056,"phase":"local-root/before-validation","rank":1,"sample":0,"utc":"2026-11-18T15:52:40.01788102Z"}
+0: {"case":0,"elapsed_seconds":1.751704384,"event":"started","host":"gnode16","kind":"stage","peak_rss_bytes":422227968,"phase":"local-root/before-validation","rank":0,"sample":0,"utc":"2026-11-18T15:52:40.017589133Z"}
+1: {"case":0,"completed":3691,"elapsed_seconds":1.752699783,"host":"gnode17","kind":"progress","peak_rss_bytes":428077056,"phase":"local-root/support-order-validation","rank":1,"sample":0,"total":3691,"unit":"exponents","utc":"2026-11-18T15:52:40.017898044Z"}
+0: {"case":0,"completed":3690,"elapsed_seconds":1.7517217409999999,"host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"local-root/support-order-validation","rank":0,"sample":0,"total":3690,"unit":"exponents","utc":"2026-11-18T15:52:40.017606498Z"}
+1: {"case":0,"completed":3691,"elapsed_seconds":1.7529940320000001,"host":"gnode17","kind":"progress","peak_rss_bytes":428077056,"phase":"local-root/support-Frobenius-validation","rank":1,"sample":0,"total":3691,"unit":"exponents","utc":"2026-11-18T15:52:40.018192039Z"}
+0: {"case":0,"completed":3690,"elapsed_seconds":1.752001581,"host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"local-root/support-Frobenius-validation","rank":0,"sample":0,"total":3690,"unit":"exponents","utc":"2026-11-18T15:52:40.017886314Z"}
+1: {"case":0,"elapsed_seconds":1.753004225,"event":"started","host":"gnode17","kind":"stage","peak_rss_bytes":428077056,"phase":"local-root/before-root-product","rank":1,"sample":0,"utc":"2026-11-18T15:52:40.01820245Z"}
+0: {"case":0,"elapsed_seconds":1.752010147,"event":"started","host":"gnode16","kind":"stage","peak_rss_bytes":422227968,"phase":"local-root/before-root-product","rank":0,"sample":0,"utc":"2026-11-18T15:52:40.017894912Z"}
+0: {"case":0,"completed":3690,"elapsed_seconds":1.753990651,"host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"local-root/root-product","rank":0,"sample":0,"total":3690,"unit":"exponents","utc":"2026-11-18T15:52:40.019875006Z"}
+1: {"case":0,"completed":3691,"elapsed_seconds":1.755019938,"host":"gnode17","kind":"progress","peak_rss_bytes":428077056,"phase":"local-root/root-product","rank":1,"sample":0,"total":3691,"unit":"exponents","utc":"2026-11-18T15:52:40.020217715Z"}
+0: {"case":0,"elapsed_seconds":1.7592192930000001,"event":"started","host":"gnode16","kind":"stage","peak_rss_bytes":422227968,"phase":"local-root/before-normalization","rank":0,"sample":0,"utc":"2026-11-18T15:52:40.025103343Z"}
+0: {"case":0,"completed":3691,"elapsed_seconds":1.759253922,"host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"local-root/normalization","rank":0,"sample":0,"total":3691,"unit":"coefficients","utc":"2026-11-18T15:52:40.025138545Z"}
+0: {"case":0,"completed":3690,"elapsed_seconds":1.7592644979999998,"event":"completed","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"local-root","rank":0,"sample":0,"total":3690,"unit":"exponents","utc":"2026-11-18T15:52:40.025148808Z"}
+0: {"case":0,"completed":0,"elapsed_seconds":1.759273249,"event":"started","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"polynomial-transfer","rank":0,"sample":0,"total":3691,"unit":"coefficients","utc":"2026-11-18T15:52:40.025157598Z"}
+1: {"case":0,"elapsed_seconds":1.760616757,"event":"started","host":"gnode17","kind":"stage","peak_rss_bytes":429125632,"phase":"local-root/before-normalization","rank":1,"sample":0,"utc":"2026-11-18T15:52:40.025814246Z"}
+1: {"case":0,"completed":3692,"elapsed_seconds":1.76065431,"host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"local-root/normalization","rank":1,"sample":0,"total":3692,"unit":"coefficients","utc":"2026-11-18T15:52:40.025852392Z"}
+1: {"case":0,"completed":3691,"elapsed_seconds":1.760665529,"event":"completed","host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"local-root","rank":1,"sample":0,"total":3691,"unit":"exponents","utc":"2026-11-18T15:52:40.025863294Z"}
+1: {"case":0,"completed":0,"elapsed_seconds":1.760675268,"event":"started","host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"polynomial-transfer","rank":1,"sample":0,"total":3692,"unit":"coefficients","utc":"2026-11-18T15:52:40.025873005Z"}
+0: {"case":0,"completed":3692,"elapsed_seconds":1.759817604,"event":"completed","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"polynomial-transfer","rank":0,"sample":0,"total":3692,"unit":"coefficients","utc":"2026-11-18T15:52:40.025701467Z"}
+1: {"case":0,"completed":3691,"elapsed_seconds":1.760789709,"event":"completed","host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"polynomial-transfer","rank":1,"sample":0,"total":3691,"unit":"coefficients","utc":"2026-11-18T15:52:40.025987036Z"}
+1: {"case":0,"completed":0,"elapsed_seconds":1.7608007479999999,"event":"started","host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"GPU-merge","rank":1,"sample":0,"total":1,"unit":"products","utc":"2026-11-18T15:52:40.025998422Z"}
+0: {"case":0,"completed":0,"elapsed_seconds":1.759936,"event":"started","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"GPU-merge","rank":0,"sample":0,"total":1,"unit":"products","utc":"2026-11-18T15:52:40.025819479Z"}
+1: {"case":0,"completed":1,"elapsed_seconds":1.766046029,"event":"completed","host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"GPU-merge","rank":1,"sample":0,"total":1,"unit":"products","utc":"2026-11-18T15:52:40.031241992Z"}
+1: {"case":0,"completed":0,"elapsed_seconds":1.766063585,"event":"started","host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"verify","rank":1,"sample":0,"total":7382,"unit":"coefficients","utc":"2026-11-18T15:52:40.031261173Z"}
+1: {"case":0,"completed":7382,"elapsed_seconds":1.766177798,"event":"completed","host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"verify","rank":1,"sample":0,"total":7382,"unit":"coefficients","utc":"2026-11-18T15:52:40.031375579Z"}
+0: {"case":0,"completed":1,"elapsed_seconds":1.765514011,"event":"completed","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"GPU-merge","rank":0,"sample":0,"total":1,"unit":"products","utc":"2026-11-18T15:52:40.031396508Z"}
+0: {"case":0,"completed":0,"elapsed_seconds":1.765533033,"event":"started","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"verify","rank":0,"sample":0,"total":7382,"unit":"coefficients","utc":"2026-11-18T15:52:40.031416992Z"}
+0: {"case":0,"completed":7382,"elapsed_seconds":1.765647907,"event":"completed","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"verify","rank":0,"sample":0,"total":7382,"unit":"coefficients","utc":"2026-11-18T15:52:40.0315321Z"}
+1: {"case":0,"elapsed_seconds":1.766752501,"exchange_seconds":0.000540825,"host":"gnode17","kind":"measurement","local_count":3691,"matches":true,"merge_seconds":0.005695906,"owned_device_bytes":109984,"partition_seconds":0.000993931,"peak_rss_bytes":429125632,"peer_count":3690,"rank":1,"remote_bytes":14768,"root_seconds":0.007993697,"s":8,"sample":0,"seconds":0.015037553,"sha256":"346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a","support_count":7381,"utc":"2026-11-18T15:52:40.031950588Z","verify_seconds":0.000115176}
+0: {"case":0,"elapsed_seconds":1.765783033,"exchange_seconds":0.000540825,"host":"gnode16","kind":"measurement","local_count":3690,"matches":true,"merge_seconds":0.005695906,"owned_device_bytes":109960,"partition_seconds":0.000993931,"peak_rss_bytes":422227968,"peer_count":3691,"rank":0,"remote_bytes":14764,"root_seconds":0.007993697,"s":8,"sample":0,"seconds":0.015037553,"sha256":"346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a","support_count":7381,"utc":"2026-11-18T15:52:40.031667547Z","verify_seconds":0.000115176}
+0: {"utc":"2026-11-18T15:52:40.031708226Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000021816}
+1: {"utc":"2026-11-18T15:52:40.03199346Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000018716}
+0: {"utc":"2026-11-18T15:52:40.032284583Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000598174}
+0: {"case":0,"elapsed_seconds":1.766785916,"event":"started","host":"gnode16","kind":"stage","peak_rss_bytes":422227968,"phase":"local-root","rank":0,"sample":1,"utc":"2026-11-18T15:52:40.032670557Z"}
+0: {"case":0,"elapsed_seconds":1.7667965209999998,"event":"started","host":"gnode16","kind":"stage","peak_rss_bytes":422227968,"phase":"local-root/before-validation","rank":0,"sample":1,"utc":"2026-11-18T15:52:40.032681275Z"}
+0: {"case":0,"completed":3690,"elapsed_seconds":1.766813032,"host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"local-root/support-order-validation","rank":0,"sample":1,"total":3690,"unit":"exponents","utc":"2026-11-18T15:52:40.032697731Z"}
+1: {"utc":"2026-11-18T15:52:40.033046498Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.001071753}
+0: {"case":0,"completed":3690,"elapsed_seconds":1.767113521,"host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"local-root/support-Frobenius-validation","rank":0,"sample":1,"total":3690,"unit":"exponents","utc":"2026-11-18T15:52:40.032998214Z"}
+0: {"case":0,"elapsed_seconds":1.767123081,"event":"started","host":"gnode16","kind":"stage","peak_rss_bytes":422227968,"phase":"local-root/before-root-product","rank":0,"sample":1,"utc":"2026-11-18T15:52:40.033007831Z"}
+1: {"case":0,"elapsed_seconds":1.768246416,"event":"started","host":"gnode17","kind":"stage","peak_rss_bytes":429125632,"phase":"local-root","rank":1,"sample":1,"utc":"2026-11-18T15:52:40.033444403Z"}
+1: {"case":0,"elapsed_seconds":1.768260722,"event":"started","host":"gnode17","kind":"stage","peak_rss_bytes":429125632,"phase":"local-root/before-validation","rank":1,"sample":1,"utc":"2026-11-18T15:52:40.033458831Z"}
+1: {"case":0,"completed":3691,"elapsed_seconds":1.7682780139999998,"host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"local-root/support-order-validation","rank":1,"sample":1,"total":3691,"unit":"exponents","utc":"2026-11-18T15:52:40.033476264Z"}
+1: {"case":0,"completed":3691,"elapsed_seconds":1.768557059,"host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"local-root/support-Frobenius-validation","rank":1,"sample":1,"total":3691,"unit":"exponents","utc":"2026-11-18T15:52:40.033755324Z"}
+1: {"case":0,"elapsed_seconds":1.768565919,"event":"started","host":"gnode17","kind":"stage","peak_rss_bytes":429125632,"phase":"local-root/before-root-product","rank":1,"sample":1,"utc":"2026-11-18T15:52:40.033764175Z"}
+0: {"case":0,"completed":3690,"elapsed_seconds":1.769187732,"host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"local-root/root-product","rank":0,"sample":1,"total":3690,"unit":"exponents","utc":"2026-11-18T15:52:40.035071929Z"}
+1: {"case":0,"completed":3691,"elapsed_seconds":1.770612325,"host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"local-root/root-product","rank":1,"sample":1,"total":3691,"unit":"exponents","utc":"2026-11-18T15:52:40.035810135Z"}
+0: {"case":0,"elapsed_seconds":1.7744110929999999,"event":"started","host":"gnode16","kind":"stage","peak_rss_bytes":422227968,"phase":"local-root/before-normalization","rank":0,"sample":1,"utc":"2026-11-18T15:52:40.040295265Z"}
+0: {"case":0,"completed":3691,"elapsed_seconds":1.774445591,"host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"local-root/normalization","rank":0,"sample":1,"total":3691,"unit":"coefficients","utc":"2026-11-18T15:52:40.040330261Z"}
+0: {"case":0,"completed":3690,"elapsed_seconds":1.774455921,"event":"completed","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"local-root","rank":0,"sample":1,"total":3690,"unit":"exponents","utc":"2026-11-18T15:52:40.040340092Z"}
+0: {"case":0,"completed":0,"elapsed_seconds":1.7744652840000001,"event":"started","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"polynomial-transfer","rank":0,"sample":1,"total":3691,"unit":"coefficients","utc":"2026-11-18T15:52:40.040349503Z"}
+1: {"case":0,"elapsed_seconds":1.7755491559999999,"event":"started","host":"gnode17","kind":"stage","peak_rss_bytes":429125632,"phase":"local-root/before-normalization","rank":1,"sample":1,"utc":"2026-11-18T15:52:40.04074665Z"}
+1: {"case":0,"completed":3692,"elapsed_seconds":1.775764482,"host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"local-root/normalization","rank":1,"sample":1,"total":3692,"unit":"coefficients","utc":"2026-11-18T15:52:40.040962376Z"}
+1: {"case":0,"completed":3691,"elapsed_seconds":1.7758477529999999,"event":"completed","host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"local-root","rank":1,"sample":1,"total":3691,"unit":"exponents","utc":"2026-11-18T15:52:40.041042038Z"}
+1: {"case":0,"completed":0,"elapsed_seconds":1.775861076,"event":"started","host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"polynomial-transfer","rank":1,"sample":1,"total":3692,"unit":"coefficients","utc":"2026-11-18T15:52:40.041058571Z"}
+0: {"case":0,"completed":3692,"elapsed_seconds":1.7750813920000001,"event":"completed","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"polynomial-transfer","rank":0,"sample":1,"total":3692,"unit":"coefficients","utc":"2026-11-18T15:52:40.040965305Z"}
+1: {"case":0,"completed":3691,"elapsed_seconds":1.776042974,"event":"completed","host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"polynomial-transfer","rank":1,"sample":1,"total":3691,"unit":"coefficients","utc":"2026-11-18T15:52:40.04124027Z"}
+1: {"case":0,"completed":0,"elapsed_seconds":1.776056165,"event":"started","host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"GPU-merge","rank":1,"sample":1,"total":1,"unit":"products","utc":"2026-11-18T15:52:40.041253781Z"}
+0: {"case":0,"completed":0,"elapsed_seconds":1.7751830659999999,"event":"started","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"GPU-merge","rank":0,"sample":1,"total":1,"unit":"products","utc":"2026-11-18T15:52:40.041066825Z"}
+1: {"case":0,"completed":1,"elapsed_seconds":1.781303342,"event":"completed","host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"GPU-merge","rank":1,"sample":1,"total":1,"unit":"products","utc":"2026-11-18T15:52:40.046499355Z"}
+1: {"case":0,"completed":0,"elapsed_seconds":1.781321776,"event":"started","host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"verify","rank":1,"sample":1,"total":7382,"unit":"coefficients","utc":"2026-11-18T15:52:40.046519284Z"}
+1: {"case":0,"completed":7382,"elapsed_seconds":1.781435422,"event":"completed","host":"gnode17","kind":"progress","peak_rss_bytes":429125632,"phase":"verify","rank":1,"sample":1,"total":7382,"unit":"coefficients","utc":"2026-11-18T15:52:40.046633127Z"}
+0: {"case":0,"completed":1,"elapsed_seconds":1.780679121,"event":"completed","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"GPU-merge","rank":0,"sample":1,"total":1,"unit":"products","utc":"2026-11-18T15:52:40.046561805Z"}
+0: {"case":0,"completed":0,"elapsed_seconds":1.780698136,"event":"started","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"verify","rank":0,"sample":1,"total":7382,"unit":"coefficients","utc":"2026-11-18T15:52:40.046582136Z"}
+0: {"case":0,"completed":7382,"elapsed_seconds":1.7808121369999999,"event":"completed","host":"gnode16","kind":"progress","peak_rss_bytes":422227968,"phase":"verify","rank":0,"sample":1,"total":7382,"unit":"coefficients","utc":"2026-11-18T15:52:40.046696366Z"}
+1: {"case":0,"elapsed_seconds":1.816871485,"exchange_seconds":0.000613951,"host":"gnode17","kind":"measurement","local_count":3691,"matches":true,"merge_seconds":0.005595459,"owned_device_bytes":109984,"partition_seconds":0.001468385,"peak_rss_bytes":429125632,"peer_count":3690,"rank":1,"remote_bytes":14768,"root_seconds":0.007669561,"s":8,"sample":1,"seconds":0.015103911,"sha256":"346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a","support_count":7381,"utc":"2026-11-18T15:52:40.082069216Z","verify_seconds":0.000114517}
+0: {"case":0,"elapsed_seconds":1.8162223769999999,"exchange_seconds":0.000613951,"host":"gnode16","kind":"measurement","local_count":3690,"matches":true,"merge_seconds":0.005595459,"owned_device_bytes":109960,"partition_seconds":0.001468385,"peak_rss_bytes":422227968,"peer_count":3691,"rank":0,"remote_bytes":14764,"root_seconds":0.007669561,"s":8,"sample":1,"seconds":0.015103911,"sha256":"346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a","support_count":7381,"utc":"2026-11-18T15:52:40.082106578Z","verify_seconds":0.000114517}
+1: {"cases":1,"elapsed_seconds":1.817329805,"host":"gnode17","kind":"completed","peak_rss_bytes":429125632,"rank":1,"utc":"2026-11-18T15:52:40.082527572Z"}
+0: {"cases":1,"elapsed_seconds":1.8166765790000001,"host":"gnode16","kind":"completed","peak_rss_bytes":422227968,"rank":0,"utc":"2026-11-18T15:52:40.082560759Z"}
+0: --- PASS: TestDistributedRootProducts (2.51s)
+0: PASS
+1: --- PASS: TestDistributedRootProducts (2.92s)
+1: PASS
+1: ========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+1: ========= ERROR SUMMARY: 0 errors
+0: ========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+0: ========= ERROR SUMMARY: 0 errors

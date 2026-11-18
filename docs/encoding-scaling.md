@@ -2224,9 +2224,9 @@ zero GPUs,2CPU/4GiB requested RAM per node,5s whole job. Complete34bit pattern
 and roundtrip checks pass. At32MiB input/node, median forward time2.447ms
 corresponds to6.385GiB/s remote payload per node (16MiB remote bytes/node).
 Four-node GPU transport and distributed preprocessing remain unmeasured.
-Independent root-worker timing and staged GPU/rank communication now pass the
-bounded gates below. Next integrate actual normalized-root subsets and polynomial
-transfer/merge across ranks. Large buffered persistence remains a separate gate.
+Independent root-worker timing, staged GPU/rank communication and actual bounded
+normalized-root polynomial transfer/merge now pass the gates below. Large buffered
+persistence is the next separate measurement gate.
 Full distributed roots/transforms remain unimplemented; bounded components do not
 establish their full-size performance.
 
@@ -2267,21 +2267,28 @@ SCALING-109 next-work order is explicit:
    pipeline timing excludes independent correctness checks; job duration includes
    them. Field multiplication is the bounded producer/consumer, not a distributed
    FFT/root pipeline. No GPU-direct/four-node/fullsize inference or budget increase.
-   **Next: integrate actual normalized-root subsets and joined polynomial
-   transfer/merge across ranks**, using existing helpers and explicit sorted subset
-   validation for the measured sparse cases. Include complete transfer, merge and
-   canonical/CPU checks in workflow elapsed time; keep intermediate arrays in RAM.
-   SCALING-117: [bounded root/transfer/merge implementation](../experiments/distributed-root/report.md)
-   is submitted as **job77285** in the same approved allocation; results await the
-   user completion ping. Shared fixture
-   extraction preserves all four historical CPU root hashes. Full partial-root
-   polynomials travel directly in host RAM via MPI; each rank merges on its one
-   GPU and compares every coefficient with the native CPU reference. Retain both
-   sent/received arrays, independent scalar witnesses, profiles and small two-rank
-   memchecks. Replicated fixture/reference/final merges are bounded validation
-   overhead, not full-size sharded support or a multi-level distributed merge tree.
-   Runtime/peak memory are pending; defaults and fulls18 admission are unchanged.
-4. Separately validate large buffered persistence and controlled writer concurrency.
+   The next normalized-root subset/transfer/merge integration has now passed
+   the bounded gate below, using existing helpers and explicit sorted subset
+   validation. Complete transfer, merge and canonical/CPU checks are included in
+   pipeline elapsed time; intermediate arrays stay in RAM.
+   SCALING-118: [bounded root/transfer/merge implementation](../experiments/distributed-root/report.md)
+   **passed77285**, HPCgnode16/17,2H200/4CPU/8GiB requested host RAM total,
+   2min36s complete job. All four historical CPU root hashes, partition/race,
+   complete scalar/CPU/cross-rank coefficient checks and both CUDA memchecks pass;
+   621 source/20 evidence/35 cache identities verify. Largest synthetic s17 subset
+   (262,144 exponents):1.179829s median pipeline,1.010393s local-root phase,
+   23.986ms exchange/wait/peer checks and101.660ms GPU merge. Two timed passes after
+   warm-up, slowest-rank maxima, not additive. CPU reference/setup/persistence and
+   profile reporting are outside pipeline clocks but included in whole-job time.
+   Normal rank RSS401.129/410.523MiB; ownedGPU15.241MiB/card, no new pinned buffer;
+   retained cache20.498MiB. Exchange includes arrival skew, not isolated bandwidth.
+   Replicated bounded support/reference/final merges establish component correctness,
+   not scalable support ownership or a multi-level merge tree. Full generator/
+   Newton/transforms and fulls18 costs remain unvalidated; defaults/admission unchanged.
+4. **Next measurement:** separately validate large buffered sequential checkpoint/
+   final publication and controlled writer concurrency. Intermediate compute and
+   cross-node polynomial exchange remain in RAM; include storage/headroom, cache
+   accounting and full workflow latency before selecting a full allocation.
 5. Compare complete elapsed time across practical allocations before choosing the
    final GPU/node count or giving a fulls18 runtime estimate. Preserve fast defaults,
    CPU clients and explicit budgets; no slower trade-off is silently adopted.

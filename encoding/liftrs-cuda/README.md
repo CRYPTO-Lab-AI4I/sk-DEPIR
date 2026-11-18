@@ -292,5 +292,8 @@ GPU-direct, distributed preprocessing and fulls18 costs remain unmeasured.
 The next [distributed-root component](../../experiments/distributed-root/report.md)
 reuses this executor for partial roots and receiving-GPU polynomial merges.
 Optional MPI transport is experiment-only (`liftrs_mpi` plus the existing CUDA/
-native tags); bounded validation job77285 is submitted. No ordinary client dependency or
-full distributed-preprocessing capability is added.
+native tags); bounded validation77285 passed on2H200/2HPC nodes with full
+cross-rank/CPU coefficient equality and both CUDA memchecks. Largest synthetic
+s17 subset262,144 exponents takes1.180s median pipeline; peak normal rank RSS
+410.523MiB and ownedGPU15.241MiB/card. No ordinary client dependency or full
+scalable distributed-preprocessing capability is added.

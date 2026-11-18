@@ -63,7 +63,9 @@ original methodology; apply this policy to new optimization runs.
 - [Cross-node GPU root products](distributed-root/report.md): shared normalized
   roots, complete host-polynomial MPI transfer and GPU merge, independent CPU
   coefficient oracle and retained cross-rank array checks. Implemented; bounded
-  two-node validation job77285 submitted, no fulls18 inference or default change.
+  two-node validation77285 passed (2H200/2HPC nodes). Largest synthetic s17 case:
+  pipeline1.180s, peak normal rank RSS410.523MiB, ownedGPU15.241MiB/card. Complete
+  cross-rank/CPU array checks and both memchecks pass; no fulls18 inference or default change.
 
 - [Explicit streamed preprocessing export](preprocessing-export/report.md): shared
   verified polynomial stage, bounded canonical output with atomic publication,

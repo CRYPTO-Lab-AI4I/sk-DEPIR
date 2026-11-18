@@ -506,9 +506,8 @@ O(KlogK) searches in the already sorted indices. The K-index partition copy rema
 Allocation payload, sampled RSS and permanent Newton state are distinct measures.
 
 **Next:** use the explicit sorted option for these measured sparse root-worker
-workloads. GPU node-to-node staging/synchronization/rank ownership passed below;
-next integrate actual root-polynomial transfer/merge, then separately buffered
-persistent output. Ordinary full-support/cache/discovery
+workloads. GPU node-to-node staging and bounded root-polynomial transfer/merge
+passed below; next separately validate buffered persistent output. Ordinary full-support/cache/discovery
 validation stays bitmap; dense/fullsize search cost and complete s18 performance
 remain unknown. No automatic density/field switch, fullsize job or final GPU-count
 selection follows. Fulls17 CPU/GPU and fulls18-unrun cells are unchanged.
@@ -533,18 +532,37 @@ Normal peak rank RSS:421.016 MiB /411.207 MiB; largest owned device allocation:
 Full CPU arithmetic/result, GPU ownership, reverse exchange and both CUDA
 memchecks pass. Profiling/logging are included; independent correctness checks
 and builds are outside pipeline timing but inside job duration.
-Next is actual normalized-root polynomial computation/transfer/merge across ranks.
+Actual normalized-root polynomial computation/transfer/merge now passes below.
 No distributed FFT/root pipeline, GPU-direct, four-node/full-size throughput or
 fulls18 capacity/runtime is established. Fulls17 CPU/GPU results and fulls18-unrun
 cells remain unchanged; ordinary CPU/GPU defaults remain unchanged.
 
-The next [cross-node root/merge gate](../experiments/distributed-root/report.md)
-is implemented; **validation job77285 is submitted**, results unreviewed, within the same approved
-2 H200/2 HPC-node/4 CPU/8 GiB requested host RAM allocation. It reuses the shared
-canonical fixture/root/product helpers, transmits complete host polynomials and
-merges on both receiving GPUs. Local extraction checks preserve all four earlier
-CPU polynomial hashes. Full distributed support, generator/transforms and s18
-runtime/memory remain unvalidated; no full-size table result changes follow.
+The [cross-node root/merge gate](../experiments/distributed-root/report.md)
+**passed77285**, HPC gnode16/17:1 H200 and2 CPU/4 GiB requested host RAM per node.
+Job elapsed2 minutes36 seconds including builds, CPU oracles, race checks,
+memchecks and profile reporting. All complete CPU/scalar-root, cross-rank
+sent/received array, receiving-GPU merged/reference and both CUDA memchecks pass;
+621 source/20 evidence/35 cache seals verify without overrides.
+
+| Bounded root input | Complete partition/root/exchange/GPU-merge/verify pipeline | Local root phase | Exchange/wait/peer checks | GPU merge phase |
+|---|---|---|---|---|
+| s=8 genuine,7,381 exponents | 12.816 ms | 6.090 ms | 0.326 ms | 5.392 ms |
+| s=17 synthetic,65,536 exponents | 274.363 ms | 216.357 ms | 8.748 ms | 42.891 ms |
+| s=17 synthetic,262,144 exponents | 1.179829 s | 1.010393 s | 23.986 ms | 101.660 ms |
+
+Two-pass medians after warm-up, slowest-rank maxima; phase maxima are not
+additive. CPU oracle/setup and persistence are outside pipeline timing. Exchange
+includes rank-arrival skew, so these clocks do not measure isolated link bandwidth.
+Peak normal rank process RSS:401.129 MiB /410.523 MiB; owned GPU payload:
+15.241 MiB/card; no new pinned buffer. Sealed retained cache20.498 MiB, outside Git.
+These process/card measurements are not total concurrent job memory. Both ranks
+replicate bounded support/CPU oracle/final merge; no full-size memory saving follows.
+
+Next measurement: buffered sequential checkpoint/final publication with controlled
+writer concurrency. Scalable support/rank ownership, multi-level merge and full
+generator/transforms remain outstanding. No fulls18 runtime/capacity result or
+GPU/node-count choice follows; fulls17 CPU/GPU results and fulls18-unrun table cells
+remain unchanged. Ordinary CPU builds and faster resident defaults remain unchanged.
 
 ## Measurement boundaries for batch entries
 
