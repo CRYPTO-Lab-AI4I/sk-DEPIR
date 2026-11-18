@@ -670,8 +670,9 @@ streamed code and an owning host output. [Full s=10 validation](experiments/cpu-
 passes: first/reused encoding took 2.86/1.14 s versus file-fast 0.33/0.31 s on NFS.
 Native buffers of 1.125 MiB plus a 4 MiB owning result replace 8 MiB resident
 arrays at s=10, with 8 MiB backing files and additional cache/runtime memory.
-At s=16, workspace files alone require 32 GiB, exceeding the current experiment
-budget; no full-size disk timing is claimed. A disk-mode packed sink and other
+The [HPC s=16 disk run](experiments/encoding-table/report.md#completed-disk-s16)
+now passes: encoding took10 h12 min39.871 s, with32 GiB workspace files and
+19.469 GiB peak workflow process RSS (filesystem cache additional). A disk-mode packed sink and other
 mode combinations remain separate. See the [consolidated plan status](docs/encoding-scaling.md#current-memory-route-status)
 before larger validation or s=17 admission.
 
