@@ -1,0 +1,21 @@
+File: subset.test
+Build ID: 2ba83983333654add4c20520aecb83d0dc805d40
+Type: cpu
+Time: 2026-11-18 14:39:29 CET
+Duration: 76.75s, Total samples = 115.53s (150.53%)
+Showing nodes accounting for 109.50s, 94.78% of 115.53s total
+Dropped 208 nodes (cum <= 0.58s)
+Showing top 12 nodes out of 79
+      flat  flat%   sum%        cum   cum%
+    28.94s 25.05% 25.05%     28.94s 25.05%  runtime.cgocall
+    21.81s 18.88% 43.93%     45.53s 39.41%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.validateExponentSupportWith
+    21.02s 18.19% 62.12%     21.02s 18.19%  runtime.memclrNoHeapPointers
+    16.16s 13.99% 76.11%     19.58s 16.95%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+    10.55s  9.13% 85.24%     10.55s  9.13%  [subset.test]
+     6.08s  5.26% 90.50%      6.08s  5.26%  runtime.madvise
+     1.66s  1.44% 91.94%      1.66s  1.44%  [libc.so.6]
+     1.22s  1.06% 93.00%     22.16s 19.18%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+     0.81s   0.7% 93.70%      0.81s   0.7%  runtime.(*spanInlineMarkBits).init
+     0.45s  0.39% 94.09%      4.23s  3.66%  runtime.mallocgcSmallNoscan
+     0.41s  0.35% 94.44%     49.56s 42.90%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+     0.39s  0.34% 94.78%      1.34s  1.16%  runtime.sweepone

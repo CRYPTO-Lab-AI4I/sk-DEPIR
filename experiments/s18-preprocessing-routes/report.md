@@ -193,6 +193,22 @@ memory trade-off or unchecked internal path has been adopted. These measurements
 support continuing the design investigation, not committing to16GPUs or assuming
 linear root speedup. Four-node GPU transport and fulls18 performance remain unknown.
 
+### Subsequent matched validation evidence
+
+[Matched comparison77213](../root-subset-validation/report.md#completed-matched-comparison-scaling-112)
+passes complete CPU/scalar/hash, exhaustive/wide/race and both small CUDA checks.
+On the largest synthetic s17root262144 subset, four workers including partition
+and merge average3.427332s with bitmap membership versus1.039159s sorted; sampled
+process RSS4.455–4.685GiB versus0.5075–0.5097GiB. With sorted validation held fixed,
+whole-root/four-worker ratio is2.41 on that component, not a fullsize forecast.
+Small s8/s12 cases show overhead/no general search benefit. Explicit sorted
+membership is recommended for the measured sparse worker workloads; ordinary
+full-support validation stays bitmap. The N-sized bitmap allocation can be avoided
+on explicit subset calls, but the partition copy and all root/polynomial/runtime
+state remain. The complete s18 host/transport/storage models still need actual
+integration; no automatic dense/full-support or field-degree mode switch follows.
+Proceed to GPU rank communication/staging and separately controlled persistence.
+
 ## Persistence and resource admission
 
 Canonical reusable files project**950.170 GiB**. The existing conservative

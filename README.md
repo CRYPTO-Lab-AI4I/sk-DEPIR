@@ -94,16 +94,13 @@ also passed. Host-memory exchange77127 runs on two HPC nodes;32MiB
 inputs give2.447ms median forward exchange and6.385GiB/s remote payload per node.
 GPU transport and four-node scaling remain unvalidated. Intermediate exchanges stay in memory; checkpoint/final
 writes are a separate buffered, controlled-concurrency validation gate.
-[Independent GPU root workers including merge](experiments/parallel-root-workers/report.md)
-pass bounded validation77148. Largest synthetic s17root case averages2.945s with
-four workers versus3.432s whole-root; other cases favor different worker counts.
-Full-domain validation bitmaps dominate small-subset allocations, so a controlled
-subset-validation comparison comes before interpreting scaling, GPU communication
-and controlled buffered persistence. No full-size speedup is established.
-The [explicit bitmap/search comparison](experiments/root-subset-validation/report.md)
-is prepared with shared validation checks, exhaustive equivalence tests and paired
-worker measurements. Sorted search avoids N-sized storage with unmeasured search
-latency; ordinary preprocessing retains bitmap validation by default.
+[Matched root-worker validation77213](experiments/root-subset-validation/report.md)
+passes all correctness/CUDA checks. On the largest synthetic s17subset, four-worker
+mean including partition/merge is1.039s with sorted membership versus3.427s bitmap;
+sampled process RSS is0.508–0.510GiB versus4.455–4.685GiB. Smaller cases show search
+overhead. Use explicit sorted membership for measured sparse workers; ordinary
+full-support/cache/discovery defaults remain bitmap. This is a bounded component,
+not fulls18 speedup; GPU communication and buffered persistence are next.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

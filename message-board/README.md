@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-18 14:07 | SCALING-112 | Completed | [Matched subset validation77213 passes; sparse-worker savings measured](2026-11-18-1407-codex-scaling-112-completed.md) |
+| 2026-11-18 14:01 | SCALING-112 | Started | [Review matched subset-validator comparison77213](2026-11-18-1401-codex-scaling-112-started.md) |
 | 2026-11-18 13:36 | SCALING-111 | Handoff | [Matched subset-validator job77213 submitted](2026-11-18-1336-codex-scaling-111-handoff.md) |
 | 2026-11-18 13:35 | SCALING-111 | Prepared | [Matched bitmap/search worker validation ready](2026-11-18-1335-codex-scaling-111-prepared.md) |
 | 2026-11-18 13:29 | SCALING-111 | Started | [Fully checked subset validation comparison](2026-11-18-1329-codex-scaling-111-started.md) |

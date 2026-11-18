@@ -443,5 +443,8 @@ partitioning keep bitmap validation. Experimental root/partition helpers accept
 an explicit choice; no trusted-validation bypass or new public API is introduced.
 The optional test binary flags `-root-validation` and `-root-reference-validation`
 select measurement strategies only. [Comparison and memory/time boundaries](../experiments/root-subset-validation/report.md)
-are documented; no full-support default or runtime/RSS saving is inferred from
-small-domain equivalence alone.
+are documented. Matched job77213 passes and measures substantial sparse-s17
+worker RSS/latency reductions, while smaller cases show search overhead. The
+explicit option is recommended for those sparse worker workloads; ordinary
+full-support/cache/discovery defaults remain bitmap. No global default or
+full-size speed/memory claim follows.

@@ -1,0 +1,70 @@
+========= COMPUTE-SANITIZER
+{"completed":0,"elapsed_seconds":0.000008468,"event":"started","phase":"workflow","total":1,"unit":"operations","utc":"2026-11-18T13:39:09.182251435Z"}
+{"completed":0,"elapsed_seconds":0.011708146,"event":"started","phase":"setup","total":1,"unit":"operations","utc":"2026-11-18T13:39:09.19395516Z"}
+{"completed":1,"elapsed_seconds":4.844576457,"event":"completed","phase":"setup","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.026812825Z"}
+{"completed":0,"elapsed_seconds":4.844657929,"event":"started","phase":"discovery","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.026907671Z"}
+{"completed":0,"elapsed_seconds":4.844684662,"event":"started","phase":"exact-good-monomials","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.026934498Z"}
+{"completed":1,"elapsed_seconds":4.865302591,"event":"completed","phase":"exact-good-monomials","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.047549988Z"}
+{"completed":37,"elapsed_seconds":4.865383727,"event":"progress","phase":"discovery-sample","total":37,"unit":"coefficients","utc":"2026-11-18T13:39:14.047633434Z"}
+{"completed":0,"elapsed_seconds":4.865398122,"event":"started","phase":"discovery-base-grid","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.047647784Z"}
+{"completed":1,"elapsed_seconds":4.882830427,"event":"completed","phase":"discovery-base-grid","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.065076557Z"}
+{"completed":0,"elapsed_seconds":4.882872131,"event":"started","phase":"discovery-extension-interpolation","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.065120298Z"}
+{"completed":1,"elapsed_seconds":4.902220511,"event":"completed","phase":"discovery-extension-interpolation","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.084466979Z"}
+{"completed":256,"elapsed_seconds":4.9022630209999996,"event":"progress","phase":"discovery-support-union","total":256,"unit":"positions","utc":"2026-11-18T13:39:14.084511563Z"}
+{"completed":256,"elapsed_seconds":4.902275548,"event":"progress","phase":"discovery-support-output","total":256,"unit":"positions","utc":"2026-11-18T13:39:14.084524221Z"}
+{"completed":37,"elapsed_seconds":4.902290174,"event":"progress","phase":"support-order-validation","total":37,"unit":"exponents","utc":"2026-11-18T13:39:14.084539282Z"}
+{"completed":37,"elapsed_seconds":4.902298107,"event":"progress","phase":"support-Frobenius-validation","total":37,"unit":"exponents","utc":"2026-11-18T13:39:14.084547928Z"}
+{"completed":1,"elapsed_seconds":4.902306125,"event":"completed","phase":"discovery","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.084556328Z"}
+{"completed":0,"elapsed_seconds":4.904508453,"event":"started","phase":"write-support.bin","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.08675765Z"}
+{"utc":"2026-11-18T13:39:14.089651582Z","phase":"write-support","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000014391}
+{"completed":148,"elapsed_seconds":4.9091088769999995,"event":"progress","phase":"write-support.bin","total":148,"unit":"bytes","utc":"2026-11-18T13:39:14.091357236Z"}
+{"completed":1,"elapsed_seconds":4.909121484,"event":"completed","phase":"write-support.bin","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.091369302Z"}
+{"completed":0,"elapsed_seconds":4.962875501,"event":"started","phase":"read-support-support.bin","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.145124693Z"}
+{"completed":148,"elapsed_seconds":4.963895681,"event":"progress","phase":"read-support-support.bin","total":148,"unit":"bytes","utc":"2026-11-18T13:39:14.146145014Z"}
+{"completed":1,"elapsed_seconds":4.963907228,"event":"completed","phase":"read-support-support.bin","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.146156594Z"}
+{"completed":0,"elapsed_seconds":4.963914804,"event":"started","phase":"preparation-and-identities","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.146164391Z"}
+{"completed":0,"elapsed_seconds":4.963933732,"event":"started","phase":"validation","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.146183943Z"}
+{"completed":37,"elapsed_seconds":4.963950007,"event":"progress","phase":"support-order-validation","total":37,"unit":"exponents","utc":"2026-11-18T13:39:14.146199772Z"}
+{"completed":37,"elapsed_seconds":4.963956231,"event":"progress","phase":"support-Frobenius-validation","total":37,"unit":"exponents","utc":"2026-11-18T13:39:14.146206444Z"}
+{"completed":1,"elapsed_seconds":4.963962007,"event":"completed","phase":"validation","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.146211791Z"}
+{"completed":0,"elapsed_seconds":4.963967159,"event":"started","phase":"root-product","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.146216938Z"}
+{"completed":37,"elapsed_seconds":4.9687645830000005,"event":"progress","phase":"root-product","total":37,"unit":"exponents","utc":"2026-11-18T13:39:14.15101215Z"}
+{"completed":1,"elapsed_seconds":4.968823649,"event":"completed","phase":"root-product","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.151073328Z"}
+{"completed":0,"elapsed_seconds":4.968831926,"event":"started","phase":"normalization","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.1510814Z"}
+{"completed":38,"elapsed_seconds":4.968840046,"event":"progress","phase":"normalization","total":38,"unit":"coefficients","utc":"2026-11-18T13:39:14.15108926Z"}
+{"completed":0,"elapsed_seconds":4.970430075,"event":"started","phase":"write-root.bin","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.152679493Z"}
+{"completed":152,"elapsed_seconds":4.974283957,"event":"progress","phase":"write-root.bin","total":152,"unit":"bytes","utc":"2026-11-18T13:39:14.156533674Z"}
+{"completed":1,"elapsed_seconds":4.974296377,"event":"completed","phase":"write-root.bin","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.156545898Z"}
+{"completed":0,"elapsed_seconds":4.980917835,"event":"started","phase":"read-root-root.bin","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.163167048Z"}
+{"completed":152,"elapsed_seconds":4.981680089,"event":"progress","phase":"read-root-root.bin","total":152,"unit":"bytes","utc":"2026-11-18T13:39:14.163929356Z"}
+{"completed":1,"elapsed_seconds":4.981691449,"event":"completed","phase":"read-root-root.bin","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.163941411Z"}
+{"completed":1,"elapsed_seconds":4.981697676,"event":"completed","phase":"normalization","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.163947897Z"}
+{"completed":0,"elapsed_seconds":4.981704553,"event":"started","phase":"reciprocal","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.16395412Z"}
+{"completed":2,"elapsed_seconds":4.981711147,"event":"progress","phase":"reciprocal-prefix","total":219,"unit":"coefficients","utc":"2026-11-18T13:39:14.163960724Z"}
+{"completed":219,"elapsed_seconds":4.981750451,"event":"progress","phase":"reciprocal-prefix","total":219,"unit":"coefficients","utc":"2026-11-18T13:39:14.164000299Z"}
+{"completed":1,"elapsed_seconds":4.9817564690000005,"event":"completed","phase":"reciprocal","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.164006689Z"}
+{"completed":0,"elapsed_seconds":4.981761381,"event":"started","phase":"identity","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.164011562Z"}
+{"completed":256,"elapsed_seconds":4.981793178,"event":"progress","phase":"identity-verification","total":256,"unit":"coefficients","utc":"2026-11-18T13:39:14.16404111Z"}
+{"completed":1,"elapsed_seconds":4.9817998039999996,"event":"completed","phase":"identity","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.164049483Z"}
+{"completed":0,"elapsed_seconds":4.982115203,"event":"started","phase":"generator-spectrum","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.164365016Z"}
+{"completed":1,"elapsed_seconds":4.99866219,"event":"completed","phase":"generator-spectrum","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.180910922Z"}
+{"completed":1,"elapsed_seconds":4.998691275,"event":"completed","phase":"preparation-and-identities","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.180940552Z"}
+{"completed":0,"elapsed_seconds":4.998699626,"event":"selected","phase":"spectrum-tile-bytes","total":67108864,"unit":"bytes; zero=resident","utc":"2026-11-18T13:39:14.180949496Z"}
+{"completed":0,"elapsed_seconds":5.000226807,"event":"started","phase":"write-online.bin","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.182475803Z"}
+{"completed":1201,"elapsed_seconds":5.003619662,"event":"progress","phase":"write-online.bin","total":1201,"unit":"bytes","utc":"2026-11-18T13:39:14.18586904Z"}
+{"completed":1,"elapsed_seconds":5.003630365,"event":"completed","phase":"write-online.bin","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.18587988Z"}
+{"completed":0,"elapsed_seconds":5.003636478,"event":"started","phase":"write-generator.bin","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.185886636Z"}
+{"completed":876,"elapsed_seconds":5.00640209,"event":"progress","phase":"write-generator.bin","total":876,"unit":"bytes","utc":"2026-11-18T13:39:14.188651265Z"}
+{"completed":1,"elapsed_seconds":5.006410433,"event":"completed","phase":"write-generator.bin","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.188660247Z"}
+{"completed":0,"elapsed_seconds":5.006416705,"event":"started","phase":"read-.-generator.bin","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.188666206Z"}
+{"completed":876,"elapsed_seconds":5.006820263,"event":"progress","phase":"read-.-generator.bin","total":876,"unit":"bytes","utc":"2026-11-18T13:39:14.189069408Z"}
+{"completed":1,"elapsed_seconds":5.006832329,"event":"completed","phase":"read-.-generator.bin","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.189081687Z"}
+{"completed":0,"elapsed_seconds":5.007225667,"event":"started","phase":"verify-final-cache","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.189475615Z"}
+{"completed":1,"elapsed_seconds":5.007261498,"event":"completed","phase":"verify-final-cache","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.189511144Z"}
+{"completed":12040,"elapsed_seconds":5.012048268,"event":"observed","phase":"native-owned-bytes","total":8388608,"unit":"bytes","utc":"2026-11-18T13:39:14.19429752Z"}
+{"completed":148432,"elapsed_seconds":5.012057826,"event":"observed","phase":"device-owned-bytes","total":4294967296,"unit":"bytes","utc":"2026-11-18T13:39:14.194307471Z"}
+{"completed":1,"elapsed_seconds":5.015379412,"event":"completed","phase":"workflow","total":1,"unit":"operations","utc":"2026-11-18T13:39:14.197628038Z"}
+verified preprocessing cache: /hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/root-subset-validation/compare-01/memcheck
+CPU profile: /hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/root-subset-validation/compare-01/memcheck/cpu-4036629373.pprof
+========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+========= ERROR SUMMARY: 0 errors
