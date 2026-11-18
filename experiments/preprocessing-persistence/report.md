@@ -1,6 +1,11 @@
 # Buffered preprocessing publication and writer concurrency
 
-Status: implemented; bounded HPC measurement pending (SCALING-119).
+Status: **bounded HPC job77352 submitted**, results not reviewed (SCALING-119).
+Implementation `f493cb9`. [Submission receipt](submission.json); result/profile
+location `runs/io-01/`, progress `slurm-77352.log`.
+[Actual frozen source check](readiness/snapshot.json):628 build files,2,972,651bytes;
+all8 locally checked implementation-input hashes match. No workload execution
+is claimed by the snapshot check.
 [Runner](run.py), [scheduler script](run.sbatch), [completion reviewer](analyze.py),
 [review tests](test_review.py),
 [opt-in probe](../../cmd/pir-preprocess/persistence_probe_test.go),

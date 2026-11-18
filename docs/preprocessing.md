@@ -456,5 +456,5 @@ reuses CLI checksum/fsync/atomic publication and restart readback with optional
 4 MiB coalescing and controlled ownership of separate files. This is a server I/O
 experiment; ordinary codecs/CLI defaults remain unchanged. Buffering must flush
 successfully before fsync and publication, and synthetic probe payloads are not
-usable preprocessing artifacts. Runtime/cache effects await the HPC measurement;
+usable preprocessing artifacts. Bounded HPC job77352 is submitted; runtime/cache effects await completion;
 no full-size output latency or power-failure guarantee follows from the probe.

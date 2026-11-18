@@ -115,7 +115,7 @@ pipeline is1.180s; peak normal rank RSS410.523MiB, owned GPU15.241MiB/card.
 This is not fulls17/s18 preprocessing or a scalable merge tree. The next
 [bounded persistence gate](experiments/preprocessing-persistence/report.md) compares
 64KiB codec writes with4MiB buffering and1/2/4 writers using shared atomic
-publication/readback; measurement is pending. Ordinary CPU builds and faster
+publication/readback; bounded HPC job77352 is submitted. Ordinary CPU builds and faster
 resident defaults are unchanged.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.

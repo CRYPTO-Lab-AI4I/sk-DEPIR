@@ -2290,7 +2290,7 @@ SCALING-109 next-work order is explicit:
    cross-node polynomial exchange remain in RAM; include storage/headroom, cache
    accounting and full workflow latency before selecting a full allocation.
    SCALING-119: [explicit buffered persistence gate](../experiments/preprocessing-persistence/report.md)
-   is implemented; HPC measurement pending. Reuse the CLI payload writer,
+   is submitted as **job77352**, results unreviewed. Reuse the CLI payload writer,
    checksums/fsync, atomic manifest publication and restart readback. Compare
    direct64KiB codec writes with4MiB coalescing and1/2/4 file owners, fixed four
    24MiB files/96MiB per trial, mirrored two-sample order. Measure actual application

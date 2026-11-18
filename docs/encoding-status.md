@@ -559,7 +559,7 @@ These process/card measurements are not total concurrent job memory. Both ranks
 replicate bounded support/CPU oracle/final merge; no full-size memory saving follows.
 
 The [bounded persistence gate](../experiments/preprocessing-persistence/report.md)
-is implemented; HPC measurement pending. Fixed96MiB per trial (four24MiB files),
+is implemented; **HPC job77352 submitted**, results unreviewed. Fixed96MiB per trial (four24MiB files),
 64KiB codec writes versus4MiB coalescing,1/2/4 file owners. One HPC node/2CPU/
 4GiB requested host RAM,0GPU;2GiB RSS/128MiB retained/2GiB scratch/15min caps.
 It uses shared checksum/fsync/atomic-publication and full readback helpers; ordinary
