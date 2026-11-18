@@ -282,5 +282,5 @@ native CPU arithmetic to validate a GPU-producer/D2H/MPI/H2D/GPU-consumer pipeli
 Each rank uses one GPU and bounded pinned buffers; MPI sees host pointers only.
 It introduces no backend/CLI default, public API, distributed transform/root
 support or CUDA-aware-MPI requirement. Normal CPU-client builds stay independent.
-The compiled probe awaits explicit two-node GPU resource agreement; runtime,
+The probe is submitted as approved job77241; runtime results are pending.
 GPU-direct capability and fulls18 costs remain unmeasured.

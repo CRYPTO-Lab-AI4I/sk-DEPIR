@@ -1,7 +1,9 @@
 # Two-node host-staged GPU exchange
 
-Status: compiled/prepared, **not submitted**; explicit two-node GPU budget
-agreement pending. Work SCALING-113. This is a communication/computation component,
+Status: **job77241 submitted**, following explicit two-node GPU budget approval.
+[Receipt](submission.json), [results](runs/staged-01/), [Slurm log](slurm-77241.log).
+Prepared implementation `ac774a2`; actual producer revision/source identities are
+sealed by the runner. No monitoring after submission. Work SCALING-113/114. This is a communication/computation component,
 not distributed Lift-RS preprocessing, GPU-direct support or fulls18 performance.
 
 [CUDA/MPI probe](probe.cu), [runner](run.py), [rank/profile wrapper](rank.sh),
@@ -86,7 +88,7 @@ CPU profile and its binary are retained even if the phase is too short for usefu
 samples. There is no unprofiled latency baseline, saturation study, four-node
 comparison, topology-tuned transport or selected-fabric instrumentation.
 
-## Concrete resource plan (requires agreement)
+## Approved concrete resource plan
 
 | Resource | Requested/guarded budget |
 |---|---|
@@ -102,9 +104,9 @@ comparison, topology-tuned transport or selected-fabric instrumentation.
 | Deadlines |280s each MPI command, kill-after10s;720s controller;900s Slurm |
 
 The previous two-node approval covered **zero GPUs and a10-minute scheduler**;
-the existing CUDA budget covers one node. This plan adds one GPU on each of two
-nodes and a15-minute scheduler ceiling, so AGENTS.md budget agreement is required
-before submission. It does not request16GPUs, a fulls18 allocation, large shared
+the existing CUDA budget covers one node. The user explicitly approved this
+plan's one GPU on each of two nodes and15-minute scheduler ceiling; the
+[submission receipt](submission.json) records that agreement. It does not request16GPUs, a fulls18 allocation, large shared
 writes or retained preprocessing files. Fixed payload sizes bound allocation;
 phase RSS checks, command process-group shutdown and scheduler cutoff remain
 active. Artifact/scratch size guards run between commands. A timed-out launcher

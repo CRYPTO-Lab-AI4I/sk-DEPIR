@@ -2256,13 +2256,15 @@ SCALING-109 next-work order is explicit:
    synchronization and deterministic rank ownership. Host-only77127 is insufficient
    to select GPU count or claim a four-node full-size bandwidth.
    SCALING-113: [two-node GPU staged pipeline](../experiments/gpu-staged-transport/report.md)
-   is compiled/prepared. One GPU/rank produces field values with maintained CUDA
+   is **submitted as job77241**, results pending
+   ([receipt/results](../experiments/gpu-staged-transport/submission.json)).
+   No monitoring; await completion ping. One GPU/rank produces field values with maintained CUDA
    arithmetic, D2H pinned staging, direct MPI ownership exchange, H2D and verified
    GPU consumption. Full CPU polynomial oracle and reverse ownership checks;
    matched host baseline and phase/max/pipeline clocks, profiles and small two-rank
    CUDA memcheck. No filesystem array workspace or GPU-direct/FFT/root claim.
    Freeze tracked Git inputs; retain field metadata/binaries/logs/profiles. Budget
-   approval pending:2nodes/2H200/4CPU/8GiBhost total,128MiB owned/card,64MiB pinned
+   explicitly approved:2nodes/2H200/4CPU/8GiBhost total,128MiB owned/card,64MiB pinned
    and2GiB RSS/rank,15min scheduler; previous two-node gate used0GPUs/10min.
    After pass, integrate actual normalized-root subsets and joined polynomial
    transfer/merge across ranks using existing helpers and explicit subset mode.

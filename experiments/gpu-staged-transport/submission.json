@@ -1,0 +1,26 @@
+{
+  "job_id": "77241",
+  "name": "staged-01",
+  "submitted_utc": "2026-11-18T14:52:15.223767+00:00",
+  "prepared_source_revision": "ac774a2",
+  "submission_base_revision": "6876548",
+  "status": "submitted; not monitored",
+  "approval": "User explicitly approved2GPUs/2nodes/15minutes",
+  "results": "experiments/gpu-staged-transport/runs/staged-01/results.json",
+  "log": "experiments/gpu-staged-transport/slurm-77241.log",
+  "cache": ".cache/liftrs/gpu-staged-transport/staged-01/",
+  "resources": {
+    "nodes": 2,
+    "gpus": 2,
+    "gpu_model": "H200",
+    "cpu_cores_per_node": 2,
+    "host_requested_GiB_per_node": 4,
+    "owned_device_cap_MiB_per_card": 128,
+    "pinned_host_cap_MiB_per_rank": 64,
+    "rss_guard_GiB_per_rank": 2,
+    "retained_cap_MiB": 128,
+    "scratch_cap_GiB": 2,
+    "controller_seconds": 720,
+    "scheduler_seconds": 900
+  }
+}

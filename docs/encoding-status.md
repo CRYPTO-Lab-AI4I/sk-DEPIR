@@ -513,11 +513,12 @@ remain unknown. No automatic density/field switch, fullsize job or final GPU-cou
 selection follows. Fulls17 CPU/GPU and fulls18-unrun cells are unchanged.
 
 The [GPU staged-transport gate](../experiments/gpu-staged-transport/report.md)
-is compiled/prepared, execution unrun:2 HPC nodes with1 H200 and2CPU/4GiB requested
+is **submitted as job77241** ([receipt/results](../experiments/gpu-staged-transport/submission.json)),
+results pending:2 HPC nodes with1 H200 and2CPU/4GiB requested
 RAM each,128MiB owned-device cap/card,64MiB pinned staging/rank and2GiB RSS guard/rank,
 15min scheduler. GPU production, copies, direct messages, receiving-GPU ownership,
-CPU oracle and roundtrip are separate checks/timings. The earlier two-node budget
-has zero GPUs; explicit approval is pending. Fulls18 capacity/runtime cells and
+CPU oracle and roundtrip are separate checks/timings. The user explicitly approved this
+two-node GPU budget. Fulls18 capacity/runtime cells and
 ordinary CPU/GPU defaults remain unchanged.
 
 ## Measurement boundaries for batch entries
