@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 151, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 108, in main
+    record['source_sha256']=snapshot(record['revision'],source);save()
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 59, in snapshot
+    target=destination/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(blob)
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1039, in write_bytes
+    return f.write(view)
+           ^^^^^^^^^^^^^
+OSError: [Errno 27] File too large

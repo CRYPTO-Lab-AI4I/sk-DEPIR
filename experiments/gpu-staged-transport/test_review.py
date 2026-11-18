@@ -35,13 +35,26 @@ class Review(unittest.TestCase):
         rows=fixture();rows[14]['host']='node0'
         with self.assertRaises(AssertionError):HELP['verify'](rows)
     def test_snapshot_is_git_blob_not_ignored_worktree(self):
-        names='code.go\ndocs/no.md\nexperiments/x/runs/evidence.json\n'
-        blob=b'package fixture\n';response=b'a'*40+b' blob '+str(len(blob)).encode()+b'\n'+blob+b'\n'
-        with tempfile.TemporaryDirectory()as temporary, mock.patch('subprocess.check_output',side_effect=[names,response]):
+        blob=b'package fixture\n';config=b'{}'
+        tree=('100644 blob '+'a'*40+' '+str(len(blob))+'\tcode.go\n'
+             +'100644 blob '+'b'*40+' 2\tpirconfig/config.json\n'
+             +'100644 blob '+'c'*40+' 37479757\texperiments/x/artifacts/paper.json\n'
+             +'100644 blob '+'d'*40+' 40\tdocs/no.md\n'
+             +'100644 blob '+'e'*40+' 40\texperiments/x/runs/evidence.json\n')
+        response=b'a'*40+b' blob '+str(len(blob)).encode()+b'\n'+blob+b'\n'+b'b'*40+b' blob 2\n'+config+b'\n'
+        with tempfile.TemporaryDirectory()as temporary, mock.patch('subprocess.check_output',side_effect=[tree,response])as commands:
             root=Path(temporary);hashes=HELP['snapshot']('revision',root)
-            self.assertEqual(set(hashes),{'code.go'})
+            self.assertEqual(set(hashes),{'code.go','pirconfig/config.json'})
             self.assertEqual((root/'code.go').read_bytes(),blob)
+            self.assertEqual((root/'pirconfig/config.json').read_bytes(),config)
             self.assertFalse((root/'docs/no.md').exists())
+            self.assertNotIn(b'paper.json',commands.call_args.kwargs['input'])
+    def test_snapshot_size_limits_fail_before_content_read(self):
+        for entries in ([('oversized.go',(32<<20)+1)],[(str(i)+'.go',30<<20)for i in range(5)]):
+            tree=''.join('100644 blob '+'a'*40+' '+str(size)+'\t'+name+'\n' for name,size in entries)
+            with tempfile.TemporaryDirectory()as temporary,mock.patch('subprocess.check_output',return_value=tree)as commands:
+                with self.assertRaises(ValueError):HELP['snapshot']('revision',Path(temporary))
+                self.assertEqual(commands.call_count,1)
 
 
 if __name__=='__main__':unittest.main()

@@ -513,8 +513,11 @@ remain unknown. No automatic density/field switch, fullsize job or final GPU-cou
 selection follows. Fulls17 CPU/GPU and fulls18-unrun cells are unchanged.
 
 The [GPU staged-transport gate](../experiments/gpu-staged-transport/report.md)
-is **submitted as job77241** ([receipt/results](../experiments/gpu-staged-transport/submission.json)),
-results pending:2 HPC nodes with1 H200 and2CPU/4GiB requested
+**job77241 failed before any build/GPU/MPI command**
+([failure review](../experiments/gpu-staged-transport/runs/staged-01/failure-review.json)).
+An unrelated historical artifact exceeded the source file cap. Snapshot selection
+is corrected and real-snapshot CPU/CUDA builds pass; a fresh same-budget retry
+is prepared. Runtime remains unmeasured. Allocation:2 HPC nodes with1 H200 and2CPU/4GiB requested
 RAM each,128MiB owned-device cap/card,64MiB pinned staging/rank and2GiB RSS guard/rank,
 15min scheduler. GPU production, copies, direct messages, receiving-GPU ownership,
 CPU oracle and roundtrip are separate checks/timings. The user explicitly approved this

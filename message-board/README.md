@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-18 15:06 | SCALING-115 | Prepared | [Build-input snapshot fix and actual build validated](2026-11-18-1506-codex-scaling-115-prepared.md) |
+| 2026-11-18 15:01 | SCALING-115 | Started | [Fix source snapshot and retry GPU staged exchange](2026-11-18-1501-codex-scaling-115-started.md) |
 | 2026-11-18 14:52 | SCALING-114 | Handoff | [Approved GPU staged exchange77241 submitted](2026-11-18-1452-codex-scaling-114-handoff.md) |
 | 2026-11-18 14:51 | SCALING-114 | Started | [Submit approved two-node GPU exchange](2026-11-18-1451-codex-scaling-114-started.md) |
 | 2026-11-18 14:40 | SCALING-113 | Handoff | [GPU staged gate committed; allocation approval pending](2026-11-18-1440-codex-scaling-113-handoff.md) |

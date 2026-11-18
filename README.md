@@ -102,9 +102,10 @@ overhead. Use explicit sorted membership for measured sparse workers; ordinary
 full-support/cache/discovery defaults remain bitmap. This is a bounded component,
 not fulls18 speedup; GPU communication and buffered persistence are next.
 The [two-node staged GPU exchange](experiments/gpu-staged-transport/report.md)
-is submitted as job77241 with approved resources: shared field arithmetic, pinned
-host copies, direct MPI, receiving-GPU checks and complete CPU verification.
-Results are pending; this is not a distributed transform or fulls18 run.
+job77241 failed before compute because its build snapshot included an unrelated
+historical artifact. Build-input selection is corrected and a real snapshot
+compiles; a same-budget retry is prepared. No GPU/MPI timings exist yet; this is
+not a distributed transform or fulls18 run.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

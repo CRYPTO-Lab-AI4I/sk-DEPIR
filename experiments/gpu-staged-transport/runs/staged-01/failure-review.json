@@ -1,0 +1,15 @@
+{
+  "reviewed_utc": "2026-11-18T15:05:08.786541+00:00",
+  "status": "failed before build/compute commands",
+  "job_id": "77241",
+  "recorded_revision": "6876548740e8d51f1f356a9f7b3a414c88eb72c0",
+  "reason": "unrelated historical JSON artifact selected by overly broad source snapshot",
+  "artifact": "experiments/encoder-scaling/artifacts/s10-m2-t6-paper.json",
+  "artifact_bytes": 37479757,
+  "file_cap_bytes": 33554432,
+  "commands_started": 0,
+  "gpu_or_mpi_work_started": false,
+  "results_sha256": "1a9e85e06eb1db5ca7236943f92bee2fc967cb962dd09065fb3804db9bda662a",
+  "slurm_log_sha256": "3708fff1e9bc59b24bb08bd8d77865e0f37c39eced429f31df01c086ef746298",
+  "limits": "Snapshot did not complete, so no full source/evidence/cache seal or runtime metrics exist. Original result/log/scratch retained. Diagnosis uses recorded revision, traceback and immutable Git object size."
+}

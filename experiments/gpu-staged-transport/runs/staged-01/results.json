@@ -1,0 +1,27 @@
+{
+  "job_id": "77241",
+  "status": "failed",
+  "started_utc": "2026-11-18T14:51:39.399167+00:00",
+  "revision": "6876548740e8d51f1f356a9f7b3a414c88eb72c0",
+  "commands": [],
+  "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-staged-transport/staged-01",
+  "resources": {
+    "nodes": 2,
+    "ranks": 2,
+    "gpus": 2,
+    "gpu_model": "H200",
+    "cpus_per_node": 2,
+    "host_request_GiB_per_node": 4,
+    "owned_cap_MiB_per_card": 128,
+    "pinned_cap_MiB_per_rank": 64,
+    "rss_cap_GiB_per_rank": 2,
+    "retained_cap_MiB": 128,
+    "scratch_cap_GiB": 2,
+    "controller_seconds": 720,
+    "scheduler_seconds": 900
+  },
+  "error": "[Errno 27] File too large",
+  "elapsed_seconds": 4.527697168756276,
+  "evidence_sha256": {},
+  "cache_sha256": {}
+}

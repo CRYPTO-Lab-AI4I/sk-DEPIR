@@ -2256,9 +2256,12 @@ SCALING-109 next-work order is explicit:
    synchronization and deterministic rank ownership. Host-only77127 is insufficient
    to select GPU count or claim a four-node full-size bandwidth.
    SCALING-113: [two-node GPU staged pipeline](../experiments/gpu-staged-transport/report.md)
-   is **submitted as job77241**, results pending
-   ([receipt/results](../experiments/gpu-staged-transport/submission.json)).
-   No monitoring; await completion ping. One GPU/rank produces field values with maintained CUDA
+   **job77241 failed in snapshot preparation before any compute command**
+   ([failure review](../experiments/gpu-staged-transport/runs/staged-01/failure-review.json)).
+   SCALING-115 corrects build-input selection, excluding historical artifacts and
+   preflighting file/total sizes. The real tracked snapshot (613files,2.9MB) passes
+   CPU fixture and profiled CUDA/MPI builds. Same-budget fresh retry staged-02
+   is prepared; no GPU runtime evidence yet. One GPU/rank produces field values with maintained CUDA
    arithmetic, D2H pinned staging, direct MPI ownership exchange, H2D and verified
    GPU consumption. Full CPU polynomial oracle and reverse ownership checks;
    matched host baseline and phase/max/pipeline clocks, profiles and small two-rank

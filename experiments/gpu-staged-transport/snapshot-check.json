@@ -1,0 +1,14 @@
+{
+  "revision": "26bb006545c98f205e8edb99a46c109b4e4523ca",
+  "source_files": 613,
+  "source_bytes": 2908958,
+  "source_path": "/tmp/depir-staged-snapshot-yf_p5upn/source",
+  "historical_artifact_excluded": true,
+  "shutdown_helper_import": "passed",
+  "fixture_build": "passed",
+  "fixture_generation": "passed",
+  "selection_source_sha256": "276e17ceba67fc4f391a53739d1fec5bd29d9bf7b03000fd7f2bac440db7610d",
+  "cuda_snapshot_build": "passed",
+  "mpi_cudart_link": "passed",
+  "gpu_execution": "not run"
+}

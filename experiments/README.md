@@ -81,7 +81,8 @@ original methodology; apply this policy to new optimization runs.
   backend/recovery validation77126 passed, no measured memory saving.
 - [Two-node staged GPU exchange](gpu-staged-transport/report.md): shared field
   kernels, pinned host staging/direct MPI and receiving-GPU ownership with full
-  CPU/roundtrip checks; approved two-node job77241 submitted, results pending.
+  CPU/roundtrip checks;77241 failed in source preparation before compute.
+  Build-input filter corrected/real snapshot builds passed; same-budget retry prepared.
 - [Root-subset membership comparison](root-subset-validation/report.md): explicit
   bitmap versus sorted-search validation sharing every check; paired worker/merge
   profiles/memory measurement77213 passed. Sorted membership improves measured

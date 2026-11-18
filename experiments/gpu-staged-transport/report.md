@@ -1,10 +1,12 @@
 # Two-node host-staged GPU exchange
 
-Status: **job77241 submitted**, following explicit two-node GPU budget approval.
-[Receipt](submission.json), [results](runs/staged-01/), [Slurm log](slurm-77241.log).
-Prepared implementation `ac774a2`; actual producer revision/source identities are
-sealed by the runner. No monitoring after submission. Work SCALING-113/114. This is a communication/computation component,
-not distributed Lift-RS preprocessing, GPU-direct support or fulls18 performance.
+Status: **first job77241 failed during source snapshot, before build/GPU/MPI**.
+A corrected build-input-only snapshot is validated; fresh retry is prepared within
+the unchanged approved budget. [Original receipt](submission.json),
+[failed results](runs/staged-01/results.json), [failure review](runs/staged-01/failure-review.json),
+[accounting](runs/staged-01/accounting.txt), [Slurm log](slurm-77241.log).
+Work SCALING-113/114/115. No communication/computation timing exists from this run.
+This remains a component, not distributed preprocessing/GPU-direct/fullsize proof.
 
 [CUDA/MPI probe](probe.cu), [runner](run.py), [rank/profile wrapper](rank.sh),
 [completion reviewer](analyze.py), [review tests](test_review.py),
@@ -120,26 +122,29 @@ python3 -B experiments/gpu-staged-transport/run.py --check
 # Only after approval:
 module load slurm/slurm/25.05
 sbatch --parsable --output=experiments/gpu-staged-transport/slurm-%j.log \
-  experiments/gpu-staged-transport/run.sbatch staged-01
+  experiments/gpu-staged-transport/run.sbatch staged-02
 # After completion ping only:
-python3 -B experiments/gpu-staged-transport/analyze.py staged-01
+python3 -B experiments/gpu-staged-transport/analyze.py staged-02
 ```
 
 The runner freezes tracked build inputs from exact Git blobs into bounded scratch,
-excluding docs/message-board/historical run logs/profiles. It records the revision,
+including source/header/assembly/tool files, Go module files and core JSON
+assets. Historical experiment artifacts/reports/run logs/profiles are excluded.
+Per-file32MiB and total128MiB snapshot-size checks use Git metadata before reading
+contents; the existing per-file/storage limits are not increased. It records the revision,
 all copied source identities and generated field/binary/profile/evidence hashes.
 Ignored/racing worktree files are not compiled or silently admitted. No source
 review override is required. Source snapshot parsing and rank/timing/cap checks
-have unit tests. [Local readiness evidence](local-checks.json) records source
+have unit tests. [Original prepared-source readiness](local-checks.json) records source
 identities and checks; it is not GPU execution evidence. Source/build scratch is kept on failure for forensics, distinct
 from reusable data; no computational exchange array is stored there.
 
-Runtime records/logs/profiles go to `runs/staged-01/`; matching binary, field fixture
+Retry runtime records/logs/profiles go to `runs/staged-02/`; matching binary, field fixture
 and native profiles remain outside Git at
-`.cache/liftrs/gpu-staged-transport/staged-01/`. No prior caches or profiles are
+`.cache/liftrs/gpu-staged-transport/staged-02/`. No prior caches or profiles are
 modified/deleted. Compilation/link succeeds with installed NVCC/MPI; local tool
 query emits the known sandbox socket-permission warning. GPU/MPI execution has
-not occurred. Three reviewer tests pass, including Git-only snapshot and missing/
+not occurred. Four reviewer tests pass, including Git-only snapshot and missing/
 same-node/cap/timing rejection. Go fixture compile/skip passes; actual metadata
 fixture generation/schema checks also pass (1572880bytes, SHA256
 `43ade37b8e8ce2cb8bf1e3a91dc89a320f8f98ba4cf4e08ddc9f935ca626f189`).
@@ -150,3 +155,33 @@ measured sparse cases. Include complete polynomial transfer, joined merge and
 CPU/canonical checks in elapsed time before selecting the next node/GPU count.
 Buffered persistent output remains separate. No complete s18 runtime estimate,
 capacity demonstration or default change follows from preparing this test.
+
+## First-run source snapshot failure and corrected retry (SCALING-115)
+
+77241 FAILED1:0 in5s on HPCgnode04/gnode05. No command record was started: the
+runner failed while writing its copied source tree. Its exclusion-based filter
+selected a historical37479757-byte JSON experiment artifact outside a `runs`
+directory; that exceeded the32MiB per-file guard. The artifact was never an input
+to this probe. This is a runner-selection bug, not a measured GPU/MPI failure.
+
+The replacement selects build extensions, go.mod/go.sum and core JSON assets,
+explicitly excluding experiment data artifacts. Git object sizes are checked
+before reading any content; oversized real source or total build snapshots reject
+with a named diagnostic. File, host, device, scratch and scheduler caps remain
+unchanged. Regression tests include the historical-sized artifact, required core
+JSON, and per-file/total-size rejection before content reads. Four tests pass.
+
+[Actual snapshot readiness](snapshot-check.json) records613 tracked build inputs,
+2908958bytes (about2.77MiB), exclusion of the historical artifact, successful
+shutdown-helper import, CPU fixture compilation/generation and profiled CUDA
+compilation/MPI-cudart linking **from that snapshot**. The snapshot used recorded
+Git build inputs26bb006 with the corrected selection implementation identified
+by SHA256. No GPU/MPI execution occurred in this local check. This corrects the
+original tests, which exercised a synthetic snapshot but not a real build tree.
+
+The failed source snapshot is incomplete and has no completed source seal; the
+failure review does not claim otherwise. Original result/Slurm log hashes, Git
+artifact size, accounting and traceback are retained; failed scratch/caches are
+not deleted. Retry uses fresh `staged-02` names, same approval/resource budget,
+same kernels/validation/timing boundaries and public input fixture. Record its
+new source revision/job ID; hand off without monitoring after submission.

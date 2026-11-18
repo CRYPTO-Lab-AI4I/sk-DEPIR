@@ -43,18 +43,33 @@ def parse(path):
     return [json.loads(line[line.index('{'):]) for line in path.read_text().splitlines() if '{' in line]
 
 
+def build_input(name):
+    path=Path(name)
+    if any(part in ('runs','artifacts','message-board','docs') for part in path.parts):return False
+    code={'.go','.c','.cc','.cpp','.cxx','.h','.hpp','.cu','.cuh','.s','.S','.py','.sh','.sbatch','.inc','.syso'}
+    return path.suffix in code or path.name in ('go.mod','go.sum') or (path.suffix=='.json' and not name.startswith('experiments/'))
+
+
 def snapshot(revision,destination):
-    # Freeze tracked build inputs from Git objects, not a racing/ignored worktree.
-    # Historical evidence, docs and profiles are unnecessary for this build.
-    names=subprocess.check_output(['git','ls-tree','-r','--name-only',revision],cwd=ROOT,text=True).splitlines()
-    names=[name for name in names if not any(p in ('runs','message-board','docs') for p in Path(name).parts)
-           and not name.endswith(('.log','.pprof','.md'))]
-    requests=''.join(revision+':'+name+'\n' for name in names)
+    # Select build inputs, not historical datasets. Preflight Git object sizes
+    # before reading any contents or encountering filesystem/resource limits.
+    tree=subprocess.check_output(['git','ls-tree','-rl',revision],cwd=ROOT,text=True).splitlines()
+    selected={}
+    for line in tree:
+        metadata,separator,name=line.partition('\t')
+        if not build_input(name):continue
+        fields=metadata.split();assert separator and fields[1]=='blob',name
+        count=int(fields[3])
+        if count>32<<20:raise ValueError('build input exceeds32MiB file cap: '+name)
+        selected[name]=count
+    if sum(selected.values())>128<<20:raise ValueError('build snapshot exceeds128MiB cap')
+    requests=''.join(revision+':'+name+'\n' for name in selected)
     data=subprocess.check_output(['git','cat-file','--batch'],cwd=ROOT,input=requests.encode())
     position=0;digests={}
-    for name in names:
+    for name,expected_size in selected.items():
         end=data.index(b'\n',position);header=data[position:end].split();assert header[1]==b'blob',name
-        count=int(header[2]);position=end+1;blob=data[position:position+count];position+=count+1
+        count=int(header[2]);assert count==expected_size,name
+        position=end+1;blob=data[position:position+count];position+=count+1
         path=Path(name);assert not path.is_absolute() and '..'not in path.parts
         target=destination/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(blob)
         digests[name]=hashlib.sha256(blob).hexdigest()
