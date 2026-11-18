@@ -384,6 +384,7 @@ func (p *CodePreprocessor) preparePolynomials(support *CodeSupport, reuse Prepar
 		return nil, fmt.Errorf("certified support required")
 	}
 	info, h := support.parameters, p.header
+	supportSHA := support.Checksum()
 	if info.Spec != h.Spec || info.N != h.N || info.Polynomial != h.Polynomial || info.Delta != h.Delta || info.Omega != h.Omega || info.K != uint64(len(support.exponents)) || info.K > h.N/2 {
 		return nil, fmt.Errorf("support differs from preprocessing/code-data shape")
 	}
@@ -417,13 +418,13 @@ func (p *CodePreprocessor) preparePolynomials(support *CodeSupport, reuse Prepar
 	}
 	var root *RootCheckpoint
 	save := func(values []uint32) error {
-		root = &RootCheckpoint{parameters: info, supportSHA: support.Checksum(), values: values}
+		root = &RootCheckpoint{parameters: info, supportSHA: supportSHA, values: values}
 		if reuse.SaveRoot != nil {
 			return reuse.SaveRoot(root)
 		}
 		return nil
 	}
-	normalized, g, err := prepareCyclicPolynomials(base, support.exponents, int(info.N), base.q, p.backend.RootFactorsInto, saved, save, checkpoint, reporter.notice, &cyclicRecovery{recovery: p.options.Recovery, info: info, supportSHA: support.Checksum()})
+	normalized, g, err := prepareCyclicPolynomials(base, support.exponents, int(info.N), base.q, p.backend.RootFactorsInto, saved, save, checkpoint, reporter.notice, &cyclicRecovery{recovery: p.options.Recovery, info: info, supportSHA: supportSHA})
 	if err != nil {
 		reporter.event(currentStage, "failed", 0, 1, "operations")
 		return nil, err
@@ -435,7 +436,7 @@ func (p *CodePreprocessor) preparePolynomials(support *CodeSupport, reuse Prepar
 	// Product operands are dead. Release them before allocating final spectrum;
 	// keep only reusable transpose scratch. No recomputation/transfer is added.
 	p.backend.ReleaseProducts()
-	return &PreparedPolynomials{header: h, field: f, p: normalized, generator: g, root: root, parameters: info, supportSHA: support.Checksum()}, nil
+	return &PreparedPolynomials{header: h, field: f, p: normalized, generator: g, root: root, parameters: info, supportSHA: supportSHA}, nil
 }
 
 func (p *CodePreprocessor) savePreparedRecovery(polynomials *PreparedPolynomials) error {

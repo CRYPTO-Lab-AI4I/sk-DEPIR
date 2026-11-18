@@ -411,3 +411,16 @@ integration **passes complete bounded GPU validation76710**, including independe
 canonical/G bytes, publication/restart/corruption checks and API/CLI memcheck;
 the lower-level s17-width primitive passed76704. Full-size savings/costs remain
 unmeasured. See [reproduction, tests and tradeoffs](../experiments/preprocessing-export/report.md).
+
+## Internal root boundary for distributed prototyping
+
+Shared preparation constructs and verifies normalized P before entering the
+reciprocal/full-identity procedure. The generator helper takes P, K and N instead
+of support indices; arithmetic, saved-root immutability, recovery binding and
+canonical output are unchanged. A failed root-publication callback prevents
+reciprocal work. Frobenius-closed subsets can use the same root builder and their
+normalized products merge to P; this is tested without introducing a distributed
+public API. [Bounded backend validation](../experiments/preprocessing-root-boundary/report.md)
+is pending. Caller support remains borrowed; this boundary alone does not force
+GC, consume caller data or establish lower measured RSS. Server-only transport
+experiments add no dependency to CPU-client builds.

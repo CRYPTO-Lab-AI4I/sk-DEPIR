@@ -172,15 +172,48 @@ func validateExponentSupport(support []int, n int, q uint64, notices ...preparat
 
 type rootFactorBatch func(indices []int, output [][4]uint32) error
 
-// One root/reciprocal/identity procedure serves the existing GPU-assisted path
-// and the wider server executor. Polynomial coefficients always stay uint32.
-// Callers supply only extension-root arithmetic, products and stage observation.
+// Root construction and generator preparation share arithmetic across backends,
+// but have separate ownership boundaries: generator work needs K, not support.
 func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 	roots rootFactorBatch, savedRoot []uint32, saveRoot func([]uint32) error,
 	checkpoint func(string), notice preparationNotice, recoveries ...*cyclicRecovery) (p, g []uint32, err error) {
+	k := len(support)
+	var recovery *cyclicRecovery
+	var progress *PreprocessingCheckpoint
+	if len(recoveries) > 0 {
+		recovery = recoveries[0]
+	}
+	// Snapshot the input recovery before root/checkpoint callbacks run, preserving
+	// the original resume boundary even if a callback updates caller-owned options.
+	if recovery != nil && recovery.recovery != nil {
+		progress = recovery.recovery.Preparation
+	}
+	p, err = prepareCyclicRoot(base, support, n, q, roots, savedRoot, saveRoot, checkpoint, notice, recoveries...)
+	if err != nil {
+		return nil, nil, err
+	}
+	var prefix []uint32
+	if progress != nil && progress.record.Kind == "reciprocal" {
+		prefix = progress.sections[0]
+	}
+	g, err = prepareCyclicGenerator(base, p, n, k, prefix, checkpoint, notice, recovery)
+	if err != nil {
+		return nil, nil, err
+	}
+	return p, g, nil
+}
+
+// prepareCyclicRoot validates a sorted Frobenius-closed support and returns its
+// normalized product. Independent closed subsets can use this same builder;
+// multiplying their normalized products recovers the full normalized root.
+// Caller-owned support and saved roots remain immutable; checkpoints keep their
+// original source/support binding and are validated before any reuse.
+func prepareCyclicRoot(base orbitField, support []int, n int, q uint64,
+	roots rootFactorBatch, savedRoot []uint32, saveRoot func([]uint32) error,
+	checkpoint func(string), notice preparationNotice, recoveries ...*cyclicRecovery) (p []uint32, err error) {
 	checkpoint("before-validation")
 	if err = validateExponentSupport(support, n, q, notice); err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	var recovery *cyclicRecovery
 	if len(recoveries) > 0 {
@@ -191,13 +224,13 @@ func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 		progress = recovery.recovery.Preparation
 		if progress != nil {
 			if progress.record.Kind != "roots" && progress.record.Kind != "reciprocal" {
-				return nil, nil, fmt.Errorf("invalid preparation checkpoint kind")
+				return nil, fmt.Errorf("invalid preparation checkpoint kind")
 			}
 			if err = progress.matches(recovery.info, recovery.supportSHA, progress.record.Kind); err != nil {
-				return nil, nil, err
+				return nil, err
 			}
 			if progress.record.Kind == "reciprocal" && savedRoot == nil {
-				return nil, nil, fmt.Errorf("reciprocal requires completed root")
+				return nil, fmt.Errorf("reciprocal requires completed root")
 			}
 		}
 	}
@@ -210,14 +243,14 @@ func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 		if progress != nil && progress.record.Kind == "roots" {
 			builder, err = progress.restoreBuilder(base, support, n, q, notice)
 			if err != nil {
-				return nil, nil, err
+				return nil, err
 			}
 			firstSaved = int(progress.record.Next)
 		}
 		for first := firstSaved; first < len(support); first += len(batch) {
 			take := minInt(len(batch), len(support)-first)
 			if err = roots(support[first:first+take], batch[:take]); err != nil {
-				return nil, nil, err
+				return nil, err
 			}
 			for j, index := range support[first : first+take] {
 				partner := int(uint64(index) * q % uint64(n-1))
@@ -230,7 +263,7 @@ func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 					degree = 1
 				}
 				if factor[3] != degree || uint64(factor[0]) >= q || uint64(factor[1]) >= q || factor[2] != (degree-1) {
-					return nil, nil, fmt.Errorf("invalid root factor")
+					return nil, fmt.Errorf("invalid root factor")
 				}
 				builder.add(factor[0], factor[1], factor[2], int(degree))
 			}
@@ -242,7 +275,7 @@ func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 				sections[0] = builder.storage[:3*len(builder.factors)]
 				sections = append(sections, builder.levels...)
 				if err = recovery.save("roots", uint64(first+take), sections); err != nil {
-					return nil, nil, err
+					return nil, err
 				}
 			}
 		}
@@ -259,7 +292,7 @@ func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 		}
 		checkpoint("before-normalization")
 		if len(p) != len(support)+1 {
-			return nil, nil, fmt.Errorf("paired product degree mismatch")
+			return nil, fmt.Errorf("paired product degree mismatch")
 		}
 		scale := base.inv(p[0])
 		for first := 0; first < len(p); first += 65536 {
@@ -274,19 +307,19 @@ func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 		}
 		if saveRoot != nil {
 			if err = saveRoot(p); err != nil {
-				return nil, nil, err
+				return nil, err
 			}
 		}
 	} else {
 		checkpoint("reuse-normalized-root")
 		if len(p) != len(support)+1 || p[0] != 1 {
-			return nil, nil, fmt.Errorf("root checkpoint shape/normalization")
+			return nil, fmt.Errorf("root checkpoint shape/normalization")
 		}
 		for first := 0; first < len(p); first += 65536 {
 			end := minInt(first+65536, len(p))
 			for _, value := range p[first:end] {
 				if uint64(value) >= q {
-					return nil, nil, fmt.Errorf("root checkpoint field")
+					return nil, fmt.Errorf("root checkpoint field")
 				}
 			}
 			if notice != nil {
@@ -294,14 +327,19 @@ func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 			}
 		}
 	}
+	return p, nil
+}
+
+// The reciprocal and independent full identity need only normalized P, K and N.
+// Recovery validation happens at the root boundary before this internal call.
+// This separation permits future consuming callers to release their own support
+// references; it does not force GC or release data owned by a public caller.
+func prepareCyclicGenerator(base orbitField, p []uint32, n, k int, prefix []uint32,
+	checkpoint func(string), notice preparationNotice, recovery *cyclicRecovery) ([]uint32, error) {
 	checkpoint("before-reciprocal")
-	var prefix []uint32
-	if progress != nil && progress.record.Kind == "reciprocal" {
-		prefix = progress.sections[0]
-	}
-	g = polyInverseRecover(base, p, n-len(support), prefix, func(values []uint32) error {
+	g := polyInverseRecover(base, p, n-k, prefix, func(values []uint32) error {
 		if notice != nil {
-			notice("reciprocal-prefix", uint64(len(values)), uint64(n-len(support)), "coefficients")
+			notice("reciprocal-prefix", uint64(len(values)), uint64(n-k), "coefficients")
 		}
 		if recovery == nil {
 			return nil
@@ -313,7 +351,7 @@ func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 	// Verify before publishing code data, even when a root checkpoint was reused.
 	identity := polyMul(base, p, g)
 	if len(identity) != n {
-		return nil, nil, fmt.Errorf("generator identity degree mismatch")
+		return nil, fmt.Errorf("generator identity degree mismatch")
 	}
 	for first := 0; first < n; first += 65536 {
 		for i := first; i < minInt(n, first+65536); i++ {
@@ -322,14 +360,14 @@ func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 				want = 1
 			}
 			if identity[i] != want {
-				return nil, nil, fmt.Errorf("generator identity mismatch at %d", i)
+				return nil, fmt.Errorf("generator identity mismatch at %d", i)
 			}
 		}
 		if notice != nil {
 			notice("identity-verification", uint64(minInt(n, first+65536)), uint64(n), "coefficients")
 		}
 	}
-	return p, g, nil
+	return g, nil
 }
 
 // Independent scalar root arithmetic remains the small-code reference and

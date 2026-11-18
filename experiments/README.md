@@ -76,10 +76,16 @@ original methodology; apply this policy to new optimization runs.
   shared-kernel bounded comparison, independent CPU fixtures and memory/transfer
   counters; bounded validation76756 passes. Measured lower-memory options are
   slower; full-size costs remain unknown, with no admission or default change.
+- [Root/generator boundary validation](preprocessing-root-boundary/report.md):
+  shared arithmetic, immutable support and partitioned-root equivalence; bounded
+  backend/recovery validation pending, no measured memory saving.
+- [Two-node RAM redistribution](preprocessing-transport/report.md): compiled
+  optional MPI host-memory probe, no shared-file intermediates; two-node budget
+  approval pending, zero GPUs, not a distributed transform/root benchmark.
 - [s18 preprocessing route comparison](s18-preprocessing-routes/report.md):
   reproducible whole-workflow host/device/Newton/storage models and hypothetical
   communication/work scaling; distributed host/root/GPU design recommended for
-  speed, pending route selection and measured network/integration. No new job.
+  speed, distributed prototyping selected, with network/integration unmeasured. No new job.
 - [s18 preprocessing admission](s18-preprocessing-admission/report.md): one-GPU
   exact weighted-class dimension count, independent/known-size comparisons and
   explicit host/device/storage lifetime models; full preprocessing remains deferred.

@@ -192,8 +192,10 @@ bounded measurements when practical; do not force all small root products onto
 sixteen cards. A root-worker prototype may deliver value before a full distributed
 transform; the complete pipeline still needs both.
 
-Before implementation/admission, ask the user to choose this route versus the
-four-GPU hybrid memory/time trade-off. The next concrete work would be:
+User selected distributed prototyping in SCALING-106; fullsize resources and
+material slower modes still require separate agreement. Intermediate exchanges
+use memory/direct messages. Persistence is separately validated with large
+buffered writes and controlled file ownership/writer concurrency. The next work is:
 
 1. Refactor command-owned support/root lifetimes at the normalized-root boundary,
    sharing immutable parameters and existing arithmetic; test restart/identity
@@ -214,5 +216,5 @@ four-GPU hybrid memory/time trade-off. The next concrete work would be:
    Keep ordinary CPU client builds free of transport/CUDA dependencies, and
    retain the validated resident server default whenever its admitted budget fits.
 
-No new job was launched and no full-size budget, slower default or mode was
-selected by this comparison. s19–20 remain exploratory rows in the main reference.
+The comparison itself launched no job and selected no full-size budget, slower
+default or mode. Subsequent bounded work is recorded in the active plan. s19–20 remain exploratory rows in the main reference.
