@@ -473,13 +473,34 @@ stay in RAM/direct messages; buffered persistent output and bounded writer
 concurrency are a separate validation gate. No new full-size measurement or RAM
 saving is established; existing CPU/GPU resident results remain unchanged.
 
-The next measurement is [independent root workers including complete merge](../experiments/parallel-root-workers/report.md),
-before node-to-node GPU staging/communication and separately buffered persistence.
-A same-node1/2/4-worker prototype uses shared arithmetic, one genuine small support
-and bounded synthetic s12/s17 root subsets with complete CPU references. It is
-implemented but unmeasured; **job77148 submitted**
-([receipt/results](../experiments/parallel-root-workers/submission.json)). Fulls18
-speed and final GPU count remain undecided.
+[Independent root workers including complete merge](../experiments/parallel-root-workers/report.md#completed-worker-comparison-scaling-110)
+**passed bounded comparison77148** on HPCgnode02 (4H200,4CPU,8GiB requested host
+RAM;5min22s job). All complete CPU coefficients, scalar root checks and output
+hashes match; genuine-s8 CUDA memcheck and partition race/admission checks pass.
+
+| Root component | Whole-root,4 GPUs, mean runtime | Four independent workers + partition + merge, mean runtime | Scope |
+|---|---:|---:|---|
+| s8,7381 exponents |0.018061 s |0.017343 s |Genuine small PIR support |
+| s12,65536 exponents |0.350214 s |0.212747 s |Synthetic closed root subset |
+| s17,65536 exponents |1.762294 s |1.931126 s |Synthetic closed root subset; four workers slower |
+| s17,262144 exponents |3.431855 s |2.944695 s |Synthetic closed root subset; observed ratio1.165, not fulls17/s18 speedup |
+
+Means contain two warm profiled samples. Largest-case four-worker mean includes
+0.617872s partition/validation,2.017420s joined root work and0.309395s merge.
+End-of-call aggregate owned GPU allocations:20.463MiB whole-root versus43.102MiB
+four-worker. Maximum sampled command RSS:**5064.574MiB (4.946GiB)**, including
+validation/runtime/fixtures; setup, comparison and persistence are separate.
+
+The profile/source audit exposes a scaling issue: every subset validator allocates
+a full-domain bitmap, **2GiB per invocation at s17 /8GiB projected at s18**.
+Four concurrent workers can allocate8/32GiB of bitmap backing respectively,
+separate from copied support indices; allocation sizes are not measured RSS and
+these root-stage temporaries are not permanently live Newton arrays. This limits
+what the small-subset timing says about root parallelism. No worker count wins
+all fixtures. Controlled sparse-subset validation measurement is the next root
+gate, preserving complete checks and the faster dense default. GPU communication
+and separately buffered persistence follow; fulls18 runtime/final GPU count remain
+undecided and full-size result cells are unchanged.
 
 ## Measurement boundaries for batch entries
 

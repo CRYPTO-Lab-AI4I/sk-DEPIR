@@ -1,9 +1,10 @@
 # Independent GPU root workers, including merge
 
-Status: **job77148 submitted**; GPU performance/correctness validation pending.
-[Receipt](submission.json), [results](runs/roots-01/), [Slurm log](slurm-77148.log).
-Prepared source `00360cc`; the controller seals actual revision and copied sources.
-No monitoring after submission.
+Status: **bounded comparison77148 passed** on HPC gnode02 (4 H200 GPUs,
+4 CPU cores,8 GiB requested host RAM), complete job5min22s, controller321.241s.
+Producer `00360cc`. [Receipt](submission.json), [raw results](runs/roots-01/results.json),
+[analysis](runs/roots-01/analysis.json), [measurements](runs/roots-01/workers.json),
+[accounting](runs/roots-01/accounting.txt), [Slurm log](slurm-77148.log).
 Work SCALING-109. [Prerequisite root-boundary validation77126 passed](../preprocessing-root-boundary/report.md#completed-validation-and-source-reconciliation-scaling-109).
 This is a same-node scheduling component, not distributed preprocessing support.
 
@@ -114,8 +115,118 @@ CPU profile to `workers.pprof`. Reference/output polynomials and binary remain
 outside Git at `.cache/liftrs/parallel-root-workers/roots-01/`. Review retains
 strict source matching except the single explicitly preserved ignored-source
 snapshot documented in prerequisite77126; that snapshot must match the producer
-seal, never a blanket dirty-tree allowance. GPU measurements and correctness are
-pending; no expected speedup or fullsize time/memory improvement is asserted.
+seal, never a blanket dirty-tree allowance. GPU component measurements and correctness are now reviewed below; no fullsize
+time/memory improvement or production worker selection is established.
 Local root partition tests pass and the optional GPU test compiles/skips without
 its explicit output environment. Review tests reject missing/imbalanced/corrupt
 results. Submit and hand off without monitoring.
+
+## Completed worker comparison (SCALING-110)
+
+All four fixtures pass complete native CPU polynomial equality, four scalar
+extension-field root evaluations per fixture, normalized constant/degree checks
+and persisted-output SHA256 equality. All four configurations (whole-root,
+1/2/4 independent workers), warm-up and both timed samples are present. Small
+**genuine s8** memcheck covers all configurations and reports0errors/0leakedbytes;
+large synthetic s12/s17 cases are not sanitizer coverage. Partition race/admission
+checks and inherited whole-workflow CPU/reference/CLI/restart/race/ASan/vet and
+memcheck gates pass. No producer algorithm changed during this review.
+
+**596 source /43 evidence /99 original cache identities** reconcile, including
+one explicitly named exact ignored-source snapshot described in prerequisite77126.
+All other source identities match producer Git objects. Original ignored source
+and original logs are unchanged; caches and profiles stay retained outside Git.
+
+### Warm profiled elapsed time, partition and complete merge included
+
+Cells are arithmetic means of two measured samples, excluding sample−1. Units
+are seconds. Config0 is whole-root on four GPUs. Config1/2/4 uses that many
+one-GPU workers and the retained four-GPU merge executor, as described above.
+Construction/setup is excluded from these operation clocks and reported below.
+
+| Field / root input | Whole-root,4 GPUs | 1 worker | 2 workers | 4 workers |
+|---|---:|---:|---:|---:|
+| s8 genuine support,7381 exponents |0.018061 s |0.019742 s |0.015707 s |0.017343 s |
+| s12 synthetic,65536 exponents |0.350214 s |0.335428 s |0.217454 s |0.212747 s |
+| s17 synthetic,65536 exponents |1.762294 s |1.819699 s |1.551633 s |1.931126 s |
+| s17 synthetic,262144 exponents |3.431855 s |3.992141 s |3.708884 s |2.944695 s |
+
+The largest case shows **1.165 times the observed whole-root/4-worker ratio**
+(about14.2% less elapsed time), including partitioning and merge. Its two samples
+are3.523821/3.339889s whole-root versus3.063059/2.826332s four-worker. At s12,
+four-worker mean is about1.646 times faster by this ratio. At s17/65536,
+four workers are **slower** than whole-root; two workers have the best observed
+mean. No fixed worker count wins across these fixtures, and two fixed-order
+profiled samples do not establish confidence bounds or a fulls17/s18 speedup.
+
+Largest-case mean decomposition:
+
+| Configuration | Partition/validation | Joined worker wall time | Complete merge | Operation total | End-of-call owned GPU allocations, aggregate |
+|---|---:|---:|---:|---:|---:|
+| Whole-root,4 GPUs |not separate |3.431855 s |none |3.431855 s |20.463 MiB |
+| 1 worker |0.715685 s |3.276449 s |about1 microsecond |3.992141 s |21.380 MiB |
+| 2 workers |0.803777 s |2.764505 s |0.140595 s |3.708884 s |36.689 MiB |
+| 4 workers |0.617872 s |2.017420 s |0.309395 s |2.944695 s |43.102 MiB |
+
+The four-worker root phase alone improves substantially, but partition/validation
+and merge consume about0.927s. Operation totals also contain small orchestration
+costs, so rounded subtimes need not sum exactly. Owned allocation observations
+are not physical GPU peaks and exclude contexts/runtime. Separate constructor
+setup for the largest case is about0.109/0.109/0.111/0.187s for0/1/2/4workers.
+The very first genuine-case whole-root setup takes4.723s, while later setup is
+usually about0.1s after GPU/runtime initialization. Thus setup comparisons are
+not equivalent cold starts; do not claim one-shot end-to-end speedup from them.
+
+### Validation allocation dominates this small-subset measurement
+
+The [retained Go CPU profile](runs/roots-01/workers.pprof) and its
+[top summary](runs/roots-01/cpu-top.txt) show43.11% cumulative CPU samples in
+`validateExponentSupport`,20.45% flat in memory clearing and23.93% flat in
+`runtime.cgocall`. These percentages overlap and must not be added. The profile
+covers the whole component, including references, setup and scalar checks, not
+just the timed worker rows; CPU samples are not wall-time or GPU-time fractions.
+Native/GPU execution and waits remain opaque inside cgo.
+
+[Validation](../../encoding/liftrs-shared/preprocessing_core.go) builds a
+[newExponentSet](../../encoding/liftrs-shared/exponent_set.go) bitmap over all N−1
+possible exponents. Its requested backing is
+`8 * ceil((N−1)/64)` bytes: **2 GiB at s17**, independent of whether a subset has
+65536,262144 or billions of exponents. Global partition validation allocates one;
+each worker root validation allocates another. Four worker validations can
+therefore overlap **8 GiB of bitmap allocations** at s17, before other state;
+that is allocation payload, not measured resident physical memory. Global dead
+bitmaps/GC retention are additional. At s18 it projects **8 GiB/invocation or
+32 GiB for four simultaneous workers**. This stage overhead is separate from the
+K-index partition copy and must not be silently added as permanently live Newton
+storage. It limits this prototype's current representativeness for sparse roots.
+
+Maximum sampled process-group RSS is **5064.574 MiB (4.946 GiB)**, within the6GiB
+guard; scheduler batch MaxRSS is3409044KiB (about3.25GiB), from a different sampler.
+Neither is per-worker bitmap size or algorithm-only memory. Normal component
+command83.476s includes fixtures/references/scalar checks/comparisons/persistence;
+small memcheck6.244s. Total reusable cache **37.767 MiB** remains outside Git,
+including polynomials and binary. No profiles or useful prior caches were removed.
+
+### Decision and next measurement
+
+Independent workers are correct and sometimes improve operation time, but the
+current results **do not justify committing to sixteen GPUs** or using a uniform
+parallel speedup in fulls18 estimates. Keep the validated resident default.
+
+Before interpreting root-worker scaling, measure a controlled alternative for
+**subset validation** that preserves sortedness, range and complete Frobenius
+membership checks while avoiding an N-sized bitmap for a small subset. A sorted
+membership search needs no new N-sized storage but adds O(K log K) searches;
+an O(K) membership table uses extra subset-sized storage and setup. Their actual
+latency trade-offs are unmeasured, especially for dense full supports, so no such
+mode is adopted here. Retain the faster dense validator for full supports when
+it fits unless measurements justify changing it; any slower memory-saving choice
+must remain explicit. Reusing a proof from deterministic partitioning requires
+an explicit trusted ownership boundary, not silently skipping validation.
+
+Record the extra validator bitmap in host/resource planning and repeat matched
+root-worker measurements after that controlled comparison, with adequate host
+headroom and the same complete CPU/scalar/hash checks. Then proceed to node-to-node
+GPU staging/synchronization/rank ownership, followed separately by buffered
+persistent output and bounded writer concurrency. No new job, larger resource
+budget or validation shortcut follows from this review.

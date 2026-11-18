@@ -174,6 +174,25 @@ Do not replace the hypothetical network rates with a claimed four-node measured
 rate or infer complete preprocessing latency. Selected fabric/GPU-direct support
 and four-node contention remain uninstrumented. No route capacity model changes.
 
+### Subsequent independent-root evidence
+
+[Same-node comparison77148](../parallel-root-workers/report.md#completed-worker-comparison-scaling-110)
+passes CPU/scalar/hash/partition-race checks and genuine small CUDA memcheck.
+Largest synthetic s17subset262144-exponent case averages3.431855s whole-root versus
+2.944695s four-worker, including partition and complete merge; no worker count
+wins all fixtures. Source/profile shows an N-sized membership bitmap allocated
+for each subset validation:2GiB ats17, projected8GiB ats18. Four overlapping
+worker validations can therefore allocate32GiB at s18, independent of the
+K-index partition copies. This is root-stage allocation payload, not permanent
+Newton state or measured fullsize RSS. The prototype also copies support indices,
+which must be replaced by actual sharded ownership in a full distributed route.
+
+A fully checked sparse-subset validation comparison is needed before drawing
+worker-scaling conclusions. Preserve fast full-support validation; no slower
+memory trade-off or unchecked internal path has been adopted. These measurements
+support continuing the design investigation, not committing to16GPUs or assuming
+linear root speedup. Four-node GPU transport and fulls18 performance remain unknown.
+
 ## Persistence and resource admission
 
 Canonical reusable files project**950.170 GiB**. The existing conservative

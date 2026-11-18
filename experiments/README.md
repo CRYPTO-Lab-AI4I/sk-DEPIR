@@ -81,7 +81,9 @@ original methodology; apply this policy to new optimization runs.
   backend/recovery validation77126 passed, no measured memory saving.
 - [Independent GPU root workers](parallel-root-workers/report.md): bounded
   same-node1/2/4-worker root construction and complete merge versus shared schedule,
-  independent CPU/scalar references; GPU validation/measurements pending.
+  independent CPU/scalar references; comparison77148 passes. Largest synthetic
+  s17case shows1.165 observed ratio including merge, with substantial validation
+  bitmap overhead; not fullsize/cross-node speed evidence.
 - [Two-node RAM redistribution](preprocessing-transport/report.md): compiled
   optional MPI host-memory probe, no shared-file intermediates; job77127 passed
   on two HPC nodes.32MiB inputs yield6.385GiB/s remote payload/node; zero GPUs,

@@ -1,0 +1,24 @@
+File: workers.test
+Build ID: 03389f6497d52d30a2dff4b415977a288062adbb
+Type: cpu
+Time: 2026-11-18 12:08:31 CET
+Duration: 82.02s, Total samples = 121.12s (147.66%)
+Showing nodes accounting for 115.64s, 95.48% of 121.12s total
+Dropped 226 nodes (cum <= 0.61s)
+Showing top 15 nodes out of 75
+      flat  flat%   sum%        cum   cum%
+    28.99s 23.93% 23.93%     28.99s 23.93%  runtime.cgocall
+    24.77s 20.45% 44.39%     24.77s 20.45%  runtime.memclrNoHeapPointers
+    22.60s 18.66% 63.04%     52.21s 43.11%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.validateExponentSupport
+    15.64s 12.91% 75.96%     19.17s 15.83%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsuba
+    11.14s  9.20% 85.16%     11.14s  9.20%  [workers.test]
+     8.69s  7.17% 92.33%      8.69s  7.17%  runtime.madvise
+     1.36s  1.12% 93.45%     21.64s 17.87%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.karatsubaLow
+     0.65s  0.54% 93.99%      0.65s  0.54%  runtime.(*spanInlineMarkBits).init
+     0.53s  0.44% 94.43%      3.73s  3.08%  runtime.mallocgcSmallNoscan
+     0.43s  0.36% 94.78%     49.11s 40.55%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+     0.35s  0.29% 95.07%      1.27s  1.05%  runtime.sweepone
+     0.15s  0.12% 95.19%      2.82s  2.33%  runtime.(*mcache).refill
+     0.14s  0.12% 95.31%      0.78s  0.64%  runtime.(*sweepLocked).sweep
+     0.11s 0.091% 95.40%      9.37s  7.74%  runtime.(*mheap).allocSpan
+     0.09s 0.074% 95.48%     89.36s 73.78%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.prepareCyclicRoot

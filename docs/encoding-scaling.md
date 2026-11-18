@@ -42,7 +42,7 @@ s≤16 CPU/GPU paths and code-cache compatibility throughout.
 | 5. First full CPU baseline | Prefer resident reuse (~427GiB principal arrays) on one large-RAM node when the admitted budget fits. Validate systematic values, independent curves, hashes and34GiB packed output; separately measure code loading, encoding, packing, verification and peaks | **Full HPC run76645 passed**; 1 h 45 min 11.087 s encoding, 427.845 GiB sampled RSS, verified34 GiB packed output |
 | 6. Multi-GPU prototype and selection | Partition same-node arithmetic across GPUs; measure transfers, topology and synchronization. Compare fast-layout streamed constants (~256GiB aggregate/two-card capacity floor) with resident reuse (~398GiB/three-card floor), including all host/device lifetimes and headroom | Bounded resident1/2/4GPU integration passed76426; full four-H200 resident baseline passed76706. Other full-size card counts and streamed/compact modes remain separate |
 | 7. Full GPU comparison | Validate exact canonical/packed agreement with the CPU baseline and independently check correctness. Compare complete measured latency and deployment cost; keep CPU available without CUDA | **Full retry76706 passed**,7 min14.930 s encoding,221.591 GiB sampled RSS,398.463 GiB device-owned; CPU canonical/packed hashes match. Observed14.51× encoding-stage ratio, not controlled end-to-end speedup;76646 remains historical guard failure |
-| 8. Progress toward s18 | Recompute preprocessing/encoding/communication capacities using measurements, then select same-node versus multi-node or memory-saving designs. Retain s19–20 exploratory rows | **Active:** exact s18 K verified76647; bounded spectrum76704 and complete export76710 passed. Bounded host-backed transform and split product76756 passed; measured penalties are recorded in the [memory plan](#s18-preprocessing-memory-design-and-comparison-scaling-096). Route comparison completed (SCALING-105): [four-node distributed host/root/GPU design recommended](../experiments/s18-preprocessing-routes/report.md); distributed prototyping selected; two-node host exchange77127 passed; GPU/four-node communication and complete runtimes unknown |
+| 8. Progress toward s18 | Recompute preprocessing/encoding/communication capacities using measurements, then select same-node versus multi-node or memory-saving designs. Retain s19–20 exploratory rows | **Active:** exact s18 K verified76647; bounded spectrum76704 and complete export76710 passed. Bounded host-backed transform and split product76756 passed; measured penalties are recorded in the [memory plan](#s18-preprocessing-memory-design-and-comparison-scaling-096). Route comparison completed (SCALING-105): [four-node distributed host/root/GPU design recommended](../experiments/s18-preprocessing-routes/report.md); distributed prototyping selected; two-node host exchange77127 and bounded root-worker comparison77148 passed; subset-validation overhead needs controlled measurement; GPU/four-node communication and complete runtimes unknown |
 
 For preprocessing, choose the fastest measured complete server workflow within
 agreed budgets; GPU and multi-GPU requirements are acceptable. GPU count is a
@@ -2234,11 +2234,19 @@ SCALING-109 next-work order is explicit:
 1. Root/backend prerequisite77126 passed; use the same root/product arithmetic.
 2. **Measure independent root workers including final merge first.** The
    [same-node1/2/4GPU worker prototype](../experiments/parallel-root-workers/report.md)
-   is implemented; **bounded job77148 submitted**
-   ([receipt/results](../experiments/parallel-root-workers/submission.json)).
-   Compare whole-root scheduling, setup,
-   partitioning, worker wall time and merge, with full CPU polynomial agreement.
-   This is a component gate, not fulls18 or cross-node speed evidence.
+   **passed bounded job77148**
+   ([reviewed results](../experiments/parallel-root-workers/report.md#completed-worker-comparison-scaling-110)).
+   CPU/scalar/hash agreement, small genuine memcheck and partition race/admission
+   checks pass. Largest synthetic s17root262144-exponent case: mean3.431855s whole
+   versus2.944695s four-worker including partition/merge; no uniform worker-count
+   win or fullsize/cross-node speed evidence. **Refine this root gate first:**
+   source/profile shows full-domain bitmap allocation for each partial-root
+   validation (2GiB ats17,8GiB ats18). Compare a fully checked subset-sized/search
+   validator in controlled measurements before interpreting worker scaling.
+   Keep dense validation as the faster full-support default unless measurements
+   justify a change; present any material memory/time trade-off before adoption.
+   No skipping checks or unrecorded proof reuse. Largest command RSS4.946GiB;
+   recorded allocation payload is distinct from RSS.
 3. Then measure node-to-node GPU computation/communication, including host staging,
    synchronization and deterministic rank ownership. Host-only77127 is insufficient
    to select GPU count or claim a four-node full-size bandwidth.

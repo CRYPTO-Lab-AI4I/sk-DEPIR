@@ -94,9 +94,12 @@ also passed. Host-memory exchange77127 runs on two HPC nodes;32MiB
 inputs give2.447ms median forward exchange and6.385GiB/s remote payload per node.
 GPU transport and four-node scaling remain unvalidated. Intermediate exchanges stay in memory; checkpoint/final
 writes are a separate buffered, controlled-concurrency validation gate.
-Next, [measure independent GPU root workers including merge](experiments/parallel-root-workers/report.md),
-then GPU communication and controlled buffered persistence. The bounded same-node
-prototype is implemented; its GPU performance and correctness checks are pending.
+[Independent GPU root workers including merge](experiments/parallel-root-workers/report.md)
+pass bounded validation77148. Largest synthetic s17root case averages2.945s with
+four workers versus3.432s whole-root; other cases favor different worker counts.
+Full-domain validation bitmaps dominate small-subset allocations, so a controlled
+subset-validation comparison comes before interpreting scaling, GPU communication
+and controlled buffered persistence. No full-size speedup is established.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 
