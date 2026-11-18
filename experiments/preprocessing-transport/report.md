@@ -1,18 +1,20 @@
 # Two-node memory redistribution gate
 
-Status: **job77127 submitted**, following explicit two-node budget approval.
-[Receipt](submission.json), [results](runs/exchange-01/), [Slurm log](slurm-77127.log).
-Prepared probe/controller source `9a1bbf7`; the runner seals its actual revision
-and source identities. No monitoring after submission.
-Work SCALING-106. No distributed GPU/root performance or bandwidth established.
+Status: **two-node validation77127 passed** on HPC gnode13/gnode14, zero GPUs.
+Complete scheduler job **5 s**. [Receipt](submission.json),
+[raw results](runs/exchange-01/results.json), [verified analysis](runs/exchange-01/analysis.json),
+[accounting](runs/exchange-01/accounting.txt), [Slurm log](slurm-77127.log).
+Producer revision `e06a33d`; three source identities, four evidence logs and the
+retained compiled binary reconcile against the producer's seals without overrides.
+Work SCALING-106/107/108. This measures host-memory exchange, not distributed GPU/root performance.
 
-[Probe](probe.cpp), [guarded runner](run.py), [review tests](test_review.py), [Slurm entry](run.sbatch).
+[Probe](probe.cpp), [guarded runner](run.py), [review tests](test_review.py), [completion analyzer](analyze.py), [Slurm entry](run.sbatch).
 This optional server experiment uses installed Open MPI4.1.8 with Slurm resource
 support, selected after module/tool inspection. It adds no MPI/CUDA dependency
 to ordinary library or CPU-client builds. Local module queries emit a sandbox
-socket-permission diagnostic; compilation succeeds. Compute-node transport
-initialization and actual fabric availability remain untested. Installed
-components do not prove RDMA or GPU-direct support or bandwidth.
+socket-permission diagnostic; compilation succeeds. Compute-node MPI initialization and host transfers now pass; the selected
+fabric/protocol and GPU-direct support were not instrumented. Installed
+components do not prove RDMA or GPU-direct support.
 
 Each of two ranks on distinct nodes keeps uint64 extension-field test patterns
 in host RAM and exchanges them directly with MPI_Alltoall. Patterns include bit33
@@ -72,3 +74,52 @@ computation measurements separately before combining them into a full pipeline.
 No fullsize workload, transport choice for production or resource increase is
 implied by preparing this runner. Submit and hand off without monitoring after
 approval; review only after completion ping.
+
+## Completed host-memory exchange (SCALING-108)
+
+All three input sizes, one warm-up plus three measured exchanges each, pass on
+both distinct nodes. Every received uint64 value and reverse-exchange value is
+checked, including bit33 and rank/position ownership. Both ranks complete;
+all four commands exit0. No shared-filesystem array or GPU workload was used.
+The operation has an MPI barrier before timing; forward call time includes local
+and remote all-to-all work, and is reduced to the slowest rank outside the clock.
+Validation and the reverse exchange remain outside the forward clock. Logging,
+allocation, startup and binary compilation are included in the5-second job.
+
+| Input per rank | Remote bytes sent per node per forward pass | Three forward latencies | Median | Remote payload throughput per node |
+|---|---|---|---|---|
+| 1 MiB |0.5 MiB |98.488–101.499 microseconds |99.122 microseconds |4.926 GiB/s |
+| 8 MiB |4 MiB |0.585–0.691 ms |0.663 ms |5.894 GiB/s |
+| 32 MiB |16 MiB |2.263–2.574 ms |2.447 ms |6.385 GiB/s |
+
+Throughput is **remote bytes per node divided by median slowest-rank latency**.
+Each node also receives the same amount. Two rank records share the same reduced
+time and are not independent samples: there are three samples/size, not six.
+For32MiB inputs, aggregate bidirectional sent payload is12.770 GiB/s; that is not
+per-node throughput or measured physical link bandwidth. No confidence bound,
+large-message saturation study or compute/transfer overlap is established.
+
+Explicit data buffers peak at64 MiB/rank. OS-reported peak process RSS is
+**297.734 MiB on rank0 /287.867 MiB on rank1**, including MPI/runtime overhead,
+within the1GiB guards. Scheduler step MaxRSS reports only about5MiB and does not
+represent these rank processes; it is retained as accounting, not substituted
+for the rank measurements. The job requested4GiB per node (8GiB aggregate),
+2CPU per node (4total), no GPU. Binary remains in
+`.cache/liftrs/preprocessing-transport/exchange-01/probe`; logs and MPI configuration
+are retained with source/evidence/binary hashes. No cache was deleted.
+
+Reproduce the completion review without any scheduler/process execution:
+
+```sh
+python3 -B experiments/preprocessing-transport/test_review.py
+python3 -B experiments/preprocessing-transport/analyze.py exchange-01
+```
+
+Three review tests pass, including missing/same-node/RSS cases and the factor-of-two
+remote-byte calculation. No producer execution code was changed during review.
+Actual selected transport/adapter, GPU staging, four-node contention, distributed
+transform schedules, root workers and large buffered persistence remain separate
+validation gates. This result supports proceeding with direct messages; it does
+not validate complete s18 preprocessing or justify applying this bandwidth to
+four-node/full-size forecasts. No new job launched, and root job77126 was not
+inspected as part of this completion ping.

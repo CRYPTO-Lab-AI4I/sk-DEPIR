@@ -84,13 +84,15 @@ remain unknown. It adds no default preprocessing mode.
 The [complete s18 route comparison](experiments/s18-preprocessing-routes/report.md)
 recommends a four-node, sixteen-GPU design with distributed host/root work for
 speed. The four-GPU hybrid still has tight host memory and missing discovery/Newton
-integration. Neither complete route is implemented; network and total runtime
-remain unmeasured, with no new full-run budget or default selected. Distributed prototyping is selected.
+integration. Neither complete route is implemented; four-node GPU communication
+and total runtime remain unmeasured, with no new full-run budget or default selected. Distributed prototyping is selected.
 Distributed preprocessing prototyping now separates the shared normalized-root
 and generator stages, preserving existing arithmetic and recovery. [Bounded
 backend validation](experiments/preprocessing-root-boundary/report.md) and a
 [two-node RAM exchange gate](experiments/preprocessing-transport/report.md)
-precede integration. Intermediate exchanges stay in memory; checkpoint/final
+precede integration. Host-memory exchange77127 passes on two HPC nodes;32MiB
+inputs give2.447ms median forward exchange and6.385GiB/s remote payload per node.
+GPU transport and four-node scaling remain unvalidated. Intermediate exchanges stay in memory; checkpoint/final
 writes are a separate buffered, controlled-concurrency validation gate.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.

@@ -80,8 +80,9 @@ original methodology; apply this policy to new optimization runs.
   shared arithmetic, immutable support and partitioned-root equivalence; bounded
   backend/recovery validation pending, no measured memory saving.
 - [Two-node RAM redistribution](preprocessing-transport/report.md): compiled
-  optional MPI host-memory probe, no shared-file intermediates; two-node budget
-  approved and job77127 submitted, zero GPUs; not a distributed transform/root benchmark.
+  optional MPI host-memory probe, no shared-file intermediates; job77127 passed
+  on two HPC nodes.32MiB inputs yield6.385GiB/s remote payload/node; zero GPUs,
+  not a distributed transform/root or four-node bandwidth benchmark.
 - [s18 preprocessing route comparison](s18-preprocessing-routes/report.md):
   reproducible whole-workflow host/device/Newton/storage models and hypothetical
   communication/work scaling; distributed host/root/GPU design recommended for

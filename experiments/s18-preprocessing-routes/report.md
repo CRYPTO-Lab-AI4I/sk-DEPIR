@@ -162,6 +162,18 @@ not additional measured wall time and not a quoted HPC interconnect specificatio
 Compute/communication overlap is unproven. A bounded multi-node test must measure
 usable bandwidth, transport support and actual pass counts before a full forecast.
 
+### Subsequent bounded host-memory evidence
+
+[Two-node validation77127](../preprocessing-transport/report.md#completed-host-memory-exchange-scaling-108)
+passes on HPC gnode13/gnode14, zero GPUs,2CPU/4GiB requested RAM/node. For32MiB
+input/rank, each node sends16MiB remotely; median forward latency2.447ms gives
+6.385GiB/s remote payload/node in three warm samples. Every value/order and reverse
+exchange passes, and source/evidence/binary identities reconcile. This establishes
+small two-node host-memory exchange, not the four-node/GPU schedules above.
+Do not replace the hypothetical network rates with a claimed four-node measured
+rate or infer complete preprocessing latency. Selected fabric/GPU-direct support
+and four-node contention remain uninstrumented. No route capacity model changes.
+
 ## Persistence and resource admission
 
 Canonical reusable files project**950.170 GiB**. The existing conservative

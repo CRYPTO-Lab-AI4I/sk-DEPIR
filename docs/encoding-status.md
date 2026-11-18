@@ -448,7 +448,7 @@ and unknown communication/runtime. Neither route is fully implemented or admitte
 | s18 design (projection) | Device arrays | Host arrays and headroom | Runtime / implementation status |
 |---|---|---|---|
 | Four H200 GPUs, one HPC node, hybrid | Largest split/root product:384 GiB aggregate,96 GiB/card | Discovery:770.893 GiB; last Newton product:697.446 GiB including split temporary, before overhead; uncollected old prefix can raise retention to825.446 GiB. Earlier support release projects576 GiB stage payload, unimplemented. Tiled spectrum also retains a512 GiB host arena; post-transform streamed-export payload256.001 GiB is not its peak. | Complete runtime:unknown. Bounded prototypes are slower. Missing tiled base-grid discovery, prefix-aware Newton splitting and final-spectrum integration; device capacity alone does not establish feasibility. |
-| Sixteen H200 GPUs, four HPC nodes, distributed | Resident full product:1536 GiB aggregate,96 GiB/card | Balanced sharding projects discovery192.723 GiB/node and Newton158.362 GiB/node, before staging/runtime/cache. Requires genuinely sharded support/polynomial state, not a full coordinator copy. | Complete runtime:unknown; network unmeasured. Cross-node execution, parallel root work, distributed checkpoints/publication unimplemented. **Recommended design direction for speed**, not proven faster or supported. |
+| Sixteen H200 GPUs, four HPC nodes, distributed | Resident full product:1536 GiB aggregate,96 GiB/card | Balanced sharding projects discovery192.723 GiB/node and Newton158.362 GiB/node, before staging/runtime/cache. Requires genuinely sharded support/polynomial state, not a full coordinator copy. | Complete runtime:unknown; four-node/GPU communication unmeasured. Two-node host-memory exchange77127 passed; distributed preprocessing, parallel root work and distributed checkpoints/publication unimplemented. **Recommended design direction for speed**, not proven faster or supported. |
 
 The last **three Newton products**, not just the final identity, exceed the
 four-card resident capacity. Prefix-aware splitting needs3/7/13 contributing
@@ -461,8 +461,13 @@ Distributed prototyping is selected. The [shared root boundary](../experiments/p
 is implemented with local subset-merge tests passing; full backend/recovery
 validation **job77126 submitted** ([receipt](../experiments/preprocessing-root-boundary/submission.json)).
 A [two-node host-memory exchange](../experiments/preprocessing-transport/report.md)
-is **submitted as job77127**, after explicit two-node budget approval
-([receipt](../experiments/preprocessing-transport/submission.json)). Intermediates
+**passed job77127** on HPC gnode13/gnode14 (zero GPUs,2CPU and4GiB requested RAM
+per node,5s complete job). At32MiB input/rank,16MiB is sent remotely/node per pass;
+median forward time2.447ms gives6.385GiB/s remote payload/node. Full pattern and
+roundtrip checks pass;3source/4evidence/binary seals reconcile. Peak process RSS
+is297.734/287.867MiB by rank, including MPI. Three measured samples/size; the
+shared slowest-rank time is not two independent samples. No GPU/four-node
+bandwidth or fulls18 runtime follows. Intermediates
 stay in RAM/direct messages; buffered persistent output and bounded writer
 concurrency are a separate validation gate. No new full-size measurement or RAM
 saving is established; existing CPU/GPU resident results remain unchanged.

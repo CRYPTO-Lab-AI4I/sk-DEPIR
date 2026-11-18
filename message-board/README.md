@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-18 10:01 | SCALING-108 | Completed | [Two-node transport77127 passes; measured host payload rate](2026-11-18-1001-codex-scaling-108-completed.md) |
+| 2026-11-18 09:58 | SCALING-108 | Started | [Review transport77127](2026-11-18-0958-codex-scaling-108-started.md) |
 | 2026-11-18 09:53 | SCALING-107 | Handoff | [Approved two-node transport77127 submitted](2026-11-18-0953-codex-scaling-107-handoff.md) |
 | 2026-11-18 09:52 | SCALING-107 | Started | [Submit approved two-node transport test](2026-11-18-0952-codex-scaling-107-started.md) |
 | 2026-11-18 09:48 | SCALING-106 | Handoff | [Root validation77126 submitted; two-node budget pending](2026-11-18-0948-codex-scaling-106-handoff.md) |

@@ -42,7 +42,7 @@ s≤16 CPU/GPU paths and code-cache compatibility throughout.
 | 5. First full CPU baseline | Prefer resident reuse (~427GiB principal arrays) on one large-RAM node when the admitted budget fits. Validate systematic values, independent curves, hashes and34GiB packed output; separately measure code loading, encoding, packing, verification and peaks | **Full HPC run76645 passed**; 1 h 45 min 11.087 s encoding, 427.845 GiB sampled RSS, verified34 GiB packed output |
 | 6. Multi-GPU prototype and selection | Partition same-node arithmetic across GPUs; measure transfers, topology and synchronization. Compare fast-layout streamed constants (~256GiB aggregate/two-card capacity floor) with resident reuse (~398GiB/three-card floor), including all host/device lifetimes and headroom | Bounded resident1/2/4GPU integration passed76426; full four-H200 resident baseline passed76706. Other full-size card counts and streamed/compact modes remain separate |
 | 7. Full GPU comparison | Validate exact canonical/packed agreement with the CPU baseline and independently check correctness. Compare complete measured latency and deployment cost; keep CPU available without CUDA | **Full retry76706 passed**,7 min14.930 s encoding,221.591 GiB sampled RSS,398.463 GiB device-owned; CPU canonical/packed hashes match. Observed14.51× encoding-stage ratio, not controlled end-to-end speedup;76646 remains historical guard failure |
-| 8. Progress toward s18 | Recompute preprocessing/encoding/communication capacities using measurements, then select same-node versus multi-node or memory-saving designs. Retain s19–20 exploratory rows | **Active:** exact s18 K verified76647; bounded spectrum76704 and complete export76710 passed. Bounded host-backed transform and split product76756 passed; measured penalties are recorded in the [memory plan](#s18-preprocessing-memory-design-and-comparison-scaling-096). Route comparison completed (SCALING-105): [four-node distributed host/root/GPU design recommended](../experiments/s18-preprocessing-routes/report.md); distributed prototyping selected; network and complete runtimes unknown |
+| 8. Progress toward s18 | Recompute preprocessing/encoding/communication capacities using measurements, then select same-node versus multi-node or memory-saving designs. Retain s19–20 exploratory rows | **Active:** exact s18 K verified76647; bounded spectrum76704 and complete export76710 passed. Bounded host-backed transform and split product76756 passed; measured penalties are recorded in the [memory plan](#s18-preprocessing-memory-design-and-comparison-scaling-096). Route comparison completed (SCALING-105): [four-node distributed host/root/GPU design recommended](../experiments/s18-preprocessing-routes/report.md); distributed prototyping selected; two-node host exchange77127 passed; GPU/four-node communication and complete runtimes unknown |
 
 For preprocessing, choose the fastest measured complete server workflow within
 agreed budgets; GPU and multi-GPU requirements are acceptable. GPU count is a
@@ -2217,9 +2217,15 @@ support or prove a memory saving. [Native/GPU recovery validation](../experiment
 is **submitted as job77126**, within the existing single-node budget
 ([receipt/results](../experiments/preprocessing-root-boundary/submission.json)).
 No monitoring; await completion ping. [Two-node RAM transport gate](../experiments/preprocessing-transport/report.md)
-is **submitted as job77127**, after explicit second-node budget agreement
-([receipt/results](../experiments/preprocessing-transport/submission.json)); zero GPUs,
-2CPU/4GiB requested RAM per node,10min scheduler. No monitoring. Full parallel roots and distributed transforms remain
+**passed job77127** on HPC gnode13/gnode14, after explicit second-node budget
+agreement ([reviewed results](../experiments/preprocessing-transport/report.md#completed-host-memory-exchange-scaling-108));
+zero GPUs,2CPU/4GiB requested RAM per node,5s whole job. Complete34bit pattern
+and roundtrip checks pass. At32MiB input/node, median forward time2.447ms
+corresponds to6.385GiB/s remote payload per node (16MiB remote bytes/node).
+Four-node GPU transport and distributed preprocessing remain unmeasured; next
+is staged GPU/rank ownership and independent root-worker integration once the
+separate shared-root backend validation is reviewed. Large buffered persistence
+remains a separate gate; no new job launched by this results review. Full parallel roots and distributed transforms remain
 unimplemented. Keep computation and persistent-write gates separate.
 
 Streaming adds no transforms or canonical output bytes, but synchronous chunk

@@ -1,0 +1,78 @@
+--------------------------------------------------------------------------
+WARNING: No preset parameters were found for the device that Open MPI
+detected:
+
+  Local host:            gnode13
+  Device name:           mlx5_0
+  Device vendor ID:      0x02c9
+  Device vendor part ID: 4129
+
+Default device parameters will be used, which may result in lower
+performance.  You can edit any of the files specified by the
+btl_openib_device_param_files MCA parameter to set values for your
+device.
+
+NOTE: You can turn off this warning by setting the MCA parameter
+      btl_openib_warn_no_device_params_found to 0.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   gnode13
+  Local device: mlx5_1
+--------------------------------------------------------------------------
+{"rank":0,"host":"gnode13"}
+{"rank":1,"host":"gnode14"}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"redistribution","event":"started","completed":0,"total":4,"unit":"passes","buffer_bytes_each":1048576,"elapsed_seconds":0.0226009,"exchange_seconds":0,"peak_rss_KiB":242380}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"redistribution","event":"started","completed":0,"total":4,"unit":"passes","buffer_bytes_each":1048576,"elapsed_seconds":0.00539614,"exchange_seconds":0,"peak_rss_KiB":231536}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"warmup-redistribution","event":"completed","completed":1,"total":4,"unit":"passes","buffer_bytes_each":1048576,"elapsed_seconds":0.0237592,"exchange_seconds":0.00038882,"peak_rss_KiB":242380}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"redistribution","event":"started","completed":1,"total":4,"unit":"passes","buffer_bytes_each":1048576,"elapsed_seconds":0.0237675,"exchange_seconds":0,"peak_rss_KiB":242380}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"warmup-redistribution","event":"completed","completed":1,"total":4,"unit":"passes","buffer_bytes_each":1048576,"elapsed_seconds":0.0062741,"exchange_seconds":0.00038882,"peak_rss_KiB":231536}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"redistribution","event":"started","completed":1,"total":4,"unit":"passes","buffer_bytes_each":1048576,"elapsed_seconds":0.00628365,"exchange_seconds":0,"peak_rss_KiB":231536}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"timed-redistribution","event":"completed","completed":2,"total":4,"unit":"passes","buffer_bytes_each":1048576,"elapsed_seconds":0.024128,"exchange_seconds":9.9122e-05,"peak_rss_KiB":242380}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"redistribution","event":"started","completed":2,"total":4,"unit":"passes","buffer_bytes_each":1048576,"elapsed_seconds":0.0241328,"exchange_seconds":0,"peak_rss_KiB":242380}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"timed-redistribution","event":"completed","completed":2,"total":4,"unit":"passes","buffer_bytes_each":1048576,"elapsed_seconds":0.0066398,"exchange_seconds":9.9122e-05,"peak_rss_KiB":231536}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"redistribution","event":"started","completed":2,"total":4,"unit":"passes","buffer_bytes_each":1048576,"elapsed_seconds":0.00664538,"exchange_seconds":0,"peak_rss_KiB":231536}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"timed-redistribution","event":"completed","completed":3,"total":4,"unit":"passes","buffer_bytes_each":1048576,"elapsed_seconds":0.0244922,"exchange_seconds":0.000101499,"peak_rss_KiB":242380}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"redistribution","event":"started","completed":3,"total":4,"unit":"passes","buffer_bytes_each":1048576,"elapsed_seconds":0.0244965,"exchange_seconds":0,"peak_rss_KiB":242380}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"timed-redistribution","event":"completed","completed":3,"total":4,"unit":"passes","buffer_bytes_each":1048576,"elapsed_seconds":0.00700978,"exchange_seconds":0.000101499,"peak_rss_KiB":231536}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"redistribution","event":"started","completed":3,"total":4,"unit":"passes","buffer_bytes_each":1048576,"elapsed_seconds":0.00701466,"exchange_seconds":0,"peak_rss_KiB":231536}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"timed-redistribution","event":"completed","completed":4,"total":4,"unit":"passes","buffer_bytes_each":1048576,"elapsed_seconds":0.0248539,"exchange_seconds":9.8488e-05,"peak_rss_KiB":242380}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"timed-redistribution","event":"completed","completed":4,"total":4,"unit":"passes","buffer_bytes_each":1048576,"elapsed_seconds":0.00736422,"exchange_seconds":9.8488e-05,"peak_rss_KiB":231536}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"redistribution","event":"started","completed":0,"total":4,"unit":"passes","buffer_bytes_each":8388608,"elapsed_seconds":0.0297538,"exchange_seconds":0,"peak_rss_KiB":255728}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"redistribution","event":"started","completed":0,"total":4,"unit":"passes","buffer_bytes_each":8388608,"elapsed_seconds":0.0137955,"exchange_seconds":0,"peak_rss_KiB":245624}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"warmup-redistribution","event":"completed","completed":1,"total":4,"unit":"passes","buffer_bytes_each":8388608,"elapsed_seconds":0.0351876,"exchange_seconds":0.00140156,"peak_rss_KiB":255728}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"redistribution","event":"started","completed":1,"total":4,"unit":"passes","buffer_bytes_each":8388608,"elapsed_seconds":0.0351993,"exchange_seconds":0,"peak_rss_KiB":255728}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"warmup-redistribution","event":"completed","completed":1,"total":4,"unit":"passes","buffer_bytes_each":8388608,"elapsed_seconds":0.0177243,"exchange_seconds":0.00140156,"peak_rss_KiB":245624}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"redistribution","event":"started","completed":1,"total":4,"unit":"passes","buffer_bytes_each":8388608,"elapsed_seconds":0.0177401,"exchange_seconds":0,"peak_rss_KiB":245624}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"timed-redistribution","event":"completed","completed":2,"total":4,"unit":"passes","buffer_bytes_each":8388608,"elapsed_seconds":0.0379972,"exchange_seconds":0.000690649,"peak_rss_KiB":255728}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"redistribution","event":"started","completed":2,"total":4,"unit":"passes","buffer_bytes_each":8388608,"elapsed_seconds":0.0380059,"exchange_seconds":0,"peak_rss_KiB":255728}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"timed-redistribution","event":"completed","completed":2,"total":4,"unit":"passes","buffer_bytes_each":8388608,"elapsed_seconds":0.0204725,"exchange_seconds":0.000690649,"peak_rss_KiB":245624}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"redistribution","event":"started","completed":2,"total":4,"unit":"passes","buffer_bytes_each":8388608,"elapsed_seconds":0.0204821,"exchange_seconds":0,"peak_rss_KiB":245624}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"timed-redistribution","event":"completed","completed":3,"total":4,"unit":"passes","buffer_bytes_each":8388608,"elapsed_seconds":0.0406169,"exchange_seconds":0.000662793,"peak_rss_KiB":255728}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"redistribution","event":"started","completed":3,"total":4,"unit":"passes","buffer_bytes_each":8388608,"elapsed_seconds":0.0406244,"exchange_seconds":0,"peak_rss_KiB":255728}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"timed-redistribution","event":"completed","completed":3,"total":4,"unit":"passes","buffer_bytes_each":8388608,"elapsed_seconds":0.0232377,"exchange_seconds":0.000662793,"peak_rss_KiB":245624}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"redistribution","event":"started","completed":3,"total":4,"unit":"passes","buffer_bytes_each":8388608,"elapsed_seconds":0.0232472,"exchange_seconds":0,"peak_rss_KiB":245624}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"timed-redistribution","event":"completed","completed":4,"total":4,"unit":"passes","buffer_bytes_each":8388608,"elapsed_seconds":0.0432197,"exchange_seconds":0.000584947,"peak_rss_KiB":255728}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"timed-redistribution","event":"completed","completed":4,"total":4,"unit":"passes","buffer_bytes_each":8388608,"elapsed_seconds":0.0257376,"exchange_seconds":0.000584947,"peak_rss_KiB":245624}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"redistribution","event":"started","completed":0,"total":4,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.0588778,"exchange_seconds":0,"peak_rss_KiB":304880}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"redistribution","event":"started","completed":0,"total":4,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.0449768,"exchange_seconds":0,"peak_rss_KiB":294776}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"warmup-redistribution","event":"completed","completed":1,"total":4,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.077591,"exchange_seconds":0.0044253,"peak_rss_KiB":304880}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"redistribution","event":"started","completed":1,"total":4,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.0776025,"exchange_seconds":0,"peak_rss_KiB":304880}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"warmup-redistribution","event":"completed","completed":1,"total":4,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.0604733,"exchange_seconds":0.0044253,"peak_rss_KiB":294776}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"redistribution","event":"started","completed":1,"total":4,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.0604886,"exchange_seconds":0,"peak_rss_KiB":294776}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"timed-redistribution","event":"completed","completed":2,"total":4,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.0892608,"exchange_seconds":0.00257365,"peak_rss_KiB":304880}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"redistribution","event":"started","completed":2,"total":4,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.0892684,"exchange_seconds":0,"peak_rss_KiB":304880}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"timed-redistribution","event":"completed","completed":2,"total":4,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.0725613,"exchange_seconds":0.00257365,"peak_rss_KiB":294776}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"redistribution","event":"started","completed":2,"total":4,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.07257,"exchange_seconds":0,"peak_rss_KiB":294776}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"timed-redistribution","event":"completed","completed":3,"total":4,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.100515,"exchange_seconds":0.00244716,"peak_rss_KiB":304880}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"redistribution","event":"started","completed":3,"total":4,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.100523,"exchange_seconds":0,"peak_rss_KiB":304880}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"timed-redistribution","event":"completed","completed":3,"total":4,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.0835103,"exchange_seconds":0.00244716,"peak_rss_KiB":294776}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"redistribution","event":"started","completed":3,"total":4,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.083518,"exchange_seconds":0,"peak_rss_KiB":294776}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"timed-redistribution","event":"completed","completed":4,"total":4,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.110864,"exchange_seconds":0.00226274,"peak_rss_KiB":304880}
+{"utc":"2026-11-18T09:52:46Z","rank":0,"phase":"workflow","event":"completed","completed":3,"total":3,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.111115,"exchange_seconds":0,"peak_rss_KiB":304880}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"timed-redistribution","event":"completed","completed":4,"total":4,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.0939554,"exchange_seconds":0.00226274,"peak_rss_KiB":294776}
+{"utc":"2026-11-18T09:52:46Z","rank":1,"phase":"workflow","event":"completed","completed":3,"total":3,"unit":"passes","buffer_bytes_each":33554432,"elapsed_seconds":0.0943159,"exchange_seconds":0,"peak_rss_KiB":294776}
+[gnode13:3891753] 3 more processes have sent help message help-mpi-btl-openib.txt / no device params found
+[gnode13:3891753] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[gnode13:3891753] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init

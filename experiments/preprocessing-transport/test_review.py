@@ -18,6 +18,14 @@ def fixture():
 
 class Admission(unittest.TestCase):
     def test_complete(self):VERIFY(fixture())
+    def test_remote_payload_is_half_input_not_duplicate_rank_sum(self):
+        summary=runpy.run_path(str(Path(__file__).with_name('analyze.py')))['summarize'](fixture())
+        largest=summary['samples'][-1]
+        self.assertEqual(largest['remote_MiB_per_rank'],16)
+        self.assertEqual(len(largest['samples_seconds']),3)
+        self.assertEqual(largest['remote_payload_GiBs_per_node'],1.5625)
+        self.assertEqual(largest['bidirectional_aggregate_payload_GiBs'],3.125)
+
     def test_reject_same_node_missing_case_and_rss(self):
         rows=fixture();rows[2]['exchange_seconds']=0
         with self.assertRaises(AssertionError):VERIFY(rows)

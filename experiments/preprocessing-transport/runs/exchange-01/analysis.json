@@ -1,0 +1,55 @@
+{
+  "samples": [
+    {
+      "input_MiB_per_rank": 1.0,
+      "remote_MiB_per_rank": 0.5,
+      "samples_seconds": [
+        9.9122e-05,
+        0.000101499,
+        9.8488e-05
+      ],
+      "median_seconds": 9.9122e-05,
+      "remote_payload_GiBs_per_node": 4.926063336090878,
+      "bidirectional_aggregate_payload_GiBs": 9.852126672181756
+    },
+    {
+      "input_MiB_per_rank": 8.0,
+      "remote_MiB_per_rank": 4.0,
+      "samples_seconds": [
+        0.000690649,
+        0.000662793,
+        0.000584947
+      ],
+      "median_seconds": 0.000662793,
+      "remote_payload_GiBs_per_node": 5.8936198783028795,
+      "bidirectional_aggregate_payload_GiBs": 11.787239756605759
+    },
+    {
+      "input_MiB_per_rank": 32.0,
+      "remote_MiB_per_rank": 16.0,
+      "samples_seconds": [
+        0.00257365,
+        0.00244716,
+        0.00226274
+      ],
+      "median_seconds": 0.00244716,
+      "remote_payload_GiBs_per_node": 6.3849523529315615,
+      "bidirectional_aggregate_payload_GiBs": 12.769904705863123
+    }
+  ],
+  "hosts": {
+    "0": "gnode13",
+    "1": "gnode14"
+  },
+  "peak_RSS_MiB_by_rank": {
+    "0": 297.734375,
+    "1": 287.8671875
+  },
+  "status": "passed",
+  "job_id": "77127",
+  "revision": "e06a33d94de85e64bcfe77820a0077bb6bb9b732",
+  "source_files_verified": 3,
+  "evidence_files_verified": 4,
+  "binary_verified": true,
+  "scope": "two-node host-memory redistribution only; no GPU transform, root execution, four-node bandwidth or storage benchmark"
+}
