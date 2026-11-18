@@ -1,0 +1,31 @@
+{
+  "job_id": "77285",
+  "submitted_utc": "2026-11-18T15:51:01.393089+00:00",
+  "implementation_revision": "f80a6858f3e3c2155627ee983e867ba875ce6fad",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--output=experiments/distributed-root/slurm-%j.log",
+    "experiments/distributed-root/run.sbatch",
+    "roots-01"
+  ],
+  "results": "experiments/distributed-root/runs/roots-01/",
+  "progress_log": "experiments/distributed-root/slurm-77285.log",
+  "cache": ".cache/liftrs/distributed-root/roots-01/",
+  "allocation": {
+    "nodes": 2,
+    "gpus": 2,
+    "gpu_model": "H200",
+    "cpus_per_node": 2,
+    "requested_host_GiB_per_node": 4,
+    "owned_device_MiB_per_card": 128,
+    "pinned_staging_cap_MiB_per_rank": 64,
+    "rank_RSS_guard_GiB": 2,
+    "retained_cap_MiB": 128,
+    "scratch_cap_GiB": 2,
+    "scheduler_seconds": 900
+  },
+  "admission": "Same previously approved two-node GPU allocation; no increase.",
+  "source": "Runner freezes tracked Git build inputs at actual start and records its exact revision; subsequent receipt/documentation commits do not change implementation inputs.",
+  "monitoring": "No polling, following logs or result review; await user completion ping."
+}

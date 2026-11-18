@@ -2272,7 +2272,8 @@ SCALING-109 next-work order is explicit:
    validation for the measured sparse cases. Include complete transfer, merge and
    canonical/CPU checks in workflow elapsed time; keep intermediate arrays in RAM.
    SCALING-117: [bounded root/transfer/merge implementation](../experiments/distributed-root/report.md)
-   is ready for two-node validation in the same approved allocation. Shared fixture
+   is submitted as **job77285** in the same approved allocation; results await the
+   user completion ping. Shared fixture
    extraction preserves all four historical CPU root hashes. Full partial-root
    polynomials travel directly in host RAM via MPI; each rank merges on its one
    GPU and compares every coefficient with the native CPU reference. Retain both

@@ -539,7 +539,7 @@ fulls18 capacity/runtime is established. Fulls17 CPU/GPU results and fulls18-unr
 cells remain unchanged; ordinary CPU/GPU defaults remain unchanged.
 
 The next [cross-node root/merge gate](../experiments/distributed-root/report.md)
-is implemented; two-node validation is pending within the same approved
+is implemented; **validation job77285 is submitted**, results unreviewed, within the same approved
 2 H200/2 HPC-node/4 CPU/8 GiB requested host RAM allocation. It reuses the shared
 canonical fixture/root/product helpers, transmits complete host polynomials and
 merges on both receiving GPUs. Local extraction checks preserve all four earlier

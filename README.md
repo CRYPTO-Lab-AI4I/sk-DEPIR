@@ -110,7 +110,7 @@ distributed transform or fulls18 run.
 The next [bounded cross-node root integration](experiments/distributed-root/report.md)
 reuses the root/product helpers, transfers complete host polynomials and merges
 on each receiving GPU. It is implemented with explicit experimental MPI/CUDA
-build flags; two-node validation is pending. Ordinary CPU builds are unchanged.
+build flags; bounded validation job77285 is submitted. Ordinary CPU builds are unchanged.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

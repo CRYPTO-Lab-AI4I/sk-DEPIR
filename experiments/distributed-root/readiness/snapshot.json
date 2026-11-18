@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "utc": "2026-11-18T15:50:10.727203+00:00",
+  "revision": "f80a6858f3e3c2155627ee983e867ba875ce6fad",
+  "build_input_files": 621,
+  "build_input_bytes": 2941820,
+  "readiness_source_files_matched": 10,
+  "scope": "Actual immutable Git build snapshot matches every locally checked new/modified implementation input; no GPU/MPI execution or rebuild."
+}

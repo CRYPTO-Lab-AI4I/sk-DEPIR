@@ -1,6 +1,8 @@
 # Cross-node GPU root products and polynomial merge
 
-Status: implemented and locally checked; **two-node validation not yet run**.
+Status: implemented and locally checked; **two-node validation job77285 submitted**,
+results not reviewed. [Submission receipt](submission.json),
+results/profiles: `runs/roots-01/`, progress: `slurm-77285.log`.
 Work SCALING-117. This follows the passed
 [staged GPU exchange](../gpu-staged-transport/report.md) and
 [independent root workers](../root-subset-validation/report.md).
@@ -72,6 +74,9 @@ MPI/CUDA test binary compiles on HPC without running GPU/MPI work. Four Python
 review tests and the existing five staged-runner tests pass. OpenMPI compiler
 wrappers emit a sandbox socket warning on the login-node compile, but the build
 completes. The scheduled build runs outside that local sandbox restriction.
+[Actual immutable snapshot check](readiness/snapshot.json):621 build files,
+2,941,820bytes; all10 locally checked implementation-input hashes match the
+committed source `f80a685`. No GPU/MPI execution or second rebuild in this check.
 
 Pipeline timing begins after a rank barrier and includes repeated partitioning,
 local root construction, full polynomial exchange, receiving-GPU merge and full

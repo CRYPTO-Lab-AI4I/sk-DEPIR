@@ -292,5 +292,5 @@ GPU-direct, distributed preprocessing and fulls18 costs remain unmeasured.
 The next [distributed-root component](../../experiments/distributed-root/report.md)
 reuses this executor for partial roots and receiving-GPU polynomial merges.
 Optional MPI transport is experiment-only (`liftrs_mpi` plus the existing CUDA/
-native tags); two-node validation is pending. No ordinary client dependency or
+native tags); bounded validation job77285 is submitted. No ordinary client dependency or
 full distributed-preprocessing capability is added.
