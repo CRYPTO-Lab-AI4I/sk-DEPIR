@@ -104,7 +104,7 @@ not fulls18 speedup; GPU communication and buffered persistence are next.
 The [two-node staged GPU exchange](experiments/gpu-staged-transport/report.md)
 job77241 failed before compute because its build snapshot included an unrelated
 historical artifact. Build-input selection is corrected and a real snapshot
-compiles; a same-budget retry is prepared. No GPU/MPI timings exist yet; this is
+compiles; same-budget retry77281 is submitted. No GPU/MPI timings exist yet; this is
 not a distributed transform or fulls18 run.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.

@@ -82,7 +82,7 @@ original methodology; apply this policy to new optimization runs.
 - [Two-node staged GPU exchange](gpu-staged-transport/report.md): shared field
   kernels, pinned host staging/direct MPI and receiving-GPU ownership with full
   CPU/roundtrip checks;77241 failed in source preparation before compute.
-  Build-input filter corrected/real snapshot builds passed; same-budget retry prepared.
+  Build-input filter corrected/real snapshot builds passed; same-budget retry77281 submitted.
 - [Root-subset membership comparison](root-subset-validation/report.md): explicit
   bitmap versus sorted-search validation sharing every check; paired worker/merge
   profiles/memory measurement77213 passed. Sorted membership improves measured

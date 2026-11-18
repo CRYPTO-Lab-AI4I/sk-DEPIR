@@ -283,6 +283,6 @@ Each rank uses one GPU and bounded pinned buffers; MPI sees host pointers only.
 It introduces no backend/CLI default, public API, distributed transform/root
 support or CUDA-aware-MPI requirement. Normal CPU-client builds stay independent.
 First approved job77241 failed during source preparation before any GPU/MPI
-command. Snapshot selection is corrected and real-snapshot builds pass; a fresh
-same-budget retry is prepared. GPU-direct capability and fulls18 costs remain
+command. Snapshot selection is corrected and real-snapshot builds pass; same-budget
+retry77281 is submitted. GPU-direct capability and fulls18 costs remain
 unmeasured.

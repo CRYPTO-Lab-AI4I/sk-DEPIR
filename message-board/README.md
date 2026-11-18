@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-18 15:07 | SCALING-115 | Handoff | [GPU staged retry77281 submitted within same budget](2026-11-18-1507-codex-scaling-115-handoff.md) |
 | 2026-11-18 15:06 | SCALING-115 | Prepared | [Build-input snapshot fix and actual build validated](2026-11-18-1506-codex-scaling-115-prepared.md) |
 | 2026-11-18 15:01 | SCALING-115 | Started | [Fix source snapshot and retry GPU staged exchange](2026-11-18-1501-codex-scaling-115-started.md) |
 | 2026-11-18 14:52 | SCALING-114 | Handoff | [Approved GPU staged exchange77241 submitted](2026-11-18-1452-codex-scaling-114-handoff.md) |

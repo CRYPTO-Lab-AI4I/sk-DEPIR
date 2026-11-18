@@ -1,0 +1,28 @@
+{
+  "job_id": "77281",
+  "name": "staged-02",
+  "submitted_utc": "2026-11-18T15:07:34.779371+00:00",
+  "prepared_source_revision": "6931f6c",
+  "submission_base_revision": "6931f6c",
+  "status": "submitted; not monitored",
+  "approval": "User explicitly approved2GPUs/2nodes/15minutes",
+  "results": "experiments/gpu-staged-transport/runs/staged-02/results.json",
+  "log": "experiments/gpu-staged-transport/slurm-77281.log",
+  "cache": ".cache/liftrs/gpu-staged-transport/staged-02/",
+  "resources": {
+    "nodes": 2,
+    "gpus": 2,
+    "gpu_model": "H200",
+    "cpu_cores_per_node": 2,
+    "host_requested_GiB_per_node": 4,
+    "owned_device_cap_MiB_per_card": 128,
+    "pinned_host_cap_MiB_per_rank": 64,
+    "rss_guard_GiB_per_rank": 2,
+    "retained_cap_MiB": 128,
+    "scratch_cap_GiB": 2,
+    "controller_seconds": 720,
+    "scheduler_seconds": 900
+  },
+  "replaces_failed_job": "77241",
+  "reason": "restrict snapshot to size-checked build inputs; original failed before compute; resource budget unchanged"
+}

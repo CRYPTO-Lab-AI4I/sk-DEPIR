@@ -1,8 +1,10 @@
 # Two-node host-staged GPU exchange
 
 Status: **first job77241 failed during source snapshot, before build/GPU/MPI**.
-A corrected build-input-only snapshot is validated; fresh retry is prepared within
-the unchanged approved budget. [Original receipt](submission.json),
+A corrected build-input-only snapshot is validated; **retry77281 submitted**
+within the unchanged approved budget. [Retry receipt](submission-retry-02.json),
+[retry results](runs/staged-02/), [retry log](slurm-77281.log). Prepared source
+`6931f6c`; no monitoring after submission. [Original receipt](submission.json),
 [failed results](runs/staged-01/results.json), [failure review](runs/staged-01/failure-review.json),
 [accounting](runs/staged-01/accounting.txt), [Slurm log](slurm-77241.log).
 Work SCALING-113/114/115. No communication/computation timing exists from this run.
