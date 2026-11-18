@@ -2232,21 +2232,12 @@ bounded same-node prototype below does not establish their performance.
 SCALING-109 next-work order is explicit:
 
 1. Root/backend prerequisite77126 passed; use the same root/product arithmetic.
-2. **Measure independent root workers including final merge first.** The
-   [same-node1/2/4GPU worker prototype](../experiments/parallel-root-workers/report.md)
-   **passed bounded job77148**
-   ([reviewed results](../experiments/parallel-root-workers/report.md#completed-worker-comparison-scaling-110)).
-   CPU/scalar/hash agreement, small genuine memcheck and partition race/admission
-   checks pass. Largest synthetic s17root262144-exponent case: mean3.431855s whole
-   versus2.944695s four-worker including partition/merge; no uniform worker-count
-   win or fullsize/cross-node speed evidence. **Refine this root gate first:**
-   source/profile shows full-domain bitmap allocation for each partial-root
-   validation (2GiB ats17,8GiB ats18). Compare a fully checked subset-sized/search
-   validator in controlled measurements before interpreting worker scaling.
-   Keep dense validation as the faster full-support default unless measurements
-   justify a change; present any material memory/time trade-off before adoption.
-   No skipping checks or unrecorded proof reuse. Largest command RSS4.946GiB;
-   recorded allocation payload is distinct from RSS.
+2. **Root workers including final merge: bounded gate passed.** Initial
+   [comparison77148](../experiments/parallel-root-workers/report.md) established
+   CPU/scalar/hash equivalence and identified N-sized bitmap overhead. Its
+   fixed-reference setup differs from the matched follow-up below; retain it as
+   historical evidence rather than the current performance selection. Fulls18
+   and cross-node speed remain unmeasured.
    SCALING-112: [matched comparison77213 passed](../experiments/root-subset-validation/report.md#completed-matched-comparison-scaling-112).
    All CPU/scalar/hash, exhaustive/wide/race and both small CUDA memcheck gates
    pass. Four samples/configuration in bitmap/search/search/bitmap order with
