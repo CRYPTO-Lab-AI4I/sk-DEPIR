@@ -502,6 +502,14 @@ gate, preserving complete checks and the faster dense default. GPU communication
 and separately buffered persistence follow; fulls18 runtime/final GPU count remain
 undecided and full-size result cells are unchanged.
 
+The [controlled subset-validator comparison](../experiments/root-subset-validation/report.md)
+is implemented and prepared: bitmap remains default; explicit binary search
+borrows the sorted support with no N-sized bitmap, adding O(KlogK) searches.
+Local exhaustive acceptance/error equivalence and wide-index allocation/progress
+checks pass. Matched bitmap/search worker timings and process RSS remain pending;
+both use the same sorted CPU-oracle setup, unlike historical77148. No measured
+fullsize memory/time saving or default change is established.
+
 ## Measurement boundaries for batch entries
 
 § [Completed22-case HPC batch](../experiments/encoding-table/report.md#completed-all-case-review-scaling-073)

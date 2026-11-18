@@ -79,6 +79,9 @@ original methodology; apply this policy to new optimization runs.
 - [Root/generator boundary validation](preprocessing-root-boundary/report.md):
   shared arithmetic, immutable support and partitioned-root equivalence; bounded
   backend/recovery validation77126 passed, no measured memory saving.
+- [Root-subset membership comparison](root-subset-validation/report.md): explicit
+  bitmap versus sorted-search validation sharing every check; paired worker/merge
+  profiles and memory measurements prepared. Ordinary defaults stay bitmap.
 - [Independent GPU root workers](parallel-root-workers/report.md): bounded
   same-node1/2/4-worker root construction and complete merge versus shared schedule,
   independent CPU/scalar references; comparison77148 passes. Largest synthetic

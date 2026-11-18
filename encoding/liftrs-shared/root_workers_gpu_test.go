@@ -6,6 +6,7 @@ import (
 	"crypto/sha256"
 	"encoding/binary"
 	"encoding/json"
+	"flag"
 	"fmt"
 	cpp "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp"
 	cuda "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda"
@@ -18,6 +19,10 @@ import (
 	"testing"
 	"time"
 )
+
+// Explicit test-binary flags: ordinary preprocessing still selects bitmap.
+var rootValidationFlag = flag.String("root-validation", "bitmap", "root/partition membership: bitmap or sorted")
+var rootReferenceValidationFlag = flag.String("root-reference-validation", "bitmap", "CPU fixture membership, held equal in matched comparisons")
 
 type rootWorkerEngine interface {
 	Product([]uint32, []uint32, int, int) ([]uint32, error)
@@ -36,11 +41,25 @@ func TestIndependentRootWorkers(t *testing.T) {
 	if err := os.Mkdir(directory, 0700); err != nil {
 		t.Fatal(err)
 	}
+	modeOf := func(name string) supportMembership {
+		switch name {
+		case "bitmap":
+			return supportBitmap
+		case "sorted":
+			return supportSorted
+		default:
+			t.Fatal("unknown root membership", name)
+			return supportBitmap
+		}
+	}
+	mode, referenceMode := modeOf(*rootValidationFlag), modeOf(*rootReferenceValidationFlag)
 	var logMu sync.Mutex
 	began := time.Now()
 	emit := func(fields map[string]any) {
 		logMu.Lock()
 		defer logMu.Unlock()
+		fields["validation"] = *rootValidationFlag
+		fields["reference_validation"] = *rootReferenceValidationFlag
 		fields["utc"] = time.Now().UTC().Format(time.RFC3339Nano)
 		fields["elapsed_seconds"] = time.Since(began).Seconds()
 		if err := json.NewEncoder(os.Stdout).Encode(fields); err != nil {
@@ -132,7 +151,11 @@ func TestIndependentRootWorkers(t *testing.T) {
 			if len(subset) == 0 {
 				return []uint32{1}, nil
 			}
-			return prepareCyclicRoot(makeBase(engine), subset, n, 1<<uint(item.s), engine.RootFactorsInto, nil, nil, func(stage string) {
+			selected := mode
+			if worker == -1 {
+				selected = referenceMode
+			}
+			return prepareCyclicRootWith(selected, makeBase(engine), subset, n, 1<<uint(item.s), engine.RootFactorsInto, nil, nil, func(stage string) {
 				emit(map[string]any{"kind": "stage", "case": index, "worker": worker, "phase": stage, "event": "started"})
 			}, progress(worker))
 		}
@@ -193,7 +216,7 @@ func TestIndependentRootWorkers(t *testing.T) {
 					actual, err = root(merge, support, 0)
 					workerSeconds = time.Since(start).Seconds()
 				} else {
-					partitions, e := partitionRootSupport(support, n, 1<<uint(item.s), workers)
+					partitions, e := partitionRootSupportWith(mode, support, n, 1<<uint(item.s), workers)
 					if e != nil {
 						t.Fatal(e)
 					}

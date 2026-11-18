@@ -12,10 +12,15 @@ import (
 // without changing caller support. This adds one K-index copy, not a scalable
 // sharded-support representation for full s18 discovery.
 func partitionRootSupport(support []int, n int, q uint64, workers int) ([][]int, error) {
+	return partitionRootSupportWith(supportBitmap, support, n, q, workers)
+}
+
+// The explicit subset-validator choice changes storage/search cost only.
+func partitionRootSupportWith(mode supportMembership, support []int, n int, q uint64, workers int) ([][]int, error) {
 	if workers < 1 || workers > 64 {
 		return nil, fmt.Errorf("root partition worker count")
 	}
-	if err := validateExponentSupport(support, n, q); err != nil {
+	if err := validateExponentSupportWith(mode, support, n, q); err != nil {
 		return nil, err
 	}
 	parts := make([][]int, workers)

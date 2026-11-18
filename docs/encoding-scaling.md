@@ -2247,6 +2247,17 @@ SCALING-109 next-work order is explicit:
    justify a change; present any material memory/time trade-off before adoption.
    No skipping checks or unrecorded proof reuse. Largest command RSS4.946GiB;
    recorded allocation payload is distinct from RSS.
+   SCALING-111: [explicit sorted-membership comparison](../experiments/root-subset-validation/report.md)
+   is implemented/prepared. The shared validator retains cardinality/range/order
+   and every Frobenius lookup; sorted input search avoids N-sized storage but
+   adds O(KlogK) work. Existing wrappers/defaults stay bitmap. Local exhaustive
+   small-domain/error equivalence, wide-index allocation/progress and root-merge
+   checks pass. Repeat bitmap/search/search/bitmap with the same sorted CPU-oracle
+   setup, full coefficient/scalar/hash checks, profiles and both small memchecks.
+   This oracle-validation setup differs from historical77148 and is explicit in
+   the report; new paired process memory is the comparison, not historical RSS.
+   Runtime and RSS benefits/penalties remain unmeasured; no mode adoption or
+   resource-budget increase. Use existing4H200/4CPU/8GiBhost/20min limits.
 3. Then measure node-to-node GPU computation/communication, including host staging,
    synchronization and deterministic rank ownership. Host-only77127 is insufficient
    to select GPU count or claim a four-node full-size bandwidth.

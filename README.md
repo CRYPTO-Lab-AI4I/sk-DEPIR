@@ -100,6 +100,10 @@ four workers versus3.432s whole-root; other cases favor different worker counts.
 Full-domain validation bitmaps dominate small-subset allocations, so a controlled
 subset-validation comparison comes before interpreting scaling, GPU communication
 and controlled buffered persistence. No full-size speedup is established.
+The [explicit bitmap/search comparison](experiments/root-subset-validation/report.md)
+is prepared with shared validation checks, exhaustive equivalence tests and paired
+worker measurements. Sorted search avoids N-sized storage with unmeasured search
+latency; ordinary preprocessing retains bitmap validation by default.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

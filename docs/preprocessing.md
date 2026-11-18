@@ -432,3 +432,16 @@ copy and is not a full-size distributed support representation. The optional
 reuses normalized-root/product helpers with separate executors and a joined merge;
 it introduces no public scheduler or default parallel mode. Performance validation
 is pending, and no end-to-end speedup follows from subset equivalence alone.
+
+## Explicit subset membership experiment
+
+`validateExponentSupportWith` shares cardinality, range, strict order and full
+Frobenius membership checks across bitmap and sorted-search storage. Binary search
+borrows the immutable ordered input, avoiding an N-sized bitmap with O(KlogK)
+lookup work. The ordinary wrappers for discovery/cache/root preparation and
+partitioning keep bitmap validation. Experimental root/partition helpers accept
+an explicit choice; no trusted-validation bypass or new public API is introduced.
+The optional test binary flags `-root-validation` and `-root-reference-validation`
+select measurement strategies only. [Comparison and memory/time boundaries](../experiments/root-subset-validation/report.md)
+are documented; no full-support default or runtime/RSS saving is inferred from
+small-domain equivalence alone.

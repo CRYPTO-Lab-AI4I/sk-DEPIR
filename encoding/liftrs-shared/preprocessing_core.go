@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"fmt"
 	"io"
+	"sort"
 )
 
 // Discovery uses the same sampling/support-union algorithm at either storage
@@ -135,9 +136,26 @@ func discoverSupport[Word preparationWord](spec Spec, good []int, options OrbitO
 	return support, samples, nil
 }
 
+// supportMembership selects only the lookup representation, never which
+// checks run. Ordinary discovery, cache loading and preparation stay bitmap.
+// Sorted membership borrows the validated ordered input: O(KlogK) searches,
+// no N-sized allocation. Its dense-support latency trade-off is unmeasured.
+type supportMembership uint8
+
+const (
+	supportBitmap supportMembership = iota
+	supportSorted
+)
+
 // Cardinality and q-Frobenius arithmetic remain64-bit even when field values
 // fit32-bit slots. The input index slice is immutable and sorted by discovery.
 func validateExponentSupport(support []int, n int, q uint64, notices ...preparationNotice) error {
+	return validateExponentSupportWith(supportBitmap, support, n, q, notices...)
+}
+
+// Cardinality, strict ordering and range checks finish before binary search.
+// Both representations verify every q-Frobenius partner, including wide indices.
+func validateExponentSupportWith(mode supportMembership, support []int, n int, q uint64, notices ...preparationNotice) error {
 	notice := newPreparationReporter(nil).notice
 	if len(notices) > 0 && notices[0] != nil {
 		notice = notices[0]
@@ -146,7 +164,13 @@ func validateExponentSupport(support []int, n int, q uint64, notices ...preparat
 	if n < 4 || len(support) == 0 || len(support) > order {
 		return fmt.Errorf("invalid degree-set size")
 	}
-	seen := newExponentSet(order)
+	if mode != supportBitmap && mode != supportSorted {
+		return fmt.Errorf("invalid support membership mode")
+	}
+	var seen exponentSet
+	if mode == supportBitmap {
+		seen = newExponentSet(order)
+	}
 	for first := 0; first < len(support); first += 65536 {
 		end := minInt(first+65536, len(support))
 		for j := first; j < end; j++ {
@@ -154,14 +178,24 @@ func validateExponentSupport(support []int, n int, q uint64, notices ...preparat
 			if i < 0 || i >= order || (j > 0 && i <= support[j-1]) {
 				return fmt.Errorf("degree set must be sorted, distinct and exclude N-1")
 			}
-			seen.add(i)
+			if mode == supportBitmap {
+				seen.add(i)
+			}
 		}
 		notice("support-order-validation", uint64(end), uint64(len(support)), "exponents")
 	}
 	for first := 0; first < len(support); first += 65536 {
 		end := minInt(first+65536, len(support))
 		for _, i := range support[first:end] {
-			if !seen.has(int(uint64(i) * q % uint64(order))) {
+			partner := int(uint64(i) * q % uint64(order))
+			found := false
+			if mode == supportBitmap {
+				found = seen.has(partner)
+			} else {
+				index := sort.SearchInts(support, partner)
+				found = index < len(support) && support[index] == partner
+			}
+			if !found {
 				return fmt.Errorf("degree set is not Frobenius closed")
 			}
 		}
@@ -211,8 +245,16 @@ func prepareCyclicPolynomials(base orbitField, support []int, n int, q uint64,
 func prepareCyclicRoot(base orbitField, support []int, n int, q uint64,
 	roots rootFactorBatch, savedRoot []uint32, saveRoot func([]uint32) error,
 	checkpoint func(string), notice preparationNotice, recoveries ...*cyclicRecovery) (p []uint32, err error) {
+	return prepareCyclicRootWith(supportBitmap, base, support, n, q, roots, savedRoot, saveRoot, checkpoint, notice, recoveries...)
+}
+
+// Experimental explicit validation storage choice; all root arithmetic and
+// checkpoint validation remain in this shared implementation.
+func prepareCyclicRootWith(mode supportMembership, base orbitField, support []int, n int, q uint64,
+	roots rootFactorBatch, savedRoot []uint32, saveRoot func([]uint32) error,
+	checkpoint func(string), notice preparationNotice, recoveries ...*cyclicRecovery) (p []uint32, err error) {
 	checkpoint("before-validation")
-	if err = validateExponentSupport(support, n, q, notice); err != nil {
+	if err = validateExponentSupportWith(mode, support, n, q, notice); err != nil {
 		return nil, err
 	}
 	var recovery *cyclicRecovery

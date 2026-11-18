@@ -22,35 +22,37 @@ func TestPreparationRootPartitions(t *testing.T) {
 		}
 		original := append([]int(nil), basis.support...)
 		for _, workers := range []int{1, 2, 4} {
-			partitions, err := partitionRootSupport(basis.support, basis.Length(), basis.base.q, workers)
-			if err != nil {
-				t.Fatal(err)
-			}
-			low, high := len(partitions[0]), len(partitions[0])
-			for _, part := range partitions {
-				low = minInt(low, len(part))
-				high = max(high, len(part))
-			}
-			if high-low > 2 {
-				t.Fatal("unbalanced orbit degrees")
-			}
-
-			combined := []uint32{1}
-			for _, support := range partitions {
-				if len(support) == 0 {
-					continue
-				}
-				part, err := prepareCyclicRoot(basis.base, support, basis.Length(), basis.base.q, basis.rootFactors, nil, nil, noop, nil)
+			for _, mode := range []supportMembership{supportBitmap, supportSorted} {
+				partitions, err := partitionRootSupportWith(mode, basis.support, basis.Length(), basis.base.q, workers)
 				if err != nil {
-					t.Fatal(s, workers, err)
+					t.Fatal(err)
 				}
-				if part[0] != 1 {
-					t.Fatal("partial product not normalized")
+				low, high := len(partitions[0]), len(partitions[0])
+				for _, part := range partitions {
+					low = minInt(low, len(part))
+					high = max(high, len(part))
 				}
-				combined = polyMul(basis.base, combined, part)
-			}
-			if !reflect.DeepEqual(combined, expected) {
-				t.Fatal("partition/merge changes root", s, workers)
+				if high-low > 2 {
+					t.Fatal("unbalanced orbit degrees")
+				}
+
+				combined := []uint32{1}
+				for _, support := range partitions {
+					if len(support) == 0 {
+						continue
+					}
+					part, err := prepareCyclicRootWith(mode, basis.base, support, basis.Length(), basis.base.q, basis.rootFactors, nil, nil, noop, nil)
+					if err != nil {
+						t.Fatal(s, workers, err)
+					}
+					if part[0] != 1 {
+						t.Fatal("partial product not normalized")
+					}
+					combined = polyMul(basis.base, combined, part)
+				}
+				if !reflect.DeepEqual(combined, expected) {
+					t.Fatal("partition/merge changes root", s, workers)
+				}
 			}
 		}
 		if !reflect.DeepEqual(original, basis.support) {
