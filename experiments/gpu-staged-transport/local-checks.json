@@ -1,0 +1,21 @@
+{
+  "status": "local checks passed; GPU/MPI runtime not run",
+  "source_sha256": {
+    "encoding/liftrs-shared/gpu_transport_fixture_test.go": "13f1910f76d8b9c33073b750c55af78cd5fc14ce098719800bc8b77c95528e6a",
+    "experiments/gpu-staged-transport/analyze.py": "01d6ff9b70c5950cb9b9b375216ee1092299d949e79bf059085d4d6529d9379a",
+    "experiments/gpu-staged-transport/run.py": "29ad433200f99b8110650367955ea1e180ac83892b984983bf41baadeebe3063",
+    "experiments/gpu-staged-transport/test_review.py": "58af61cb40fe42202cc553946463b498ad18be40d027dc33f7619bca10d3c466",
+    "experiments/gpu-staged-transport/probe.cu": "ced920021acba3563a0e3bb00ff1be09bbb787a4520e5ea61a0f8acad2d14a65",
+    "experiments/gpu-staged-transport/rank.sh": "9510fd44d37bdbcf04aee2236c5a3579f79a1648c0fa5801bbde7bc05c7d9bbb",
+    "experiments/gpu-staged-transport/run.sbatch": "7203c1993cd0f99a8a16ac0a88f8c7d40ae7ecfde30db502641ee067a322a9a4"
+  },
+  "checks": [
+    "NVCC sm90 compile and MPI/cudart profiled link",
+    "3 reviewer tests",
+    "Go fixture compile/default skip and actual metadata generation",
+    "Slurm pmix_v3 and OpenMPI ext3x components present; runtime binding untested",
+    "Python AST, bash syntax and whitespace"
+  ],
+  "field_bytes": 1572880,
+  "field_sha256": "43ade37b8e8ce2cb8bf1e3a91dc89a320f8f98ba4cf4e08ddc9f935ca626f189"
+}

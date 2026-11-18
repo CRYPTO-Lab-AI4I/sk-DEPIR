@@ -101,6 +101,10 @@ sampled process RSS is0.508–0.510GiB versus4.455–4.685GiB. Smaller cases sho
 overhead. Use explicit sorted membership for measured sparse workers; ordinary
 full-support/cache/discovery defaults remain bitmap. This is a bounded component,
 not fulls18 speedup; GPU communication and buffered persistence are next.
+The [two-node staged GPU exchange](experiments/gpu-staged-transport/report.md)
+now compiles and is prepared: shared field arithmetic, pinned host copies, direct
+MPI messages, receiving-GPU checks and complete CPU verification. Execution awaits
+a concrete two-node GPU budget; this is not a distributed transform or fulls18 run.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

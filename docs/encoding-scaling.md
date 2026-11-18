@@ -2255,6 +2255,17 @@ SCALING-109 next-work order is explicit:
 3. Then measure node-to-node GPU computation/communication, including host staging,
    synchronization and deterministic rank ownership. Host-only77127 is insufficient
    to select GPU count or claim a four-node full-size bandwidth.
+   SCALING-113: [two-node GPU staged pipeline](../experiments/gpu-staged-transport/report.md)
+   is compiled/prepared. One GPU/rank produces field values with maintained CUDA
+   arithmetic, D2H pinned staging, direct MPI ownership exchange, H2D and verified
+   GPU consumption. Full CPU polynomial oracle and reverse ownership checks;
+   matched host baseline and phase/max/pipeline clocks, profiles and small two-rank
+   CUDA memcheck. No filesystem array workspace or GPU-direct/FFT/root claim.
+   Freeze tracked Git inputs; retain field metadata/binaries/logs/profiles. Budget
+   approval pending:2nodes/2H200/4CPU/8GiBhost total,128MiB owned/card,64MiB pinned
+   and2GiB RSS/rank,15min scheduler; previous two-node gate used0GPUs/10min.
+   After pass, integrate actual normalized-root subsets and joined polynomial
+   transfer/merge across ranks using existing helpers and explicit subset mode.
 4. Separately validate large buffered persistence and controlled writer concurrency.
 5. Compare complete elapsed time across practical allocations before choosing the
    final GPU/node count or giving a fulls18 runtime estimate. Preserve fast defaults,

@@ -273,3 +273,14 @@ Bounded GPU validation76756 passes complete independent CPU/hash comparisons
 and CUDA memcheck. The report gives measured allocation savings and substantial
 latency penalties (about5.53 times forward-transform latency and5.60 times product
 latency on four cards at2^22 points). Full-size costs/feasibility remain unknown.
+
+## Experimental cross-node staging gate
+
+The optional [CUDA/MPI probe](../../experiments/gpu-staged-transport/report.md)
+reuses `transform.cuh` multiplication, canonical Go field metadata and independent
+native CPU arithmetic to validate a GPU-producer/D2H/MPI/H2D/GPU-consumer pipeline.
+Each rank uses one GPU and bounded pinned buffers; MPI sees host pointers only.
+It introduces no backend/CLI default, public API, distributed transform/root
+support or CUDA-aware-MPI requirement. Normal CPU-client builds stay independent.
+The compiled probe awaits explicit two-node GPU resource agreement; runtime,
+GPU-direct capability and fulls18 costs remain unmeasured.
