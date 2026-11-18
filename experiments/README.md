@@ -60,6 +60,11 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Buffered preprocessing persistence](preprocessing-persistence/report.md): shared
+  payload/fsync/atomic publication with explicit4MiB buffering, fixed96MiB trials
+  at1/2/4 writers, full restart readback and file-call/cache accounting. Bounded
+  measurement pending; no full-size throughput or default change.
+
 - [Cross-node GPU root products](distributed-root/report.md): shared normalized
   roots, complete host-polynomial MPI transfer and GPU merge, independent CPU
   coefficient oracle and retained cross-rank array checks. Implemented; bounded

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
@@ -176,18 +177,59 @@ func publish(cache, stage string, m manifest, write func(string, *manifest) erro
 // The producer supplies the digest if its codec already hashes; avoid a second
 // checksum pass over support/root. Other payloads hash as they are streamed.
 func writePayload(dir, name string, total uint64, r *reporter, produce func(io.Writer) (string, error)) (fileRecord, error) {
+	return writePayloadBuffered(dir, name, total, r, 0, nil, produce)
+}
+
+// writePayloadBuffered shares publication/checksum semantics with the ordinary
+// path. A larger buffer is experiment-only until measured; zero preserves the
+// existing codec write sizes. Flush must succeed before fsync/close/publication.
+func writePayloadBuffered(dir, name string, total uint64, r *reporter, bufferBytes int, stats *payloadWriteStats,
+	produce func(io.Writer) (string, error)) (fileRecord, error) {
+	if bufferBytes < 0 || bufferBytes > 4<<20 {
+		return fileRecord{}, fmt.Errorf("payload buffer outside0..4MiB")
+	}
+
 	var record fileRecord
 	e := r.phase("write-"+name, func() error {
 		f, e := os.OpenFile(filepath.Join(dir, name), os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
 		if e != nil {
 			return e
 		}
-		p := &byteProgress{writer: f, report: r, phase: "write-" + name, total: total, last: time.Now()}
-		digest, writeErr := produce(p)
-		if writeErr == nil {
-			writeErr = f.Sync()
+		var sink io.Writer = f
+		if stats != nil {
+			sink = payloadCounter{f, stats}
 		}
+		p := &byteProgress{writer: sink, report: r, phase: "write-" + name, total: total, last: time.Now()}
+		var destination io.Writer = p
+		var buffer *bufio.Writer
+		if bufferBytes > 0 {
+			buffer = bufio.NewWriterSize(p, bufferBytes)
+			destination = buffer
+		}
+		began := time.Now()
+		digest, writeErr := produce(destination)
+		if writeErr == nil && buffer != nil {
+			flush := time.Now()
+			writeErr = buffer.Flush()
+			if stats != nil {
+				stats.FlushSeconds = time.Since(flush).Seconds()
+			}
+		}
+		if stats != nil {
+			stats.ProduceFlushSeconds = time.Since(began).Seconds()
+		}
+		if writeErr == nil {
+			sync := time.Now()
+			writeErr = f.Sync()
+			if stats != nil {
+				stats.SyncSeconds = time.Since(sync).Seconds()
+			}
+		}
+		close := time.Now()
 		closeErr := f.Close()
+		if stats != nil {
+			stats.CloseSeconds = time.Since(close).Seconds()
+		}
 		if writeErr != nil {
 			return writeErr
 		}

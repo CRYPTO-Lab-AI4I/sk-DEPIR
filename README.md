@@ -112,8 +112,11 @@ The [bounded cross-node root integration](experiments/distributed-root/report.md
 CPU/cross-rank array checks, partition race checks and both CUDA memchecks pass.
 At262,144 synthetic s17 exponents, median root/transfer/GPU-merge/verification
 pipeline is1.180s; peak normal rank RSS410.523MiB, owned GPU15.241MiB/card.
-This is not fulls17/s18 preprocessing or a scalable merge tree. Buffered
-persistence is next; ordinary CPU builds and faster resident defaults are unchanged.
+This is not fulls17/s18 preprocessing or a scalable merge tree. The next
+[bounded persistence gate](experiments/preprocessing-persistence/report.md) compares
+64KiB codec writes with4MiB buffering and1/2/4 writers using shared atomic
+publication/readback; measurement is pending. Ordinary CPU builds and faster
+resident defaults are unchanged.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

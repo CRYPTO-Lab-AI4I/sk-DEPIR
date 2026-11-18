@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "utc": "2026-11-18T18:30:37.120778+00:00",
+  "base_revision": "c17c83a1a1f2c29868232a7ed6a5957bc658f9dc",
+  "source_state": "working tree before implementation commit; exact source hashes below",
+  "source_sha256": {
+    "cmd/pir-preprocess/artifacts.go": "e5729a3fe32ab5ecdec92f0e466bddb5d5b6bea07df2aa4dadd2b4853b6c1615",
+    "cmd/pir-preprocess/payload_buffer.go": "8f9438930e16eacfaae0f2d3409f8fef5591b377974a88b92e8a7e76bd13ff70",
+    "cmd/pir-preprocess/payload_buffer_test.go": "8fb183d971bf8fd0cacac57cf7959219ec667e863ab898511b39c3659ed5042c",
+    "cmd/pir-preprocess/persistence_probe_test.go": "cc2cbe2b566b57800564f0c542b67c7a8adb7272aea9926f2219f7b8106fe5cc",
+    "experiments/preprocessing-persistence/analyze.py": "bead5020a4778a96b1429471c9e80c851902ff3d9bec1cc6fa1e35fa9c5025c8",
+    "experiments/preprocessing-persistence/run.py": "4771618a5c89e9f9dd2641950fa23a916c02b8627c956631cf7878ae780adb86",
+    "experiments/preprocessing-persistence/test_review.py": "3cdbb9464eb97bbcba6bcaa093ec08b1be1e86ef42905c4579bbe0ef8ef2a2a6",
+    "experiments/preprocessing-persistence/run.sbatch": "122e2850c13ffed33ce6c3bf998726a2a6534ded86a063f82abdf6412728278e"
+  },
+  "checks": [
+    {
+      "command": "CGO_ENABLED=1 CC=gcc CXX=g++ go test -c -tags liftrs_cpp -o /tmp/depir-persistence.test ./cmd/pir-preprocess",
+      "status": "passed",
+      "log": "build.log"
+    },
+    {
+      "command": "/tmp/depir-persistence.test -test.run TestBufferedPayloadEquivalenceAndFailure|TestBufferedPublicationFailureAndReuse|TestPublicationFailureAndReuse|TestCLIRecoveryRestart|TestPersistentReferenceAndRestart -test.v",
+      "status": "passed",
+      "log": "correctness.log"
+    },
+    {
+      "command": "PIR_PERSISTENCE_SMALL=1 PIR_PERSISTENCE_OUTPUT=<fresh /tmp directory> /tmp/depir-persistence.test -test.run=^TestPersistenceProbe$ -test.v; Python review(...,small=True)",
+      "status": "passed",
+      "log": "smoke.log",
+      "trials": 12,
+      "file_bytes": 131072
+    },
+    {
+      "command": "python3 -B experiments/preprocessing-persistence/test_review.py",
+      "status": "passed",
+      "log": "reviewer-tests.log",
+      "tests": 3
+    }
+  ],
+  "limitations": [
+    "Local smoke uses small files under /tmp; no shared-filesystem throughput claim.",
+    "Full 96MiB/trial measurement, scheduled concurrency race probe, cgroup/cache observations and CPU profile remain pending.",
+    "No new GPU or fulls18 run."
+  ]
+}

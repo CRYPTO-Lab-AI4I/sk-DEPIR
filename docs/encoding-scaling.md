@@ -2289,6 +2289,18 @@ SCALING-109 next-work order is explicit:
    final publication and controlled writer concurrency. Intermediate compute and
    cross-node polynomial exchange remain in RAM; include storage/headroom, cache
    accounting and full workflow latency before selecting a full allocation.
+   SCALING-119: [explicit buffered persistence gate](../experiments/preprocessing-persistence/report.md)
+   is implemented; HPC measurement pending. Reuse the CLI payload writer,
+   checksums/fsync, atomic manifest publication and restart readback. Compare
+   direct64KiB codec writes with4MiB coalescing and1/2/4 file owners, fixed four
+   24MiB files/96MiB per trial, mirrored two-sample order. Measure actual application
+   write sizes/counts, publish/flush/fsync/readback, RSS/file cache and job charges.
+   Only new verified cheap synthetic payloads are pruned between trials; retain
+   all manifests/digests/profiles and final payloads, preserving all preprocessing.
+   One HPC node/2CPU/4GiB RAM,0GPU,128MiB retained/2GiB scratch/15min scheduler.
+   Buffer adds up to16MiB with4 writers and extra copies, no transforms/payload
+   bytes; time effect pending. No default choice or sustained/fullsize throughput
+   claim; larger shared-storage/multi-node tests need separate admission.
 5. Compare complete elapsed time across practical allocations before choosing the
    final GPU/node count or giving a fulls18 runtime estimate. Preserve fast defaults,
    CPU clients and explicit budgets; no slower trade-off is silently adopted.

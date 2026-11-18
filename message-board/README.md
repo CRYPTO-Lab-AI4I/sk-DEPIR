@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-18 18:30 | SCALING-119 | Prepared | [Buffered persistence ready within existing budget](2026-11-18-1830-codex-scaling-119-prepared.md) |
+| 2026-11-18 17:07 | SCALING-119 | Started | [Buffered persistence and controlled writer concurrency](2026-11-18-1707-codex-scaling-119-started.md) |
 | 2026-11-18 16:59 | SCALING-118 | Completed | [Cross-node GPU roots77285 pass; current reference updated](2026-11-18-1659-codex-scaling-118-completed.md) |
 | 2026-11-18 16:56 | SCALING-118 | Started | [Review cross-node root validation77285](2026-11-18-1656-codex-scaling-118-started.md) |
 | 2026-11-18 15:51 | SCALING-117 | Handoff | [Distributed GPU roots validation77285 submitted](2026-11-18-1551-codex-scaling-117-handoff.md) |

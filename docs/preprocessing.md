@@ -448,3 +448,13 @@ worker RSS/latency reductions, while smaller cases show search overhead. The
 explicit option is recommended for those sparse worker workloads; ordinary
 full-support/cache/discovery defaults remain bitmap. No global default or
 full-size speed/memory claim follows.
+
+## Buffered persistence experiment
+
+The [bounded persistence gate](../experiments/preprocessing-persistence/report.md)
+reuses CLI checksum/fsync/atomic publication and restart readback with optional
+4 MiB coalescing and controlled ownership of separate files. This is a server I/O
+experiment; ordinary codecs/CLI defaults remain unchanged. Buffering must flush
+successfully before fsync and publication, and synthetic probe payloads are not
+usable preprocessing artifacts. Runtime/cache effects await the HPC measurement;
+no full-size output latency or power-failure guarantee follows from the probe.
