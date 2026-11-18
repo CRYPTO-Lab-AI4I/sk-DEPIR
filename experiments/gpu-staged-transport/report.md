@@ -253,3 +253,9 @@ Next: integrate actual normalized-root subsets and complete polynomial
 transfer/merge across ranks, retaining the shared helpers and independent
 canonical/CPU checks. Buffered persistence remains a separate gate. No new job
 or resource expansion was submitted in this review; full s=18 costs remain unknown.
+
+The runner's optional component-suite callback is now reused by the
+[next root/merge gate](../distributed-root/report.md). The default staged-arithmetic
+workload, resource policy, source selection, deadline/shutdown and evidence seals
+remain unchanged. Existing reviewer regressions still pass; this reuse does not
+change historical77281 measurements or authorize a larger allocation.

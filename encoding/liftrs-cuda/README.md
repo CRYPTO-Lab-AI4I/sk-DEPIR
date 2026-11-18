@@ -288,3 +288,9 @@ host RAM each. At32MiB input/rank, median complete pipeline is11.827ms versus
 CUDA memchecks pass. Peak normal rank RSS421.016MiB; largest owned device
 allocation33.500MiB/card. Actual root-polynomial transfer/merge is next;
 GPU-direct, distributed preprocessing and fulls18 costs remain unmeasured.
+
+The next [distributed-root component](../../experiments/distributed-root/report.md)
+reuses this executor for partial roots and receiving-GPU polynomial merges.
+Optional MPI transport is experiment-only (`liftrs_mpi` plus the existing CUDA/
+native tags); two-node validation is pending. No ordinary client dependency or
+full distributed-preprocessing capability is added.

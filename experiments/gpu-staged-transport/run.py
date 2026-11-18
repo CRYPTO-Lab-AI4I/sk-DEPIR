@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Bounded two-node, one-GPU-per-rank staged exchange; no array files."""
+"""Bounded two-node GPU runner, reused by explicit component suites.
+
+The default suite is host-staged field arithmetic; extra_suite replaces only
+its workload. Source freezing, limits, deadlines, shutdown and seals stay shared.
+"""
 import argparse
 import datetime
 import hashlib
@@ -76,18 +80,18 @@ def snapshot(revision,destination):
     return digests
 
 
-def main():
+def main(here=HERE,extra_suite=None):
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('name',nargs='?');parser.add_argument('--check',action='store_true');args=parser.parse_args()
     if args.check:
-        assert (HERE/'probe.cu').is_file() and (HERE/'rank.sh').is_file()
+        assert (here/'run.py').is_file() and (HERE/'rank.sh').is_file()
         print('2 nodes/2 H200/4 CPU/8GiB host total;128MiB owned/card,64MiB pinned/rank,2GiB RSS/rank; no submission')
         return
     if not args.name or not args.name.replace('-','').isalnum():parser.error('fresh name required')
     if os.environ.get('SLURM_JOB_NUM_NODES')!='2':raise RuntimeError('two nodes required')
     resource.setrlimit(resource.RLIMIT_FSIZE,(32<<20,32<<20))
-    out=HERE/'runs'/args.name;out.mkdir(parents=True,exist_ok=False)
-    cache=ROOT/'.cache/liftrs/gpu-staged-transport'/args.name;cache.mkdir(parents=True,exist_ok=False)
-    scratch=Path('/tmp')/('depir-gpu-exchange-'+os.environ['SLURM_JOB_ID']);scratch.mkdir(exist_ok=False)
+    out=here/'runs'/args.name;out.mkdir(parents=True,exist_ok=False)
+    cache=ROOT/'.cache/liftrs'/here.name/args.name;cache.mkdir(parents=True,exist_ok=False)
+    scratch=Path('/tmp')/('depir-'+here.name+'-'+os.environ['SLURM_JOB_ID']);scratch.mkdir(exist_ok=False)
     source=scratch/'source';source.mkdir()
     env=dict(os.environ);env.update(GOTOOLCHAIN='local',GOPROXY='off',GOSUMDB='off',GOPATH=str(ROOT/'.cache/liftrs/toolchains/gopath'),
         GOCACHE=str(scratch/'go-cache'),TMPDIR=str(scratch),CGO_ENABLED='0',GOMAXPROCS='2',GOFLAGS='-p=2',GOMEMLIMIT=str(1<<30))
@@ -127,31 +131,35 @@ def main():
         run('mpi',['ompi_info','--parsable','--all']);run('nvcc',['nvcc','--version']);run('compiler',['mpicxx','--version'])
         go=ROOT/'.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go'
         run('go',[go,'version'])
-        fixture=cache/'fixture.test';field=cache/'field.bin'
-        run('fixture-build',[go,'test','-c','-o',fixture,'./encoding/liftrs-shared'],60)
-        env['PIR_GPU_TRANSPORT_FIELD']=str(field)
-        run('field-fixture',[fixture,'-test.run=^TestGPUTransportFieldFixture$','-test.v','-test.cpuprofile='+str(out/'fixture.pprof')])
-        env.pop('PIR_GPU_TRANSPORT_FIELD')
-        includes=shlex.split(subprocess.check_output(['mpicxx','--showme:compile'],env=env,text=True))
-        obj=cache/'probe.o';binary=cache/'probe'
-        run('cuda-build',['nvcc','-std=c++17','-O3','-lineinfo','-pg','-arch=sm_90',*includes,'-c','experiments/gpu-staged-transport/probe.cu','-o',obj],60)
-        cuda_lib=Path(shutil.which('nvcc')).resolve().parents[1]/'lib64'
-        run('link',['mpicxx','-pg',obj,'-L'+str(cuda_lib),'-Wl,-rpath,'+str(cuda_lib),'-lcudart','-o',binary],60)
-        rank_wrapper=cache/'rank.sh';shutil.copyfile(source/'experiments/gpu-staged-transport/rank.sh',rank_wrapper)
-        launcher=['timeout','--signal=TERM','--kill-after=10s','280s','srun','--mpi=pmix_v3',
-                  '--nodes=2','--ntasks=2','--ntasks-per-node=1','--cpus-per-task=2',
-                  '--gpus-per-task=h200:1','--gpu-bind=single:1','--cpu-bind=cores','--label','--kill-on-bad-exit=1',
-                  'bash',rank_wrapper]
-        run('normal',[*launcher,cache/'native-normal',binary,field],300)
-        rows=parse(out/'normal.log');verify(rows)
-        run('memcheck',[*launcher,cache/'native-memcheck','compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',binary,field,'--small'],300)
-        sanitized=parse(out/'memcheck.log');verify(sanitized,small=True)
-        text=(out/'memcheck.log').read_text()
-        assert text.count('ERROR SUMMARY: 0 errors')==2 and text.count('LEAK SUMMARY: 0 bytes')==2
-        for rank in (0,1):
-            profiles=sorted(cache.glob('native-normal-'+str(rank)+'.*'));assert len(profiles)==1
-            run('native-profile-'+str(rank),['gprof','-b',binary,profiles[0]])
-        record.update(status='passed',measurements=rows,sanitized=sanitized)
+        if extra_suite is not None:
+            record.update(extra_suite(dict(run=run,source=source,cache=cache,out=out,go=go,env=env)))
+            record['status']='passed'
+        else:
+            fixture=cache/'fixture.test';field=cache/'field.bin'
+            run('fixture-build',[go,'test','-c','-o',fixture,'./encoding/liftrs-shared'],60)
+            env['PIR_GPU_TRANSPORT_FIELD']=str(field)
+            run('field-fixture',[fixture,'-test.run=^TestGPUTransportFieldFixture$','-test.v','-test.cpuprofile='+str(out/'fixture.pprof')])
+            env.pop('PIR_GPU_TRANSPORT_FIELD')
+            includes=shlex.split(subprocess.check_output(['mpicxx','--showme:compile'],env=env,text=True))
+            obj=cache/'probe.o';binary=cache/'probe'
+            run('cuda-build',['nvcc','-std=c++17','-O3','-lineinfo','-pg','-arch=sm_90',*includes,'-c','experiments/gpu-staged-transport/probe.cu','-o',obj],60)
+            cuda_lib=Path(shutil.which('nvcc')).resolve().parents[1]/'lib64'
+            run('link',['mpicxx','-pg',obj,'-L'+str(cuda_lib),'-Wl,-rpath,'+str(cuda_lib),'-lcudart','-o',binary],60)
+            rank_wrapper=cache/'rank.sh';shutil.copyfile(source/'experiments/gpu-staged-transport/rank.sh',rank_wrapper)
+            launcher=['timeout','--signal=TERM','--kill-after=10s','280s','srun','--mpi=pmix_v3',
+                      '--nodes=2','--ntasks=2','--ntasks-per-node=1','--cpus-per-task=2',
+                      '--gpus-per-task=h200:1','--gpu-bind=single:1','--cpu-bind=cores','--label','--kill-on-bad-exit=1',
+                      'bash',rank_wrapper]
+            run('normal',[*launcher,cache/'native-normal',binary,field],300)
+            rows=parse(out/'normal.log');verify(rows)
+            run('memcheck',[*launcher,cache/'native-memcheck','compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',binary,field,'--small'],300)
+            sanitized=parse(out/'memcheck.log');verify(sanitized,small=True)
+            text=(out/'memcheck.log').read_text()
+            assert text.count('ERROR SUMMARY: 0 errors')==2 and text.count('LEAK SUMMARY: 0 bytes')==2
+            for rank in (0,1):
+                profiles=sorted(cache.glob('native-normal-'+str(rank)+'.*'));assert len(profiles)==1
+                run('native-profile-'+str(rank),['gprof','-b',binary,profiles[0]])
+            record.update(status='passed',measurements=rows,sanitized=sanitized)
     except BaseException as error:
         record.update(status='failed',error=str(error));raise
     finally:

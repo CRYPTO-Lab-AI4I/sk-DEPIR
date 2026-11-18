@@ -10,11 +10,9 @@ import (
 	"fmt"
 	cpp "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp"
 	cuda "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda"
-	"math/rand"
 	"os"
 	"path/filepath"
 	"reflect"
-	"sort"
 	"sync"
 	"testing"
 	"time"
@@ -93,50 +91,14 @@ func TestIndependentRootWorkers(t *testing.T) {
 		cases = cases[:1]
 	}
 	for index, item := range cases {
-		n := 1 << uint(2*item.s)
-		h, extension, err := canonicalScalingCodeHeader(item.s, 5, 1, uint64(n))
+		fixture, err := makeRootFixture(item.s, item.count, item.genuine)
 		if err != nil {
 			t.Fatal(err)
 		}
-		var support []int
-		if item.genuine {
-			basis, e := DiscoverOrbit(Spec{item.s, 2, 5}, OrbitOptions{Random: rand.New(rand.NewSource(109))})
-			if e != nil {
-				t.Fatal(e)
-			}
-			support = append([]int(nil), basis.support...)
-		} else {
-			// Synthetic closed subsets exercise root construction in actual fields,
-			// not s12/s17 PIR supports. Include wide indices without a full N-grid.
-			rng := rand.New(rand.NewSource(int64(109 + item.s + item.count)))
-			found := map[int]bool{}
-			for len(found) < item.count {
-				exponent := int(rng.Uint64() % uint64(n-1))
-				partner := int(uint64(exponent) * (1 << uint(item.s)) % uint64(n-1))
-				if exponent == partner {
-					continue
-				}
-				found[exponent] = true
-				found[partner] = true
-			}
-			for exponent := range found {
-				support = append(support, exponent)
-			}
-			sort.Ints(support)
-		}
-		if item.s == 17 && support[len(support)-1] <= 1<<32 {
-			t.Fatal("wide root indices absent")
-		}
-		maximum := 4
-		for maximum < len(support)+1 {
-			maximum *= 2
-		}
-		baseField, _ := NewBinaryField(item.s, h.Polynomial)
-		lookup := newPreparationProducts(baseField)
-		makeBase := func(engine rootWorkerEngine) orbitField {
-			return orbitField{q: 1 << uint(item.s), base: baseField, lookup: lookup,
-				products: &polynomialProducts{domain: uint64(n), cutoff: 4096, convolver: preparationConvolver{engine}}}
-		}
+		n, h, extension, support, maximum := fixture.n, fixture.header, fixture.extension, fixture.support, fixture.maximum
+		lookup := fixture.base.lookup
+		makeBase := fixture.withEngine
+
 		progress := func(worker int) preparationNotice {
 			last := time.Now()
 			return func(stage string, done, total uint64, unit string) {
@@ -146,19 +108,16 @@ func TestIndependentRootWorkers(t *testing.T) {
 				}
 			}
 		}
-		root := func(engine rootWorkerEngine, subset []int, worker int) (p []uint32, err error) {
-			defer recoverPreparation(&err)
-			if len(subset) == 0 {
-				return []uint32{1}, nil
-			}
+		root := func(engine rootWorkerEngine, subset []int, worker int) ([]uint32, error) {
 			selected := mode
 			if worker == -1 {
 				selected = referenceMode
 			}
-			return prepareCyclicRootWith(selected, makeBase(engine), subset, n, 1<<uint(item.s), engine.RootFactorsInto, nil, nil, func(stage string) {
+			return fixture.root(selected, engine, subset, func(stage string) {
 				emit(map[string]any{"kind": "stage", "case": index, "worker": worker, "phase": stage, "event": "started"})
 			}, progress(worker))
 		}
+
 		emit(map[string]any{"kind": "fixture", "case": index, "event": "started", "s": item.s, "support_count": len(support), "genuine_support": item.genuine})
 		cpu, err := cpp.NewPreparation(item.s, h.Polynomial, h.Omega, 4, uint64(maximum), 64<<20)
 		if err != nil {

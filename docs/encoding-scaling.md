@@ -2271,6 +2271,15 @@ SCALING-109 next-work order is explicit:
    transfer/merge across ranks**, using existing helpers and explicit sorted subset
    validation for the measured sparse cases. Include complete transfer, merge and
    canonical/CPU checks in workflow elapsed time; keep intermediate arrays in RAM.
+   SCALING-117: [bounded root/transfer/merge implementation](../experiments/distributed-root/report.md)
+   is ready for two-node validation in the same approved allocation. Shared fixture
+   extraction preserves all four historical CPU root hashes. Full partial-root
+   polynomials travel directly in host RAM via MPI; each rank merges on its one
+   GPU and compares every coefficient with the native CPU reference. Retain both
+   sent/received arrays, independent scalar witnesses, profiles and small two-rank
+   memchecks. Replicated fixture/reference/final merges are bounded validation
+   overhead, not full-size sharded support or a multi-level distributed merge tree.
+   Runtime/peak memory are pending; defaults and fulls18 admission are unchanged.
 4. Separately validate large buffered persistence and controlled writer concurrency.
 5. Compare complete elapsed time across practical allocations before choosing the
    final GPU/node count or giving a fulls18 runtime estimate. Preserve fast defaults,

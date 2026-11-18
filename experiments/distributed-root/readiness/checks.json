@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "utc": "2026-11-18T15:49:13.958363+00:00",
+  "base_revision": "ada3a02478b450841681d9c7416e0da7d54e8d9e",
+  "source_state": "working tree before implementation commit; per-file hashes below",
+  "source_sha256": {
+    "encoding/liftrs-shared/root_fixtures_gpu_test.go": "8bc39a9eb5671b50b57141a5b50eb7c34401b0b2f8cad900e6a9bae958581dc9",
+    "encoding/liftrs-shared/root_workers_gpu_test.go": "49210405b7dcd81657579d568f4078d9f791ade120cb516d20e9d33e684dbab2",
+    "encoding/liftrs-shared/root_distributed_gpu_test.go": "1b942e0964b6fe4de08ad37c9ace575d91568d4a75ba47c7f4861121d12ac3d9",
+    "experiments/gpu-staged-transport/run.py": "d032cea479a70d799137134d764526ca320bd7d7be901d578cd413ca31aefd72",
+    "experiments/distributed-root/analyze.py": "a455c24af0de2b1d3826ee0324ef395c548695309d991055a840f2e517f56324",
+    "experiments/distributed-root/run.py": "0b4f2d6760f7ba6dae807270b910923e105a415901d70b8b094d658d3536c695",
+    "experiments/distributed-root/test_review.py": "a09cc839e817719a8c9b8f5f37e4acdb0d0f9c5bf21413f127be122fd9660d9a",
+    "experiments/distributed-root/mpi/world.go": "d62b089679193c7216b1c9e1220a1d9c9ecbbfa65d2a3c7bd020965a0cf47d1f",
+    "experiments/distributed-root/rank.sh": "68a95c4e3d596fffd215c72894c5b31c3310c805b975a023bd2b5bf6d21fecad",
+    "experiments/distributed-root/run.sbatch": "62e94dd601dea2ff7a2c6ae59ae9579f86d8f8d7ded6e1eed5e8d454c438db12"
+  },
+  "checks": [
+    {
+      "command": "CC=mpicc CXX=mpicxx CGO_ENABLED=1 go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o /tmp/depir-distributed-root.test ./encoding/liftrs-shared",
+      "status": "passed",
+      "log": "mpi-build.log"
+    },
+    {
+      "command": "timeout 25s /tmp/depir-distributed-root.test -test.run ^TestRootFixtureReferenceDigests$ -test.v",
+      "status": "passed",
+      "log": "fixture-regression.log"
+    },
+    {
+      "command": "CGO_ENABLED=0 go test ./encoding/liftrs-shared -run TestPreparationRootPartitions|TestRootPartitionAdmission -count=1",
+      "status": "passed",
+      "log": "cpu-only.log"
+    },
+    {
+      "command": "python3 -B experiments/distributed-root/test_review.py",
+      "status": "passed",
+      "log": "reviewer-tests.log"
+    },
+    {
+      "command": "python3 -B experiments/gpu-staged-transport/test_review.py",
+      "status": "passed",
+      "log": "transport-tests.log"
+    },
+    {
+      "command": "python3 -B experiments/gpu-code-encoding/test_suite.py",
+      "status": "passed",
+      "log": "shared-review-tests.log"
+    }
+  ],
+  "limitations": [
+    "No MPI initialization, GPU execution or two-node result in local readiness checks.",
+    "OpenMPI wrappers emitted sandbox socket warnings; compiler/linker exited zero.",
+    "Fixture regression is correctness verification, not a new latency baseline."
+  ]
+}

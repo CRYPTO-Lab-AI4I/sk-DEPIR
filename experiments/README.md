@@ -60,6 +60,11 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Cross-node GPU root products](distributed-root/report.md): shared normalized
+  roots, complete host-polynomial MPI transfer and GPU merge, independent CPU
+  coefficient oracle and retained cross-rank array checks. Implemented; bounded
+  two-node validation pending, no fulls18 inference or default change.
+
 - [Explicit streamed preprocessing export](preprocessing-export/report.md): shared
   verified polynomial stage, bounded canonical output with atomic publication,
   support/recovery lifetimes and complete stream/resident correctness validation
