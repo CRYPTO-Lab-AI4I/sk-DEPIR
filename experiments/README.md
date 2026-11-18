@@ -78,7 +78,10 @@ original methodology; apply this policy to new optimization runs.
   slower; full-size costs remain unknown, with no admission or default change.
 - [Root/generator boundary validation](preprocessing-root-boundary/report.md):
   shared arithmetic, immutable support and partitioned-root equivalence; bounded
-  backend/recovery validation pending, no measured memory saving.
+  backend/recovery validation77126 passed, no measured memory saving.
+- [Independent GPU root workers](parallel-root-workers/report.md): bounded
+  same-node1/2/4-worker root construction and complete merge versus shared schedule,
+  independent CPU/scalar references; GPU validation/measurements pending.
 - [Two-node RAM redistribution](preprocessing-transport/report.md): compiled
   optional MPI host-memory probe, no shared-file intermediates; job77127 passed
   on two HPC nodes.32MiB inputs yield6.385GiB/s remote payload/node; zero GPUs,

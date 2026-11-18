@@ -3,6 +3,9 @@
 from pathlib import Path
 import runpy
 HERE=Path(__file__).resolve().parent
+# This ignored, unrelated script was copied into the producer tree. Its explicit
+# preserved snapshot must match the producer seal; all other files stay Git-bound.
+SOURCE_OVERRIDES={'experiments/disk-write-concurrency/inspect.py':HERE.parents[1]/'.cache/liftrs/preprocessing-root-boundary/root-01/review-source-inspect.py'}
 
 
 def review(out,record,result):
@@ -25,4 +28,4 @@ def review(out,record,result):
 
 
 if __name__=='__main__':
-    runpy.run_path(str(HERE.parent/'gpu-preprocessing-workflow/analyze.py'))['main'](here=HERE,extra_review=review)
+    runpy.run_path(str(HERE.parent/'gpu-preprocessing-workflow/analyze.py'))['main'](here=HERE,extra_review=review,source_overrides=SOURCE_OVERRIDES)

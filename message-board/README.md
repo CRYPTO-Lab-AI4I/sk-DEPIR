@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-18 11:04 | SCALING-109 | Prepared | [Root prerequisite passes; worker comparison ready](2026-11-18-1104-codex-scaling-109-prepared.md) |
+| 2026-11-18 10:54 | SCALING-109 | Started | [Review root boundary and prototype independent workers](2026-11-18-1054-codex-scaling-109-started.md) |
 | 2026-11-18 10:01 | SCALING-108 | Completed | [Two-node transport77127 passes; measured host payload rate](2026-11-18-1001-codex-scaling-108-completed.md) |
 | 2026-11-18 09:58 | SCALING-108 | Started | [Review transport77127](2026-11-18-0958-codex-scaling-108-started.md) |
 | 2026-11-18 09:53 | SCALING-107 | Handoff | [Approved two-node transport77127 submitted](2026-11-18-0953-codex-scaling-107-handoff.md) |

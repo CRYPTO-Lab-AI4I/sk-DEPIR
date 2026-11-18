@@ -1,0 +1,329 @@
+{
+  "status": "passed",
+  "job_id": "77126",
+  "revision": "9a1bbf75e4b4b098c0675178ff4c370ecb13b312",
+  "source_files_verified": 589,
+  "source_override_files_verified": [
+    "experiments/disk-write-concurrency/inspect.py"
+  ],
+  "evidence_files_verified": 45,
+  "cache_files_verified": 75,
+  "tests": [
+    "atomic stage publication and failure retention",
+    "independent Go canonical bytes",
+    "fresh and completed-cache/root restarts",
+    "CUDA-free final-cache readback",
+    "corruption/source-binding rejection",
+    "race/ASan/vet",
+    "fresh executable CUDA memcheck",
+    "normalized closed-orbit subset merge and caller immutability",
+    "root publication failure prevents generator work",
+    "native recovery/export and race",
+    "GPU root/recovery/canonical export plus CUDA memcheck"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 1.2236384019488469,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 1.1801058169803582,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "gpu",
+      "seconds": 1.1712579670129344,
+      "peak_rss_bytes": 21684224,
+      "exit_code": 0
+    },
+    {
+      "label": "topology",
+      "seconds": 1.1597791280364618,
+      "peak_rss_bytes": 21684224,
+      "exit_code": 0
+    },
+    {
+      "label": "job",
+      "seconds": 1.1624342009890825,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 1.1637744379695505,
+      "peak_rss_bytes": 3743744,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 1.1583734669839032,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 1.154560870025307,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "controller-tests",
+      "seconds": 1.154705848020967,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe-build",
+      "seconds": 8.175761604041327,
+      "peak_rss_bytes": 136941568,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-probe",
+      "seconds": 5.9038673709728755,
+      "peak_rss_bytes": 321413120,
+      "exit_code": 0
+    },
+    {
+      "label": "go-only-build",
+      "seconds": 14.045528240967542,
+      "peak_rss_bytes": 277487616,
+      "exit_code": 0
+    },
+    {
+      "label": "go-only-tests",
+      "seconds": 4.983212377992459,
+      "peak_rss_bytes": 108163072,
+      "exit_code": 0
+    },
+    {
+      "label": "native-tests",
+      "seconds": 15.629112883994821,
+      "peak_rss_bytes": 606863360,
+      "exit_code": 0
+    },
+    {
+      "label": "race",
+      "seconds": 28.46433965599863,
+      "peak_rss_bytes": 616472576,
+      "exit_code": 0
+    },
+    {
+      "label": "asan",
+      "seconds": 25.148826303018723,
+      "peak_rss_bytes": 601976832,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 18.90521133301081,
+      "peak_rss_bytes": 324268032,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-cli-build",
+      "seconds": 2.5402646860457025,
+      "peak_rss_bytes": 25780224,
+      "exit_code": 0
+    },
+    {
+      "label": "vet",
+      "seconds": 2.6163267720257863,
+      "peak_rss_bytes": 30498816,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-fresh",
+      "seconds": 5.204237608995754,
+      "peak_rss_bytes": 23760896,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-cached",
+      "seconds": 1.2617882709600963,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-root-restart",
+      "seconds": 3.746920511010103,
+      "peak_rss_bytes": 23822336,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-1-cuda-free-readback",
+      "seconds": 1.2546201820368879,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-fresh",
+      "seconds": 6.224758781027049,
+      "peak_rss_bytes": 365162496,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-cached",
+      "seconds": 1.2525700309779495,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-root-restart",
+      "seconds": 6.161826395022217,
+      "peak_rss_bytes": 257531904,
+      "exit_code": 0
+    },
+    {
+      "label": "peer-4-cuda-free-readback",
+      "seconds": 1.2394413240253925,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-fresh",
+      "seconds": 3.724990115966648,
+      "peak_rss_bytes": 23826432,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-cached",
+      "seconds": 1.2484452109783888,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-root-restart",
+      "seconds": 3.737980311969295,
+      "peak_rss_bytes": 24940544,
+      "exit_code": 0
+    },
+    {
+      "label": "local-1-cuda-free-readback",
+      "seconds": 1.2488208090071566,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-fresh",
+      "seconds": 4.971374691987876,
+      "peak_rss_bytes": 443133952,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-cached",
+      "seconds": 1.2642449249979109,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-root-restart",
+      "seconds": 5.0025948120164685,
+      "peak_rss_bytes": 473128960,
+      "exit_code": 0
+    },
+    {
+      "label": "local-4-cuda-free-readback",
+      "seconds": 1.2724420040030964,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "memcheck",
+      "seconds": 7.510036795050837,
+      "peak_rss_bytes": 564449280,
+      "exit_code": 0
+    },
+    {
+      "label": "root-native-build",
+      "seconds": 3.9237993740243837,
+      "peak_rss_bytes": 143093760,
+      "exit_code": 0
+    },
+    {
+      "label": "root-native",
+      "seconds": 5.084650848002639,
+      "peak_rss_bytes": 23785472,
+      "exit_code": 0
+    },
+    {
+      "label": "root-race",
+      "seconds": 16.487692988011986,
+      "peak_rss_bytes": 212725760,
+      "exit_code": 0
+    },
+    {
+      "label": "root-gpu-build",
+      "seconds": 3.919785938982386,
+      "peak_rss_bytes": 234995712,
+      "exit_code": 0
+    },
+    {
+      "label": "root-gpu",
+      "seconds": 7.52547766501084,
+      "peak_rss_bytes": 490110976,
+      "exit_code": 0
+    },
+    {
+      "label": "root-memcheck",
+      "seconds": 3.795488271047361,
+      "peak_rss_bytes": 42586112,
+      "exit_code": 0
+    }
+  ],
+  "scope": "shared root/generator boundary correctness; no parallel-root speed, measured memory saving or distributed preprocessing",
+  "cases": [
+    {
+      "layout": "peer",
+      "gpus": 1,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "a038d8c50c99276d3d35371bfdf9fd2713115453b618b187f46c4ac6984cb613",
+        "root": "33b32ae436968a04eb7367ffd1d2b1b71af693d7d99c61a878b204a865bb5adb",
+        "code": "05c374859a97cdbd2a393b9684cdc8bbe3be73fb62cbfe2e84a091a04bf7ea29"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-root-boundary/root-01/peer-1"
+    },
+    {
+      "layout": "peer",
+      "gpus": 4,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "ac522e1ba051fe298b6802ca3177ee9913bb36938b15085a2e99cbd9cf497b3b",
+        "root": "2ec58ed3e7487ec2ae77151c3551978cb04b8476fa9a7b1175b8b8c985de1962",
+        "code": "454943d07d9b9d80cfbf725fd7526a421b1324b31d4281dc9dcd2df3a222b605"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-root-boundary/root-01/peer-4"
+    },
+    {
+      "layout": "local",
+      "gpus": 1,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "a287ae6635d69d1bc6bc84db892cd3ac9941426530ef1168da961bec5e628c7b",
+        "root": "89ba4d7a236d99188d6e4aab131ec8d6a6f84e1560eecd50c177d740881b1800",
+        "code": "e9c5641dbe3483474ac5bccfffaeec83c3d3173523d09fef24a4229dd74356a6"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-root-boundary/root-01/local-1"
+    },
+    {
+      "layout": "local",
+      "gpus": 4,
+      "s": 8,
+      "canonical_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+      "baseline_manifest_sha256": {
+        "support": "cd154e98166212af3f188312a969f7ba3b15ac3061febfa502cb823adbf4f85a",
+        "root": "d85e30e7b5e18fd567f77748f14c84e80f1d2354e011bd281fe3d7ff03812c20",
+        "code": "5e16a7173d20ad4ab4b344f8401ec8f0359b5a16b9ab3fed74bb974d63629eec"
+      },
+      "cache": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/preprocessing-root-boundary/root-01/local-4"
+    }
+  ]
+}

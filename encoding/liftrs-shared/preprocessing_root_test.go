@@ -22,12 +22,19 @@ func TestPreparationRootPartitions(t *testing.T) {
 		}
 		original := append([]int(nil), basis.support...)
 		for _, workers := range []int{1, 2, 4} {
-			partitions := make([][]int, workers)
-			for _, index := range basis.support {
-				partner := int(uint64(index) * basis.base.q % uint64(basis.Length()-1))
-				owner := minInt(index, partner) % workers
-				partitions[owner] = append(partitions[owner], index)
+			partitions, err := partitionRootSupport(basis.support, basis.Length(), basis.base.q, workers)
+			if err != nil {
+				t.Fatal(err)
 			}
+			low, high := len(partitions[0]), len(partitions[0])
+			for _, part := range partitions {
+				low = minInt(low, len(part))
+				high = max(high, len(part))
+			}
+			if high-low > 2 {
+				t.Fatal("unbalanced orbit degrees")
+			}
+
 			combined := []uint32{1}
 			for _, support := range partitions {
 				if len(support) == 0 {
@@ -61,5 +68,16 @@ func TestPreparationRootPartitions(t *testing.T) {
 		if !errors.Is(err, stop) || generatorStarted {
 			t.Fatal("root publication failure crossed boundary", err)
 		}
+	}
+}
+
+func TestRootPartitionAdmission(t *testing.T) {
+	for _, workers := range []int{0, 65} {
+		if _, err := partitionRootSupport([]int{0}, 16, 4, workers); err == nil {
+			t.Fatal("invalid worker count admitted")
+		}
+	}
+	if _, err := partitionRootSupport([]int{1}, 16, 4, 2); err == nil {
+		t.Fatal("split Frobenius orbit admitted")
 	}
 }

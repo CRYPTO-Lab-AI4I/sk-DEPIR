@@ -421,6 +421,14 @@ canonical output are unchanged. A failed root-publication callback prevents
 reciprocal work. Frobenius-closed subsets can use the same root builder and their
 normalized products merge to P; this is tested without introducing a distributed
 public API. [Bounded backend validation](../experiments/preprocessing-root-boundary/report.md)
-is pending. Caller support remains borrowed; this boundary alone does not force
+passed in job77126. Caller support remains borrowed; this boundary alone does not force
 GC, consume caller data or establish lower measured RSS. Server-only transport
 experiments add no dependency to CPU-client builds.
+
+The private `partitionRootSupport` helper keeps Frobenius partners together and
+balances orbit degrees across sorted immutable copies. It adds one support-index
+copy and is not a full-size distributed support representation. The optional
+[independent-worker experiment](../experiments/parallel-root-workers/report.md)
+reuses normalized-root/product helpers with separate executors and a joined merge;
+it introduces no public scheduler or default parallel mode. Performance validation
+is pending, and no end-to-end speedup follows from subset equivalence alone.

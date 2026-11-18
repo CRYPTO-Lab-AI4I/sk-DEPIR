@@ -2214,19 +2214,36 @@ or changing public APIs. Generator work takes K/P; root-save metadata no longer
 captures support. Complete Frobenius-orbit subset merge and root-publication
 failure tests pass locally. This alone does not release a CLI/public caller's
 support or prove a memory saving. [Native/GPU recovery validation](../experiments/preprocessing-root-boundary/report.md)
-is **submitted as job77126**, within the existing single-node budget
-([receipt/results](../experiments/preprocessing-root-boundary/submission.json)).
-No monitoring; await completion ping. [Two-node RAM transport gate](../experiments/preprocessing-transport/report.md)
+**passed validation77126** on HPCgnode13,4H200/4CPU/8GiB host request,4min9s.
+Native/GPU recovery/export/race and CUDA memcheck pass;589source/45evidence/75cache
+identities reconcile with one explicitly preserved ignored-source snapshot.
+No measured support-release/RSS saving follows. [Two-node RAM transport gate](../experiments/preprocessing-transport/report.md)
 **passed job77127** on HPC gnode13/gnode14, after explicit second-node budget
 agreement ([reviewed results](../experiments/preprocessing-transport/report.md#completed-host-memory-exchange-scaling-108));
 zero GPUs,2CPU/4GiB requested RAM per node,5s whole job. Complete34bit pattern
 and roundtrip checks pass. At32MiB input/node, median forward time2.447ms
 corresponds to6.385GiB/s remote payload per node (16MiB remote bytes/node).
-Four-node GPU transport and distributed preprocessing remain unmeasured; next
-is staged GPU/rank ownership and independent root-worker integration once the
-separate shared-root backend validation is reviewed. Large buffered persistence
-remains a separate gate; no new job launched by this results review. Full parallel roots and distributed transforms remain
-unimplemented. Keep computation and persistent-write gates separate.
+Four-node GPU transport and distributed preprocessing remain unmeasured.
+With the shared-root prerequisite reviewed, independent root-worker timing is
+next, before staged GPU/rank communication. Large buffered persistence remains
+a separate gate. Full distributed roots/transforms remain unimplemented; the
+bounded same-node prototype below does not establish their performance.
+
+SCALING-109 next-work order is explicit:
+
+1. Root/backend prerequisite77126 passed; use the same root/product arithmetic.
+2. **Measure independent root workers including final merge first.** The
+   [same-node1/2/4GPU worker prototype](../experiments/parallel-root-workers/report.md)
+   is implemented for bounded validation; compare whole-root scheduling, setup,
+   partitioning, worker wall time and merge, with full CPU polynomial agreement.
+   This is a component gate, not fulls18 or cross-node speed evidence.
+3. Then measure node-to-node GPU computation/communication, including host staging,
+   synchronization and deterministic rank ownership. Host-only77127 is insufficient
+   to select GPU count or claim a four-node full-size bandwidth.
+4. Separately validate large buffered persistence and controlled writer concurrency.
+5. Compare complete elapsed time across practical allocations before choosing the
+   final GPU/node count or giving a fulls18 runtime estimate. Preserve fast defaults,
+   CPU clients and explicit budgets; no slower trade-off is silently adopted.
 
 Streaming adds no transforms or canonical output bytes, but synchronous chunk
 transfers/writes may cost time and filesystem cache remains charged host memory.

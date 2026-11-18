@@ -1,9 +1,10 @@
 # Shared root/generator boundary validation
 
-Status: **job77126 submitted**, native/CUDA/recovery validation pending.
-[Receipt](submission.json), [results](runs/root-01/), [Slurm log](slurm-77126.log).
-Prepared source revision `9a1bbf7`; actual revision/file identities are sealed by
-the runner. No monitoring after submission.
+Status: **validation77126 passed** on HPC gnode13 (4H200,4CPU,8GiB requested
+host RAM), complete job4min9s; controller247.575s.
+[Receipt](submission.json), [raw results](runs/root-01/results.json),
+[analysis](runs/root-01/analysis.json), [accounting](runs/root-01/accounting.txt),
+[Slurm log](slurm-77126.log). Producer `9a1bbf7`.
 Work SCALING-106. No full s18 support, distributed worker or memory saving claimed.
 
 [Runner](run.py), [reviewer](analyze.py), [Slurm entry](run.sbatch),
@@ -54,3 +55,32 @@ reference caches and binaries remain outside Git at
 `.cache/liftrs/preprocessing-root-boundary/root-01/`. After submission, await the
 user completion ping before reviewing. Full-size caches and prior profiles stay
 untouched. Local new root test passes in0.046s; full gates are not yet passed.
+
+## Completed validation and source reconciliation (SCALING-109)
+
+Native root/export/recovery and race checks pass, along with whole small GPU
+preparation/export and CUDA memcheck. Both the new export memcheck and inherited
+CLI memcheck report0errors/0leakedbytes. All small canonical reference, cache/root
+restart, ordinary CPU-only readback, race/ASan/vet and root-partition/publication
+failure gates pass. Matching CPU profiles/native and GPU binaries are retained.
+Maximum sampled command RSS587.914MiB includes build/test work, not a measured
+root-lifetime saving. No parallel performance is established by this validation.
+
+Reconciliation verifies589source identities,45evidence logs and75original cache
+files. One source file was ignored by Git but copied into the producer snapshot;
+it is unrelated to the executed workflow. The reviewer explicitly binds only
+that named source to its exact producer SHA256 using a retained snapshot at
+`.cache/liftrs/preprocessing-root-boundary/root-01/review-source-inspect.py`.
+All remaining source identities match producer Git objects. The ignored original
+is neither modified nor published; the preserved copy remains outside Git.
+No execution result or sealed log was changed. This is an explicit source override,
+not a relaxed default reviewer or a claim of an entirely clean producer snapshot.
+
+```sh
+python3 -B experiments/preprocessing-root-boundary/analyze.py root-01
+```
+
+Subsequent independent root-worker measurement is tracked in
+[its experiment](../parallel-root-workers/report.md). It uses the same validated
+root and product implementations. This review changes no canonical format, API,
+execution default, admitted full-size workload or memory claim.

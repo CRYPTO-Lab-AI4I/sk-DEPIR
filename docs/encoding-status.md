@@ -458,8 +458,9 @@ retention brings the payload envelope to1478.170 GiB before storage headroom.
 No GPU count reduces canonical data size. No full-size runtime forecast follows
 from the small-component ratios; root construction dominated fulls17.
 Distributed prototyping is selected. The [shared root boundary](../experiments/preprocessing-root-boundary/report.md)
-is implemented with local subset-merge tests passing; full backend/recovery
-validation **job77126 submitted** ([receipt](../experiments/preprocessing-root-boundary/submission.json)).
+**passed bounded backend/recovery validation77126** (HPCgnode13,4H200,4CPU,
+8GiB host request,4min9s). Native/GPU canonical/root/recovery/race and CUDA memcheck
+pass. This establishes correctness, not a measured memory saving.
 A [two-node host-memory exchange](../experiments/preprocessing-transport/report.md)
 **passed job77127** on HPC gnode13/gnode14 (zero GPUs,2CPU and4GiB requested RAM
 per node,5s complete job). At32MiB input/rank,16MiB is sent remotely/node per pass;
@@ -471,6 +472,12 @@ bandwidth or fulls18 runtime follows. Intermediates
 stay in RAM/direct messages; buffered persistent output and bounded writer
 concurrency are a separate validation gate. No new full-size measurement or RAM
 saving is established; existing CPU/GPU resident results remain unchanged.
+
+The next measurement is [independent root workers including complete merge](../experiments/parallel-root-workers/report.md),
+before node-to-node GPU staging/communication and separately buffered persistence.
+A same-node1/2/4-worker prototype uses shared arithmetic, one genuine small support
+and bounded synthetic s12/s17 root subsets with complete CPU references. It is
+implemented but unmeasured; fulls18 speed and final GPU count remain undecided.
 
 ## Measurement boundaries for batch entries
 

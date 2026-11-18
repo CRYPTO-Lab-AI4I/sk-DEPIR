@@ -285,7 +285,13 @@ func (p *CodePreprocessor) Discover(options OrbitOptions) (support *CodeSupport,
 	return &CodeSupport{parameters: SupportParameters{h.Spec, uint64(len(indices)), h.N, h.Polynomial, h.Delta, h.Omega, samples}, exponents: indices}, nil
 }
 
-type preparationConvolver struct{ backend codePreparationBackend }
+// Only products are needed here; standalone root workers can reuse the same
+// dispatch/error semantics without implementing discovery or spectrum methods.
+type preparationConvolver struct {
+	backend interface {
+		Product([]uint32, []uint32, int, int) ([]uint32, error)
+	}
+}
 
 func (c preparationConvolver) canConvolve(n int) bool { return n >= 4 }
 func (c preparationConvolver) convolve(a, b []uint32, limit, n int) []uint32 {

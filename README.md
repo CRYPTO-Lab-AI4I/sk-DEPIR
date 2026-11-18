@@ -88,12 +88,15 @@ integration. Neither complete route is implemented; four-node GPU communication
 and total runtime remain unmeasured, with no new full-run budget or default selected. Distributed prototyping is selected.
 Distributed preprocessing prototyping now separates the shared normalized-root
 and generator stages, preserving existing arithmetic and recovery. [Bounded
-backend validation](experiments/preprocessing-root-boundary/report.md) and a
+backend validation77126](experiments/preprocessing-root-boundary/report.md) passed; the
 [two-node RAM exchange gate](experiments/preprocessing-transport/report.md)
-precede integration. Host-memory exchange77127 passes on two HPC nodes;32MiB
+also passed. Host-memory exchange77127 runs on two HPC nodes;32MiB
 inputs give2.447ms median forward exchange and6.385GiB/s remote payload per node.
 GPU transport and four-node scaling remain unvalidated. Intermediate exchanges stay in memory; checkpoint/final
 writes are a separate buffered, controlled-concurrency validation gate.
+Next, [measure independent GPU root workers including merge](experiments/parallel-root-workers/report.md),
+then GPU communication and controlled buffered persistence. The bounded same-node
+prototype is implemented; its GPU performance and correctness checks are pending.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 
