@@ -1,0 +1,35 @@
+{
+  "job_id": "77213",
+  "name": "compare-01",
+  "submitted_utc": "2026-11-18T13:36:12.116277+00:00",
+  "prepared_revision": "e061a08",
+  "status": "submitted; not monitored",
+  "results": "experiments/root-subset-validation/runs/compare-01/results.json",
+  "log": "experiments/root-subset-validation/slurm-77213.log",
+  "cache": ".cache/liftrs/root-subset-validation/compare-01/",
+  "resources": {
+    "nodes": 1,
+    "gpus": 4,
+    "gpu_model": "H200",
+    "cpu_cores": 4,
+    "host_requested_GiB": 8,
+    "rss_guard_GiB": 6,
+    "go_target_GiB": 4,
+    "aggregate_owned_device_cap_GiB": 4,
+    "new_executor_per_card_cap_MiB": 128,
+    "new_retained_cap_GiB": 2,
+    "scratch_cap_GiB": 4,
+    "controller_minutes": 15,
+    "scheduler_minutes": 20
+  },
+  "method": {
+    "order": [
+      "bitmap",
+      "sorted",
+      "sorted",
+      "bitmap"
+    ],
+    "cpu_reference_validation": "sorted for both modes",
+    "default_preprocessing_validation": "bitmap unchanged"
+  }
+}

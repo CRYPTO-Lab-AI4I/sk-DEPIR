@@ -2248,7 +2248,9 @@ SCALING-109 next-work order is explicit:
    No skipping checks or unrecorded proof reuse. Largest command RSS4.946GiB;
    recorded allocation payload is distinct from RSS.
    SCALING-111: [explicit sorted-membership comparison](../experiments/root-subset-validation/report.md)
-   is implemented/prepared. The shared validator retains cardinality/range/order
+   is implemented; **job77213 submitted**
+   ([receipt/results](../experiments/root-subset-validation/submission.json)).
+   No monitoring; await completion ping. The shared validator retains cardinality/range/order
    and every Frobenius lookup; sorted input search avoids N-sized storage but
    adds O(KlogK) work. Existing wrappers/defaults stay bitmap. Local exhaustive
    small-domain/error equivalence, wide-index allocation/progress and root-merge

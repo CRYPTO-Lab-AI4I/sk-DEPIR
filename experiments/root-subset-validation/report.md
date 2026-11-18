@@ -1,7 +1,9 @@
 # Fully checked root-subset membership comparison
 
-Status: explicit sorted validator implemented; matched GPU/worker measurements
-pending. Work SCALING-111. Ordinary preprocessing/cache/discovery defaults remain
+Status: **job77213 submitted**; matched GPU/worker measurements pending.
+[Receipt](submission.json), [results](runs/compare-01/), [Slurm log](slurm-77213.log).
+Prepared source `e061a08`; actual revision and copied sources are sealed by the
+controller. No monitoring after submission. Work SCALING-111. Ordinary preprocessing/cache/discovery defaults remain
 bitmap; no full-support strategy or slower fallback is adopted.
 
 [Runner](run.py), [Slurm entry](run.sbatch), [reviewer](analyze.py),

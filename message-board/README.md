@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-18 13:36 | SCALING-111 | Handoff | [Matched subset-validator job77213 submitted](2026-11-18-1336-codex-scaling-111-handoff.md) |
 | 2026-11-18 13:35 | SCALING-111 | Prepared | [Matched bitmap/search worker validation ready](2026-11-18-1335-codex-scaling-111-prepared.md) |
 | 2026-11-18 13:29 | SCALING-111 | Started | [Fully checked subset validation comparison](2026-11-18-1329-codex-scaling-111-started.md) |
 | 2026-11-18 11:46 | SCALING-110 | Completed | [Worker comparison77148 passes; validation overhead identified](2026-11-18-1146-codex-scaling-110-completed.md) |

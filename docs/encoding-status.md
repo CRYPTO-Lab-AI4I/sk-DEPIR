@@ -503,7 +503,8 @@ and separately buffered persistence follow; fulls18 runtime/final GPU count rema
 undecided and full-size result cells are unchanged.
 
 The [controlled subset-validator comparison](../experiments/root-subset-validation/report.md)
-is implemented and prepared: bitmap remains default; explicit binary search
+is **submitted as job77213** ([receipt/results](../experiments/root-subset-validation/submission.json)):
+bitmap remains default; explicit binary search
 borrows the sorted support with no N-sized bitmap, adding O(KlogK) searches.
 Local exhaustive acceptance/error equivalence and wide-index allocation/progress
 checks pass. Matched bitmap/search worker timings and process RSS remain pending;
