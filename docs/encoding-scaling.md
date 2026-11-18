@@ -2226,7 +2226,8 @@ corresponds to6.385GiB/s remote payload per node (16MiB remote bytes/node).
 Four-node GPU transport and distributed preprocessing remain unmeasured.
 Independent root-worker timing, staged GPU/rank communication and actual bounded
 normalized-root polynomial transfer/merge now pass the gates below. Large buffered
-persistence is the next separate measurement gate.
+persistence also passes the bounded gate below; scalable rank ownership and
+multi-level merge are next.
 Full distributed roots/transforms remain unimplemented; bounded components do not
 establish their full-size performance.
 
@@ -2285,25 +2286,37 @@ SCALING-109 next-work order is explicit:
    Replicated bounded support/reference/final merges establish component correctness,
    not scalable support ownership or a multi-level merge tree. Full generator/
    Newton/transforms and fulls18 costs remain unvalidated; defaults/admission unchanged.
-4. **Next measurement:** separately validate large buffered sequential checkpoint/
-   final publication and controlled writer concurrency. Intermediate compute and
-   cross-node polynomial exchange remain in RAM; include storage/headroom, cache
-   accounting and full workflow latency before selecting a full allocation.
-   SCALING-119: [explicit buffered persistence gate](../experiments/preprocessing-persistence/report.md)
-   is submitted as **job77352**, results unreviewed. Reuse the CLI payload writer,
-   checksums/fsync, atomic manifest publication and restart readback. Compare
-   direct64KiB codec writes with4MiB coalescing and1/2/4 file owners, fixed four
-   24MiB files/96MiB per trial, mirrored two-sample order. Measure actual application
-   write sizes/counts, publish/flush/fsync/readback, RSS/file cache and job charges.
-   Only new verified cheap synthetic payloads are pruned between trials; retain
-   all manifests/digests/profiles and final payloads, preserving all preprocessing.
-   One HPC node/2CPU/4GiB RAM,0GPU,128MiB retained/2GiB scratch/15min scheduler.
-   Buffer adds up to16MiB with4 writers and extra copies, no transforms/payload
-   bytes; time effect pending. No default choice or sustained/fullsize throughput
-   claim; larger shared-storage/multi-node tests need separate admission.
-5. Compare complete elapsed time across practical allocations before choosing the
-   final GPU/node count or giving a fulls18 runtime estimate. Preserve fast defaults,
-   CPU clients and explicit budgets; no slower trade-off is silently adopted.
+4. Separate persistence gate **passed77352** (SCALING-120):
+   [buffered publication/concurrency evidence](../experiments/preprocessing-persistence/report.md),
+   HPCgnode02/2CPU/4GiB requested host RAM/0GPU/NFS,1min45s complete job.
+   Shared checksum/fsync/atomic publication, full readback, actual small CLI
+   recovery/reference and full small concurrency race probe pass;628 source/
+   14 evidence/106 cache identities reconcile. Fixed96MiB across4files per trial,
+   direct64KiB vs4MiB coalescing,1/2/4 owners, mirrored two-sample order.
+   Application calls1,536→24; publication medians direct0.336/0.268/0.199s vs
+   buffered0.346/0.212/0.184s (1/2/4writers). Readback medians0.896–1.460s dominate
+   and complete elapsed ordering is mixed. No buffer/writer default selected;
+   no sustained/fullsize bandwidth inference. Buffers add up to16MiB/4writers
+   plus copies, no added transforms/network/payload bytes/readback passes.
+   Persistence max sampled cgroup charge362.695MiB, group RSS41.137MiB; final
+   retained cache111.946MiB. Whole job cgroup high-water718.566MiB includes builds.
+   Profiles and final normal/race data retained; only verified cheap synthetic
+   payloads were pruned. All earlier preprocessing remains intact.
+5. **Next implementation:** scalable support/rank ownership and a multi-level GPU
+   polynomial merge using the already verified arithmetic/transport helpers.
+   Remove bounded-test replication from the intended production workflow while
+   keeping independent correctness references for validation. Integrate generator/
+   Newton/distributed transforms and rank-owned checkpoint/final publication with
+   shared atomic/checksum helpers; intermediate compute/exchange remains in RAM.
+   Investigate coalesced verification reads during that integration, preserving
+   all checks; measured readback dominance does not prove a read-buffer speedup.
+   Any new buffer trades memory/copies against unknown latency until measured and
+   must not silently become default. Do not launch another same-size I/O sweep
+   as a substitute for complete-workflow implementation.
+6. Compare complete elapsed time across practical allocations before choosing
+   final GPU/node count or giving fulls18 runtime. Full-size/multi-node persistence
+   remains unmeasured; larger storage or node/GPU budgets need separate admission.
+   Preserve fast defaults, CPU clients and explicit memory–time choices.
 
 Streaming adds no transforms or canonical output bytes, but synchronous chunk
 transfers/writes may cost time and filesystem cache remains charged host memory.

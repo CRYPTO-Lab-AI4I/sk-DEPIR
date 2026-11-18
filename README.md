@@ -100,7 +100,7 @@ mean including partition/merge is1.039s with sorted membership versus3.427s bitm
 sampled process RSS is0.508–0.510GiB versus4.455–4.685GiB. Smaller cases show search
 overhead. Use explicit sorted membership for measured sparse workers; ordinary
 full-support/cache/discovery defaults remain bitmap. This is a bounded component,
-not fulls18 speedup; bounded cross-node roots now pass below; buffered persistence is next.
+not fulls18 speedup; bounded cross-node roots and persistence now pass below.
 The [two-node staged GPU exchange](experiments/gpu-staged-transport/report.md)
 retry **77281 passed** on two HPC nodes, one H200 and2CPU/4GiB requested host RAM
 each. At32MiB input/rank, median complete forward pipeline is11.827ms; matched
@@ -112,11 +112,14 @@ The [bounded cross-node root integration](experiments/distributed-root/report.md
 CPU/cross-rank array checks, partition race checks and both CUDA memchecks pass.
 At262,144 synthetic s17 exponents, median root/transfer/GPU-merge/verification
 pipeline is1.180s; peak normal rank RSS410.523MiB, owned GPU15.241MiB/card.
-This is not fulls17/s18 preprocessing or a scalable merge tree. The next
-[bounded persistence gate](experiments/preprocessing-persistence/report.md) compares
-64KiB codec writes with4MiB buffering and1/2/4 writers using shared atomic
-publication/readback; bounded HPC job77352 is submitted. Ordinary CPU builds and faster
-resident defaults are unchanged.
+This is not fulls17/s18 preprocessing or a scalable merge tree. The
+[bounded persistence gate](experiments/preprocessing-persistence/report.md)
+**passed77352**, HPCgnode02/2CPU/4GiB RAM/0GPU:96MiB trials verify atomic publication,
+full restart readback and concurrent race checks.4MiB coalescing cuts application
+write calls1,536→24, but gives mixed elapsed results; defaults stay unchanged.
+Publication medians0.184–0.346s, full readback0.896–1.460s; persistence-phase sampled
+cgroup memory362.695MiB. Next is scalable rank ownership/multi-level merge and full
+preprocessing/publication integration. Ordinary CPU builds remain unchanged.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

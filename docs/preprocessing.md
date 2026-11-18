@@ -456,5 +456,9 @@ reuses CLI checksum/fsync/atomic publication and restart readback with optional
 4 MiB coalescing and controlled ownership of separate files. This is a server I/O
 experiment; ordinary codecs/CLI defaults remain unchanged. Buffering must flush
 successfully before fsync and publication, and synthetic probe payloads are not
-usable preprocessing artifacts. Bounded HPC job77352 is submitted; runtime/cache effects await completion;
-no full-size output latency or power-failure guarantee follows from the probe.
+usable preprocessing artifacts. Bounded HPC77352 passed (gnode02,2CPU/4GiB RAM,
+0GPU): write calls1,536→24 per96MiB trial, but elapsed benefits are mixed and full
+readback dominates. Persistence-phase max sampled cgroup charge362.695MiB;
+all atomic/restart/corruption/concurrent race checks pass. Retain existing defaults
+while integrating scalable rank ownership and publication. No full-size output
+latency or power-failure guarantee follows from this probe.

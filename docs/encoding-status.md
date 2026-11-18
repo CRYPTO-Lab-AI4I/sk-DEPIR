@@ -559,15 +559,37 @@ These process/card measurements are not total concurrent job memory. Both ranks
 replicate bounded support/CPU oracle/final merge; no full-size memory saving follows.
 
 The [bounded persistence gate](../experiments/preprocessing-persistence/report.md)
-is implemented; **HPC job77352 submitted**, results unreviewed. Fixed96MiB per trial (four24MiB files),
-64KiB codec writes versus4MiB coalescing,1/2/4 file owners. One HPC node/2CPU/
-4GiB requested host RAM,0GPU;2GiB RSS/128MiB retained/2GiB scratch/15min caps.
-It uses shared checksum/fsync/atomic-publication and full readback helpers; ordinary
-defaults remain unchanged. This bounded size is not sustained full-size I/O
-throughput, and adds no measured s18 cost yet. Scalable support/rank ownership, multi-level merge and full
-generator/transforms remain outstanding. No fulls18 runtime/capacity result or
-GPU/node-count choice follows; fulls17 CPU/GPU results and fulls18-unrun table cells
-remain unchanged. Ordinary CPU builds and faster resident defaults remain unchanged.
+**passed77352**, HPCgnode02 (Xeon6710E),2 CPU/4 GiB requested host RAM,0GPU, NFS.
+Job elapsed1 minute45 seconds including builds, tests and profile reporting.
+All atomic publication/full readback/real small CLI restart/reference/corruption
+and concurrent race checks pass;628 source/14 evidence/106 cache seals verify.
+Each trial writes96MiB across four24MiB files; mirrored two-sample medians:
+
+| Write mode | Writers | Publication | Full readback | Complete publication/readback | Application payload-write calls |
+|---|---|---|---|---|---|
+| Direct64KiB codec | 1 | 0.336030 s | 1.296711 s | 1.632754 s | 1,536 |
+| Direct64KiB codec | 2 | 0.268352 s | 1.042680 s | 1.311052 s | 1,536 |
+| Direct64KiB codec | 4 | 0.198815 s | 1.284555 s | 1.483389 s | 1,536 |
+|4MiB coalescing | 1 | 0.346113 s | 0.895899 s | 1.242028 s | 24 |
+|4MiB coalescing | 2 | 0.212306 s | 1.391488 s | 1.603806 s | 24 |
+|4MiB coalescing | 4 | 0.184447 s | 1.459786 s | 1.644246 s | 24 |
+
+Calls fall64-fold, but elapsed benefits are mixed; **no default change**. Readback
+exceeds publication in every trial.4MiB buffers add up to16MiB for4 writers plus
+copies, with the same canonical bytes/checks. Profiling/logging/generation/hash
+costs are included; two small cached samples do not establish sustained bandwidth.
+Persistence sampled group RSS41.137MiB; final retained payload residency96MiB;
+concurrent RSS+retained-cache proxy109.609MiB (partial accounting). Persistence
+max sampled cgroup charge362.695MiB; whole job cgroup high-water718.566MiB, including
+compilation. These are distinct measures. Retained cache111.946MiB, outside Git.
+
+Bounded component gates now pass. Next: scalable support/rank ownership and a
+multi-level GPU merge, followed by full generator/Newton/transform and rank-owned
+publication integration. Investigate coalesced verification reads without removing
+checks; larger buffer benefit remains a candidate. Fulls18 runtime/capacity and
+multi-node I/O remain unknown, with separate admission required for larger trials.
+Fulls17 CPU/GPU results and fulls18-unrun table cells remain unchanged; CPU builds
+and faster resident defaults remain unchanged.
 
 ## Measurement boundaries for batch entries
 

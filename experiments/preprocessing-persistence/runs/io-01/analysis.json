@@ -1,0 +1,143 @@
+{
+  "status": "passed",
+  "job_id": "77352",
+  "revision": "f493cb977021661bb60f6d2d9a18d07f0540c14e",
+  "source_files_verified": 628,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 14,
+  "cache_files_verified": 106,
+  "tests": [
+    "buffered/unbuffered byte/hash equivalence",
+    "producer-error publication/retry and corruption rejection",
+    "real small CLI recovery/restart/Go arithmetic reference",
+    "race checks",
+    "fixed-load mode/call-size coverage",
+    "all trial manifest/digest identities; full final payload bytes",
+    "source/evidence/cache seals"
+  ],
+  "commands": [
+    {
+      "label": "host",
+      "seconds": 0.5300352182239294,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu",
+      "seconds": 0.43310824409127235,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "filesystem",
+      "seconds": 0.42459082417190075,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.3807277586311102,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.3956775199621916,
+      "peak_rss_bytes": 0,
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "seconds": 33.89147995226085,
+      "peak_rss_bytes": 616112128,
+      "exit_code": 0
+    },
+    {
+      "label": "correctness",
+      "seconds": 0.46068720519542694,
+      "peak_rss_bytes": 10235904,
+      "exit_code": 0
+    },
+    {
+      "label": "race-build",
+      "seconds": 19.075831945985556,
+      "peak_rss_bytes": 252739584,
+      "exit_code": 0
+    },
+    {
+      "label": "race",
+      "seconds": 2.4432217199355364,
+      "peak_rss_bytes": 47706112,
+      "exit_code": 0
+    },
+    {
+      "label": "persistence",
+      "seconds": 18.3080915492028,
+      "peak_rss_bytes": 43134976,
+      "exit_code": 0
+    },
+    {
+      "label": "profile",
+      "seconds": 21.13358143158257,
+      "peak_rss_bytes": 243593216,
+      "exit_code": 0
+    }
+  ],
+  "scope": "96MiB synthetic persistence/call aggregation gate; no full-size throughput, durable-power-failure guarantee, multi-node writers or new default",
+  "summary": [
+    {
+      "buffer_bytes": 0,
+      "writers": 1,
+      "total_bytes": 100663296,
+      "median_publication_seconds": 0.33602975150000003,
+      "median_readback_seconds": 1.2967113605,
+      "median_publish_readback_seconds": 1.632754159,
+      "file_write_calls_per_trial": 1536
+    },
+    {
+      "buffer_bytes": 0,
+      "writers": 2,
+      "total_bytes": 100663296,
+      "median_publication_seconds": 0.26835159,
+      "median_readback_seconds": 1.0426800090000001,
+      "median_publish_readback_seconds": 1.3110520315,
+      "file_write_calls_per_trial": 1536
+    },
+    {
+      "buffer_bytes": 0,
+      "writers": 4,
+      "total_bytes": 100663296,
+      "median_publication_seconds": 0.198815018,
+      "median_readback_seconds": 1.2845550405000001,
+      "median_publish_readback_seconds": 1.483388982,
+      "file_write_calls_per_trial": 1536
+    },
+    {
+      "buffer_bytes": 4194304,
+      "writers": 1,
+      "total_bytes": 100663296,
+      "median_publication_seconds": 0.34611263800000003,
+      "median_readback_seconds": 0.895899441,
+      "median_publish_readback_seconds": 1.2420275715,
+      "file_write_calls_per_trial": 24
+    },
+    {
+      "buffer_bytes": 4194304,
+      "writers": 2,
+      "total_bytes": 100663296,
+      "median_publication_seconds": 0.212305932,
+      "median_readback_seconds": 1.3914876435,
+      "median_publish_readback_seconds": 1.6038060365,
+      "file_write_calls_per_trial": 24
+    },
+    {
+      "buffer_bytes": 4194304,
+      "writers": 4,
+      "total_bytes": 100663296,
+      "median_publication_seconds": 0.18444710749999998,
+      "median_readback_seconds": 1.4597856354999998,
+      "median_publish_readback_seconds": 1.6442464829999999,
+      "file_write_calls_per_trial": 24
+    }
+  ]
+}

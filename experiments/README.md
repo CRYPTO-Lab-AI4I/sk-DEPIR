@@ -63,7 +63,9 @@ original methodology; apply this policy to new optimization runs.
 - [Buffered preprocessing persistence](preprocessing-persistence/report.md): shared
   payload/fsync/atomic publication with explicit4MiB buffering, fixed96MiB trials
   at1/2/4 writers, full restart readback and file-call/cache accounting. Bounded
-  HPC job77352 submitted; no full-size throughput or default change.
+  HPC77352 passed:4MiB coalescing cuts calls1,536→24; elapsed benefit mixed,
+  readback dominates. Atomic/restart/full concurrency race checks pass; no full-size
+  throughput or default change.
 
 - [Cross-node GPU root products](distributed-root/report.md): shared normalized
   roots, complete host-polynomial MPI transfer and GPU merge, independent CPU

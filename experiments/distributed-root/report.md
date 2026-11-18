@@ -228,3 +228,9 @@ distributed transforms remain implementation/validation work before a full s=18
 run. This bounded component does not update full-size memory/runtime projections
 or change faster resident defaults; full-size communication/persistence costs
 and final GPU/node-count selection remain unknown.
+
+Subsequent gate: [buffered persistence77352](../preprocessing-persistence/report.md)
+now passes. It verifies application-call coalescing and atomic/restart/race behavior,
+but elapsed benefit is mixed and readback dominates; defaults stay unchanged.
+The current next implementation is scalable rank ownership/multi-level merge and
+full preprocessing/publication integration, as recorded in the scaling plan.
