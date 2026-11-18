@@ -1,0 +1,24 @@
+{
+  "job_id": "77126",
+  "name": "root-01",
+  "submitted_utc": "2026-11-18T09:48:38.965556+00:00",
+  "prepared_revision": "9a1bbf7",
+  "status": "submitted; not monitored",
+  "results": "experiments/preprocessing-root-boundary/runs/root-01/results.json",
+  "log": "experiments/preprocessing-root-boundary/slurm-77126.log",
+  "cache": ".cache/liftrs/preprocessing-root-boundary/root-01/",
+  "resources": {
+    "nodes": 1,
+    "gpus": 4,
+    "gpu_model": "H200",
+    "cpu_cores": 4,
+    "host_requested_GiB": 8,
+    "rss_guard_GiB": 6,
+    "owned_device_cap_GiB_per_card": 1,
+    "new_test_cap_MiB_per_card": 128,
+    "retained_cap_GiB": 2,
+    "scratch_cap_GiB": 4,
+    "controller_minutes": 15,
+    "scheduler_minutes": 20
+  }
+}

@@ -1,6 +1,9 @@
 # Shared root/generator boundary validation
 
-Status: implementation prepared; native/CUDA/recovery validation pending.
+Status: **job77126 submitted**, native/CUDA/recovery validation pending.
+[Receipt](submission.json), [results](runs/root-01/), [Slurm log](slurm-77126.log).
+Prepared source revision `9a1bbf7`; actual revision/file identities are sealed by
+the runner. No monitoring after submission.
 Work SCALING-106. No full s18 support, distributed worker or memory saving claimed.
 
 [Runner](run.py), [reviewer](analyze.py), [Slurm entry](run.sbatch),

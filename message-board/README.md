@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-18 09:48 | SCALING-106 | Handoff | [Root validation77126 submitted; two-node budget pending](2026-11-18-0948-codex-scaling-106-handoff.md) |
 | 2026-11-18 09:47 | SCALING-106 | Prepared | [Root boundary validation and two-node RAM probe](2026-11-18-0947-codex-scaling-106-prepared.md) |
 | 2026-11-18 09:40 | SCALING-106 | Started | [Distributed preprocessing and controlled persistence](2026-11-18-0940-codex-scaling-106-started.md) |
 | 2026-11-17 15:35 | SCALING-105 | Completed | [Full workflow route comparison and recommendation](2026-11-17-1535-codex-scaling-105-completed.md) |

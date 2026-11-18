@@ -2214,7 +2214,9 @@ or changing public APIs. Generator work takes K/P; root-save metadata no longer
 captures support. Complete Frobenius-orbit subset merge and root-publication
 failure tests pass locally. This alone does not release a CLI/public caller's
 support or prove a memory saving. [Native/GPU recovery validation](../experiments/preprocessing-root-boundary/report.md)
-is prepared within the existing single-node budget. [Two-node RAM transport gate](../experiments/preprocessing-transport/report.md)
+is **submitted as job77126**, within the existing single-node budget
+([receipt/results](../experiments/preprocessing-root-boundary/submission.json)).
+No monitoring; await completion ping. [Two-node RAM transport gate](../experiments/preprocessing-transport/report.md)
 is compiled/prepared with no GPU dependency; second-node resource agreement is
 required before submission. Full parallel roots and distributed transforms remain
 unimplemented. Keep computation and persistent-write gates separate.
