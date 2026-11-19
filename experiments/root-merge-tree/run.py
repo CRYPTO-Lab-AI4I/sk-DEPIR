@@ -13,9 +13,12 @@ BASE=runpy.run_path(str(HERE.parent/'gpu-staged-transport/run.py'))
 FIELDS=('seconds','route_seconds','root_seconds','tree_seconds','verify_seconds')
 
 
-def review(rows,directory,small=False):
+def review(rows,directory,small=False,repeats=2):
     """Verify rank topology, exact source coverage and all reduction handoffs."""
-    cases=1 if small else 3;samples={-1,2}if small else {-1,0,1,2}
+    assert 2<=repeats<=12
+    cases=1 if small else 3
+    sample_sets=[{-1,2}if small else {-1,0,1,2}for _ in range(cases)]
+    if not small:sample_sets[2]={-1,0,1,2,*range(3,repeats+1)}
     hosts=[r for r in rows if r.get('kind')=='host']
     assert len(hosts)==4 and {r['rank']for r in hosts}==set(range(4))
     assert all(r['chunk_words']==(1024 if small else 65536)for r in hosts)
@@ -27,9 +30,9 @@ def review(rows,directory,small=False):
         assert len(group)==2 and {r['local_rank']for r in group}=={'0','1'}
         assert len({r['visible_devices']for r in group})==1 and group[0]['visible_devices'] and ','not in group[0]['visible_devices']
     values=[r for r in rows if r.get('kind')=='measurement']
-    assert len(values)==4*cases*len(samples)
-    assert sum(r.get('kind')=='transfer'for r in rows)==6*cases*len(samples)
-    assert sum(r.get('kind')=='tree'for r in rows)==12*cases*len(samples)
+    assert len(values)==4*sum(map(len,sample_sets))
+    assert sum(r.get('kind')=='transfer'for r in rows)==6*sum(map(len,sample_sets))
+    assert sum(r.get('kind')=='tree'for r in rows)==12*sum(map(len,sample_sets))
     def read(rank,name,width):
         data=(directory/f'rank-{rank}'/name).read_bytes();assert len(data)%width==0
         return data,struct.unpack('<'+('I'if width==4 else'Q')*(len(data)//width),data)
@@ -40,6 +43,7 @@ def review(rows,directory,small=False):
     expected_chunks=Counter()
     chunk=1024 if small else 65536
     for case in range(cases):
+        samples=sample_sets[case]
         fixtures=[r for r in rows if r.get('kind')=='fixture' and r['case']==case]
         assert len(fixtures)==4 and {r['rank']for r in fixtures}==set(range(4))
         count=fixtures[0]['support_count'];s=8 if case==0 else 17;q=1<<s;n=1<<(2*s)
@@ -149,7 +153,7 @@ def suite(context):
         'encoding/liftrs-cuda/matrix.cu','encoding/liftrs-cuda/preparation.cu','-o',library],120)
     binary=cache/'tree.test'
     run('tree-build',[go,'test','-c','-tags','liftrs_cpp,liftrs_cuda,liftrs_mpi','-o',binary,'./encoding/liftrs-shared'],120)
-    run('fixture-regression',[binary,'-test.run=^TestRootFixtureReferenceDigests$','-test.v','-test.timeout=60s'],90)
+    run('fixture-regression',[binary,'-test.run=TestRootFixtureReferenceDigests|TestRootTransferProofAgreement','-test.v','-test.timeout=60s'],90)
     tests='TestRootTree|TestRootRouting|TestPreparationRootPartitions|TestRootPartitionAdmission'
     run('shared-tests',[go,'test','./encoding/liftrs-shared','-run',tests,'-count=1','-timeout=60s'],90)
     run('shared-race',[go,'test','-race','./encoding/liftrs-shared','-run',tests,'-count=1','-timeout=60s'],90)
@@ -161,7 +165,7 @@ def suite(context):
     test_args=['-test.run=^TestRankOwnedRootTree$','-test.v','-test.timeout=220s']
     env['PIR_ROOT_TREE_OUTPUT']=str(cache/'normal')
     run('normal',[*launcher,out/'normal',binary,*test_args],260)
-    normal=BASE['parse'](out/'normal.log');review(normal,cache/'normal')
+    normal=BASE['parse'](out/'normal.log');review(normal,cache/'normal',repeats=int(env.get('PIR_ROOT_TREE_REPEATS','2')))
     env.update(PIR_ROOT_TREE_SMALL='1',PIR_ROOT_TREE_CHUNK_WORDS='1024',PIR_ROOT_TREE_OUTPUT=str(cache/'sanitized'))
     run('memcheck',[*launcher,out/'memcheck','compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',binary,*test_args],260)
     sanitized=BASE['parse'](out/'memcheck.log');review(sanitized,cache/'sanitized',small=True)

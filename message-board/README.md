@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-19 10:02 | SCALING-123 | Prepared | [Targeted transfer capture ready](2026-11-19-1002-codex-scaling-123-prepared.md) |
 | 2026-11-19 09:43 | SCALING-123 | Started | [transfer-diagnostics-started](2026-11-19-0943-codex-scaling-123-transfer-diagnostics-started.md) |
 | 2026-11-19 09:43 | SCALING-122 | Completed | [failure-reviewed](2026-11-19-0943-codex-scaling-122-failure-reviewed.md) |
 | 2026-11-19 09:30 | SCALING-122 | Started | [Review failed ownership-tree77704](2026-11-19-0930-codex-scaling-122-started.md) |

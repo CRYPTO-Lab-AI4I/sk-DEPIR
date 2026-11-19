@@ -74,6 +74,14 @@ static int receive_values(int peer,void *values,uint64_t count,int wide,int chun
     }
     return MPI_SUCCESS;
 }
+// Diagnostic control exchange uses a distinct tag from all data messages.
+static int exchange_proof(int peer,unsigned char *send,unsigned char *receive) {
+    MPI_Status status;
+    int code=MPI_Sendrecv(send,64,MPI_BYTE,peer,30,receive,64,MPI_BYTE,peer,30,MPI_COMM_WORLD,&status);
+    if(code!=MPI_SUCCESS)return code;
+    int actual;code=MPI_Get_count(&status,MPI_BYTE,&actual);
+    return code==MPI_SUCCESS && actual!=64?MPI_ERR_COUNT:code;
+}
 static uint64_t share_count(uint64_t count) {
     if(MPI_Bcast(&count,1,MPI_UINT64_T,0,MPI_COMM_WORLD)!=MPI_SUCCESS)MPI_Abort(MPI_COMM_WORLD,93);
     return count;
@@ -237,4 +245,19 @@ func (w *World) ReceiveRoot(peer, maxWords int) ([]uint32, error) {
 		return nil, fmt.Errorf("root receive payload")
 	}
 	return values, nil
+}
+
+// ExchangeProof is test-only control telemetry, not an adversarial authentication
+// protocol. It exchanges fixed pre/post fingerprints without large data buffers.
+func (w *World) ExchangeProof(peer int, proof [64]byte) ([64]byte, error) {
+	var remote [64]byte
+	if peer < 0 || peer >= w.Size || peer == w.Rank {
+		w.Abort()
+		return remote, fmt.Errorf("proof peer bounds")
+	}
+	if C.exchange_proof(C.int(peer), (*C.uchar)(unsafe.Pointer(&proof[0])), (*C.uchar)(unsafe.Pointer(&remote[0]))) != C.MPI_SUCCESS {
+		w.Abort()
+		return remote, fmt.Errorf("proof exchange")
+	}
+	return remote, nil
 }

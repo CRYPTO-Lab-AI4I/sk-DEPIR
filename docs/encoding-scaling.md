@@ -2336,6 +2336,14 @@ SCALING-109 next-work order is explicit:
    transfer boundary, with repeated bounded trials before GPU consumption. Preserve
    existing checks/defaults; evaluate any staging-copy workaround explicitly only
    after diagnosis. Larger/fullsize integration waits for this correctness gate.
+   SCALING-123: [targeted transfer diagnostic](../experiments/root-transfer-diagnostics/report.md)
+   is prepared in the same envelope. Pre/post fingerprints and fixed64-byte proof
+   exchanges precede GPU use; mismatches synchronously retain both full payloads
+   before MPI abort. Repeats12timed largest-case passes, keeping smaller/original
+   CPU checks and memcheck when reached. Diagnostic hashing/capture changes timing
+   and allocations; no baseline speedup/production repair or staging workaround
+   inferred from a non-reproduced failure. Original gate remains blocked pending
+   boundary diagnosis and validation of a concrete fix.
 6. Compare complete elapsed time across practical allocations before choosing
    final GPU/node count or giving fulls18 runtime. Full-size/multi-node persistence
    remains unmeasured; larger storage or node/GPU budgets need separate admission.

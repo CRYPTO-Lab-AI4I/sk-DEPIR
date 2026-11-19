@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "utc": "2026-11-19T10:02:46.418515+00:00",
+  "base_revision": "00901e7755387b5449b1784945008503c8d5722f",
+  "source_state": "working tree before diagnostic implementation commit; checked input hashes below",
+  "source_sha256": {
+    "experiments/distributed-root/mpi/world.go": "56322b24e33ae25c74f0b34fde35ad7e85e4f03d9e5a659fc6bddeb0755ab00f",
+    "encoding/liftrs-shared/root_tree_gpu_test.go": "173a13f565832c9ad0cef7e1ce77f364912080d1c2b4183695ad37f3815122c8",
+    "encoding/liftrs-shared/root_transfer_proof_test.go": "28c683f1155ee61d7bbaed14434383a18d6d74aa3d6faf302d455363a30d42e0",
+    "experiments/root-merge-tree/run.py": "847c700bd9282fb11f4045ef3230e4dfb4079d17c37b82141be35135a4868503",
+    "experiments/root-transfer-diagnostics/analyze.py": "47e12d45643173dad1e7e0b43ad8d480562f22e344cc156099cb8838be71d92c",
+    "experiments/root-transfer-diagnostics/run.py": "a9bcf2045360a9aa4c0464b8ab877e9906d6b810b4a28ca9ae07995dbabbd271",
+    "experiments/root-transfer-diagnostics/test_review.py": "fb89b13a55b2ebf599a4b1bc3ce3bb8434eda026600438557d6958946a9a7ba7",
+    "experiments/root-transfer-diagnostics/run.sbatch": "73b834ad90fc9f6fdb1fa80b796f34e4678495e7f90d9681272a150478b02f22"
+  },
+  "checks": [
+    {
+      "command": "CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o /tmp/depir-root-diag.test ./encoding/liftrs-shared",
+      "status": "passed",
+      "log": "build.log"
+    },
+    {
+      "command": "/tmp/depir-root-diag.test -test.run=^TestRootTransferProofAgreement$ -test.v",
+      "status": "passed",
+      "log": "proof-tests.log"
+    },
+    {
+      "command": "python3 -B experiments/root-transfer-diagnostics/test_review.py",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -B experiments/root-merge-tree/test_review.py",
+      "status": "passed"
+    }
+  ],
+  "limitations": [
+    "No local MPI/GPU execution, fault reproduction or repair claim.",
+    "Diagnostic hashing/control messages alter timing and may perturb the fault.",
+    "Original77704 gate remains failed/unresolved."
+  ]
+}

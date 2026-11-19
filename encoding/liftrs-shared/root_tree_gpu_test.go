@@ -3,6 +3,7 @@
 package liftrs
 
 import (
+	"bytes"
 	"crypto/sha256"
 	"encoding/binary"
 	"encoding/json"
@@ -22,23 +23,73 @@ import (
 )
 
 type recordedRootLink struct {
-	world  *mpi.World
-	record func(string, int, []uint32)
+	world   *mpi.World
+	record  func(string, int, []uint32)
+	capture func(string, int, []uint32, [64]byte, [64]byte)
 }
 
+// Fingerprints reuse the canonical bounded codec, avoiding a full-array clone.
+func rootTransferFingerprint(p []uint32) [32]byte {
+	h := sha256.New()
+	if err := writeScalingCodeValues(h, 4, 1<<32, p, nil); err != nil {
+		panic(err)
+	}
+	var result [32]byte
+	copy(result[:], h.Sum(nil))
+	return result
+}
+func rootProofMismatch(own, remote [64]byte) bool {
+	return !bytes.Equal(own[:32], own[32:]) || !bytes.Equal(remote[:32], remote[32:]) || !bytes.Equal(own[:32], remote[:32])
+}
+func (l recordedRootLink) check(direction string, peer int, p []uint32, before [32]byte) error {
+	after := rootTransferFingerprint(p)
+	var own [64]byte
+	copy(own[:32], before[:])
+	copy(own[32:], after[:])
+	remote, err := l.world.ExchangeProof(peer, own)
+	if err != nil {
+		return err
+	}
+	mismatch := rootProofMismatch(own, remote)
+	l.capture(direction, peer, p, own, remote)
+	if mismatch {
+		// Both endpoints sync their captures BEFORE this acknowledgement; an
+		// early abort cannot kill the other side before its file is durable.
+		if _, err = l.world.ExchangeProof(peer, own); err != nil {
+			return err
+		}
+		return fmt.Errorf("root transfer fingerprint mismatch %s peer%d", direction, peer)
+	}
+	return nil
+}
 func (l recordedRootLink) SendRoot(peer int, p []uint32, max int) error {
+	var before [32]byte
+	if l.capture != nil {
+		before = rootTransferFingerprint(p)
+	}
 	if err := l.world.SendRoot(peer, p, max); err != nil {
 		return err
+	}
+	if l.capture != nil {
+		if err := l.check("send", peer, p, before); err != nil {
+			return err
+		}
 	}
 	l.record("send", peer, p)
 	return nil
 }
 func (l recordedRootLink) ReceiveRoot(peer, max int) ([]uint32, error) {
 	p, err := l.world.ReceiveRoot(peer, max)
-	if err == nil {
-		l.record("receive", peer, p)
+	if err != nil {
+		return nil, err
 	}
-	return p, err
+	if l.capture != nil {
+		if err = l.check("receive", peer, p, rootTransferFingerprint(p)); err != nil {
+			return nil, err
+		}
+	}
+	l.record("receive", peer, p)
+	return p, nil
 }
 
 // TestRankOwnedRootTree validates two reduction levels with four logical ranks.
@@ -217,6 +268,18 @@ func TestRankOwnedRootTree(t *testing.T) {
 		emit(map[string]any{"kind": "fixture", "case": index, "s": item.s, "support_count": count, "coordinator_support_count": len(fixture.support),
 			"reference_count": len(reference), "reference_sha256": digest(reference), "reference_seconds": referenceSeconds, "setup_seconds": time.Since(setupStart).Seconds(), "max_elements": maximum, "subtree_ranks": subtreeRanks})
 		samples := []int{-1, 0, 1, 2}
+		diagnostic := os.Getenv("PIR_ROOT_TREE_DIAGNOSTICS") == "1"
+		if diagnostic && index == 2 && !small {
+			repeats, e := strconv.Atoi(os.Getenv("PIR_ROOT_TREE_REPEATS"))
+			if e != nil || repeats < 2 || repeats > 12 {
+				t.Fatal("diagnostic repeat admission")
+			}
+			samples = []int{-1, 0, 1}
+			for extra := 3; extra <= repeats; extra++ {
+				samples = append(samples, extra)
+			}
+			samples = append(samples, 2)
+		}
 		if small {
 			samples = []int{-1, 2}
 		}
@@ -308,13 +371,38 @@ func TestRankOwnedRootTree(t *testing.T) {
 				save(fmt.Sprintf("case-%d-local.bin", index), local)
 			}
 			stride := 0
-			link := recordedRootLink{world, func(direction string, peer int, p []uint32) {
+			link := recordedRootLink{world: world, record: func(direction string, peer int, p []uint32) {
 				name := fmt.Sprintf("case-%d-stride-%d-%s-%d.bin", index, stride, direction, peer)
 				if sample == 2 {
 					save(name, p)
 				}
 				emit(map[string]any{"kind": "transfer", "case": index, "sample": sample, "stride": stride, "direction": direction, "peer": peer, "words": len(p), "sha256": digest(p), "file": name})
 			}}
+			if diagnostic {
+				link.capture = func(direction string, peer int, p []uint32, own, remote [64]byte) {
+					mismatch := rootProofMismatch(own, remote)
+					name := ""
+					if mismatch {
+						name = fmt.Sprintf("case-%d-sample-%d-failed-%s-%d.bin", index, sample, direction, peer)
+						save(name, p)
+					}
+					row := map[string]any{"kind": "wire-proof", "case": index, "sample": sample, "stride": stride, "direction": direction, "peer": peer,
+						"words": len(p), "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote), "sha256": digest(p), "file": name, "matches": !mismatch, "buffer": fmt.Sprintf("%p", &p[0])}
+					emit(row)
+					if mismatch {
+						row["kind"] = "transport-failure"
+						emit(row)
+					}
+				}
+				if index == 2 && sample == -1 {
+					indices := make([]uint64, len(shard))
+					for j, x := range shard {
+						indices[j] = uint64(x)
+					}
+					save("case-2-diagnostic-support.bin", indices)
+					save("case-2-diagnostic-local.bin", local)
+				}
+			}
 			treeStart := time.Now()
 			result, err := reduceRootProduct(rank, world.Size, count+1, 1<<uint(item.s), local, link,
 				func(a, b []uint32) (p []uint32, e error) {
@@ -338,6 +426,9 @@ func TestRankOwnedRootTree(t *testing.T) {
 			verifyStart := time.Now()
 			if rank == 0 {
 				if !reflect.DeepEqual(result, reference) {
+					if diagnostic {
+						save(fmt.Sprintf("case-%d-sample-%d-final-mismatch.bin", index, sample), result)
+					}
 					t.Fatal("unique final owner differs from CPU")
 				}
 				if sample == 2 {

@@ -128,6 +128,10 @@ Smaller normal cases passed, but memcheck was not reached. Four logical
 ranks share two H200s across two HPC nodes to test two tree levels within the
 existing budget. This is not four-GPU throughput or fulls18 support; distributed
 discovery and large-product transforms remain separate implementation work.
+A [targeted transfer diagnostic](experiments/root-transfer-diagnostics/report.md)
+is prepared: pre/post-send and receive fingerprints, paired failure payload capture,
+and12 repeats of the failing large case before GPU consumption. It uses the same
+resource envelope and adds diagnostic overhead; no cause or repair is claimed.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 
