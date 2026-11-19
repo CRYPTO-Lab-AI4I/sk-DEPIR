@@ -75,4 +75,12 @@ class Review(unittest.TestCase):
                 self.assertEqual(commands.call_count,1)
 
 
+    def test_parser_keeps_events_but_not_go_timeout_structs(self):
+        with tempfile.TemporaryDirectory()as tmp:
+            path=Path(tmp)/'log'
+            path.write_text('0: {"kind":"heartbeat","completed":0}\n0: testing.run({0x123, 0x20}, {})\n')
+            self.assertEqual(HELP['parse'](path),[dict(kind='heartbeat',completed=0)])
+            path.write_text('0: {"kind":')
+            with self.assertRaises(json.JSONDecodeError):HELP['parse'](path)
+
 if __name__=='__main__':unittest.main()

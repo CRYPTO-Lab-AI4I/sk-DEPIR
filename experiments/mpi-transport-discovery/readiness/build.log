@@ -1,0 +1,6 @@
+# runtime/cgo
+[lnode02:00197] opal_ifinit: socket() failed with errno=1
+# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi
+[lnode02:00069] opal_ifinit: socket() failed with errno=1
+# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/mpi-host-buffers.test
+[lnode02:00093] opal_ifinit: socket() failed with errno=1

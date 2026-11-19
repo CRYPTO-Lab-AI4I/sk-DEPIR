@@ -1,0 +1,32 @@
+{"utc": "2026-11-19T16:58:29.249949+00:00", "phase": "hosts", "event": "started", "completed": 0, "unit": "commands", "elapsed_seconds": 5.88282221800182}
+{"utc": "2026-11-19T16:58:29.317013+00:00", "phase": "hosts", "event": "completed", "completed": 1, "unit": "commands", "elapsed_seconds": 5.94988700398244}
+{"utc": "2026-11-19T16:58:29.318732+00:00", "phase": "mpi-plugins", "event": "started", "completed": 1, "unit": "commands", "elapsed_seconds": 5.9516022249590605}
+{"utc": "2026-11-19T16:58:29.350116+00:00", "phase": "mpi-plugins", "event": "completed", "completed": 2, "unit": "commands", "elapsed_seconds": 5.982989503070712}
+{"utc": "2026-11-19T16:58:29.351399+00:00", "phase": "mpi", "event": "started", "completed": 2, "unit": "commands", "elapsed_seconds": 5.984269074979238}
+{"utc": "2026-11-19T16:58:29.731464+00:00", "phase": "mpi", "event": "completed", "completed": 3, "unit": "commands", "elapsed_seconds": 6.364337951992638}
+{"utc": "2026-11-19T16:58:29.732895+00:00", "phase": "compiler", "event": "started", "completed": 3, "unit": "commands", "elapsed_seconds": 6.365765152964741}
+{"utc": "2026-11-19T16:58:29.786117+00:00", "phase": "compiler", "event": "completed", "completed": 4, "unit": "commands", "elapsed_seconds": 6.418990909005515}
+{"utc": "2026-11-19T16:58:29.836656+00:00", "phase": "go", "event": "started", "completed": 4, "unit": "commands", "elapsed_seconds": 6.469525577034801}
+{"utc": "2026-11-19T16:58:29.920678+00:00", "phase": "go", "event": "completed", "completed": 5, "unit": "commands", "elapsed_seconds": 6.5535512489732355}
+{"utc": "2026-11-19T16:58:29.934652+00:00", "phase": "build", "event": "started", "completed": 5, "unit": "commands", "elapsed_seconds": 6.567524209036492}
+{"utc": "2026-11-19T16:58:47.734192+00:00", "phase": "build", "event": "completed", "completed": 6, "unit": "commands", "elapsed_seconds": 24.367074029985815}
+{"utc": "2026-11-19T16:58:47.736128+00:00", "phase": "unit", "event": "started", "completed": 6, "unit": "commands", "elapsed_seconds": 24.368998207966797}
+{"utc": "2026-11-19T16:58:47.785752+00:00", "phase": "unit", "event": "completed", "completed": 7, "unit": "commands", "elapsed_seconds": 24.418628219049424}
+{"utc": "2026-11-19T16:58:47.795295+00:00", "phase": "staged-normal", "event": "started", "completed": 7, "unit": "commands", "elapsed_seconds": 24.428165054996498}
+{"utc": "2026-11-19T17:00:18.382137+00:00", "phase": "staged-normal", "event": "failed", "completed": 8, "unit": "commands", "elapsed_seconds": 115.01501545705833}
+Traceback (most recent call last):
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/mpi-transport-control/run.py", line 16, in <module>
+    else:HOST['BASE']['main'](here=HERE,extra_suite=suite,require_gpu=False)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 138, in main
+    record.update(extra_suite(dict(run=run,source=source,cache=cache,out=out,go=go,env=env,resources=record['resources'],save=save)))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/mpi-transport-control/run.py", line 11, in suite
+    return HOST['suite'](context,transport={'OMPI_MCA_pml':'ob1','OMPI_MCA_btl':'self,tcp'})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/mpi-host-buffers/run.py", line 64, in suite
+    run(name,['timeout','--signal=TERM','--kill-after=10s','100s','srun','--mpi=pmix_v3','--nodes=2','--ntasks=4','--ntasks-per-node=2','--cpus-per-task=1','--distribution=block:block','--cpu-bind=cores','--chdir='+str(cache),'--label','--kill-on-bad-exit=1','bash',wrapper,out/name,binary,'-test.run=^TestHostBuffers$','-test.v','-test.timeout=90s','-buffer-mode='+mode,'-reclaim='+str(reclaim).lower()],120)
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 119, in run
+    if code:raise RuntimeError(label+' failed')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: staged-normal failed

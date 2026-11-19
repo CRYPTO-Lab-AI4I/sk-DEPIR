@@ -158,11 +158,15 @@ staged-reclaim each passed256 handoffs /512 proof endpoints, then direct-normal
 failed on the first cross-node root transfer. Both captures retained; first word
 was1 at the sender and0 at the receiver. Direct-reclaim unrun; no guard failure.
 HPC:2 nodes /4 CPU cores /8 GiB requested host total /zero GPUs;29 s scheduler
-elapsed. Underlying cause remains unknown. Next is an
-[explicit TCP transport control](experiments/mpi-transport-control/report.md)
-with the same payloads/Go buffers and budgets; **78001 submitted**, results unreviewed. This may be
-slower and is diagnostic only. Explicit staging stays available; no production
-default or full s=18 validation change.
+elapsed. Underlying cause remains unknown. The [TCP-only control78001](experiments/mpi-transport-control/report.md#review-of-78001)
+**timed out on its first staged transfer**, with zero completed handoffs/proofs.
+All four workers recorded the requested settings;90 s test cutoff triggered,
+not the memory guard. No corruption or speed conclusion is possible; later
+arms unrun. HPC:2 nodes /4 CPU cores /8 GiB requested host /zero GPUs;1 min55 s
+scheduler elapsed. Next [observe automatic MPI component selection](experiments/mpi-transport-discovery/report.md)
+with diagnostic logs and the same replay/budget, prepared and unmeasured. Original
+direct corruption remains unresolved; staged bounded validation is retained.
+No production default or full s=18 validation change.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

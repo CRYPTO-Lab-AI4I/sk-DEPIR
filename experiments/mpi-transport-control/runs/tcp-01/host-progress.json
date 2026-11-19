@@ -1,0 +1,6 @@
+{
+  "status": "failed",
+  "arms": [],
+  "current_arm": "staged-normal",
+  "error": "staged-normal failed"
+}

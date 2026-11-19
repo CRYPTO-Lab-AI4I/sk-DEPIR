@@ -1,0 +1,106 @@
+1: === RUN   TestHostBuffers
+0: === RUN   TestHostBuffers
+2: === RUN   TestHostBuffers
+3: === RUN   TestHostBuffers
+0: {"chunk_words":65536,"elapsed_seconds":0.000193314,"godebug":"","host":"gnode13","kind":"host","mode":"staged","mpi_transport":{"OMPI_MCA_btl":"self,tcp","OMPI_MCA_pml":"ob1"},"payload_sha256":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":27103232,"rank":0,"reclaim":false,"staging_bytes":524288,"utc":"2026-11-19T16:58:48.808643992Z"}
+1: {"chunk_words":65536,"elapsed_seconds":0.000191376,"godebug":"","host":"gnode13","kind":"host","mode":"staged","mpi_transport":{"OMPI_MCA_btl":"self,tcp","OMPI_MCA_pml":"ob1"},"payload_sha256":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":29126656,"rank":1,"reclaim":false,"staging_bytes":524288,"utc":"2026-11-19T16:58:48.810913474Z"}
+3: {"chunk_words":65536,"elapsed_seconds":0.000217425,"godebug":"","host":"gnode14","kind":"host","mode":"staged","mpi_transport":{"OMPI_MCA_btl":"self,tcp","OMPI_MCA_pml":"ob1"},"payload_sha256":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":29253632,"rank":3,"reclaim":false,"staging_bytes":524288,"utc":"2026-11-19T16:58:48.817827741Z"}
+2: {"chunk_words":65536,"elapsed_seconds":0.000201876,"godebug":"","host":"gnode14","kind":"host","mode":"staged","mpi_transport":{"OMPI_MCA_btl":"self,tcp","OMPI_MCA_pml":"ob1"},"payload_sha256":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":26091520,"rank":2,"reclaim":false,"staging_bytes":524288,"utc":"2026-11-19T16:58:48.819476421Z"}
+1: {"case":0,"completed":0,"cycle":0,"elapsed_seconds":30.000613393,"host":"gnode13","kind":"heartbeat","peak_rss_bytes":46018560,"rank":1,"scope":"waiting heartbeat; unchanged count is not progress","total":256,"unit":"handoffs","utc":"2026-11-19T16:59:18.811327542Z"}
+3: {"case":0,"completed":0,"cycle":0,"elapsed_seconds":30.00119494,"host":"gnode14","kind":"heartbeat","peak_rss_bytes":47120384,"rank":3,"scope":"waiting heartbeat; unchanged count is not progress","total":256,"unit":"handoffs","utc":"2026-11-19T16:59:18.81879527Z"}
+2: {"case":0,"completed":0,"cycle":0,"elapsed_seconds":30.001063378,"host":"gnode14","kind":"heartbeat","peak_rss_bytes":44679168,"rank":2,"scope":"waiting heartbeat; unchanged count is not progress","total":256,"unit":"handoffs","utc":"2026-11-19T16:59:18.820326895Z"}
+0: {"case":0,"completed":0,"cycle":0,"elapsed_seconds":30.031484516,"host":"gnode13","kind":"heartbeat","peak_rss_bytes":44933120,"rank":0,"scope":"waiting heartbeat; unchanged count is not progress","total":256,"unit":"handoffs","utc":"2026-11-19T16:59:18.839932084Z"}
+0: {"case":0,"completed":0,"cycle":0,"elapsed_seconds":60.030473392,"host":"gnode13","kind":"heartbeat","peak_rss_bytes":44933120,"rank":0,"scope":"waiting heartbeat; unchanged count is not progress","total":256,"unit":"handoffs","utc":"2026-11-19T16:59:48.838925854Z"}
+1: {"case":0,"completed":0,"cycle":0,"elapsed_seconds":60.02919965,"host":"gnode13","kind":"heartbeat","peak_rss_bytes":46018560,"rank":1,"scope":"waiting heartbeat; unchanged count is not progress","total":256,"unit":"handoffs","utc":"2026-11-19T16:59:48.839922915Z"}
+3: {"case":0,"completed":0,"cycle":0,"elapsed_seconds":60.028725586,"host":"gnode14","kind":"heartbeat","peak_rss_bytes":47120384,"rank":3,"scope":"waiting heartbeat; unchanged count is not progress","total":256,"unit":"handoffs","utc":"2026-11-19T16:59:48.846340186Z"}
+2: {"case":0,"completed":0,"cycle":0,"elapsed_seconds":60.029058077,"host":"gnode14","kind":"heartbeat","peak_rss_bytes":44679168,"rank":2,"scope":"waiting heartbeat; unchanged count is not progress","total":256,"unit":"handoffs","utc":"2026-11-19T16:59:48.848334337Z"}
+1: panic: test timed out after 1m30s
+1: 	running tests:
+0: panic: test timed out after 1m30s
+0: 	running tests:
+0: 		TestHostBuffers (1m30s)
+0: 
+0: goroutine 10 [running]:
+0: testing.(*M).startAlarm.func1()
+0: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2961 +0x34a
+0: created by time.goFunc
+0: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/time/sleep.go:182 +0x2d
+0: 
+0: goroutine 1 [chan receive]:
+0: testing.(*T).Run(0x12718360008, {0x5c9f78?, 0x12718351aa0?}, 0x7a8d90)
+0: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2268 +0x4f2
+0: testing.runTests.func1(0x12718360008)
+0: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2744 +0x37
+0: testing.tRunner(0x12718360008, 0x12718351bc8)
+0: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2195 +0xea
+0: testing.runTests({0x5d0fc1, 0x23}, {0x5d63df, 0x40}, 0x127182ae348, {0x7af080, 0x2, 0x2}, {0xc2b7e8a8842ef9fc, 0x14f4af508f, ...})
+0: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2742 +0x510
+0: testing.(*M).Run(0x12718322820)
+0: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2602 +0x6af
+0: main.main()
+0: 	_testmain.go:48 +0x9b
+0: 
+0: goroutine 7 [syscall, locked to thread]:
+0: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi._Cfunc_receive_values(0x1, 0x127184a0000, 0x10001, 0x0, 0x10000, 0x7fff9d46b010)
+0: 	_cgo_gotypes.go:198 +0x46
+0: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).ReceiveRoot.func1(...)
+0: 	/tmp/depir-mpi-transport-control-78001/source/experiments/distributed-root/mpi/world.go:267
+0: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).ReceiveRoot(0x12718325260, 0x1, 0x10001)
+0: 	/tmp/depir-mpi-transport-control-78001/source/experiments/distributed-root/mpi/world.go:267 +0x24f
+0: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/mpi-host-buffers.TestHostBuffers(0x12718360248)
+0: 	/tmp/depir-mpi-transport-control-78001/source/experiments/mpi-host-buffers/probe_test.go:175 +0xf0b
+0: testing.tRunner(0x12718360248, 0x7a8d90)
+0: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2195 +0xea
+0: created by testing.(*T).Run in goroutine 1
+0: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2260 +0x4d4
+0: 
+0: goroutine 8 [select]:
+0: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/mpi-host-buffers.TestHostBuffers.func3()
+0: 	/tmp/depir-mpi-transport-control-78001/source/experiments/mpi-host-buffers/probe_test.go:138 +0xf5
+0: created by github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/mpi-host-buffers.TestHostBuffers in goroutine 7
+0: 	/tmp/depir-mpi-transport-control-78001/source/experiments/mpi-host-buffers/probe_test.go:134 +0xb2f
+1: 		TestHostBuffers (1m30s)
+1: 
+1: goroutine 10 [running]:
+1: testing.(*M).startAlarm.func1()
+1: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2961 +0x34a
+1: created by time.goFunc
+1: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/time/sleep.go:182 +0x2d
+1: 
+1: goroutine 1 [chan receive]:
+1: testing.(*T).Run(0x9555927c008, {0x5c9f78?, 0x9555926daa0?}, 0x7a8d90)
+1: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2268 +0x4f2
+1: testing.runTests.func1(0x9555927c008)
+1: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2744 +0x37
+1: testing.tRunner(0x9555927c008, 0x9555926dbc8)
+1: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2195 +0xea
+1: testing.runTests({0x5d0fc1, 0x23}, {0x5d63df, 0x40}, 0x955591ca348, {0x7af080, 0x2, 0x2}, {0xc2b7e8a884186c5d, 0x14f4930ec9, ...})
+1: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2742 +0x510
+1: testing.(*M).Run(0x9555923e820)
+1: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2602 +0x6af
+1: main.main()
+1: 	_testmain.go:48 +0x9b
+1: 
+1: goroutine 7 [syscall, locked to thread]:
+1: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi._Cfunc_send_values(0x0, 0x95559400000, 0x10001, 0x0, 0x10000, 0x7fff9d46b010)
+1: 	_cgo_gotypes.go:229 +0x46
+1: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).SendRoot.func1(...)
+1: 	/tmp/depir-mpi-transport-control-78001/source/experiments/distributed-root/mpi/world.go:247
+1: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).SendRoot(0xa39fd9c259c5734b?, 0x0, {0x95559400000, 0x10001, 0x10800}, 0x95559400000?)
+1: 	/tmp/depir-mpi-transport-control-78001/source/experiments/distributed-root/mpi/world.go:247 +0x133
+1: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/mpi-host-buffers.TestHostBuffers(0x9555927c248)
+1: 	/tmp/depir-mpi-transport-control-78001/source/experiments/mpi-host-buffers/probe_test.go:172 +0xe8b
+1: testing.tRunner(0x9555927c248, 0x7a8d90)
+1: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2195 +0xea
+1: created by testing.(*T).Run in goroutine 1
+1: 	/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/testing/testing.go:2260 +0x4d4
+1: 
+1: goroutine 8 [select]:
+1: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/mpi-host-buffers.TestHostBuffers.func3()
+1: 	/tmp/depir-mpi-transport-control-78001/source/experiments/mpi-host-buffers/probe_test.go:138 +0xf5
+1: created by github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/mpi-host-buffers.TestHostBuffers in goroutine 7
+1: 	/tmp/depir-mpi-transport-control-78001/source/experiments/mpi-host-buffers/probe_test.go:134 +0xb2f
+srun: error: gnode13: tasks 0-1: Exited with exit code 2
+srun: Terminating StepId=78001.0
+srun: error: gnode14: tasks 2-3: Terminated
+srun: Force Terminated StepId=78001.0

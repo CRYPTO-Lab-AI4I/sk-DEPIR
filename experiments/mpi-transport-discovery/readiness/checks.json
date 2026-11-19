@@ -1,0 +1,28 @@
+{
+  "utc": "2026-11-19T17:44:31.791164+00:00",
+  "base_revision": "89325f1b557bc2c2f968ba2fc8df96177b35d560",
+  "source_sha256": {
+    "experiments/gpu-staged-transport/run.py": "178b37abd0c2d131848fd3a92197c307d531bbc76c2465bc6c616bcb1b4b0e2e",
+    "experiments/gpu-staged-transport/test_review.py": "b3a340477cefb32a3af352a3b0b522a56155881c3eaacdffd37d7c7a76f2af9d",
+    "experiments/mpi-host-buffers/run.py": "639b11096a9a14b8abf8f5e3bac391e099dfd6a2d9760861b64ca5dfdd3ef951",
+    "experiments/mpi-host-buffers/probe_test.go": "d572656d7d146dca8be46858c6097c07267f84118718547cc49a74141f70edae",
+    "experiments/mpi-transport-discovery/run.py": "da5f51002fe6899c0c62519b37e96ea9bd2a4d443d5cd0a8f684ea22e61af847",
+    "experiments/mpi-transport-discovery/run.sbatch": "caa818710a8042cd2d882fcd560c230c4b9053c5153fcfe3ed79967184bae877"
+  },
+  "checks": [
+    "25 s bounded CC=mpicc CXX=mpicxx go test -c -tags liftrs_mpi -o /tmp/mpi-discovery.test ./experiments/mpi-host-buffers",
+    "/tmp/mpi-discovery.test -test.run=^TestFingerprintHighBitsAndTail$ -test.v -test.timeout=15s",
+    "python3 -B experiments/mpi-host-buffers/test_review.py",
+    "python3 -B experiments/mpi-buffer-comparison/test_review.py",
+    "python3 -B experiments/root-merge-tree/test_review.py",
+    "python3 -B experiments/root-transfer-diagnostics/test_review.py",
+    "python3 -B experiments/distributed-root/test_review.py",
+    "python3 -B experiments/gpu-staged-transport/test_review.py",
+    "python3 -B experiments/gpu-code-encoding/test_suite.py"
+  ],
+  "limitations": [
+    "No local MPI execution.",
+    "Actual selection must be read from native logs.",
+    "Logging can perturb timing/fault reproduction; no default or speed claim."
+  ]
+}

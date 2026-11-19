@@ -1,0 +1,61 @@
+{
+  "status": "failed",
+  "job_id": "78001",
+  "revision": "f937bcdece633ea5389d41423626575fbb090412",
+  "source_files_verified": 654,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 15,
+  "cache_files_verified": 3,
+  "tests": [
+    "TestWideOrbitArithmetic",
+    "TestTableFreeFields"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.033958009094931185,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.018544708960689604,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.36716212902683765,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.01944108901079744,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.07153182104229927,
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "seconds": 17.739719283999875,
+      "exit_code": 0
+    },
+    {
+      "label": "unit",
+      "seconds": 0.01950444804970175,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-normal",
+      "seconds": 90.57819462998305,
+      "exit_code": 143
+    }
+  ],
+  "scope": "Host-only MPI replay; stress reclamation is diagnostic, not a production mode or proof of cause.",
+  "paired_failures": [],
+  "completed_arms": [],
+  "captures": [],
+  "current_arm": "staged-normal",
+  "workflow_error": "staged-normal failed"
+}

@@ -1,13 +1,35 @@
 # TCP-only MPI transport control
 
-Status: **TCP control78001 submitted** (SCALING-131), results unreviewed.
-[Receipt](submission.json), progress `slurm-78001.log`, results/profiles
-`runs/tcp-01/`. Implementation `f937bcd`;
-[source freeze](readiness/snapshot.json):654 files /3,083,165 bytes, all six checked
-input hashes match. No MPI execution is implied by local readiness. [Runner](run.py),
-[scheduler script](run.sbatch), [shared host probe](../mpi-host-buffers/probe_test.go),
-[shared runner](../mpi-host-buffers/run.py), [reviewer](../mpi-host-buffers/analyze.py).
-Implementation revision in submission.json; source/evidence/cache seals in results.json.
+Status: **78001 timed out before completing any transfer** (SCALING-132).
+[Receipt](submission.json), [raw results](runs/tcp-01/results.json),
+[review](runs/tcp-01/analysis.json), [accounting](runs/tcp-01/scheduler-accounting.txt),
+[progress](slurm-78001.log). Implementation `f937bcd`; raw failed state preserved.
+[Runner](run.py), [scheduler script](run.sbatch),
+[probe](../mpi-host-buffers/probe_test.go), [reviewer](../mpi-host-buffers/analyze.py).
+
+## Review of 78001
+
+Verified **654 source /15 original evidence /3 cache hashes**. All four workers
+recorded ob1/self,tcp and512 KiB staged buffers on HPC gnode13/gnode14 (4 ranks,
+4 CPU cores,8 GiB requested host RAM total,zero GPUs). The first staged-normal
+arm hit its **90 s test deadline**. Scheduler elapsed **1 min55 s**, controller
+**115.021 s**, failed command **90.578 s**. Largest logged process peak RSS/rank:
+**44.938 MiB**, below the1 GiB limit. No memory guard failure.
+
+**Zero completed handoffs, zero proofs, zero mismatch captures.** Eight heartbeats
+at30/60 s kept completed counts at0; these were waiting observations, not progress.
+Go timeout stacks place rank1 in SendRoot/send_values and rank0 in ReceiveRoot/
+receive_values on same-node case0/cycle0. Later arms were not run. This does not
+show a corruption fix, reproduced corruption or a TCP throughput penalty; the
+forced transport was unusable for this test. The cause of the stall is unknown.
+Do not extend a deadline based on these non-advancing counts.
+
+Next: [observe automatic component selection](../mpi-transport-discovery/report.md)
+under the original host replay, retaining the same resource budget and captures.
+No further component is forced before observing which one the working configuration
+selects. Default direct corruption and staged bounded results remain unchanged;
+no production default or full s=18 claim. Source parser now ignores Go stack
+struct arguments while still failing on malformed JSON events; raw logs unchanged.
 
 The [host replay78000](../mpi-host-buffers/report.md#review-of-78000) reproduced
 host payload corruption without CUDA or forced reclamation. Staged controls passed

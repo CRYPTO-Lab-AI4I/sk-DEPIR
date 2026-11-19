@@ -2368,11 +2368,15 @@ SCALING-109 next-work order is explicit:
    reproduced a direct cross-node host payload failure at cycle0/case1, without
    CUDA/arithmetic or forced reclamation. Both staged controls passed256 handoffs
    /512 proofs. Direct-reclaim unrun; source cause unknown. Same2-node/4-core/
-   8 GiB host, zero GPUs;29 s elapsed. SCALING-131: next test an explicit
-   [ob1/self,tcp transport control](../experiments/mpi-transport-control/report.md)
-   with the same buffers/checks/budgets. No runtime-flag experiment: inspected Go
-   initialization already defaults madvdontneed=1 on Linux. TCP may cost runtime;
-   unknown penalty, diagnostic-only, no default change. **78001 submitted**, unreviewed.
+   8 GiB host, zero GPUs;29 s elapsed. SCALING-132: TCP control78001 timed out
+   on first staged transfer (90 s test deadline), zero handoffs/proofs, no memory
+   guard failure; later arms unrun. [Evidence](../experiments/mpi-transport-control/report.md#review-of-78001).
+   No speed/fix/corruption conclusion from the unusable control. SCALING-133:
+   [observe automatic PML/BTL/UCX selection](../experiments/mpi-transport-discovery/report.md)
+   on the original host replay before forcing more components. Same budget,
+   bounded diagnostic logging only; prepared and unmeasured. No deadline increase
+   for a transfer with zero completed work. Logging overhead unknown, no default
+   change. Earlier Go runtime-flag proposal remains rejected as redundant.
    Retain staged mode for bounded integration; fulls18 remains unrun. Reporting
    gets 90 s inside the unchanged controller/scheduler limits, after its measured
    28.060 s approached the old 30 s reporting deadline. Native timed clocks stay.

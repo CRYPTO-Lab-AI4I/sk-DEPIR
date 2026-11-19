@@ -1,0 +1,19 @@
+{
+  "utc": "2026-11-19T17:44:31.791164+00:00",
+  "command": "python3 -B experiments/mpi-host-buffers/analyze.py tcp-01 --experiment experiments/mpi-transport-control",
+  "source_sha256": {
+    "experiments/gpu-staged-transport/run.py": "178b37abd0c2d131848fd3a92197c307d531bbc76c2465bc6c616bcb1b4b0e2e",
+    "experiments/gpu-staged-transport/test_review.py": "b3a340477cefb32a3af352a3b0b522a56155881c3eaacdffd37d7c7a76f2af9d",
+    "experiments/mpi-host-buffers/run.py": "639b11096a9a14b8abf8f5e3bac391e099dfd6a2d9760861b64ca5dfdd3ef951",
+    "experiments/mpi-host-buffers/probe_test.go": "d572656d7d146dca8be46858c6097c07267f84118718547cc49a74141f70edae",
+    "experiments/mpi-transport-discovery/run.py": "da5f51002fe6899c0c62519b37e96ea9bd2a4d443d5cd0a8f684ea22e61af847",
+    "experiments/mpi-transport-discovery/run.sbatch": "caa818710a8042cd2d882fcd560c230c4b9053c5153fcfe3ed79967184bae877"
+  },
+  "assertions": [
+    "654 source/15 evidence/3 cache seals",
+    "four workers ob1/self,tcp and512 KiB staging",
+    "zero proofs/hand-offs, eight waiting heartbeats",
+    "raw failed status and timeout stacks preserved"
+  ],
+  "tests": "29 Python tests and host hash/proof unit pass"
+}

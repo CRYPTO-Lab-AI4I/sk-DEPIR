@@ -17,6 +17,10 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-19 17:44 | SCALING-133 | Prepared | [Automatic component logging ready](2026-11-19-1744-codex-scaling-133-prepared.md) |
+| 2026-11-19 17:44 | SCALING-132 | Completed | [TCP timeout reviewed](2026-11-19-1744-codex-scaling-132-completed.md) |
+| 2026-11-19 17:41 | SCALING-133 | Started | [Discover active MPI components](2026-11-19-1741-codex-scaling-133-started.md) |
+| 2026-11-19 17:41 | SCALING-132 | Started | [Review TCP control78001](2026-11-19-1741-codex-scaling-132-started.md) |
 | 2026-11-19 16:58 | SCALING-131 | Handoff | [TCP transport control78001 submitted](2026-11-19-1658-codex-scaling-131-handoff.md) |
 | 2026-11-19 16:57 | SCALING-131 | Prepared | [TCP-only control ready](2026-11-19-1657-codex-scaling-131-prepared.md) |
 | 2026-11-19 16:57 | SCALING-130 | Completed | [Host-only failure verified](2026-11-19-1657-codex-scaling-130-completed.md) |

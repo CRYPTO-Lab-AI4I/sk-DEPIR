@@ -17,7 +17,7 @@ PAYLOAD_SHA='4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d'
 def review(rows,payload,mode,reclaim,transport=None):
     hosts=[r for r in rows if r.get('kind')=='host']
     assert len(hosts)==4 and {r['rank']for r in hosts}==set(range(4))
-    if transport is not None:assert all(r['mpi_transport']==transport for r in hosts)
+    if transport is not None:assert all(all(r['mpi_transport'].get(key)==value for key,value in transport.items())for r in hosts)
     placement={r['rank']:r['host']for r in hosts}
     assert placement[0]==placement[1]and placement[2]==placement[3]and placement[0]!=placement[2]
     expected={4:hashlib.sha256(payload).hexdigest(),8:hashlib.sha256(b''.join(struct.pack('<Q',(1<<34)|x)for x in struct.unpack('<16384I',payload[:65536]))).hexdigest()}

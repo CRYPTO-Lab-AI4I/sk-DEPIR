@@ -1,0 +1,4 @@
+JobID|State|ExitCode|Elapsed|NodeList|MaxRSS
+78001|FAILED|1:0|00:01:55|gnode[13-14]|
+78001.batch|FAILED|1:0|00:01:55|gnode13|35948K
+78001.0|FAILED|2:0|00:01:31|gnode[13-14]|46016K

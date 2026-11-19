@@ -44,7 +44,15 @@ def verify(rows,small=False):
 
 
 def parse(path):
-    return [json.loads(line[line.index('{'):]) for line in path.read_text().splitlines() if '{' in line]
+    rows=[]
+    for line in path.read_text().splitlines():
+        start=line.find('{')
+        if start<0:continue
+        payload=line[start:]
+        # Go timeout stacks contain struct literals; these are not JSON events.
+        if not payload[1:].lstrip().startswith('"'):continue
+        rows.append(json.loads(payload))  # Malformed event JSON must still fail.
+    return rows
 
 
 def build_input(name):
