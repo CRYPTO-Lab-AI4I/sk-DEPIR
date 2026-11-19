@@ -2314,7 +2314,7 @@ SCALING-109 next-work order is explicit:
    must not silently become default. Do not launch another same-size I/O sweep
    as a substitute for complete-workflow implementation.
    SCALING-121: [rank-owned support/tree implementation](../experiments/root-merge-tree/report.md)
-   is ready for bounded validation. Shared routing preserves complete orbits and
+   is submitted as **job77704**, results unreviewed. Shared routing preserves complete orbits and
    previous greedy ownership in bounded128KiB packets; non-coordinator ranks hold
    only local support and no full CPU oracle. Shared reduction supports odd/empty
    owners and1..64 logical ranks; one final owner, no duplicate final GPU merge.

@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "utc": "2026-11-19T09:27:20.311426+00:00",
+  "revision": "6c7d28fa83bb387ee1eedde4def35449a7d7e64a",
+  "source_files": 635,
+  "source_bytes": 3022873,
+  "matched_readiness_inputs": 11,
+  "scope": "Frozen tracked build inputs match checked implementation; no GPU/MPI execution or full-size claim."
+}

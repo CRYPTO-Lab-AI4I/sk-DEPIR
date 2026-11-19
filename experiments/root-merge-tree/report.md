@@ -1,6 +1,11 @@
 # Rank-owned support and GPU polynomial merge tree
 
-Status: implemented; bounded validation pending (SCALING-121).
+Status: **bounded validation job77704 submitted**, results not reviewed (SCALING-121).
+Implementation `6c7d28f`. [Submission receipt](submission.json), result/profile
+location `runs/tree-01/`, progress `slurm-77704.log`.
+[Actual frozen-input check](readiness/snapshot.json):635files,3,022,873bytes;
+all11 checked implementation-input hashes match. No GPU/MPI execution is claimed
+by this snapshot check.
 [Runner](run.py), [scheduler script](run.sbatch), [reviewer](analyze.py),
 [review tests](test_review.py),
 [shared routing](../../encoding/liftrs-shared/root_partitions.go),

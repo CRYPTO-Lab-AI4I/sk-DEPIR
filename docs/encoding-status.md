@@ -592,7 +592,7 @@ Fulls17 CPU/GPU results and fulls18-unrun table cells remain unchanged; CPU buil
 and faster resident defaults remain unchanged.
 
 The [rank-owned support/merge-tree implementation](../experiments/root-merge-tree/report.md)
-is ready for bounded validation; runtime/peak memory remain unmeasured. Non-root
+is submitted as **job77704**; runtime/peak memory remain unmeasured. Non-root
 workers receive only an orbit-closed shard and no full CPU oracle; the tree has
 one owner per intermediate and one final owner. The coordinator still holds the
 verified source and reference. Four logical ranks share2H200/2HPC nodes,2CPU/4GiB

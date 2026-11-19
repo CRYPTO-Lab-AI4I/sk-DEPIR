@@ -1,0 +1,35 @@
+{
+  "job_id": "77704",
+  "submitted_utc": "2026-11-19T09:29:11.047983+00:00",
+  "implementation_revision": "6c7d28fa83bb387ee1eedde4def35449a7d7e64a",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--output=experiments/root-merge-tree/slurm-%j.log",
+    "experiments/root-merge-tree/run.sbatch",
+    "tree-01"
+  ],
+  "results": "experiments/root-merge-tree/runs/tree-01/",
+  "progress_log": "experiments/root-merge-tree/slurm-77704.log",
+  "cache": ".cache/liftrs/root-merge-tree/tree-01/",
+  "resources": {
+    "nodes": 2,
+    "physical_gpus": 2,
+    "gpu_model": "H200",
+    "logical_ranks": 4,
+    "ranks_per_card": 2,
+    "cpus_per_rank": 1,
+    "cpus_per_node": 2,
+    "requested_host_GiB_per_node": 4,
+    "owned_device_MiB_per_rank": 64,
+    "owned_device_MiB_per_card": 128,
+    "rss_guard_GiB_per_rank": 1,
+    "retained_cap_MiB": 128,
+    "scratch_cap_GiB": 2,
+    "scheduler_seconds": 900
+  },
+  "scope": "Ownership/two-level correctness gate; logical ranks share cards, not four-GPU throughput.",
+  "admission": "Within existing2node/2GPU/4CPU/8GiBhost/128MiB-owned-per-card envelope; no increase.",
+  "monitoring": "No polling, log following or result inspection until user completion ping.",
+  "source": "Runner freezes exact tracked Git build inputs at start; receipt/doc-only changes do not alter implementation inputs."
+}

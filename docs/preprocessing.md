@@ -471,7 +471,7 @@ ownership. MPI is a separate explicit server-test feature; clients remain CUDA/
 MPI-free. Only the coordinator holds the complete validated source/reference;
 workers keep local orbit-closed shards. The shared schedule supports odd/empty
 owners, with validation snapshots independent of compute/message inputs.
-Four logical ranks on two physical H200s validate two levels; measurements are
-pending. This does not implement distributed discovery, large-product collective
+Four logical ranks on two physical H200s validate two levels; bounded job77704
+is submitted, with measurements pending. This does not implement distributed discovery, large-product collective
 transforms, resumable tree checkpoints or fulls18 preprocessing. Existing atomic
 publication/verification helpers remain required for subsequent pipeline integration.

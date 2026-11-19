@@ -122,7 +122,7 @@ cgroup memory362.695MiB. Next is scalable rank ownership/multi-level merge and f
 preprocessing/publication integration. Ordinary CPU builds remain unchanged.
 The next [rank-owned merge-tree gate](experiments/root-merge-tree/report.md)
 adds bounded support routing and one owner per GPU polynomial subtree, using shared
-kernels and independently checked CPU roots. Validation is pending: four logical
+kernels and independently checked CPU roots. Bounded job77704 is submitted: four logical
 ranks share two H200s across two HPC nodes to test two tree levels within the
 existing budget. This is not four-GPU throughput or fulls18 support; distributed
 discovery and large-product transforms remain separate implementation work.
