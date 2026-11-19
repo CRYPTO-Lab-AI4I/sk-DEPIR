@@ -7,6 +7,7 @@ import (
 	"crypto/sha256"
 	"encoding/binary"
 	"encoding/json"
+	"flag"
 	"fmt"
 	cpp "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp"
 	cuda "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda"
@@ -21,6 +22,8 @@ import (
 	"testing"
 	"time"
 )
+
+var rootMPIBuffer = flag.String("root-mpi-buffer", "direct", "direct Go payloads or bounded MPI-owned staging")
 
 type recordedRootLink struct {
 	world   *mpi.World
@@ -41,26 +44,45 @@ func rootTransferFingerprint(p []uint32) [32]byte {
 func rootProofMismatch(own, remote [64]byte) bool {
 	return !bytes.Equal(own[:32], own[32:]) || !bytes.Equal(remote[:32], remote[32:]) || !bytes.Equal(own[:32], remote[:32])
 }
-func (l recordedRootLink) check(direction string, peer int, p []uint32, before [32]byte) error {
-	after := rootTransferFingerprint(p)
+
+// Index proofs must preserve even invalid high bits, before range validation.
+func indexTransferFingerprint(p []uint64) [32]byte {
+	h := sha256.New()
+	var block [1024]byte
+	for first := 0; first < len(p); {
+		take := minInt(len(p)-first, len(block)/8)
+		for j := 0; j < take; j++ {
+			binary.LittleEndian.PutUint64(block[j*8:], p[first+j])
+		}
+		_, _ = h.Write(block[:take*8])
+		first += take
+	}
+	var result [32]byte
+	copy(result[:], h.Sum(nil))
+	return result
+}
+
+// Both payload types use the same symmetric check and durable-capture handshake.
+func checkTransferProof(world *mpi.World, peer int, before, after [32]byte, capture func([64]byte, [64]byte)) error {
 	var own [64]byte
 	copy(own[:32], before[:])
 	copy(own[32:], after[:])
-	remote, err := l.world.ExchangeProof(peer, own)
+	remote, err := world.ExchangeProof(peer, own)
 	if err != nil {
 		return err
 	}
-	mismatch := rootProofMismatch(own, remote)
-	l.capture(direction, peer, p, own, remote)
-	if mismatch {
-		// Both endpoints sync their captures BEFORE this acknowledgement; an
-		// early abort cannot kill the other side before its file is durable.
-		if _, err = l.world.ExchangeProof(peer, own); err != nil {
+	capture(own, remote)
+	if rootProofMismatch(own, remote) {
+		// Both files are synced before the acknowledgement and possible MPI abort.
+		if _, err = world.ExchangeProof(peer, own); err != nil {
 			return err
 		}
-		return fmt.Errorf("root transfer fingerprint mismatch %s peer%d", direction, peer)
+		return fmt.Errorf("transfer fingerprint mismatch peer%d", peer)
 	}
 	return nil
+}
+func (l recordedRootLink) check(direction string, peer int, p []uint32, before [32]byte) error {
+	return checkTransferProof(l.world, peer, before, rootTransferFingerprint(p), func(own, remote [64]byte) { l.capture(direction, peer, p, own, remote) })
 }
 func (l recordedRootLink) SendRoot(peer int, p []uint32, max int) error {
 	var before [32]byte
@@ -125,6 +147,15 @@ func TestRankOwnedRootTree(t *testing.T) {
 		t.Fatal("explicit MPI chunk admission")
 	}
 	world.ChunkWords = chunk
+	switch *rootMPIBuffer {
+	case "direct":
+	case "staged":
+		if err = world.EnableStaging(); err != nil {
+			t.Fatal(err)
+		}
+	default:
+		t.Fatal("invalid root-mpi-buffer")
+	}
 	host, err := os.Hostname()
 	if err != nil {
 		t.Fatal(err)
@@ -174,7 +205,7 @@ func TestRankOwnedRootTree(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	emit(map[string]any{"kind": "host", "ranks": world.Size, "visible_devices": os.Getenv("CUDA_VISIBLE_DEVICES"), "local_rank": os.Getenv("SLURM_LOCALID"), "chunk_words": world.ChunkWords})
+	emit(map[string]any{"kind": "host", "ranks": world.Size, "visible_devices": os.Getenv("CUDA_VISIBLE_DEVICES"), "local_rank": os.Getenv("SLURM_LOCALID"), "chunk_words": world.ChunkWords, "buffer_mode": *rootMPIBuffer, "staging_bytes": world.StagingBytes()})
 	cases := []struct {
 		s, count int
 		genuine  bool
@@ -291,14 +322,48 @@ func TestRankOwnedRootTree(t *testing.T) {
 			routed := 0
 			lastRouting := time.Now()
 			emit(map[string]any{"kind": "stage", "case": index, "sample": sample, "phase": "route", "event": "started"})
+			// Per-peer packet sequence binds captures even when routing interleaves owners.
+			packetSequence := make([]int, world.Size)
+			capture := func(phase, direction string, peer, sequence, wordBytes int, values any, own, remote [64]byte) {
+				mismatch := rootProofMismatch(own, remote)
+				name := ""
+				if mismatch {
+					name = fmt.Sprintf("case-%d-sample-%d-%s-%d-failed-%s-%d.bin", index, sample, phase, sequence, direction, peer)
+					save(name, values)
+				}
+				v := reflect.ValueOf(values)
+				row := map[string]any{"kind": "wire-proof", "case": index, "sample": sample, "phase": phase, "sequence": sequence, "direction": direction, "peer": peer,
+					"words": v.Len(), "word_bytes": wordBytes, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote), "sha256": digest(values), "file": name, "matches": !mismatch, "buffer": fmt.Sprintf("%x", v.Pointer())}
+				emit(row)
+				if mismatch {
+					row["kind"] = "transport-failure"
+					emit(row)
+				}
+			}
+			checkIndices := func(direction string, peer int, packet []uint64, before [32]byte) error {
+				sequence := packetSequence[peer]
+				packetSequence[peer]++
+				return checkTransferProof(world, peer, before, indexTransferFingerprint(packet), func(own, remote [64]byte) { capture("support", direction, peer, sequence, 8, packet, own, remote) })
+			}
 			if rank == 0 {
 				err = routeRootSupport(supportSorted, fixture.support, fixture.n, 1<<uint(item.s), world.Size, 16384, func(owner int, packet []uint64) error {
 					if owner == 0 {
 						for _, x := range packet {
 							shard = append(shard, int(x))
 						}
-					} else if err := world.SendIndices(owner, packet); err != nil {
-						return err
+					} else {
+						var before [32]byte
+						if diagnostic {
+							before = indexTransferFingerprint(packet)
+						}
+						if err := world.SendIndices(owner, packet); err != nil {
+							return err
+						}
+						if diagnostic {
+							if err := checkIndices("send", owner, packet, before); err != nil {
+								return err
+							}
+						}
 					}
 					packets++
 					routed += len(packet)
@@ -324,6 +389,11 @@ func TestRankOwnedRootTree(t *testing.T) {
 					}
 					if len(packet) == 0 {
 						break
+					}
+					if diagnostic {
+						if e = checkIndices("receive", 0, packet, indexTransferFingerprint(packet)); e != nil {
+							t.Fatal(e)
+						}
 					}
 					packets++
 					if len(shard) > count-len(packet) {
@@ -380,19 +450,7 @@ func TestRankOwnedRootTree(t *testing.T) {
 			}}
 			if diagnostic {
 				link.capture = func(direction string, peer int, p []uint32, own, remote [64]byte) {
-					mismatch := rootProofMismatch(own, remote)
-					name := ""
-					if mismatch {
-						name = fmt.Sprintf("case-%d-sample-%d-failed-%s-%d.bin", index, sample, direction, peer)
-						save(name, p)
-					}
-					row := map[string]any{"kind": "wire-proof", "case": index, "sample": sample, "stride": stride, "direction": direction, "peer": peer,
-						"words": len(p), "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote), "sha256": digest(p), "file": name, "matches": !mismatch, "buffer": fmt.Sprintf("%p", &p[0])}
-					emit(row)
-					if mismatch {
-						row["kind"] = "transport-failure"
-						emit(row)
-					}
+					capture("root", direction, peer, stride, 4, p, own, remote)
 				}
 				if index == 2 && sample == -1 {
 					indices := make([]uint64, len(shard))

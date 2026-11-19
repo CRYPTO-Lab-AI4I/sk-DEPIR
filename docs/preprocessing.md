@@ -476,3 +476,10 @@ largest-case transfer/CPU equality check. The gate remains unvalidated; targeted
 boundary diagnosis/payload capture comes next. This does not implement distributed discovery, large-product collective
 transforms, resumable tree checkpoints or fulls18 preprocessing. Existing atomic
 publication/verification helpers remain required for subsequent pipeline integration.
+
+The follow-up diagnostic **77782 also failed**, on an unchecked support-index
+packet before GPU work; its completed polynomial proofs agreed. The next
+[explicit MPI-owned staging probe](../experiments/mpi-owned-staging/report.md)
+covers both packet widths. Extra host scratch is 512 KiB per rank; each transfer
+adds a CPU copy. Runtime cost is unknown; this is not a production default or
+proof of the fault's cause. Full s=18 preprocessing remains unvalidated.

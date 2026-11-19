@@ -2336,14 +2336,19 @@ SCALING-109 next-work order is explicit:
    transfer boundary, with repeated bounded trials before GPU consumption. Preserve
    existing checks/defaults; evaluate any staging-copy workaround explicitly only
    after diagnosis. Larger/fullsize integration waits for this correctness gate.
-   SCALING-123: [targeted transfer diagnostic](../experiments/root-transfer-diagnostics/report.md)
-   is submitted as **job77782** in the same envelope. Pre/post fingerprints and fixed64-byte proof
-   exchanges precede GPU use; mismatches synchronously retain both full payloads
-   before MPI abort. Repeats12timed largest-case passes, keeping smaller/original
-   CPU checks and memcheck when reached. Diagnostic hashing/capture changes timing
-   and allocations; no baseline speedup/production repair or staging workaround
-   inferred from a non-reproduced failure. Original gate remains blocked pending
-   boundary diagnosis and validation of a concrete fix.
+   SCALING-124: **job 77782 failed during support-index reception**, largest
+   case/sample 5, before GPU root computation. All 78 completed polynomial proof
+   records matched; support packets were not covered. No paired failure snapshot;
+   memcheck unrun. [Review](../experiments/root-transfer-diagnostics/report.md).
+   SCALING-125: test an explicit MPI-owned staging buffer and extend the same
+   symmetric proof/durable-capture handshake to support indices before range
+   checks. [Runnable plan](../experiments/mpi-owned-staging/report.md). Same admitted
+   two-node/two-H200 envelope; 512 KiB extra host scratch per rank (2 MiB total),
+   one CPU copy per send/receive, no added transforms/storage. Runtime penalty
+   unknown; do not change production defaults or clear the original failure
+   merely because the staged diagnostic passes. Both packet widths, full CPU
+   equality and memcheck must be checked before larger integration.
+
 6. Compare complete elapsed time across practical allocations before choosing
    final GPU/node count or giving fulls18 runtime. Full-size/multi-node persistence
    remains unmeasured; larger storage or node/GPU budgets need separate admission.

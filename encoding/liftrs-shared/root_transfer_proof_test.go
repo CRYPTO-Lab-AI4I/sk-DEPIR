@@ -38,3 +38,21 @@ func TestRootTransferProofAgreement(t *testing.T) {
 		}
 	}
 }
+
+// Invalid received indices must still be fingerprinted in full before rejection.
+func TestIndexTransferFingerprintHighBits(t *testing.T) {
+	values := []uint64{0, 1 << 34, 1<<63 | 17, ^uint64(0)}
+	h := sha256.New()
+	if err := binary.Write(h, binary.LittleEndian, values); err != nil {
+		t.Fatal(err)
+	}
+	want := h.Sum(nil)
+	got := indexTransferFingerprint(values)
+	if string(got[:]) != string(want) {
+		t.Fatal("lost index high bits")
+	}
+	values[3] ^= 1 << 63
+	if indexTransferFingerprint(values) == got {
+		t.Fatal("bad high bit not detected")
+	}
+}

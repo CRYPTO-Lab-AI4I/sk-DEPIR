@@ -1,0 +1,83 @@
+{
+  "status": "failed",
+  "job_id": "77782",
+  "revision": "8da6205bb7b5bd211ace3505efb99dd75fefdaa0",
+  "source_files_verified": 640,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 17,
+  "cache_files_verified": 50,
+  "tests": [
+    "source/evidence/cache seals",
+    "diagnostic snapshot extents"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.019878387451171875,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.03566095978021622,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.7199692279100418,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 0.021647116169333458,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.037973279133439064,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.18625353276729584,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 16.90734621323645,
+      "exit_code": 0
+    },
+    {
+      "label": "tree-build",
+      "seconds": 34.868937807157636,
+      "exit_code": 0
+    },
+    {
+      "label": "fixture-regression",
+      "seconds": 18.367381708696485,
+      "exit_code": 0
+    },
+    {
+      "label": "shared-tests",
+      "seconds": 1.6760297883301973,
+      "exit_code": 0
+    },
+    {
+      "label": "shared-race",
+      "seconds": 19.362734308466315,
+      "exit_code": 0
+    },
+    {
+      "label": "normal",
+      "seconds": 28.704971056431532,
+      "exit_code": 92
+    }
+  ],
+  "scope": "diagnostic test, not a production fix or clearance of77704; timings include new fingerprints/control messages",
+  "outcome": "failed elsewhere; inspect raw errors",
+  "captures": [],
+  "paired_snapshots": [],
+  "wire_proof_events": 78,
+  "gate_status": "original unexplained corruption remains open",
+  "successful_measurement_rows": 52,
+  "all_logged_proofs_match": true
+}

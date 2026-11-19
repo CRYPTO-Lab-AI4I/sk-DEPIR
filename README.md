@@ -128,10 +128,16 @@ Smaller normal cases passed, but memcheck was not reached. Four logical
 ranks share two H200s across two HPC nodes to test two tree levels within the
 existing budget. This is not four-GPU throughput or fulls18 support; distributed
 discovery and large-product transforms remain separate implementation work.
-A [targeted transfer diagnostic](experiments/root-transfer-diagnostics/report.md)
-is submitted as **job77782**: pre/post-send and receive fingerprints, paired failure payload capture,
-and12 repeats of the failing large case before GPU consumption. It uses the same
-resource envelope and adds diagnostic overhead; no cause or repair is claimed.
+**Job 77782 failed during support-index reception**, before GPU root computation
+in the largest case/sample 5. The 78 completed polynomial proof records matched;
+they did not cover the bad support packet. No paired failure snapshot was captured;
+memcheck was not reached. Scheduler runtime was 2 min 8 s; largest logged process
+peak RSS was 407.578 MiB per rank on HPC (two H200s across two nodes, four logical
+ranks). [Evidence](experiments/root-transfer-diagnostics/report.md).
+Next is an [explicit MPI-owned staging probe](experiments/mpi-owned-staging/report.md)
+with checks/capture for both packet widths. This adds 512 KiB host scratch per rank
+and one CPU copy on each send/receive; runtime penalty is unknown. Original failures
+remain unresolved; no production default or full s=18 validation follows.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

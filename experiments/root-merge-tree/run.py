@@ -153,7 +153,7 @@ def suite(context):
         'encoding/liftrs-cuda/matrix.cu','encoding/liftrs-cuda/preparation.cu','-o',library],120)
     binary=cache/'tree.test'
     run('tree-build',[go,'test','-c','-tags','liftrs_cpp,liftrs_cuda,liftrs_mpi','-o',binary,'./encoding/liftrs-shared'],120)
-    run('fixture-regression',[binary,'-test.run=TestRootFixtureReferenceDigests|TestRootTransferProofAgreement','-test.v','-test.timeout=60s'],90)
+    run('fixture-regression',[binary,'-test.run=TestRootFixtureReferenceDigests|TestRootTransferProofAgreement|TestIndexTransferFingerprintHighBits','-test.v','-test.timeout=60s'],90)
     tests='TestRootTree|TestRootRouting|TestPreparationRootPartitions|TestRootPartitionAdmission'
     run('shared-tests',[go,'test','./encoding/liftrs-shared','-run',tests,'-count=1','-timeout=60s'],90)
     run('shared-race',[go,'test','-race','./encoding/liftrs-shared','-run',tests,'-count=1','-timeout=60s'],90)
@@ -162,7 +162,7 @@ def suite(context):
     launcher=['timeout','--signal=TERM','--kill-after=10s','240s','srun','--mpi=pmix_v3','--nodes=2','--ntasks=4','--ntasks-per-node=2',
         '--cpus-per-task=1','--gpus-per-node=h200:1','--gpu-bind=single:2','--gres-flags=allow-task-sharing',
         '--distribution=block:block','--cpu-bind=cores','--label','--kill-on-bad-exit=1','bash',wrapper]
-    test_args=['-test.run=^TestRankOwnedRootTree$','-test.v','-test.timeout=220s']
+    test_args=['-test.run=^TestRankOwnedRootTree$','-test.v','-test.timeout=220s','-root-mpi-buffer='+env.get('PIR_ROOT_TREE_MPI_BUFFER','direct')]
     env['PIR_ROOT_TREE_OUTPUT']=str(cache/'normal')
     run('normal',[*launcher,out/'normal',binary,*test_args],260)
     normal=BASE['parse'](out/'normal.log');review(normal,cache/'normal',repeats=int(env.get('PIR_ROOT_TREE_REPEATS','2')))

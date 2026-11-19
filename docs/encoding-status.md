@@ -606,11 +606,16 @@ Next is targeted transfer/buffer diagnosis with payload capture, not full-size
 integration or a staging-default change. Final products still need distributed
 FFT/worker coordination; fulls17 validated results/fulls18-unrun cells are unchanged.
 
-The [targeted diagnostic](../experiments/root-transfer-diagnostics/report.md) is
-submitted as **job77782** within the same2HPCnode/2H200/4logical-rank budget. It exchanges pre/post
-fingerprints, captures both disagreeing payloads before abort and repeats only the
-largest case12times. Extra hashes/control messages alter timing; a clean diagnostic
-run will not by itself clear the unexplained77704 fault. No staging/default change.
+**Job 77782 failed during support-index reception**, before GPU root computation
+in the largest case/sample 5. The 78 completed polynomial proof records matched;
+they did not cover the bad support packet. No paired failure snapshot was captured;
+memcheck was not reached. Scheduler runtime was 2 min 8 s; largest logged process
+peak RSS was 407.578 MiB per rank on HPC (two H200s across two nodes, four logical
+ranks). [Evidence](../experiments/root-transfer-diagnostics/report.md).
+Next is an [explicit MPI-owned staging probe](../experiments/mpi-owned-staging/report.md)
+with checks/capture for both packet widths. This adds 512 KiB host scratch per rank
+and one CPU copy on each send/receive; runtime penalty is unknown. Original failures
+remain unresolved; no production default or full s=18 validation follows.
 
 ## Measurement boundaries for batch entries
 

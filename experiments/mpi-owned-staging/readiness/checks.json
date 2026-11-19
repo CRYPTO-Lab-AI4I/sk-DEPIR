@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "utc": "2026-11-19T10:27:05.080158+00:00",
+  "base_revision": "7c1868a7b1f634225af74e0663d1aa752c4dca98",
+  "source_state": "working tree before implementation commit; exact checked input hashes below",
+  "source_sha256": {
+    "experiments/distributed-root/mpi/world.go": "21e5172e04557ba018ca6ee9e6abf36e94457c153c1e7576e5d73470fe245a22",
+    "encoding/liftrs-shared/root_tree_gpu_test.go": "bcde2f18d5bbd11ebab509afd0bdf72567f59eb045150bbcb459a3b065b64821",
+    "encoding/liftrs-shared/root_transfer_proof_test.go": "d2447fb2ddf93b0ac59b79c6e973c0462d7a0b4fc5e8aea787d34c1aeb498aa1",
+    "experiments/root-merge-tree/run.py": "e3f6b18a6a8eae9ba3711a8b0c78b40dbb5740348819efe67d062f78efb3ceeb",
+    "experiments/root-transfer-diagnostics/analyze.py": "3f600eea3cc6d12e7311c92459d91f097f15ce09ffea47d211e571df69bdfc9e",
+    "experiments/root-transfer-diagnostics/test_review.py": "84afa1f25735a7fe2f7348dc4b11dba04a5bbde85b3e1cca7a7bdf5efbca39f6",
+    "experiments/mpi-owned-staging/run.py": "6df8ef52a294291de2dcdaa1a2f3dd9832851b00fcbc4a14482d1ad487a2f3f7",
+    "experiments/mpi-owned-staging/run.sbatch": "64875762719915b8fd6ce6965a24b9c2b0627df8bba0ac865df0882272a13ab5"
+  },
+  "checks": [
+    {
+      "command": "CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o /tmp/mpi-staging.test ./encoding/liftrs-shared",
+      "status": "passed",
+      "log": "build.log",
+      "deadline_seconds": 25
+    },
+    {
+      "command": "/tmp/mpi-staging.test -test.run=TestRootTransferProofAgreement|TestIndexTransferFingerprintHighBits -test.v -test.timeout=15s",
+      "status": "passed",
+      "log": "proof-tests.log"
+    },
+    {
+      "command": "python3 -B experiments/root-transfer-diagnostics/test_review.py",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -B experiments/root-merge-tree/test_review.py",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -B experiments/distributed-root/test_review.py",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -B experiments/gpu-staged-transport/test_review.py",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -B experiments/gpu-code-encoding/test_suite.py",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -B experiments/mpi-owned-staging/run.py --check",
+      "status": "passed"
+    }
+  ],
+  "limitations": [
+    "No local MPI/GPU execution.",
+    "Original 77704 and 77782 failures remain unresolved.",
+    "Hashing/control/staging copies change timing; no production speedup or repair claim."
+  ]
+}

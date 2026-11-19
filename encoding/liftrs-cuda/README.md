@@ -305,3 +305,10 @@ every worker. Four logical ranks share2H200/2HPC nodes for correctness validatio
 job77704 failed largest-case transfer/CPU equality. Boundary diagnosis is next;
 GPU memcheck was not reached. No4GPU speedup/fulls18 claim follows. MPI/server test dependencies
 remain explicit and ordinary client/backend defaults are unchanged.
+
+The follow-up diagnostic **77782 also failed**, on an unchecked support-index
+packet before GPU work; its completed polynomial proofs agreed. The next
+[explicit MPI-owned staging probe](../../experiments/mpi-owned-staging/report.md)
+covers both packet widths. Extra host scratch is 512 KiB per rank; each transfer
+adds a CPU copy. Runtime cost is unknown; this is not a production default or
+proof of the fault's cause. Full s=18 preprocessing remains unvalidated.

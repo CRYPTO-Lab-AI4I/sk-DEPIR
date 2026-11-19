@@ -62,8 +62,13 @@ original methodology; apply this policy to new optimization runs.
 
 - [Root-transfer diagnostics](root-transfer-diagnostics/report.md): targeted
   proof exchange and paired failure snapshots after77704's transfer hash mismatch;
- 12largest-case repeats within existing budget, job77782 submitted. No root cause/default
-  workaround or repair claimed.
+ job 77782 failed later on an uncovered support-index packet. All 78 completed
+  polynomial proofs matched; no paired failure capture. Cause remains unknown.
+
+- [MPI-owned chunk staging](mpi-owned-staging/report.md): explicit bounded-buffer
+  probe with proof/capture for both index and coefficient packets; same two-node/
+  two-H200 budget, extra 512 KiB host scratch per rank and CPU copies. Runtime
+  penalty unmeasured; no production default change.
 
 - [Rank-owned support and GPU merge tree](root-merge-tree/report.md): shared
   bounded routing, deterministic unique ownership and complete state-chain/CPU

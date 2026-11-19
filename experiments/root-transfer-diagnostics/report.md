@@ -1,10 +1,29 @@
 # Diagnose the failed root-transfer boundary
 
-Status: **diagnostic job77782 submitted**, results unreviewed (SCALING-123).
-Implementation `8da6205`. [Submission receipt](submission.json), results/profiles
-`runs/capture-01/`, progress `slurm-77782.log`.
-[Frozen-input check](readiness/snapshot.json):640files/3,034,320bytes, all8 checked
-input hashes match; no GPU/MPI execution or repair claim from local readiness.
+Status: **job 77782 failed during support-index reception** (SCALING-124).
+Implementation `8da6205`; [submission](submission.json), [raw results](runs/capture-01/results.json),
+[review](runs/capture-01/analysis.json), [scheduler accounting](runs/capture-01/scheduler-accounting.txt),
+[progress log](slurm-77782.log). Scheduler elapsed time: **2 min 8 s**; controller:
+127.882 s. HPC nodes gnode06/gnode07, four logical ranks sharing two H200s.
+The reviewer verified 640 source files, 17 original evidence files and 50 cache files.
+No raw log/result was changed by review. Source setup, fixture, shared/race checks passed.
+
+Normal execution stopped on rank 3 at `support exponent range`, largest synthetic
+case/sample 5, before its GPU root computation. Both smaller cases completed all
+four passes; the largest completed warm-up and four timed passes (samples 0, 1, 3, 4).
+All 52 completed rank measurement rows passed their checks. All 78 completed
+polynomial proof records independently show stable matching hashes, but those
+checks did **not** cover the failing support-index packets. No paired disagreement
+snapshot was saved; memcheck and final profile summaries were not reached.
+Largest logged process peak RSS: **407.578 MiB per rank**; retained cache:
+**19.295 MiB**. These are partial diagnostic observations, not successful latency
+or full-size capacity measurements. No memory/time guard caused the failure.
+
+Next: [explicit MPI-owned staging probe](../mpi-owned-staging/report.md), with
+proof/capture for both uint64 support indices and uint32 polynomial coefficients.
+The changed buffer boundary is a hypothesis to test, not an established diagnosis.
+The original direct-buffer gate remains failed; no production default changes.
+
 The original [77704 failure](../root-merge-tree/report.md#failed-validation-review-scaling-122)
 is unresolved: the sender and receiver logged different hashes for one131,073-word
 polynomial before final CPU equality failed. No resource guard triggered. This
