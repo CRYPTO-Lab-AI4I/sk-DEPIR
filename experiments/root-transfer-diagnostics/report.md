@@ -1,6 +1,10 @@
 # Diagnose the failed root-transfer boundary
 
-Status: prepared, not submitted (SCALING-123).
+Status: **diagnostic job77782 submitted**, results unreviewed (SCALING-123).
+Implementation `8da6205`. [Submission receipt](submission.json), results/profiles
+`runs/capture-01/`, progress `slurm-77782.log`.
+[Frozen-input check](readiness/snapshot.json):640files/3,034,320bytes, all8 checked
+input hashes match; no GPU/MPI execution or repair claim from local readiness.
 The original [77704 failure](../root-merge-tree/report.md#failed-validation-review-scaling-122)
 is unresolved: the sender and receiver logged different hashes for one131,073-word
 polynomial before final CPU equality failed. No resource guard triggered. This

@@ -62,7 +62,7 @@ original methodology; apply this policy to new optimization runs.
 
 - [Root-transfer diagnostics](root-transfer-diagnostics/report.md): targeted
   proof exchange and paired failure snapshots after77704's transfer hash mismatch;
- 12largest-case repeats within existing budget, prepared. No root cause/default
+ 12largest-case repeats within existing budget, job77782 submitted. No root cause/default
   workaround or repair claimed.
 
 - [Rank-owned support and GPU merge tree](root-merge-tree/report.md): shared

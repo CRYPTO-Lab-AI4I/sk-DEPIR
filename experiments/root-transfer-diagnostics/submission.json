@@ -1,0 +1,32 @@
+{
+  "job_id": "77782",
+  "submitted_utc": "2026-11-19T10:07:16.465646+00:00",
+  "implementation_revision": "8da6205bb7b5bd211ace3505efb99dd75fefdaa0",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--output=experiments/root-transfer-diagnostics/slurm-%j.log",
+    "experiments/root-transfer-diagnostics/run.sbatch",
+    "capture-01"
+  ],
+  "results": "experiments/root-transfer-diagnostics/runs/capture-01/",
+  "progress_log": "experiments/root-transfer-diagnostics/slurm-77782.log",
+  "cache": ".cache/liftrs/root-transfer-diagnostics/capture-01/",
+  "resources": {
+    "nodes": 2,
+    "gpus": 2,
+    "logical_ranks": 4,
+    "cpus": 4,
+    "requested_host_GiB_per_node": 4,
+    "owned_MiB_per_rank": 64,
+    "owned_MiB_per_card": 128,
+    "rss_guard_GiB_per_rank": 1,
+    "retained_cap_MiB": 128,
+    "scratch_cap_GiB": 2,
+    "scheduler_seconds": 900
+  },
+  "scope": "Targeted diagnostics for77704; capture disagreement or report not-reproduced, never claim a repair without root cause.",
+  "admission": "Same previously admitted resource envelope; no increase.",
+  "monitoring": "No polling, following logs or inspecting results until user completion ping.",
+  "source": "Exact tracked Git build inputs frozen at actual start; receipt/docs-only commits do not alter checked diagnostic inputs."
+}

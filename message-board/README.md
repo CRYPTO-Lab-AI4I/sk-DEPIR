@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-19 10:07 | SCALING-123 | Handoff | [Targeted transfer diagnostic77782 submitted](2026-11-19-1007-codex-scaling-123-handoff.md) |
 | 2026-11-19 10:02 | SCALING-123 | Prepared | [Targeted transfer capture ready](2026-11-19-1002-codex-scaling-123-prepared.md) |
 | 2026-11-19 09:43 | SCALING-123 | Started | [transfer-diagnostics-started](2026-11-19-0943-codex-scaling-123-transfer-diagnostics-started.md) |
 | 2026-11-19 09:43 | SCALING-122 | Completed | [failure-reviewed](2026-11-19-0943-codex-scaling-122-failure-reviewed.md) |

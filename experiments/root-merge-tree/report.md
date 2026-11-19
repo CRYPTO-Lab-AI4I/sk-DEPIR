@@ -201,3 +201,7 @@ before any GPU consumes the received data. Keep all original checks and budgets;
 do not adopt a staging workaround, change defaults or continue full-size integration
 until the boundary is understood. Any proposed extra staging/copy cost must be
 reported as a memory/time trade-off rather than assumed free.
+
+Follow-up [targeted diagnostic77782](../root-transfer-diagnostics/report.md) is
+submitted in the same resource envelope with pre-consumption proofs and paired
+failure capture. It does not clear this gate or alter the original raw evidence.

@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "utc": "2026-11-19T10:06:02.357695+00:00",
+  "revision": "8da6205bb7b5bd211ace3505efb99dd75fefdaa0",
+  "source_files": 640,
+  "source_bytes": 3034320,
+  "matched_inputs": 8,
+  "scope": "Actual tracked Git build snapshot matches checked diagnostic inputs; no fault reproduction or GPU/MPI validation."
+}

@@ -607,7 +607,7 @@ integration or a staging-default change. Final products still need distributed
 FFT/worker coordination; fulls17 validated results/fulls18-unrun cells are unchanged.
 
 The [targeted diagnostic](../experiments/root-transfer-diagnostics/report.md) is
-prepared within the same2HPCnode/2H200/4logical-rank budget. It exchanges pre/post
+submitted as **job77782** within the same2HPCnode/2H200/4logical-rank budget. It exchanges pre/post
 fingerprints, captures both disagreeing payloads before abort and repeats only the
 largest case12times. Extra hashes/control messages alter timing; a clean diagnostic
 run will not by itself clear the unexplained77704 fault. No staging/default change.

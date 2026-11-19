@@ -2337,7 +2337,7 @@ SCALING-109 next-work order is explicit:
    existing checks/defaults; evaluate any staging-copy workaround explicitly only
    after diagnosis. Larger/fullsize integration waits for this correctness gate.
    SCALING-123: [targeted transfer diagnostic](../experiments/root-transfer-diagnostics/report.md)
-   is prepared in the same envelope. Pre/post fingerprints and fixed64-byte proof
+   is submitted as **job77782** in the same envelope. Pre/post fingerprints and fixed64-byte proof
    exchanges precede GPU use; mismatches synchronously retain both full payloads
    before MPI abort. Repeats12timed largest-case passes, keeping smaller/original
    CPU checks and memcheck when reached. Diagnostic hashing/capture changes timing
