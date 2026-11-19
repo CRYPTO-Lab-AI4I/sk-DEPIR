@@ -147,7 +147,7 @@ Staging adds 512 KiB host scratch per rank and CPU copies; its isolated runtime
 penalty remains unknown. Earlier direct-buffer failures remain unresolved. Next
 is the [same-build direct/staged comparison](experiments/mpi-buffer-comparison/report.md):
 staged/direct/direct/staged in one existing-budget allocation, with identical
-checks and saved failures. It is prepared, not measured; no default change.
+checks and saved failures. **Job 77868 submitted**, results unreviewed; no default change.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

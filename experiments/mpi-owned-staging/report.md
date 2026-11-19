@@ -52,7 +52,7 @@ interpret these small shared-card timings as fabric or GPU scaling throughput.
 
 Next: the [controlled direct/staged comparison](../mpi-buffer-comparison/report.md)
 uses identical new proof instrumentation and one build before choosing a transport
-default or assigning a runtime penalty. Prepared; comparison results unavailable.
+default or assigning a runtime penalty. Job 77868 submitted; results unreviewed.
 Keep staging explicit; the bounded pass allows further validation with that mode,
 not clearance of the earlier direct-buffer failures or full-size integration.
 Distributed discovery, larger distributed products/FFTs and publication remain

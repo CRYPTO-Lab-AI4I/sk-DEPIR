@@ -2357,7 +2357,7 @@ SCALING-109 next-work order is explicit:
    identical fixture/proof/memcheck coverage and no node/resource increase.
    Stop on any failed arm; preserve captures/completed-arm evidence. About
    71.838 MiB projected cache within the 128 MiB cap; 4–7 min projected elapsed
-   within the 15 min scheduler cutoff. Results pending submission; no default
+   within the 15 min scheduler cutoff. **Job 77868 submitted**, results unreviewed; no default
    decision or runtime penalty measurement yet. Then continue scalable
    discovery/products/FFT and publication.
 

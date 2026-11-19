@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-19 13:48 | SCALING-127 | Handoff | [Same-build comparison77868 submitted](2026-11-19-1348-codex-scaling-127-handoff.md) |
 | 2026-11-19 13:46 | SCALING-127 | Prepared | [Same-build buffer comparison ready](2026-11-19-1346-codex-scaling-127-prepared.md) |
 | 2026-11-19 13:42 | SCALING-127 | Started | [Controlled direct/staged comparison](2026-11-19-1342-codex-scaling-127-started.md) |
 | 2026-11-19 13:37 | SCALING-126 | Completed | [Staged validation passed; profile reporting recovered](2026-11-19-1337-codex-scaling-126-completed.md) |

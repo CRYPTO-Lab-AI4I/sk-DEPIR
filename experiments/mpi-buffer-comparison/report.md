@@ -1,9 +1,13 @@
 # Direct versus MPI-owned staging
 
-Status: prepared for submission (SCALING-127); no comparison result yet.
+Status: **comparison job 77868 submitted** (SCALING-127); results unreviewed.
+[Receipt](submission.json), results/profiles `runs/compare-01/`, progress
+`slurm-77868.log`. Implementation `334cdfa`.
+[Frozen-input check](readiness/snapshot.json): 646 files / 3,058,542 bytes;
+all five checked input hashes match. No MPI/GPU execution implied by readiness.
 [Runner](run.py), [scheduler script](run.sbatch), [reviewer](analyze.py),
 [review tests](test_review.py), [shared preparation/execution](../root-merge-tree/run.py).
-Exact source revision will be recorded in submission.json and frozen inputs in
+Exact source revision is recorded in submission.json and frozen inputs in
 results.json. [Previous bounded staged result](../mpi-owned-staging/report.md):
 normal validation and CUDA memcheck passed; original direct-buffer failures remain
 unexplained. This experiment does not assume that staging fixes their cause.
