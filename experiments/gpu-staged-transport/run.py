@@ -80,13 +80,14 @@ def snapshot(revision,destination):
     return digests
 
 
-def main(here=HERE,extra_suite=None):
+def main(here=HERE,extra_suite=None,require_gpu=True):
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('name',nargs='?');parser.add_argument('--check',action='store_true');args=parser.parse_args()
     if args.check:
         assert (here/'run.py').is_file() and (HERE/'rank.sh').is_file()
         print('2 nodes/2 H200/4 CPU/8GiB host total;128MiB owned/card,64MiB pinned/rank,2GiB RSS/rank; no submission')
         return
     if not args.name or not args.name.replace('-','').isalnum():parser.error('fresh name required')
+    if not require_gpu and extra_suite is None:raise ValueError('host-only mode requires an explicit workload')
     if os.environ.get('SLURM_JOB_NUM_NODES')!='2':raise RuntimeError('two nodes required')
     resource.setrlimit(resource.RLIMIT_FSIZE,(32<<20,32<<20))
     out=here/'runs'/args.name;out.mkdir(parents=True,exist_ok=False)
@@ -97,7 +98,7 @@ def main(here=HERE,extra_suite=None):
         GOCACHE=str(scratch/'go-cache'),TMPDIR=str(scratch),CGO_ENABLED='0',GOMAXPROCS='2',GOFLAGS='-p=2',GOMEMLIMIT=str(1<<30))
     start=time.monotonic();record=dict(job_id=os.environ['SLURM_JOB_ID'],status='running',started_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),
         revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),commands=[],cache=str(cache),
-        resources=dict(nodes=2,ranks=2,gpus=2,gpu_model='H200',cpus_per_node=2,host_request_GiB_per_node=4,
+        resources=dict(nodes=2,ranks=2,gpus=2 if require_gpu else 0,gpu_model='H200'if require_gpu else None,cpus_per_node=2,host_request_GiB_per_node=4,
           owned_cap_MiB_per_card=128,pinned_cap_MiB_per_rank=64,rss_cap_GiB_per_rank=2,
           retained_cap_MiB=128,scratch_cap_GiB=2,controller_seconds=720,scheduler_seconds=900))
     def save():(out/'results.json').write_text(json.dumps(record,indent=2)+'\n')
@@ -128,7 +129,9 @@ def main(here=HERE,extra_suite=None):
         stop=runpy.run_path(str(source/'experiments/gpu-preprocessing-workflow/run.py'))['stop_process']
         run('hosts',['scontrol','show','hostnames',os.environ['SLURM_JOB_NODELIST']])
         run('mpi-plugins',['srun','--mpi=list'])
-        run('mpi',['ompi_info','--parsable','--all']);run('nvcc',['nvcc','--version']);run('compiler',['mpicxx','--version'])
+        run('mpi',['ompi_info','--parsable','--all'])
+        if require_gpu:run('nvcc',['nvcc','--version'])
+        run('compiler',['mpicxx','--version'])
         go=ROOT/'.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go'
         run('go',[go,'version'])
         if extra_suite is not None:

@@ -259,3 +259,8 @@ The runner's optional component-suite callback is now reused by the
 workload, resource policy, source selection, deadline/shutdown and evidence seals
 remain unchanged. Existing reviewer regressions still pass; this reuse does not
 change historical77281 measurements or authorize a larger allocation.
+
+SCALING-129: the shared runner accepts `require_gpu=False` only with an explicit
+host workload. It skips CUDA identity commands and records zero GPUs. Default
+GPU suites retain their setup/guards; the [host replay](../mpi-host-buffers/report.md)
+reuses source freezing, deadlines, cleanup and evidence sealing.

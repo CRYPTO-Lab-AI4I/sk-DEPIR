@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-19 16:48 | SCALING-129 | Prepared | [Host-only replay ready](2026-11-19-1648-codex-scaling-129-prepared.md) |
+| 2026-11-19 16:43 | SCALING-129 | Started | [Host-only MPI buffer isolation](2026-11-19-1643-codex-scaling-129-started.md) |
 | 2026-11-19 16:37 | SCALING-128 | Completed | [Staged passed; direct payload corruption captured](2026-11-19-1637-codex-scaling-128-completed.md) |
 | 2026-11-19 16:34 | SCALING-128 | Started | [Review captured direct-buffer failure77868](2026-11-19-1634-codex-scaling-128-started.md) |
 | 2026-11-19 13:48 | SCALING-127 | Handoff | [Same-build comparison77868 submitted](2026-11-19-1348-codex-scaling-127-handoff.md) |

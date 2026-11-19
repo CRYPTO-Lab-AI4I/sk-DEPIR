@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "utc": "2026-11-19T16:48:51.893032+00:00",
+  "base_revision": "f128f057f22442e9fbec18ec707b4a84129f98d0",
+  "source_sha256": {
+    "experiments/distributed-root/mpi/proof.go": "0616a7f8e11c9a79a3e5c9e5a8f3c5afc58e77e7a408777e6a09f3da0638b0ef",
+    "encoding/liftrs-shared/root_tree_gpu_test.go": "8f6557277e397d32cb715fda6e6466792755566d74838749c7b6ae7a62ea1082",
+    "experiments/gpu-staged-transport/run.py": "ae8a3cab171468342fc88a26daea19ad0d37c8cb97fe5b0b79358f9b737c8960",
+    "experiments/mpi-host-buffers/analyze.py": "e5074912217f00cb00ba17f66e1c66acbec78c3bb96ca4d6798586122181c3e0",
+    "experiments/mpi-host-buffers/probe_test.go": "37164321049943f0ab716d74e9104b39fa634dc64181743c0743d418a12609a9",
+    "experiments/mpi-host-buffers/run.py": "9ea774f99fe09393182ed1ba8e2b7f156972ae0fa18fb208be03214e9dd145c3",
+    "experiments/mpi-host-buffers/run.sbatch": "0d37cf44a574abc02abc7fa1b8846b4e97c065620100c61c44bf81de888a06a4",
+    "experiments/mpi-host-buffers/test_review.py": "54b4204638cd64786333ca34cd6dee94525145428fb22f6cd028f3cc48a01d2c"
+  },
+  "checks": [
+    "25 s bounded CC=mpicc CXX=mpicxx go test -c -tags liftrs_mpi -o /tmp/mpi-host.test ./experiments/mpi-host-buffers",
+    "/tmp/mpi-host.test -test.run=^TestFingerprintHighBitsAndTail$ -test.v -test.timeout=15s",
+    "25 s bounded go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o /tmp/mpi-host-tree.test ./encoding/liftrs-shared",
+    "/tmp/mpi-host-tree.test -test.run=TestRootTransferProofAgreement|TestIndexTransferFingerprintHighBits -test.v -test.timeout=15s",
+    "python3 -B experiments/mpi-host-buffers/test_review.py",
+    "python3 -B experiments/mpi-buffer-comparison/test_review.py",
+    "python3 -B experiments/root-merge-tree/test_review.py",
+    "python3 -B experiments/root-transfer-diagnostics/test_review.py",
+    "python3 -B experiments/distributed-root/test_review.py",
+    "python3 -B experiments/gpu-staged-transport/test_review.py",
+    "python3 -B experiments/gpu-code-encoding/test_suite.py"
+  ],
+  "limitations": [
+    "No local MPI/GPU execution.",
+    "Host replay has artificial churn; forced reclamation is a diagnostic arm only.",
+    "Original direct-mode fault remains unresolved; no default or full-size capability change."
+  ]
+}

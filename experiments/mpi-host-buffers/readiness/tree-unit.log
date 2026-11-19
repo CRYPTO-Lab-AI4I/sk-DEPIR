@@ -1,0 +1,5 @@
+=== RUN   TestRootTransferProofAgreement
+--- PASS: TestRootTransferProofAgreement (0.00s)
+=== RUN   TestIndexTransferFingerprintHighBits
+--- PASS: TestIndexTransferFingerprintHighBits (0.00s)
+PASS

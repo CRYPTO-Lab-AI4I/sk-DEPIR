@@ -3,7 +3,6 @@
 package liftrs
 
 import (
-	"bytes"
 	"crypto/sha256"
 	"encoding/binary"
 	"encoding/json"
@@ -41,9 +40,7 @@ func rootTransferFingerprint(p []uint32) [32]byte {
 	copy(result[:], h.Sum(nil))
 	return result
 }
-func rootProofMismatch(own, remote [64]byte) bool {
-	return !bytes.Equal(own[:32], own[32:]) || !bytes.Equal(remote[:32], remote[32:]) || !bytes.Equal(own[:32], remote[:32])
-}
+func rootProofMismatch(own, remote [64]byte) bool { return mpi.ProofMismatch(own, remote) }
 
 // Index proofs must preserve even invalid high bits, before range validation.
 func indexTransferFingerprint(p []uint64) [32]byte {
@@ -62,27 +59,8 @@ func indexTransferFingerprint(p []uint64) [32]byte {
 	return result
 }
 
-// Both payload types use the same symmetric check and durable-capture handshake.
-func checkTransferProof(world *mpi.World, peer int, before, after [32]byte, capture func([64]byte, [64]byte)) error {
-	var own [64]byte
-	copy(own[:32], before[:])
-	copy(own[32:], after[:])
-	remote, err := world.ExchangeProof(peer, own)
-	if err != nil {
-		return err
-	}
-	capture(own, remote)
-	if rootProofMismatch(own, remote) {
-		// Both files are synced before the acknowledgement and possible MPI abort.
-		if _, err = world.ExchangeProof(peer, own); err != nil {
-			return err
-		}
-		return fmt.Errorf("transfer fingerprint mismatch peer%d", peer)
-	}
-	return nil
-}
 func (l recordedRootLink) check(direction string, peer int, p []uint32, before [32]byte) error {
-	return checkTransferProof(l.world, peer, before, rootTransferFingerprint(p), func(own, remote [64]byte) { l.capture(direction, peer, p, own, remote) })
+	return l.world.CheckPayloadProof(peer, before, rootTransferFingerprint(p), func(own, remote [64]byte) { l.capture(direction, peer, p, own, remote) })
 }
 func (l recordedRootLink) SendRoot(peer int, p []uint32, max int) error {
 	var before [32]byte
@@ -343,7 +321,7 @@ func TestRankOwnedRootTree(t *testing.T) {
 			checkIndices := func(direction string, peer int, packet []uint64, before [32]byte) error {
 				sequence := packetSequence[peer]
 				packetSequence[peer]++
-				return checkTransferProof(world, peer, before, indexTransferFingerprint(packet), func(own, remote [64]byte) { capture("support", direction, peer, sequence, 8, packet, own, remote) })
+				return world.CheckPayloadProof(peer, before, indexTransferFingerprint(packet), func(own, remote [64]byte) { capture("support", direction, peer, sequence, 8, packet, own, remote) })
 			}
 			if rank == 0 {
 				err = routeRootSupport(supportSorted, fixture.support, fixture.n, 1<<uint(item.s), world.Size, 16384, func(owner int, packet []uint64) error {
