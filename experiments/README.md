@@ -60,9 +60,13 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [TCP-only MPI transport control](mpi-transport-control/report.md): explicit
+  ob1/self,tcp on the same host replay; zero GPUs, existing budget, prepared.
+
 - [Host-only MPI buffer replay](mpi-host-buffers/report.md): captured public
   payload, shared transport/proofs, same-node/cross-node routes and explicit
-  reclamation controls. Zero GPUs, existing host budget; 78000 submitted, unreviewed.
+  reclamation controls.78000 passed both staged arms then reproduced direct
+  cross-node corruption; paired captures retained, no underlying cause proved.
 
 - [Direct versus MPI-owned staging](mpi-buffer-comparison/report.md): one build,
   staged/direct/direct/staged order on one existing-budget allocation. Same checks,

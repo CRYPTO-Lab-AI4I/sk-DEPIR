@@ -630,10 +630,17 @@ largest partial fixture median **1.218 s**, normal process peak RSS **410.676 Mi
 per rank**. The later two rounds were not run. No valid speed ratio or underlying
 cause follows; direct remains failed and staging explicit (512 KiB host scratch/
 rank plus CPU copies). Next isolate the host-buffer fault separately and retain
-validated explicit staging for bounded distributed work. The
-[host-only replay](../experiments/mpi-host-buffers/report.md) is submitted as **job 78000**:
-captured payload, same-node/cross-node routes and explicit reclamation controls,
-zero GPUs and the existing host budget. Results unreviewed; full s=18 remains unrun.
+validated explicit staging for bounded distributed work. The [host-only replay78000](../experiments/mpi-host-buffers/report.md#review-of-78000)
+**reproduced direct transfer corruption without GPUs**: staged-normal and
+staged-reclaim each passed256 handoffs /512 proof endpoints, then direct-normal
+failed on the first cross-node root transfer. Both captures retained; first word
+was1 at the sender and0 at the receiver. Direct-reclaim unrun; no guard failure.
+HPC:2 nodes /4 CPU cores /8 GiB requested host total /zero GPUs;29 s scheduler
+elapsed. Underlying cause remains unknown. Next is an
+[explicit TCP transport control](../experiments/mpi-transport-control/report.md)
+with the same payloads/Go buffers and budgets; prepared, unmeasured. This may be
+slower and is diagnostic only. Explicit staging stays available; no production
+default or full s=18 validation change.
 
 ## Measurement boundaries for batch entries
 

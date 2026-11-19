@@ -1,0 +1,7 @@
+{
+  "source": ".cache/liftrs/mpi-buffer-comparison/compare-01/direct-a-normal/rank-1/case-2-sample-5-root-1-failed-send-0.bin",
+  "sha256": "4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d",
+  "bytes": 262148,
+  "job": "77868",
+  "scope": "public synthetic preprocessing polynomial, not client data"
+}

@@ -1,0 +1,16 @@
+{
+  "utc": "2026-11-19T16:57:33.361710+00:00",
+  "commands": [
+    "python3 -B experiments/mpi-host-buffers/analyze.py replay-01"
+  ],
+  "tests": "28 Python reviewer tests passed; tagged host build and hash/proof unit passed",
+  "source_sha256": {
+    "experiments/mpi-host-buffers/probe_test.go": "6230d268d4981f23e10226093d4270aa920b54199abedc199e13c695f80ff41e",
+    "experiments/mpi-host-buffers/run.py": "d4bcedbde20b79bbfe9156b138e0852c5a6423915222d8fd60597c73a573dd26",
+    "experiments/mpi-host-buffers/analyze.py": "9e5ec0acdf28c3fc2a8b03132cd253268532e5911f293650b64b1ede8d3dea65",
+    "experiments/mpi-host-buffers/test_review.py": "9e472ff3060097f00bf6b3f79e5e01d7d87a38bbf88d1f5bd4b8a253324b8cf2",
+    "experiments/mpi-transport-control/run.py": "5567225fa9e515a0e1c3028450129fbe92b83389944f7d6807bb97dbb31ab3fd",
+    "experiments/mpi-transport-control/run.sbatch": "616721e3ee8ce3276d07524eb2f84369f6ad753d0b27902ac55579cfce53c855"
+  },
+  "limitations": "Raw producer failure unchanged; completed staged arms verified; no new MPI execution during review."
+}

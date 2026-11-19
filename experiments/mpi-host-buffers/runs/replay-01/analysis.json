@@ -1,0 +1,157 @@
+{
+  "status": "failed",
+  "job_id": "78000",
+  "revision": "c48ee74311b857dd1d61ec123b71e1d9919489c9",
+  "source_files_verified": 652,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 25,
+  "cache_files_verified": 5,
+  "tests": [
+    "TestWideOrbitArithmetic",
+    "TestTableFreeFields"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.0109706079820171,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.01925779995508492,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.3689036179566756,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.02008893305901438,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.06849201605655253,
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "seconds": 16.620412269956432,
+      "exit_code": 0
+    },
+    {
+      "label": "unit",
+      "seconds": 0.21965887199621648,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-normal",
+      "seconds": 2.3258048329735175,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-reclaim",
+      "seconds": 2.3243748269742355,
+      "exit_code": 0
+    },
+    {
+      "label": "direct-normal",
+      "seconds": 1.0687381280586123,
+      "exit_code": 92
+    }
+  ],
+  "scope": "Host-only MPI replay; stress reclamation is diagnostic, not a production mode or proof of cause.",
+  "paired_failures": [
+    {
+      "sender_rank": 2,
+      "receiver_rank": 0,
+      "sender_host": "gnode14",
+      "receiver_host": "gnode13",
+      "comparison": {
+        "equal": false,
+        "left_bytes": 262148,
+        "right_bytes": 262148,
+        "first_differing_byte": 0,
+        "first_differing_word": 0,
+        "left_word": 1,
+        "right_word": 0
+      },
+      "sender_capture_matches_proof": true,
+      "receiver_capture_matches_proof": true
+    }
+  ],
+  "completed_arms": [
+    {
+      "mode": "staged",
+      "reclaim": false,
+      "proof_events": 512,
+      "completed_handoffs": 256,
+      "peak_rss_bytes_per_rank": 307142656,
+      "hosts": {
+        "0": "gnode13",
+        "1": "gnode13",
+        "3": "gnode14",
+        "2": "gnode14"
+      }
+    },
+    {
+      "mode": "staged",
+      "reclaim": true,
+      "proof_events": 512,
+      "completed_handoffs": 256,
+      "peak_rss_bytes_per_rank": 275869696,
+      "hosts": {
+        "1": "gnode13",
+        "0": "gnode13",
+        "2": "gnode14",
+        "3": "gnode14"
+      }
+    }
+  ],
+  "captures": [
+    {
+      "case": 1,
+      "cycle": 0,
+      "direction": "receive",
+      "elapsed_seconds": 0.0531997,
+      "file": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/mpi-host-buffers/replay-01/direct-normal/rank-0/cycle-0-case-1-receive.bin",
+      "host": "gnode13",
+      "kind": "proof",
+      "matches": false,
+      "own_proof": "086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682",
+      "peak_rss_bytes": 262352896,
+      "peer": 2,
+      "rank": 0,
+      "remote_proof": "4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d",
+      "transfer_seconds": 0.009874402,
+      "utc": "2026-11-19T16:49:49.855397771Z",
+      "word_bytes": 4,
+      "snapshot_sha256": "086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682",
+      "bytes": 262148
+    },
+    {
+      "case": 1,
+      "cycle": 0,
+      "direction": "send",
+      "elapsed_seconds": 0.03499682,
+      "file": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/mpi-host-buffers/replay-01/direct-normal/rank-2/cycle-0-case-1-send.bin",
+      "host": "gnode14",
+      "kind": "proof",
+      "matches": false,
+      "own_proof": "4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d",
+      "peak_rss_bytes": 276029440,
+      "peer": 0,
+      "rank": 2,
+      "remote_proof": "086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682",
+      "transfer_seconds": 0.006979812,
+      "utc": "2026-11-19T16:49:49.852940356Z",
+      "word_bytes": 4,
+      "snapshot_sha256": "4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d",
+      "bytes": 262148
+    }
+  ],
+  "current_arm": "direct-normal",
+  "workflow_error": "direct-normal failed"
+}

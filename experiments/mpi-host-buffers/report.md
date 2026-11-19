@@ -1,13 +1,41 @@
 # Host-only MPI buffer replay
 
-Status: **host-only job 78000 submitted** (SCALING-129); results unreviewed.
-[Receipt](submission.json), progress `slurm-78000.log`, results/profiles
-`runs/replay-01/`; implementation `c48ee74`.
-[Source freeze](readiness/snapshot.json): 652 files / 3,080,148 bytes; all eight
-checked input hashes match. No MPI execution is implied by local readiness. [Runner](run.py),
-[scheduler script](run.sbatch), [probe](probe_test.go), [reviewer](analyze.py),
-[review tests](test_review.py). Implementation revision is in submission.json;
-source/evidence/cache seals in results.json. No CUDA library/toolkit or GPU is used.
+Status: **78000 reproduced a direct host-buffer transfer failure** (SCALING-130).
+[Receipt](submission.json), [raw results](runs/replay-01/results.json),
+[review](runs/replay-01/analysis.json), [accounting](runs/replay-01/scheduler-accounting.txt),
+[progress](slurm-78000.log). Implementation `c48ee74`; raw status remains failed.
+Verified **652 source /25 original evidence /5 cache hashes**. No raw evidence edited.
+
+## Review of 78000
+
+HPC gnode13/gnode14,2 nodes /4 ranks /4 CPU cores /zero GPUs,4 GiB requested RAM/node.
+Scheduler elapsed **29 s**, controller **27.396 s**. No guard caused the failure.
+
+| Arm | Outcome | Completed handoffs | Command elapsed | Largest logged process peak RSS/rank |
+|---|---|---:|---:|---:|
+| staged-normal | All512 proof endpoints matched |256 |2.326 s |292.914 MiB |
+| staged-reclaim | All512 proof endpoints matched |256 |2.324 s |263.090 MiB |
+| direct-normal | Failed at cycle0/case1, rank2→0 cross-node |1 full handoff before failure |1.069 s to abort | Not summarized as complete run |
+| direct-reclaim | Not run after failure |0 |Unknown |Unknown |
+
+The cross-node root transfer failed before any GPU/field arithmetic (neither is
+present), and without the explicit forced-reclamation option. Both endpoint
+captures are262,148 bytes; sender/receiver hashes each stable locally but different
+across peers, and captures match their logged proofs. First mismatch is zero-based
+byte0 /word0: sender1, receiver0. Paired paths/hashes in the review. This isolates
+a host-buffer/MPI-path failure under the probe, not a particular runtime/MPI cause.
+Artificial allocation churn remains part of normal arms; this is not a throughput
+measurement or a claim that ordinary preprocessing has identical GC behavior.
+The profile-summary phase was not reached; original CPU profiles are retained.
+
+**Next:** the [explicit TCP MPI control](../mpi-transport-control/report.md) keeps
+Go buffers/payloads/checks unchanged and requests ob1/self,tcp components. Same
+host/core/storage/deadline envelope, no GPUs; no default change. Cost is unknown.
+A proposed Go page-release setting was rejected before submission because full
+runtime initialization already defaults it to1 on Linux; see the control report.
+
+[Runner](run.py), [scheduler script](run.sbatch), [probe](probe_test.go),
+[reviewer](analyze.py), [review tests](test_review.py).
 
 Replay the public polynomial captured at the sender in
 [77868](../mpi-buffer-comparison/report.md#captured-direct-transfer-failure):

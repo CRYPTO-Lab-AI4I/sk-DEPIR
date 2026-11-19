@@ -1,0 +1,137 @@
+0: === RUN   TestHostBuffers
+1: === RUN   TestHostBuffers
+3: === RUN   TestHostBuffers
+2: === RUN   TestHostBuffers
+0: --------------------------------------------------------------------------
+0: WARNING: No preset parameters were found for the device that Open MPI
+0: detected:
+0: 
+0:   Local host:            gnode13
+0:   Device name:           mlx5_0
+0:   Device vendor ID:      0x02c9
+0:   Device vendor part ID: 4129
+0: 
+0: Default device parameters will be used, which may result in lower
+0: performance.  You can edit any of the files specified by the
+0: btl_openib_device_param_files MCA parameter to set values for your
+0: device.
+0: 
+0: NOTE: You can turn off this warning by setting the MCA parameter
+0:       btl_openib_warn_no_device_params_found to 0.
+0: --------------------------------------------------------------------------
+1: --------------------------------------------------------------------------
+1: WARNING: No preset parameters were found for the device that Open MPI
+1: detected:
+1: 
+1:   Local host:            gnode13
+1:   Device name:           mlx5_0
+1:   Device vendor ID:      0x02c9
+1:   Device vendor part ID: 4129
+1: 
+1: Default device parameters will be used, which may result in lower
+1: performance.  You can edit any of the files specified by the
+1: btl_openib_device_param_files MCA parameter to set values for your
+1: device.
+1: 
+1: NOTE: You can turn off this warning by setting the MCA parameter
+1:       btl_openib_warn_no_device_params_found to 0.
+1: --------------------------------------------------------------------------
+0: --------------------------------------------------------------------------
+0: WARNING: There was an error initializing an OpenFabrics device.
+0: 
+0:   Local host:   gnode13
+0:   Local device: mlx5_1
+0: --------------------------------------------------------------------------
+1: --------------------------------------------------------------------------
+1: WARNING: There was an error initializing an OpenFabrics device.
+1: 
+1:   Local host:   gnode13
+1:   Local device: mlx5_1
+1: --------------------------------------------------------------------------
+2: --------------------------------------------------------------------------
+2: WARNING: No preset parameters were found for the device that Open MPI
+2: detected:
+2: 
+2:   Local host:            gnode14
+2:   Device name:           mlx5_0
+2:   Device vendor ID:      0x02c9
+2:   Device vendor part ID: 4129
+2: 
+2: Default device parameters will be used, which may result in lower
+2: performance.  You can edit any of the files specified by the
+2: btl_openib_device_param_files MCA parameter to set values for your
+2: device.
+2: 
+2: NOTE: You can turn off this warning by setting the MCA parameter
+2:       btl_openib_warn_no_device_params_found to 0.
+2: --------------------------------------------------------------------------
+3: --------------------------------------------------------------------------
+3: WARNING: No preset parameters were found for the device that Open MPI
+3: detected:
+3: 
+3:   Local host:            gnode14
+3:   Device name:           mlx5_0
+3:   Device vendor ID:      0x02c9
+3:   Device vendor part ID: 4129
+3: 
+3: Default device parameters will be used, which may result in lower
+3: performance.  You can edit any of the files specified by the
+3: btl_openib_device_param_files MCA parameter to set values for your
+3: device.
+3: 
+3: NOTE: You can turn off this warning by setting the MCA parameter
+3:       btl_openib_warn_no_device_params_found to 0.
+3: --------------------------------------------------------------------------
+2: --------------------------------------------------------------------------
+2: WARNING: There was an error initializing an OpenFabrics device.
+2: 
+2:   Local host:   gnode14
+2:   Local device: mlx5_1
+2: --------------------------------------------------------------------------
+3: --------------------------------------------------------------------------
+3: WARNING: There was an error initializing an OpenFabrics device.
+3: 
+3:   Local host:   gnode14
+3:   Local device: mlx5_1
+3: --------------------------------------------------------------------------
+1: {"chunk_words":65536,"elapsed_seconds":0.000201554,"host":"gnode13","kind":"host","mode":"direct","payload_sha256":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":246132736,"rank":1,"reclaim":false,"staging_bytes":0,"utc":"2026-11-19T16:49:49.800849576Z"}
+0: {"chunk_words":65536,"elapsed_seconds":0.000186576,"host":"gnode13","kind":"host","mode":"direct","payload_sha256":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":243212288,"rank":0,"reclaim":false,"staging_bytes":0,"utc":"2026-11-19T16:49:49.802385026Z"}
+2: {"chunk_words":65536,"elapsed_seconds":0.000215488,"host":"gnode14","kind":"host","mode":"direct","payload_sha256":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":246288384,"rank":2,"reclaim":false,"staging_bytes":0,"utc":"2026-11-19T16:49:49.818155913Z"}
+3: {"chunk_words":65536,"elapsed_seconds":0.000190984,"host":"gnode14","kind":"host","mode":"direct","payload_sha256":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":245297152,"rank":3,"reclaim":false,"staging_bytes":0,"utc":"2026-11-19T16:49:49.819542509Z"}
+0: {"kind":"mpi-chunk","utc":"2026-11-19T16:49:49Z","rank":0,"peer":1,"phase":"root-transfer","sending":false,"event":"completed","completed":65537,"total":65537,"unit":"words","elapsed_seconds":0.000186}
+1: {"kind":"mpi-chunk","utc":"2026-11-19T16:49:49Z","rank":1,"peer":0,"phase":"root-transfer","sending":true,"event":"completed","completed":65537,"total":65537,"unit":"words","elapsed_seconds":0.002625}
+0: {"case":0,"cycle":0,"direction":"receive","elapsed_seconds":0.039780586,"file":"","host":"gnode13","kind":"proof","matches":true,"own_proof":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":262352896,"peer":1,"rank":0,"remote_proof":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","transfer_seconds":0.001256061,"utc":"2026-11-19T16:49:49.84197872Z","word_bytes":4}
+1: {"case":0,"cycle":0,"direction":"send","elapsed_seconds":0.041666618,"file":"","host":"gnode13","kind":"proof","matches":true,"own_proof":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":263520256,"peer":0,"rank":1,"remote_proof":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","transfer_seconds":0.004187715,"utc":"2026-11-19T16:49:49.842316218Z","word_bytes":4}
+2: {"case":0,"completed":1,"cycle":0,"elapsed_seconds":0.025392386,"event":"completed","host":"gnode14","kind":"progress","peak_rss_bytes":274980864,"rank":2,"total":256,"unit":"handoffs","utc":"2026-11-19T16:49:49.843334353Z"}
+3: {"case":0,"completed":1,"cycle":0,"elapsed_seconds":0.024244463,"event":"completed","host":"gnode14","kind":"progress","peak_rss_bytes":273899520,"rank":3,"total":256,"unit":"handoffs","utc":"2026-11-19T16:49:49.843595601Z"}
+0: {"case":0,"completed":1,"cycle":0,"elapsed_seconds":0.040306302,"event":"completed","host":"gnode13","kind":"progress","peak_rss_bytes":262352896,"rank":0,"total":256,"unit":"handoffs","utc":"2026-11-19T16:49:49.842505024Z"}
+1: {"case":0,"completed":1,"cycle":0,"elapsed_seconds":0.041855338,"event":"completed","host":"gnode13","kind":"progress","peak_rss_bytes":263520256,"rank":1,"total":256,"unit":"handoffs","utc":"2026-11-19T16:49:49.842505126Z"}
+0: {"kind":"mpi-chunk","utc":"2026-11-19T16:49:49Z","rank":0,"peer":2,"phase":"root-transfer","sending":false,"event":"completed","completed":65537,"total":65537,"unit":"words","elapsed_seconds":0.000386}
+2: {"kind":"mpi-chunk","utc":"2026-11-19T16:49:49Z","rank":2,"peer":0,"phase":"root-transfer","sending":true,"event":"completed","completed":65537,"total":65537,"unit":"words","elapsed_seconds":0.000398}
+0: {"case":1,"cycle":0,"direction":"receive","elapsed_seconds":0.0531997,"file":"cycle-0-case-1-receive.bin","host":"gnode13","kind":"proof","matches":false,"own_proof":"086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682","peak_rss_bytes":262352896,"peer":2,"rank":0,"remote_proof":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","transfer_seconds":0.009874402,"utc":"2026-11-19T16:49:49.855397771Z","word_bytes":4}
+0:     probe_test.go:237: transfer fingerprint mismatch peer2
+2: {"case":1,"cycle":0,"direction":"send","elapsed_seconds":0.03499682,"file":"cycle-0-case-1-send.bin","host":"gnode14","kind":"proof","matches":false,"own_proof":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":276029440,"peer":0,"rank":2,"remote_proof":"086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682","transfer_seconds":0.006979812,"utc":"2026-11-19T16:49:49.852940356Z","word_bytes":4}
+2:     probe_test.go:237: transfer fingerprint mismatch peer0
+0: --------------------------------------------------------------------------
+0: MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+0: with errorcode 92.
+0: 
+0: NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+0: You may or may not see output from other processes, depending on
+0: exactly when Open MPI kills them.
+0: --------------------------------------------------------------------------
+2: --------------------------------------------------------------------------
+2: MPI_ABORT was invoked on rank 2 in communicator MPI_COMM_WORLD
+2: with errorcode 92.
+2: 
+2: NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+2: You may or may not see output from other processes, depending on
+2: exactly when Open MPI kills them.
+2: --------------------------------------------------------------------------
+0: [2026-11-19T17:49:49.865] error: *** STEP 78000.2 ON gnode13 CANCELLED AT 2026-11-19T17:49:49 DUE to SIGNAL Killed ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: error: gnode14: task 2: Exited with exit code 92
+srun: Terminating StepId=78000.2
+srun: error: gnode13: task 0: Exited with exit code 92
+srun: error: gnode13: task 1: Killed
+srun: error: gnode14: task 3: Killed

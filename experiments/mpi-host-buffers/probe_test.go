@@ -127,7 +127,7 @@ func TestHostBuffers(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	emit(map[string]any{"kind": "host", "mode": *mode, "reclaim": *reclaim, "staging_bytes": world.StagingBytes(), "chunk_words": world.ChunkWords, "payload_sha256": fmt.Sprintf("%x", fingerprint(original))})
+	emit(map[string]any{"kind": "host", "godebug": os.Getenv("GODEBUG"), "mpi_transport": map[string]string{"OMPI_MCA_pml": os.Getenv("OMPI_MCA_pml"), "OMPI_MCA_btl": os.Getenv("OMPI_MCA_btl")}, "mode": *mode, "reclaim": *reclaim, "staging_bytes": world.StagingBytes(), "chunk_words": world.ChunkWords, "payload_sha256": fmt.Sprintf("%x", fingerprint(original))})
 	var done, current atomic.Int64
 	stop := make(chan struct{})
 	defer close(stop)

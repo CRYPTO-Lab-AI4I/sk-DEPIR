@@ -35,4 +35,13 @@ class Review(unittest.TestCase):
             rows.pop(1)
             with self.assertRaises(AssertionError):HELP['review'](rows,payload,'direct',False)
 
+    def test_transport_control_must_reach_every_worker(self):
+        payload,sha,rows=self.fixture();setting={'OMPI_MCA_pml':'ob1','OMPI_MCA_btl':'self,tcp'}
+        for row in rows:
+            if row.get('kind')=='host':row['mpi_transport']=dict(setting)
+        with mock.patch.dict(HELP['review'].__globals__,PAYLOAD_SHA=sha):
+            HELP['review'](rows,payload,'direct',False,setting)
+            rows[0]['mpi_transport']['OMPI_MCA_pml']='ucx'
+            with self.assertRaises(AssertionError):HELP['review'](rows,payload,'direct',False,setting)
+
 if __name__=='__main__':unittest.main()

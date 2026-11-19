@@ -1,0 +1,12 @@
+{
+  "runtime1.go": {
+    "path": ".cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/runtime/runtime1.go",
+    "sha256": "3eee37fa8927b469e4f746598d79a6df3efc58f85e0ccd2ecddc88075ad75dd1",
+    "excerpt": "\t// defaults\n\tdebug.cgocheck = 1\n\tdebug.invalidptr = 1\n\tdebug.adaptivestackstart = 1 // set this to 0 to turn larger initial goroutine stacks off\n\tif GOOS == \"linux\" {\n\t\t// On Linux, MADV_FREE is faster than MADV_DONTNEED,\n\t\t// but doesn't affect many of the statistics that\n\t\t// MADV_DONTNEED does until the memory is actually\n\t\t// reclaimed. This generally leads to poor user\n\t\t// experience, like confusing stats in top and other\n\t\t// monitoring tools; and bad integration with\n\t\t// management systems that respond to memory usage.\n\t\t// Hence, default to MADV_DONTNEED.\n\t\tdebug.madvdontneed = 1\n\t}"
+  },
+  "mem_linux.go": {
+    "path": ".cache/liftrs/toolchains/go1.27.3-linux-amd64/go/src/runtime/mem_linux.go",
+    "sha256": "08cc392d6b540338b966c9593691a700d8ac99ce4081f444f792b994e37b52c7",
+    "excerpt": "var adviseUnused = uint32(_MADV_FREE)\n\nconst madviseUnsupported = 0\n\nfunc sysUnusedOS(v unsafe.Pointer, n uintptr) {\n\tif uintptr(v)&(physPageSize-1) != 0 || n&(physPageSize-1) != 0 {\n\t\t// madvise will round this to any physical page\n\t\t// *covered* by this range, so an unaligned madvise\n\t\t// will release more memory than intended.\n\t\tthrow(\"unaligned sysUnused\")\n\t}\n\n\tadvise := atomic.Load(&adviseUnused)\n\tif debug.madvdontneed != 0 && advise != madviseUnsupported {\n\t\tadvise = _MADV_DONTNEED\n\t}\n\tswitch advise {"
+  }
+}

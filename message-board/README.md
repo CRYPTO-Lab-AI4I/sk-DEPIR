@@ -17,6 +17,11 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-19 16:57 | SCALING-131 | Prepared | [TCP-only control ready](2026-11-19-1657-codex-scaling-131-prepared.md) |
+| 2026-11-19 16:57 | SCALING-130 | Completed | [Host-only failure verified](2026-11-19-1657-codex-scaling-130-completed.md) |
+| 2026-11-19 16:55 | SCALING-131 | Correction | [Use a distinct MPI transport control](2026-11-19-1655-codex-scaling-131-correction.md) |
+| 2026-11-19 16:53 | SCALING-131 | Started | [Test explicit Go page-release control](2026-11-19-1653-codex-scaling-131-started.md) |
+| 2026-11-19 16:53 | SCALING-130 | Started | [Review host-only failure78000](2026-11-19-1653-codex-scaling-130-started.md) |
 | 2026-11-19 16:49 | SCALING-129 | Handoff | [Host-only replay78000 submitted](2026-11-19-1649-codex-scaling-129-handoff.md) |
 | 2026-11-19 16:48 | SCALING-129 | Prepared | [Host-only replay ready](2026-11-19-1648-codex-scaling-129-prepared.md) |
 | 2026-11-19 16:43 | SCALING-129 | Started | [Host-only MPI buffer isolation](2026-11-19-1643-codex-scaling-129-started.md) |

@@ -14,9 +14,10 @@ PAYLOAD=Path('.cache/liftrs/mpi-buffer-comparison/compare-01/direct-a-normal/ran
 PAYLOAD_SHA='4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d'
 
 
-def review(rows,payload,mode,reclaim):
+def review(rows,payload,mode,reclaim,transport=None):
     hosts=[r for r in rows if r.get('kind')=='host']
     assert len(hosts)==4 and {r['rank']for r in hosts}==set(range(4))
+    if transport is not None:assert all(r['mpi_transport']==transport for r in hosts)
     placement={r['rank']:r['host']for r in hosts}
     assert placement[0]==placement[1]and placement[2]==placement[3]and placement[0]!=placement[2]
     expected={4:hashlib.sha256(payload).hexdigest(),8:hashlib.sha256(b''.join(struct.pack('<Q',(1<<34)|x)for x in struct.unpack('<16384I',payload[:65536]))).hexdigest()}
@@ -39,8 +40,11 @@ def review(rows,payload,mode,reclaim):
     return dict(mode=mode,reclaim=reclaim,proof_events=len(proofs),completed_handoffs=256,peak_rss_bytes_per_rank=max(r.get('peak_rss_bytes',0)for r in rows),hosts=placement)
 
 
-def suite(context):
+def suite(context,transport=None):
     run=context['run'];cache=context['cache'];out=context['out'];env=context['env'];go=context['go'];source=context['source']
+    if transport is not None:
+        env.update(transport)
+        context['resources']['diagnostic_transport']=transport
     context['resources'].update(ranks=4,ranks_per_node=2,cpus_per_rank=1,gpus=0,gpu_model=None,owned_cap_MiB_per_card=0,pinned_cap_MiB_per_rank=0,rss_cap_GiB_per_rank=1,churn_MiB_per_rank=16,max_staging_KiB_per_rank=512)
     context['save']()
     data=(BASE['ROOT']/PAYLOAD).read_bytes();assert len(data)==65537*4 and hashlib.sha256(data).hexdigest()==PAYLOAD_SHA
@@ -58,7 +62,7 @@ def suite(context):
         state['current_arm']=name;save();env['PIR_HOST_BUFFER_OUTPUT']=str(cache/name)
         try:
             run(name,['timeout','--signal=TERM','--kill-after=10s','100s','srun','--mpi=pmix_v3','--nodes=2','--ntasks=4','--ntasks-per-node=2','--cpus-per-task=1','--distribution=block:block','--cpu-bind=cores','--chdir='+str(cache),'--label','--kill-on-bad-exit=1','bash',wrapper,out/name,binary,'-test.run=^TestHostBuffers$','-test.v','-test.timeout=90s','-buffer-mode='+mode,'-reclaim='+str(reclaim).lower()],120)
-            state['arms'].append(review(BASE['parse'](out/(name+'.log')),data,mode,reclaim));save()
+            state['arms'].append(review(BASE['parse'](out/(name+'.log')),data,mode,reclaim,transport));save()
         except BaseException as error:state.update(status='failed',error=str(error));save();raise
     run('profile',[go,'tool','pprof','-symbolize=none','-top',binary,out/'staged-normal-0.pprof'],90)
     state['status']='passed';save();return dict(host_buffers=state)

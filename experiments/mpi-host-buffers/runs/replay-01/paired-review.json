@@ -1,0 +1,17 @@
+{
+  "sender_rank": 2,
+  "receiver_rank": 0,
+  "sender_host": "gnode14",
+  "receiver_host": "gnode13",
+  "comparison": {
+    "equal": false,
+    "left_bytes": 262148,
+    "right_bytes": 262148,
+    "first_differing_byte": 0,
+    "first_differing_word": 0,
+    "left_word": 1,
+    "right_word": 0
+  },
+  "sender_capture_matches_proof": true,
+  "receiver_capture_matches_proof": true
+}

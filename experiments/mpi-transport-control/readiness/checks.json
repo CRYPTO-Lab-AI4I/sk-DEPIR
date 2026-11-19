@@ -1,0 +1,28 @@
+{
+  "utc": "2026-11-19T16:57:33.361710+00:00",
+  "base_revision": "429770cacf90feb90b5e21569e524ee9e7c643cf",
+  "source_sha256": {
+    "experiments/mpi-host-buffers/probe_test.go": "6230d268d4981f23e10226093d4270aa920b54199abedc199e13c695f80ff41e",
+    "experiments/mpi-host-buffers/run.py": "d4bcedbde20b79bbfe9156b138e0852c5a6423915222d8fd60597c73a573dd26",
+    "experiments/mpi-host-buffers/analyze.py": "9e5ec0acdf28c3fc2a8b03132cd253268532e5911f293650b64b1ede8d3dea65",
+    "experiments/mpi-host-buffers/test_review.py": "9e472ff3060097f00bf6b3f79e5e01d7d87a38bbf88d1f5bd4b8a253324b8cf2",
+    "experiments/mpi-transport-control/run.py": "5567225fa9e515a0e1c3028450129fbe92b83389944f7d6807bb97dbb31ab3fd",
+    "experiments/mpi-transport-control/run.sbatch": "616721e3ee8ce3276d07524eb2f84369f6ad753d0b27902ac55579cfce53c855"
+  },
+  "checks": [
+    "CC=mpicc CXX=mpicxx go test -c -tags liftrs_mpi -o /tmp/mpi-transport.test ./experiments/mpi-host-buffers (25 s limit)",
+    "/tmp/mpi-transport.test -test.run=^TestFingerprintHighBitsAndTail$ -test.v -test.timeout=15s",
+    "python3 -B experiments/mpi-host-buffers/test_review.py",
+    "python3 -B experiments/mpi-buffer-comparison/test_review.py",
+    "python3 -B experiments/root-merge-tree/test_review.py",
+    "python3 -B experiments/root-transfer-diagnostics/test_review.py",
+    "python3 -B experiments/distributed-root/test_review.py",
+    "python3 -B experiments/gpu-staged-transport/test_review.py",
+    "python3 -B experiments/gpu-code-encoding/test_suite.py"
+  ],
+  "limitations": [
+    "No local MPI execution.",
+    "TCP runtime penalty unknown; diagnostic only, no default change.",
+    "Prior Go page-release hypothesis corrected before submission."
+  ]
+}

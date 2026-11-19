@@ -2364,13 +2364,16 @@ SCALING-109 next-work order is explicit:
    in a small host-only reproduction, separately from arithmetic; retain validated
    explicit staging for further bounded distributed discovery/products/FFT work.
    No full-size capability or production default follows. Profile reporting now
-   SCALING-129: [host-only replay](../experiments/mpi-host-buffers/report.md)
-   reuses captured sender bytes and the shared transport/proof handshake without
-   GPU arithmetic. Staged controls precede direct; same-node/cross-node root and
-   uint64 routes, normal churn versus explicit forced reclamation. Zero GPUs,
-   unchanged 2-node/4-core/8 GiB host and storage/deadline envelope. **78000 submitted**,
-   results unmeasured; stop on failure and preserve both endpoints. Reclamation
-   stress is not a preprocessing mode or evidence of cause. Profile reporting
+   SCALING-130: [host-only78000](../experiments/mpi-host-buffers/report.md#review-of-78000)
+   reproduced a direct cross-node host payload failure at cycle0/case1, without
+   CUDA/arithmetic or forced reclamation. Both staged controls passed256 handoffs
+   /512 proofs. Direct-reclaim unrun; source cause unknown. Same2-node/4-core/
+   8 GiB host, zero GPUs;29 s elapsed. SCALING-131: next test an explicit
+   [ob1/self,tcp transport control](../experiments/mpi-transport-control/report.md)
+   with the same buffers/checks/budgets. No runtime-flag experiment: inspected Go
+   initialization already defaults madvdontneed=1 on Linux. TCP may cost runtime;
+   unknown penalty, diagnostic-only, no default change. Prepared, unmeasured.
+   Retain staged mode for bounded integration; fulls18 remains unrun. Reporting
    gets 90 s inside the unchanged controller/scheduler limits, after its measured
    28.060 s approached the old 30 s reporting deadline. Native timed clocks stay.
 
