@@ -205,3 +205,16 @@ reported as a memory/time trade-off rather than assumed free.
 Follow-up [targeted diagnostic77782](../root-transfer-diagnostics/report.md) is
 submitted in the same resource envelope with pre-consumption proofs and paired
 failure capture. It does not clear this gate or alter the original raw evidence.
+
+## Shared comparison orchestration (SCALING-127)
+
+The [runner](run.py) now separates `prepare(context)` (one build/reference/test
+setup) from `execute(context, prepared, prefix)` (the existing normal/memcheck/
+profile sequence). The default `suite` composes both with an empty prefix,
+preserving historical paths and measurement clocks. The
+[controlled buffer comparison](../mpi-buffer-comparison/report.md) reuses the
+same preparation across arms and prefixes every artifact/log. Execution clears
+the preceding memcheck's small-fixture environment before each normal arm, so
+later arms retain the full identical fixtures. No arithmetic or ownership logic
+changes. Local orchestration/reviewer tests pass; MPI/GPU execution awaits the
+comparison job. Historical results are unchanged.

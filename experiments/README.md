@@ -60,6 +60,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Direct versus MPI-owned staging](mpi-buffer-comparison/report.md): one build,
+  staged/direct/direct/staged order on one existing-budget allocation. Same checks,
+  explicit modes and stop-on-failure evidence; prepared, no result/default change.
+
 - [Root-transfer diagnostics](root-transfer-diagnostics/report.md): targeted
   proof exchange and paired failure snapshots after77704's transfer hash mismatch;
  job 77782 failed later on an uncovered support-index packet. All 78 completed

@@ -623,7 +623,9 @@ support, not full s=17/s=18 preprocessing. The workflow status remains failed du
 to a later 30 s profile-summary timeout; all four raw profiles were recovered offline.
 Staging adds 512 KiB host scratch per rank and CPU copies; its isolated runtime
 penalty remains unknown. Earlier direct-buffer failures remain unresolved. Next
-is a controlled direct/staged comparison with identical checks; no default change.
+is the [same-build direct/staged comparison](../experiments/mpi-buffer-comparison/report.md):
+staged/direct/direct/staged in one existing-budget allocation, with identical
+checks and saved failures. It is prepared, not measured; no default change.
 
 ## Measurement boundaries for batch entries
 

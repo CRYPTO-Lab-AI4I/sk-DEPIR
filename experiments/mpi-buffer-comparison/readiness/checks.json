@@ -1,0 +1,56 @@
+{
+  "status": "passed",
+  "utc": "2026-11-19T13:46:45.458183+00:00",
+  "base_revision": "e98de99fca41578c419fd8027e187134e18ad81d",
+  "source_state": "working tree before comparison implementation commit; checked hashes below",
+  "source_sha256": {
+    "experiments/root-merge-tree/run.py": "8add5cafb04335a57534cdafd00075cc7798611f207db6bc6a9ecfc093e8b943",
+    "experiments/mpi-buffer-comparison/run.py": "986738d39c621c248b2569d5d9bd23a017c85317bd94159bcf1e0faaae8e21e7",
+    "experiments/mpi-buffer-comparison/analyze.py": "22ace6809c46098e61b3180fc5c23e11109b45f7adadcd9b84f3c5e62f3b8bcf",
+    "experiments/mpi-buffer-comparison/test_review.py": "c96a3c4de4e6035d86795212a31746b8deb1ffce7db08bb9963b9a00823ed872",
+    "experiments/mpi-buffer-comparison/run.sbatch": "e9fddde9ee9659ecf387275d19075c6f017955dd916bd9d38bd1b0384def51d0"
+  },
+  "checks": [
+    {
+      "command": "python3 -B experiments/mpi-buffer-comparison/test_review.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/root-merge-tree/test_review.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/root-transfer-diagnostics/test_review.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/distributed-root/test_review.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/gpu-staged-transport/test_review.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/gpu-code-encoding/test_suite.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/mpi-buffer-comparison/run.py --check",
+      "exit_code": 0
+    },
+    {
+      "command": "bash -n experiments/mpi-buffer-comparison/run.sbatch",
+      "exit_code": 0
+    },
+    {
+      "command": "AST parse all changed Python scripts; git diff --check",
+      "exit_code": 0
+    }
+  ],
+  "limitations": [
+    "No local MPI/GPU execution. Native harness/kernels unchanged; build and fixture/race checks remain inside submitted job.",
+    "Earlier direct-buffer faults remain open; partial arms cannot establish a full timing comparison.",
+    "Staging runtime penalty and full-size behavior remain unmeasured."
+  ]
+}

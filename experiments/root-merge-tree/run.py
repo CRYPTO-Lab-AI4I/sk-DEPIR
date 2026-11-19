@@ -142,7 +142,8 @@ def review(rows,directory,small=False,repeats=2):
     return values
 
 
-def suite(context):
+def prepare(context):
+    """Compile once; comparison arms reuse the same executable and library."""
     run=context['run'];cache=context['cache'];out=context['out'];source=context['source'];env=context['env'];go=context['go']
     context['resources'].update(ranks=4,ranks_per_node=2,cpus_per_rank=1,owned_cap_MiB_per_rank=64,rss_cap_GiB_per_rank=1,pinned_cap_MiB_per_rank=0,
         physical_gpus=2,logical_ranks_share_card=True)
@@ -158,24 +159,37 @@ def suite(context):
     run('shared-tests',[go,'test','./encoding/liftrs-shared','-run',tests,'-count=1','-timeout=60s'],90)
     run('shared-race',[go,'test','-race','./encoding/liftrs-shared','-run',tests,'-count=1','-timeout=60s'],90)
     wrapper=cache/'rank.sh';shutil.copyfile(source/'experiments/distributed-root/rank.sh',wrapper)
+    return binary,library,wrapper
+
+
+def execute(context,prepared,prefix=''):
+    """Run shared fixtures/checks with distinct durable paths for each arm."""
+    binary,library,wrapper=prepared
+    cache=context['cache'];out=context['out'];env=context['env'];go=context['go']
+    def run(label,argv,timeout=30):return context['run'](prefix+label,argv,timeout)
+    env.pop('PIR_ROOT_TREE_SMALL',None)
     env.update(PIR_GPU_PREPARATION_LIBRARY=str(library),LIFTRS_GPU_PREPARATION_VECTOR_LAYOUT='local',PIR_ROOT_TREE_CHUNK_WORDS='65536',GOMAXPROCS='1',GOMEMLIMIT=str(512<<20))
     launcher=['timeout','--signal=TERM','--kill-after=10s','240s','srun','--mpi=pmix_v3','--nodes=2','--ntasks=4','--ntasks-per-node=2',
         '--cpus-per-task=1','--gpus-per-node=h200:1','--gpu-bind=single:2','--gres-flags=allow-task-sharing',
         '--distribution=block:block','--cpu-bind=cores','--label','--kill-on-bad-exit=1','bash',wrapper]
     test_args=['-test.run=^TestRankOwnedRootTree$','-test.v','-test.timeout=220s','-root-mpi-buffer='+env.get('PIR_ROOT_TREE_MPI_BUFFER','direct')]
-    env['PIR_ROOT_TREE_OUTPUT']=str(cache/'normal')
-    run('normal',[*launcher,out/'normal',binary,*test_args],260)
-    normal=BASE['parse'](out/'normal.log');review(normal,cache/'normal',repeats=int(env.get('PIR_ROOT_TREE_REPEATS','2')))
-    env.update(PIR_ROOT_TREE_SMALL='1',PIR_ROOT_TREE_CHUNK_WORDS='1024',PIR_ROOT_TREE_OUTPUT=str(cache/'sanitized'))
-    run('memcheck',[*launcher,out/'memcheck','compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',binary,*test_args],260)
-    sanitized=BASE['parse'](out/'memcheck.log');review(sanitized,cache/'sanitized',small=True)
-    text=(out/'memcheck.log').read_text()
+    env['PIR_ROOT_TREE_OUTPUT']=str(cache/(prefix+'normal'))
+    run('normal',[*launcher,out/(prefix+'normal'),binary,*test_args],260)
+    normal=BASE['parse'](out/(prefix+'normal.log'));review(normal,cache/(prefix+'normal'),repeats=int(env.get('PIR_ROOT_TREE_REPEATS','2')))
+    env.update(PIR_ROOT_TREE_SMALL='1',PIR_ROOT_TREE_CHUNK_WORDS='1024',PIR_ROOT_TREE_OUTPUT=str(cache/(prefix+'sanitized')))
+    run('memcheck',[*launcher,out/(prefix+'memcheck'),'compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',binary,*test_args],260)
+    sanitized=BASE['parse'](out/(prefix+'memcheck.log'));review(sanitized,cache/(prefix+'sanitized'),small=True)
+    text=(out/(prefix+'memcheck.log')).read_text()
     assert text.count('ERROR SUMMARY: 0 errors')==4 and text.count('LEAK SUMMARY: 0 bytes')==4
     for rank in range(4):
-        assert (out/f'normal-{rank}.pprof').stat().st_size>0
+        assert (out/f'{prefix}normal-{rank}.pprof').stat().st_size>0
     # Keep post-run summaries offline; retain full profiles for later native symbolization.
-    run('profile',[go,'tool','pprof','-symbolize=none','-top',binary,out/'normal-0.pprof'])
+    run('profile',[go,'tool','pprof','-symbolize=none','-top',binary,out/(prefix+'normal-0.pprof')])
     return dict(measurements=normal,sanitized=sanitized)
+
+
+def suite(context):
+    return execute(context,prepare(context))
 
 
 if __name__=='__main__':
