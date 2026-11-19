@@ -61,7 +61,7 @@ original methodology; apply this policy to new optimization runs.
 ## Recorded experiments
 
 - [TCP-only MPI transport control](mpi-transport-control/report.md): explicit
-  ob1/self,tcp on the same host replay; zero GPUs, existing budget, prepared.
+  ob1/self,tcp on the same host replay; zero GPUs, existing budget,78001 submitted.
 
 - [Host-only MPI buffer replay](mpi-host-buffers/report.md): captured public
   payload, shared transport/proofs, same-node/cross-node routes and explicit

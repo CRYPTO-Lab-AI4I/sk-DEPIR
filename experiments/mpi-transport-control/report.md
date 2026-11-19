@@ -1,6 +1,10 @@
 # TCP-only MPI transport control
 
-Status: prepared (SCALING-131), results unmeasured. [Runner](run.py),
+Status: **TCP control78001 submitted** (SCALING-131), results unreviewed.
+[Receipt](submission.json), progress `slurm-78001.log`, results/profiles
+`runs/tcp-01/`. Implementation `f937bcd`;
+[source freeze](readiness/snapshot.json):654 files /3,083,165 bytes, all six checked
+input hashes match. No MPI execution is implied by local readiness. [Runner](run.py),
 [scheduler script](run.sbatch), [shared host probe](../mpi-host-buffers/probe_test.go),
 [shared runner](../mpi-host-buffers/run.py), [reviewer](../mpi-host-buffers/analyze.py).
 Implementation revision in submission.json; source/evidence/cache seals in results.json.

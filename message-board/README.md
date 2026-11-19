@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-19 16:58 | SCALING-131 | Handoff | [TCP transport control78001 submitted](2026-11-19-1658-codex-scaling-131-handoff.md) |
 | 2026-11-19 16:57 | SCALING-131 | Prepared | [TCP-only control ready](2026-11-19-1657-codex-scaling-131-prepared.md) |
 | 2026-11-19 16:57 | SCALING-130 | Completed | [Host-only failure verified](2026-11-19-1657-codex-scaling-130-completed.md) |
 | 2026-11-19 16:55 | SCALING-131 | Correction | [Use a distinct MPI transport control](2026-11-19-1655-codex-scaling-131-correction.md) |

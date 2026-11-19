@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "utc": "2026-11-19T16:58:08.526576+00:00",
+  "revision": "f937bcdece633ea5389d41423626575fbb090412",
+  "files": 654,
+  "bytes": 3083165,
+  "checked_input_files": 6,
+  "scope": "Exact frozen Git build inputs; no MPI execution."
+}

@@ -30,7 +30,7 @@ The profile-summary phase was not reached; original CPU profiles are retained.
 
 **Next:** the [explicit TCP MPI control](../mpi-transport-control/report.md) keeps
 Go buffers/payloads/checks unchanged and requests ob1/self,tcp components. Same
-host/core/storage/deadline envelope, no GPUs; no default change. Cost is unknown.
+host/core/storage/deadline envelope, no GPUs; job78001 submitted, no default change. Cost is unknown.
 A proposed Go page-release setting was rejected before submission because full
 runtime initialization already defaults it to1 on Linux; see the control report.
 

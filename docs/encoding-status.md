@@ -638,7 +638,7 @@ was1 at the sender and0 at the receiver. Direct-reclaim unrun; no guard failure.
 HPC:2 nodes /4 CPU cores /8 GiB requested host total /zero GPUs;29 s scheduler
 elapsed. Underlying cause remains unknown. Next is an
 [explicit TCP transport control](../experiments/mpi-transport-control/report.md)
-with the same payloads/Go buffers and budgets; prepared, unmeasured. This may be
+with the same payloads/Go buffers and budgets; **78001 submitted**, results unreviewed. This may be
 slower and is diagnostic only. Explicit staging stays available; no production
 default or full s=18 validation change.
 

@@ -2372,7 +2372,7 @@ SCALING-109 next-work order is explicit:
    [ob1/self,tcp transport control](../experiments/mpi-transport-control/report.md)
    with the same buffers/checks/budgets. No runtime-flag experiment: inspected Go
    initialization already defaults madvdontneed=1 on Linux. TCP may cost runtime;
-   unknown penalty, diagnostic-only, no default change. Prepared, unmeasured.
+   unknown penalty, diagnostic-only, no default change. **78001 submitted**, unreviewed.
    Retain staged mode for bounded integration; fulls18 remains unrun. Reporting
    gets 90 s inside the unchanged controller/scheduler limits, after its measured
    28.060 s approached the old 30 s reporting deadline. Native timed clocks stay.
