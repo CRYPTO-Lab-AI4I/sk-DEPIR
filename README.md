@@ -164,7 +164,7 @@ All four workers recorded the requested settings;90 s test cutoff triggered,
 not the memory guard. No corruption or speed conclusion is possible; later
 arms unrun. HPC:2 nodes /4 CPU cores /8 GiB requested host /zero GPUs;1 min55 s
 scheduler elapsed. Next [observe automatic MPI component selection](experiments/mpi-transport-discovery/report.md)
-with diagnostic logs and the same replay/budget, prepared and unmeasured. Original
+with diagnostic logs and the same replay/budget; **78009 submitted**, results unreviewed. Original
 direct corruption remains unresolved; staged bounded validation is retained.
 No production default or full s=18 validation change.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end

@@ -61,7 +61,7 @@ original methodology; apply this policy to new optimization runs.
 ## Recorded experiments
 
 - [Automatic MPI component discovery](mpi-transport-discovery/report.md): original
-  host replay with bounded PML/BTL/UCX logging, no forced data transport; prepared.
+  host replay with bounded PML/BTL/UCX logging, no forced data transport;78009 submitted.
 
 - [TCP-only MPI transport control](mpi-transport-control/report.md): explicit
   78001 stalled on the first staged payload and hit90 s test cutoff. No completed

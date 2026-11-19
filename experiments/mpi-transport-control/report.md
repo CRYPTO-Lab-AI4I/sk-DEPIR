@@ -25,7 +25,8 @@ forced transport was unusable for this test. The cause of the stall is unknown.
 Do not extend a deadline based on these non-advancing counts.
 
 Next: [observe automatic component selection](../mpi-transport-discovery/report.md)
-under the original host replay, retaining the same resource budget and captures.
+under the original host replay, retaining the same resource budget and captures;
+job78009 submitted, results unreviewed.
 No further component is forced before observing which one the working configuration
 selects. Default direct corruption and staged bounded results remain unchanged;
 no production default or full s=18 claim. Source parser now ignores Go stack

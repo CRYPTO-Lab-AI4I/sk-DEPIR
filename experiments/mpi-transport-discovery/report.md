@@ -1,6 +1,10 @@
 # Observe automatic MPI transport selection
 
-Status: prepared (SCALING-133), no runtime result. [Runner](run.py),
+Status: **discovery78009 submitted** (SCALING-133), results unreviewed.
+[Receipt](submission.json), progress `slurm-78009.log`, results/profiles
+`runs/discovery-01/`. Implementation `7ab96be`;
+[source freeze](readiness/snapshot.json):656 files /3,085,261 bytes, all six
+checked input hashes match. No MPI execution implied by readiness. [Runner](run.py),
 [scheduler script](run.sbatch), [shared probe](../mpi-host-buffers/probe_test.go),
 [shared orchestration](../mpi-host-buffers/run.py),
 [reviewer](../mpi-host-buffers/analyze.py). Implementation revision in submission.json;

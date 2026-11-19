@@ -2374,7 +2374,7 @@ SCALING-109 next-work order is explicit:
    No speed/fix/corruption conclusion from the unusable control. SCALING-133:
    [observe automatic PML/BTL/UCX selection](../experiments/mpi-transport-discovery/report.md)
    on the original host replay before forcing more components. Same budget,
-   bounded diagnostic logging only; prepared and unmeasured. No deadline increase
+   bounded diagnostic logging only; **78009 submitted**, results unreviewed. No deadline increase
    for a transfer with zero completed work. Logging overhead unknown, no default
    change. Earlier Go runtime-flag proposal remains rejected as redundant.
    Retain staged mode for bounded integration; fulls18 remains unrun. Reporting
