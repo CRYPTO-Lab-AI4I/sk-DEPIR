@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-19 10:28 | SCALING-125 | Handoff | [Staged MPI diagnostic77799 submitted](2026-11-19-1028-codex-scaling-125-handoff.md) |
 | 2026-11-19 10:27 | SCALING-125 | Prepared | [MPI-owned staging and all-packet checks ready](2026-11-19-1027-codex-scaling-125-prepared.md) |
 | 2026-11-19 10:25 | SCALING-124 | Completed | [Support-packet diagnostic failure reviewed](2026-11-19-1025-codex-scaling-124-completed.md) |
 | 2026-11-19 10:20 | SCALING-125 | Started | [Explicit MPI-owned chunk staging and all-packet capture](2026-11-19-1020-codex-scaling-125-started.md) |

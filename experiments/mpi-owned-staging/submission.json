@@ -1,0 +1,34 @@
+{
+  "job_id": "77799",
+  "submitted_utc": "2026-11-19T10:28:19.077926+00:00",
+  "implementation_revision": "6a32c38e76f55d887405a4b5b1f97b6059713862",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--output=experiments/mpi-owned-staging/slurm-%j.log",
+    "experiments/mpi-owned-staging/run.sbatch",
+    "staged-01"
+  ],
+  "results": "experiments/mpi-owned-staging/runs/staged-01",
+  "progress_log": "experiments/mpi-owned-staging/slurm-77799.log",
+  "cache": ".cache/liftrs/mpi-owned-staging/staged-01/",
+  "resources": {
+    "nodes": 2,
+    "gpus": 2,
+    "logical_ranks": 4,
+    "cpus": 4,
+    "requested_host_GiB_per_node": 4,
+    "owned_MiB_per_rank": 64,
+    "owned_MiB_per_card": 128,
+    "rss_guard_GiB_per_rank": 1,
+    "mpi_staging_KiB_per_rank": 512,
+    "mpi_staging_MiB_total": 2,
+    "retained_cap_MiB": 128,
+    "scratch_cap_GiB": 2,
+    "scheduler_seconds": 900
+  },
+  "admission": "Same previously admitted resource envelope; scratch allocation inside existing host cap.",
+  "scope": "Explicit staging diagnostic; both widths covered; original failed gates remain unresolved.",
+  "monitoring": "No polling/log following/result analysis until user completion ping.",
+  "source": "Exact tracked Git build inputs frozen at actual start; receipt/docs-only followup does not alter checked inputs."
+}

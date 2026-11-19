@@ -135,7 +135,8 @@ memcheck was not reached. Scheduler runtime was 2 min 8 s; largest logged proces
 peak RSS was 407.578 MiB per rank on HPC (two H200s across two nodes, four logical
 ranks). [Evidence](experiments/root-transfer-diagnostics/report.md).
 Next is an [explicit MPI-owned staging probe](experiments/mpi-owned-staging/report.md)
-with checks/capture for both packet widths. This adds 512 KiB host scratch per rank
+with checks/capture for both packet widths, submitted as **job 77799**. This adds
+512 KiB host scratch per rank
 and one CPU copy on each send/receive; runtime penalty is unknown. Original failures
 remain unresolved; no production default or full s=18 validation follows.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end

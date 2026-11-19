@@ -1,6 +1,10 @@
 # Bounded MPI-owned staging probe
 
-Status: prepared for a diagnostic run (SCALING-125); no MPI/GPU result yet.
+Status: **diagnostic job 77799 submitted** (SCALING-125); results unreviewed.
+[Submission receipt](submission.json), results/profiles `runs/staged-01/`,
+progress `slurm-77799.log`. Implementation `6a32c38`.
+[Frozen-source check](readiness/snapshot.json): 642 files, 3,043,961 bytes; all eight
+checked input hashes match. No GPU/MPI execution is implied by local readiness.
 The [previous diagnostic](../root-transfer-diagnostics/report.md) failed on an
 uncovered uint64 support packet after 78 matching polynomial proofs. The original
 77704 coefficient-transfer disagreement and 77782 support failure remain unresolved.
@@ -9,7 +13,7 @@ uncovered uint64 support packet after 78 matching polynomial proofs. The origina
 [test harness](../../encoding/liftrs-shared/root_tree_gpu_test.go),
 [MPI implementation](../distributed-root/mpi/world.go),
 [reviewer](../root-transfer-diagnostics/analyze.py). The checked source revision
-will be recorded in submission.json; exact frozen build inputs and all file hashes
+is recorded in submission.json; exact frozen build inputs and all file hashes
 are recorded by the runner in results.json. No arithmetic kernel changes.
 
 This experiment explicitly selects `-root-mpi-buffer=staged`. One reusable

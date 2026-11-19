@@ -68,7 +68,7 @@ original methodology; apply this policy to new optimization runs.
 - [MPI-owned chunk staging](mpi-owned-staging/report.md): explicit bounded-buffer
   probe with proof/capture for both index and coefficient packets; same two-node/
   two-H200 budget, extra 512 KiB host scratch per rank and CPU copies. Runtime
-  penalty unmeasured; no production default change.
+  penalty unmeasured; job 77799 submitted, no production default change.
 
 - [Rank-owned support and GPU merge tree](root-merge-tree/report.md): shared
   bounded routing, deterministic unique ownership and complete state-chain/CPU

@@ -2343,7 +2343,8 @@ SCALING-109 next-work order is explicit:
    SCALING-125: test an explicit MPI-owned staging buffer and extend the same
    symmetric proof/durable-capture handshake to support indices before range
    checks. [Runnable plan](../experiments/mpi-owned-staging/report.md). Same admitted
-   two-node/two-H200 envelope; 512 KiB extra host scratch per rank (2 MiB total),
+   two-node/two-H200 envelope; submitted as **job 77799**. Adds 512 KiB extra host
+   scratch per rank (2 MiB total),
    one CPU copy per send/receive, no added transforms/storage. Runtime penalty
    unknown; do not change production defaults or clear the original failure
    merely because the staged diagnostic passes. Both packet widths, full CPU
