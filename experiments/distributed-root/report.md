@@ -234,3 +234,8 @@ now passes. It verifies application-call coalescing and atomic/restart/race beha
 but elapsed benefit is mixed and readback dominates; defaults stay unchanged.
 The current next implementation is scalable rank ownership/multi-level merge and
 full preprocessing/publication integration, as recorded in the scaling plan.
+
+The subsequent [rank-owned merge tree](../root-merge-tree/report.md) now implements
+bounded coordinator routing and uniquely owned subtree reductions using the same
+arithmetic and extended optional MPI binding. Validation is pending on four logical
+ranks sharing two physical GPUs; historical77285 timing/source evidence is unchanged.

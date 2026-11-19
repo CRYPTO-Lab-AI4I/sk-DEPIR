@@ -17,6 +17,9 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-19 09:26 | SCALING-121 | Prepared | [Final tree readiness includes chunked wide transfers](2026-11-19-0926-codex-scaling-121-prepared-counts.md) |
+| 2026-11-19 08:48 | SCALING-121 | Prepared | [Rank-owned tree ready within existing budget](2026-11-19-0848-codex-scaling-121-prepared.md) |
+| 2026-11-19 08:13 | SCALING-121 | Started | [Rank-owned support and multi-level root reduction](2026-11-19-0813-codex-scaling-121-started.md) |
 | 2026-11-18 18:42 | SCALING-120 | Completed | [Persistence77352 passes; measured trade-offs/current reference](2026-11-18-1842-codex-scaling-120-completed.md) |
 | 2026-11-18 18:37 | SCALING-120 | Started | [Review buffered persistence77352](2026-11-18-1837-codex-scaling-120-started.md) |
 | 2026-11-18 18:31 | SCALING-119 | Handoff | [Buffered persistence validation77352 submitted](2026-11-18-1831-codex-scaling-119-handoff.md) |

@@ -24,11 +24,11 @@ type rootFixture struct {
 }
 
 func makeRootFixture(s, count int, genuine bool) (*rootFixture, error) {
-	n := 1 << uint(2*s)
-	h, extension, err := canonicalScalingCodeHeader(s, 5, 1, uint64(n))
+	fixture, err := makeRootArithmetic(s)
 	if err != nil {
 		return nil, err
 	}
+	n := fixture.n
 	var support []int
 	if genuine {
 		basis, err := DiscoverOrbit(Spec{s, 2, 5}, OrbitOptions{Random: rand.New(rand.NewSource(109))})
@@ -62,11 +62,24 @@ func makeRootFixture(s, count int, genuine bool) (*rootFixture, error) {
 	for maximum < len(support)+1 {
 		maximum *= 2
 	}
+	fixture.support, fixture.maximum = support, maximum
+	return fixture, nil
+}
+
+// Field-only setup permits non-coordinator workers to avoid a full support or
+// full CPU oracle. The same canonical arithmetic is used by both fixtures.
+func makeRootArithmetic(s int) (*rootFixture, error) {
+	n := 1 << uint(2*s)
+	h, extension, err := canonicalScalingCodeHeader(s, 5, 1, uint64(n))
+	if err != nil {
+		return nil, err
+	}
 	base, err := NewBinaryField(s, h.Polynomial)
 	if err != nil {
 		return nil, err
 	}
-	return &rootFixture{h, extension, support, n, maximum, orbitField{q: 1 << uint(s), base: base, lookup: newPreparationProducts(base)}}, nil
+	return &rootFixture{header: h, extension: extension, n: n, maximum: 4,
+		base: orbitField{q: 1 << uint(s), base: base, lookup: newPreparationProducts(base)}}, nil
 }
 
 func (f *rootFixture) withEngine(engine rootWorkerEngine) orbitField {

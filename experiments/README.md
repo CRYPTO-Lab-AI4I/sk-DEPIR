@@ -60,6 +60,11 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Rank-owned support and GPU merge tree](root-merge-tree/report.md): shared
+  bounded routing, deterministic unique ownership and complete state-chain/CPU
+  reference checks. Four logical ranks share2H200/2HPC nodes; validation pending,
+  no4GPU speedup, distributed discovery/fullsize transform or default claim.
+
 - [Buffered preprocessing persistence](preprocessing-persistence/report.md): shared
   payload/fsync/atomic publication with explicit4MiB buffering, fixed96MiB trials
   at1/2/4 writers, full restart readback and file-call/cache accounting. Bounded

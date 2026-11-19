@@ -1,0 +1,12 @@
+=== RUN   TestPreparationRootPartitions
+--- PASS: TestPreparationRootPartitions (0.06s)
+=== RUN   TestRootPartitionAdmission
+--- PASS: TestRootPartitionAdmission (0.00s)
+=== RUN   TestRootTreeOwnership
+--- PASS: TestRootTreeOwnership (0.00s)
+=== RUN   TestRootTreeAdmissionAndFailure
+--- PASS: TestRootTreeAdmissionAndFailure (0.00s)
+=== RUN   TestRootRoutingPackets
+--- PASS: TestRootRoutingPackets (0.00s)
+PASS
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	0.090s

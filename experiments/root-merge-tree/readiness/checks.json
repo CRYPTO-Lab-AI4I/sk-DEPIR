@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "utc": "2026-11-19T09:26:47.895677+00:00",
+  "base_revision": "201821904082f99120cd98beeb386bb01bf68eec",
+  "source_state": "working tree before implementation commit; current checked input hashes below",
+  "source_sha256": {
+    "encoding/liftrs-shared/root_partitions.go": "bb8f9f0d3e050e4501e67cb37da78ab0d0887d12d06b7d3eb549fc759106daea",
+    "encoding/liftrs-shared/root_tree.go": "c982dc7ddf62cf4e39a365cb788f4c6a440a2408309bb1cbc16427c51171b813",
+    "encoding/liftrs-shared/root_tree_test.go": "8ee4a5b50cc820cb0847dd64f6d017e54e4b3ecb910662a79e5df542615be870",
+    "encoding/liftrs-shared/root_tree_gpu_test.go": "2cf34d1d392a2290a2887ab221f5dd4b7de5fdf16fbbf4f08fd8e99a2674c9ee",
+    "encoding/liftrs-shared/root_fixtures_gpu_test.go": "8df1f4351c5a94332def737e2ee6b7604356a0ea4fb8e8adc31a183281f6c9ce",
+    "experiments/distributed-root/mpi/world.go": "916251be83f741423f9e18e8e0013d4d8720e71c8d6a58f988d9a3998749f4f2",
+    "experiments/gpu-staged-transport/run.py": "a1abc2da91e073bc0ad68b1ef2c377851ab421f144c2aadbea339b915eb3d032",
+    "experiments/root-merge-tree/analyze.py": "2ab9d922eb92b2e2353d76e92bdce3478dc9d534df87f45041e9cb1cb63e8e8a",
+    "experiments/root-merge-tree/run.py": "b4bd75968825569c6a4bce4f454798d84f759b7aed5f7eb1b7b5fde29e5111fe",
+    "experiments/root-merge-tree/test_review.py": "e671fa1534de04385acfeb60bd9a574e8b3551cebdb5790747082c9cb6b1451f",
+    "experiments/root-merge-tree/run.sbatch": "9636f1dd720383a4286d7044b52fae21525131bb7df7f9ef529230cd5669fe15"
+  },
+  "checks": [
+    {
+      "command": "CGO_ENABLED=0 go test ./encoding/liftrs-shared -run TestRootTree|TestRootRouting|TestPreparationRootPartitions|TestRootPartitionAdmission -count=1 -v",
+      "status": "passed",
+      "log": "shared-tests.log"
+    },
+    {
+      "command": "CC=mpicc CXX=mpicxx CGO_ENABLED=1 go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o /tmp/depir-root-tree.test ./encoding/liftrs-shared",
+      "status": "passed",
+      "log": "build.log"
+    },
+    {
+      "command": "/tmp/depir-root-tree.test -test.run=^TestRootFixtureReferenceDigests$ -test.v",
+      "status": "passed",
+      "log": "fixture-regression.log"
+    },
+    {
+      "command": "python3 -B experiments/root-merge-tree/test_review.py",
+      "status": "passed",
+      "log": "reviewer-tests.log",
+      "tests": 3
+    }
+  ],
+  "limitations": [
+    "No GPU/MPI initialization or performance workload in local readiness.",
+    "OpenMPI compiler wrappers emit sandbox socket warnings but exit zero.",
+    "Four logical ranks share two GPUs; this is not four-GPU throughput.",
+    "Coordinator retains source/reference; discovery/large distributed products remain gaps.",
+    "Chunked uint64 totals are validated by small explicit chunk limits in the scheduled run, not by a local huge-array MPI test."
+  ]
+}

@@ -20,14 +20,50 @@ func partitionRootSupportWith(mode supportMembership, support []int, n int, q ui
 	if workers < 1 || workers > 64 {
 		return nil, fmt.Errorf("root partition worker count")
 	}
-	if err := validateExponentSupportWith(mode, support, n, q); err != nil {
+	parts := make([][]int, workers)
+	err := routeRootSupport(mode, support, n, q, workers, 16384, func(owner int, packet []uint64) error {
+		if parts[owner] == nil {
+			parts[owner] = make([]int, 0, len(support)/workers+3)
+		}
+		for _, index := range packet {
+			parts[owner] = append(parts[owner], int(index))
+		}
+		return nil
+	})
+	if err != nil {
 		return nil, err
 	}
-	parts := make([][]int, workers)
-	// Greedy weights are one or two, so final loads differ by at most two.
-	// Reserve once to avoid retaining replaced append buffers during timing.
 	for j := range parts {
-		parts[j] = make([]int, 0, len(support)/workers+3)
+		sort.Ints(parts[j])
+	}
+	return parts, nil
+}
+
+// routeRootSupport validates the coordinator's source once, then emits bounded
+// orbit-closed packets to deterministic least-loaded owners. Callback slices are
+// borrowed only until return. Receiver shards require sorting before the shared
+// sorted-membership root builder. Counters/buffers cost O(workers*packetWords),
+// avoiding the extra coordinator K-index partition copy. The source itself is
+// still resident: this is not distributed discovery or fulls18 admission.
+func routeRootSupport(mode supportMembership, support []int, n int, q uint64, workers, packetWords int,
+	emit func(int, []uint64) error) error {
+	if workers < 1 || workers > 64 || packetWords < 2 || packetWords > 16384 || emit == nil {
+		return fmt.Errorf("root routing bounds/callback")
+	}
+	if err := validateExponentSupportWith(mode, support, n, q); err != nil {
+		return err
+	}
+	buffers := make([][]uint64, workers)
+	loads := make([]int, workers)
+	flush := func(owner int) error {
+		if len(buffers[owner]) == 0 {
+			return nil
+		}
+		if err := emit(owner, buffers[owner]); err != nil {
+			return err
+		}
+		buffers[owner] = buffers[owner][:0]
+		return nil
 	}
 	for _, index := range support {
 		partner := int(uint64(index) * q % uint64(n-1))
@@ -36,17 +72,32 @@ func partitionRootSupportWith(mode supportMembership, support []int, n int, q ui
 		}
 		owner := 0
 		for j := 1; j < workers; j++ {
-			if len(parts[j]) < len(parts[owner]) {
+			if loads[j] < loads[owner] {
 				owner = j
 			}
 		}
-		parts[owner] = append(parts[owner], index)
+		degree := 1
 		if partner != index {
-			parts[owner] = append(parts[owner], partner)
+			degree = 2
+		}
+		if len(buffers[owner])+degree > packetWords {
+			if err := flush(owner); err != nil {
+				return err
+			}
+		}
+		if buffers[owner] == nil {
+			buffers[owner] = make([]uint64, 0, minInt(packetWords, len(support)/workers+3))
+		}
+		buffers[owner] = append(buffers[owner], uint64(index))
+		if degree == 2 {
+			buffers[owner] = append(buffers[owner], uint64(partner))
+		}
+		loads[owner] += degree
+	}
+	for owner := range buffers {
+		if err := flush(owner); err != nil {
+			return err
 		}
 	}
-	for j := range parts {
-		sort.Ints(parts[j])
-	}
-	return parts, nil
+	return nil
 }

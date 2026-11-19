@@ -132,7 +132,7 @@ def main(here=HERE,extra_suite=None):
         go=ROOT/'.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go'
         run('go',[go,'version'])
         if extra_suite is not None:
-            record.update(extra_suite(dict(run=run,source=source,cache=cache,out=out,go=go,env=env)))
+            record.update(extra_suite(dict(run=run,source=source,cache=cache,out=out,go=go,env=env,resources=record['resources'],save=save)))
             record['status']='passed'
         else:
             fixture=cache/'fixture.test';field=cache/'field.bin'

@@ -591,6 +591,16 @@ multi-node I/O remain unknown, with separate admission required for larger trial
 Fulls17 CPU/GPU results and fulls18-unrun table cells remain unchanged; CPU builds
 and faster resident defaults remain unchanged.
 
+The [rank-owned support/merge-tree implementation](../experiments/root-merge-tree/report.md)
+is ready for bounded validation; runtime/peak memory remain unmeasured. Non-root
+workers receive only an orbit-closed shard and no full CPU oracle; the tree has
+one owner per intermediate and one final owner. The coordinator still holds the
+verified source and reference. Four logical ranks share2H200/2HPC nodes,2CPU/4GiB
+requested host RAM per node;64MiB owned/rank≤128MiB/card,1GiB RSS/rank,15min cutoff.
+This checks two tree levels within the existing budget, not four-GPU speedup.
+Final large products still need distributed FFT/worker coordination; no fulls18
+capacity claim, table result change or new default follows from implementation.
+
 ## Measurement boundaries for batch entries
 
 § [Completed22-case HPC batch](../experiments/encoding-table/report.md#completed-all-case-review-scaling-073)

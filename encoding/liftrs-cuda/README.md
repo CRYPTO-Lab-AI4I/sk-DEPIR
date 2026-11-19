@@ -297,3 +297,10 @@ cross-rank/CPU coefficient equality and both CUDA memchecks. Largest synthetic
 s17 subset262,144 exponents takes1.180s median pipeline; peak normal rank RSS
 410.523MiB and ownedGPU15.241MiB/card. No ordinary client dependency or full
 scalable distributed-preprocessing capability is added.
+
+The next [rank-owned tree gate](../../experiments/root-merge-tree/report.md)
+uses the same executor for local normalized roots and each owned merge. Per-rank
+maximum elements follow its subtree rather than a final-product allocation on
+every worker. Four logical ranks share2H200/2HPC nodes for correctness validation;
+results are pending, with no4GPU speedup/fulls18 claim. MPI/server test dependencies
+remain explicit and ordinary client/backend defaults are unchanged.

@@ -120,6 +120,12 @@ write calls1,536→24, but gives mixed elapsed results; defaults stay unchanged.
 Publication medians0.184–0.346s, full readback0.896–1.460s; persistence-phase sampled
 cgroup memory362.695MiB. Next is scalable rank ownership/multi-level merge and full
 preprocessing/publication integration. Ordinary CPU builds remain unchanged.
+The next [rank-owned merge-tree gate](experiments/root-merge-tree/report.md)
+adds bounded support routing and one owner per GPU polynomial subtree, using shared
+kernels and independently checked CPU roots. Validation is pending: four logical
+ranks share two H200s across two HPC nodes to test two tree levels within the
+existing budget. This is not four-GPU throughput or fulls18 support; distributed
+discovery and large-product transforms remain separate implementation work.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 
