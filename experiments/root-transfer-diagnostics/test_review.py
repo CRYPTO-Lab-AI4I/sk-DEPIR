@@ -33,4 +33,14 @@ class Review(unittest.TestCase):
         with self.assertRaises(AssertionError):HELP['review_proofs']([receiver,row])
         with self.assertRaises(AssertionError):HELP['review_proofs']([sender,receiver,dict(row,shard_count=6)])
 
+    def test_reporting_failure_keeps_completed_stages(self):
+        record=dict(status='failed',error='profile timeout',commands=[dict(label='normal',exit_code=0),dict(label='memcheck',exit_code=0)])
+        self.assertTrue(HELP['completed_stage'](record,'normal'))
+        self.assertTrue(HELP['completed_stage'](record,'memcheck'))
+        self.assertFalse(HELP['completed_stage'](record,'profile'))
+        record['commands'][1]['exit_code']=92
+        self.assertFalse(HELP['completed_stage'](record,'memcheck'))
+        record['commands'][0]['guard']='RSS'
+        self.assertFalse(HELP['completed_stage'](record,'normal'))
+
 if __name__=='__main__':unittest.main()

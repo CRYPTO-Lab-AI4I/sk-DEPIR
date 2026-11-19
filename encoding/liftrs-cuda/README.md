@@ -306,9 +306,12 @@ job77704 failed largest-case transfer/CPU equality. Boundary diagnosis is next;
 GPU memcheck was not reached. No4GPU speedup/fulls18 claim follows. MPI/server test dependencies
 remain explicit and ordinary client/backend defaults are unchanged.
 
-The follow-up diagnostic **77782 also failed**, on an unchecked support-index
-packet before GPU work; its completed polynomial proofs agreed. The next
-[explicit MPI-owned staging probe](../../experiments/mpi-owned-staging/report.md)
-covers both packet widths. Extra host scratch is 512 KiB per rank; each transfer
-adds a CPU copy. Runtime cost is unknown; this is not a production default or
-proof of the fault's cause. Full s=18 preprocessing remains unvalidated.
+The direct-buffer diagnostic **77782 failed** on an unchecked support-index
+packet before GPU work. The [MPI-owned staging test](../../experiments/mpi-owned-staging/report.md)
+**77799 passed bounded validation and CUDA memcheck**, covering both packet widths:
+516 matching normal proof events, 22 normal passes, zero CUDA errors/leaks across
+four ranks. Its workflow failed afterward on profile-summary timeout; saved profiles
+were recovered offline. Added host scratch is 512 KiB/rank plus CPU copies;
+isolated runtime penalty and original fault cause remain unknown. Staging stays
+explicit; compare modes under identical instrumentation before selecting defaults.
+Full s=18 preprocessing remains unvalidated; CPU encoding defaults are unchanged.

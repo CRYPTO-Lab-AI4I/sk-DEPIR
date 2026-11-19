@@ -1,0 +1,49 @@
+{"utc": "2026-11-19T10:27:56.638945+00:00", "phase": "hosts", "event": "started", "completed": 0, "unit": "commands", "elapsed_seconds": 7.184891709999647}
+{"utc": "2026-11-19T10:27:56.664477+00:00", "phase": "hosts", "event": "completed", "completed": 1, "unit": "commands", "elapsed_seconds": 7.210421019000933}
+{"utc": "2026-11-19T10:27:56.666286+00:00", "phase": "mpi-plugins", "event": "started", "completed": 1, "unit": "commands", "elapsed_seconds": 7.2122239990276285}
+{"utc": "2026-11-19T10:27:56.754618+00:00", "phase": "mpi-plugins", "event": "completed", "completed": 2, "unit": "commands", "elapsed_seconds": 7.30055997899035}
+{"utc": "2026-11-19T10:27:56.755810+00:00", "phase": "mpi", "event": "started", "completed": 2, "unit": "commands", "elapsed_seconds": 7.3017478010151535}
+{"utc": "2026-11-19T10:27:57.035188+00:00", "phase": "mpi", "event": "completed", "completed": 3, "unit": "commands", "elapsed_seconds": 7.5811304220114835}
+{"utc": "2026-11-19T10:27:57.036401+00:00", "phase": "nvcc", "event": "started", "completed": 3, "unit": "commands", "elapsed_seconds": 7.582338977023028}
+{"utc": "2026-11-19T10:27:57.055205+00:00", "phase": "nvcc", "event": "completed", "completed": 4, "unit": "commands", "elapsed_seconds": 7.601146312023047}
+{"utc": "2026-11-19T10:27:57.056234+00:00", "phase": "compiler", "event": "started", "completed": 4, "unit": "commands", "elapsed_seconds": 7.602172359998804}
+{"utc": "2026-11-19T10:27:57.087531+00:00", "phase": "compiler", "event": "completed", "completed": 5, "unit": "commands", "elapsed_seconds": 7.633473195019178}
+{"utc": "2026-11-19T10:27:57.090192+00:00", "phase": "go", "event": "started", "completed": 5, "unit": "commands", "elapsed_seconds": 7.636130650003906}
+{"utc": "2026-11-19T10:27:57.130889+00:00", "phase": "go", "event": "completed", "completed": 6, "unit": "commands", "elapsed_seconds": 7.67683085903991}
+{"utc": "2026-11-19T10:27:57.134753+00:00", "phase": "cuda-build", "event": "started", "completed": 6, "unit": "commands", "elapsed_seconds": 7.680691769986879}
+{"utc": "2026-11-19T10:28:12.889272+00:00", "phase": "cuda-build", "event": "completed", "completed": 7, "unit": "commands", "elapsed_seconds": 23.435222315019928}
+{"utc": "2026-11-19T10:28:12.890927+00:00", "phase": "tree-build", "event": "started", "completed": 7, "unit": "commands", "elapsed_seconds": 23.436865739000496}
+{"utc": "2026-11-19T10:28:41.830938+00:00", "phase": "tree-build", "event": "completed", "completed": 8, "unit": "commands", "elapsed_seconds": 52.376894890039694}
+{"utc": "2026-11-19T10:28:41.833026+00:00", "phase": "fixture-regression", "event": "started", "completed": 8, "unit": "commands", "elapsed_seconds": 52.37896571599413}
+{"utc": "2026-11-19T10:29:00.064738+00:00", "phase": "fixture-regression", "event": "completed", "completed": 9, "unit": "commands", "elapsed_seconds": 70.61069035698893}
+{"utc": "2026-11-19T10:29:00.066587+00:00", "phase": "shared-tests", "event": "started", "completed": 9, "unit": "commands", "elapsed_seconds": 70.61252543498995}
+{"utc": "2026-11-19T10:29:01.636945+00:00", "phase": "shared-tests", "event": "completed", "completed": 10, "unit": "commands", "elapsed_seconds": 72.18289942503907}
+{"utc": "2026-11-19T10:29:01.638267+00:00", "phase": "shared-race", "event": "started", "completed": 10, "unit": "commands", "elapsed_seconds": 72.18420602101833}
+{"utc": "2026-11-19T10:29:18.318386+00:00", "phase": "shared-race", "event": "completed", "completed": 11, "unit": "commands", "elapsed_seconds": 88.86433697200846}
+{"utc": "2026-11-19T10:29:18.322547+00:00", "phase": "normal", "event": "started", "completed": 11, "unit": "commands", "elapsed_seconds": 88.86848664103309}
+{"utc": "2026-11-19T10:29:56.630482+00:00", "phase": "normal", "event": "completed", "completed": 12, "unit": "commands", "elapsed_seconds": 127.17643447598675}
+{"utc": "2026-11-19T10:29:57.732061+00:00", "phase": "memcheck", "event": "started", "completed": 12, "unit": "commands", "elapsed_seconds": 128.27801944501698}
+{"utc": "2026-11-19T10:30:02.074185+00:00", "phase": "memcheck", "event": "completed", "completed": 13, "unit": "commands", "elapsed_seconds": 132.62013876903802}
+{"utc": "2026-11-19T10:30:02.153691+00:00", "phase": "profile", "event": "started", "completed": 13, "unit": "commands", "elapsed_seconds": 132.69963530701352}
+{"utc": "2026-11-19T10:30:32.228878+00:00", "phase": "profile", "event": "failed", "completed": 13, "unit": "commands", "elapsed_seconds": 162.77483131398913}
+Traceback (most recent call last):
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/mpi-owned-staging/run.py", line 23, in <module>
+    else:TREE['BASE']['main'](here=HERE,extra_suite=suite)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 135, in main
+    record.update(extra_suite(dict(run=run,source=source,cache=cache,out=out,go=go,env=env,resources=record['resources'],save=save)))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/mpi-owned-staging/run.py", line 13, in suite
+    result=TREE['suite'](context)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/root-merge-tree/run.py", line 176, in suite
+    run('profile',[go,'tool','pprof','-top',binary,out/'normal-0.pprof'])
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 116, in run
+    code=process.wait(timeout=min(timeout,max(1,720-(time.monotonic()-start))))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1264, in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 2045, in _wait
+    raise TimeoutExpired(self.args, timeout)
+subprocess.TimeoutExpired: Command '['/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go', 'tool', 'pprof', '-top', '/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/mpi-owned-staging/staged-01/tree.test', '/hpc/home/crypto/tmour/sk-DEPIR/experiments/mpi-owned-staging/runs/staged-01/normal-0.pprof']' timed out after 30 seconds

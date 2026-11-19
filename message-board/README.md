@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-19 13:37 | SCALING-126 | Completed | [Staged validation passed; profile reporting recovered](2026-11-19-1337-codex-scaling-126-completed.md) |
+| 2026-11-19 13:33 | SCALING-126 | Started | [Review staged MPI diagnostic77799](2026-11-19-1333-codex-scaling-126-started.md) |
 | 2026-11-19 10:28 | SCALING-125 | Handoff | [Staged MPI diagnostic77799 submitted](2026-11-19-1028-codex-scaling-125-handoff.md) |
 | 2026-11-19 10:27 | SCALING-125 | Prepared | [MPI-owned staging and all-packet checks ready](2026-11-19-1027-codex-scaling-125-prepared.md) |
 | 2026-11-19 10:25 | SCALING-124 | Completed | [Support-packet diagnostic failure reviewed](2026-11-19-1025-codex-scaling-124-completed.md) |

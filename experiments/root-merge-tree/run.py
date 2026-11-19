@@ -173,7 +173,8 @@ def suite(context):
     assert text.count('ERROR SUMMARY: 0 errors')==4 and text.count('LEAK SUMMARY: 0 bytes')==4
     for rank in range(4):
         assert (out/f'normal-{rank}.pprof').stat().st_size>0
-    run('profile',[go,'tool','pprof','-top',binary,out/'normal-0.pprof'])
+    # Keep post-run summaries offline; retain full profiles for later native symbolization.
+    run('profile',[go,'tool','pprof','-symbolize=none','-top',binary,out/'normal-0.pprof'])
     return dict(measurements=normal,sanitized=sanitized)
 
 

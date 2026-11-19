@@ -2340,15 +2340,19 @@ SCALING-109 next-work order is explicit:
    case/sample 5, before GPU root computation. All 78 completed polynomial proof
    records matched; support packets were not covered. No paired failure snapshot;
    memcheck unrun. [Review](../experiments/root-transfer-diagnostics/report.md).
-   SCALING-125: test an explicit MPI-owned staging buffer and extend the same
-   symmetric proof/durable-capture handshake to support indices before range
-   checks. [Runnable plan](../experiments/mpi-owned-staging/report.md). Same admitted
-   two-node/two-H200 envelope; submitted as **job 77799**. Adds 512 KiB extra host
-   scratch per rank (2 MiB total),
-   one CPU copy per send/receive, no added transforms/storage. Runtime penalty
-   unknown; do not change production defaults or clear the original failure
-   merely because the staged diagnostic passes. Both packet widths, full CPU
-   equality and memcheck must be checked before larger integration.
+   SCALING-126: **77799 passed staged normal validation and CUDA memcheck**;
+   22 normal passes, 516 paired proof endpoints, zero CUDA errors/leaks on four
+   ranks. Largest partial synthetic case: 1.201 s median pipeline; 411.309 MiB
+   largest normal process peak RSS per rank, 15.241 MiB owned GPU arrays per rank.
+   [Evidence and boundaries](../experiments/mpi-owned-staging/report.md).
+   Workflow remains failed from a subsequent 30 s profile-summary timeout; all
+   four raw profiles recovered with offline symbolization disabled. Future shared
+   tree summaries use that option after timings. Earlier direct-buffer failures
+   remain unresolved; full s18 remains unrun. Next compare direct/staged modes
+   with identical builds, proof coverage and admission. Staging remains explicit:
+   512 KiB host scratch/rank (2 MiB total), one CPU copy per send/receive, unknown
+   isolated runtime penalty. Do not infer cause or change defaults from a clean
+   staged run. Then continue scalable discovery/products/FFT and publication.
 
 6. Compare complete elapsed time across practical allocations before choosing
    final GPU/node count or giving fulls18 runtime. Full-size/multi-node persistence

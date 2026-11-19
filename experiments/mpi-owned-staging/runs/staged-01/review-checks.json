@@ -1,0 +1,81 @@
+{
+  "utc": "2026-11-19T13:36:46.554739+00:00",
+  "base_revision": "0fdf54b3ecefede87418c4e2e18b7bc82d7a030d",
+  "source_state": "working tree review additions; original producer files remain bytewise unchanged",
+  "source_sha256": {
+    "experiments/root-transfer-diagnostics/analyze.py": "605275d954960605f07c1b42014719a8d94de3e79a4e5128daa41031962290cd",
+    "experiments/root-transfer-diagnostics/test_review.py": "7e39d3f5b12a40f1bbda78bc9958db9149dd5ea315e2b8c9d2c651daaaa71903",
+    "experiments/root-merge-tree/run.py": "8fdf5fc2d8b6a887739ecb58813ffad9be543e34752064a581f3f4aadea28245"
+  },
+  "checks": [
+    {
+      "command": "python3 -B experiments/root-transfer-diagnostics/analyze.py staged-01 --experiment experiments/mpi-owned-staging",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/root-transfer-diagnostics/test_review.py",
+      "tests": 4,
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/root-merge-tree/test_review.py",
+      "tests": 3,
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/distributed-root/test_review.py",
+      "tests": 4,
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/gpu-staged-transport/test_review.py",
+      "tests": 5,
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/gpu-code-encoding/test_suite.py",
+      "tests": 3,
+      "exit_code": 0
+    }
+  ],
+  "profile_recovery": {
+    "tool": ".cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go",
+    "arguments": [
+      "tool",
+      "pprof",
+      "-symbolize=none",
+      "-top",
+      ".cache/liftrs/mpi-owned-staging/staged-01/tree.test",
+      "experiments/mpi-owned-staging/runs/staged-01/normal-RANK.pprof"
+    ],
+    "environment": {
+      "GOTOOLCHAIN": "local",
+      "GOPROXY": "off",
+      "GOSUMDB": "off",
+      "GOCACHE": ".cache/liftrs/preprocessing-workflow-build-cache",
+      "GOPATH": ".cache/liftrs/toolchains/gopath",
+      "DEBUGINFOD_URLS": ""
+    },
+    "per_command_deadline_seconds": 20,
+    "ranks": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "exit_codes": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "output": "profile-recovered-RANK.log",
+    "note": "Offline recovery after user completion ping. No MPI/GPU rerun; native symbol detail is not recovered. The reason default pprof exceeded 30 s is not established."
+  },
+  "derived_evidence_sha256": {
+    "profile-recovered-0.log": "65685232e17ef7f7d01e2a9572cc4ae8e9def242f5d017890a553006183d914d",
+    "profile-recovered-1.log": "2590c50bf59bbd46e9cde53391f84c02789da7c40842f2264f3c5d574ad71432",
+    "profile-recovered-2.log": "c4a6c12bdfd77294b59755f8390dbd4e6b309004d68bc873a213e0ed6cdb20bd",
+    "profile-recovered-3.log": "da15626156b134548d82b2448053d66017482f99aea66fb8f96abce4d257bb8a"
+  }
+}

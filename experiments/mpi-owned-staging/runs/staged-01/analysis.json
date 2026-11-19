@@ -1,0 +1,141 @@
+{
+  "status": "failed",
+  "job_id": "77799",
+  "revision": "6a32c38e76f55d887405a4b5b1f97b6059713862",
+  "source_files_verified": 642,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 23,
+  "cache_files_verified": 87,
+  "tests": [
+    "source/evidence/cache seals",
+    "diagnostic snapshot extents",
+    "normal CPU equality, ownership, snapshots and paired proofs",
+    "four-rank memcheck, zero leaks/errors, snapshots and paired proofs"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.010453820985276252,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.01864612102508545,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.2676597890094854,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 0.007077519025187939,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.01887146895751357,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.02855036302935332,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 15.74027783802012,
+      "exit_code": 0
+    },
+    {
+      "label": "tree-build",
+      "seconds": 28.907837059989106,
+      "exit_code": 0
+    },
+    {
+      "label": "fixture-regression",
+      "seconds": 18.1985390560003,
+      "exit_code": 0
+    },
+    {
+      "label": "shared-tests",
+      "seconds": 1.539575734990649,
+      "exit_code": 0
+    },
+    {
+      "label": "shared-race",
+      "seconds": 16.641524699982256,
+      "exit_code": 0
+    },
+    {
+      "label": "normal",
+      "seconds": 38.258421047008596,
+      "exit_code": 0
+    },
+    {
+      "label": "memcheck",
+      "seconds": 4.282716573041398,
+      "exit_code": 0
+    }
+  ],
+  "scope": "diagnostic test, not a production fix or clearance of77704; timings include new fingerprints/control messages",
+  "timed_case_medians": [
+    {
+      "case": 0,
+      "s": 8,
+      "support_count": 7381,
+      "samples": 2,
+      "median_seconds": {
+        "seconds": 0.014324336,
+        "route_seconds": 0.0019308444999999999,
+        "root_seconds": 0.0029801975,
+        "tree_seconds": 0.009446691,
+        "verify_seconds": 0.000104242
+      }
+    },
+    {
+      "case": 1,
+      "s": 17,
+      "support_count": 65536,
+      "samples": 2,
+      "median_seconds": {
+        "seconds": 0.31896995250000004,
+        "route_seconds": 0.0139651015,
+        "root_seconds": 0.203433956,
+        "tree_seconds": 0.1401477775,
+        "verify_seconds": 0.0009108345000000001
+      }
+    },
+    {
+      "case": 2,
+      "s": 17,
+      "support_count": 262144,
+      "samples": 12,
+      "median_seconds": {
+        "seconds": 1.2010050135,
+        "route_seconds": 0.058337097500000004,
+        "root_seconds": 0.941509933,
+        "tree_seconds": 0.364291839,
+        "verify_seconds": 0.0037621219999999997
+      }
+    }
+  ],
+  "normal_proof_phases": {
+    "support": 384,
+    "root": 132
+  },
+  "normal_peak_logged_rss_bytes_per_rank": 431288320,
+  "normal_peak_owned_device_bytes_per_rank": 15980980,
+  "outcome": "bounded diagnostic validation passed; original fault not reproduced and remains unexplained",
+  "captures": [],
+  "paired_snapshots": [],
+  "wire_proof_events": 516,
+  "gate_status": "original unexplained corruption remains open",
+  "normal_validation": "passed",
+  "memcheck_validation": "passed",
+  "memcheck_proof_events": 24,
+  "workflow_error": "Command '['/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go', 'tool', 'pprof', '-top', '/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/mpi-owned-staging/staged-01/tree.test', '/hpc/home/crypto/tmour/sk-DEPIR/experiments/mpi-owned-staging/runs/staged-01/normal-0.pprof']' timed out after 30 seconds",
+  "successful_measurement_rows": 88,
+  "all_logged_proofs_match": true
+}

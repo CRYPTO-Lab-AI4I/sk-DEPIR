@@ -1,13 +1,61 @@
 # Bounded MPI-owned staging probe
 
-Status: **diagnostic job 77799 submitted** (SCALING-125); results unreviewed.
-[Submission receipt](submission.json), results/profiles `runs/staged-01/`,
-progress `slurm-77799.log`. Implementation `6a32c38`.
-[Frozen-source check](readiness/snapshot.json): 642 files, 3,043,961 bytes; all eight
-checked input hashes match. No GPU/MPI execution is implied by local readiness.
-The [previous diagnostic](../root-transfer-diagnostics/report.md) failed on an
-uncovered uint64 support packet after 78 matching polynomial proofs. The original
-77704 coefficient-transfer disagreement and 77782 support failure remain unresolved.
+Status: **bounded normal validation and CUDA memcheck passed** (SCALING-126).
+Job **77799** retained its raw **failed** workflow status: the final `pprof -top`
+summary timed out after 30 s, after normal/memcheck had exited zero. No producer
+result or raw log was rewritten. Scheduler elapsed: **2 min 43 s**; controller:
+**162.777 s**. [Submission](submission.json), [raw results](runs/staged-01/results.json),
+[independent review](runs/staged-01/analysis.json),
+[scheduler accounting](runs/staged-01/scheduler-accounting.txt), [progress](slurm-77799.log).
+Implementation `6a32c38`; HPC nodes gnode13/gnode14, four logical ranks sharing
+one H200 per node, four CPU cores total, 4 GiB requested host RAM per node.
+The review verifies **642 source / 23 original evidence / 87 cache file hashes**.
+
+All **22 normal passes / 88 rank measurements** passed final CPU equality,
+unique ownership, source coverage, canonical coefficients and retained state-chain
+checks. All **516 normal proof events** matched (384 support-index and 132
+polynomial endpoints, with paired identities and exact support coverage).
+Small-case memcheck passed eight rank measurements and 24 proof events; all four
+processes reported **zero errors and zero leaked bytes**. Both chunk widths and
+actual staging allocations were checked. No disagreement snapshots were triggered.
+The [earlier direct-buffer failures](../root-transfer-diagnostics/report.md) remain
+unexplained; this staged test is a validated bounded candidate, not proof of cause.
+
+| Fixture (partial support) | Timed passes | Median route + GPU roots + tree + verification |
+|---|---:|---:|
+| Genuine s=8, 7,381 exponents | 2 | 0.014324 s |
+| Synthetic s=17, 65,536 exponents | 2 | 0.318970 s |
+| Synthetic s=17, 262,144 exponents | 12 | 1.201005 s |
+
+Whole normal-run largest logged process peak RSS: **411.309 MiB per rank**;
+largest owned GPU arrays: **15.241 MiB per rank** (driver/context allocations
+additional). Cache retained: **27.567 MiB**. Normal command wall time: **38.258 s**,
+including setup, references, warm-up and artifact passes; memcheck command:
+**4.283 s**. Per-pass medians exclude reusable setup/CPU oracle, warm-up, validation
+snapshot pass and profiler summary; they include routing, hashing, proof traffic,
+GPU roots/tree and final equality. Rank maxima are measured per phase and are not
+additive. These are profiled diagnostics on shared cards, not a full s=17/s=18
+preprocessing measurement or a controlled direct-versus-staged speed comparison.
+
+All four saved CPU profiles were independently read with `pprof -symbolize=none`
+under a 20 s command deadline; [recovered summaries](runs/staged-01/profile-recovered-0.log),
+[commands and hashes](runs/staged-01/review-checks.json). This offline summary skips
+external/native symbol lookup; full raw profiles remain available. The reason
+for the original timeout is unconfirmed. Future shared tree runs explicitly use
+this offline summary option after timing, preventing dependence on external
+symbolization; no arithmetic, benchmark clock or stored profile is changed.
+
+Logs retain OpenFabrics initialization warnings and a peer-node fallback from
+the node-local source working directory to `/tmp`. Executable/payload paths were
+absolute and all checks passed; RDMA transport use was not established. Do not
+interpret these small shared-card timings as fabric or GPU scaling throughput.
+
+Next: compare direct and staged payloads under identical new proof instrumentation
+and builds, before choosing a transport default or assigning a runtime penalty.
+Keep staging explicit; the bounded pass allows further validation with that mode,
+not clearance of the earlier direct-buffer failures or full-size integration.
+Distributed discovery, larger distributed products/FFTs and publication remain
+required for full s=18 preprocessing. No new job submitted during review.
 
 [Runner](run.py), [scheduler script](run.sbatch), [shared suite](../root-merge-tree/run.py),
 [test harness](../../encoding/liftrs-shared/root_tree_gpu_test.go),
@@ -75,4 +123,5 @@ Local readiness: [native/MPI/CUDA build](readiness/build.log) passed; the two
 coefficient tail and invalid uint64 high bits. Three Python review tests cover 32-bit tails, 64-bit corruption and missing/
 incomplete support proofs. Existing 3 tree / 4 distributed / 5 staged /
 3 common-runner reviewer tests passed. [Exact commands and input hashes](readiness/checks.json).
-These checks execute no MPI/GPU workload and cannot validate the new buffer mode.
+These local pre-submission checks execute no MPI/GPU workload. Actual bounded
+normal/memcheck results and their review are recorded above.

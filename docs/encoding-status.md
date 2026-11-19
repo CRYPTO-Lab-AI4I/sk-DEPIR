@@ -612,11 +612,18 @@ they did not cover the bad support packet. No paired failure snapshot was captur
 memcheck was not reached. Scheduler runtime was 2 min 8 s; largest logged process
 peak RSS was 407.578 MiB per rank on HPC (two H200s across two nodes, four logical
 ranks). [Evidence](../experiments/root-transfer-diagnostics/report.md).
-Next is an [explicit MPI-owned staging probe](../experiments/mpi-owned-staging/report.md)
-with checks/capture for both packet widths, submitted as **job 77799**. This adds
-512 KiB host scratch per rank
-and one CPU copy on each send/receive; runtime penalty is unknown. Original failures
-remain unresolved; no production default or full s=18 validation follows.
+The [MPI-owned staging diagnostic](../experiments/mpi-owned-staging/report.md)
+**77799 passed bounded normal validation and CUDA memcheck**: 22 normal passes,
+516 matching transfer proof events, and zero CUDA errors/leaks on all four ranks.
+HPC: two H200s across gnode13/gnode14, four logical ranks/four CPUs, 4 GiB requested
+host RAM per node. Largest synthetic case (262,144 exponents): **1.201 s** median
+pipeline; normal-run largest logged process peak RSS **411.309 MiB per rank** and
+owned GPU arrays **15.241 MiB per rank** (contexts additional). This is partial
+support, not full s=17/s=18 preprocessing. The workflow status remains failed due
+to a later 30 s profile-summary timeout; all four raw profiles were recovered offline.
+Staging adds 512 KiB host scratch per rank and CPU copies; its isolated runtime
+penalty remains unknown. Earlier direct-buffer failures remain unresolved. Next
+is a controlled direct/staged comparison with identical checks; no default change.
 
 ## Measurement boundaries for batch entries
 
