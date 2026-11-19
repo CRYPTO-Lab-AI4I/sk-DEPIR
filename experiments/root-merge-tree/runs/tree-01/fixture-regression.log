@@ -1,0 +1,15 @@
+=== RUN   TestRootFixtureReferenceDigests
+{"utc":"2026-11-19T09:28:25.904658702Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000019296}
+{"utc":"2026-11-19T09:28:25.906115685Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.001476281}
+{"utc":"2026-11-19T09:28:25.908471911Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000016671}
+{"utc":"2026-11-19T09:28:25.909065323Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000610084}
+{"utc":"2026-11-19T09:28:25.94754604Z","phase":"support-order-validation","event":"progress","completed":65536,"total":65536,"unit":"exponents","elapsed_seconds":0.000144593}
+{"utc":"2026-11-19T09:28:25.956117409Z","phase":"support-Frobenius-validation","event":"progress","completed":65536,"total":65536,"unit":"exponents","elapsed_seconds":0.008715962}
+{"utc":"2026-11-19T09:28:27.724232391Z","phase":"support-order-validation","event":"progress","completed":65536,"total":65536,"unit":"exponents","elapsed_seconds":0.00014547}
+{"utc":"2026-11-19T09:28:27.733211489Z","phase":"support-Frobenius-validation","event":"progress","completed":65536,"total":65536,"unit":"exponents","elapsed_seconds":0.009124568}
+{"utc":"2026-11-19T09:28:30.021513721Z","phase":"support-order-validation","event":"progress","completed":65536,"total":262144,"unit":"exponents","elapsed_seconds":0.000145034}
+{"utc":"2026-11-19T09:28:30.022009347Z","phase":"support-order-validation","event":"progress","completed":262144,"total":262144,"unit":"exponents","elapsed_seconds":0.000640659}
+{"utc":"2026-11-19T09:28:30.032087556Z","phase":"support-Frobenius-validation","event":"progress","completed":65536,"total":262144,"unit":"exponents","elapsed_seconds":0.010718868}
+{"utc":"2026-11-19T09:28:30.062485493Z","phase":"support-Frobenius-validation","event":"progress","completed":262144,"total":262144,"unit":"exponents","elapsed_seconds":0.041116806}
+--- PASS: TestRootFixtureReferenceDigests (18.07s)
+PASS

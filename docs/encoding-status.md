@@ -583,23 +583,28 @@ concurrent RSS+retained-cache proxy109.609MiB (partial accounting). Persistence
 max sampled cgroup charge362.695MiB; whole job cgroup high-water718.566MiB, including
 compilation. These are distinct measures. Retained cache111.946MiB, outside Git.
 
-Bounded component gates now pass. Next: scalable support/rank ownership and a
-multi-level GPU merge, followed by full generator/Newton/transform and rank-owned
-publication integration. Investigate coalesced verification reads without removing
+Earlier two-rank and persistence gates pass. The four-rank gate below failed;
+transfer diagnosis now blocks scalable ownership/full generator/Newton/transform
+and rank-owned publication integration. Investigate coalesced verification reads without removing
 checks; larger buffer benefit remains a candidate. Fulls18 runtime/capacity and
 multi-node I/O remain unknown, with separate admission required for larger trials.
 Fulls17 CPU/GPU results and fulls18-unrun table cells remain unchanged; CPU builds
 and faster resident defaults remain unchanged.
 
 The [rank-owned support/merge-tree implementation](../experiments/root-merge-tree/report.md)
-is submitted as **job77704**; runtime/peak memory remain unmeasured. Non-root
+**job77704 failed a correctness check**; this gate is not validated. Non-root
 workers receive only an orbit-closed shard and no full CPU oracle; the tree has
 one owner per intermediate and one final owner. The coordinator still holds the
 verified source and reference. Four logical ranks share2H200/2HPC nodes,2CPU/4GiB
 requested host RAM per node;64MiB owned/rank≤128MiB/card,1GiB RSS/rank,15min cutoff.
 This checks two tree levels within the existing budget, not four-GPU speedup.
-Final large products still need distributed FFT/worker coordination; no fulls18
-capacity claim, table result change or new default follows from implementation.
+In the largest synthetic case, rank2→rank0 logged different hashes for the same
+131,073-coefficient transfer before the final CPU comparison failed. Smaller normal
+cases and earlier largest passes matched; memcheck was not reached. Failure was
+not a memory/time guard. [Failure evidence](../experiments/root-merge-tree/runs/tree-01/failure-review.json).
+Next is targeted transfer/buffer diagnosis with payload capture, not full-size
+integration or a staging-default change. Final products still need distributed
+FFT/worker coordination; fulls17 validated results/fulls18-unrun cells are unchanged.
 
 ## Measurement boundaries for batch entries
 

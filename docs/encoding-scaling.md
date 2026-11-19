@@ -2314,7 +2314,7 @@ SCALING-109 next-work order is explicit:
    must not silently become default. Do not launch another same-size I/O sweep
    as a substitute for complete-workflow implementation.
    SCALING-121: [rank-owned support/tree implementation](../experiments/root-merge-tree/report.md)
-   is submitted as **job77704**, results unreviewed. Shared routing preserves complete orbits and
+   **job77704 failed correctness** (SCALING-122). Shared routing preserves complete orbits and
    previous greedy ownership in bounded128KiB packets; non-coordinator ranks hold
    only local support and no full CPU oracle. Shared reduction supports odd/empty
    owners and1..64 logical ranks; one final owner, no duplicate final GPU merge.
@@ -2327,6 +2327,15 @@ SCALING-109 next-work order is explicit:
    Normal timing passes exclude a separate artifact snapshot pass. Retain full
    support/transfer/state/final evidence, independent CPU references and profiles;
    all network data stays in RAM. No buffer/default/full-run admission change.
+   CPU/shared/race checks pass, but the largest case's second timed pass logs a
+   rank2→rank0 sender/receiver mismatch on131,073 coefficients, then final CPU
+   inequality. Smaller normal cases pass; GPU memcheck is unrun. No resource guard
+   triggered.635source/17evidence/42cache seals verify. Cause remains unknown;
+   do not attribute it to GPU hardware or treat partial timings as validated.
+   **Immediate next step:** checksum handshake and failure payload capture at the
+   transfer boundary, with repeated bounded trials before GPU consumption. Preserve
+   existing checks/defaults; evaluate any staging-copy workaround explicitly only
+   after diagnosis. Larger/fullsize integration waits for this correctness gate.
 6. Compare complete elapsed time across practical allocations before choosing
    final GPU/node count or giving fulls18 runtime. Full-size/multi-node persistence
    remains unmeasured; larger storage or node/GPU budgets need separate admission.

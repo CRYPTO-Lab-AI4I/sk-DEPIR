@@ -1,0 +1,132 @@
+{
+  "status": "failed",
+  "job_id": "77704",
+  "revision": "6c7d28fa83bb387ee1eedde4def35449a7d7e64a",
+  "source_files_verified": 635,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 17,
+  "cache_files_verified": 42,
+  "tests": [
+    "source/evidence/cache seals",
+    "completed historical fixture/shared/race commands",
+    "partial retained case0/1 final/handoff byte equality"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.01153412798885256,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.018570638028904796,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.31734439701540396,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 0.007080157985910773,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.019495242042466998,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.03748102200916037,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 16.241822775977198,
+      "exit_code": 0
+    },
+    {
+      "label": "tree-build",
+      "seconds": 31.11407904099906,
+      "exit_code": 0
+    },
+    {
+      "label": "fixture-regression",
+      "seconds": 18.296233672008384,
+      "exit_code": 0
+    },
+    {
+      "label": "shared-tests",
+      "seconds": 1.8255818969919346,
+      "exit_code": 0
+    },
+    {
+      "label": "shared-race",
+      "seconds": 18.3845181769575,
+      "exit_code": 0
+    },
+    {
+      "label": "normal",
+      "seconds": 24.78839057200821,
+      "exit_code": 92
+    }
+  ],
+  "scope": "failure forensics only; no full tree validation or GPU memcheck success",
+  "failure": "one mismatched rank2\u2192rank0 polynomial hash at case2/sample1/stride2; final CPU equality failed",
+  "mismatches": [
+    {
+      "sender": {
+        "case": 2,
+        "direction": "send",
+        "elapsed_seconds": 23.112634125,
+        "file": "case-2-stride-2-send-0.bin",
+        "host": "gnode17",
+        "kind": "transfer",
+        "peak_rss_bytes": 407093248,
+        "peer": 0,
+        "rank": 2,
+        "sample": 1,
+        "sha256": "85051b49927729aaeb4747969a2ce01c2d26a325df19bb139fb2c347f1fec6af",
+        "stride": 2,
+        "utc": "2026-11-19T09:29:28.500188214Z",
+        "words": 131073
+      },
+      "receivers": [
+        {
+          "case": 2,
+          "direction": "receive",
+          "elapsed_seconds": 23.118933255,
+          "file": "case-2-stride-2-receive-2.bin",
+          "host": "gnode16",
+          "kind": "transfer",
+          "peak_rss_bytes": 430690304,
+          "peer": 2,
+          "rank": 0,
+          "sample": 1,
+          "sha256": "1131735bd085c08fb966afcd627d0a739a97cd67bfff64023ff1f8c11bfd1616",
+          "stride": 2,
+          "utc": "2026-11-19T09:29:28.499692508Z",
+          "words": 131073
+        }
+      ]
+    }
+  ],
+  "retained_partial_checks": [
+    {
+      "case": 0,
+      "final_sha256": "346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a",
+      "scope": "retained final/reference and three handoff byte pairs match; not full experiment success"
+    },
+    {
+      "case": 1,
+      "final_sha256": "e0e7070a60c00c836dce6ce806a35200ede8149454b8c6743d49c11245301649",
+      "scope": "retained final/reference and three handoff byte pairs match; not full experiment success"
+    }
+  ],
+  "gpu_memcheck": "not reached",
+  "retry": "not submitted",
+  "completed_commands_verified": 11,
+  "failed_command_verified": "normal:92"
+}

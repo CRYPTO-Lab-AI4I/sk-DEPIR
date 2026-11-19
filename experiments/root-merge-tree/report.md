@@ -1,11 +1,14 @@
 # Rank-owned support and GPU polynomial merge tree
 
-Status: **bounded validation job77704 submitted**, results not reviewed (SCALING-121).
-Implementation `6c7d28f`. [Submission receipt](submission.json), result/profile
-location `runs/tree-01/`, progress `slurm-77704.log`.
-[Actual frozen-input check](readiness/snapshot.json):635files,3,022,873bytes;
-all11 checked implementation-input hashes match. No GPU/MPI execution is claimed
-by this snapshot check.
+Status: **job77704 failed correctness validation**, reviewed as SCALING-122.
+HPCgnode16/17,4logical ranks sharing2H200/4CPU/8GiB requested host RAM total.
+Scheduler elapsed1 minute58 seconds; controller116.151seconds. No timeout/RSS/
+owned-device guard triggered. CUDA memcheck/profile summaries were not reached.
+Source `6c7d28fa83bb387ee1eedde4def35449a7d7e64a`.
+[Receipt](submission.json), [raw results](runs/tree-01/results.json),
+[failure review](runs/tree-01/failure-review.json), [accounting](runs/tree-01/accounting.txt),
+[normal log](runs/tree-01/normal.log), [Slurm log](slurm-77704.log).
+
 [Runner](run.py), [scheduler script](run.sbatch), [reviewer](analyze.py),
 [review tests](test_review.py),
 [shared routing](../../encoding/liftrs-shared/root_partitions.go),
@@ -160,3 +163,41 @@ regressions pass. [Checks/source hashes](readiness/checks.json),
 [review tests](readiness/reviewer-tests.log). Prior distributed/staged/shared-review
 regressions also pass. Login-node OpenMPI compiler wrappers emit sandbox socket
 warnings while exiting zero; no local MPI initialization or GPU run is claimed.
+
+## Failed validation review (SCALING-122)
+
+635 frozen source,17 evidence and42 retained cache hashes reconcile without
+source overrides. The first11 commands exit0, including historical CPU hashes,
+shared routing/tree/partition tests and race checks. Normal execution exits92
+through intentional `MPI_Abort` after final CPU equality fails. This is **not a
+passed ownership-tree gate**, a resource failure or evidence of a GPU hardware fault.
+
+Both smaller normal cases complete all four passes and retain CPU-identical final
+arrays plus identical bytes for all three send/receive pairs. The largest synthetic
+s17 case (262,144 exponents) passes warm-up and first timed pass; its second timed
+pass fails.40 measurement rows exist before failure; no full-case timing baseline
+is accepted from this incomplete experiment. Largest artifact pass and all GPU
+memchecks are unrun. Peak normal process high-water observation410.738MiB; retained
+cache16.278MiB. These are partial-run observations, not a full validated memory result.
+
+The first differing logged boundary is rank2(gnode17)→rank0(gnode16), stride2,
+case2/sample1:131,073 uint32 coefficients (524,292bytes). Sender/receiver hashes:
+
+- Sender: `85051b49927729aa…` (same as earlier successful passes).
+- Receiver: `1131735bd085c08f…`.
+- Final root: `9b9bc9c5503d48…`, differing from CPU `f167d29b7e5212…`.
+
+Local roots and first-level products keep their earlier hashes; all earlier paired
+handoffs agree. This narrows the problem to the transfer/buffer-handling boundary,
+but does not establish whether MPI transport, Go-memory interaction or another
+buffer-lifetime issue is responsible. No driver/hardware/admin diagnosis follows.
+The failing timed pass did not save its raw send/receive arrays: snapshots were
+scheduled for the later artifact pass. Thus current evidence cannot identify the
+first differing coefficient or chunk. The full hashes are in failure-review.json.
+
+Next: targeted repeated transfer validation with an explicit sender/receiver
+checksum handshake and automatic retention of both payloads on disagreement,
+before any GPU consumes the received data. Keep all original checks and budgets;
+do not adopt a staging workaround, change defaults or continue full-size integration
+until the boundary is understood. Any proposed extra staging/copy cost must be
+reported as a memory/time trade-off rather than assumed free.

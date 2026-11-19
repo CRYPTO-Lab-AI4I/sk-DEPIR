@@ -62,7 +62,7 @@ original methodology; apply this policy to new optimization runs.
 
 - [Rank-owned support and GPU merge tree](root-merge-tree/report.md): shared
   bounded routing, deterministic unique ownership and complete state-chain/CPU
-  reference checks. Four logical ranks share2H200/2HPC nodes; job77704 submitted,
+  reference checks. Four logical ranks share2H200/2HPC nodes;77704 failed a largest-case transfer hash/CPU equality check,
   no4GPU speedup, distributed discovery/fullsize transform or default claim.
 
 - [Buffered preprocessing persistence](preprocessing-persistence/report.md): shared

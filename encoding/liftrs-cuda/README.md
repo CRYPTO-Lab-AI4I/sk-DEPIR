@@ -302,5 +302,6 @@ The next [rank-owned tree gate](../../experiments/root-merge-tree/report.md)
 uses the same executor for local normalized roots and each owned merge. Per-rank
 maximum elements follow its subtree rather than a final-product allocation on
 every worker. Four logical ranks share2H200/2HPC nodes for correctness validation;
-bounded job77704 is submitted, with no4GPU speedup/fulls18 claim. MPI/server test dependencies
+job77704 failed largest-case transfer/CPU equality. Boundary diagnosis is next;
+GPU memcheck was not reached. No4GPU speedup/fulls18 claim follows. MPI/server test dependencies
 remain explicit and ordinary client/backend defaults are unchanged.
