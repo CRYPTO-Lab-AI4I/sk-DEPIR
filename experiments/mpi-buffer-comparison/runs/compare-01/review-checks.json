@@ -1,0 +1,47 @@
+{
+  "utc": "2026-11-19T16:37:37.794564+00:00",
+  "base_revision": "debc782e4813239f84d10084b6ac60804e0722e3",
+  "source_state": "working-tree review additions; producer revision/results/logs remain unchanged",
+  "source_sha256": {
+    "experiments/mpi-buffer-comparison/analyze.py": "ae048aa2b09f57c51ac897d8321ebc40ba13be9bfd3c9a3ab12f31e4b7587e03",
+    "experiments/mpi-buffer-comparison/test_review.py": "56787f857335f4c54195edbb635c76040183bee6df0c3879d3c0b023871b8bec",
+    "experiments/root-merge-tree/run.py": "0746a2b4751abbc4694f4ed0c7a45a015d7796fd15a0f3e2cb9f0033444defc0"
+  },
+  "checks": [
+    {
+      "command": "python3 -B experiments/mpi-buffer-comparison/analyze.py compare-01",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/mpi-buffer-comparison/test_review.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/root-merge-tree/test_review.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/root-transfer-diagnostics/test_review.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/distributed-root/test_review.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/gpu-staged-transport/test_review.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B experiments/gpu-code-encoding/test_suite.py",
+      "exit_code": 0
+    }
+  ],
+  "syntax": "AST parse all changed Python; git diff --check",
+  "limitations": [
+    "No new MPI/GPU run; only completed staged arm is validated.",
+    "Direct payload disagreement captured, underlying cause unestablished.",
+    "No complete crossover ratios; later arms deliberately not run.",
+    "Profile command allowance changed from30to90s inside unchanged720s controller/900s scheduler; no pipeline clock change."
+  ]
+}

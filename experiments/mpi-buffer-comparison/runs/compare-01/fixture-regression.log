@@ -1,0 +1,19 @@
+=== RUN   TestRootFixtureReferenceDigests
+{"utc":"2026-11-19T13:48:27.004663607Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000019189}
+{"utc":"2026-11-19T13:48:27.005800516Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.00115612}
+{"utc":"2026-11-19T13:48:27.007631828Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000016482}
+{"utc":"2026-11-19T13:48:27.00822814Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000612795}
+{"utc":"2026-11-19T13:48:27.06403309Z","phase":"support-order-validation","event":"progress","completed":65536,"total":65536,"unit":"exponents","elapsed_seconds":0.00015058}
+{"utc":"2026-11-19T13:48:27.072520009Z","phase":"support-Frobenius-validation","event":"progress","completed":65536,"total":65536,"unit":"exponents","elapsed_seconds":0.008637499}
+{"utc":"2026-11-19T13:48:28.834854114Z","phase":"support-order-validation","event":"progress","completed":65536,"total":65536,"unit":"exponents","elapsed_seconds":0.000144549}
+{"utc":"2026-11-19T13:48:28.84373924Z","phase":"support-Frobenius-validation","event":"progress","completed":65536,"total":65536,"unit":"exponents","elapsed_seconds":0.009029675}
+{"utc":"2026-11-19T13:48:31.113772013Z","phase":"support-order-validation","event":"progress","completed":65536,"total":262144,"unit":"exponents","elapsed_seconds":0.000144636}
+{"utc":"2026-11-19T13:48:31.114246777Z","phase":"support-order-validation","event":"progress","completed":262144,"total":262144,"unit":"exponents","elapsed_seconds":0.0006194}
+{"utc":"2026-11-19T13:48:31.123970105Z","phase":"support-Frobenius-validation","event":"progress","completed":65536,"total":262144,"unit":"exponents","elapsed_seconds":0.01034273}
+{"utc":"2026-11-19T13:48:31.152890585Z","phase":"support-Frobenius-validation","event":"progress","completed":262144,"total":262144,"unit":"exponents","elapsed_seconds":0.039263208}
+--- PASS: TestRootFixtureReferenceDigests (17.94s)
+=== RUN   TestRootTransferProofAgreement
+--- PASS: TestRootTransferProofAgreement (0.00s)
+=== RUN   TestIndexTransferFingerprintHighBits
+--- PASS: TestIndexTransferFingerprintHighBits (0.00s)
+PASS

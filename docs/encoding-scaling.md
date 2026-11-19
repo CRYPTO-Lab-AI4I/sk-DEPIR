@@ -2352,14 +2352,20 @@ SCALING-109 next-work order is explicit:
    with identical builds, proof coverage and admission. Staging remains explicit:
    512 KiB host scratch/rank (2 MiB total), one CPU copy per send/receive, unknown
    isolated runtime penalty. Do not infer cause or change defaults from a clean
-   staged run. SCALING-127: [controlled comparison](../experiments/mpi-buffer-comparison/report.md)
-   reuses one build in staged/direct/direct/staged order, with fresh MPI processes,
-   identical fixture/proof/memcheck coverage and no node/resource increase.
-   Stop on any failed arm; preserve captures/completed-arm evidence. About
-   71.838 MiB projected cache within the 128 MiB cap; 4–7 min projected elapsed
-   within the 15 min scheduler cutoff. **Job 77868 submitted**, results unreviewed; no default
-   decision or runtime penalty measurement yet. Then continue scalable
-   discovery/products/FFT and publication.
+   staged run. SCALING-128: the [same-build comparison](../experiments/mpi-buffer-comparison/report.md)
+   **77868 passed staged-a and failed direct-a**. A paired capture records
+   rank1→rank0 host-payload disagreement on the same HPC node, before receiver
+   GPU work. Sender and receiver hashes each stable locally; 10,239 coefficients
+   received as zero. Later direct-b/staged-b unrun; no speed ratio or causal
+   diagnosis. Staged-a largest partial fixture median 1.218 s; normal process
+   peak RSS 410.676 MiB/rank; CPU/state/proof/memcheck checks pass.
+   Keep direct marked failed and staging explicit (512 KiB host scratch/rank and
+   CPU copies; isolated speed penalty unknown). Next isolate the host-buffer fault
+   in a small host-only reproduction, separately from arithmetic; retain validated
+   explicit staging for further bounded distributed discovery/products/FFT work.
+   No full-size capability or production default follows. Profile reporting now
+   gets 90 s inside the unchanged controller/scheduler limits, after its measured
+   28.060 s approached the old 30 s reporting deadline. Native timed clocks stay.
 
 6. Compare complete elapsed time across practical allocations before choosing
    final GPU/node count or giving fulls18 runtime. Full-size/multi-node persistence

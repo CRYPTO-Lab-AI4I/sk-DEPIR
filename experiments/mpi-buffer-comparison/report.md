@@ -1,16 +1,70 @@
 # Direct versus MPI-owned staging
 
-Status: **comparison job 77868 submitted** (SCALING-127); results unreviewed.
-[Receipt](submission.json), results/profiles `runs/compare-01/`, progress
-`slurm-77868.log`. Implementation `334cdfa`.
-[Frozen-input check](readiness/snapshot.json): 646 files / 3,058,542 bytes;
-all five checked input hashes match. No MPI/GPU execution implied by readiness.
+Status: **77868 failed in direct-a; staged-a passed** (SCALING-128).
+The comparison stopped on the first failed arm as designed. Later direct-b and
+staged-b are **not run**; no complete matched timing ratio is reported.
+[Receipt](submission.json), [raw results](runs/compare-01/results.json),
+[review](runs/compare-01/analysis.json),
+[accounting](runs/compare-01/scheduler-accounting.txt), [progress](slurm-77868.log),
+[durable arm summary](runs/compare-01/comparison-progress.json).
+Implementation `334cdfa`; **646 source / 29 original evidence / 136 cache hashes**
+verified. Binary/library hashes are unchanged across the completed arm and review.
+Raw outcomes, logs, payloads and profiles are preserved without editing.
 [Runner](run.py), [scheduler script](run.sbatch), [reviewer](analyze.py),
-[review tests](test_review.py), [shared preparation/execution](../root-merge-tree/run.py).
-Exact source revision is recorded in submission.json and frozen inputs in
-results.json. [Previous bounded staged result](../mpi-owned-staging/report.md):
-normal validation and CUDA memcheck passed; original direct-buffer failures remain
-unexplained. This experiment does not assume that staging fixes their cause.
+[review tests](test_review.py), [shared tree runner](../root-merge-tree/run.py).
+
+HPC: gnode13/gnode14, two H200s, four logical ranks/CPU cores, 4 GiB requested host
+RAM per node. Scheduler elapsed **3 min 6 s**, controller **185.362 s**. No resource
+or time guard caused the transfer failure. Retained cache: **34.574 MiB**.
+
+| Round | Correctness outcome | Largest synthetic-case median pipeline | Normal largest logged process peak RSS per rank |
+|---|---|---:|---:|
+| staged-a | Passed all 22 normal passes, 516 transfer proofs; four-rank CUDA memcheck zero errors/leaks | 1.217932 s, 12 timed samples | 410.676 MiB |
+| direct-a | Failed transfer fingerprints in largest case/sample 5; 52 earlier rank measurements passed | No validated full-round timing | 407.219 MiB observed before abort |
+| direct-b | Not run after failure | Unknown | Unknown |
+| staged-b | Not run after failure | Unknown | Unknown |
+
+Staged-a smaller fixture medians: genuine s=8 **0.014448 s**, synthetic s=17 with
+65,536 exponents **0.295641 s** (two timed passes each). Largest fixture has
+262,144 exponents; owned GPU arrays peaked at **15.241 MiB per rank**, contexts
+additional. Normal command **38.396 s**, memcheck **3.982 s**, profile summary
+**28.060 s**; CPU references/setup, excluded warm-up/artifacts and CPU profiling
+are retained and separated from per-pass medians. This repeats the earlier
+[bounded staged pass](../mpi-owned-staging/report.md), not full s=17/s=18 support.
+
+## Captured direct transfer failure
+
+At largest case/sample 5, rank **1 → 0**, both on **gnode13**, sent 65,537 uint32
+coefficients (**262,148 bytes**, two MPI chunks). Sender pre/post hashes agree;
+receiver pre/post hashes also agree, but they differ across endpoints. Both
+synced captures match their logged current-data hashes and exchanged proofs.
+The paired files differ in **10,239 words**, all received as zero. First mismatch:
+zero-based byte **40,960**, word **10,240**, sender **77,064**, receiver **0**.
+See `failure_evidence` in the [review](runs/compare-01/analysis.json) for exact
+paths and hashes. Payloads stay outside Git, under the sealed retained cache:
+`.cache/liftrs/mpi-buffer-comparison/compare-01/direct-a-normal/rank-{0,1}/`.
+The reviewer checks extents, proof pairing, snapshot hashes and first differences.
+
+This is direct evidence of differing host payloads before receiver GPU work. The
+failure is within one node, so inter-node network transfer is not required to
+trigger it. The underlying MPI/runtime/buffer-lifetime cause is **not established**.
+Do not claim that hardware is faulty, that a particular transport is selected,
+or that staging has proved a permanent fix. Earlier direct-buffer gates remain
+failed. Staging adds **512 KiB host scratch/rank (2 MiB total)** and CPU copies;
+its isolated speed penalty remains **unknown**, since the direct round failed.
+
+**Next:** keep the direct experimental path marked unsafe by these tests; retain
+explicit staged mode for further bounded distributed work. Isolate the host-buffer
+transfer fault with a small host-only reproduction, independently of arithmetic,
+before any default decision. Continue full-size discovery/product/FFT integration
+using only a validated explicit transfer mode. No new job submitted in this review;
+full s=18 preprocessing remains unrun.
+
+The offline profile command succeeded but took 28.060 s, close to its former
+30 s deadline. Future shared tree runs allow **90 s for this reporting command**
+inside the unchanged 720 s controller / 15 min scheduler limits; no timed pipeline
+or resource allocation changes. Cold Go-tool startup/symbolization costs are not
+separately measured, so the earlier timeout cause remains unconfirmed.
 
 Build the native library and tagged Go test executable **once**. Reuse these
 identical files in four sequential arms on one HPC allocation:
@@ -95,3 +149,12 @@ fail-stop durable summaries. Existing 3 tree / 4 proof / 4 distributed / 5 stage
 3 shared-runner tests pass; Python and scheduler syntax checks pass. Native kernels
 and tagged Go harness are unchanged; their compilation/runtime checks run once
 inside the submitted job. No local MPI/GPU execution. [Commands and hashes](readiness/checks.json).
+
+## Review verification (SCALING-128)
+
+[Exact review commands and changed-source hashes](runs/compare-01/review-checks.json).
+Six comparison reviewer/orchestration tests pass, including paired corruption
+captures and rejection of a missing endpoint; 3 tree / 4 transfer-proof reviewer
+tests also pass. Independent review reruns all completed staged CPU/state/proof/
+memcheck checks and reconciles source/evidence/cache seals. No new MPI/GPU run or
+native compilation: only Python review/reporting and documentation changed.

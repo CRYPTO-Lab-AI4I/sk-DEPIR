@@ -62,7 +62,9 @@ original methodology; apply this policy to new optimization runs.
 
 - [Direct versus MPI-owned staging](mpi-buffer-comparison/report.md): one build,
   staged/direct/direct/staged order on one existing-budget allocation. Same checks,
-  explicit modes and stop-on-failure evidence; job 77868 submitted, results unreviewed.
+  77868 passed staged-a then captured a direct-a same-node transfer disagreement.
+  Later rounds unrun; no valid speed ratio or default change. Paired failure
+  payloads and completed staged CPU/proof/memcheck evidence retained.
 
 - [Root-transfer diagnostics](root-transfer-diagnostics/report.md): targeted
   proof exchange and paired failure snapshots after77704's transfer hash mismatch;

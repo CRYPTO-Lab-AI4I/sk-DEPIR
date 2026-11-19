@@ -315,3 +315,10 @@ were recovered offline. Added host scratch is 512 KiB/rank plus CPU copies;
 isolated runtime penalty and original fault cause remain unknown. Staging stays
 explicit; compare modes under identical instrumentation before selecting defaults.
 Full s=18 preprocessing remains unvalidated; CPU encoding defaults are unchanged.
+
+The [same-build comparison](../../experiments/mpi-buffer-comparison/report.md)
+**77868 passed staged-a and failed direct-a**, with paired captures showing a
+same-node host transfer disagreement before receiver GPU work. Later rounds were
+unrun; no valid speed comparison or underlying cause. Keep direct marked failed;
+explicit staging remains the validated bounded mode for continued work. It adds
+512 KiB host scratch per rank and copies; full-size behavior is still unvalidated.

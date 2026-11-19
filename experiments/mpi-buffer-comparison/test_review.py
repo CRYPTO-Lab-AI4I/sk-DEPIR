@@ -2,6 +2,7 @@
 from pathlib import Path
 from unittest import mock
 import copy
+import hashlib
 import json
 import runpy
 import tempfile
@@ -60,5 +61,23 @@ class Review(unittest.TestCase):
             state=json.loads((path/'comparison-progress.json').read_text())
             self.assertEqual(state['status'],'failed');self.assertEqual(state['current_arm'],'staged-a');self.assertEqual(state['arms'],[])
 
+
+    def test_paired_corruption_capture(self):
+        analyze=runpy.run_path(str(Path(__file__).with_name('analyze.py')))
+        with tempfile.TemporaryDirectory()as tmp:
+            cache=Path(tmp);rows=[]
+            payloads=[(1).to_bytes(4,'little')+(17).to_bytes(4,'little'),(1).to_bytes(4,'little')+bytes(4)]
+            hashes=[hashlib.sha256(p).hexdigest()for p in payloads]
+            for rank,direction in enumerate(('send','receive')):
+                folder=cache/'direct-a-normal'/f'rank-{rank}';folder.mkdir(parents=True)
+                (folder/'capture.bin').write_bytes(payloads[rank])
+                rows.append(dict(kind='transport-failure',matches=False,direction=direction,rank=rank,peer=1-rank,host='same-node',
+                    case=2,sample=5,phase='root',sequence=1,word_bytes=4,words=2,file='capture.bin',sha256=hashes[rank],
+                    own_proof=hashes[rank]*2,remote_proof=hashes[1-rank]*2))
+            result=analyze['review_captures'](rows,cache,'direct-a');pair=result['paired_snapshots'][0]
+            self.assertTrue(pair['same_host']);self.assertEqual(pair['changed_words_received_as_zero'],1)
+            self.assertEqual(pair['comparison']['first_differing_word'],1)
+            self.assertTrue(all(r['capture_matches_logged_sha']for r in result['captures']))
+            with self.assertRaises(AssertionError):analyze['review_captures'](rows[:1],cache,'direct-a')
 
 if __name__=='__main__':unittest.main()

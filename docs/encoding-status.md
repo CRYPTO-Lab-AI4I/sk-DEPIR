@@ -621,11 +621,16 @@ pipeline; normal-run largest logged process peak RSS **411.309 MiB per rank** an
 owned GPU arrays **15.241 MiB per rank** (contexts additional). This is partial
 support, not full s=17/s=18 preprocessing. The workflow status remains failed due
 to a later 30 s profile-summary timeout; all four raw profiles were recovered offline.
-Staging adds 512 KiB host scratch per rank and CPU copies; its isolated runtime
-penalty remains unknown. Earlier direct-buffer failures remain unresolved. Next
-is the [same-build direct/staged comparison](../experiments/mpi-buffer-comparison/report.md):
-staged/direct/direct/staged in one existing-budget allocation, with identical
-checks and saved failures. **Job 77868 submitted**, results unreviewed; no default change.
+The [same-build comparison](../experiments/mpi-buffer-comparison/report.md)
+**77868 passed staged-a, then failed direct-a** on a captured rank 1→0 transfer
+within HPC node gnode13. Both payloads were saved: 10,239 coefficients differed,
+all received as zero; sender/receiver pre/post hashes were locally stable.
+Staged-a passed 22 normal passes, 516 transfer proofs and four-rank CUDA memcheck;
+largest partial fixture median **1.218 s**, normal process peak RSS **410.676 MiB
+per rank**. The later two rounds were not run. No valid speed ratio or underlying
+cause follows; direct remains failed and staging explicit (512 KiB host scratch/
+rank plus CPU copies). Next isolate the host-buffer fault separately and retain
+validated explicit staging for bounded distributed work. Full s=18 remains unrun.
 
 ## Measurement boundaries for batch entries
 

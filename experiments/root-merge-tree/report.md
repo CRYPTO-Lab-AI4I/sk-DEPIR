@@ -218,3 +218,10 @@ the preceding memcheck's small-fixture environment before each normal arm, so
 later arms retain the full identical fixtures. No arithmetic or ownership logic
 changes. Local orchestration/reviewer tests pass; MPI/GPU execution awaits the
 comparison job. Historical results are unchanged.
+
+SCALING-128: comparison77868 passed staged-a but captured different bytes on a
+same-node direct transfer; [paired evidence](../mpi-buffer-comparison/report.md#captured-direct-transfer-failure).
+Keep direct failed and staging explicit. Profile reporting succeeded in 28.060 s
+but approached its 30 s deadline; its allowance is now 90 s within the unchanged
+720 s controller / 15 min scheduler limits. This changes reporting headroom only,
+not pipeline timing, native code or resource allocations.

@@ -1,0 +1,256 @@
+{
+  "status": "failed",
+  "job_id": "77868",
+  "revision": "334cdfa140b22f218cab750bac8b1b8b3b7eb669",
+  "source_files_verified": 646,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 29,
+  "cache_files_verified": 136,
+  "tests": [
+    "TestWideOrbitArithmetic",
+    "TestTableFreeFields"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.010267065023072064,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.018210664042271674,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.3155419359682128,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 0.00710016000084579,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.03558465401874855,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.020341192022897303,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 15.518963414011523,
+      "exit_code": 0
+    },
+    {
+      "label": "tree-build",
+      "seconds": 28.88586346700322,
+      "exit_code": 0
+    },
+    {
+      "label": "fixture-regression",
+      "seconds": 18.146098566998262,
+      "exit_code": 0
+    },
+    {
+      "label": "shared-tests",
+      "seconds": 1.4741932500037365,
+      "exit_code": 0
+    },
+    {
+      "label": "shared-race",
+      "seconds": 16.719868961023167,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-a-normal",
+      "seconds": 38.39645975100575,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-a-memcheck",
+      "seconds": 3.9815253019914962,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-a-profile",
+      "seconds": 28.060318353003822,
+      "exit_code": 0
+    },
+    {
+      "label": "direct-a-normal",
+      "seconds": 27.6456129400176,
+      "exit_code": 92
+    }
+  ],
+  "scope": "Bounded same-build diagnostic crossover; original direct-buffer fault remains unexplained.",
+  "failure_evidence": {
+    "captures": [
+      {
+        "buffer": "2ccd614cc000",
+        "case": 2,
+        "direction": "send",
+        "elapsed_seconds": 26.348057697,
+        "file": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/mpi-buffer-comparison/compare-01/direct-a-normal/rank-1/case-2-sample-5-root-1-failed-send-0.bin",
+        "host": "gnode13",
+        "kind": "transport-failure",
+        "matches": false,
+        "own_proof": "4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d",
+        "peak_rss_bytes": 408940544,
+        "peer": 0,
+        "phase": "root",
+        "rank": 1,
+        "remote_proof": "6a1d39e5b51640b3e452a38ff020f4d09ca688fba546d965d61de91eaef60ebd6a1d39e5b51640b3e452a38ff020f4d09ca688fba546d965d61de91eaef60ebd",
+        "sample": 5,
+        "sequence": 1,
+        "sha256": "4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d",
+        "utc": "2026-11-19T13:50:43.526060524Z",
+        "word_bytes": 4,
+        "words": 65537,
+        "snapshot_sha256": "4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d",
+        "capture_matches_logged_sha": true
+      },
+      {
+        "buffer": "1016f3662000",
+        "case": 2,
+        "direction": "receive",
+        "elapsed_seconds": 26.350321784,
+        "file": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/mpi-buffer-comparison/compare-01/direct-a-normal/rank-0/case-2-sample-5-root-1-failed-receive-1.bin",
+        "host": "gnode13",
+        "kind": "transport-failure",
+        "matches": false,
+        "own_proof": "6a1d39e5b51640b3e452a38ff020f4d09ca688fba546d965d61de91eaef60ebd6a1d39e5b51640b3e452a38ff020f4d09ca688fba546d965d61de91eaef60ebd",
+        "peak_rss_bytes": 426999808,
+        "peer": 1,
+        "phase": "root",
+        "rank": 0,
+        "remote_proof": "4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d",
+        "sample": 5,
+        "sequence": 1,
+        "sha256": "6a1d39e5b51640b3e452a38ff020f4d09ca688fba546d965d61de91eaef60ebd",
+        "utc": "2026-11-19T13:50:43.526712039Z",
+        "word_bytes": 4,
+        "words": 65537,
+        "snapshot_sha256": "6a1d39e5b51640b3e452a38ff020f4d09ca688fba546d965d61de91eaef60ebd",
+        "capture_matches_logged_sha": true
+      }
+    ],
+    "paired_snapshots": [
+      {
+        "sender": 1,
+        "receiver": 0,
+        "same_host": true,
+        "sender_host": "gnode13",
+        "receiver_host": "gnode13",
+        "comparison": {
+          "equal": false,
+          "left_bytes": 262148,
+          "right_bytes": 262148,
+          "first_differing_byte": 40960,
+          "first_differing_word": 10240,
+          "left_word": 77064,
+          "right_word": 0
+        },
+        "changed_words": 10239,
+        "changed_words_received_as_zero": 10239
+      }
+    ]
+  },
+  "completed_arms": [
+    {
+      "name": "staged-a",
+      "mode": "staged",
+      "status": "passed",
+      "normal": {
+        "proof_events": 516,
+        "proof_phases": {
+          "support": 384,
+          "root": 132
+        },
+        "measurement_rows": 88,
+        "hosts": {
+          "1": "gnode13",
+          "0": "gnode13",
+          "3": "gnode14",
+          "2": "gnode14"
+        },
+        "peak_logged_rss_bytes_per_rank": 430624768,
+        "peak_owned_device_bytes_per_rank": 15980980
+      },
+      "cases": [
+        {
+          "case": 0,
+          "s": 8,
+          "support_count": 7381,
+          "timed_samples": 2,
+          "median_seconds": {
+            "seconds": 0.0144483095,
+            "route_seconds": 0.0017544325,
+            "root_seconds": 0.0034006115,
+            "tree_seconds": 0.0101330295,
+            "verify_seconds": 0.00010652449999999999
+          }
+        },
+        {
+          "case": 1,
+          "s": 17,
+          "support_count": 65536,
+          "timed_samples": 2,
+          "median_seconds": {
+            "seconds": 0.29564142449999997,
+            "route_seconds": 0.0135121705,
+            "root_seconds": 0.1860740585,
+            "tree_seconds": 0.120527447,
+            "verify_seconds": 0.0009170070000000001
+          }
+        },
+        {
+          "case": 2,
+          "s": 17,
+          "support_count": 262144,
+          "timed_samples": 12,
+          "median_seconds": {
+            "seconds": 1.217931565,
+            "route_seconds": 0.059789188,
+            "root_seconds": 0.9417210005000001,
+            "tree_seconds": 0.2101406985,
+            "verify_seconds": 0.003790975
+          }
+        }
+      ],
+      "final_sha256": {
+        "0": "346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a",
+        "1": "e0e7070a60c00c836dce6ce806a35200ede8149454b8c6743d49c11245301649",
+        "2": "f167d29b7e5212b1e63b4215bc0ef34427a562e8e569b9d4c0cc74f1a52fc223"
+      },
+      "setup_seconds_by_case": {
+        "0": 1.7853911230000001,
+        "1": 2.30953769,
+        "2": 13.932781745
+      },
+      "memcheck": {
+        "proof_events": 24,
+        "proof_phases": {
+          "support": 12,
+          "root": 12
+        },
+        "measurement_rows": 8,
+        "hosts": {
+          "1": "gnode13",
+          "0": "gnode13",
+          "2": "gnode14",
+          "3": "gnode14"
+        },
+        "peak_logged_rss_bytes_per_rank": 430948352,
+        "peak_owned_device_bytes_per_rank": 65704
+      }
+    }
+  ],
+  "comparisons": [],
+  "workflow_error": "direct-a-normal failed",
+  "current_arm": "direct-a"
+}

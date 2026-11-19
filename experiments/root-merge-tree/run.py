@@ -184,7 +184,8 @@ def execute(context,prepared,prefix=''):
     for rank in range(4):
         assert (out/f'{prefix}normal-{rank}.pprof').stat().st_size>0
     # Keep post-run summaries offline; retain full profiles for later native symbolization.
-    run('profile',[go,'tool','pprof','-symbolize=none','-top',binary,out/(prefix+'normal-0.pprof')])
+    # A fresh Go tool cache took28 s in77868; allow startup headroom within the controller deadline.
+    run('profile',[go,'tool','pprof','-symbolize=none','-top',binary,out/(prefix+'normal-0.pprof')],90)
     return dict(measurements=normal,sanitized=sanitized)
 
 
