@@ -57,7 +57,7 @@ its isolated speed penalty remains **unknown**, since the direct round failed.
 explicit staged mode for further bounded distributed work. Isolate the host-buffer
 transfer fault with a small host-only reproduction, independently of arithmetic,
 before any default decision. The [host-only replay](../mpi-host-buffers/report.md)
-is prepared with the captured sender data and shared handshake. Continue full-size discovery/product/FFT integration
+is submitted as job 78000 with the captured sender data and shared handshake. Continue full-size discovery/product/FFT integration
 using only a validated explicit transfer mode. No new job submitted in this review;
 full s=18 preprocessing remains unrun.
 

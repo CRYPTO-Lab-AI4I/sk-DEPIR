@@ -2368,7 +2368,7 @@ SCALING-109 next-work order is explicit:
    reuses captured sender bytes and the shared transport/proof handshake without
    GPU arithmetic. Staged controls precede direct; same-node/cross-node root and
    uint64 routes, normal churn versus explicit forced reclamation. Zero GPUs,
-   unchanged 2-node/4-core/8 GiB host and storage/deadline envelope. Prepared,
+   unchanged 2-node/4-core/8 GiB host and storage/deadline envelope. **78000 submitted**,
    results unmeasured; stop on failure and preserve both endpoints. Reclamation
    stress is not a preprocessing mode or evidence of cause. Profile reporting
    gets 90 s inside the unchanged controller/scheduler limits, after its measured

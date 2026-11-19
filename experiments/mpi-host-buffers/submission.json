@@ -1,0 +1,32 @@
+{
+  "job_id": "78000",
+  "submitted_utc": "2026-11-19T16:49:51.581708+00:00",
+  "implementation_revision": "c48ee74311b857dd1d61ec123b71e1d9919489c9",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--output=experiments/mpi-host-buffers/slurm-%j.log",
+    "experiments/mpi-host-buffers/run.sbatch",
+    "replay-01"
+  ],
+  "results": "experiments/mpi-host-buffers/runs/replay-01",
+  "progress_log": "experiments/mpi-host-buffers/slurm-78000.log",
+  "cache": ".cache/liftrs/mpi-host-buffers/replay-01/",
+  "resources": {
+    "nodes": 2,
+    "cpus": 4,
+    "ranks": 4,
+    "gpus": 0,
+    "host_request_GiB_per_node": 4,
+    "rss_guard_GiB_per_rank": 1,
+    "churn_MiB_per_rank": 16,
+    "max_staging_KiB_per_rank": 512,
+    "retained_cap_MiB": 128,
+    "scratch_cap_GiB": 2,
+    "controller_seconds": 720,
+    "scheduler_seconds": 900
+  },
+  "admission": "Same previously admitted node/host/core/storage/deadline envelope; GPU request reduced to zero.",
+  "monitoring": "No polling/log following/result analysis until user completion ping.",
+  "scope": "Host-only captured-payload replay and diagnostic reclamation controls, not production behavior or proven cause."
+}

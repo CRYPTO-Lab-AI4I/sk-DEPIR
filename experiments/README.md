@@ -62,7 +62,7 @@ original methodology; apply this policy to new optimization runs.
 
 - [Host-only MPI buffer replay](mpi-host-buffers/report.md): captured public
   payload, shared transport/proofs, same-node/cross-node routes and explicit
-  reclamation controls. Zero GPUs, existing host budget; prepared, unmeasured.
+  reclamation controls. Zero GPUs, existing host budget; 78000 submitted, unreviewed.
 
 - [Direct versus MPI-owned staging](mpi-buffer-comparison/report.md): one build,
   staged/direct/direct/staged order on one existing-budget allocation. Same checks,

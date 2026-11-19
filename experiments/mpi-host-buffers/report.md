@@ -1,8 +1,12 @@
 # Host-only MPI buffer replay
 
-Status: prepared (SCALING-129); MPI results unmeasured. [Runner](run.py),
+Status: **host-only job 78000 submitted** (SCALING-129); results unreviewed.
+[Receipt](submission.json), progress `slurm-78000.log`, results/profiles
+`runs/replay-01/`; implementation `c48ee74`.
+[Source freeze](readiness/snapshot.json): 652 files / 3,080,148 bytes; all eight
+checked input hashes match. No MPI execution is implied by local readiness. [Runner](run.py),
 [scheduler script](run.sbatch), [probe](probe_test.go), [reviewer](analyze.py),
-[review tests](test_review.py). Implementation revision will be in submission.json;
+[review tests](test_review.py). Implementation revision is in submission.json;
 source/evidence/cache seals in results.json. No CUDA library/toolkit or GPU is used.
 
 Replay the public polynomial captured at the sender in

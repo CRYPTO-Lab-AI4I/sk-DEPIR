@@ -631,9 +631,9 @@ per rank**. The later two rounds were not run. No valid speed ratio or underlyin
 cause follows; direct remains failed and staging explicit (512 KiB host scratch/
 rank plus CPU copies). Next isolate the host-buffer fault separately and retain
 validated explicit staging for bounded distributed work. The
-[host-only replay](../experiments/mpi-host-buffers/report.md) is prepared:
+[host-only replay](../experiments/mpi-host-buffers/report.md) is submitted as **job 78000**:
 captured payload, same-node/cross-node routes and explicit reclamation controls,
-zero GPUs and the existing host budget. Results unmeasured; full s=18 remains unrun.
+zero GPUs and the existing host budget. Results unreviewed; full s=18 remains unrun.
 
 ## Measurement boundaries for batch entries
 
