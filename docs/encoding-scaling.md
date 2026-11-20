@@ -2575,3 +2575,17 @@ FFT/s18 admission remains gated on completion and composition.
 SCALING-145 split sanitizer retry **78293 submitted**, source2a86336.
 Results `experiments/gpu-vector-stage/runs/vectors-03/`; no monitoring, await
 completion ping before composition. Same resource/deadline envelope.
+
+### GPU vector-stage gate reviewed (SCALING-147)
+
+[78293 component validation passed independently](../experiments/gpu-vector-stage/report.md):
+48normal /42split-sanitized cases, all saved bytes, zero CUDA errors/leaks. Raw
+controller reporting failure retained: summary check expected stderr, actual CUDA
+summaries were stdout. Strict dual-stream parser/regression now handles both; no
+GPU rerun required. Profiles retained and separately reported. Normal31.210s /
+sanitizer287.750s /controller357.989s, HPC2nodes/2H200/4cores/8GiBhost request;
+131.109MiB normal /167.059MiB sanitized host RSS per process,4.569MiB owned/card.
+Split coverage limitations remain explicit. Next compose GPU vectors/transposes
+and distributed Taylor dependencies, with independent end-to-end forward/inverse
+checks before products, s18 admission or any larger resource budget. No production
+layout/default switch; latency/memory/communications remain unmeasured at fullsize.

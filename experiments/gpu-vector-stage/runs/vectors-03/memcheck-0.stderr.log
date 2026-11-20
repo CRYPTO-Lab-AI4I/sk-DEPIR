@@ -1,0 +1,22 @@
+{"utc":"2026-11-20T11:07:45Z","phase":"stage-rows-forward-vectors","work":"gpu-preparation","event":"started","completed":0,"total":1,"elapsed_ms":0,"unit":"vectors"}
+{"utc":"2026-11-20T11:08:13Z","phase":"s17-d34-rows-131071","work":"case-heartbeat","event":"heartbeat","completed":1,"total":1,"elapsed_ms":28156,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":174125056}
+{"utc":"2026-11-20T11:08:43Z","phase":"s17-d34-rows-131071","work":"case-heartbeat","event":"heartbeat","completed":1,"total":1,"elapsed_ms":58157,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":174125056}
+{"utc":"2026-11-20T11:09:13Z","phase":"s17-d34-rows-131071","work":"case-heartbeat","event":"heartbeat","completed":1,"total":1,"elapsed_ms":88157,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":174125056}
+{"utc":"2026-11-20T11:09:43Z","phase":"s17-d34-rows-131071","work":"case-heartbeat","event":"heartbeat","completed":1,"total":1,"elapsed_ms":118158,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":174125056}
+{"utc":"2026-11-20T11:10:08Z","phase":"stage-rows-forward-vectors","work":"gpu-preparation","event":"completed","completed":1,"total":1,"elapsed_ms":142643,"unit":"vectors"}
+{"utc":"2026-11-20T11:10:08Z","phase":"stage-rows-inverse-vectors","work":"gpu-preparation","event":"started","completed":0,"total":1,"elapsed_ms":0,"unit":"vectors"}
+{"utc":"2026-11-20T11:10:13Z","phase":"s17-d34-rows-131071","work":"case-heartbeat","event":"heartbeat","completed":1,"total":2,"elapsed_ms":148158,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":175173632}
+{"utc":"2026-11-20T11:10:43Z","phase":"s17-d34-rows-131071","work":"case-heartbeat","event":"heartbeat","completed":1,"total":2,"elapsed_ms":178158,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":175173632}
+{"utc":"2026-11-20T11:11:13Z","phase":"s17-d34-rows-131071","work":"case-heartbeat","event":"heartbeat","completed":1,"total":2,"elapsed_ms":208158,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":175173632}
+{"utc":"2026-11-20T11:11:43Z","phase":"s17-d34-rows-131071","work":"case-heartbeat","event":"heartbeat","completed":1,"total":2,"elapsed_ms":238159,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":175173632}
+{"utc":"2026-11-20T11:12:13Z","phase":"s17-d34-rows-131071","work":"case-heartbeat","event":"heartbeat","completed":1,"total":2,"elapsed_ms":268159,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":175173632}
+{"utc":"2026-11-20T11:12:30Z","phase":"stage-rows-inverse-vectors","work":"gpu-preparation","event":"completed","completed":1,"total":1,"elapsed_ms":142370,"unit":"vectors"}

@@ -1,0 +1,532 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 96.43      0.27     0.27        1   270.00   280.00  void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&)
+  3.57      0.28     0.01        3     3.33     3.33  (anonymous namespace)::Resident<unsigned long>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long)
+  0.00      0.28     0.00   525124     0.00     0.00  require(bool, char const*)
+  0.00      0.28     0.00     7453     0.00     0.00  liftrs::FieldT<unsigned long>::mul(unsigned long, unsigned long) const
+  0.00      0.28     0.00     1669     0.00     0.00  liftrs::ProductT<unsigned long> liftrs::constant_product<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long)
+  0.00      0.28     0.00     1626     0.00     0.00  std::vector<unsigned long, std::allocator<unsigned long> >::_M_default_append(unsigned long)
+  0.00      0.28     0.00      977     0.00     0.00  liftrs::FieldT<unsigned int>::mul(unsigned int, unsigned int) const
+  0.00      0.28     0.00      870     0.00     0.00  (anonymous namespace)::check(cudaError)
+  0.00      0.28     0.00      719     0.00     0.00  void std::vector<liftrs::TermT<unsigned long>, std::allocator<liftrs::TermT<unsigned long> > >::_M_realloc_append<liftrs::TermT<unsigned long> >(liftrs::TermT<unsigned long>&&)
+  0.00      0.28     0.00      248     0.00     0.00  liftrs::ProductT<unsigned int> liftrs::constant_product<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int)
+  0.00      0.28     0.00      184     0.00     0.00  rss()
+  0.00      0.28     0.00      184     0.00     0.00  std::vector<unsigned int, std::allocator<unsigned int> >::_M_default_append(unsigned long)
+  0.00      0.28     0.00      137     0.00     0.00  void std::vector<liftrs::TermT<unsigned int>, std::allocator<liftrs::TermT<unsigned int> > >::_M_realloc_append<liftrs::TermT<unsigned int> >(liftrs::TermT<unsigned int>&&)
+  0.00      0.28     0.00       96     0.00     0.00  (anonymous namespace)::Resident<unsigned int>::good_fill(long*, unsigned long)
+  0.00      0.28     0.00       96     0.00     0.00  (anonymous namespace)::Resident<unsigned long>::good_fill(long*, unsigned long)
+  0.00      0.28     0.00       96     0.00     0.00  (anonymous namespace)::Resident<unsigned int>::event(char const*, char const*, unsigned long, unsigned long, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >) const
+  0.00      0.28     0.00       96     0.00     0.00  (anonymous namespace)::Resident<unsigned long>::event(char const*, char const*, unsigned long, unsigned long, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >) const
+  0.00      0.28     0.00       72     0.00     0.00  (anonymous namespace)::VectorStage<unsigned int>::download(unsigned int*, unsigned long)
+  0.00      0.28     0.00       72     0.00     0.00  (anonymous namespace)::VectorStage<unsigned long>::download(unsigned long*, unsigned long)
+  0.00      0.28     0.00       61     0.00     0.00  unsigned int liftrs::field_power<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int, unsigned long)
+  0.00      0.28     0.00       58     0.00     0.00  __cudaUnregisterBinaryUtil()
+  0.00      0.28     0.00       48     0.00     0.00  void save<unsigned int>(std::filesystem::__cxx11::path const&, std::vector<unsigned int, std::allocator<unsigned int> > const&)
+  0.00      0.28     0.00       48     0.00     0.00  void save<unsigned long>(std::filesystem::__cxx11::path const&, std::vector<unsigned long, std::allocator<unsigned long> > const&)
+  0.00      0.28     0.00       48     0.00     0.00  (anonymous namespace)::VectorStage<unsigned int>::upload(unsigned int const*, unsigned long)
+  0.00      0.28     0.00       48     0.00     0.00  (anonymous namespace)::VectorStage<unsigned long>::upload(unsigned long const*, unsigned long)
+  0.00      0.28     0.00       36     0.00     0.00  liftrs_cuda::encoding::reduce_parity(unsigned int*, unsigned long)
+  0.00      0.28     0.00       36     0.00     0.00  (anonymous namespace)::Buffer::allocate(int, unsigned long)
+  0.00      0.28     0.00       36     0.00     0.00  liftrs::TransformT<unsigned int>::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const
+  0.00      0.28     0.00       32     0.00     0.00  liftrs::execution::progress_record(char const*, char const*, char const*, unsigned long, unsigned long, unsigned long, char const*)
+  0.00      0.28     0.00       30     0.00     0.00  (anonymous namespace)::Buffer::clear()
+  0.00      0.28     0.00       30     0.00     0.00  std::vector<liftrs::ProductT<unsigned int>, std::allocator<liftrs::ProductT<unsigned int> > >::_M_default_append(unsigned long)
+  0.00      0.28     0.00       30     0.00     0.00  std::vector<liftrs::ProductT<unsigned long>, std::allocator<liftrs::ProductT<unsigned long> > >::_M_default_append(unsigned long)
+  0.00      0.28     0.00       30     0.00     0.00  std::vector<unsigned int, std::allocator<unsigned int> >::resize(unsigned long)
+  0.00      0.28     0.00       24     0.00     0.00  liftrs::TransformT<unsigned long>::recurse(unsigned long*, unsigned long, unsigned int, unsigned long, bool) const
+  0.00      0.28     0.00       24     0.00     0.00  void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::__resize_and_overwrite<std::__cxx11::to_string(unsigned long)::{lambda(char*, unsigned long)#1}>(unsigned long, std::__cxx11::to_string(unsigned long)::{lambda(char*, unsigned long)#1})
+  0.00      0.28     0.00       21     0.00     0.00  void liftrs::preparation::account_plan<liftrs::TransformPlan<unsigned int> >(liftrs::TransformPlan<unsigned int>&)
+  0.00      0.28     0.00       21     0.00     0.00  void liftrs::preparation::account_plan<liftrs::TransformPlan<unsigned long> >(liftrs::TransformPlan<unsigned long>&)
+  0.00      0.28     0.00       21     0.00     0.00  std::vector<std::vector<liftrs::TermT<unsigned int>, std::allocator<liftrs::TermT<unsigned int> > >, std::allocator<std::vector<liftrs::TermT<unsigned int>, std::allocator<liftrs::TermT<unsigned int> > > > >::_M_default_append(unsigned long)
+  0.00      0.28     0.00       21     0.00     0.00  std::vector<std::vector<liftrs::TermT<unsigned long>, std::allocator<liftrs::TermT<unsigned long> > >, std::allocator<std::vector<liftrs::TermT<unsigned long>, std::allocator<liftrs::TermT<unsigned long> > > > >::_M_default_append(unsigned long)
+  0.00      0.28     0.00       18     0.00     0.00  void liftrs::preparation::set_field<unsigned int>(liftrs::FieldT<unsigned int>&, unsigned int, unsigned int, unsigned int, bool)
+  0.00      0.28     0.00       15     0.00     0.00  std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool)
+  0.00      0.28     0.00       15     0.00     0.00  std::unique_ptr<liftrs::TransformPlan<unsigned long>, std::default_delete<liftrs::TransformPlan<unsigned long> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned long> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned long>::word_type const*, unsigned long, bool)
+  0.00      0.28     0.00       15     0.00     0.00  std::vector<std::vector<unsigned int, std::allocator<unsigned int> >, std::allocator<std::vector<unsigned int, std::allocator<unsigned int> > > >::_M_default_append(unsigned long)
+  0.00      0.28     0.00       15     0.00     0.00  std::vector<std::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > > >::_M_default_append(unsigned long)
+  0.00      0.28     0.00        9     0.00     0.00  liftrs_cuda::preparation::Tile<unsigned int> liftrs_cuda::preparation::tile<unsigned int>(liftrs::TransformT<unsigned int> const&)
+  0.00      0.28     0.00        9     0.00     0.00  liftrs_cuda::preparation::Tile<unsigned long> liftrs_cuda::preparation::tile<unsigned long>(liftrs::TransformT<unsigned long> const&)
+  0.00      0.28     0.00        9     0.00     0.00  (anonymous namespace)::VectorStage<unsigned int>::VectorStage((anonymous namespace)::Resident<unsigned int>&, unsigned long, unsigned long)
+  0.00      0.28     0.00        9     0.00     0.00  (anonymous namespace)::VectorStage<unsigned long>::VectorStage((anonymous namespace)::Resident<unsigned long>&, unsigned long, unsigned long)
+  0.00      0.28     0.00        6     0.00     0.00  liftrs_cuda::preparation::Matrix<unsigned int> liftrs_cuda::preparation::matrix<unsigned int>(unsigned int, unsigned int, unsigned int, unsigned long, bool)
+  0.00      0.28     0.00        6     0.00     0.00  liftrs_cuda::preparation::Matrix<unsigned long> liftrs_cuda::preparation::matrix<unsigned long>(unsigned int, unsigned int, unsigned int, unsigned long, bool)
+  0.00      0.28     0.00        6     0.00     0.00  (anonymous namespace)::peer_registry()
+  0.00      0.28     0.00        6     0.00     0.00  (anonymous namespace)::PeerLease::~PeerLease()
+  0.00      0.28     0.00        6     0.00     0.00  unsigned long liftrs::field_power<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long, unsigned long)
+  0.00      0.28     0.00        6     0.00     0.00  std::unique_ptr<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> >, std::default_delete<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int)
+  0.00      0.28     0.00        6     0.00     0.00  std::unique_ptr<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> >, std::default_delete<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int)
+  0.00      0.28     0.00        6     0.00     0.00  (anonymous namespace)::Card::owned() const
+  0.00      0.28     0.00        6     0.00     0.00  void std::vector<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> >, std::allocator<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> > > >::_M_realloc_append<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> > >(std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> >&&)
+  0.00      0.28     0.00        6     0.00     0.00  std::vector<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> >, std::allocator<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> > > >::~vector()
+  0.00      0.28     0.00        3     0.00     0.00  (anonymous namespace)::Resident<unsigned int>::plan((anonymous namespace)::Card&, unsigned long)
+  0.00      0.28     0.00        3     0.00     0.00  (anonymous namespace)::Resident<unsigned int>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long)
+  0.00      0.28     0.00        3     0.00     0.00  (anonymous namespace)::Resident<unsigned long>::plan((anonymous namespace)::Card&, unsigned long)
+  0.00      0.28     0.00        3     0.00     0.00  bool liftrs::is_primitive<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int)
+  0.00      0.28     0.00        3     0.00     0.00  bool liftrs::is_primitive<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long)
+  0.00      0.28     0.00        3     0.00     0.00  std::filesystem::__cxx11::path::path<char*, std::filesystem::__cxx11::path>(char* const&, std::filesystem::__cxx11::path::format)
+  0.00      0.28     0.00        3     0.00     0.00  std::filesystem::__cxx11::path::~path()
+  0.00      0.28     0.00        2     0.00     0.00  Field::Field(Reader&)
+  0.00      0.28     0.00        2     0.00     0.00  Field::~Field()
+  0.00      0.28     0.00        2     0.00     0.00  std::vector<unsigned int, std::allocator<unsigned int> >::vector(std::initializer_list<unsigned int>, std::allocator<unsigned int> const&)
+  0.00      0.28     0.00        1     0.00     0.00  void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&)
+  0.00      0.28     0.00        1     0.00     0.00  Watch::~Watch()
+
+			Call graph
+
+
+granularity: each sample hit covers 4 byte(s) for 3.57% of 0.28 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]    100.0    0.00    0.28                 main [1]
+                0.27    0.01       1/1           void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+                0.00    0.00       4/525124      require(bool, char const*) [1717]
+                0.00    0.00       3/3           std::filesystem::__cxx11::path::path<char*, std::filesystem::__cxx11::path>(char* const&, std::filesystem::__cxx11::path::format) [1778]
+                0.00    0.00       3/3           std::filesystem::__cxx11::path::~path() [1779]
+                0.00    0.00       2/2           Field::Field(Reader&) [1780]
+                0.00    0.00       2/2           Field::~Field() [1781]
+                0.00    0.00       1/1           void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+                0.00    0.00       1/58          __cudaUnregisterBinaryUtil() [1735]
+                0.00    0.00       1/1           Watch::~Watch() [1784]
+-----------------------------------------------
+                0.27    0.01       1/1           main [1]
+[2]    100.0    0.27    0.01       1         void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+                0.01    0.00       3/3           (anonymous namespace)::Resident<unsigned long>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [3]
+                0.00    0.00     165/525124      require(bool, char const*) [1717]
+                0.00    0.00      96/96          (anonymous namespace)::Resident<unsigned long>::good_fill(long*, unsigned long) [1729]
+                0.00    0.00      88/184         rss() [1725]
+                0.00    0.00      72/72          (anonymous namespace)::VectorStage<unsigned long>::download(unsigned long*, unsigned long) [1733]
+                0.00    0.00      48/870         (anonymous namespace)::check(cudaError) [1722]
+                0.00    0.00      48/48          void save<unsigned long>(std::filesystem::__cxx11::path const&, std::vector<unsigned long, std::allocator<unsigned long> > const&) [1737]
+                0.00    0.00      48/48          (anonymous namespace)::VectorStage<unsigned long>::upload(unsigned long const*, unsigned long) [1739]
+                0.00    0.00      24/24          liftrs::TransformT<unsigned long>::recurse(unsigned long*, unsigned long, unsigned int, unsigned long, bool) const [1748]
+                0.00    0.00      12/24          void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::__resize_and_overwrite<std::__cxx11::to_string(unsigned long)::{lambda(char*, unsigned long)#1}>(unsigned long, std::__cxx11::to_string(unsigned long)::{lambda(char*, unsigned long)#1}) [1749]
+                0.00    0.00       9/9           (anonymous namespace)::VectorStage<unsigned long>::VectorStage((anonymous namespace)::Resident<unsigned long>&, unsigned long, unsigned long) [1762]
+                0.00    0.00       6/58          __cudaUnregisterBinaryUtil() [1735]
+                0.00    0.00       3/6           std::unique_ptr<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> >, std::default_delete<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1769]
+                0.00    0.00       3/6           std::vector<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> >, std::allocator<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> > > >::~vector() [1772]
+                0.00    0.00       3/6           (anonymous namespace)::PeerLease::~PeerLease() [1766]
+                0.00    0.00       1/2           std::vector<unsigned int, std::allocator<unsigned int> >::vector(std::initializer_list<unsigned int>, std::allocator<unsigned int> const&) [1782]
+-----------------------------------------------
+                0.01    0.00       3/3           void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+[3]      3.6    0.01    0.00       3         (anonymous namespace)::Resident<unsigned long>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [3]
+                0.00    0.00      27/870         (anonymous namespace)::check(cudaError) [1722]
+                0.00    0.00      15/30          (anonymous namespace)::Buffer::clear() [1744]
+                0.00    0.00      15/36          liftrs_cuda::encoding::reduce_parity(unsigned int*, unsigned long) [1740]
+                0.00    0.00      15/36          (anonymous namespace)::Buffer::allocate(int, unsigned long) [1741]
+                0.00    0.00       3/3           bool liftrs::is_primitive<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long) [1777]
+                0.00    0.00       3/6           void std::vector<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> >, std::allocator<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> > > >::_M_realloc_append<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> > >(std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> >&&) [1771]
+                0.00    0.00       3/6           liftrs_cuda::preparation::Matrix<unsigned long> liftrs_cuda::preparation::matrix<unsigned long>(unsigned int, unsigned int, unsigned int, unsigned long, bool) [1764]
+-----------------------------------------------
+                0.00    0.00       4/525124      main [1]
+                0.00    0.00      96/525124      void save<unsigned int>(std::filesystem::__cxx11::path const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [1736]
+                0.00    0.00      96/525124      void save<unsigned long>(std::filesystem::__cxx11::path const&, std::vector<unsigned long, std::allocator<unsigned long> > const&) [1737]
+                0.00    0.00     165/525124      void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+                0.00    0.00     165/525124      void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+                0.00    0.00     184/525124      rss() [1725]
+                0.00    0.00  524414/525124      Field::Field(Reader&) [1780]
+[1717]   0.0    0.00    0.00  525124         require(bool, char const*) [1717]
+-----------------------------------------------
+                0.00    0.00     102/7453        bool liftrs::is_primitive<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long) [1777]
+                0.00    0.00     108/7453        unsigned long liftrs::field_power<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long, unsigned long) [1767]
+                0.00    0.00    2568/7453        liftrs::TransformT<unsigned long>::recurse(unsigned long*, unsigned long, unsigned int, unsigned long, bool) const [1748]
+                0.00    0.00    4675/7453        std::unique_ptr<liftrs::TransformPlan<unsigned long>, std::default_delete<liftrs::TransformPlan<unsigned long> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned long> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned long>::word_type const*, unsigned long, bool) [1756]
+[1718]   0.0    0.00    0.00    7453         liftrs::FieldT<unsigned long>::mul(unsigned long, unsigned long) const [1718]
+-----------------------------------------------
+                0.00    0.00     130/1669        std::unique_ptr<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> >, std::default_delete<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1769]
+                0.00    0.00    1539/1669        std::unique_ptr<liftrs::TransformPlan<unsigned long>, std::default_delete<liftrs::TransformPlan<unsigned long> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned long> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned long>::word_type const*, unsigned long, bool) [1756]
+[1719]   0.0    0.00    0.00    1669         liftrs::ProductT<unsigned long> liftrs::constant_product<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long) [1719]
+                0.00    0.00    1433/1626        std::vector<unsigned long, std::allocator<unsigned long> >::_M_default_append(unsigned long) [1720]
+-----------------------------------------------
+                0.00    0.00     193/1626        std::unique_ptr<liftrs::TransformPlan<unsigned long>, std::default_delete<liftrs::TransformPlan<unsigned long> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned long> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned long>::word_type const*, unsigned long, bool) [1756]
+                0.00    0.00    1433/1626        liftrs::ProductT<unsigned long> liftrs::constant_product<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long) [1719]
+[1720]   0.0    0.00    0.00    1626         std::vector<unsigned long, std::allocator<unsigned long> >::_M_default_append(unsigned long) [1720]
+-----------------------------------------------
+                0.00    0.00      24/977         bool liftrs::is_primitive<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int) [1776]
+                0.00    0.00      52/977         std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool) [1755]
+                0.00    0.00     373/977         unsigned int liftrs::field_power<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int, unsigned long) [1734]
+                0.00    0.00     528/977         liftrs::TransformT<unsigned int>::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const [1742]
+[1721]   0.0    0.00    0.00     977         liftrs::FieldT<unsigned int>::mul(unsigned int, unsigned int) const [1721]
+-----------------------------------------------
+                0.00    0.00       3/870         (anonymous namespace)::Resident<unsigned int>::plan((anonymous namespace)::Card&, unsigned long) [1773]
+                0.00    0.00       3/870         (anonymous namespace)::VectorStage<unsigned int>::VectorStage((anonymous namespace)::Resident<unsigned int>&, unsigned long, unsigned long) [1761]
+                0.00    0.00       3/870         (anonymous namespace)::Resident<unsigned long>::plan((anonymous namespace)::Card&, unsigned long) [1775]
+                0.00    0.00       3/870         (anonymous namespace)::VectorStage<unsigned long>::VectorStage((anonymous namespace)::Resident<unsigned long>&, unsigned long, unsigned long) [1762]
+                0.00    0.00      12/870         (anonymous namespace)::peer_registry() [1765]
+                0.00    0.00      27/870         (anonymous namespace)::Resident<unsigned int>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [1774]
+                0.00    0.00      27/870         (anonymous namespace)::Resident<unsigned long>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [3]
+                0.00    0.00      48/870         (anonymous namespace)::VectorStage<unsigned int>::upload(unsigned int const*, unsigned long) [1738]
+                0.00    0.00      48/870         (anonymous namespace)::VectorStage<unsigned long>::upload(unsigned long const*, unsigned long) [1739]
+                0.00    0.00      48/870         void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+                0.00    0.00      48/870         void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+                0.00    0.00      72/870         (anonymous namespace)::Buffer::allocate(int, unsigned long) [1741]
+                0.00    0.00     120/870         (anonymous namespace)::VectorStage<unsigned int>::download(unsigned int*, unsigned long) [1732]
+                0.00    0.00     120/870         (anonymous namespace)::VectorStage<unsigned long>::download(unsigned long*, unsigned long) [1733]
+                0.00    0.00     144/870         (anonymous namespace)::Resident<unsigned int>::good_fill(long*, unsigned long) [1728]
+                0.00    0.00     144/870         (anonymous namespace)::Resident<unsigned long>::good_fill(long*, unsigned long) [1729]
+[1722]   0.0    0.00    0.00     870         (anonymous namespace)::check(cudaError) [1722]
+-----------------------------------------------
+                0.00    0.00     106/719         std::unique_ptr<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> >, std::default_delete<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1769]
+                0.00    0.00     613/719         std::unique_ptr<liftrs::TransformPlan<unsigned long>, std::default_delete<liftrs::TransformPlan<unsigned long> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned long> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned long>::word_type const*, unsigned long, bool) [1756]
+[1723]   0.0    0.00    0.00     719         void std::vector<liftrs::TermT<unsigned long>, std::allocator<liftrs::TermT<unsigned long> > >::_M_realloc_append<liftrs::TermT<unsigned long> >(liftrs::TermT<unsigned long>&&) [1723]
+-----------------------------------------------
+                0.00    0.00      28/248         std::unique_ptr<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> >, std::default_delete<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1768]
+                0.00    0.00     220/248         std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool) [1755]
+[1724]   0.0    0.00    0.00     248         liftrs::ProductT<unsigned int> liftrs::constant_product<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int) [1724]
+                0.00    0.00     102/184         std::vector<unsigned int, std::allocator<unsigned int> >::_M_default_append(unsigned long) [1726]
+-----------------------------------------------
+                                 160             rss() [1725]
+                0.00    0.00      88/184         void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+                0.00    0.00      96/184         void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+[1725]   0.0    0.00    0.00     184+160     rss() [1725]
+                0.00    0.00     184/525124      require(bool, char const*) [1717]
+                                 160             rss() [1725]
+-----------------------------------------------
+                0.00    0.00      82/184         std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool) [1755]
+                0.00    0.00     102/184         liftrs::ProductT<unsigned int> liftrs::constant_product<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int) [1724]
+[1726]   0.0    0.00    0.00     184         std::vector<unsigned int, std::allocator<unsigned int> >::_M_default_append(unsigned long) [1726]
+-----------------------------------------------
+                0.00    0.00      28/137         std::unique_ptr<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> >, std::default_delete<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1768]
+                0.00    0.00     109/137         std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool) [1755]
+[1727]   0.0    0.00    0.00     137         void std::vector<liftrs::TermT<unsigned int>, std::allocator<liftrs::TermT<unsigned int> > >::_M_realloc_append<liftrs::TermT<unsigned int> >(liftrs::TermT<unsigned int>&&) [1727]
+-----------------------------------------------
+                0.00    0.00      96/96          void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+[1728]   0.0    0.00    0.00      96         (anonymous namespace)::Resident<unsigned int>::good_fill(long*, unsigned long) [1728]
+                0.00    0.00     144/870         (anonymous namespace)::check(cudaError) [1722]
+                0.00    0.00      96/96          (anonymous namespace)::Resident<unsigned int>::event(char const*, char const*, unsigned long, unsigned long, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >) const [1730]
+-----------------------------------------------
+                0.00    0.00      96/96          void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+[1729]   0.0    0.00    0.00      96         (anonymous namespace)::Resident<unsigned long>::good_fill(long*, unsigned long) [1729]
+                0.00    0.00     144/870         (anonymous namespace)::check(cudaError) [1722]
+                0.00    0.00      96/96          (anonymous namespace)::Resident<unsigned long>::event(char const*, char const*, unsigned long, unsigned long, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >) const [1731]
+-----------------------------------------------
+                0.00    0.00      96/96          (anonymous namespace)::Resident<unsigned int>::good_fill(long*, unsigned long) [1728]
+[1730]   0.0    0.00    0.00      96         (anonymous namespace)::Resident<unsigned int>::event(char const*, char const*, unsigned long, unsigned long, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >) const [1730]
+-----------------------------------------------
+                0.00    0.00      96/96          (anonymous namespace)::Resident<unsigned long>::good_fill(long*, unsigned long) [1729]
+[1731]   0.0    0.00    0.00      96         (anonymous namespace)::Resident<unsigned long>::event(char const*, char const*, unsigned long, unsigned long, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >) const [1731]
+                0.00    0.00      32/32          liftrs::execution::progress_record(char const*, char const*, char const*, unsigned long, unsigned long, unsigned long, char const*) [1743]
+-----------------------------------------------
+                0.00    0.00      72/72          void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+[1732]   0.0    0.00    0.00      72         (anonymous namespace)::VectorStage<unsigned int>::download(unsigned int*, unsigned long) [1732]
+                0.00    0.00     120/870         (anonymous namespace)::check(cudaError) [1722]
+-----------------------------------------------
+                0.00    0.00      72/72          void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+[1733]   0.0    0.00    0.00      72         (anonymous namespace)::VectorStage<unsigned long>::download(unsigned long*, unsigned long) [1733]
+                0.00    0.00     120/870         (anonymous namespace)::check(cudaError) [1722]
+-----------------------------------------------
+                0.00    0.00       3/61          (anonymous namespace)::Resident<unsigned int>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [1774]
+                0.00    0.00       6/61          bool liftrs::is_primitive<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int) [1776]
+                0.00    0.00      52/61          std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool) [1755]
+[1734]   0.0    0.00    0.00      61         unsigned int liftrs::field_power<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int, unsigned long) [1734]
+                0.00    0.00     373/977         liftrs::FieldT<unsigned int>::mul(unsigned int, unsigned int) const [1721]
+-----------------------------------------------
+                0.00    0.00       1/58          main [1]
+                0.00    0.00       6/58          (anonymous namespace)::Resident<unsigned int>::plan((anonymous namespace)::Card&, unsigned long) [1773]
+                0.00    0.00       6/58          void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+                0.00    0.00       6/58          (anonymous namespace)::Resident<unsigned long>::plan((anonymous namespace)::Card&, unsigned long) [1775]
+                0.00    0.00       6/58          void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+                0.00    0.00       9/58          liftrs_cuda::preparation::Matrix<unsigned int> liftrs_cuda::preparation::matrix<unsigned int>(unsigned int, unsigned int, unsigned int, unsigned long, bool) [1763]
+                0.00    0.00       9/58          liftrs_cuda::preparation::Matrix<unsigned long> liftrs_cuda::preparation::matrix<unsigned long>(unsigned int, unsigned int, unsigned int, unsigned long, bool) [1764]
+                0.00    0.00      15/58          std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool) [1755]
+[1735]   0.0    0.00    0.00      58         __cudaUnregisterBinaryUtil() [1735]
+-----------------------------------------------
+                0.00    0.00      48/48          void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+[1736]   0.0    0.00    0.00      48         void save<unsigned int>(std::filesystem::__cxx11::path const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [1736]
+                0.00    0.00      96/525124      require(bool, char const*) [1717]
+-----------------------------------------------
+                0.00    0.00      48/48          void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+[1737]   0.0    0.00    0.00      48         void save<unsigned long>(std::filesystem::__cxx11::path const&, std::vector<unsigned long, std::allocator<unsigned long> > const&) [1737]
+                0.00    0.00      96/525124      require(bool, char const*) [1717]
+-----------------------------------------------
+                0.00    0.00      48/48          void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+[1738]   0.0    0.00    0.00      48         (anonymous namespace)::VectorStage<unsigned int>::upload(unsigned int const*, unsigned long) [1738]
+                0.00    0.00      48/870         (anonymous namespace)::check(cudaError) [1722]
+-----------------------------------------------
+                0.00    0.00      48/48          void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+[1739]   0.0    0.00    0.00      48         (anonymous namespace)::VectorStage<unsigned long>::upload(unsigned long const*, unsigned long) [1739]
+                0.00    0.00      48/870         (anonymous namespace)::check(cudaError) [1722]
+-----------------------------------------------
+                0.00    0.00       3/36          (anonymous namespace)::Resident<unsigned int>::plan((anonymous namespace)::Card&, unsigned long) [1773]
+                0.00    0.00       3/36          (anonymous namespace)::Resident<unsigned long>::plan((anonymous namespace)::Card&, unsigned long) [1775]
+                0.00    0.00      15/36          (anonymous namespace)::Resident<unsigned int>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [1774]
+                0.00    0.00      15/36          (anonymous namespace)::Resident<unsigned long>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [3]
+[1740]   0.0    0.00    0.00      36         liftrs_cuda::encoding::reduce_parity(unsigned int*, unsigned long) [1740]
+-----------------------------------------------
+                0.00    0.00       3/36          (anonymous namespace)::Resident<unsigned int>::plan((anonymous namespace)::Card&, unsigned long) [1773]
+                0.00    0.00       3/36          (anonymous namespace)::Resident<unsigned long>::plan((anonymous namespace)::Card&, unsigned long) [1775]
+                0.00    0.00      15/36          (anonymous namespace)::Resident<unsigned int>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [1774]
+                0.00    0.00      15/36          (anonymous namespace)::Resident<unsigned long>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [3]
+[1741]   0.0    0.00    0.00      36         (anonymous namespace)::Buffer::allocate(int, unsigned long) [1741]
+                0.00    0.00      72/870         (anonymous namespace)::check(cudaError) [1722]
+-----------------------------------------------
+                                 552             liftrs::TransformT<unsigned int>::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const [1742]
+                0.00    0.00      36/36          void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+[1742]   0.0    0.00    0.00      36+552     liftrs::TransformT<unsigned int>::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const [1742]
+                0.00    0.00     528/977         liftrs::FieldT<unsigned int>::mul(unsigned int, unsigned int) const [1721]
+                                 552             liftrs::TransformT<unsigned int>::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const [1742]
+-----------------------------------------------
+                0.00    0.00      32/32          (anonymous namespace)::Resident<unsigned long>::event(char const*, char const*, unsigned long, unsigned long, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >) const [1731]
+[1743]   0.0    0.00    0.00      32         liftrs::execution::progress_record(char const*, char const*, char const*, unsigned long, unsigned long, unsigned long, char const*) [1743]
+-----------------------------------------------
+                0.00    0.00      15/30          (anonymous namespace)::Resident<unsigned int>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [1774]
+                0.00    0.00      15/30          (anonymous namespace)::Resident<unsigned long>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [3]
+[1744]   0.0    0.00    0.00      30         (anonymous namespace)::Buffer::clear() [1744]
+-----------------------------------------------
+                0.00    0.00      30/30          std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool) [1755]
+[1745]   0.0    0.00    0.00      30         std::vector<liftrs::ProductT<unsigned int>, std::allocator<liftrs::ProductT<unsigned int> > >::_M_default_append(unsigned long) [1745]
+-----------------------------------------------
+                0.00    0.00      30/30          std::unique_ptr<liftrs::TransformPlan<unsigned long>, std::default_delete<liftrs::TransformPlan<unsigned long> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned long> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned long>::word_type const*, unsigned long, bool) [1756]
+[1746]   0.0    0.00    0.00      30         std::vector<liftrs::ProductT<unsigned long>, std::allocator<liftrs::ProductT<unsigned long> > >::_M_default_append(unsigned long) [1746]
+-----------------------------------------------
+                0.00    0.00      30/30          std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool) [1755]
+[1747]   0.0    0.00    0.00      30         std::vector<unsigned int, std::allocator<unsigned int> >::resize(unsigned long) [1747]
+-----------------------------------------------
+                                1776             liftrs::TransformT<unsigned long>::recurse(unsigned long*, unsigned long, unsigned int, unsigned long, bool) const [1748]
+                0.00    0.00      24/24          void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+[1748]   0.0    0.00    0.00      24+1776    liftrs::TransformT<unsigned long>::recurse(unsigned long*, unsigned long, unsigned int, unsigned long, bool) const [1748]
+                0.00    0.00    2568/7453        liftrs::FieldT<unsigned long>::mul(unsigned long, unsigned long) const [1718]
+                                1776             liftrs::TransformT<unsigned long>::recurse(unsigned long*, unsigned long, unsigned int, unsigned long, bool) const [1748]
+-----------------------------------------------
+                0.00    0.00      12/24          void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+                0.00    0.00      12/24          void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+[1749]   0.0    0.00    0.00      24         void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::__resize_and_overwrite<std::__cxx11::to_string(unsigned long)::{lambda(char*, unsigned long)#1}>(unsigned long, std::__cxx11::to_string(unsigned long)::{lambda(char*, unsigned long)#1}) [1749]
+-----------------------------------------------
+                0.00    0.00       6/21          std::unique_ptr<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> >, std::default_delete<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1768]
+                0.00    0.00      15/21          std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool) [1755]
+[1750]   0.0    0.00    0.00      21         void liftrs::preparation::account_plan<liftrs::TransformPlan<unsigned int> >(liftrs::TransformPlan<unsigned int>&) [1750]
+-----------------------------------------------
+                0.00    0.00       6/21          std::unique_ptr<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> >, std::default_delete<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1769]
+                0.00    0.00      15/21          std::unique_ptr<liftrs::TransformPlan<unsigned long>, std::default_delete<liftrs::TransformPlan<unsigned long> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned long> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned long>::word_type const*, unsigned long, bool) [1756]
+[1751]   0.0    0.00    0.00      21         void liftrs::preparation::account_plan<liftrs::TransformPlan<unsigned long> >(liftrs::TransformPlan<unsigned long>&) [1751]
+-----------------------------------------------
+                0.00    0.00       6/21          std::unique_ptr<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> >, std::default_delete<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1768]
+                0.00    0.00      15/21          std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool) [1755]
+[1752]   0.0    0.00    0.00      21         std::vector<std::vector<liftrs::TermT<unsigned int>, std::allocator<liftrs::TermT<unsigned int> > >, std::allocator<std::vector<liftrs::TermT<unsigned int>, std::allocator<liftrs::TermT<unsigned int> > > > >::_M_default_append(unsigned long) [1752]
+-----------------------------------------------
+                0.00    0.00       6/21          std::unique_ptr<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> >, std::default_delete<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1769]
+                0.00    0.00      15/21          std::unique_ptr<liftrs::TransformPlan<unsigned long>, std::default_delete<liftrs::TransformPlan<unsigned long> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned long> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned long>::word_type const*, unsigned long, bool) [1756]
+[1753]   0.0    0.00    0.00      21         std::vector<std::vector<liftrs::TermT<unsigned long>, std::allocator<liftrs::TermT<unsigned long> > >, std::allocator<std::vector<liftrs::TermT<unsigned long>, std::allocator<liftrs::TermT<unsigned long> > > > >::_M_default_append(unsigned long) [1753]
+-----------------------------------------------
+                0.00    0.00       3/18          (anonymous namespace)::Resident<unsigned int>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [1774]
+                0.00    0.00      15/18          std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool) [1755]
+[1754]   0.0    0.00    0.00      18         void liftrs::preparation::set_field<unsigned int>(liftrs::FieldT<unsigned int>&, unsigned int, unsigned int, unsigned int, bool) [1754]
+-----------------------------------------------
+                0.00    0.00       3/15          liftrs_cuda::preparation::Matrix<unsigned int> liftrs_cuda::preparation::matrix<unsigned int>(unsigned int, unsigned int, unsigned int, unsigned long, bool) [1763]
+                0.00    0.00      12/15          std::unique_ptr<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> >, std::default_delete<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1768]
+[1755]   0.0    0.00    0.00      15         std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool) [1755]
+                0.00    0.00     220/248         liftrs::ProductT<unsigned int> liftrs::constant_product<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int) [1724]
+                0.00    0.00     109/137         void std::vector<liftrs::TermT<unsigned int>, std::allocator<liftrs::TermT<unsigned int> > >::_M_realloc_append<liftrs::TermT<unsigned int> >(liftrs::TermT<unsigned int>&&) [1727]
+                0.00    0.00      82/184         std::vector<unsigned int, std::allocator<unsigned int> >::_M_default_append(unsigned long) [1726]
+                0.00    0.00      52/61          unsigned int liftrs::field_power<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int, unsigned long) [1734]
+                0.00    0.00      52/977         liftrs::FieldT<unsigned int>::mul(unsigned int, unsigned int) const [1721]
+                0.00    0.00      30/30          std::vector<unsigned int, std::allocator<unsigned int> >::resize(unsigned long) [1747]
+                0.00    0.00      30/30          std::vector<liftrs::ProductT<unsigned int>, std::allocator<liftrs::ProductT<unsigned int> > >::_M_default_append(unsigned long) [1745]
+                0.00    0.00      15/18          void liftrs::preparation::set_field<unsigned int>(liftrs::FieldT<unsigned int>&, unsigned int, unsigned int, unsigned int, bool) [1754]
+                0.00    0.00      15/58          __cudaUnregisterBinaryUtil() [1735]
+                0.00    0.00      15/21          void liftrs::preparation::account_plan<liftrs::TransformPlan<unsigned int> >(liftrs::TransformPlan<unsigned int>&) [1750]
+                0.00    0.00      15/15          std::vector<std::vector<unsigned int, std::allocator<unsigned int> >, std::allocator<std::vector<unsigned int, std::allocator<unsigned int> > > >::_M_default_append(unsigned long) [1757]
+                0.00    0.00      15/21          std::vector<std::vector<liftrs::TermT<unsigned int>, std::allocator<liftrs::TermT<unsigned int> > >, std::allocator<std::vector<liftrs::TermT<unsigned int>, std::allocator<liftrs::TermT<unsigned int> > > > >::_M_default_append(unsigned long) [1752]
+-----------------------------------------------
+                0.00    0.00       3/15          liftrs_cuda::preparation::Matrix<unsigned long> liftrs_cuda::preparation::matrix<unsigned long>(unsigned int, unsigned int, unsigned int, unsigned long, bool) [1764]
+                0.00    0.00      12/15          std::unique_ptr<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> >, std::default_delete<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1769]
+[1756]   0.0    0.00    0.00      15         std::unique_ptr<liftrs::TransformPlan<unsigned long>, std::default_delete<liftrs::TransformPlan<unsigned long> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned long> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned long>::word_type const*, unsigned long, bool) [1756]
+                0.00    0.00    4675/7453        liftrs::FieldT<unsigned long>::mul(unsigned long, unsigned long) const [1718]
+                0.00    0.00    1539/1669        liftrs::ProductT<unsigned long> liftrs::constant_product<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long) [1719]
+                0.00    0.00     613/719         void std::vector<liftrs::TermT<unsigned long>, std::allocator<liftrs::TermT<unsigned long> > >::_M_realloc_append<liftrs::TermT<unsigned long> >(liftrs::TermT<unsigned long>&&) [1723]
+                0.00    0.00     193/1626        std::vector<unsigned long, std::allocator<unsigned long> >::_M_default_append(unsigned long) [1720]
+                0.00    0.00      30/30          std::vector<liftrs::ProductT<unsigned long>, std::allocator<liftrs::ProductT<unsigned long> > >::_M_default_append(unsigned long) [1746]
+                0.00    0.00      15/21          void liftrs::preparation::account_plan<liftrs::TransformPlan<unsigned long> >(liftrs::TransformPlan<unsigned long>&) [1751]
+                0.00    0.00      15/15          std::vector<std::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > > >::_M_default_append(unsigned long) [1758]
+                0.00    0.00      15/21          std::vector<std::vector<liftrs::TermT<unsigned long>, std::allocator<liftrs::TermT<unsigned long> > >, std::allocator<std::vector<liftrs::TermT<unsigned long>, std::allocator<liftrs::TermT<unsigned long> > > > >::_M_default_append(unsigned long) [1753]
+-----------------------------------------------
+                0.00    0.00      15/15          std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool) [1755]
+[1757]   0.0    0.00    0.00      15         std::vector<std::vector<unsigned int, std::allocator<unsigned int> >, std::allocator<std::vector<unsigned int, std::allocator<unsigned int> > > >::_M_default_append(unsigned long) [1757]
+-----------------------------------------------
+                0.00    0.00      15/15          std::unique_ptr<liftrs::TransformPlan<unsigned long>, std::default_delete<liftrs::TransformPlan<unsigned long> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned long> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned long>::word_type const*, unsigned long, bool) [1756]
+[1758]   0.0    0.00    0.00      15         std::vector<std::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > > >::_M_default_append(unsigned long) [1758]
+-----------------------------------------------
+                0.00    0.00       9/9           liftrs_cuda::preparation::Matrix<unsigned int> liftrs_cuda::preparation::matrix<unsigned int>(unsigned int, unsigned int, unsigned int, unsigned long, bool) [1763]
+[1759]   0.0    0.00    0.00       9         liftrs_cuda::preparation::Tile<unsigned int> liftrs_cuda::preparation::tile<unsigned int>(liftrs::TransformT<unsigned int> const&) [1759]
+-----------------------------------------------
+                0.00    0.00       9/9           liftrs_cuda::preparation::Matrix<unsigned long> liftrs_cuda::preparation::matrix<unsigned long>(unsigned int, unsigned int, unsigned int, unsigned long, bool) [1764]
+[1760]   0.0    0.00    0.00       9         liftrs_cuda::preparation::Tile<unsigned long> liftrs_cuda::preparation::tile<unsigned long>(liftrs::TransformT<unsigned long> const&) [1760]
+-----------------------------------------------
+                0.00    0.00       9/9           void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+[1761]   0.0    0.00    0.00       9         (anonymous namespace)::VectorStage<unsigned int>::VectorStage((anonymous namespace)::Resident<unsigned int>&, unsigned long, unsigned long) [1761]
+                0.00    0.00       3/870         (anonymous namespace)::check(cudaError) [1722]
+                0.00    0.00       3/3           (anonymous namespace)::Resident<unsigned int>::plan((anonymous namespace)::Card&, unsigned long) [1773]
+                0.00    0.00       3/6           (anonymous namespace)::peer_registry() [1765]
+-----------------------------------------------
+                0.00    0.00       9/9           void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+[1762]   0.0    0.00    0.00       9         (anonymous namespace)::VectorStage<unsigned long>::VectorStage((anonymous namespace)::Resident<unsigned long>&, unsigned long, unsigned long) [1762]
+                0.00    0.00       3/870         (anonymous namespace)::check(cudaError) [1722]
+                0.00    0.00       3/3           (anonymous namespace)::Resident<unsigned long>::plan((anonymous namespace)::Card&, unsigned long) [1775]
+                0.00    0.00       3/6           (anonymous namespace)::peer_registry() [1765]
+-----------------------------------------------
+                0.00    0.00       3/6           (anonymous namespace)::Resident<unsigned int>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [1774]
+                0.00    0.00       3/6           (anonymous namespace)::Resident<unsigned int>::plan((anonymous namespace)::Card&, unsigned long) [1773]
+[1763]   0.0    0.00    0.00       6         liftrs_cuda::preparation::Matrix<unsigned int> liftrs_cuda::preparation::matrix<unsigned int>(unsigned int, unsigned int, unsigned int, unsigned long, bool) [1763]
+                0.00    0.00       9/9           liftrs_cuda::preparation::Tile<unsigned int> liftrs_cuda::preparation::tile<unsigned int>(liftrs::TransformT<unsigned int> const&) [1759]
+                0.00    0.00       9/58          __cudaUnregisterBinaryUtil() [1735]
+                0.00    0.00       3/6           std::unique_ptr<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> >, std::default_delete<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1768]
+                0.00    0.00       3/15          std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool) [1755]
+-----------------------------------------------
+                0.00    0.00       3/6           (anonymous namespace)::Resident<unsigned long>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [3]
+                0.00    0.00       3/6           (anonymous namespace)::Resident<unsigned long>::plan((anonymous namespace)::Card&, unsigned long) [1775]
+[1764]   0.0    0.00    0.00       6         liftrs_cuda::preparation::Matrix<unsigned long> liftrs_cuda::preparation::matrix<unsigned long>(unsigned int, unsigned int, unsigned int, unsigned long, bool) [1764]
+                0.00    0.00       9/9           liftrs_cuda::preparation::Tile<unsigned long> liftrs_cuda::preparation::tile<unsigned long>(liftrs::TransformT<unsigned long> const&) [1760]
+                0.00    0.00       9/58          __cudaUnregisterBinaryUtil() [1735]
+                0.00    0.00       3/6           std::unique_ptr<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> >, std::default_delete<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1769]
+                0.00    0.00       3/15          std::unique_ptr<liftrs::TransformPlan<unsigned long>, std::default_delete<liftrs::TransformPlan<unsigned long> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned long> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned long>::word_type const*, unsigned long, bool) [1756]
+-----------------------------------------------
+                0.00    0.00       3/6           (anonymous namespace)::VectorStage<unsigned int>::VectorStage((anonymous namespace)::Resident<unsigned int>&, unsigned long, unsigned long) [1761]
+                0.00    0.00       3/6           (anonymous namespace)::VectorStage<unsigned long>::VectorStage((anonymous namespace)::Resident<unsigned long>&, unsigned long, unsigned long) [1762]
+[1765]   0.0    0.00    0.00       6         (anonymous namespace)::peer_registry() [1765]
+                0.00    0.00      12/870         (anonymous namespace)::check(cudaError) [1722]
+                0.00    0.00       6/6           (anonymous namespace)::Card::owned() const [1770]
+-----------------------------------------------
+                0.00    0.00       3/6           void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+                0.00    0.00       3/6           void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+[1766]   0.0    0.00    0.00       6         (anonymous namespace)::PeerLease::~PeerLease() [1766]
+-----------------------------------------------
+                0.00    0.00       6/6           bool liftrs::is_primitive<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long) [1777]
+[1767]   0.0    0.00    0.00       6         unsigned long liftrs::field_power<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long, unsigned long) [1767]
+                0.00    0.00     108/7453        liftrs::FieldT<unsigned long>::mul(unsigned long, unsigned long) const [1718]
+-----------------------------------------------
+                0.00    0.00       3/6           liftrs_cuda::preparation::Matrix<unsigned int> liftrs_cuda::preparation::matrix<unsigned int>(unsigned int, unsigned int, unsigned int, unsigned long, bool) [1763]
+                0.00    0.00       3/6           void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+[1768]   0.0    0.00    0.00       6         std::unique_ptr<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> >, std::default_delete<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1768]
+                0.00    0.00      28/248         liftrs::ProductT<unsigned int> liftrs::constant_product<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int) [1724]
+                0.00    0.00      28/137         void std::vector<liftrs::TermT<unsigned int>, std::allocator<liftrs::TermT<unsigned int> > >::_M_realloc_append<liftrs::TermT<unsigned int> >(liftrs::TermT<unsigned int>&&) [1727]
+                0.00    0.00      12/15          std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool) [1755]
+                0.00    0.00       6/21          void liftrs::preparation::account_plan<liftrs::TransformPlan<unsigned int> >(liftrs::TransformPlan<unsigned int>&) [1750]
+                0.00    0.00       6/21          std::vector<std::vector<liftrs::TermT<unsigned int>, std::allocator<liftrs::TermT<unsigned int> > >, std::allocator<std::vector<liftrs::TermT<unsigned int>, std::allocator<liftrs::TermT<unsigned int> > > > >::_M_default_append(unsigned long) [1752]
+-----------------------------------------------
+                0.00    0.00       3/6           liftrs_cuda::preparation::Matrix<unsigned long> liftrs_cuda::preparation::matrix<unsigned long>(unsigned int, unsigned int, unsigned int, unsigned long, bool) [1764]
+                0.00    0.00       3/6           void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+[1769]   0.0    0.00    0.00       6         std::unique_ptr<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> >, std::default_delete<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1769]
+                0.00    0.00     130/1669        liftrs::ProductT<unsigned long> liftrs::constant_product<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long) [1719]
+                0.00    0.00     106/719         void std::vector<liftrs::TermT<unsigned long>, std::allocator<liftrs::TermT<unsigned long> > >::_M_realloc_append<liftrs::TermT<unsigned long> >(liftrs::TermT<unsigned long>&&) [1723]
+                0.00    0.00      12/15          std::unique_ptr<liftrs::TransformPlan<unsigned long>, std::default_delete<liftrs::TransformPlan<unsigned long> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned long> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned long>::word_type const*, unsigned long, bool) [1756]
+                0.00    0.00       6/21          void liftrs::preparation::account_plan<liftrs::TransformPlan<unsigned long> >(liftrs::TransformPlan<unsigned long>&) [1751]
+                0.00    0.00       6/21          std::vector<std::vector<liftrs::TermT<unsigned long>, std::allocator<liftrs::TermT<unsigned long> > >, std::allocator<std::vector<liftrs::TermT<unsigned long>, std::allocator<liftrs::TermT<unsigned long> > > > >::_M_default_append(unsigned long) [1753]
+-----------------------------------------------
+                0.00    0.00       6/6           (anonymous namespace)::peer_registry() [1765]
+[1770]   0.0    0.00    0.00       6         (anonymous namespace)::Card::owned() const [1770]
+-----------------------------------------------
+                0.00    0.00       3/6           (anonymous namespace)::Resident<unsigned int>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [1774]
+                0.00    0.00       3/6           (anonymous namespace)::Resident<unsigned long>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [3]
+[1771]   0.0    0.00    0.00       6         void std::vector<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> >, std::allocator<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> > > >::_M_realloc_append<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> > >(std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> >&&) [1771]
+-----------------------------------------------
+                0.00    0.00       3/6           void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+                0.00    0.00       3/6           void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+[1772]   0.0    0.00    0.00       6         std::vector<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> >, std::allocator<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> > > >::~vector() [1772]
+-----------------------------------------------
+                0.00    0.00       3/3           (anonymous namespace)::VectorStage<unsigned int>::VectorStage((anonymous namespace)::Resident<unsigned int>&, unsigned long, unsigned long) [1761]
+[1773]   0.0    0.00    0.00       3         (anonymous namespace)::Resident<unsigned int>::plan((anonymous namespace)::Card&, unsigned long) [1773]
+                0.00    0.00       6/58          __cudaUnregisterBinaryUtil() [1735]
+                0.00    0.00       3/6           liftrs_cuda::preparation::Matrix<unsigned int> liftrs_cuda::preparation::matrix<unsigned int>(unsigned int, unsigned int, unsigned int, unsigned long, bool) [1763]
+                0.00    0.00       3/36          liftrs_cuda::encoding::reduce_parity(unsigned int*, unsigned long) [1740]
+                0.00    0.00       3/36          (anonymous namespace)::Buffer::allocate(int, unsigned long) [1741]
+                0.00    0.00       3/870         (anonymous namespace)::check(cudaError) [1722]
+-----------------------------------------------
+                0.00    0.00       3/3           void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+[1774]   0.0    0.00    0.00       3         (anonymous namespace)::Resident<unsigned int>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [1774]
+                0.00    0.00      27/870         (anonymous namespace)::check(cudaError) [1722]
+                0.00    0.00      15/30          (anonymous namespace)::Buffer::clear() [1744]
+                0.00    0.00      15/36          liftrs_cuda::encoding::reduce_parity(unsigned int*, unsigned long) [1740]
+                0.00    0.00      15/36          (anonymous namespace)::Buffer::allocate(int, unsigned long) [1741]
+                0.00    0.00       3/18          void liftrs::preparation::set_field<unsigned int>(liftrs::FieldT<unsigned int>&, unsigned int, unsigned int, unsigned int, bool) [1754]
+                0.00    0.00       3/3           bool liftrs::is_primitive<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int) [1776]
+                0.00    0.00       3/6           void std::vector<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> >, std::allocator<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> > > >::_M_realloc_append<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> > >(std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> >&&) [1771]
+                0.00    0.00       3/6           liftrs_cuda::preparation::Matrix<unsigned int> liftrs_cuda::preparation::matrix<unsigned int>(unsigned int, unsigned int, unsigned int, unsigned long, bool) [1763]
+                0.00    0.00       3/61          unsigned int liftrs::field_power<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int, unsigned long) [1734]
+-----------------------------------------------
+                0.00    0.00       3/3           (anonymous namespace)::VectorStage<unsigned long>::VectorStage((anonymous namespace)::Resident<unsigned long>&, unsigned long, unsigned long) [1762]
+[1775]   0.0    0.00    0.00       3         (anonymous namespace)::Resident<unsigned long>::plan((anonymous namespace)::Card&, unsigned long) [1775]
+                0.00    0.00       6/58          __cudaUnregisterBinaryUtil() [1735]
+                0.00    0.00       3/6           liftrs_cuda::preparation::Matrix<unsigned long> liftrs_cuda::preparation::matrix<unsigned long>(unsigned int, unsigned int, unsigned int, unsigned long, bool) [1764]
+                0.00    0.00       3/36          liftrs_cuda::encoding::reduce_parity(unsigned int*, unsigned long) [1740]
+                0.00    0.00       3/36          (anonymous namespace)::Buffer::allocate(int, unsigned long) [1741]
+                0.00    0.00       3/870         (anonymous namespace)::check(cudaError) [1722]
+-----------------------------------------------
+                0.00    0.00       3/3           (anonymous namespace)::Resident<unsigned int>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [1774]
+[1776]   0.0    0.00    0.00       3         bool liftrs::is_primitive<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int) [1776]
+                0.00    0.00      24/977         liftrs::FieldT<unsigned int>::mul(unsigned int, unsigned int) const [1721]
+                0.00    0.00       6/61          unsigned int liftrs::field_power<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int, unsigned long) [1734]
+-----------------------------------------------
+                0.00    0.00       3/3           (anonymous namespace)::Resident<unsigned long>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [3]
+[1777]   0.0    0.00    0.00       3         bool liftrs::is_primitive<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long) [1777]
+                0.00    0.00     102/7453        liftrs::FieldT<unsigned long>::mul(unsigned long, unsigned long) const [1718]
+                0.00    0.00       6/6           unsigned long liftrs::field_power<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long, unsigned long) [1767]
+-----------------------------------------------
+                0.00    0.00       3/3           main [1]
+[1778]   0.0    0.00    0.00       3         std::filesystem::__cxx11::path::path<char*, std::filesystem::__cxx11::path>(char* const&, std::filesystem::__cxx11::path::format) [1778]
+-----------------------------------------------
+                0.00    0.00       3/3           main [1]
+[1779]   0.0    0.00    0.00       3         std::filesystem::__cxx11::path::~path() [1779]
+-----------------------------------------------
+                0.00    0.00       2/2           main [1]
+[1780]   0.0    0.00    0.00       2         Field::Field(Reader&) [1780]
+                0.00    0.00  524414/525124      require(bool, char const*) [1717]
+-----------------------------------------------
+                0.00    0.00       2/2           main [1]
+[1781]   0.0    0.00    0.00       2         Field::~Field() [1781]
+-----------------------------------------------
+                0.00    0.00       1/2           void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+                0.00    0.00       1/2           void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [2]
+[1782]   0.0    0.00    0.00       2         std::vector<unsigned int, std::allocator<unsigned int> >::vector(std::initializer_list<unsigned int>, std::allocator<unsigned int> const&) [1782]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[1783]   0.0    0.00    0.00       1         void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [1783]
+                0.00    0.00     165/525124      require(bool, char const*) [1717]
+                0.00    0.00      96/184         rss() [1725]
+                0.00    0.00      96/96          (anonymous namespace)::Resident<unsigned int>::good_fill(long*, unsigned long) [1728]
+                0.00    0.00      72/72          (anonymous namespace)::VectorStage<unsigned int>::download(unsigned int*, unsigned long) [1732]
+                0.00    0.00      48/870         (anonymous namespace)::check(cudaError) [1722]
+                0.00    0.00      48/48          void save<unsigned int>(std::filesystem::__cxx11::path const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [1736]
+                0.00    0.00      48/48          (anonymous namespace)::VectorStage<unsigned int>::upload(unsigned int const*, unsigned long) [1738]
+                0.00    0.00      36/36          liftrs::TransformT<unsigned int>::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const [1742]
+                0.00    0.00      12/24          void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::__resize_and_overwrite<std::__cxx11::to_string(unsigned long)::{lambda(char*, unsigned long)#1}>(unsigned long, std::__cxx11::to_string(unsigned long)::{lambda(char*, unsigned long)#1}) [1749]
+                0.00    0.00       9/9           (anonymous namespace)::VectorStage<unsigned int>::VectorStage((anonymous namespace)::Resident<unsigned int>&, unsigned long, unsigned long) [1761]
+                0.00    0.00       6/58          __cudaUnregisterBinaryUtil() [1735]
+                0.00    0.00       3/3           (anonymous namespace)::Resident<unsigned int>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [1774]
+                0.00    0.00       3/6           std::unique_ptr<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> >, std::default_delete<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1768]
+                0.00    0.00       3/6           std::vector<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> >, std::allocator<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> > > >::~vector() [1772]
+                0.00    0.00       3/6           (anonymous namespace)::PeerLease::~PeerLease() [1766]
+                0.00    0.00       1/2           std::vector<unsigned int, std::allocator<unsigned int> >::vector(std::initializer_list<unsigned int>, std::allocator<unsigned int> const&) [1782]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[1784]   0.0    0.00    0.00       1         Watch::~Watch() [1784]
+-----------------------------------------------
+
+Index by function name
+
+ [1725] rss()               [1774] (anonymous namespace)::Resident<unsigned int>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [1731] (anonymous namespace)::Resident<unsigned long>::event(char const*, char const*, unsigned long, unsigned long, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >) const
+ [1736] void save<unsigned int>(std::filesystem::__cxx11::path const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [1775] (anonymous namespace)::Resident<unsigned long>::plan((anonymous namespace)::Card&, unsigned long) [1742] liftrs::TransformT<unsigned int>::recurse(unsigned int*, unsigned long, unsigned int, unsigned int, bool) const
+ [1737] void save<unsigned long>(std::filesystem::__cxx11::path const&, std::vector<unsigned long, std::allocator<unsigned long> > const&) [1729] (anonymous namespace)::Resident<unsigned long>::good_fill(long*, unsigned long) [1748] liftrs::TransformT<unsigned long>::recurse(unsigned long*, unsigned long, unsigned int, unsigned long, bool) const
+ [1783] void cases<unsigned int>(Field const&, std::filesystem::__cxx11::path const&) [3] (anonymous namespace)::Resident<unsigned long>::Resident(unsigned int, unsigned int, unsigned int, unsigned long, unsigned int const*, unsigned long, unsigned int const*, unsigned long, int const*, unsigned long, unsigned long, unsigned long) [1721] liftrs::FieldT<unsigned int>::mul(unsigned int, unsigned int) const
+   [2] void cases<unsigned long>(Field const&, std::filesystem::__cxx11::path const&) [1766] (anonymous namespace)::PeerLease::~PeerLease() [1718] liftrs::FieldT<unsigned long>::mul(unsigned long, unsigned long) const
+ [1717] require(bool, char const*) [1780] Field::Field(Reader&) [1778] std::filesystem::__cxx11::path::path<char*, std::filesystem::__cxx11::path>(char* const&, std::filesystem::__cxx11::path::format)
+ [1735] __cudaUnregisterBinaryUtil() [1781] Field::~Field() [1779] std::filesystem::__cxx11::path::~path()
+ [1759] liftrs_cuda::preparation::Tile<unsigned int> liftrs_cuda::preparation::tile<unsigned int>(liftrs::TransformT<unsigned int> const&) [1784] Watch::~Watch() [1727] void std::vector<liftrs::TermT<unsigned int>, std::allocator<liftrs::TermT<unsigned int> > >::_M_realloc_append<liftrs::TermT<unsigned int> >(liftrs::TermT<unsigned int>&&)
+ [1760] liftrs_cuda::preparation::Tile<unsigned long> liftrs_cuda::preparation::tile<unsigned long>(liftrs::TransformT<unsigned long> const&) [1734] unsigned int liftrs::field_power<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int, unsigned long) [1723] void std::vector<liftrs::TermT<unsigned long>, std::allocator<liftrs::TermT<unsigned long> > >::_M_realloc_append<liftrs::TermT<unsigned long> >(liftrs::TermT<unsigned long>&&)
+ [1763] liftrs_cuda::preparation::Matrix<unsigned int> liftrs_cuda::preparation::matrix<unsigned int>(unsigned int, unsigned int, unsigned int, unsigned long, bool) [1767] unsigned long liftrs::field_power<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long, unsigned long) [1745] std::vector<liftrs::ProductT<unsigned int>, std::allocator<liftrs::ProductT<unsigned int> > >::_M_default_append(unsigned long)
+ [1764] liftrs_cuda::preparation::Matrix<unsigned long> liftrs_cuda::preparation::matrix<unsigned long>(unsigned int, unsigned int, unsigned int, unsigned long, bool) [1750] void liftrs::preparation::account_plan<liftrs::TransformPlan<unsigned int> >(liftrs::TransformPlan<unsigned int>&) [1746] std::vector<liftrs::ProductT<unsigned long>, std::allocator<liftrs::ProductT<unsigned long> > >::_M_default_append(unsigned long)
+ [1740] liftrs_cuda::encoding::reduce_parity(unsigned int*, unsigned long) [1751] void liftrs::preparation::account_plan<liftrs::TransformPlan<unsigned long> >(liftrs::TransformPlan<unsigned long>&) [1752] std::vector<std::vector<liftrs::TermT<unsigned int>, std::allocator<liftrs::TermT<unsigned int> > >, std::allocator<std::vector<liftrs::TermT<unsigned int>, std::allocator<liftrs::TermT<unsigned int> > > > >::_M_default_append(unsigned long)
+ [1738] (anonymous namespace)::VectorStage<unsigned int>::upload(unsigned int const*, unsigned long) [1768] std::unique_ptr<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> >, std::default_delete<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned int, liftrs::TransformPlan<unsigned int> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1753] std::vector<std::vector<liftrs::TermT<unsigned long>, std::allocator<liftrs::TermT<unsigned long> > >, std::allocator<std::vector<liftrs::TermT<unsigned long>, std::allocator<liftrs::TermT<unsigned long> > > > >::_M_default_append(unsigned long)
+ [1732] (anonymous namespace)::VectorStage<unsigned int>::download(unsigned int*, unsigned long) [1769] std::unique_ptr<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> >, std::default_delete<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > > > liftrs::preparation::build_matrix<liftrs::MatrixPlan<unsigned long, liftrs::TransformPlan<unsigned long> > >(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [1757] std::vector<std::vector<unsigned int, std::allocator<unsigned int> >, std::allocator<std::vector<unsigned int, std::allocator<unsigned int> > > >::_M_default_append(unsigned long)
+ [1761] (anonymous namespace)::VectorStage<unsigned int>::VectorStage((anonymous namespace)::Resident<unsigned int>&, unsigned long, unsigned long) [1755] std::unique_ptr<liftrs::TransformPlan<unsigned int>, std::default_delete<liftrs::TransformPlan<unsigned int> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned int> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned int>::word_type const*, unsigned long, bool) [1758] std::vector<std::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > > >::_M_default_append(unsigned long)
+ [1739] (anonymous namespace)::VectorStage<unsigned long>::upload(unsigned long const*, unsigned long) [1756] std::unique_ptr<liftrs::TransformPlan<unsigned long>, std::default_delete<liftrs::TransformPlan<unsigned long> > > liftrs::preparation::build_transform<liftrs::TransformPlan<unsigned long> >(unsigned int, unsigned int, unsigned int, liftrs::TransformPlan<unsigned long>::word_type const*, unsigned long, bool) [1771] void std::vector<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> >, std::allocator<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> > > >::_M_realloc_append<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> > >(std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> >&&)
+ [1733] (anonymous namespace)::VectorStage<unsigned long>::download(unsigned long*, unsigned long) [1754] void liftrs::preparation::set_field<unsigned int>(liftrs::FieldT<unsigned int>&, unsigned int, unsigned int, unsigned int, bool) [1772] std::vector<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> >, std::allocator<std::unique_ptr<(anonymous namespace)::Card, std::default_delete<(anonymous namespace)::Card> > > >::~vector()
+ [1762] (anonymous namespace)::VectorStage<unsigned long>::VectorStage((anonymous namespace)::Resident<unsigned long>&, unsigned long, unsigned long) [1776] bool liftrs::is_primitive<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int) [1726] std::vector<unsigned int, std::allocator<unsigned int> >::_M_default_append(unsigned long)
+ [1765] (anonymous namespace)::peer_registry() [1777] bool liftrs::is_primitive<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long) [1747] std::vector<unsigned int, std::allocator<unsigned int> >::resize(unsigned long)
+ [1722] (anonymous namespace)::check(cudaError) [1724] liftrs::ProductT<unsigned int> liftrs::constant_product<unsigned int>(liftrs::FieldT<unsigned int> const&, unsigned int) [1782] std::vector<unsigned int, std::allocator<unsigned int> >::vector(std::initializer_list<unsigned int>, std::allocator<unsigned int> const&)
+ [1744] (anonymous namespace)::Buffer::clear() [1719] liftrs::ProductT<unsigned long> liftrs::constant_product<unsigned long>(liftrs::FieldT<unsigned long> const&, unsigned long) [1720] std::vector<unsigned long, std::allocator<unsigned long> >::_M_default_append(unsigned long)
+ [1741] (anonymous namespace)::Buffer::allocate(int, unsigned long) [1743] liftrs::execution::progress_record(char const*, char const*, char const*, unsigned long, unsigned long, unsigned long, char const*) [1749] void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::__resize_and_overwrite<std::__cxx11::to_string(unsigned long)::{lambda(char*, unsigned long)#1}>(unsigned long, std::__cxx11::to_string(unsigned long)::{lambda(char*, unsigned long)#1})
+ [1773] (anonymous namespace)::Resident<unsigned int>::plan((anonymous namespace)::Card&, unsigned long) [1770] (anonymous namespace)::Card::owned() const
+ [1728] (anonymous namespace)::Resident<unsigned int>::good_fill(long*, unsigned long) [1730] (anonymous namespace)::Resident<unsigned int>::event(char const*, char const*, unsigned long, unsigned long, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >) const

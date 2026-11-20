@@ -57,6 +57,16 @@ class ReviewTest(unittest.TestCase):
                 self.assertEqual(len(HELP['review'](selected,directory,axis)),21)
                 with self.assertRaises(AssertionError):HELP['review'](selected,directory,1-axis)
 
+    def test_sanitizer_summary_streams(self):
+        error='========= ERROR SUMMARY: 0 errors\n'
+        leak='========= LEAK SUMMARY: 0 bytes leaked in 0 allocations\n'
+        for stdout,stderr in ((error+leak,''),('',error+leak),(error,leak),(leak,error)):
+            self.assertEqual(HELP['sanitizer_summary'](stdout,stderr)['errors'],0)
+        for stdout,stderr in ((error,''),(leak,''),(error+leak,error),
+                (error+leak+'========= ERROR SUMMARY: 1 error\n',''),
+                (error,leak.replace('0 bytes','8 bytes'))):
+            with self.assertRaises(AssertionError):HELP['sanitizer_summary'](stdout,stderr)
+
     def test_corruption(self):
         with tempfile.TemporaryDirectory()as tmp:
             directory=Path(tmp);rows=self.fixture(directory)

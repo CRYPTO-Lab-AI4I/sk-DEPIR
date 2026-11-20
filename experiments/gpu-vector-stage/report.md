@@ -1,15 +1,40 @@
 # Persistent GPU vector stages
 
-Status: **78286 normal GPU validation passed; CUDA memcheck timed out**.
-All 24 cases on each of two HPC nodes pass independent CPU/output/reuse/error
-checks (48 normal cases). This is a partial result; the complete job remains
-failed. [Raw results](runs/vectors-02/results.json),
-[identity/normal-output review](runs/vectors-02/analysis.json),
-[partial sanitizer review](runs/vectors-02/partial-memcheck-review.json),
-[receipt](submission-02.json), [log](slurm-78286.log). Split retry **78293 submitted**, source `2a86336`; [receipt](submission-03.json).
-Results `runs/vectors-03/`, log `slurm-78293.log`; no monitoring.
+Status: **78293 component validation passed on independent review**: 48 normal
+and42 split-sanitized cases, both sanitizer processes reporting zero errors and
+zero leaked bytes/allocations. Raw controller status remains **failed**: its final
+summary check read stderr only while CUDA wrote clean summaries to stdout.
+No GPU rerun is needed for this reporting error. The parser now checks both
+streams and rejects missing, duplicate or nonzero summaries; regression tests
+cover each placement and rejection. Normal CPU profile reports are generated
+before sanitizer work in future runs.
 
-### Measured result and sanitizer adjustment
+[Raw results](runs/vectors-03/results.json),
+[independent component/identity review](runs/vectors-03/analysis.json),
+[review commands and source hashes](runs/vectors-03/review-checks.json),
+[submission](submission-03.json), [job log](slurm-78293.log),
+[rank0 CPU profile report](runs/vectors-03/review-native-profile-0.txt),
+[rank1 CPU profile report](runs/vectors-03/review-native-profile-1.txt).
+
+HPC gnode06/gnode07, two nodes, one H200 and2 CPU cores /4 GiB requested host
+RAM per node. Producer revision `2a86336`. Measured normal suites **31.210 seconds**;
+sanitizer execution **287.750 seconds (4 minutes47.750 seconds)**; controller
+**357.989 seconds (5 minutes57.989 seconds)** before reporting failure. Normal
+host peak RSS **131.109 MiB/process**, sanitized **167.059 MiB/process**; maximum
+owned GPU memory **4.569 MiB/card** (context/driver separate). Largest normal
+2^17-word forward **1.812–1.836 seconds**, inverse **1.742–1.765 seconds**,
+single profiled samples excluding transfers/verification. All680 source /22 original
+evidence /368 cache identities verified, with **51.831 MiB** cache retained.
+Each saved output matches the full expected array. Two normal native CPU profile
+reports were generated separately from retained inputs during review; commands
+and hashes are linked above. This does not rewrite producer evidence or raw status.
+
+Validation remains component-only with split sanitizer coverage described below;
+wide zero-origin and extra wide reuse calls pass normal testing only. No complete
+distributed FFT/product or full s18 result, budget increase or default change.
+Next compose GPU vectors with sharded transpose and distributed Taylor dependencies.
+
+### Earlier78286 result and sanitizer adjustment
 
 HPC gnode06/gnode07, one H200 and 2 CPU cores / 4 GiB requested host RAM per node.
 Normal execution takes **31.209 seconds** for both independent rank suites;
@@ -27,16 +52,15 @@ and hit the **480-second step cutoff** during the fourth transform. No final
 CUDA error/leak summaries exist; no clean sanitizer conclusion is claimed.
 Full controller elapsed **549.420 seconds**, failed; not an end-to-end baseline.
 
-The retry preserves all24 normal cases/rank. Sanitizer repeats all20 small cases
+The successful component retry78293 preserves all24 normal cases/rank. Sanitizer repeats all20 small cases
 on each rank and assigns one wide tail row to rank0, one wide tail column to rank1.
 Each wide case retains independent forward/output checks, invalid-request
 preservation, inverse recovery and allocation checks, using two transforms;
 normal and small sanitized cases retain four-call re-upload/reuse checks.
 This is **21 sanitized cases/rank**, not the original24. Wide zero-origin and
 extra wide reuse calls remain normally validated but are omitted under memcheck;
-this scope change controls instrumentation cost, not production behavior. Predicted
-sanitizer time is about5 minutes from two measured136-second transforms plus small
-cases/setup, not a measured retry result. Step allowance540 seconds, unchanged
+this scope change controls instrumentation cost, not production behavior. The pre-run sanitizer projection was about5 minutes from two measured136-second
+transforms plus small cases/setup;78293 measured287.750 seconds. Step allowance540 seconds, unchanged
 720-second controller /15-minute scheduler and resource envelope. Reviewer tests
 check both exact split coverage and wrong-axis rejection.
 
@@ -95,9 +119,9 @@ python3 -B experiments/gpu-vector-stage/test_review.py
 python3 -B experiments/gpu-vector-stage/run.py --check
 module load slurm/slurm/25.05
 sbatch --parsable --output=experiments/gpu-vector-stage/slurm-%j.log \
-  experiments/gpu-vector-stage/run.sbatch vectors-03
+  experiments/gpu-vector-stage/run.sbatch fresh-name
 # After the user's completion ping:
-python3 -B experiments/gpu-vector-stage/analyze.py vectors-03
+python3 -B experiments/gpu-vector-stage/analyze.py fresh-name
 ```
 
 The admitted validation envelope is unchanged: two HPC nodes, one H200 and

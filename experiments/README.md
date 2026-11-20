@@ -83,8 +83,9 @@ original methodology; apply this policy to new optimization runs.
 
 - [Persistent GPU vector stages](gpu-vector-stage/report.md): local storage/global
   coordinates separated using existing kernels; bounded CPU-oracle/reuse/error/
-  normal GPU cases78286 passed (48 cases), sanitizer cutoff retained; split retry
-  78293 submitted. No complete distributed FFT or full-size throughput claim.
+  78293 independently passed48 normal /42 split-sanitized cases, zero errors/leaks.
+  Raw reporting failure preserved; stream parser fixed. No complete distributed FFT
+  or full-size throughput claim.
 
 - [Rank-sharded transpose](distributed-transpose/report.md): bounded32/64-bit
   data-movement prerequisite for collective FFTs, independent scalar/rendezvous

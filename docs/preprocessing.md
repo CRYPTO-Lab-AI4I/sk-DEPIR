@@ -501,7 +501,9 @@ shards remain a reference-layout cost, not an adopted production default.
 
 The [persistent GPU vector-stage adapter](../experiments/gpu-vector-stage/report.md)
 now separates global transform coordinates from bounded local GPU storage and
-reuses the existing arithmetic. **78286 passed all48 normal GPU cases**; CUDA memcheck hit its step cutoff.
-Normal host peak RSS is131.086 MiB/process and owned device memory4.569 MiB/card;
-the two-node normal suite took31.209 seconds. Split sanitizer retry **78293 is submitted**;
-complete distributed FFT and full s18 preprocessing remain unvalidated.
+reuses the existing arithmetic. **78293 independently passes48 normal and42 split-sanitized GPU cases** with
+zero CUDA errors/leaks. Raw controller failed on a summary-stream check, now fixed;
+component results were verified without rerunning GPU work. Normal suites took
+31.210 seconds; sanitizer287.750 seconds; host peak RSS131.109 MiB normal /
+167.059 MiB sanitized per process, owned GPU memory4.569 MiB/card. Complete
+distributed FFT and full s18 preprocessing remain unvalidated.

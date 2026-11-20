@@ -39,6 +39,16 @@ def review(rows,directory,wide_axis=None):
     return values
 
 
+def sanitizer_summary(stdout,stderr):
+    """CUDA may put summaries on either stream; require one clean pair total."""
+    lines=(stdout+'\n'+stderr).splitlines()
+    errors=[line.split('ERROR SUMMARY:',1)[1].strip()for line in lines if 'ERROR SUMMARY:'in line]
+    leaks=[line.split('LEAK SUMMARY:',1)[1].strip()for line in lines if 'LEAK SUMMARY:'in line]
+    assert errors==['0 errors'],'missing, duplicate or nonzero CUDA error summary'
+    assert leaks==['0 bytes leaked in 0 allocations'],'missing, duplicate or nonzero CUDA leak summary'
+    return dict(errors=0,leaked_bytes=0,leaked_allocations=0)
+
+
 def suite(c):
     run=c['run'];env=c['env'];cache=c['cache'];out=c['out'];go=c['go'];source=c['source']
     c['resources'].update(rss_cap_GiB_per_rank=1,pinned_cap_MiB_per_rank=0,vector_memcheck_split=True,scope='independent GPU stage validation on each node, no MPI payloads')
@@ -71,11 +81,14 @@ def suite(c):
             rows=BASE['parse'](out/f'{mode}-{rank}.stdout.log')
             ranks.append(review(rows,dest/f'rank-{rank}',rank if mode=='memcheck'else None))
             if mode=='memcheck':
-                text=(out/f'{mode}-{rank}.stderr.log').read_text()
-                assert 'ERROR SUMMARY: 0 errors'in text and 'LEAK SUMMARY: 0 bytes'in text
+                sanitizer_summary((out/f'{mode}-{rank}.stdout.log').read_text(),
+                    (out/f'{mode}-{rank}.stderr.log').read_text())
         summaries[mode]=ranks
-    profiles=sorted((cache/'normal').glob('profile-*.*'));assert len(profiles)==2
-    for i,p in enumerate(profiles):run('profile-'+str(i),['gprof','-b',binary,p],30)
+        if mode=='normal':
+            # Persist usable profile reports before a later sanitizer failure.
+            profiles=sorted((cache/'normal').glob('profile-*.*'));assert len(profiles)==2
+            for i,p in enumerate(profiles):run('profile-'+str(i),['gprof','-b',binary,p],30)
+
     return dict(vector_stages=summaries,vector_memcheck_split=True)
 
 

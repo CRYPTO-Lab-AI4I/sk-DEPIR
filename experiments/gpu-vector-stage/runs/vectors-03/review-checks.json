@@ -1,0 +1,32 @@
+{
+  "command": "python3 -B experiments/gpu-vector-stage/analyze.py vectors-03",
+  "source_sha256": {
+    "experiments/gpu-vector-stage/analyze.py": "41e9c06cd55a13bd75088ca7084da69e3f06eab4e4ff1f2dbdc68a3eda8225b4",
+    "experiments/gpu-vector-stage/run.py": "f149f58fb7fd54eb1224693c32448d7c8a32308e1ed7202c1b107ce28262aab2",
+    "experiments/gpu-vector-stage/test_review.py": "98e02cbb56fce0d491dbacdc71e393f30718c905b3aca3bd9fc53def8acaadab"
+  },
+  "postprocessing": [
+    {
+      "argv": [
+        "gprof",
+        "-b",
+        "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-vector-stage/vectors-03/check",
+        "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-vector-stage/vectors-03/normal/profile-0.1389529"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0657709389925003
+    },
+    {
+      "argv": [
+        "gprof",
+        "-b",
+        "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-vector-stage/vectors-03/check",
+        "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-vector-stage/vectors-03/normal/profile-1.648215"
+      ],
+      "exit_code": 0,
+      "seconds": 0.06546851992607117
+    }
+  ],
+  "review_tests": "5 passed; stdout/stderr/split,missing,duplicate,nonzero summaries plus output/launcher/split-case checks",
+  "limitations": "Raw controller failed on stderr-only summary check. Independent component review passed; GPU code not rerun. Sanitizer scope remains split21cases/rank; widezeroorigins/extra reuse normally validated only."
+}
