@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-20 10:43 | SCALING-143 | Prepared | [GPU vector stages ready for validation](2026-11-20-1043-codex-scaling-143-prepared.md) |
+| 2026-11-20 10:37 | SCALING-143 | Started | [GPU vector-stage integration](2026-11-20-1037-codex-scaling-143-started.md) |
 | 2026-11-20 10:33 | SCALING-142 | Completed | [Distributed transpose78279 passed](2026-11-20-1033-codex-scaling-142-completed.md) |
 | 2026-11-20 10:24 | SCALING-142 | Started | [Review distributed transpose78279](2026-11-20-1024-codex-scaling-142-started.md) |
 | 2026-11-20 10:22 | SCALING-141 | Handoff | [Sharded transpose validation78279 submitted](2026-11-20-1022-codex-scaling-141-handoff.md) |

@@ -60,6 +60,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Persistent GPU vector stages](gpu-vector-stage/report.md): local storage/global
+  coordinates separated using existing kernels; bounded CPU-oracle/reuse/error/
+  CUDA checks prepared, no measured result or complete distributed FFT yet.
+
 - [Rank-sharded transpose](distributed-transpose/report.md): bounded32/64-bit
   data-movement prerequisite for collective FFTs, independent scalar/rendezvous
   tests; host-only MPI validation78279 passed (16 operations /7,312 endpoint

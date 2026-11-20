@@ -632,8 +632,9 @@ endpoint checks, exact output shards and legacy root/support lanes. HPC: 2 nodes
 Largest 64-bit transpose: **5.476 ms staged / 4.697 ms direct**, one profiled sample;
 logged process peak RSS **248.145–249.312 MiB/rank**. This validates the packing/
 transport reference, not a distributed GPU FFT or full-size bandwidth estimate.
-Next: stage-scoped GPU row/column operations with global offsets and locally
-bounded device buffers, then vector/transpose/Taylor composition. Two full host
+Stage-scoped GPU row/column operations with global offsets and locally bounded
+device buffers are now implemented; their bounded validation is pending. Then
+compose vector/transpose/Taylor stages. Two full host
 shards remain a reference-layout cost, not an adopted production default.
 At a full2^36-element grid /16 ranks /64-bit slots, this reference would retain
 64 GiB/rank (1 TiB aggregate) for two host shards alone; it is not the selected
@@ -656,3 +657,8 @@ resident CPU pass and successful GPU retry are recorded in the current tables.
 
 Historical intermediate plans and calibration tables are preserved in the
 [scaling history](encoding-history.md). They do not override current result cells.
+
+The [persistent GPU vector-stage adapter](../experiments/gpu-vector-stage/report.md)
+now separates global transform coordinates from bounded local GPU storage and
+reuses the existing arithmetic. Bounded correctness/CUDA validation is being
+prepared; no GPU result, complete distributed FFT or full s18 support is claimed.

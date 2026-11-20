@@ -318,3 +318,11 @@ Full s=18 preprocessing remains unrun; current full s=17 results and CPU-client
 support are unchanged. [Original failed gate](../../experiments/root-merge-tree/report.md)
 and [partial logging-failed retry](../../experiments/ucx-cache-gpu-tree/report.md#review-of-78249)
 remain preserved in the evidence.
+
+The internal [VectorStage adapter](vector_stage.cuh) borrows a fresh single-GPU
+preparation executor exclusively, with global metadata/origin independent of
+local capacity. Separate upload/apply/download operations retain a bounded
+interleaved device tile across calls; no full host grid or public ABI is added.
+[Bounded validation](../../experiments/gpu-vector-stage/report.md) is prepared,
+not yet measured. It reuses the existing vector kernels and s≤17 admission.
+Distributed transpose/Taylor composition and full s18 support remain pending.

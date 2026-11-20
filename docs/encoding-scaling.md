@@ -2544,3 +2544,17 @@ No automatic budget reduction or large rebenchmark follows. Resident CPU and GPU
 s17 gates now pass. Continue s18 memory work (export gate76710 passed; host-backed
 tiled transform and split product next), retaining alternative modes as unvalidated
 projections and fulls18 admission separate. No new job from this results review.
+
+### GPU vector-stage integration (SCALING-143)
+
+The [persistent stage adapter](../experiments/gpu-vector-stage/report.md) now
+implements separate upload, row/column execution and download, reusing existing
+GPU arithmetic and capped resident storage. Global domain/affine origin is
+independent of local capacity; consecutive calls retain the tile. No full host
+grid, production layout, public ABI or default change. Bounded 32/64-bit CPU
+oracle/rejection/reuse/CUDA memcheck validation is prepared within the existing
+two-node/two-H200 envelope; measurements remain pending. Existing executor s≤17
+field admission is unchanged. After this gate: compose vectors/transposes and
+distributed Taylor dependencies, then validate complete forward/inverse products
+and s18 arithmetic before full-run resource admission. Launch joins, transfers,
+communication and host work must be measured before choosing a production path.

@@ -75,6 +75,12 @@ full disk/export latency and memory savings remain unvalidated. Canonical export
 `--spectrum-tile-bytes` and shared verified P/G preparation. [Complete bounded
 GPU validation76710 passed](experiments/preprocessing-export/report.md). No default or full
 preprocessing limit changes.
+
+The [persistent GPU vector-stage adapter](experiments/gpu-vector-stage/report.md)
+now separates global transform coordinates from bounded local GPU storage and
+reuses the existing arithmetic. Bounded correctness/CUDA validation is being
+prepared; no GPU result, complete distributed FFT or full s18 support is claimed.
+
 The [bounded tiled-transform/split-product comparison](experiments/preprocessing-tiles/report.md)
 passes correctness and CUDA memcheck in job76756. At2^22 points on four H200s,
 host-backed forward transformation takes1.303–1.305 s versus235.820–236.090 ms
@@ -150,8 +156,9 @@ endpoint checks, exact output shards and legacy root/support lanes. HPC: 2 nodes
 Largest 64-bit transpose: **5.476 ms staged / 4.697 ms direct**, one profiled sample;
 logged process peak RSS **248.145–249.312 MiB/rank**. This validates the packing/
 transport reference, not a distributed GPU FFT or full-size bandwidth estimate.
-Next: stage-scoped GPU row/column operations with global offsets and locally
-bounded device buffers, then vector/transpose/Taylor composition. Two full host
+Stage-scoped GPU row/column operations with global offsets and locally bounded
+device buffers are now implemented; their bounded validation is pending. Then
+compose vector/transpose/Taylor stages. Two full host
 shards remain a reference-layout cost, not an adopted production default.
 
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
