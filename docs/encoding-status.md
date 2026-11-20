@@ -22,7 +22,7 @@ component results, separate from the full s17 runs and fulls18 projections below
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Small distributed FFT passed78307** on2 HPC nodes /2 H200s:24 normal +24 sanitized rank/pass results, zero CUDA errors/leaks. **Small distributed products passed78321**, including24 normal +24 sanitized rank/product results. **GPU-resident storage/transpose prototype implemented; bounded validation prepared** (three reusable shards, both physical layouts, shared schedule). Resident Taylor/FFT/product integration and large-product scaling remain pending. |
+| 1. Distributed products and FFTs | **Small distributed FFT passed78307** on2 HPC nodes /2 H200s:24 normal +24 sanitized rank/pass results, zero CUDA errors/leaks. **Small distributed products passed78321**, including24 normal +24 sanitized rank/product results. **GPU-resident storage/transpose prototype implemented; validation78392 submitted** (three reusable shards, both physical layouts, shared schedule). Resident Taylor/FFT/product integration and large-product scaling remain pending. |
 | 2. Distributed discovery | Existing discovery is not yet partitioned across nodes. |
 | 3. Generator construction and verification | Existing algorithms still need the distributed executor/data integration. |
 | 4. Coordinated checkpoints and publication | Helpers exist; distributed ownership/restart/assembly integration remains. |
@@ -43,7 +43,8 @@ samples **111.395–111.792ms**, profiled. This validates bounded arithmetic and
 communication; fullsize feasibility/runtime remain unknown.
 [Next resident-storage design and trade-offs](distributed-preprocessing-storage.md).
 [Resident-storage gate](../experiments/distributed-gpu-storage/report.md): local
-CPU/race and build checks pass; MPI/GPU execution is pending. Same admitted
+CPU/race and build checks pass; **job78392 submitted** for normal/sanitized
+MPI/GPU execution, results pending. Same admitted
 2 HPC nodes /2 H200 /4 CPU cores /8 GiB requested host RAM,128 MiB owned device
 cap/card. This component adds no fulls18 result or measured resident speedup.
 

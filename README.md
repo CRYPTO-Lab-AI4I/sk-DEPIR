@@ -79,7 +79,7 @@ preprocessing limit changes.
 The [GPU-resident storage prototype](experiments/distributed-gpu-storage/report.md)
 now shares the validated rank transpose schedule, with three reusable device
 shards and bounded GPU packing for row/interleaved views. Local CPU/race and
-build checks pass; bounded MPI/GPU validation is prepared. Resident Taylor/FFT/
+build checks pass; bounded MPI/GPU validation78392 is submitted, results pending. Resident Taylor/FFT/
 product integration and fulls18 preprocessing remain pending. No encoding default
 or client CUDA/MPI dependency changes.
 

@@ -1,9 +1,11 @@
 # GPU-resident rank storage and transpose
 
-Status: first storage prototype implemented; local CPU/race, C/CUDA and complete
+Status: **job78392 submitted**, implementation `f360747`; [submission receipt](submission.json).
+First storage prototype implemented; local CPU/race, C/CUDA and complete
 CPP/CUDA/MPI build checks pass. **MPI/GPU execution and CUDA sanitizer results
-are pending.** Source starts after `3a47a10`; the committed implementation and
-actual job-start revision will be recorded in the submission receipt/raw results.
+are pending.** Source is frozen at `f360747`; the actual job-start revision/build-input
+identities are recorded by the controller. [Results destination](runs/storage-01/)
+and [job log](slurm-78392.log) are not inspected until the completion ping.
 [Readiness commands, hashes and limits](readiness/checks.json),
 [CUDA build log](readiness/cuda-build.log), [MPI build log](readiness/go-mpi-build.log).
 No fulls18 preprocessing, resident FFT/product, memory peak or speedup is claimed.

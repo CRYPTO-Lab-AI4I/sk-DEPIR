@@ -1,0 +1,14 @@
+{
+  "job_id": "78392",
+  "name": "storage-01",
+  "submitted_utc": "2026-11-20T17:07:50.898095+00:00",
+  "implementation_revision": "f36074772d7634f7063a4a55a328fe6f621ca658",
+  "command": "module load slurm/slurm/25.05; sbatch --parsable --output=experiments/distributed-gpu-storage/slurm-%j.log experiments/distributed-gpu-storage/run.sbatch storage-01",
+  "results": "experiments/distributed-gpu-storage/runs/storage-01/",
+  "log": "experiments/distributed-gpu-storage/slurm-78392.log",
+  "cache": ".cache/liftrs/distributed-gpu-storage/storage-01/",
+  "resources": "2 HPC nodes/2 H200/4 CPU cores/8 GiB requested host RAM;128 MiB owned/card/1 GiB RSS/rank;128 MiB retained cache/2 GiB scratch/32 MiB file;720-second controller/15-minute scheduler; no pinned buffers",
+  "monitoring": "None. Wait for user completion ping before scheduler/log/result inspection.",
+  "scope": "three resident GPU shards and bounded row/interleaved transpose storage; resident FFT/product integration pending",
+  "note": "Receipt records submission time/implementation commit. Actual job-start HEAD and build-input identities are saved by the controller; subsequent handoff changes affect excluded documentation/JSON only."
+}

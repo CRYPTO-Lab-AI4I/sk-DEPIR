@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-20 17:07 | SCALING-152 | Handoff | [Resident storage validation78392 submitted](2026-11-20-1707-codex-scaling-152-handoff.md) |
 | 2026-11-20 17:05 | SCALING-152 | Prepared | [Resident storage gate ready for bounded validation](2026-11-20-1705-codex-scaling-152-prepared.md) |
 | 2026-11-20 13:00 | SCALING-152 | Started | [GPU-resident storage and shared transpose gate](2026-11-20-1300-codex-scaling-152-started.md) |
 | 2026-11-20 12:55 | SCALING-151 | Completed | [Distributed products passed;resident-storage design recorded](2026-11-20-1255-codex-scaling-151-completed.md) |

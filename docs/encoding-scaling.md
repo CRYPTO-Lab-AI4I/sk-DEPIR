@@ -2703,3 +2703,9 @@ checks pass. Next: bounded two-node validation under the existing envelope, then
 resident vector/Taylor/pointwise composition and complete product comparison.
 Resident fullsize speedup/memory peaks are unknown. The main reference reports
 this component's pending validation explicitly; we remain on step1.
+
+SCALING-152: resident-storage validation **78392 submitted**, implementation
+`f360747`, results `experiments/distributed-gpu-storage/runs/storage-01/`.
+Same admitted resources; no monitoring. Wait for the completion ping, review
+normal/sanitized output/proofs/allocations, then proceed to the next resident
+composition gate without another go-ahead if results justify it.
