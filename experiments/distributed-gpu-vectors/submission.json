@@ -1,0 +1,11 @@
+{
+  "job_id": "78302",
+  "submitted_utc": "2026-11-20T11:30:32.758430+00:00",
+  "implementation_revision": "9cb59b6",
+  "name": "composed-01",
+  "command": "sbatch --parsable --output=experiments/distributed-gpu-vectors/slurm-%j.log experiments/distributed-gpu-vectors/run.sbatch composed-01",
+  "results": "experiments/distributed-gpu-vectors/runs/composed-01/",
+  "log": "experiments/distributed-gpu-vectors/slurm-78302.log",
+  "monitoring": false,
+  "revision_note": "Raw results record the exact committed tree frozen at job start; later handoff changes only documentation and excluded experiment metadata."
+}

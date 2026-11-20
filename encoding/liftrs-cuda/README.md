@@ -349,7 +349,7 @@ if err := stages.Apply64(tile, false, false, 10, 3); err != nil { return err }
 ```
 
 The [bounded composition experiment](../../experiments/distributed-gpu-vectors/report.md)
-joins these stages to the shared rank transpose. Validation is prepared, not yet
+joins these stages to the shared rank transpose. Validation78302 is submitted, not yet
 measured. This separable transform still needs distributed Taylor integration
 for a full FFT. The host-shard control layout/extra transfers are explicit and
 do not change resident defaults or establish fulls18 feasibility.

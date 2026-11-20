@@ -669,6 +669,6 @@ distributed FFT and full s18 preprocessing remain unvalidated.
 
 The [GPU vector/transpose composition](../experiments/distributed-gpu-vectors/report.md) is implemented with
 bounded local tiles and independent ownership/order tests. MPI/GPU validation
-is prepared; distributed Taylor conversion and full FFT/product integration
+**78302 is submitted**; distributed Taylor conversion and full FFT/product integration
 remain pending. The host-shard control layout adds transfers and is not selected
 for full-size preprocessing or a change to resident defaults.

@@ -842,5 +842,5 @@ The internal [rank matrix-vector composition](distributed_vectors.go) joins
 existing rank transposes and bounded complete-vector callbacks. Forward/inverse
 ordering, local interleaving and empty/tail ownership have independent CPU tests;
 [bounded MPI/GPU validation](../../experiments/distributed-gpu-vectors/report.md)
-is prepared. This is a separable stage, not a Taylor-complete FFT or a production
+78302 is submitted. This is a separable stage, not a Taylor-complete FFT or a production
 GPU-resident storage layout. Ordinary builds require neither MPI nor CUDA.

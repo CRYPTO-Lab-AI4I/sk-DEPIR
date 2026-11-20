@@ -2597,7 +2597,7 @@ shared rank orchestration, optional dedicated CUDA stage owner and independent
 native CPU oracle. Forward column/transposes/affine-row and inverse reverse order;
 24 measurements per execution, all repeated under small-case CUDA memcheck.
 CPU ownership/order/race and remote shared-path preflight precede GPU work.
-Validation pending within existing2node/2H200/4CPU/8GiBhost,720s/15min limits.
+Validation78302 submitted within existing2node/2H200/4CPU/8GiBhost,720s/15min limits.
 No full FFT claim: distributed Taylor conversion is the next implementation gate.
 Host reference can retain caller input plus two owned shards; full2^36/16rank
 projection1536GiB host principal arrays before overhead, not selected production

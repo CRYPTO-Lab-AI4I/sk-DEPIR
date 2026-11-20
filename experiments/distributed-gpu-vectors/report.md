@@ -1,6 +1,9 @@
 # Distributed GPU matrix-vector composition
 
-Status: implementation prepared; no composed MPI/GPU result yet. This is a bounded
+Status: bounded MPI/GPU validation **78302 submitted**; implementation `9cb59b6`.
+[Receipt](submission.json), results `runs/composed-01/`, log `slurm-78302.log`.
+Exact frozen job-start revision/hashes will be in raw results. No monitoring or
+composed result inspected. This is a bounded
 integration gate after [transpose78279](../distributed-transpose/report.md) and
 [GPU vector78293](../gpu-vector-stage/report.md) component validation. It is a
 separable matrix transform, **not a complete additive FFT**: distributed Taylor
