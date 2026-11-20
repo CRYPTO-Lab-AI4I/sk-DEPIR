@@ -22,7 +22,7 @@ component results, separate from the full s17 runs and fulls18 projections below
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Small distributed FFT passed78307** on2 HPC nodes /2 H200s:24 normal +24 sanitized rank/pass results, zero CUDA errors/leaks. **Small distributed products passed78321**, including24 normal +24 sanitized rank/product results. **GPU-resident storage/transpose passed78392** (three reusable shards, both physical layouts, shared schedule). **Resident vectors passed78394** (24 normal +24 sanitized rows). **Complete resident FFT passed78396** (24 normal +24 sanitized rows; old complete host reference also passed). Resident products are implemented; bounded validation prepared. Large-product scaling remains pending. |
+| 1. Distributed products and FFTs | **Small distributed FFT passed78307** on2 HPC nodes /2 H200s:24 normal +24 sanitized rank/pass results, zero CUDA errors/leaks. **Small distributed products passed78321**, including24 normal +24 sanitized rank/product results. **GPU-resident storage/transpose passed78392** (three reusable shards, both physical layouts, shared schedule). **Resident vectors passed78394** (24 normal +24 sanitized rows). **Complete resident FFT passed78396** (24 normal +24 sanitized rows; old complete host reference also passed). Resident products are implemented; **validation78399 submitted**, results pending. Large-product scaling remains pending. |
 | 2. Distributed discovery | Existing discovery is not yet partitioned across nodes. |
 | 3. Generator construction and verification | Existing algorithms still need the distributed executor/data integration. |
 | 4. Coordinated checkpoints and publication | Helpers exist; distributed ownership/restart/assembly integration remains. |
@@ -55,7 +55,7 @@ MiB per process**, owned GPU **1.617 MiB/card**. [Complete resident FFT](../expe
 endpoints/arm, zero CUDA errors/leaks. Controller **2min21.091s**, normal **2.371s**,
 sanitizer **3.691s**; host RSS **373.934/411.531 MiB per process**, owned GPU
 **1.618 MiB/card**. [Resident products](../experiments/distributed-resident-product/report.md)
-are implemented; bounded GPU validation prepared. No fulls18 result.
+are implemented; **GPU validation78399 submitted**, results pending. No fulls18 result.
 
 ## Current s=17 results
 

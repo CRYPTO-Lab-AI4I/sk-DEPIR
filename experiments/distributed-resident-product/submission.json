@@ -1,0 +1,14 @@
+{
+  "job_id": "78399",
+  "name": "product-01",
+  "implementation_revision": "a96d7f64960a2c9a437850e31c2c159ae87a8f31",
+  "recorded_utc": "2026-11-20T18:00:02.122263+00:00",
+  "command": "module load slurm/slurm/25.05; sbatch --parsable --output=experiments/distributed-resident-product/slurm-%j.log experiments/distributed-resident-product/run.sbatch product-01",
+  "results": "experiments/distributed-resident-product/runs/product-01/",
+  "log": "experiments/distributed-resident-product/slurm-78399.log",
+  "cache": ".cache/liftrs/distributed-resident-product/product-01/",
+  "resources": "same2HPCnodes/2H200/4CPU/8GiBhost;128MiBowned/card/1GiBRSS/rank/128MiBcache/2GiBscratch/32MiBfile;720scontroller/15minscheduler;no pinned buffers",
+  "monitoring": "None. Wait for user completion ping.",
+  "scope": "old host-shard product reference plus resident products normal/memcheck; no fullsize/s18 preprocessing support",
+  "note": "Actual job-start revision/build identities saved by controller; following handoff changes affect excluded documentation/JSON only."
+}

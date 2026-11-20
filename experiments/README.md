@@ -83,7 +83,7 @@ original methodology; apply this policy to new optimization runs.
 
 - [Resident GPU polynomial products](distributed-resident-product/report.md):
   shared product/FFT order and pointwise kernel, three reusable arrays; local
-  CPU/race/build checks pass, bounded normal/sanitized validation prepared.
+  CPU/race/build checks pass, normal/sanitized validation78399 submitted.
 
 - [Complete resident GPU FFT](distributed-resident-fft/report.md): shared Taylor
   storage/wave/level/pass and FFT order; CPU/race/build checks pass, bounded GPU

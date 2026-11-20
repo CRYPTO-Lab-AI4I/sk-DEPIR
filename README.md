@@ -86,7 +86,7 @@ passes78394:24 normal +24 sanitized resident outputs with zero CUDA errors/leaks
 24 normal +24 sanitized outputs, exact inverse and clean CUDA summaries.
 [Resident polynomial products](experiments/distributed-resident-product/report.md)
 now share FFT/product order and pointwise arithmetic with the host reference;
-CPU/race/build checks pass, bounded GPU validation is prepared. Larger product
+CPU/race/build checks pass, GPU validation78399 is submitted. Larger product
 scaling and fulls18 preprocessing remain pending. No encoding default
 or client CUDA/MPI dependency changes.
 

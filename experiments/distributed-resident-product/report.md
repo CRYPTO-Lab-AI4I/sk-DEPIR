@@ -1,8 +1,9 @@
 # Bounded resident GPU polynomial products
 
-Status: implemented; CPU/race, native/C/CPP/CUDA/MPI builds and reviewer tests
-pass. Bounded GPU product validation is prepared, not yet measured. Source follows
-`2ec5458`/`6b6019e`; exact frozen revision is recorded by submission/controller.
+Status: **job78399 submitted**, implementation `a96d7f6`; [receipt](submission.json).
+CPU/race, native/C/CPP/CUDA/MPI builds and reviewer tests pass. GPU results
+remain pending. [Results destination](runs/product-01/), [job log](slurm-78399.log).
+Actual job-start revision/build identities are saved by the controller.
 [Readiness commands, hashes and warnings](readiness/checks.json).
 
 [Complete resident FFT78396](../distributed-resident-fft/report.md) passed24 normal

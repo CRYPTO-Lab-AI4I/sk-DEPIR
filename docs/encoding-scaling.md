@@ -2777,3 +2777,10 @@ are shared. Validate old host-shard products plus resident normal/memcheck, exac
 coefficients/zero tails, direct extension-field/alias/layout/range checks and reuse.
 Same admitted budget; no default or field-admission change. Next: matched larger
 costs before root/Newton/generator/discovery/persistence and fulls18 admission.
+
+Resident product validation **78399 submitted**, implementation `a96d7f6`, results
+`experiments/distributed-resident-product/runs/product-01/`. Same admitted resource
+envelope; no monitoring. After completion ping, review old/resident products,
+coefficient/base/tail equality, all three FFT routes, pointwise rejection/right/
+scratch preservation and reuse. If passed, proceed to matched larger resident/
+host cost measurement within admitted resources, retaining fullsize/s18 limits.
