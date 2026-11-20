@@ -196,6 +196,19 @@ queries and responses. Keep agreed contracts distinct from implemented capabilit
    This is job-side instrumentation, not permission for agent monitoring: rule8
    still applies. See [experiment logging conventions](experiments/README.md#long-job-progress-logs).
 
+10. **Prevent avoidable experiment failures.** Reuse validated launch and resource
+   guard patterns. Before expensive phases, check executable/wrapper/input paths,
+   working directories, permissions and required environment on every participating
+   node; distinguish shared storage from node-local scratch. For new instrumentation
+   or workload shapes, use existing measurements or a representative bounded case
+   to budget the suite, including sanitizer overhead and setup, with headroom.
+   Save completed phase results/profiles before later phases; report partial passes
+   separately from overall failure. Add a focused regression for preventable launcher
+   or controller bugs. These checks may run at the start of an admitted allocation;
+   they do not require extra calibration jobs when adequate evidence already exists.
+   Preserve resource admission and the no-monitoring rule. See
+   [experiment preflight](experiments/README.md#preventing-avoidable-failures).
+
 ## Repository map
 
 - `pirconfig/`: JSON configuration catalogue, schema, and Go loading/validation.

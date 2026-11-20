@@ -22,6 +22,27 @@ update its script, results, and report together, then post an update on the
 Do not put unreported measurements into the README. Link each new performance
 claim there to its experiment report.
 
+## Preventing avoidable failures
+
+Reuse working launch/controller patterns before introducing new ones. Check
+remote prerequisites at the beginning of the admitted job, before expensive work:
+all participating nodes must be able to access the executable, wrapper, inputs,
+working directory and output paths, with the expected permissions and environment.
+Keep shared rank entry points separate from node-local source/build scratch.
+
+Budget new instrumentation from measured representative costs; ordinary execution
+latency does not establish sanitizer latency. Account for case/pass counts, setup
+and verification within both step and overall deadlines, leaving headroom. Use
+existing evidence when sufficient; otherwise calibrate a bounded representative
+case before committing to a large suite. Any resource increase still needs admission.
+
+Persist completed phase results, profiles and verification status before later
+phases. A later timeout must leave earlier passes reviewable while the overall
+job remains failed. State any reduced validation coverage explicitly. Cover a
+preventable launcher/controller bug with a focused regression before retrying.
+These are job-side checks, not permission to monitor submitted jobs or to launch
+extra calibration jobs without need. Existing jobs are not retroactively modified.
+
 ## Long-job progress logs
 
 Future jobs expected to exceed30 seconds must write durable, flushed progress
