@@ -81,9 +81,13 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Matched resident/host product scaling](resident-product-scaling/report.md):
+  N4096/16384,127/4096-word tiles and3samples/pair inside existing caps; prepared.
+  Total/net diagnostic clocks and sanitizer coverage are explicitly separated.
+
 - [Resident GPU polynomial products](distributed-resident-product/report.md):
   shared product/FFT order and pointwise kernel, three reusable arrays; local
-  CPU/race/build checks pass, normal/sanitized validation78399 submitted.
+  78399 passes24 normal/24 sanitized outputs and CUDA checks.
 
 - [Complete resident GPU FFT](distributed-resident-fft/report.md): shared Taylor
   storage/wave/level/pass and FFT order; CPU/race/build checks pass, bounded GPU

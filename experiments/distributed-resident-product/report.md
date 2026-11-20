@@ -1,9 +1,24 @@
 # Bounded resident GPU polynomial products
 
-Status: **job78399 submitted**, implementation `a96d7f6`; [receipt](submission.json).
-CPU/race, native/C/CPP/CUDA/MPI builds and reviewer tests pass. GPU results
-remain pending. [Results destination](runs/product-01/), [job log](slurm-78399.log).
-Actual job-start revision/build identities are saved by the controller.
+Status: **78399 passed**, source `a96d7f6`, two HPC nodes /2 H200s /4 cores /
+8 GiB requested host RAM.24 normal +24 sanitized resident rank/product outputs
+and24 host-shard reference outputs match every schoolbook coefficient. Each arm
+verifies720 transpose +5364 Taylor proof endpoints;12 direct pointwise checks/
+arm and both clean CUDA error/leak summaries pass. Right-spectrum preservation,
+alias/layout/range rejection, zero tails and allocation reuse pass.
+[Raw results](runs/product-01/results.json), [independent review](runs/product-01/analysis.json),
+[summary](runs/product-01/review-checks.json), [job log](slurm-78399.log).
+All724 source /41 original evidence /148 cache identities verify;15.912 MiB
+reusable cache retained. Controller **153.300 seconds (2min33.300s)**; resident
+normal arm **3.121s**, sanitizer **6.476s**, host reference **3.722s**. These arm
+times include MPI/process/setup overhead and are not product speedups.
+
+Peak logged host RSS **374.566 MiB normal /414.418 MiB sanitized per process**;
+owned GPU **1.618 MiB/card**, context/driver excluded. Largest4096-value product
+samples are **0.2347–0.2367s resident**, versus **0.1080–0.1111s host**, profiled
+and with the declared asymmetric diagnostic capture boundary. Do not infer
+fullsize throughput from them. Next: [matched sizes/transfer tiles](../resident-product-scaling/report.md).
+
 [Readiness commands, hashes and warnings](readiness/checks.json).
 
 [Complete resident FFT78396](../distributed-resident-fft/report.md) passed24 normal
@@ -93,7 +108,7 @@ profiles reuse the validated runner. Each MPI arm keeps240 seconds (220-second
 test timeout).78396 took141.091 seconds total, normal2.371/sanitizer3.691 seconds;
 old same-size products78321 took2.172/7.084 seconds normal/sanitized. This suite
 uses the same small sizes/sanitizer shapes; no calibration or budget expansion is
-needed. New product runtime remains unknown until completion.
+needed. Measured bounded costs are reported above; larger/fullsize runtime remains unknown.
 
 Exact revision/build identities, commands/exits, resource/phase/proof logs and
 CPU profiles persist in `runs/<name>/`; completed arm results save before later

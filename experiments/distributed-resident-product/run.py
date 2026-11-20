@@ -10,6 +10,11 @@ VECTORS=PRODUCT['VECTORS']
 
 def review(rows,directory):
     result=PRODUCT['review'](rows,directory,pointwise_words=lambda n,capacity:min(n//2,capacity,17))
+    return resident_claims(rows,result)
+
+
+def resident_claims(rows,result):
+    """Review resident preservation/reuse independently of admitted sizes/tiling."""
     retained={}
     for r in result['measurements']:
         assert all(r.get(k)is True for k in ('resident','right_spectrum_preserved','reused'))

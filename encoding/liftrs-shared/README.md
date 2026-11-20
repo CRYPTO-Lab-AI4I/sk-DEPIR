@@ -876,7 +876,7 @@ runs in place; the plan is retained lazily under the same cap. For example, afte
 transposing into an interleaved column slot, call `store.Vectors(1, true, false)`.
 Host and resident adapters share separable stage order. No complete host shard is
 staged for vector arithmetic. [Resident composition validation](../../experiments/distributed-resident-vectors/report.md)
-passed78394; complete resident Taylor/FFT validation passed78396. Resident products are implemented, validation prepared.
+passed78394; complete resident Taylor/FFT validation passed78396. Resident products passed78399.
 
 Resident Taylor now uses the same ticket/wave and level/pass scheduler as the host
 reference. `TaylorDegrees(level)` supplies metadata; `Taylor32/64(slot, snapshot,
@@ -897,5 +897,11 @@ both operands are range-checked before writes. Right and the third slot survive,
 with no new full device array or host staging. Shared product plans/order compose
 left/right forward FFTs, pointwise and inverse-left using one scratch slot.
 [Bounded resident product validation](../../experiments/distributed-resident-product/report.md)
-is prepared; fullsize throughput, pipeline integration and s18 admission remain
+passed78399; fullsize throughput, pipeline integration and s18 admission remain
 separate. No client/default change.
+
+[Matched synthetic product sizes/tiles](../../experiments/resident-product-scaling/report.md)
+now compare host/resident implementations on the same admitted HPC nodes, including
+constructor, operand I/O and separately timed validation capture. Test defaults
+remain127 words; the explicit experiment also uses4096-word transport andN16384.
+No library default or fullsize support/performance claim changes.

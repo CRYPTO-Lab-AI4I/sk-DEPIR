@@ -1,0 +1,62 @@
+{
+  "job_id": "78399",
+  "status": "passed",
+  "revision": "a96d7f64960a2c9a437850e31c2c159ae87a8f31",
+  "source_files_verified": 724,
+  "evidence_files_verified": 41,
+  "cache_files_verified": 148,
+  "controller_seconds": 153.29973060637712,
+  "cache_MiB": 15.912148475646973,
+  "arms": {
+    "full-reference": {
+      "rows": 24,
+      "transpose_endpoints": 720,
+      "taylor_endpoints": 5364,
+      "command_seconds": 3.7218064088374376,
+      "max_RSS_MiB": 374.76953125,
+      "max_owned_GPU_MiB": 1.5720329284667969,
+      "largest_products_seconds": [
+        0.108001607,
+        0.111106267
+      ],
+      "sanitizer": null
+    },
+    "normal": {
+      "rows": 24,
+      "transpose_endpoints": 720,
+      "taylor_endpoints": 5364,
+      "command_seconds": 3.121442185714841,
+      "max_RSS_MiB": 374.56640625,
+      "max_owned_GPU_MiB": 1.6184120178222656,
+      "largest_products_seconds": [
+        0.236663316,
+        0.234699628
+      ],
+      "sanitizer": null
+    },
+    "memcheck": {
+      "rows": 24,
+      "transpose_endpoints": 720,
+      "taylor_endpoints": 5364,
+      "command_seconds": 6.476107768714428,
+      "max_RSS_MiB": 414.41796875,
+      "max_owned_GPU_MiB": 1.6184120178222656,
+      "largest_products_seconds": [
+        1.324427103,
+        1.289121357
+      ],
+      "sanitizer": [
+        {
+          "errors": 0,
+          "leaked_bytes": 0,
+          "leaked_allocations": 0
+        },
+        {
+          "errors": 0,
+          "leaked_bytes": 0,
+          "leaked_allocations": 0
+        }
+      ]
+    }
+  }
+}

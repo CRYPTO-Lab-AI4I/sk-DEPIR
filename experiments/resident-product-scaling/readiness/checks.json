@@ -1,0 +1,53 @@
+{
+  "checks": [
+    "Final CPP/CUDA/MPI test binary compile passed; no local MPI/GPU execution",
+    "CPU race orchestration regressions passed1.298s",
+    "6 scaling tests(including3old product fixtures) pass:tile/case subsets,profile paths,3samples/backend pair and driver selection",
+    "3composition/3product/5residentProduct/6residentFFT/5residentVectors/4storage/5CUDA-summary reviewer tests pass",
+    "Python AST/shell/gofmt/source-document whitespace passed"
+  ],
+  "mpi_build_command": "module load gcc/14.2.0 openmpi/gcc/64/4.1.8; GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=1 CC=mpicc CXX=mpicxx .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/resident-product-scaling/readiness/products.test ./encoding/liftrs-shared",
+  "race_command": "GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=1 .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test -race ./encoding/liftrs-shared -run '^TestRankTranspose|^TestRankMatrixVectors|^TestRankTaylor|^TestRankAdditive|^TestRankProduct' -count=1 -timeout=20s",
+  "mpi_build_exit_code": 0,
+  "local_GPU_MPI_executed": false,
+  "native_reused_from_job": "78399; unchanged CUDA source, validated normal/memcheck; native build not needlessly repeated locally. Frozen runner rebuilds once in admitted allocation.",
+  "unchanged_native_source_sha256": {
+    "encoding/liftrs-cuda/preparation.cu": "ba74e3e2e0ecac3458a7ca833b0fb58efe6831bf577c1b68d39c1fa4c8c2a9e4",
+    "encoding/liftrs-cuda/rank_storage.cuh": "b7fe4f7bbc23dff346fac391f6448d7619ef48e5fee1bcd33beb2a66dce6ee86",
+    "encoding/liftrs-cuda/preparation_api.h": "e031eb50d5b968ad27041bf2d3489e3adb0473a7b8bc56081ada12ceeac2bfac",
+    "encoding/liftrs-cuda/preparation_bridge.h": "6657aab2b0d44e9b41e89e88ac5a825c46597d9664666cc2b7efbb914d29535e"
+  },
+  "retained_artifacts": {
+    ".cache/liftrs/distributed-resident-product/readiness/libliftrs-cuda.so": {
+      "bytes": 2823600,
+      "sha256": "68f8e59f38e22d7c483ec4d76d03fc12b05a1dedb349a615fb4b2d17c1afd752"
+    },
+    ".cache/liftrs/distributed-resident-product/readiness/host-tiled-reference-check": {
+      "bytes": 1844872,
+      "sha256": "4350b6ef0c55e50c3bc57a674a9bd2c00b8170ec3cd3205b68d5981d29f81f52"
+    },
+    ".cache/liftrs/resident-product-scaling/readiness/products.test": {
+      "bytes": 11785504,
+      "sha256": "444bae8902887f5485a00bdcdb3795d588aa0ff84181eecfbdafc1eba4d8bfe4"
+    }
+  },
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_product_gpu_test.go": "179688f151065e1269f239a1e66377b6bccb15346094a868bba4fbccfaca90af",
+    "experiments/distributed-gpu-vectors/run.py": "1bb54bf171b75baf74f30a70256c36dadf0bef9384922e8c3ac67612b4b13063",
+    "experiments/distributed-gpu-product/run.py": "67e5c884042768d589d747894eb176cd4b873b2ef443e43d92abd2f322090988",
+    "experiments/distributed-resident-product/run.py": "73f942fe954745d3a4447fc90966e1c4e3fc80c7233c8431baaae44687086edf"
+  },
+  "controller_sha256": {
+    "experiments/resident-product-scaling/analyze.py": "10d7f774cc9a2369df108a9352b354fbdf35d189c0dff168d6eee88e61e9f505",
+    "experiments/resident-product-scaling/run.py": "190541a8ffcdd2c65129a2351b91776c850c5bac7710cf1e79ea4dfdd87480ef",
+    "experiments/resident-product-scaling/test_review.py": "5832f480a9eee11bf947c01fdd45e6a0eb1d556d50321d7a4ea2a0a46da42a0a"
+  },
+  "limits": "same2HPCnodes/2H200/4CPU/8GiBhost;128MiBowned/card/1GiBRSS/rank/128MiBcache/2GiBscratch/32MiBfile;720scontroller/15minscheduler;tile127/4096within caps",
+  "limitations": [
+    "MPI compiler wrapper socket errno1 warnings retained; final compilation exit0",
+    "No N16384 GPU result yet; expanded normal arms and4096-word sanitizer subset pending",
+    "Focused custom-arm test verifies profile file paths, preventing the prior normal-only name assumption",
+    "Fixture shared packet references were corrected before final reviewer tests passed",
+    "No fulls17/s18 preprocessing throughput estimate or new default"
+  ]
+}

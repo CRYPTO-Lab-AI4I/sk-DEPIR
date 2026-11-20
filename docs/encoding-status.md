@@ -22,7 +22,7 @@ component results, separate from the full s17 runs and fulls18 projections below
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Small distributed FFT passed78307** on2 HPC nodes /2 H200s:24 normal +24 sanitized rank/pass results, zero CUDA errors/leaks. **Small distributed products passed78321**, including24 normal +24 sanitized rank/product results. **GPU-resident storage/transpose passed78392** (three reusable shards, both physical layouts, shared schedule). **Resident vectors passed78394** (24 normal +24 sanitized rows). **Complete resident FFT passed78396** (24 normal +24 sanitized rows; old complete host reference also passed). Resident products are implemented; **validation78399 submitted**, results pending. Large-product scaling remains pending. |
+| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Next: matched N4096/16384 transfer-tile comparison** (prepared). Large-product scaling remains pending. |
 | 2. Distributed discovery | Existing discovery is not yet partitioned across nodes. |
 | 3. Generator construction and verification | Existing algorithms still need the distributed executor/data integration. |
 | 4. Coordinated checkpoints and publication | Helpers exist; distributed ownership/restart/assembly integration remains. |
@@ -55,7 +55,13 @@ MiB per process**, owned GPU **1.617 MiB/card**. [Complete resident FFT](../expe
 endpoints/arm, zero CUDA errors/leaks. Controller **2min21.091s**, normal **2.371s**,
 sanitizer **3.691s**; host RSS **373.934/411.531 MiB per process**, owned GPU
 **1.618 MiB/card**. [Resident products](../experiments/distributed-resident-product/report.md)
-are implemented; **GPU validation78399 submitted**, results pending. No fulls18 result.
+**passed78399**:24 normal +24 sanitized products,720 transpose +5364 Taylor
+endpoints/arm, clean CUDA summaries. Controller **2min33.300s**, normal arm
+**3.121s**, sanitizer **6.476s**; host RSS **374.566/414.418 MiB per process**,
+owned GPU **1.618 MiB/card**. Largest4096-value resident samples **0.2347–0.2367s**
+versus host **0.1080–0.1111s**, with diagnostic boundaries described in the report.
+[Matched size/tile comparison](../experiments/resident-product-scaling/report.md)
+is prepared; no fulls18 result or fullsize speedup claim.
 
 ## Current s=17 results
 
@@ -717,5 +723,6 @@ adds transfers and is not selected for full-size preprocessing or changed defaul
 
 The [Taylor-complete distributed FFT gate](../experiments/distributed-gpu-fft/report.md) is now implemented, with
 independent CPU/scalar and CUDA checks; **78307 passed** all small forward/inverse
-results and transfer checks. Distributed polynomial products **passed bounded validation78321**; GPU-resident large products, s18 arithmetic
-and preprocessing integration remain pending.
+results and transfer checks. Host-shard products **passed78321**; bounded resident
+FFT **passed78396** and resident products **passed78399**. GPU-resident large
+products, s18 arithmetic and preprocessing integration remain pending.

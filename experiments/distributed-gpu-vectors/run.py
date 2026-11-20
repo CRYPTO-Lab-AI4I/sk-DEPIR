@@ -63,10 +63,10 @@ def review(rows,directory,operations=None,full_fft=False):
     return dict(measurements=values,proof_events=proof_count)
 
 
-def suite(c,full_fft=False,review_fn=review,test_name="TestDistributedGPUVectors",scope=None,baseline=False,reference_review=None,reference_test="TestDistributedGPUVectors"):
+def suite(c,full_fft=False,review_fn=review,test_name="TestDistributedGPUVectors",scope=None,baseline=False,reference_review=None,reference_test="TestDistributedGPUVectors",arms=None):
     CONTROL['configure'](c)
     run=c['run'];go=c['go'];source=c['source'];cache=c['cache'];out=c['out'];env=c['env']
-    c['resources'].update(rss_cap_GiB_per_rank=1,pinned_cap_MiB_per_rank=0,mpi_mode='staged',tile_words=127,scope=scope or ('bounded distributed polynomial product'if test_name=='TestDistributedGPUProducts'else('bounded additive FFT with distributed Taylor'if full_fft else'separable GPU vectors with two rank transposes; Taylor absent')))
+    c['resources'].update(rss_cap_GiB_per_rank=1,pinned_cap_MiB_per_rank=0,mpi_mode='staged',tile_words=127 if arms is None else 'per-arm',scope=scope or ('bounded distributed polynomial product'if test_name=='TestDistributedGPUProducts'else('bounded additive FFT with distributed Taylor'if full_fft else'separable GPU vectors with two rank transposes; Taylor absent')))
     c['save']();env.update(PIR_GPU_MATRIX_STAGE_TAYLOR='1'if full_fft else'0',CGO_ENABLED='1',CC='mpicc',CXX='mpicxx',GOMAXPROCS='1',PIR_RANK_LOG_FILES='1',LIFTRS_CPU_PROGRESS='1')
     run('review-tests',['python3','-B','experiments/distributed-gpu-vectors/test_review.py'],30)
     run('cpu-orchestration',[go,'test','./encoding/liftrs-shared','-run','^TestRankTranspose|^TestRankMatrixVectors$|^TestRankVectorAdmission$|^TestRankTaylor|^TestRankAdditive|^TestRankProduct','-count=1','-timeout=45s'],90)
@@ -85,22 +85,27 @@ def suite(c,full_fft=False,review_fn=review,test_name="TestDistributedGPUVectors
     state=dict(status='running',arms={})
     def save():(out/'composition.json').write_text(json.dumps(state,indent=2)+'\n')
     save()
-    for mode in (('full-reference','normal','memcheck')if reference_review is not None else(('separable','normal','memcheck')if full_fft or baseline else('normal','memcheck'))):
+    if arms is None:
+        modes=('full-reference','normal','memcheck')if reference_review is not None else(('separable','normal','memcheck')if full_fft or baseline else('normal','memcheck'))
+        arms=[dict(name=mode)for mode in modes]
+    for arm_spec in arms:
+        mode=arm_spec['name'];is_memcheck=arm_spec.get('memcheck',mode=='memcheck')
+        env.update(arm_spec.get('env',{}))
         dest=cache/mode;dest.mkdir();env['PIR_GPU_MATRIX_STAGE_OUTPUT']=str(dest)
         env['PIR_GPU_MATRIX_STAGE_TAYLOR']='1'if full_fft and mode!='separable'else'0'
         launcher=['timeout','--signal=TERM','--kill-after=10s','240s','srun','--mpi=pmix_v3','--nodes=2','--ntasks=2','--ntasks-per-node=1','--cpus-per-task=2',
             '--export=ALL,TMPDIR=/tmp','--gpus-per-task=h200:1','--gpu-bind=single:1','--cpu-bind=cores','--distribution=block:block','--chdir='+str(cache),'--kill-on-bad-exit=1','bash',wrapper,out/mode]
-        selected_test=reference_test if mode=='full-reference'else('TestDistributedGPUVectors'if mode=='separable'else test_name)
+        selected_test=arm_spec.get('test',reference_test if mode=='full-reference'else('TestDistributedGPUVectors'if mode=='separable'else test_name))
         command=[binary,'-test.run=^'+selected_test+'$','-test.v','-test.timeout=220s']
-        if mode=='memcheck':command=['compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',*command]
+        if is_memcheck:command=['compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',*command]
         run(mode,[*launcher,*command],260)
-        checker=reference_review if mode=='full-reference'else(review if mode=='separable'else review_fn)
+        checker=arm_spec.get('review',reference_review if mode=='full-reference'else(review if mode=='separable'else review_fn))
         arm=checker(BASE['parse_rank_logs'](out/(mode+'.log'),ranks=2),dest)
-        if mode=='memcheck':
+        if is_memcheck:
             arm['sanitizer']=[STAGE['sanitizer_summary']((out/f'{mode}-{r}.stdout.log').read_text(),(out/f'{mode}-{r}.stderr.log').read_text())for r in (0,1)]
         state['arms'][mode]=arm;save()
-        if mode=='normal':
-            for rank in (0,1):run('profile-'+str(rank),[go,'tool','pprof','-symbolize=none','-top',binary,out/f'normal-{rank}.pprof'],45)
+        if arm_spec.get('profile',mode=='normal'):
+            for rank in (0,1):run(('profile-'if mode=='normal'else mode+'-profile-')+str(rank),[go,'tool','pprof','-symbolize=none','-top',binary,out/f'{mode}-{rank}.pprof'],45)
     state['status']='passed';save();return dict(composed_vectors=state)
 
 

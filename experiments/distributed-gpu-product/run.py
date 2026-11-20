@@ -9,13 +9,14 @@ FFT=runpy.run_path(str(HERE.parent/'distributed-gpu-fft/run.py'))
 VECTORS=FFT['VECTORS']
 
 
-def review(rows,directory,pointwise_words=None):
+def review(rows,directory,pointwise_words=None,cases=None,tile_words=127):
     hosts=[r for r in rows if r.get('kind')=='host'];assert len(hosts)==2 and {r['rank']for r in hosts}=={0,1}and len({r['host']for r in hosts})==2
     assert all(r['visible_devices']and ','not in r['visible_devices']for r in hosts)
-    values=[r for r in rows if r.get('kind')=='measurement'];assert len(values)==24
-    checks=[r for r in rows if r.get('kind')=='pointwise-check'];assert len(checks)==12
+    cases=VECTORS['CASES']if cases is None else cases
+    values=[r for r in rows if r.get('kind')=='measurement'];assert len(values)==4*len(cases)
+    checks=[r for r in rows if r.get('kind')=='pointwise-check'];assert len(checks)==2*len(cases)
     specs=[];expected_packets={};operation=1
-    for s,dim in VECTORS['CASES']:
+    for s,dim in cases:
         n=1<<dim;cols=1<<(dim//2);levels=dim-dim//2;capacity=min(n,3*max(cols,n//cols));span=2+2*levels
         selected=[r for r in checks if r['s']==s and r['dimension']==dim];assert len(selected)==2 and {r['rank']for r in selected}=={0,1}and all(r['matches']is True and r['words']==(pointwise_words(n,capacity)if pointwise_words else min(capacity,17))for r in selected)
         for shape in (0,1):
@@ -25,8 +26,8 @@ def review(rows,directory,pointwise_words=None):
                 first_op=start+(0 if inverse else 2*levels)
                 for rank in (0,1):
                     for op in (first_op,first_op+1):
-                        for offset in range(0,n//4,127):
-                            for direction in ('send','receive'):expected_packets[(rank,label,child,op,offset,direction)]=min(127,n//4-offset)
+                        for offset in range(0,n//4,tile_words):
+                            for direction in ('send','receive'):expected_packets[(rank,label,child,op,offset,direction)]=min(tile_words,n//4-offset)
             chosen=[r for r in values if r['case']==label];assert len(chosen)==2 and {r['rank']for r in chosen}=={0,1}and chosen[0]['seconds']==chosen[1]['seconds']>0
             for r in chosen:
                 rank=r['rank'];assert(r['s'],r['dimension'],r['shape'],r['a_count'],r['b_count'],r['first_coefficient'],r['words'],r['slot_bytes'],r['output_word_bytes'],r['operation_start'])==(s,dim,shape,ac,bc,rank*n//2,n//2,4 if s==4 else 8,4,operation)
@@ -44,7 +45,7 @@ def review(rows,directory,pointwise_words=None):
     proof_count=VECTORS['review_transpose_routes'](rows,expected_packets)
     routes,counts=FFT['review_taylor_routes'](rows,specs)
     for r in values:assert r['taylor_proof_events']==sum(counts.get((r['rank'],r['case'],child),0)for child in (0,1,2))
-    assert all(sum(r.get('kind')=='completed'and r['rank']==rank and r['cases']==12 for r in rows)==1 for rank in (0,1))
+    assert all(sum(r.get('kind')=='completed'and r['rank']==rank and r['cases']==2*len(cases) for r in rows)==1 for rank in (0,1))
     assert not list(directory.glob('capture-*'))
     return dict(measurements=values,proof_events=proof_count,pointwise_checks=len(checks),**routes)
 

@@ -89,6 +89,7 @@ uneven/empty ownership, inverse transposes, alias/extent rejection, source/third
 preservation and stable retained allocation. It deliberately moves arbitrary slot
 bits without arithmetic. This validates storage; it does not validate a resident
 FFT, product or canonical field values. Resident vectors passed78394 and complete resident FFT passed78396. Pointwise/
-products are implemented with the same three arrays, operation schedule and
-arithmetic; bounded validation is prepared. Matched larger measurements remain
-next before preprocessing integration. No large calibration or resource increase is implied.
+products passed78399 with the same three arrays, operation schedule and
+arithmetic. Tiny resident products are slower than host under the current
+127-word/diagnostic boundary. Matched sizes/transfer batching is prepared before
+larger scaling and preprocessing integration. No large calibration or resource increase is implied.

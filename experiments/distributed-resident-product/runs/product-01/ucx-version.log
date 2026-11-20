@@ -1,0 +1,5 @@
+# Library version: 1.18.0
+# Library path: /cm/shared/apps/ucx/1.18.0/lib/libucs.so.0
+# API headers version: 1.18.0
+# Git branch '', revision 2e601fb
+# Configured with: --prefix=/cm/shared/apps/ucx/1.18.0 --enable-mt --without-java --without-cuda --disable-optimizations --disable-logging --disable-debug --disable-assertions --disable-params-check

@@ -85,9 +85,10 @@ passes78394:24 normal +24 sanitized resident outputs with zero CUDA errors/leaks
 [Complete resident FFT](experiments/distributed-resident-fft/report.md) passes78396:
 24 normal +24 sanitized outputs, exact inverse and clean CUDA summaries.
 [Resident polynomial products](experiments/distributed-resident-product/report.md)
-now share FFT/product order and pointwise arithmetic with the host reference;
-CPU/race/build checks pass, GPU validation78399 is submitted. Larger product
-scaling and fulls18 preprocessing remain pending. No encoding default
+pass78399:24 normal +24 sanitized schoolbook products with clean CUDA summaries.
+The tiny resident samples remain slower than host at4096 values; a
+[matched size/transfer-tile comparison](experiments/resident-product-scaling/report.md)
+is prepared. Larger product scaling and fulls18 preprocessing remain pending. No encoding default
 or client CUDA/MPI dependency changes.
 
 The [persistent GPU vector-stage adapter](experiments/gpu-vector-stage/report.md)

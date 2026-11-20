@@ -2784,3 +2784,27 @@ envelope; no monitoring. After completion ping, review old/resident products,
 coefficient/base/tail equality, all three FFT routes, pointwise rejection/right/
 scratch preservation and reuse. If passed, proceed to matched larger resident/
 host cost measurement within admitted resources, retaining fullsize/s18 limits.
+
+### Matched product sizes and transfer batching (SCALING-156)
+
+78399 passed24 normal/24 sanitized resident products,24old reference,12direct
+checks/arm,720transpose+5364Taylor endpoints/arm,724source/41evidence/148cache
+identities and clean CUDA summaries. Controller153.300s,normalarm3.121s/
+sanitizer6.476s;RSS374.566/414.418MiB/process,1.618MiBowned/card. Main reference
+updated. Largest4096 products0.2347–0.2367s resident versus0.1080–0.1111s host;
+resident timing includes extra validation capture/input-output transfers, so no
+speedup inference. CPU profile foreign-call category78.69% includes transfer/MPI/
+GPU waits and is not GPU kernel time.
+
+Proceed to [matched comparison](../experiments/resident-product-scaling/report.md):
+same2node/2H200 admission; s17 field synthetic productsN4096/16384,host/resident,
+127/4096-word transfer tiles,3samples/pair, backend order alternated. Each buffer
+grows1016bytes→32768bytes (+about31KiB), within unchanged128MiBdevice/1GiBRSS caps.
+Measure constructor separately and retain both total clocks and per-rank net
+clocks excluding the separately timed validation spectrum capture, without
+removing checks. Schoolbook/proofs remain identical. Sanitizers coverN4096/
+tile4096 only; earlier127-word coverage retained. Named phases reuse one source/
+build/preflight/allocation, preserving completed results before later phases.
+Projected250–400s controller inside720s/15min limits, unknown until measured.
+Default paths unchanged; select subsequent larger/product-integration work from
+measured batching/transfer/setup costs, not a presumed resident speedup.
