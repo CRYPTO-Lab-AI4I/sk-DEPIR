@@ -6,7 +6,8 @@ checks (48 normal cases). This is a partial result; the complete job remains
 failed. [Raw results](runs/vectors-02/results.json),
 [identity/normal-output review](runs/vectors-02/analysis.json),
 [partial sanitizer review](runs/vectors-02/partial-memcheck-review.json),
-[receipt](submission-02.json), [log](slurm-78286.log). Retry prepared below.
+[receipt](submission-02.json), [log](slurm-78286.log). Split retry **78293 submitted**, source `2a86336`; [receipt](submission-03.json).
+Results `runs/vectors-03/`, log `slurm-78293.log`; no monitoring.
 
 ### Measured result and sanitizer adjustment
 

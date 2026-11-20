@@ -1,0 +1,11 @@
+{
+  "job_id": "78293",
+  "source_revision": "2a86336",
+  "name": "vectors-03",
+  "submitted_utc": "2026-11-20T11:06:56.967064+00:00",
+  "command": "sbatch --parsable --output=experiments/gpu-vector-stage/slurm-%j.log experiments/gpu-vector-stage/run.sbatch vectors-03",
+  "results": "experiments/gpu-vector-stage/runs/vectors-03/",
+  "log": "experiments/gpu-vector-stage/slurm-78293.log",
+  "monitoring": false,
+  "method": "24 normal cases/rank;20 small sanitized plus one wide tail axis/rank;2 wide sanitized transforms"
+}

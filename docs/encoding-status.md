@@ -662,5 +662,5 @@ The [persistent GPU vector-stage adapter](../experiments/gpu-vector-stage/report
 now separates global transform coordinates from bounded local GPU storage and
 reuses the existing arithmetic. **78286 passed all48 normal GPU cases**; CUDA memcheck hit its step cutoff.
 Normal host peak RSS is131.086 MiB/process and owned device memory4.569 MiB/card;
-the two-node normal suite took31.209 seconds. Split sanitizer retry is prepared;
+the two-node normal suite took31.209 seconds. Split sanitizer retry **78293 is submitted**;
 complete distributed FFT and full s18 preprocessing remain unvalidated.

@@ -2571,3 +2571,7 @@ with two transforms per wide case. Wide zero-origin/extra reuse calls remain
 normal-only.540s sanitizer allowance, same720s controller/15min scheduler and
 resources; about5min sanitizer projection, no retry result yet. Full distributed
 FFT/s18 admission remains gated on completion and composition.
+
+SCALING-145 split sanitizer retry **78293 submitted**, source2a86336.
+Results `experiments/gpu-vector-stage/runs/vectors-03/`; no monitoring, await
+completion ping before composition. Same resource/deadline envelope.

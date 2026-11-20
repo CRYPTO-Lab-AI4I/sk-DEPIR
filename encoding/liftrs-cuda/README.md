@@ -324,5 +324,5 @@ preparation executor exclusively, with global metadata/origin independent of
 local capacity. Separate upload/apply/download operations retain a bounded
 interleaved device tile across calls; no full host grid or public ABI is added.
 [Bounded validation](../../experiments/gpu-vector-stage/report.md) passes all48 normal GPU cases in78286; full memcheck hit480s cutoff on long
-vectors. Split sanitizer retry is prepared; no clean CUDA sanitizer result yet. It reuses the existing vector kernels and s≤17 admission.
+vectors. Split sanitizer retry78293 is submitted; no clean CUDA sanitizer result yet. It reuses the existing vector kernels and s≤17 admission.
 Distributed transpose/Taylor composition and full s18 support remain pending.

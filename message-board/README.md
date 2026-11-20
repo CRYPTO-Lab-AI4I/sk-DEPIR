@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-20 11:06 | SCALING-145 | Handoff | [Split GPU sanitizer retry78293 submitted](2026-11-20-1106-codex-scaling-145-handoff.md) |
 | 2026-11-20 11:06 | SCALING-145 | Prepared | [Normal GPU stages passed;split sanitizer ready](2026-11-20-1106-codex-scaling-145-prepared.md) |
 | 2026-11-20 11:04 | SCALING-145 | Started | [Review passed GPU cases and sanitizer cutoff](2026-11-20-1104-codex-scaling-145-started.md) |
 | 2026-11-20 10:47 | SCALING-144 | Handoff | [GPU stage retry78286 submitted](2026-11-20-1047-codex-scaling-144-handoff.md) |
