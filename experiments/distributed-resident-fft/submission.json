@@ -1,0 +1,14 @@
+{
+  "job_id": "78396",
+  "name": "fft-01",
+  "implementation_revision": "2ec5458719774b1cf01a4a4ed4de4d9ea0107a3c",
+  "recorded_utc": "2026-11-20T17:44:39.437826+00:00",
+  "command": "module load slurm/slurm/25.05; sbatch --parsable --output=experiments/distributed-resident-fft/slurm-%j.log experiments/distributed-resident-fft/run.sbatch fft-01",
+  "results": "experiments/distributed-resident-fft/runs/fft-01/",
+  "log": "experiments/distributed-resident-fft/slurm-78396.log",
+  "cache": ".cache/liftrs/distributed-resident-fft/fft-01/",
+  "resources": "same2HPCnodes/2H200/4CPU/8GiBhost;128MiBowned/card/1GiBRSS/rank/128MiBcache/2GiBscratch/32MiBfile;720scontroller/15minscheduler;no pinned buffers",
+  "monitoring": "None. Wait for user completion ping.",
+  "scope": "old complete host-tile FFT reference plus resident complete FFT normal/memcheck; no resident products or fulls18 support",
+  "note": "Actual job-start revision and source identities saved by controller; handoff changes affect excluded documentation/JSON only."
+}

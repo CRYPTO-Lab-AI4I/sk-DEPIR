@@ -83,7 +83,7 @@ original methodology; apply this policy to new optimization runs.
 
 - [Complete resident GPU FFT](distributed-resident-fft/report.md): shared Taylor
   storage/wave/level/pass and FFT order; CPU/race/build checks pass, bounded GPU
-  validation prepared. Products/fullsize scaling remain separate.
+  validation78396 submitted. Products/fullsize scaling remain separate.
 
 - [Resident GPU vector composition](distributed-resident-vectors/report.md):
   shared launcher/order and resident interleaved shards; local CPU/race/build

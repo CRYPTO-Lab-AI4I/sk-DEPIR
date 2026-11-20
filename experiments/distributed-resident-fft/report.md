@@ -1,8 +1,9 @@
 # Complete bounded resident GPU FFT
 
-Status: implemented; local CPU/race and native/CPP/CUDA/MPI builds pass. Bounded
-GPU validation is prepared; no resident complete-FFT runtime/peak is measured yet.
-Source follows `4fe10dc`/`222fa45`; submission/raw results record exact revision.
+Status: **job78396 submitted**, implementation `2ec5458`; [receipt](submission.json).
+Local CPU/race and native/CPP/CUDA/MPI builds pass; GPU results remain pending.
+[Results destination](runs/fft-01/), [job log](slurm-78396.log). Actual job-start
+revision/source identities are saved by the controller.
 [Readiness commands and artifacts](readiness/checks.json).
 
 [Resident vectors78394](../distributed-resident-vectors/report.md) passed24 normal

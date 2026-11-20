@@ -84,7 +84,7 @@ shards and bounded GPU packing for row/interleaved views. Validation78392 passes
 passes78394:24 normal +24 sanitized resident outputs with zero CUDA errors/leaks.
 [Complete resident FFT](experiments/distributed-resident-fft/report.md) now shares
 Taylor storage/level/pass and FFT ordering with the host reference; CPU/race/build
-checks pass, bounded GPU validation is prepared. Resident products and fulls18
+checks pass, bounded GPU validation78396 is submitted. Resident products and fulls18
 preprocessing remain pending. No encoding default
 or client CUDA/MPI dependency changes.
 

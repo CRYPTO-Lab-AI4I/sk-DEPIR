@@ -2751,3 +2751,10 @@ Validate old complete host-tile FFT plus resident normal/sanitized forward/inver
 against native/scalar oracles under the same budget. Then resident pointwise/
 products and larger matched measurements before discovery/generator/persistence
 integration. No default, field-admission or resource increase; stillstep1.
+
+Complete resident FFT validation **78396 submitted**, implementation `2ec5458`,
+results `experiments/distributed-resident-fft/runs/fft-01/`. Same resource envelope;
+no monitoring. After completion ping, independently verify full-reference/resident
+outputs, Taylor/transpose coverage, CUDA checks and allocation reuse. If passed,
+proceed to resident pointwise/products using data-left/data-right/scratch lifetimes
+and matched measurement, without requesting another go-ahead.
