@@ -79,7 +79,7 @@ preprocessing limit changes.
 The [persistent GPU vector-stage adapter](experiments/gpu-vector-stage/report.md)
 now separates global transform coordinates from bounded local GPU storage and
 reuses the existing arithmetic. Validation **78285 failed before GPU execution** due to a node-local launcher
-path; the shared-path fix and retry are prepared. No GPU stage result, complete
+path; shared-path retry **78286 is submitted**. No GPU stage result, complete
 distributed FFT or full s18 support is claimed.
 
 The [bounded tiled-transform/split-product comparison](experiments/preprocessing-tiles/report.md)

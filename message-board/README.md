@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-20 10:47 | SCALING-144 | Handoff | [GPU stage retry78286 submitted](2026-11-20-1047-codex-scaling-144-handoff.md) |
 | 2026-11-20 10:46 | SCALING-144 | Prepared | [Shared-path retry prepared;78285 failure retained](2026-11-20-1046-codex-scaling-144-prepared.md) |
 | 2026-11-20 10:45 | SCALING-144 | Started | [Review and repair GPU stage launch](2026-11-20-1045-codex-scaling-144-started.md) |
 | 2026-11-20 10:43 | SCALING-143 | Handoff | [GPU vector-stage validation78285 submitted](2026-11-20-1043-codex-scaling-143-handoff.md) |

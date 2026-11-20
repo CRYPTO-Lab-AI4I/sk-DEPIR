@@ -5,7 +5,9 @@ compilation, canonical field generation and reviewer checks passed; the second
 node could not read the wrapper in the controller's node-local `/tmp` source
 snapshot. The runner now copies that frozen wrapper to shared retained cache
 and sets a shared working directory; a launcher regression verifies both paths.
-Retry is prepared within the same admitted budget. Original
+Retry **78286 submitted** from `3c76983`, within the same admitted budget.
+[Retry receipt](submission-02.json); results `runs/vectors-02/`, log
+`slurm-78286.log`. No monitoring; await completion ping. Original
 [receipt](submission.json), [raw results](runs/vectors-01/results.json),
 [hash reconciliation](runs/vectors-01/analysis.json), [job log](slurm-78285.log).
 680 source, 17 original evidence and 3 cache identities verified. Failed raw
