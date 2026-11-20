@@ -28,6 +28,23 @@ class ReviewTest(unittest.TestCase):
             self.assertEqual(len(HELP['review'](rows,directory)),24)
             with self.assertRaises(AssertionError):HELP['review'](rows[1:],directory)
 
+    def test_remote_launcher_uses_shared_paths(self):
+        class Captured(Exception):pass
+        with tempfile.TemporaryDirectory()as tmp:
+            root=Path(tmp);source=root/'node-local-source';cache=root/'shared-cache';out=root/'logs'
+            for p in (source/'experiments/gpu-vector-stage',cache,out):p.mkdir(parents=True)
+            (source/'experiments/gpu-vector-stage/rank.sh').write_text('# frozen wrapper\n')
+            def run(label,argv,timeout):
+                if label!='normal':return
+                self.assertIn('--chdir='+str(cache),argv)
+                wrapper=Path(argv[argv.index('bash')+1])
+                self.assertEqual(wrapper,cache/'rank.sh')
+                self.assertEqual(wrapper.read_text(),'# frozen wrapper\n')
+                self.assertNotIn(str(source),' '.join(map(str,argv)))
+                raise Captured()
+            with self.assertRaises(Captured):
+                HELP['suite'](dict(run=run,env={},cache=cache,out=out,go='go',source=source,resources={},save=lambda:None))
+
     def test_corruption(self):
         with tempfile.TemporaryDirectory()as tmp:
             directory=Path(tmp);rows=self.fixture(directory)

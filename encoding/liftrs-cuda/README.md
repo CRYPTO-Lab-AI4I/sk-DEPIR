@@ -323,6 +323,6 @@ The internal [VectorStage adapter](vector_stage.cuh) borrows a fresh single-GPU
 preparation executor exclusively, with global metadata/origin independent of
 local capacity. Separate upload/apply/download operations retain a bounded
 interleaved device tile across calls; no full host grid or public ABI is added.
-[Bounded validation](../../experiments/gpu-vector-stage/report.md) is submitted as78285,
-not yet measured. It reuses the existing vector kernels and s≤17 admission.
+[Bounded validation](../../experiments/gpu-vector-stage/report.md) failed remote launch78285 before GPU execution; the shared-path fix/retry is
+prepared, not yet measured. It reuses the existing vector kernels and s≤17 admission.
 Distributed transpose/Taylor composition and full s18 support remain pending.

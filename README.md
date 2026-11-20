@@ -78,8 +78,9 @@ preprocessing limit changes.
 
 The [persistent GPU vector-stage adapter](experiments/gpu-vector-stage/report.md)
 now separates global transform coordinates from bounded local GPU storage and
-reuses the existing arithmetic. Bounded correctness/CUDA validation **78285 is submitted**; no GPU result,
-complete distributed FFT or full s18 support is claimed.
+reuses the existing arithmetic. Validation **78285 failed before GPU execution** due to a node-local launcher
+path; the shared-path fix and retry are prepared. No GPU stage result, complete
+distributed FFT or full s18 support is claimed.
 
 The [bounded tiled-transform/split-product comparison](experiments/preprocessing-tiles/report.md)
 passes correctness and CUDA memcheck in job76756. At2^22 points on four H200s,

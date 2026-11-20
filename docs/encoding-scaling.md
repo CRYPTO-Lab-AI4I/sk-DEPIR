@@ -2552,8 +2552,10 @@ implements separate upload, row/column execution and download, reusing existing
 GPU arithmetic and capped resident storage. Global domain/affine origin is
 independent of local capacity; consecutive calls retain the tile. No full host
 grid, production layout, public ABI or default change. Bounded 32/64-bit CPU
-oracle/rejection/reuse/CUDA memcheck validation **78285 is submitted** within the existing
-two-node/two-H200 envelope; measurements remain pending. Existing executor s≤17
+oracle/rejection/reuse/CUDA memcheck validation78285 failed before GPU execution: remote node could not access the
+node-local wrapper/cwd. Shared cache wrapper and explicit shared cwd now fix the
+launcher, covered by a regression test; retry within the same two-node/two-H200
+envelope is prepared. GPU correctness and measurements remain pending. Existing executor s≤17
 field admission is unchanged. After this gate: compose vectors/transposes and
 distributed Taylor dependencies, then validate complete forward/inverse products
 and s18 arithmetic before full-run resource admission. Launch joins, transfers,

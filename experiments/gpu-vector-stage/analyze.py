@@ -17,7 +17,7 @@ def main():
         if raw['status']=='passed' or any(c['label']==mode and c['exit_code']==0 for c in raw['commands']):
             checked[mode]=[HELP['review'](HELP['BASE']['parse'](out/f'{mode}-{rank}.stdout.log'),cache/mode/f'rank-{rank}')for rank in (0,1)]
     if raw['status']=='passed':assert checked==raw['vector_stages']
-    result.update(vector_stages=checked,error=raw.get('error'),scope='GPU row/column stages only; no distributed FFT, Taylor or fulls18 claim')
+    result.update(tests=['source/evidence/cache identity reconciliation','completed vector-stage arms and output bytes'],vector_stages=checked,error=raw.get('error'),scope='GPU row/column stages only; no distributed FFT, Taylor or fulls18 claim')
     (out/'analysis.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
 
 

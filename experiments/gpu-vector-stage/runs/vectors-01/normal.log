@@ -1,0 +1,4 @@
+srun: error: gnode07: task 1: Exited with exit code 127
+srun: Terminating StepId=78285.0
+srun: error: gnode06: task 0: Terminated
+srun: Force Terminated StepId=78285.0

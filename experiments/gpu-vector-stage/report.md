@@ -1,8 +1,15 @@
 # Persistent GPU vector stages
 
-Status: bounded HPC validation **78285 submitted**, source `0711805`; no GPU
-result inspected. [Submission receipt](submission.json), results
-`runs/vectors-01/`, job log `slurm-78285.log`. No monitoring; await completion ping.
+Status: **78285 failed at remote launch**, before any GPU stage ran. CUDA
+compilation, canonical field generation and reviewer checks passed; the second
+node could not read the wrapper in the controller's node-local `/tmp` source
+snapshot. The runner now copies that frozen wrapper to shared retained cache
+and sets a shared working directory; a launcher regression verifies both paths.
+Retry is prepared within the same admitted budget. Original
+[receipt](submission.json), [raw results](runs/vectors-01/results.json),
+[hash reconciliation](runs/vectors-01/analysis.json), [job log](slurm-78285.log).
+680 source, 17 original evidence and 3 cache identities verified. Failed raw
+status is preserved; no GPU correctness or timing result is established.
 This is the next distributed-preprocessing component after the
 [validated sharded transpose](../distributed-transpose/report.md). It is not a
 complete distributed FFT, product, or s18 preprocessing implementation.
@@ -41,7 +48,9 @@ not throughput tuning or evidence of copy/compute overlap.
 [canonical field fixture builder](../../encoding/liftrs-shared/gpu_vector_fixture_test.go).
 Revision and every build-input hash are frozen from the committed Git tree by
 the shared controller and recorded in `runs/<name>/results.json`. Command logs,
-per-rank stdout/stderr and Go/native CPU profiles are retained there. Fields,
+per-rank stdout/stderr and Go/native CPU profiles are retained there when produced.
+The field fixture profile was retained for78285; native profiles/GPU outputs were
+not produced because launch failed. Fields,
 binaries, actual/reference output arrays and native profiling input remain in
 `.cache/liftrs/gpu-vector-stage/<name>/` outside Git, sealed by hashes. No expensive
 code preprocessing is discarded; these cases need only small canonical fields.
@@ -51,9 +60,9 @@ python3 -B experiments/gpu-vector-stage/test_review.py
 python3 -B experiments/gpu-vector-stage/run.py --check
 module load slurm/slurm/25.05
 sbatch --parsable --output=experiments/gpu-vector-stage/slurm-%j.log \
-  experiments/gpu-vector-stage/run.sbatch vectors-01
+  experiments/gpu-vector-stage/run.sbatch vectors-02
 # After the user's completion ping:
-python3 -B experiments/gpu-vector-stage/analyze.py vectors-01
+python3 -B experiments/gpu-vector-stage/analyze.py vectors-02
 ```
 
 The admitted validation envelope is unchanged: two HPC nodes, one H200 and

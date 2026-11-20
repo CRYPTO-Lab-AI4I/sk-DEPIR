@@ -1,0 +1,73 @@
+{
+  "status": "failed",
+  "job_id": "78285",
+  "revision": "0711805ddafceae98954d943ce754c6fa241bbd9",
+  "source_files_verified": 680,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 17,
+  "cache_files_verified": 3,
+  "tests": [
+    "source/evidence/cache identity reconciliation",
+    "completed vector-stage arms and output bytes"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.010683756321668625,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.018278926610946655,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.31796361319720745,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 0.00749574601650238,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.02006089687347412,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.03705415688455105,
+      "exit_code": 0
+    },
+    {
+      "label": "fixture-build",
+      "seconds": 17.524097276851535,
+      "exit_code": 0
+    },
+    {
+      "label": "fixtures",
+      "seconds": 0.35322623886168003,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 14.38839876651764,
+      "exit_code": 0
+    },
+    {
+      "label": "review-tests",
+      "seconds": 0.11758186854422092,
+      "exit_code": 0
+    },
+    {
+      "label": "normal",
+      "seconds": 0.4681668244302273,
+      "exit_code": 143
+    }
+  ],
+  "scope": "GPU row/column stages only; no distributed FFT, Taylor or fulls18 claim",
+  "vector_stages": {},
+  "error": "normal failed"
+}

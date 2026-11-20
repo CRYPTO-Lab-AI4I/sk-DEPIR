@@ -3,6 +3,7 @@
 from pathlib import Path
 import json
 import runpy
+import shutil
 HERE=Path(__file__).resolve().parent
 BASE=runpy.run_path(str(HERE.parent/'gpu-staged-transport/run.py'))
 
@@ -45,14 +46,16 @@ def suite(c):
     run('cuda-build',['nvcc','-std=c++17','-O3','-lineinfo','-pg','-arch=sm_90','-Xcompiler=-pthread',
         'experiments/gpu-vector-stage/check.cu','-o',binary],120)
     run('review-tests',['python3','-B','experiments/gpu-vector-stage/test_review.py'],30)
+    # Frozen source lives only on the controller node; rank entry must be shared.
+    wrapper=cache/'rank.sh';shutil.copyfile(source/'experiments/gpu-vector-stage/rank.sh',wrapper)
     summaries={}
     for mode in ('normal','memcheck'):
         dest=cache/mode;dest.mkdir()
         limit=480 if mode=='memcheck'else 150
         launcher=['timeout','--signal=TERM','--kill-after=10s',str(limit)+'s','srun','--nodes=2','--ntasks=2','--ntasks-per-node=1','--cpus-per-task=2',
-            '--gpus-per-task=h200:1','--gpu-bind=single:1','--cpu-bind=cores','--kill-on-bad-exit=1',
+            '--gpus-per-task=h200:1','--gpu-bind=single:1','--cpu-bind=cores','--kill-on-bad-exit=1','--chdir='+str(cache),
             '--output='+str(out/(mode+'-%t.stdout.log')),'--error='+str(out/(mode+'-%t.stderr.log')),
-            'bash',source/'experiments/gpu-vector-stage/rank.sh',dest]
+            'bash',wrapper,dest]
         command=[binary,fields]
         if mode=='memcheck':command=['compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',*command]
         env['LIFTRS_CPU_PROGRESS']='1'

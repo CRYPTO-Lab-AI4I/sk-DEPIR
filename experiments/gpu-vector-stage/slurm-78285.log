@@ -1,0 +1,35 @@
+{"utc": "2026-11-20T10:43:42.284382+00:00", "phase": "hosts", "event": "started", "completed": 0, "unit": "commands", "elapsed_seconds": 6.717657458037138}
+{"utc": "2026-11-20T10:43:42.310900+00:00", "phase": "hosts", "event": "completed", "completed": 1, "unit": "commands", "elapsed_seconds": 6.744173405691981}
+{"utc": "2026-11-20T10:43:42.312578+00:00", "phase": "mpi-plugins", "event": "started", "completed": 1, "unit": "commands", "elapsed_seconds": 6.74584342725575}
+{"utc": "2026-11-20T10:43:42.343483+00:00", "phase": "mpi-plugins", "event": "completed", "completed": 2, "unit": "commands", "elapsed_seconds": 6.776754040271044}
+{"utc": "2026-11-20T10:43:42.344773+00:00", "phase": "mpi", "event": "started", "completed": 2, "unit": "commands", "elapsed_seconds": 6.778038460761309}
+{"utc": "2026-11-20T10:43:42.676328+00:00", "phase": "mpi", "event": "completed", "completed": 3, "unit": "commands", "elapsed_seconds": 7.109603809192777}
+{"utc": "2026-11-20T10:43:42.677792+00:00", "phase": "nvcc", "event": "started", "completed": 3, "unit": "commands", "elapsed_seconds": 7.11105664819479}
+{"utc": "2026-11-20T10:43:42.698189+00:00", "phase": "nvcc", "event": "completed", "completed": 4, "unit": "commands", "elapsed_seconds": 7.131459748372436}
+{"utc": "2026-11-20T10:43:42.699347+00:00", "phase": "compiler", "event": "started", "completed": 4, "unit": "commands", "elapsed_seconds": 7.132611969485879}
+{"utc": "2026-11-20T10:43:42.732416+00:00", "phase": "compiler", "event": "completed", "completed": 5, "unit": "commands", "elapsed_seconds": 7.1656896490603685}
+{"utc": "2026-11-20T10:43:42.733878+00:00", "phase": "go", "event": "started", "completed": 5, "unit": "commands", "elapsed_seconds": 7.1671435330063105}
+{"utc": "2026-11-20T10:43:42.783921+00:00", "phase": "go", "event": "completed", "completed": 6, "unit": "commands", "elapsed_seconds": 7.2171958684921265}
+{"utc": "2026-11-20T10:43:42.788096+00:00", "phase": "fixture-build", "event": "started", "completed": 6, "unit": "commands", "elapsed_seconds": 7.221362849697471}
+{"utc": "2026-11-20T10:44:00.344930+00:00", "phase": "fixture-build", "event": "completed", "completed": 7, "unit": "commands", "elapsed_seconds": 24.778206499293447}
+{"utc": "2026-11-20T10:44:00.347229+00:00", "phase": "fixtures", "event": "started", "completed": 7, "unit": "commands", "elapsed_seconds": 24.78049462661147}
+{"utc": "2026-11-20T10:44:00.748150+00:00", "phase": "fixtures", "event": "completed", "completed": 8, "unit": "commands", "elapsed_seconds": 25.181434385478497}
+{"utc": "2026-11-20T10:44:00.750038+00:00", "phase": "cuda-build", "event": "started", "completed": 8, "unit": "commands", "elapsed_seconds": 25.18330387212336}
+{"utc": "2026-11-20T10:44:15.171384+00:00", "phase": "cuda-build", "event": "completed", "completed": 9, "unit": "commands", "elapsed_seconds": 39.6046658847481}
+{"utc": "2026-11-20T10:44:15.173475+00:00", "phase": "review-tests", "event": "started", "completed": 9, "unit": "commands", "elapsed_seconds": 39.6067407168448}
+{"utc": "2026-11-20T10:44:15.331445+00:00", "phase": "review-tests", "event": "completed", "completed": 10, "unit": "commands", "elapsed_seconds": 39.764725249260664}
+{"utc": "2026-11-20T10:44:15.355598+00:00", "phase": "normal", "event": "started", "completed": 10, "unit": "commands", "elapsed_seconds": 39.788864793255925}
+{"utc": "2026-11-20T10:44:15.829068+00:00", "phase": "normal", "event": "failed", "completed": 11, "unit": "commands", "elapsed_seconds": 40.2623436152935}
+Traceback (most recent call last):
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-vector-stage/run.py", line 76, in <module>
+    else:BASE['main'](here=HERE,extra_suite=suite)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 161, in main
+    record.update(extra_suite(dict(run=run,source=source,cache=cache,out=out,go=go,env=env,resources=record['resources'],save=save)))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-vector-stage/run.py", line 59, in suite
+    run(mode,[*launcher,*command],limit+15)
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 142, in run
+    if code:raise RuntimeError(label+' failed')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: normal failed
