@@ -1,0 +1,12 @@
+{
+  "command": "python3 -B experiments/distributed-gpu-product/analyze.py product-01",
+  "reviewer_source_sha256": {
+    "experiments/distributed-gpu-product/run.py": "d99581a29fbcf4efcac43fe6d7306957403e5c27e0ac2b607b65deb208a39177",
+    "experiments/distributed-gpu-product/analyze.py": "ed7d5658a91ccceaab54b186d6f7668a5644779dd0ead038fc85e642029a9778",
+    "experiments/distributed-gpu-fft/run.py": "df9da3550f0ce93523ec11dfe346aba1d67672c161c5d5756be530f20eedc05b",
+    "experiments/distributed-gpu-vectors/run.py": "24a0d0d351c0de59dc834996fc44374e1a448d555770a7341cfd6e7c9ccdbb4b"
+  },
+  "result": "passed;702 source/42 original evidence/148 cache identities;24normal+24sanitized rank/product rows;12direct pointwise checks per mode;720transpose+5364Taylor endpoints per product mode;24baseline rows/240baseline endpoints;all saved coefficients and clean CUDA summaries",
+  "checks": "15 existing Python reviewer/route/runner/summary tests pass;git diff --check pass",
+  "scope": "Bounded synthetic products only,4096point maximum;fulls18 preprocessing and production resident-storage design unvalidated."
+}

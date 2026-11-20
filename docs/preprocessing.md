@@ -516,6 +516,5 @@ adds transfers and is not selected for full-size preprocessing or changed defaul
 
 The [Taylor-complete distributed FFT gate](../experiments/distributed-gpu-fft/report.md) is now implemented, with
 independent CPU/scalar and CUDA checks; **78307 passed** all small forward/inverse
-results and transfer checks. Distributed polynomial products are now implemented
-with bounded validation **78321 submitted**; large products, s18 arithmetic and preprocessing
-remain pending.
+results and transfer checks. Distributed polynomial products **passed bounded validation78321**. Next is GPU-resident working storage;
+large-product scaling, s18 arithmetic and preprocessing integration remain pending.

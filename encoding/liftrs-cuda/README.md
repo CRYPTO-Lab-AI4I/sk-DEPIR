@@ -388,4 +388,4 @@ if err := stages.Pointwise64(leftSpectrumTile, rightSpectrumTile); err != nil { 
 
 The [distributed polynomial-product gate](../../experiments/distributed-gpu-product/report.md)
 composes two forward FFTs, this local operation and an inverse. Small validation
-78321 is submitted; fullsize runtime, GPU-resident storage and s18 admission remain pending.
+78321 passed; fullsize runtime, GPU-resident storage and s18 admission remain pending.

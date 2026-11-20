@@ -2663,3 +2663,27 @@ SCALING-150 distributed product gate **78321 submitted**, implementation0b6fd9c;
 results `experiments/distributed-gpu-product/runs/product-01/`. Same resource/
 deadline envelope; no monitoring. Wait for completion ping before product scaling
 or integration. Fulls18 preprocessing remains unrun.
+
+### Resident-storage implementation next (SCALING-151)
+
+78321 product gate passed:24 normal/24 sanitized rank-product rows,12 direct
+pointwise checks/mode,720transpose+5364Taylor proof endpoints/mode, clean CUDA
+summaries and702source/42evidence/148cache identities. Controller141.151s,
+normal2.172s/sanitizer7.084s; hostRSS372.293/415.930MiB per process,1.572MiBowned/card
+on2HPC H200nodes. Largest4096-point normal products111.395–111.792ms, single
+profiled samples; no fullsize estimate. Mainreference/progress table updated.
+
+Proceed to [GPU-resident working storage](distributed-preprocessing-storage.md):
+share communication schedules/arithmetic with the host reference; three reusable
+device shards, GPU row/interleaved pack/scatter, bounded Taylor/transport buffers,
+chunked operand upload/result readback. Prototype inside existing small budgets,
+validate both widths/layouts and compare full costs before scaling. No additional
+large host-reference calibration is required to establish the storage problem.
+
+Trade-off: proposed s18 product arrays1536GiB GPU aggregate (~96GiB/card on16H200s),
+versus current conservative3072GiB host-shard control model. Bounded staging is a
+design target, not complete host-memory savings: discovery/Newton/support state,
+caller/output buffers and I/O remain additional. Larger allocations/setup andGPU
+packing costs unmeasured; reduced repeated staging is not a measured speedup.
+No new default, resource admission or fulls18 claim. Stillstep1; discovery, generator/
+verification integration, coordinated persistence and whole-pipeline scaling remain.

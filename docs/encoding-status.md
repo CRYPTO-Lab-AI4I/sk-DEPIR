@@ -22,7 +22,7 @@ component results, separate from the full s17 runs and fulls18 projections below
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Small distributed FFT passed78307** on2 HPC nodes /2 H200s:24 normal +24 sanitized rank/pass results, zero CUDA errors/leaks. Polynomial products are implemented; bounded validation **78321 submitted**. Large GPU-resident layout/scaling remains pending. |
+| 1. Distributed products and FFTs | **Small distributed FFT passed78307** on2 HPC nodes /2 H200s:24 normal +24 sanitized rank/pass results, zero CUDA errors/leaks. **Small distributed products passed78321**, including24 normal +24 sanitized rank/product results. Next: GPU-resident working storage, then large-product scaling. |
 | 2. Distributed discovery | Existing discovery is not yet partitioned across nodes. |
 | 3. Generator construction and verification | Existing algorithms still need the distributed executor/data integration. |
 | 4. Coordinated checkpoints and publication | Helpers exist; distributed ownership/restart/assembly integration remains. |
@@ -33,7 +33,15 @@ component results, separate from the full s17 runs and fulls18 projections below
 peak RSS **372.031 MiB normal /411.016 MiB sanitized per process**; maximum owned
 GPU memory **1.571 MiB/card**, excluding context/driver. Largest4096-point single
 profiled sample: forward **43.916ms**, inverse **40.807ms**. No fullsize runtime
-inferred. [Next product gate and storage costs](../experiments/distributed-gpu-product/report.md).
+inferred. [Product evidence and storage costs](../experiments/distributed-gpu-product/report.md).
+
+[Product evidence](../experiments/distributed-gpu-product/report.md): controller
+runtime **2 min21.151s**, normal suite **2.172s**, sanitizer suite **7.084s**.
+Logged host peak RSS **372.293 MiB normal /415.930 MiB sanitized per process**;
+maximum owned GPU memory **1.572 MiB/card**. Largest4096-point normal product
+samples **111.395–111.792ms**, profiled. This validates bounded arithmetic and
+communication; fullsize feasibility/runtime remain unknown.
+[Next resident-storage design and trade-offs](distributed-preprocessing-storage.md).
 
 ## Current s=17 results
 
@@ -695,6 +703,5 @@ adds transfers and is not selected for full-size preprocessing or changed defaul
 
 The [Taylor-complete distributed FFT gate](../experiments/distributed-gpu-fft/report.md) is now implemented, with
 independent CPU/scalar and CUDA checks; **78307 passed** all small forward/inverse
-results and transfer checks. Distributed polynomial products are now implemented
-with bounded validation **78321 submitted**; large products, s18 arithmetic and preprocessing
-remain pending.
+results and transfer checks. Distributed polynomial products **passed bounded validation78321**; GPU-resident large products, s18 arithmetic
+and preprocessing integration remain pending.

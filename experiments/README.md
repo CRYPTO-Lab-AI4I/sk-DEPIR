@@ -83,7 +83,7 @@ original methodology; apply this policy to new optimization runs.
 
 - [Distributed GPU polynomial product](distributed-gpu-product/report.md): shared
   forward/pointwise/inverse composition, independent schoolbook/alias checks;
-  bounded MPI/GPU validation78321 submitted. No fulls18 or selected resident layout.
+  78321 passed bounded MPI/GPU products and CUDA checks. No fulls18 or selected resident layout.
 
 - [Distributed GPU additive FFT](distributed-gpu-fft/report.md): shared Taylor
   source windows and rank vector/transpose composition; local independent CPU/

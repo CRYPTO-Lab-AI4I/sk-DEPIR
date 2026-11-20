@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-20 12:55 | SCALING-151 | Completed | [Distributed products passed;resident-storage design recorded](2026-11-20-1255-codex-scaling-151-completed.md) |
+| 2026-11-20 12:50 | SCALING-151 | Started | [Verify distributed products and record resident-storage gate](2026-11-20-1250-codex-scaling-151-started.md) |
 | 2026-11-20 12:40 | SCALING-150 | Handoff | [Distributed product validation78321 submitted](2026-11-20-1240-codex-scaling-150-handoff.md) |
 | 2026-11-20 12:39 | SCALING-150 | Prepared | [Distributed product gate ready;complete FFT verified](2026-11-20-1239-codex-scaling-150-prepared.md) |
 | 2026-11-20 12:14 | SCALING-150 | Started | [Review complete FFT and compose distributed products](2026-11-20-1214-codex-scaling-150-started.md) |

@@ -1,9 +1,26 @@
 # Bounded distributed GPU polynomial products
 
-Status: bounded MPI/GPU product validation **78321 submitted**, implementation
-`0b6fd9c`. [Receipt](submission.json), results `runs/product-01/`, log
-`slurm-78321.log`. Raw results will record exact job-start revision/hashes.
-No monitoring or product outcome inspected. This follows
+Status: **78321 passed**, producer `0b6fd9c`, HPC gnode16/gnode17: two nodes,
+one H200 and2 CPU cores /4 GiB requested host RAM per node.24 normal and24
+sanitized rank/product results match every schoolbook coefficient;12 direct
+full-extension pointwise checks per mode and the separable baseline also pass.
+Both sanitizer processes report zero errors/leaks. Each product mode verifies
+720 transpose and5364 Taylor proof endpoints.
+[Raw results](runs/product-01/results.json), [independent review](runs/product-01/analysis.json),
+[review commands](runs/product-01/review-checks.json), [receipt](submission.json),
+[job log](slurm-78321.log). All702 source /42 original evidence /148 cache
+identities verify;15.473 MiB reusable cache retained.
+
+Controller runtime **141.151 seconds (2min21.151s)**; normal suite **2.172 seconds**,
+sanitizer suite **7.084 seconds**. Logged host peak RSS **372.293 MiB normal /
+415.930 MiB sanitized per process**; maximum owned GPU memory **1.572 MiB/card**,
+excluding context/driver. Largest4096-point products take **111.395–111.792ms**
+in single profiled normal samples; sanitized samples **2.022–2.069 seconds**.
+These are small synthetic products, not full preprocessing latency or a fullsize
+throughput estimate. Next: [resident GPU working storage](../../docs/distributed-preprocessing-storage.md)
+with the same arithmetic/schedules, before large-product scaling.
+
+This follows
 [78307's passed complete distributed FFT gate](../distributed-gpu-fft/report.md).
 It advances step1 (distributed large products/FFTs), not distributed discovery or
 an assembled s18 preprocessing workflow. The fast full-size GPU-resident layout

@@ -856,4 +856,4 @@ The internal [rank polynomial product](distributed_product.go) now composes thos
 FFTs with an injected pointwise backend. Disjoint zero-padded operands are consumed;
 the domain must exceed their summed degree. Independent CPU/schoolbook tests pass;
 [bounded MPI/GPU validation](../../experiments/distributed-gpu-product/report.md)
-78321 is submitted. This host-shard control path does not select a production layout.
+78321 passed. This host-shard control path does not select a production layout.
