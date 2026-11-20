@@ -1,6 +1,9 @@
 # Bounded distributed GPU additive FFT
 
-Status: implementation ready for validation; no complete MPI/GPU FFT result yet.
+Status: bounded complete MPI/GPU FFT validation **78307 submitted**, implementation
+`bc6a88e`. [Receipt](submission.json), results `runs/fft-01/`, log `slurm-78307.log`.
+Raw results will record exact job-start revision/hashes. No monitoring or new
+GPU result inspected.
 The preceding [separable composition78302](../distributed-gpu-vectors/report.md)
 passed all outputs/proofs and CUDA checks. This gate adds distributed Taylor
 basis conversion around those same column/row stages. Full s18 fields, products,

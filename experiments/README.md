@@ -83,7 +83,7 @@ original methodology; apply this policy to new optimization runs.
 
 - [Distributed GPU additive FFT](distributed-gpu-fft/report.md): shared Taylor
   source windows and rank vector/transpose composition; local independent CPU/
-  race tests pass, bounded full MPI/GPU gate prepared. No fulls18 result.
+  race tests pass, bounded full MPI/GPU gate78307 submitted. No fulls18 result.
 
 - [Distributed GPU vector composition](distributed-gpu-vectors/report.md): shared
   rank transpose plus dedicated GPU vector owner;78302 passed all24normal/

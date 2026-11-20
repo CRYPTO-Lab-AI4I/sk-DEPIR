@@ -517,4 +517,4 @@ adds transfers and is not selected for full-size preprocessing or changed defaul
 
 The [Taylor-complete distributed FFT gate](../experiments/distributed-gpu-fft/report.md) is now implemented, with
 local CPU/race and independent direct-polynomial checks; bounded MPI/GPU validation
-is prepared. Full-size products, s18 arithmetic and preprocessing remain pending.
+**78307 is submitted**. Full-size products, s18 arithmetic and preprocessing remain pending.

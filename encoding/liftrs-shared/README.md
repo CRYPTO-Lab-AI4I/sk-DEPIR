@@ -850,4 +850,4 @@ to implement a bounded additive transform. Parallel source-window waves omit
 inactive values, preserve sparse term order and synchronize every quotient/
 remainder pass. CPU/race and independent Horner/Lagrange tests pass;
 [full bounded MPI/GPU validation](../../experiments/distributed-gpu-fft/report.md)
-is prepared. No fulls18 or production GPU-resident layout claim follows.
+78307 is submitted. No fulls18 or production GPU-resident layout claim follows.

@@ -1,0 +1,11 @@
+{
+  "job_id": "78307",
+  "submitted_utc": "2026-11-20T12:07:56.674410+00:00",
+  "implementation_revision": "bc6a88e",
+  "name": "fft-01",
+  "command": "sbatch --parsable --output=experiments/distributed-gpu-fft/slurm-%j.log experiments/distributed-gpu-fft/run.sbatch fft-01",
+  "results": "experiments/distributed-gpu-fft/runs/fft-01/",
+  "log": "experiments/distributed-gpu-fft/slurm-78307.log",
+  "monitoring": false,
+  "revision_note": "Raw results record exact committed tree frozen at job start; handoff changes documentation/excluded metadata only."
+}

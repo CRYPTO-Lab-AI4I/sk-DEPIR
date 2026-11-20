@@ -373,5 +373,5 @@ if err := stages.Taylor64(snapshot, window); err != nil { return err }
 The [complete bounded FFT gate](../../experiments/distributed-gpu-fft/report.md)
 reuses the extracted host-tiled source accessor/kernel. New Taylor symbols are
 optional; missing symbols return errors without a CPU fallback. Local interface/
-CPU checks pass; composed MPI/GPU/Taylor validation is prepared. Existing s≤17
+CPU checks pass; composed MPI/GPU/Taylor validation78307 is submitted. Existing s≤17
 field admission, client independence and resident defaults remain unchanged.

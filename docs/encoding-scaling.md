@@ -2628,3 +2628,8 @@ barriers; full costs remain unknown, existing resident defaults unchanged. After
 this gate: distributed product/identity validation, s18 arithmetic admission and
 GPU-arena/bounded-staging workflow composition (discovery/Newton/checkpoints/
 publication), then full resource admission. Preserve logged setup/I/O costs.
+
+SCALING-149 complete bounded FFT validation **78307 submitted**, implementation
+bc6a88e. Results `experiments/distributed-gpu-fft/runs/fft-01/`; same admitted
+resources/deadlines, no monitoring. Wait for completion ping before dependent
+products or interpreting new GPU timings.
