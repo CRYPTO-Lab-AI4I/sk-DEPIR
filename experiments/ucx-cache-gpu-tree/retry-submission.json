@@ -1,0 +1,37 @@
+{
+  "job_id": "78261",
+  "submitted_utc": "2026-11-20T08:54:59.486060+00:00",
+  "implementation_revision": "e9f31f57194268e67e34c3340c4386d2eab7dbee",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--output=experiments/ucx-cache-gpu-tree/slurm-%j.log",
+    "experiments/ucx-cache-gpu-tree/run.sbatch",
+    "tree-02"
+  ],
+  "results": "experiments/ucx-cache-gpu-tree/runs/tree-02",
+  "progress_log": "experiments/ucx-cache-gpu-tree/slurm-78261.log",
+  "cache": ".cache/liftrs/ucx-cache-gpu-tree/tree-02/",
+  "logging": "PIR_RANK_LOG_FILES=1; strict complete per-rank stdout/stderr; launcher log retained",
+  "resources": {
+    "nodes": 2,
+    "ranks": 4,
+    "cpus": 4,
+    "gpus": 2,
+    "gpu_model": "H200",
+    "host_request_GiB_per_node": 4,
+    "rss_guard_GiB_per_rank": 1,
+    "owned_MiB_per_rank": 64,
+    "retained_cap_MiB": 128,
+    "scratch_cap_GiB": 2,
+    "controller_seconds": 720,
+    "scheduler_seconds": 900
+  },
+  "admission": "Same previously admitted GPU-tree envelope.",
+  "settings": {
+    "OMPI_MCA_pml": "ucx",
+    "UCX_RCACHE_ENABLE": "n"
+  },
+  "monitoring": "No polling/log following/results inspection until user completion ping.",
+  "scope": "Fresh full crossover under one consistent logging method; original partial failed workflow preserved."
+}

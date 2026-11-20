@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-20 08:54 | SCALING-139 | Handoff | [Isolated-stream GPU retry78261 submitted](2026-11-20-0854-codex-scaling-139-handoff.md) |
 | 2026-11-20 08:53 | SCALING-139 | Prepared | [Strict per-rank logging retry ready](2026-11-20-0853-codex-scaling-139-prepared.md) |
 | 2026-11-20 08:53 | SCALING-138 | Completed | [GPU computations passed; logging failure recovered](2026-11-20-0853-codex-scaling-138-completed.md) |
 | 2026-11-20 08:50 | SCALING-139 | Started | [Separate rank telemetry and retry GPU crossover](2026-11-20-0850-codex-scaling-139-started.md) |

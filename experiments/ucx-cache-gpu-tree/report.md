@@ -49,7 +49,11 @@ parser is used. Re-review all direct-b CPU/shape/state/proof/byte-hash checks.
 python3 -B experiments/ucx-cache-gpu-tree/review_interleaved.py
 ```
 
-**Next (SCALING-139):** repeat the full crossover with separate per-rank stdout
+**Retry (SCALING-139): job 78261 submitted**, results unreviewed.
+[Retry receipt](retry-submission.json), progress `slurm-78261.log`, results/profiles
+`runs/tree-02/`. Source `e9f31f5`; [frozen inputs](readiness/retry-snapshot.json):
+664 files / 3,099,895 bytes, all eight checked hashes match.
+Repeat the full crossover with separate per-rank stdout
 and stderr files. The explicit `PIR_RANK_LOG_FILES=1` wrapper option preserves the
 launcher log, all worker streams and profiles; legacy host-runner mode remains.
 A strict collector requires all eight files and parses every worker JSON event;
@@ -132,3 +136,14 @@ stdout/stderr isolation plus legacy behavior. Existing 32 reviewer tests pass
 (36 total); shell/Python syntax and whitespace checked. No local MPI/GPU execution.
 No native/Go source change in this logging fix; repeat uses existing tagged builds
 and correctness checks inside the admitted job.
+
+Retry review after user completion ping:
+
+```sh
+python3 -B experiments/mpi-buffer-comparison/analyze.py tree-02 \
+  --experiment experiments/ucx-cache-gpu-tree
+```
+
+Retry arrays/library/binary remain at `.cache/liftrs/ucx-cache-gpu-tree/tree-02/`;
+original tree-01 evidence remains intact. Scheduler15 min; estimated4–7 min after
+scheduling. Logging file I/O overhead unknown; no monitoring after submission.

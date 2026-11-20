@@ -660,7 +660,7 @@ recovered only in a separate, checksummed derived view. Raw failure remains.
 Direct-b memcheck and staged-b unrun; no complete crossover ratio. HPC: 2 H200s /
 2 nodes / 4 CPU cores / 8 GiB requested host; **4 min 16 s** scheduler elapsed.
 Next retry the full comparison with isolated per-rank streams and strict parsing,
-within the same budget. Prepared, unmeasured; no default or full s=18 claim.
+within the same budget. **78261 submitted**, results unreviewed; no default or full s=18 claim.
 
 ## Measurement boundaries for batch entries
 

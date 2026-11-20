@@ -2391,8 +2391,8 @@ SCALING-109 next-work order is explicit:
    SCALING-139: retry one fresh full crossover with per-rank stdout/stderr files,
    launcher logs retained and strict complete-stream collection. No malformed
    worker event skipping. Same admitted GPU/host/storage/deadline envelope;
-   direct file I/O overhead unknown and no cross-run speedup claim. Prepared,
-   unmeasured; no production default or fulls18 change.
+   direct file I/O overhead unknown and no cross-run speedup claim. **78261 submitted**,
+   results unreviewed; no production default or fulls18 change.
    Retain staged mode for bounded integration; fulls18 remains unrun. Reporting
    gets 90 s inside the unchanged controller/scheduler limits, after its measured
    28.060 s approached the old 30 s reporting deadline. Native timed clocks stay.
