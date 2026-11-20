@@ -17,6 +17,10 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-20 08:19 | SCALING-135 | Prepared | [UCX registration-cache diagnostic ready](2026-11-20-0819-codex-scaling-135-prepared.md) |
+| 2026-11-20 08:19 | SCALING-134 | Completed | [UCX selection and direct failure verified](2026-11-20-0819-codex-scaling-134-completed.md) |
+| 2026-11-20 08:15 | SCALING-135 | Started | [Test explicit UCX registration-cache control](2026-11-20-0815-codex-scaling-135-started.md) |
+| 2026-11-20 08:15 | SCALING-134 | Started | [Review UCX selection and host failure78009](2026-11-20-0815-codex-scaling-134-started.md) |
 | 2026-11-19 17:45 | SCALING-133 | Handoff | [MPI selection discovery78009 submitted](2026-11-19-1745-codex-scaling-133-handoff.md) |
 | 2026-11-19 17:44 | SCALING-133 | Prepared | [Automatic component logging ready](2026-11-19-1744-codex-scaling-133-prepared.md) |
 | 2026-11-19 17:44 | SCALING-132 | Completed | [TCP timeout reviewed](2026-11-19-1744-codex-scaling-132-completed.md) |

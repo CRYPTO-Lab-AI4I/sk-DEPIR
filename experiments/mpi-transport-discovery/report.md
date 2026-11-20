@@ -1,14 +1,42 @@
 # Observe automatic MPI transport selection
 
-Status: **discovery78009 submitted** (SCALING-133), results unreviewed.
-[Receipt](submission.json), progress `slurm-78009.log`, results/profiles
-`runs/discovery-01/`. Implementation `7ab96be`;
-[source freeze](readiness/snapshot.json):656 files /3,085,261 bytes, all six
-checked input hashes match. No MPI execution implied by readiness. [Runner](run.py),
-[scheduler script](run.sbatch), [shared probe](../mpi-host-buffers/probe_test.go),
-[shared orchestration](../mpi-host-buffers/run.py),
-[reviewer](../mpi-host-buffers/analyze.py). Implementation revision in submission.json;
-source/evidence/cache seals in results.json.
+Status: **78009 selected UCX and reproduced direct corruption** (SCALING-134).
+[Receipt](submission.json), [raw results](runs/discovery-01/results.json),
+[review](runs/discovery-01/analysis.json), [component evidence](runs/discovery-01/component-review.json),
+[accounting](runs/discovery-01/scheduler-accounting.txt), [progress](slurm-78009.log).
+Implementation `7ab96be`; raw failed status/logs/captures unchanged. Verified
+**656 source / 25 original evidence / 5 cache file hashes**.
+[Runner](run.py), [scheduler script](run.sbatch),
+[shared reviewer](../mpi-host-buffers/analyze.py).
+
+## Review of 78009
+
+All four ranks explicitly selected the **UCX PML**, in both passing staged arms
+and failing direct-normal arm (12 native selection records). OB1 was explicitly
+not selected; OpenIB BTL initialization warnings do not establish the active data
+path. This resolves the earlier uncertainty about automatic backend selection;
+it does not establish which UCX mechanism caused the fault.
+
+| Arm | Result | Completed handoffs | Command elapsed | Largest logged process peak RSS/rank |
+|---|---|---:|---:|---:|
+| staged-normal | Passed all 512 proof endpoints | 256 | 2.331 s | 293.758 MiB |
+| staged-reclaim | Passed all 512 proof endpoints | 256 | 2.326 s | 262.832 MiB |
+| direct-normal | Captured cross-node mismatch, cycle 0 / case 1 | 1 before failure | 1.118 s to abort | Not summarized as complete run |
+| direct-reclaim | Not run | 0 | Unknown | Unknown |
+
+HPC gnode13/gnode14: 2 nodes, 4 ranks/CPU cores, 8 GiB requested host RAM total,
+zero GPUs. Scheduler **28 s**, controller **27.755 s**; no resource/time guard
+triggered. Rank 2→0 sent 262,148 bytes; both captures match their locally stable
+proofs but differ across peers. First zero-based byte/word 0: sender 1, receiver 0,
+matching the earlier host reproduction. All paired paths/hashes are in the review.
+This is a profiled, allocation-churn diagnostic, not a throughput baseline.
+
+The selected module resolves UCX 1.18, whose installed tool supports disabling
+its registration cache. **Next:** the [explicit cache control](../ucx-registration-cache/report.md)
+keeps UCX and the host replay, sets `UCX_RCACHE_ENABLE=n`, and records effective
+configuration/worker settings. Repeated registration may cost time; internal-memory
+and runtime effects are unknown. Diagnostic only, no production default change.
+Full s=18 and a permanent direct-buffer repair remain unvalidated.
 
 [TCP control78001](../mpi-transport-control/report.md#review-of-78001) stalled on
 its first staged transfer; it is not a usable corruption or throughput control.
@@ -64,4 +92,4 @@ regenerates the run. No useful cache/profile removed; no agent monitoring.
 29 Python review tests pass. New parser regression distinguishes Go timeout stack
 struct arguments from JSON events while still rejecting malformed event JSON.
 Native instrumentation adds explicit requested settings only. No local MPI run;
-actual selection and behavior await review. No causal or throughput claim.
+actual selection and failure behavior are reviewed above. No causal or throughput claim.

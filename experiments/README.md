@@ -60,8 +60,13 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [UCX registration-cache control](ucx-registration-cache/report.md): retain
+  observed UCX and host replay, explicitly disable registration caching. Prepared,
+  zero GPUs; repeated registration cost and internal memory impact unknown.
+
 - [Automatic MPI component discovery](mpi-transport-discovery/report.md): original
-  host replay with bounded PML/BTL/UCX logging, no forced data transport;78009 submitted.
+  78009 selected UCX on all ranks; staged controls passed and direct corruption
+  reproduced. Paired evidence retained; no underlying cause proved.
 
 - [TCP-only MPI transport control](mpi-transport-control/report.md): explicit
   78001 stalled on the first staged payload and hit90 s test cutoff. No completed

@@ -1,0 +1,33 @@
+{
+  "status": "failed",
+  "arms": [
+    {
+      "mode": "staged",
+      "reclaim": false,
+      "proof_events": 512,
+      "completed_handoffs": 256,
+      "peak_rss_bytes_per_rank": 308027392,
+      "hosts": {
+        "1": "gnode13",
+        "0": "gnode13",
+        "2": "gnode14",
+        "3": "gnode14"
+      }
+    },
+    {
+      "mode": "staged",
+      "reclaim": true,
+      "proof_events": 512,
+      "completed_handoffs": 256,
+      "peak_rss_bytes_per_rank": 275599360,
+      "hosts": {
+        "0": "gnode13",
+        "1": "gnode13",
+        "2": "gnode14",
+        "3": "gnode14"
+      }
+    }
+  ],
+  "current_arm": "direct-normal",
+  "error": "direct-normal failed"
+}

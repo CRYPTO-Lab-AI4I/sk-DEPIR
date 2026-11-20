@@ -1,0 +1,80 @@
+{
+  "staged-normal": [
+    {
+      "rank": 0,
+      "component": "ucx",
+      "line": 393,
+      "evidence": "0: [gnode13:1676572] select: component ucx selected"
+    },
+    {
+      "rank": 1,
+      "component": "ucx",
+      "line": 403,
+      "evidence": "1: [gnode13:1676573] select: component ucx selected"
+    },
+    {
+      "rank": 2,
+      "component": "ucx",
+      "line": 439,
+      "evidence": "2: [gnode14:2101537] select: component ucx selected"
+    },
+    {
+      "rank": 3,
+      "component": "ucx",
+      "line": 449,
+      "evidence": "3: [gnode14:2101538] select: component ucx selected"
+    }
+  ],
+  "staged-reclaim": [
+    {
+      "rank": 0,
+      "component": "ucx",
+      "line": 419,
+      "evidence": "0: [gnode13:1676872] select: component ucx selected"
+    },
+    {
+      "rank": 1,
+      "component": "ucx",
+      "line": 429,
+      "evidence": "1: [gnode13:1676873] select: component ucx selected"
+    },
+    {
+      "rank": 3,
+      "component": "ucx",
+      "line": 439,
+      "evidence": "3: [gnode14:2101892] select: component ucx selected"
+    },
+    {
+      "rank": 2,
+      "component": "ucx",
+      "line": 449,
+      "evidence": "2: [gnode14:2101891] select: component ucx selected"
+    }
+  ],
+  "direct-normal": [
+    {
+      "rank": 0,
+      "component": "ucx",
+      "line": 414,
+      "evidence": "0: [gnode13:1677220] select: component ucx selected"
+    },
+    {
+      "rank": 1,
+      "component": "ucx",
+      "line": 429,
+      "evidence": "1: [gnode13:1677221] select: component ucx selected"
+    },
+    {
+      "rank": 2,
+      "component": "ucx",
+      "line": 439,
+      "evidence": "2: [gnode14:2102184] select: component ucx selected"
+    },
+    {
+      "rank": 3,
+      "component": "ucx",
+      "line": 449,
+      "evidence": "3: [gnode14:2102185] select: component ucx selected"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{"utc": "2026-11-19T17:45:02.790109+00:00", "phase": "hosts", "event": "started", "completed": 0, "unit": "commands", "elapsed_seconds": 4.473339654970914}
+{"utc": "2026-11-19T17:45:02.816250+00:00", "phase": "hosts", "event": "completed", "completed": 1, "unit": "commands", "elapsed_seconds": 4.49948104203213}
+{"utc": "2026-11-19T17:45:02.818761+00:00", "phase": "mpi-plugins", "event": "started", "completed": 1, "unit": "commands", "elapsed_seconds": 4.50198724900838}
+{"utc": "2026-11-19T17:45:02.849570+00:00", "phase": "mpi-plugins", "event": "completed", "completed": 2, "unit": "commands", "elapsed_seconds": 4.532801394001581}
+{"utc": "2026-11-19T17:45:02.850920+00:00", "phase": "mpi", "event": "started", "completed": 2, "unit": "commands", "elapsed_seconds": 4.534147075028159}
+{"utc": "2026-11-19T17:45:03.180684+00:00", "phase": "mpi", "event": "completed", "completed": 3, "unit": "commands", "elapsed_seconds": 4.863915699068457}
+{"utc": "2026-11-19T17:45:03.182051+00:00", "phase": "compiler", "event": "started", "completed": 3, "unit": "commands", "elapsed_seconds": 4.865277879056521}
+{"utc": "2026-11-19T17:45:03.213938+00:00", "phase": "compiler", "event": "completed", "completed": 4, "unit": "commands", "elapsed_seconds": 4.897168744006194}
+{"utc": "2026-11-19T17:45:03.215359+00:00", "phase": "go", "event": "started", "completed": 4, "unit": "commands", "elapsed_seconds": 4.898585143964738}
+{"utc": "2026-11-19T17:45:03.247994+00:00", "phase": "go", "event": "completed", "completed": 5, "unit": "commands", "elapsed_seconds": 4.9312250970397145}
+{"utc": "2026-11-19T17:45:03.260745+00:00", "phase": "build", "event": "started", "completed": 5, "unit": "commands", "elapsed_seconds": 4.9439741800306365}
+{"utc": "2026-11-19T17:45:19.818815+00:00", "phase": "build", "event": "completed", "completed": 6, "unit": "commands", "elapsed_seconds": 21.502052059047855}
+{"utc": "2026-11-19T17:45:19.820789+00:00", "phase": "unit", "event": "started", "completed": 6, "unit": "commands", "elapsed_seconds": 21.50401688006241}
+{"utc": "2026-11-19T17:45:20.120021+00:00", "phase": "unit", "event": "completed", "completed": 7, "unit": "commands", "elapsed_seconds": 21.803254549973644}
+{"utc": "2026-11-19T17:45:20.129894+00:00", "phase": "staged-normal", "event": "started", "completed": 7, "unit": "commands", "elapsed_seconds": 21.813121729996055}
+{"utc": "2026-11-19T17:45:22.497702+00:00", "phase": "staged-normal", "event": "completed", "completed": 8, "unit": "commands", "elapsed_seconds": 24.180941077996977}
+{"utc": "2026-11-19T17:45:22.525136+00:00", "phase": "staged-reclaim", "event": "started", "completed": 8, "unit": "commands", "elapsed_seconds": 24.20836791698821}
+{"utc": "2026-11-19T17:45:24.895008+00:00", "phase": "staged-reclaim", "event": "completed", "completed": 9, "unit": "commands", "elapsed_seconds": 26.57824611500837}
+{"utc": "2026-11-19T17:45:24.943460+00:00", "phase": "direct-normal", "event": "started", "completed": 9, "unit": "commands", "elapsed_seconds": 26.626693050027825}
+{"utc": "2026-11-19T17:45:26.067249+00:00", "phase": "direct-normal", "event": "failed", "completed": 10, "unit": "commands", "elapsed_seconds": 27.750484757008962}
+Traceback (most recent call last):
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/mpi-transport-discovery/run.py", line 17, in <module>
+    else:HOST['BASE']['main'](here=HERE,extra_suite=suite,require_gpu=False)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 146, in main
+    record.update(extra_suite(dict(run=run,source=source,cache=cache,out=out,go=go,env=env,resources=record['resources'],save=save)))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/mpi-transport-discovery/run.py", line 12, in suite
+    return HOST['suite'](context,transport={'OMPI_MCA_pml_base_verbose':'20','OMPI_MCA_btl_base_verbose':'40','UCX_LOG_LEVEL':'info'})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/mpi-host-buffers/run.py", line 64, in suite
+    run(name,['timeout','--signal=TERM','--kill-after=10s','100s','srun','--mpi=pmix_v3','--nodes=2','--ntasks=4','--ntasks-per-node=2','--cpus-per-task=1','--distribution=block:block','--cpu-bind=cores','--chdir='+str(cache),'--label','--kill-on-bad-exit=1','bash',wrapper,out/name,binary,'-test.run=^TestHostBuffers$','-test.v','-test.timeout=90s','-buffer-mode='+mode,'-reclaim='+str(reclaim).lower()],120)
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 127, in run
+    if code:raise RuntimeError(label+' failed')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: direct-normal failed

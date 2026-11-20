@@ -2371,12 +2371,18 @@ SCALING-109 next-work order is explicit:
    8 GiB host, zero GPUs;29 s elapsed. SCALING-132: TCP control78001 timed out
    on first staged transfer (90 s test deadline), zero handoffs/proofs, no memory
    guard failure; later arms unrun. [Evidence](../experiments/mpi-transport-control/report.md#review-of-78001).
-   No speed/fix/corruption conclusion from the unusable control. SCALING-133:
-   [observe automatic PML/BTL/UCX selection](../experiments/mpi-transport-discovery/report.md)
-   on the original host replay before forcing more components. Same budget,
-   bounded diagnostic logging only; **78009 submitted**, results unreviewed. No deadline increase
-   for a transfer with zero completed work. Logging overhead unknown, no default
-   change. Earlier Go runtime-flag proposal remains rejected as redundant.
+   No speed/fix/corruption conclusion from the unusable control. SCALING-134:
+   [78009 native logs](../experiments/mpi-transport-discovery/report.md#review-of-78009)
+   prove UCX PML selection on all ranks in both staged controls and direct arm.
+   Staged arms pass 256 handoffs / 512 proofs each; direct cross-node root fails
+   at cycle0/case1 with paired captures. No guard failure; cause not established.
+   SCALING-135: [disable UCX registration caching explicitly](../experiments/ucx-registration-cache/report.md)
+   on the same host replay, keeping observed UCX PML. Linked UCX1.18 tool verifies
+   the option (system tool is a different version); record effective configuration
+   and every worker setting. Same zero-GPU budget. Prepared, unmeasured; extra
+   registration work/latency and internal pinned-memory effects unknown. No default
+   change or permanent repair claim. GPU-tree validation and end-to-end costs would
+   still be needed after a passing host control.
    Retain staged mode for bounded integration; fulls18 remains unrun. Reporting
    gets 90 s inside the unchanged controller/scheduler limits, after its measured
    28.060 s approached the old 30 s reporting deadline. Native timed clocks stay.

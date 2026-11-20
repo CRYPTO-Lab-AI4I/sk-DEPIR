@@ -1,0 +1,497 @@
+0: === RUN   TestHostBuffers
+1: === RUN   TestHostBuffers
+3: === RUN   TestHostBuffers
+2: === RUN   TestHostBuffers
+0: [gnode13:1677220] mca: base: components_register: registering framework btl components
+0: [gnode13:1677220] mca: base: components_register: found loaded component openib
+0: [gnode13:1677220] mca: base: components_register: component openib register function successful
+0: [gnode13:1677220] mca: base: components_register: found loaded component self
+0: [gnode13:1677220] mca: base: components_register: component self register function successful
+0: [gnode13:1677220] mca: base: components_register: found loaded component sm
+0: [gnode13:1677220] mca: base: components_register: found loaded component tcp
+0: [gnode13:1677220] mca: base: components_register: component tcp register function successful
+0: [gnode13:1677220] mca: base: components_register: found loaded component vader
+0: [gnode13:1677220] mca: base: components_register: component vader register function successful
+0: [gnode13:1677220] mca: base: components_open: opening btl components
+0: [gnode13:1677220] mca: base: components_open: found loaded component openib
+0: [gnode13:1677220] mca: base: components_open: component openib open function successful
+0: [gnode13:1677220] mca: base: components_open: found loaded component self
+0: [gnode13:1677220] mca: base: components_open: component self open function successful
+0: [gnode13:1677220] mca: base: components_open: found loaded component tcp
+0: [gnode13:1677220] mca: base: components_open: component tcp open function successful
+0: [gnode13:1677220] mca: base: components_open: found loaded component vader
+0: [gnode13:1677220] mca: base: components_open: component vader open function successful
+0: [gnode13:1677220] select: initializing btl component openib
+0: [gnode13:1677220] Checking distance from this process to device=mlx5_0
+0: [gnode13:1677220] Process is bound: distance to device is 0.000000
+0: [gnode13:1677220] Checking distance from this process to device=mlx5_1
+0: [gnode13:1677220] Process is bound: distance to device is 0.000000
+0: [gnode13:1677220] Checking distance from this process to device=mlx5_bond_0
+0: [gnode13:1677220] Process is bound: distance to device is 0.000000
+0: --------------------------------------------------------------------------
+0: WARNING: No preset parameters were found for the device that Open MPI
+0: detected:
+0: 
+0:   Local host:            gnode13
+0:   Device name:           mlx5_0
+0:   Device vendor ID:      0x02c9
+0:   Device vendor part ID: 4129
+0: 
+0: Default device parameters will be used, which may result in lower
+0: performance.  You can edit any of the files specified by the
+0: btl_openib_device_param_files MCA parameter to set values for your
+0: device.
+0: 
+0: NOTE: You can turn off this warning by setting the MCA parameter
+0:       btl_openib_warn_no_device_params_found to 0.
+0: --------------------------------------------------------------------------
+0: --------------------------------------------------------------------------
+0: WARNING: There was an error initializing an OpenFabrics device.
+0: 
+0:   Local host:   gnode13
+0:   Local device: mlx5_1
+0: --------------------------------------------------------------------------
+0: [gnode13:1677220] select: init of component openib returned failure
+0: [gnode13:1677220] mca: base: close: component openib closed
+0: [gnode13:1677220] mca: base: close: unloading component openib
+0: [gnode13:1677220] select: initializing btl component self
+0: [gnode13:1677220] select: init of component self returned success
+0: [gnode13:1677220] select: initializing btl component tcp
+0: [gnode13:1677220] btl: tcp: Searching for exclude address+prefix: 127.0.0.1 / 8
+0: [gnode13:1677220] btl: tcp: Found match: 127.0.0.1 (lo)
+0: [gnode13:1677220] btl: tcp: Using interface: sppp 
+0: [gnode13:1677220] btl:tcp: Attempting to bind to AF_INET port 1024
+0: [gnode13:1677220] btl:tcp: Successfully bound to AF_INET port 1024
+0: [gnode13:1677220] btl:tcp: my listening v4 socket is 0.0.0.0:1024
+0: [gnode13:1677220] btl:tcp: examining interface bond0
+0: [gnode13:1677220] btl:tcp: using ipv6 interface bond0
+0: [gnode13:1677220] btl:tcp: examining interface ibP1s3
+0: [gnode13:1677220] btl:tcp: using ipv6 interface ibP1s3
+0: [gnode13:1677220] btl:tcp: examining interface docker0
+0: [gnode13:1677220] btl:tcp: using ipv6 interface docker0
+0: [gnode13:1677220] select: init of component tcp returned success
+0: [gnode13:1677220] select: initializing btl component vader
+0: [gnode13:1677220] select: init of component vader returned success
+3: [gnode14:2102185] mca: base: components_register: registering framework btl components
+3: [gnode14:2102185] mca: base: components_register: found loaded component openib
+3: [gnode14:2102185] mca: base: components_register: component openib register function successful
+3: [gnode14:2102185] mca: base: components_register: found loaded component self
+3: [gnode14:2102185] mca: base: components_register: component self register function successful
+3: [gnode14:2102185] mca: base: components_register: found loaded component sm
+3: [gnode14:2102185] mca: base: components_register: found loaded component tcp
+3: [gnode14:2102185] mca: base: components_register: component tcp register function successful
+3: [gnode14:2102185] mca: base: components_register: found loaded component vader
+3: [gnode14:2102185] mca: base: components_register: component vader register function successful
+3: [gnode14:2102185] mca: base: components_open: opening btl components
+3: [gnode14:2102185] mca: base: components_open: found loaded component openib
+3: [gnode14:2102185] mca: base: components_open: component openib open function successful
+3: [gnode14:2102185] mca: base: components_open: found loaded component self
+3: [gnode14:2102185] mca: base: components_open: component self open function successful
+3: [gnode14:2102185] mca: base: components_open: found loaded component tcp
+3: [gnode14:2102185] mca: base: components_open: component tcp open function successful
+3: [gnode14:2102185] mca: base: components_open: found loaded component vader
+3: [gnode14:2102185] mca: base: components_open: component vader open function successful
+3: [gnode14:2102185] select: initializing btl component openib
+3: [gnode14:2102185] Checking distance from this process to device=mlx5_0
+3: [gnode14:2102185] hwloc_distances->nbobjs=2
+3: [gnode14:2102185] hwloc_distances->values[0]=10
+3: [gnode14:2102185] hwloc_distances->values[1]=21
+3: [gnode14:2102185] Process is bound: distance to device is 0.000000
+3: [gnode14:2102185] Checking distance from this process to device=mlx5_1
+3: [gnode14:2102185] hwloc_distances->nbobjs=2
+3: [gnode14:2102185] hwloc_distances->values[0]=10
+3: [gnode14:2102185] hwloc_distances->values[1]=21
+3: [gnode14:2102185] Process is bound: distance to device is 0.000000
+3: [gnode14:2102185] Checking distance from this process to device=mlx5_bond_0
+3: [gnode14:2102185] hwloc_distances->nbobjs=2
+3: [gnode14:2102185] hwloc_distances->values[0]=10
+3: [gnode14:2102185] hwloc_distances->values[1]=21
+3: [gnode14:2102185] Process is bound: distance to device is 0.000000
+3: --------------------------------------------------------------------------
+3: WARNING: No preset parameters were found for the device that Open MPI
+3: detected:
+3: 
+3:   Local host:            gnode14
+3:   Device name:           mlx5_0
+3:   Device vendor ID:      0x02c9
+3:   Device vendor part ID: 4129
+3: 
+3: Default device parameters will be used, which may result in lower
+3: performance.  You can edit any of the files specified by the
+3: btl_openib_device_param_files MCA parameter to set values for your
+3: device.
+3: 
+3: NOTE: You can turn off this warning by setting the MCA parameter
+3:       btl_openib_warn_no_device_params_found to 0.
+3: --------------------------------------------------------------------------
+1: [gnode13:1677221] mca: base: components_register: registering framework btl components
+1: [gnode13:1677221] mca: base: components_register: found loaded component openib
+1: [gnode13:1677221] mca: base: components_register: component openib register function successful
+1: [gnode13:1677221] mca: base: components_register: found loaded component self
+1: [gnode13:1677221] mca: base: components_register: component self register function successful
+1: [gnode13:1677221] mca: base: components_register: found loaded component sm
+1: [gnode13:1677221] mca: base: components_register: found loaded component tcp
+1: [gnode13:1677221] mca: base: components_register: component tcp register function successful
+1: [gnode13:1677221] mca: base: components_register: found loaded component vader
+1: [gnode13:1677221] mca: base: components_register: component vader register function successful
+1: [gnode13:1677221] mca: base: components_open: opening btl components
+1: [gnode13:1677221] mca: base: components_open: found loaded component openib
+1: [gnode13:1677221] mca: base: components_open: component openib open function successful
+1: [gnode13:1677221] mca: base: components_open: found loaded component self
+1: [gnode13:1677221] mca: base: components_open: component self open function successful
+1: [gnode13:1677221] mca: base: components_open: found loaded component tcp
+1: [gnode13:1677221] mca: base: components_open: component tcp open function successful
+1: [gnode13:1677221] mca: base: components_open: found loaded component vader
+1: [gnode13:1677221] mca: base: components_open: component vader open function successful
+1: [gnode13:1677221] select: initializing btl component openib
+1: [gnode13:1677221] Checking distance from this process to device=mlx5_0
+1: [gnode13:1677221] Process is bound: distance to device is 0.000000
+1: [gnode13:1677221] Checking distance from this process to device=mlx5_1
+1: [gnode13:1677221] Process is bound: distance to device is 0.000000
+1: [gnode13:1677221] Checking distance from this process to device=mlx5_bond_0
+1: [gnode13:1677221] Process is bound: distance to device is 0.000000
+1: --------------------------------------------------------------------------
+1: WARNING: No preset parameters were found for the device that Open MPI
+1: detected:
+1: 
+1:   Local host:            gnode13
+1:   Device name:           mlx5_0
+1:   Device vendor ID:      0x02c9
+1:   Device vendor part ID: 4129
+1: 
+1: Default device parameters will be used, which may result in lower
+1: performance.  You can edit any of the files specified by the
+1: btl_openib_device_param_files MCA parameter to set values for your
+1: device.
+1: 
+1: NOTE: You can turn off this warning by setting the MCA parameter
+1:       btl_openib_warn_no_device_params_found to 0.
+1: --------------------------------------------------------------------------
+3: --------------------------------------------------------------------------
+3: WARNING: There was an error initializing an OpenFabrics device.
+3: 
+3:   Local host:   gnode14
+3:   Local device: mlx5_1
+3: --------------------------------------------------------------------------
+3: [gnode14:2102185] select: init of component openib returned failure
+3: [gnode14:2102185] mca: base: close: component openib closed
+3: [gnode14:2102185] mca: base: close: unloading component openib
+3: [gnode14:2102185] select: initializing btl component self
+3: [gnode14:2102185] select: init of component self returned success
+3: [gnode14:2102185] select: initializing btl component tcp
+3: [gnode14:2102185] btl: tcp: Searching for exclude address+prefix: 127.0.0.1 / 8
+3: [gnode14:2102185] btl: tcp: Found match: 127.0.0.1 (lo)
+3: [gnode14:2102185] btl: tcp: Using interface: sppp 
+3: [gnode14:2102185] btl:tcp: Attempting to bind to AF_INET port 1024
+3: [gnode14:2102185] btl:tcp: Successfully bound to AF_INET port 1024
+3: [gnode14:2102185] btl:tcp: my listening v4 socket is 0.0.0.0:1024
+3: [gnode14:2102185] btl:tcp: examining interface bond0
+3: [gnode14:2102185] btl:tcp: using ipv6 interface bond0
+3: [gnode14:2102185] btl:tcp: examining interface ibP1s3
+3: [gnode14:2102185] btl:tcp: using ipv6 interface ibP1s3
+3: [gnode14:2102185] btl:tcp: examining interface docker0
+3: [gnode14:2102185] btl:tcp: using ipv6 interface docker0
+3: [gnode14:2102185] select: init of component tcp returned success
+3: [gnode14:2102185] select: initializing btl component vader
+3: [gnode14:2102185] select: init of component vader returned success
+1: --------------------------------------------------------------------------
+1: WARNING: There was an error initializing an OpenFabrics device.
+1: 
+1:   Local host:   gnode13
+1:   Local device: mlx5_1
+1: --------------------------------------------------------------------------
+1: [gnode13:1677221] select: init of component openib returned failure
+1: [gnode13:1677221] mca: base: close: component openib closed
+1: [gnode13:1677221] mca: base: close: unloading component openib
+1: [gnode13:1677221] select: initializing btl component self
+1: [gnode13:1677221] select: init of component self returned success
+1: [gnode13:1677221] select: initializing btl component tcp
+1: [gnode13:1677221] btl: tcp: Searching for exclude address+prefix: 127.0.0.1 / 8
+1: [gnode13:1677221] btl: tcp: Found match: 127.0.0.1 (lo)
+1: [gnode13:1677221] btl: tcp: Using interface: sppp 
+1: [gnode13:1677221] btl:tcp: Attempting to bind to AF_INET port 1024
+1: [gnode13:1677221] btl:tcp: Attempting to bind to AF_INET port 1025
+1: [gnode13:1677221] btl:tcp: Successfully bound to AF_INET port 1025
+1: [gnode13:1677221] btl:tcp: my listening v4 socket is 0.0.0.0:1025
+1: [gnode13:1677221] btl:tcp: examining interface bond0
+1: [gnode13:1677221] btl:tcp: using ipv6 interface bond0
+1: [gnode13:1677221] btl:tcp: examining interface ibP1s3
+1: [gnode13:1677221] btl:tcp: using ipv6 interface ibP1s3
+1: [gnode13:1677221] btl:tcp: examining interface docker0
+1: [gnode13:1677221] btl:tcp: using ipv6 interface docker0
+1: [gnode13:1677221] select: init of component tcp returned success
+1: [gnode13:1677221] select: initializing btl component vader
+1: [gnode13:1677221] select: init of component vader returned success
+0: [gnode13:1677220] mca: base: components_register: registering framework pml components
+0: [gnode13:1677220] mca: base: components_register: found loaded component v
+0: [gnode13:1677220] mca: base: components_register: component v register function successful
+0: [gnode13:1677220] mca: base: components_register: found loaded component cm
+0: [gnode13:1677220] mca: base: components_register: component cm register function successful
+0: [gnode13:1677220] mca: base: components_register: found loaded component monitoring
+0: [gnode13:1677220] mca: base: components_register: component monitoring register function successful
+0: [gnode13:1677220] mca: base: components_register: found loaded component ob1
+0: [gnode13:1677220] mca: base: components_register: component ob1 register function successful
+0: [gnode13:1677220] mca: base: components_register: found loaded component ucx
+0: [gnode13:1677220] mca: base: components_register: component ucx register function successful
+0: [gnode13:1677220] mca: base: components_open: opening pml components
+0: [gnode13:1677220] mca: base: components_open: found loaded component v
+0: [gnode13:1677220] mca: base: components_open: component v open function successful
+0: [gnode13:1677220] mca: base: components_open: found loaded component cm
+2: [gnode14:2102184] mca: base: components_register: registering framework btl components
+2: [gnode14:2102184] mca: base: components_register: found loaded component openib
+2: [gnode14:2102184] mca: base: components_register: component openib register function successful
+2: [gnode14:2102184] mca: base: components_register: found loaded component self
+2: [gnode14:2102184] mca: base: components_register: component self register function successful
+2: [gnode14:2102184] mca: base: components_register: found loaded component sm
+2: [gnode14:2102184] mca: base: components_register: found loaded component tcp
+2: [gnode14:2102184] mca: base: components_register: component tcp register function successful
+2: [gnode14:2102184] mca: base: components_register: found loaded component vader
+2: [gnode14:2102184] mca: base: components_register: component vader register function successful
+2: [gnode14:2102184] mca: base: components_open: opening btl components
+2: [gnode14:2102184] mca: base: components_open: found loaded component openib
+2: [gnode14:2102184] mca: base: components_open: component openib open function successful
+2: [gnode14:2102184] mca: base: components_open: found loaded component self
+2: [gnode14:2102184] mca: base: components_open: component self open function successful
+2: [gnode14:2102184] mca: base: components_open: found loaded component tcp
+2: [gnode14:2102184] mca: base: components_open: component tcp open function successful
+2: [gnode14:2102184] mca: base: components_open: found loaded component vader
+2: [gnode14:2102184] mca: base: components_open: component vader open function successful
+2: [gnode14:2102184] select: initializing btl component openib
+2: [gnode14:2102184] Checking distance from this process to device=mlx5_0
+2: [gnode14:2102184] hwloc_distances->nbobjs=2
+2: [gnode14:2102184] hwloc_distances->values[0]=10
+2: [gnode14:2102184] hwloc_distances->values[1]=21
+2: [gnode14:2102184] Process is bound: distance to device is 0.000000
+2: [gnode14:2102184] Checking distance from this process to device=mlx5_1
+2: [gnode14:2102184] hwloc_distances->nbobjs=2
+2: [gnode14:2102184] hwloc_distances->values[0]=10
+2: [gnode14:2102184] hwloc_distances->values[1]=21
+2: [gnode14:2102184] Process is bound: distance to device is 0.000000
+2: [gnode14:2102184] Checking distance from this process to device=mlx5_bond_0
+2: [gnode14:2102184] hwloc_distances->nbobjs=2
+2: [gnode14:2102184] hwloc_distances->values[0]=10
+2: [gnode14:2102184] hwloc_distances->values[1]=21
+2: [gnode14:2102184] Process is bound: distance to device is 0.000000
+2: --------------------------------------------------------------------------
+2: WARNING: No preset parameters were found for the device that Open MPI
+2: detected:
+2: 
+2:   Local host:            gnode14
+2:   Device name:           mlx5_0
+2:   Device vendor ID:      0x02c9
+2:   Device vendor part ID: 4129
+2: 
+2: Default device parameters will be used, which may result in lower
+2: performance.  You can edit any of the files specified by the
+2: btl_openib_device_param_files MCA parameter to set values for your
+2: device.
+2: 
+2: NOTE: You can turn off this warning by setting the MCA parameter
+2:       btl_openib_warn_no_device_params_found to 0.
+2: --------------------------------------------------------------------------
+2: --------------------------------------------------------------------------
+2: WARNING: There was an error initializing an OpenFabrics device.
+2: 
+2:   Local host:   gnode14
+2:   Local device: mlx5_1
+2: --------------------------------------------------------------------------
+2: [gnode14:2102184] select: init of component openib returned failure
+2: [gnode14:2102184] mca: base: close: component openib closed
+2: [gnode14:2102184] mca: base: close: unloading component openib
+2: [gnode14:2102184] select: initializing btl component self
+2: [gnode14:2102184] select: init of component self returned success
+2: [gnode14:2102184] select: initializing btl component tcp
+2: [gnode14:2102184] btl: tcp: Searching for exclude address+prefix: 127.0.0.1 / 8
+2: [gnode14:2102184] btl: tcp: Found match: 127.0.0.1 (lo)
+2: [gnode14:2102184] btl: tcp: Using interface: sppp 
+2: [gnode14:2102184] btl:tcp: Attempting to bind to AF_INET port 1024
+2: [gnode14:2102184] btl:tcp: Attempting to bind to AF_INET port 1025
+2: [gnode14:2102184] btl:tcp: Successfully bound to AF_INET port 1025
+2: [gnode14:2102184] btl:tcp: my listening v4 socket is 0.0.0.0:1025
+2: [gnode14:2102184] btl:tcp: examining interface bond0
+2: [gnode14:2102184] btl:tcp: using ipv6 interface bond0
+2: [gnode14:2102184] btl:tcp: examining interface ibP1s3
+2: [gnode14:2102184] btl:tcp: using ipv6 interface ibP1s3
+2: [gnode14:2102184] btl:tcp: examining interface docker0
+2: [gnode14:2102184] btl:tcp: using ipv6 interface docker0
+2: [gnode14:2102184] select: init of component tcp returned success
+2: [gnode14:2102184] select: initializing btl component vader
+2: [gnode14:2102184] select: init of component vader returned success
+1: [gnode13:1677221] mca: base: components_register: registering framework pml components
+1: [gnode13:1677221] mca: base: components_register: found loaded component v
+1: [gnode13:1677221] mca: base: components_register: component v register function successful
+1: [gnode13:1677221] mca: base: components_register: found loaded component cm
+1: [gnode13:1677221] mca: base: components_register: component cm register function successful
+1: [gnode13:1677221] mca: base: components_register: found loaded component monitoring
+1: [gnode13:1677221] mca: base: components_register: component monitoring register function successful
+1: [gnode13:1677221] mca: base: components_register: found loaded component ob1
+1: [gnode13:1677221] mca: base: components_register: component ob1 register function successful
+1: [gnode13:1677221] mca: base: components_register: found loaded component ucx
+1: [gnode13:1677221] mca: base: components_register: component ucx register function successful
+1: [gnode13:1677221] mca: base: components_open: opening pml components
+1: [gnode13:1677221] mca: base: components_open: found loaded component v
+1: [gnode13:1677221] mca: base: components_open: component v open function successful
+1: [gnode13:1677221] mca: base: components_open: found loaded component cm
+2: [gnode14:2102184] mca: base: components_register: registering framework pml components
+2: [gnode14:2102184] mca: base: components_register: found loaded component v
+2: [gnode14:2102184] mca: base: components_register: component v register function successful
+2: [gnode14:2102184] mca: base: components_register: found loaded component cm
+2: [gnode14:2102184] mca: base: components_register: component cm register function successful
+2: [gnode14:2102184] mca: base: components_register: found loaded component monitoring
+2: [gnode14:2102184] mca: base: components_register: component monitoring register function successful
+2: [gnode14:2102184] mca: base: components_register: found loaded component ob1
+2: [gnode14:2102184] mca: base: components_register: component ob1 register function successful
+2: [gnode14:2102184] mca: base: components_register: found loaded component ucx
+2: [gnode14:2102184] mca: base: components_register: component ucx register function successful
+2: [gnode14:2102184] mca: base: components_open: opening pml components
+2: [gnode14:2102184] mca: base: components_open: found loaded component v
+2: [gnode14:2102184] mca: base: components_open: component v open function successful
+2: [gnode14:2102184] mca: base: components_open: found loaded component cm
+3: [gnode14:2102185] mca: base: components_register: registering framework pml components
+3: [gnode14:2102185] mca: base: components_register: found loaded component v
+3: [gnode14:2102185] mca: base: components_register: component v register function successful
+3: [gnode14:2102185] mca: base: components_register: found loaded component cm
+3: [gnode14:2102185] mca: base: components_register: component cm register function successful
+3: [gnode14:2102185] mca: base: components_register: found loaded component monitoring
+3: [gnode14:2102185] mca: base: components_register: component monitoring register function successful
+3: [gnode14:2102185] mca: base: components_register: found loaded component ob1
+3: [gnode14:2102185] mca: base: components_register: component ob1 register function successful
+3: [gnode14:2102185] mca: base: components_register: found loaded component ucx
+3: [gnode14:2102185] mca: base: components_register: component ucx register function successful
+3: [gnode14:2102185] mca: base: components_open: opening pml components
+3: [gnode14:2102185] mca: base: components_open: found loaded component v
+3: [gnode14:2102185] mca: base: components_open: component v open function successful
+3: [gnode14:2102185] mca: base: components_open: found loaded component cm
+0: [gnode13:1677220] mca: base: close: component cm closed
+0: [gnode13:1677220] mca: base: close: unloading component cm
+0: [gnode13:1677220] mca: base: components_open: found loaded component monitoring
+0: [gnode13:1677220] mca: base: components_open: component monitoring open function successful
+0: [gnode13:1677220] mca: base: components_open: found loaded component ob1
+0: [gnode13:1677220] mca: base: components_open: component ob1 open function successful
+0: [gnode13:1677220] mca: base: components_open: found loaded component ucx
+1: [gnode13:1677221] mca: base: close: component cm closed
+1: [gnode13:1677221] mca: base: close: unloading component cm
+1: [gnode13:1677221] mca: base: components_open: found loaded component monitoring
+1: [gnode13:1677221] mca: base: components_open: component monitoring open function successful
+1: [gnode13:1677221] mca: base: components_open: found loaded component ob1
+1: [gnode13:1677221] mca: base: components_open: component ob1 open function successful
+1: [gnode13:1677221] mca: base: components_open: found loaded component ucx
+0: [gnode13:1677220] mca: base: components_open: component ucx open function successful
+0: [gnode13:1677220] select: component v not in the include list
+0: [gnode13:1677220] select: component monitoring not in the include list
+0: [gnode13:1677220] select: initializing pml component ob1
+0: [gnode13:1677220] select: init returned priority 20
+0: [gnode13:1677220] select: initializing pml component ucx
+2: [gnode14:2102184] mca: base: close: component cm closed
+2: [gnode14:2102184] mca: base: close: unloading component cm
+2: [gnode14:2102184] mca: base: components_open: found loaded component monitoring
+2: [gnode14:2102184] mca: base: components_open: component monitoring open function successful
+2: [gnode14:2102184] mca: base: components_open: found loaded component ob1
+2: [gnode14:2102184] mca: base: components_open: component ob1 open function successful
+2: [gnode14:2102184] mca: base: components_open: found loaded component ucx
+3: [gnode14:2102185] mca: base: close: component cm closed
+3: [gnode14:2102185] mca: base: close: unloading component cm
+3: [gnode14:2102185] mca: base: components_open: found loaded component monitoring
+3: [gnode14:2102185] mca: base: components_open: component monitoring open function successful
+3: [gnode14:2102185] mca: base: components_open: found loaded component ob1
+3: [gnode14:2102185] mca: base: components_open: component ob1 open function successful
+3: [gnode14:2102185] mca: base: components_open: found loaded component ucx
+1: [gnode13:1677221] mca: base: components_open: component ucx open function successful
+1: [gnode13:1677221] select: component v not in the include list
+1: [gnode13:1677221] select: component monitoring not in the include list
+1: [gnode13:1677221] select: initializing pml component ob1
+1: [gnode13:1677221] select: init returned priority 20
+1: [gnode13:1677221] select: initializing pml component ucx
+2: [gnode14:2102184] mca: base: components_open: component ucx open function successful
+2: [gnode14:2102184] select: component v not in the include list
+2: [gnode14:2102184] select: component monitoring not in the include list
+2: [gnode14:2102184] select: initializing pml component ob1
+2: [gnode14:2102184] select: init returned priority 20
+2: [gnode14:2102184] select: initializing pml component ucx
+3: [gnode14:2102185] mca: base: components_open: component ucx open function successful
+0: [gnode13:1677220] select: init returned priority 51
+0: [gnode13:1677220] selected ucx best priority 51
+0: [gnode13:1677220] select: component ucx selected
+0: [gnode13:1677220] select: component ob1 not selected / finalized
+0: [gnode13:1677220] mca: base: close: component v closed
+0: [gnode13:1677220] mca: base: close: unloading component v
+0: [gnode13:1677220] mca: base: close: component monitoring closed
+0: [gnode13:1677220] mca: base: close: unloading component monitoring
+0: [gnode13:1677220] mca: base: close: component ob1 closed
+0: [gnode13:1677220] mca: base: close: unloading component ob1
+3: [gnode14:2102185] select: component v not in the include list
+3: [gnode14:2102185] select: component monitoring not in the include list
+3: [gnode14:2102185] select: initializing pml component ob1
+3: [gnode14:2102185] select: init returned priority 20
+3: [gnode14:2102185] select: initializing pml component ucx
+1: [gnode13:1677221] select: init returned priority 51
+1: [gnode13:1677221] selected ucx best priority 51
+1: [gnode13:1677221] select: component ucx selected
+1: [gnode13:1677221] select: component ob1 not selected / finalized
+1: [gnode13:1677221] mca: base: close: component v closed
+1: [gnode13:1677221] mca: base: close: unloading component v
+1: [gnode13:1677221] mca: base: close: component monitoring closed
+1: [gnode13:1677221] mca: base: close: unloading component monitoring
+1: [gnode13:1677221] mca: base: close: component ob1 closed
+1: [gnode13:1677221] mca: base: close: unloading component ob1
+2: [gnode14:2102184] select: init returned priority 51
+2: [gnode14:2102184] selected ucx best priority 51
+2: [gnode14:2102184] select: component ucx selected
+2: [gnode14:2102184] select: component ob1 not selected / finalized
+2: [gnode14:2102184] mca: base: close: component v closed
+2: [gnode14:2102184] mca: base: close: unloading component v
+2: [gnode14:2102184] mca: base: close: component monitoring closed
+2: [gnode14:2102184] mca: base: close: unloading component monitoring
+2: [gnode14:2102184] mca: base: close: component ob1 closed
+2: [gnode14:2102184] mca: base: close: unloading component ob1
+3: [gnode14:2102185] select: init returned priority 51
+3: [gnode14:2102185] selected ucx best priority 51
+3: [gnode14:2102185] select: component ucx selected
+3: [gnode14:2102185] select: component ob1 not selected / finalized
+3: [gnode14:2102185] mca: base: close: component v closed
+3: [gnode14:2102185] mca: base: close: unloading component v
+3: [gnode14:2102185] mca: base: close: component monitoring closed
+3: [gnode14:2102185] mca: base: close: unloading component monitoring
+3: [gnode14:2102185] mca: base: close: component ob1 closed
+3: [gnode14:2102185] mca: base: close: unloading component ob1
+1: {"chunk_words":65536,"elapsed_seconds":0.000213179,"godebug":"","host":"gnode13","kind":"host","mode":"direct","mpi_transport":{"OMPI_MCA_btl":"","OMPI_MCA_btl_base_verbose":"40","OMPI_MCA_pml":"","OMPI_MCA_pml_base_verbose":"20","UCX_LOG_LEVEL":"info"},"payload_sha256":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":246423552,"rank":1,"reclaim":false,"staging_bytes":0,"utc":"2026-11-19T17:45:25.814044238Z"}
+0: {"chunk_words":65536,"elapsed_seconds":0.000191052,"godebug":"","host":"gnode13","kind":"host","mode":"direct","mpi_transport":{"OMPI_MCA_btl":"","OMPI_MCA_btl_base_verbose":"40","OMPI_MCA_pml":"","OMPI_MCA_pml_base_verbose":"20","UCX_LOG_LEVEL":"info"},"payload_sha256":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":244383744,"rank":0,"reclaim":false,"staging_bytes":0,"utc":"2026-11-19T17:45:25.815376507Z"}
+2: {"chunk_words":65536,"elapsed_seconds":0.000243727,"godebug":"","host":"gnode14","kind":"host","mode":"direct","mpi_transport":{"OMPI_MCA_btl":"","OMPI_MCA_btl_base_verbose":"40","OMPI_MCA_pml":"","OMPI_MCA_pml_base_verbose":"20","UCX_LOG_LEVEL":"info"},"payload_sha256":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":246018048,"rank":2,"reclaim":false,"staging_bytes":0,"utc":"2026-11-19T17:45:25.828294266Z"}
+3: {"chunk_words":65536,"elapsed_seconds":0.00021774,"godebug":"","host":"gnode14","kind":"host","mode":"direct","mpi_transport":{"OMPI_MCA_btl":"","OMPI_MCA_btl_base_verbose":"40","OMPI_MCA_pml":"","OMPI_MCA_pml_base_verbose":"20","UCX_LOG_LEVEL":"info"},"payload_sha256":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":243744768,"rank":3,"reclaim":false,"staging_bytes":0,"utc":"2026-11-19T17:45:25.884733601Z"}
+1: {"kind":"mpi-chunk","utc":"2026-11-19T17:45:25Z","rank":1,"peer":0,"phase":"root-transfer","sending":true,"event":"completed","completed":65537,"total":65537,"unit":"words","elapsed_seconds":0.002670}
+2: {"case":0,"completed":1,"cycle":0,"elapsed_seconds":0.074551368,"event":"completed","host":"gnode14","kind":"progress","peak_rss_bytes":274685952,"rank":2,"total":256,"unit":"handoffs","utc":"2026-11-19T17:45:25.902607076Z"}
+3: {"case":0,"completed":1,"cycle":0,"elapsed_seconds":0.018194664,"event":"completed","host":"gnode14","kind":"progress","peak_rss_bytes":272498688,"rank":3,"total":256,"unit":"handoffs","utc":"2026-11-19T17:45:25.902715459Z"}
+0: {"case":0,"cycle":0,"direction":"receive","elapsed_seconds":0.08901046,"file":"","host":"gnode13","kind":"proof","matches":true,"own_proof":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":262569984,"peer":1,"rank":0,"remote_proof":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","transfer_seconds":0.001423303,"utc":"2026-11-19T17:45:25.904196941Z","word_bytes":4}
+0: {"case":0,"completed":1,"cycle":0,"elapsed_seconds":0.089050453,"event":"completed","host":"gnode13","kind":"progress","peak_rss_bytes":262569984,"rank":0,"total":256,"unit":"handoffs","utc":"2026-11-19T17:45:25.904237769Z"}
+0: {"kind":"mpi-chunk","utc":"2026-11-19T17:45:25Z","rank":0,"peer":1,"phase":"root-transfer","sending":false,"event":"completed","completed":65537,"total":65537,"unit":"words","elapsed_seconds":0.000135}
+1: {"case":0,"cycle":0,"direction":"send","elapsed_seconds":0.090370445,"file":"","host":"gnode13","kind":"proof","matches":true,"own_proof":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":263684096,"peer":0,"rank":1,"remote_proof":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","transfer_seconds":0.004178889,"utc":"2026-11-19T17:45:25.904206424Z","word_bytes":4}
+1: {"case":0,"completed":1,"cycle":0,"elapsed_seconds":0.090400929,"event":"completed","host":"gnode13","kind":"progress","peak_rss_bytes":263684096,"rank":1,"total":256,"unit":"handoffs","utc":"2026-11-19T17:45:25.904237327Z"}
+0: {"kind":"mpi-chunk","utc":"2026-11-19T17:45:25Z","rank":0,"peer":2,"phase":"root-transfer","sending":false,"event":"completed","completed":65537,"total":65537,"unit":"words","elapsed_seconds":0.000359}
+2: {"kind":"mpi-chunk","utc":"2026-11-19T17:45:25Z","rank":2,"peer":0,"phase":"root-transfer","sending":true,"event":"completed","completed":65537,"total":65537,"unit":"words","elapsed_seconds":0.000641}
+0: {"case":1,"cycle":0,"direction":"receive","elapsed_seconds":0.098510882,"file":"cycle-0-case-1-receive.bin","host":"gnode13","kind":"proof","matches":false,"own_proof":"086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682","peak_rss_bytes":262569984,"peer":2,"rank":0,"remote_proof":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","transfer_seconds":0.006891693,"utc":"2026-11-19T17:45:25.913697598Z","word_bytes":4}
+0:     probe_test.go:237: transfer fingerprint mismatch peer2
+2: {"case":1,"cycle":0,"direction":"send","elapsed_seconds":0.08424787,"file":"cycle-0-case-1-send.bin","host":"gnode14","kind":"proof","matches":false,"own_proof":"4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d","peak_rss_bytes":274685952,"peer":0,"rank":2,"remote_proof":"086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682","transfer_seconds":0.006933859,"utc":"2026-11-19T17:45:25.912306413Z","word_bytes":4}
+2:     probe_test.go:237: transfer fingerprint mismatch peer0
+0: --------------------------------------------------------------------------
+0: MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+0: with errorcode 92.
+0: 
+0: NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+0: You may or may not see output from other processes, depending on
+0: exactly when Open MPI kills them.
+0: --------------------------------------------------------------------------
+2: --------------------------------------------------------------------------
+2: MPI_ABORT was invoked on rank 2 in communicator MPI_COMM_WORLD
+2: with errorcode 92.
+2: 
+2: NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+2: You may or may not see output from other processes, depending on
+2: exactly when Open MPI kills them.
+2: --------------------------------------------------------------------------
+0: [2026-11-19T18:45:25.925] error: *** STEP 78009.2 ON gnode13 CANCELLED AT 2026-11-19T18:45:25 DUE to SIGNAL Killed ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: error: gnode13: task 0: Exited with exit code 92
+srun: Terminating StepId=78009.2
+srun: error: gnode13: task 1: Killed
+srun: error: gnode14: task 2: Exited with exit code 92
+srun: error: gnode14: task 3: Killed

@@ -1,0 +1,237 @@
+{
+  "status": "failed",
+  "job_id": "78009",
+  "revision": "7ab96be4a95012ba5a710155866e9085ce75cf6f",
+  "source_files_verified": 656,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 25,
+  "cache_files_verified": 5,
+  "tests": [
+    "TestWideOrbitArithmetic",
+    "TestTableFreeFields"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.01011360005941242,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.01820507098454982,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.31711944902781397,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.01985146093647927,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.020601039985194802,
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "seconds": 16.528428827994503,
+      "exit_code": 0
+    },
+    {
+      "label": "unit",
+      "seconds": 0.27013290498871356,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-normal",
+      "seconds": 2.330875971005298,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-reclaim",
+      "seconds": 2.3259779639774933,
+      "exit_code": 0
+    },
+    {
+      "label": "direct-normal",
+      "seconds": 1.1184365940280259,
+      "exit_code": 92
+    }
+  ],
+  "scope": "Host-only MPI replay; stress reclamation is diagnostic, not a production mode or proof of cause.",
+  "pml_selection": {
+    "staged-normal": [
+      {
+        "rank": 0,
+        "component": "ucx",
+        "line": 393,
+        "evidence": "0: [gnode13:1676572] select: component ucx selected"
+      },
+      {
+        "rank": 1,
+        "component": "ucx",
+        "line": 403,
+        "evidence": "1: [gnode13:1676573] select: component ucx selected"
+      },
+      {
+        "rank": 2,
+        "component": "ucx",
+        "line": 439,
+        "evidence": "2: [gnode14:2101537] select: component ucx selected"
+      },
+      {
+        "rank": 3,
+        "component": "ucx",
+        "line": 449,
+        "evidence": "3: [gnode14:2101538] select: component ucx selected"
+      }
+    ],
+    "staged-reclaim": [
+      {
+        "rank": 0,
+        "component": "ucx",
+        "line": 419,
+        "evidence": "0: [gnode13:1676872] select: component ucx selected"
+      },
+      {
+        "rank": 1,
+        "component": "ucx",
+        "line": 429,
+        "evidence": "1: [gnode13:1676873] select: component ucx selected"
+      },
+      {
+        "rank": 3,
+        "component": "ucx",
+        "line": 439,
+        "evidence": "3: [gnode14:2101892] select: component ucx selected"
+      },
+      {
+        "rank": 2,
+        "component": "ucx",
+        "line": 449,
+        "evidence": "2: [gnode14:2101891] select: component ucx selected"
+      }
+    ],
+    "direct-normal": [
+      {
+        "rank": 0,
+        "component": "ucx",
+        "line": 414,
+        "evidence": "0: [gnode13:1677220] select: component ucx selected"
+      },
+      {
+        "rank": 1,
+        "component": "ucx",
+        "line": 429,
+        "evidence": "1: [gnode13:1677221] select: component ucx selected"
+      },
+      {
+        "rank": 2,
+        "component": "ucx",
+        "line": 439,
+        "evidence": "2: [gnode14:2102184] select: component ucx selected"
+      },
+      {
+        "rank": 3,
+        "component": "ucx",
+        "line": 449,
+        "evidence": "3: [gnode14:2102185] select: component ucx selected"
+      }
+    ]
+  },
+  "paired_failures": [
+    {
+      "sender_rank": 2,
+      "receiver_rank": 0,
+      "sender_host": "gnode14",
+      "receiver_host": "gnode13",
+      "comparison": {
+        "equal": false,
+        "left_bytes": 262148,
+        "right_bytes": 262148,
+        "first_differing_byte": 0,
+        "first_differing_word": 0,
+        "left_word": 1,
+        "right_word": 0
+      },
+      "sender_capture_matches_proof": true,
+      "receiver_capture_matches_proof": true
+    }
+  ],
+  "completed_arms": [
+    {
+      "mode": "staged",
+      "reclaim": false,
+      "proof_events": 512,
+      "completed_handoffs": 256,
+      "peak_rss_bytes_per_rank": 308027392,
+      "hosts": {
+        "1": "gnode13",
+        "0": "gnode13",
+        "2": "gnode14",
+        "3": "gnode14"
+      }
+    },
+    {
+      "mode": "staged",
+      "reclaim": true,
+      "proof_events": 512,
+      "completed_handoffs": 256,
+      "peak_rss_bytes_per_rank": 275599360,
+      "hosts": {
+        "0": "gnode13",
+        "1": "gnode13",
+        "2": "gnode14",
+        "3": "gnode14"
+      }
+    }
+  ],
+  "captures": [
+    {
+      "case": 1,
+      "cycle": 0,
+      "direction": "receive",
+      "elapsed_seconds": 0.098510882,
+      "file": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/mpi-transport-discovery/discovery-01/direct-normal/rank-0/cycle-0-case-1-receive.bin",
+      "host": "gnode13",
+      "kind": "proof",
+      "matches": false,
+      "own_proof": "086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682",
+      "peak_rss_bytes": 262569984,
+      "peer": 2,
+      "rank": 0,
+      "remote_proof": "4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d",
+      "transfer_seconds": 0.006891693,
+      "utc": "2026-11-19T17:45:25.913697598Z",
+      "word_bytes": 4,
+      "snapshot_sha256": "086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682",
+      "bytes": 262148
+    },
+    {
+      "case": 1,
+      "cycle": 0,
+      "direction": "send",
+      "elapsed_seconds": 0.08424787,
+      "file": "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/mpi-transport-discovery/discovery-01/direct-normal/rank-2/cycle-0-case-1-send.bin",
+      "host": "gnode14",
+      "kind": "proof",
+      "matches": false,
+      "own_proof": "4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d",
+      "peak_rss_bytes": 274685952,
+      "peer": 0,
+      "rank": 2,
+      "remote_proof": "086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682086497434878c68364c5ed5dbeb38c6b9093c6880b26f96e3301daa2bd1f0682",
+      "transfer_seconds": 0.006933859,
+      "utc": "2026-11-19T17:45:25.912306413Z",
+      "word_bytes": 4,
+      "snapshot_sha256": "4b73c559c2d99fa3e27ed1c60b584a4184265204d9bb55bcb3b9dcd1e7218d1d",
+      "bytes": 262148
+    }
+  ],
+  "current_arm": "direct-normal",
+  "workflow_error": "direct-normal failed"
+}

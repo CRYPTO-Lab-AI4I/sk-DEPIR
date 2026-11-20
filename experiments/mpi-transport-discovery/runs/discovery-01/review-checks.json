@@ -1,0 +1,19 @@
+{
+  "utc": "2026-11-20T08:19:01.675789+00:00",
+  "command": "python3 -B experiments/mpi-host-buffers/analyze.py discovery-01 --experiment experiments/mpi-transport-discovery",
+  "source_sha256": {
+    "experiments/mpi-host-buffers/probe_test.go": "2b5fd1d47470ed6bd00edeccd803ff8637ecadbd58a55ea0493cde15525dfcdf",
+    "experiments/mpi-host-buffers/analyze.py": "fc814c48c5c6a795907f1e3b485fb16ce6dfbdca06648f6547d23ce2437b93d9",
+    "experiments/mpi-host-buffers/test_review.py": "1cf1486cf4b0aa50eb4f75fed50de7bedf872cee10ee0635d4f507cdaa02b044",
+    "experiments/ucx-registration-cache/run.py": "e12d0889548f218be901879d29528a81edc6f998e1a2557a4630e0fc4236c5aa",
+    "experiments/ucx-registration-cache/run.sbatch": "6589d5e441a3c7d4434dd3d8389e4ab25c5521a3ac1d388f9ae32d77fc25d842"
+  },
+  "assertions": [
+    "656 source/25 evidence/5 cache seals verified",
+    "all12 native PML selection records are ucx",
+    "both staged controls pass256 handoffs/512 proofs",
+    "direct paired capture differs; locally stable proofs match snapshots"
+  ],
+  "tests": "31 Python reviewer tests and tagged host build/unit pass",
+  "raw_status": "failed, unmodified"
+}

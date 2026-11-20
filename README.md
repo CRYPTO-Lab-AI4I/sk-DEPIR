@@ -163,10 +163,15 @@ elapsed. Underlying cause remains unknown. The [TCP-only control78001](experimen
 All four workers recorded the requested settings;90 s test cutoff triggered,
 not the memory guard. No corruption or speed conclusion is possible; later
 arms unrun. HPC:2 nodes /4 CPU cores /8 GiB requested host /zero GPUs;1 min55 s
-scheduler elapsed. Next [observe automatic MPI component selection](experiments/mpi-transport-discovery/report.md)
-with diagnostic logs and the same replay/budget; **78009 submitted**, results unreviewed. Original
-direct corruption remains unresolved; staged bounded validation is retained.
-No production default or full s=18 validation change.
+scheduler elapsed. [Discovery 78009](experiments/mpi-transport-discovery/report.md#review-of-78009)
+**selected UCX on every rank** and reproduced the direct cross-node payload
+corruption. Both staged controls passed 256 handoffs / 512 proof endpoints;
+direct-reclaim was unrun. HPC: 2 nodes / 4 CPU cores / 8 GiB requested host /
+zero GPUs; 28 s scheduler elapsed. Next is an
+[explicit UCX registration-cache control](experiments/ucx-registration-cache/report.md),
+keeping the same replay and UCX backend. Prepared, unmeasured; repeated registration
+may cost time and affect internal pinned memory. No production default or full
+s=18 validation change; the underlying mechanism remains unproved.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

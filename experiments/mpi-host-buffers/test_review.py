@@ -44,4 +44,21 @@ class Review(unittest.TestCase):
             rows[0]['mpi_transport']['OMPI_MCA_pml']='ucx'
             with self.assertRaises(AssertionError):HELP['review'](rows,payload,'direct',False,setting)
 
+    def test_registration_cache_control_rejects_default_or_missing_flag(self):
+        payload,sha,rows=self.fixture();setting={'UCX_RCACHE_ENABLE':'n'}
+        for row in rows:
+            if row.get('kind')=='host':row['mpi_transport']=dict(setting)
+        with mock.patch.dict(HELP['review'].__globals__,PAYLOAD_SHA=sha):
+            HELP['review'](rows,payload,'direct',False,setting)
+            rows[0]['mpi_transport']['UCX_RCACHE_ENABLE']='try'
+            with self.assertRaises(AssertionError):HELP['review'](rows,payload,'direct',False,setting)
+            rows[0]['mpi_transport'].clear()
+            with self.assertRaises(AssertionError):HELP['review'](rows,payload,'direct',False,setting)
+
+    def test_pml_selection_is_not_component_availability(self):
+        analyze=runpy.run_path(str(Path(__file__).with_name('analyze.py')))
+        text='0: [node:123] select: initializing pml component ob1\n0: [node:123] select: component ucx selected\n0: [node:123] select: component ob1 not selected / finalized\n'
+        selected=analyze['selected_pml'](text)
+        self.assertEqual([(r['rank'],r['component'])for r in selected],[(0,'ucx')])
+
 if __name__=='__main__':unittest.main()

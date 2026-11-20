@@ -5,8 +5,18 @@ import argparse
 import hashlib
 import json
 import runpy
+import re
 HERE=Path(__file__).resolve().parent
 HELP=runpy.run_path(str(HERE/'run.py'))
+
+
+def selected_pml(text):
+    """Loaded/available components are not evidence that a PML was selected."""
+    result=[]
+    for number,line in enumerate(text.splitlines(),1):
+        match=re.match(r'^(\d+): .*select: component (\w+) selected$',line)
+        if match:result.append(dict(rank=int(match[1]),component=match[2],line=number,evidence=line))
+    return result
 
 
 def main():
@@ -15,7 +25,7 @@ def main():
     reconcile=runpy.run_path(str(HERE.parent/'s17-arithmetic/analyze.py'))['reconcile']
     result=reconcile(out,require_success=raw['status']=='passed',command_fields=('label','seconds','exit_code'))
     state=json.loads((out/'host-progress.json').read_text())if(out/'host-progress.json').exists()else dict(arms=[])
-    arms=[];payload=(cache/'replay.bin').read_bytes()
+    arms=[];payload=(cache/'replay.bin').read_bytes()if(cache/'replay.bin').exists()else b''
     for recorded in state['arms']:
         name=next(name for name,mode,reclaim in HELP['ARMS']if mode==recorded['mode']and reclaim==recorded['reclaim'])
         checked=HELP['review'](HELP['BASE']['parse'](out/(name+'.log')),payload,recorded['mode'],recorded['reclaim'],raw['resources'].get('diagnostic_transport'))
@@ -37,7 +47,11 @@ def main():
         receiver=peers[0]
         assert sender['own_proof']==receiver['remote_proof']and sender['remote_proof']==receiver['own_proof']
         pairs.append(dict(sender_rank=sender['rank'],receiver_rank=receiver['rank'],sender_host=sender['host'],receiver_host=receiver['host'],comparison=compare(sender['file'],receiver['file'],sender['word_bytes']),sender_capture_matches_proof=sender['snapshot_sha256']==sender['own_proof'][:64],receiver_capture_matches_proof=receiver['snapshot_sha256']==receiver['own_proof'][:64]))
-    result.update(paired_failures=pairs,scope='Host-only MPI replay; stress reclamation is diagnostic, not a production mode or proof of cause.',completed_arms=arms,captures=captures,current_arm=current,workflow_error=raw.get('error'))
+    selection={}
+    for name,_,_ in HELP['ARMS']:
+        log=out/(name+'.log')
+        if log.exists():selection[name]=selected_pml(log.read_text())
+    result.update(pml_selection=selection,paired_failures=pairs,scope='Host-only MPI replay; stress reclamation is diagnostic, not a production mode or proof of cause.',completed_arms=arms,captures=captures,current_arm=current,workflow_error=raw.get('error'))
     (out/'analysis.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
 
 
