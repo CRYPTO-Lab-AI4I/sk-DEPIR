@@ -29,6 +29,7 @@ typedef struct pg_bridge {
                        size_t, size_t, char *, size_t);
   int (*taylor_degrees)(void *, unsigned, size_t, size_t, unsigned, uint64_t *, size_t, size_t *, char *, size_t);
   int (*taylor_stage)(void *, void *, size_t, unsigned, size_t, size_t, unsigned, int, size_t, size_t, size_t, char *, size_t);
+  int (*stage_pointwise)(void *, void *, const void *, size_t, unsigned, size_t, size_t, char *, size_t);
   uint64_t (*owned)(void *);
   void (*destroy)(void *);
 } pg_bridge;
@@ -71,6 +72,7 @@ static pg_bridge *pg_bridge_open(const char *path, unsigned s, uint32_t poly,
   b->vector_stage = dlsym(b->library, "pg_vector_stage");
   b->taylor_degrees = dlsym(b->library, "pg_taylor_degrees");
   b->taylor_stage = dlsym(b->library, "pg_taylor_stage");
+  b->stage_pointwise = dlsym(b->library, "pg_stage_pointwise");
   b->owned = dlsym(b->library, "pg_owned_bytes");
   b->destroy = dlsym(b->library, "pg_destroy");
   if (!create || !b->apply || !b->grid || !b->product || !b->spectrum ||
@@ -115,6 +117,12 @@ static int pg_bridge_taylor_stage(pg_bridge *b, void *data, size_t words, unsign
     size_t first, size_t count, char *error, size_t cap) {
   if (!b || !b->taylor_stage) {snprintf(error, cap, "GPU Taylor stage ABI unavailable");return 1;}
   return b->taylor_stage(b->engine,data,words,width,domain,local_capacity,level,quotient,block,first,count,error,cap);
+}
+static int pg_bridge_stage_pointwise(pg_bridge *b, void *left, const void *right,
+    size_t words, unsigned width, size_t domain, size_t local_capacity,
+    char *error, size_t cap) {
+  if (!b || !b->stage_pointwise) {snprintf(error,cap,"GPU stage product ABI unavailable");return 1;}
+  return b->stage_pointwise(b->engine,left,right,words,width,domain,local_capacity,error,cap);
 }
 static int pg_bridge_apply(pg_bridge *b, void *values, size_t n, unsigned width,
                            int inverse, char *error, size_t cap) {

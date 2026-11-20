@@ -267,13 +267,8 @@ func matrixStageGPUCases[Word transposeWord](t *testing.T, w *mpi.World, s int, 
 	}
 }
 
-// TestDistributedGPUVectors selects separable or Taylor-complete composition
-// explicitly; both share the same bounded cases, transport and output checks.
-func TestDistributedGPUVectors(t *testing.T) {
-	output := os.Getenv("PIR_GPU_MATRIX_STAGE_OUTPUT")
-	if output == "" {
-		t.Skip("explicit bounded MPI GPU matrix-vector gate")
-	}
+// withDistributedGPUStages shares MPI ownership, logging and admitted guards.
+func withDistributedGPUStages(t *testing.T, output string, body func(*mpi.World, func(map[string]any))) {
 	for _, path := range []string{os.Args[0], os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), output} {
 		if _, err := os.Stat(path); err != nil {
 			t.Fatal("rank path preflight", path, err)
@@ -323,10 +318,21 @@ func TestDistributedGPUVectors(t *testing.T) {
 		t.Fatal(e)
 	}
 	emit(map[string]any{"kind": "host", "host": host, "visible_devices": os.Getenv("CUDA_VISIBLE_DEVICES")})
-	operation := uint64(1)
-	matrixStageGPUCases[uint32](t, w, 4, []int{4, 5, 8}, output, &operation, emit)
-	matrixStageGPUCases[uint64](t, w, 17, []int{5, 9, 12}, output, &operation, emit)
-	emit(map[string]any{"kind": "completed", "cases": 12})
+	body(w, emit)
 	w.Barrier()
 	success = true
+}
+
+// TestDistributedGPUVectors explicitly selects separable or complete FFT cases.
+func TestDistributedGPUVectors(t *testing.T) {
+	output := os.Getenv("PIR_GPU_MATRIX_STAGE_OUTPUT")
+	if output == "" {
+		t.Skip("explicit bounded MPI GPU matrix-vector gate")
+	}
+	withDistributedGPUStages(t, output, func(w *mpi.World, emit func(map[string]any)) {
+		operation := uint64(1)
+		matrixStageGPUCases[uint32](t, w, 4, []int{4, 5, 8}, output, &operation, emit)
+		matrixStageGPUCases[uint64](t, w, 17, []int{5, 9, 12}, output, &operation, emit)
+		emit(map[string]any{"kind": "completed", "cases": 12})
+	})
 }

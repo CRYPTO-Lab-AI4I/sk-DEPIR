@@ -1,0 +1,10 @@
+{
+  "command": "python3 -B experiments/distributed-gpu-fft/analyze.py fft-01",
+  "reviewer_source_sha256": {
+    "experiments/distributed-gpu-fft/run.py": "df9da3550f0ce93523ec11dfe346aba1d67672c161c5d5756be530f20eedc05b",
+    "experiments/distributed-gpu-fft/analyze.py": "31fbc39e73dec864ce5ed1a30cb95676b915f3cf821d72fd3bbe29991fd88a0e",
+    "experiments/distributed-gpu-vectors/run.py": "24a0d0d351c0de59dc834996fc44374e1a448d555770a7341cfd6e7c9ccdbb4b"
+  },
+  "result": "passed;696 source/41 original evidence/148 cache identities;24normal+24sanitized full FFT plus24separable rows;2028 endpoint checks percomplete mode and240baseline;all outputs and clean CUDA summaries",
+  "scope": "Bounded complete FFT only; no fulls18 preprocessing or selected production layout."
+}

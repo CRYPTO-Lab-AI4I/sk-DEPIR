@@ -81,9 +81,13 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Distributed GPU polynomial product](distributed-gpu-product/report.md): shared
+  forward/pointwise/inverse composition, independent schoolbook/alias checks;
+  bounded MPI/GPU validation prepared. No fulls18 or selected resident layout.
+
 - [Distributed GPU additive FFT](distributed-gpu-fft/report.md): shared Taylor
   source windows and rank vector/transpose composition; local independent CPU/
-  race tests pass, bounded full MPI/GPU gate78307 submitted. No fulls18 result.
+  race tests and78307 full bounded MPI/GPU gate passed. No fulls18 result.
 
 - [Distributed GPU vector composition](distributed-gpu-vectors/report.md): shared
   rank transpose plus dedicated GPU vector owner;78302 passed all24normal/

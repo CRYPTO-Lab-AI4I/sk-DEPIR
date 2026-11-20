@@ -850,4 +850,10 @@ to implement a bounded additive transform. Parallel source-window waves omit
 inactive values, preserve sparse term order and synchronize every quotient/
 remainder pass. CPU/race and independent Horner/Lagrange tests pass;
 [full bounded MPI/GPU validation](../../experiments/distributed-gpu-fft/report.md)
-78307 is submitted. No fulls18 or production GPU-resident layout claim follows.
+78307 passed. No fulls18 or production GPU-resident layout claim follows.
+
+The internal [rank polynomial product](distributed_product.go) now composes those
+FFTs with an injected pointwise backend. Disjoint zero-padded operands are consumed;
+the domain must exceed their summed degree. Independent CPU/schoolbook tests pass;
+[bounded MPI/GPU validation](../../experiments/distributed-gpu-product/report.md)
+is prepared. This host-shard control path does not select a production layout.

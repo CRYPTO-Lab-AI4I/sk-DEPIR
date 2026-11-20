@@ -13,6 +13,22 @@ STAGE=runpy.run_path(str(HERE.parent/'gpu-vector-stage/run.py'))
 CASES=((4,4),(4,5),(4,8),(17,5),(17,9),(17,12))
 
 
+def review_transpose_routes(rows,expected_packets):
+    proofs=[r for r in rows if r.get('kind')=='tile-proof'];actual_packets={};packets={}
+    for r in proofs:
+        key=(r['rank'],r['case'],r['pass'],r['operation'],r['offset'],r['direction']);assert key not in actual_packets
+        assert r['peer']==1-r['rank']and r['round']==1
+        own,remote=bytes.fromhex(r['own_proof']),bytes.fromhex(r['remote_proof'])
+        assert len(own)==len(remote)==64 and own[:32]==own[32:]==remote[:32]==remote[32:]
+        actual_packets[key]=r['words'];packets[key]=r
+    assert actual_packets==expected_packets
+    for key,r in packets.items():
+        rank,label,pass_id,op,offset,direction=key
+        peer=packets[(1-rank,label,pass_id,op,offset,'receive'if direction=='send'else'send')]
+        assert r['own_proof']==peer['remote_proof']and r['remote_proof']==peer['own_proof']
+    return len(proofs)
+
+
 def review(rows,directory,operations=None,full_fft=False):
     hosts=[r for r in rows if r.get('kind')=='host']
     assert len(hosts)==2 and {r['rank']for r in hosts}=={0,1}and len({r['host']for r in hosts})==2
@@ -41,30 +57,20 @@ def review(rows,directory,operations=None,full_fft=False):
                         for direction in ('send','receive'):
                             expected_packets[(rank,label,pass_id,op,offset,direction)]=min(127,nr*nc//4-offset);count+=1
                 assert r['proof_events']==count
-    for r in proofs:
-        key=(r['rank'],r['case'],r['pass'],r['operation'],r['offset'],r['direction']);assert key not in actual_packets
-        assert r['peer']==1-r['rank']and r['round']==1
-        own,remote=bytes.fromhex(r['own_proof']),bytes.fromhex(r['remote_proof'])
-        assert len(own)==len(remote)==64 and own[:32]==own[32:]==remote[:32]==remote[32:]
-        actual_packets[key]=r['words'];packets[key]=r
-    assert actual_packets==expected_packets
-    for key,r in packets.items():
-        rank,label,pass_id,op,offset,direction=key
-        peer=packets[(1-rank,label,pass_id,op,offset,'receive'if direction=='send'else'send')]
-        assert r['own_proof']==peer['remote_proof']and r['remote_proof']==peer['own_proof']
+    proof_count=review_transpose_routes(rows,expected_packets)
     assert all(sum(r.get('kind')=='completed'and r['rank']==rank and r['cases']==12 for r in rows)==1 for rank in (0,1))
     assert not list(directory.glob('capture-*'))
-    return dict(measurements=values,proof_events=len(proofs))
+    return dict(measurements=values,proof_events=proof_count)
 
 
-def suite(c,full_fft=False,review_fn=review):
+def suite(c,full_fft=False,review_fn=review,test_name="TestDistributedGPUVectors"):
     CONTROL['configure'](c)
     run=c['run'];go=c['go'];source=c['source'];cache=c['cache'];out=c['out'];env=c['env']
-    c['resources'].update(rss_cap_GiB_per_rank=1,pinned_cap_MiB_per_rank=0,mpi_mode='staged',tile_words=127,scope='bounded additive FFT with distributed Taylor'if full_fft else'separable GPU vectors with two rank transposes; Taylor absent')
+    c['resources'].update(rss_cap_GiB_per_rank=1,pinned_cap_MiB_per_rank=0,mpi_mode='staged',tile_words=127,scope='bounded distributed polynomial product'if test_name=='TestDistributedGPUProducts'else('bounded additive FFT with distributed Taylor'if full_fft else'separable GPU vectors with two rank transposes; Taylor absent'))
     c['save']();env.update(PIR_GPU_MATRIX_STAGE_TAYLOR='1'if full_fft else'0',CGO_ENABLED='1',CC='mpicc',CXX='mpicxx',GOMAXPROCS='1',PIR_RANK_LOG_FILES='1',LIFTRS_CPU_PROGRESS='1')
     run('review-tests',['python3','-B','experiments/distributed-gpu-vectors/test_review.py'],30)
-    run('cpu-orchestration',[go,'test','./encoding/liftrs-shared','-run','^TestRankMatrixVectors$|^TestRankVectorAdmission$|^TestRankTaylor|^TestRankAdditive','-count=1','-timeout=45s'],90)
-    run('cpu-race',[go,'test','-race','./encoding/liftrs-shared','-run','^TestRankMatrixVectors$|^TestRankVectorAdmission$|^TestRankTaylor|^TestRankAdditive','-count=1','-timeout=45s'],90)
+    run('cpu-orchestration',[go,'test','./encoding/liftrs-shared','-run','^TestRankMatrixVectors$|^TestRankVectorAdmission$|^TestRankTaylor|^TestRankAdditive|^TestRankProduct','-count=1','-timeout=45s'],90)
+    run('cpu-race',[go,'test','-race','./encoding/liftrs-shared','-run','^TestRankMatrixVectors$|^TestRankVectorAdmission$|^TestRankTaylor|^TestRankAdditive|^TestRankProduct','-count=1','-timeout=45s'],90)
     library=cache/'libliftrs-cuda.so';binary=cache/'vectors.test'
     run('cuda-build',['nvcc','-std=c++17','-O3','-lineinfo','-arch=sm_90','-shared','-Xcompiler=-fPIC,-pthread','encoding/liftrs-cuda/matrix.cu','encoding/liftrs-cuda/preparation.cu','-o',library],120)
     run('test-build',[go,'test','-c','-tags','liftrs_cpp,liftrs_cuda,liftrs_mpi','-o',binary,'./encoding/liftrs-shared'],120)
@@ -84,7 +90,8 @@ def suite(c,full_fft=False,review_fn=review):
         env['PIR_GPU_MATRIX_STAGE_TAYLOR']='1'if full_fft and mode!='separable'else'0'
         launcher=['timeout','--signal=TERM','--kill-after=10s','240s','srun','--mpi=pmix_v3','--nodes=2','--ntasks=2','--ntasks-per-node=1','--cpus-per-task=2',
             '--export=ALL,TMPDIR=/tmp','--gpus-per-task=h200:1','--gpu-bind=single:1','--cpu-bind=cores','--distribution=block:block','--chdir='+str(cache),'--kill-on-bad-exit=1','bash',wrapper,out/mode]
-        command=[binary,'-test.run=^TestDistributedGPUVectors$','-test.v','-test.timeout=220s']
+        selected_test='TestDistributedGPUVectors'if mode=='separable'else test_name
+        command=[binary,'-test.run=^'+selected_test+'$','-test.v','-test.timeout=220s']
         if mode=='memcheck':command=['compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',*command]
         run(mode,[*launcher,*command],260)
         checker=review if mode=='separable'else review_fn

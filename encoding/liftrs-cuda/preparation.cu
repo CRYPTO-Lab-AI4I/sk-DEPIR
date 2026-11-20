@@ -1112,3 +1112,14 @@ extern "C" int pg_taylor_stage(void *handle, void *values, size_t words,
     });
   });
 }
+
+extern "C" int pg_stage_pointwise(void *handle, void *left, const void *right,
+    size_t words, unsigned width, size_t domain, size_t local_capacity,
+    char *error, size_t capacity) {
+  return api(error,capacity,[&]{
+    visit_stage(handle,width,domain,local_capacity,[&](auto &stage){
+      using Word=typename std::decay_t<decltype(stage)>::word_type;
+      stage.product(static_cast<Word *>(left),static_cast<const Word *>(right),words);
+    });
+  });
+}

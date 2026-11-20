@@ -129,6 +129,29 @@ public:
       engine_.event(phase, "completed", count, count, began);
     } catch (...) { loaded_ = 0; engine_.event(phase, "failed", 0, count, began); throw; }
   }
+  // Pointwise spectrum multiplication reuses the maintained kernel. Allocate
+  // only the second bounded tile on demand, preserving FFT-only memory usage.
+  void product(Word *left, const Word *right, size_t words) {
+    if (!left || !right || !words || words > capacity_)
+      throw std::runtime_error("pointwise tile extent");
+    const auto a=reinterpret_cast<uintptr_t>(left), b=reinterpret_cast<uintptr_t>(right);
+    const size_t bytes=words*sizeof(Word);
+    if (a<b+bytes && b<a+bytes) throw std::runtime_error("pointwise overlapping operands");
+    const uint64_t limit = uint64_t(1) << (2 * engine_.s_);
+    for (size_t j=0;j<words;j++)
+      if (uint64_t(left[j])>=limit || uint64_t(right[j])>=limit)
+        throw std::runtime_error("pointwise field value");
+    CurrentDevice restore; select();
+    engine_.ensure(card(), card().y, words*sizeof(Word));
+    upload(left, words);
+    check(cudaMemcpy(card().y.data,right,words*sizeof(Word),cudaMemcpyHostToDevice));
+    try {
+      pointwise<<<(words+255)/256,256>>>(static_cast<Word *>(card().x.data),
+          static_cast<const Word *>(card().y.data),words,engine_.s_,engine_.delta_,
+          static_cast<uint32_t *>(card().logs.data),static_cast<uint32_t *>(card().powers.data));
+      check(cudaGetLastError());check(cudaDeviceSynchronize());download(left,words);
+    } catch (...) { loaded_=0; throw; }
+  }
   void download(Word *data, size_t words) {
     if (!data || !loaded_ || words != loaded_)
       throw std::runtime_error("vector stage download extent");

@@ -1,0 +1,49 @@
+{
+  "checks": [
+    "CPU complete FFT+schoolbook product/alias tests pass; final race1.253s",
+    "CUDA shared plugin builds/exports pg_stage_pointwise without GPU execution",
+    "CPP/CUDA/MPI test binary compiles without MPI/GPU execution",
+    "C bridge syntax passed",
+    "3product+4FFT+3composition+5stream Python tests passed",
+    "Python AST/shell/gofmt/whitespace passed"
+  ],
+  "native_command": "module load gcc/14.2.0 cuda12.9/toolkit/12.9.1; nvcc -std=c++17 -O3 -lineinfo -arch=sm_90 -shared -Xcompiler=-fPIC,-pthread encoding/liftrs-cuda/matrix.cu encoding/liftrs-cuda/preparation.cu -o .cache/liftrs/distributed-gpu-product/readiness/libliftrs-cuda.so",
+  "mpi_build_command": "module load gcc/14.2.0 openmpi/gcc/64/4.1.8; GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 CGO_ENABLED=1 CC=mpicc CXX=mpicxx GOCACHE=/tmp/depir-vector-local-cache .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-gpu-product/readiness/product.test ./encoding/liftrs-shared",
+  "race_command": "GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 CGO_ENABLED=1 GOCACHE=/tmp/depir-vector-local-cache .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test -race ./encoding/liftrs-shared -run '^TestRankTaylor|^TestRankAdditive|^TestRankProduct|^TestRankMatrixVectors|^TestRankVectorAdmission' -count=1 -timeout=20s",
+  "native_exit_code": 0,
+  "mpi_build_exit_code": 0,
+  "local_GPU_MPI_executed": false,
+  "retained_artifacts": {
+    ".cache/liftrs/distributed-gpu-product/readiness/libliftrs-cuda.so": {
+      "bytes": 2692880,
+      "sha256": "9d7ed72d3293faf26525f64ecafac2d03400908fc31c9ec299bdf5ab76b3c000"
+    },
+    ".cache/liftrs/distributed-gpu-product/readiness/product.test": {
+      "bytes": 11457272,
+      "sha256": "85431da7c5d4c4eaf2e0bf58ffe99133aa34bbbab67275653b7adfe69427e982"
+    }
+  },
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_product.go": "3d1818495611ba2f3a7d2c93042bc4589c9233b239498eefe4cb5d9b74070668",
+    "encoding/liftrs-shared/distributed_product_gpu_test.go": "b9a56f981a621e1e8722a30add874fe00dde02e0c9b2dcd18e679906b6ef0fec",
+    "encoding/liftrs-shared/distributed_taylor_test.go": "2efb0f375eb39047bc02d24b867ad7ac44f87f0edbebda79cc17f6f3fca7fbe7",
+    "encoding/liftrs-shared/distributed_vectors_gpu_test.go": "ed4c5fd7cb7653af723a2a5c4dac7f25364dc16d970a7c3bca8cbcf38f48ec33",
+    "encoding/liftrs-cuda/vector_preparation.go": "421f71313de21d7977845eb83e7bc8ac9fb61a63cd101713be0406e10b14e4dc",
+    "encoding/liftrs-cuda/vector_stage.cuh": "3a59612af895bf2704a181f3cc285c70d1af3594f1b58c2438509f0d80410f30",
+    "encoding/liftrs-cuda/preparation.cu": "4f8736d68308e02d36bf737f29877379e23e19afccc896fc8e2e6aeb3f938845",
+    "encoding/liftrs-cuda/preparation_api.h": "4d18c7101ceae563aa32656139ec46ed199326621d6de409427b6546de9ab147",
+    "encoding/liftrs-cuda/preparation_bridge.h": "3a369fde3bac6dbfff0f13d22ece242bb7b88bdc780ea8d0eb3ee9ba5231c4ed"
+  },
+  "controller_sha256": {
+    "experiments/distributed-gpu-product/analyze.py": "ed7d5658a91ccceaab54b186d6f7668a5644779dd0ead038fc85e642029a9778",
+    "experiments/distributed-gpu-product/run.py": "d99581a29fbcf4efcac43fe6d7306957403e5c27e0ac2b607b65deb208a39177",
+    "experiments/distributed-gpu-product/test_review.py": "2e7881a2b2ddfac2618f27dd118e333fbbd8511ab079efa5e316f9c6ff7e62ee",
+    "experiments/distributed-gpu-fft/analyze.py": "31fbc39e73dec864ce5ed1a30cb95676b915f3cf821d72fd3bbe29991fd88a0e",
+    "experiments/distributed-gpu-fft/run.py": "df9da3550f0ce93523ec11dfe346aba1d67672c161c5d5756be530f20eedc05b",
+    "experiments/distributed-gpu-fft/test_review.py": "b09621c29b10cafdaa9d7c9eabf4a03c93dc333f3421b7710ef9a60776036d7c",
+    "experiments/distributed-gpu-vectors/analyze.py": "8bdb2709bdac98696cd8ad593c10ec5f78441ff21a3e42f819c9c381766d0e2b",
+    "experiments/distributed-gpu-vectors/run.py": "24a0d0d351c0de59dc834996fc44374e1a448d555770a7341cfd6e7c9ccdbb4b",
+    "experiments/distributed-gpu-vectors/test_review.py": "eb9ef063bada51b1e6c364e4f4632b2adc75751cbc3d32824e32208d9b0f1fa3"
+  },
+  "limits": "Same2nodes/2H200/4CPU/8GiBhost,128MiBowned/card,1GiBRSS/rank,128MiBcache/2GiBscratch/720scontroller/15minscheduler; no fullsize claim."
+}

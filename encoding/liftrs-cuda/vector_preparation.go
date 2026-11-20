@@ -195,3 +195,36 @@ func (v *VectorPreparation) Taylor64(data []uint64, tile TaylorTile) error {
 	runtime.KeepAlive(data)
 	return err
 }
+
+func (v *VectorPreparation) pointwise(left, right unsafe.Pointer, words, rightWords, width int) error {
+	if v == nil || v.engine == nil || left == nil || right == nil || words <= 0 || words != rightWords {
+		return fmt.Errorf("GPU stage product operands")
+	}
+	p := v.engine
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if p.bridge == nil || p.width != width || uint64(words) > v.capacity {
+		return fmt.Errorf("GPU stage product state/width/extent")
+	}
+	var text [512]C.char
+	return preparationError(C.pg_bridge_stage_pointwise(p.bridge, left, right, C.size_t(words), C.uint(width), C.size_t(v.domain), C.size_t(v.capacity), &text[0], 512), &text[0])
+}
+
+// Pointwise32 replaces left with its pointwise extension-field product with right.
+// Operands are disjoint with equal nonzero length <=localWords; right is preserved. This is
+// spectrum multiplication, not polynomial multiplication. A second bounded
+// device tile is allocated lazily; owned-memory caps include both tiles.
+func (v *VectorPreparation) Pointwise32(left, right []uint32) error {
+	err := v.pointwise(preparationPointer(left), preparationPointer(right), len(left), len(right), 4)
+	runtime.KeepAlive(left)
+	runtime.KeepAlive(right)
+	return err
+}
+
+// Pointwise64 is Pointwise32 for eight-byte extension-field slots.
+func (v *VectorPreparation) Pointwise64(left, right []uint64) error {
+	err := v.pointwise(preparationPointer(left), preparationPointer(right), len(left), len(right), 8)
+	runtime.KeepAlive(left)
+	runtime.KeepAlive(right)
+	return err
+}

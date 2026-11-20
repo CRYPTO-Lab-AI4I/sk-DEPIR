@@ -2633,3 +2633,28 @@ SCALING-149 complete bounded FFT validation **78307 submitted**, implementation
 bc6a88e. Results `experiments/distributed-gpu-fft/runs/fft-01/`; same admitted
 resources/deadlines, no monitoring. Wait for completion ping before dependent
 products or interpreting new GPU timings.
+
+### Distributed product gate (SCALING-150)
+
+Reviewed78307 complete FFT passed:24normal/24sanitized rank/pass cases plus
+separablebaseline,240transpose+1788Taylor proof endpoints percomplete mode,
+696source/41evidence/148cache identities and zero CUDA errors/leaks. Controller
+135.343s, normal1.971s/sanitizer3.726s; hostRSS372.031/411.016MiB per process,
+1.571MiBowned/card on2HPC H200nodes. No fullsize extrapolation.
+
+[Distributed polynomial product](../experiments/distributed-gpu-product/report.md)
+now uses two forward transforms, shared GPU pointwise kernel and inverse.
+CPUHorner/Lagrange/schoolbook product and overlap tests pass; bounded MPI/GPU
+validation prepared, including both exact-domain and zero-tail products, full
+extension-field pointwise checks, right/source immutability and all small CUDA
+sanitizer cases. Same2nodes/2H200/4CPU/8GiBhost,720s/15min budget; no new allocation.
+We remain on step1 (large products/FFTs), not discovery.
+
+A second bounded GPU tile is lazy; FFT-only memory/defaults unchanged. Product
+control keeps two spectra across transforms; conservatively include caller inputs
+and transpose work (six host shards, projected3072GiB aggregate at2^36/16ranks/
+uint64 before overhead). This is not selected production layout/feasibility.
+Three transforms and repeated transfer/barrier costs remain to be measured.
+After bounded products: realistic GPU-resident large-product scaling/identities,
+s18 arithmetic admission and root/Newton/generator integration before subsequent
+discovery/persistence/full-pipeline gates. Fast resident defaults remain unchanged.

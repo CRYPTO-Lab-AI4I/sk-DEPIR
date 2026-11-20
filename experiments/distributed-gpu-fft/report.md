@@ -1,9 +1,25 @@
 # Bounded distributed GPU additive FFT
 
-Status: bounded complete MPI/GPU FFT validation **78307 submitted**, implementation
-`bc6a88e`. [Receipt](submission.json), results `runs/fft-01/`, log `slurm-78307.log`.
-Raw results will record exact job-start revision/hashes. No monitoring or new
-GPU result inspected.
+Status: **78307 passed**, producer `bc6a88e`, HPC two nodes /two H200s /4 CPU
+cores /8 GiB requested host RAM.24 normal and24 sanitized rank/pass results
+match native/scalar forward checks and inverse recovery; separable baseline
+regressions also pass. Each complete mode verifies240 transpose and1788 Taylor
+proof endpoints, with both clean CUDA error/leak summaries.
+[Raw results](runs/fft-01/results.json), [independent review](runs/fft-01/analysis.json),
+[review checks](runs/fft-01/review-checks.json), [receipt](submission.json),
+[job log](slurm-78307.log). All696 source /41 original evidence /148 cache
+identities verified;15.487 MiB reusable cache retained.
+
+Complete controller135.343 seconds (2min15.343s), normal suite1.971 seconds,
+sanitizer suite3.726 seconds. Logged host peak RSS372.031 MiB normal /411.016 MiB
+sanitized per process; owned GPU memory1.571 MiB/card, excluding context/driver.
+Largest4096-point transform: forward43.916ms /inverse40.807ms, single profiled
+samples. The different oracle/setup work means aggregate suite timing is not a
+controlled speed comparison against the separable suite. No fullsize extrapolation.
+
+The next [bounded polynomial-product gate](../distributed-gpu-product/report.md)
+is implemented using these transforms and existing GPU pointwise arithmetic;
+validation is pending.
 The preceding [separable composition78302](../distributed-gpu-vectors/report.md)
 passed all outputs/proofs and CUDA checks. This gate adds distributed Taylor
 basis conversion around those same column/row stages. Full s18 fields, products,

@@ -82,8 +82,7 @@ reuses the existing arithmetic. **78293 independently passes48 normal and42 spli
 zero CUDA errors/leaks. Raw controller failed on a summary-stream check, now fixed;
 component results were verified without rerunning GPU work. Normal suites took
 31.210 seconds; sanitizer287.750 seconds; host peak RSS131.109 MiB normal /
-167.059 MiB sanitized per process, owned GPU memory4.569 MiB/card. Complete
-distributed FFT and full s18 preprocessing remain unvalidated.
+167.059 MiB sanitized per process, owned GPU memory4.569 MiB/card. Full-size distributed FFT and full s18 preprocessing remain unvalidated.
 
 The [bounded tiled-transform/split-product comparison](experiments/preprocessing-tiles/report.md)
 passes correctness and CUDA memcheck in job76756. At2^22 points on four H200s,
@@ -162,7 +161,7 @@ logged process peak RSS **248.145–249.312 MiB/rank**. This validates the packi
 transport reference, not a distributed GPU FFT or full-size bandwidth estimate.
 Stage-scoped GPU row/column operations with global offsets and locally bounded
 device buffers passed78293, and vector/transpose composition passed78302.
-Taylor-complete composition is implemented with bounded MPI/GPU validation pending. Two full host
+Taylor-complete composition passed bounded MPI/GPU validation78307. Two full host
 shards remain a reference-layout cost, not an adopted production default.
 
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
@@ -795,5 +794,7 @@ per process and1.571 MiB owned GPU/card on two HPC H200 nodes. The control layou
 adds transfers and is not selected for full-size preprocessing or changed defaults.
 
 The [Taylor-complete distributed FFT gate](experiments/distributed-gpu-fft/report.md) is now implemented, with
-local CPU/race and independent direct-polynomial checks; bounded MPI/GPU validation
-**78307 is submitted**. Full-size products, s18 arithmetic and preprocessing remain pending.
+independent CPU/scalar and CUDA checks; **78307 passed** all small forward/inverse
+results and transfer checks. Distributed polynomial products are now implemented
+with bounded validation prepared; large products, s18 arithmetic and preprocessing
+remain pending.

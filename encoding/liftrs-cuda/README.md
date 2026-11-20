@@ -326,8 +326,8 @@ interleaved device tile across calls; no full host grid or public ABI is added.
 [Bounded validation](../../experiments/gpu-vector-stage/report.md) independently passes48 normal /42 split-sanitized cases in78293, zero CUDA
 errors/leaks. Raw controller failed a stderr-only summary check, now fixed;
 component evidence verified without GPU rerun. It reuses the existing vector kernels and s≤17 admission.
-Vector/transpose composition passed78302; Taylor-complete validation and full
-s18 support remain pending.
+Vector/transpose composition passed78302 and small Taylor-complete transforms
+passed78307; full-size scaling and s18 support remain pending.
 
 ### Experimental distributed vector owner
 
@@ -373,5 +373,19 @@ if err := stages.Taylor64(snapshot, window); err != nil { return err }
 The [complete bounded FFT gate](../../experiments/distributed-gpu-fft/report.md)
 reuses the extracted host-tiled source accessor/kernel. New Taylor symbols are
 optional; missing symbols return errors without a CPU fallback. Local interface/
-CPU checks pass; composed MPI/GPU/Taylor validation78307 is submitted. Existing s≤17
+CPU checks pass; composed MPI/GPU/Taylor validation78307 passed. Existing s≤17
 field admission, client independence and resident defaults remain unchanged.
+
+`Pointwise32`/`Pointwise64` replace a left spectrum tile with its extension-field
+product with a disjoint right tile, using the existing kernel; right is preserved.
+The optional `pg_stage_pointwise` symbol is required for these calls. A second
+bounded GPU tile is allocated lazily, included in the owned-memory cap; FFT-only
+owners keep their prior allocation. These calls are not polynomial multiplication.
+
+```go
+if err := stages.Pointwise64(leftSpectrumTile, rightSpectrumTile); err != nil { return err }
+```
+
+The [distributed polynomial-product gate](../../experiments/distributed-gpu-product/report.md)
+composes two forward FFTs, this local operation and an inverse. Small validation
+is prepared; fullsize runtime, GPU-resident storage and s18 admission remain pending.

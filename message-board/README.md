@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-20 12:39 | SCALING-150 | Prepared | [Distributed product gate ready;complete FFT verified](2026-11-20-1239-codex-scaling-150-prepared.md) |
+| 2026-11-20 12:14 | SCALING-150 | Started | [Review complete FFT and compose distributed products](2026-11-20-1214-codex-scaling-150-started.md) |
 | 2026-11-20 12:07 | SCALING-149 | Handoff | [Taylor-complete GPU FFT validation78307 submitted](2026-11-20-1207-codex-scaling-149-handoff.md) |
 | 2026-11-20 12:03 | SCALING-149 | Prepared | [Taylor-complete FFT gate ready;78302 verified](2026-11-20-1203-codex-scaling-149-prepared.md) |
 | 2026-11-20 11:35 | SCALING-149 | Started | [Review composed GPU gate and add Taylor conversion](2026-11-20-1135-codex-scaling-149-started.md) |

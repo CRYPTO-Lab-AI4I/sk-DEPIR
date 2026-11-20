@@ -42,6 +42,9 @@ int pg_taylor_degrees(void *, unsigned, size_t, size_t, unsigned, uint64_t *,
                       size_t, size_t *, char *, size_t);
 int pg_taylor_stage(void *, void *, size_t, unsigned, size_t, size_t, unsigned,
                     int, size_t, size_t, size_t, char *, size_t);
+// Optional bounded spectrum multiplication; replaces left, borrows right.
+int pg_stage_pointwise(void *, void *, const void *, size_t, unsigned, size_t,
+                      size_t, char *, size_t);
 uint64_t pg_owned_bytes(void *);
 void pg_destroy(void *);
 #ifdef __cplusplus

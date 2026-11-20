@@ -6,7 +6,7 @@ exploratory targets**: keep their rows as algorithms, layouts and measurements
 improve. This is the maintained capacity and results reference for the
 [scaling plan](encoding-scaling.md), separate from TRL 5 acceptance.
 
-Updated 2026-11-17; full s17 encoding source `ed0c026`.
+Updated 2026-11-20; full s17 encoding source `ed0c026`.
 **Resident CPU encoding76645 and four-H200 GPU encoding76706 both passed at s17**,
 using the same verified preprocessing and deterministic database. Complete
 canonical and tightly packed output hashes match. GPU retry76706 supersedes the
@@ -14,6 +14,26 @@ failed first GPU attempt76646. Other s17 modes and s≥18 full encoding remain
 unvalidated; projections are not support. “Reasonable” has no agreed numerical
 latency threshold yet; select it using measured setup, encoding, memory, I/O and
 deployment costs before accepting a scaling milestone.
+
+## Current distributed preprocessing step
+
+We are on **step1: distributed large products and FFTs**. These are bounded
+component results, separate from the full s17 runs and fulls18 projections below.
+
+| Step | Status |
+|---|---|
+| 1. Distributed products and FFTs | **Small distributed FFT passed78307** on2 HPC nodes /2 H200s:24 normal +24 sanitized rank/pass results, zero CUDA errors/leaks. Polynomial products are implemented; bounded validation prepared. Large GPU-resident layout/scaling remains pending. |
+| 2. Distributed discovery | Existing discovery is not yet partitioned across nodes. |
+| 3. Generator construction and verification | Existing algorithms still need the distributed executor/data integration. |
+| 4. Coordinated checkpoints and publication | Helpers exist; distributed ownership/restart/assembly integration remains. |
+| 5. Complete scaling validation | Assembled small pipeline then larger runs remain; fulls18 preprocessing unrun. |
+
+[FFT evidence](../experiments/distributed-gpu-fft/report.md): controller runtime
+**2 min15.343s**, normal suite **1.971s**, sanitizer suite **3.726s**. Logged host
+peak RSS **372.031 MiB normal /411.016 MiB sanitized per process**; maximum owned
+GPU memory **1.571 MiB/card**, excluding context/driver. Largest4096-point single
+profiled sample: forward **43.916ms**, inverse **40.807ms**. No fullsize runtime
+inferred. [Next product gate and storage costs](../experiments/distributed-gpu-product/report.md).
 
 ## Current s=17 results
 
@@ -634,7 +654,7 @@ logged process peak RSS **248.145–249.312 MiB/rank**. This validates the packi
 transport reference, not a distributed GPU FFT or full-size bandwidth estimate.
 Stage-scoped GPU row/column operations with global offsets and locally bounded
 device buffers passed78293, and vector/transpose composition passed78302.
-Taylor-complete composition is implemented with bounded MPI/GPU validation pending. Two full host
+Taylor-complete composition passed bounded MPI/GPU validation78307. Two full host
 shards remain a reference-layout cost, not an adopted production default.
 At a full2^36-element grid /16 ranks /64-bit slots, this reference would retain
 64 GiB/rank (1 TiB aggregate) for two host shards alone; it is not the selected
@@ -664,8 +684,7 @@ reuses the existing arithmetic. **78293 independently passes48 normal and42 spli
 zero CUDA errors/leaks. Raw controller failed on a summary-stream check, now fixed;
 component results were verified without rerunning GPU work. Normal suites took
 31.210 seconds; sanitizer287.750 seconds; host peak RSS131.109 MiB normal /
-167.059 MiB sanitized per process, owned GPU memory4.569 MiB/card. Complete
-distributed FFT and full s18 preprocessing remain unvalidated.
+167.059 MiB sanitized per process, owned GPU memory4.569 MiB/card. Full-size distributed FFT and full s18 preprocessing remain unvalidated.
 
 The [GPU vector/transpose composition](../experiments/distributed-gpu-vectors/report.md) is implemented with
 bounded local tiles and independent ownership/order tests. **78302 passed**:
@@ -675,5 +694,7 @@ per process and1.571 MiB owned GPU/card on two HPC H200 nodes. The control layou
 adds transfers and is not selected for full-size preprocessing or changed defaults.
 
 The [Taylor-complete distributed FFT gate](../experiments/distributed-gpu-fft/report.md) is now implemented, with
-local CPU/race and independent direct-polynomial checks; bounded MPI/GPU validation
-**78307 is submitted**. Full-size products, s18 arithmetic and preprocessing remain pending.
+independent CPU/scalar and CUDA checks; **78307 passed** all small forward/inverse
+results and transfer checks. Distributed polynomial products are now implemented
+with bounded validation prepared; large products, s18 arithmetic and preprocessing
+remain pending.

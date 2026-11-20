@@ -336,6 +336,67 @@ func checkRankAdditive[Word transposeWord](t *testing.T) {
 				}
 				shards = outputs
 			}
+			// Compose the same reference FFT callbacks into a full polynomial
+			// product; schoolbook coefficients are independent of the schedule.
+			a, bpoly := make([]Word, n), make([]Word, n)
+			wantProduct := make([]Word, n)
+			ac, bc := n/4+1, 3*n/4
+			for j := uint64(0); j < ac; j++ {
+				a[j] = Word((j*3 + 1) & 15)
+			}
+			for j := uint64(0); j < bc; j++ {
+				bpoly[j] = Word((j*7 + 1) & 15)
+			}
+			for i := uint64(0); i < ac; i++ {
+				for j := uint64(0); j < bc; j++ {
+					wantProduct[i+j] ^= Word(f.mul(uint64(a[i]), uint64(bpoly[j])))
+				}
+			}
+			transposes := map[[2]int]chan transposeMail[Word]{}
+			windows := map[[2]int]chan taylorMail[Word]{}
+			for x := 0; x < ranks; x++ {
+				for y := 0; y < ranks; y++ {
+					if x != y {
+						transposes[[2]int{x, y}] = make(chan transposeMail[Word])
+						windows[[2]int{x, y}] = make(chan taylorMail[Word])
+					}
+				}
+			}
+			barrier := newTaylorBarrier(ranks)
+			outputs := make([][]Word, ranks)
+			failures := make([]error, ranks)
+			var group sync.WaitGroup
+			for rank := 0; rank < ranks; rank++ {
+				group.Add(1)
+				go func(rank int) {
+					defer group.Done()
+					p, e := newRankTransposePlan(100, rows, cols, rank, ranks, n, 3)
+					if e != nil {
+						failures[rank] = e
+						return
+					}
+					first, count := rankBand(rows, rank, ranks)
+					left := append([]Word(nil), a[first*cols:(first+count)*cols]...)
+					right := append([]Word(nil), bpoly[first*cols:(first+count)*cols]...)
+					backend := rankProductBackend[Word]{Transpose: transposeMailbox[Word]{rank, transposes}, Windows: taylorMailbox[Word]{rank, windows, barrier}, Degrees: degrees, Vectors: vectors, Taylor: update, Multiply: func(left, right []Word) error {
+						for j := range left {
+							left[j] = Word(f.mul(uint64(left[j]), uint64(right[j])))
+						}
+						return nil
+					}}
+					outputs[rank], failures[rank] = rankPolynomialProduct(p, left, right, 3*max(rows, cols), backend, nil)
+				}(rank)
+			}
+			group.Wait()
+			for rank := range outputs {
+				if failures[rank] != nil {
+					t.Fatal("product backend", dim, ranks, rank, failures[rank])
+				}
+				first, count := rankBand(rows, rank, ranks)
+				if count > 0 && !reflect.DeepEqual(outputs[rank], wantProduct[first*cols:(first+count)*cols]) {
+					t.Fatal("distributed product/schoolbook", dim, ranks, rank)
+				}
+			}
 		}
 	}
 }
@@ -358,5 +419,21 @@ func TestRankAdditiveAdmission(t *testing.T) {
 	p.Operation = ^uint64(0)
 	if _, err := rankAdditiveTransform[uint32](p, input, 16, false, nil, nil, nil, nil, nil, nil); err == nil {
 		t.Fatal("operation wrap")
+	}
+}
+
+func TestRankProductAdmission(t *testing.T) {
+	p, _ := newRankTransposePlan(1, 4, 4, 0, 1, 16, 3)
+	a := make([]uint32, 32)
+	backend := rankProductBackend[uint32]{Multiply: func([]uint32, []uint32) error { return nil }}
+	if _, err := rankPolynomialProduct(p, a[:16], a[8:24], 16, backend, nil); err == nil {
+		t.Fatal("overlap")
+	}
+	if _, err := rankPolynomialProduct(p, a[:16], a[16:31], 16, backend, nil); err == nil {
+		t.Fatal("unequal extents")
+	}
+	p.Operation = ^uint64(0)
+	if _, err := rankPolynomialProduct(p, a[:16], a[16:], 16, backend, nil); err == nil {
+		t.Fatal("product operation wrap")
 	}
 }
