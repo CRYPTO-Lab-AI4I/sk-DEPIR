@@ -22,7 +22,7 @@ component results, separate from the full s17 runs and fulls18 projections below
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Small distributed FFT passed78307** on2 HPC nodes /2 H200s:24 normal +24 sanitized rank/pass results, zero CUDA errors/leaks. Polynomial products are implemented; bounded validation prepared. Large GPU-resident layout/scaling remains pending. |
+| 1. Distributed products and FFTs | **Small distributed FFT passed78307** on2 HPC nodes /2 H200s:24 normal +24 sanitized rank/pass results, zero CUDA errors/leaks. Polynomial products are implemented; bounded validation **78321 submitted**. Large GPU-resident layout/scaling remains pending. |
 | 2. Distributed discovery | Existing discovery is not yet partitioned across nodes. |
 | 3. Generator construction and verification | Existing algorithms still need the distributed executor/data integration. |
 | 4. Coordinated checkpoints and publication | Helpers exist; distributed ownership/restart/assembly integration remains. |
@@ -696,5 +696,5 @@ adds transfers and is not selected for full-size preprocessing or changed defaul
 The [Taylor-complete distributed FFT gate](../experiments/distributed-gpu-fft/report.md) is now implemented, with
 independent CPU/scalar and CUDA checks; **78307 passed** all small forward/inverse
 results and transfer checks. Distributed polynomial products are now implemented
-with bounded validation prepared; large products, s18 arithmetic and preprocessing
+with bounded validation **78321 submitted**; large products, s18 arithmetic and preprocessing
 remain pending.

@@ -1,6 +1,9 @@
 # Bounded distributed GPU polynomial products
 
-Status: implementation ready; MPI/GPU product validation not yet run. This follows
+Status: bounded MPI/GPU product validation **78321 submitted**, implementation
+`0b6fd9c`. [Receipt](submission.json), results `runs/product-01/`, log
+`slurm-78321.log`. Raw results will record exact job-start revision/hashes.
+No monitoring or product outcome inspected. This follows
 [78307's passed complete distributed FFT gate](../distributed-gpu-fft/report.md).
 It advances step1 (distributed large products/FFTs), not distributed discovery or
 an assembled s18 preprocessing workflow. The fast full-size GPU-resident layout

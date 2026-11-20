@@ -2658,3 +2658,8 @@ Three transforms and repeated transfer/barrier costs remain to be measured.
 After bounded products: realistic GPU-resident large-product scaling/identities,
 s18 arithmetic admission and root/Newton/generator integration before subsequent
 discovery/persistence/full-pipeline gates. Fast resident defaults remain unchanged.
+
+SCALING-150 distributed product gate **78321 submitted**, implementation0b6fd9c;
+results `experiments/distributed-gpu-product/runs/product-01/`. Same resource/
+deadline envelope; no monitoring. Wait for completion ping before product scaling
+or integration. Fulls18 preprocessing remains unrun.

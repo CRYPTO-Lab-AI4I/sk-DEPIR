@@ -1,0 +1,11 @@
+{
+  "job_id": "78321",
+  "submitted_utc": "2026-11-20T12:40:14.102798+00:00",
+  "implementation_revision": "0b6fd9c",
+  "name": "product-01",
+  "command": "sbatch --parsable --output=experiments/distributed-gpu-product/slurm-%j.log experiments/distributed-gpu-product/run.sbatch product-01",
+  "results": "experiments/distributed-gpu-product/runs/product-01/",
+  "log": "experiments/distributed-gpu-product/slurm-78321.log",
+  "monitoring": false,
+  "revision_note": "Raw results record exact committed tree frozen at job start; handoff only changes documentation/excluded metadata."
+}
