@@ -2379,7 +2379,7 @@ SCALING-109 next-work order is explicit:
    SCALING-135: [disable UCX registration caching explicitly](../experiments/ucx-registration-cache/report.md)
    on the same host replay, keeping observed UCX PML. Linked UCX1.18 tool verifies
    the option (system tool is a different version); record effective configuration
-   and every worker setting. Same zero-GPU budget. Prepared, unmeasured; extra
+   and every worker setting. Same zero-GPU budget. **78218 submitted**, unreviewed; extra
    registration work/latency and internal pinned-memory effects unknown. No default
    change or permanent repair claim. GPU-tree validation and end-to-end costs would
    still be needed after a passing host control.

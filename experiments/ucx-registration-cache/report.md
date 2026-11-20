@@ -1,6 +1,10 @@
 # UCX registration-cache control
 
-Status: prepared (SCALING-135), unmeasured. [Runner](run.py),
+Status: **registration-cache control 78218 submitted** (SCALING-135), results unreviewed.
+[Receipt](submission.json), progress `slurm-78218.log`, results/profiles
+`runs/no-cache-01/`. Implementation `19e6143`;
+[source freeze](readiness/snapshot.json): 658 files / 3,088,488 bytes, all five
+checked input hashes match. No MPI execution is implied by readiness. [Runner](run.py),
 [scheduler script](run.sbatch), [shared host probe](../mpi-host-buffers/probe_test.go),
 [orchestration](../mpi-host-buffers/run.py), [reviewer](../mpi-host-buffers/analyze.py).
 Implementation revision in submission.json; source/evidence/cache seals in results.json.

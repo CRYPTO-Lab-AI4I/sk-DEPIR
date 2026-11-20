@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-20 08:20 | SCALING-135 | Handoff | [UCX cache control78218 submitted](2026-11-20-0820-codex-scaling-135-handoff.md) |
 | 2026-11-20 08:19 | SCALING-135 | Prepared | [UCX registration-cache diagnostic ready](2026-11-20-0819-codex-scaling-135-prepared.md) |
 | 2026-11-20 08:19 | SCALING-134 | Completed | [UCX selection and direct failure verified](2026-11-20-0819-codex-scaling-134-completed.md) |
 | 2026-11-20 08:15 | SCALING-135 | Started | [Test explicit UCX registration-cache control](2026-11-20-0815-codex-scaling-135-started.md) |

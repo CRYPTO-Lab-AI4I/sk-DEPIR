@@ -61,7 +61,7 @@ original methodology; apply this policy to new optimization runs.
 ## Recorded experiments
 
 - [UCX registration-cache control](ucx-registration-cache/report.md): retain
-  observed UCX and host replay, explicitly disable registration caching. Prepared,
+  observed UCX and host replay, explicitly disable registration caching. 78218 submitted,
   zero GPUs; repeated registration cost and internal memory impact unknown.
 
 - [Automatic MPI component discovery](mpi-transport-discovery/report.md): original

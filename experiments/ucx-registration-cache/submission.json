@@ -1,0 +1,37 @@
+{
+  "job_id": "78218",
+  "submitted_utc": "2026-11-20T08:20:09.633945+00:00",
+  "implementation_revision": "19e6143b55b86ea6e1633d1a83353afb00093b16",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--output=experiments/ucx-registration-cache/slurm-%j.log",
+    "experiments/ucx-registration-cache/run.sbatch",
+    "no-cache-01"
+  ],
+  "results": "experiments/ucx-registration-cache/runs/no-cache-01",
+  "progress_log": "experiments/ucx-registration-cache/slurm-78218.log",
+  "cache": ".cache/liftrs/ucx-registration-cache/no-cache-01/",
+  "settings": {
+    "OMPI_MCA_pml": "ucx",
+    "UCX_RCACHE_ENABLE": "n",
+    "OMPI_MCA_pml_base_verbose": "20",
+    "OMPI_MCA_btl_base_verbose": "40",
+    "UCX_LOG_LEVEL": "info"
+  },
+  "resources": {
+    "nodes": 2,
+    "ranks": 4,
+    "cpus": 4,
+    "gpus": 0,
+    "host_request_GiB_per_node": 4,
+    "rss_guard_GiB_per_rank": 1,
+    "retained_cap_MiB": 128,
+    "scratch_cap_GiB": 2,
+    "controller_seconds": 720,
+    "scheduler_seconds": 900
+  },
+  "admission": "Same admitted host-only envelope.",
+  "monitoring": "No polling/log following/results inspection until completion ping.",
+  "scope": "Explicit registration-cache diagnostic; unknown internal-memory/runtime penalty, no default or causal claim."
+}

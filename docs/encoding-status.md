@@ -647,7 +647,7 @@ corruption. Both staged controls passed 256 handoffs / 512 proof endpoints;
 direct-reclaim was unrun. HPC: 2 nodes / 4 CPU cores / 8 GiB requested host /
 zero GPUs; 28 s scheduler elapsed. Next is an
 [explicit UCX registration-cache control](../experiments/ucx-registration-cache/report.md),
-keeping the same replay and UCX backend. Prepared, unmeasured; repeated registration
+keeping the same replay and UCX backend. **78218 submitted**, results unreviewed; repeated registration
 may cost time and affect internal pinned memory. No production default or full
 s=18 validation change; the underlying mechanism remains unproved.
 

@@ -33,7 +33,7 @@ This is a profiled, allocation-churn diagnostic, not a throughput baseline.
 
 The selected module resolves UCX 1.18, whose installed tool supports disabling
 its registration cache. **Next:** the [explicit cache control](../ucx-registration-cache/report.md)
-keeps UCX and the host replay, sets `UCX_RCACHE_ENABLE=n`, and records effective
+keeps UCX and the host replay, sets `UCX_RCACHE_ENABLE=n` (job 78218 submitted), and records effective
 configuration/worker settings. Repeated registration may cost time; internal-memory
 and runtime effects are unknown. Diagnostic only, no production default change.
 Full s=18 and a permanent direct-buffer repair remain unvalidated.
