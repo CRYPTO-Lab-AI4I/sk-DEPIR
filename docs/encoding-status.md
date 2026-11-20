@@ -660,5 +660,5 @@ Historical intermediate plans and calibration tables are preserved in the
 
 The [persistent GPU vector-stage adapter](../experiments/gpu-vector-stage/report.md)
 now separates global transform coordinates from bounded local GPU storage and
-reuses the existing arithmetic. Bounded correctness/CUDA validation is being
-prepared; no GPU result, complete distributed FFT or full s18 support is claimed.
+reuses the existing arithmetic. Bounded correctness/CUDA validation **78285 is submitted**; no GPU result,
+complete distributed FFT or full s18 support is claimed.

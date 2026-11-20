@@ -62,7 +62,7 @@ original methodology; apply this policy to new optimization runs.
 
 - [Persistent GPU vector stages](gpu-vector-stage/report.md): local storage/global
   coordinates separated using existing kernels; bounded CPU-oracle/reuse/error/
-  CUDA checks prepared, no measured result or complete distributed FFT yet.
+  CUDA checks78285 submitted, no measured result or complete distributed FFT yet.
 
 - [Rank-sharded transpose](distributed-transpose/report.md): bounded32/64-bit
   data-movement prerequisite for collective FFTs, independent scalar/rendezvous

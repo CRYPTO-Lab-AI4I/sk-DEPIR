@@ -2552,7 +2552,7 @@ implements separate upload, row/column execution and download, reusing existing
 GPU arithmetic and capped resident storage. Global domain/affine origin is
 independent of local capacity; consecutive calls retain the tile. No full host
 grid, production layout, public ABI or default change. Bounded 32/64-bit CPU
-oracle/rejection/reuse/CUDA memcheck validation is prepared within the existing
+oracle/rejection/reuse/CUDA memcheck validation **78285 is submitted** within the existing
 two-node/two-H200 envelope; measurements remain pending. Existing executor s≤17
 field admission is unchanged. After this gate: compose vectors/transposes and
 distributed Taylor dependencies, then validate complete forward/inverse products

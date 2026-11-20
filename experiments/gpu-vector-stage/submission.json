@@ -1,0 +1,10 @@
+{
+  "job_id": "78285",
+  "submitted_utc": "2026-11-20T10:43:59.977254+00:00",
+  "source_revision": "0711805",
+  "name": "vectors-01",
+  "command": "sbatch --parsable --output=experiments/gpu-vector-stage/slurm-%j.log experiments/gpu-vector-stage/run.sbatch vectors-01",
+  "result_directory": "experiments/gpu-vector-stage/runs/vectors-01",
+  "log": "experiments/gpu-vector-stage/slurm-78285.log",
+  "monitoring": false
+}

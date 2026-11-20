@@ -1,6 +1,8 @@
 # Persistent GPU vector stages
 
-Status: implementation ready for bounded HPC validation; no GPU result yet.
+Status: bounded HPC validation **78285 submitted**, source `0711805`; no GPU
+result inspected. [Submission receipt](submission.json), results
+`runs/vectors-01/`, job log `slurm-78285.log`. No monitoring; await completion ping.
 This is the next distributed-preprocessing component after the
 [validated sharded transpose](../distributed-transpose/report.md). It is not a
 complete distributed FFT, product, or s18 preprocessing implementation.
