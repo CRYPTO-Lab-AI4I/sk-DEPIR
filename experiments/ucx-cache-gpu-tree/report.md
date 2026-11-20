@@ -1,6 +1,10 @@
 # GPU merge tree with the UCX cache control
 
-Status: prepared (SCALING-137), results unmeasured. [Runner](run.py),
+Status: **GPU-tree job 78249 submitted** (SCALING-137), results unreviewed.
+[Receipt](submission.json), progress `slurm-78249.log`, results/profiles
+`runs/tree-01/`. Implementation `d4621d2`;
+[source freeze](readiness/snapshot.json): 662 files / 3,091,958 bytes; all ten
+checked input hashes match. No MPI/GPU execution implied by readiness. [Runner](run.py),
 [scheduler script](run.sbatch), [shared comparison](../mpi-buffer-comparison/run.py),
 [reviewer](../mpi-buffer-comparison/analyze.py),
 [shared UCX configuration](../ucx-registration-cache/run.py),

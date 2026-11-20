@@ -652,7 +652,7 @@ logged process peak RSS **296.418 MiB/rank**; HPC 2 nodes / 4 CPU cores / 8 GiB
 requested host / zero GPUs, **1 min 2 s** scheduler elapsed. This supports a cache
 interaction under the probe, not a permanent repair or full-size result. Next
 [GPU-tree validation](../experiments/ucx-cache-gpu-tree/report.md) uses the same
-explicit control and the previously admitted two-H200 budget; prepared, unmeasured.
+explicit control and the previously admitted two-H200 budget; **78249 submitted**, results unreviewed.
 No production default or full s=18 validation change; cache-disabling overhead in
 full preprocessing remains unknown.
 

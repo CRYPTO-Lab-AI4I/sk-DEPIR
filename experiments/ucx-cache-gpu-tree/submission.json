@@ -1,0 +1,43 @@
+{
+  "job_id": "78249",
+  "submitted_utc": "2026-11-20T08:41:36.847628+00:00",
+  "implementation_revision": "d4621d2f3059817d4446606f01bd14e8672fafec",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--output=experiments/ucx-cache-gpu-tree/slurm-%j.log",
+    "experiments/ucx-cache-gpu-tree/run.sbatch",
+    "tree-01"
+  ],
+  "results": "experiments/ucx-cache-gpu-tree/runs/tree-01",
+  "progress_log": "experiments/ucx-cache-gpu-tree/slurm-78249.log",
+  "cache": ".cache/liftrs/ucx-cache-gpu-tree/tree-01/",
+  "order": [
+    "staged-a",
+    "direct-a",
+    "direct-b",
+    "staged-b"
+  ],
+  "resources": {
+    "nodes": 2,
+    "ranks": 4,
+    "cpus": 4,
+    "gpus": 2,
+    "gpu_model": "H200",
+    "host_request_GiB_per_node": 4,
+    "rss_guard_GiB_per_rank": 1,
+    "owned_MiB_per_rank": 64,
+    "owned_MiB_per_card": 128,
+    "retained_cap_MiB": 128,
+    "scratch_cap_GiB": 2,
+    "controller_seconds": 720,
+    "scheduler_seconds": 900
+  },
+  "admission": "Restore previously admitted two-H200 GPU-tree envelope; no increase.",
+  "settings": {
+    "OMPI_MCA_pml": "ucx",
+    "UCX_RCACHE_ENABLE": "n"
+  },
+  "monitoring": "No polling/log following/results inspection until user completion ping.",
+  "scope": "Bounded GPU-tree correctness/crossover under explicit cache control; no production default/fullsize claim."
+}

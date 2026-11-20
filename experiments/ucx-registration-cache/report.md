@@ -35,7 +35,7 @@ It does not establish a permanent UCX/Go fix, correctness at arbitrary sizes or 
 cost of cache disabling in full preprocessing. Prior raw failures remain failed.
 **Next:** validate the [GPU merge-tree crossover](../ucx-cache-gpu-tree/report.md)
 with the same explicit setting, CPU equality, state/proof checks and CUDA memcheck,
-using the previously admitted two-H200 envelope. No production default change;
+using the previously admitted two-H200 envelope (job 78249 submitted). No production default change;
 full s=18 remains unrun.
 
 [Discovery 78009](../mpi-transport-discovery/report.md#review-of-78009) selected

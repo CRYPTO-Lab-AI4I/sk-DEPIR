@@ -2385,8 +2385,8 @@ SCALING-109 next-work order is explicit:
    [GPU-tree crossover](../experiments/ucx-cache-gpu-tree/report.md) with the same
    explicit setting, one build, staged/direct/direct/staged order, CPU/state/proof
    checks and CUDA memcheck. Previously admitted2-H200/2-node4-core8GiB host,
-   existing device/host/storage/deadline caps; no budget increase. Prepared,
-   unmeasured; no default change. Registration-time/internal-memory effects and
+   existing device/host/storage/deadline caps; no budget increase. **78249 submitted**,
+   results unreviewed; no default change. Registration-time/internal-memory effects and
    full preprocessing cost remain unknown; fulls18 is still unrun.
    Retain staged mode for bounded integration; fulls18 remains unrun. Reporting
    gets 90 s inside the unchanged controller/scheduler limits, after its measured

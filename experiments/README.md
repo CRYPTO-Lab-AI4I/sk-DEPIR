@@ -61,7 +61,7 @@ original methodology; apply this policy to new optimization runs.
 ## Recorded experiments
 
 - [GPU tree with UCX cache control](ucx-cache-gpu-tree/report.md): same-build
-  staged/direct crossover, explicit cache setting and per-worker checks. Prepared;
+  staged/direct crossover, explicit cache setting and per-worker checks. 78249 submitted;
   previously admitted two-H200 budget, no default or full-size claim.
 
 - [UCX registration-cache control](ucx-registration-cache/report.md): retain
