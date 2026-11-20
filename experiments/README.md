@@ -60,9 +60,13 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [GPU tree with UCX cache control](ucx-cache-gpu-tree/report.md): same-build
+  staged/direct crossover, explicit cache setting and per-worker checks. Prepared;
+  previously admitted two-H200 budget, no default or full-size claim.
+
 - [UCX registration-cache control](ucx-registration-cache/report.md): retain
-  observed UCX and host replay, explicitly disable registration caching. 78218 submitted,
-  zero GPUs; repeated registration cost and internal memory impact unknown.
+  78218 passed all host arms (1,024 handoffs / 2,048 checks), including direct
+  buffers. Supports cache interaction; full preprocessing cost/correctness unknown.
 
 - [Automatic MPI component discovery](mpi-transport-discovery/report.md): original
   78009 selected UCX on all ranks; staged controls passed and direct corruption

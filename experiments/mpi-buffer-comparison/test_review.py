@@ -80,4 +80,11 @@ class Review(unittest.TestCase):
             self.assertTrue(all(r['capture_matches_logged_sha']for r in result['captures']))
             with self.assertRaises(AssertionError):analyze['review_captures'](rows[:1],cache,'direct-a')
 
+    def test_gpu_worker_cache_control_is_required(self):
+        setting={'UCX_RCACHE_ENABLE':'n'}
+        rows=[dict(kind='host',rank=r,host='a'if r<2 else'b',buffer_mode='direct',staging_bytes=0,mpi_transport=dict(setting))for r in range(4)]
+        HELP['review_hosts'](rows,'direct',transport=setting)
+        rows[3]['mpi_transport']['UCX_RCACHE_ENABLE']='try'
+        with self.assertRaises(AssertionError):HELP['review_hosts'](rows,'direct',transport=setting)
+
 if __name__=='__main__':unittest.main()

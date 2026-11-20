@@ -1,0 +1,33 @@
+{
+  "utc": "2026-11-20T08:40:24.731446+00:00",
+  "base_revision": "c86631fab497d5985187c368819b481e627d8892",
+  "source_sha256": {
+    "experiments/distributed-root/mpi/settings.go": "e3b5ff1b5cc1513622005ab45fbaf022ef5808a8649aa356f21b52d0056f2f3f",
+    "experiments/distributed-root/mpi/settings_test.go": "73ceca60d1a3642bc5b5b8b5681216868abf4b4f9986cba9b310514175c2aab2",
+    "encoding/liftrs-shared/root_tree_gpu_test.go": "50a713e154cc0b87907fca381571a69b3ed814cdd15bc6fbc9d271558a9e0214",
+    "experiments/mpi-host-buffers/probe_test.go": "ae9370f7cb5382e59c8c120e4a64e59c95be5ee50aeb8570bbd82f5066207530",
+    "experiments/ucx-registration-cache/run.py": "941d2fb1f1bed8a5a8a4f9dbc0f61eadd21c84648d2eb355dc97b7f5abdec579",
+    "experiments/mpi-buffer-comparison/run.py": "9084b56fb7d9417595fbd878d82b0fe936de9b9797cbd050faaf99f1765a3f2b",
+    "experiments/mpi-buffer-comparison/analyze.py": "3b971c3f81548d9bfb254435c8216651519d994109c29db3047f83dfa1f8a4bf",
+    "experiments/mpi-buffer-comparison/test_review.py": "4149d3534671daf3193cd6853e851bf60b7be89ad0562b03e1771ea13ca1ff57",
+    "experiments/ucx-cache-gpu-tree/run.py": "a5885591e13a2a99f883deef63cb2e01dbe898533bc0b2d4720dc2da77823ae3",
+    "experiments/ucx-cache-gpu-tree/run.sbatch": "0b118fa2df707ac7740539571fc7c203a88d742614190fe929c7caff54967fa2"
+  },
+  "checks": [
+    "25 s bounded CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o /tmp/ucx-gpu-tree.test ./encoding/liftrs-shared",
+    "/tmp/ucx-gpu-tree.test -test.run=TestRootTransferProofAgreement|TestIndexTransferFingerprintHighBits -test.v -test.timeout=15s",
+    "25 s bounded go test -tags liftrs_mpi ./experiments/distributed-root/mpi -run TestTransportSettingsSnapshot -count=1",
+    "python3 -B experiments/mpi-buffer-comparison/test_review.py",
+    "python3 -B experiments/mpi-host-buffers/test_review.py",
+    "python3 -B experiments/root-merge-tree/test_review.py",
+    "python3 -B experiments/root-transfer-diagnostics/test_review.py",
+    "python3 -B experiments/distributed-root/test_review.py",
+    "python3 -B experiments/gpu-staged-transport/test_review.py",
+    "python3 -B experiments/gpu-code-encoding/test_suite.py"
+  ],
+  "limitations": [
+    "No local MPI/GPU execution.",
+    "Host pass supports cache interaction, not permanent repair.",
+    "Cache disabling cost/full-size behavior unknown; no default change."
+  ]
+}

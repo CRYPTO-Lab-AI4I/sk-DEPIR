@@ -13,11 +13,13 @@ PROOF=runpy.run_path(str(HERE.parent/'root-transfer-diagnostics/analyze.py'))
 ARMS=(('staged-a','staged'),('direct-a','direct'),('direct-b','direct'),('staged-b','staged'))
 
 
-def review_hosts(rows,mode,small=False):
+def review_hosts(rows,mode,small=False,transport=None):
     hosts=[r for r in rows if r.get('kind')=='host']
     expected=(8192 if small else 524288)if mode=='staged'else 0
     assert mode in ('direct','staged')and len(hosts)==4 and {r['rank']for r in hosts}==set(range(4))
     assert all(r['buffer_mode']==mode and r['staging_bytes']==expected for r in hosts)
+    if transport is not None:
+        assert all(all(r['mpi_transport'].get(key)==value for key,value in transport.items())for r in hosts)
     return {str(r['rank']):r['host']for r in hosts}
 
 
@@ -29,13 +31,13 @@ def summarize_cases(rows):
         for group in [[r for r in measurements if r['case']==case]]]
 
 
-def review_arm(out,cache,name,mode):
+def review_arm(out,cache,name,mode,transport=None):
     result=dict(name=name,mode=mode,status='passed')
     for label,small in (('normal',False),('memcheck',True)):
         rows=TREE['BASE']['parse'](out/f'{name}-{label}.log')
         directory=cache/(name+('-sanitized'if small else '-normal'))
         TREE['review'](rows,directory,small=small,repeats=12 if not small else 2)
-        proofs=PROOF['review_proofs'](rows);hosts=review_hosts(rows,mode,small)
+        proofs=PROOF['review_proofs'](rows);hosts=review_hosts(rows,mode,small,transport)
         result[label]=dict(proof_events=len(proofs),proof_phases=dict(Counter(r['phase']for r in proofs)),
             measurement_rows=sum(r.get('kind')=='measurement'for r in rows),hosts=hosts,
             peak_logged_rss_bytes_per_rank=max(r.get('peak_rss_bytes',0)for r in rows),
@@ -79,7 +81,7 @@ def suite(context):
         env['PIR_ROOT_TREE_MPI_BUFFER']=mode
         try:
             TREE['execute'](context,prepared,prefix=name+'-')
-            state['arms'].append(review_arm(out,cache,name,mode));save()
+            state['arms'].append(review_arm(out,cache,name,mode,context['resources'].get('diagnostic_transport')));save()
         except BaseException as error:
             state.update(status='failed',error=str(error));save();raise
         assert hashes=={p.name:hashlib.sha256(p.read_bytes()).hexdigest()for p in prepared[:2]}

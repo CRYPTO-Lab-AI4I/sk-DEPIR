@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "arms": [
+    {
+      "mode": "staged",
+      "reclaim": false,
+      "proof_events": 512,
+      "completed_handoffs": 256,
+      "peak_rss_bytes_per_rank": 310816768,
+      "hosts": {
+        "1": "gnode13",
+        "0": "gnode13",
+        "3": "gnode14",
+        "2": "gnode14"
+      }
+    },
+    {
+      "mode": "staged",
+      "reclaim": true,
+      "proof_events": 512,
+      "completed_handoffs": 256,
+      "peak_rss_bytes_per_rank": 277135360,
+      "hosts": {
+        "0": "gnode13",
+        "1": "gnode13",
+        "3": "gnode14",
+        "2": "gnode14"
+      }
+    },
+    {
+      "mode": "direct",
+      "reclaim": false,
+      "proof_events": 512,
+      "completed_handoffs": 256,
+      "peak_rss_bytes_per_rank": 309260288,
+      "hosts": {
+        "0": "gnode13",
+        "1": "gnode13",
+        "3": "gnode14",
+        "2": "gnode14"
+      }
+    },
+    {
+      "mode": "direct",
+      "reclaim": true,
+      "proof_events": 512,
+      "completed_handoffs": 256,
+      "peak_rss_bytes_per_rank": 278814720,
+      "hosts": {
+        "1": "gnode13",
+        "3": "gnode14",
+        "2": "gnode14",
+        "0": "gnode13"
+      }
+    }
+  ],
+  "current_arm": "direct-reclaim"
+}

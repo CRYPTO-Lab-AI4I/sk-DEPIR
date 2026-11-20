@@ -2376,13 +2376,18 @@ SCALING-109 next-work order is explicit:
    prove UCX PML selection on all ranks in both staged controls and direct arm.
    Staged arms pass 256 handoffs / 512 proofs each; direct cross-node root fails
    at cycle0/case1 with paired captures. No guard failure; cause not established.
-   SCALING-135: [disable UCX registration caching explicitly](../experiments/ucx-registration-cache/report.md)
-   on the same host replay, keeping observed UCX PML. Linked UCX1.18 tool verifies
-   the option (system tool is a different version); record effective configuration
-   and every worker setting. Same zero-GPU budget. **78218 submitted**, unreviewed; extra
-   registration work/latency and internal pinned-memory effects unknown. No default
-   change or permanent repair claim. GPU-tree validation and end-to-end costs would
-   still be needed after a passing host control.
+   SCALING-136: [78218 cache-disabled host replay](../experiments/ucx-registration-cache/report.md#review-of-78218)
+   passes all four arms, 1,024 handoffs / 2,048 endpoint checks. Requested flags,
+   actual-node UCX1.18 config and native UCX selection verified. Both direct arms
+   pass; original failures remain failed. Largest logged RSS296.418 MiB/rank;
+   scheduler1min2s, zero GPUs. Supports cache interaction under the probe, not a
+   permanent runtime repair or full-size cost estimate. SCALING-137: next run
+   [GPU-tree crossover](../experiments/ucx-cache-gpu-tree/report.md) with the same
+   explicit setting, one build, staged/direct/direct/staged order, CPU/state/proof
+   checks and CUDA memcheck. Previously admitted2-H200/2-node4-core8GiB host,
+   existing device/host/storage/deadline caps; no budget increase. Prepared,
+   unmeasured; no default change. Registration-time/internal-memory effects and
+   full preprocessing cost remain unknown; fulls18 is still unrun.
    Retain staged mode for bounded integration; fulls18 remains unrun. Reporting
    gets 90 s inside the unchanged controller/scheduler limits, after its measured
    28.060 s approached the old 30 s reporting deadline. Native timed clocks stay.

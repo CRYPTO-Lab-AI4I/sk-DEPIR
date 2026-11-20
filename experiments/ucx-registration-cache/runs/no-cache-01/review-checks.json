@@ -1,0 +1,23 @@
+{
+  "utc": "2026-11-20T08:40:24.731446+00:00",
+  "command": "python3 -B experiments/mpi-host-buffers/analyze.py no-cache-01 --experiment experiments/ucx-registration-cache",
+  "assertions": [
+    "658 source/33 evidence/3 cache seals",
+    "allfour arms:1024 handoffs/2048 endpoint checks",
+    "actual-node UCX1.18 config UCX_RCACHE_ENABLE=n",
+    "all16 worker settings/native PML selections match",
+    "all command exit codes zero and no captures"
+  ],
+  "source_sha256": {
+    "experiments/distributed-root/mpi/settings.go": "e3b5ff1b5cc1513622005ab45fbaf022ef5808a8649aa356f21b52d0056f2f3f",
+    "experiments/distributed-root/mpi/settings_test.go": "73ceca60d1a3642bc5b5b8b5681216868abf4b4f9986cba9b310514175c2aab2",
+    "encoding/liftrs-shared/root_tree_gpu_test.go": "50a713e154cc0b87907fca381571a69b3ed814cdd15bc6fbc9d271558a9e0214",
+    "experiments/mpi-host-buffers/probe_test.go": "ae9370f7cb5382e59c8c120e4a64e59c95be5ee50aeb8570bbd82f5066207530",
+    "experiments/ucx-registration-cache/run.py": "941d2fb1f1bed8a5a8a4f9dbc0f61eadd21c84648d2eb355dc97b7f5abdec579",
+    "experiments/mpi-buffer-comparison/run.py": "9084b56fb7d9417595fbd878d82b0fe936de9b9797cbd050faaf99f1765a3f2b",
+    "experiments/mpi-buffer-comparison/analyze.py": "3b971c3f81548d9bfb254435c8216651519d994109c29db3047f83dfa1f8a4bf",
+    "experiments/mpi-buffer-comparison/test_review.py": "4149d3534671daf3193cd6853e851bf60b7be89ad0562b03e1771ea13ca1ff57",
+    "experiments/ucx-cache-gpu-tree/run.py": "a5885591e13a2a99f883deef63cb2e01dbe898533bc0b2d4720dc2da77823ae3",
+    "experiments/ucx-cache-gpu-tree/run.sbatch": "0b118fa2df707ac7740539571fc7c203a88d742614190fe929c7caff54967fa2"
+  }
+}

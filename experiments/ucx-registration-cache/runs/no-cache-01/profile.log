@@ -1,0 +1,62 @@
+File: host.test
+Build ID: e3226493d9a55f5e05289a2b5335985c3eb0e328
+Type: cpu
+Time: 2026-11-20 09:19:57 CET
+Duration: 1.66s, Total samples = 1.08s (65.03%)
+Showing nodes accounting for 1.08s, 100% of 1.08s total
+      flat  flat%   sum%        cum   cum%
+     0.57s 52.78% 52.78%      0.57s 52.78%  runtime.cgocall
+     0.26s 24.07% 76.85%      0.26s 24.07%  runtime.memclrNoHeapPointers
+     0.08s  7.41% 84.26%      0.08s  7.41%  [libc.so.6]
+     0.04s  3.70% 87.96%      0.98s 90.74%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/mpi-host-buffers.TestHostBuffers
+     0.03s  2.78% 90.74%      0.03s  2.78%  crypto/internal/fips140/sha256.blockSHANI
+     0.02s  1.85% 92.59%      0.04s  3.70%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/mpi-host-buffers.fingerprint[go.shape.uint64]
+     0.02s  1.85% 94.44%      0.03s  2.78%  runtime.scanblock
+     0.01s  0.93% 95.37%      0.01s  0.93%  runtime.(*stkframe).getStackMap
+     0.01s  0.93% 96.30%      0.05s  4.63%  runtime.gcDrainN
+     0.01s  0.93% 97.22%      0.01s  0.93%  runtime.releasem (inline)
+     0.01s  0.93% 98.15%      0.01s  0.93%  runtime.scanObject
+     0.01s  0.93% 99.07%      0.01s  0.93%  runtime.sweepone
+     0.01s  0.93%   100%      0.01s  0.93%  runtime.tryDeferToSpanScan
+         0     0%   100%      0.03s  2.78%  crypto/internal/fips140/sha256.(*Digest).Write
+         0     0%   100%      0.03s  2.78%  crypto/internal/fips140/sha256.block
+         0     0%   100%      0.05s  4.63%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).Barrier
+         0     0%   100%      0.08s  7.41%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).CheckPayloadProof
+         0     0%   100%      0.02s  1.85%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).Close
+         0     0%   100%      0.08s  7.41%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).ExchangeProof
+         0     0%   100%      0.23s 21.30%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).ReceiveRoot
+         0     0%   100%      0.03s  2.78%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).ReceiveRoot.func1 (inline)
+         0     0%   100%      0.20s 18.52%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.Open
+         0     0%   100%      0.02s  1.85%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi._Cfunc_MPI_Finalize
+         0     0%   100%      0.05s  4.63%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi._Cfunc_barrier_world
+         0     0%   100%      0.08s  7.41%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi._Cfunc_exchange_proof
+         0     0%   100%      0.20s 18.52%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi._Cfunc_open_world
+         0     0%   100%      0.19s 17.59%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi._Cfunc_receive_count
+         0     0%   100%      0.03s  2.78%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi._Cfunc_receive_values
+         0     0%   100%      0.02s  1.85%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/mpi-host-buffers.TestHostBuffers.func1
+         0     0%   100%      0.01s  0.93%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/mpi-host-buffers.fingerprint[go.shape.uint32]
+         0     0%   100%      0.01s  0.93%  runtime.(*mcache).allocLarge
+         0     0%   100%      0.01s  0.93%  runtime.(*mheap).alloc
+         0     0%   100%      0.01s  0.93%  runtime.(*mheap).alloc.func1
+         0     0%   100%      0.01s  0.93%  runtime.(*mheap).reclaim
+         0     0%   100%      0.08s  7.41%  runtime._ExternalCode
+         0     0%   100%      0.01s  0.93%  runtime.bgsweep
+         0     0%   100%      0.05s  4.63%  runtime.deductAssistCredit
+         0     0%   100%      0.05s  4.63%  runtime.gcAssistAlloc
+         0     0%   100%      0.05s  4.63%  runtime.gcAssistAlloc.func2
+         0     0%   100%      0.05s  4.63%  runtime.gcAssistAlloc1
+         0     0%   100%      0.01s  0.93%  runtime.gcBgMarkWorker
+         0     0%   100%      0.01s  0.93%  runtime.gcBgMarkWorker.func2
+         0     0%   100%      0.01s  0.93%  runtime.gcDrain
+         0     0%   100%      0.01s  0.93%  runtime.gcDrainMarkWorkerFractional (inline)
+         0     0%   100%      0.32s 29.63%  runtime.makeslice
+         0     0%   100%      0.32s 29.63%  runtime.mallocgc
+         0     0%   100%      0.27s 25.00%  runtime.mallocgcLarge
+         0     0%   100%      0.04s  3.70%  runtime.markroot
+         0     0%   100%      0.01s  0.93%  runtime.markroot.func1
+         0     0%   100%      0.03s  2.78%  runtime.markrootBlock
+         0     0%   100%      0.26s 24.07%  runtime.memclrNoHeapPointersChunked
+         0     0%   100%      0.01s  0.93%  runtime.scanframeworker
+         0     0%   100%      0.01s  0.93%  runtime.scanstack
+         0     0%   100%      0.07s  6.48%  runtime.systemstack
+         0     0%   100%      0.98s 90.74%  testing.tRunner

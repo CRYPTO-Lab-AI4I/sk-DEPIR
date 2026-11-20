@@ -9,13 +9,18 @@ UCX=Path('/cm/shared/apps/ucx/1.18.0/bin/ucx_info')
 SETTINGS={'OMPI_MCA_pml':'ucx','OMPI_MCA_pml_base_verbose':'20','OMPI_MCA_btl_base_verbose':'40','UCX_LOG_LEVEL':'info','UCX_RCACHE_ENABLE':'n'}
 
 
-def suite(context):
+def configure(context):
     context['env'].pop('OMPI_MCA_btl',None)
     context['env'].update(SETTINGS)
     context['run']('ucx-version',[UCX,'-v'])
     context['run']('ucx-config',[UCX,'-f'])
     assert 'UCX_RCACHE_ENABLE=n'in (context['out']/'ucx-config.log').read_text().splitlines()
-    return HOST['suite'](context,transport=SETTINGS)
+    context['resources']['diagnostic_transport']=dict(SETTINGS)
+    return SETTINGS
+
+
+def suite(context):
+    return HOST['suite'](context,transport=configure(context))
 
 
 if __name__=='__main__':

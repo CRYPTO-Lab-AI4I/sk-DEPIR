@@ -1,0 +1,250 @@
+{
+  "status": "passed",
+  "job_id": "78218",
+  "revision": "19e6143b55b86ea6e1633d1a83353afb00093b16",
+  "source_files_verified": 658,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 33,
+  "cache_files_verified": 3,
+  "tests": [
+    "TestWideOrbitArithmetic",
+    "TestTableFreeFields"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.010195916052907705,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.01805202104151249,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.26697571796830744,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.019487504032440484,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.036417749943211675,
+      "exit_code": 0
+    },
+    {
+      "label": "ucx-version",
+      "seconds": 0.0696310579078272,
+      "exit_code": 0
+    },
+    {
+      "label": "ucx-config",
+      "seconds": 0.11682742391712964,
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "seconds": 17.222951850038953,
+      "exit_code": 0
+    },
+    {
+      "label": "unit",
+      "seconds": 0.3692266480065882,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-normal",
+      "seconds": 2.0714381370926276,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-reclaim",
+      "seconds": 2.327466027927585,
+      "exit_code": 0
+    },
+    {
+      "label": "direct-normal",
+      "seconds": 2.1235947830136865,
+      "exit_code": 0
+    },
+    {
+      "label": "direct-reclaim",
+      "seconds": 2.2247992330230772,
+      "exit_code": 0
+    },
+    {
+      "label": "profile",
+      "seconds": 28.106102003948763,
+      "exit_code": 0
+    }
+  ],
+  "scope": "Host-only MPI replay; stress reclamation is diagnostic, not a production mode or proof of cause.",
+  "pml_selection": {
+    "staged-normal": [
+      {
+        "rank": 0,
+        "component": "ucx",
+        "line": 331,
+        "evidence": "0: [gnode13:2495840] select: component ucx selected"
+      },
+      {
+        "rank": 1,
+        "component": "ucx",
+        "line": 334,
+        "evidence": "1: [gnode13:2495841] select: component ucx selected"
+      },
+      {
+        "rank": 2,
+        "component": "ucx",
+        "line": 341,
+        "evidence": "2: [gnode14:2915930] select: component ucx selected"
+      },
+      {
+        "rank": 3,
+        "component": "ucx",
+        "line": 344,
+        "evidence": "3: [gnode14:2915931] select: component ucx selected"
+      }
+    ],
+    "staged-reclaim": [
+      {
+        "rank": 0,
+        "component": "ucx",
+        "line": 334,
+        "evidence": "0: [gnode13:2496183] select: component ucx selected"
+      },
+      {
+        "rank": 1,
+        "component": "ucx",
+        "line": 337,
+        "evidence": "1: [gnode13:2496184] select: component ucx selected"
+      },
+      {
+        "rank": 2,
+        "component": "ucx",
+        "line": 341,
+        "evidence": "2: [gnode14:2916322] select: component ucx selected"
+      },
+      {
+        "rank": 3,
+        "component": "ucx",
+        "line": 344,
+        "evidence": "3: [gnode14:2916328] select: component ucx selected"
+      }
+    ],
+    "direct-normal": [
+      {
+        "rank": 0,
+        "component": "ucx",
+        "line": 335,
+        "evidence": "0: [gnode13:2496600] select: component ucx selected"
+      },
+      {
+        "rank": 1,
+        "component": "ucx",
+        "line": 338,
+        "evidence": "1: [gnode13:2496601] select: component ucx selected"
+      },
+      {
+        "rank": 3,
+        "component": "ucx",
+        "line": 341,
+        "evidence": "3: [gnode14:2916674] select: component ucx selected"
+      },
+      {
+        "rank": 2,
+        "component": "ucx",
+        "line": 344,
+        "evidence": "2: [gnode14:2916673] select: component ucx selected"
+      }
+    ],
+    "direct-reclaim": [
+      {
+        "rank": 1,
+        "component": "ucx",
+        "line": 336,
+        "evidence": "1: [gnode13:2496918] select: component ucx selected"
+      },
+      {
+        "rank": 0,
+        "component": "ucx",
+        "line": 338,
+        "evidence": "0: [gnode13:2496917] select: component ucx selected"
+      },
+      {
+        "rank": 2,
+        "component": "ucx",
+        "line": 341,
+        "evidence": "2: [gnode14:2916982] select: component ucx selected"
+      },
+      {
+        "rank": 3,
+        "component": "ucx",
+        "line": 344,
+        "evidence": "3: [gnode14:2916983] select: component ucx selected"
+      }
+    ]
+  },
+  "paired_failures": [],
+  "completed_arms": [
+    {
+      "mode": "staged",
+      "reclaim": false,
+      "proof_events": 512,
+      "completed_handoffs": 256,
+      "peak_rss_bytes_per_rank": 310816768,
+      "hosts": {
+        "1": "gnode13",
+        "0": "gnode13",
+        "3": "gnode14",
+        "2": "gnode14"
+      }
+    },
+    {
+      "mode": "staged",
+      "reclaim": true,
+      "proof_events": 512,
+      "completed_handoffs": 256,
+      "peak_rss_bytes_per_rank": 277135360,
+      "hosts": {
+        "0": "gnode13",
+        "1": "gnode13",
+        "3": "gnode14",
+        "2": "gnode14"
+      }
+    },
+    {
+      "mode": "direct",
+      "reclaim": false,
+      "proof_events": 512,
+      "completed_handoffs": 256,
+      "peak_rss_bytes_per_rank": 309260288,
+      "hosts": {
+        "0": "gnode13",
+        "1": "gnode13",
+        "3": "gnode14",
+        "2": "gnode14"
+      }
+    },
+    {
+      "mode": "direct",
+      "reclaim": true,
+      "proof_events": 512,
+      "completed_handoffs": 256,
+      "peak_rss_bytes_per_rank": 278814720,
+      "hosts": {
+        "1": "gnode13",
+        "3": "gnode14",
+        "2": "gnode14",
+        "0": "gnode13"
+      }
+    }
+  ],
+  "captures": [],
+  "current_arm": "direct-reclaim",
+  "workflow_error": null
+}

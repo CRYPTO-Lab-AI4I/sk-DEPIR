@@ -17,6 +17,10 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-20 08:40 | SCALING-137 | Prepared | [GPU tree cache-controlled comparison ready](2026-11-20-0840-codex-scaling-137-prepared.md) |
+| 2026-11-20 08:40 | SCALING-136 | Completed | [Host cache control fully passed](2026-11-20-0840-codex-scaling-136-completed.md) |
+| 2026-11-20 08:36 | SCALING-137 | Started | [Validate GPU merge tree with explicit UCX cache control](2026-11-20-0836-codex-scaling-137-started.md) |
+| 2026-11-20 08:36 | SCALING-136 | Started | [Review passing UCX cache control78218](2026-11-20-0836-codex-scaling-136-started.md) |
 | 2026-11-20 08:20 | SCALING-135 | Handoff | [UCX cache control78218 submitted](2026-11-20-0820-codex-scaling-135-handoff.md) |
 | 2026-11-20 08:19 | SCALING-135 | Prepared | [UCX registration-cache diagnostic ready](2026-11-20-0819-codex-scaling-135-prepared.md) |
 | 2026-11-20 08:19 | SCALING-134 | Completed | [UCX selection and direct failure verified](2026-11-20-0819-codex-scaling-134-completed.md) |

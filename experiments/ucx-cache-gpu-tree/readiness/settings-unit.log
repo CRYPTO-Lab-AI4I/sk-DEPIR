@@ -1,0 +1,11 @@
+# runtime/cgo
+[lnode02:00197] opal_ifinit: socket() failed with errno=1
+# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi [github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.test]
+[lnode02:00064] opal_ifinit: socket() failed with errno=1
+# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi [github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.test]
+[lnode02:00063] opal_ifinit: socket() failed with errno=1
+# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi [github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.test]
+[lnode02:00071] opal_ifinit: socket() failed with errno=1
+# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.test
+[lnode02:00133] opal_ifinit: socket() failed with errno=1
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi	0.007s

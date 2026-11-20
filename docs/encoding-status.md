@@ -645,11 +645,16 @@ scheduler elapsed. [Discovery 78009](../experiments/mpi-transport-discovery/repo
 **selected UCX on every rank** and reproduced the direct cross-node payload
 corruption. Both staged controls passed 256 handoffs / 512 proof endpoints;
 direct-reclaim was unrun. HPC: 2 nodes / 4 CPU cores / 8 GiB requested host /
-zero GPUs; 28 s scheduler elapsed. Next is an
-[explicit UCX registration-cache control](../experiments/ucx-registration-cache/report.md),
-keeping the same replay and UCX backend. **78218 submitted**, results unreviewed; repeated registration
-may cost time and affect internal pinned memory. No production default or full
-s=18 validation change; the underlying mechanism remains unproved.
+zero GPUs; 28 s scheduler elapsed. [Cache control 78218](../experiments/ucx-registration-cache/report.md#review-of-78218)
+**passed all four host arms**: 1,024 handoffs / 2,048 endpoint checks, including
+both direct-buffer arms. UCX and `UCX_RCACHE_ENABLE=n` were verified. Largest
+logged process peak RSS **296.418 MiB/rank**; HPC 2 nodes / 4 CPU cores / 8 GiB
+requested host / zero GPUs, **1 min 2 s** scheduler elapsed. This supports a cache
+interaction under the probe, not a permanent repair or full-size result. Next
+[GPU-tree validation](../experiments/ucx-cache-gpu-tree/report.md) uses the same
+explicit control and the previously admitted two-H200 budget; prepared, unmeasured.
+No production default or full s=18 validation change; cache-disabling overhead in
+full preprocessing remains unknown.
 
 ## Measurement boundaries for batch entries
 

@@ -183,7 +183,7 @@ func TestRankOwnedRootTree(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	emit(map[string]any{"kind": "host", "ranks": world.Size, "visible_devices": os.Getenv("CUDA_VISIBLE_DEVICES"), "local_rank": os.Getenv("SLURM_LOCALID"), "chunk_words": world.ChunkWords, "buffer_mode": *rootMPIBuffer, "staging_bytes": world.StagingBytes()})
+	emit(map[string]any{"kind": "host", "ranks": world.Size, "visible_devices": os.Getenv("CUDA_VISIBLE_DEVICES"), "local_rank": os.Getenv("SLURM_LOCALID"), "chunk_words": world.ChunkWords, "mpi_transport": mpi.TransportSettings(), "buffer_mode": *rootMPIBuffer, "staging_bytes": world.StagingBytes()})
 	cases := []struct {
 		s, count int
 		genuine  bool
