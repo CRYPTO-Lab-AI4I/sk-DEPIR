@@ -30,6 +30,12 @@ typedef struct pg_bridge {
   int (*taylor_degrees)(void *, unsigned, size_t, size_t, unsigned, uint64_t *, size_t, size_t *, char *, size_t);
   int (*taylor_stage)(void *, void *, size_t, unsigned, size_t, size_t, unsigned, int, size_t, size_t, size_t, char *, size_t);
   int (*stage_pointwise)(void *, void *, const void *, size_t, unsigned, size_t, size_t, char *, size_t);
+  int (*rank_create)(void *, size_t, size_t, unsigned, unsigned, size_t, void **, char *, size_t);
+  int (*rank_view)(void *, unsigned, size_t, size_t, int, char *, size_t);
+  int (*rank_transfer)(void *, unsigned, size_t, void *, size_t, int, char *, size_t);
+  int (*rank_local)(void *, unsigned, unsigned, char *, size_t);
+  int (*rank_tile)(void *, unsigned, unsigned, size_t, void *, size_t, int, char *, size_t);
+  void (*rank_destroy)(void *);
   uint64_t (*owned)(void *);
   void (*destroy)(void *);
 } pg_bridge;
@@ -73,6 +79,12 @@ static pg_bridge *pg_bridge_open(const char *path, unsigned s, uint32_t poly,
   b->taylor_degrees = dlsym(b->library, "pg_taylor_degrees");
   b->taylor_stage = dlsym(b->library, "pg_taylor_stage");
   b->stage_pointwise = dlsym(b->library, "pg_stage_pointwise");
+  b->rank_create=dlsym(b->library,"pg_rank_create");
+  b->rank_view=dlsym(b->library,"pg_rank_view");
+  b->rank_transfer=dlsym(b->library,"pg_rank_transfer");
+  b->rank_local=dlsym(b->library,"pg_rank_local");
+  b->rank_tile=dlsym(b->library,"pg_rank_tile");
+  b->rank_destroy=dlsym(b->library,"pg_rank_destroy");
   b->owned = dlsym(b->library, "pg_owned_bytes");
   b->destroy = dlsym(b->library, "pg_destroy");
   if (!create || !b->apply || !b->grid || !b->product || !b->spectrum ||
@@ -91,6 +103,26 @@ static pg_bridge *pg_bridge_open(const char *path, unsigned s, uint32_t poly,
   }
   return b;
 }
+static int pg_bridge_has_rank(pg_bridge *b) {
+ return b && b->rank_create && b->rank_view && b->rank_transfer && b->rank_local && b->rank_tile && b->rank_destroy;
+}
+static int pg_bridge_rank_create(pg_bridge *b,size_t rows,size_t columns,unsigned rank,unsigned ranks,size_t tile,void **out,char *error,size_t cap) {
+ if(!pg_bridge_has_rank(b)){snprintf(error,cap,"GPU rank storage ABI unavailable");return 1;}
+ return b->rank_create(b->engine,rows,columns,rank,ranks,tile,out,error,cap);
+}
+static int pg_bridge_rank_view(pg_bridge *b,void *h,unsigned slot,size_t rows,size_t columns,int interleaved,char *error,size_t cap) {
+ return b->rank_view(h,slot,rows,columns,interleaved,error,cap);
+}
+static int pg_bridge_rank_transfer(pg_bridge *b,void *h,unsigned slot,size_t offset,void *values,size_t words,int upload,char *error,size_t cap) {
+ return b->rank_transfer(h,slot,offset,values,words,upload,error,cap);
+}
+static int pg_bridge_rank_local(pg_bridge *b,void *h,unsigned source,unsigned target,char *error,size_t cap) {
+ return b->rank_local(h,source,target,error,cap);
+}
+static int pg_bridge_rank_tile(pg_bridge *b,void *h,unsigned slot,unsigned peer,size_t offset,void *values,size_t words,int pack,char *error,size_t cap) {
+ return b->rank_tile(h,slot,peer,offset,values,words,pack,error,cap);
+}
+static void pg_bridge_rank_destroy(pg_bridge *b,void *h){b->rank_destroy(h);}
 static int pg_bridge_has_vector_stage(pg_bridge *b) {
   return b && b->vector_stage;
 }

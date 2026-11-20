@@ -81,6 +81,11 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Distributed GPU resident storage](distributed-gpu-storage/report.md): three
+  reusable shards, GPU row/interleaved pack/scatter and shared transpose schedule;
+  local CPU/race/build checks pass, bounded MPI/GPU validation prepared. No resident
+  FFT/product or fulls18 result yet.
+
 - [Distributed GPU polynomial product](distributed-gpu-product/report.md): shared
   forward/pointwise/inverse composition, independent schoolbook/alias checks;
   78321 passed bounded MPI/GPU products and CUDA checks. No fulls18 or selected resident layout.

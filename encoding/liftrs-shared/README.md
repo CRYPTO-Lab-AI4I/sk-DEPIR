@@ -857,3 +857,13 @@ FFTs with an injected pointwise backend. Disjoint zero-padded operands are consu
 the domain must exceed their summed degree. Independent CPU/schoolbook tests pass;
 [bounded MPI/GPU validation](../../experiments/distributed-gpu-product/report.md)
 78321 passed. This host-shard control path does not select a production layout.
+
+The [resident storage adapter](distributed_storage_cuda.go), built only with
+`liftrs_cuda,cgo`, now uses the same `transposeStored` schedule as the host
+reference. GPU local copy and row/interleaved pack/scatter do not change ownership,
+message order, proofs or slot representation. It retains one bounded host tile;
+three owned GPU shards and device transfer workspace are cap-accounted.
+[Bounded storage gate](../../experiments/distributed-gpu-storage/report.md)
+awaits MPI/GPU execution. Host serial/rendezvous/race regressions and storage-error
+propagation checks pass. Complete resident Taylor/FFT/product integration remains
+pending; no client/production default changes.

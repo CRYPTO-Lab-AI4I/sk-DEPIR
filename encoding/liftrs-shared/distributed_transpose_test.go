@@ -128,3 +128,44 @@ func TestRankTransposeAdmissionAndFailure(t *testing.T) {
 		t.Fatal("wide layout count", p, err)
 	}
 }
+
+// Storage failures must stop the common schedule before reporting a complete
+// target. A GPU failure has the same contract; no partial shard may be published.
+type failedTransposeStorage struct {
+	phase string
+	calls []string
+}
+
+func (s *failedTransposeStorage) fail(phase string) error {
+	s.calls = append(s.calls, phase)
+	if s.phase == phase {
+		return errors.New("storage " + phase)
+	}
+	return nil
+}
+func (s *failedTransposeStorage) Local(rankTransposePlan) error { return s.fail("local") }
+func (s *failedTransposeStorage) Pack(rankTransposePlan, int, uint64, []uint32) error {
+	return s.fail("pack")
+}
+func (s *failedTransposeStorage) Scatter(rankTransposePlan, int, uint64, []uint32) error {
+	return s.fail("scatter")
+}
+
+type discardTransposeLink struct{}
+
+func (discardTransposeLink) SendTile(int, transposePacket, []uint32) error    { return nil }
+func (discardTransposeLink) ReceiveTile(int, transposePacket, []uint32) error { return nil }
+func TestRankTransposeStorageFailure(t *testing.T) {
+	for _, phase := range []string{"local", "pack", "scatter"} {
+		p, err := newRankTransposePlan(1, 3, 5, 0, 2, 15, 2)
+		if err != nil {
+			t.Fatal(err)
+		}
+		s := &failedTransposeStorage{phase: phase}
+		complete := false
+		err = transposeStored[uint32](p, s, discardTransposeLink{}, func(phase string, _, _ uint64) { complete = complete || phase == "transpose-output" })
+		if err == nil || err.Error() != "storage "+phase || complete || s.calls[len(s.calls)-1] != phase {
+			t.Fatal(phase, s.calls, err, complete)
+		}
+	}
+}

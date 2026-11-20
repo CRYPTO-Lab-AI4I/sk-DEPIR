@@ -59,17 +59,46 @@ func newRankTransposePlan(operation, rows, columns uint64, rank, ranks int, maxL
 	return p, nil
 }
 
-// transposeRank keeps one input shard, one output shard and one reusable tile.
-// Pairwise rounds send to rank+round and receive from rank-round. A rank sends
-// first iff rank<destination; every nontrivial permutation cycle then has both
-// send-first and receive-first participants, avoiding a blocking-send cycle.
-// Empty bands exchange no messages. All ranks must use the same operation,
-// dimensions, tile bound and invocation order; descriptors detect mismatches.
-// Packing is scalar here, so its latency is NOT a GPU performance projection.
-func transposeRank[Word transposeWord](p rankTransposePlan, input []Word, link transposeLink[Word], notice func(string, uint64, uint64)) ([]Word, error) {
+// rankTransposeStorage separates owned-array access from the communication
+// schedule. Pack/Scatter borrow only a bounded tile; Local preserves the source.
+// On error the destination is incomplete and the caller must discard/reset it.
+type rankTransposeStorage[Word transposeWord] interface {
+	Local(rankTransposePlan) error
+	Pack(rankTransposePlan, int, uint64, []Word) error
+	Scatter(rankTransposePlan, int, uint64, []Word) error
+}
+
+type hostTransposeStorage[Word transposeWord] struct{ input, output []Word }
+
+func (h hostTransposeStorage[Word]) Local(p rankTransposePlan) error {
+	for column := uint64(0); column < p.OutputRows; column++ {
+		for row := uint64(0); row < p.InputRows; row++ {
+			h.output[column*p.Rows+p.InputFirst+row] = h.input[row*p.Columns+p.OutputFirst+column]
+		}
+	}
+	return nil
+}
+func (h hostTransposeStorage[Word]) Pack(p rankTransposePlan, peer int, offset uint64, tile []Word) error {
+	first, _ := rankBand(p.Columns, peer, p.Ranks)
+	for j := range tile {
+		index := offset + uint64(j)
+		tile[j] = h.input[(index%p.InputRows)*p.Columns+first+index/p.InputRows]
+	}
+	return nil
+}
+func (h hostTransposeStorage[Word]) Scatter(p rankTransposePlan, peer int, offset uint64, tile []Word) error {
+	first, rows := rankBand(p.Rows, peer, p.Ranks)
+	for j := range tile {
+		index := offset + uint64(j)
+		h.output[(index/rows)*p.Rows+first+index%rows] = tile[j]
+	}
+	return nil
+}
+
+func validateTranspose[Word transposeWord](p rankTransposePlan, link transposeLink[Word]) error {
 	admitted, err := newRankTransposePlan(p.Operation, p.Rows, p.Columns, p.Rank, p.Ranks, max(p.InputWords, p.OutputWords), p.TileWords)
-	if err != nil || admitted != p || uint64(len(input)) != p.InputWords || (p.Ranks > 1 && link == nil) {
-		return nil, fmt.Errorf("transpose plan/input/link mismatch")
+	if err != nil || admitted != p || (p.Ranks > 1 && link == nil) {
+		return fmt.Errorf("transpose plan/link mismatch")
 	}
 	var zero Word
 	wordBytes := uint64(8)
@@ -78,15 +107,42 @@ func transposeRank[Word transposeWord](p rankTransposePlan, input []Word, link t
 	}
 	maxWords := uint64(^uint(0)>>1) / wordBytes
 	if p.InputWords > maxWords || p.OutputWords > maxWords || p.ScratchWords > maxWords {
-		return nil, fmt.Errorf("transpose byte extent exceeds platform")
+		return fmt.Errorf("transpose byte extent exceeds platform")
+	}
+	return nil
+}
+
+// transposeRank is the host correctness adapter, retaining one input/output shard
+// and a bounded transport tile. Storage adapters share transposeStored verbatim.
+func transposeRank[Word transposeWord](p rankTransposePlan, input []Word, link transposeLink[Word], notice func(string, uint64, uint64)) ([]Word, error) {
+	if err := validateTranspose(p, link); err != nil {
+		return nil, err
+	}
+	if uint64(len(input)) != p.InputWords {
+		return nil, fmt.Errorf("transpose input mismatch")
 	}
 	out := make([]Word, int(p.OutputWords))
+	if err := transposeStored(p, hostTransposeStorage[Word]{input, out}, link, notice); err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// transposeStored keeps exactly one host tile. Pairwise rounds send to rank+round
+// and receive from rank-round, send first iff rank<destination, avoiding blocking
+// cycles. Empty bands exchange nothing. Headers, proofs and notice boundaries are
+// independent of storage; GPU packing does not change wire order or arithmetic.
+func transposeStored[Word transposeWord](p rankTransposePlan, storage rankTransposeStorage[Word], link transposeLink[Word], notice func(string, uint64, uint64)) error {
+	if err := validateTranspose(p, link); err != nil {
+		return err
+	}
+	if storage == nil {
+		return fmt.Errorf("transpose storage missing")
+	}
 	tile := make([]Word, int(p.ScratchWords))
 	localWords := p.InputRows * p.OutputRows
-	for column := uint64(0); column < p.OutputRows; column++ {
-		for row := uint64(0); row < p.InputRows; row++ {
-			out[column*p.Rows+p.InputFirst+row] = input[row*p.Columns+p.OutputFirst+column]
-		}
+	if err := storage.Local(p); err != nil {
+		return err
 	}
 	sent, received := uint64(0), uint64(0)
 	emit := func(phase string, done, total uint64) {
@@ -96,14 +152,12 @@ func transposeRank[Word transposeWord](p rankTransposePlan, input []Word, link t
 	}
 	emit("transpose-local", localWords, localWords)
 	send := func(peer int, round uint64) error {
-		first, columns := rankBand(p.Columns, peer, p.Ranks)
+		_, columns := rankBand(p.Columns, peer, p.Ranks)
 		words := p.InputRows * columns
 		for offset := uint64(0); offset < words; {
 			take := min(p.TileWords, words-offset)
-			for j := uint64(0); j < take; j++ {
-				index := offset + j
-				column, row := index/p.InputRows, index%p.InputRows
-				tile[j] = input[row*p.Columns+first+column]
+			if err := storage.Pack(p, peer, offset, tile[:int(take)]); err != nil {
+				return err
 			}
 			packet := transposePacket{p.Operation, p.Rows, p.Columns, round, offset, take}
 			if err := link.SendTile(peer, packet, tile[:int(take)]); err != nil {
@@ -116,7 +170,7 @@ func transposeRank[Word transposeWord](p rankTransposePlan, input []Word, link t
 		return nil
 	}
 	receive := func(peer int, round uint64) error {
-		first, rows := rankBand(p.Rows, peer, p.Ranks)
+		_, rows := rankBand(p.Rows, peer, p.Ranks)
 		words := rows * p.OutputRows
 		for offset := uint64(0); offset < words; {
 			take := min(p.TileWords, words-offset)
@@ -124,10 +178,8 @@ func transposeRank[Word transposeWord](p rankTransposePlan, input []Word, link t
 			if err := link.ReceiveTile(peer, packet, tile[:int(take)]); err != nil {
 				return err
 			}
-			for j := uint64(0); j < take; j++ {
-				index := offset + j
-				column, row := index/rows, index%rows
-				out[column*p.Rows+first+row] = tile[j]
+			if err := storage.Scatter(p, peer, offset, tile[:int(take)]); err != nil {
+				return err
 			}
 			received += take
 			emit("transpose-receive", received, p.OutputWords-localWords)
@@ -135,6 +187,7 @@ func transposeRank[Word transposeWord](p rankTransposePlan, input []Word, link t
 		}
 		return nil
 	}
+	var err error
 	for round := 1; round < p.Ranks; round++ {
 		destination, source := (p.Rank+round)%p.Ranks, (p.Rank-round+p.Ranks)%p.Ranks
 		if p.Rank < destination {
@@ -147,12 +200,12 @@ func transposeRank[Word transposeWord](p rankTransposePlan, input []Word, link t
 			}
 		}
 		if err != nil {
-			return nil, err
+			return err
 		}
 	}
 	if sent != p.InputWords-localWords || received != p.OutputWords-localWords {
-		return nil, fmt.Errorf("transpose ownership coverage")
+		return fmt.Errorf("transpose ownership coverage")
 	}
 	emit("transpose-output", p.OutputWords, p.OutputWords)
-	return out, nil
+	return nil
 }

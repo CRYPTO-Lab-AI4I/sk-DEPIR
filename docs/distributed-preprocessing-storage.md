@@ -1,8 +1,10 @@
 # Distributed preprocessing: GPU-resident working storage
 
 Next implementation step after [small distributed products passed78321](../experiments/distributed-gpu-product/report.md).
-This is a proposed storage backend, not implemented support, a runtime result or
-resource admission. We remain on step1 (distributed large products/FFTs).
+The first [resident-storage/transpose prototype](../experiments/distributed-gpu-storage/report.md)
+is implemented and prepared for bounded validation. Resident Taylor/FFT/product
+integration, fullsize costs and resource admission remain separate. We remain
+on step1 (distributed large products/FFTs).
 
 The existing host-shard implementation is a correctness reference. Its conservative
 product model includes six full host shards, while GPU arithmetic uses bounded
@@ -71,3 +73,20 @@ The immediate prototype should fit the existing two-node/two-H200 bounded budget
 at small sizes. The projected16-GPU arrangement is not authorized by that budget.
 Retain faster validated defaults when they fit; do not automatically fall back to
 a slower host/disk route or assume new allocation/communication costs are free.
+
+## First storage gate (SCALING-152)
+
+The host and CUDA adapters now share the rank transpose schedule; descriptors,
+proofs, ownership and round ordering are unchanged. Three reusable device shards
+and a127-word device transfer tile are counted by the executor cap. GPU kernels
+copy local intersections, pack outgoing rectangles and scatter incoming rectangles
+directly between either physical layout. The control plane allocates only one
+bounded host transport tile; diagnostic test inputs/oracles are additional.
+
+The gate covers both slot widths, all four source/target layout combinations,
+uneven/empty ownership, inverse transposes, alias/extent rejection, source/third-slot
+preservation and stable retained allocation. It deliberately moves arbitrary slot
+bits without arithmetic. This validates storage; it does not validate a resident
+FFT, product or canonical field values. Taylor-window storage access, resident
+vector/pointwise composition and matched complete products are next, conditional
+on this gate passing. No large calibration or resource increase is implied.

@@ -45,6 +45,16 @@ int pg_taylor_stage(void *, void *, size_t, unsigned, size_t, size_t, unsigned,
 // Optional bounded spectrum multiplication; replaces left, borrows right.
 int pg_stage_pointwise(void *, void *, const void *, size_t, unsigned, size_t,
                       size_t, char *, size_t);
+// Optional raw rank storage. One dedicated engine; three reusable slot arrays.
+// Reset view before filling a destination; it remains incomplete until the
+// caller's shared schedule succeeds. Transfers use bounded logical row-major
+// offsets even when physical storage is interleaved. Values are moved bitwise.
+int pg_rank_create(void *, size_t, size_t, unsigned, unsigned, size_t, void **, char *, size_t);
+int pg_rank_view(void *, unsigned, size_t, size_t, int, char *, size_t);
+int pg_rank_transfer(void *, unsigned, size_t, void *, size_t, int, char *, size_t);
+int pg_rank_local(void *, unsigned, unsigned, char *, size_t);
+int pg_rank_tile(void *, unsigned, unsigned, size_t, void *, size_t, int, char *, size_t);
+void pg_rank_destroy(void *);
 uint64_t pg_owned_bytes(void *);
 void pg_destroy(void *);
 #ifdef __cplusplus

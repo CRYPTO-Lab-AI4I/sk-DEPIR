@@ -2687,3 +2687,19 @@ caller/output buffers and I/O remain additional. Larger allocations/setup andGPU
 packing costs unmeasured; reduced repeated staging is not a measured speedup.
 No new default, resource admission or fulls18 claim. Stillstep1; discovery, generator/
 verification integration, coordinated persistence and whole-pipeline scaling remain.
+
+### Resident storage/transpose gate (SCALING-152)
+
+Proceed without a fresh go-ahead when the next step is clear, including after
+completion pings. Keep the long-job handoff/no-monitoring rule and concrete
+resource admission requirements. The standing instruction does not authorize
+resource increases or skipping correctness gates.
+
+The [first resident-storage prototype](../experiments/distributed-gpu-storage/report.md)
+implements three reusable GPU shards, one bounded device transfer tile and GPU
+row/interleaved pack/scatter. It shares the rank communication schedule and proof
+checks with the host adapter. CPU/race regressions and native/interface build
+checks pass. Next: bounded two-node validation under the existing envelope, then
+resident vector/Taylor/pointwise composition and complete product comparison.
+Resident fullsize speedup/memory peaks are unknown. The main reference reports
+this component's pending validation explicitly; we remain on step1.

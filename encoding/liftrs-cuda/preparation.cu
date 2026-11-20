@@ -133,13 +133,13 @@ struct Buffer {
 struct Card {
   int id = 0;
   Buffer logs, powers, x, y, scratch, flag, base, roots, indices, jumps, weights,
-      ternary, good, total, code_p, code_spectrum, parity;
+      ternary, good, total, code_p, code_spectrum, parity, transport;
   std::unordered_map<size_t, std::unique_ptr<Buffer>> plans;
   uint64_t owned() const {
     uint64_t bytes = 0;
     for (auto p :
          {&logs, &powers, &x, &y, &scratch, &flag, &base, &roots, &indices, &jumps,
-          &weights, &ternary, &good, &total, &code_p, &code_spectrum, &parity})
+          &weights, &ternary, &good, &total, &code_p, &code_spectrum, &parity, &transport})
       bytes += p->bytes;
     for (const auto &p : plans)
       bytes += p.second->bytes;
@@ -150,9 +150,11 @@ struct Card {
 // Pipeline-specific sequences live outside this executor.
 template <class Word> class HostTiled;
 template <class Word> class VectorStage;
+template <class Word> class RankStorage;
 template <class Word> class Resident {
   template <class> friend class HostTiled;
   template <class> friend class VectorStage;
+  template <class> friend class RankStorage;
   unsigned s_;
   uint32_t polynomial_, delta_;
   Word omega_;
@@ -865,6 +867,7 @@ public:
 };
 #include "resident_encoding.cuh"
 #include "vector_stage.cuh"
+#include "rank_storage.cuh"
 
 struct Engine {
   using Narrow = Resident<uint32_t>;
@@ -1122,4 +1125,54 @@ extern "C" int pg_stage_pointwise(void *handle, void *left, const void *right,
       stage.product(static_cast<Word *>(left),static_cast<const Word *>(right),words);
     });
   });
+}
+
+// Optional dedicated rank-storage owner. Destroy before its borrowed engine.
+extern "C" int pg_rank_create(void *engine, size_t rows, size_t columns,
+    unsigned rank, unsigned ranks, size_t tile, void **out, char *error, size_t cap) {
+  if (out) *out = nullptr;
+  return api(error, cap, [&] {
+    if (!out) throw std::runtime_error("rank storage output");
+    visit(engine, [&](auto &state) {
+      using Word = std::conditional_t<
+          std::is_same_v<std::decay_t<decltype(state)>, Engine::Narrow>, uint32_t, uint64_t>;
+      auto arena = std::make_unique<RankStorage<Word>>(state, rows, columns, rank, ranks, tile);
+      auto handle = std::make_unique<RankStorageHandle>(std::move(arena));
+      *out = handle.release();
+    });
+  });
+}
+extern "C" int pg_rank_view(void *h, unsigned slot, size_t rows, size_t columns,
+    int interleaved, char *error, size_t cap) {
+  return api(error, cap, [&] {
+    if (interleaved != 0 && interleaved != 1) throw std::runtime_error("rank storage layout");
+    visit_rank(h, [&](auto &s) { s.view(slot, rows, columns, interleaved != 0); });
+  });
+}
+extern "C" int pg_rank_transfer(void *h, unsigned slot, size_t offset, void *values,
+    size_t words, int upload, char *error, size_t cap) {
+  return api(error, cap, [&] {
+    if (upload != 0 && upload != 1) throw std::runtime_error("rank storage direction");
+    visit_rank(h, [&](auto &s) {
+      using Word = typename std::decay_t<decltype(s)>::word_type;
+      s.transfer(slot, offset, static_cast<Word *>(values), words, upload != 0);
+    });
+  });
+}
+extern "C" int pg_rank_local(void *h, unsigned source, unsigned target, char *error, size_t cap) {
+  return api(error, cap, [&] { visit_rank(h, [&](auto &s) { s.local(source, target); }); });
+}
+extern "C" int pg_rank_tile(void *h, unsigned slot, unsigned peer, size_t offset,
+    void *values, size_t words, int pack, char *error, size_t cap) {
+  return api(error, cap, [&] {
+    if (pack != 0 && pack != 1) throw std::runtime_error("rank storage direction");
+    visit_rank(h, [&](auto &s) {
+      using Word = typename std::decay_t<decltype(s)>::word_type;
+      s.tile(slot, peer, offset, static_cast<Word *>(values), words, pack != 0);
+    });
+  });
+}
+extern "C" void pg_rank_destroy(void *h) {
+  CurrentDevice restore;
+  delete static_cast<RankStorageHandle *>(h);
 }

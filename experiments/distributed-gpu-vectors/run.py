@@ -63,14 +63,14 @@ def review(rows,directory,operations=None,full_fft=False):
     return dict(measurements=values,proof_events=proof_count)
 
 
-def suite(c,full_fft=False,review_fn=review,test_name="TestDistributedGPUVectors"):
+def suite(c,full_fft=False,review_fn=review,test_name="TestDistributedGPUVectors",scope=None):
     CONTROL['configure'](c)
     run=c['run'];go=c['go'];source=c['source'];cache=c['cache'];out=c['out'];env=c['env']
-    c['resources'].update(rss_cap_GiB_per_rank=1,pinned_cap_MiB_per_rank=0,mpi_mode='staged',tile_words=127,scope='bounded distributed polynomial product'if test_name=='TestDistributedGPUProducts'else('bounded additive FFT with distributed Taylor'if full_fft else'separable GPU vectors with two rank transposes; Taylor absent'))
+    c['resources'].update(rss_cap_GiB_per_rank=1,pinned_cap_MiB_per_rank=0,mpi_mode='staged',tile_words=127,scope=scope or ('bounded distributed polynomial product'if test_name=='TestDistributedGPUProducts'else('bounded additive FFT with distributed Taylor'if full_fft else'separable GPU vectors with two rank transposes; Taylor absent')))
     c['save']();env.update(PIR_GPU_MATRIX_STAGE_TAYLOR='1'if full_fft else'0',CGO_ENABLED='1',CC='mpicc',CXX='mpicxx',GOMAXPROCS='1',PIR_RANK_LOG_FILES='1',LIFTRS_CPU_PROGRESS='1')
     run('review-tests',['python3','-B','experiments/distributed-gpu-vectors/test_review.py'],30)
-    run('cpu-orchestration',[go,'test','./encoding/liftrs-shared','-run','^TestRankMatrixVectors$|^TestRankVectorAdmission$|^TestRankTaylor|^TestRankAdditive|^TestRankProduct','-count=1','-timeout=45s'],90)
-    run('cpu-race',[go,'test','-race','./encoding/liftrs-shared','-run','^TestRankMatrixVectors$|^TestRankVectorAdmission$|^TestRankTaylor|^TestRankAdditive|^TestRankProduct','-count=1','-timeout=45s'],90)
+    run('cpu-orchestration',[go,'test','./encoding/liftrs-shared','-run','^TestRankTranspose|^TestRankMatrixVectors$|^TestRankVectorAdmission$|^TestRankTaylor|^TestRankAdditive|^TestRankProduct','-count=1','-timeout=45s'],90)
+    run('cpu-race',[go,'test','-race','./encoding/liftrs-shared','-run','^TestRankTranspose|^TestRankMatrixVectors$|^TestRankVectorAdmission$|^TestRankTaylor|^TestRankAdditive|^TestRankProduct','-count=1','-timeout=45s'],90)
     library=cache/'libliftrs-cuda.so';binary=cache/'vectors.test'
     run('cuda-build',['nvcc','-std=c++17','-O3','-lineinfo','-arch=sm_90','-shared','-Xcompiler=-fPIC,-pthread','encoding/liftrs-cuda/matrix.cu','encoding/liftrs-cuda/preparation.cu','-o',library],120)
     run('test-build',[go,'test','-c','-tags','liftrs_cpp,liftrs_cuda,liftrs_mpi','-o',binary,'./encoding/liftrs-shared'],120)

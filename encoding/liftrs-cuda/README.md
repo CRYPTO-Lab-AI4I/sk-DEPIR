@@ -388,4 +388,37 @@ if err := stages.Pointwise64(leftSpectrumTile, rightSpectrumTile); err != nil { 
 
 The [distributed polynomial-product gate](../../experiments/distributed-gpu-product/report.md)
 composes two forward FFTs, this local operation and an inverse. Small validation
-78321 passed; fullsize runtime, GPU-resident storage and s18 admission remain pending.
+78321 passed; fullsize runtime, complete resident FFT/product integration and s18 admission remain pending.
+
+## Experimental resident rank storage
+
+[`RankStorage`](rank_storage.go) owns three capped device arrays (slots0–2) and
+one bounded transfer tile on a dedicated single-GPU executor. `Reset` selects
+original/transposed global dimensions and row-major or interleaved physical
+layout, clearing just that slot. `Transfer32/64` upload/read logical row-major
+intervals of at most `tileWords`; `Local` copies the owned intersection, and
+`Tile32/64` pack/scatter peer rectangles in the existing transpose wire order.
+All moves preserve raw slot bits; arithmetic/field validation belongs to the
+caller. A target remains incomplete until every shared scheduling call succeeds.
+On failure reset/discard the target. Source and third slot remain intact.
+
+Given trusted s17 options with a4096-word maximum, one GPU and an admitted cap:
+
+```go
+store, err := liftrscuda.NewRankStorage(options, 64, 64, rank, ranks, 127)
+if err != nil { return err }
+defer store.Close()
+if err := store.Reset(0, 64, 64, false); err != nil { return err }
+// Upload this rank's logical row band in <=127-word chunks.
+if err := store.Transfer64(0, offset, inputChunk, true); err != nil { return err }
+if err := store.Reset(1, 64, 64, true); err != nil { return err }
+if err := store.Local(0, 1); err != nil { return err }
+// The shared rank scheduler must still exchange/scatter all remote rectangles.
+```
+
+The optional rank-storage ABI leaves older plugin operations usable; this owner
+requires all rank symbols and destroys the borrowing handle before its executor.
+OwnedBytes includes all arrays/transport/tables, excluding CUDA context/driver.
+No complete host matrix is retained by the adapter. Diagnostic tests separately
+materialize small input/output/reference shards. [Validation and resource limits](../../experiments/distributed-gpu-storage/report.md).
+Resident vectors/Taylor/products are not yet composed into this storage owner.

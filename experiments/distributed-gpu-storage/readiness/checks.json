@@ -1,0 +1,53 @@
+{
+  "checks": [
+    "CPU transpose/Taylor/additive FFT/product regressions: passed0.076s; race passed1.311s",
+    "CUDA optional Go API compile passed (no GPU execution)",
+    "C bridge syntax and six optional native storage exports: passed",
+    "CUDA shared plugin and complete CPP/CUDA/MPI test binary builds: passed",
+    "4storage +3composition +4FFT +3product +5summary Python tests: passed",
+    "Python AST/shell/gofmt/whitespace: passed"
+  ],
+  "native_exit_code": 0,
+  "mpi_build_exit_code": 0,
+  "local_GPU_MPI_executed": false,
+  "environment": "HPC login node; gcc14.2.0/CUDA12.9.1 sm90;OpenMPI4.1.8;Go1.27.3",
+  "native_command": "module load gcc/14.2.0 cuda12.9/toolkit/12.9.1; nvcc -std=c++17 -O3 -lineinfo -arch=sm_90 -shared -Xcompiler=-fPIC,-pthread encoding/liftrs-cuda/matrix.cu encoding/liftrs-cuda/preparation.cu -o .cache/liftrs/distributed-gpu-storage/readiness/libliftrs-cuda.so",
+  "mpi_build_command": "module load gcc/14.2.0 openmpi/gcc/64/4.1.8; GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=1 CC=mpicc CXX=mpicxx .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-gpu-storage/readiness/storage.test ./encoding/liftrs-shared",
+  "cpu_command": "GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=0 .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test ./encoding/liftrs-shared -run '^TestRankTranspose|^TestRankMatrixVectors|^TestRankTaylor|^TestRankAdditive|^TestRankProduct' -count=1 -timeout=20s",
+  "race_command": "same command with CGO_ENABLED=1 and go test -race",
+  "retained_artifacts": {
+    ".cache/liftrs/distributed-gpu-storage/readiness/libliftrs-cuda.so": {
+      "bytes": 2788936,
+      "sha256": "69b2c54e7411ff30208514b94120549fa8cd320f2978fe7c182c0362b917f883"
+    },
+    ".cache/liftrs/distributed-gpu-storage/readiness/storage.test": {
+      "bytes": 11578464,
+      "sha256": "bbeebc22ed0f575f9ec7ee12c2ed236c4b892a0591b40c361c999b6345202201"
+    }
+  },
+  "source_sha256": {
+    "encoding/liftrs-cuda/rank_storage.cuh": "959d13bb218e0ddd4f2c25811b3eaa2eddc2d2fee4ca60fe5091b03ccf60feff",
+    "encoding/liftrs-cuda/rank_storage.go": "6302b28f4df274488abced73b6f142f461fb47807a99d629748c345b8750737d",
+    "encoding/liftrs-cuda/preparation.cu": "3b3cf1b9cb769cbe87bcba5da8bd57c7ec4bc015bcea4f328cba5359e6ec3646",
+    "encoding/liftrs-cuda/preparation_api.h": "04dbae7c85f6d94b65c5b3540c7c649a297d52da0bc545a9cb1f4840f8525965",
+    "encoding/liftrs-cuda/preparation_bridge.h": "9c229a0da6b569e64f8e6900e6366760ebda2948c198d776de5ccd53b41aae51",
+    "encoding/liftrs-shared/distributed_transpose.go": "016a404f21208cfbacabcb9f7045fe1762246a3936c63a2885cf7a72c551994d",
+    "encoding/liftrs-shared/distributed_transpose_test.go": "bb5143729e71daec47389fb15bc877af740ecc35f535199d2c5a1c1fe90ec781",
+    "encoding/liftrs-shared/distributed_storage_cuda.go": "744b9ee300517c3e08d335fee362f5bb5055cb539b52bbb1e4329234f0ae2290",
+    "encoding/liftrs-shared/distributed_storage_gpu_test.go": "e725557188036ec92fa3858018be6fa8cf4c834d727c9814fd164d0997c425ee"
+  },
+  "controller_sha256": {
+    "experiments/distributed-gpu-storage/analyze.py": "602ab992c93c909c30d55f33f7dd3ca9f4633fd096abc480d53ece4af548ea40",
+    "experiments/distributed-gpu-storage/run.py": "49fff20a3c849aeaa38e7cc40379ee29c81ae532f55a9daf0b6a969dd93c10b1",
+    "experiments/distributed-gpu-storage/test_review.py": "4dc146d83eebd09a982a785eab7d09d4a9efeaa8ebf5b57e42a7e236daec7d00",
+    "experiments/distributed-gpu-storage/run.sbatch": "04ec608aac3f544536b79b5defc9c3d725dcd95de2051d97241aadae03eba877",
+    "experiments/distributed-gpu-vectors/run.py": "ccadd61a33e1e9a1e55d811a94d7ea90fe14949099fbbfcaeef2a9098de32abc"
+  },
+  "limits": "Same admitted2HPCnodes/2H200/4CPU/8GiBhost;128MiBowned/card/1GiBRSS/rank/128MiBcache/2GiBscratch;720scontroller/15minscheduler",
+  "limitations": [
+    "No MPI/GPU executed locally; bounded scheduler gate pending",
+    "OpenMPI compiler wrappers emitted opal_ifinit socket errno1 in sandbox; final compilation exit0; logs retained",
+    "Initial local compile checks caught and corrected a missing err variable and an MPI reduction method name; final source/builds above pass",
+    "Storage moves raw slots; resident FFT/Taylor/product arithmetic remains unintegrated"
+  ]
+}

@@ -180,7 +180,9 @@ queries and responses. Keep agreed contracts distinct from implemented capabilit
    explicitly asks for a check. This applies to validation and test jobs as well
    as experiments. Keep automatic resource guards, deadlines, profiling and
    checkpoint persistence active; those are part of job execution, not agent
-   monitoring. Dependent work must wait for the user's completion ping.
+   monitoring. Dependent work must wait for the user's completion ping. After
+   that ping, continue obvious next steps without asking for another go-ahead;
+   resource admission and other explicit approval requirements still apply.
 
 9. **Emit useful progress logs for long jobs.** Future jobs expected to exceed
    30 seconds must save and flush timestamped phase start/completion/error events
