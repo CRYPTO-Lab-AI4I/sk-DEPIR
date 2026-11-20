@@ -1,6 +1,10 @@
 # Rank-sharded transpose for collective preprocessing FFTs
 
-Status: **implemented; distributed MPI validation pending** (SCALING-141).
+Status: **implemented; MPI validation78279 submitted** (SCALING-141), results unreviewed.
+[Receipt](submission.json), progress `slurm-78279.log`, results/profiles
+`runs/transpose-01/`. Implementation `e96ed6a`;
+[source freeze](readiness/snapshot.json):672 files /3,138,882 bytes; all ten
+checked input hashes match. No MPI/GPU execution implied by local readiness.
 [Shared transpose](../../encoding/liftrs-shared/distributed_transpose.go),
 [CPU/rendezvous tests](../../encoding/liftrs-shared/distributed_transpose_test.go),
 [MPI harness](../../encoding/liftrs-shared/distributed_transpose_mpi_test.go),

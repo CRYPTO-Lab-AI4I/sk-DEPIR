@@ -1,0 +1,32 @@
+{
+  "job_id": "78279",
+  "submitted_utc": "2026-11-20T10:22:32.569796+00:00",
+  "implementation_revision": "e96ed6ab5e4286e43cf5106fb93ba10d10eda3c6",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--output=experiments/distributed-transpose/slurm-%j.log",
+    "experiments/distributed-transpose/run.sbatch",
+    "transpose-01"
+  ],
+  "results": "experiments/distributed-transpose/runs/transpose-01",
+  "progress_log": "experiments/distributed-transpose/slurm-78279.log",
+  "cache": ".cache/liftrs/distributed-transpose/transpose-01/",
+  "resources": {
+    "nodes": 2,
+    "ranks": 4,
+    "cpus": 4,
+    "gpus": 0,
+    "host_request_GiB_per_node": 4,
+    "rss_guard_GiB_per_rank": 1,
+    "largest_explicit_shards_and_tile_MiB_per_rank": 1.125,
+    "optional_MPI_staging_KiB_per_rank": 8,
+    "retained_cap_MiB": 128,
+    "scratch_cap_GiB": 2,
+    "controller_seconds": 720,
+    "scheduler_seconds": 900
+  },
+  "admission": "Existing host-only two-node/core/RAM/storage/deadline envelope; zero GPUs.",
+  "monitoring": "No polling/log following/results analysis until user completion ping.",
+  "scope": "First bounded sharded transpose/control prerequisite; scalar packing reference, not distributed GPU FFT or fulls18 support."
+}

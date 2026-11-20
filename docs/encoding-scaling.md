@@ -2419,7 +2419,7 @@ SCALING-109 next-work order is explicit:
    one off-rank send per moved word; latency/copies/host-device costs unknown.
    Validate MPI32/64 lanes and unchanged root/support lanes on zero GPUs in the
    existing2-node4-core8GiB envelope, then compose GPU vector/Taylor stages.
-   Distributed validation pending; no default/fullsize capability change.
+   Distributed validation **78279 submitted**, unreviewed; no default/fullsize capability change.
    Profile-report allowance remains90s within current controller/scheduler caps.
 
 6. Compare complete elapsed time across practical allocations before choosing
