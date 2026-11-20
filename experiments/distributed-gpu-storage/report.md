@@ -1,14 +1,21 @@
 # GPU-resident rank storage and transpose
 
-Status: **job78392 submitted**, implementation `f360747`; [submission receipt](submission.json).
-First storage prototype implemented; local CPU/race, C/CUDA and complete
-CPP/CUDA/MPI build checks pass. **MPI/GPU execution and CUDA sanitizer results
-are pending.** Source is frozen at `f360747`; the actual job-start revision/build-input
-identities are recorded by the controller. [Results destination](runs/storage-01/)
-and [job log](slurm-78392.log) are not inspected until the completion ping.
-[Readiness commands, hashes and limits](readiness/checks.json),
-[CUDA build log](readiness/cuda-build.log), [MPI build log](readiness/go-mpi-build.log).
-No fulls18 preprocessing, resident FFT/product, memory peak or speedup is claimed.
+Status: **job78392 passed**, source `f360747`, on HPC gnode14/gnode15,
+one H200 and2 CPU cores /4 GiB requested host RAM per node. **208 normal +208
+sanitized rank/pass results**, all four physical-layout combinations and empty/
+uneven owners match every independent output byte. Each mode verifies544 paired
+proof endpoints; both CUDA processes report zero errors/leaks. Source/third-slot
+preservation and allocation reuse pass. [Raw results](runs/storage-01/results.json),
+[independent review](runs/storage-01/analysis.json), [review summary](runs/storage-01/review-checks.json),
+[receipt](submission.json), [job log](slurm-78392.log). All710 source /33 original
+evidence /835 cache identities verify;14.849 MiB cache retained.
+
+Controller **123.480 seconds (2min3.480s)**; normal suite **4.924 seconds**,
+sanitizer **4.024 seconds**. Logged peak host RSS **376.137 MiB normal /
+413.750 MiB sanitized per process**, maximum owned GPU memory **1.583 MiB/card**,
+excluding context/driver. These tiny movement tests establish storage correctness,
+not bandwidth/fullsize speedup. [Readiness evidence](readiness/checks.json).
+Next: [resident vector composition](../distributed-resident-vectors/report.md).
 
 This implements the first gate in the [resident-storage design](../../docs/distributed-preprocessing-storage.md),
 after [bounded distributed products passed78321](../distributed-gpu-product/report.md).
@@ -99,8 +106,8 @@ increase, large workload, new disk intermediate or agent monitoring is authorize
 and its controller141.151 seconds. This storage suite has more small geometry/
 layout cases but no field arithmetic or Taylor source traffic. Each new MPI arm
 keeps240 seconds (220-second test timeout), within the existing720-second
-controller, with substantial headroom over previous bounded suites; runtime is
-unmeasured. All cases are deliberately tiny (maximum4096 words) rather than a
+controller, with substantial headroom over previous bounded suites. Completed
+normal/sanitized runtimes are reported above. All cases are deliberately tiny (maximum4096 words) rather than a
 scaling or bandwidth measurement. Controller/command times include build,
 setup/validation and file work; per-pass diagnostic clocks measure target reset,
 local GPU copy, packing, transfers, MPI proofs and scattering, taking the maximum

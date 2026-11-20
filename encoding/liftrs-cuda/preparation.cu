@@ -197,6 +197,39 @@ template <class Word> class Resident {
           unit);
     }
   }
+  // Shared bounded complete-vector launches for host-tile and resident rank
+  // storage. Callers validate layout/extent/values and select the current GPU.
+  void vector_stage(Card &c, Word *values, Matrix<Word> *metadata, size_t domain,
+      bool columns, bool inverse, size_t len, size_t first, size_t count) {
+    const auto began = std::chrono::steady_clock::now();
+    auto last = began;
+    const char *phase = columns
+        ? (inverse ? "stage-columns-inverse-vectors" : "stage-columns-forward-vectors")
+        : (inverse ? "stage-rows-inverse-vectors" : "stage-rows-forward-vectors");
+    active_domain_ = domain;
+    event(phase, "started", 0, count, began);
+    // Bound launches so progress names an increasing vector count even for large
+    // admitted tiles; each thread still owns one complete vector.
+    try {
+      for (size_t offset = 0; offset < count;) {
+        const size_t take = std::min<size_t>(4096, count - offset);
+        local_vectors<<<(take + 127) / 128, 128>>>(values, metadata, columns,
+            inverse, len, count, first, offset, take,
+            static_cast<uint32_t *>(c.logs.data), static_cast<uint32_t *>(c.powers.data));
+        check(cudaGetLastError());
+        check(cudaDeviceSynchronize());
+        offset += take;
+        if (offset == count || std::chrono::steady_clock::now() - last >= std::chrono::seconds(30)) {
+          event(phase, offset == count ? "completed" : "progress", offset, count, began);
+          last = std::chrono::steady_clock::now();
+        }
+      }
+    } catch (...) {
+      event(phase, "failed", 0, count, began);
+      throw;
+    }
+  }
+
   void admit(const Card &card, uint64_t bytes) const {
     const uint64_t used = card.owned();
     if (used > cap_ || bytes > cap_ - used)
@@ -1175,4 +1208,13 @@ extern "C" int pg_rank_tile(void *h, unsigned slot, unsigned peer, size_t offset
 extern "C" void pg_rank_destroy(void *h) {
   CurrentDevice restore;
   delete static_cast<RankStorageHandle *>(h);
+}
+
+extern "C" int pg_rank_vectors(void *h, unsigned slot, int columns, int inverse, char *error, size_t cap) {
+  return api(error, cap, [&] {
+    if ((columns != 0 && columns != 1) || (inverse != 0 && inverse != 1))
+      throw std::runtime_error("rank vector axis/direction");
+    visit_rank(h, [&](auto &state) { state.vectors(slot, columns != 0, inverse != 0); });
+  });
+
 }

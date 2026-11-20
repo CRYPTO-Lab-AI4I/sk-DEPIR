@@ -166,3 +166,24 @@ func (v *RankStorage) Tile64(slot, peer int, offset uint64, data []uint64, pack 
 func (v *RankStorage) AdmitsTranspose(rows, columns uint64, rank, ranks int, tileWords uint64) bool {
 	return v != nil && rank == v.rank && ranks == v.ranks && tileWords > 0 && tileWords <= v.tile && ((rows == v.rows && columns == v.columns) || (rows == v.columns && columns == v.rows))
 }
+
+// Vectors transforms complete resident vectors in place. The selected slot must
+// be interleaved, with canonical balanced global dimensions (transpose for
+// columns). Values are range-checked on GPU before arithmetic or mutation; raw
+// storage bits outside the field are rejected. A plan is retained on first use,
+// included in OwnedBytes/cap. Calls reuse the existing bounded vector launcher.
+func (v *RankStorage) Vectors(slot int, columns, inverse bool) error {
+	if slot < 0 || slot >= 3 {
+		return fmt.Errorf("GPU rank vector slot")
+	}
+	axis, direction := C.int(0), C.int(0)
+	if columns {
+		axis = 1
+	}
+	if inverse {
+		direction = 1
+	}
+	return v.call(func(b *C.pg_bridge, text *C.char) C.int {
+		return C.pg_bridge_rank_vectors(b, v.handle, C.uint(slot), axis, direction, text, 512)
+	})
+}

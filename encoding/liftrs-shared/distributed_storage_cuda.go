@@ -51,3 +51,26 @@ func transposeResident[Word transposeWord](p rankTransposePlan, gpu *cuda.RankSt
 	}
 	return transposeStored(p, residentTransposeStorage[Word]{gpu, source, target}, link, notice)
 }
+
+// rankResidentVectors consumes data in one slot and reuses another as scratch.
+// Forward accepts row-major or interleaved input; inverse requires interleaved
+// input from the forward pass. Output is interleaved in the original slot, with
+// logical row-major chunked I/O unchanged. Third slot is preserved. This is the
+// separable stage only: a complete additive FFT also needs Taylor conversion.
+func rankResidentVectors[Word transposeWord](p rankTransposePlan, gpu *cuda.RankStorage, data, scratch int, inverse bool, link transposeLink[Word], notice func(string, uint64, uint64)) error {
+	if err := validateTranspose(p, link); err != nil {
+		return err
+	}
+	if p.Operation == ^uint64(0) || !gpu.AdmitsTranspose(p.Rows, p.Columns, p.Rank, p.Ranks, p.TileWords) || data < 0 || data >= 3 || scratch < 0 || scratch >= 3 || data == scratch {
+		return fmt.Errorf("resident vectors plan/slots")
+	}
+	back, err := newRankTransposePlan(p.Operation+1, p.Columns, p.Rows, p.Rank, p.Ranks, max(p.InputWords, p.OutputWords), p.TileWords)
+	if err != nil {
+		return err
+	}
+	return rankSeparableSchedule(inverse,
+		func() error { return gpu.Vectors(data, false, inverse) },
+		func() error { return transposeResident[Word](p, gpu, data, scratch, true, link, notice) },
+		func() error { return gpu.Vectors(scratch, true, inverse) },
+		func() error { return transposeResident[Word](back, gpu, scratch, data, true, link, notice) })
+}

@@ -73,26 +73,37 @@ func rankMatrixVectors[Word transposeWord](p rankTransposePlan, input []Word, ca
 	rows := func(data []Word) error {
 		return rankVectorRows(data, p.InputFirst, p.InputRows, p.Columns, capacity, false, inverse, apply, notice)
 	}
+
+	current := input
+	var columnData []Word
+	err = rankSeparableSchedule(inverse,
+		func() error { return rows(current) },
+		func() error { var e error; columnData, e = transposeRank(p, current, link, notice); return e },
+		func() error {
+			return rankVectorRows(columnData, p.OutputFirst, p.OutputRows, p.Rows, capacity, true, inverse, apply, notice)
+		},
+		func() error { var e error; current, e = transposeRank(back, columnData, link, notice); return e })
+	if err != nil {
+		return nil, err
+	}
+	return current, nil
+}
+
+// rankSeparableSchedule is shared by host-tile and resident storage. It fixes
+// forward/inverse stage ordering without imposing array ownership or layout.
+func rankSeparableSchedule(inverse bool, rows, transpose, columns, back func() error) error {
 	if inverse {
-		if err = rows(input); err != nil {
-			return nil, err
+		if err := rows(); err != nil {
+			return err
 		}
 	}
-	columns, err := transposeRank(p, input, link, notice)
-	if err != nil {
-		return nil, err
-	}
-	if err = rankVectorRows(columns, p.OutputFirst, p.OutputRows, p.Rows, capacity, true, inverse, apply, notice); err != nil {
-		return nil, err
-	}
-	output, err := transposeRank(back, columns, link, notice)
-	if err != nil {
-		return nil, err
+	for _, stage := range []func() error{transpose, columns, back} {
+		if err := stage(); err != nil {
+			return err
+		}
 	}
 	if !inverse {
-		if err = rows(output); err != nil {
-			return nil, err
-		}
+		return rows()
 	}
-	return output, nil
+	return nil
 }

@@ -1,0 +1,20 @@
+# runtime/cgo
+[lnode02:00128] opal_ifinit: socket() failed with errno=1
+# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp
+[lnode02:00497] opal_ifinit: socket() failed with errno=1
+# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi
+[lnode02:00494] opal_ifinit: socket() failed with errno=1
+# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda
+[lnode02:00109] opal_ifinit: socket() failed with errno=1
+# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda
+[lnode02:00116] opal_ifinit: socket() failed with errno=1
+# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda
+[lnode02:00110] opal_ifinit: socket() failed with errno=1
+# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda
+[lnode02:00121] opal_ifinit: socket() failed with errno=1
+# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda
+[lnode02:00122] opal_ifinit: socket() failed with errno=1
+# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda
+[lnode02:00129] opal_ifinit: socket() failed with errno=1
+# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.test
+[lnode02:00209] opal_ifinit: socket() failed with errno=1

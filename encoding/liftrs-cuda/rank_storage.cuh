@@ -43,6 +43,13 @@ template <class Word> __global__ void rank_pack(Word *data, Word *tile,
   if (pack) tile[j] = data[address];
   else data[address] = tile[j];
 }
+// Boundary check before field-table indexing; raw storage intentionally accepts
+// all slot bits, whereas arithmetic must reject noncanonical values before writes.
+template <class Word> __global__ void rank_validate(const Word *values, size_t words,
+    uint64_t limit, uint32_t *bad) {
+  const size_t j = size_t(blockIdx.x) * blockDim.x + threadIdx.x;
+  if (j < words && uint64_t(values[j]) >= limit) atomicExch(bad, 1u);
+}
 template <class Word> class RankStorage {
   Resident<Word> &engine_;
   size_t rows_, columns_, capacity_, tile_;
@@ -135,6 +142,45 @@ public:
       }
     }
     if (!total) engine_.event(phase, "completed", 0, 0, began);
+  }
+  // Reuse the same local-vector launcher as VectorStage. Shape/layout admit only
+  // the canonical balanced matrix, with complete vectors and global affine rows.
+  void vectors(unsigned slot, bool columns, bool inverse) {
+    data(slot);
+    const size_t domain = rows_ * columns_;
+    engine_.shape(domain);
+    if (domain < 4) throw std::runtime_error("rank vector domain");
+    unsigned dimension = 0;
+    for (size_t n = domain; n > 1; n >>= 1) dimension++;
+    const size_t cols = size_t(1) << (dimension / 2), rows = domain / cols;
+    const auto &v = views_[slot];
+    if (rows_ != rows || columns_ != cols || !v.interleaved ||
+        v.rows != (columns ? cols : rows) || v.columns != (columns ? rows : cols))
+      throw std::runtime_error("rank vector canonical shape/interleaved layout");
+    check(cudaSetDevice(card().id));
+    auto *bad = static_cast<uint32_t *>(card().flag.data);
+    check(cudaMemset(bad, 0, sizeof(uint32_t)));
+    const auto began = std::chrono::steady_clock::now();
+    auto last = began;
+    const char *phase = "rank-vector-field-validation";
+    engine_.active_domain_ = domain;
+    engine_.event(phase, "started", 0, v.words(), began);
+    for (size_t offset = 0; offset < v.words();) {
+      const size_t take = std::min<size_t>(1u << 20, v.words() - offset);
+      rank_validate<<<(take + 255) / 256, 256>>>(data(slot) + offset, take,
+          uint64_t(1) << (2 * engine_.s_), bad);
+      sync(); offset += take;
+      if (offset == v.words() || std::chrono::steady_clock::now() - last >= std::chrono::seconds(30)) {
+        engine_.event(phase, offset == v.words() ? "completed" : "progress", offset, v.words(), began);
+        last = std::chrono::steady_clock::now();
+      }
+    }
+    uint32_t invalid = 0;
+    check(cudaMemcpy(&invalid, bad, sizeof(invalid), cudaMemcpyDeviceToHost));
+    if (invalid) throw std::runtime_error("rank vector field value");
+    auto *metadata = engine_.plan(card(), domain);
+    engine_.vector_stage(card(), data(slot), metadata, domain, columns, inverse,
+        v.columns, v.first, v.count);
   }
   void tile(unsigned slot, unsigned peer, size_t offset, Word *values, size_t words, bool pack) {
     data(slot);

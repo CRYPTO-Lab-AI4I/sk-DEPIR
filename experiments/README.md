@@ -81,10 +81,14 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Resident GPU vector composition](distributed-resident-vectors/report.md):
+  shared launcher/order and resident interleaved shards; local CPU/race/build
+  checks pass, bounded normal/sanitized GPU validation prepared. Taylor remains.
+
 - [Distributed GPU resident storage](distributed-gpu-storage/report.md): three
   reusable shards, GPU row/interleaved pack/scatter and shared transpose schedule;
-  local CPU/race/build checks pass, MPI/GPU validation78392 submitted. No resident
-  FFT/product or fulls18 result yet.
+  78392 passes208 normal/208 sanitized rank/pass outputs and CUDA checks. No
+  full resident FFT/product or fulls18 result yet.
 
 - [Distributed GPU polynomial product](distributed-gpu-product/report.md): shared
   forward/pointwise/inverse composition, independent schoolbook/alias checks;

@@ -2,7 +2,8 @@
 
 Next implementation step after [small distributed products passed78321](../experiments/distributed-gpu-product/report.md).
 The first [resident-storage/transpose prototype](../experiments/distributed-gpu-storage/report.md)
-is implemented and prepared for bounded validation. Resident Taylor/FFT/product
+passed bounded validation78392 (208 normal +208 sanitized rank/pass results,
+zero CUDA errors/leaks). Resident Taylor/FFT/product
 integration, fullsize costs and resource admission remain separate. We remain
 on step1 (distributed large products/FFTs).
 
@@ -87,6 +88,6 @@ The gate covers both slot widths, all four source/target layout combinations,
 uneven/empty ownership, inverse transposes, alias/extent rejection, source/third-slot
 preservation and stable retained allocation. It deliberately moves arbitrary slot
 bits without arithmetic. This validates storage; it does not validate a resident
-FFT, product or canonical field values. Taylor-window storage access, resident
-vector/pointwise composition and matched complete products are next, conditional
-on this gate passing. No large calibration or resource increase is implied.
+FFT, product or canonical field values. Resident vector composition is now implemented with shared launch/order logic;
+its bounded validation is prepared. Taylor-window storage access, pointwise
+composition and matched complete products remain next. No large calibration or resource increase is implied.

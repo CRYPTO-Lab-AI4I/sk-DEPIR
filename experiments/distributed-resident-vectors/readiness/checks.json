@@ -1,0 +1,50 @@
+{
+  "checks": [
+    "CPU transpose/separable/Taylor/FFT/product tests passed0.076s",
+    "CPU race regressions passed1.357s",
+    "Native shared plugin and complete CPP/CUDA/MPI test binary builds passed; no local MPI/GPU execution",
+    "Python reviewers:5 resident (includes3 shared fixture),3 composition,4 storage,4 FFT,3 product,5 summary passed",
+    "C bridge syntax, Python AST, shell, gofmt and whitespace passed"
+  ],
+  "native_command": "module load gcc/14.2.0 cuda12.9/toolkit/12.9.1; nvcc -std=c++17 -O3 -lineinfo -arch=sm_90 -shared -Xcompiler=-fPIC,-pthread encoding/liftrs-cuda/matrix.cu encoding/liftrs-cuda/preparation.cu -o .cache/liftrs/distributed-resident-vectors/readiness/libliftrs-cuda.so",
+  "mpi_build_command": "module load gcc/14.2.0 openmpi/gcc/64/4.1.8; GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=1 CC=mpicc CXX=mpicxx .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-resident-vectors/readiness/vectors.test ./encoding/liftrs-shared",
+  "cpu_command": "GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=0 .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test ./encoding/liftrs-shared -run '^TestRankTranspose|^TestRankMatrixVectors|^TestRankTaylor|^TestRankAdditive|^TestRankProduct' -count=1 -timeout=20s",
+  "race_command": "same with CGO_ENABLED=1 and go test -race",
+  "native_exit_code": 0,
+  "mpi_build_exit_code": 0,
+  "local_GPU_MPI_execution": false,
+  "environment": "HPC login node;Go1.27.3/gcc14.2.0/CUDA12.9.1 sm90/OpenMPI4.1.8",
+  "retained_artifacts": {
+    ".cache/liftrs/distributed-resident-vectors/readiness/libliftrs-cuda.so": {
+      "bytes": 2806088,
+      "sha256": "65e80cd36d53d275a55da567dde9a997c1bcf0f4b4d6baec1e0066d4137ba2e3"
+    },
+    ".cache/liftrs/distributed-resident-vectors/readiness/vectors.test": {
+      "bytes": 11640800,
+      "sha256": "5837fbc2fdd8d8bc7d0b1dde6b93752c68117f730566e7ccdb08f331db7b9196"
+    }
+  },
+  "source_sha256": {
+    "encoding/liftrs-cuda/preparation.cu": "de954f71392df1c72051dfb874f675ed5fd343050a089e05fb8b848a4714b35b",
+    "encoding/liftrs-cuda/preparation_api.h": "cc974f44473691f479a14255acc006196e5e78a6ae653d76508ee7d2c7005daa",
+    "encoding/liftrs-cuda/preparation_bridge.h": "f0718bea4734cb44f4c440c5fa808665e8acb8aca9af8c7ed8f00468da2ac4a2",
+    "encoding/liftrs-cuda/rank_storage.go": "066b4cd722ed2709b286503884ce3857d2dbaeb7ff4bdccbded62230124dc412",
+    "encoding/liftrs-cuda/rank_storage.cuh": "98eea303e79d52fdfc23e0a11e04b44c4553eeac8510af9cbfee8ae3ff365114",
+    "encoding/liftrs-cuda/vector_stage.cuh": "54feeb78b6f980fa47fbe7b89826d015af94459d05bd74415e054154ebb51664",
+    "encoding/liftrs-shared/distributed_vectors.go": "3efa93074f1b5c95b68a427102f6e443bf389e80572b2a74321153d035044ac8",
+    "encoding/liftrs-shared/distributed_storage_cuda.go": "b07fd3f10f55282e2ef9f7bdd72d28810f0f955dd49bfec975f4866395bec678",
+    "encoding/liftrs-shared/distributed_resident_gpu_test.go": "e4eee6bfd039fcd4c1c2eae69c34161cb1e00cd0974f0cd4f73f30d4036af7c3",
+    "experiments/distributed-gpu-vectors/run.py": "94dfec69b63f19fd0fe04d26e52937c0329ee13448b8802e7de4c670ce9696e2"
+  },
+  "controller_sha256": {
+    "experiments/distributed-resident-vectors/analyze.py": "3904371d7d1cd54ce5b85115a98ce9451216bc184e2047ad2fadf9719a3e0593",
+    "experiments/distributed-resident-vectors/run.py": "1e2008204c03f9f5f4aaf69822e6cfe514731122a1a9e49b1cf4e61b70a3eb94",
+    "experiments/distributed-resident-vectors/test_review.py": "1b1382c72b8a5e4581665382aa22e915fdce9c2a4e053ffb6fd9d4e491df4eb4"
+  },
+  "limits": "Same2HPCnodes/2H200/4CPU/8GiBhost;128MiBowned/card/1GiBRSS/rank/128MiBcache/2GiBscratch/32MiBfile;720scontroller/15minscheduler",
+  "limitations": [
+    "MPI compiler wrapper socket errno1 warnings retained; compilation exit0; no MPI execution locally",
+    "Local checks caught/fixed a missing C++ closing brace and wrong Python fixture class name before final checks",
+    "GPU normal/sanitizer validation pending; separable stages are not a complete resident FFT/product"
+  ]
+}

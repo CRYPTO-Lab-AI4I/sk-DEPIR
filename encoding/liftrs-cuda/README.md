@@ -421,4 +421,13 @@ requires all rank symbols and destroys the borrowing handle before its executor.
 OwnedBytes includes all arrays/transport/tables, excluding CUDA context/driver.
 No complete host matrix is retained by the adapter. Diagnostic tests separately
 materialize small input/output/reference shards. [Validation and resource limits](../../experiments/distributed-gpu-storage/report.md).
-Resident vectors/Taylor/products are not yet composed into this storage owner.
+Resident separable vectors are now composed in this owner; Taylor/FFT/products remain pending.
+
+Resident complete vectors now use `RankStorage.Vectors(slot, columns, inverse)`:
+canonical balanced dimensions and an interleaved view are required. The selected
+GPU slot is range-checked before writes, then the existing shared vector launcher
+runs in place; the plan is retained lazily under the same cap. For example, after
+transposing into an interleaved column slot, call `store.Vectors(1, true, false)`.
+Host and resident adapters share separable stage order. No complete host shard is
+staged for vector arithmetic. [Resident composition validation](../../experiments/distributed-resident-vectors/report.md)
+is prepared; Taylor conversion/full resident FFT and products remain pending.

@@ -78,9 +78,12 @@ preprocessing limit changes.
 
 The [GPU-resident storage prototype](experiments/distributed-gpu-storage/report.md)
 now shares the validated rank transpose schedule, with three reusable device
-shards and bounded GPU packing for row/interleaved views. Local CPU/race and
-build checks pass; bounded MPI/GPU validation78392 is submitted, results pending. Resident Taylor/FFT/
-product integration and fulls18 preprocessing remain pending. No encoding default
+shards and bounded GPU packing for row/interleaved views. Validation78392 passes
+208 normal +208 sanitized rank/pass outputs with zero CUDA errors/leaks.
+[Resident vector composition](experiments/distributed-resident-vectors/report.md)
+now shares the existing vector launcher and stage order; local CPU/race/build
+checks pass, bounded GPU validation is prepared. Resident Taylor/FFT/product
+integration and fulls18 preprocessing remain pending. No encoding default
 or client CUDA/MPI dependency changes.
 
 The [persistent GPU vector-stage adapter](experiments/gpu-vector-stage/report.md)

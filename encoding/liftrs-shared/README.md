@@ -864,6 +864,16 @@ reference. GPU local copy and row/interleaved pack/scatter do not change ownersh
 message order, proofs or slot representation. It retains one bounded host tile;
 three owned GPU shards and device transfer workspace are cap-accounted.
 [Bounded storage gate](../../experiments/distributed-gpu-storage/report.md)
-awaits MPI/GPU execution. Host serial/rendezvous/race regressions and storage-error
+passed78392 with208 normal/208 sanitized outputs and zero CUDA errors/leaks.
+Host serial/rendezvous/race regressions and storage-error
 propagation checks pass. Complete resident Taylor/FFT/product integration remains
 pending; no client/production default changes.
+
+Resident complete vectors now use `RankStorage.Vectors(slot, columns, inverse)`:
+canonical balanced dimensions and an interleaved view are required. The selected
+GPU slot is range-checked before writes, then the existing shared vector launcher
+runs in place; the plan is retained lazily under the same cap. For example, after
+transposing into an interleaved column slot, call `store.Vectors(1, true, false)`.
+Host and resident adapters share separable stage order. No complete host shard is
+staged for vector arithmetic. [Resident composition validation](../../experiments/distributed-resident-vectors/report.md)
+is prepared; Taylor conversion/full resident FFT and products remain pending.

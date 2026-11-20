@@ -35,6 +35,7 @@ typedef struct pg_bridge {
   int (*rank_transfer)(void *, unsigned, size_t, void *, size_t, int, char *, size_t);
   int (*rank_local)(void *, unsigned, unsigned, char *, size_t);
   int (*rank_tile)(void *, unsigned, unsigned, size_t, void *, size_t, int, char *, size_t);
+  int (*rank_vectors)(void *, unsigned, int, int, char *, size_t);
   void (*rank_destroy)(void *);
   uint64_t (*owned)(void *);
   void (*destroy)(void *);
@@ -84,6 +85,7 @@ static pg_bridge *pg_bridge_open(const char *path, unsigned s, uint32_t poly,
   b->rank_transfer=dlsym(b->library,"pg_rank_transfer");
   b->rank_local=dlsym(b->library,"pg_rank_local");
   b->rank_tile=dlsym(b->library,"pg_rank_tile");
+  b->rank_vectors=dlsym(b->library,"pg_rank_vectors");
   b->rank_destroy=dlsym(b->library,"pg_rank_destroy");
   b->owned = dlsym(b->library, "pg_owned_bytes");
   b->destroy = dlsym(b->library, "pg_destroy");
@@ -121,6 +123,10 @@ static int pg_bridge_rank_local(pg_bridge *b,void *h,unsigned source,unsigned ta
 }
 static int pg_bridge_rank_tile(pg_bridge *b,void *h,unsigned slot,unsigned peer,size_t offset,void *values,size_t words,int pack,char *error,size_t cap) {
  return b->rank_tile(h,slot,peer,offset,values,words,pack,error,cap);
+}
+static int pg_bridge_rank_vectors(pg_bridge *b,void *h,unsigned slot,int columns,int inverse,char *error,size_t cap) {
+ if(!b->rank_vectors){snprintf(error,cap,"GPU resident vector ABI unavailable");return 1;}
+ return b->rank_vectors(h,slot,columns,inverse,error,cap);
 }
 static void pg_bridge_rank_destroy(pg_bridge *b,void *h){b->rank_destroy(h);}
 static int pg_bridge_has_vector_stage(pg_bridge *b) {

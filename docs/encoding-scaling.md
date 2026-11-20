@@ -2709,3 +2709,20 @@ SCALING-152: resident-storage validation **78392 submitted**, implementation
 Same admitted resources; no monitoring. Wait for the completion ping, review
 normal/sanitized output/proofs/allocations, then proceed to the next resident
 composition gate without another go-ahead if results justify it.
+
+### Resident vector composition (SCALING-153)
+
+78392 passed:208 normal/208 sanitized storage rows,544 proof endpoints/mode,
+710source/33evidence/835cache identities, zero CUDA errors/leaks. Controller
+123.480s, normal4.924s/sanitizer4.024s; hostRSS376.137/413.750MiB per process,
+1.583MiB owned/card,14.849MiB retained cache. Main reference updated.
+
+Proceed with [resident vector composition](../experiments/distributed-resident-vectors/report.md):
+shared kernel launcher and host/resident stage order, resident interleaved views,
+third-slot preservation and no extra full host vector arrays. Boundary field scan
+adds one device read per stage plus4bytes status readback; runtime cost unknown.
+Plan retained lazily under the existing cap. CPU/race/native/interface checks pass.
+Validate old host-tile stages and new resident forward/inverse +sanitizers inside
+the same2node/2H200 budget. Then resident Taylor-window storage and complete
+FFT/product integration, followed by matched larger products. No default, field
+admission or resource increase; stillstep1 and no fulls18 claim.

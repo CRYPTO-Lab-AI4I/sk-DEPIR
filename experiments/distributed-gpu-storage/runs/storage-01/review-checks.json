@@ -1,0 +1,70 @@
+{
+  "job_id": "78392",
+  "status": "passed",
+  "revision": "f36074772d7634f7063a4a55a328fe6f621ca658",
+  "source_files_verified": 710,
+  "evidence_files_verified": 33,
+  "cache_files_verified": 835,
+  "controller_seconds": 123.47993732430041,
+  "cache_MiB": 14.849495887756348,
+  "hosts": [
+    "gnode14",
+    "gnode15"
+  ],
+  "resources": {
+    "nodes": 2,
+    "ranks": 2,
+    "gpus": 2,
+    "gpu_model": "H200",
+    "cpus_per_node": 2,
+    "host_request_GiB_per_node": 4,
+    "owned_cap_MiB_per_card": 128,
+    "pinned_cap_MiB_per_rank": 0,
+    "rss_cap_GiB_per_rank": 1,
+    "retained_cap_MiB": 128,
+    "scratch_cap_GiB": 2,
+    "controller_seconds": 720,
+    "scheduler_seconds": 900,
+    "diagnostic_transport": {
+      "OMPI_MCA_pml": "ucx",
+      "OMPI_MCA_pml_base_verbose": "20",
+      "OMPI_MCA_btl_base_verbose": "40",
+      "UCX_LOG_LEVEL": "info",
+      "UCX_RCACHE_ENABLE": "n"
+    },
+    "mpi_mode": "staged",
+    "tile_words": 127,
+    "scope": "resident three-shard storage and shared rank transpose; no resident FFT/product or fulls18 result",
+    "host_transport_tiles_per_rank": 1,
+    "device_transport_tiles_per_rank": 1
+  },
+  "arms": {
+    "normal": {
+      "rank_pass_rows": 208,
+      "proof_endpoints": 544,
+      "command_seconds": 4.924113987013698,
+      "max_host_RSS_MiB": 376.13671875,
+      "max_owned_GPU_MiB": 1.5826377868652344,
+      "sanitizer": null
+    },
+    "memcheck": {
+      "rank_pass_rows": 208,
+      "proof_endpoints": 544,
+      "command_seconds": 4.023800740018487,
+      "max_host_RSS_MiB": 413.75,
+      "max_owned_GPU_MiB": 1.5826377868652344,
+      "sanitizer": [
+        {
+          "errors": 0,
+          "leaked_bytes": 0,
+          "leaked_allocations": 0
+        },
+        {
+          "errors": 0,
+          "leaked_bytes": 0,
+          "leaked_allocations": 0
+        }
+      ]
+    }
+  }
+}

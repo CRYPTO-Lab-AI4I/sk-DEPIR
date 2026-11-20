@@ -65,35 +65,12 @@ public:
       throw std::runtime_error("vector stage origin/extent");
     CurrentDevice restore;
     select();
-    const auto began = std::chrono::steady_clock::now();
-    auto last = began;
-    const char *phase = columns
-        ? (inverse ? "stage-columns-inverse-vectors" : "stage-columns-forward-vectors")
-        : (inverse ? "stage-rows-inverse-vectors" : "stage-rows-forward-vectors");
-    engine_.active_domain_ = domain_;
-    engine_.event(phase, "started", 0, count, began);
-    // Bound launches so progress names an increasing vector count even for large
-    // admitted tiles; each thread still owns one complete vector.
     try {
-      for (size_t offset = 0; offset < count;) {
-        const size_t take = std::min<size_t>(4096, count - offset);
-        local_vectors<<<(take + 127) / 128, 128>>>(static_cast<Word *>(card().x.data), plan_, columns,
-            inverse, len, count, first, offset, take,
-            static_cast<uint32_t *>(card().logs.data), static_cast<uint32_t *>(card().powers.data));
-        check(cudaGetLastError());
-        check(cudaDeviceSynchronize());
-        offset += take;
-        if (offset == count || std::chrono::steady_clock::now() - last >= std::chrono::seconds(30)) {
-          engine_.event(phase, offset == count ? "completed" : "progress", offset, count, began);
-          last = std::chrono::steady_clock::now();
-        }
-      }
-    } catch (...) {
-      loaded_ = 0;
-      engine_.event(phase, "failed", 0, count, began);
-      throw;
-    }
+      engine_.vector_stage(card(), static_cast<Word *>(card().x.data), plan_, domain_,
+          columns, inverse, len, first, count);
+    } catch (...) { loaded_ = 0; throw; }
   }
+
   std::vector<uint64_t> degrees(unsigned level) const {
     if (level >= metadata_.dimension - metadata_.split)
       throw std::runtime_error("Taylor level");
