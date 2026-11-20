@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-20 17:58 | SCALING-155 | Prepared | [Resident products ready;complete FFT78396 verified](2026-11-20-1758-codex-scaling-155-prepared.md) |
+| 2026-11-20 17:49 | SCALING-155 | Started | [Review complete resident FFT and compose products](2026-11-20-1749-codex-scaling-155-started.md) |
 | 2026-11-20 17:44 | SCALING-154 | Handoff | [Complete resident FFT validation78396 submitted](2026-11-20-1744-codex-scaling-154-handoff.md) |
 | 2026-11-20 17:43 | SCALING-154 | Prepared | [Complete resident FFT gate ready;vectors78394 verified](2026-11-20-1743-codex-scaling-154-prepared.md) |
 | 2026-11-20 17:33 | SCALING-154 | Started | [Review resident vectors and integrate Taylor storage](2026-11-20-1733-codex-scaling-154-started.md) |

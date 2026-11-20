@@ -240,3 +240,16 @@ func (v *RankStorage) Taylor64(slot int, snapshot []uint64, capacity uint64, til
 	runtime.KeepAlive(snapshot)
 	return err
 }
+
+// Pointwise replaces left with the extension-field product with right, using
+// the existing arithmetic kernel. Views must match; slots must be distinct.
+// Both operands are range-checked before mutation. Right and the third slot are
+// preserved; no additional device array or full host transfer is required.
+func (v *RankStorage) Pointwise(left, right int) error {
+	if left < 0 || left >= 3 || right < 0 || right >= 3 || left == right {
+		return fmt.Errorf("GPU resident pointwise alias/slot")
+	}
+	return v.call(func(b *C.pg_bridge, text *C.char) C.int {
+		return C.pg_bridge_rank_pointwise(b, v.handle, C.uint(left), C.uint(right), text, 512)
+	})
+}

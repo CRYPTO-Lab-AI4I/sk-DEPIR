@@ -1,9 +1,19 @@
 # Complete bounded resident GPU FFT
 
-Status: **job78396 submitted**, implementation `2ec5458`; [receipt](submission.json).
-Local CPU/race and native/CPP/CUDA/MPI builds pass; GPU results remain pending.
-[Results destination](runs/fft-01/), [job log](slurm-78396.log). Actual job-start
-revision/source identities are saved by the controller.
+Status: **78396 passed**, producer `2ec5458`, two HPC nodes /2 H200s /4 cores /
+8 GiB requested host RAM.24 normal +24 sanitized resident FFT rows and24 old
+complete host-tile reference rows pass. Each arm verifies240 transpose and1788
+Taylor proof endpoints; both CUDA summaries report zero errors/leaks. Exact
+inverse, third-slot preservation, rejected-value nonmutation and reuse pass.
+[Raw results](runs/fft-01/results.json), [review](runs/fft-01/analysis.json),
+[summary](runs/fft-01/review-checks.json), [job log](slurm-78396.log).
+All719 source /41 original evidence /148 cache identities verify;16.077 MiB cache
+retained. Controller **141.091 seconds (2min21.091s)**; resident normal **2.371s**,
+sanitizer **3.691s**, old complete reference **2.621s**. Peak logged host RSS
+**373.934 MiB normal /411.531 MiB sanitized per process**; maximum owned device
+memory **1.618 MiB/card**, excluding context/driver. These tiny profiled suites do
+not establish fullsize throughput. Next: [resident products](../distributed-resident-product/report.md).
+
 [Readiness commands and artifacts](readiness/checks.json).
 
 [Resident vectors78394](../distributed-resident-vectors/report.md) passed24 normal
@@ -98,8 +108,8 @@ progress reporting, and guards/resources remain job-side.
 sanitized; no larger domain or sanitizer shape is introduced here. Three MPI
 arms keep240 seconds each (220-second test timeout) inside720-second controller;
 previous complete-controller costs leave substantial expected headroom. Setup
-builds the old host-tiled adapter as a compatibility check. Resident complete-FFT
-latency remains unknown until this run, not an inferred speedup.
+builds the old host-tiled adapter as a compatibility check. Measured bounded complete-FFT costs are reported above; fullsize latency remains
+unknown, without an inferred speedup.
 
 ## Memory–time and scope limits
 

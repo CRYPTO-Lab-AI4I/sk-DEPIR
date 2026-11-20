@@ -1,0 +1,58 @@
+{
+  "checks": [
+    "CPU transpose/vector/Taylor/full FFT/product regressions passed0.075s",
+    "Final CPU race including product failure propagation passed1.301s",
+    "CUDA plugin/old HostTiled/full CPP/CUDA/MPI test binary builds and optional resident pointwise export passed",
+    "Python reviewers:5residentProduct(including3product fixtures),3product,3composition,6residentFFT(including4FFT fixtures),5residentVectors(including3fixtures),4storage,5summary passed",
+    "C bridge/Python AST/shell/gofmt/source-doc whitespace passed"
+  ],
+  "native_command": "module load gcc/14.2.0 cuda12.9/toolkit/12.9.1; nvcc -std=c++17 -O3 -lineinfo -arch=sm_90 -shared -Xcompiler=-fPIC,-pthread encoding/liftrs-cuda/matrix.cu encoding/liftrs-cuda/preparation.cu -o .cache/liftrs/distributed-resident-product/readiness/libliftrs-cuda.so",
+  "host_tiled_command": "module load gcc/14.2.0 cuda12.9/toolkit/12.9.1; nvcc -std=c++17 -O2 -arch=sm_90 -Xcompiler=-pthread experiments/preprocessing-tiles/check.cu -o .cache/liftrs/distributed-resident-product/readiness/host-tiled-reference-check",
+  "mpi_build_command": "module load gcc/14.2.0 openmpi/gcc/64/4.1.8; GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=1 CC=mpicc CXX=mpicxx .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-resident-product/readiness/product.test ./encoding/liftrs-shared",
+  "cpu_command": "GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=0 .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test ./encoding/liftrs-shared -run '^TestRankTranspose|^TestRankMatrixVectors|^TestRankTaylor|^TestRankAdditive|^TestRankProduct' -count=1 -timeout=20s",
+  "race_command": "same with CGO_ENABLED=1 and go test -race",
+  "native_exit_code": 0,
+  "mpi_build_exit_code": 0,
+  "host_tiled_exit_code": 0,
+  "local_GPU_MPI_executed": false,
+  "retained_artifacts": {
+    ".cache/liftrs/distributed-resident-product/readiness/host-tiled-reference-check": {
+      "bytes": 1844872,
+      "sha256": "4350b6ef0c55e50c3bc57a674a9bd2c00b8170ec3cd3205b68d5981d29f81f52"
+    },
+    ".cache/liftrs/distributed-resident-product/readiness/libliftrs-cuda.so": {
+      "bytes": 2823600,
+      "sha256": "68f8e59f38e22d7c483ec4d76d03fc12b05a1dedb349a615fb4b2d17c1afd752"
+    },
+    ".cache/liftrs/distributed-resident-product/readiness/product.test": {
+      "bytes": 11774560,
+      "sha256": "6660fc6abd6963dc125726678007d92860287d1320b8a289f078c4ba6bc31547"
+    }
+  },
+  "source_sha256": {
+    "encoding/liftrs-cuda/preparation.cu": "ba74e3e2e0ecac3458a7ca833b0fb58efe6831bf577c1b68d39c1fa4c8c2a9e4",
+    "encoding/liftrs-cuda/preparation_api.h": "e031eb50d5b968ad27041bf2d3489e3adb0473a7b8bc56081ada12ceeac2bfac",
+    "encoding/liftrs-cuda/preparation_bridge.h": "6657aab2b0d44e9b41e89e88ac5a825c46597d9664666cc2b7efbb914d29535e",
+    "encoding/liftrs-cuda/rank_storage.cuh": "b7fe4f7bbc23dff346fac391f6448d7619ef48e5fee1bcd33beb2a66dce6ee86",
+    "encoding/liftrs-cuda/rank_storage.go": "462446e1f6baf2009f45d54ad3ecd07cb561b8bc136265fb0b68b58d970a4ed4",
+    "encoding/liftrs-shared/distributed_product.go": "2da72861426b839f6da329f38c6f915c0c23ee665d2bb78575b4bf2ed5f31b99",
+    "encoding/liftrs-shared/distributed_storage_cuda.go": "29092b675706454fa8523184cea285fee4ebd86d391c1c05fcbed657ca003413",
+    "encoding/liftrs-shared/distributed_product_gpu_test.go": "13ae421afe5eca5c4129a982d61cc39fd5c3e59c74644d471906965b1ddbfe37",
+    "encoding/liftrs-shared/distributed_resident_product_gpu_test.go": "8c879283f4cdee5a22c4245993d8b23f8cdb0110ff40ef201c353a8249b2d33f",
+    "encoding/liftrs-shared/distributed_taylor_test.go": "8725f5967250faad2e32c3877cbd40ffe0cf039caf325db0b7dce3c2ff5b68b4",
+    "experiments/distributed-gpu-vectors/run.py": "b520bdfae04f7648398b0253d4c48cd29c5adf63208b5ba4dc84380ef846c0b0",
+    "experiments/distributed-gpu-product/run.py": "093aaca35c7f576eca9d28b3758a1f2baafc7bc0b1cc40edc4e95d90d76dc269"
+  },
+  "controller_sha256": {
+    "experiments/distributed-resident-product/analyze.py": "60cd25e020c8ebea8f23c1de4f2e175f258d6b1b3bcca31c6d70b8f740dde654",
+    "experiments/distributed-resident-product/run.py": "cdb3bab0ac0339d3db16136481508a6226475fbd9a396a64790110889e82b086",
+    "experiments/distributed-resident-product/test_review.py": "bc6f172d6c028ac135b983928dba669d28511fc0d4730b026c8df1c0153fa3b9"
+  },
+  "limits": "same2HPCnodes/2H200/4CPU/8GiBhost;128MiBowned/card/1GiBRSS/rank/128MiBcache/2GiBscratch/32MiBfile;720scontroller/15minscheduler",
+  "limitations": [
+    "No local GPU/MPI execution; resident product GPU/sanitizer results pending",
+    "OpenMPI compiler wrapper socket errno1 warnings retained; final build exit0",
+    "Resident direct pointwise pattern count is min(ownedWords,capacity,17), with all zero tail words checked; old host tile count unchanged",
+    "Right-spectrum diagnostic capture is inside product timing; final preservation check is outside; fullsize throughput unknown"
+  ]
+}

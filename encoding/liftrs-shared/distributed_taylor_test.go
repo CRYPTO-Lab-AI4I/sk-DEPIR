@@ -478,3 +478,34 @@ func TestRankTaylorStorageErrors(t *testing.T) {
 		}
 	}
 }
+
+func TestRankProductScheduleFailure(t *testing.T) {
+	p, err := newRankTransposePlan(1, 4, 4, 0, 1, 16, 3)
+	if err != nil {
+		t.Fatal(err)
+	}
+	plans, err := rankProductPlans(p, 12)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, fail := range []string{"right", "multiply"} {
+		calls := 0
+		inverse := false
+		failure := errors.New("test backend failure")
+		err = rankProductSchedule(plans, 16, func(_ rankTransposePlan, operand int, inv bool) error {
+			calls++
+			inverse = inverse || inv
+			if operand == 1 && fail == "right" {
+				return failure
+			}
+			return nil
+		}, func() error { calls++; return failure }, nil)
+		want := 2
+		if fail == "multiply" {
+			want = 3
+		}
+		if !errors.Is(err, failure) || calls != want || inverse {
+			t.Fatal(fail, err, calls, inverse)
+		}
+	}
+}

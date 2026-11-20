@@ -88,6 +88,7 @@ The gate covers both slot widths, all four source/target layout combinations,
 uneven/empty ownership, inverse transposes, alias/extent rejection, source/third-slot
 preservation and stable retained allocation. It deliberately moves arbitrary slot
 bits without arithmetic. This validates storage; it does not validate a resident
-FFT, product or canonical field values. Resident vectors passed78394. Complete resident Taylor/FFT composition is now
-implemented, sharing storage wave schedules and arithmetic; bounded validation
-is prepared. Pointwise/products and matched larger measurements remain next. No large calibration or resource increase is implied.
+FFT, product or canonical field values. Resident vectors passed78394 and complete resident FFT passed78396. Pointwise/
+products are implemented with the same three arrays, operation schedule and
+arithmetic; bounded validation is prepared. Matched larger measurements remain
+next before preprocessing integration. No large calibration or resource increase is implied.

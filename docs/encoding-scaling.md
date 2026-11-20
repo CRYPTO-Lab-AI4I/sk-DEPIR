@@ -2758,3 +2758,22 @@ no monitoring. After completion ping, independently verify full-reference/reside
 outputs, Taylor/transpose coverage, CUDA checks and allocation reuse. If passed,
 proceed to resident pointwise/products using data-left/data-right/scratch lifetimes
 and matched measurement, without requesting another go-ahead.
+
+### Resident polynomial products (SCALING-155)
+
+78396 passed24 normal/24 sanitized complete FFT rows,24old complete reference,
+240transpose+1788Taylor endpoints/arm,719source/41evidence/148cache identities,
+clean CUDA summaries. Controller141.091s,normal2.371/sanitizer3.691s;RSS373.934/
+411.531MiB/process,1.618MiBowned/card,16.077MiB retained cache. Main reference
+updated. Tiny suites do not imply fullsize throughput.
+
+Proceed to [resident products](../experiments/distributed-resident-product/report.md):
+shared three-FFT operation spans/order and existing pointwise kernel; three slots
+left/right/scratch reused, right spectrum preserved during pointwise/inverse.
+Pointwise adds no array, but two canonical scans/status flags. Input upload and
+result readback are included in resident product clocks; diagnostic spectrum
+capture is explicitly included too. Host operands/schoolbook oracles/proof code
+are shared. Validate old host-shard products plus resident normal/memcheck, exact
+coefficients/zero tails, direct extension-field/alias/layout/range checks and reuse.
+Same admitted budget; no default or field-admission change. Next: matched larger
+costs before root/Newton/generator/discovery/persistence and fulls18 admission.

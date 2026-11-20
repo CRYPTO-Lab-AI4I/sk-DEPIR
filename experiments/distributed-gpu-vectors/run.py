@@ -63,7 +63,7 @@ def review(rows,directory,operations=None,full_fft=False):
     return dict(measurements=values,proof_events=proof_count)
 
 
-def suite(c,full_fft=False,review_fn=review,test_name="TestDistributedGPUVectors",scope=None,baseline=False,reference_review=None):
+def suite(c,full_fft=False,review_fn=review,test_name="TestDistributedGPUVectors",scope=None,baseline=False,reference_review=None,reference_test="TestDistributedGPUVectors"):
     CONTROL['configure'](c)
     run=c['run'];go=c['go'];source=c['source'];cache=c['cache'];out=c['out'];env=c['env']
     c['resources'].update(rss_cap_GiB_per_rank=1,pinned_cap_MiB_per_rank=0,mpi_mode='staged',tile_words=127,scope=scope or ('bounded distributed polynomial product'if test_name=='TestDistributedGPUProducts'else('bounded additive FFT with distributed Taylor'if full_fft else'separable GPU vectors with two rank transposes; Taylor absent')))
@@ -90,7 +90,7 @@ def suite(c,full_fft=False,review_fn=review,test_name="TestDistributedGPUVectors
         env['PIR_GPU_MATRIX_STAGE_TAYLOR']='1'if full_fft and mode!='separable'else'0'
         launcher=['timeout','--signal=TERM','--kill-after=10s','240s','srun','--mpi=pmix_v3','--nodes=2','--ntasks=2','--ntasks-per-node=1','--cpus-per-task=2',
             '--export=ALL,TMPDIR=/tmp','--gpus-per-task=h200:1','--gpu-bind=single:1','--cpu-bind=cores','--distribution=block:block','--chdir='+str(cache),'--kill-on-bad-exit=1','bash',wrapper,out/mode]
-        selected_test='TestDistributedGPUVectors'if mode in ('separable','full-reference')else test_name
+        selected_test=reference_test if mode=='full-reference'else('TestDistributedGPUVectors'if mode=='separable'else test_name)
         command=[binary,'-test.run=^'+selected_test+'$','-test.v','-test.timeout=220s']
         if mode=='memcheck':command=['compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',*command]
         run(mode,[*launcher,*command],260)

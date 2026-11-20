@@ -157,3 +157,23 @@ func rankResidentAdditiveTransform[Word transposeWord](p rankTransposePlan, gpu 
 		},
 		func() error { return rankResidentVectors[Word](matrix, gpu, data, scratch, inverse, transpose, notice) })
 }
+
+// rankResidentPolynomialProduct consumes distinct left/right coefficient slots.
+// Right retains its spectrum after multiplication; only left and scratch change
+// during inverse. Three disjoint arrays suffice for all transforms and pointwise
+// work. Caller admits a domain exceeding the summed degrees to avoid aliasing.
+func rankResidentPolynomialProduct[Word transposeWord](p rankTransposePlan, gpu *cuda.RankStorage, left, right, scratch int, capacity uint64, transpose transposeLink[Word], windows taylorLink[Word], degrees func(int) ([]uint64, error), notice func(string, uint64, uint64)) error {
+	plans, err := rankProductPlans(p, capacity)
+	if err != nil {
+		return err
+	}
+	if left < 0 || left >= 3 || right < 0 || right >= 3 || scratch < 0 || scratch >= 3 || left == right || left == scratch || right == scratch || degrees == nil || windows == nil || (p.Ranks > 1 && transpose == nil) || !gpu.AdmitsTranspose(p.Rows, p.Columns, p.Rank, p.Ranks, p.TileWords) {
+		return fmt.Errorf("resident product ownership/backend/alias")
+	}
+	slots := [2]int{left, right}
+	return rankProductSchedule(plans, p.InputWords,
+		func(plan rankTransposePlan, operand int, inverse bool) error {
+			return rankResidentAdditiveTransform[Word](plan, gpu, slots[operand], scratch, capacity, inverse, transpose, windows, degrees, notice)
+		},
+		func() error { return gpu.Pointwise(left, right) }, notice)
+}

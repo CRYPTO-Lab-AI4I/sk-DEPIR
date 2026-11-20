@@ -1245,3 +1245,7 @@ extern "C" int pg_rank_taylor(void *h, unsigned slot, const void *snapshot,
     });
   });
 }
+
+extern "C" int pg_rank_pointwise(void *h, unsigned left, unsigned right, char *error, size_t cap) {
+  return api(error, cap, [&] { visit_rank(h, [&](auto &s) { s.pointwise(left, right); }); });
+}

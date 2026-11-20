@@ -69,6 +69,32 @@ template <class Word> class RankStorage {
         words > views_[slot].words() - offset)
       throw std::runtime_error("rank storage transfer extent");
   }
+  // Raw slots accept all bits, so validate complete operands before field-table
+  // indexing or any arithmetic write. Flag and launches reuse bounded storage.
+  void validate(unsigned slot,const char *phase) {
+    const size_t words=views_[slot].words();
+    check(cudaSetDevice(card().id));
+    auto *bad = static_cast<uint32_t *>(card().flag.data);
+    check(cudaMemset(bad, 0, sizeof(uint32_t)));
+    const auto began = std::chrono::steady_clock::now();
+    auto last = began;
+
+    engine_.active_domain_ = rows_ * columns_;
+    engine_.event(phase, "started", 0, words, began);
+    for (size_t offset = 0; offset < words;) {
+      const size_t take = std::min<size_t>(1u << 20, words - offset);
+      rank_validate<<<(take + 255) / 256, 256>>>(data(slot) + offset, take,
+          uint64_t(1) << (2 * engine_.s_), bad);
+      sync(); offset += take;
+      if (offset == words || std::chrono::steady_clock::now() - last >= std::chrono::seconds(30)) {
+        engine_.event(phase, offset == words ? "completed" : "progress", offset, words, began);
+        last = std::chrono::steady_clock::now();
+      }
+    }
+    uint32_t invalid = 0;
+    check(cudaMemcpy(&invalid, bad, sizeof(invalid), cudaMemcpyDeviceToHost));
+    if (invalid) throw std::runtime_error("rank arithmetic field value");
+  }
   void prepare() {
     const size_t domain = rows_ * columns_;
     engine_.shape(domain);
@@ -171,30 +197,37 @@ public:
     if (rows_ != rows || columns_ != cols || !v.interleaved ||
         v.rows != (columns ? cols : rows) || v.columns != (columns ? rows : cols))
       throw std::runtime_error("rank vector canonical shape/interleaved layout");
-    check(cudaSetDevice(card().id));
-    auto *bad = static_cast<uint32_t *>(card().flag.data);
-    check(cudaMemset(bad, 0, sizeof(uint32_t)));
-    const auto began = std::chrono::steady_clock::now();
-    auto last = began;
-    const char *phase = "rank-vector-field-validation";
-    engine_.active_domain_ = domain;
-    engine_.event(phase, "started", 0, v.words(), began);
-    for (size_t offset = 0; offset < v.words();) {
-      const size_t take = std::min<size_t>(1u << 20, v.words() - offset);
-      rank_validate<<<(take + 255) / 256, 256>>>(data(slot) + offset, take,
-          uint64_t(1) << (2 * engine_.s_), bad);
-      sync(); offset += take;
-      if (offset == v.words() || std::chrono::steady_clock::now() - last >= std::chrono::seconds(30)) {
-        engine_.event(phase, offset == v.words() ? "completed" : "progress", offset, v.words(), began);
-        last = std::chrono::steady_clock::now();
-      }
-    }
-    uint32_t invalid = 0;
-    check(cudaMemcpy(&invalid, bad, sizeof(invalid), cudaMemcpyDeviceToHost));
-    if (invalid) throw std::runtime_error("rank vector field value");
+    validate(slot,"rank-vector-field-validation");
     auto *metadata = engine_.plan(card(), domain);
     engine_.vector_stage(card(), data(slot), metadata, domain, columns, inverse,
         v.columns, v.first, v.count);
+  }
+  // Both views must describe the same evaluations in the same physical order.
+  // Right is read-only; third slot and reusable window buffers are untouched.
+  void pointwise(unsigned left,unsigned right) {
+    data(left);data(right);
+    const auto &a=views_[left], &b=views_[right];
+    if(left==right || a.rows!=b.rows || a.columns!=b.columns || a.first!=b.first ||
+        a.count!=b.count || a.interleaved!=b.interleaved)
+      throw std::runtime_error("resident pointwise alias/view");
+    validate(left,"rank-pointwise-left-validation");
+    validate(right,"rank-pointwise-right-validation");
+    const auto began=std::chrono::steady_clock::now();auto last=began;
+    const char *phase="rank-pointwise-product";
+    engine_.event(phase,"started",0,a.words(),began);
+    try {
+      for(size_t offset=0;offset<a.words();) {
+        const size_t take=std::min<size_t>(1u<<20,a.words()-offset);
+        liftrs_cuda::preparation::pointwise<<<(take+255)/256,256>>>(data(left)+offset,
+            data(right)+offset,take,engine_.s_,engine_.delta_,
+            static_cast<uint32_t*>(card().logs.data),static_cast<uint32_t*>(card().powers.data));
+        sync();offset+=take;
+        if(offset==a.words() || std::chrono::steady_clock::now()-last>=std::chrono::seconds(30)) {
+          engine_.event(phase,offset==a.words()?"completed":"progress",offset,a.words(),began);last=std::chrono::steady_clock::now();
+        }
+      }
+      if(!a.words())engine_.event(phase,"completed",0,0,began);
+    } catch(...) {engine_.event(phase,"failed",0,a.words(),began);throw;}
   }
   std::vector<uint64_t> degrees(unsigned level) {
     prepare();

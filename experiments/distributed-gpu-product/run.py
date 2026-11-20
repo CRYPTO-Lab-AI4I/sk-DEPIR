@@ -9,7 +9,7 @@ FFT=runpy.run_path(str(HERE.parent/'distributed-gpu-fft/run.py'))
 VECTORS=FFT['VECTORS']
 
 
-def review(rows,directory):
+def review(rows,directory,pointwise_words=None):
     hosts=[r for r in rows if r.get('kind')=='host'];assert len(hosts)==2 and {r['rank']for r in hosts}=={0,1}and len({r['host']for r in hosts})==2
     assert all(r['visible_devices']and ','not in r['visible_devices']for r in hosts)
     values=[r for r in rows if r.get('kind')=='measurement'];assert len(values)==24
@@ -17,7 +17,7 @@ def review(rows,directory):
     specs=[];expected_packets={};operation=1
     for s,dim in VECTORS['CASES']:
         n=1<<dim;cols=1<<(dim//2);levels=dim-dim//2;capacity=min(n,3*max(cols,n//cols));span=2+2*levels
-        selected=[r for r in checks if r['s']==s and r['dimension']==dim];assert len(selected)==2 and {r['rank']for r in selected}=={0,1}and all(r['matches']is True and r['words']==min(capacity,17)for r in selected)
+        selected=[r for r in checks if r['s']==s and r['dimension']==dim];assert len(selected)==2 and {r['rank']for r in selected}=={0,1}and all(r['matches']is True and r['words']==(pointwise_words(n,capacity)if pointwise_words else min(capacity,17))for r in selected)
         for shape in (0,1):
             label=f's{s}-d{dim}-shape-{shape}';ac,bc=(n//4+1,3*n//4)if shape==0 else(n//4,n//2)
             for child in (0,1,2):

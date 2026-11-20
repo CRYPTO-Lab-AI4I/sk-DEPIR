@@ -23,7 +23,7 @@ func productCoefficient(index, count uint64, s, operand int) uint32 {
 	}
 	return uint32((index+1)*0x9e3779b9^uint64(operand+1)*0x1337) & ((uint32(1) << uint(s)) - 1)
 }
-func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, s int, dims []int, output string, operation *uint64, emit func(map[string]any)) {
+func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, s int, dims []int, output string, operation *uint64, emit func(map[string]any), residentMode bool) {
 	for _, dim := range dims {
 		n := uint64(1) << uint(dim)
 		rows, cols := uint64(1)<<uint(dim-dim/2), uint64(1)<<uint(dim/2)
@@ -39,7 +39,21 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 			t.Fatal(err)
 		}
 		tables := newPreparationProducts(base)
-		gpu, err := cuda.NewVectorPreparation(cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: s, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: tables.log, Powers: tables.powers, Devices: []int{0}, MaxElements: n, DeviceBytes: 128 << 20}, capacity)
+		options := cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: s, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: tables.log, Powers: tables.powers, Devices: []int{0}, MaxElements: n, DeviceBytes: 128 << 20}
+		var stage *cuda.VectorPreparation
+		var resident *cuda.RankStorage
+		var gpu interface {
+			Close() error
+			OwnedBytes() uint64
+			TaylorDegrees(int) ([]uint64, error)
+		}
+		if residentMode {
+			resident, err = cuda.NewRankStorage(options, rows, cols, w.Rank, w.Size, 127)
+			gpu = resident
+		} else {
+			stage, err = cuda.NewVectorPreparation(options, capacity)
+			gpu = stage
+		}
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -48,35 +62,39 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 			multiply := func(left, right []Word) error {
 				switch a := any(left).(type) {
 				case []uint32:
-					return gpu.Pointwise32(a, any(right).([]uint32))
+					return stage.Pointwise32(a, any(right).([]uint32))
 				case []uint64:
-					return gpu.Pointwise64(a, any(right).([]uint64))
+					return stage.Pointwise64(a, any(right).([]uint64))
 				}
 				return fmt.Errorf("product slot width")
 			}
-			// Direct full-extension products exercise high components even when a small
-			// polynomial's evaluation subspace lies entirely in the base field.
-			a, b := make([]Word, min(capacity, 17)), make([]Word, min(capacity, 17))
-			want := make([]Word, len(a))
-			mask := (uint64(1) << uint(2*s)) - 1
-			for j := range a {
-				a[j] = Word((uint64(j+1)*0x9e3779b9 ^ (uint64(1) << uint(2*s-1))) & mask)
-				b[j] = Word((uint64(j+3)*0x16379 ^ (uint64(1) << uint(s))) & mask)
-				want[j] = Word(field.mul(uint64(a[j]), uint64(b[j])))
+			if residentMode {
+				residentPointwiseCheck[Word](t, resident, field, s, dim, rows, cols, words, capacity, emit)
+			} else {
+				// Direct full-extension products exercise high components even when a small
+				// polynomial's evaluation subspace lies entirely in the base field.
+				a, b := make([]Word, min(capacity, 17)), make([]Word, min(capacity, 17))
+				want := make([]Word, len(a))
+				mask := (uint64(1) << uint(2*s)) - 1
+				for j := range a {
+					a[j] = Word((uint64(j+1)*0x9e3779b9 ^ (uint64(1) << uint(2*s-1))) & mask)
+					b[j] = Word((uint64(j+3)*0x16379 ^ (uint64(1) << uint(s))) & mask)
+					want[j] = Word(field.mul(uint64(a[j]), uint64(b[j])))
+				}
+				before := append([]Word(nil), b...)
+				if e := multiply(a, b); e != nil || !reflect.DeepEqual(a, want) || !reflect.DeepEqual(b, before) {
+					prefix := fmt.Sprintf("capture-rank-%d-s%d-d%d-pointwise", w.Rank, s, dim)
+					saveMatrixStageWords(t, filepath.Join(output, prefix+"-output.bin"), a)
+					saveMatrixStageWords(t, filepath.Join(output, prefix+"-expected.bin"), want)
+					saveMatrixStageWords(t, filepath.Join(output, prefix+"-right.bin"), b)
+					t.Fatal("full extension pointwise", e)
+				}
+				saved := append([]Word(nil), a...)
+				if e := multiply(a, a); e == nil || !reflect.DeepEqual(a, saved) {
+					t.Fatal("pointwise overlap rejection", e)
+				}
+				emit(map[string]any{"kind": "pointwise-check", "s": s, "dimension": dim, "words": len(a), "matches": true})
 			}
-			before := append([]Word(nil), b...)
-			if e := multiply(a, b); e != nil || !reflect.DeepEqual(a, want) || !reflect.DeepEqual(b, before) {
-				prefix := fmt.Sprintf("capture-rank-%d-s%d-d%d-pointwise", w.Rank, s, dim)
-				saveMatrixStageWords(t, filepath.Join(output, prefix+"-output.bin"), a)
-				saveMatrixStageWords(t, filepath.Join(output, prefix+"-expected.bin"), want)
-				saveMatrixStageWords(t, filepath.Join(output, prefix+"-right.bin"), b)
-				t.Fatal("full extension pointwise", e)
-			}
-			saved := append([]Word(nil), a...)
-			if e := multiply(a, a); e == nil || !reflect.DeepEqual(a, saved) {
-				t.Fatal("pointwise overlap rejection", e)
-			}
-			emit(map[string]any{"kind": "pointwise-check", "s": s, "dimension": dim, "words": len(a), "matches": true})
 			var retained uint64
 			for shape := 0; shape < 2; shape++ {
 				ac, bc := n/4+1, 3*n/4
@@ -136,9 +154,9 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 					Vectors: func(data []Word, columns, inverse bool, first, count uint64) error {
 						switch a := any(data).(type) {
 						case []uint32:
-							return gpu.Apply32(a, columns, inverse, first, count)
+							return stage.Apply32(a, columns, inverse, first, count)
 						case []uint64:
-							return gpu.Apply64(a, columns, inverse, first, count)
+							return stage.Apply64(a, columns, inverse, first, count)
 						}
 						return fmt.Errorf("vector slot width")
 					},
@@ -148,9 +166,9 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 						var e error
 						switch a := any(data).(type) {
 						case []uint32:
-							e = gpu.Taylor32(a, tile)
+							e = stage.Taylor32(a, tile)
 						case []uint64:
-							e = gpu.Taylor64(a, tile)
+							e = stage.Taylor64(a, tile)
 						}
 						if e == nil && before != mpi.PayloadFingerprint(data[count:]) {
 							return fmt.Errorf("Taylor source mutation")
@@ -166,8 +184,13 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 						return e
 					},
 				}
+				var rightSpectrum []Word
 				last := time.Now()
 				notice := func(phase string, done, total uint64) {
+					if residentMode && phase == "rank-product-pointwise" && done == 0 {
+						rightSpectrum = make([]Word, words)
+						storageIO(t, resident, 1, rightSpectrum, false)
+					}
 					if strings.HasPrefix(phase, "rank-product-") && done == 0 {
 						switch phase {
 						case "rank-product-left-forward":
@@ -192,11 +215,34 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 				}
 				w.Barrier()
 				began := time.Now()
-				out, e := rankPolynomialProduct(p, left, right, capacity, backend, notice)
+				var out []Word
+				if residentMode {
+					for slot := 0; slot < 2; slot++ {
+						if e = resident.Reset(slot, rows, cols, false); e != nil {
+							t.Fatal(e)
+						}
+					}
+					storageIO(t, resident, 0, left, true)
+					storageIO(t, resident, 1, right, true)
+					e = rankResidentPolynomialProduct[Word](p, resident, 0, 1, 2, capacity, transposes, windows, backend.Degrees, notice)
+					if e == nil {
+						out = make([]Word, words)
+						storageIO(t, resident, 0, out, false)
+					}
+				} else {
+					out, e = rankPolynomialProduct(p, left, right, capacity, backend, notice)
+				}
 				if e != nil {
 					t.Fatal(e)
 				}
 				seconds := w.Max(time.Since(began).Seconds())
+				if residentMode {
+					gotRight := make([]Word, words)
+					storageIO(t, resident, 1, gotRight, false)
+					if !reflect.DeepEqual(gotRight, rightSpectrum) {
+						t.Fatal("right spectrum changed by pointwise/inverse")
+					}
+				}
 				actual := make([]uint32, len(out))
 				for j, v := range out {
 					if uint64(v) >= uint64(1)<<uint(s) {
@@ -216,7 +262,7 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 				if !reflect.DeepEqual(actual, expected) {
 					t.Fatal("distributed product/schoolbook", label)
 				}
-				emit(map[string]any{"kind": "measurement", "case": label, "s": s, "dimension": dim, "shape": shape, "a_count": ac, "b_count": bc, "first_coefficient": start, "words": words, "slot_bytes": h.ExtensionBytes, "output_word_bytes": 4, "seconds": seconds, "operation_start": op, "proof_events": proofs, "taylor_proof_events": taylorProofs, "owned_device_bytes": gpu.OwnedBytes(), "output_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(actual)), "matches": true})
+				emit(map[string]any{"kind": "measurement", "case": label, "s": s, "dimension": dim, "shape": shape, "a_count": ac, "b_count": bc, "first_coefficient": start, "words": words, "slot_bytes": h.ExtensionBytes, "output_word_bytes": 4, "seconds": seconds, "operation_start": op, "proof_events": proofs, "taylor_proof_events": taylorProofs, "owned_device_bytes": gpu.OwnedBytes(), "output_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(actual)), "matches": true, "resident": residentMode, "right_spectrum_preserved": residentMode, "reused": true})
 				emit(map[string]any{"kind": "phase", "phase": label, "event": "completed", "completed": 1, "total": 1})
 			}
 		}()
@@ -229,8 +275,23 @@ func TestDistributedGPUProducts(t *testing.T) {
 	}
 	withDistributedGPUStages(t, output, func(w *mpi.World, emit func(map[string]any)) {
 		operation := uint64(1)
-		distributedProductGPUCases[uint32](t, w, 4, []int{4, 5, 8}, output, &operation, emit)
-		distributedProductGPUCases[uint64](t, w, 17, []int{5, 9, 12}, output, &operation, emit)
+		distributedProductGPUCases[uint32](t, w, 4, []int{4, 5, 8}, output, &operation, emit, false)
+		distributedProductGPUCases[uint64](t, w, 17, []int{5, 9, 12}, output, &operation, emit, false)
+		emit(map[string]any{"kind": "completed", "cases": 12})
+	})
+}
+
+// TestDistributedResidentProducts shares operands, schoolbook oracle, routes and
+// resource guards with the host-shard product reference; only storage changes.
+func TestDistributedResidentProducts(t *testing.T) {
+	output := os.Getenv("PIR_GPU_MATRIX_STAGE_OUTPUT")
+	if output == "" {
+		t.Skip("explicit bounded resident products")
+	}
+	withDistributedGPUStages(t, output, func(w *mpi.World, emit func(map[string]any)) {
+		operation := uint64(1)
+		distributedProductGPUCases[uint32](t, w, 4, []int{4, 5, 8}, output, &operation, emit, true)
+		distributedProductGPUCases[uint64](t, w, 17, []int{5, 9, 12}, output, &operation, emit, true)
 		emit(map[string]any{"kind": "completed", "cases": 12})
 	})
 }

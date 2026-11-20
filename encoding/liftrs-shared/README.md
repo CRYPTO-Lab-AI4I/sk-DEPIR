@@ -876,7 +876,7 @@ runs in place; the plan is retained lazily under the same cap. For example, afte
 transposing into an interleaved column slot, call `store.Vectors(1, true, false)`.
 Host and resident adapters share separable stage order. No complete host shard is
 staged for vector arithmetic. [Resident composition validation](../../experiments/distributed-resident-vectors/report.md)
-passed78394; complete resident Taylor/FFT validation is now prepared. Resident products remain pending.
+passed78394; complete resident Taylor/FFT validation passed78396. Resident products are implemented, validation prepared.
 
 Resident Taylor now uses the same ticket/wave and level/pass scheduler as the host
 reference. `TaylorDegrees(level)` supplies metadata; `Taylor32/64(slot, snapshot,
@@ -887,5 +887,15 @@ original ownership. Two bounded host buffers and one cap-accounted device window
 replace full host shards. Local sources still round-trip through bounded host
 windows. Native window arithmetic and FFT plans/order are shared with the existing
 adapters; no second recurrence. [Complete resident FFT gate](../../experiments/distributed-resident-fft/report.md)
-is prepared, including the old complete host-tile regression. No default/client
+passed78396, including the old complete host-tile regression. No default/client
 CUDA dependency or fulls18 support change.
+
+`RankStorage.Pointwise(left, right)` now multiplies matching resident views in
+place with the existing extension-field kernel (for example,
+`store.Pointwise(0, 1)`). Slots must be distinct, with equal dimensions/layout;
+both operands are range-checked before writes. Right and the third slot survive,
+with no new full device array or host staging. Shared product plans/order compose
+left/right forward FFTs, pointwise and inverse-left using one scratch slot.
+[Bounded resident product validation](../../experiments/distributed-resident-product/report.md)
+is prepared; fullsize throughput, pipeline integration and s18 admission remain
+separate. No client/default change.
