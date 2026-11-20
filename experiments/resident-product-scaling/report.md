@@ -1,7 +1,9 @@
 # Matched resident/host product scaling and transfer tiles
 
-Status: prepared; local build/reviewer checks pass. No new GPU measurements yet.
-Source follows `a96d7f6`/`845ce07`; receipt/raw results identify the frozen producer.
+Status: **job78432 submitted**, implementation `e76ef8a`; [receipt](submission.json).
+Local build/reviewer checks pass; new GPU measurements remain pending.
+[Results destination](runs/matched-01/), [job log](slurm-78432.log). Actual
+job-start revision/build identities are saved by the controller.
 [Readiness evidence](readiness/checks.json). This follows
 [passed resident products78399](../distributed-resident-product/report.md).
 

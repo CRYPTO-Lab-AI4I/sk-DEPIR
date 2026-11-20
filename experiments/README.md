@@ -82,7 +82,7 @@ original methodology; apply this policy to new optimization runs.
 ## Recorded experiments
 
 - [Matched resident/host product scaling](resident-product-scaling/report.md):
-  N4096/16384,127/4096-word tiles and3samples/pair inside existing caps; prepared.
+  N4096/16384,127/4096-word tiles and3samples/pair inside existing caps;78432 submitted.
   Total/net diagnostic clocks and sanitizer coverage are explicitly separated.
 
 - [Resident GPU polynomial products](distributed-resident-product/report.md):

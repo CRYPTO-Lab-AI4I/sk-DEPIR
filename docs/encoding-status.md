@@ -22,7 +22,7 @@ component results, separate from the full s17 runs and fulls18 projections below
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Next: matched N4096/16384 transfer-tile comparison** (prepared). Large-product scaling remains pending. |
+| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched N4096/16384 transfer-tile comparison78432 submitted**, results pending. Large-product scaling remains pending. |
 | 2. Distributed discovery | Existing discovery is not yet partitioned across nodes. |
 | 3. Generator construction and verification | Existing algorithms still need the distributed executor/data integration. |
 | 4. Coordinated checkpoints and publication | Helpers exist; distributed ownership/restart/assembly integration remains. |
@@ -61,7 +61,7 @@ endpoints/arm, clean CUDA summaries. Controller **2min33.300s**, normal arm
 owned GPU **1.618 MiB/card**. Largest4096-value resident samples **0.2347–0.2367s**
 versus host **0.1080–0.1111s**, with diagnostic boundaries described in the report.
 [Matched size/tile comparison](../experiments/resident-product-scaling/report.md)
-is prepared; no fulls18 result or fullsize speedup claim.
+**78432 submitted**, results pending; no fulls18 result or fullsize speedup claim.
 
 ## Current s=17 results
 

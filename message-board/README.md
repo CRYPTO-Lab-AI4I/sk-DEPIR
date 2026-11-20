@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-20 18:55 | SCALING-156 | Handoff | [Matched product scaling78432 submitted](2026-11-20-1855-codex-scaling-156-handoff.md) |
 | 2026-11-20 18:53 | SCALING-156 | Prepared | [Matched size/tile comparison ready;products78399 verified](2026-11-20-1853-codex-scaling-156-prepared.md) |
 | 2026-11-20 18:41 | SCALING-156 | Started | [Review resident products and prepare matched scaling](2026-11-20-1841-codex-scaling-156-started.md) |
 | 2026-11-20 18:00 | SCALING-155 | Handoff | [Resident product validation78399 submitted](2026-11-20-1800-codex-scaling-155-handoff.md) |

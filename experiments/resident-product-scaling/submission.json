@@ -1,0 +1,14 @@
+{
+  "job_id": "78432",
+  "name": "matched-01",
+  "implementation_revision": "e76ef8aac43f94ab8fe16a29c06c7f333f2bef5b",
+  "recorded_utc": "2026-11-20T18:55:21.350076+00:00",
+  "command": "module load slurm/slurm/25.05; sbatch --parsable --output=experiments/resident-product-scaling/slurm-%j.log experiments/resident-product-scaling/run.sbatch matched-01",
+  "results": "experiments/resident-product-scaling/runs/matched-01/",
+  "log": "experiments/resident-product-scaling/slurm-78432.log",
+  "cache": ".cache/liftrs/resident-product-scaling/matched-01/",
+  "resources": "same2HPCnodes/2H200/4CPU/8GiBhost;128MiBowned/card/1GiBRSS/rank/128MiBcache/2GiBscratch/32MiBfile;720scontroller/15minscheduler;no pinned buffers",
+  "monitoring": "None. Wait for user completion ping.",
+  "scope": "synthetic s17-field productsN4096/16384;host/resident,tile127/4096,3samples/pair;N4096tile4096sanitizer subset;no fulls17/s18 preprocessing/default change",
+  "note": "Actual job-start revision and build identities recorded by controller; following handoff changes affect excluded documentation/JSON only."
+}

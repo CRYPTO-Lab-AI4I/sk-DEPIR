@@ -88,7 +88,7 @@ passes78394:24 normal +24 sanitized resident outputs with zero CUDA errors/leaks
 pass78399:24 normal +24 sanitized schoolbook products with clean CUDA summaries.
 The tiny resident samples remain slower than host at4096 values; a
 [matched size/transfer-tile comparison](experiments/resident-product-scaling/report.md)
-is prepared. Larger product scaling and fulls18 preprocessing remain pending. No encoding default
+is submitted as78432. Larger product scaling and fulls18 preprocessing remain pending. No encoding default
 or client CUDA/MPI dependency changes.
 
 The [persistent GPU vector-stage adapter](experiments/gpu-vector-stage/report.md)

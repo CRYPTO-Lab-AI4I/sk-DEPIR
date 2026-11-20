@@ -2808,3 +2808,9 @@ build/preflight/allocation, preserving completed results before later phases.
 Projected250–400s controller inside720s/15min limits, unknown until measured.
 Default paths unchanged; select subsequent larger/product-integration work from
 measured batching/transfer/setup costs, not a presumed resident speedup.
+
+Matched size/tile comparison **78432 submitted**, implementation `e76ef8a`, results
+`experiments/resident-product-scaling/runs/matched-01/`. Same concrete budget;
+no monitoring. After completion ping, verify every completed arm/sanitizer scope,
+net/total timing identities, profiles and three-sample distributions before
+choosing further transfer or pipeline integration work.
