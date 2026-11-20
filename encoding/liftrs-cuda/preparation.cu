@@ -861,11 +861,16 @@ public:
   }
 };
 #include "resident_encoding.cuh"
+#include "vector_stage.cuh"
 
 struct Engine {
   using Narrow = Resident<uint32_t>;
   using Wide = Resident<uint64_t>;
   std::variant<std::unique_ptr<Narrow>, std::unique_ptr<Wide>> state;
+  // Destroy the borrowing stage before its resident executor.
+  std::variant<std::monostate, std::unique_ptr<VectorStage<uint32_t>>,
+               std::unique_ptr<VectorStage<uint64_t>>> vectors;
+  size_t vector_domain = 0, vector_capacity = 0;
 };
 template <class Function> int api(char *error, size_t capacity, Function fn) {
   try {
@@ -1040,5 +1045,34 @@ extern "C" int pg_encode_code(void *handle, const uint32_t *message, size_t k,
                               size_t capacity) {
   return api(error, capacity, [&] {
     visit(handle, [&](auto &state) { state.encode_code(message, k, word, n, stats); });
+  });
+}
+
+// Optional server-stage ABI, used only by a dedicated VectorPreparation owner.
+extern "C" int pg_vector_stage(void *handle, void *values, size_t words,
+    unsigned width, size_t domain, size_t local_capacity, int columns,
+    int inverse, size_t first, size_t count, char *error, size_t capacity) {
+  return api(error, capacity, [&] {
+    if (!values || !words || (columns != 0 && columns != 1) ||
+        (inverse != 0 && inverse != 1))
+      throw std::runtime_error("GPU vector stage arguments");
+    visit(handle, [&](auto &state) {
+      using Word = std::conditional_t<
+          std::is_same_v<std::decay_t<decltype(state)>, Engine::Narrow>, uint32_t, uint64_t>;
+      if (width != sizeof(Word)) throw std::runtime_error("GPU vector stage width");
+      auto &engine = *static_cast<Engine *>(handle);
+      if (!engine.vector_domain) {
+        auto stage = std::make_unique<VectorStage<Word>>(state, domain, local_capacity);
+        engine.vectors = std::move(stage);
+        engine.vector_domain = domain;
+        engine.vector_capacity = local_capacity;
+      }
+      if (engine.vector_domain != domain || engine.vector_capacity != local_capacity)
+        throw std::runtime_error("GPU vector stage immutable shape");
+      auto &stage = *std::get<std::unique_ptr<VectorStage<Word>>>(engine.vectors);
+      stage.upload(static_cast<Word *>(values), words);
+      stage.apply(columns != 0, inverse != 0, first, count);
+      stage.download(static_cast<Word *>(values), words);
+    });
   });
 }

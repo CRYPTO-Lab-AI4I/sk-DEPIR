@@ -25,6 +25,8 @@ typedef struct pg_bridge {
                   char *, size_t);
   int (*encode_code)(void *, const uint32_t *, size_t, uint32_t *, size_t, double *,
                      char *, size_t);
+  int (*vector_stage)(void *, void *, size_t, unsigned, size_t, size_t, int, int,
+                       size_t, size_t, char *, size_t);
   uint64_t (*owned)(void *);
   void (*destroy)(void *);
 } pg_bridge;
@@ -64,6 +66,7 @@ static pg_bridge *pg_bridge_open(const char *path, unsigned s, uint32_t poly,
   // construction explicitly checks these before configuring any code data.
   b->set_code = dlsym(b->library, "pg_set_code");
   b->encode_code = dlsym(b->library, "pg_encode_code");
+  b->vector_stage = dlsym(b->library, "pg_vector_stage");
   b->owned = dlsym(b->library, "pg_owned_bytes");
   b->destroy = dlsym(b->library, "pg_destroy");
   if (!create || !b->apply || !b->grid || !b->product || !b->spectrum ||
@@ -81,6 +84,19 @@ static pg_bridge *pg_bridge_open(const char *path, unsigned s, uint32_t poly,
     return NULL;
   }
   return b;
+}
+static int pg_bridge_has_vector_stage(pg_bridge *b) {
+  return b && b->vector_stage;
+}
+static int pg_bridge_vector_stage(pg_bridge *b, void *data, size_t words,
+    unsigned width, size_t domain, size_t local_capacity, int columns,
+    int inverse, size_t first, size_t count, char *error, size_t cap) {
+  if (!pg_bridge_has_vector_stage(b)) {
+    snprintf(error, cap, "GPU vector stage ABI unavailable");
+    return 1;
+  }
+  return b->vector_stage(b->engine, data, words, width, domain, local_capacity,
+                         columns, inverse, first, count, error, cap);
 }
 static int pg_bridge_apply(pg_bridge *b, void *values, size_t n, unsigned width,
                            int inverse, char *error, size_t cap) {

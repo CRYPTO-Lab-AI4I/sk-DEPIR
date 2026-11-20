@@ -1,7 +1,6 @@
 #pragma once
-// Internal server component, included after preparation.cu. This adapter owns no
+// Internal server component, included after Resident inside its namespace. Owns no
 // host grid: the borrowed fresh executor owns one reusable device tile and plans.
-namespace {
 template <class Word> class VectorStage {
   Resident<Word> &engine_;
   size_t domain_, capacity_, loaded_ = 0;
@@ -100,4 +99,3 @@ public:
     check(cudaMemcpy(data, card().x.data, words * sizeof(Word), cudaMemcpyDeviceToHost));
   }
 };
-} // namespace

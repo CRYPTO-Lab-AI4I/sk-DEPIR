@@ -327,3 +327,29 @@ interleaved device tile across calls; no full host grid or public ABI is added.
 errors/leaks. Raw controller failed a stderr-only summary check, now fixed;
 component evidence verified without GPU rerun. It reuses the existing vector kernels and s≤17 admission.
 Distributed transpose/Taylor composition and full s18 support remain pending.
+
+### Experimental distributed vector owner
+
+`NewVectorPreparation(options, localWords)` creates a dedicated single-GPU
+server stage owner; `options.MaxElements` fixes the global domain while
+`localWords` caps one interleaved tile. It requires the optional `pg_vector_stage`
+plugin symbol; older plugins remain usable for existing preparation APIs.
+`Apply32`/`Apply64` transform complete columns or affine rows at global vector
+origins, with synchronous transfers and no transpose/Taylor conversion. Close
+the owner after use. CPU-only client builds retain no CUDA/MPI dependency.
+
+Given trusted s17 `PreparationOptions` for a4096-word domain and device0:
+
+```go
+stages, err := liftrscuda.NewVectorPreparation(options, 192)
+if err != nil { return err }
+defer stages.Close()
+// Three length64 rows, interleaved as coefficient*3+vector.
+if err := stages.Apply64(tile, false, false, 10, 3); err != nil { return err }
+```
+
+The [bounded composition experiment](../../experiments/distributed-gpu-vectors/report.md)
+joins these stages to the shared rank transpose. Validation is prepared, not yet
+measured. This separable transform still needs distributed Taylor integration
+for a full FFT. The host-shard control layout/extra transfers are explicit and
+do not change resident defaults or establish fulls18 feasibility.

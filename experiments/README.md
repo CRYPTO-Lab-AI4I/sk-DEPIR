@@ -81,6 +81,10 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Distributed GPU vector composition](distributed-gpu-vectors/report.md): shared
+  rank transpose plus dedicated GPU vector owner; bounded native/MPI/CUDA gate
+  prepared. Taylor conversion/full FFT and full-size costs remain unvalidated.
+
 - [Persistent GPU vector stages](gpu-vector-stage/report.md): local storage/global
   coordinates separated using existing kernels; bounded CPU-oracle/reuse/error/
   78293 independently passed48 normal /42 split-sanitized cases, zero errors/leaks.

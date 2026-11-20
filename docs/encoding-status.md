@@ -666,3 +666,9 @@ component results were verified without rerunning GPU work. Normal suites took
 31.210 seconds; sanitizer287.750 seconds; host peak RSS131.109 MiB normal /
 167.059 MiB sanitized per process, owned GPU memory4.569 MiB/card. Complete
 distributed FFT and full s18 preprocessing remain unvalidated.
+
+The [GPU vector/transpose composition](../experiments/distributed-gpu-vectors/report.md) is implemented with
+bounded local tiles and independent ownership/order tests. MPI/GPU validation
+is prepared; distributed Taylor conversion and full FFT/product integration
+remain pending. The host-shard control layout adds transfers and is not selected
+for full-size preprocessing or a change to resident defaults.

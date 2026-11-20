@@ -837,3 +837,10 @@ CPU serial/rendezvous/race tests and distributed MPI validation78279 pass;
 all16 operations and7,312 endpoint checks match independent output coordinates.
 GPU vector/Taylor composition and collective polynomial products are not implemented
 by this permutation. No production layout/default or fulls18 claim follows.
+
+The internal [rank matrix-vector composition](distributed_vectors.go) joins
+existing rank transposes and bounded complete-vector callbacks. Forward/inverse
+ordering, local interleaving and empty/tail ownership have independent CPU tests;
+[bounded MPI/GPU validation](../../experiments/distributed-gpu-vectors/report.md)
+is prepared. This is a separable stage, not a Taylor-complete FFT or a production
+GPU-resident storage layout. Ordinary builds require neither MPI nor CUDA.

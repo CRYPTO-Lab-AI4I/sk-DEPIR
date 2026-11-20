@@ -2589,3 +2589,18 @@ Split coverage limitations remain explicit. Next compose GPU vectors/transposes
 and distributed Taylor dependencies, with independent end-to-end forward/inverse
 checks before products, s18 admission or any larger resource budget. No production
 layout/default switch; latency/memory/communications remain unmeasured at fullsize.
+
+### Compose rank transposes and GPU vectors (SCALING-148)
+
+[Implementation and bounded gate](../experiments/distributed-gpu-vectors/report.md):
+shared rank orchestration, optional dedicated CUDA stage owner and independent
+native CPU oracle. Forward column/transposes/affine-row and inverse reverse order;
+24 measurements per execution, all repeated under small-case CUDA memcheck.
+CPU ownership/order/race and remote shared-path preflight precede GPU work.
+Validation pending within existing2node/2H200/4CPU/8GiBhost,720s/15min limits.
+No full FFT claim: distributed Taylor conversion is the next implementation gate.
+Host reference can retain caller input plus two owned shards; full2^36/16rank
+projection1536GiB host principal arrays before overhead, not selected production
+layout/admission. GPU uploads/downloads add2N slots each per forward transform.
+Keep fast resident defaults and target GPU arena reuse/bounded staging; fullsize
+latency/memory/communications and s18 arithmetic/workflow remain unvalidated.

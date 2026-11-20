@@ -1,0 +1,47 @@
+{
+  "checks": [
+    {
+      "command": "go test ./encoding/liftrs-shared -run ^TestRankMatrixVectors$|^TestRankVectorAdmission$ -count=1 -timeout=20s",
+      "result": "passed;0.010s test time;CGO_ENABLED=0"
+    },
+    {
+      "command": "go test -race ./encoding/liftrs-shared -run ^TestRankMatrixVectors$|^TestRankVectorAdmission$ -count=1 -timeout=20s",
+      "result": "passed;1.042s test time"
+    },
+    {
+      "command": "go test -tags liftrs_cuda ./encoding/liftrs-cuda -run ^$ -count=1",
+      "result": "passed;CUDA-free Go/C bridge interface compiled;no tests/GPU execution"
+    },
+    {
+      "command": "gcc -std=c11 -fsyntax-only -x c encoding/liftrs-cuda/preparation_bridge.h",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -B experiments/distributed-gpu-vectors/test_review.py",
+      "result": "3 passed"
+    },
+    {
+      "command": "python3 -B experiments/gpu-vector-stage/test_review.py",
+      "result": "5 passed"
+    },
+    {
+      "command": "bash -n experiments/distributed-gpu-vectors/run.sbatch; Python AST; gofmt; git diff --check",
+      "result": "passed"
+    }
+  ],
+  "environment": "HPC,Go1.27.3,2localCPU workers,localGOCACHE=/tmp/depir-vector-local-cache;no local MPI/CUDA execution",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_vectors.go": "04684fd7d0af9cdefbc32f47cb463f19272ce7257602ceded6561a9532c1c344",
+    "encoding/liftrs-shared/distributed_vectors_test.go": "81a1e616c05803fb107e50a57a580ce65b901b8cbe2ce99eba12ca337283a039",
+    "encoding/liftrs-shared/distributed_vectors_gpu_test.go": "dbd46ab9b2b15440ad1df47fa6b04a305f2165183a16b7927c6acc0fca9ee9d1",
+    "encoding/liftrs-cuda/vector_preparation.go": "61334b65adc1cdb42eae2ebdaab5c4e846b77270d1f2e0aa5a885734e870da33",
+    "encoding/liftrs-cuda/vector_stage.cuh": "e8963672a4dd4c1e46b8dce5263a944b556c8b3b77d252ec57099ccf56fcaf86",
+    "encoding/liftrs-cuda/preparation.cu": "f1a9dc3e76ce26a17ac7a61d7f1b8359c7e27593c2b91be73161294a10581c3a",
+    "encoding/liftrs-cuda/preparation_api.h": "20a3f894fae3c620000af9cd22609d01d86a77047cc3d9010a963a7135addc49",
+    "encoding/liftrs-cuda/preparation_bridge.h": "b11d15de58574974e3a34cec7b9b418e4706280ce4663884efbad41ad69b4d5d",
+    "experiments/distributed-gpu-vectors/analyze.py": "8bdb2709bdac98696cd8ad593c10ec5f78441ff21a3e42f819c9c381766d0e2b",
+    "experiments/distributed-gpu-vectors/run.py": "5d36c6ca0340186534793cfa859f55e018f5e72e172f12b1c85c89d20d9a65bc",
+    "experiments/distributed-gpu-vectors/test_review.py": "eb9ef063bada51b1e6c364e4f4632b2adc75751cbc3d32824e32208d9b0f1fa3"
+  },
+  "pending": "Native CUDA translation and composed two-node MPI/GPU/sanitizer execution deferred to admitted scheduler job; Taylor absent."
+}

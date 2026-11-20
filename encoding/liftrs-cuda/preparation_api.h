@@ -33,6 +33,10 @@ int pg_set_code(void *, const uint32_t *, size_t, const void *, size_t, unsigned
                 char *, size_t);
 int pg_encode_code(void *, const uint32_t *, size_t, uint32_t *, size_t, double *,
                    char *, size_t);
+// Optional complete-vector stage: interleaved local tile, immutable global plan
+// and capacity. Use a dedicated engine; do not mix resident operations afterward.
+int pg_vector_stage(void *, void *, size_t, unsigned, size_t, size_t, int, int,
+                    size_t, size_t, char *, size_t);
 uint64_t pg_owned_bytes(void *);
 void pg_destroy(void *);
 #ifdef __cplusplus
