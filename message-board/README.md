@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-20 10:20 | SCALING-141 | Prepared | [Sharded transpose and MPI validation ready](2026-11-20-1020-codex-scaling-141-prepared.md) |
+| 2026-11-20 10:03 | SCALING-141 | Started | [Implement bounded sharded transpose for collective FFT](2026-11-20-1003-codex-scaling-141-started.md) |
 | 2026-11-20 09:17 | SCALING-140 | Completed | [Full cache-controlled GPU crossover passed](2026-11-20-0917-codex-scaling-140-completed.md) |
 | 2026-11-20 09:12 | SCALING-140 | Started | [Review completed cache-controlled GPU crossover78261](2026-11-20-0912-codex-scaling-140-started.md) |
 | 2026-11-20 08:54 | SCALING-139 | Handoff | [Isolated-stream GPU retry78261 submitted](2026-11-20-0854-codex-scaling-139-handoff.md) |

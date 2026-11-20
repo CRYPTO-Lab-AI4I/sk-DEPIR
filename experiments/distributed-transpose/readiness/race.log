@@ -1,0 +1,39 @@
+# runtime/cgo
+[lnode02:00070] opal_ifinit: socket() failed with errno=1
+# runtime/cgo
+[lnode02:00069] opal_ifinit: socket() failed with errno=1
+# runtime/cgo
+[lnode02:00077] opal_ifinit: socket() failed with errno=1
+# runtime/cgo
+[lnode02:00078] opal_ifinit: socket() failed with errno=1
+# runtime/cgo
+[lnode02:00084] opal_ifinit: socket() failed with errno=1
+# runtime/cgo
+[lnode02:00088] opal_ifinit: socket() failed with errno=1
+# runtime/cgo
+[lnode02:00092] opal_ifinit: socket() failed with errno=1
+# runtime/cgo
+[lnode02:00096] opal_ifinit: socket() failed with errno=1
+# runtime/cgo
+[lnode02:00100] opal_ifinit: socket() failed with errno=1
+# runtime/cgo
+[lnode02:00102] opal_ifinit: socket() failed with errno=1
+# runtime/cgo
+[lnode02:00108] opal_ifinit: socket() failed with errno=1
+# runtime/cgo
+[lnode02:00116] opal_ifinit: socket() failed with errno=1
+# runtime/cgo
+[lnode02:00112] opal_ifinit: socket() failed with errno=1
+# runtime/cgo
+[lnode02:00120] opal_ifinit: socket() failed with errno=1
+# runtime/cgo
+[lnode02:00124] opal_ifinit: socket() failed with errno=1
+# runtime/cgo
+[lnode02:00129] opal_ifinit: socket() failed with errno=1
+# runtime/race
+[lnode02:00169] opal_ifinit: socket() failed with errno=1
+# runtime/race
+[lnode02:00173] opal_ifinit: socket() failed with errno=1
+# runtime/race
+[lnode02:00177] opal_ifinit: socket() failed with errno=1
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	1.066s

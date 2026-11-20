@@ -824,3 +824,15 @@ caller's responsibility; the CLI integrates existing atomic verification via
 `--spectrum-tile-bytes`. Complete bounded GPU validation76710 passes; full-size costs remain unmeasured. See
 [API usage and lifetime rules](../../docs/preprocessing.md#explicit-bounded-host-canonical-export)
 and [reproduction](../../experiments/preprocessing-export/report.md).
+
+### Collective preprocessing transpose reference
+
+[distributed_transpose.go](distributed_transpose.go) owns only contiguous input/
+output row bands and one bounded tile. Its generic32/64-bit implementation uses
+operation/shape/count descriptors, deterministic blocking peer rounds and no full
+matrix gather; it performs no field arithmetic. Private API and MPI test adapter
+are experimental preprocessing components, not client encoding dependencies.
+[Design, memory/time limits and validation](../../experiments/distributed-transpose/report.md).
+CPU serial/rendezvous/race tests pass; distributed MPI validation is pending.
+GPU vector/Taylor composition and collective polynomial products are not implemented
+by this permutation. No production layout/default or fulls18 claim follows.

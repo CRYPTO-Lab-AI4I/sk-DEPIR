@@ -624,6 +624,18 @@ UCX cache control; resources and exclusions above):
 
 These rows do not fill any full s=18 preprocessing/encoding result cell.
 
+The first collective-FFT component is now implemented: a
+[rank-sharded transpose](../experiments/distributed-transpose/report.md) with
+bounded tiles, operation descriptors and32/64-bit transport. Independent serial
+and unbuffered-rendezvous CPU tests pass, including empty owners and wide counts.
+Distributed MPI validation is pending. This host-packing reference is not yet a
+GPU transform or full s=18 preprocessing. It uses two local shards plus a tile;
+packing/communication costs and production host/device layout remain unmeasured.
+At a full2^36-element grid /16 ranks /64-bit slots, this reference would retain
+64 GiB/rank (1 TiB aggregate) for two host shards alone; it is not the selected
+production route or a replacement for the GPU capacity models above.
+
+
 ## Measurement boundaries for batch entries
 
 § [Completed22-case HPC batch](../experiments/encoding-table/report.md#completed-all-case-review-scaling-073)

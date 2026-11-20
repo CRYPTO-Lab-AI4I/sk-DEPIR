@@ -141,6 +141,15 @@ Full s=18 preprocessing remains unrun; current full s=17 results and CPU-client
 support are unchanged. [Original failed gate](experiments/root-merge-tree/report.md)
 and [partial logging-failed retry](experiments/ucx-cache-gpu-tree/report.md#review-of-78249)
 remain preserved in the evidence.
+
+The first collective-FFT component is now implemented: a
+[rank-sharded transpose](experiments/distributed-transpose/report.md) with
+bounded tiles, operation descriptors and32/64-bit transport. Independent serial
+and unbuffered-rendezvous CPU tests pass, including empty owners and wide counts.
+Distributed MPI validation is pending. This host-packing reference is not yet a
+GPU transform or full s=18 preprocessing. It uses two local shards plus a tile;
+packing/communication costs and production host/device layout remain unmeasured.
+
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

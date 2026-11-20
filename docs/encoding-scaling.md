@@ -2411,6 +2411,15 @@ SCALING-109 next-work order is explicit:
    atomic/checksum helpers. Extra communication/workspace/runtime are unmeasured;
    present their trade-offs and admit budgets before larger jobs. Retain both
    explicit validated transfer modes; no production/client defaults change.
+   SCALING-141: [rank-sharded transpose reference implemented](../experiments/distributed-transpose/report.md)
+   with bounded tiles, width-aware operation/shape/offset descriptors and no
+   coordinator gather. Blocking rendezvous tests pass odd/empty/uneven owners
+   and virtual64-bit counts. Scalar host packing is a reference/control plane,
+   not a CPU fallback or selected GPU layout. Two local shards plus one tile,
+   one off-rank send per moved word; latency/copies/host-device costs unknown.
+   Validate MPI32/64 lanes and unchanged root/support lanes on zero GPUs in the
+   existing2-node4-core8GiB envelope, then compose GPU vector/Taylor stages.
+   Distributed validation pending; no default/fullsize capability change.
    Profile-report allowance remains90s within current controller/scheduler caps.
 
 6. Compare complete elapsed time across practical allocations before choosing

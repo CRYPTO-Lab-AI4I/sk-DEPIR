@@ -36,17 +36,16 @@ static int peer_words(int rank,uint32_t *send,int count,uint32_t *receive,int ca
 // sequentially. Support routing finishes before polynomial reduction starts.
 // Totals stay64bit; only bounded chunk lengths use MPI's int-count ABI.
 // Optional MPI-owned staging copies one bounded chunk; direct views remain the default.
-static void chunk_progress(int peer,int wide,int sending,uint64_t done,uint64_t total,double began,double now) {
+static void chunk_progress(int peer,int tag,int sending,uint64_t done,uint64_t total,double began,double now) {
     int rank;MPI_Comm_rank(MPI_COMM_WORLD,&rank);
     char utc[32];time_t stamp=time(NULL);struct tm tm;gmtime_r(&stamp,&tm);
     strftime(utc,sizeof(utc),"%Y-%m-%dT%H:%M:%SZ",&tm);
     fprintf(stderr,"{\"kind\":\"mpi-chunk\",\"utc\":\"%s\",\"rank\":%d,\"peer\":%d,\"phase\":\"%s\",\"sending\":%s,\"event\":\"%s\",\"completed\":%llu,\"total\":%llu,\"unit\":\"words\",\"elapsed_seconds\":%.6f}\n",
-        utc,rank,peer,wide?"support-transfer":"root-transfer",sending?"true":"false",done==total?"completed":"progress",
+        utc,rank,peer,tag==10?"support-transfer":tag==20?"root-transfer":tag==40?"coefficient32-transfer":"coefficient64-transfer",sending?"true":"false",done==total?"completed":"progress",
         (unsigned long long)done,(unsigned long long)total,now-began);
     fflush(stderr);
 }
-static int send_values(int peer,void *values,uint64_t count,int wide,int chunk,void *staging) {
-    int tag=wide?10:20;
+static int send_values(int peer,void *values,uint64_t count,int wide,int chunk,void *staging,int tag) {
     int code=MPI_Send(&count,1,MPI_UINT64_T,peer,tag,MPI_COMM_WORLD);
     if(code!=MPI_SUCCESS || count==0)return code;
     double began=MPI_Wtime(),last=began;
@@ -57,28 +56,28 @@ static int send_values(int peer,void *values,uint64_t count,int wide,int chunk,v
         code=MPI_Send(source,take,wide?MPI_UINT64_T:MPI_UINT32_T,peer,tag+1,MPI_COMM_WORLD);
         if(code!=MPI_SUCCESS)return code;
         first+=(uint64_t)take;double now=MPI_Wtime();
-        if(count>(uint64_t)chunk && (now-last>=30 || first==count)) {chunk_progress(peer,wide,1,first,count,began,now);last=now;}
+        if(count>(uint64_t)chunk && (now-last>=30 || first==count)) {chunk_progress(peer,tag,1,first,count,began,now);last=now;}
     }
     return MPI_SUCCESS;
 }
-static int receive_count(int peer,uint64_t *count,int wide) {
+static int receive_count(int peer,uint64_t *count,int tag) {
     uint64_t value=0;
-    int code=MPI_Recv(&value,1,MPI_UINT64_T,peer,wide?10:20,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+    int code=MPI_Recv(&value,1,MPI_UINT64_T,peer,tag,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
     if(code==MPI_SUCCESS)*count=value;
     return code;
 }
-static int receive_values(int peer,void *values,uint64_t count,int wide,int chunk,void *staging) {
+static int receive_values(int peer,void *values,uint64_t count,int wide,int chunk,void *staging,int tag) {
     double began=MPI_Wtime(),last=began;
     for(uint64_t first=0;first<count;) {
         int take=(int)((count-first)<(uint64_t)chunk?count-first:(uint64_t)chunk);MPI_Status status;
         void *destination=(char*)values+first*(wide?8:4);
-        int code=MPI_Recv(staging?staging:destination,take,wide?MPI_UINT64_T:MPI_UINT32_T,peer,wide?11:21,MPI_COMM_WORLD,&status);
+        int code=MPI_Recv(staging?staging:destination,take,wide?MPI_UINT64_T:MPI_UINT32_T,peer,tag+1,MPI_COMM_WORLD,&status);
         if(code!=MPI_SUCCESS)return code;
         int actual;code=MPI_Get_count(&status,wide?MPI_UINT64_T:MPI_UINT32_T,&actual);
         if(code!=MPI_SUCCESS || actual!=take)return MPI_ERR_COUNT;
         if(staging)memcpy(destination,staging,(size_t)take*(wide?8:4));
         first+=(uint64_t)take;double now=MPI_Wtime();
-        if(count>(uint64_t)chunk && (now-last>=30 || first==count)) {chunk_progress(peer,wide,0,first,count,began,now);last=now;}
+        if(count>(uint64_t)chunk && (now-last>=30 || first==count)) {chunk_progress(peer,tag,0,first,count,began,now);last=now;}
     }
     return MPI_SUCCESS;
 }
@@ -212,7 +211,7 @@ func (w *World) SendIndices(peer int, values []uint64) error {
 	if len(values) > 0 {
 		ptr = unsafe.Pointer(&values[0])
 	}
-	if C.send_values(C.int(peer), ptr, C.uint64_t(len(values)), 1, C.int(w.ChunkWords), w.staging) != C.MPI_SUCCESS {
+	if C.send_values(C.int(peer), ptr, C.uint64_t(len(values)), 1, C.int(w.ChunkWords), w.staging, 10) != C.MPI_SUCCESS {
 		w.Abort()
 		return fmt.Errorf("support send")
 	}
@@ -223,7 +222,7 @@ func (w *World) SendIndices(peer int, values []uint64) error {
 // ReceiveIndices receives one packet from the coordinator. Empty means end.
 func (w *World) ReceiveIndices() ([]uint64, error) {
 	var count C.uint64_t
-	if !w.validChunks() || w.Rank == 0 || C.receive_count(0, &count, 1) != C.MPI_SUCCESS || count > 16384 {
+	if !w.validChunks() || w.Rank == 0 || C.receive_count(0, &count, 10) != C.MPI_SUCCESS || count > 16384 {
 		w.Abort()
 		return nil, fmt.Errorf("support count")
 	}
@@ -231,7 +230,7 @@ func (w *World) ReceiveIndices() ([]uint64, error) {
 		return nil, nil
 	}
 	values := make([]uint64, int(count))
-	if C.receive_values(0, unsafe.Pointer(&values[0]), C.uint64_t(count), 1, C.int(w.ChunkWords), w.staging) != C.MPI_SUCCESS {
+	if C.receive_values(0, unsafe.Pointer(&values[0]), C.uint64_t(count), 1, C.int(w.ChunkWords), w.staging, 10) != C.MPI_SUCCESS {
 		w.Abort()
 		return nil, fmt.Errorf("support payload")
 	}
@@ -244,7 +243,7 @@ func (w *World) SendRoot(peer int, values []uint32, maxWords int) error {
 		w.Abort()
 		return fmt.Errorf("root send bounds")
 	}
-	if C.send_values(C.int(peer), unsafe.Pointer(&values[0]), C.uint64_t(len(values)), 0, C.int(w.ChunkWords), w.staging) != C.MPI_SUCCESS {
+	if C.send_values(C.int(peer), unsafe.Pointer(&values[0]), C.uint64_t(len(values)), 0, C.int(w.ChunkWords), w.staging, 20) != C.MPI_SUCCESS {
 		w.Abort()
 		return fmt.Errorf("root send")
 	}
@@ -259,21 +258,22 @@ func (w *World) ReceiveRoot(peer, maxWords int) ([]uint32, error) {
 		w.Abort()
 		return nil, fmt.Errorf("root receive bounds")
 	}
-	if C.receive_count(C.int(peer), &count, 0) != C.MPI_SUCCESS || count == 0 || uint64(count) > uint64(maxWords) {
+	if C.receive_count(C.int(peer), &count, 20) != C.MPI_SUCCESS || count == 0 || uint64(count) > uint64(maxWords) {
 		w.Abort()
 		return nil, fmt.Errorf("root receive count")
 	}
 	values := make([]uint32, int(count))
-	if C.receive_values(C.int(peer), unsafe.Pointer(&values[0]), C.uint64_t(count), 0, C.int(w.ChunkWords), w.staging) != C.MPI_SUCCESS {
+	if C.receive_values(C.int(peer), unsafe.Pointer(&values[0]), C.uint64_t(count), 0, C.int(w.ChunkWords), w.staging, 20) != C.MPI_SUCCESS {
 		w.Abort()
 		return nil, fmt.Errorf("root receive payload")
 	}
 	return values, nil
 }
 
-// ExchangeProof is test-only control telemetry, not an adversarial authentication
-// protocol. It exchanges fixed pre/post fingerprints without large data buffers.
-func (w *World) ExchangeProof(peer int, proof [64]byte) ([64]byte, error) {
+// ExchangeControl exchanges a synchronous fixed64-byte control record on tag30.
+// Callers check its meaning (descriptor or pre/post proof). It is not adversarial
+// authentication and does not retain Go buffers. All ranks must agree on order.
+func (w *World) ExchangeControl(peer int, proof [64]byte) ([64]byte, error) {
 	var remote [64]byte
 	if peer < 0 || peer >= w.Size || peer == w.Rank {
 		w.Abort()
@@ -284,6 +284,95 @@ func (w *World) ExchangeProof(peer int, proof [64]byte) ([64]byte, error) {
 		return remote, fmt.Errorf("proof exchange")
 	}
 	return remote, nil
+}
+
+// ExchangeProof retains the original diagnostic handshake on control tag30.
+func (w *World) ExchangeProof(peer int, proof [64]byte) ([64]byte, error) {
+	return w.ExchangeControl(peer, proof)
+}
+
+// Coefficient tiles use distinct tag pairs40/41 and50/51. The bounded caller
+// buffer is borrowed only until the blocking call returns; no receive allocation.
+// Operation/shape/offset descriptors must be checked through ExchangeControl
+// before calling these methods. These lanes are not concurrent MPI streams.
+func (w *World) tileSend(peer int, pointer unsafe.Pointer, words int, wide bool) error {
+	if peer < 0 || peer >= w.Size || peer == w.Rank || words < 1 || words > 1<<20 || !w.validChunks() {
+		w.Abort()
+		return fmt.Errorf("coefficient tile send bounds")
+	}
+	width, tag := 0, 40
+	if wide {
+		width, tag = 1, 50
+	}
+	if C.send_values(C.int(peer), pointer, C.uint64_t(words), C.int(width), C.int(w.ChunkWords), w.staging, C.int(tag)) != C.MPI_SUCCESS {
+		w.Abort()
+		return fmt.Errorf("coefficient tile send")
+	}
+	return nil
+}
+func (w *World) tileReceive(peer int, pointer unsafe.Pointer, words int, wide bool) error {
+	if peer < 0 || peer >= w.Size || peer == w.Rank || words < 1 || words > 1<<20 || !w.validChunks() {
+		w.Abort()
+		return fmt.Errorf("coefficient tile receive bounds")
+	}
+	width, tag := 0, 40
+	if wide {
+		width, tag = 1, 50
+	}
+	var count C.uint64_t
+	if C.receive_count(C.int(peer), &count, C.int(tag)) != C.MPI_SUCCESS || uint64(count) != uint64(words) {
+		w.Abort()
+		return fmt.Errorf("coefficient tile count")
+	}
+	if C.receive_values(C.int(peer), pointer, C.uint64_t(count), C.int(width), C.int(w.ChunkWords), w.staging, C.int(tag)) != C.MPI_SUCCESS {
+		w.Abort()
+		return fmt.Errorf("coefficient tile receive")
+	}
+	return nil
+}
+
+// SendCoefficients32 sends a nonempty bounded base-field storage tile.
+func (w *World) SendCoefficients32(peer int, values []uint32) error {
+	if len(values) == 0 {
+		w.Abort()
+		return fmt.Errorf("empty coefficient tile")
+	}
+	err := w.tileSend(peer, unsafe.Pointer(&values[0]), len(values), false)
+	runtime.KeepAlive(values)
+	return err
+}
+
+// ReceiveCoefficients32 fills exactly the borrowed tile, without another array.
+func (w *World) ReceiveCoefficients32(peer int, values []uint32) error {
+	if len(values) == 0 {
+		w.Abort()
+		return fmt.Errorf("empty coefficient tile")
+	}
+	err := w.tileReceive(peer, unsafe.Pointer(&values[0]), len(values), false)
+	runtime.KeepAlive(values)
+	return err
+}
+
+// SendCoefficients64 preserves all bits of an extension-field storage tile.
+func (w *World) SendCoefficients64(peer int, values []uint64) error {
+	if len(values) == 0 {
+		w.Abort()
+		return fmt.Errorf("empty coefficient tile")
+	}
+	err := w.tileSend(peer, unsafe.Pointer(&values[0]), len(values), true)
+	runtime.KeepAlive(values)
+	return err
+}
+
+// ReceiveCoefficients64 fills exactly the borrowed wide tile.
+func (w *World) ReceiveCoefficients64(peer int, values []uint64) error {
+	if len(values) == 0 {
+		w.Abort()
+		return fmt.Errorf("empty coefficient tile")
+	}
+	err := w.tileReceive(peer, unsafe.Pointer(&values[0]), len(values), true)
+	runtime.KeepAlive(values)
+	return err
 }
 
 // Changing the chunk after allocation could overrun the reusable scratch buffer.

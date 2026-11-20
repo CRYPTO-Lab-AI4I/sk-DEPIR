@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "utc": "2026-11-20T10:20:01.847161+00:00",
+  "base_revision": "988ff9b97b02bcf2f1b9aaed00b72cdccfa08b18",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_transpose.go": "f3b17d6f673c89adf7cbb9a2c2e87264536a36257e7f73811e2a4d061016fa00",
+    "encoding/liftrs-shared/distributed_transpose_test.go": "35f0360887e2760db25ea19e3d8a7de2a81d612a28da106501d1e870f98d9214",
+    "encoding/liftrs-shared/distributed_transpose_mpi_test.go": "8c15e4a7b1cad65c67f0097a9b1c551809beff3f65038996c2aa6d5f761ad7f1",
+    "experiments/distributed-root/mpi/world.go": "3da6a88efa49eec6459a9e6d3e325a9c945c5fa84d759559888808fce6e8a104",
+    "experiments/distributed-root/mpi/fingerprint.go": "8d668e11657e4b10afe76755bbea4ca3dd01bee671d0b0f3a36c3079ca445a36",
+    "experiments/mpi-host-buffers/probe_test.go": "ff4b66e74c58b832dc60ad6c6622b3eb66a41b6b0d725f0c9b4a0909e92612cb",
+    "experiments/distributed-transpose/analyze.py": "9ac06cb397e9033e822256758f8557e225d08baf4e300577297317eb8192f9cc",
+    "experiments/distributed-transpose/run.py": "aeb4d52209018c97d1b4683ca65656cb39d5f5941a3ef6d961b46574e54bc3a5",
+    "experiments/distributed-transpose/run.sbatch": "ba48db5f1e299b321fd9483d85c7027be22d0eab3615ac33e8beeb102f6f5a06",
+    "experiments/distributed-transpose/test_review.py": "b956fc00ad08954603bd1656001a1d3cecad68bc681ad3bd2c73cd69d0f31f3c"
+  },
+  "checks": [
+    "ordinary go test ./encoding/liftrs-shared -run TestRankTranspose -count=1 -timeout=20s",
+    "MPI-tagged binary local tests: TestRankTranspose32/64, TestRankTransposeAdmissionAndFailure, TestTransposeDescriptorWidthAndOperation",
+    "go test -race ./encoding/liftrs-shared -run TestRankTranspose -count=1 -timeout=20s",
+    "MPI/CUDA/native regression binary compiles under25s bound",
+    "original root/index fingerprint tests and new descriptor tests pass",
+    "python3 -B experiments/distributed-transpose/test_review.py (2pass)",
+    "python3 -B experiments/ucx-cache-gpu-tree/test_logging.py",
+    "python3 -B experiments/mpi-buffer-comparison/test_review.py",
+    "python3 -B experiments/mpi-host-buffers/test_review.py",
+    "python3 -B experiments/root-merge-tree/test_review.py",
+    "python3 -B experiments/root-transfer-diagnostics/test_review.py",
+    "python3 -B experiments/distributed-root/test_review.py",
+    "python3 -B experiments/gpu-staged-transport/test_review.py",
+    "python3 -B experiments/gpu-code-encoding/test_suite.py"
+  ],
+  "limitations": [
+    "No local MPI/GPU execution.",
+    "Scalar host transpose reference, not a distributed FFT or production GPU layout.",
+    "Two host shards at fullsize project1TiB aggregate/16ranks; no fullsize budget admitted.",
+    "Compiler MPI-wrapper sandbox socket warnings exit zero."
+  ]
+}

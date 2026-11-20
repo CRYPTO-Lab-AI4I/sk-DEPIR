@@ -25,29 +25,7 @@ var mode = flag.String("buffer-mode", "direct", "direct or staged host payload")
 var reclaim = flag.Bool("reclaim", false, "force Go reclamation before allocating each payload (diagnostic only)")
 
 // Bound hashing scratch independently of payload and preserve all uint64 bits.
-func fingerprint[T uint32 | uint64](values []T) (result [32]byte) {
-	h := sha256.New()
-	var block [1024]byte
-	width := 4
-	switch any(*new(T)).(type) {
-	case uint64:
-		width = 8
-	}
-	for first := 0; first < len(values); {
-		take := min(len(values)-first, len(block)/width)
-		for j := 0; j < take; j++ {
-			if width == 4 {
-				binary.LittleEndian.PutUint32(block[j*width:], uint32(values[first+j]))
-			} else {
-				binary.LittleEndian.PutUint64(block[j*width:], uint64(values[first+j]))
-			}
-		}
-		_, _ = h.Write(block[:take*width])
-		first += take
-	}
-	copy(result[:], h.Sum(nil))
-	return
-}
+func fingerprint[T uint32 | uint64](values []T) [32]byte { return mpi.PayloadFingerprint(values) }
 
 func loadPayload(path string) ([]uint32, error) {
 	data, err := os.ReadFile(path)

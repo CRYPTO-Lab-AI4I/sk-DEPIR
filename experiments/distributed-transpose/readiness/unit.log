@@ -1,0 +1,9 @@
+=== RUN   TestTransposeDescriptorWidthAndOperation
+--- PASS: TestTransposeDescriptorWidthAndOperation (0.00s)
+=== RUN   TestRankTranspose32
+--- PASS: TestRankTranspose32 (0.02s)
+=== RUN   TestRankTranspose64
+--- PASS: TestRankTranspose64 (0.01s)
+=== RUN   TestRankTransposeAdmissionAndFailure
+--- PASS: TestRankTransposeAdmissionAndFailure (0.00s)
+PASS
