@@ -633,8 +633,8 @@ Largest 64-bit transpose: **5.476 ms staged / 4.697 ms direct**, one profiled sa
 logged process peak RSS **248.145–249.312 MiB/rank**. This validates the packing/
 transport reference, not a distributed GPU FFT or full-size bandwidth estimate.
 Stage-scoped GPU row/column operations with global offsets and locally bounded
-device buffers are now implemented; their bounded validation is pending. Then
-compose vector/transpose/Taylor stages. Two full host
+device buffers passed78293, and vector/transpose composition passed78302.
+Taylor-complete composition is implemented with bounded MPI/GPU validation pending. Two full host
 shards remain a reference-layout cost, not an adopted production default.
 At a full2^36-element grid /16 ranks /64-bit slots, this reference would retain
 64 GiB/rank (1 TiB aggregate) for two host shards alone; it is not the selected
@@ -668,7 +668,12 @@ component results were verified without rerunning GPU work. Normal suites took
 distributed FFT and full s18 preprocessing remain unvalidated.
 
 The [GPU vector/transpose composition](../experiments/distributed-gpu-vectors/report.md) is implemented with
-bounded local tiles and independent ownership/order tests. MPI/GPU validation
-**78302 is submitted**; distributed Taylor conversion and full FFT/product integration
-remain pending. The host-shard control layout adds transfers and is not selected
-for full-size preprocessing or a change to resident defaults.
+bounded local tiles and independent ownership/order tests. **78302 passed**:
+24 normal /24 sanitized rank/pass results and480 transfer-proof endpoints,
+2.722s normal /3.826s sanitizer,372.113 MiB normal /412.508 MiB sanitized host RSS
+per process and1.571 MiB owned GPU/card on two HPC H200 nodes. The control layout
+adds transfers and is not selected for full-size preprocessing or changed defaults.
+
+The [Taylor-complete distributed FFT gate](../experiments/distributed-gpu-fft/report.md) is now implemented, with
+local CPU/race and independent direct-polynomial checks; bounded MPI/GPU validation
+is prepared. Full-size products, s18 arithmetic and preprocessing remain pending.

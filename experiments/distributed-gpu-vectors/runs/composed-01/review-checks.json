@@ -1,0 +1,9 @@
+{
+  "command": "python3 -B experiments/distributed-gpu-vectors/analyze.py composed-01",
+  "reviewer_source_sha256": {
+    "experiments/distributed-gpu-vectors/run.py": "edbc57ce804b4579e3fbf5298636cd99bb2fd3c1280658e39fab6df5a841f1db",
+    "experiments/distributed-gpu-vectors/analyze.py": "8bdb2709bdac98696cd8ad593c10ec5f78441ff21a3e42f819c9c381766d0e2b"
+  },
+  "result": "passed;688 source/32 original evidence/99 cache identities;24normal+24sanitized rank/pass rows;480 endpoint proof events;both clean CUDA summaries",
+  "limitation": "Separable stages only;fullsize/runtime/memory layout not established."
+}

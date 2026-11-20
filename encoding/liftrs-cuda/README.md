@@ -326,7 +326,8 @@ interleaved device tile across calls; no full host grid or public ABI is added.
 [Bounded validation](../../experiments/gpu-vector-stage/report.md) independently passes48 normal /42 split-sanitized cases in78293, zero CUDA
 errors/leaks. Raw controller failed a stderr-only summary check, now fixed;
 component evidence verified without GPU rerun. It reuses the existing vector kernels and s≤17 admission.
-Distributed transpose/Taylor composition and full s18 support remain pending.
+Vector/transpose composition passed78302; Taylor-complete validation and full
+s18 support remain pending.
 
 ### Experimental distributed vector owner
 
@@ -349,7 +350,28 @@ if err := stages.Apply64(tile, false, false, 10, 3); err != nil { return err }
 ```
 
 The [bounded composition experiment](../../experiments/distributed-gpu-vectors/report.md)
-joins these stages to the shared rank transpose. Validation78302 is submitted, not yet
-measured. This separable transform still needs distributed Taylor integration
-for a full FFT. The host-shard control layout/extra transfers are explicit and
+joins these stages to the shared rank transpose. Validation78302 passed all small CPU/output/proof and CUDA checks. Taylor-complete composition is now implemented and awaits the bounded GPU gate
+below. The host-shard control layout/extra transfers are explicit and
 do not change resident defaults or establish fulls18 feasibility.
+
+`TaylorDegrees(level)` returns sparse source displacements in canonical order.
+`Taylor32`/`Taylor64` update a `TaylorTile` snapshot in the same capped storage;
+the caller supplies target words followed by one equally sized source window per
+term. Unused source prefixes and beyond-block suffixes may be zero-filled.
+Global scheduling/barriers remain the caller's responsibility, not implicit API
+behavior. Given a populated snapshot and validated target extent:
+
+```go
+terms, err := stages.TaylorDegrees(level)
+if err != nil { return err }
+// snapshot has (len(terms)+1)*count canonical slots in returned term order.
+_ = terms
+window := liftrscuda.TaylorTile{Level: level, Quotient: true, Block: block, First: first, Count: count}
+if err := stages.Taylor64(snapshot, window); err != nil { return err }
+```
+
+The [complete bounded FFT gate](../../experiments/distributed-gpu-fft/report.md)
+reuses the extracted host-tiled source accessor/kernel. New Taylor symbols are
+optional; missing symbols return errors without a CPU fallback. Local interface/
+CPU checks pass; composed MPI/GPU/Taylor validation is prepared. Existing s≤17
+field admission, client independence and resident defaults remain unchanged.

@@ -842,5 +842,12 @@ The internal [rank matrix-vector composition](distributed_vectors.go) joins
 existing rank transposes and bounded complete-vector callbacks. Forward/inverse
 ordering, local interleaving and empty/tail ownership have independent CPU tests;
 [bounded MPI/GPU validation](../../experiments/distributed-gpu-vectors/report.md)
-78302 is submitted. This is a separable stage, not a Taylor-complete FFT or a production
+78302 passed. This is a separable stage, not a Taylor-complete FFT or a production
 GPU-resident storage layout. Ordinary builds require neither MPI nor CUDA.
+
+[Rank Taylor conversion](distributed_taylor.go) now wraps the separable stages
+to implement a bounded additive transform. Parallel source-window waves omit
+inactive values, preserve sparse term order and synchronize every quotient/
+remainder pass. CPU/race and independent Horner/Lagrange tests pass;
+[full bounded MPI/GPU validation](../../experiments/distributed-gpu-fft/report.md)
+is prepared. No fulls18 or production GPU-resident layout claim follows.

@@ -1,14 +1,17 @@
 #pragma once
 // Internal server component, included after Resident inside its namespace. Owns no
 // host grid: the borrowed fresh executor owns one reusable device tile and plans.
+#include "taylor_window.cuh"
 template <class Word> class VectorStage {
   Resident<Word> &engine_;
   size_t domain_, capacity_, loaded_ = 0;
   unsigned split_ = 0;
   Matrix<Word> *plan_;
+  Matrix<Word> metadata_{};
   Card &card() { return *engine_.cards_[0]; }
   void select() { check(cudaSetDevice(card().id)); }
 public:
+  using word_type = Word;
   // Global domain controls metadata/affine coordinates; capacity controls only
   // local storage. Single caller, one GPU, exclusive borrowing until destruction.
   VectorStage(Resident<Word> &engine, size_t domain, size_t capacity)
@@ -28,7 +31,7 @@ public:
       throw std::runtime_error("vector stage cannot hold a complete vector");
     CurrentDevice restore;
     select();
-    plan_ = engine_.plan(card(), domain);
+    plan_ = engine_.plan(card(), domain, &metadata_);
     engine_.ensure(card(), card().x, capacity * sizeof(Word));
   }
   VectorStage(const VectorStage &) = delete;
@@ -90,6 +93,41 @@ public:
       engine_.event(phase, "failed", 0, count, began);
       throw;
     }
+  }
+  std::vector<uint64_t> degrees(unsigned level) const {
+    if (level >= metadata_.dimension - metadata_.split)
+      throw std::runtime_error("Taylor level");
+    const auto &terms = metadata_.taylor[level];
+    std::vector<uint64_t> out;
+    for (unsigned t = 0; t < terms.count; t++) out.push_back(terms.degree[t]);
+    return out;
+  }
+  // Snapshot layout: target first, then one equally sized source window per
+  // sparse term. Reuses exactly the same source accessor/update as HostTiled.
+  void taylor(unsigned level, bool quotient, size_t block, size_t first, size_t count) {
+    if (level >= metadata_.dimension - metadata_.split) throw std::runtime_error("Taylor level");
+    const auto &terms = metadata_.taylor[level];
+    const size_t half = size_t(1) << (metadata_.split + level);
+    size_t minimum = half, maximum = 0;
+    for (unsigned t = 0; t < terms.count; t++) { const auto degree=terms.degree[t]; minimum = std::min(minimum, size_t(degree)); maximum = std::max(maximum, size_t(degree)); }
+    const size_t begin = quotient ? 0 : minimum, end = quotient ? maximum : half;
+    if (!terms.count || !minimum || maximum > half / 2 || block >= domain_ ||
+        block % (2 * half) || !count || first < begin || first > end || count > end-first ||
+        count > capacity_ / (terms.count+1) || loaded_ != count*(terms.count+1))
+      throw std::runtime_error("Taylor window extent");
+    CurrentDevice restore;
+    select();
+    const auto began = std::chrono::steady_clock::now();
+    const char *phase = quotient ? "stage-Taylor-quotient" : "stage-Taylor-remainder";
+    engine_.active_domain_ = domain_;
+    engine_.event(phase, "started", 0, count, began);
+    try {
+      TaylorWindow<Word> view{static_cast<Word *>(card().x.data), plan_, block, half, first, count, level, quotient};
+      window_taylor<<<(count+255)/256,256>>>(view, (block/(2*half))*half+first,
+          static_cast<uint32_t *>(card().logs.data), static_cast<uint32_t *>(card().powers.data));
+      check(cudaGetLastError()); check(cudaDeviceSynchronize());
+      engine_.event(phase, "completed", count, count, began);
+    } catch (...) { loaded_ = 0; engine_.event(phase, "failed", 0, count, began); throw; }
   }
   void download(Word *data, size_t words) {
     if (!data || !loaded_ || words != loaded_)

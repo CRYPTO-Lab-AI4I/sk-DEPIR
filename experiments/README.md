@@ -81,9 +81,13 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Distributed GPU additive FFT](distributed-gpu-fft/report.md): shared Taylor
+  source windows and rank vector/transpose composition; local independent CPU/
+  race tests pass, bounded full MPI/GPU gate prepared. No fulls18 result.
+
 - [Distributed GPU vector composition](distributed-gpu-vectors/report.md): shared
-  rank transpose plus dedicated GPU vector owner; bounded native/MPI/CUDA gate
-  78302 submitted. Taylor conversion/full FFT and full-size costs remain unvalidated.
+  rank transpose plus dedicated GPU vector owner;78302 passed all24normal/
+  24sanitized rank/pass results and480proof endpoints. Full-size costs unmeasured.
 
 - [Persistent GPU vector stages](gpu-vector-stage/report.md): local storage/global
   coordinates separated using existing kernels; bounded CPU-oracle/reuse/error/

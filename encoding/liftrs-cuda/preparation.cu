@@ -262,10 +262,11 @@ template <class Word> class Resident {
     }
     return view;
   }
-  Matrix<Word> *plan(Card &c, size_t n) {
+  Matrix<Word> *plan(Card &c, size_t n, Matrix<Word> *host = nullptr) {
     auto it = c.plans.find(n);
     if (it == c.plans.end()) {
       const auto metadata = matrix<Word>(s_, polynomial_, delta_, n);
+      if (host) *host = metadata;
       admit(c, sizeof(metadata));
       auto value = std::make_unique<Buffer>();
       value->allocate(c.id, sizeof(metadata));
@@ -273,6 +274,8 @@ template <class Word> class Resident {
                        cudaMemcpyHostToDevice));
       c.plans.emplace(n, std::move(value));
       it = c.plans.find(n);
+    } else if (host) {
+      check(cudaMemcpy(host, it->second->data, sizeof(*host), cudaMemcpyDeviceToHost));
     }
     return static_cast<Matrix<Word> *>(it->second->data);
   }
@@ -1048,30 +1051,63 @@ extern "C" int pg_encode_code(void *handle, const uint32_t *message, size_t k,
   });
 }
 
+namespace {
+template <class Function> void visit_stage(void *handle, unsigned width,
+    size_t domain, size_t local_capacity, Function fn) {
+  visit(handle, [&](auto &state) {
+    using Word = std::conditional_t<
+        std::is_same_v<std::decay_t<decltype(state)>, Engine::Narrow>, uint32_t, uint64_t>;
+    if (width != sizeof(Word)) throw std::runtime_error("GPU stage width");
+    auto &engine = *static_cast<Engine *>(handle);
+    if (!engine.vector_domain) {
+      auto stage = std::make_unique<VectorStage<Word>>(state, domain, local_capacity);
+      engine.vectors = std::move(stage);
+      engine.vector_domain = domain;
+      engine.vector_capacity = local_capacity;
+    }
+    if (engine.vector_domain != domain || engine.vector_capacity != local_capacity)
+      throw std::runtime_error("GPU stage immutable shape");
+    fn(*std::get<std::unique_ptr<VectorStage<Word>>>(engine.vectors));
+  });
+}
+} // namespace
 // Optional server-stage ABI, used only by a dedicated VectorPreparation owner.
 extern "C" int pg_vector_stage(void *handle, void *values, size_t words,
     unsigned width, size_t domain, size_t local_capacity, int columns,
     int inverse, size_t first, size_t count, char *error, size_t capacity) {
   return api(error, capacity, [&] {
-    if (!values || !words || (columns != 0 && columns != 1) ||
-        (inverse != 0 && inverse != 1))
+    if (!values || !words || (columns != 0 && columns != 1) || (inverse != 0 && inverse != 1))
       throw std::runtime_error("GPU vector stage arguments");
-    visit(handle, [&](auto &state) {
-      using Word = std::conditional_t<
-          std::is_same_v<std::decay_t<decltype(state)>, Engine::Narrow>, uint32_t, uint64_t>;
-      if (width != sizeof(Word)) throw std::runtime_error("GPU vector stage width");
-      auto &engine = *static_cast<Engine *>(handle);
-      if (!engine.vector_domain) {
-        auto stage = std::make_unique<VectorStage<Word>>(state, domain, local_capacity);
-        engine.vectors = std::move(stage);
-        engine.vector_domain = domain;
-        engine.vector_capacity = local_capacity;
-      }
-      if (engine.vector_domain != domain || engine.vector_capacity != local_capacity)
-        throw std::runtime_error("GPU vector stage immutable shape");
-      auto &stage = *std::get<std::unique_ptr<VectorStage<Word>>>(engine.vectors);
+    visit_stage(handle, width, domain, local_capacity, [&](auto &stage) {
+      using Word = typename std::decay_t<decltype(stage)>::word_type;
       stage.upload(static_cast<Word *>(values), words);
       stage.apply(columns != 0, inverse != 0, first, count);
+      stage.download(static_cast<Word *>(values), words);
+    });
+  });
+}
+extern "C" int pg_taylor_degrees(void *handle, unsigned width, size_t domain,
+    size_t local_capacity, unsigned level, uint64_t *out, size_t limit,
+    size_t *count, char *error, size_t capacity) {
+  return api(error, capacity, [&] {
+    if (!out || !count) throw std::runtime_error("Taylor degree output");
+    visit_stage(handle, width, domain, local_capacity, [&](auto &stage) {
+      const auto terms = stage.degrees(level);
+      if (terms.size() > limit) throw std::runtime_error("Taylor degree capacity");
+      std::copy(terms.begin(), terms.end(), out); *count = terms.size();
+    });
+  });
+}
+extern "C" int pg_taylor_stage(void *handle, void *values, size_t words,
+    unsigned width, size_t domain, size_t local_capacity, unsigned level,
+    int quotient, size_t block, size_t first, size_t count, char *error, size_t capacity) {
+  return api(error, capacity, [&] {
+    if (!values || !words || (quotient != 0 && quotient != 1))
+      throw std::runtime_error("GPU Taylor stage arguments");
+    visit_stage(handle, width, domain, local_capacity, [&](auto &stage) {
+      using Word = typename std::decay_t<decltype(stage)>::word_type;
+      stage.upload(static_cast<Word *>(values), words);
+      stage.taylor(level, quotient != 0, block, first, count);
       stage.download(static_cast<Word *>(values), words);
     });
   });

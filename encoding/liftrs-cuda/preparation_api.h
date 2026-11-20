@@ -37,6 +37,11 @@ int pg_encode_code(void *, const uint32_t *, size_t, uint32_t *, size_t, double 
 // and capacity. Use a dedicated engine; do not mix resident operations afterward.
 int pg_vector_stage(void *, void *, size_t, unsigned, size_t, size_t, int, int,
                     size_t, size_t, char *, size_t);
+// Optional Taylor source-window operations on the same dedicated stage owner.
+int pg_taylor_degrees(void *, unsigned, size_t, size_t, unsigned, uint64_t *,
+                      size_t, size_t *, char *, size_t);
+int pg_taylor_stage(void *, void *, size_t, unsigned, size_t, size_t, unsigned,
+                    int, size_t, size_t, size_t, char *, size_t);
 uint64_t pg_owned_bytes(void *);
 void pg_destroy(void *);
 #ifdef __cplusplus

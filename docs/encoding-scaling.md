@@ -2597,10 +2597,34 @@ shared rank orchestration, optional dedicated CUDA stage owner and independent
 native CPU oracle. Forward column/transposes/affine-row and inverse reverse order;
 24 measurements per execution, all repeated under small-case CUDA memcheck.
 CPU ownership/order/race and remote shared-path preflight precede GPU work.
-Validation78302 submitted within existing2node/2H200/4CPU/8GiBhost,720s/15min limits.
+Validation78302 passed within existing2node/2H200/4CPU/8GiBhost,720s/15min limits.
 No full FFT claim: distributed Taylor conversion is the next implementation gate.
 Host reference can retain caller input plus two owned shards; full2^36/16rank
 projection1536GiB host principal arrays before overhead, not selected production
 layout/admission. GPU uploads/downloads add2N slots each per forward transform.
 Keep fast resident defaults and target GPU arena reuse/bounded staging; fullsize
 latency/memory/communications and s18 arithmetic/workflow remain unvalidated.
+
+### Taylor-complete bounded FFT gate (SCALING-149)
+
+Reviewed78302:24normal/24sanitized rank/pass results,480proof endpoints,688source/
+32evidence/99cache identities verified. Normal2.722s /memcheck3.826s, controller
+126.691s; logged hostRSS372.113/412.508MiB per process,1.571MiBowned/card on2HPC
+H200nodes. No fullsize throughput projection from the single small samples.
+
+[Distributed Taylor implementation/gate](../experiments/distributed-gpu-fft/report.md)
+now connects shared source-window GPU updates to the validated vector/transpose
+sequence. Parallel rank-owned target waves, operative-source-only transfers,
+explicit quotient/remainder/level barriers, O(ranks) cursor metadata and one
+reused bounded snapshot. Extracted GPU accessor/kernel is unchanged; no duplicate
+arithmetic. CPU serial-window/race and independent full Horner/Lagrange checks
+pass before allocation. Full native CPU FFT oracle, baseline separable regression,
+exact source/packet review and all small CUDA memcheck cases are prepared.
+Same2nodes/2H200/4CPU/8GiBhost and720s/15min envelope; MPI/GPU validation pending.
+
+This is a host-shard correctness/control layout, not a production selection or
+fulls18 support. Extra Taylor source snapshots repeat transfers, launches and
+barriers; full costs remain unknown, existing resident defaults unchanged. After
+this gate: distributed product/identity validation, s18 arithmetic admission and
+GPU-arena/bounded-staging workflow composition (discovery/Newton/checkpoints/
+publication), then full resource admission. Preserve logged setup/I/O costs.

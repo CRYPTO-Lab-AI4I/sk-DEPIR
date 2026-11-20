@@ -1,10 +1,24 @@
 # Distributed GPU matrix-vector composition
 
-Status: bounded MPI/GPU validation **78302 submitted**; implementation `9cb59b6`.
-[Receipt](submission.json), results `runs/composed-01/`, log `slurm-78302.log`.
-Exact frozen job-start revision/hashes will be in raw results. No monitoring or
-composed result inspected. This is a bounded
-integration gate after [transpose78279](../distributed-transpose/report.md) and
+Status: **78302 passed** on HPC gnode06/gnode07 (two nodes, one H200 and2 CPU
+cores /4 GiB requested host RAM per node), producer `9cb59b6`.
+[Raw results](runs/composed-01/results.json), [independent review](runs/composed-01/analysis.json),
+[review checks](runs/composed-01/review-checks.json), [receipt](submission.json),
+[job log](slurm-78302.log).24 normal and24 sanitized rank/pass rows,
+240 paired-proof endpoint events per mode, every saved byte and both clean
+CUDA error/leak summaries pass. All688 source /32 original evidence /99 cache
+identities verified;13.369 MiB cache retained.
+
+Complete controller126.691s (2min6.691s), normal execution2.722s,
+CUDA memcheck3.826s. Logged host peak RSS372.113 MiB normal /412.508 MiB
+sanitized per process; maximum owned GPU memory1.571 MiB/card (context/driver
+separate). Largest4096-word composed transform: forward16.899ms /inverse15.142ms,
+single profiled samples; no fullsize throughput claim. Native/source preparation
+and profile reporting remain in controller time, outside transform clocks.
+
+The next [Taylor-complete gate](../distributed-gpu-fft/report.md) is implemented
+and locally CPU-validated, with bounded MPI/GPU validation pending. This passed
+separable integration gate after [transpose78279](../distributed-transpose/report.md) and
 [GPU vector78293](../gpu-vector-stage/report.md) component validation. It is a
 separable matrix transform, **not a complete additive FFT**: distributed Taylor
 basis conversion remains the next gate, followed by full forward/inverse products,

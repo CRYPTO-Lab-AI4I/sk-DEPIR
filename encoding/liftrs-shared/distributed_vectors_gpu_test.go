@@ -48,6 +48,38 @@ func matrixStageOracle(t *testing.T, s, dim int, rank, ranks int) (ScalingCodeHe
 	}
 	split := dim / 2
 	rows, cols := uint64(1)<<uint(dim-split), uint64(1)<<uint(split)
+	if os.Getenv("PIR_GPU_MATRIX_STAGE_TAYLOR") == "1" {
+		// Small diagnostic oracle only: independent native full FFT on a local
+		// synthetic grid (<=4096 words), never a coordinator/network gather.
+		matrix, e := cpp.NewWideMatrix(s, h.Polynomial, dim, split)
+		if e != nil {
+			t.Fatal(e)
+		}
+		defer matrix.Close()
+		full := make([]uint64, rows*cols)
+		scratch := make([]uint64, len(full))
+		for j := range full {
+			full[j] = matrixStagePattern(uint64(j), s)
+		}
+		if _, e = matrix.Apply(full, scratch, 1, false); e != nil {
+			t.Fatal(e)
+		}
+		first, count := rankBand(rows, rank, ranks)
+		local := full[first*cols : (first+count)*cols]
+		if len(local) > 0 {
+			for _, j := range []int{0, len(local) - 1} {
+				point := first*cols + uint64(j)
+				want := uint64(0)
+				for k := len(full) - 1; k >= 0; k-- {
+					want = f.mul(want, point) ^ matrixStagePattern(uint64(k), s)
+				}
+				if local[j] != want {
+					t.Fatal("native full FFT/scalar Horner", s, dim, point)
+				}
+			}
+		}
+		return h, append([]uint64(nil), local...)
+	}
 	low := make([]uint64, split)
 	for k := range low {
 		low[k] = uint64(1) << uint(k)
@@ -134,7 +166,12 @@ func matrixStageGPUCases[Word transposeWord](t *testing.T, w *mpi.World, s int, 
 			var retained uint64
 			for pass := 0; pass < 2; pass++ {
 				op := *operation
-				*operation += 2
+				fullFFT := os.Getenv("PIR_GPU_MATRIX_STAGE_TAYLOR") == "1"
+				span := uint64(2)
+				if fullFFT {
+					span += uint64(2 * (dim - dim/2))
+				}
+				*operation += span
 				p, e := newRankTransposePlan(op, rows, cols, w.Rank, w.Size, n, 127)
 				if e != nil {
 					t.Fatal(e)
@@ -147,15 +184,58 @@ func matrixStageGPUCases[Word transposeWord](t *testing.T, w *mpi.World, s int, 
 					}
 					emit(map[string]any{"kind": "tile-proof", "case": label, "pass": pass, "operation": p.Operation, "round": p.Round, "offset": p.Offset, "words": p.Words, "peer": peer, "direction": direction, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
 				}}
+				taylorProofs := 0
+				windows := taylorMPI[Word]{world: w, record: func(direction string, peer int, p taylorPacket, data []Word, own, remote [64]byte) {
+					taylorProofs++
+					if mpi.ProofMismatch(own, remote) {
+						saveMatrixStageWords(t, filepath.Join(output, fmt.Sprintf("capture-rank-%d-op-%d-block-%d-first-%d-slot-%d-source-%d-%s.bin", w.Rank, p.Operation, p.Target.Block, p.Target.First, p.Slot, p.Source, direction)), data)
+					}
+					emit(map[string]any{"kind": "taylor-proof", "case": label, "pass": pass, "peer": peer, "direction": direction, "packet": p, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
+				}}
+				degrees := func(level int) ([]uint64, error) {
+					terms, e := gpu.TaylorDegrees(level)
+					if e == nil {
+						emit(map[string]any{"kind": "taylor-plan", "case": label, "pass": pass, "operation_start": op, "level": level, "degrees": terms, "capacity": capacity})
+					}
+					return terms, e
+				}
+				update := func(snapshot []Word, level int, q bool, block, first, count uint64) error {
+					before := mpi.PayloadFingerprint(snapshot[count:])
+					tile := cuda.TaylorTile{Level: level, Quotient: q, Block: block, First: first, Count: count}
+					var e error
+					switch values := any(snapshot).(type) {
+					case []uint32:
+						e = gpu.Taylor32(values, tile)
+					case []uint64:
+						e = gpu.Taylor64(values, tile)
+					}
+					if e == nil && before != mpi.PayloadFingerprint(snapshot[count:]) {
+						return fmt.Errorf("Taylor mutated source snapshot")
+					}
+					return e
+				}
 				w.Barrier()
 				began := time.Now()
 				last := began
-				got, e := rankMatrixVectors(p, current, capacity, pass == 1, link, apply, func(phase string, done, total uint64) {
-					if done == total || time.Since(last) >= 30*time.Second {
-						emit(map[string]any{"kind": "progress", "case": label, "pass": pass, "phase": phase, "completed": done, "total": total})
+				notice := func(phase string, done, total uint64) {
+					if done == 0 || done == total || time.Since(last) >= 30*time.Second {
+						event := "progress"
+						if done == 0 {
+							event = "started"
+						}
+						if done == total {
+							event = "completed"
+						}
+						emit(map[string]any{"kind": "progress", "event": event, "case": label, "pass": pass, "phase": phase, "completed": done, "total": total})
 						last = time.Now()
 					}
-				})
+				}
+				var got []Word
+				if fullFFT {
+					got, e = rankAdditiveTransform(p, current, capacity, pass == 1, link, windows, degrees, apply, update, notice)
+				} else {
+					got, e = rankMatrixVectors(p, current, capacity, pass == 1, link, apply, notice)
+				}
 				if e != nil {
 					t.Fatal(e)
 				}
@@ -179,12 +259,16 @@ func matrixStageGPUCases[Word transposeWord](t *testing.T, w *mpi.World, s int, 
 				}{{"output", got}, {"expected", want}} {
 					saveMatrixStageWords(t, filepath.Join(output, prefix+"-"+array.name+".bin"), array.data)
 				}
-				emit(map[string]any{"kind": "measurement", "case": label, "pass": pass, "s": s, "dimension": dim, "rank_first": localFirst, "rank_rows": localRows, "word_bytes": h.ExtensionBytes, "words": len(got), "seconds": seconds, "proof_events": proofs, "owned_device_bytes": gpu.OwnedBytes(), "output_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(got)), "matches": true})
+				emit(map[string]any{"kind": "measurement", "case": label, "pass": pass, "s": s, "dimension": dim, "rank_first": localFirst, "rank_rows": localRows, "word_bytes": h.ExtensionBytes, "words": len(got), "seconds": seconds, "proof_events": proofs, "taylor_proof_events": taylorProofs, "full_fft": fullFFT, "operation_start": op, "owned_device_bytes": gpu.OwnedBytes(), "output_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(got)), "matches": true})
 				current = got
 			}
 		}()
+		emit(map[string]any{"kind": "phase", "phase": label, "event": "completed", "completed": 2, "total": 2})
 	}
 }
+
+// TestDistributedGPUVectors selects separable or Taylor-complete composition
+// explicitly; both share the same bounded cases, transport and output checks.
 func TestDistributedGPUVectors(t *testing.T) {
 	output := os.Getenv("PIR_GPU_MATRIX_STAGE_OUTPUT")
 	if output == "" {

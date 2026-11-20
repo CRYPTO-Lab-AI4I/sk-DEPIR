@@ -14,11 +14,12 @@ import (
 	"unsafe"
 )
 
-// VectorPreparation is an experimental single-GPU server stage owner. It owns a
+// VectorPreparation is an experimental single-GPU vector/Taylor stage owner. It owns a
 // dedicated executor so vector storage cannot alias resident products/encoding.
 // The global domain fixes metadata; localWords bounds one reusable device tile.
 // Calls are serialized, synchronous and copy caller-owned interleaved tiles in
-// and out. This is not a complete FFT: no transpose or Taylor conversion occurs.
+// and out. No global transpose or complete FFT is implicit; Taylor source-window
+// updates are explicit and require caller-orchestrated phase synchronization.
 // Ordinary CPU builds do not import CUDA, and older plugins remain usable for
 // other Preparation operations; this constructor requires the optional stage ABI.
 type VectorPreparation struct {
@@ -26,7 +27,7 @@ type VectorPreparation struct {
 	domain, capacity uint64
 }
 
-// NewVectorPreparation creates metadata only; the first Apply allocates the
+// NewVectorPreparation creates metadata only; the first stage operation allocates the
 // bounded tile. options.MaxElements is the global domain; exactly one GPU is
 // required. localWords must hold a complete longest row/column vector. Include
 // caller buffers, transfer packing and CUDA context separately in job admission.
@@ -110,6 +111,87 @@ func (v *VectorPreparation) Apply32(data []uint32, columns, inverse bool, first,
 // Apply64 is Apply32 for s17's eight-byte extension-field slots.
 func (v *VectorPreparation) Apply64(data []uint64, columns, inverse bool, first, count uint64) error {
 	err := v.apply(preparationPointer(data), len(data), 8, columns, inverse, first, count)
+	runtime.KeepAlive(data)
+	return err
+}
+
+// TaylorTile identifies a target interval within a 2*half block, where
+// half=2^(floor(log2(domain)/2)+Level). First is relative to the selected half;
+// quotient updates the upper half, remainder the lower. Count is target words.
+type TaylorTile struct {
+	Level               int
+	Quotient            bool
+	Block, First, Count uint64
+}
+
+// TaylorDegrees returns the sparse source displacements for one level. It can
+// initialize the bounded device tile and host metadata, but no full grid. Source
+// windows must follow this exact term order; coefficients remain in the GPU plan.
+func (v *VectorPreparation) TaylorDegrees(level int) ([]uint64, error) {
+	if v == nil || v.engine == nil || level < 0 {
+		return nil, fmt.Errorf("GPU Taylor owner/level")
+	}
+	p := v.engine
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	var dimension int
+	for n := v.domain; n > 1; n >>= 1 {
+		dimension++
+	}
+	if p.bridge == nil || level >= dimension-dimension/2 {
+		return nil, fmt.Errorf("GPU Taylor state/level")
+	}
+	var terms [21]C.uint64_t
+	var count C.size_t
+	var text [512]C.char
+	code := C.pg_bridge_taylor_degrees(p.bridge, C.uint(p.width), C.size_t(v.domain), C.size_t(v.capacity), C.uint(level), &terms[0], 21, &count, &text[0], 512)
+	if err := preparationError(code, &text[0]); err != nil {
+		return nil, err
+	}
+	if count > 21 {
+		return nil, fmt.Errorf("GPU Taylor term bound")
+	}
+	out := make([]uint64, int(count))
+	for j := range out {
+		out[j] = uint64(terms[j])
+	}
+	return out, nil
+}
+func (v *VectorPreparation) taylor(data unsafe.Pointer, words, width int, tile TaylorTile) error {
+	if v == nil || v.engine == nil || data == nil || words <= 0 || tile.Level < 0 || tile.Count == 0 {
+		return fmt.Errorf("GPU Taylor owner/tile")
+	}
+	p := v.engine
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	var dimension int
+	for n := v.domain; n > 1; n >>= 1 {
+		dimension++
+	}
+	if p.bridge == nil || p.width != width || uint64(words) > v.capacity || tile.Level >= dimension-dimension/2 || tile.Block >= v.domain || tile.First >= v.domain || tile.Count > v.capacity {
+		return fmt.Errorf("GPU Taylor state/extent")
+	}
+	quotient := C.int(0)
+	if tile.Quotient {
+		quotient = 1
+	}
+	var text [512]C.char
+	return preparationError(C.pg_bridge_taylor_stage(p.bridge, data, C.size_t(words), C.uint(width), C.size_t(v.domain), C.size_t(v.capacity), C.uint(tile.Level), quotient, C.size_t(tile.Block), C.size_t(tile.First), C.size_t(tile.Count), &text[0], 512), &text[0])
+}
+
+// Taylor32 updates a packed target/source snapshot using the shared recurrence.
+// Layout is Count target words then Count source words per TaylorDegrees term;
+// source windows extending beyond the block end must be zero-padded. Only the
+// first Count words change. Other source words are preserved, not retained.
+func (v *VectorPreparation) Taylor32(data []uint32, tile TaylorTile) error {
+	err := v.taylor(preparationPointer(data), len(data), 4, tile)
+	runtime.KeepAlive(data)
+	return err
+}
+
+// Taylor64 is Taylor32 for eight-byte extension-field slots.
+func (v *VectorPreparation) Taylor64(data []uint64, tile TaylorTile) error {
+	err := v.taylor(preparationPointer(data), len(data), 8, tile)
 	runtime.KeepAlive(data)
 	return err
 }
