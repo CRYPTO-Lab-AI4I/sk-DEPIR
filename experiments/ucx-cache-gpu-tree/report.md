@@ -1,16 +1,57 @@
 # GPU merge tree with the UCX cache control
 
-Status: **78249 completed three normal computation rounds; workflow failed on
-interleaved log JSON** (SCALING-138). Staged-a and direct-a passed full normal /
-CUDA memcheck / profile review; direct-b computation exited zero and its normal
-checks pass after the explicit derived recovery below. Direct-b memcheck/profile
-summary and staged-b were **not run**. No complete crossover ratio is reported.
-[Receipt](submission.json), [raw results](runs/tree-01/results.json),
-[review](runs/tree-01/analysis.json), [recovery script](review_interleaved.py),
-[accounting](runs/tree-01/scheduler-accounting.txt), [progress](slurm-78249.log).
-Implementation `d4621d2`; raw failed status and logs remain unchanged. Verified
-**662 source / 42 original evidence / 236 cache hashes**, plus retained build hashes.
-[Shared runner](run.py), [reviewer](../mpi-buffer-comparison/analyze.py).
+Status: **78261 passed the full four-arm GPU crossover** (SCALING-140).
+[Retry receipt](retry-submission.json), [raw results](runs/tree-02/results.json),
+[review](runs/tree-02/analysis.json), [accounting](runs/tree-02/scheduler-accounting.txt),
+[progress](slurm-78261.log). Implementation `e9f31f5`; verified
+**664 source / 123 original evidence / 339 cache hashes**. All commands exited zero;
+binary/library hashes, worker configuration and cross-arm final arrays match.
+[Runner](run.py), [strict shared reviewer](../mpi-buffer-comparison/analyze.py).
+Earlier 78249 raw failure and its explicit derived recovery remain below.
+
+## Review of 78261
+
+HPC gnode14/gnode15, 2 H200s, 4 logical ranks / CPU cores, 4 GiB requested host
+RAM per node. Scheduler **5 min 5 s**, controller **303.568 s**. Every arm passed
+22 normal passes / 516 endpoint checks, plus four-rank small-case CUDA memcheck
+with zero errors and zero leaked bytes. Totals: **88 normal passes / 2,064 normal
+endpoint checks**, another **96 memcheck endpoint checks**, and **16 clean CUDA
+memcheck processes**. All 32 normal/memcheck worker configurations and native
+PML selections confirm UCX with `UCX_RCACHE_ENABLE=n`. All rank streams parse
+strictly, with no recovery or discarded malformed event. CPU profiles retained.
+
+| Round | Mode | Largest synthetic-case median pipeline | Normal largest logged process peak RSS/rank |
+|---|---|---:|---:|
+| staged-a | MPI-owned staging | 1.247468 s | 412.055 MiB |
+| direct-a | Direct Go payload | 1.153021 s | 411.613 MiB |
+| direct-b | Direct Go payload | 1.246852 s | 410.836 MiB |
+| staged-b | MPI-owned staging | 1.155454 s | 412.703 MiB |
+
+Each row has 12 timed samples of the 262,144-exponent synthetic s=17 fixture,
+excluding warm-up and artifact passes. Smaller s=8/17 fixtures also pass.
+Peak owned GPU arrays **15.241 MiB/rank**, contexts additional; retained cache
+**71.843 MiB**. Explicit staging owns an extra512 KiB/rank (8 KiB under memcheck);
+UCX internal memory is additional and not isolated by this comparison.
+
+The staged/direct ratio reverses: **1.0819** in pair A (staged8.19% slower),
+**0.9267** in pair B (staged7.33% faster). This single-allocation crossover shows
+**no consistent mode speed advantage**. It is not independent allocation replication,
+a cache-on/off overhead estimate, four-GPU scaling, or full s=17/s=18 preprocessing.
+The earlier default-cache direct failures stay failed; this establishes a bounded
+validated configuration, not a universal runtime repair or production security.
+
+**Next implementation:** continue the scalable preprocessing pipeline rather than
+repeat this small transport sweep. Preserve explicit configuration and both
+validated modes. `reduceRootProduct` still gives a receiver full host polynomials
+and a single-executor multiply; senders currently leave the reduction. The next
+module must keep worker ranks available for a collective large-product executor,
+reusing existing 32/64-bit field/FFT kernels and verified RAM transport. Define deterministic
+operation IDs, coefficient ownership and bounded transfer/workspace accounting;
+compare small collective products and transforms against independent CPU results
+before generator/Newton integration. Then remove coordinator-wide discovery/
+support replication, and compose rank-owned checkpoints/final publication with
+existing checksum/atomic helpers. Full-size memory/communication/runtime remain
+unknown and require a separate admitted plan. No new job submitted in this review.
 
 ## Review of 78249
 
@@ -49,7 +90,7 @@ parser is used. Re-review all direct-b CPU/shape/state/proof/byte-hash checks.
 python3 -B experiments/ucx-cache-gpu-tree/review_interleaved.py
 ```
 
-**Retry (SCALING-139): job 78261 submitted**, results unreviewed.
+**Completed retry (SCALING-140): job 78261 passed**, reviewed above.
 [Retry receipt](retry-submission.json), progress `slurm-78261.log`, results/profiles
 `runs/tree-02/`. Source `e9f31f5`; [frozen inputs](readiness/retry-snapshot.json):
 664 files / 3,099,895 bytes, all eight checked hashes match.

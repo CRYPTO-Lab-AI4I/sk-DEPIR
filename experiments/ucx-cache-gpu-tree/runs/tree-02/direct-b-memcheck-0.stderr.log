@@ -1,0 +1,104 @@
+[gnode14:2962257] mca: base: components_register: registering framework btl components
+[gnode14:2962257] mca: base: components_register: found loaded component openib
+[gnode14:2962257] mca: base: components_register: component openib register function successful
+[gnode14:2962257] mca: base: components_register: found loaded component self
+[gnode14:2962257] mca: base: components_register: component self register function successful
+[gnode14:2962257] mca: base: components_register: found loaded component sm
+[gnode14:2962257] mca: base: components_register: found loaded component tcp
+[gnode14:2962257] mca: base: components_register: component tcp register function successful
+[gnode14:2962257] mca: base: components_register: found loaded component vader
+[gnode14:2962257] mca: base: components_register: component vader register function successful
+[gnode14:2962257] mca: base: components_open: opening btl components
+[gnode14:2962257] mca: base: components_open: found loaded component openib
+[gnode14:2962257] mca: base: components_open: component openib open function successful
+[gnode14:2962257] mca: base: components_open: found loaded component self
+[gnode14:2962257] mca: base: components_open: component self open function successful
+[gnode14:2962257] mca: base: components_open: found loaded component tcp
+[gnode14:2962257] mca: base: components_open: component tcp open function successful
+[gnode14:2962257] mca: base: components_open: found loaded component vader
+[gnode14:2962257] mca: base: components_open: component vader open function successful
+[gnode14:2962257] select: initializing btl component openib
+[gnode14:2962257] Checking distance from this process to device=mlx5_0
+[gnode14:2962257] Process is bound: distance to device is 0.000000
+[gnode14:2962257] Checking distance from this process to device=mlx5_1
+[gnode14:2962257] Process is bound: distance to device is 0.000000
+[gnode14:2962257] Checking distance from this process to device=mlx5_bond_0
+[gnode14:2962257] Process is bound: distance to device is 0.000000
+--------------------------------------------------------------------------
+WARNING: No preset parameters were found for the device that Open MPI
+detected:
+
+  Local host:            gnode14
+  Device name:           mlx5_0
+  Device vendor ID:      0x02c9
+  Device vendor part ID: 4129
+
+Default device parameters will be used, which may result in lower
+performance.  You can edit any of the files specified by the
+btl_openib_device_param_files MCA parameter to set values for your
+device.
+
+NOTE: You can turn off this warning by setting the MCA parameter
+      btl_openib_warn_no_device_params_found to 0.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   gnode14
+  Local device: mlx5_1
+--------------------------------------------------------------------------
+[gnode14:2962257] select: init of component openib returned failure
+[gnode14:2962257] mca: base: close: component openib closed
+[gnode14:2962257] mca: base: close: unloading component openib
+[gnode14:2962257] select: initializing btl component self
+[gnode14:2962257] select: init of component self returned success
+[gnode14:2962257] select: initializing btl component tcp
+[gnode14:2962257] btl: tcp: Searching for exclude address+prefix: 127.0.0.1 / 8
+[gnode14:2962257] btl: tcp: Found match: 127.0.0.1 (lo)
+[gnode14:2962257] btl: tcp: Using interface: sppp 
+[gnode14:2962257] btl:tcp: Attempting to bind to AF_INET port 1024
+[gnode14:2962257] btl:tcp: Successfully bound to AF_INET port 1024
+[gnode14:2962257] btl:tcp: my listening v4 socket is 0.0.0.0:1024
+[gnode14:2962257] btl:tcp: examining interface bond0
+[gnode14:2962257] btl:tcp: using ipv6 interface bond0
+[gnode14:2962257] btl:tcp: examining interface ibP1s3
+[gnode14:2962257] btl:tcp: using ipv6 interface ibP1s3
+[gnode14:2962257] btl:tcp: examining interface docker0
+[gnode14:2962257] btl:tcp: using ipv6 interface docker0
+[gnode14:2962257] select: init of component tcp returned success
+[gnode14:2962257] select: initializing btl component vader
+[gnode14:2962257] select: init of component vader returned success
+[gnode14:2962257] mca: base: components_register: registering framework pml components
+[gnode14:2962257] mca: base: components_register: found loaded component ucx
+[gnode14:2962257] mca: base: components_register: component ucx register function successful
+[gnode14:2962257] mca: base: components_open: opening pml components
+[gnode14:2962257] mca: base: components_open: found loaded component ucx
+[gnode14:2962257] mca: base: components_open: component ucx open function successful
+[gnode14:2962257] select: initializing pml component ucx
+[gnode14:2962257] select: init returned priority 51
+[gnode14:2962257] selected ucx best priority 51
+[gnode14:2962257] select: component ucx selected
+{"utc":"2026-11-20T08:58:33.292980276Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000026143}
+{"utc":"2026-11-20T08:58:33.293097771Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.00014364}
+{"utc":"2026-11-20T08:58:34.688693637Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000021358}
+{"utc":"2026-11-20T08:58:34.689270055Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000597776}
+{"kind":"mpi-chunk","utc":"2026-11-20T08:58:34Z","rank":0,"peer":1,"phase":"support-transfer","sending":true,"event":"completed","completed":1845,"total":1845,"unit":"words","elapsed_seconds":0.000024}
+{"kind":"mpi-chunk","utc":"2026-11-20T08:58:34Z","rank":0,"peer":2,"phase":"support-transfer","sending":true,"event":"completed","completed":1845,"total":1845,"unit":"words","elapsed_seconds":0.000004}
+{"kind":"mpi-chunk","utc":"2026-11-20T08:58:34Z","rank":0,"peer":3,"phase":"support-transfer","sending":true,"event":"completed","completed":1846,"total":1846,"unit":"words","elapsed_seconds":0.000004}
+{"kind":"mpi-chunk","utc":"2026-11-20T08:58:34Z","rank":0,"peer":1,"phase":"root-transfer","sending":false,"event":"completed","completed":1846,"total":1846,"unit":"words","elapsed_seconds":0.000015}
+{"kind":"mpi-chunk","utc":"2026-11-20T08:58:34Z","rank":0,"peer":2,"phase":"root-transfer","sending":false,"event":"completed","completed":3692,"total":3692,"unit":"words","elapsed_seconds":0.002460}
+{"utc":"2026-11-20T08:58:34.71282561Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000021128}
+{"utc":"2026-11-20T08:58:34.713405678Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000601197}
+{"kind":"mpi-chunk","utc":"2026-11-20T08:58:34Z","rank":0,"peer":1,"phase":"support-transfer","sending":true,"event":"completed","completed":1845,"total":1845,"unit":"words","elapsed_seconds":0.000023}
+{"kind":"mpi-chunk","utc":"2026-11-20T08:58:34Z","rank":0,"peer":2,"phase":"support-transfer","sending":true,"event":"completed","completed":1845,"total":1845,"unit":"words","elapsed_seconds":0.000004}
+{"kind":"mpi-chunk","utc":"2026-11-20T08:58:34Z","rank":0,"peer":3,"phase":"support-transfer","sending":true,"event":"completed","completed":1846,"total":1846,"unit":"words","elapsed_seconds":0.000004}
+{"kind":"mpi-chunk","utc":"2026-11-20T08:58:34Z","rank":0,"peer":1,"phase":"root-transfer","sending":false,"event":"completed","completed":1846,"total":1846,"unit":"words","elapsed_seconds":0.000008}
+{"kind":"mpi-chunk","utc":"2026-11-20T08:58:34Z","rank":0,"peer":2,"phase":"root-transfer","sending":false,"event":"completed","completed":3692,"total":3692,"unit":"words","elapsed_seconds":0.000004}
+[gnode14:2962257] mca: base: close: component ucx closed
+[gnode14:2962257] mca: base: close: unloading component ucx
+[gnode14:2962257] mca: base: close: component self closed
+[gnode14:2962257] mca: base: close: unloading component self
+[gnode14:2962257] mca: base: close: component tcp closed
+[gnode14:2962257] mca: base: close: unloading component tcp
+[gnode14:2962257] mca: base: close: component vader closed
+[gnode14:2962257] mca: base: close: unloading component vader

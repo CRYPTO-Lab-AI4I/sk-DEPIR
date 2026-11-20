@@ -61,9 +61,9 @@ original methodology; apply this policy to new optimization runs.
 ## Recorded experiments
 
 - [GPU tree with UCX cache control](ucx-cache-gpu-tree/report.md): same-build
-  78249 passed three normal/two CUDA-memcheck rounds, then failed merged-log
-  parsing. Explicit recovered view preserves raw evidence; incomplete crossover.
-  Fresh retry78261 with isolated rank streams submitted in the same two-H200 budget.
+  78261 passed the full crossover: CPU/state/proof checks and 16 clean CUDA
+  memcheck processes. No consistent mode speed winner; explicit cache setting,
+  not full-size support. Earlier78249 logging-failed evidence remains preserved.
 
 - [UCX registration-cache control](ucx-registration-cache/report.md): retain
   78218 passed all host arms (1,024 handoffs / 2,048 checks), including direct

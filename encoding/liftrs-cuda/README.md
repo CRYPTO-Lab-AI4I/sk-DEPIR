@@ -298,27 +298,23 @@ s17 subset262,144 exponents takes1.180s median pipeline; peak normal rank RSS
 410.523MiB and ownedGPU15.241MiB/card. No ordinary client dependency or full
 scalable distributed-preprocessing capability is added.
 
-The next [rank-owned tree gate](../../experiments/root-merge-tree/report.md)
-uses the same executor for local normalized roots and each owned merge. Per-rank
-maximum elements follow its subtree rather than a final-product allocation on
-every worker. Four logical ranks share2H200/2HPC nodes for correctness validation;
-job77704 failed largest-case transfer/CPU equality. Boundary diagnosis is next;
-GPU memcheck was not reached. No4GPU speedup/fulls18 claim follows. MPI/server test dependencies
-remain explicit and ordinary client/backend defaults are unchanged.
+The bounded [rank-owned GPU preprocessing tree](../../experiments/ucx-cache-gpu-tree/report.md#review-of-78261)
+**passed its full four-round crossover in job 78261**. All CPU/state/ownership/
+transfer checks passed, with 16 clean CUDA memory-check processes. The validated
+configuration explicitly selects UCX with `UCX_RCACHE_ENABLE=n`; earlier direct
+failures under the default cache remain recorded, and no runtime default changes.
 
-The direct-buffer diagnostic **77782 failed** on an unchecked support-index
-packet before GPU work. The [MPI-owned staging test](../../experiments/mpi-owned-staging/report.md)
-**77799 passed bounded validation and CUDA memcheck**, covering both packet widths:
-516 matching normal proof events, 22 normal passes, zero CUDA errors/leaks across
-four ranks. Its workflow failed afterward on profile-summary timeout; saved profiles
-were recovered offline. Added host scratch is 512 KiB/rank plus CPU copies;
-isolated runtime penalty and original fault cause remain unknown. Staging stays
-explicit; compare modes under identical instrumentation before selecting defaults.
-Full s=18 preprocessing remains unvalidated; CPU encoding defaults are unchanged.
+HPC: **2 H200s across 2 nodes, 4 logical ranks/CPU cores, 8 GiB requested host RAM**.
+The largest partial synthetic s=17 fixture (262,144 exponents) took **1.153–1.247 s**
+per-round median; normal process peak RSS was **410.836–412.703 MiB/rank**, owned
+GPU arrays **15.241 MiB/rank** (contexts additional). Mode advantage reversed
+between pairs, so no consistent staging/direct speed winner is established.
+These are profiled, setup-excluded diagnostic timings, not full preprocessing.
 
-The [same-build comparison](../../experiments/mpi-buffer-comparison/report.md)
-**77868 passed staged-a and failed direct-a**, with paired captures showing a
-same-node host transfer disagreement before receiver GPU work. Later rounds were
-unrun; no valid speed comparison or underlying cause. Keep direct marked failed;
-explicit staging remains the validated bounded mode for continued work. It adds
-512 KiB host scratch per rank and copies; full-size behavior is still unvalidated.
+Next: collective large-product/distributed FFT integration, followed by distributed
+discovery and generator/checkpoint/publication composition. The coordinator still
+holds a full source/reference and the final product still uses one executor.
+Full s=18 preprocessing remains unrun; current full s=17 results and CPU-client
+support are unchanged. [Original failed gate](../../experiments/root-merge-tree/report.md)
+and [partial logging-failed retry](../../experiments/ucx-cache-gpu-tree/report.md#review-of-78249)
+remain preserved in the evidence.

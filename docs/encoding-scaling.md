@@ -2363,7 +2363,7 @@ SCALING-109 next-work order is explicit:
    CPU copies; isolated speed penalty unknown). Next isolate the host-buffer fault
    in a small host-only reproduction, separately from arithmetic; retain validated
    explicit staging for further bounded distributed discovery/products/FFT work.
-   No full-size capability or production default follows. Profile reporting now
+   No full-size capability or production default follows.
    SCALING-130: [host-only78000](../experiments/mpi-host-buffers/report.md#review-of-78000)
    reproduced a direct cross-node host payload failure at cycle0/case1, without
    CUDA/arithmetic or forced reclamation. Both staged controls passed256 handoffs
@@ -2388,14 +2388,30 @@ SCALING-109 next-work order is explicit:
    Explicit derived recovery preserves raw failure and verifies every original
    CPU/state/proof/byte-hash check. Largest partial-case medians1.187/1.191/1.181 s;
    no complete crossover or fullsize result. Direct-b memcheck/staged-b unrun.
-   SCALING-139: retry one fresh full crossover with per-rank stdout/stderr files,
-   launcher logs retained and strict complete-stream collection. No malformed
-   worker event skipping. Same admitted GPU/host/storage/deadline envelope;
-   direct file I/O overhead unknown and no cross-run speedup claim. **78261 submitted**,
-   results unreviewed; no production default or fulls18 change.
-   Retain staged mode for bounded integration; fulls18 remains unrun. Reporting
-   gets 90 s inside the unchanged controller/scheduler limits, after its measured
-   28.060 s approached the old 30 s reporting deadline. Native timed clocks stay.
+   SCALING-140: [78261 passed the full four-arm GPU crossover](../experiments/ucx-cache-gpu-tree/report.md#review-of-78261),
+   including 88 normal passes /2,064 endpoint checks, 16 clean CUDA memcheck
+   processes /96 further checks, all worker settings and native UCX selections.
+   Largest partial-case medians1.247/1.153/1.247/1.155s; staged/direct pair ratios
+   1.0819 and0.9267 reverse, so no consistent mode speed advantage. Normal peak
+   RSS410.836–412.703MiB/rank; ownedGPU15.241MiB/rank, contexts additional;
+   retained71.843MiB. No recovered/malformed events; strict per-rank streams.
+   Bounded transport/tree gate now validated under explicit UCX cache control;
+   earlier raw failures remain failed and fulls18 is unrun. No default change.
+
+   **Next concrete integration:** stop repeating this small transport sweep.
+   `reduceRootProduct` currently returns early on senders and gives a receiver
+   complete host operands plus a single-executor multiply. Implement a collective
+   product executor that keeps worker ranks available for later large merges:
+   deterministic operation sequence, coefficient ownership, empty/tail handling,
+   canonical checks, bounded RAM buffers and explicit memory/communication budget.
+   Reuse current field/FFT/transpose kernels and verified transport, and retain
+   an independent CPU reference for small collective product/FFT tests. Only then
+   connect generator/Newton stages, distributed discovery without a full support
+   copy per coordinator, and rank-owned checkpoints/final publication using shared
+   atomic/checksum helpers. Extra communication/workspace/runtime are unmeasured;
+   present their trade-offs and admit budgets before larger jobs. Retain both
+   explicit validated transfer modes; no production/client defaults change.
+   Profile-report allowance remains90s within current controller/scheduler caps.
 
 6. Compare complete elapsed time across practical allocations before choosing
    final GPU/node count or giving fulls18 runtime. Full-size/multi-node persistence

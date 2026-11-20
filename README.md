@@ -118,71 +118,29 @@ This is not fulls17/s18 preprocessing or a scalable merge tree. The
 full restart readback and concurrent race checks.4MiB coalescing cuts application
 write calls1,536→24, but gives mixed elapsed results; defaults stay unchanged.
 Publication medians0.184–0.346s, full readback0.896–1.460s; persistence-phase sampled
-cgroup memory362.695MiB. Next is scalable rank ownership/multi-level merge and full
-preprocessing/publication integration. Ordinary CPU builds remain unchanged.
-The next [rank-owned merge-tree gate](experiments/root-merge-tree/report.md)
-adds bounded support routing and one owner per GPU polynomial subtree, using shared
-kernels and independently checked CPU roots. **Job77704 failed correctness** at a
-logged sender/receiver mismatch in the largest synthetic case; diagnosis is next.
-Smaller normal cases passed, but memcheck was not reached. Four logical
-ranks share two H200s across two HPC nodes to test two tree levels within the
-existing budget. This is not four-GPU throughput or fulls18 support; distributed
-discovery and large-product transforms remain separate implementation work.
-**Job 77782 failed during support-index reception**, before GPU root computation
-in the largest case/sample 5. The 78 completed polynomial proof records matched;
-they did not cover the bad support packet. No paired failure snapshot was captured;
-memcheck was not reached. Scheduler runtime was 2 min 8 s; largest logged process
-peak RSS was 407.578 MiB per rank on HPC (two H200s across two nodes, four logical
-ranks). [Evidence](experiments/root-transfer-diagnostics/report.md).
-The [MPI-owned staging diagnostic](experiments/mpi-owned-staging/report.md)
-**77799 passed bounded normal validation and CUDA memcheck**: 22 normal passes,
-516 matching transfer proof events, and zero CUDA errors/leaks on all four ranks.
-HPC: two H200s across gnode13/gnode14, four logical ranks/four CPUs, 4 GiB requested
-host RAM per node. Largest synthetic case (262,144 exponents): **1.201 s** median
-pipeline; normal-run largest logged process peak RSS **411.309 MiB per rank** and
-owned GPU arrays **15.241 MiB per rank** (contexts additional). This is partial
-support, not full s=17/s=18 preprocessing. The workflow status remains failed due
-to a later 30 s profile-summary timeout; all four raw profiles were recovered offline.
-The [same-build comparison](experiments/mpi-buffer-comparison/report.md)
-**77868 passed staged-a, then failed direct-a** on a captured rank 1→0 transfer
-within HPC node gnode13. Both payloads were saved: 10,239 coefficients differed,
-all received as zero; sender/receiver pre/post hashes were locally stable.
-Staged-a passed 22 normal passes, 516 transfer proofs and four-rank CUDA memcheck;
-largest partial fixture median **1.218 s**, normal process peak RSS **410.676 MiB
-per rank**. The later two rounds were not run. No valid speed ratio or underlying
-cause follows; direct remains failed and staging explicit (512 KiB host scratch/
-rank plus CPU copies). Next isolate the host-buffer fault separately and retain
-validated explicit staging for bounded distributed work. The [host-only replay78000](experiments/mpi-host-buffers/report.md#review-of-78000)
-**reproduced direct transfer corruption without GPUs**: staged-normal and
-staged-reclaim each passed256 handoffs /512 proof endpoints, then direct-normal
-failed on the first cross-node root transfer. Both captures retained; first word
-was1 at the sender and0 at the receiver. Direct-reclaim unrun; no guard failure.
-HPC:2 nodes /4 CPU cores /8 GiB requested host total /zero GPUs;29 s scheduler
-elapsed. Underlying cause remains unknown. The [TCP-only control78001](experiments/mpi-transport-control/report.md#review-of-78001)
-**timed out on its first staged transfer**, with zero completed handoffs/proofs.
-All four workers recorded the requested settings;90 s test cutoff triggered,
-not the memory guard. No corruption or speed conclusion is possible; later
-arms unrun. HPC:2 nodes /4 CPU cores /8 GiB requested host /zero GPUs;1 min55 s
-scheduler elapsed. [Discovery 78009](experiments/mpi-transport-discovery/report.md#review-of-78009)
-**selected UCX on every rank** and reproduced the direct cross-node payload
-corruption. Both staged controls passed 256 handoffs / 512 proof endpoints;
-direct-reclaim was unrun. HPC: 2 nodes / 4 CPU cores / 8 GiB requested host /
-zero GPUs; 28 s scheduler elapsed. [Cache control 78218](experiments/ucx-registration-cache/report.md#review-of-78218)
-**passed all four host arms**: 1,024 handoffs / 2,048 endpoint checks, including
-both direct-buffer arms. UCX and `UCX_RCACHE_ENABLE=n` were verified. Largest
-logged process peak RSS **296.418 MiB/rank**; HPC 2 nodes / 4 CPU cores / 8 GiB
-requested host / zero GPUs, **1 min 2 s** scheduler elapsed. This supports a cache
-interaction under the probe, not a permanent repair or full-size result. [GPU-tree 78249](experiments/ucx-cache-gpu-tree/report.md#review-of-78249)
-**passed three normal computation rounds** with the cache disabled: CPU equality
-and 516 endpoint checks per round. Staged-a and direct-a also passed four-rank CUDA
-memcheck. Largest partial-case medians: **1.187 s staged**, **1.191 s direct-a**,
-**1.181 s direct-b**; normal peak RSS **410.336–410.844 MiB/rank**. The workflow
-stopped after direct-b due to an MPI warning interleaving with JSON; one event was
-recovered only in a separate, checksummed derived view. Raw failure remains.
-Direct-b memcheck and staged-b unrun; no complete crossover ratio. HPC: 2 H200s /
-2 nodes / 4 CPU cores / 8 GiB requested host; **4 min 16 s** scheduler elapsed.
-Next retry the full comparison with isolated per-rank streams and strict parsing,
-within the same budget. **78261 submitted**, results unreviewed; no default or full s=18 claim.
+cgroup memory362.695MiB. Complete preprocessing/publication integration remains.
+Ordinary CPU builds remain unchanged.
+
+The bounded [rank-owned GPU preprocessing tree](experiments/ucx-cache-gpu-tree/report.md#review-of-78261)
+**passed its full four-round crossover in job 78261**. All CPU/state/ownership/
+transfer checks passed, with 16 clean CUDA memory-check processes. The validated
+configuration explicitly selects UCX with `UCX_RCACHE_ENABLE=n`; earlier direct
+failures under the default cache remain recorded, and no runtime default changes.
+
+HPC: **2 H200s across 2 nodes, 4 logical ranks/CPU cores, 8 GiB requested host RAM**.
+The largest partial synthetic s=17 fixture (262,144 exponents) took **1.153–1.247 s**
+per-round median; normal process peak RSS was **410.836–412.703 MiB/rank**, owned
+GPU arrays **15.241 MiB/rank** (contexts additional). Mode advantage reversed
+between pairs, so no consistent staging/direct speed winner is established.
+These are profiled, setup-excluded diagnostic timings, not full preprocessing.
+
+Next: collective large-product/distributed FFT integration, followed by distributed
+discovery and generator/checkpoint/publication composition. The coordinator still
+holds a full source/reference and the final product still uses one executor.
+Full s=18 preprocessing remains unrun; current full s=17 results and CPU-client
+support are unchanged. [Original failed gate](experiments/root-merge-tree/report.md)
+and [partial logging-failed retry](experiments/ucx-cache-gpu-tree/report.md#review-of-78249)
+remain preserved in the evidence.
 Preprocessing has no two-GPU ceiling: choose GPU count for measured end-to-end
 speed, comparing more cards and multiple nodes when beneficial.
 

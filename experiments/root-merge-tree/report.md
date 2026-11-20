@@ -235,3 +235,9 @@ summary counts include both streams. This addresses the
 without changing native code, clocks or correctness checks. File I/O may change
 diagnostic timing; no cross-run speed inference. Legacy host-only jobs retain
 their explicit default output convention.
+
+SCALING-140: the [cache-controlled crossover78261](../ucx-cache-gpu-tree/report.md#review-of-78261)
+passed all four rounds and CUDA memchecks. This validates the bounded ownership/
+transport tree under explicit UCX_RCACHE_ENABLE=n; original77704 remains a failed
+result under its recorded configuration. Full-size collective products/transforms
+and preprocessing remain separate implementation work.

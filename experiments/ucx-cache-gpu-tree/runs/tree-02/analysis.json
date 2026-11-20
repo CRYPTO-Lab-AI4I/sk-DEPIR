@@ -1,0 +1,541 @@
+{
+  "status": "passed",
+  "job_id": "78261",
+  "revision": "e9f31f57194268e67e34c3340c4386d2eab7dbee",
+  "source_files_verified": 664,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 123,
+  "cache_files_verified": 339,
+  "tests": [
+    "TestWideOrbitArithmetic",
+    "TestTableFreeFields"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.01062164269387722,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.018561311066150665,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.31777908466756344,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 0.007958149537444115,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.01984449289739132,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.06911824643611908,
+      "exit_code": 0
+    },
+    {
+      "label": "ucx-version",
+      "seconds": 0.06867245025932789,
+      "exit_code": 0
+    },
+    {
+      "label": "ucx-config",
+      "seconds": 0.1670814100652933,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 16.79192554578185,
+      "exit_code": 0
+    },
+    {
+      "label": "tree-build",
+      "seconds": 31.301989622414112,
+      "exit_code": 0
+    },
+    {
+      "label": "fixture-regression",
+      "seconds": 18.38677518069744,
+      "exit_code": 0
+    },
+    {
+      "label": "shared-tests",
+      "seconds": 1.580273924395442,
+      "exit_code": 0
+    },
+    {
+      "label": "shared-race",
+      "seconds": 17.54249153099954,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-a-normal",
+      "seconds": 37.509081134572625,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-a-memcheck",
+      "seconds": 3.3321574591100216,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-a-profile",
+      "seconds": 30.014011511579156,
+      "exit_code": 0
+    },
+    {
+      "label": "direct-a-normal",
+      "seconds": 37.34159082174301,
+      "exit_code": 0
+    },
+    {
+      "label": "direct-a-memcheck",
+      "seconds": 3.227307291701436,
+      "exit_code": 0
+    },
+    {
+      "label": "direct-a-profile",
+      "seconds": 2.722806829959154,
+      "exit_code": 0
+    },
+    {
+      "label": "direct-b-normal",
+      "seconds": 37.59050934202969,
+      "exit_code": 0
+    },
+    {
+      "label": "direct-b-memcheck",
+      "seconds": 3.6115376949310303,
+      "exit_code": 0
+    },
+    {
+      "label": "direct-b-profile",
+      "seconds": 0.8698014225810766,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-b-normal",
+      "seconds": 37.367282304912806,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-b-memcheck",
+      "seconds": 3.3304581716656685,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-b-profile",
+      "seconds": 2.254581894725561,
+      "exit_code": 0
+    }
+  ],
+  "scope": "Bounded same-build diagnostic crossover; original direct-buffer fault remains unexplained.",
+  "native_ucx_selection_checked": {
+    "staged-a-normal": 4,
+    "staged-a-memcheck": 4,
+    "direct-a-normal": 4,
+    "direct-a-memcheck": 4,
+    "direct-b-normal": 4,
+    "direct-b-memcheck": 4,
+    "staged-b-normal": 4,
+    "staged-b-memcheck": 4
+  },
+  "worker_settings_checked": {
+    "staged-a-normal": 4,
+    "staged-a-memcheck": 4,
+    "direct-a-normal": 4,
+    "direct-a-memcheck": 4,
+    "direct-b-normal": 4,
+    "direct-b-memcheck": 4,
+    "staged-b-normal": 4,
+    "staged-b-memcheck": 4
+  },
+  "failure_evidence": {
+    "captures": [],
+    "paired_snapshots": []
+  },
+  "completed_arms": [
+    {
+      "name": "staged-a",
+      "mode": "staged",
+      "status": "passed",
+      "normal": {
+        "proof_events": 516,
+        "proof_phases": {
+          "support": 384,
+          "root": 132
+        },
+        "measurement_rows": 88,
+        "hosts": {
+          "0": "gnode14",
+          "1": "gnode14",
+          "2": "gnode15",
+          "3": "gnode15"
+        },
+        "peak_logged_rss_bytes_per_rank": 432070656,
+        "peak_owned_device_bytes_per_rank": 15980980
+      },
+      "cases": [
+        {
+          "case": 0,
+          "s": 8,
+          "support_count": 7381,
+          "timed_samples": 2,
+          "median_seconds": {
+            "seconds": 0.012421596,
+            "route_seconds": 0.0011694185,
+            "root_seconds": 0.003125994,
+            "tree_seconds": 0.008696648000000001,
+            "verify_seconds": 0.00010783449999999999
+          }
+        },
+        {
+          "case": 1,
+          "s": 17,
+          "support_count": 65536,
+          "timed_samples": 2,
+          "median_seconds": {
+            "seconds": 0.2871038545,
+            "route_seconds": 0.0134155635,
+            "root_seconds": 0.2030749495,
+            "tree_seconds": 0.0994580715,
+            "verify_seconds": 0.00093484
+          }
+        },
+        {
+          "case": 2,
+          "s": 17,
+          "support_count": 262144,
+          "timed_samples": 12,
+          "median_seconds": {
+            "seconds": 1.2474682945,
+            "route_seconds": 0.056812692,
+            "root_seconds": 1.0160107329999999,
+            "tree_seconds": 0.279838839,
+            "verify_seconds": 0.003819179
+          }
+        }
+      ],
+      "final_sha256": {
+        "0": "346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a",
+        "1": "e0e7070a60c00c836dce6ce806a35200ede8149454b8c6743d49c11245301649",
+        "2": "f167d29b7e5212b1e63b4215bc0ef34427a562e8e569b9d4c0cc74f1a52fc223"
+      },
+      "setup_seconds_by_case": {
+        "0": 1.390644994,
+        "1": 2.312943803,
+        "2": 13.959385403
+      },
+      "memcheck": {
+        "proof_events": 24,
+        "proof_phases": {
+          "support": 12,
+          "root": 12
+        },
+        "measurement_rows": 8,
+        "hosts": {
+          "0": "gnode14",
+          "1": "gnode14",
+          "2": "gnode15",
+          "3": "gnode15"
+        },
+        "peak_logged_rss_bytes_per_rank": 431104000,
+        "peak_owned_device_bytes_per_rank": 65704
+      }
+    },
+    {
+      "name": "direct-a",
+      "mode": "direct",
+      "status": "passed",
+      "normal": {
+        "proof_events": 516,
+        "proof_phases": {
+          "support": 384,
+          "root": 132
+        },
+        "measurement_rows": 88,
+        "hosts": {
+          "0": "gnode14",
+          "1": "gnode14",
+          "2": "gnode15",
+          "3": "gnode15"
+        },
+        "peak_logged_rss_bytes_per_rank": 431607808,
+        "peak_owned_device_bytes_per_rank": 15980980
+      },
+      "cases": [
+        {
+          "case": 0,
+          "s": 8,
+          "support_count": 7381,
+          "timed_samples": 2,
+          "median_seconds": {
+            "seconds": 0.0125829025,
+            "route_seconds": 0.0012422835,
+            "root_seconds": 0.002941047,
+            "tree_seconds": 0.008796003,
+            "verify_seconds": 0.00010462899999999999
+          }
+        },
+        {
+          "case": 1,
+          "s": 17,
+          "support_count": 65536,
+          "timed_samples": 2,
+          "median_seconds": {
+            "seconds": 0.286533398,
+            "route_seconds": 0.012627402999999999,
+            "root_seconds": 0.2030259325,
+            "tree_seconds": 0.09136353350000001,
+            "verify_seconds": 0.000916279
+          }
+        },
+        {
+          "case": 2,
+          "s": 17,
+          "support_count": 262144,
+          "timed_samples": 12,
+          "median_seconds": {
+            "seconds": 1.1530209625,
+            "route_seconds": 0.056839749,
+            "root_seconds": 0.9191155360000001,
+            "tree_seconds": 0.29984178949999996,
+            "verify_seconds": 0.0037660755
+          }
+        }
+      ],
+      "final_sha256": {
+        "0": "346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a",
+        "1": "e0e7070a60c00c836dce6ce806a35200ede8149454b8c6743d49c11245301649",
+        "2": "f167d29b7e5212b1e63b4215bc0ef34427a562e8e569b9d4c0cc74f1a52fc223"
+      },
+      "setup_seconds_by_case": {
+        "0": 1.43724107,
+        "1": 2.333665068,
+        "2": 13.985674928
+      },
+      "memcheck": {
+        "proof_events": 24,
+        "proof_phases": {
+          "support": 12,
+          "root": 12
+        },
+        "measurement_rows": 8,
+        "hosts": {
+          "0": "gnode14",
+          "1": "gnode14",
+          "2": "gnode15",
+          "3": "gnode15"
+        },
+        "peak_logged_rss_bytes_per_rank": 428265472,
+        "peak_owned_device_bytes_per_rank": 65704
+      }
+    },
+    {
+      "name": "direct-b",
+      "mode": "direct",
+      "status": "passed",
+      "normal": {
+        "proof_events": 516,
+        "proof_phases": {
+          "support": 384,
+          "root": 132
+        },
+        "measurement_rows": 88,
+        "hosts": {
+          "0": "gnode14",
+          "1": "gnode14",
+          "2": "gnode15",
+          "3": "gnode15"
+        },
+        "peak_logged_rss_bytes_per_rank": 430792704,
+        "peak_owned_device_bytes_per_rank": 15980980
+      },
+      "cases": [
+        {
+          "case": 0,
+          "s": 8,
+          "support_count": 7381,
+          "timed_samples": 2,
+          "median_seconds": {
+            "seconds": 0.011879741499999999,
+            "route_seconds": 0.0011571544999999998,
+            "root_seconds": 0.0025882225,
+            "tree_seconds": 0.0082532965,
+            "verify_seconds": 0.00010460950000000001
+          }
+        },
+        {
+          "case": 1,
+          "s": 17,
+          "support_count": 65536,
+          "timed_samples": 2,
+          "median_seconds": {
+            "seconds": 0.286623665,
+            "route_seconds": 0.0128172965,
+            "root_seconds": 0.20282228,
+            "tree_seconds": 0.0936371785,
+            "verify_seconds": 0.0009368435
+          }
+        },
+        {
+          "case": 2,
+          "s": 17,
+          "support_count": 262144,
+          "timed_samples": 12,
+          "median_seconds": {
+            "seconds": 1.246851687,
+            "route_seconds": 0.0567693785,
+            "root_seconds": 0.978083859,
+            "tree_seconds": 0.261943908,
+            "verify_seconds": 0.003824531
+          }
+        }
+      ],
+      "final_sha256": {
+        "0": "346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a",
+        "1": "e0e7070a60c00c836dce6ce806a35200ede8149454b8c6743d49c11245301649",
+        "2": "f167d29b7e5212b1e63b4215bc0ef34427a562e8e569b9d4c0cc74f1a52fc223"
+      },
+      "setup_seconds_by_case": {
+        "0": 1.408216372,
+        "1": 2.320783129,
+        "2": 13.88064764
+      },
+      "memcheck": {
+        "proof_events": 24,
+        "proof_phases": {
+          "support": 12,
+          "root": 12
+        },
+        "measurement_rows": 8,
+        "hosts": {
+          "0": "gnode14",
+          "1": "gnode14",
+          "2": "gnode15",
+          "3": "gnode15"
+        },
+        "peak_logged_rss_bytes_per_rank": 428138496,
+        "peak_owned_device_bytes_per_rank": 65704
+      }
+    },
+    {
+      "name": "staged-b",
+      "mode": "staged",
+      "status": "passed",
+      "normal": {
+        "proof_events": 516,
+        "proof_phases": {
+          "support": 384,
+          "root": 132
+        },
+        "measurement_rows": 88,
+        "hosts": {
+          "0": "gnode14",
+          "1": "gnode14",
+          "2": "gnode15",
+          "3": "gnode15"
+        },
+        "peak_logged_rss_bytes_per_rank": 432750592,
+        "peak_owned_device_bytes_per_rank": 15980980
+      },
+      "cases": [
+        {
+          "case": 0,
+          "s": 8,
+          "support_count": 7381,
+          "timed_samples": 2,
+          "median_seconds": {
+            "seconds": 0.0119395825,
+            "route_seconds": 0.0011369785,
+            "root_seconds": 0.0027825454999999997,
+            "tree_seconds": 0.008258874,
+            "verify_seconds": 0.00010390200000000001
+          }
+        },
+        {
+          "case": 1,
+          "s": 17,
+          "support_count": 65536,
+          "timed_samples": 2,
+          "median_seconds": {
+            "seconds": 0.28772291949999995,
+            "route_seconds": 0.012747048,
+            "root_seconds": 0.204573762,
+            "tree_seconds": 0.0948674735,
+            "verify_seconds": 0.0009133485
+          }
+        },
+        {
+          "case": 2,
+          "s": 17,
+          "support_count": 262144,
+          "timed_samples": 12,
+          "median_seconds": {
+            "seconds": 1.1554542200000002,
+            "route_seconds": 0.056860095,
+            "root_seconds": 0.9235908385,
+            "tree_seconds": 0.22743135949999999,
+            "verify_seconds": 0.003836873
+          }
+        }
+      ],
+      "final_sha256": {
+        "0": "346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a",
+        "1": "e0e7070a60c00c836dce6ce806a35200ede8149454b8c6743d49c11245301649",
+        "2": "f167d29b7e5212b1e63b4215bc0ef34427a562e8e569b9d4c0cc74f1a52fc223"
+      },
+      "setup_seconds_by_case": {
+        "0": 1.390951584,
+        "1": 2.313646159,
+        "2": 14.104909177
+      },
+      "memcheck": {
+        "proof_events": 24,
+        "proof_phases": {
+          "support": 12,
+          "root": 12
+        },
+        "measurement_rows": 8,
+        "hosts": {
+          "0": "gnode14",
+          "1": "gnode14",
+          "2": "gnode15",
+          "3": "gnode15"
+        },
+        "peak_logged_rss_bytes_per_rank": 427524096,
+        "peak_owned_device_bytes_per_rank": 65704
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "case": 0,
+      "staged_over_direct_pair_a": 0.987180501478097,
+      "staged_over_direct_pair_b": 1.0050372308185327,
+      "note": "Ratios of arm medians; not independent allocation repeats or an isolated memcpy measurement."
+    },
+    {
+      "case": 1,
+      "staged_over_direct_pair_a": 1.0019908900811625,
+      "staged_over_direct_pair_b": 1.0038351840208306,
+      "note": "Ratios of arm medians; not independent allocation repeats or an isolated memcpy measurement."
+    },
+    {
+      "case": 2,
+      "staged_over_direct_pair_a": 1.0819129357329442,
+      "staged_over_direct_pair_b": 0.9266974027842017,
+      "note": "Ratios of arm medians; not independent allocation repeats or an isolated memcpy measurement."
+    }
+  ],
+  "workflow_error": null,
+  "current_arm": "staged-b"
+}

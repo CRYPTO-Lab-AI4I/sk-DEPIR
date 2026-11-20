@@ -1,0 +1,24 @@
+{
+  "utc": "2026-11-20T09:17:55.297421+00:00",
+  "base_revision": "d876163e94e0c857330a180482c53473260c1ac1",
+  "command": "python3 -B experiments/mpi-buffer-comparison/analyze.py tree-02 --experiment experiments/ucx-cache-gpu-tree",
+  "review_source_sha256": "c3beaa3c8cd1af08c569842d552a9b1e5303caa719460025744f3cb8047985de",
+  "checks": [
+    "664 source/123 evidence/339 cache seals",
+    "all commands zero; single binary/library hashes stable",
+    "four arms CPU/ownership/state/proofs and matching final arrays",
+    "32 worker setting records and32 native UCX selections",
+    "16 clean CUDA memory checks with zero leaks/errors",
+    "strict complete rank streams; no recovery",
+    "matched arm ratios rederived"
+  ],
+  "local_regressions": [
+    "python3 -B experiments/mpi-buffer-comparison/test_review.py (7 pass)",
+    "python3 -B experiments/ucx-cache-gpu-tree/test_logging.py (4 pass)"
+  ],
+  "limitations": [
+    "One HPC allocation; no consistent staging/direct advantage.",
+    "Synthetic partial support, not fulls18 or arbitrary-size runtime fix.",
+    "Registration-cache-on/off cost and native internal pinned memory not isolated."
+  ]
+}

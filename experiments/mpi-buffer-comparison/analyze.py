@@ -57,6 +57,7 @@ def main():
     if current and (out/f'{current}-normal.log').exists():
         failure=review_captures(HELP['TREE']['BASE']['parse_rank_logs'](out/f'{current}-normal.log'),cache,current)
     worker_settings={}
+    native_selection={}
     transport=raw['resources'].get('diagnostic_transport')
     if transport:
         for name,mode in HELP['ARMS']:
@@ -66,7 +67,15 @@ def main():
                 hosts=[r for r in HELP['TREE']['BASE']['parse_rank_logs'](log)if r.get('kind')=='host']
                 assert all(all(r['mpi_transport'].get(key)==value for key,value in transport.items())for r in hosts)
                 worker_settings[name+'-'+phase]=len(hosts)
-    result.update(worker_settings_checked=worker_settings,failure_evidence=failure,scope='Bounded same-build diagnostic crossover; original direct-buffer fault remains unexplained.',
+                if transport.get('OMPI_MCA_pml')=='ucx'and transport.get('OMPI_MCA_pml_base_verbose')=='20':
+                    checked=0
+                    for rank in range(4):
+                        stderr=out/f'{name}-{phase}-{rank}.stderr.log'
+                        if not stderr.exists():continue  # Historical merged logs remain separate evidence.
+                        assert any(line.rstrip().endswith('select: component ucx selected')for line in stderr.read_text().splitlines())
+                        checked+=1
+                    native_selection[name+'-'+phase]=checked
+    result.update(native_ucx_selection_checked=native_selection,worker_settings_checked=worker_settings,failure_evidence=failure,scope='Bounded same-build diagnostic crossover; original direct-buffer fault remains unexplained.',
         completed_arms=arms,comparisons=ratios,workflow_error=raw.get('error'),current_arm=state.get('current_arm'))
     (out/'analysis.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
 
