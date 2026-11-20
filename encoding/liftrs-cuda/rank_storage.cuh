@@ -55,6 +55,8 @@ template <class Word> class RankStorage {
   size_t rows_, columns_, capacity_, tile_;
   unsigned rank_, ranks_;
   RankView views_[3];
+  Matrix<Word> metadata_{};
+  Matrix<Word> *plan_ = nullptr;
   Card &card() { return *engine_.cards_[0]; }
   Word *data(unsigned slot) {
     if (slot >= 3) throw std::runtime_error("rank storage slot");
@@ -67,6 +69,18 @@ template <class Word> class RankStorage {
         words > views_[slot].words() - offset)
       throw std::runtime_error("rank storage transfer extent");
   }
+  void prepare() {
+    const size_t domain = rows_ * columns_;
+    engine_.shape(domain);
+    if (domain < 4) throw std::runtime_error("rank Taylor domain");
+    unsigned dimension = 0;
+    for (size_t n = domain; n > 1; n >>= 1) dimension++;
+    const size_t cols = size_t(1) << (dimension / 2);
+    if (columns_ != cols || rows_ != domain / cols)
+      throw std::runtime_error("rank Taylor canonical split");
+    check(cudaSetDevice(card().id));
+    if (!plan_) plan_ = engine_.plan(card(), domain, &metadata_);
+  }
 public:
   using word_type = Word;
   RankStorage(Resident<Word> &engine, size_t rows, size_t columns,
@@ -77,7 +91,7 @@ public:
         engine_.cards_.size() != 1 || engine_.encoding_k_)
       throw std::runtime_error("rank storage shape/rank/tile");
     auto &c = card();
-    if (c.x.bytes || c.y.bytes || c.scratch.bytes || c.transport.bytes)
+    if (c.x.bytes || c.y.bytes || c.scratch.bytes || c.transport.bytes || c.windows.bytes)
       throw std::runtime_error("rank storage requires dedicated fresh engine");
     capacity_ = std::max(storage_band(rows, rank, ranks).second * columns,
                         storage_band(columns, rank, ranks).second * rows);
@@ -181,6 +195,41 @@ public:
     auto *metadata = engine_.plan(card(), domain);
     engine_.vector_stage(card(), data(slot), metadata, domain, columns, inverse,
         v.columns, v.first, v.count);
+  }
+  std::vector<uint64_t> degrees(unsigned level) {
+    prepare();
+    if (level >= metadata_.dimension - metadata_.split) throw std::runtime_error("rank Taylor level");
+    const auto &terms = metadata_.taylor[level];
+    std::vector<uint64_t> out;
+    for (unsigned t = 0; t < terms.count; t++) out.push_back(terms.degree[t]);
+    return out;
+  }
+  // Snapshot is borrowed/read-only. Only updated targets go directly to the
+  // resident array; neither sources nor a complete host shard are written back.
+  void taylor(unsigned slot, const Word *snapshot, size_t words, size_t capacity, unsigned level,
+      bool quotient, size_t block, size_t first, size_t count) {
+    data(slot); prepare();
+    if (!snapshot || !words || words > capacity || capacity > (1u << 20) || !count || count > words ||
+        level >= metadata_.dimension - metadata_.split || block >= rows_ * columns_)
+      throw std::runtime_error("rank Taylor snapshot extent");
+    const uint64_t limit = uint64_t(1) << (2 * engine_.s_);
+    for (size_t j = 0; j < words; j++)
+      if (uint64_t(snapshot[j]) >= limit) throw std::runtime_error("rank Taylor field value");
+    const size_t half = size_t(1) << (metadata_.split + level);
+    if (first >= half || count > half - first || block % (2 * half))
+      throw std::runtime_error("rank Taylor block/interval");
+    const auto &v = views_[slot];
+    const size_t target = block + (quotient ? half : 0) + first, origin = v.first * v.columns;
+    if (v.rows != rows_ || v.columns != columns_ || target < origin ||
+        target - origin > v.words() || count > v.words() - (target - origin))
+      throw std::runtime_error("rank Taylor target owner/view");
+    engine_.ensure(card(), card().windows, capacity * sizeof(Word));
+    auto *window = static_cast<Word *>(card().windows.data);
+    check(cudaMemcpy(window, snapshot, words * sizeof(Word), cudaMemcpyHostToDevice));
+    engine_.taylor_stage(card(), window, plan_, metadata_, rows_ * columns_,
+        capacity, words, level, quotient, block, first, count);
+    rank_transfer<<<(count + 255) / 256, 256>>>(data(slot), window, v, target - origin, count, true);
+    sync();
   }
   void tile(unsigned slot, unsigned peer, size_t offset, Word *values, size_t words, bool pack) {
     data(slot);

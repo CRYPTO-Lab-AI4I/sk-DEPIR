@@ -1,0 +1,47 @@
+{
+  "job_id": "78394",
+  "status": "passed",
+  "revision": "4fe10dcd0be5e9155ded77f1bd951999c3c78739",
+  "source_files_verified": 715,
+  "evidence_files_verified": 40,
+  "cache_files_verified": 147,
+  "controller_seconds": 122.26493533700705,
+  "cache_MiB": 14.216965675354004,
+  "arms": {
+    "separable": {
+      "rows": 24,
+      "proof_endpoints": 240,
+      "command_seconds": 2.571791373193264,
+      "max_RSS_MiB": 371.30078125,
+      "max_owned_GPU_MiB": 1.5705680847167969,
+      "sanitizer": null
+    },
+    "normal": {
+      "rows": 24,
+      "proof_endpoints": 240,
+      "command_seconds": 2.0258601792156696,
+      "max_RSS_MiB": 372.12109375,
+      "max_owned_GPU_MiB": 1.6169471740722656,
+      "sanitizer": null
+    },
+    "memcheck": {
+      "rows": 24,
+      "proof_endpoints": 240,
+      "command_seconds": 2.771519424393773,
+      "max_RSS_MiB": 416.01953125,
+      "max_owned_GPU_MiB": 1.6169471740722656,
+      "sanitizer": [
+        {
+          "errors": 0,
+          "leaked_bytes": 0,
+          "leaked_allocations": 0
+        },
+        {
+          "errors": 0,
+          "leaked_bytes": 0,
+          "leaked_allocations": 0
+        }
+      ]
+    }
+  }
+}

@@ -437,3 +437,44 @@ func TestRankProductAdmission(t *testing.T) {
 		t.Fatal("product operation wrap")
 	}
 }
+
+// Storage errors must propagate through the common scheduler before publishing a
+// completed target or crossing the successful end barrier.
+type failedTaylorStorage struct{ phase string }
+
+func (s failedTaylorStorage) Read(uint64, []uint32) error {
+	if s.phase == "read" {
+		return fmt.Errorf("storage read")
+	}
+	return nil
+}
+func (s failedTaylorStorage) Send(int, taylorPacket, uint64, uint64, taylorLink[uint32]) error {
+	if s.phase == "send" {
+		return fmt.Errorf("storage send")
+	}
+	return nil
+}
+func (s failedTaylorStorage) Apply(rankTaylorPlan, taylorTicket, uint64, []uint32) error {
+	return fmt.Errorf("storage apply")
+}
+
+type discardTaylorLink struct{ barriers int }
+
+func (l *discardTaylorLink) SendWindow(int, taylorPacket, []uint32) error    { return nil }
+func (l *discardTaylorLink) ReceiveWindow(int, taylorPacket, []uint32) error { return nil }
+func (l *discardTaylorLink) Barrier()                                        { l.barriers++ }
+func TestRankTaylorStorageErrors(t *testing.T) {
+	for _, phase := range []string{"read", "apply", "send"} {
+		p := rankTaylorPlan{Operation: 1, Domain: 16, Columns: 4, Capacity: 12, Rank: 0, Ranks: 1, Level: 1, Quotient: true, Degrees: []uint64{1, 2}}
+		if phase == "send" {
+			p.Rank = 1
+			p.Ranks = 2
+			p.Quotient = false
+		}
+		link := &discardTaylorLink{}
+		err := rankTaylorStoredPass(p, make([]uint32, 12), failedTaylorStorage{phase}, link, nil)
+		if err == nil || err.Error() != "storage "+phase || link.barriers != 1 {
+			t.Fatal(phase, err, link.barriers)
+		}
+	}
+}

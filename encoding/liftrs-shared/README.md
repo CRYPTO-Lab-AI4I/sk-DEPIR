@@ -876,4 +876,16 @@ runs in place; the plan is retained lazily under the same cap. For example, afte
 transposing into an interleaved column slot, call `store.Vectors(1, true, false)`.
 Host and resident adapters share separable stage order. No complete host shard is
 staged for vector arithmetic. [Resident composition validation](../../experiments/distributed-resident-vectors/report.md)
-is prepared; Taylor conversion/full resident FFT and products remain pending.
+passed78394; complete resident Taylor/FFT validation is now prepared. Resident products remain pending.
+
+Resident Taylor now uses the same ticket/wave and level/pass scheduler as the host
+reference. `TaylorDegrees(level)` supplies metadata; `Taylor32/64(slot, snapshot,
+capacity, tile)` borrows canonical target/source windows and commits only owned
+targets to the GPU slot. For example: `store.Taylor64(0, snapshot, capacity, tile)`.
+The physical view may be row-major or interleaved; logical coordinates retain
+original ownership. Two bounded host buffers and one cap-accounted device window
+replace full host shards. Local sources still round-trip through bounded host
+windows. Native window arithmetic and FFT plans/order are shared with the existing
+adapters; no second recurrence. [Complete resident FFT gate](../../experiments/distributed-resident-fft/report.md)
+is prepared, including the old complete host-tile regression. No default/client
+CUDA dependency or fulls18 support change.

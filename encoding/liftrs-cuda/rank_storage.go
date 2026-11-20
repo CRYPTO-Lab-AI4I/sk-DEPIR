@@ -187,3 +187,56 @@ func (v *RankStorage) Vectors(slot int, columns, inverse bool) error {
 		return C.pg_bridge_rank_vectors(b, v.handle, C.uint(slot), axis, direction, text, 512)
 	})
 }
+
+// TaylorDegrees returns the canonical sparse displacements for one conversion
+// level. Metadata/plan are retained lazily and count toward the device cap.
+func (v *RankStorage) TaylorDegrees(level int) ([]uint64, error) {
+	if level < 0 {
+		return nil, fmt.Errorf("GPU resident Taylor level")
+	}
+	var terms [21]C.uint64_t
+	var count C.size_t
+	err := v.call(func(b *C.pg_bridge, text *C.char) C.int {
+		return C.pg_bridge_rank_degrees(b, v.handle, C.uint(level), &terms[0], 21, &count, text, 512)
+	})
+	if err != nil {
+		return nil, err
+	}
+	if count > 21 {
+		return nil, fmt.Errorf("GPU resident Taylor degree count")
+	}
+	out := make([]uint64, int(count))
+	for j := range out {
+		out[j] = uint64(terms[j])
+	}
+	return out, nil
+}
+func (v *RankStorage) taylor(slot int, snapshot unsafe.Pointer, words, width int, capacity uint64, tile TaylorTile) error {
+	if v == nil || v.engine == nil || slot < 0 || slot >= 3 || snapshot == nil || words <= 0 || uint64(words) > capacity || capacity > 1<<20 || tile.Level < 0 || v.engine.width != width {
+		return fmt.Errorf("GPU resident Taylor snapshot admission")
+	}
+	quotient := C.int(0)
+	if tile.Quotient {
+		quotient = 1
+	}
+	return v.call(func(b *C.pg_bridge, text *C.char) C.int {
+		return C.pg_bridge_rank_taylor(b, v.handle, C.uint(slot), snapshot, C.size_t(words), C.size_t(capacity), C.uint(tile.Level), quotient, C.size_t(tile.Block), C.size_t(tile.First), C.size_t(tile.Count), text, 512)
+	})
+}
+
+// Taylor32 borrows a canonical target/source snapshot, runs the shared Taylor
+// recurrence and commits only the owned target to slot. The host snapshot is
+// unchanged. Capacity <=1 Miword reserves reusable device window storage; the
+// selected view may be row-major or interleaved but must have original dimensions.
+func (v *RankStorage) Taylor32(slot int, snapshot []uint32, capacity uint64, tile TaylorTile) error {
+	err := v.taylor(slot, preparationPointer(snapshot), len(snapshot), 4, capacity, tile)
+	runtime.KeepAlive(snapshot)
+	return err
+}
+
+// Taylor64 is Taylor32 for eight-byte extension-field slots.
+func (v *RankStorage) Taylor64(slot int, snapshot []uint64, capacity uint64, tile TaylorTile) error {
+	err := v.taylor(slot, preparationPointer(snapshot), len(snapshot), 8, capacity, tile)
+	runtime.KeepAlive(snapshot)
+	return err
+}

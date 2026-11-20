@@ -67,7 +67,12 @@ func residentVectorCases[Word transposeWord](t *testing.T, w *mpi.World, s int, 
 			var retained uint64
 			for pass := 0; pass < 2; pass++ {
 				op := *operation
-				*operation += 2
+				fullFFT := os.Getenv("PIR_GPU_MATRIX_STAGE_TAYLOR") == "1"
+				span := uint64(2)
+				if fullFFT {
+					span += uint64(2 * (dim - dim/2))
+				}
+				*operation += span
 				p, e := newRankTransposePlan(op, rows, cols, w.Rank, w.Size, n, 127)
 				if e != nil {
 					t.Fatal(e)
@@ -80,11 +85,32 @@ func residentVectorCases[Word transposeWord](t *testing.T, w *mpi.World, s int, 
 					}
 					emit(map[string]any{"kind": "tile-proof", "case": label, "pass": pass, "operation": p.Operation, "round": p.Round, "offset": p.Offset, "words": p.Words, "peer": peer, "direction": direction, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
 				}}
+				taylorProofs := 0
+				windows := taylorMPI[Word]{world: w, record: func(direction string, peer int, p taylorPacket, tile []Word, own, remote [64]byte) {
+					taylorProofs++
+					if mpi.ProofMismatch(own, remote) {
+						saveMatrixStageWords(t, filepath.Join(output, fmt.Sprintf("capture-rank-%d-op-%d-block-%d-first-%d-slot-%d-source-%d-%s.bin", w.Rank, p.Operation, p.Target.Block, p.Target.First, p.Slot, p.Source, direction)), tile)
+					}
+					emit(map[string]any{"kind": "taylor-proof", "case": label, "pass": pass, "peer": peer, "direction": direction, "packet": p, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
+				}}
+				capacity := min(n, 3*max(rows, cols))
+				degrees := func(level int) ([]uint64, error) {
+					terms, e := gpu.TaylorDegrees(level)
+					if e == nil {
+						emit(map[string]any{"kind": "taylor-plan", "case": label, "pass": pass, "operation_start": op, "level": level, "degrees": terms, "capacity": capacity})
+					}
+					return terms, e
+				}
 				w.Barrier()
 				began := time.Now()
-				e = rankResidentVectors[Word](p, gpu, 0, 1, pass == 1, link, func(phase string, done, total uint64) {
+				notice := func(phase string, done, total uint64) {
 					emit(map[string]any{"kind": "progress", "case": label, "pass": pass, "operation": op, "phase": phase, "completed": done, "total": total})
-				})
+				}
+				if fullFFT {
+					e = rankResidentAdditiveTransform[Word](p, gpu, 0, 1, capacity, pass == 1, link, windows, degrees, notice)
+				} else {
+					e = rankResidentVectors[Word](p, gpu, 0, 1, pass == 1, link, notice)
+				}
 				if e != nil {
 					t.Fatal(e)
 				}
@@ -115,7 +141,7 @@ func residentVectorCases[Word transposeWord](t *testing.T, w *mpi.World, s int, 
 				if s == 17 {
 					width = 8
 				}
-				emit(map[string]any{"kind": "measurement", "case": label, "pass": pass, "s": s, "dimension": dim, "rank_first": first, "rank_rows": count, "word_bytes": width, "words": len(got), "matches": true, "full_fft": false, "resident": true, "third_preserved": true, "reused": true, "range_rejection_preserved": true, "owned_device_bytes": retained, "seconds": seconds, "proof_events": proofs, "output_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(got))})
+				emit(map[string]any{"kind": "measurement", "case": label, "pass": pass, "s": s, "dimension": dim, "rank_first": first, "rank_rows": count, "word_bytes": width, "words": len(got), "matches": true, "full_fft": fullFFT, "operation_start": op, "taylor_proof_events": taylorProofs, "resident": true, "third_preserved": true, "reused": true, "range_rejection_preserved": true, "owned_device_bytes": retained, "seconds": seconds, "proof_events": proofs, "output_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(got))})
 			}
 		}()
 		emit(map[string]any{"kind": "phase", "phase": label, "event": "completed", "completed": 2, "total": 2})
@@ -133,4 +159,13 @@ func TestDistributedResidentVectors(t *testing.T) {
 		residentVectorCases[uint64](t, w, 17, []int{5, 9, 12}, output, &op, emit)
 		emit(map[string]any{"kind": "completed", "cases": 12})
 	})
+}
+
+// Explicit complete FFT gate; the shared driver selects independent full native
+// and scalar Horner oracles when the runner enables Taylor conversion.
+func TestDistributedResidentFFT(t *testing.T) {
+	if os.Getenv("PIR_GPU_MATRIX_STAGE_TAYLOR") != "1" {
+		t.Skip("explicit complete resident FFT gate")
+	}
+	TestDistributedResidentVectors(t)
 }

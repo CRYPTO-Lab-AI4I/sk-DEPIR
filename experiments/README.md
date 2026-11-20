@@ -81,9 +81,13 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Complete resident GPU FFT](distributed-resident-fft/report.md): shared Taylor
+  storage/wave/level/pass and FFT order; CPU/race/build checks pass, bounded GPU
+  validation prepared. Products/fullsize scaling remain separate.
+
 - [Resident GPU vector composition](distributed-resident-vectors/report.md):
   shared launcher/order and resident interleaved shards; local CPU/race/build
-  checks pass, normal/sanitized GPU validation78394 submitted. Taylor remains.
+  78394 passes24 normal/24 sanitized rows and CUDA checks; no fullsize claim.
 
 - [Distributed GPU resident storage](distributed-gpu-storage/report.md): three
   reusable shards, GPU row/interleaved pack/scatter and shared transpose schedule;

@@ -112,20 +112,60 @@ func taylorSource(p rankTaylorPlan, t taylorTicket, slot int, owner int, half ui
 	return source, end - source, uint64(slot+1)*t.Count + skip + source - start
 }
 
-// rankTaylorPass gathers bounded source snapshots and updates owned targets in
-// parallel waves. Every rank derives the same ticket wave/round order, including
-// empty owners. Pairwise ring scheduling follows transposeRank's rendezvous rule.
-// Within a pass sources never overlap any target (degree<=half/2); updates from
-// earlier waves therefore cannot change a later snapshot. A barrier on both ends
-// prevents quotient/remainder or adjacent levels from observing unfinished writes.
-func rankTaylorPass[Word transposeWord](p rankTaylorPlan, data []Word, workspace []Word, link taylorLink[Word], apply rankTaylorApply[Word], notice func(string, uint64, uint64)) error {
+// rankTaylorStorage separates the shared ticket/wave schedule from owned-array
+// access. Read/Send borrow bounded ranges; Apply commits only the target interval.
+// Host Send keeps its original borrowed slice; GPU Send uses a reusable tile.
+type rankTaylorStorage[Word transposeWord] interface {
+	Read(offset uint64, target []Word) error
+	Send(peer int, packet taylorPacket, offset, count uint64, link taylorLink[Word]) error
+	Apply(p rankTaylorPlan, t taylorTicket, offset uint64, snapshot []Word) error
+}
+type hostTaylorStorage[Word transposeWord] struct {
+	data  []Word
+	apply rankTaylorApply[Word]
+}
+
+func (s hostTaylorStorage[Word]) Read(offset uint64, target []Word) error {
+	copy(target, s.data[offset:offset+uint64(len(target))])
+	return nil
+}
+func (s hostTaylorStorage[Word]) Send(peer int, p taylorPacket, offset, count uint64, link taylorLink[Word]) error {
+	return link.SendWindow(peer, p, s.data[offset:offset+count])
+}
+func (s hostTaylorStorage[Word]) Apply(p rankTaylorPlan, t taylorTicket, offset uint64, snapshot []Word) error {
+	if err := s.apply(snapshot, p.Level, p.Quotient, t.Block, t.First, t.Count); err != nil {
+		return err
+	}
+	copy(s.data[offset:offset+t.Count], snapshot[:t.Count])
+	return nil
+}
+
+// rankTaylorPass is the host reference adapter. It retains the original borrowed
+// send slices and callback mutation semantics; both adapters share the scheduler.
+func rankTaylorPass[Word transposeWord](p rankTaylorPlan, data, workspace []Word, link taylorLink[Word], apply rankTaylorApply[Word], notice func(string, uint64, uint64)) error {
+	if _, _, _, _, err := p.validate(); err != nil {
+		return err
+	}
+	_, rows := rankBand(p.Domain/p.Columns, p.Rank, p.Ranks)
+	if uint64(len(data)) != rows*p.Columns || apply == nil {
+		return fmt.Errorf("Taylor shard/callback")
+	}
+	return rankTaylorStoredPass(p, workspace, hostTaylorStorage[Word]{data, apply}, link, notice)
+}
+
+// rankTaylorStoredPass gathers bounded snapshots and updates owned targets in
+// parallel waves. All ranks derive the same ticket/round order, including empty
+// owners. Sources never overlap a target in the pass; barriers prevent unfinished
+// quotient/remainder writes from feeding the next stage. Storage does not alter
+// headers, source trimming, term order, wave order or synchronization.
+func rankTaylorStoredPass[Word transposeWord](p rankTaylorPlan, workspace []Word, storage rankTaylorStorage[Word], link taylorLink[Word], notice func(string, uint64, uint64)) error {
 	half, minimum, maximum, span, err := p.validate()
 	if err != nil {
 		return err
 	}
-	first, rows := rankBand(p.Domain/p.Columns, p.Rank, p.Ranks)
-	ownFirst, ownWords := first*p.Columns, rows*p.Columns
-	if uint64(len(data)) != ownWords || uint64(len(workspace)) < p.Capacity || apply == nil || link == nil {
+	first, _ := rankBand(p.Domain/p.Columns, p.Rank, p.Ranks)
+	ownFirst := first * p.Columns
+	if uint64(len(workspace)) < p.Capacity || storage == nil || link == nil {
 		return fmt.Errorf("Taylor shard/link/callback")
 	}
 	var zero Word
@@ -179,11 +219,15 @@ func rankTaylorPass[Word transposeWord](p rankTaylorPlan, data []Word, workspace
 			if p.Quotient {
 				target += half
 			}
-			copy(snapshot[:own.Count], data[target-ownFirst:target-ownFirst+own.Count])
+			if err := storage.Read(target-ownFirst, snapshot[:own.Count]); err != nil {
+				return err
+			}
 			for slot := range p.Degrees {
 				source, count, offset := taylorSource(p, own, slot, p.Rank, half)
 				if count > 0 {
-					copy(snapshot[offset:offset+count], data[source-ownFirst:source-ownFirst+count])
+					if err := storage.Read(source-ownFirst, snapshot[offset:offset+count]); err != nil {
+						return err
+					}
 				}
 			}
 		}
@@ -198,7 +242,7 @@ func rankTaylorPass[Word transposeWord](p rankTaylorPlan, data []Word, workspace
 					continue
 				}
 				packet := taylorPacket{p.Operation, p.Domain, p.Columns, p.Level, p.Quotient, ticket, uint64(slot), source, count}
-				if err := link.SendWindow(peer, packet, data[source-ownFirst:source-ownFirst+count]); err != nil {
+				if err := storage.Send(peer, packet, source-ownFirst, count, link); err != nil {
 					return err
 				}
 			}
@@ -236,14 +280,13 @@ func rankTaylorPass[Word transposeWord](p rankTaylorPlan, data []Word, workspace
 			}
 		}
 		if active[p.Rank] {
-			if err = apply(snapshot, p.Level, p.Quotient, own.Block, own.First, own.Count); err != nil {
-				return err
-			}
 			target := own.Block + own.First
 			if p.Quotient {
 				target += half
 			}
-			copy(data[target-ownFirst:target-ownFirst+own.Count], snapshot[:own.Count])
+			if err = storage.Apply(p, own, target-ownFirst, snapshot); err != nil {
+				return err
+			}
 			completed += own.Count
 			if notice != nil {
 				notice("rank-Taylor-targets", completed, total)
@@ -263,6 +306,20 @@ func rankTaylorConvert[Word transposeWord](base rankTaylorPlan, data []Word, inv
 	if _, _, _, _, err := shape.validate(); err != nil {
 		return err
 	}
+	workspace := make([]Word, base.Capacity)
+	return rankTaylorConversion(base, inverse, degrees, func(p rankTaylorPlan, passNotice func(string, uint64, uint64)) error {
+		return rankTaylorPass(p, data, workspace, link, apply, passNotice)
+	}, notice)
+}
+
+// rankTaylorConversion shares degree/level/pass ordering for all storage adapters.
+func rankTaylorConversion(base rankTaylorPlan, inverse bool, degrees func(int) ([]uint64, error), execute func(rankTaylorPlan, func(string, uint64, uint64)) error, notice func(string, uint64, uint64)) error {
+	shape := base
+	shape.Level = 0
+	shape.Degrees = nil
+	if _, _, _, _, err := shape.validate(); err != nil {
+		return err
+	}
 	levels := 0
 	for rows := base.Domain / base.Columns; rows > 1; rows >>= 1 {
 		levels++
@@ -270,7 +327,6 @@ func rankTaylorConvert[Word transposeWord](base rankTaylorPlan, data []Word, inv
 	if degrees == nil || levels == 0 || base.Operation > ^uint64(0)-uint64(2*levels) {
 		return fmt.Errorf("Taylor conversion metadata/operation")
 	}
-	workspace := make([]Word, base.Capacity)
 	for step := 0; step < levels; step++ {
 		level := levels - 1 - step
 		if inverse {
@@ -295,7 +351,7 @@ func rankTaylorConvert[Word transposeWord](base rankTaylorPlan, data []Word, inv
 				phase := fmt.Sprintf("rank-Taylor-level-%d-%s", level, kind)
 				passNotice = func(_ string, done, total uint64) { notice(phase, done, total) }
 			}
-			if err = rankTaylorPass(p, data, workspace, link, apply, passNotice); err != nil {
+			if err = execute(p, passNotice); err != nil {
 				return err
 			}
 		}
@@ -308,41 +364,73 @@ func rankTaylorConvert[Word transposeWord](base rankTaylorPlan, data []Word, inv
 // It consumes input and returns an owning row shard. This host-shard control
 // layout validates arithmetic/communication, not full-size GPU-resident support.
 func rankAdditiveTransform[Word transposeWord](p rankTransposePlan, input []Word, capacity uint64, inverse bool, transpose transposeLink[Word], windows taylorLink[Word], degrees func(int) ([]uint64, error), vectors rankVectorApply[Word], taylor rankTaylorApply[Word], notice func(string, uint64, uint64)) ([]Word, error) {
+	base, matrix, err := rankAdditivePlans(p, capacity, inverse)
+	if err != nil {
+		return nil, err
+	}
+	if uint64(len(input)) != p.InputWords || windows == nil || degrees == nil || vectors == nil || taylor == nil || (p.Ranks > 1 && transpose == nil) {
+		return nil, fmt.Errorf("additive rank input/backend")
+	}
+	current := input
+	err = rankAdditiveSchedule(inverse,
+		func() error { return rankTaylorConvert(base, current, inverse, degrees, windows, taylor, notice) },
+		func() error {
+			var e error
+			current, e = rankMatrixVectors(matrix, current, capacity, inverse, transpose, vectors, notice)
+			return e
+		})
+	if err != nil {
+		return nil, err
+	}
+	return current, nil
+}
+
+// rankAdditivePlans fixes canonical shape, capacity and disjoint operation spans
+// for both storage backends; storage/transport validation belongs to the caller.
+func rankAdditivePlans(p rankTransposePlan, capacity uint64, inverse bool) (base rankTaylorPlan, matrix rankTransposePlan, err error) {
+	fail := func(message string) (rankTaylorPlan, rankTransposePlan, error) {
+		return base, matrix, fmt.Errorf("additive %s", message)
+	}
 	if p.Columns < 2 || p.Columns&(p.Columns-1) != 0 || p.Rows < 2 || p.Rows&(p.Rows-1) != 0 || p.Rows > ^uint64(0)/p.Columns {
-		return nil, fmt.Errorf("additive domain shape")
+		return fail("domain shape")
 	}
-	checked, err := newRankTransposePlan(p.Operation, p.Rows, p.Columns, p.Rank, p.Ranks, max(p.InputWords, p.OutputWords), p.TileWords)
-	if err != nil || checked != p || uint64(len(input)) != p.InputWords {
-		return nil, fmt.Errorf("additive rank plan/input")
+	checked, e := newRankTransposePlan(p.Operation, p.Rows, p.Columns, p.Rank, p.Ranks, max(p.InputWords, p.OutputWords), p.TileWords)
+	if e != nil || checked != p {
+		return fail("rank plan")
 	}
-	if (p.Rows != p.Columns && p.Rows/p.Columns != 2) || p.Rows < p.Columns || capacity < max(p.Rows, p.Columns) || capacity > 1<<20 || windows == nil || degrees == nil || vectors == nil || taylor == nil || (p.Ranks > 1 && transpose == nil) {
-		return nil, fmt.Errorf("additive split/capacity/backend")
+	if (p.Rows != p.Columns && p.Rows/p.Columns != 2) || p.Rows < p.Columns || capacity < max(p.Rows, p.Columns) || capacity > 1<<20 {
+		return fail("split/capacity")
 	}
 	levels := 0
 	for rows := p.Rows; rows > 1; rows >>= 1 {
 		levels++
 	}
 	if p.Operation > ^uint64(0)-uint64(2*levels+2) {
-		return nil, fmt.Errorf("additive operation wrap")
+		return fail("operation wrap")
 	}
-	base := rankTaylorPlan{Operation: p.Operation, Domain: p.Rows * p.Columns, Columns: p.Columns, Capacity: capacity, Rank: p.Rank, Ranks: p.Ranks}
-	matrix := p
-	if !inverse {
-		if err := rankTaylorConvert(base, input, false, degrees, windows, taylor, notice); err != nil {
-			return nil, err
-		}
-		matrix.Operation += uint64(2 * levels)
-	} else {
+	base = rankTaylorPlan{Operation: p.Operation, Domain: p.Rows * p.Columns, Columns: p.Columns, Capacity: capacity, Rank: p.Rank, Ranks: p.Ranks}
+	matrix = p
+	if inverse {
 		base.Operation += 2
+	} else {
+		matrix.Operation += uint64(2 * levels)
 	}
-	output, err := rankMatrixVectors(matrix, input, capacity, inverse, transpose, vectors, notice)
-	if err != nil {
-		return nil, err
+	return base, matrix, nil
+}
+
+// rankAdditiveSchedule shares the complete FFT stage order, without imposing a
+// host array or resident view: Taylor before vectors forward, after them inverse.
+func rankAdditiveSchedule(inverse bool, taylor, vectors func() error) error {
+	if !inverse {
+		if err := taylor(); err != nil {
+			return err
+		}
+	}
+	if err := vectors(); err != nil {
+		return err
 	}
 	if inverse {
-		if err = rankTaylorConvert(base, output, true, degrees, windows, taylor, notice); err != nil {
-			return nil, err
-		}
+		return taylor()
 	}
-	return output, nil
+	return nil
 }

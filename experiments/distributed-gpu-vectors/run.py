@@ -63,7 +63,7 @@ def review(rows,directory,operations=None,full_fft=False):
     return dict(measurements=values,proof_events=proof_count)
 
 
-def suite(c,full_fft=False,review_fn=review,test_name="TestDistributedGPUVectors",scope=None,baseline=False):
+def suite(c,full_fft=False,review_fn=review,test_name="TestDistributedGPUVectors",scope=None,baseline=False,reference_review=None):
     CONTROL['configure'](c)
     run=c['run'];go=c['go'];source=c['source'];cache=c['cache'];out=c['out'];env=c['env']
     c['resources'].update(rss_cap_GiB_per_rank=1,pinned_cap_MiB_per_rank=0,mpi_mode='staged',tile_words=127,scope=scope or ('bounded distributed polynomial product'if test_name=='TestDistributedGPUProducts'else('bounded additive FFT with distributed Taylor'if full_fft else'separable GPU vectors with two rank transposes; Taylor absent')))
@@ -85,16 +85,16 @@ def suite(c,full_fft=False,review_fn=review,test_name="TestDistributedGPUVectors
     state=dict(status='running',arms={})
     def save():(out/'composition.json').write_text(json.dumps(state,indent=2)+'\n')
     save()
-    for mode in (('separable','normal','memcheck')if full_fft or baseline else('normal','memcheck')):
+    for mode in (('full-reference','normal','memcheck')if reference_review is not None else(('separable','normal','memcheck')if full_fft or baseline else('normal','memcheck'))):
         dest=cache/mode;dest.mkdir();env['PIR_GPU_MATRIX_STAGE_OUTPUT']=str(dest)
         env['PIR_GPU_MATRIX_STAGE_TAYLOR']='1'if full_fft and mode!='separable'else'0'
         launcher=['timeout','--signal=TERM','--kill-after=10s','240s','srun','--mpi=pmix_v3','--nodes=2','--ntasks=2','--ntasks-per-node=1','--cpus-per-task=2',
             '--export=ALL,TMPDIR=/tmp','--gpus-per-task=h200:1','--gpu-bind=single:1','--cpu-bind=cores','--distribution=block:block','--chdir='+str(cache),'--kill-on-bad-exit=1','bash',wrapper,out/mode]
-        selected_test='TestDistributedGPUVectors'if mode=='separable'else test_name
+        selected_test='TestDistributedGPUVectors'if mode in ('separable','full-reference')else test_name
         command=[binary,'-test.run=^'+selected_test+'$','-test.v','-test.timeout=220s']
         if mode=='memcheck':command=['compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',*command]
         run(mode,[*launcher,*command],260)
-        checker=review if mode=='separable'else review_fn
+        checker=reference_review if mode=='full-reference'else(review if mode=='separable'else review_fn)
         arm=checker(BASE['parse_rank_logs'](out/(mode+'.log'),ranks=2),dest)
         if mode=='memcheck':
             arm['sanitizer']=[STAGE['sanitizer_summary']((out/f'{mode}-{r}.stdout.log').read_text(),(out/f'{mode}-{r}.stderr.log').read_text())for r in (0,1)]

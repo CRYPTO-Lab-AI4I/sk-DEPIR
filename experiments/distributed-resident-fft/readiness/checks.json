@@ -1,0 +1,57 @@
+{
+  "checks": [
+    "CPU transpose/vector/Taylor/full FFT/product regressions passed0.076s",
+    "CPU race including Read/Send/Apply failure propagation passed1.298s",
+    "CUDA shared plugin, old HostTiled adapter and full CPP/CUDA/MPI test binary compile; new optional Taylor symbols exported",
+    "Python tests:6residentFFT(including4FFTfixtures),3composition,5residentvectors(including3fixtures),4storage,5CUDA-summary,3product passed",
+    "C bridge syntax, Python AST, shell/gofmt/whitespace passed"
+  ],
+  "native_command": "module load gcc/14.2.0 cuda12.9/toolkit/12.9.1; nvcc -std=c++17 -O3 -lineinfo -arch=sm_90 -shared -Xcompiler=-fPIC,-pthread encoding/liftrs-cuda/matrix.cu encoding/liftrs-cuda/preparation.cu -o .cache/liftrs/distributed-resident-fft/readiness/libliftrs-cuda.so",
+  "host_tiled_command": "module load gcc/14.2.0 cuda12.9/toolkit/12.9.1; nvcc -std=c++17 -O2 -arch=sm_90 -Xcompiler=-pthread experiments/preprocessing-tiles/check.cu -o .cache/liftrs/distributed-resident-fft/readiness/host-tiled-reference-check",
+  "mpi_build_command": "module load gcc/14.2.0 openmpi/gcc/64/4.1.8; GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=1 CC=mpicc CXX=mpicxx .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-resident-fft/readiness/fft.test ./encoding/liftrs-shared",
+  "cpu_command": "GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=0 .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test ./encoding/liftrs-shared -run '^TestRankTranspose|^TestRankMatrixVectors|^TestRankTaylor|^TestRankAdditive|^TestRankProduct' -count=1 -timeout=20s",
+  "race_command": "same with CGO_ENABLED=1 and go test -race",
+  "native_exit_code": 0,
+  "mpi_build_exit_code": 0,
+  "host_tiled_build_exit_code": 0,
+  "local_GPU_MPI_executed": false,
+  "retained_artifacts": {
+    ".cache/liftrs/distributed-resident-fft/readiness/fft.test": {
+      "bytes": 11737648,
+      "sha256": "d212c36afdc5365d66654af1680a0a9a384289ca6fca8b564d60611d31e39c0f"
+    },
+    ".cache/liftrs/distributed-resident-fft/readiness/host-tiled-reference-check": {
+      "bytes": 1840288,
+      "sha256": "5a3e2fd6b31fd4864f32b8499bc9348b5c311ca7da2ac26e95fb7aa2e4c18148"
+    },
+    ".cache/liftrs/distributed-resident-fft/readiness/libliftrs-cuda.so": {
+      "bytes": 2815456,
+      "sha256": "6ef5252a196ad0b0eb19ff126d02bf22c128108db891748229bc91c35f166340"
+    }
+  },
+  "source_sha256": {
+    "encoding/liftrs-cuda/preparation.cu": "a7808b7c51167e5641ded5a15b8941c914a14f169e5e95104878f5087806971e",
+    "encoding/liftrs-cuda/preparation_api.h": "73d58047e0be013be623d49ba7f1d37740051e0df84d350c1496a9b370c40014",
+    "encoding/liftrs-cuda/preparation_bridge.h": "e0876c88ec8e7c205d6b7aed971ef3f274a8cbc1da334b2c8f11913a1db074d5",
+    "encoding/liftrs-cuda/rank_storage.cuh": "a8998b00dc5fcbefe9608d14b1d0af6a4fdaae908be71d4d8d9420ad2e0f692f",
+    "encoding/liftrs-cuda/rank_storage.go": "7726da35090adae68ac70aebb4ff04f6a5eddd133adc9e12b78c4858d7ba0280",
+    "encoding/liftrs-cuda/vector_stage.cuh": "f26ee9eae52d65c4bb33c267f8c1c077edb3e3b7705bbb1ad9f5b6bb6b04c3f8",
+    "encoding/liftrs-shared/distributed_taylor.go": "1157e3c76882d8e862d78c53502c23a4da44ad2844cf2d16fc7e3f30dba1a93e",
+    "encoding/liftrs-shared/distributed_taylor_test.go": "9f7733bafb4406fef4597383b56030d646b91a5ca16f3375aa13227c5c8c7bc6",
+    "encoding/liftrs-shared/distributed_storage_cuda.go": "beac18e18a482f253bf13fc290c904140199d029f3a2843437206cea0e96fe09",
+    "encoding/liftrs-shared/distributed_resident_gpu_test.go": "6f0dce64c74a62997dd4378ff679f58a708afd775f9914f9db0838be47a72d6d",
+    "experiments/distributed-gpu-vectors/run.py": "881bc20477629ad911e16cc524e8532e31771dff24b08dc5d767e95a06d81207"
+  },
+  "controller_sha256": {
+    "experiments/distributed-resident-fft/analyze.py": "2f1cb83f7a03c46d274537714ea4002610524d045144a268542cc0936ffc3f71",
+    "experiments/distributed-resident-fft/run.py": "7f07e6e8b0fe813796bcc82011be8ae5fc96278a88677e82bf64872489baf100",
+    "experiments/distributed-resident-fft/test_review.py": "9ba7f0ae6b6d8de1eff9643e9bc7df89fc84c5025f6e0b03332fea70124073e1"
+  },
+  "limits": "same2HPCnodes/2H200/4CPU/8GiBhost;128MiBowned/card/1GiBRSS/rank/128MiBcache/2GiBscratch/32MiBfile;720scontroller/15minscheduler",
+  "limitations": [
+    "No GPU/MPI executed locally; bounded complete resident FFT validation pending",
+    "Local compiler checks caught and corrected a callback shadowing/unused variable and a shared helper member-name typo before final builds",
+    "OpenMPI compiler wrapper socket errno1 warnings retained; final build exit0",
+    "Local Taylor sources still stage through bounded host windows; runtime penalty/fullsize benefit unknown"
+  ]
+}

@@ -74,3 +74,86 @@ func rankResidentVectors[Word transposeWord](p rankTransposePlan, gpu *cuda.Rank
 		func() error { return gpu.Vectors(scratch, true, inverse) },
 		func() error { return transposeResident[Word](back, gpu, scratch, data, true, link, notice) })
 }
+
+// residentTaylorStorage retains only a bounded send tile; conversion separately
+// owns the packed snapshot. Logical I/O supports either resident physical view.
+type residentTaylorStorage[Word transposeWord] struct {
+	gpu  *cuda.RankStorage
+	slot int
+	tile uint64
+	send []Word
+}
+
+func (s residentTaylorStorage[Word]) Read(offset uint64, target []Word) error {
+	for done := 0; done < len(target); {
+		take := min(int(s.tile), len(target)-done)
+		work := target[done : done+take]
+		var err error
+		switch v := any(work).(type) {
+		case []uint32:
+			err = s.gpu.Transfer32(s.slot, offset+uint64(done), v, false)
+		case []uint64:
+			err = s.gpu.Transfer64(s.slot, offset+uint64(done), v, false)
+		}
+		if err != nil {
+			return err
+		}
+		done += take
+	}
+	return nil
+}
+func (s residentTaylorStorage[Word]) Send(peer int, p taylorPacket, offset, count uint64, link taylorLink[Word]) error {
+	if count > uint64(len(s.send)) {
+		return fmt.Errorf("resident Taylor send capacity")
+	}
+	work := s.send[:count]
+	if err := s.Read(offset, work); err != nil {
+		return err
+	}
+	return link.SendWindow(peer, p, work)
+}
+func (s residentTaylorStorage[Word]) Apply(p rankTaylorPlan, t taylorTicket, offset uint64, snapshot []Word) error {
+	tile := cuda.TaylorTile{Level: p.Level, Quotient: p.Quotient, Block: t.Block, First: t.First, Count: t.Count}
+	switch v := any(snapshot).(type) {
+	case []uint32:
+		return s.gpu.Taylor32(s.slot, v, p.Capacity, tile)
+	case []uint64:
+		return s.gpu.Taylor64(s.slot, v, p.Capacity, tile)
+	}
+	return fmt.Errorf("resident Taylor slot width")
+}
+
+// rankResidentTaylor uses the unchanged Taylor ticket/source/round scheduler.
+// Two bounded host buffers and one capped device window replace a host shard.
+// Sources/third slot are preserved; failure leaves an incomplete target slot.
+func rankResidentTaylor[Word transposeWord](base rankTaylorPlan, gpu *cuda.RankStorage, slot int, tileWords uint64, inverse bool, link taylorLink[Word], degrees func(int) ([]uint64, error), notice func(string, uint64, uint64)) error {
+	if _, _, _, _, err := base.validate(); err != nil {
+		return err
+	}
+	if slot < 0 || slot >= 3 || link == nil || !gpu.AdmitsTranspose(base.Domain/base.Columns, base.Columns, base.Rank, base.Ranks, tileWords) {
+		return fmt.Errorf("resident Taylor ownership/slot")
+	}
+	workspace := make([]Word, base.Capacity)
+	storage := residentTaylorStorage[Word]{gpu: gpu, slot: slot, tile: tileWords, send: make([]Word, base.Capacity)}
+	return rankTaylorConversion(base, inverse, degrees, func(p rankTaylorPlan, notice func(string, uint64, uint64)) error {
+		return rankTaylorStoredPass(p, workspace, storage, link, notice)
+	}, notice)
+}
+
+// rankResidentAdditiveTransform is the resident adapter to the same complete FFT
+// plans/order used by the host reference. Input is consumed in data, scratch is
+// reused, and the third slot survives. Result physical layout stays interleaved.
+func rankResidentAdditiveTransform[Word transposeWord](p rankTransposePlan, gpu *cuda.RankStorage, data, scratch int, capacity uint64, inverse bool, transpose transposeLink[Word], windows taylorLink[Word], degrees func(int) ([]uint64, error), notice func(string, uint64, uint64)) error {
+	base, matrix, err := rankAdditivePlans(p, capacity, inverse)
+	if err != nil {
+		return err
+	}
+	if data < 0 || data >= 3 || scratch < 0 || scratch >= 3 || data == scratch || degrees == nil || windows == nil || (p.Ranks > 1 && transpose == nil) || !gpu.AdmitsTranspose(p.Rows, p.Columns, p.Rank, p.Ranks, p.TileWords) {
+		return fmt.Errorf("resident additive ownership/backend")
+	}
+	return rankAdditiveSchedule(inverse,
+		func() error {
+			return rankResidentTaylor[Word](base, gpu, data, p.TileWords, inverse, windows, degrees, notice)
+		},
+		func() error { return rankResidentVectors[Word](matrix, gpu, data, scratch, inverse, transpose, notice) })
+}

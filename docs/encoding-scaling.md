@@ -2732,3 +2732,22 @@ Resident vector validation **78394 submitted**, source `4fe10dc`, results
 resources; no monitoring. After completion ping, review baseline/resident output,
 paired proofs, rejected-value nonmutation, third-slot preservation and reuse,
 then proceed to resident Taylor-window storage if passed.
+
+### Complete resident Taylor/FFT integration (SCALING-154)
+
+78394 passed24 normal/24 sanitized resident vector rows,24 host-tile reference
+rows,240 paired transpose endpoints/arm,715source/40evidence/147cache identities,
+clean CUDA summaries. Controller122.265s,normal2.026s/sanitizer2.772s;RSS372.121/
+416.020MiB per process,1.617MiB owned/card,14.217MiB retained cache. Main reference
+updated. These are bounded diagnostics, not fullsize speedup.
+
+Proceed to [complete resident FFT](../experiments/distributed-resident-fft/report.md):
+shared Taylor Read/Send/Apply storage schedule, conversion level/pass order,
+shared window arithmetic and complete FFT plans/order. Two bounded host buffers
+and one capped device window replace full host source/target shards. At C192/
+uint64:3072bytes/rank host and1536bytes/card GPU extra; local Taylor sources still
+make bounded D2H/H2D round trips. Runtime/complete-workflow savings unknown.
+Validate old complete host-tile FFT plus resident normal/sanitized forward/inverse
+against native/scalar oracles under the same budget. Then resident pointwise/
+products and larger matched measurements before discovery/generator/persistence
+integration. No default, field-admission or resource increase; stillstep1.

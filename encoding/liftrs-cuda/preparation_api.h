@@ -56,6 +56,11 @@ int pg_rank_local(void *, unsigned, unsigned, char *, size_t);
 int pg_rank_tile(void *, unsigned, unsigned, size_t, void *, size_t, int, char *, size_t);
 // Optional in-place complete-vector arithmetic on an interleaved rank view.
 int pg_rank_vectors(void *, unsigned, int, int, char *, size_t);
+// Optional resident Taylor metadata/target update; snapshot is read-only and
+// bounded, capacity accounts for a reusable device window (not a full shard).
+int pg_rank_degrees(void *, unsigned, uint64_t *, size_t, size_t *, char *, size_t);
+int pg_rank_taylor(void *, unsigned, const void *, size_t, size_t, unsigned, int,
+                   size_t, size_t, size_t, char *, size_t);
 void pg_rank_destroy(void *);
 uint64_t pg_owned_bytes(void *);
 void pg_destroy(void *);

@@ -81,9 +81,11 @@ now shares the validated rank transpose schedule, with three reusable device
 shards and bounded GPU packing for row/interleaved views. Validation78392 passes
 208 normal +208 sanitized rank/pass outputs with zero CUDA errors/leaks.
 [Resident vector composition](experiments/distributed-resident-vectors/report.md)
-now shares the existing vector launcher and stage order; local CPU/race/build
-checks pass, bounded GPU validation78394 is submitted. Resident Taylor/FFT/product
-integration and fulls18 preprocessing remain pending. No encoding default
+passes78394:24 normal +24 sanitized resident outputs with zero CUDA errors/leaks.
+[Complete resident FFT](experiments/distributed-resident-fft/report.md) now shares
+Taylor storage/level/pass and FFT ordering with the host reference; CPU/race/build
+checks pass, bounded GPU validation is prepared. Resident products and fulls18
+preprocessing remain pending. No encoding default
 or client CUDA/MPI dependency changes.
 
 The [persistent GPU vector-stage adapter](experiments/gpu-vector-stage/report.md)

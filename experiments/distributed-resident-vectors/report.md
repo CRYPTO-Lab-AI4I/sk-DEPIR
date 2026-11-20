@@ -1,9 +1,19 @@
 # Resident GPU vector and rank-transpose composition
 
-Status: **job78394 submitted**, source `4fe10dc`; [receipt](submission.json).
-CPU/race and native/CPP/CUDA/MPI build checks pass; GPU results remain pending.
-[Results destination](runs/resident-01/), [job log](slurm-78394.log).
-Actual job-start revision and build-input identities are saved by the controller.
+Status: **78394 passed**, producer `4fe10dc`, HPC two nodes /2 H200s /4 cores /
+8 GiB requested host RAM.24 normal +24 sanitized resident rank/pass results and
+24 earlier host-tile regression rows pass. Each arm verifies240 transpose proof
+endpoints; both CUDA summaries show zero errors/leaks. Third-slot preservation,
+rejected-value nonmutation and allocation reuse pass.
+[Raw results](runs/resident-01/results.json), [review](runs/resident-01/analysis.json),
+[summary](runs/resident-01/review-checks.json), [job log](slurm-78394.log).
+All715 source /40 original evidence /147 cache identities verify;14.217 MiB cache
+retained. Controller **122.265 seconds (2min2.265s)**; resident normal **2.026s**,
+sanitizer **2.772s**, host-tile reference **2.572s**. Peak logged host RSS
+**372.121 MiB normal /416.020 MiB sanitized per process**; maximum owned GPU
+memory **1.617 MiB/card**, excluding context/driver. Tiny diagnostic suites do not
+establish fullsize speedup. Next: [complete resident FFT](../distributed-resident-fft/report.md).
+
 [Readiness checks and retained artifacts](readiness/checks.json).
 This follows [resident storage78392](../distributed-gpu-storage/report.md), which
 passed208 normal +208 sanitized rank/pass outputs and all paired proofs, with
@@ -94,7 +104,8 @@ sanitized; its controller took123.480 seconds. Earlier separable host-stage
 composition passed under the same limits. New resident stages add no new
 arithmetic workload size (N<=4096). Each MPI arm keeps240 seconds (220-second
 test timeout), within720 seconds controller, leaving headroom for setup and
-sanitizer. Runtime/peaks are unknown until completion, not projected speedups.
+sanitizer. Completed bounded runtime/peaks are reported above; fullsize costs
+remain unknown.
 
 ## Memory and runtime boundaries
 

@@ -36,6 +36,8 @@ typedef struct pg_bridge {
   int (*rank_local)(void *, unsigned, unsigned, char *, size_t);
   int (*rank_tile)(void *, unsigned, unsigned, size_t, void *, size_t, int, char *, size_t);
   int (*rank_vectors)(void *, unsigned, int, int, char *, size_t);
+  int (*rank_degrees)(void *, unsigned, uint64_t *, size_t, size_t *, char *, size_t);
+  int (*rank_taylor)(void *, unsigned, const void *, size_t, size_t, unsigned, int, size_t, size_t, size_t, char *, size_t);
   void (*rank_destroy)(void *);
   uint64_t (*owned)(void *);
   void (*destroy)(void *);
@@ -86,6 +88,8 @@ static pg_bridge *pg_bridge_open(const char *path, unsigned s, uint32_t poly,
   b->rank_local=dlsym(b->library,"pg_rank_local");
   b->rank_tile=dlsym(b->library,"pg_rank_tile");
   b->rank_vectors=dlsym(b->library,"pg_rank_vectors");
+  b->rank_degrees=dlsym(b->library,"pg_rank_degrees");
+  b->rank_taylor=dlsym(b->library,"pg_rank_taylor");
   b->rank_destroy=dlsym(b->library,"pg_rank_destroy");
   b->owned = dlsym(b->library, "pg_owned_bytes");
   b->destroy = dlsym(b->library, "pg_destroy");
@@ -127,6 +131,14 @@ static int pg_bridge_rank_tile(pg_bridge *b,void *h,unsigned slot,unsigned peer,
 static int pg_bridge_rank_vectors(pg_bridge *b,void *h,unsigned slot,int columns,int inverse,char *error,size_t cap) {
  if(!b->rank_vectors){snprintf(error,cap,"GPU resident vector ABI unavailable");return 1;}
  return b->rank_vectors(h,slot,columns,inverse,error,cap);
+}
+static int pg_bridge_rank_degrees(pg_bridge *b,void *h,unsigned level,uint64_t *out,size_t limit,size_t *count,char *error,size_t cap) {
+ if(!b->rank_degrees){snprintf(error,cap,"GPU resident Taylor ABI unavailable");return 1;}
+ return b->rank_degrees(h,level,out,limit,count,error,cap);
+}
+static int pg_bridge_rank_taylor(pg_bridge *b,void *h,unsigned slot,const void *snapshot,size_t words,size_t capacity,unsigned level,int quotient,size_t block,size_t first,size_t count,char *error,size_t cap) {
+ if(!b->rank_taylor){snprintf(error,cap,"GPU resident Taylor ABI unavailable");return 1;}
+ return b->rank_taylor(h,slot,snapshot,words,capacity,level,quotient,block,first,count,error,cap);
 }
 static void pg_bridge_rank_destroy(pg_bridge *b,void *h){b->rank_destroy(h);}
 static int pg_bridge_has_vector_stage(pg_bridge *b) {

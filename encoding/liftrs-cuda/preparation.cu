@@ -133,13 +133,13 @@ struct Buffer {
 struct Card {
   int id = 0;
   Buffer logs, powers, x, y, scratch, flag, base, roots, indices, jumps, weights,
-      ternary, good, total, code_p, code_spectrum, parity, transport;
+      ternary, good, total, code_p, code_spectrum, parity, transport, windows;
   std::unordered_map<size_t, std::unique_ptr<Buffer>> plans;
   uint64_t owned() const {
     uint64_t bytes = 0;
     for (auto p :
          {&logs, &powers, &x, &y, &scratch, &flag, &base, &roots, &indices, &jumps,
-          &weights, &ternary, &good, &total, &code_p, &code_spectrum, &parity, &transport})
+          &weights, &ternary, &good, &total, &code_p, &code_spectrum, &parity, &transport, &windows})
       bytes += p->bytes;
     for (const auto &p : plans)
       bytes += p.second->bytes;
@@ -230,6 +230,9 @@ template <class Word> class Resident {
     }
   }
 
+  // Bounded Taylor arithmetic shared by host-tile and resident-window storage.
+  void taylor_stage(Card &, Word *, Matrix<Word> *, const Matrix<Word> &,
+      size_t, size_t, size_t, unsigned, bool, size_t, size_t, size_t);
   void admit(const Card &card, uint64_t bytes) const {
     const uint64_t used = card.owned();
     if (used > cap_ || bytes > cap_ - used)
@@ -1217,4 +1220,28 @@ extern "C" int pg_rank_vectors(void *h, unsigned slot, int columns, int inverse,
     visit_rank(h, [&](auto &state) { state.vectors(slot, columns != 0, inverse != 0); });
   });
 
+}
+
+extern "C" int pg_rank_degrees(void *h, unsigned level, uint64_t *out,
+    size_t limit, size_t *count, char *error, size_t cap) {
+  return api(error, cap, [&] {
+    if (!out || !count) throw std::runtime_error("rank Taylor degree output");
+    visit_rank(h, [&](auto &s) {
+      const auto terms = s.degrees(level);
+      if (terms.size() > limit) throw std::runtime_error("rank Taylor degree capacity");
+      std::copy(terms.begin(), terms.end(), out); *count = terms.size();
+    });
+  });
+}
+extern "C" int pg_rank_taylor(void *h, unsigned slot, const void *snapshot,
+    size_t words, size_t capacity, unsigned level, int quotient,
+    size_t block, size_t first, size_t count, char *error, size_t cap) {
+  return api(error, cap, [&] {
+    if (quotient != 0 && quotient != 1) throw std::runtime_error("rank Taylor direction");
+    visit_rank(h, [&](auto &s) {
+      using Word = typename std::decay_t<decltype(s)>::word_type;
+      s.taylor(slot, static_cast<const Word *>(snapshot), words, capacity, level,
+          quotient != 0, block, first, count);
+    });
+  });
 }
