@@ -1,17 +1,49 @@
 # Persistent GPU vector stages
 
-Status: **78285 failed at remote launch**, before any GPU stage ran. CUDA
-compilation, canonical field generation and reviewer checks passed; the second
-node could not read the wrapper in the controller's node-local `/tmp` source
-snapshot. The runner now copies that frozen wrapper to shared retained cache
-and sets a shared working directory; a launcher regression verifies both paths.
-Retry **78286 submitted** from `3c76983`, within the same admitted budget.
-[Retry receipt](submission-02.json); results `runs/vectors-02/`, log
-`slurm-78286.log`. No monitoring; await completion ping. Original
-[receipt](submission.json), [raw results](runs/vectors-01/results.json),
-[hash reconciliation](runs/vectors-01/analysis.json), [job log](slurm-78285.log).
-680 source, 17 original evidence and 3 cache identities verified. Failed raw
-status is preserved; no GPU correctness or timing result is established.
+Status: **78286 normal GPU validation passed; CUDA memcheck timed out**.
+All 24 cases on each of two HPC nodes pass independent CPU/output/reuse/error
+checks (48 normal cases). This is a partial result; the complete job remains
+failed. [Raw results](runs/vectors-02/results.json),
+[identity/normal-output review](runs/vectors-02/analysis.json),
+[partial sanitizer review](runs/vectors-02/partial-memcheck-review.json),
+[receipt](submission-02.json), [log](slurm-78286.log). Retry prepared below.
+
+### Measured result and sanitizer adjustment
+
+HPC gnode06/gnode07, one H200 and 2 CPU cores / 4 GiB requested host RAM per node.
+Normal execution takes **31.209 seconds** for both independent rank suites;
+compilation, fixture setup and later sanitizer time are separate. Normal peak RSS
+is **131.086 MiB/process**; maximum owned GPU allocation is **4.569 MiB/card**
+(context/driver memory is separate). Largest 2^17-word vector forward takes
+**1.812–1.836 seconds**, inverse **1.742–1.765 seconds**, single profiled samples
+across four wide cases/two ranks, excluding upload/download/verification. Full
+s18 throughput is not measured. All680 source /22 original evidence /366 cache
+identities reconcile; cache51.056 MiB retained, including native profiling input.
+
+Sanitizer completed all20 small cases/rank; all saved small outputs were checked.
+It then took **about136 seconds per transform** on the first 2^17-word vector
+and hit the **480-second step cutoff** during the fourth transform. No final
+CUDA error/leak summaries exist; no clean sanitizer conclusion is claimed.
+Full controller elapsed **549.420 seconds**, failed; not an end-to-end baseline.
+
+The retry preserves all24 normal cases/rank. Sanitizer repeats all20 small cases
+on each rank and assigns one wide tail row to rank0, one wide tail column to rank1.
+Each wide case retains independent forward/output checks, invalid-request
+preservation, inverse recovery and allocation checks, using two transforms;
+normal and small sanitized cases retain four-call re-upload/reuse checks.
+This is **21 sanitized cases/rank**, not the original24. Wide zero-origin and
+extra wide reuse calls remain normally validated but are omitted under memcheck;
+this scope change controls instrumentation cost, not production behavior. Predicted
+sanitizer time is about5 minutes from two measured136-second transforms plus small
+cases/setup, not a measured retry result. Step allowance540 seconds, unchanged
+720-second controller /15-minute scheduler and resource envelope. Reviewer tests
+check both exact split coverage and wrong-axis rejection.
+
+Earlier **78285 failed before GPU execution** because a remote node could not
+read a node-local frozen wrapper/cwd. The shared-cache wrapper/explicit shared cwd
+fix passed78286; [original evidence](runs/vectors-01/analysis.json),
+[original receipt](submission.json) and [log](slurm-78285.log) remain intact.
+
 This is the next distributed-preprocessing component after the
 [validated sharded transpose](../distributed-transpose/report.md). It is not a
 complete distributed FFT, product, or s18 preprocessing implementation.
@@ -62,9 +94,9 @@ python3 -B experiments/gpu-vector-stage/test_review.py
 python3 -B experiments/gpu-vector-stage/run.py --check
 module load slurm/slurm/25.05
 sbatch --parsable --output=experiments/gpu-vector-stage/slurm-%j.log \
-  experiments/gpu-vector-stage/run.sbatch vectors-02
+  experiments/gpu-vector-stage/run.sbatch vectors-03
 # After the user's completion ping:
-python3 -B experiments/gpu-vector-stage/analyze.py vectors-02
+python3 -B experiments/gpu-vector-stage/analyze.py vectors-03
 ```
 
 The admitted validation envelope is unchanged: two HPC nodes, one H200 and
@@ -73,8 +105,8 @@ The admitted validation envelope is unchanged: two HPC nodes, one H200 and
 128 MiB retained cache, 2 GiB scratch, 32 MiB/file, 720-second controller deadline,
 15-minute scheduler limit. gnode03 remains excluded; other eligible nodes allowed.
 The two ranks run the same stage suite independently; this test adds no MPI
-payloads or GPU communication. Normal GPU execution has a 150-second step limit, with 480 seconds for the
-complete sanitizer suite; the controller retains its 720-second total deadline.
+payloads or GPU communication. Normal GPU execution has a 150-second step limit, with 540 seconds for the
+split sanitizer suite; the controller retains its 720-second total deadline.
 Sanitizer failures fail the run. Capacity estimates do not authorize larger runs.
 
 ## Correctness and timing
@@ -93,8 +125,8 @@ Every case checks forward output, inverse reuse with no upload, inverse of CPU
 oracle values, repeated upload/execution, unchanged owned allocation size, and
 invalid origin/count/extent/value rejection preserving the resident output.
 All input, CPU expected, forward and inverse arrays are saved; the reviewer checks
-every byte and required case/shape/width/completion. The entire suite repeats
-under CUDA memcheck/leak checks, not just a narrow case subset. The controller
+every byte and required case/shape/width/completion. The sanitizer scope is the split coverage described above; the original full
+sanitizer repetition timed out and is not claimed passed. The controller
 also retains profiled adapter-constructor setup (executor setup remains in complete command time) and forward/inverse kernel wall times;
 these exclude transfer, verification and persistence. Complete command/controller
 elapsed time includes those costs and is recorded separately. They are single

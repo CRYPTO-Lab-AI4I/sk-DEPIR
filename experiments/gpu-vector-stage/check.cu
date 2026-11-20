@@ -53,6 +53,8 @@ struct Watch {
   ~Watch(){ {std::lock_guard<std::mutex> lock(mutex);stopped=true;}wake.notify_one();worker.join(); }
 };
 Watch *active_watch=nullptr;
+size_t completed_cases=0;
+int sanitized_axis=-1;
 void event(const std::string &phase, const char *kind, size_t done, size_t total, Clock::time_point began) {
   if(active_watch) {std::lock_guard<std::mutex> lock(active_watch->mutex);active_watch->phase=phase;active_watch->done=done;active_watch->total=total;active_watch->began=began;}
   char stamp[32];auto now=std::time(nullptr);std::strftime(stamp,sizeof(stamp),"%FT%TZ",std::gmtime(&now));
@@ -89,10 +91,13 @@ template<class Word>void cases(const Field &f,const std::filesystem::path &out) 
     const auto owned=engine.owned();require(owned<=128ull<<20,"owned cap");
     auto cpu=liftrs::preparation::build_matrix<liftrs::MatrixPlan<Word>>(f.s,f.polynomial,f.delta,dim,dim/2);
     for(bool columns:{false,true}) {
+      if(dim==34 && sanitized_axis>=0 && int(columns)!=sanitized_axis)continue;
       const size_t length=stage.length(columns),jobs=n/length,count=dim==34?1:std::min<size_t>(3,jobs);
       for(size_t first:std::vector<size_t>{0,jobs-count}) {
+        if(dim==34 && sanitized_axis>=0 && first==0)continue;
+        const size_t steps=dim==34 && sanitized_axis>=0?2:4;
         const auto label="s"+std::to_string(f.s)+"-d"+std::to_string(dim)+(columns?"-columns-":"-rows-")+std::to_string(first);
-        const auto began=Clock::now(); event(label,"started",0,4,began);
+        const auto began=Clock::now(); event(label,"started",0,steps,began);
         auto &plan=columns?cpu->columns->transform:cpu->rows->transform;
         std::vector<Word> input(count*length),expected(input.size());
         for(size_t j=0;j<count;j++) {
@@ -123,7 +128,7 @@ template<class Word>void cases(const Field &f,const std::filesystem::path &out) 
         const double forward=std::chrono::duration<double>(Clock::now()-transform_begin).count();
         std::vector<Word> actual(input.size());stage.download(actual.data(),actual.size());require(actual==expected,"forward CPU oracle mismatch");
         save(out/(label+"-expected.bin"),expected);save(out/(label+"-forward.bin"),actual);
-        event(label,"checked-forward",1,4,began);
+        event(label,"checked-forward",1,steps,began);
         // Invalid origin/extent/upload must preserve the resident forward tile.
         rejects([&]{stage.apply(columns,false,jobs,count);});
         rejects([&]{stage.apply(columns,false,first,0);});
@@ -137,12 +142,18 @@ template<class Word>void cases(const Field &f,const std::filesystem::path &out) 
         const double inverse=std::chrono::duration<double>(Clock::now()-inverse_begin).count();
         stage.download(actual.data(),actual.size());require(actual==input,"resident inverse mismatch");
         save(out/(label+"-input.bin"),input);save(out/(label+"-inverse.bin"),actual);
-        event(label,"checked-resident-inverse",2,4,began);
-        stage.upload(expected.data(),expected.size());stage.apply(columns,true,first,count);stage.download(actual.data(),actual.size());
-        require(actual==input,"inverse CPU oracle mismatch");
-        stage.upload(input.data(),input.size());stage.apply(columns,false,first,count);stage.download(actual.data(),actual.size());
-        require(actual==expected && engine.owned()==owned,"reuse mismatch or allocation growth");
-        event(label,"completed",4,4,began);
+        event(label,"checked-resident-inverse",2,steps,began);
+        // Wide memcheck uses one independent forward/inverse pair; normal runs
+        // and all small sanitized cases retain four-call recovery/reuse checks.
+        if(steps==4) {
+          stage.upload(expected.data(),expected.size());stage.apply(columns,true,first,count);stage.download(actual.data(),actual.size());
+          require(actual==input,"inverse CPU oracle mismatch");
+          stage.upload(input.data(),input.size());stage.apply(columns,false,first,count);stage.download(actual.data(),actual.size());
+          require(actual==expected,"reuse mismatch");
+        }
+        require(engine.owned()==owned,"allocation growth");
+        event(label,"completed",steps,steps,began);
+        completed_cases++;
         std::cout<<"{\"kind\":\"measurement\",\"case\":\""<<label<<"\",\"s\":"<<f.s<<",\"dimension\":"<<dim
           <<",\"columns\":"<<(columns?"true":"false")<<",\"first\":"<<first<<",\"count\":"<<count<<",\"length\":"<<length
           <<",\"word_bytes\":"<<sizeof(Word)<<",\"capacity_words\":"<<admitted<<",\"owned_device_bytes\":"<<owned
@@ -159,10 +170,13 @@ int main(int argc,char **argv) {
   try {
     Watch watch;active_watch=&watch;
     require(argc==3,"fields output-dir");std::filesystem::create_directories(argv[2]);std::cout.precision(12);
+    if(const char *axis=std::getenv("PIR_VECTOR_MEMCHECK_AXIS")) {
+      require(std::string(axis)=="0"||std::string(axis)=="1","sanitized axis");sanitized_axis=axis[0]-'0';
+    }
     Reader r(argv[1]);require(r.word<uint32_t>()==2,"field count");
     Field narrow(r);cases<uint32_t>(narrow,argv[2]);Field wide(r);cases<uint64_t>(wide,argv[2]);
     require(r.file.get()==EOF,"fixture trailing data");
-    std::cout<<"{\"kind\":\"completed\",\"cases\":24}"<<std::endl;
+    std::cout<<"{\"kind\":\"completed\",\"cases\":"<<completed_cases<<"}"<<std::endl;
     return 0;
   } catch(const std::exception &e) {std::cerr<<"vector stage failed: "<<e.what()<<std::endl;return 1;}
 }

@@ -45,6 +45,18 @@ class ReviewTest(unittest.TestCase):
             with self.assertRaises(Captured):
                 HELP['suite'](dict(run=run,env={},cache=cache,out=out,go='go',source=source,resources={},save=lambda:None))
 
+    def test_split_sanitizer_coverage(self):
+        with tempfile.TemporaryDirectory()as tmp:
+            directory=Path(tmp);rows=self.fixture(directory)
+            for axis in (0,1):
+                chosen={r['case']for r in rows if r.get('kind')=='measurement'and(r['dimension']!=34 or(int(r['columns'])==axis and r['first']>0))}
+                selected=[dict(r)for r in rows if r.get('case',r.get('phase'))in chosen]
+                for r in selected:
+                    if r.get('phase','').startswith('s17-d34-'):r.update(completed=2,total=2)
+                selected.append(dict(kind='completed',cases=21))
+                self.assertEqual(len(HELP['review'](selected,directory,axis)),21)
+                with self.assertRaises(AssertionError):HELP['review'](selected,directory,1-axis)
+
     def test_corruption(self):
         with tempfile.TemporaryDirectory()as tmp:
             directory=Path(tmp);rows=self.fixture(directory)

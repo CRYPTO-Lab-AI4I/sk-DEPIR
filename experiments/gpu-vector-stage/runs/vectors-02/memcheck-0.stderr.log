@@ -1,0 +1,38 @@
+{"utc":"2026-11-20T10:47:55Z","phase":"stage-rows-forward-vectors","work":"gpu-preparation","event":"started","completed":0,"total":1,"elapsed_ms":0,"unit":"vectors"}
+{"utc":"2026-11-20T10:48:23Z","phase":"s17-d34-rows-0","work":"case-heartbeat","event":"heartbeat","completed":1,"total":1,"elapsed_ms":28019,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":174993408}
+{"utc":"2026-11-20T10:48:53Z","phase":"s17-d34-rows-0","work":"case-heartbeat","event":"heartbeat","completed":1,"total":1,"elapsed_ms":58020,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":174993408}
+{"utc":"2026-11-20T10:49:23Z","phase":"s17-d34-rows-0","work":"case-heartbeat","event":"heartbeat","completed":1,"total":1,"elapsed_ms":88020,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":174993408}
+{"utc":"2026-11-20T10:49:53Z","phase":"s17-d34-rows-0","work":"case-heartbeat","event":"heartbeat","completed":1,"total":1,"elapsed_ms":118021,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":174993408}
+{"utc":"2026-11-20T10:50:12Z","phase":"stage-rows-forward-vectors","work":"gpu-preparation","event":"completed","completed":1,"total":1,"elapsed_ms":136585,"unit":"vectors"}
+{"utc":"2026-11-20T10:50:12Z","phase":"stage-rows-inverse-vectors","work":"gpu-preparation","event":"started","completed":0,"total":1,"elapsed_ms":0,"unit":"vectors"}
+{"utc":"2026-11-20T10:50:23Z","phase":"s17-d34-rows-0","work":"case-heartbeat","event":"heartbeat","completed":1,"total":4,"elapsed_ms":148021,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":176041984}
+{"utc":"2026-11-20T10:50:53Z","phase":"s17-d34-rows-0","work":"case-heartbeat","event":"heartbeat","completed":1,"total":4,"elapsed_ms":178021,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":176041984}
+{"utc":"2026-11-20T10:51:23Z","phase":"s17-d34-rows-0","work":"case-heartbeat","event":"heartbeat","completed":1,"total":4,"elapsed_ms":208021,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":176041984}
+{"utc":"2026-11-20T10:51:53Z","phase":"s17-d34-rows-0","work":"case-heartbeat","event":"heartbeat","completed":1,"total":4,"elapsed_ms":238022,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":176041984}
+{"utc":"2026-11-20T10:52:23Z","phase":"s17-d34-rows-0","work":"case-heartbeat","event":"heartbeat","completed":1,"total":4,"elapsed_ms":268022,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":176041984}
+{"utc":"2026-11-20T10:52:28Z","phase":"stage-rows-inverse-vectors","work":"gpu-preparation","event":"completed","completed":1,"total":1,"elapsed_ms":136290,"unit":"vectors"}
+{"utc":"2026-11-20T10:52:28Z","phase":"stage-rows-inverse-vectors","work":"gpu-preparation","event":"started","completed":0,"total":1,"elapsed_ms":0,"unit":"vectors"}
+{"utc":"2026-11-20T10:52:53Z","phase":"s17-d34-rows-0","work":"case-heartbeat","event":"heartbeat","completed":2,"total":4,"elapsed_ms":298022,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":176041984}
+{"utc":"2026-11-20T10:53:23Z","phase":"s17-d34-rows-0","work":"case-heartbeat","event":"heartbeat","completed":2,"total":4,"elapsed_ms":328022,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":176041984}
+{"utc":"2026-11-20T10:53:53Z","phase":"s17-d34-rows-0","work":"case-heartbeat","event":"heartbeat","completed":2,"total":4,"elapsed_ms":358023,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":176041984}
+{"utc":"2026-11-20T10:54:23Z","phase":"s17-d34-rows-0","work":"case-heartbeat","event":"heartbeat","completed":2,"total":4,"elapsed_ms":388023,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":176041984}
+{"utc":"2026-11-20T10:54:44Z","phase":"stage-rows-inverse-vectors","work":"gpu-preparation","event":"completed","completed":1,"total":1,"elapsed_ms":136394,"unit":"vectors"}
+{"utc":"2026-11-20T10:54:44Z","phase":"stage-rows-forward-vectors","work":"gpu-preparation","event":"started","completed":0,"total":1,"elapsed_ms":0,"unit":"vectors"}
+{"utc":"2026-11-20T10:54:53Z","phase":"s17-d34-rows-0","work":"case-heartbeat","event":"heartbeat","completed":2,"total":4,"elapsed_ms":418023,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":176041984}
+{"utc":"2026-11-20T10:55:23Z","phase":"s17-d34-rows-0","work":"case-heartbeat","event":"heartbeat","completed":2,"total":4,"elapsed_ms":448023,"unit":"case steps (not new progress)"}
+{"kind":"resource","peak_rss_bytes":176041984}
+[2026-11-20T11:55:52.772] error: *** STEP 78286.1 ON gnode06 CANCELLED AT 2026-11-20T11:55:52 DUE to SIGNAL Killed ***

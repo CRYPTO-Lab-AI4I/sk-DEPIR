@@ -2560,3 +2560,14 @@ field admission is unchanged. After this gate: compose vectors/transposes and
 distributed Taylor dependencies, then validate complete forward/inverse products
 and s18 arithmetic before full-run resource admission. Launch joins, transfers,
 communication and host work must be measured before choosing a production path.
+
+SCALING-145: [78286 normal GPU stages passed](../experiments/gpu-vector-stage/report.md):
+48 normal cases, saved everyword comparisons, both widths/axes/directions and
+wide affine origins. Two HPC nodes/two H200s,31.209s normal suites,131.086MiB host
+RSS/process and4.569MiB owned/card. Complete job failed at480s sanitizer cutoff;
+wide instrumentation took136s/transform. Split retry retains all normal cases,
+20 small sanitized cases/rank and one wide tail row/column per respective rank,
+with two transforms per wide case. Wide zero-origin/extra reuse calls remain
+normal-only.540s sanitizer allowance, same720s controller/15min scheduler and
+resources; about5min sanitizer projection, no retry result yet. Full distributed
+FFT/s18 admission remains gated on completion and composition.

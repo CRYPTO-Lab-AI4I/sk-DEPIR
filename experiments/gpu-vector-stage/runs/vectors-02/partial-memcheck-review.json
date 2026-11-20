@@ -1,0 +1,18 @@
+{
+  "status": "incomplete_timeout",
+  "ranks": [
+    {
+      "rank": 0,
+      "completed_small_cases": 20,
+      "output_pairs_checked": 40,
+      "partial_sanitizer_peak_RSS_MiB": 167.88671875
+    },
+    {
+      "rank": 1,
+      "completed_small_cases": 20,
+      "output_pairs_checked": 40,
+      "partial_sanitizer_peak_RSS_MiB": 171.25390625
+    }
+  ],
+  "limitation": "No sanitizer completion/leak summary; wide cases incomplete; raw failed status preserved."
+}

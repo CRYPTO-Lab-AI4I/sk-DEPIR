@@ -78,9 +78,10 @@ preprocessing limit changes.
 
 The [persistent GPU vector-stage adapter](experiments/gpu-vector-stage/report.md)
 now separates global transform coordinates from bounded local GPU storage and
-reuses the existing arithmetic. Validation **78285 failed before GPU execution** due to a node-local launcher
-path; shared-path retry **78286 is submitted**. No GPU stage result, complete
-distributed FFT or full s18 support is claimed.
+reuses the existing arithmetic. **78286 passed all48 normal GPU cases**; CUDA memcheck hit its step cutoff.
+Normal host peak RSS is131.086 MiB/process and owned device memory4.569 MiB/card;
+the two-node normal suite took31.209 seconds. Split sanitizer retry is prepared;
+complete distributed FFT and full s18 preprocessing remain unvalidated.
 
 The [bounded tiled-transform/split-product comparison](experiments/preprocessing-tiles/report.md)
 passes correctness and CUDA memcheck in job76756. At2^22 points on four H200s,

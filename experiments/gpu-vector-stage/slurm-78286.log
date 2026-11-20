@@ -1,0 +1,37 @@
+{"utc": "2026-11-20T10:46:47.358713+00:00", "phase": "hosts", "event": "started", "completed": 0, "unit": "commands", "elapsed_seconds": 3.96775571256876}
+{"utc": "2026-11-20T10:46:47.393915+00:00", "phase": "hosts", "event": "completed", "completed": 1, "unit": "commands", "elapsed_seconds": 4.002956395968795}
+{"utc": "2026-11-20T10:46:47.395693+00:00", "phase": "mpi-plugins", "event": "started", "completed": 1, "unit": "commands", "elapsed_seconds": 4.004727091640234}
+{"utc": "2026-11-20T10:46:47.470992+00:00", "phase": "mpi-plugins", "event": "completed", "completed": 2, "unit": "commands", "elapsed_seconds": 4.08003219589591}
+{"utc": "2026-11-20T10:46:47.472393+00:00", "phase": "mpi", "event": "started", "completed": 2, "unit": "commands", "elapsed_seconds": 4.081426432356238}
+{"utc": "2026-11-20T10:46:47.803496+00:00", "phase": "mpi", "event": "completed", "completed": 3, "unit": "commands", "elapsed_seconds": 4.412541268393397}
+{"utc": "2026-11-20T10:46:47.805082+00:00", "phase": "nvcc", "event": "started", "completed": 3, "unit": "commands", "elapsed_seconds": 4.414115505293012}
+{"utc": "2026-11-20T10:46:47.826020+00:00", "phase": "nvcc", "event": "completed", "completed": 4, "unit": "commands", "elapsed_seconds": 4.435059638693929}
+{"utc": "2026-11-20T10:46:47.827596+00:00", "phase": "compiler", "event": "started", "completed": 4, "unit": "commands", "elapsed_seconds": 4.436629606410861}
+{"utc": "2026-11-20T10:46:47.860509+00:00", "phase": "compiler", "event": "completed", "completed": 5, "unit": "commands", "elapsed_seconds": 4.469548989087343}
+{"utc": "2026-11-20T10:46:47.861993+00:00", "phase": "go", "event": "started", "completed": 5, "unit": "commands", "elapsed_seconds": 4.471026374027133}
+{"utc": "2026-11-20T10:46:47.911834+00:00", "phase": "go", "event": "completed", "completed": 6, "unit": "commands", "elapsed_seconds": 4.520874692127109}
+{"utc": "2026-11-20T10:46:47.917729+00:00", "phase": "fixture-build", "event": "started", "completed": 6, "unit": "commands", "elapsed_seconds": 4.526763459667563}
+{"utc": "2026-11-20T10:47:05.957013+00:00", "phase": "fixture-build", "event": "completed", "completed": 7, "unit": "commands", "elapsed_seconds": 22.566062742844224}
+{"utc": "2026-11-20T10:47:06.004236+00:00", "phase": "fixtures", "event": "started", "completed": 7, "unit": "commands", "elapsed_seconds": 22.613271379843354}
+{"utc": "2026-11-20T10:47:06.330890+00:00", "phase": "fixtures", "event": "completed", "completed": 8, "unit": "commands", "elapsed_seconds": 22.93994038924575}
+{"utc": "2026-11-20T10:47:06.332364+00:00", "phase": "cuda-build", "event": "started", "completed": 8, "unit": "commands", "elapsed_seconds": 22.941398533061147}
+{"utc": "2026-11-20T10:47:20.808382+00:00", "phase": "cuda-build", "event": "completed", "completed": 9, "unit": "commands", "elapsed_seconds": 37.41743307188153}
+{"utc": "2026-11-20T10:47:20.810504+00:00", "phase": "review-tests", "event": "started", "completed": 9, "unit": "commands", "elapsed_seconds": 37.41953803040087}
+{"utc": "2026-11-20T10:47:20.961021+00:00", "phase": "review-tests", "event": "completed", "completed": 10, "unit": "commands", "elapsed_seconds": 37.57007061690092}
+{"utc": "2026-11-20T10:47:21.006657+00:00", "phase": "normal", "event": "started", "completed": 10, "unit": "commands", "elapsed_seconds": 37.61569330096245}
+{"utc": "2026-11-20T10:47:52.263973+00:00", "phase": "normal", "event": "completed", "completed": 11, "unit": "commands", "elapsed_seconds": 68.87302253581583}
+{"utc": "2026-11-20T10:47:52.726820+00:00", "phase": "memcheck", "event": "started", "completed": 11, "unit": "commands", "elapsed_seconds": 69.33587174117565}
+{"utc": "2026-11-20T10:55:52.807445+00:00", "phase": "memcheck", "event": "failed", "completed": 12, "unit": "commands", "elapsed_seconds": 549.4164947643876}
+Traceback (most recent call last):
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-vector-stage/run.py", line 79, in <module>
+    else:BASE['main'](here=HERE,extra_suite=suite)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 161, in main
+    record.update(extra_suite(dict(run=run,source=source,cache=cache,out=out,go=go,env=env,resources=record['resources'],save=save)))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-vector-stage/run.py", line 62, in suite
+    run(mode,[*launcher,*command],limit+15)
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 142, in run
+    if code:raise RuntimeError(label+' failed')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: memcheck failed
