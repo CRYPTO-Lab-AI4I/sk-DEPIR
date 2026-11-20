@@ -168,6 +168,7 @@ def execute(context,prepared,prefix=''):
     cache=context['cache'];out=context['out'];env=context['env'];go=context['go']
     def run(label,argv,timeout=30):return context['run'](prefix+label,argv,timeout)
     env.pop('PIR_ROOT_TREE_SMALL',None)
+    env['PIR_RANK_LOG_FILES']='1'
     env.update(PIR_GPU_PREPARATION_LIBRARY=str(library),LIFTRS_GPU_PREPARATION_VECTOR_LAYOUT='local',PIR_ROOT_TREE_CHUNK_WORDS='65536',GOMAXPROCS='1',GOMEMLIMIT=str(512<<20))
     launcher=['timeout','--signal=TERM','--kill-after=10s','240s','srun','--mpi=pmix_v3','--nodes=2','--ntasks=4','--ntasks-per-node=2',
         '--cpus-per-task=1','--gpus-per-node=h200:1','--gpu-bind=single:2','--gres-flags=allow-task-sharing',
@@ -175,11 +176,11 @@ def execute(context,prepared,prefix=''):
     test_args=['-test.run=^TestRankOwnedRootTree$','-test.v','-test.timeout=220s','-root-mpi-buffer='+env.get('PIR_ROOT_TREE_MPI_BUFFER','direct')]
     env['PIR_ROOT_TREE_OUTPUT']=str(cache/(prefix+'normal'))
     run('normal',[*launcher,out/(prefix+'normal'),binary,*test_args],260)
-    normal=BASE['parse'](out/(prefix+'normal.log'));review(normal,cache/(prefix+'normal'),repeats=int(env.get('PIR_ROOT_TREE_REPEATS','2')))
+    normal=BASE['parse_rank_logs'](out/(prefix+'normal.log'));review(normal,cache/(prefix+'normal'),repeats=int(env.get('PIR_ROOT_TREE_REPEATS','2')))
     env.update(PIR_ROOT_TREE_SMALL='1',PIR_ROOT_TREE_CHUNK_WORDS='1024',PIR_ROOT_TREE_OUTPUT=str(cache/(prefix+'sanitized')))
     run('memcheck',[*launcher,out/(prefix+'memcheck'),'compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',binary,*test_args],260)
-    sanitized=BASE['parse'](out/(prefix+'memcheck.log'));review(sanitized,cache/(prefix+'sanitized'),small=True)
-    text=(out/(prefix+'memcheck.log')).read_text()
+    sanitized=BASE['parse_rank_logs'](out/(prefix+'memcheck.log'));review(sanitized,cache/(prefix+'sanitized'),small=True)
+    text=BASE['rank_output_text'](out/(prefix+'memcheck.log'))
     assert text.count('ERROR SUMMARY: 0 errors')==4 and text.count('LEAK SUMMARY: 0 bytes')==4
     for rank in range(4):
         assert (out/f'{prefix}normal-{rank}.pprof').stat().st_size>0

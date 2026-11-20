@@ -1,15 +1,66 @@
 # GPU merge tree with the UCX cache control
 
-Status: **GPU-tree job 78249 submitted** (SCALING-137), results unreviewed.
-[Receipt](submission.json), progress `slurm-78249.log`, results/profiles
-`runs/tree-01/`. Implementation `d4621d2`;
-[source freeze](readiness/snapshot.json): 662 files / 3,091,958 bytes; all ten
-checked input hashes match. No MPI/GPU execution implied by readiness. [Runner](run.py),
-[scheduler script](run.sbatch), [shared comparison](../mpi-buffer-comparison/run.py),
-[reviewer](../mpi-buffer-comparison/analyze.py),
-[shared UCX configuration](../ucx-registration-cache/run.py),
-[GPU test](../../encoding/liftrs-shared/root_tree_gpu_test.go).
-Implementation revision in submission.json; exact source/evidence/cache seals in results.json.
+Status: **78249 completed three normal computation rounds; workflow failed on
+interleaved log JSON** (SCALING-138). Staged-a and direct-a passed full normal /
+CUDA memcheck / profile review; direct-b computation exited zero and its normal
+checks pass after the explicit derived recovery below. Direct-b memcheck/profile
+summary and staged-b were **not run**. No complete crossover ratio is reported.
+[Receipt](submission.json), [raw results](runs/tree-01/results.json),
+[review](runs/tree-01/analysis.json), [recovery script](review_interleaved.py),
+[accounting](runs/tree-01/scheduler-accounting.txt), [progress](slurm-78249.log).
+Implementation `d4621d2`; raw failed status and logs remain unchanged. Verified
+**662 source / 42 original evidence / 236 cache hashes**, plus retained build hashes.
+[Shared runner](run.py), [reviewer](../mpi-buffer-comparison/analyze.py).
+
+## Review of 78249
+
+HPC gnode14/gnode15, 2 H200s, 4 logical ranks / CPU cores, 4 GiB requested host
+RAM per node. Scheduler **4 min 16 s**, controller **255.343 s**. No native process,
+CPU reference or resource guard failed in the three launched normal rounds.
+
+| Round | Normal correctness / proofs | CUDA memcheck | Largest partial-case median | Normal largest logged process peak RSS/rank |
+|---|---|---|---:|---:|
+| staged-a | 22 passes, 516 endpoint checks passed | Four ranks: zero errors/leaks | 1.187015 s | 410.336 MiB |
+| direct-a | 22 passes, 516 endpoint checks passed | Four ranks: zero errors/leaks | 1.191109 s | 410.844 MiB |
+| direct-b | 22 passes, 516 checks passed after explicit log recovery | Not run | 1.180788 s | 410.605 MiB |
+| staged-b | Not run | Not run | Unknown | Unknown |
+
+All retained final arrays across the three normal rounds match the CPU oracle
+and one another; UCX cache control and exact ownership/state checks pass. Each
+largest case has 12 timed samples. Peak owned GPU arrays remain **15.241 MiB/rank**
+(contexts additional). These are partial, profiled synthetic support fixtures,
+not full s=17/s=18 preprocessing or a registration-cache overhead measurement.
+The incomplete four-arm sequence cannot establish a stable mode speed difference.
+
+### Explicit recovery of one interleaved event
+
+In raw `direct-b-normal.log`, lines1499–1500 split a native progress event at
+`"t` / `otal"`. A delayed OpenMPI help-aggregation warning was inserted between
+the two fragments by merged output. [review_interleaved.py](review_interleaved.py)
+accepts exactly this known warning and adjacent same-rank continuation, validates
+the complete expected event, and writes a **separate**
+[derived view](runs/tree-01/direct-b-normal.recovered.log). The warning is kept on
+its own line; raw bytes/file remain untouched. Original/derived SHA256, complete
+fragments, warning and recovered event are recorded in analysis.json. Source/
+evidence/cache seals are verified before recovery; no generic skip or best-effort
+parser is used. Re-review all direct-b CPU/shape/state/proof/byte-hash checks.
+
+```sh
+python3 -B experiments/ucx-cache-gpu-tree/review_interleaved.py
+```
+
+**Next (SCALING-139):** repeat the full crossover with separate per-rank stdout
+and stderr files. The explicit `PIR_RANK_LOG_FILES=1` wrapper option preserves the
+launcher log, all worker streams and profiles; legacy host-runner mode remains.
+A strict collector requires all eight files and parses every worker JSON event;
+malformed worker JSON still fails. CUDA summaries are counted across all worker
+streams. This prevents launcher diagnostics from sharing a worker event stream.
+Native logging within a process remains unchanged; no arithmetic or clock change.
+Direct file I/O may affect diagnostic timing; no cross-job speedup is inferred.
+The same 128 MiB cache / 2 GiB scratch / 32 MiB per-file limits and GPU/host/deadline
+envelope remain. Expected output volume stays small; each rank stream is bounded.
+A fresh run preserves the incomplete original and produces a matched comparison
+under one consistent logging method. No production default or full-size claim.
 
 [Host control 78218](../ucx-registration-cache/report.md#review-of-78218) passed all
 four arms after registration caching was disabled. That supports a cache interaction
@@ -74,3 +125,10 @@ reviewer tests pass, including rejection of an incorrect GPU-worker cache flag.
 Python/scheduler syntax and whitespace pass. No local MPI/GPU execution; actual
 GPU comparison and full s=18 capability remain unvalidated. Even a pass must not
 be described as production security or an unrestricted upstream-runtime repair.
+
+SCALING-139 local checks: four logging tests verify exact recovery/rejection,
+strict complete stream collection, malformed-event rejection and actual wrapper
+stdout/stderr isolation plus legacy behavior. Existing 32 reviewer tests pass
+(36 total); shell/Python syntax and whitespace checked. No local MPI/GPU execution.
+No native/Go source change in this logging fix; repeat uses existing tagged builds
+and correctness checks inside the admitted job.

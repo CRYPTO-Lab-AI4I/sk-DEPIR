@@ -1,0 +1,592 @@
+2: [2026-11-20T09:44:38.130] error: couldn't chdir to `/tmp/depir-ucx-cache-gpu-tree-78249/source': No such file or directory: going to /tmp instead
+2: [2026-11-20T09:44:38.136] error: couldn't chdir to `/tmp/depir-ucx-cache-gpu-tree-78249/source': No such file or directory: going to /tmp instead
+2: [2026-11-20T09:44:38.139] error: couldn't chdir to `/tmp/depir-ucx-cache-gpu-tree-78249/source': No such file or directory: going to /tmp instead
+0: ========= COMPUTE-SANITIZER
+1: ========= COMPUTE-SANITIZER
+3: ========= COMPUTE-SANITIZER
+0: === RUN   TestRankOwnedRootTree
+1: === RUN   TestRankOwnedRootTree
+2: ========= COMPUTE-SANITIZER
+3: === RUN   TestRankOwnedRootTree
+2: === RUN   TestRankOwnedRootTree
+0: [gnode14:2945016] mca: base: components_register: registering framework btl components
+1: [gnode14:2945015] mca: base: components_register: registering framework btl components
+1: [gnode14:2945015] mca: base: components_register: found loaded component openib
+0: [gnode14:2945016] mca: base: components_register: found loaded component openib
+0: [gnode14:2945016] mca: base: components_register: component openib register function successful
+0: [gnode14:2945016] mca: base: components_register: found loaded component self
+0: [gnode14:2945016] mca: base: components_register: component self register function successful
+0: [gnode14:2945016] mca: base: components_register: found loaded component sm
+0: [gnode14:2945016] mca: base: components_register: found loaded component tcp
+0: [gnode14:2945016] mca: base: components_register: component tcp register function successful
+0: [gnode14:2945016] mca: base: components_register: found loaded component vader
+0: [gnode14:2945016] mca: base: components_register: component vader register function successful
+0: [gnode14:2945016] mca: base: components_open: opening btl components
+0: [gnode14:2945016] mca: base: components_open: found loaded component openib
+0: [gnode14:2945016] mca: base: components_open: component openib open function successful
+0: [gnode14:2945016] mca: base: components_open: found loaded component self
+0: [gnode14:2945016] mca: base: components_open: component self open function successful
+0: [gnode14:2945016] mca: base: components_open: found loaded component tcp
+0: [gnode14:2945016] mca: base: components_open: component tcp open function successful
+0: [gnode14:2945016] mca: base: components_open: found loaded component vader
+0: [gnode14:2945016] mca: base: components_open: component vader open function successful
+0: [gnode14:2945016] select: initializing btl component openib
+1: [gnode14:2945015] mca: base: components_register: component openib register function successful
+1: [gnode14:2945015] mca: base: components_register: found loaded component self
+1: [gnode14:2945015] mca: base: components_register: component self register function successful
+1: [gnode14:2945015] mca: base: components_register: found loaded component sm
+1: [gnode14:2945015] mca: base: components_register: found loaded component tcp
+1: [gnode14:2945015] mca: base: components_register: component tcp register function successful
+1: [gnode14:2945015] mca: base: components_register: found loaded component vader
+1: [gnode14:2945015] mca: base: components_register: component vader register function successful
+1: [gnode14:2945015] mca: base: components_open: opening btl components
+1: [gnode14:2945015] mca: base: components_open: found loaded component openib
+1: [gnode14:2945015] mca: base: components_open: component openib open function successful
+1: [gnode14:2945015] mca: base: components_open: found loaded component self
+1: [gnode14:2945015] mca: base: components_open: component self open function successful
+1: [gnode14:2945015] mca: base: components_open: found loaded component tcp
+1: [gnode14:2945015] mca: base: components_open: component tcp open function successful
+1: [gnode14:2945015] mca: base: components_open: found loaded component vader
+1: [gnode14:2945015] mca: base: components_open: component vader open function successful
+1: [gnode14:2945015] select: initializing btl component openib
+3: [gnode15:1709064] mca: base: components_register: registering framework btl components
+3: [gnode15:1709064] mca: base: components_register: found loaded component openib
+2: [gnode15:1709065] mca: base: components_register: registering framework btl components
+2: [gnode15:1709065] mca: base: components_register: found loaded component openib
+2: [gnode15:1709065] mca: base: components_register: component openib register function successful
+2: [gnode15:1709065] mca: base: components_register: found loaded component self
+2: [gnode15:1709065] mca: base: components_register: component self register function successful
+2: [gnode15:1709065] mca: base: components_register: found loaded component sm
+2: [gnode15:1709065] mca: base: components_register: found loaded component tcp
+2: [gnode15:1709065] mca: base: components_register: component tcp register function successful
+2: [gnode15:1709065] mca: base: components_register: found loaded component vader
+2: [gnode15:1709065] mca: base: components_register: component vader register function successful
+2: [gnode15:1709065] mca: base: components_open: opening btl components
+2: [gnode15:1709065] mca: base: components_open: found loaded component openib
+2: [gnode15:1709065] mca: base: components_open: component openib open function successful
+2: [gnode15:1709065] mca: base: components_open: found loaded component self
+2: [gnode15:1709065] mca: base: components_open: component self open function successful
+2: [gnode15:1709065] mca: base: components_open: found loaded component tcp
+2: [gnode15:1709065] mca: base: components_open: component tcp open function successful
+2: [gnode15:1709065] mca: base: components_open: found loaded component vader
+2: [gnode15:1709065] mca: base: components_open: component vader open function successful
+2: [gnode15:1709065] select: initializing btl component openib
+0: [gnode14:2945016] Checking distance from this process to device=mlx5_0
+0: [gnode14:2945016] Process is bound: distance to device is 0.000000
+0: [gnode14:2945016] Checking distance from this process to device=mlx5_1
+0: [gnode14:2945016] Process is bound: distance to device is 0.000000
+0: [gnode14:2945016] Checking distance from this process to device=mlx5_bond_0
+0: [gnode14:2945016] Process is bound: distance to device is 0.000000
+3: [gnode15:1709064] mca: base: components_register: component openib register function successful
+3: [gnode15:1709064] mca: base: components_register: found loaded component self
+3: [gnode15:1709064] mca: base: components_register: component self register function successful
+3: [gnode15:1709064] mca: base: components_register: found loaded component sm
+3: [gnode15:1709064] mca: base: components_register: found loaded component tcp
+3: [gnode15:1709064] mca: base: components_register: component tcp register function successful
+3: [gnode15:1709064] mca: base: components_register: found loaded component vader
+3: [gnode15:1709064] mca: base: components_register: component vader register function successful
+3: [gnode15:1709064] mca: base: components_open: opening btl components
+3: [gnode15:1709064] mca: base: components_open: found loaded component openib
+3: [gnode15:1709064] mca: base: components_open: component openib open function successful
+3: [gnode15:1709064] mca: base: components_open: found loaded component self
+1: [gnode14:2945015] Checking distance from this process to device=mlx5_0
+1: [gnode14:2945015] Process is bound: distance to device is 0.000000
+1: [gnode14:2945015] Checking distance from this process to device=mlx5_1
+1: [gnode14:2945015] Process is bound: distance to device is 0.000000
+1: [gnode14:2945015] Checking distance from this process to device=mlx5_bond_0
+1: [gnode14:2945015] Process is bound: distance to device is 0.000000
+3: [gnode15:1709064] mca: base: components_open: component self open function successful
+3: [gnode15:1709064] mca: base: components_open: found loaded component tcp
+3: [gnode15:1709064] mca: base: components_open: component tcp open function successful
+3: [gnode15:1709064] mca: base: components_open: found loaded component vader
+3: [gnode15:1709064] mca: base: components_open: component vader open function successful
+3: [gnode15:1709064] select: initializing btl component openib
+2: [gnode15:1709065] Checking distance from this process to device=mlx5_0
+2: [gnode15:1709065] hwloc_distances->nbobjs=2
+2: [gnode15:1709065] hwloc_distances->values[0]=10
+2: [gnode15:1709065] hwloc_distances->values[1]=21
+2: [gnode15:1709065] Process is bound: distance to device is 0.000000
+2: [gnode15:1709065] Checking distance from this process to device=mlx5_1
+2: [gnode15:1709065] hwloc_distances->nbobjs=2
+2: [gnode15:1709065] hwloc_distances->values[0]=10
+2: [gnode15:1709065] hwloc_distances->values[1]=21
+2: [gnode15:1709065] Process is bound: distance to device is 0.000000
+2: [gnode15:1709065] Checking distance from this process to device=mlx5_bond_0
+2: [gnode15:1709065] hwloc_distances->nbobjs=2
+2: [gnode15:1709065] hwloc_distances->values[0]=10
+2: [gnode15:1709065] hwloc_distances->values[1]=21
+2: [gnode15:1709065] Process is bound: distance to device is 0.000000
+3: [gnode15:1709064] Checking distance from this process to device=mlx5_0
+3: [gnode15:1709064] hwloc_distances->nbobjs=2
+3: [gnode15:1709064] hwloc_distances->values[0]=10
+3: [gnode15:1709064] hwloc_distances->values[1]=21
+3: [gnode15:1709064] Process is bound: distance to device is 0.000000
+3: [gnode15:1709064] Checking distance from this process to device=mlx5_1
+3: [gnode15:1709064] hwloc_distances->nbobjs=2
+3: [gnode15:1709064] hwloc_distances->values[0]=10
+3: [gnode15:1709064] hwloc_distances->values[1]=21
+3: [gnode15:1709064] Process is bound: distance to device is 0.000000
+3: [gnode15:1709064] Checking distance from this process to device=mlx5_bond_0
+3: [gnode15:1709064] hwloc_distances->nbobjs=2
+3: [gnode15:1709064] hwloc_distances->values[0]=10
+3: [gnode15:1709064] hwloc_distances->values[1]=21
+3: [gnode15:1709064] Process is bound: distance to device is 0.000000
+0: --------------------------------------------------------------------------
+0: WARNING: No preset parameters were found for the device that Open MPI
+0: detected:
+0: 
+0:   Local host:            gnode14
+0:   Device name:           mlx5_0
+0:   Device vendor ID:      0x02c9
+0:   Device vendor part ID: 4129
+0: 
+0: Default device parameters will be used, which may result in lower
+0: performance.  You can edit any of the files specified by the
+0: btl_openib_device_param_files MCA parameter to set values for your
+0: device.
+0: 
+0: NOTE: You can turn off this warning by setting the MCA parameter
+0:       btl_openib_warn_no_device_params_found to 0.
+0: --------------------------------------------------------------------------
+1: --------------------------------------------------------------------------
+1: WARNING: No preset parameters were found for the device that Open MPI
+1: detected:
+1: 
+1:   Local host:            gnode14
+1:   Device name:           mlx5_0
+1:   Device vendor ID:      0x02c9
+1:   Device vendor part ID: 4129
+1: 
+1: Default device parameters will be used, which may result in lower
+1: performance.  You can edit any of the files specified by the
+1: btl_openib_device_param_files MCA parameter to set values for your
+1: device.
+1: 
+1: NOTE: You can turn off this warning by setting the MCA parameter
+1:       btl_openib_warn_no_device_params_found to 0.
+1: --------------------------------------------------------------------------
+2: --------------------------------------------------------------------------
+2: WARNING: No preset parameters were found for the device that Open MPI
+2: detected:
+2: 
+2:   Local host:            gnode15
+2:   Device name:           mlx5_0
+2:   Device vendor ID:      0x02c9
+2:   Device vendor part ID: 4129
+2: 
+2: Default device parameters will be used, which may result in lower
+2: performance.  You can edit any of the files specified by the
+2: btl_openib_device_param_files MCA parameter to set values for your
+2: device.
+2: 
+2: NOTE: You can turn off this warning by setting the MCA parameter
+2:       btl_openib_warn_no_device_params_found to 0.
+2: --------------------------------------------------------------------------
+3: --------------------------------------------------------------------------
+3: WARNING: No preset parameters were found for the device that Open MPI
+3: detected:
+3: 
+3:   Local host:            gnode15
+3:   Device name:           mlx5_0
+3:   Device vendor ID:      0x02c9
+3:   Device vendor part ID: 4129
+3: 
+3: Default device parameters will be used, which may result in lower
+3: performance.  You can edit any of the files specified by the
+3: btl_openib_device_param_files MCA parameter to set values for your
+3: device.
+3: 
+3: NOTE: You can turn off this warning by setting the MCA parameter
+3:       btl_openib_warn_no_device_params_found to 0.
+3: --------------------------------------------------------------------------
+0: --------------------------------------------------------------------------
+0: WARNING: There was an error initializing an OpenFabrics device.
+0: 
+0:   Local host:   gnode14
+0:   Local device: mlx5_1
+0: --------------------------------------------------------------------------
+1: --------------------------------------------------------------------------
+1: WARNING: There was an error initializing an OpenFabrics device.
+1: 
+1:   Local host:   gnode14
+1:   Local device: mlx5_1
+1: --------------------------------------------------------------------------
+2: --------------------------------------------------------------------------
+2: WARNING: There was an error initializing an OpenFabrics device.
+2: 
+2:   Local host:   gnode15
+2:   Local device: mlx5_1
+2: --------------------------------------------------------------------------
+3: --------------------------------------------------------------------------
+3: WARNING: There was an error initializing an OpenFabrics device.
+3: 
+3:   Local host:   gnode15
+3:   Local device: mlx5_1
+3: --------------------------------------------------------------------------
+0: [gnode14:2945016] select: init of component openib returned failure
+0: [gnode14:2945016] mca: base: close: component openib closed
+0: [gnode14:2945016] mca: base: close: unloading component openib
+0: [gnode14:2945016] select: initializing btl component self
+0: [gnode14:2945016] select: init of component self returned success
+0: [gnode14:2945016] select: initializing btl component tcp
+0: [gnode14:2945016] btl: tcp: Searching for exclude address+prefix: 127.0.0.1 / 8
+0: [gnode14:2945016] btl: tcp: Found match: 127.0.0.1 (lo)
+0: [gnode14:2945016] btl: tcp: Using interface: sppp 
+1: [gnode14:2945015] select: init of component openib returned failure
+1: [gnode14:2945015] mca: base: close: component openib closed
+1: [gnode14:2945015] mca: base: close: unloading component openib
+1: [gnode14:2945015] select: initializing btl component self
+1: [gnode14:2945015] select: init of component self returned success
+1: [gnode14:2945015] select: initializing btl component tcp
+1: [gnode14:2945015] btl: tcp: Searching for exclude address+prefix: 127.0.0.1 / 8
+1: [gnode14:2945015] btl: tcp: Found match: 127.0.0.1 (lo)
+1: [gnode14:2945015] btl: tcp: Using interface: sppp 
+2: [gnode15:1709065] select: init of component openib returned failure
+2: [gnode15:1709065] mca: base: close: component openib closed
+2: [gnode15:1709065] mca: base: close: unloading component openib
+2: [gnode15:1709065] select: initializing btl component self
+2: [gnode15:1709065] select: init of component self returned success
+2: [gnode15:1709065] select: initializing btl component tcp
+2: [gnode15:1709065] btl: tcp: Searching for exclude address+prefix: 127.0.0.1 / 8
+2: [gnode15:1709065] btl: tcp: Found match: 127.0.0.1 (lo)
+2: [gnode15:1709065] btl: tcp: Using interface: sppp 
+3: [gnode15:1709064] select: init of component openib returned failure
+3: [gnode15:1709064] mca: base: close: component openib closed
+3: [gnode15:1709064] mca: base: close: unloading component openib
+3: [gnode15:1709064] select: initializing btl component self
+3: [gnode15:1709064] select: init of component self returned success
+3: [gnode15:1709064] select: initializing btl component tcp
+3: [gnode15:1709064] btl: tcp: Searching for exclude address+prefix: 127.0.0.1 / 8
+3: [gnode15:1709064] btl: tcp: Found match: 127.0.0.1 (lo)
+3: [gnode15:1709064] btl: tcp: Using interface: sppp 
+1: [gnode14:2945015] btl:tcp: Attempting to bind to AF_INET port 1024
+0: [gnode14:2945016] btl:tcp: Attempting to bind to AF_INET port 1024
+0: [gnode14:2945016] btl:tcp: Successfully bound to AF_INET port 1024
+0: [gnode14:2945016] btl:tcp: my listening v4 socket is 0.0.0.0:1024
+0: [gnode14:2945016] btl:tcp: examining interface bond0
+0: [gnode14:2945016] btl:tcp: using ipv6 interface bond0
+0: [gnode14:2945016] btl:tcp: examining interface ibP1s3
+0: [gnode14:2945016] btl:tcp: using ipv6 interface ibP1s3
+0: [gnode14:2945016] btl:tcp: examining interface docker0
+0: [gnode14:2945016] btl:tcp: using ipv6 interface docker0
+1: [gnode14:2945015] btl:tcp: Attempting to bind to AF_INET port 1025
+1: [gnode14:2945015] btl:tcp: Successfully bound to AF_INET port 1025
+1: [gnode14:2945015] btl:tcp: my listening v4 socket is 0.0.0.0:1025
+1: [gnode14:2945015] btl:tcp: examining interface bond0
+1: [gnode14:2945015] btl:tcp: using ipv6 interface bond0
+1: [gnode14:2945015] btl:tcp: examining interface ibP1s3
+1: [gnode14:2945015] btl:tcp: using ipv6 interface ibP1s3
+1: [gnode14:2945015] btl:tcp: examining interface docker0
+1: [gnode14:2945015] btl:tcp: using ipv6 interface docker0
+0: [gnode14:2945016] select: init of component tcp returned success
+0: [gnode14:2945016] select: initializing btl component vader
+2: [gnode15:1709065] btl:tcp: Attempting to bind to AF_INET port 1024
+2: [gnode15:1709065] btl:tcp: Successfully bound to AF_INET port 1024
+2: [gnode15:1709065] btl:tcp: my listening v4 socket is 0.0.0.0:1024
+2: [gnode15:1709065] btl:tcp: examining interface bond0
+2: [gnode15:1709065] btl:tcp: using ipv6 interface bond0
+2: [gnode15:1709065] btl:tcp: examining interface ibP1s3
+2: [gnode15:1709065] btl:tcp: using ipv6 interface ibP1s3
+2: [gnode15:1709065] btl:tcp: examining interface docker0
+2: [gnode15:1709065] btl:tcp: using ipv6 interface docker0
+2: [gnode15:1709065] select: init of component tcp returned success
+2: [gnode15:1709065] select: initializing btl component vader
+2: [gnode15:1709065] select: init of component vader returned success
+1: [gnode14:2945015] select: init of component tcp returned success
+1: [gnode14:2945015] select: initializing btl component vader
+1: [gnode14:2945015] select: init of component vader returned success
+3: [gnode15:1709064] btl:tcp: Attempting to bind to AF_INET port 1024
+3: [gnode15:1709064] btl:tcp: Attempting to bind to AF_INET port 1025
+3: [gnode15:1709064] btl:tcp: Successfully bound to AF_INET port 1025
+3: [gnode15:1709064] btl:tcp: my listening v4 socket is 0.0.0.0:1025
+3: [gnode15:1709064] btl:tcp: examining interface bond0
+3: [gnode15:1709064] btl:tcp: using ipv6 interface bond0
+3: [gnode15:1709064] btl:tcp: examining interface ibP1s3
+3: [gnode15:1709064] btl:tcp: using ipv6 interface ibP1s3
+3: [gnode15:1709064] btl:tcp: examining interface docker0
+3: [gnode15:1709064] btl:tcp: using ipv6 interface docker0
+3: [gnode15:1709064] select: init of component tcp returned success
+3: [gnode15:1709064] select: initializing btl component vader
+3: [gnode15:1709064] select: init of component vader returned success
+0: [gnode14:2945016] select: init of component vader returned success
+0: [gnode14:2945016] mca: base: components_register: registering framework pml components
+0: [gnode14:2945016] mca: base: components_register: found loaded component ucx
+0: [gnode14:2945016] mca: base: components_register: component ucx register function successful
+0: [gnode14:2945016] mca: base: components_open: opening pml components
+0: [gnode14:2945016] mca: base: components_open: found loaded component ucx
+2: [gnode15:1709065] mca: base: components_register: registering framework pml components
+2: [gnode15:1709065] mca: base: components_register: found loaded component ucx
+2: [gnode15:1709065] mca: base: components_register: component ucx register function successful
+2: [gnode15:1709065] mca: base: components_open: opening pml components
+2: [gnode15:1709065] mca: base: components_open: found loaded component ucx
+1: [gnode14:2945015] mca: base: components_register: registering framework pml components
+1: [gnode14:2945015] mca: base: components_register: found loaded component ucx
+1: [gnode14:2945015] mca: base: components_register: component ucx register function successful
+1: [gnode14:2945015] mca: base: components_open: opening pml components
+1: [gnode14:2945015] mca: base: components_open: found loaded component ucx
+3: [gnode15:1709064] mca: base: components_register: registering framework pml components
+3: [gnode15:1709064] mca: base: components_register: found loaded component ucx
+3: [gnode15:1709064] mca: base: components_register: component ucx register function successful
+3: [gnode15:1709064] mca: base: components_open: opening pml components
+3: [gnode15:1709064] mca: base: components_open: found loaded component ucx
+2: [gnode15:1709065] mca: base: components_open: component ucx open function successful
+3: [gnode15:1709064] mca: base: components_open: component ucx open function successful
+1: [gnode14:2945015] mca: base: components_open: component ucx open function successful
+0: [gnode14:2945016] mca: base: components_open: component ucx open function successful
+2: [gnode15:1709065] select: initializing pml component ucx
+3: [gnode15:1709064] select: initializing pml component ucx
+0: [gnode14:2945016] select: initializing pml component ucx
+1: [gnode14:2945015] select: initializing pml component ucx
+0: [gnode14:2945016] select: init returned priority 51
+0: [gnode14:2945016] selected ucx best priority 51
+0: [gnode14:2945016] select: component ucx selected
+1: [gnode14:2945015] select: init returned priority 51
+1: [gnode14:2945015] selected ucx best priority 51
+1: [gnode14:2945015] select: component ucx selected
+2: [gnode15:1709065] select: init returned priority 51
+2: [gnode15:1709065] selected ucx best priority 51
+2: [gnode15:1709065] select: component ucx selected
+3: [gnode15:1709064] select: init returned priority 51
+3: [gnode15:1709064] selected ucx best priority 51
+3: [gnode15:1709064] select: component ucx selected
+0: {"buffer_mode":"direct","chunk_words":1024,"elapsed_seconds":0.000038435,"host":"gnode14","kind":"host","local_rank":"0","mpi_transport":{"OMPI_MCA_btl":"","OMPI_MCA_btl_base_verbose":"40","OMPI_MCA_pml":"ucx","OMPI_MCA_pml_base_verbose":"20","UCX_LOG_LEVEL":"info","UCX_RCACHE_ENABLE":"n"},"peak_rss_bytes":258695168,"rank":0,"ranks":4,"staging_bytes":0,"utc":"2026-11-20T08:44:38.760482104Z","visible_devices":"0"}
+0: {"case":0,"elapsed_seconds":0.00034152,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":258695168,"phase":"setup-reference","rank":0,"utc":"2026-11-20T08:44:38.760790553Z"}
+1: {"buffer_mode":"direct","chunk_words":1024,"elapsed_seconds":0.000016806,"host":"gnode14","kind":"host","local_rank":"1","mpi_transport":{"OMPI_MCA_btl":"","OMPI_MCA_btl_base_verbose":"40","OMPI_MCA_pml":"ucx","OMPI_MCA_pml_base_verbose":"20","UCX_LOG_LEVEL":"info","UCX_RCACHE_ENABLE":"n"},"peak_rss_bytes":256589824,"rank":1,"ranks":4,"staging_bytes":0,"utc":"2026-11-20T08:44:38.761790891Z","visible_devices":"0"}
+1: {"case":0,"elapsed_seconds":0.000280543,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":256589824,"phase":"setup-reference","rank":1,"utc":"2026-11-20T08:44:38.762055126Z"}
+2: {"buffer_mode":"direct","chunk_words":1024,"elapsed_seconds":0.000049001,"host":"gnode15","kind":"host","local_rank":"0","mpi_transport":{"OMPI_MCA_btl":"","OMPI_MCA_btl_base_verbose":"40","OMPI_MCA_pml":"ucx","OMPI_MCA_pml_base_verbose":"20","UCX_LOG_LEVEL":"info","UCX_RCACHE_ENABLE":"n"},"peak_rss_bytes":256307200,"rank":2,"ranks":4,"staging_bytes":0,"utc":"2026-11-20T08:44:38.764214708Z","visible_devices":"0"}
+2: {"case":0,"elapsed_seconds":0.000235911,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":256307200,"phase":"setup-reference","rank":2,"utc":"2026-11-20T08:44:38.76440567Z"}
+3: {"buffer_mode":"direct","chunk_words":1024,"elapsed_seconds":0.000019951,"host":"gnode15","kind":"host","local_rank":"1","mpi_transport":{"OMPI_MCA_btl":"","OMPI_MCA_btl_base_verbose":"40","OMPI_MCA_pml":"ucx","OMPI_MCA_pml_base_verbose":"20","UCX_LOG_LEVEL":"info","UCX_RCACHE_ENABLE":"n"},"peak_rss_bytes":255229952,"rank":3,"ranks":4,"staging_bytes":0,"utc":"2026-11-20T08:44:38.765370114Z","visible_devices":"0"}
+3: {"case":0,"elapsed_seconds":0.000098215,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":255229952,"phase":"setup-reference","rank":3,"utc":"2026-11-20T08:44:38.76544896Z"}
+0: {"utc":"2026-11-20T08:44:38.907259441Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000025717}
+0: {"case":0,"elapsed_seconds":0.147469966,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":258695168,"phase":"CPU-reference/before-validation","rank":0,"utc":"2026-11-20T08:44:38.907919018Z"}
+0: {"case":0,"completed":7381,"elapsed_seconds":0.147504032,"host":"gnode14","kind":"progress","peak_rss_bytes":258695168,"phase":"CPU-reference/support-order-validation","rank":0,"total":7381,"unit":"exponents","utc":"2026-11-20T08:44:38.907953347Z"}
+0: {"utc":"2026-11-20T08:44:38.907571519Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000337799}
+0: {"case":0,"completed":7381,"elapsed_seconds":0.148333886,"host":"gnode14","kind":"progress","peak_rss_bytes":258695168,"phase":"CPU-reference/support-Frobenius-validation","rank":0,"total":7381,"unit":"exponents","utc":"2026-11-20T08:44:38.908782998Z"}
+0: {"case":0,"elapsed_seconds":0.148503387,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":258695168,"phase":"CPU-reference/before-root-product","rank":0,"utc":"2026-11-20T08:44:38.908952644Z"}
+0: {"case":0,"completed":7381,"elapsed_seconds":0.150077118,"host":"gnode14","kind":"progress","peak_rss_bytes":261558272,"phase":"CPU-reference/root-product","rank":0,"total":7381,"unit":"exponents","utc":"2026-11-20T08:44:38.91052585Z"}
+0: {"case":0,"elapsed_seconds":0.166736432,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":262606848,"phase":"CPU-reference/before-normalization","rank":0,"utc":"2026-11-20T08:44:38.927184524Z"}
+0: {"case":0,"completed":7382,"elapsed_seconds":0.167089146,"host":"gnode14","kind":"progress","peak_rss_bytes":262606848,"phase":"CPU-reference/normalization","rank":0,"total":7382,"unit":"coefficients","utc":"2026-11-20T08:44:38.927538165Z"}
+3: {"case":0,"coordinator_support_count":0,"elapsed_seconds":1.266183192,"host":"gnode15","kind":"fixture","max_elements":2048,"peak_rss_bytes":408842240,"rank":3,"reference_count":0,"reference_seconds":0,"reference_sha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","s":8,"setup_seconds":1.266065834,"subtree_ranks":1,"support_count":7381,"utc":"2026-11-20T08:44:40.031531647Z"}
+2: {"case":0,"coordinator_support_count":0,"elapsed_seconds":1.2720067990000001,"host":"gnode15","kind":"fixture","max_elements":4096,"peak_rss_bytes":408084480,"rank":2,"reference_count":0,"reference_seconds":0,"reference_sha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","s":8,"setup_seconds":1.271754423,"subtree_ranks":2,"support_count":7381,"utc":"2026-11-20T08:44:40.036175885Z"}
+0: {"case":0,"coordinator_support_count":7381,"elapsed_seconds":1.445980147,"host":"gnode14","kind":"fixture","max_elements":8192,"peak_rss_bytes":422035456,"rank":0,"reference_count":7382,"reference_seconds":0.020866588,"reference_sha256":"346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a","s":8,"setup_seconds":1.445537619,"subtree_ranks":4,"support_count":7381,"utc":"2026-11-20T08:44:40.206427743Z"}
+1: {"case":0,"coordinator_support_count":0,"elapsed_seconds":1.444757057,"host":"gnode14","kind":"fixture","max_elements":2048,"peak_rss_bytes":416497664,"rank":1,"reference_count":0,"reference_seconds":0,"reference_sha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","s":8,"setup_seconds":1.444374405,"subtree_ranks":1,"support_count":7381,"utc":"2026-11-20T08:44:40.206531285Z"}
+2: {"case":0,"elapsed_seconds":1.453252039,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":408084480,"phase":"route","rank":2,"sample":-1,"utc":"2026-11-20T08:44:40.217421199Z"}
+1: {"case":0,"elapsed_seconds":1.455563627,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":416497664,"phase":"route","rank":1,"sample":-1,"utc":"2026-11-20T08:44:40.217337657Z"}
+0: {"case":0,"elapsed_seconds":1.459145557,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":424132608,"phase":"route","rank":0,"sample":-1,"utc":"2026-11-20T08:44:40.219594075Z"}
+0: {"utc":"2026-11-20T08:44:40.219825005Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000020442}
+0: {"utc":"2026-11-20T08:44:40.220616282Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000811721}
+3: {"case":0,"elapsed_seconds":1.454543508,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":420265984,"phase":"route","rank":3,"sample":-1,"utc":"2026-11-20T08:44:40.219892353Z"}
+1: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":1,"peer":0,"phase":"support-transfer","sending":false,"event":"completed","completed":1845,"total":1845,"unit":"words","elapsed_seconds":0.000039}
+0: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":0,"peer":1,"phase":"support-transfer","sending":true,"event":"completed","completed":1845,"total":1845,"unit":"words","elapsed_seconds":0.000038}
+1: {"buffer":"2b7ba0be000","case":0,"direction":"receive","elapsed_seconds":1.459686514,"file":"","host":"gnode14","kind":"wire-proof","matches":true,"own_proof":"fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7","peak_rss_bytes":416497664,"peer":0,"phase":"support","rank":1,"remote_proof":"fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7","sample":-1,"sequence":0,"sha256":"fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7","utc":"2026-11-20T08:44:40.221461002Z","word_bytes":8,"words":1845}
+0: {"buffer":"919efe84000","case":0,"direction":"send","elapsed_seconds":1.46107964,"file":"","host":"gnode14","kind":"wire-proof","matches":true,"own_proof":"fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7","peak_rss_bytes":424132608,"peer":1,"phase":"support","rank":0,"remote_proof":"fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7","sample":-1,"sequence":0,"sha256":"fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7","utc":"2026-11-20T08:44:40.221528576Z","word_bytes":8,"words":1845}
+0: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":0,"peer":2,"phase":"support-transfer","sending":true,"event":"completed","completed":1845,"total":1845,"unit":"words","elapsed_seconds":0.000005}
+0: {"buffer":"919efe88000","case":0,"direction":"send","elapsed_seconds":1.4613202379999999,"file":"","host":"gnode14","kind":"wire-proof","matches":true,"own_proof":"6fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb02951026fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb0295102","peak_rss_bytes":424132608,"peer":2,"phase":"support","rank":0,"remote_proof":"6fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb02951026fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb0295102","sample":-1,"sequence":0,"sha256":"6fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb0295102","utc":"2026-11-20T08:44:40.221769498Z","word_bytes":8,"words":1845}
+0: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":0,"peer":3,"phase":"support-transfer","sending":true,"event":"completed","completed":1846,"total":1846,"unit":"words","elapsed_seconds":0.000003}
+0: {"buffer":"919efe8c000","case":0,"direction":"send","elapsed_seconds":1.461444687,"file":"","host":"gnode14","kind":"wire-proof","matches":true,"own_proof":"d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84","peak_rss_bytes":424132608,"peer":3,"phase":"support","rank":0,"remote_proof":"d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84","sample":-1,"sequence":0,"sha256":"d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84","utc":"2026-11-20T08:44:40.221894065Z","word_bytes":8,"words":1846}
+0: {"case":0,"completed":1845,"elapsed_seconds":1.461559493,"event":"completed","host":"gnode14","kind":"progress","packets":4,"peak_rss_bytes":424132608,"phase":"route","rank":0,"sample":-1,"total":1845,"unit":"local exponents","utc":"2026-11-20T08:44:40.22200878Z"}
+0: {"case":0,"elapsed_seconds":1.461584786,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":424132608,"phase":"local-root/before-validation","rank":0,"sample":-1,"utc":"2026-11-20T08:44:40.222034185Z"}
+0: {"case":0,"completed":1845,"elapsed_seconds":1.461604133,"host":"gnode14","kind":"progress","peak_rss_bytes":424132608,"phase":"local-root/support-order-validation","rank":0,"sample":-1,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.222053575Z"}
+0: {"case":0,"completed":1845,"elapsed_seconds":1.4617478990000001,"host":"gnode14","kind":"progress","peak_rss_bytes":424132608,"phase":"local-root/support-Frobenius-validation","rank":0,"sample":-1,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.222197308Z"}
+0: {"case":0,"elapsed_seconds":1.46176141,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":424132608,"phase":"local-root/before-root-product","rank":0,"sample":-1,"utc":"2026-11-20T08:44:40.222210867Z"}
+1: {"case":0,"completed":1845,"elapsed_seconds":1.460741886,"event":"completed","host":"gnode14","kind":"progress","packets":1,"peak_rss_bytes":416497664,"phase":"route","rank":1,"sample":-1,"total":1845,"unit":"local exponents","utc":"2026-11-20T08:44:40.222516526Z"}
+1: {"case":0,"elapsed_seconds":1.460923255,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":416497664,"phase":"local-root/before-validation","rank":1,"sample":-1,"utc":"2026-11-20T08:44:40.222698042Z"}
+1: {"case":0,"completed":1845,"elapsed_seconds":1.461094613,"host":"gnode14","kind":"progress","peak_rss_bytes":416497664,"phase":"local-root/support-order-validation","rank":1,"sample":-1,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.22286946Z"}
+1: {"case":0,"completed":1845,"elapsed_seconds":1.461390178,"host":"gnode14","kind":"progress","peak_rss_bytes":416497664,"phase":"local-root/support-Frobenius-validation","rank":1,"sample":-1,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.223165023Z"}
+1: {"case":0,"elapsed_seconds":1.461557816,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":416497664,"phase":"local-root/before-root-product","rank":1,"sample":-1,"utc":"2026-11-20T08:44:40.223332568Z"}
+2: {"buffer":"10ee99ade000","case":0,"direction":"receive","elapsed_seconds":1.457855108,"file":"","host":"gnode15","kind":"wire-proof","matches":true,"own_proof":"6fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb02951026fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb0295102","peak_rss_bytes":408084480,"peer":0,"phase":"support","rank":2,"remote_proof":"6fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb02951026fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb0295102","sample":-1,"sequence":0,"sha256":"6fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb0295102","utc":"2026-11-20T08:44:40.222024681Z","word_bytes":8,"words":1845}
+2: {"case":0,"completed":1845,"elapsed_seconds":1.458111516,"event":"completed","host":"gnode15","kind":"progress","packets":1,"peak_rss_bytes":408084480,"phase":"route","rank":2,"sample":-1,"total":1845,"unit":"local exponents","utc":"2026-11-20T08:44:40.222281429Z"}
+2: {"case":0,"elapsed_seconds":1.458136848,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":408084480,"phase":"local-root/before-validation","rank":2,"sample":-1,"utc":"2026-11-20T08:44:40.222306946Z"}
+2: {"case":0,"completed":1845,"elapsed_seconds":1.458154811,"host":"gnode15","kind":"progress","peak_rss_bytes":408084480,"phase":"local-root/support-order-validation","rank":2,"sample":-1,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.222324978Z"}
+2: {"case":0,"completed":1845,"elapsed_seconds":1.458295814,"host":"gnode15","kind":"progress","peak_rss_bytes":408084480,"phase":"local-root/support-Frobenius-validation","rank":2,"sample":-1,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.222465949Z"}
+2: {"case":0,"elapsed_seconds":1.458304699,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":408084480,"phase":"local-root/before-root-product","rank":2,"sample":-1,"utc":"2026-11-20T08:44:40.222474665Z"}
+2: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":2,"peer":0,"phase":"support-transfer","sending":false,"event":"completed","completed":1845,"total":1845,"unit":"words","elapsed_seconds":0.000017}
+3: {"buffer":"1008cb0c2000","case":0,"direction":"receive","elapsed_seconds":1.456824996,"file":"","host":"gnode15","kind":"wire-proof","matches":true,"own_proof":"d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84","peak_rss_bytes":420265984,"peer":0,"phase":"support","rank":3,"remote_proof":"d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84","sample":-1,"sequence":0,"sha256":"d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84","utc":"2026-11-20T08:44:40.222175661Z","word_bytes":8,"words":1846}
+3: {"case":0,"completed":1846,"elapsed_seconds":1.456975332,"event":"completed","host":"gnode15","kind":"progress","packets":1,"peak_rss_bytes":420265984,"phase":"route","rank":3,"sample":-1,"total":1846,"unit":"local exponents","utc":"2026-11-20T08:44:40.222326168Z"}
+3: {"case":0,"elapsed_seconds":1.456991338,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":420265984,"phase":"local-root/before-validation","rank":3,"sample":-1,"utc":"2026-11-20T08:44:40.222342437Z"}
+3: {"case":0,"completed":1846,"elapsed_seconds":1.457005499,"host":"gnode15","kind":"progress","peak_rss_bytes":420265984,"phase":"local-root/support-order-validation","rank":3,"sample":-1,"total":1846,"unit":"exponents","utc":"2026-11-20T08:44:40.222356604Z"}
+3: {"case":0,"completed":1846,"elapsed_seconds":1.457143969,"host":"gnode15","kind":"progress","peak_rss_bytes":420265984,"phase":"local-root/support-Frobenius-validation","rank":3,"sample":-1,"total":1846,"unit":"exponents","utc":"2026-11-20T08:44:40.222495037Z"}
+3: {"case":0,"elapsed_seconds":1.457151807,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":420265984,"phase":"local-root/before-root-product","rank":3,"sample":-1,"utc":"2026-11-20T08:44:40.222502687Z"}
+3: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":3,"peer":0,"phase":"support-transfer","sending":false,"event":"completed","completed":1846,"total":1846,"unit":"words","elapsed_seconds":0.000007}
+0: {"case":0,"completed":1845,"elapsed_seconds":1.468454491,"host":"gnode14","kind":"progress","peak_rss_bytes":428326912,"phase":"local-root/root-product","rank":0,"sample":-1,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.228902551Z"}
+0: {"case":0,"elapsed_seconds":1.47022503,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":428326912,"phase":"local-root/before-normalization","rank":0,"sample":-1,"utc":"2026-11-20T08:44:40.230674012Z"}
+0: {"case":0,"completed":1846,"elapsed_seconds":1.47034292,"host":"gnode14","kind":"progress","peak_rss_bytes":428326912,"phase":"local-root/normalization","rank":0,"sample":-1,"total":1846,"unit":"coefficients","utc":"2026-11-20T08:44:40.230792053Z"}
+0: {"case":0,"elapsed_seconds":1.470461107,"event":"started","host":"gnode14","kind":"tree","peak_rss_bytes":428326912,"peer":1,"rank":0,"sample":-1,"sending":false,"sha256":"96bfbe94120e7e43a367ce8e3cc8f0dc992f3955b965be03f51190bddc4f0456","stride":1,"utc":"2026-11-20T08:44:40.230910464Z","words":1846}
+1: {"case":0,"completed":1845,"elapsed_seconds":1.469349789,"host":"gnode14","kind":"progress","peak_rss_bytes":422789120,"phase":"local-root/root-product","rank":1,"sample":-1,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.231124067Z"}
+2: {"case":0,"completed":1845,"elapsed_seconds":1.4668109710000001,"host":"gnode15","kind":"progress","peak_rss_bytes":412278784,"phase":"local-root/root-product","rank":2,"sample":-1,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.230980221Z"}
+3: {"case":0,"completed":1846,"elapsed_seconds":1.463777919,"host":"gnode15","kind":"progress","peak_rss_bytes":424460288,"phase":"local-root/root-product","rank":3,"sample":-1,"total":1846,"unit":"exponents","utc":"2026-11-20T08:44:40.22912758Z"}
+3: {"case":0,"elapsed_seconds":1.465449899,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":424460288,"phase":"local-root/before-normalization","rank":3,"sample":-1,"utc":"2026-11-20T08:44:40.230800733Z"}
+3: {"case":0,"completed":1847,"elapsed_seconds":1.465475687,"host":"gnode15","kind":"progress","peak_rss_bytes":424460288,"phase":"local-root/normalization","rank":3,"sample":-1,"total":1847,"unit":"coefficients","utc":"2026-11-20T08:44:40.230826731Z"}
+3: {"case":0,"elapsed_seconds":1.465514526,"event":"started","host":"gnode15","kind":"tree","peak_rss_bytes":424460288,"peer":2,"rank":3,"sample":-1,"sending":true,"sha256":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","stride":1,"utc":"2026-11-20T08:44:40.23086557Z","words":1847}
+3: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":3,"peer":2,"phase":"root-transfer","sending":true,"event":"completed","completed":1847,"total":1847,"unit":"words","elapsed_seconds":0.000048}
+1: {"case":0,"elapsed_seconds":1.471384056,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":422789120,"phase":"local-root/before-normalization","rank":1,"sample":-1,"utc":"2026-11-20T08:44:40.233158517Z"}
+1: {"case":0,"completed":1846,"elapsed_seconds":1.471567723,"host":"gnode14","kind":"progress","peak_rss_bytes":422789120,"phase":"local-root/normalization","rank":1,"sample":-1,"total":1846,"unit":"coefficients","utc":"2026-11-20T08:44:40.233342428Z"}
+1: {"case":0,"elapsed_seconds":1.471753638,"event":"started","host":"gnode14","kind":"tree","peak_rss_bytes":422789120,"peer":0,"rank":1,"sample":-1,"sending":true,"sha256":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","stride":1,"utc":"2026-11-20T08:44:40.233528583Z","words":1846}
+0: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":0,"peer":1,"phase":"root-transfer","sending":false,"event":"completed","completed":1846,"total":1846,"unit":"words","elapsed_seconds":0.000097}
+2: {"case":0,"elapsed_seconds":1.468475515,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":413327360,"phase":"local-root/before-normalization","rank":2,"sample":-1,"utc":"2026-11-20T08:44:40.232645297Z"}
+2: {"case":0,"completed":1846,"elapsed_seconds":1.4685070630000001,"host":"gnode15","kind":"progress","peak_rss_bytes":413327360,"phase":"local-root/normalization","rank":2,"sample":-1,"total":1846,"unit":"coefficients","utc":"2026-11-20T08:44:40.232677068Z"}
+2: {"case":0,"elapsed_seconds":1.468542166,"event":"started","host":"gnode15","kind":"tree","peak_rss_bytes":413327360,"peer":3,"rank":2,"sample":-1,"sending":false,"sha256":"5fd5a2adee401207e0a7152f5a752da7348a545c8d1bfce9b8b5fe815ac6133c","stride":1,"utc":"2026-11-20T08:44:40.232712271Z","words":1846}
+2: {"buffer":"10ee99bcc000","case":0,"direction":"receive","elapsed_seconds":1.468640655,"file":"","host":"gnode15","kind":"wire-proof","matches":true,"own_proof":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad031118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","peak_rss_bytes":413327360,"peer":3,"phase":"root","rank":2,"remote_proof":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad031118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","sample":-1,"sequence":1,"sha256":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","utc":"2026-11-20T08:44:40.23281065Z","word_bytes":4,"words":1847}
+2: {"case":0,"direction":"receive","elapsed_seconds":1.468667738,"file":"case-0-stride-1-receive-3.bin","host":"gnode15","kind":"transfer","peak_rss_bytes":413327360,"peer":3,"rank":2,"sample":-1,"sha256":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","stride":1,"utc":"2026-11-20T08:44:40.232837858Z","words":1847}
+2: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":2,"peer":3,"phase":"root-transfer","sending":false,"event":"completed","completed":1847,"total":1847,"unit":"words","elapsed_seconds":0.000016}
+3: {"buffer":"1008cb1a4000","case":0,"direction":"send","elapsed_seconds":1.467478774,"file":"","host":"gnode15","kind":"wire-proof","matches":true,"own_proof":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad031118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","peak_rss_bytes":424460288,"peer":2,"phase":"root","rank":3,"remote_proof":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad031118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","sample":-1,"sequence":1,"sha256":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","utc":"2026-11-20T08:44:40.23282941Z","word_bytes":4,"words":1847}
+3: {"case":0,"direction":"send","elapsed_seconds":1.467509864,"file":"case-0-stride-1-send-2.bin","host":"gnode15","kind":"transfer","peak_rss_bytes":424460288,"peer":2,"rank":3,"sample":-1,"sha256":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","stride":1,"utc":"2026-11-20T08:44:40.232860939Z","words":1847}
+3: {"case":0,"elapsed_seconds":1.4675301410000001,"event":"completed","host":"gnode15","kind":"tree","peak_rss_bytes":424460288,"peer":2,"rank":3,"sample":-1,"sending":true,"sha256":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","stride":1,"utc":"2026-11-20T08:44:40.232881239Z","words":1847}
+1: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":1,"peer":0,"phase":"root-transfer","sending":true,"event":"completed","completed":1846,"total":1846,"unit":"words","elapsed_seconds":0.000045}
+0: {"buffer":"919efe9e000","case":0,"direction":"receive","elapsed_seconds":1.473832686,"file":"","host":"gnode14","kind":"wire-proof","matches":true,"own_proof":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","peak_rss_bytes":428326912,"peer":1,"phase":"root","rank":0,"remote_proof":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","sample":-1,"sequence":1,"sha256":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","utc":"2026-11-20T08:44:40.234281812Z","word_bytes":4,"words":1846}
+1: {"buffer":"2b7ba1a0000","case":0,"direction":"send","elapsed_seconds":1.4725103179999999,"file":"","host":"gnode14","kind":"wire-proof","matches":true,"own_proof":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","peak_rss_bytes":422789120,"peer":0,"phase":"root","rank":1,"remote_proof":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","sample":-1,"sequence":1,"sha256":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","utc":"2026-11-20T08:44:40.234284885Z","word_bytes":4,"words":1846}
+1: {"case":0,"direction":"send","elapsed_seconds":1.472553826,"file":"case-0-stride-1-send-0.bin","host":"gnode14","kind":"transfer","peak_rss_bytes":422789120,"peer":0,"rank":1,"sample":-1,"sha256":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","stride":1,"utc":"2026-11-20T08:44:40.234328862Z","words":1846}
+1: {"case":0,"elapsed_seconds":1.472579382,"event":"completed","host":"gnode14","kind":"tree","peak_rss_bytes":422789120,"peer":0,"rank":1,"sample":-1,"sending":true,"sha256":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","stride":1,"utc":"2026-11-20T08:44:40.234354486Z","words":1846}
+0: {"case":0,"direction":"receive","elapsed_seconds":1.473997004,"file":"case-0-stride-1-receive-1.bin","host":"gnode14","kind":"transfer","peak_rss_bytes":428326912,"peer":1,"rank":0,"sample":-1,"sha256":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","stride":1,"utc":"2026-11-20T08:44:40.234446287Z","words":1846}
+0: {"case":0,"elapsed_seconds":1.476110733,"event":"completed","host":"gnode14","kind":"tree","peak_rss_bytes":428326912,"peer":1,"rank":0,"sample":-1,"sending":false,"sha256":"1382679cc5d5b2f379a57f763f743263cb11dcbef0db60270f8bdf1f4f1dd856","stride":1,"utc":"2026-11-20T08:44:40.236559916Z","words":3691}
+0: {"case":0,"elapsed_seconds":1.476229371,"event":"started","host":"gnode14","kind":"tree","peak_rss_bytes":428326912,"peer":2,"rank":0,"sample":-1,"sending":false,"sha256":"1382679cc5d5b2f379a57f763f743263cb11dcbef0db60270f8bdf1f4f1dd856","stride":2,"utc":"2026-11-20T08:44:40.236678675Z","words":3691}
+2: {"case":0,"elapsed_seconds":1.47133861,"event":"completed","host":"gnode15","kind":"tree","peak_rss_bytes":415514624,"peer":3,"rank":2,"sample":-1,"sending":false,"sha256":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","stride":1,"utc":"2026-11-20T08:44:40.235507854Z","words":3692}
+2: {"case":0,"elapsed_seconds":1.4714520580000001,"event":"started","host":"gnode15","kind":"tree","peak_rss_bytes":415514624,"peer":0,"rank":2,"sample":-1,"sending":true,"sha256":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","stride":2,"utc":"2026-11-20T08:44:40.235622045Z","words":3692}
+0: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":0,"peer":2,"phase":"root-transfer","sending":false,"event":"completed","completed":3692,"total":3692,"unit":"words","elapsed_seconds":0.002034}
+0: {"buffer":"919effb6000","case":0,"direction":"receive","elapsed_seconds":1.478795643,"file":"","host":"gnode14","kind":"wire-proof","matches":true,"own_proof":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c2354b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","peak_rss_bytes":428326912,"peer":2,"phase":"root","rank":0,"remote_proof":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c2354b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","sample":-1,"sequence":2,"sha256":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","utc":"2026-11-20T08:44:40.239244797Z","word_bytes":4,"words":3692}
+0: {"case":0,"direction":"receive","elapsed_seconds":1.478945704,"file":"case-0-stride-2-receive-2.bin","host":"gnode14","kind":"transfer","peak_rss_bytes":428326912,"peer":2,"rank":0,"sample":-1,"sha256":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","stride":2,"utc":"2026-11-20T08:44:40.239394976Z","words":3692}
+2: {"buffer":"10ee99ca8000","case":0,"direction":"send","elapsed_seconds":1.475325141,"file":"","host":"gnode15","kind":"wire-proof","matches":true,"own_proof":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c2354b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","peak_rss_bytes":426094592,"peer":0,"phase":"root","rank":2,"remote_proof":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c2354b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","sample":-1,"sequence":2,"sha256":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","utc":"2026-11-20T08:44:40.239494295Z","word_bytes":4,"words":3692}
+2: {"case":0,"direction":"send","elapsed_seconds":1.475390125,"file":"case-0-stride-2-send-0.bin","host":"gnode15","kind":"transfer","peak_rss_bytes":426094592,"peer":0,"rank":2,"sample":-1,"sha256":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","stride":2,"utc":"2026-11-20T08:44:40.239560229Z","words":3692}
+2: {"case":0,"elapsed_seconds":1.4754208100000001,"event":"completed","host":"gnode15","kind":"tree","peak_rss_bytes":426094592,"peer":0,"rank":2,"sample":-1,"sending":true,"sha256":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","stride":2,"utc":"2026-11-20T08:44:40.239590924Z","words":3692}
+2: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":2,"peer":0,"phase":"root-transfer","sending":true,"event":"completed","completed":3692,"total":3692,"unit":"words","elapsed_seconds":0.003410}
+0: {"case":0,"elapsed_seconds":1.484772944,"event":"completed","host":"gnode14","kind":"tree","peak_rss_bytes":429322240,"peer":2,"rank":0,"sample":-1,"sending":false,"sha256":"346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a","stride":2,"utc":"2026-11-20T08:44:40.245221724Z","words":7382}
+0: {"case":0,"elapsed_seconds":1.4851175030000001,"host":"gnode14","kind":"measurement","matches":true,"owned_device_bytes":65680,"owned_result_words":7382,"peak_rss_bytes":429322240,"rank":0,"ranks":4,"root_seconds":0.010817186,"route_seconds":0.005181873,"s":8,"sample":-1,"seconds":0.025879901,"shard_count":1845,"support_count":7381,"tree_seconds":0.014471612,"utc":"2026-11-20T08:44:40.245566636Z","validation_io":false,"verify_seconds":0.000114203}
+2: {"case":0,"elapsed_seconds":1.4816658999999999,"host":"gnode15","kind":"measurement","matches":true,"owned_device_bytes":65680,"owned_result_words":0,"peak_rss_bytes":426094592,"rank":2,"ranks":4,"root_seconds":0.010817186,"route_seconds":0.005181873,"s":8,"sample":-1,"seconds":0.025879901,"shard_count":1845,"support_count":7381,"tree_seconds":0.014471612,"utc":"2026-11-20T08:44:40.245835623Z","validation_io":false,"verify_seconds":0.000114203}
+3: {"case":0,"elapsed_seconds":1.480487052,"host":"gnode15","kind":"measurement","matches":true,"owned_device_bytes":65704,"owned_result_words":0,"peak_rss_bytes":424460288,"rank":3,"ranks":4,"root_seconds":0.010817186,"route_seconds":0.005181873,"s":8,"sample":-1,"seconds":0.025879901,"shard_count":1846,"support_count":7381,"tree_seconds":0.014471612,"utc":"2026-11-20T08:44:40.245837523Z","validation_io":false,"verify_seconds":0.000114203}
+1: {"case":0,"elapsed_seconds":1.483790352,"host":"gnode14","kind":"measurement","matches":true,"owned_device_bytes":65680,"owned_result_words":0,"peak_rss_bytes":422789120,"rank":1,"ranks":4,"root_seconds":0.010817186,"route_seconds":0.005181873,"s":8,"sample":-1,"seconds":0.025879901,"shard_count":1845,"support_count":7381,"tree_seconds":0.014471612,"utc":"2026-11-20T08:44:40.245564879Z","validation_io":false,"verify_seconds":0.000114203}
+1: {"case":0,"elapsed_seconds":1.484423856,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":422789120,"phase":"route","rank":1,"sample":2,"utc":"2026-11-20T08:44:40.246198635Z"}
+2: {"case":0,"elapsed_seconds":1.482303667,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":426094592,"phase":"route","rank":2,"sample":2,"utc":"2026-11-20T08:44:40.246473575Z"}
+3: {"case":0,"elapsed_seconds":1.481123075,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":424460288,"phase":"route","rank":3,"sample":2,"utc":"2026-11-20T08:44:40.246474105Z"}
+0: {"case":0,"elapsed_seconds":1.485760302,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":429322240,"phase":"route","rank":0,"sample":2,"utc":"2026-11-20T08:44:40.246209182Z"}
+0: {"utc":"2026-11-20T08:44:40.246243181Z","phase":"support-order-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000019933}
+0: {"utc":"2026-11-20T08:44:40.246816586Z","phase":"support-Frobenius-validation","event":"progress","completed":7381,"total":7381,"unit":"exponents","elapsed_seconds":0.000593339}
+2: {"buffer":"10ee99ce0000","case":0,"direction":"receive","elapsed_seconds":1.483453155,"file":"","host":"gnode15","kind":"wire-proof","matches":true,"own_proof":"6fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb02951026fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb0295102","peak_rss_bytes":426094592,"peer":0,"phase":"support","rank":2,"remote_proof":"6fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb02951026fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb0295102","sample":2,"sequence":0,"sha256":"6fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb0295102","utc":"2026-11-20T08:44:40.247623152Z","word_bytes":8,"words":1845}
+2: {"case":0,"completed":1845,"elapsed_seconds":1.483639847,"event":"completed","host":"gnode15","kind":"progress","packets":1,"peak_rss_bytes":426094592,"phase":"route","rank":2,"sample":2,"total":1845,"unit":"local exponents","utc":"2026-11-20T08:44:40.247809903Z"}
+1: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":1,"peer":0,"phase":"support-transfer","sending":false,"event":"completed","completed":1845,"total":1845,"unit":"words","elapsed_seconds":0.000025}
+2: {"case":0,"elapsed_seconds":1.483652022,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":426094592,"phase":"local-root/before-validation","rank":2,"sample":2,"utc":"2026-11-20T08:44:40.247822177Z"}
+2: {"case":0,"completed":1845,"elapsed_seconds":1.483666875,"host":"gnode15","kind":"progress","peak_rss_bytes":426094592,"phase":"local-root/support-order-validation","rank":2,"sample":2,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.247837022Z"}
+2: {"case":0,"completed":1845,"elapsed_seconds":1.483805168,"host":"gnode15","kind":"progress","peak_rss_bytes":426094592,"phase":"local-root/support-Frobenius-validation","rank":2,"sample":2,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.247975283Z"}
+2: {"case":0,"elapsed_seconds":1.483813367,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":426094592,"phase":"local-root/before-root-product","rank":2,"sample":2,"utc":"2026-11-20T08:44:40.247983519Z"}
+2: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":2,"peer":0,"phase":"support-transfer","sending":false,"event":"completed","completed":1845,"total":1845,"unit":"words","elapsed_seconds":0.000008}
+3: {"buffer":"1008cb1d2000","case":0,"direction":"receive","elapsed_seconds":1.482372437,"file":"","host":"gnode15","kind":"wire-proof","matches":true,"own_proof":"d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84","peak_rss_bytes":424460288,"peer":0,"phase":"support","rank":3,"remote_proof":"d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84","sample":2,"sequence":0,"sha256":"d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84","utc":"2026-11-20T08:44:40.247723319Z","word_bytes":8,"words":1846}
+3: {"case":0,"completed":1846,"elapsed_seconds":1.482488336,"event":"completed","host":"gnode15","kind":"progress","packets":1,"peak_rss_bytes":424460288,"phase":"route","rank":3,"sample":2,"total":1846,"unit":"local exponents","utc":"2026-11-20T08:44:40.247839412Z"}
+3: {"case":0,"elapsed_seconds":1.482498205,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":424460288,"phase":"local-root/before-validation","rank":3,"sample":2,"utc":"2026-11-20T08:44:40.247849337Z"}
+3: {"case":0,"completed":1846,"elapsed_seconds":1.482511654,"host":"gnode15","kind":"progress","peak_rss_bytes":424460288,"phase":"local-root/support-order-validation","rank":3,"sample":2,"total":1846,"unit":"exponents","utc":"2026-11-20T08:44:40.247862759Z"}
+3: {"case":0,"completed":1846,"elapsed_seconds":1.482648095,"host":"gnode15","kind":"progress","peak_rss_bytes":424460288,"phase":"local-root/support-Frobenius-validation","rank":3,"sample":2,"total":1846,"unit":"exponents","utc":"2026-11-20T08:44:40.247999189Z"}
+3: {"case":0,"elapsed_seconds":1.482655628,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":424460288,"phase":"local-root/before-root-product","rank":3,"sample":2,"utc":"2026-11-20T08:44:40.248006573Z"}
+3: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":3,"peer":0,"phase":"support-transfer","sending":false,"event":"completed","completed":1846,"total":1846,"unit":"words","elapsed_seconds":0.000008}
+0: {"buffer":"919eff2e000","case":0,"direction":"send","elapsed_seconds":1.486809535,"file":"","host":"gnode14","kind":"wire-proof","matches":true,"own_proof":"fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7","peak_rss_bytes":429322240,"peer":1,"phase":"support","rank":0,"remote_proof":"fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7","sample":2,"sequence":0,"sha256":"fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7","utc":"2026-11-20T08:44:40.247258619Z","word_bytes":8,"words":1845}
+0: {"buffer":"919eff32000","case":0,"direction":"send","elapsed_seconds":1.486903877,"file":"","host":"gnode14","kind":"wire-proof","matches":true,"own_proof":"6fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb02951026fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb0295102","peak_rss_bytes":429322240,"peer":2,"phase":"support","rank":0,"remote_proof":"6fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb02951026fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb0295102","sample":2,"sequence":0,"sha256":"6fda95279725ae896b417c946f828252a91f4cc95b506d15f84f0a1cb0295102","utc":"2026-11-20T08:44:40.247353119Z","word_bytes":8,"words":1845}
+0: {"buffer":"919eff36000","case":0,"direction":"send","elapsed_seconds":1.48698882,"file":"","host":"gnode14","kind":"wire-proof","matches":true,"own_proof":"d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84","peak_rss_bytes":429322240,"peer":3,"phase":"support","rank":0,"remote_proof":"d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84","sample":2,"sequence":0,"sha256":"d2c70ecb1ad63b7b045d65c3fede1962b3a522300e7c4e9c4d39e10020befb84","utc":"2026-11-20T08:44:40.247438199Z","word_bytes":8,"words":1846}
+0: {"case":0,"completed":1845,"elapsed_seconds":1.4870890079999999,"event":"completed","host":"gnode14","kind":"progress","packets":4,"peak_rss_bytes":429322240,"phase":"route","rank":0,"sample":2,"total":1845,"unit":"local exponents","utc":"2026-11-20T08:44:40.247538288Z"}
+0: {"case":0,"elapsed_seconds":1.487098747,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":429322240,"phase":"local-root/before-validation","rank":0,"sample":2,"utc":"2026-11-20T08:44:40.247548196Z"}
+0: {"case":0,"completed":1845,"elapsed_seconds":1.487111367,"host":"gnode14","kind":"progress","peak_rss_bytes":429322240,"phase":"local-root/support-order-validation","rank":0,"sample":2,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.24756079Z"}
+0: {"case":0,"completed":1845,"elapsed_seconds":1.487249952,"host":"gnode14","kind":"progress","peak_rss_bytes":429322240,"phase":"local-root/support-Frobenius-validation","rank":0,"sample":2,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.247699407Z"}
+0: {"case":0,"elapsed_seconds":1.487258207,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":429322240,"phase":"local-root/before-root-product","rank":0,"sample":2,"utc":"2026-11-20T08:44:40.247707668Z"}
+0: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":0,"peer":1,"phase":"support-transfer","sending":true,"event":"completed","completed":1845,"total":1845,"unit":"words","elapsed_seconds":0.000021}
+0: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":0,"peer":2,"phase":"support-transfer","sending":true,"event":"completed","completed":1845,"total":1845,"unit":"words","elapsed_seconds":0.000006}
+0: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":0,"peer":3,"phase":"support-transfer","sending":true,"event":"completed","completed":1846,"total":1846,"unit":"words","elapsed_seconds":0.000006}
+1: {"buffer":"2b7ba1ce000","case":0,"direction":"receive","elapsed_seconds":1.48546697,"file":"","host":"gnode14","kind":"wire-proof","matches":true,"own_proof":"fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7","peak_rss_bytes":422789120,"peer":0,"phase":"support","rank":1,"remote_proof":"fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7","sample":2,"sequence":0,"sha256":"fefff448723e0a803b435b87e9415b2ed633e540418f0b66d14e2b04175da3c7","utc":"2026-11-20T08:44:40.247241797Z","word_bytes":8,"words":1845}
+1: {"case":0,"completed":1845,"elapsed_seconds":1.4857612599999999,"event":"completed","host":"gnode14","kind":"progress","packets":1,"peak_rss_bytes":422789120,"phase":"route","rank":1,"sample":2,"total":1845,"unit":"local exponents","utc":"2026-11-20T08:44:40.247536252Z"}
+1: {"case":0,"elapsed_seconds":1.4857734759999999,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":422789120,"phase":"local-root/before-validation","rank":1,"sample":2,"utc":"2026-11-20T08:44:40.247548582Z"}
+1: {"case":0,"completed":1845,"elapsed_seconds":1.48578717,"host":"gnode14","kind":"progress","peak_rss_bytes":422789120,"phase":"local-root/support-order-validation","rank":1,"sample":2,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.247562265Z"}
+1: {"case":0,"completed":1845,"elapsed_seconds":1.485923753,"host":"gnode14","kind":"progress","peak_rss_bytes":422789120,"phase":"local-root/support-Frobenius-validation","rank":1,"sample":2,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.247698829Z"}
+1: {"case":0,"elapsed_seconds":1.485932169,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":422789120,"phase":"local-root/before-root-product","rank":1,"sample":2,"utc":"2026-11-20T08:44:40.247707253Z"}
+3: {"case":0,"completed":1846,"elapsed_seconds":1.484714012,"host":"gnode15","kind":"progress","peak_rss_bytes":424460288,"phase":"local-root/root-product","rank":3,"sample":2,"total":1846,"unit":"exponents","utc":"2026-11-20T08:44:40.250064642Z"}
+0: {"case":0,"completed":1845,"elapsed_seconds":1.490575194,"host":"gnode14","kind":"progress","peak_rss_bytes":429322240,"phase":"local-root/root-product","rank":0,"sample":2,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.251024055Z"}
+1: {"case":0,"completed":1845,"elapsed_seconds":1.490152095,"host":"gnode14","kind":"progress","peak_rss_bytes":422789120,"phase":"local-root/root-product","rank":1,"sample":2,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.251926662Z"}
+0: {"case":0,"elapsed_seconds":1.492438982,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":429322240,"phase":"local-root/before-normalization","rank":0,"sample":2,"utc":"2026-11-20T08:44:40.252887872Z"}
+0: {"case":0,"completed":1846,"elapsed_seconds":1.492573239,"host":"gnode14","kind":"progress","peak_rss_bytes":429322240,"phase":"local-root/normalization","rank":0,"sample":2,"total":1846,"unit":"coefficients","utc":"2026-11-20T08:44:40.253022406Z"}
+2: {"case":0,"completed":1845,"elapsed_seconds":1.487802606,"host":"gnode15","kind":"progress","peak_rss_bytes":426094592,"phase":"local-root/root-product","rank":2,"sample":2,"total":1845,"unit":"exponents","utc":"2026-11-20T08:44:40.25197203Z"}
+2: {"case":0,"elapsed_seconds":1.489443142,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":426094592,"phase":"local-root/before-normalization","rank":2,"sample":2,"utc":"2026-11-20T08:44:40.253613081Z"}
+2: {"case":0,"completed":1846,"elapsed_seconds":1.489463774,"host":"gnode15","kind":"progress","peak_rss_bytes":426094592,"phase":"local-root/normalization","rank":2,"sample":2,"total":1846,"unit":"coefficients","utc":"2026-11-20T08:44:40.253633873Z"}
+3: {"case":0,"elapsed_seconds":1.487121408,"event":"started","host":"gnode15","kind":"stage","peak_rss_bytes":427270144,"phase":"local-root/before-normalization","rank":3,"sample":2,"utc":"2026-11-20T08:44:40.252471844Z"}
+3: {"case":0,"completed":1847,"elapsed_seconds":1.487155794,"host":"gnode15","kind":"progress","peak_rss_bytes":427270144,"phase":"local-root/normalization","rank":3,"sample":2,"total":1847,"unit":"coefficients","utc":"2026-11-20T08:44:40.252506784Z"}
+1: {"case":0,"elapsed_seconds":1.492692605,"event":"started","host":"gnode14","kind":"stage","peak_rss_bytes":425730048,"phase":"local-root/before-normalization","rank":1,"sample":2,"utc":"2026-11-20T08:44:40.254466973Z"}
+1: {"case":0,"completed":1846,"elapsed_seconds":1.4927269650000001,"host":"gnode14","kind":"progress","peak_rss_bytes":425730048,"phase":"local-root/normalization","rank":1,"sample":2,"total":1846,"unit":"coefficients","utc":"2026-11-20T08:44:40.254501951Z"}
+0: {"case":0,"elapsed_seconds":1.498790932,"event":"started","host":"gnode14","kind":"tree","peak_rss_bytes":429322240,"peer":1,"rank":0,"sample":2,"sending":false,"sha256":"96bfbe94120e7e43a367ce8e3cc8f0dc992f3955b965be03f51190bddc4f0456","stride":1,"utc":"2026-11-20T08:44:40.259239774Z","words":1846}
+3: {"case":0,"elapsed_seconds":1.494277068,"event":"started","host":"gnode15","kind":"tree","peak_rss_bytes":427270144,"peer":2,"rank":3,"sample":2,"sending":true,"sha256":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","stride":1,"utc":"2026-11-20T08:44:40.259627544Z","words":1847}
+3: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":3,"peer":2,"phase":"root-transfer","sending":true,"event":"completed","completed":1847,"total":1847,"unit":"words","elapsed_seconds":0.000021}
+0: {"buffer":"919efeb6000","case":0,"direction":"receive","elapsed_seconds":1.501774536,"file":"","host":"gnode14","kind":"wire-proof","matches":true,"own_proof":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","peak_rss_bytes":429322240,"peer":1,"phase":"root","rank":0,"remote_proof":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","sample":2,"sequence":1,"sha256":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","utc":"2026-11-20T08:44:40.262223643Z","word_bytes":4,"words":1846}
+0: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":0,"peer":1,"phase":"root-transfer","sending":false,"event":"completed","completed":1846,"total":1846,"unit":"words","elapsed_seconds":0.000010}
+1: {"case":0,"elapsed_seconds":1.500284736,"event":"started","host":"gnode14","kind":"tree","peak_rss_bytes":425730048,"peer":0,"rank":1,"sample":2,"sending":true,"sha256":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","stride":1,"utc":"2026-11-20T08:44:40.262059224Z","words":1846}
+1: {"buffer":"2b7ba298000","case":0,"direction":"send","elapsed_seconds":1.500453388,"file":"","host":"gnode14","kind":"wire-proof","matches":true,"own_proof":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","peak_rss_bytes":425730048,"peer":0,"phase":"root","rank":1,"remote_proof":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","sample":2,"sequence":1,"sha256":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","utc":"2026-11-20T08:44:40.262228198Z","word_bytes":4,"words":1846}
+1: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":1,"peer":0,"phase":"root-transfer","sending":true,"event":"completed","completed":1846,"total":1846,"unit":"words","elapsed_seconds":0.000019}
+0: {"case":0,"direction":"receive","elapsed_seconds":1.504619764,"file":"case-0-stride-1-receive-1.bin","host":"gnode14","kind":"transfer","peak_rss_bytes":429322240,"peer":1,"rank":0,"sample":2,"sha256":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","stride":1,"utc":"2026-11-20T08:44:40.265068824Z","words":1846}
+1: {"case":0,"direction":"send","elapsed_seconds":1.503589591,"file":"case-0-stride-1-send-0.bin","host":"gnode14","kind":"transfer","peak_rss_bytes":425730048,"peer":0,"rank":1,"sample":2,"sha256":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","stride":1,"utc":"2026-11-20T08:44:40.265364191Z","words":1846}
+1: {"case":0,"elapsed_seconds":1.503618959,"event":"completed","host":"gnode14","kind":"tree","peak_rss_bytes":425730048,"peer":0,"rank":1,"sample":2,"sending":true,"sha256":"7bd3d9eac51b43dd87c5a74d07243a528805af5f4242bbb836af2cf1f5385a6a","stride":1,"utc":"2026-11-20T08:44:40.265393985Z","words":1846}
+0: {"case":0,"elapsed_seconds":1.5097608710000001,"event":"completed","host":"gnode14","kind":"tree","peak_rss_bytes":429322240,"peer":1,"rank":0,"sample":2,"sending":false,"sha256":"1382679cc5d5b2f379a57f763f743263cb11dcbef0db60270f8bdf1f4f1dd856","stride":1,"utc":"2026-11-20T08:44:40.270209645Z","words":3691}
+0: {"case":0,"elapsed_seconds":1.509996855,"event":"started","host":"gnode14","kind":"tree","peak_rss_bytes":429322240,"peer":2,"rank":0,"sample":2,"sending":false,"sha256":"1382679cc5d5b2f379a57f763f743263cb11dcbef0db60270f8bdf1f4f1dd856","stride":2,"utc":"2026-11-20T08:44:40.270446024Z","words":3691}
+2: {"case":0,"elapsed_seconds":1.5467997,"event":"started","host":"gnode15","kind":"tree","peak_rss_bytes":426094592,"peer":3,"rank":2,"sample":2,"sending":false,"sha256":"5fd5a2adee401207e0a7152f5a752da7348a545c8d1bfce9b8b5fe815ac6133c","stride":1,"utc":"2026-11-20T08:44:40.310969414Z","words":1846}
+2: {"buffer":"10ee99b46000","case":0,"direction":"receive","elapsed_seconds":1.546904761,"file":"","host":"gnode15","kind":"wire-proof","matches":true,"own_proof":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad031118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","peak_rss_bytes":426094592,"peer":3,"phase":"root","rank":2,"remote_proof":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad031118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","sample":2,"sequence":1,"sha256":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","utc":"2026-11-20T08:44:40.31107469Z","word_bytes":4,"words":1847}
+2: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":2,"peer":3,"phase":"root-transfer","sending":false,"event":"completed","completed":1847,"total":1847,"unit":"words","elapsed_seconds":0.000008}
+3: {"buffer":"1008cb29c000","case":0,"direction":"send","elapsed_seconds":1.545736637,"file":"","host":"gnode15","kind":"wire-proof","matches":true,"own_proof":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad031118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","peak_rss_bytes":427270144,"peer":2,"phase":"root","rank":3,"remote_proof":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad031118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","sample":2,"sequence":1,"sha256":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","utc":"2026-11-20T08:44:40.311087302Z","word_bytes":4,"words":1847}
+3: {"case":0,"direction":"send","elapsed_seconds":1.548694886,"file":"case-0-stride-1-send-2.bin","host":"gnode15","kind":"transfer","peak_rss_bytes":427270144,"peer":2,"rank":3,"sample":2,"sha256":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","stride":1,"utc":"2026-11-20T08:44:40.31404552Z","words":1847}
+3: {"case":0,"elapsed_seconds":1.548719544,"event":"completed","host":"gnode15","kind":"tree","peak_rss_bytes":427270144,"peer":2,"rank":3,"sample":2,"sending":true,"sha256":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","stride":1,"utc":"2026-11-20T08:44:40.314070618Z","words":1847}
+2: {"case":0,"direction":"receive","elapsed_seconds":1.552976781,"file":"case-0-stride-1-receive-3.bin","host":"gnode15","kind":"transfer","peak_rss_bytes":426094592,"peer":3,"rank":2,"sample":2,"sha256":"31118d7d94d77cb1095bdf9dd08d5085d9c9362e3f903dba212a7dea21407ad0","stride":1,"utc":"2026-11-20T08:44:40.317146602Z","words":1847}
+0: {"buffer":"919f0020000","case":0,"direction":"receive","elapsed_seconds":1.561537343,"file":"","host":"gnode14","kind":"wire-proof","matches":true,"own_proof":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c2354b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","peak_rss_bytes":429322240,"peer":2,"phase":"root","rank":0,"remote_proof":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c2354b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","sample":2,"sequence":2,"sha256":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","utc":"2026-11-20T08:44:40.321986358Z","word_bytes":4,"words":3692}
+2: {"case":0,"elapsed_seconds":1.557822352,"event":"completed","host":"gnode15","kind":"tree","peak_rss_bytes":426094592,"peer":3,"rank":2,"sample":2,"sending":false,"sha256":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","stride":1,"utc":"2026-11-20T08:44:40.321992051Z","words":3692}
+2: {"case":0,"elapsed_seconds":1.5578603640000002,"event":"started","host":"gnode15","kind":"tree","peak_rss_bytes":426094592,"peer":0,"rank":2,"sample":2,"sending":true,"sha256":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","stride":2,"utc":"2026-11-20T08:44:40.322030526Z","words":3692}
+2: {"buffer":"10ee99c24000","case":0,"direction":"send","elapsed_seconds":1.558112082,"file":"","host":"gnode15","kind":"wire-proof","matches":true,"own_proof":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c2354b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","peak_rss_bytes":426094592,"peer":0,"phase":"root","rank":2,"remote_proof":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c2354b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","sample":2,"sequence":2,"sha256":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","utc":"2026-11-20T08:44:40.322281933Z","word_bytes":4,"words":3692}
+0: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":0,"peer":2,"phase":"root-transfer","sending":false,"event":"completed","completed":3692,"total":3692,"unit":"words","elapsed_seconds":0.000004}
+2: {"kind":"mpi-chunk","utc":"2026-11-20T08:44:40Z","rank":2,"peer":0,"phase":"root-transfer","sending":true,"event":"completed","completed":3692,"total":3692,"unit":"words","elapsed_seconds":0.000004}
+0: {"case":0,"direction":"receive","elapsed_seconds":1.5647646339999999,"file":"case-0-stride-2-receive-2.bin","host":"gnode14","kind":"transfer","peak_rss_bytes":429322240,"peer":2,"rank":0,"sample":2,"sha256":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","stride":2,"utc":"2026-11-20T08:44:40.325213536Z","words":3692}
+2: {"case":0,"direction":"send","elapsed_seconds":1.561512348,"file":"case-0-stride-2-send-0.bin","host":"gnode15","kind":"transfer","peak_rss_bytes":427143168,"peer":0,"rank":2,"sample":2,"sha256":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","stride":2,"utc":"2026-11-20T08:44:40.325681994Z","words":3692}
+2: {"case":0,"elapsed_seconds":1.561548988,"event":"completed","host":"gnode15","kind":"tree","peak_rss_bytes":427143168,"peer":0,"rank":2,"sample":2,"sending":true,"sha256":"54b73744c40b492062ebf1f06279481763294abb882b209e6576b4a807b83c23","stride":2,"utc":"2026-11-20T08:44:40.325719108Z","words":3692}
+0: {"case":0,"elapsed_seconds":1.573596625,"event":"completed","host":"gnode14","kind":"tree","peak_rss_bytes":429322240,"peer":2,"rank":0,"sample":2,"sending":false,"sha256":"346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a","stride":2,"utc":"2026-11-20T08:44:40.334045076Z","words":7382}
+2: {"case":0,"elapsed_seconds":1.573445258,"host":"gnode15","kind":"measurement","matches":true,"owned_device_bytes":65680,"owned_result_words":0,"peak_rss_bytes":427143168,"rank":2,"ranks":4,"root_seconds":0.006972424,"route_seconds":0.00136536,"s":8,"sample":2,"seconds":0.090975368,"shard_count":1845,"support_count":7381,"tree_seconds":0.074850452,"utc":"2026-11-20T08:44:40.337615016Z","validation_io":true,"verify_seconds":0.003113624}
+3: {"case":0,"elapsed_seconds":1.572267276,"host":"gnode15","kind":"measurement","matches":true,"owned_device_bytes":65704,"owned_result_words":0,"peak_rss_bytes":427270144,"rank":3,"ranks":4,"root_seconds":0.006972424,"route_seconds":0.00136536,"s":8,"sample":2,"seconds":0.090975368,"shard_count":1846,"support_count":7381,"tree_seconds":0.074850452,"utc":"2026-11-20T08:44:40.337617594Z","validation_io":true,"verify_seconds":0.003113624}
+0: {"case":0,"elapsed_seconds":1.576899585,"host":"gnode14","kind":"measurement","matches":true,"owned_device_bytes":65680,"owned_result_words":7382,"peak_rss_bytes":429322240,"rank":0,"ranks":4,"root_seconds":0.006972424,"route_seconds":0.00136536,"s":8,"sample":2,"seconds":0.090975368,"shard_count":1845,"support_count":7381,"tree_seconds":0.074850452,"utc":"2026-11-20T08:44:40.337348309Z","validation_io":true,"verify_seconds":0.003113624}
+1: {"case":0,"elapsed_seconds":1.5755766580000001,"host":"gnode14","kind":"measurement","matches":true,"owned_device_bytes":65680,"owned_result_words":0,"peak_rss_bytes":425730048,"rank":1,"ranks":4,"root_seconds":0.006972424,"route_seconds":0.00136536,"s":8,"sample":2,"seconds":0.090975368,"shard_count":1845,"support_count":7381,"tree_seconds":0.074850452,"utc":"2026-11-20T08:44:40.337351019Z","validation_io":true,"verify_seconds":0.003113624}
+1: {"cases":1,"elapsed_seconds":1.576028709,"host":"gnode14","kind":"completed","peak_rss_bytes":425730048,"rank":1,"utc":"2026-11-20T08:44:40.337803341Z"}
+3: {"cases":1,"elapsed_seconds":1.572721768,"host":"gnode15","kind":"completed","peak_rss_bytes":427270144,"rank":3,"utc":"2026-11-20T08:44:40.338072184Z"}
+2: {"cases":1,"elapsed_seconds":1.574109888,"host":"gnode15","kind":"completed","peak_rss_bytes":427143168,"rank":2,"utc":"2026-11-20T08:44:40.338279488Z"}
+0: {"cases":1,"elapsed_seconds":1.577784747,"host":"gnode14","kind":"completed","peak_rss_bytes":429322240,"rank":0,"utc":"2026-11-20T08:44:40.33823352Z"}
+1: [gnode14:2945015] mca: base: close: component ucx closed
+1: [gnode14:2945015] mca: base: close: unloading component ucx
+1: [gnode14:2945015] mca: base: close: component self closed
+1: [gnode14:2945015] mca: base: close: unloading component self
+1: [gnode14:2945015] mca: base: close: component tcp closed
+1: [gnode14:2945015] mca: base: close: unloading component tcp
+1: [gnode14:2945015] mca: base: close: component vader closed
+1: [gnode14:2945015] mca: base: close: unloading component vader
+2: [gnode15:1709065] mca: base: close: component ucx closed
+2: [gnode15:1709065] mca: base: close: unloading component ucx
+2: [gnode15:1709065] mca: base: close: component self closed
+2: [gnode15:1709065] mca: base: close: unloading component self
+2: [gnode15:1709065] mca: base: close: component tcp closed
+2: [gnode15:1709065] mca: base: close: unloading component tcp
+2: [gnode15:1709065] mca: base: close: component vader closed
+2: [gnode15:1709065] mca: base: close: unloading component vader
+3: [gnode15:1709064] mca: base: close: component ucx closed
+3: [gnode15:1709064] mca: base: close: unloading component ucx
+3: [gnode15:1709064] mca: base: close: component self closed
+3: [gnode15:1709064] mca: base: close: unloading component self
+3: [gnode15:1709064] mca: base: close: component tcp closed
+3: [gnode15:1709064] mca: base: close: unloading component tcp
+3: [gnode15:1709064] mca: base: close: component vader closed
+3: [gnode15:1709064] mca: base: close: unloading component vader
+0: [gnode14:2945016] mca: base: close: component ucx closed
+0: [gnode14:2945016] mca: base: close: unloading component ucx
+0: [gnode14:2945016] mca: base: close: component self closed
+0: [gnode14:2945016] mca: base: close: unloading component self
+0: [gnode14:2945016] mca: base: close: component tcp closed
+0: [gnode14:2945016] mca: base: close: unloading component tcp
+0: [gnode14:2945016] mca: base: close: component vader closed
+0: [gnode14:2945016] mca: base: close: unloading component vader
+1: --- PASS: TestRankOwnedRootTree (2.23s)
+1: PASS
+2: --- PASS: TestRankOwnedRootTree (2.20s)
+2: PASS
+3: --- PASS: TestRankOwnedRootTree (2.21s)
+3: PASS
+0: --- PASS: TestRankOwnedRootTree (2.25s)
+0: PASS
+1: ========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+1: ========= ERROR SUMMARY: 0 errors
+2: ========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+2: ========= ERROR SUMMARY: 0 errors
+0: ========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+0: ========= ERROR SUMMARY: 0 errors
+3: ========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+3: ========= ERROR SUMMARY: 0 errors

@@ -34,7 +34,7 @@ def summarize_cases(rows):
 def review_arm(out,cache,name,mode,transport=None):
     result=dict(name=name,mode=mode,status='passed')
     for label,small in (('normal',False),('memcheck',True)):
-        rows=TREE['BASE']['parse'](out/f'{name}-{label}.log')
+        rows=TREE['BASE']['parse_rank_logs'](out/f'{name}-{label}.log')
         directory=cache/(name+('-sanitized'if small else '-normal'))
         TREE['review'](rows,directory,small=small,repeats=12 if not small else 2)
         proofs=PROOF['review_proofs'](rows);hosts=review_hosts(rows,mode,small,transport)
@@ -43,7 +43,7 @@ def review_arm(out,cache,name,mode,transport=None):
             peak_logged_rss_bytes_per_rank=max(r.get('peak_rss_bytes',0)for r in rows),
             peak_owned_device_bytes_per_rank=max(r.get('owned_device_bytes',0)for r in rows))
         if small:
-            text=(out/f'{name}-{label}.log').read_text()
+            text=TREE['BASE']['rank_output_text'](out/f'{name}-{label}.log')
             assert text.count('ERROR SUMMARY: 0 errors')==text.count('LEAK SUMMARY: 0 bytes')==4
         else:
             result['cases']=summarize_cases(rows)

@@ -225,3 +225,13 @@ Keep direct failed and staging explicit. Profile reporting succeeded in 28.060 s
 but approached its 30 s deadline; its allowance is now 90 s within the unchanged
 720 s controller / 15 min scheduler limits. This changes reporting headroom only,
 not pipeline timing, native code or resource allocations.
+
+SCALING-139: GPU-tree phases now explicitly set `PIR_RANK_LOG_FILES=1` in the
+shared rank wrapper. Each rank writes separate stdout/stderr files; launcher output
+is retained separately. The collector requires every expected stream, strictly
+parses events and keeps historical merged-log fallback for old evidence. CUDA
+summary counts include both streams. This addresses the
+[78249 interleave](../ucx-cache-gpu-tree/report.md#explicit-recovery-of-one-interleaved-event)
+without changing native code, clocks or correctness checks. File I/O may change
+diagnostic timing; no cross-run speed inference. Legacy host-only jobs retain
+their explicit default output convention.

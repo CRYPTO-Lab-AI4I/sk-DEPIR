@@ -1,0 +1,34 @@
+{
+  "utc": "2026-11-20T08:53:32.688694+00:00",
+  "base_revision": "3cba351f87203c2c44858c545218ae24ed818169",
+  "source_sha256": {
+    "experiments/distributed-root/rank.sh": "5c771b6b649f0362c78f8df8ffb689173b7949e2461a196880d3f00040d198e2",
+    "experiments/gpu-staged-transport/run.py": "75a374bc534852533ed31cf7efa550a69696a2c038ae1d658c3ae1714b04059e",
+    "experiments/root-merge-tree/run.py": "084744ab38ec4a02bc31784ce37f7d8dbaf2cf0c6c80e37143cb5722edd6c99a",
+    "experiments/mpi-buffer-comparison/run.py": "71179c2a17fc0c9480da95439552469c674ab67b5e2915782b27049071a1da25",
+    "experiments/mpi-buffer-comparison/analyze.py": "1ef409fe83d9b7a4bdc97e1920f04ea3c581cbc27bbd9e82af4d01cd338e3299",
+    "experiments/root-transfer-diagnostics/analyze.py": "084ab5b767eff407cc7411733a24098036be963f4dc450e0fb3a561637cc98f9",
+    "experiments/ucx-cache-gpu-tree/review_interleaved.py": "3af74019dfa647f159c2c146abcd6b48af03ff72bdaff718b9cc746efba2e1f5",
+    "experiments/ucx-cache-gpu-tree/test_logging.py": "34f58bce9b00542d0c676afe27d83ffeef89ade30814009670c19f34f9ba8a08"
+  },
+  "checks": [
+    "python3 -B experiments/ucx-cache-gpu-tree/review_interleaved.py",
+    "python3 -B experiments/ucx-cache-gpu-tree/test_logging.py",
+    "python3 -B experiments/mpi-buffer-comparison/test_review.py",
+    "python3 -B experiments/mpi-host-buffers/test_review.py",
+    "python3 -B experiments/root-merge-tree/test_review.py",
+    "python3 -B experiments/root-transfer-diagnostics/test_review.py",
+    "python3 -B experiments/distributed-root/test_review.py",
+    "python3 -B experiments/gpu-staged-transport/test_review.py",
+    "python3 -B experiments/gpu-code-encoding/test_suite.py"
+  ],
+  "shell_checks": [
+    "bash -n experiments/distributed-root/rank.sh",
+    "bash -n experiments/ucx-cache-gpu-tree/run.sbatch"
+  ],
+  "limitations": [
+    "No new local MPI/GPU run or native-source compilation; shell/Python logging only.",
+    "Original raw78249 failure preserved; derived recovery explicit.",
+    "Rank direct file I/O may affect timings; no cross-run speedup claim."
+  ]
+}

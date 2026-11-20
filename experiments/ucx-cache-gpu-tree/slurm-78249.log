@@ -1,0 +1,68 @@
+{"utc": "2026-11-20T08:41:14.757555+00:00", "phase": "hosts", "event": "started", "completed": 0, "unit": "commands", "elapsed_seconds": 8.32816307991743}
+{"utc": "2026-11-20T08:41:14.792433+00:00", "phase": "hosts", "event": "completed", "completed": 1, "unit": "commands", "elapsed_seconds": 8.363041812554002}
+{"utc": "2026-11-20T08:41:14.794161+00:00", "phase": "mpi-plugins", "event": "started", "completed": 1, "unit": "commands", "elapsed_seconds": 8.364764176309109}
+{"utc": "2026-11-20T08:41:14.826308+00:00", "phase": "mpi-plugins", "event": "completed", "completed": 2, "unit": "commands", "elapsed_seconds": 8.396920122206211}
+{"utc": "2026-11-20T08:41:14.827578+00:00", "phase": "mpi", "event": "started", "completed": 2, "unit": "commands", "elapsed_seconds": 8.398180890828371}
+{"utc": "2026-11-20T08:41:15.410166+00:00", "phase": "mpi", "event": "completed", "completed": 3, "unit": "commands", "elapsed_seconds": 8.980775071308017}
+{"utc": "2026-11-20T08:41:15.411623+00:00", "phase": "nvcc", "event": "started", "completed": 3, "unit": "commands", "elapsed_seconds": 8.982225162908435}
+{"utc": "2026-11-20T08:41:15.431872+00:00", "phase": "nvcc", "event": "completed", "completed": 4, "unit": "commands", "elapsed_seconds": 9.002479296177626}
+{"utc": "2026-11-20T08:41:15.433133+00:00", "phase": "compiler", "event": "started", "completed": 4, "unit": "commands", "elapsed_seconds": 9.003735398873687}
+{"utc": "2026-11-20T08:41:15.467123+00:00", "phase": "compiler", "event": "completed", "completed": 5, "unit": "commands", "elapsed_seconds": 9.037731071934104}
+{"utc": "2026-11-20T08:41:15.485984+00:00", "phase": "go", "event": "started", "completed": 5, "unit": "commands", "elapsed_seconds": 9.056587306782603}
+{"utc": "2026-11-20T08:41:15.536480+00:00", "phase": "go", "event": "completed", "completed": 6, "unit": "commands", "elapsed_seconds": 9.10708924010396}
+{"utc": "2026-11-20T08:41:15.537742+00:00", "phase": "ucx-version", "event": "started", "completed": 6, "unit": "commands", "elapsed_seconds": 9.10834501311183}
+{"utc": "2026-11-20T08:41:15.619485+00:00", "phase": "ucx-version", "event": "completed", "completed": 7, "unit": "commands", "elapsed_seconds": 9.190092775970697}
+{"utc": "2026-11-20T08:41:15.620837+00:00", "phase": "ucx-config", "event": "started", "completed": 7, "unit": "commands", "elapsed_seconds": 9.19143914617598}
+{"utc": "2026-11-20T08:41:15.801180+00:00", "phase": "ucx-config", "event": "completed", "completed": 8, "unit": "commands", "elapsed_seconds": 9.371787434443831}
+{"utc": "2026-11-20T08:41:15.807438+00:00", "phase": "cuda-build", "event": "started", "completed": 8, "unit": "commands", "elapsed_seconds": 9.378044184297323}
+{"utc": "2026-11-20T08:41:32.113443+00:00", "phase": "cuda-build", "event": "completed", "completed": 9, "unit": "commands", "elapsed_seconds": 25.684068489819765}
+{"utc": "2026-11-20T08:41:32.115377+00:00", "phase": "tree-build", "event": "started", "completed": 9, "unit": "commands", "elapsed_seconds": 25.685980586335063}
+{"utc": "2026-11-20T08:42:02.932313+00:00", "phase": "tree-build", "event": "completed", "completed": 10, "unit": "commands", "elapsed_seconds": 56.50294844061136}
+{"utc": "2026-11-20T08:42:02.934560+00:00", "phase": "fixture-regression", "event": "started", "completed": 10, "unit": "commands", "elapsed_seconds": 56.50516480021179}
+{"utc": "2026-11-20T08:42:21.322117+00:00", "phase": "fixture-regression", "event": "completed", "completed": 11, "unit": "commands", "elapsed_seconds": 74.89274299517274}
+{"utc": "2026-11-20T08:42:21.324413+00:00", "phase": "shared-tests", "event": "started", "completed": 11, "unit": "commands", "elapsed_seconds": 74.89501570351422}
+{"utc": "2026-11-20T08:42:22.940898+00:00", "phase": "shared-tests", "event": "completed", "completed": 12, "unit": "commands", "elapsed_seconds": 76.51153745502234}
+{"utc": "2026-11-20T08:42:22.942645+00:00", "phase": "shared-race", "event": "started", "completed": 12, "unit": "commands", "elapsed_seconds": 76.5132488720119}
+{"utc": "2026-11-20T08:42:40.697476+00:00", "phase": "shared-race", "event": "completed", "completed": 13, "unit": "commands", "elapsed_seconds": 94.26810833998024}
+{"utc": "2026-11-20T08:42:40.775364+00:00", "phase": "staged-a-normal", "event": "started", "completed": 13, "unit": "commands", "elapsed_seconds": 94.34597892314196}
+{"utc": "2026-11-20T08:43:19.768752+00:00", "phase": "staged-a-normal", "event": "completed", "completed": 14, "unit": "commands", "elapsed_seconds": 133.33938373811543}
+{"utc": "2026-11-20T08:43:21.031752+00:00", "phase": "staged-a-memcheck", "event": "started", "completed": 14, "unit": "commands", "elapsed_seconds": 134.60239096730947}
+{"utc": "2026-11-20T08:43:24.861573+00:00", "phase": "staged-a-memcheck", "event": "completed", "completed": 15, "unit": "commands", "elapsed_seconds": 138.4322012681514}
+{"utc": "2026-11-20T08:43:24.898760+00:00", "phase": "staged-a-profile", "event": "started", "completed": 15, "unit": "commands", "elapsed_seconds": 138.46937119588256}
+{"utc": "2026-11-20T08:43:57.314734+00:00", "phase": "staged-a-profile", "event": "completed", "completed": 16, "unit": "commands", "elapsed_seconds": 170.88536710850894}
+{"utc": "2026-11-20T08:43:58.490006+00:00", "phase": "direct-a-normal", "event": "started", "completed": 16, "unit": "commands", "elapsed_seconds": 172.06063731573522}
+{"utc": "2026-11-20T08:44:36.611825+00:00", "phase": "direct-a-normal", "event": "completed", "completed": 17, "unit": "commands", "elapsed_seconds": 210.18245184607804}
+{"utc": "2026-11-20T08:44:37.849889+00:00", "phase": "direct-a-memcheck", "event": "started", "completed": 17, "unit": "commands", "elapsed_seconds": 211.4205246269703}
+{"utc": "2026-11-20T08:44:41.211629+00:00", "phase": "direct-a-memcheck", "event": "completed", "completed": 18, "unit": "commands", "elapsed_seconds": 214.7822574134916}
+{"utc": "2026-11-20T08:44:41.247965+00:00", "phase": "direct-a-profile", "event": "started", "completed": 18, "unit": "commands", "elapsed_seconds": 214.81857435964048}
+{"utc": "2026-11-20T08:44:43.439619+00:00", "phase": "direct-a-profile", "event": "completed", "completed": 19, "unit": "commands", "elapsed_seconds": 217.01023398712277}
+{"utc": "2026-11-20T08:44:44.603880+00:00", "phase": "direct-b-normal", "event": "started", "completed": 19, "unit": "commands", "elapsed_seconds": 218.1745062544942}
+{"utc": "2026-11-20T08:45:21.750552+00:00", "phase": "direct-b-normal", "event": "completed", "completed": 20, "unit": "commands", "elapsed_seconds": 255.32118010893464}
+Traceback (most recent call last):
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/ucx-cache-gpu-tree/run.py", line 18, in <module>
+    else:COMPARE['TREE']['BASE']['main'](here=HERE,extra_suite=suite)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 146, in main
+    record.update(extra_suite(dict(run=run,source=source,cache=cache,out=out,go=go,env=env,resources=record['resources'],save=save)))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/ucx-cache-gpu-tree/run.py", line 13, in suite
+    return COMPARE['suite'](context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/mpi-buffer-comparison/run.py", line 83, in suite
+    TREE['execute'](context,prepared,prefix=name+'-')
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/root-merge-tree/run.py", line 178, in execute
+    normal=BASE['parse'](out/(prefix+'normal.log'));review(normal,cache/(prefix+'normal'),repeats=int(env.get('PIR_ROOT_TREE_REPEATS','2')))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 54, in parse
+    rows.append(json.loads(payload))  # Malformed event JSON must still fail.
+                ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Unterminated string starting at: line 1 column 127 (char 126)

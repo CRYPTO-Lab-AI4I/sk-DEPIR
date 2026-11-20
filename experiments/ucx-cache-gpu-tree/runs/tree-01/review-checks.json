@@ -1,0 +1,22 @@
+{
+  "utc": "2026-11-20T08:53:32.688694+00:00",
+  "command": "python3 -B experiments/ucx-cache-gpu-tree/review_interleaved.py",
+  "source_sha256": {
+    "experiments/distributed-root/rank.sh": "5c771b6b649f0362c78f8df8ffb689173b7949e2461a196880d3f00040d198e2",
+    "experiments/gpu-staged-transport/run.py": "75a374bc534852533ed31cf7efa550a69696a2c038ae1d658c3ae1714b04059e",
+    "experiments/root-merge-tree/run.py": "084744ab38ec4a02bc31784ce37f7d8dbaf2cf0c6c80e37143cb5722edd6c99a",
+    "experiments/mpi-buffer-comparison/run.py": "71179c2a17fc0c9480da95439552469c674ab67b5e2915782b27049071a1da25",
+    "experiments/mpi-buffer-comparison/analyze.py": "1ef409fe83d9b7a4bdc97e1920f04ea3c581cbc27bbd9e82af4d01cd338e3299",
+    "experiments/root-transfer-diagnostics/analyze.py": "084ab5b767eff407cc7411733a24098036be963f4dc450e0fb3a561637cc98f9",
+    "experiments/ucx-cache-gpu-tree/review_interleaved.py": "3af74019dfa647f159c2c146abcd6b48af03ff72bdaff718b9cc746efba2e1f5",
+    "experiments/ucx-cache-gpu-tree/test_logging.py": "34f58bce9b00542d0c676afe27d83ffeef89ade30814009670c19f34f9ba8a08"
+  },
+  "assertions": [
+    "662 source/42 evidence/236 cache hashes",
+    "two complete normal/memcheck rounds independently rechecked",
+    "third normal CPU/state/proof/byte hashes verified on explicit recovered view",
+    "single known warning/adjacent same-rank continuation recovered; warning retained",
+    "raw failed status and bytes unchanged"
+  ],
+  "tests": "36 Python tests passed; no local MPI/GPU execution"
+}

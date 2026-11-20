@@ -61,8 +61,9 @@ original methodology; apply this policy to new optimization runs.
 ## Recorded experiments
 
 - [GPU tree with UCX cache control](ucx-cache-gpu-tree/report.md): same-build
-  staged/direct crossover, explicit cache setting and per-worker checks. 78249 submitted;
-  previously admitted two-H200 budget, no default or full-size claim.
+  78249 passed three normal/two CUDA-memcheck rounds, then failed merged-log
+  parsing. Explicit recovered view preserves raw evidence; incomplete crossover.
+  Fresh retry with isolated rank streams prepared in the same two-H200 budget.
 
 - [UCX registration-cache control](ucx-registration-cache/report.md): retain
   78218 passed all host arms (1,024 handoffs / 2,048 checks), including direct

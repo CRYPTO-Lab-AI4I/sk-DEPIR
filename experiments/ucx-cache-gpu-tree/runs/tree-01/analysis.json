@@ -1,0 +1,371 @@
+{
+  "status": "failed",
+  "job_id": "78249",
+  "revision": "d4621d2f3059817d4446606f01bd14e8672fafec",
+  "source_files_verified": 662,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 42,
+  "cache_files_verified": 236,
+  "tests": [
+    "TestWideOrbitArithmetic",
+    "TestTableFreeFields"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.018883075565099716,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.019151968881487846,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.5694062169641256,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 0.007780302315950394,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.02181600034236908,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.03795167803764343,
+      "exit_code": 0
+    },
+    {
+      "label": "ucx-version",
+      "seconds": 0.0693596862256527,
+      "exit_code": 0
+    },
+    {
+      "label": "ucx-config",
+      "seconds": 0.16736256703734398,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 16.291152741760015,
+      "exit_code": 0
+    },
+    {
+      "label": "tree-build",
+      "seconds": 30.781014431267977,
+      "exit_code": 0
+    },
+    {
+      "label": "fixture-regression",
+      "seconds": 18.349933125078678,
+      "exit_code": 0
+    },
+    {
+      "label": "shared-tests",
+      "seconds": 1.5808330792933702,
+      "exit_code": 0
+    },
+    {
+      "label": "shared-race",
+      "seconds": 17.71123011596501,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-a-normal",
+      "seconds": 38.93614209443331,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-a-memcheck",
+      "seconds": 3.715126447379589,
+      "exit_code": 0
+    },
+    {
+      "label": "staged-a-profile",
+      "seconds": 32.167018692940474,
+      "exit_code": 0
+    },
+    {
+      "label": "direct-a-normal",
+      "seconds": 38.02935756370425,
+      "exit_code": 0
+    },
+    {
+      "label": "direct-a-memcheck",
+      "seconds": 3.237450048327446,
+      "exit_code": 0
+    },
+    {
+      "label": "direct-a-profile",
+      "seconds": 2.1210948042571545,
+      "exit_code": 0
+    },
+    {
+      "label": "direct-b-normal",
+      "seconds": 37.01598881930113,
+      "exit_code": 0
+    }
+  ],
+  "scope": "Partial GPU comparison; explicit derived log recovery, raw producer failure preserved.",
+  "completed_arms": [
+    {
+      "name": "staged-a",
+      "mode": "staged",
+      "status": "passed",
+      "normal": {
+        "proof_events": 516,
+        "proof_phases": {
+          "support": 384,
+          "root": 132
+        },
+        "measurement_rows": 88,
+        "hosts": {
+          "3": "gnode15",
+          "0": "gnode14",
+          "2": "gnode15",
+          "1": "gnode14"
+        },
+        "peak_logged_rss_bytes_per_rank": 430268416,
+        "peak_owned_device_bytes_per_rank": 15980980
+      },
+      "cases": [
+        {
+          "case": 0,
+          "s": 8,
+          "support_count": 7381,
+          "timed_samples": 2,
+          "median_seconds": {
+            "seconds": 0.015017731999999999,
+            "route_seconds": 0.0016306685,
+            "root_seconds": 0.0038106399999999997,
+            "tree_seconds": 0.0092854965,
+            "verify_seconds": 0.0001044145
+          }
+        },
+        {
+          "case": 1,
+          "s": 17,
+          "support_count": 65536,
+          "timed_samples": 2,
+          "median_seconds": {
+            "seconds": 0.316239528,
+            "route_seconds": 0.013503039,
+            "root_seconds": 0.208367739,
+            "tree_seconds": 0.1101355125,
+            "verify_seconds": 0.000908897
+          }
+        },
+        {
+          "case": 2,
+          "s": 17,
+          "support_count": 262144,
+          "timed_samples": 12,
+          "median_seconds": {
+            "seconds": 1.187014534,
+            "route_seconds": 0.060436142,
+            "root_seconds": 0.9178538460000001,
+            "tree_seconds": 0.2523074395,
+            "verify_seconds": 0.003814739
+          }
+        }
+      ],
+      "final_sha256": {
+        "0": "346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a",
+        "1": "e0e7070a60c00c836dce6ce806a35200ede8149454b8c6743d49c11245301649",
+        "2": "f167d29b7e5212b1e63b4215bc0ef34427a562e8e569b9d4c0cc74f1a52fc223"
+      },
+      "setup_seconds_by_case": {
+        "0": 1.419336637,
+        "1": 2.329776554,
+        "2": 13.966839376
+      },
+      "memcheck": {
+        "proof_events": 24,
+        "proof_phases": {
+          "support": 12,
+          "root": 12
+        },
+        "measurement_rows": 8,
+        "hosts": {
+          "3": "gnode15",
+          "2": "gnode15",
+          "1": "gnode14",
+          "0": "gnode14"
+        },
+        "peak_logged_rss_bytes_per_rank": 429166592,
+        "peak_owned_device_bytes_per_rank": 65704
+      }
+    },
+    {
+      "name": "direct-a",
+      "mode": "direct",
+      "status": "passed",
+      "normal": {
+        "proof_events": 516,
+        "proof_phases": {
+          "support": 384,
+          "root": 132
+        },
+        "measurement_rows": 88,
+        "hosts": {
+          "1": "gnode14",
+          "3": "gnode15",
+          "2": "gnode15",
+          "0": "gnode14"
+        },
+        "peak_logged_rss_bytes_per_rank": 430800896,
+        "peak_owned_device_bytes_per_rank": 15980980
+      },
+      "cases": [
+        {
+          "case": 0,
+          "s": 8,
+          "support_count": 7381,
+          "timed_samples": 2,
+          "median_seconds": {
+            "seconds": 0.0144179275,
+            "route_seconds": 0.0017980869999999999,
+            "root_seconds": 0.0036982705,
+            "tree_seconds": 0.009903732,
+            "verify_seconds": 0.00010512
+          }
+        },
+        {
+          "case": 1,
+          "s": 17,
+          "support_count": 65536,
+          "timed_samples": 2,
+          "median_seconds": {
+            "seconds": 0.32640470050000003,
+            "route_seconds": 0.0136623645,
+            "root_seconds": 0.20892140999999997,
+            "tree_seconds": 0.15939592549999998,
+            "verify_seconds": 0.000926333
+          }
+        },
+        {
+          "case": 2,
+          "s": 17,
+          "support_count": 262144,
+          "timed_samples": 12,
+          "median_seconds": {
+            "seconds": 1.1911086105,
+            "route_seconds": 0.0600054925,
+            "root_seconds": 0.923817224,
+            "tree_seconds": 0.24455276199999998,
+            "verify_seconds": 0.003794862
+          }
+        }
+      ],
+      "final_sha256": {
+        "0": "346dd306a890fb403c787cf1a7edfb7adb8e4038f2844d00e44c32ce3e8c776a",
+        "1": "e0e7070a60c00c836dce6ce806a35200ede8149454b8c6743d49c11245301649",
+        "2": "f167d29b7e5212b1e63b4215bc0ef34427a562e8e569b9d4c0cc74f1a52fc223"
+      },
+      "setup_seconds_by_case": {
+        "0": 1.8330894770000001,
+        "1": 2.311558308,
+        "2": 13.969248451
+      },
+      "memcheck": {
+        "proof_events": 24,
+        "proof_phases": {
+          "support": 12,
+          "root": 12
+        },
+        "measurement_rows": 8,
+        "hosts": {
+          "0": "gnode14",
+          "1": "gnode14",
+          "2": "gnode15",
+          "3": "gnode15"
+        },
+        "peak_logged_rss_bytes_per_rank": 429322240,
+        "peak_owned_device_bytes_per_rank": 65704
+      }
+    }
+  ],
+  "direct_b_normal": {
+    "status": "passed after explicit log recovery",
+    "cases": [
+      {
+        "case": 0,
+        "s": 8,
+        "support_count": 7381,
+        "timed_samples": 2,
+        "median_seconds": {
+          "seconds": 0.015380973000000001,
+          "route_seconds": 0.0019678910000000003,
+          "root_seconds": 0.003921473,
+          "tree_seconds": 0.009284025500000001,
+          "verify_seconds": 0.0001072535
+        }
+      },
+      {
+        "case": 1,
+        "s": 17,
+        "support_count": 65536,
+        "timed_samples": 2,
+        "median_seconds": {
+          "seconds": 0.28607598300000003,
+          "route_seconds": 0.014168518000000001,
+          "root_seconds": 0.1720553915,
+          "tree_seconds": 0.10258640050000001,
+          "verify_seconds": 0.0009143745000000001
+        }
+      },
+      {
+        "case": 2,
+        "s": 17,
+        "support_count": 262144,
+        "timed_samples": 12,
+        "median_seconds": {
+          "seconds": 1.180787776,
+          "route_seconds": 0.0595936615,
+          "root_seconds": 0.911099127,
+          "tree_seconds": 0.2286125905,
+          "verify_seconds": 0.0038532565
+        }
+      }
+    ],
+    "measurement_rows": 88,
+    "proof_events": 516,
+    "peak_rss_bytes_per_rank": 430551040,
+    "memcheck": "not run",
+    "profile_summary": "not run"
+  },
+  "recovery": {
+    "original_file": "direct-b-normal.log",
+    "original_sha256": "5ec78b578774ab73df56ce443779c789c60e821bf14a1ac6c71069603d9975c8",
+    "derived_file": "direct-b-normal.recovered.log",
+    "derived_sha256": "1c2e8aa6a4f69c9d5c61ad395b6716c5cb47fac97c973cddf8ecd44b795a7070",
+    "repairs": [
+      {
+        "first_line": 1499,
+        "second_line": 1500,
+        "head": "{\"utc\":\"2026-11-20T08:44:50Z\",\"phase\":\"local-vector-transpose\",\"work\":\"gpu-preparation\",\"event\":\"completed\",\"completed\":65536,\"t",
+        "tail": "otal\":65536,\"elapsed_ms\":0,\"unit\":\"elements\"}",
+        "warning": "[gnode14:2945467] 1 more process has sent help message help-mpi-btl-openib.txt / no device params found",
+        "event": {
+          "utc": "2026-11-20T08:44:50Z",
+          "phase": "local-vector-transpose",
+          "work": "gpu-preparation",
+          "event": "completed",
+          "completed": 65536,
+          "total": 65536,
+          "elapsed_ms": 0,
+          "unit": "elements"
+        }
+      }
+    ]
+  },
+  "comparisons": [],
+  "staged_b": "not run",
+  "workflow_error": "Unterminated string starting at: line 1 column 127 (char 126)"
+}

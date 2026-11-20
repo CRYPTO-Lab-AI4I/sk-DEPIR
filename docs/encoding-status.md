@@ -650,11 +650,17 @@ zero GPUs; 28 s scheduler elapsed. [Cache control 78218](../experiments/ucx-regi
 both direct-buffer arms. UCX and `UCX_RCACHE_ENABLE=n` were verified. Largest
 logged process peak RSS **296.418 MiB/rank**; HPC 2 nodes / 4 CPU cores / 8 GiB
 requested host / zero GPUs, **1 min 2 s** scheduler elapsed. This supports a cache
-interaction under the probe, not a permanent repair or full-size result. Next
-[GPU-tree validation](../experiments/ucx-cache-gpu-tree/report.md) uses the same
-explicit control and the previously admitted two-H200 budget; **78249 submitted**, results unreviewed.
-No production default or full s=18 validation change; cache-disabling overhead in
-full preprocessing remains unknown.
+interaction under the probe, not a permanent repair or full-size result. [GPU-tree 78249](../experiments/ucx-cache-gpu-tree/report.md#review-of-78249)
+**passed three normal computation rounds** with the cache disabled: CPU equality
+and 516 endpoint checks per round. Staged-a and direct-a also passed four-rank CUDA
+memcheck. Largest partial-case medians: **1.187 s staged**, **1.191 s direct-a**,
+**1.181 s direct-b**; normal peak RSS **410.336–410.844 MiB/rank**. The workflow
+stopped after direct-b due to an MPI warning interleaving with JSON; one event was
+recovered only in a separate, checksummed derived view. Raw failure remains.
+Direct-b memcheck and staged-b unrun; no complete crossover ratio. HPC: 2 H200s /
+2 nodes / 4 CPU cores / 8 GiB requested host; **4 min 16 s** scheduler elapsed.
+Next retry the full comparison with isolated per-rank streams and strict parsing,
+within the same budget. Prepared, unmeasured; no default or full s=18 claim.
 
 ## Measurement boundaries for batch entries
 

@@ -55,6 +55,21 @@ def parse(path):
     return rows
 
 
+def parse_rank_logs(path,ranks=4):
+    """Strict rank streams when enabled; otherwise historical launcher output."""
+    sources=[path.with_name(path.stem+f'-{rank}.{stream}.log')for rank in range(ranks)for stream in ('stdout','stderr')]
+    if not any(p.exists()for p in sources):return parse(path)
+    assert all(p.is_file()for p in sources),'incomplete rank log set'
+    return [row for source in sources for row in parse(source)]
+
+
+def rank_output_text(path,ranks=4):
+    sources=[path.with_name(path.stem+f'-{rank}.{stream}.log')for rank in range(ranks)for stream in ('stdout','stderr')]
+    if not any(p.exists()for p in sources):return path.read_text()
+    assert all(p.is_file()for p in sources),'incomplete rank log set'
+    return '\n'.join(p.read_text()for p in sources)
+
+
 def build_input(name):
     path=Path(name)
     if any(part in ('runs','artifacts','message-board','docs') for part in path.parts):return False

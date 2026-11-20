@@ -55,7 +55,7 @@ def main():
     failure={}
     current=state.get('current_arm')
     if current and (out/f'{current}-normal.log').exists():
-        failure=review_captures(HELP['TREE']['BASE']['parse'](out/f'{current}-normal.log'),cache,current)
+        failure=review_captures(HELP['TREE']['BASE']['parse_rank_logs'](out/f'{current}-normal.log'),cache,current)
     worker_settings={}
     transport=raw['resources'].get('diagnostic_transport')
     if transport:
@@ -63,7 +63,7 @@ def main():
             for phase in ('normal','memcheck'):
                 log=out/f'{name}-{phase}.log'
                 if not log.exists():continue
-                hosts=[r for r in HELP['TREE']['BASE']['parse'](log)if r.get('kind')=='host']
+                hosts=[r for r in HELP['TREE']['BASE']['parse_rank_logs'](log)if r.get('kind')=='host']
                 assert all(all(r['mpi_transport'].get(key)==value for key,value in transport.items())for r in hosts)
                 worker_settings[name+'-'+phase]=len(hosts)
     result.update(worker_settings_checked=worker_settings,failure_evidence=failure,scope='Bounded same-build diagnostic crossover; original direct-buffer fault remains unexplained.',

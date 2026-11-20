@@ -2381,13 +2381,18 @@ SCALING-109 next-work order is explicit:
    actual-node UCX1.18 config and native UCX selection verified. Both direct arms
    pass; original failures remain failed. Largest logged RSS296.418 MiB/rank;
    scheduler1min2s, zero GPUs. Supports cache interaction under the probe, not a
-   permanent runtime repair or full-size cost estimate. SCALING-137: next run
-   [GPU-tree crossover](../experiments/ucx-cache-gpu-tree/report.md) with the same
-   explicit setting, one build, staged/direct/direct/staged order, CPU/state/proof
-   checks and CUDA memcheck. Previously admitted2-H200/2-node4-core8GiB host,
-   existing device/host/storage/deadline caps; no budget increase. **78249 submitted**,
-   results unreviewed; no default change. Registration-time/internal-memory effects and
-   full preprocessing cost remain unknown; fulls18 is still unrun.
+   permanent runtime repair or full-size cost estimate. SCALING-138:
+   [GPU-tree78249](../experiments/ucx-cache-gpu-tree/report.md#review-of-78249)
+   passed three normal rounds and two CUDA memcheck rounds, but stopped on a
+   warning-interleaved native JSON event after direct-b computation exited zero.
+   Explicit derived recovery preserves raw failure and verifies every original
+   CPU/state/proof/byte-hash check. Largest partial-case medians1.187/1.191/1.181 s;
+   no complete crossover or fullsize result. Direct-b memcheck/staged-b unrun.
+   SCALING-139: retry one fresh full crossover with per-rank stdout/stderr files,
+   launcher logs retained and strict complete-stream collection. No malformed
+   worker event skipping. Same admitted GPU/host/storage/deadline envelope;
+   direct file I/O overhead unknown and no cross-run speedup claim. Prepared,
+   unmeasured; no production default or fulls18 change.
    Retain staged mode for bounded integration; fulls18 remains unrun. Reporting
    gets 90 s inside the unchanged controller/scheduler limits, after its measured
    28.060 s approached the old 30 s reporting deadline. Native timed clocks stay.

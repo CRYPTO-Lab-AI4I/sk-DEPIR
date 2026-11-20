@@ -69,7 +69,7 @@ def main():
     out=a.experiment/'runs'/a.name;raw=json.loads((out/'results.json').read_text());tree=runpy.run_path(str(HERE.parent/'root-merge-tree/run.py'))
     reconcile=runpy.run_path(str(HERE.parent/'s17-arithmetic/analyze.py'))['reconcile']
     result=reconcile(out,require_success=raw['status']=='passed',command_fields=('label','seconds','exit_code'))
-    rows=tree['BASE']['parse'](out/'normal.log')if(out/'normal.log').exists()else[]
+    rows=tree['BASE']['parse_rank_logs'](out/'normal.log')if(out/'normal.log').exists()else[]
     captures=[r for r in rows if r.get('kind')=='transport-failure']
     inspected=[]
     for r in captures:
@@ -90,10 +90,10 @@ def main():
     small=[]
     if memcheck_ok:
         assert normal_ok
-        small=tree['BASE']['parse'](out/'memcheck.log')
+        small=tree['BASE']['parse_rank_logs'](out/'memcheck.log')
         if 'sanitized'in raw:assert small==raw['sanitized']
         tree['review'](small,Path(raw['cache'])/'sanitized',small=True);review_proofs(small)
-        text=(out/'memcheck.log').read_text();assert text.count('ERROR SUMMARY: 0 errors')==4 and text.count('LEAK SUMMARY: 0 bytes')==4
+        text=tree['BASE']['rank_output_text'](out/'memcheck.log');assert text.count('ERROR SUMMARY: 0 errors')==4 and text.count('LEAK SUMMARY: 0 bytes')==4
         tests+=['four-rank memcheck, zero leaks/errors, snapshots and paired proofs']
     if normal_ok and memcheck_ok:
         outcome='bounded diagnostic validation passed; original fault not reproduced and remains unexplained'
