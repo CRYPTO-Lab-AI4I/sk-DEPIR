@@ -1,0 +1,14 @@
+{
+  "job_id": "78394",
+  "name": "resident-01",
+  "implementation_revision": "4fe10dcd0be5e9155ded77f1bd951999c3c78739",
+  "recorded_utc": "2026-11-20T17:21:21.345966+00:00",
+  "command": "module load slurm/slurm/25.05; sbatch --parsable --output=experiments/distributed-resident-vectors/slurm-%j.log experiments/distributed-resident-vectors/run.sbatch resident-01",
+  "results": "experiments/distributed-resident-vectors/runs/resident-01/",
+  "log": "experiments/distributed-resident-vectors/slurm-78394.log",
+  "cache": ".cache/liftrs/distributed-resident-vectors/resident-01/",
+  "resources": "same2HPCnodes/2H200/4CPU/8GiBhost;128MiBowned/card/1GiBRSS/rank/128MiBcache/2GiBscratch/32MiBfile;720scontroller/15minscheduler;no pinned buffers",
+  "monitoring": "None. Wait for user completion ping.",
+  "scope": "old host-tile vector regression and resident separable vectors normal/memcheck; resident Taylor/full FFT/product pending",
+  "note": "Actual job-start revision/source identities recorded by controller; following handoff changes affect excluded documentation/JSON only."
+}

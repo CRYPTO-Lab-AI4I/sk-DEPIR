@@ -1,8 +1,9 @@
 # Resident GPU vector and rank-transpose composition
 
-Status: implemented; CPU/race and native/CPP/CUDA/MPI build checks pass. Bounded
-GPU validation is prepared, not yet measured. Source follows `f360747`/`3c3a482`;
-submission/raw results record the exact frozen revision.
+Status: **job78394 submitted**, source `4fe10dc`; [receipt](submission.json).
+CPU/race and native/CPP/CUDA/MPI build checks pass; GPU results remain pending.
+[Results destination](runs/resident-01/), [job log](slurm-78394.log).
+Actual job-start revision and build-input identities are saved by the controller.
 [Readiness checks and retained artifacts](readiness/checks.json).
 This follows [resident storage78392](../distributed-gpu-storage/report.md), which
 passed208 normal +208 sanitized rank/pass outputs and all paired proofs, with

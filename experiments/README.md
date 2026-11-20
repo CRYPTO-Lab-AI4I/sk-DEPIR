@@ -83,7 +83,7 @@ original methodology; apply this policy to new optimization runs.
 
 - [Resident GPU vector composition](distributed-resident-vectors/report.md):
   shared launcher/order and resident interleaved shards; local CPU/race/build
-  checks pass, bounded normal/sanitized GPU validation prepared. Taylor remains.
+  checks pass, normal/sanitized GPU validation78394 submitted. Taylor remains.
 
 - [Distributed GPU resident storage](distributed-gpu-storage/report.md): three
   reusable shards, GPU row/interleaved pack/scatter and shared transpose schedule;

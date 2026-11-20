@@ -22,7 +22,7 @@ component results, separate from the full s17 runs and fulls18 projections below
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Small distributed FFT passed78307** on2 HPC nodes /2 H200s:24 normal +24 sanitized rank/pass results, zero CUDA errors/leaks. **Small distributed products passed78321**, including24 normal +24 sanitized rank/product results. **GPU-resident storage/transpose passed78392** (three reusable shards, both physical layouts, shared schedule). Resident vector composition implemented; bounded validation prepared. Resident Taylor/FFT/product integration and large-product scaling remain pending. |
+| 1. Distributed products and FFTs | **Small distributed FFT passed78307** on2 HPC nodes /2 H200s:24 normal +24 sanitized rank/pass results, zero CUDA errors/leaks. **Small distributed products passed78321**, including24 normal +24 sanitized rank/product results. **GPU-resident storage/transpose passed78392** (three reusable shards, both physical layouts, shared schedule). Resident vector composition implemented; **validation78394 submitted**, results pending. Resident Taylor/FFT/product integration and large-product scaling remain pending. |
 | 2. Distributed discovery | Existing discovery is not yet partitioned across nodes. |
 | 3. Generator construction and verification | Existing algorithms still need the distributed executor/data integration. |
 | 4. Coordinated checkpoints and publication | Helpers exist; distributed ownership/restart/assembly integration remains. |
@@ -48,7 +48,7 @@ zero CUDA errors/leaks; **2min3.480s** controller, **4.924s normal /4.024s sanit
 Host peak RSS **376.137/413.750 MiB per process**; owned GPU **1.583 MiB/card**.
 HPC gnode14/gnode15,2 nodes /2 H200 /4 CPU cores /8 GiB requested RAM. These are
 small storage tests, not fullsize throughput. [Resident vector composition](../experiments/distributed-resident-vectors/report.md)
-is now implemented; bounded MPI/GPU validation is prepared. No fulls18 result.
+is now implemented; **MPI/GPU validation78394 submitted**, results pending. No fulls18 result.
 
 ## Current s=17 results
 

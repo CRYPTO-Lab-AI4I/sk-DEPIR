@@ -2726,3 +2726,9 @@ Validate old host-tile stages and new resident forward/inverse +sanitizers insid
 the same2node/2H200 budget. Then resident Taylor-window storage and complete
 FFT/product integration, followed by matched larger products. No default, field
 admission or resource increase; stillstep1 and no fulls18 claim.
+
+Resident vector validation **78394 submitted**, source `4fe10dc`, results
+`experiments/distributed-resident-vectors/runs/resident-01/`. Same admitted
+resources; no monitoring. After completion ping, review baseline/resident output,
+paired proofs, rejected-value nonmutation, third-slot preservation and reuse,
+then proceed to resident Taylor-window storage if passed.
