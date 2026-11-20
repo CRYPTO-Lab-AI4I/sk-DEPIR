@@ -2411,15 +2411,20 @@ SCALING-109 next-work order is explicit:
    atomic/checksum helpers. Extra communication/workspace/runtime are unmeasured;
    present their trade-offs and admit budgets before larger jobs. Retain both
    explicit validated transfer modes; no production/client defaults change.
-   SCALING-141: [rank-sharded transpose reference implemented](../experiments/distributed-transpose/report.md)
-   with bounded tiles, width-aware operation/shape/offset descriptors and no
-   coordinator gather. Blocking rendezvous tests pass odd/empty/uneven owners
-   and virtual64-bit counts. Scalar host packing is a reference/control plane,
-   not a CPU fallback or selected GPU layout. Two local shards plus one tile,
-   one off-rank send per moved word; latency/copies/host-device costs unknown.
-   Validate MPI32/64 lanes and unchanged root/support lanes on zero GPUs in the
-   existing2-node4-core8GiB envelope, then compose GPU vector/Taylor stages.
-   Distributed validation **78279 submitted**, unreviewed; no default/fullsize capability change.
+   SCALING-142: [sharded transpose78279 passed](../experiments/distributed-transpose/report.md#review-of-78279):
+   both32/64-bit modes, 16 global operations /7,312 endpoint proofs, exact saved
+   output words and unchanged legacy root/support lanes. Empty/odd/tail owners
+   and multi-chunk payloads pass; no full coordinator matrix/oracle. HPC2nodes /
+   4cores /8GiB host /zeroGPU;1min18s scheduler. Largest64-bit single samples
+   5.476ms staged /4.697ms direct; RSS248.145–249.312MiB/rank. Not bandwidth,
+   GPU throughput or a fullsize estimate. The reference owns two host shards plus
+   a tile (full2^36 grid /16ranks projects1TiB host total), not chosen production
+   layout. Next expose existing GPU row/column vector kernels with global plan
+   dimension/origin separate from bounded local device storage; validate both
+   widths/directions/nonzero origins against CPU arithmetic before composing
+   vector/transpose stages and Taylor dependencies. Reuse resident arenas and
+   bounded host exchange. Memory/transfers/latency remain unmeasured; no default
+   switch or bigger budget from the transpose result.
    Profile-report allowance remains90s within current controller/scheduler caps.
 
 6. Compare complete elapsed time across practical allocations before choosing

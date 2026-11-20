@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-20 10:33 | SCALING-142 | Completed | [Distributed transpose78279 passed](2026-11-20-1033-codex-scaling-142-completed.md) |
+| 2026-11-20 10:24 | SCALING-142 | Started | [Review distributed transpose78279](2026-11-20-1024-codex-scaling-142-started.md) |
 | 2026-11-20 10:22 | SCALING-141 | Handoff | [Sharded transpose validation78279 submitted](2026-11-20-1022-codex-scaling-141-handoff.md) |
 | 2026-11-20 10:20 | SCALING-141 | Prepared | [Sharded transpose and MPI validation ready](2026-11-20-1020-codex-scaling-141-prepared.md) |
 | 2026-11-20 10:03 | SCALING-141 | Started | [Implement bounded sharded transpose for collective FFT](2026-11-20-1003-codex-scaling-141-started.md) |

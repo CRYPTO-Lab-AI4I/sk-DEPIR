@@ -833,6 +833,7 @@ operation/shape/count descriptors, deterministic blocking peer rounds and no ful
 matrix gather; it performs no field arithmetic. Private API and MPI test adapter
 are experimental preprocessing components, not client encoding dependencies.
 [Design, memory/time limits and validation](../../experiments/distributed-transpose/report.md).
-CPU serial/rendezvous/race tests pass; distributed MPI validation78279 is submitted, unreviewed.
+CPU serial/rendezvous/race tests and distributed MPI validation78279 pass;
+all16 operations and7,312 endpoint checks match independent output coordinates.
 GPU vector/Taylor composition and collective polynomial products are not implemented
 by this permutation. No production layout/default or fulls18 claim follows.

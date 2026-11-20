@@ -624,13 +624,17 @@ UCX cache control; resources and exclusions above):
 
 These rows do not fill any full s=18 preprocessing/encoding result cell.
 
-The first collective-FFT component is now implemented: a
-[rank-sharded transpose](../experiments/distributed-transpose/report.md) with
-bounded tiles, operation descriptors and32/64-bit transport. Independent serial
-and unbuffered-rendezvous CPU tests pass, including empty owners and wide counts.
-Distributed MPI validation **78279 submitted**, results unreviewed. This host-packing reference is not yet a
-GPU transform or full s=18 preprocessing. It uses two local shards plus a tile;
-packing/communication costs and production host/device layout remain unmeasured.
+The first collective-FFT data-movement component,
+[rank-sharded transpose](../experiments/distributed-transpose/report.md#review-of-78279),
+**passed MPI validation 78279**: 16 operations across both widths/modes, 7,312
+endpoint checks, exact output shards and legacy root/support lanes. HPC: 2 nodes /
+4 CPU cores / 8 GiB requested host / zero GPUs; **1 min 18 s** scheduler elapsed.
+Largest 64-bit transpose: **5.476 ms staged / 4.697 ms direct**, one profiled sample;
+logged process peak RSS **248.145–249.312 MiB/rank**. This validates the packing/
+transport reference, not a distributed GPU FFT or full-size bandwidth estimate.
+Next: stage-scoped GPU row/column operations with global offsets and locally
+bounded device buffers, then vector/transpose/Taylor composition. Two full host
+shards remain a reference-layout cost, not an adopted production default.
 At a full2^36-element grid /16 ranks /64-bit slots, this reference would retain
 64 GiB/rank (1 TiB aggregate) for two host shards alone; it is not the selected
 production route or a replacement for the GPU capacity models above.

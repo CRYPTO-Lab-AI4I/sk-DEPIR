@@ -1,0 +1,59 @@
+File: transpose.test
+Build ID: 4e79d595199e84220568af934e0f98af24f0ade0
+Type: cpu
+Time: 2026-11-20 11:22:41 CET
+Duration: 996.51ms, Total samples = 510ms (51.18%)
+Showing nodes accounting for 510ms, 100% of 510ms total
+      flat  flat%   sum%        cum   cum%
+     400ms 78.43% 78.43%      400ms 78.43%  runtime.cgocall
+      70ms 13.73% 92.16%       70ms 13.73%  [libc.so.6]
+      10ms  1.96% 94.12%       10ms  1.96%  <unknown>
+      10ms  1.96% 96.08%       10ms  1.96%  internal/sync.(*HashTrieMap[go.shape.interface {},go.shape.interface {}]).Load
+      10ms  1.96% 98.04%       10ms  1.96%  reflect.Value.Set
+      10ms  1.96%   100%       10ms  1.96%  runtime.memclrNoHeapPointers
+         0     0%   100%       20ms  3.92%  encoding/json.(*Encoder).Encode
+         0     0%   100%       20ms  3.92%  encoding/json/v2.MarshalEncode
+         0     0%   100%       10ms  1.96%  encoding/json/v2.makeMapArshaler.func2
+         0     0%   100%       20ms  3.92%  encoding/json/v2.marshalEncode
+         0     0%   100%      420ms 82.35%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestDistributedTransposeMPI
+         0     0%   100%       20ms  3.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestDistributedTransposeMPI.func1
+         0     0%   100%       20ms  3.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestDistributedTransposeMPI.func2
+         0     0%   100%      160ms 31.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeMPICases[go.shape.uint32]
+         0     0%   100%       10ms  1.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeMPICases[go.shape.uint32].func1
+         0     0%   100%       20ms  3.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeMPICases[go.shape.uint64]
+         0     0%   100%       10ms  1.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeMPICases[go.shape.uint64].func1
+         0     0%   100%       10ms  1.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeMPI[go.shape.uint32].ReceiveTile
+         0     0%   100%       10ms  1.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeMPI[go.shape.uint32].ReceiveTile.func1
+         0     0%   100%       20ms  3.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeMPI[go.shape.uint32].SendTile
+         0     0%   100%       10ms  1.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeMPI[go.shape.uint32].control
+         0     0%   100%       20ms  3.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeMPI[go.shape.uint64].SendTile
+         0     0%   100%       10ms  1.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeMPI[go.shape.uint64].SendTile.func1
+         0     0%   100%       10ms  1.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeMPI[go.shape.uint64].control
+         0     0%   100%       30ms  5.88%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeRank[go.shape.uint32]
+         0     0%   100%       20ms  3.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeRank[go.shape.uint32].func2
+         0     0%   100%       10ms  1.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeRank[go.shape.uint32].func3
+         0     0%   100%       20ms  3.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeRank[go.shape.uint64]
+         0     0%   100%       20ms  3.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeRank[go.shape.uint64].func2
+         0     0%   100%      130ms 25.49%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).Barrier
+         0     0%   100%       30ms  5.88%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).CheckPayloadProof
+         0     0%   100%       20ms  3.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).Close
+         0     0%   100%       30ms  5.88%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).ExchangeControl
+         0     0%   100%       10ms  1.96%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).ExchangeProof (inline)
+         0     0%   100%      220ms 43.14%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.Open
+         0     0%   100%       20ms  3.92%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi._Cfunc_MPI_Finalize
+         0     0%   100%      130ms 25.49%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi._Cfunc_barrier_world
+         0     0%   100%       30ms  5.88%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi._Cfunc_exchange_proof
+         0     0%   100%      220ms 43.14%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi._Cfunc_open_world
+         0     0%   100%       10ms  1.96%  os.ReadFile
+         0     0%   100%       10ms  1.96%  os.readFileContents
+         0     0%   100%       10ms  1.96%  reflect.(*rtype).ptrTo
+         0     0%   100%       10ms  1.96%  reflect.New
+         0     0%   100%       10ms  1.96%  reflect.ptrTo (inline)
+         0     0%   100%       80ms 15.69%  runtime._ExternalCode
+         0     0%   100%       10ms  1.96%  runtime.growslice
+         0     0%   100%       10ms  1.96%  runtime/pprof.(*profileBuilder).readMapping
+         0     0%   100%       10ms  1.96%  runtime/pprof.newProfileBuilder
+         0     0%   100%       10ms  1.96%  runtime/pprof.profileWriter
+         0     0%   100%       10ms  1.96%  slices.Grow[go.shape.[]uint8,go.shape.uint8] (inline)
+         0     0%   100%       10ms  1.96%  sync.(*Map).Load (inline)
+         0     0%   100%      420ms 82.35%  testing.tRunner

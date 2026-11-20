@@ -1,0 +1,24 @@
+{
+  "utc": "2026-11-20T10:33:09.549215+00:00",
+  "review_revision": "a0fc63ac1887e23f492f1d9fbb1998ad72262df6",
+  "command": "python3 -B experiments/distributed-transpose/analyze.py transpose-01",
+  "source_sha256": {
+    "experiments/distributed-transpose/analyze.py": "9ac06cb397e9033e822256758f8557e225d08baf4e300577297317eb8192f9cc",
+    "experiments/distributed-transpose/run.py": "aeb4d52209018c97d1b4683ca65656cb39d5f5941a3ef6d961b46574e54bc3a5",
+    "experiments/distributed-transpose/test_review.py": "b956fc00ad08954603bd1656001a1d3cecad68bc681ad3bd2c73cd69d0f31f3c"
+  },
+  "checks": [
+    "672 source/39 evidence/18 cache seals",
+    "both modes all8operations/64rank outputs",
+    "7312 paired endpoint proofs match independently generated expected tile bytes",
+    "all saved largest output words match independent coordinates",
+    "legacy32bit root and64bit support lanes pass",
+    "all commands exit zero; no captures or resource guard",
+    "python3 -B experiments/distributed-transpose/test_review.py (2pass)"
+  ],
+  "limitations": [
+    "Single profiled sample per shape/mode, varying tile sizes.",
+    "Scalar host packing/control reference; no GPU arithmetic/distributed FFT or fullsize throughput claim.",
+    "No new MPI/GPU job submitted during review."
+  ]
+}

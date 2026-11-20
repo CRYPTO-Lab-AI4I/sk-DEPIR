@@ -1,0 +1,223 @@
+{
+  "status": "passed",
+  "job_id": "78279",
+  "revision": "e96ed6ab5e4286e43cf5106fb93ba10d10eda3c6",
+  "source_files_verified": 672,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 39,
+  "cache_files_verified": 18,
+  "tests": [
+    "TestWideOrbitArithmetic",
+    "TestTableFreeFields"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.018990861251950264,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.06051413528621197,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.31816632114350796,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.020365620031952858,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.07056787051260471,
+      "exit_code": 0
+    },
+    {
+      "label": "ucx-version",
+      "seconds": 0.06815084256231785,
+      "exit_code": 0
+    },
+    {
+      "label": "ucx-config",
+      "seconds": 0.1883953046053648,
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "seconds": 19.986868180334568,
+      "exit_code": 0
+    },
+    {
+      "label": "local-tests",
+      "seconds": 0.22049262933433056,
+      "exit_code": 0
+    },
+    {
+      "label": "local-race",
+      "seconds": 18.148798378184438,
+      "exit_code": 0
+    },
+    {
+      "label": "staged",
+      "seconds": 1.5724010672420263,
+      "exit_code": 0
+    },
+    {
+      "label": "direct",
+      "seconds": 1.2702715266495943,
+      "exit_code": 0
+    },
+    {
+      "label": "profile",
+      "seconds": 28.266892394050956,
+      "exit_code": 0
+    }
+  ],
+  "scope": "Host packing/transport transpose reference, not a distributed FFT or fulls18 preprocessing.",
+  "completed_arms": [
+    {
+      "mode": "staged",
+      "operations": [
+        {
+          "operation": 1,
+          "rows": 1,
+          "columns": 3,
+          "word_bytes": 4,
+          "seconds": 0.005927734
+        },
+        {
+          "operation": 2,
+          "rows": 7,
+          "columns": 11,
+          "word_bytes": 4,
+          "seconds": 0.009303753
+        },
+        {
+          "operation": 3,
+          "rows": 64,
+          "columns": 128,
+          "word_bytes": 4,
+          "seconds": 0.020637831
+        },
+        {
+          "operation": 4,
+          "rows": 1024,
+          "columns": 256,
+          "word_bytes": 4,
+          "seconds": 0.00625669
+        },
+        {
+          "operation": 5,
+          "rows": 1,
+          "columns": 3,
+          "word_bytes": 8,
+          "seconds": 0.000157956
+        },
+        {
+          "operation": 6,
+          "rows": 7,
+          "columns": 11,
+          "word_bytes": 8,
+          "seconds": 0.000304396
+        },
+        {
+          "operation": 7,
+          "rows": 64,
+          "columns": 128,
+          "word_bytes": 8,
+          "seconds": 0.016703093
+        },
+        {
+          "operation": 8,
+          "rows": 1024,
+          "columns": 256,
+          "word_bytes": 8,
+          "seconds": 0.005476147
+        }
+      ],
+      "proof_events": 3656,
+      "peak_rss_bytes_per_rank": 261423104,
+      "hosts": {
+        "0": "gnode14",
+        "1": "gnode14",
+        "2": "gnode15",
+        "3": "gnode15"
+      }
+    },
+    {
+      "mode": "direct",
+      "operations": [
+        {
+          "operation": 1,
+          "rows": 1,
+          "columns": 3,
+          "word_bytes": 4,
+          "seconds": 0.005424196
+        },
+        {
+          "operation": 2,
+          "rows": 7,
+          "columns": 11,
+          "word_bytes": 4,
+          "seconds": 0.007090054
+        },
+        {
+          "operation": 3,
+          "rows": 64,
+          "columns": 128,
+          "word_bytes": 4,
+          "seconds": 0.018026716
+        },
+        {
+          "operation": 4,
+          "rows": 1024,
+          "columns": 256,
+          "word_bytes": 4,
+          "seconds": 0.008864992
+        },
+        {
+          "operation": 5,
+          "rows": 1,
+          "columns": 3,
+          "word_bytes": 8,
+          "seconds": 8.8524e-05
+        },
+        {
+          "operation": 6,
+          "rows": 7,
+          "columns": 11,
+          "word_bytes": 8,
+          "seconds": 0.000286719
+        },
+        {
+          "operation": 7,
+          "rows": 64,
+          "columns": 128,
+          "word_bytes": 8,
+          "seconds": 0.016627359
+        },
+        {
+          "operation": 8,
+          "rows": 1024,
+          "columns": 256,
+          "word_bytes": 8,
+          "seconds": 0.004697141
+        }
+      ],
+      "proof_events": 3656,
+      "peak_rss_bytes_per_rank": 260198400,
+      "hosts": {
+        "0": "gnode14",
+        "1": "gnode14",
+        "2": "gnode15",
+        "3": "gnode15"
+      }
+    }
+  ],
+  "current_arm": "direct",
+  "workflow_error": null
+}

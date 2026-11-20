@@ -62,7 +62,8 @@ original methodology; apply this policy to new optimization runs.
 
 - [Rank-sharded transpose](distributed-transpose/report.md): bounded32/64-bit
   data-movement prerequisite for collective FFTs, independent scalar/rendezvous
-  tests; host-only MPI validation78279 submitted, no distributed GPU FFT/default claim.
+  tests; host-only MPI validation78279 passed (16 operations /7,312 endpoint
+  checks), no distributed GPU FFT/default or full-size throughput claim.
 
 - [GPU tree with UCX cache control](ucx-cache-gpu-tree/report.md): same-build
   78261 passed the full crossover: CPU/state/proof checks and 16 clean CUDA

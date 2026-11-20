@@ -1,20 +1,57 @@
 # Rank-sharded transpose for collective preprocessing FFTs
 
-Status: **implemented; MPI validation78279 submitted** (SCALING-141), results unreviewed.
-[Receipt](submission.json), progress `slurm-78279.log`, results/profiles
-`runs/transpose-01/`. Implementation `e96ed6a`;
-[source freeze](readiness/snapshot.json):672 files /3,138,882 bytes; all ten
-checked input hashes match. No MPI/GPU execution implied by local readiness.
+Status: **MPI validation 78279 passed** (SCALING-142).
+[Receipt](submission.json), [raw results](runs/transpose-01/results.json),
+[review](runs/transpose-01/analysis.json), [accounting](runs/transpose-01/scheduler-accounting.txt),
+[progress](slurm-78279.log). Implementation `e96ed6a`; verified
+**672 source / 39 original evidence / 18 cache hashes**; all commands exited zero.
 [Shared transpose](../../encoding/liftrs-shared/distributed_transpose.go),
 [CPU/rendezvous tests](../../encoding/liftrs-shared/distributed_transpose_test.go),
 [MPI harness](../../encoding/liftrs-shared/distributed_transpose_mpi_test.go),
-[transport](../distributed-root/mpi/world.go), [runner](run.py),
-[scheduler script](run.sbatch), [reviewer](analyze.py), [review tests](test_review.py).
-Source revision recorded in submission.json; exact source/evidence/cache seals in
-results.json. This starts actual collective-FFT data movement after the
-[validated GPU ownership/transport gate](../ucx-cache-gpu-tree/report.md#review-of-78261).
-It is **not** a distributed FFT, collective polynomial product, full s=18 support,
-CPU preprocessing fallback or production layout/default selection.
+[runner](run.py), [reviewer](analyze.py), [review tests](test_review.py).
+This validates the data-movement/control prerequisite, **not** a distributed FFT,
+collective polynomial product, GPU packing kernel or full s=18 preprocessing.
+
+## Review of 78279
+
+HPC gnode14/gnode15, 2 nodes / 4 ranks / 4 CPU cores / 8 GiB requested host RAM
+total / zero GPUs. Scheduler **1 min 18 s**, controller **76.975 s**. Both modes
+passed all eight shape/width operations: **16 global transposes / 64 rank outputs**.
+All **7,312 endpoint proof records** match peer proofs and independently generated
+tile values, with exact operation/route/offset/width/count coverage. Every output
+word and all saved largest shards match independent coordinate references. Empty
+owners, odd shapes, tiny tails, multi-chunk messages and original root/support
+lanes pass. No mismatch captures, guards or recovery; all rank streams parse
+strictly. Source/evidence/cache seals, profiles and UCX cache settings retained.
+
+| Mode | Largest 32-bit transpose, 1024×256 | Largest 64-bit transpose, 1024×256 | Largest logged process peak RSS/rank |
+|---|---:|---:|---:|
+| Staged | 6.257 ms | 5.476 ms | 249.312 MiB |
+| Direct | 8.865 ms | 4.697 ms | 248.145 MiB |
+
+One profiled sample per shape/mode; slowest-rank durations include tile allocation,
+scalar packing/scatter, metadata, hashing/proofs and transfer, excluding generation,
+full validation, artifact/fsync and final collective aggregation. They are not
+isolated network bandwidth, statistically stable mode comparisons or GPU timings.
+Different shapes use different tile bounds; smaller shapes can take longer due
+to more messages. Do not extrapolate full-size runtime from these samples.
+Largest explicit shard+tile payload remains **1.125 MiB/rank**, plus optional
+**8 KiB** MPI staging; measured RSS includes runtime/transport overhead. Retained
+cache **12.666 MiB**; all eight rank CPU profiles and largest per-owner outputs
+remain. Build **19.987 s**, race check **18.149 s** and profile report **28.267 s**
+are separate from the two MPI commands (**1.572 s / 1.270 s**).
+
+**Next:** expose stage-scoped GPU vector operations using existing `local_vectors`
+and shared `vector_transform` recurrences. Global plan dimension and vector origin
+must remain independent of the locally admitted buffer size; nonzero/wide global
+origins affect row evaluation points. Current `HostTiled.rows_at` demonstrates a
+diagnostic affine-row tile, not the production distributed executor. Validate
+row/column forward/inverse stages at both widths against independent CPU results,
+then compose transpose plus vector stages and distributed Taylor dependencies.
+Reuse resident device arenas and bounded host exchange tiles, rather than adopting
+the two-full-host-shard reference as a production layout. Extra transfers/runtime
+and device workspace remain unmeasured; no layout/default decision or new large
+budget follows. No new job submitted in this review.
 
 ## Implementation and invariants
 
@@ -133,5 +170,5 @@ fresh name. No agent monitoring after submission.
 MPI-tagged unit/descriptor tests pass; native MPI/CUDA harness compiles and prior
 fingerprint tests pass. Python reviewer tests reject missing packets and corrupted
 saved bytes, alongside36 existing reviewer/logging tests. Compiler-wrapper sandbox
-socket warnings exit zero. No local MPI/GPU execution; distributed validation,
-actual RSS/latency and GPU FFT composition remain unmeasured.
+socket warnings exit zero. The local checks did not execute MPI/GPU work; the actual MPI results are reviewed
+above. GPU FFT composition and full-size behavior remain unmeasured.
