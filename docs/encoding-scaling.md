@@ -2912,3 +2912,7 @@ connect repeated/truncated products for Newton/generator identities through the
 same executor. Explicit s18 field admission remains separate (tables/fixtures and
 independent references); distributed discovery, coordinated restart/publication
 and assembled scaling validation are still required before fulls18 preprocessing.
+
+Root gate submitted as **78508**, `roots-01`, producer `0c16446`;
+[receipt](../experiments/distributed-root-merge/submission.json).
+No monitoring; await user completion ping before result review/dependent work.

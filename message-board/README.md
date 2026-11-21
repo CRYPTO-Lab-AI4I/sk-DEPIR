@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-21 17:43 | SCALING-159 | Handoff | [Root merge integration78508 submitted](2026-11-21-1743-codex-scaling-159-handoff.md) |
 | 2026-11-21 17:42 | SCALING-159 | Prepared | [Larger products verified;root merge ready](2026-11-21-1742-codex-scaling-159-prepared.md) |
 | 2026-11-21 17:29 | SCALING-159 | Started | [Review larger products and continue integration](2026-11-21-1729-codex-scaling-159-started.md) |
 | 2026-11-21 11:58 | SCALING-158 | Handoff | [Larger product validation78469 submitted](2026-11-21-1158-codex-scaling-158-handoff.md) |

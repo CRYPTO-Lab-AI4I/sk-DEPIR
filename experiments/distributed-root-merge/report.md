@@ -1,6 +1,8 @@
 # Local GPU roots with a distributed final merge
 
-Status: prepared; no new GPU result yet. This follows [passed larger products
+Status: **submitted as78508**, run `roots-01`, producer `0c16446`.
+[Submission receipt](submission.json), [scheduler log](slurm-78508.log);
+results will be retained in `runs/roots-01/`. No new GPU result yet. This follows [passed larger products
 78469](../resident-product-larger/report.md). Producer revision and exact source
 identities will be retained by the controller; [readiness checks](readiness/checks.json)
 record local validation. Work SCALING-159.

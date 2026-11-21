@@ -83,7 +83,7 @@ original methodology; apply this policy to new optimization runs.
 
 - [Local GPU roots and distributed final merge](distributed-root-merge/report.md):
   shared product driver, bounded synthetic closed supports, complete native/scalar
-  references and paired input ownership checks; prepared inside existing caps.
+  references and paired input ownership checks; submitted as78508 inside existing caps.
 
 - [Larger structured GPU products](resident-product-larger/report.md): exact
   streaming/prefix oracle,N16384/65536/262144,host/local-resident comparison;

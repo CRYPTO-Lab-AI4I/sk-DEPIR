@@ -22,7 +22,7 @@ component results, separate from the full s17 runs and fulls18 projections below
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>Local GPU roots + distributed final-merge integration prepared; fullsize scaling remains pending. |
+| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>Local GPU roots + distributed final-merge integration **submitted as78508**; fullsize scaling remains pending. |
 | 2. Distributed discovery | Existing discovery is not yet partitioned across nodes. |
 | 3. Generator construction and verification | Existing algorithms still need the distributed executor/data integration. |
 | 4. Coordinated checkpoints and publication | Helpers exist; distributed ownership/restart/assembly integration remains. |
@@ -90,7 +90,7 @@ Three profiled samples/backend/size; both use GPU arithmetic. Setup/oracle and
 persistence are outside net product time, inside controller time. Detailed ranges
 and boundaries are in the report. These are **s17-field synthetic components**,
 not s18 PIR preprocessing. [Next root-merge integration](../experiments/distributed-root-merge/report.md)
-is prepared within the same resource caps; partitioned production support and
+was submitted as **78508** within the same resource caps; partitioned production support and
 Newton integration remain.
 No fulls18 or production preprocessing speedup claim.
 

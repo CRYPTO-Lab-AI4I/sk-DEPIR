@@ -1,0 +1,15 @@
+{
+  "job_id": "78508",
+  "name": "roots-01",
+  "implementation_revision": "0c16446da3dd20ee3065ad3e0980c402a379c7cb",
+  "recorded_utc": "2026-11-21T17:43:11.061495+00:00",
+  "command": "module load slurm/slurm/25.05; sbatch --parsable --output=experiments/distributed-root-merge/slurm-%j.log experiments/distributed-root-merge/run.sbatch roots-01",
+  "results": "experiments/distributed-root-merge/runs/roots-01/",
+  "log": "experiments/distributed-root-merge/slurm-78508.log",
+  "cache": ".cache/liftrs/distributed-root-merge/roots-01/",
+  "resources": "Same 2 HPC nodes / 2 H200 / 4 CPU cores / 8 GiB requested host RAM;128 MiB aggregate owned GPU/card;1 GiB RSS/rank;128 MiB cache/2 GiB scratch/32 MiB file;720-second controller/15-minute scheduler;no pinned buffers",
+  "estimated_controller_minutes": "3\u20136, excluding queue; unmeasured new integration",
+  "scope": "5 arms: arbitrary reference, small root memcheck, normal roots at N4096/16384/65536 (N-4 roots); GPU partial factors + cooperatively distributed final product; replicated small support/native reference and whole local-polynomial exchange;not production ownership/Newton/fulls18",
+  "monitoring": "None. Await user completion ping.",
+  "note": "Controller records actual source snapshot/revision; following changes affect documentation and submission receipt only."
+}
