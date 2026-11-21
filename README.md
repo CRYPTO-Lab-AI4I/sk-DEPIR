@@ -90,7 +90,7 @@ pass78399:24 normal +24 sanitized schoolbook products with clean CUDA summaries.
 passes96 normal +8 small sanitized outputs. Both paths use GPU arithmetic; the
 resident path remains slower at4096/16384 values. [Local Taylor GPU access](experiments/resident-taylor-local/report.md)
 now avoids local target/source host round trips, sharing the same recurrence and
-remote schedule; validation is prepared. Larger scaling and fulls18 remain pending. No encoding default
+remote schedule; validation78460 is submitted. Larger scaling and fulls18 remain pending. No encoding default
 or client CUDA/MPI dependency changes.
 
 The [persistent GPU vector-stage adapter](experiments/gpu-vector-stage/report.md)

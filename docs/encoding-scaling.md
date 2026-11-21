@@ -2839,3 +2839,9 @@ widths. Keep guards out of benchmark setup. Then3samples each host/oldresident/
 localresident atN4096/16384,tile4096, with existing net/total/capture boundaries.
 Same admission/720s/15min; projected200–400s, unknown until measured. Choose larger
 scaling/integration from these results; stillstep1 and no fulls18 support claim.
+
+GPU-owned local Taylor validation **78460 submitted**, implementation `d327890`,
+results `experiments/resident-taylor-local/runs/local-01/`. Same resource envelope;
+no monitoring. After completion ping, verify all legacy/local FFT/product guards,
+exact remote coverage and sanitizer results, then compare3sample distributions
+before choosing further scaling or integration. Defaults remain unchanged.

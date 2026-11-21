@@ -1,9 +1,9 @@
 # GPU-owned Taylor targets and sources
 
-Status: implemented; local CPU/race, native/HostTiled/C/CPP/CUDA/MPI builds and
-reviewer checks pass. GPU correctness/performance validation is prepared, not yet
-measured. Source follows `e76ef8a`/`bcde19c`; submission/raw results identify the
-frozen producer. [Readiness evidence](readiness/checks.json).
+Status: **job78460 submitted**, implementation `d327890`; [receipt](submission.json).
+Local CPU/race, native/HostTiled/C/CPP/CUDA/MPI builds and reviewer checks pass.
+GPU correctness/performance results remain pending. [Results destination](runs/local-01/),
+[job log](slurm-78460.log). Actual revision/build inputs are saved by the controller. [Readiness evidence](readiness/checks.json).
 
 [Matched products78432](../resident-product-scaling/report.md) passed all14 arms.
 At N16384/tile4096, median net product work was0.355987–0.365759 seconds with

@@ -83,7 +83,7 @@ original methodology; apply this policy to new optimization runs.
 
 - [GPU-owned local Taylor data](resident-taylor-local/report.md): same recurrence/
   remote source schedule, local GPU access and raw-write validity checks;
-  correctness/sanitizer/matched three-backend validation prepared.
+  correctness/sanitizer/matched three-backend validation78460 submitted.
 
 - [Matched resident/host product scaling](resident-product-scaling/report.md):
   N4096/16384,127/4096-word tiles and3samples/pair;78432 passed, resident still slower.

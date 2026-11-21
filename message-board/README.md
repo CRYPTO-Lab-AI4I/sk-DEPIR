@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-21 09:34 | SCALING-157 | Handoff | [Local Taylor validation78460 submitted](2026-11-21-0934-codex-scaling-157-handoff.md) |
 | 2026-11-21 09:32 | SCALING-157 | Prepared | [GPU-local Taylor gate ready;matched78432 verified](2026-11-21-0932-codex-scaling-157-prepared.md) |
 | 2026-11-21 09:11 | SCALING-157 | Started | [Review matched products and choose next measured step](2026-11-21-0911-codex-scaling-157-started.md) |
 | 2026-11-20 18:55 | SCALING-156 | Handoff | [Matched product scaling78432 submitted](2026-11-20-1855-codex-scaling-156-handoff.md) |

@@ -1,0 +1,14 @@
+{
+  "job_id": "78460",
+  "name": "local-01",
+  "implementation_revision": "d327890fcca5da069ad0abf038e47a7cf16ae843",
+  "recorded_utc": "2026-11-21T09:34:05.467889+00:00",
+  "command": "module load slurm/slurm/25.05; sbatch --parsable --output=experiments/resident-taylor-local/slurm-%j.log experiments/resident-taylor-local/run.sbatch local-01",
+  "results": "experiments/resident-taylor-local/runs/local-01/",
+  "log": "experiments/resident-taylor-local/slurm-78460.log",
+  "cache": ".cache/liftrs/resident-taylor-local/local-01/",
+  "resources": "same2HPCnodes/2H200/4CPU/8GiBhost;128MiBowned/card/1GiBRSS/rank/128MiBcache/2GiBscratch/32MiBfile;720scontroller/15minscheduler;no pinned buffers",
+  "monitoring": "None. Wait for user completion ping.",
+  "scope": "legacy/local32/64 FFT and product correctness/cache guards,small local sanitizer;3samples host/oldresident/localresident syntheticN4096/16384;no fulls17/s18 result/default change",
+  "note": "Actual job-start revision/build inputs saved by controller; following handoff changes affect excluded documentation/JSON only."
+}
