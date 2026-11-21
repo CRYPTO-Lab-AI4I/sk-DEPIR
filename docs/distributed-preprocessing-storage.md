@@ -91,5 +91,6 @@ bits without arithmetic. This validates storage; it does not validate a resident
 FFT, product or canonical field values. Resident vectors passed78394 and complete resident FFT passed78396. Pointwise/
 products passed78399 with the same three arrays, operation schedule and
 arithmetic. Tiny resident products are slower than host under the current
-127-word/diagnostic boundary. Matched sizes/transfer batching is prepared before
-larger scaling and preprocessing integration. No large calibration or resource increase is implied.
+127-word/diagnostic boundary. Matched sizes/transfer batching passed78432:resident still slower atN16384.
+Direct local Taylor GPU access is implemented, retaining remote snapshots and
+shared arithmetic; correctness/matched validation is prepared before larger scaling. No large calibration or resource increase is implied.

@@ -460,3 +460,14 @@ now compare host/resident implementations on the same admitted HPC nodes, includ
 constructor, operand I/O and separately timed validation capture. Test defaults
 remain127 words; the explicit experiment also uses4096-word transport andN16384.
 No library default or fullsize support/performance claim changes.
+
+The [matched comparison78432](../../experiments/resident-product-scaling/report.md)
+passes; both paths use GPU arithmetic, and resident arrays remain slower at the
+tested sizes. Optional `TaylorLocal32/64` now use owned GPU values directly,
+with the same recurrence and remote snapshot layout. For example,
+`store.TaylorLocal64(0, remoteSnapshot, capacity, tile)` leaves local snapshot
+entries zero. Private slot validity is invalidated before raw writes; canonical
+values are checked before local arithmetic when needed. No local host readback
+or target copy is required. Remote transfer, barriers, buffers and existing
+methods remain. [Local-access validation](../../experiments/resident-taylor-local/report.md)
+is prepared; defaults and fullsize claims are unchanged.

@@ -2,10 +2,11 @@
 // Internal server component, included after Resident inside its namespace. Owns no
 // host grid: the borrowed fresh executor owns one reusable device tile and plans.
 #include "taylor_window.cuh"
-template <class Word> void Resident<Word>::taylor_stage(Card &card, Word *values,
-    Matrix<Word> *plan, const Matrix<Word> &metadata, size_t domain,
-    size_t capacity, size_t loaded, unsigned level, bool quotient,
-    size_t block, size_t first, size_t count) {
+// Shape checks and launches are shared by full snapshots and GPU-local views;
+// only the source accessor changes. Sparse coefficients/recurrence stay shared.
+template <class Word> size_t Resident<Word>::taylor_shape(const Matrix<Word> &metadata,
+    size_t domain,size_t capacity,size_t loaded,unsigned level,bool quotient,
+    size_t block,size_t first,size_t count) {
     if (level >= metadata.dimension - metadata.split) throw std::runtime_error("Taylor level");
     const auto &terms = metadata.taylor[level];
     const size_t half = size_t(1) << (metadata.split + level);
@@ -16,19 +17,30 @@ template <class Word> void Resident<Word>::taylor_stage(Card &card, Word *values
         block % (2 * half) || !count || first < begin || first > end || count > end-first ||
         count > capacity / (terms.count+1) || loaded != count*(terms.count+1))
       throw std::runtime_error("Taylor window extent");
-    CurrentDevice restore;
-    check(cudaSetDevice(card.id));
-    const auto began = std::chrono::steady_clock::now();
-    const char *phase = quotient ? "stage-Taylor-quotient" : "stage-Taylor-remainder";
-    active_domain_ = domain;
-    event(phase, "started", 0, count, began);
-    try {
-      TaylorWindow<Word> view{values, plan, block, half, first, count, level, quotient};
-      window_taylor<<<(count+255)/256,256>>>(view, (block/(2*half))*half+first,
-          static_cast<uint32_t *>(card.logs.data), static_cast<uint32_t *>(card.powers.data));
-      check(cudaGetLastError()); check(cudaDeviceSynchronize());
-      event(phase, "completed", count, count, began);
-    } catch (...) { event(phase, "failed", 0, count, began); throw; }
+  return half;
+}
+template <class Word> template <class View>
+void Resident<Word>::taylor_launch(Card &card,View view,size_t domain) {
+  CurrentDevice restore;
+  check(cudaSetDevice(card.id));
+  const auto began=std::chrono::steady_clock::now();
+  const char *phase=view.quotient?"stage-Taylor-quotient":"stage-Taylor-remainder";
+  active_domain_=domain;
+  event(phase,"started",0,view.count,began);
+  try {
+    window_taylor<<<(view.count+255)/256,256>>>(view,
+        (view.block/(2*view.half))*view.half+view.first,
+        static_cast<uint32_t*>(card.logs.data),static_cast<uint32_t*>(card.powers.data));
+    check(cudaGetLastError());check(cudaDeviceSynchronize());
+    event(phase,"completed",view.count,view.count,began);
+  } catch(...) {event(phase,"failed",0,view.count,began);throw;}
+}
+template <class Word> void Resident<Word>::taylor_stage(Card &card,Word *values,
+    Matrix<Word>*plan,const Matrix<Word>&metadata,size_t domain,size_t capacity,
+    size_t loaded,unsigned level,bool quotient,size_t block,size_t first,size_t count) {
+  const size_t half=taylor_shape(metadata,domain,capacity,loaded,level,quotient,block,first,count);
+  TaylorWindow<Word> view{values,plan,block,half,first,count,level,quotient};
+  taylor_launch(card,view,domain);
 }
 template <class Word> class VectorStage {
   Resident<Word> &engine_;

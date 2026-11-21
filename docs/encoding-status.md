@@ -6,7 +6,7 @@ exploratory targets**: keep their rows as algorithms, layouts and measurements
 improve. This is the maintained capacity and results reference for the
 [scaling plan](encoding-scaling.md), separate from TRL 5 acceptance.
 
-Updated 2026-11-20; full s17 encoding source `ed0c026`.
+Updated 2026-11-21; full s17 encoding source `ed0c026`.
 **Resident CPU encoding76645 and four-H200 GPU encoding76706 both passed at s17**,
 using the same verified preprocessing and deterministic database. Complete
 canonical and tightly packed output hashes match. GPU retry76706 supersedes the
@@ -22,7 +22,7 @@ component results, separate from the full s17 runs and fulls18 projections below
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched N4096/16384 transfer-tile comparison78432 submitted**, results pending. Large-product scaling remains pending. |
+| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>Resident remains slower; direct GPU access to local Taylor data is implemented, validation prepared. Large-product scaling remains pending. |
 | 2. Distributed discovery | Existing discovery is not yet partitioned across nodes. |
 | 3. Generator construction and verification | Existing algorithms still need the distributed executor/data integration. |
 | 4. Coordinated checkpoints and publication | Helpers exist; distributed ownership/restart/assembly integration remains. |
@@ -61,7 +61,14 @@ endpoints/arm, clean CUDA summaries. Controller **2min33.300s**, normal arm
 owned GPU **1.618 MiB/card**. Largest4096-value resident samples **0.2347–0.2367s**
 versus host **0.1080–0.1111s**, with diagnostic boundaries described in the report.
 [Matched size/tile comparison](../experiments/resident-product-scaling/report.md)
-**78432 submitted**, results pending; no fulls18 result or fullsize speedup claim.
+**78432 passed**:96 normal outputs +8 small sanitized outputs, zero CUDA errors/
+leaks; controller **3min50.175s**. Both backends use GPU arithmetic. At16384 values/
+4096-word tiles,3-sample median net time **355.987–365.759 ms host-stored** versus
+**616.580–619.547 ms resident** (two product shapes). Normal peak RSS
+**377.359 MiB host /375.188 MiB resident per process**; maximum owned GPU
+**1.575/1.791 MiB per card**, respectively. Larger tiles improve resident only
+**3.6–4.1%** at this size. [GPU-local Taylor access](../experiments/resident-taylor-local/report.md)
+is implemented; validation prepared. No fulls18 or fullsize speedup claim.
 
 ## Current s=17 results
 

@@ -1,0 +1,60 @@
+{
+  "checks": [
+    "CPU orchestration regressions passed0.076s;race1.299s",
+    "CUDA plugin, old HostTiled adapter and full CPP/CUDA/MPI test binary build passed",
+    "Optional pg_rank_taylor_local symbol exported; C bridge syntax passed",
+    "5localTaylor reviewer/selection tests(includes3product fixtures),6matched,3composition,6residentFFT,5residentProduct,3product,5summary passed",
+    "Python AST/shell/gofmt/source-document whitespace passed"
+  ],
+  "native_command": "module load gcc/14.2.0 cuda12.9/toolkit/12.9.1; nvcc -std=c++17 -O3 -lineinfo -arch=sm_90 -shared -Xcompiler=-fPIC,-pthread encoding/liftrs-cuda/matrix.cu encoding/liftrs-cuda/preparation.cu -o .cache/liftrs/resident-taylor-local/readiness/libliftrs-cuda.so",
+  "host_tiled_command": "module load gcc/14.2.0 cuda12.9/toolkit/12.9.1; nvcc -std=c++17 -O2 -arch=sm_90 -Xcompiler=-pthread experiments/preprocessing-tiles/check.cu -o .cache/liftrs/resident-taylor-local/readiness/host-tiled-reference-check",
+  "mpi_build_command": "module load gcc/14.2.0 openmpi/gcc/64/4.1.8; GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=1 CC=mpicc CXX=mpicxx .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/resident-taylor-local/readiness/products.test ./encoding/liftrs-shared",
+  "cpu_command": "GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=0 .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test ./encoding/liftrs-shared -run '^TestRankTranspose|^TestRankMatrixVectors|^TestRankTaylor|^TestRankAdditive|^TestRankProduct' -count=1 -timeout=20s",
+  "race_command": "same with CGO_ENABLED=1 and go test -race",
+  "native_exit_code": 0,
+  "mpi_build_exit_code": 0,
+  "host_tiled_exit_code": 0,
+  "local_GPU_MPI_executed": false,
+  "retained_artifacts": {
+    ".cache/liftrs/resident-taylor-local/readiness/host-tiled-reference-check": {
+      "bytes": 1907936,
+      "sha256": "67cfae6b48172f9fcf94bc11cf40a537c80f426393517167fcc89fc8a8a2c7a4"
+    },
+    ".cache/liftrs/resident-taylor-local/readiness/libliftrs-cuda.so": {
+      "bytes": 2947728,
+      "sha256": "c43c9a29d8373b0e40dda0818f35ce7fb3b68faf453a2ba35c6cc8fdc63b4ca8"
+    },
+    ".cache/liftrs/resident-taylor-local/readiness/products.test": {
+      "bytes": 11829168,
+      "sha256": "d21832fc87492aac07cf9f67c7b80b80a4e36b8659c2444565827852e3adb338"
+    }
+  },
+  "source_sha256": {
+    "encoding/liftrs-cuda/preparation.cu": "d59b36d29eb9d314b4c77a1134a45e7bf0371e819d73c8ca5649df95baa936ad",
+    "encoding/liftrs-cuda/preparation_api.h": "a9dc25a716cb64c292f14b8c0bbe7fc17155de0b3d591cd75ed5ae0248e71f50",
+    "encoding/liftrs-cuda/preparation_bridge.h": "94b396b06a881f371ccf5decb34c4752601b83001f4b8ae9d95a122de141ea12",
+    "encoding/liftrs-cuda/rank_storage.cuh": "4231624ae8c33b880f479746438a0917543ae574ac93140c27ae48489ac2770f",
+    "encoding/liftrs-cuda/rank_storage.go": "0e611e1603f86b8a1d2d3caab011aace44c9bd47c060a2e0ee58fa55af8f7569",
+    "encoding/liftrs-cuda/taylor_window.cuh": "13f6858abab481512cf56f75afc5bc8d0884d58e491532a11a6c235013082cff",
+    "encoding/liftrs-cuda/vector_stage.cuh": "8c0b183e1137c4ccd0d0301823d65d471a5718af3d95431e1d04d251ae71558a",
+    "encoding/liftrs-shared/distributed_taylor.go": "3fc6912026e11b73d3723cf10f074adf861514fbc2d721615c1de9221287d6c6",
+    "encoding/liftrs-shared/distributed_taylor_test.go": "9b7d9ffc01ce04b3cd426b40fe81e4190462508b27c7a8dcedae18a577ffb5c1",
+    "encoding/liftrs-shared/distributed_storage_cuda.go": "f33e686af90b3bb74a8fed34753321668a42eb9df6883d0028f70f91b88cf6b5",
+    "encoding/liftrs-shared/distributed_product_gpu_test.go": "74958997e5cfee7f238dbeb3f1c3348da2837118af777d81e3a8ff009c3051db",
+    "encoding/liftrs-shared/distributed_resident_gpu_test.go": "14475333b40be44f9a8ee73466ce64f4c0903352524cc5c1abbf13788a0f6b86",
+    "encoding/liftrs-shared/distributed_local_taylor_gpu_test.go": "9ceec88ff5a03dffb58fab9d9db5a481825d4779c325357c58057cd00b1d3412"
+  },
+  "controller_sha256": {
+    "experiments/resident-taylor-local/analyze.py": "ca785fd4f307328f6bc64979b9d7acfecbdca22060ba53831795e8d7e6d752f6",
+    "experiments/resident-taylor-local/run.py": "e299b78459d16bb048a18b925d8b54d5a497d29b23526d71c6628ca5b6daa153",
+    "experiments/resident-taylor-local/test_review.py": "b66189ade4a0c2769d41817cc0d8442bbc68be05dd882dfcf2bae493fb272e8b"
+  },
+  "limits": "same2HPCnodes/2H200/4CPU/8GiBhost;128MiBowned/card/1GiBRSS/rank/128MiBcache/2GiBscratch/32MiBfile;720scontroller/15minscheduler;no pinned buffers",
+  "limitations": [
+    "No local GPU/MPI execution; new accessor/cache correctness and runtime pending",
+    "Canonical proof assumes dedicated serialized owner; raw mutation invalidates, arithmetic restores only after success",
+    "Benchmark guard disabled to avoid prewarming new path metadata; separate small validation covers both layouts/widths and3mutation kinds",
+    "OpenMPI compiler wrapper socket errno1 warnings retained; final compilation exit0",
+    "No default swap/fullsize or s18 performance/support claim"
+  ]
+}

@@ -442,6 +442,9 @@ func TestRankProductAdmission(t *testing.T) {
 // completed target or crossing the successful end barrier.
 type failedTaylorStorage struct{ phase string }
 
+func (s failedTaylorStorage) Snapshot(rankTaylorPlan, taylorTicket, uint64, uint64, []uint32) error {
+	return s.Read(0, nil)
+}
 func (s failedTaylorStorage) Read(uint64, []uint32) error {
 	if s.phase == "read" {
 		return fmt.Errorf("storage read")

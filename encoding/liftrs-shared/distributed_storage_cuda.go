@@ -78,12 +78,19 @@ func rankResidentVectors[Word transposeWord](p rankTransposePlan, gpu *cuda.Rank
 // residentTaylorStorage retains only a bounded send tile; conversion separately
 // owns the packed snapshot. Logical I/O supports either resident physical view.
 type residentTaylorStorage[Word transposeWord] struct {
-	gpu  *cuda.RankStorage
-	slot int
-	tile uint64
-	send []Word
+	gpu   *cuda.RankStorage
+	slot  int
+	tile  uint64
+	send  []Word
+	local bool
 }
 
+func (s residentTaylorStorage[Word]) Snapshot(p rankTaylorPlan, t taylorTicket, ownFirst, half uint64, snapshot []Word) error {
+	if s.local {
+		return nil
+	} // Locals stay on GPU; the remote slots are filled by MPI.
+	return readTaylorSnapshot(p, t, ownFirst, half, snapshot, s.Read)
+}
 func (s residentTaylorStorage[Word]) Read(offset uint64, target []Word) error {
 	for done := 0; done < len(target); {
 		take := min(int(s.tile), len(target)-done)
@@ -116,8 +123,14 @@ func (s residentTaylorStorage[Word]) Apply(p rankTaylorPlan, t taylorTicket, off
 	tile := cuda.TaylorTile{Level: p.Level, Quotient: p.Quotient, Block: t.Block, First: t.First, Count: t.Count}
 	switch v := any(snapshot).(type) {
 	case []uint32:
+		if s.local {
+			return s.gpu.TaylorLocal32(s.slot, v, p.Capacity, tile)
+		}
 		return s.gpu.Taylor32(s.slot, v, p.Capacity, tile)
 	case []uint64:
+		if s.local {
+			return s.gpu.TaylorLocal64(s.slot, v, p.Capacity, tile)
+		}
 		return s.gpu.Taylor64(s.slot, v, p.Capacity, tile)
 	}
 	return fmt.Errorf("resident Taylor slot width")
@@ -126,7 +139,7 @@ func (s residentTaylorStorage[Word]) Apply(p rankTaylorPlan, t taylorTicket, off
 // rankResidentTaylor uses the unchanged Taylor ticket/source/round scheduler.
 // Two bounded host buffers and one capped device window replace a host shard.
 // Sources/third slot are preserved; failure leaves an incomplete target slot.
-func rankResidentTaylor[Word transposeWord](base rankTaylorPlan, gpu *cuda.RankStorage, slot int, tileWords uint64, inverse bool, link taylorLink[Word], degrees func(int) ([]uint64, error), notice func(string, uint64, uint64)) error {
+func rankResidentTaylor[Word transposeWord](base rankTaylorPlan, gpu *cuda.RankStorage, slot int, tileWords uint64, inverse bool, link taylorLink[Word], degrees func(int) ([]uint64, error), notice func(string, uint64, uint64), localTaylor bool) error {
 	if _, _, _, _, err := base.validate(); err != nil {
 		return err
 	}
@@ -134,7 +147,7 @@ func rankResidentTaylor[Word transposeWord](base rankTaylorPlan, gpu *cuda.RankS
 		return fmt.Errorf("resident Taylor ownership/slot")
 	}
 	workspace := make([]Word, base.Capacity)
-	storage := residentTaylorStorage[Word]{gpu: gpu, slot: slot, tile: tileWords, send: make([]Word, base.Capacity)}
+	storage := residentTaylorStorage[Word]{gpu: gpu, slot: slot, tile: tileWords, send: make([]Word, base.Capacity), local: localTaylor}
 	return rankTaylorConversion(base, inverse, degrees, func(p rankTaylorPlan, notice func(string, uint64, uint64)) error {
 		return rankTaylorStoredPass(p, workspace, storage, link, notice)
 	}, notice)
@@ -143,7 +156,7 @@ func rankResidentTaylor[Word transposeWord](base rankTaylorPlan, gpu *cuda.RankS
 // rankResidentAdditiveTransform is the resident adapter to the same complete FFT
 // plans/order used by the host reference. Input is consumed in data, scratch is
 // reused, and the third slot survives. Result physical layout stays interleaved.
-func rankResidentAdditiveTransform[Word transposeWord](p rankTransposePlan, gpu *cuda.RankStorage, data, scratch int, capacity uint64, inverse bool, transpose transposeLink[Word], windows taylorLink[Word], degrees func(int) ([]uint64, error), notice func(string, uint64, uint64)) error {
+func rankResidentAdditiveTransform[Word transposeWord](p rankTransposePlan, gpu *cuda.RankStorage, data, scratch int, capacity uint64, inverse bool, transpose transposeLink[Word], windows taylorLink[Word], degrees func(int) ([]uint64, error), notice func(string, uint64, uint64), localTaylor bool) error {
 	base, matrix, err := rankAdditivePlans(p, capacity, inverse)
 	if err != nil {
 		return err
@@ -153,7 +166,7 @@ func rankResidentAdditiveTransform[Word transposeWord](p rankTransposePlan, gpu 
 	}
 	return rankAdditiveSchedule(inverse,
 		func() error {
-			return rankResidentTaylor[Word](base, gpu, data, p.TileWords, inverse, windows, degrees, notice)
+			return rankResidentTaylor[Word](base, gpu, data, p.TileWords, inverse, windows, degrees, notice, localTaylor)
 		},
 		func() error { return rankResidentVectors[Word](matrix, gpu, data, scratch, inverse, transpose, notice) })
 }
@@ -162,7 +175,7 @@ func rankResidentAdditiveTransform[Word transposeWord](p rankTransposePlan, gpu 
 // Right retains its spectrum after multiplication; only left and scratch change
 // during inverse. Three disjoint arrays suffice for all transforms and pointwise
 // work. Caller admits a domain exceeding the summed degrees to avoid aliasing.
-func rankResidentPolynomialProduct[Word transposeWord](p rankTransposePlan, gpu *cuda.RankStorage, left, right, scratch int, capacity uint64, transpose transposeLink[Word], windows taylorLink[Word], degrees func(int) ([]uint64, error), notice func(string, uint64, uint64)) error {
+func rankResidentPolynomialProduct[Word transposeWord](p rankTransposePlan, gpu *cuda.RankStorage, left, right, scratch int, capacity uint64, transpose transposeLink[Word], windows taylorLink[Word], degrees func(int) ([]uint64, error), notice func(string, uint64, uint64), localTaylor bool) error {
 	plans, err := rankProductPlans(p, capacity)
 	if err != nil {
 		return err
@@ -173,7 +186,7 @@ func rankResidentPolynomialProduct[Word transposeWord](p rankTransposePlan, gpu 
 	slots := [2]int{left, right}
 	return rankProductSchedule(plans, p.InputWords,
 		func(plan rankTransposePlan, operand int, inverse bool) error {
-			return rankResidentAdditiveTransform[Word](plan, gpu, slots[operand], scratch, capacity, inverse, transpose, windows, degrees, notice)
+			return rankResidentAdditiveTransform[Word](plan, gpu, slots[operand], scratch, capacity, inverse, transpose, windows, degrees, notice, localTaylor)
 		},
 		func() error { return gpu.Pointwise(left, right) }, notice)
 }

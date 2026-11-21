@@ -1,9 +1,36 @@
 # Matched resident/host product scaling and transfer tiles
 
-Status: **job78432 submitted**, implementation `e76ef8a`; [receipt](submission.json).
-Local build/reviewer checks pass; new GPU measurements remain pending.
-[Results destination](runs/matched-01/), [job log](slurm-78432.log). Actual
-job-start revision/build identities are saved by the controller.
+Status: **78432 passed all14 arms**, producer `e76ef8a`, HPC gnode14/gnode15,
+2 H200s /4 CPU cores /8 GiB requested RAM.96 normal rank/product outputs plus
+8 sanitized N4096/tile4096 outputs match every coefficient, all paired proofs,
+range/tail/preservation/reuse checks. Both sanitizer backends report zero CUDA
+errors/leaks.728 source /124 original evidence /212 cache identities verify;
+19.571 MiB cache retained. [Raw results](runs/matched-01/results.json),
+[independent review](runs/matched-01/analysis.json), [summary](runs/matched-01/review-checks.json),
+[job log](slurm-78432.log). Controller **230.175 seconds (3min50.175s)**.
+
+Both backends use GPU arithmetic: host means arrays in host RAM with bounded GPU
+tiles; resident means main arrays in GPU memory. Normal peak RSS **377.359 MiB
+host-stored /375.188 MiB resident per process**; sanitizer maximum **413.891 MiB
+per process**. Maximum owned GPU **1.575 MiB/card host-stored /1.791 MiB/card
+resident**, context/driver excluded. New N16384 is not sanitizer-validated here.
+
+Median net work over3samples, excluding only the separately timed diagnostic
+capture (all source/field/output checks retained):
+
+| Synthetic values /product shape |Host-stored GPU,127words |Resident GPU,127words |Host-stored GPU,4096words |Resident GPU,4096words |
+|---|---|---|---|---|
+|4096 /exact domain |114.666 ms |237.290 ms |114.862 ms |233.906 ms |
+|4096 /zero tail |111.319 ms |232.665 ms |107.014 ms |225.933 ms |
+|16384 /exact domain |374.249 ms |646.368 ms |365.759 ms |619.547 ms |
+|16384 /zero tail |367.610 ms |639.718 ms |355.987 ms |616.580 ms |
+
+Larger tiles improve resident N16384 work **3.6–4.1%**; resident remains
+**1.69–1.73x slower** than host-stored GPU work at tile4096. Diagnostic captures
+are only0.066–0.079ms at that size/tile and do not explain the gap. The profile
+still contains substantial transfer-wrapper work; it is not kernel time. No
+fullsize speedup is inferred. Next: [GPU-owned local Taylor data](../resident-taylor-local/report.md).
+
 [Readiness evidence](readiness/checks.json). This follows
 [passed resident products78399](../distributed-resident-product/report.md).
 
@@ -87,8 +114,8 @@ controller /15-minute scheduler**. gnode03 excluded; other eligible nodes allowe
 | Device transfer buffer per card |1016 bytes |32768 bytes (32 KiB) |
 | Change per buffer |Baseline |+31752 bytes, about31 KiB |
 
-Larger tiles are expected to reduce transfer/pack/proof call count; runtime
-benefit is unknown. At N16384, three resident arrays total192 KiB/card, plus
+Larger tiles reduce the declared transfer/pack/proof call count. Measured small
+resident benefit is3.6–4.1% atN16384; fullsize benefit remains unknown. At N16384, three resident arrays total192 KiB/card, plus
 32 KiB transfer,3 KiB Taylor window, metadata/tables/context. Two host Taylor
 buffers total6 KiB/rank. The old conservative six-host-shard model is384 KiB/rank.
 These are payload models, not RSS or whole-workflow savings. Prior measured
@@ -119,6 +146,6 @@ python3 -B experiments/resident-product-scaling/analyze.py matched-01
 Raw results, exact revision/commands/resources, logs/profiles and incremental
 composition are in `runs/<name>/`; sealed reusable binaries/output/reference cache
 is `.cache/liftrs/resident-product-scaling/<name>/`, outside Git. Earlier evidence/
-preprocessing caches remain untouched. Next depends on measured batching/setup/
-communication cost; then larger products and preprocessing integration. Fulls18
+preprocessing caches remain untouched. The measured next step is direct GPU access for local Taylor targets/sources;
+then matched costs guide larger products and preprocessing integration. Fulls18
 admission, distributed discovery/root/Newton/generator/persistence remain separate.

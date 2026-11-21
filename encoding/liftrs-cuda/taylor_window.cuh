@@ -5,6 +5,7 @@
 // target tiles never feed each other within a pass. Overlapping source windows
 // therefore contain identical values; the first matching window is sufficient.
 template <class Word> struct TaylorWindow {
+  using word_type = Word;
   Word *data;
   const Matrix<Word> *matrix;
   size_t block, half, first, count;
@@ -25,9 +26,10 @@ template <class Word> struct TaylorWindow {
     return data[0];
   }
 };
-template <class Word>
-__global__ void window_taylor(TaylorWindow<Word> view, size_t first_index,
+template <class View>
+__global__ void window_taylor(View view, size_t first_index,
                                const uint32_t *logs, const uint32_t *powers) {
+  using Word = typename View::word_type;
   const size_t j = size_t(blockIdx.x) * blockDim.x + threadIdx.x;
   if (j < view.count)
     liftrs_cuda::taylor_update<Word>(view, *view.matrix, view.level,

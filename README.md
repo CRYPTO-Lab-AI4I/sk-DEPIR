@@ -86,9 +86,11 @@ passes78394:24 normal +24 sanitized resident outputs with zero CUDA errors/leaks
 24 normal +24 sanitized outputs, exact inverse and clean CUDA summaries.
 [Resident polynomial products](experiments/distributed-resident-product/report.md)
 pass78399:24 normal +24 sanitized schoolbook products with clean CUDA summaries.
-The tiny resident samples remain slower than host at4096 values; a
-[matched size/transfer-tile comparison](experiments/resident-product-scaling/report.md)
-is submitted as78432. Larger product scaling and fulls18 preprocessing remain pending. No encoding default
+[Matched size/transfer-tile comparison78432](experiments/resident-product-scaling/report.md)
+passes96 normal +8 small sanitized outputs. Both paths use GPU arithmetic; the
+resident path remains slower at4096/16384 values. [Local Taylor GPU access](experiments/resident-taylor-local/report.md)
+now avoids local target/source host round trips, sharing the same recurrence and
+remote schedule; validation is prepared. Larger scaling and fulls18 remain pending. No encoding default
 or client CUDA/MPI dependency changes.
 
 The [persistent GPU vector-stage adapter](experiments/gpu-vector-stage/report.md)

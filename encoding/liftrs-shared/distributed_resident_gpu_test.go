@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-func residentVectorCases[Word transposeWord](t *testing.T, w *mpi.World, s int, dims []int, output string, operation *uint64, emit func(map[string]any)) {
+func residentVectorCases[Word transposeWord](t *testing.T, w *mpi.World, s int, dims []int, output string, operation *uint64, emit func(map[string]any), localTaylor bool) {
 	for _, dim := range dims {
 		label := fmt.Sprintf("s%d-d%d", s, dim)
 		emit(map[string]any{"kind": "phase", "phase": label, "event": "started", "completed": 0, "total": 2})
@@ -107,7 +107,7 @@ func residentVectorCases[Word transposeWord](t *testing.T, w *mpi.World, s int, 
 					emit(map[string]any{"kind": "progress", "case": label, "pass": pass, "operation": op, "phase": phase, "completed": done, "total": total})
 				}
 				if fullFFT {
-					e = rankResidentAdditiveTransform[Word](p, gpu, 0, 1, capacity, pass == 1, link, windows, degrees, notice)
+					e = rankResidentAdditiveTransform[Word](p, gpu, 0, 1, capacity, pass == 1, link, windows, degrees, notice, localTaylor)
 				} else {
 					e = rankResidentVectors[Word](p, gpu, 0, 1, pass == 1, link, notice)
 				}
@@ -141,7 +141,7 @@ func residentVectorCases[Word transposeWord](t *testing.T, w *mpi.World, s int, 
 				if s == 17 {
 					width = 8
 				}
-				emit(map[string]any{"kind": "measurement", "case": label, "pass": pass, "s": s, "dimension": dim, "rank_first": first, "rank_rows": count, "word_bytes": width, "words": len(got), "matches": true, "full_fft": fullFFT, "operation_start": op, "taylor_proof_events": taylorProofs, "resident": true, "third_preserved": true, "reused": true, "range_rejection_preserved": true, "owned_device_bytes": retained, "seconds": seconds, "proof_events": proofs, "output_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(got))})
+				emit(map[string]any{"kind": "measurement", "case": label, "pass": pass, "s": s, "dimension": dim, "rank_first": first, "rank_rows": count, "word_bytes": width, "words": len(got), "matches": true, "full_fft": fullFFT, "operation_start": op, "taylor_proof_events": taylorProofs, "resident": true, "local_taylor": localTaylor, "third_preserved": true, "reused": true, "range_rejection_preserved": true, "owned_device_bytes": retained, "seconds": seconds, "proof_events": proofs, "output_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(got))})
 			}
 		}()
 		emit(map[string]any{"kind": "phase", "phase": label, "event": "completed", "completed": 2, "total": 2})
@@ -155,8 +155,8 @@ func TestDistributedResidentVectors(t *testing.T) {
 	}
 	withDistributedGPUStages(t, output, func(w *mpi.World, emit func(map[string]any)) {
 		op := uint64(1)
-		residentVectorCases[uint32](t, w, 4, []int{4, 5, 8}, output, &op, emit)
-		residentVectorCases[uint64](t, w, 17, []int{5, 9, 12}, output, &op, emit)
+		residentVectorCases[uint32](t, w, 4, []int{4, 5, 8}, output, &op, emit, false)
+		residentVectorCases[uint64](t, w, 17, []int{5, 9, 12}, output, &op, emit, false)
 		emit(map[string]any{"kind": "completed", "cases": 12})
 	})
 }
@@ -168,4 +168,19 @@ func TestDistributedResidentFFT(t *testing.T) {
 		t.Skip("explicit complete resident FFT gate")
 	}
 	TestDistributedResidentVectors(t)
+}
+
+// Full extension-field patterns and independent scalar/native FFT oracles check
+// the local accessor beyond the base-field coefficients used by products.
+func TestLocalTaylorGPUFFT(t *testing.T) {
+	output := os.Getenv("PIR_GPU_MATRIX_STAGE_OUTPUT")
+	if output == "" || os.Getenv("PIR_GPU_MATRIX_STAGE_TAYLOR") != "1" {
+		t.Skip("explicit local Taylor full FFT gate")
+	}
+	withDistributedGPUStages(t, output, func(w *mpi.World, emit func(map[string]any)) {
+		op := uint64(1)
+		residentVectorCases[uint32](t, w, 4, []int{4, 5, 8}, output, &op, emit, true)
+		residentVectorCases[uint64](t, w, 17, []int{5, 9, 12}, output, &op, emit, true)
+		emit(map[string]any{"kind": "completed", "cases": 12})
+	})
 }

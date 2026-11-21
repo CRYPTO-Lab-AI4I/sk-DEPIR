@@ -113,10 +113,10 @@ func taylorSource(p rankTaylorPlan, t taylorTicket, slot int, owner int, half ui
 }
 
 // rankTaylorStorage separates the shared ticket/wave schedule from owned-array
-// access. Read/Send borrow bounded ranges; Apply commits only the target interval.
+// access. Snapshot/Send borrow bounded ranges; Apply commits only the target interval.
 // Host Send keeps its original borrowed slice; GPU Send uses a reusable tile.
 type rankTaylorStorage[Word transposeWord] interface {
-	Read(offset uint64, target []Word) error
+	Snapshot(p rankTaylorPlan, t taylorTicket, ownFirst, half uint64, target []Word) error
 	Send(peer int, packet taylorPacket, offset, count uint64, link taylorLink[Word]) error
 	Apply(p rankTaylorPlan, t taylorTicket, offset uint64, snapshot []Word) error
 }
@@ -138,6 +138,31 @@ func (s hostTaylorStorage[Word]) Apply(p rankTaylorPlan, t taylorTicket, offset 
 	}
 	copy(s.data[offset:offset+t.Count], snapshot[:t.Count])
 	return nil
+}
+
+// readTaylorSnapshot is the shared host-staging adapter. The resident-local
+// adapter skips these local reads; target/source addresses still come from the
+// same plan and kernel, with remote windows unchanged.
+func readTaylorSnapshot[Word transposeWord](p rankTaylorPlan, t taylorTicket, ownFirst, half uint64, snapshot []Word, read func(uint64, []Word) error) error {
+	target := t.Block + t.First
+	if p.Quotient {
+		target += half
+	}
+	if err := read(target-ownFirst, snapshot[:t.Count]); err != nil {
+		return err
+	}
+	for slot := range p.Degrees {
+		source, count, offset := taylorSource(p, t, slot, p.Rank, half)
+		if count > 0 {
+			if err := read(source-ownFirst, snapshot[offset:offset+count]); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+func (s hostTaylorStorage[Word]) Snapshot(p rankTaylorPlan, t taylorTicket, ownFirst, half uint64, snapshot []Word) error {
+	return readTaylorSnapshot(p, t, ownFirst, half, snapshot, s.Read)
 }
 
 // rankTaylorPass is the host reference adapter. It retains the original borrowed
@@ -215,20 +240,8 @@ func rankTaylorStoredPass[Word transposeWord](p rankTaylorPlan, workspace []Word
 		if active[p.Rank] {
 			snapshot = packed[:uint64(len(p.Degrees)+1)*own.Count]
 			clear(snapshot)
-			target := own.Block + own.First
-			if p.Quotient {
-				target += half
-			}
-			if err := storage.Read(target-ownFirst, snapshot[:own.Count]); err != nil {
+			if err := storage.Snapshot(p, own, ownFirst, half, snapshot); err != nil {
 				return err
-			}
-			for slot := range p.Degrees {
-				source, count, offset := taylorSource(p, own, slot, p.Rank, half)
-				if count > 0 {
-					if err := storage.Read(source-ownFirst, snapshot[offset:offset+count]); err != nil {
-						return err
-					}
-				}
 			}
 		}
 		send := func(peer int) error {

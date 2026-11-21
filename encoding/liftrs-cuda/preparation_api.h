@@ -63,6 +63,9 @@ int pg_rank_taylor(void *, unsigned, const void *, size_t, size_t, unsigned, int
                    size_t, size_t, size_t, char *, size_t);
 // Optional in-place spectrum product on distinct matching resident views.
 int pg_rank_pointwise(void *, unsigned, unsigned, char *, size_t);
+// Optional local-source Taylor view; snapshot supplies remote windows only.
+int pg_rank_taylor_local(void *, unsigned, const void *, size_t, size_t, unsigned,
+    int, size_t, size_t, size_t, char *, size_t);
 void pg_rank_destroy(void *);
 uint64_t pg_owned_bytes(void *);
 void pg_destroy(void *);

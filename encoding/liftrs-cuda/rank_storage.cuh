@@ -9,6 +9,20 @@ struct RankView {
   }
   size_t words() const { return count * columns; }
 };
+// Directly address owned coefficients; only remote sources fall back to packed
+// windows. Pass barriers and operative-source trimming prevent target races.
+template<class Word> struct LocalTaylorWindow : TaylorWindow<Word> {
+  Word *owned;
+  RankView layout;
+  __device__ Word &operator[](size_t index) const {
+    const size_t origin=layout.first*layout.columns,words=layout.count*layout.columns;
+    if(index>=origin && index-origin<words) {
+      const size_t local=index-origin;
+      return owned[layout.address(local/layout.columns,local%layout.columns)];
+    }
+    return TaylorWindow<Word>::operator[](index);
+  }
+};
 static std::pair<size_t, size_t> storage_band(size_t n, unsigned rank, unsigned ranks) {
   return {n / ranks * rank + std::min<size_t>(rank, n % ranks),
           n / ranks + (rank < n % ranks)};
@@ -55,6 +69,10 @@ template <class Word> class RankStorage {
   size_t rows_, columns_, capacity_, tile_;
   unsigned rank_, ranks_;
   RankView views_[3];
+  // A true flag is a proof that every live slot word is canonical. Raw writes
+  // invalidate it before launch; zero reset and successful field scans restore
+  // it. Closed field arithmetic preserves it only after a successful launch.
+  bool canonical_[3]{};
   Matrix<Word> metadata_{};
   Matrix<Word> *plan_ = nullptr;
   Card &card() { return *engine_.cards_[0]; }
@@ -73,6 +91,7 @@ template <class Word> class RankStorage {
   // indexing or any arithmetic write. Flag and launches reuse bounded storage.
   void validate(unsigned slot,const char *phase) {
     const size_t words=views_[slot].words();
+    canonical_[slot]=false;
     check(cudaSetDevice(card().id));
     auto *bad = static_cast<uint32_t *>(card().flag.data);
     check(cudaMemset(bad, 0, sizeof(uint32_t)));
@@ -94,6 +113,7 @@ template <class Word> class RankStorage {
     uint32_t invalid = 0;
     check(cudaMemcpy(&invalid, bad, sizeof(invalid), cudaMemcpyDeviceToHost));
     if (invalid) throw std::runtime_error("rank arithmetic field value");
+    canonical_[slot]=true;
   }
   void prepare() {
     const size_t domain = rows_ * columns_;
@@ -144,16 +164,18 @@ public:
     const auto band = storage_band(rows, rank_, ranks_);
     RankView next{rows, columns, band.first, band.second, interleaved};
     check(cudaSetDevice(card().id));
+    canonical_[slot]=false;
     if (next.words()) check(cudaMemset(data(slot), 0, next.words() * sizeof(Word)));
     check(cudaDeviceSynchronize());
     views_[slot] = next;
+    canonical_[slot]=true;
   }
   void transfer(unsigned slot, size_t offset, Word *values, size_t words, bool upload) {
     extent(slot, offset, words);
     if (!values) throw std::runtime_error("rank storage host pointer");
     check(cudaSetDevice(card().id));
     auto *tile = static_cast<Word *>(card().transport.data);
-    if (upload) check(cudaMemcpy(tile, values, words * sizeof(Word), cudaMemcpyHostToDevice));
+    if (upload) {canonical_[slot]=false;check(cudaMemcpy(tile, values, words * sizeof(Word), cudaMemcpyHostToDevice));}
     rank_transfer<<<(words + 255) / 256, 256>>>(data(slot), tile, views_[slot], offset, words, upload);
     sync();
     if (!upload) check(cudaMemcpy(values, tile, words * sizeof(Word), cudaMemcpyDeviceToHost));
@@ -164,6 +186,8 @@ public:
         views_[source].columns != views_[target].rows)
       throw std::runtime_error("rank storage transpose shape/alias");
     check(cudaSetDevice(card().id));
+    const bool valid=canonical_[source] && canonical_[target];
+    canonical_[target]=false;
     const size_t total = views_[source].count * views_[target].count;
     const auto began = std::chrono::steady_clock::now();
     auto last = began;
@@ -182,6 +206,7 @@ public:
       }
     }
     if (!total) engine_.event(phase, "completed", 0, 0, began);
+    canonical_[target]=valid;
   }
   // Reuse the same local-vector launcher as VectorStage. Shape/layout admit only
   // the canonical balanced matrix, with complete vectors and global affine rows.
@@ -199,8 +224,10 @@ public:
       throw std::runtime_error("rank vector canonical shape/interleaved layout");
     validate(slot,"rank-vector-field-validation");
     auto *metadata = engine_.plan(card(), domain);
+    canonical_[slot]=false;
     engine_.vector_stage(card(), data(slot), metadata, domain, columns, inverse,
         v.columns, v.first, v.count);
+    canonical_[slot]=true;
   }
   // Both views must describe the same evaluations in the same physical order.
   // Right is read-only; third slot and reusable window buffers are untouched.
@@ -215,6 +242,7 @@ public:
     const auto began=std::chrono::steady_clock::now();auto last=began;
     const char *phase="rank-pointwise-product";
     engine_.event(phase,"started",0,a.words(),began);
+    canonical_[left]=false;
     try {
       for(size_t offset=0;offset<a.words();) {
         const size_t take=std::min<size_t>(1u<<20,a.words()-offset);
@@ -227,6 +255,7 @@ public:
         }
       }
       if(!a.words())engine_.event(phase,"completed",0,0,began);
+      canonical_[left]=true;
     } catch(...) {engine_.event(phase,"failed",0,a.words(),began);throw;}
   }
   std::vector<uint64_t> degrees(unsigned level) {
@@ -240,7 +269,7 @@ public:
   // Snapshot is borrowed/read-only. Only updated targets go directly to the
   // resident array; neither sources nor a complete host shard are written back.
   void taylor(unsigned slot, const Word *snapshot, size_t words, size_t capacity, unsigned level,
-      bool quotient, size_t block, size_t first, size_t count) {
+      bool quotient, size_t block, size_t first, size_t count,bool local_sources=false) {
     data(slot); prepare();
     if (!snapshot || !words || words > capacity || capacity > (1u << 20) || !count || count > words ||
         level >= metadata_.dimension - metadata_.split || block >= rows_ * columns_)
@@ -256,13 +285,25 @@ public:
     if (v.rows != rows_ || v.columns != columns_ || target < origin ||
         target - origin > v.words() || count > v.words() - (target - origin))
       throw std::runtime_error("rank Taylor target owner/view");
+    // Validate local source data once per raw-write generation, not once per
+    // window. Remote snapshot values were checked above; arithmetic is closed.
+    const size_t admitted_half=engine_.taylor_shape(metadata_,rows_*columns_,capacity,
+        words,level,quotient,block,first,count);
+    if(local_sources && !canonical_[slot])validate(slot,"rank-Taylor-local-validation");
     engine_.ensure(card(), card().windows, capacity * sizeof(Word));
-    auto *window = static_cast<Word *>(card().windows.data);
-    check(cudaMemcpy(window, snapshot, words * sizeof(Word), cudaMemcpyHostToDevice));
-    engine_.taylor_stage(card(), window, plan_, metadata_, rows_ * columns_,
-        capacity, words, level, quotient, block, first, count);
-    rank_transfer<<<(count + 255) / 256, 256>>>(data(slot), window, v, target - origin, count, true);
-    sync();
+    auto *window=static_cast<Word*>(card().windows.data);
+    check(cudaMemcpy(window,snapshot,words*sizeof(Word),cudaMemcpyHostToDevice));
+    const bool valid=canonical_[slot];canonical_[slot]=false;
+    TaylorWindow<Word> packed{window,plan_,block,admitted_half,first,count,level,quotient};
+    if(local_sources) {
+      LocalTaylorWindow<Word> view{packed,data(slot),v};
+      engine_.taylor_launch(card(),view,rows_*columns_);
+    } else {
+      engine_.taylor_launch(card(),packed,rows_*columns_);
+      rank_transfer<<<(count+255)/256,256>>>(data(slot),window,v,target-origin,count,true);
+      sync();
+    }
+    canonical_[slot]=valid;
   }
   void tile(unsigned slot, unsigned peer, size_t offset, Word *values, size_t words, bool pack) {
     data(slot);
@@ -274,7 +315,7 @@ public:
     if (offset > total || words > total - offset) throw std::runtime_error("rank storage peer extent");
     check(cudaSetDevice(card().id));
     auto *buffer = static_cast<Word *>(card().transport.data);
-    if (!pack) check(cudaMemcpy(buffer, values, words * sizeof(Word), cudaMemcpyHostToDevice));
+    if (!pack) {canonical_[slot]=false;check(cudaMemcpy(buffer, values, words * sizeof(Word), cudaMemcpyHostToDevice));}
     rank_pack<<<(words + 255) / 256, 256>>>(data(slot), buffer, v, band.first, band.second, offset, words, pack);
     sync();
     if (pack) check(cudaMemcpy(values, buffer, words * sizeof(Word), cudaMemcpyDeviceToHost));

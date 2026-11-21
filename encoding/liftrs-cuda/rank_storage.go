@@ -211,7 +211,7 @@ func (v *RankStorage) TaylorDegrees(level int) ([]uint64, error) {
 	}
 	return out, nil
 }
-func (v *RankStorage) taylor(slot int, snapshot unsafe.Pointer, words, width int, capacity uint64, tile TaylorTile) error {
+func (v *RankStorage) taylor(slot int, snapshot unsafe.Pointer, words, width int, capacity uint64, tile TaylorTile, local bool) error {
 	if v == nil || v.engine == nil || slot < 0 || slot >= 3 || snapshot == nil || words <= 0 || uint64(words) > capacity || capacity > 1<<20 || tile.Level < 0 || v.engine.width != width {
 		return fmt.Errorf("GPU resident Taylor snapshot admission")
 	}
@@ -220,6 +220,9 @@ func (v *RankStorage) taylor(slot int, snapshot unsafe.Pointer, words, width int
 		quotient = 1
 	}
 	return v.call(func(b *C.pg_bridge, text *C.char) C.int {
+		if local {
+			return C.pg_bridge_rank_taylor_local(b, v.handle, C.uint(slot), snapshot, C.size_t(words), C.size_t(capacity), C.uint(tile.Level), quotient, C.size_t(tile.Block), C.size_t(tile.First), C.size_t(tile.Count), text, 512)
+		}
 		return C.pg_bridge_rank_taylor(b, v.handle, C.uint(slot), snapshot, C.size_t(words), C.size_t(capacity), C.uint(tile.Level), quotient, C.size_t(tile.Block), C.size_t(tile.First), C.size_t(tile.Count), text, 512)
 	})
 }
@@ -229,14 +232,14 @@ func (v *RankStorage) taylor(slot int, snapshot unsafe.Pointer, words, width int
 // unchanged. Capacity <=1 Miword reserves reusable device window storage; the
 // selected view may be row-major or interleaved but must have original dimensions.
 func (v *RankStorage) Taylor32(slot int, snapshot []uint32, capacity uint64, tile TaylorTile) error {
-	err := v.taylor(slot, preparationPointer(snapshot), len(snapshot), 4, capacity, tile)
+	err := v.taylor(slot, preparationPointer(snapshot), len(snapshot), 4, capacity, tile, false)
 	runtime.KeepAlive(snapshot)
 	return err
 }
 
 // Taylor64 is Taylor32 for eight-byte extension-field slots.
 func (v *RankStorage) Taylor64(slot int, snapshot []uint64, capacity uint64, tile TaylorTile) error {
-	err := v.taylor(slot, preparationPointer(snapshot), len(snapshot), 8, capacity, tile)
+	err := v.taylor(slot, preparationPointer(snapshot), len(snapshot), 8, capacity, tile, false)
 	runtime.KeepAlive(snapshot)
 	return err
 }
@@ -252,4 +255,21 @@ func (v *RankStorage) Pointwise(left, right int) error {
 	return v.call(func(b *C.pg_bridge, text *C.char) C.int {
 		return C.pg_bridge_rank_pointwise(b, v.handle, C.uint(left), C.uint(right), text, 512)
 	})
+}
+
+// TaylorLocal32 keeps owned targets/sources on GPU; the borrowed snapshot carries
+// remote source windows in the usual sparse-term layout, with local entries zero.
+// Raw writes invalidate the private canonical-value proof; local arithmetic scans
+// the owned slot before use when needed. Same cap/window and pass barriers apply.
+func (v *RankStorage) TaylorLocal32(slot int, snapshot []uint32, capacity uint64, tile TaylorTile) error {
+	err := v.taylor(slot, preparationPointer(snapshot), len(snapshot), 4, capacity, tile, true)
+	runtime.KeepAlive(snapshot)
+	return err
+}
+
+// TaylorLocal64 is TaylorLocal32 for eight-byte extension-field slots.
+func (v *RankStorage) TaylorLocal64(slot int, snapshot []uint64, capacity uint64, tile TaylorTile) error {
+	err := v.taylor(slot, preparationPointer(snapshot), len(snapshot), 8, capacity, tile, true)
+	runtime.KeepAlive(snapshot)
+	return err
 }

@@ -233,6 +233,9 @@ template <class Word> class Resident {
   // Bounded Taylor arithmetic shared by host-tile and resident-window storage.
   void taylor_stage(Card &, Word *, Matrix<Word> *, const Matrix<Word> &,
       size_t, size_t, size_t, unsigned, bool, size_t, size_t, size_t);
+  size_t taylor_shape(const Matrix<Word> &, size_t, size_t, size_t, unsigned,
+      bool, size_t, size_t, size_t);
+  template <class View> void taylor_launch(Card &, View, size_t);
   void admit(const Card &card, uint64_t bytes) const {
     const uint64_t used = card.owned();
     if (used > cap_ || bytes > cap_ - used)
@@ -1248,4 +1251,17 @@ extern "C" int pg_rank_taylor(void *h, unsigned slot, const void *snapshot,
 
 extern "C" int pg_rank_pointwise(void *h, unsigned left, unsigned right, char *error, size_t cap) {
   return api(error, cap, [&] { visit_rank(h, [&](auto &s) { s.pointwise(left, right); }); });
+}
+
+extern "C" int pg_rank_taylor_local(void *h,unsigned slot,const void *snapshot,
+    size_t words,size_t capacity,unsigned level,int quotient,size_t block,
+    size_t first,size_t count,char *error,size_t cap) {
+  return api(error,cap,[&]{
+    if(quotient!=0 && quotient!=1)throw std::runtime_error("rank Taylor direction");
+    visit_rank(h,[&](auto&s){
+      using Word=typename std::decay_t<decltype(s)>::word_type;
+      s.taylor(slot,static_cast<const Word*>(snapshot),words,capacity,level,
+          quotient!=0,block,first,count,true);
+    });
+  });
 }

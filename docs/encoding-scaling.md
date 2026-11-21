@@ -2814,3 +2814,28 @@ Matched size/tile comparison **78432 submitted**, implementation `e76ef8a`, resu
 no monitoring. After completion ping, verify every completed arm/sanitizer scope,
 net/total timing identities, profiles and three-sample distributions before
 choosing further transfer or pipeline integration work.
+
+### Remove local Taylor host round trips (SCALING-157)
+
+78432 passed14 arms:96 normal +8 small sanitized rank/products,728source/
+124evidence/212cache identities, clean CUDA summaries,19.571MiB cache. Controller
+230.175s. Both paths use GPU arithmetic; arrays reside in host RAM or GPU. At
+N16384/tile4096 medians over3samples:host355.987–365.759ms,resident616.580–619.547ms
+(two shapes). Tile growth helps resident only3.6–4.1%; capture0.066–0.079ms cannot
+explain the gap. Normal RSS377.359/375.188MiB/process;ownedGPU1.575/1.791MiB/card.
+Main reference updated with measured costs and the absence of a speedup.
+
+Proceed to [GPU-owned local Taylor data](../experiments/resident-taylor-local/report.md):
+shared source/wave/level/pass and arithmetic, direct row/interleaved local access,
+remote snapshots/proofs unchanged. Same3arrays/windows/buffers; private3slot flags
+track canonical values, invalidated on raw mutation and restored only by scans/
+zero reset/successful closed arithmetic. Local mode scans when needed; source
+addressing may be strided, so benefit remains unmeasured. Explicit mode only;
+legacy/reference defaults unchanged.
+
+Validate legacy products, local full-extension FFT normal/memcheck, local products
+normal/memcheck and raw-upload/scatter/local-copy invalidation in both layouts/
+widths. Keep guards out of benchmark setup. Then3samples each host/oldresident/
+localresident atN4096/16384,tile4096, with existing net/total/capture boundaries.
+Same admission/720s/15min; projected200–400s, unknown until measured. Choose larger
+scaling/integration from these results; stillstep1 and no fulls18 support claim.
