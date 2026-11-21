@@ -83,7 +83,7 @@ original methodology; apply this policy to new optimization runs.
 
 - [Larger structured GPU products](resident-product-larger/report.md): exact
   streaming/prefix oracle,N16384/65536/262144,host/local-resident comparison;
-  prepared inside unchanged caps with explicit per-file proof bounds.
+  submitted as78469 inside unchanged caps with explicit per-file proof bounds.
 
 - [GPU-owned local Taylor data](resident-taylor-local/report.md): same recurrence/
   remote source schedule, local GPU access and raw-write validity checks;

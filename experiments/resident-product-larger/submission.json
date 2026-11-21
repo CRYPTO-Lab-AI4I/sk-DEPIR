@@ -1,0 +1,14 @@
+{
+  "job_id": "78469",
+  "name": "larger-01",
+  "implementation_revision": "5525143aa9e2674c2525eb911a5a72f5e0802699",
+  "recorded_utc": "2026-11-21T11:58:21.589616+00:00",
+  "command": "module load slurm/slurm/25.05; sbatch --parsable --output=experiments/resident-product-larger/slurm-%j.log experiments/resident-product-larger/run.sbatch larger-01",
+  "results": "experiments/resident-product-larger/runs/larger-01/",
+  "log": "experiments/resident-product-larger/slurm-78469.log",
+  "cache": ".cache/liftrs/resident-product-larger/larger-01/",
+  "resources": "2 HPC nodes / 2 H200 / 4 CPU cores / 8 GiB requested host RAM; 128 MiB owned GPU/card / 1 GiB RSS/rank; 128 MiB cache / 2 GiB scratch / 32 MiB/file; 720-second controller / 15-minute scheduler; no pinned buffers",
+  "monitoring": "None. Wait for user completion ping.",
+  "scope": "22 arms: arbitrary N16384 references, small structured sanitizers, three structured samples/backend at N16384/65536/262144; s17 field, not s18 admission or full preprocessing.",
+  "note": "Actual start revision/build inputs recorded by controller. Subsequent handoff changes affect documentation and receipt only."
+}

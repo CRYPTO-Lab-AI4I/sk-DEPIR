@@ -2873,3 +2873,7 @@ Future larger proofs need bounded storage planning before another size increase.
 After a pass, progress toward distributed root/Newton executor integration and
 s18 field admission rather than repeat tiny comparisons. Whole-pipeline discovery,
 generator/verification and coordinated persistence remain separate; stillstep1.
+
+Submitted as **78469**, `larger-01`, producer `5525143`;
+[receipt](../experiments/resident-product-larger/submission.json).
+No monitoring; await completion ping before dependent work or result review.

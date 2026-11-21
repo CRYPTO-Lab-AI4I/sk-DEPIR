@@ -92,7 +92,7 @@ previous resident path was slower. [Local Taylor GPU access78460](experiments/re
 passes correctness/sanitizers and is1.58–1.61x faster than the host-stored GPU
 reference at16384 values, with unchanged resident payload.
 [Larger structured product validation](experiments/resident-product-larger/report.md)
-is prepared; no fullsize/production preprocessing or fulls18 speedup is claimed. No encoding default
+was submitted as **78469**; no fullsize/production preprocessing or fulls18 speedup is claimed. No encoding default
 or client CUDA/MPI dependency changes.
 
 The [persistent GPU vector-stage adapter](experiments/gpu-vector-stage/report.md)

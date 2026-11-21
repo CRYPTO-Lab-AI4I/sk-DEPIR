@@ -1,6 +1,9 @@
 # Larger structured GPU products with exact coefficient checks
 
-Status: prepared; local CPU/race, complete test-binary and reviewer checks pass.
+Status: **submitted as78469**, run `larger-01`, producer `5525143`.
+Local CPU/race, complete test-binary and reviewer checks pass.
+[Submission receipt](submission.json); [scheduler log](slurm-78469.log);
+results will be retained under `runs/larger-01/`. No monitoring after submission.
 No new larger-domain GPU result yet. Source follows `d327890`/`acf8368`; receipt/
 controller record the frozen producer. [Readiness evidence](readiness/checks.json).
 This follows [passed local Taylor78460](../resident-taylor-local/report.md): at
