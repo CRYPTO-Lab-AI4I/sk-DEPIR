@@ -479,3 +479,14 @@ same resident payload. [Larger structured products](../../experiments/resident-p
 now use an exact streaming/prefix oracle and bounded proof files; arbitrary input
 references are retained. These are explicit experiments, not a production default
 swap or fulls18 support/performance claim.
+
+[Larger products78469](../../experiments/resident-product-larger/report.md) passed
+all22 arms: at262144 values, resident net1.554 s vs host-stored GPU4.911 s for
+structured inputs, with4.612 MiB maximum owned GPU/card. The next
+[root merge gate](../../experiments/distributed-root-merge/report.md) injects
+local GPU roots and a native/scalar oracle into the shared product driver;
+no second FFT/transport/field implementation is introduced. Root leading
+coefficients need not be1; normalization fixes the constant coefficient.
+The bounded gate replicates support/native reference and exchanges local
+polynomials before using owned coefficient shards. This is not a fullsize
+ownership plan, Newton integration or an ordinary-build CUDA dependency.

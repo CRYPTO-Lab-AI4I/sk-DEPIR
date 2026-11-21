@@ -25,7 +25,7 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 	if shapes == 0 {
 		shapes = 2
 	}
-	if (pattern != "random" && pattern != "ones") || (shapes != 1 && shapes != 2) {
+	if (pattern != "random" && pattern != "ones" && !(pattern == "roots" && opt.Input != nil)) || (shapes != 1 && shapes != 2) {
 		t.Fatal("product test pattern/shape admission")
 	}
 	for _, dim := range dims {
@@ -122,11 +122,31 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 				label := fmt.Sprintf("s%d-d%d-shape-%d", s, dim, shape)
 				emit(map[string]any{"kind": "phase", "phase": label, "event": "started", "completed": 0, "total": 1})
 				left, right := make([]Word, words), make([]Word, words)
-				expected := productExpected(start, words, ac, bc, s, base, pattern)
-				for j := range left {
-					k := start + uint64(j)
-					left[j] = Word(productInputCoefficient(k, ac, s, 0, pattern))
-					right[j] = Word(productInputCoefficient(k, bc, s, 1, pattern))
+				var expected []uint32
+				leading := uint32(1)
+				if opt.Input != nil {
+					if pattern == "roots" && gpu.OwnedBytes() > 64<<20 {
+						t.Fatal("root/product overlapping workspace cap")
+					}
+					input := opt.Input(s, dim, shape, start, words)
+					ac, bc, leading = input.ACount, input.BCount, input.Leading
+					if leading == 0 || uint64(leading) >= uint64(1)<<uint(s) || ac == 0 || bc == 0 || ac > n || bc > n-ac+1 || uint64(len(input.Left)) != words || len(input.Left) != len(input.Right) || len(input.Left) != len(input.Expected) {
+						t.Fatal("injected product geometry/shards")
+					}
+					expected = input.Expected
+					for j := range left {
+						if input.Left[j] >= 1<<uint(s) || input.Right[j] >= 1<<uint(s) || expected[j] >= 1<<uint(s) {
+							t.Fatal("injected product canonical coefficients")
+						}
+						left[j], right[j] = Word(input.Left[j]), Word(input.Right[j])
+					}
+				} else {
+					expected = productExpected(start, words, ac, bc, s, base, pattern)
+					for j := range left {
+						k := start + uint64(j)
+						left[j] = Word(productInputCoefficient(k, ac, s, 0, pattern))
+						right[j] = Word(productInputCoefficient(k, bc, s, 1, pattern))
+					}
 				}
 				op := *operation
 				span := uint64(2 + 2*(dim-dim/2))
@@ -285,7 +305,7 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 				if !reflect.DeepEqual(actual, expected) {
 					t.Fatal("distributed product/schoolbook", label)
 				}
-				emit(map[string]any{"kind": "measurement", "case": label, "s": s, "dimension": dim, "shape": shape, "a_count": ac, "b_count": bc, "first_coefficient": start, "words": words, "slot_bytes": h.ExtensionBytes, "output_word_bytes": 4, "seconds": seconds, "work_seconds": workSeconds, "validation_capture_seconds": captureSeconds, "local_seconds": localSeconds, "local_work_seconds": localWork, "local_capture_seconds": localCapture, "operation_start": op, "proof_events": proofs, "taylor_proof_events": taylorProofs, "owned_device_bytes": gpu.OwnedBytes(), "output_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(actual)), "matches": true, "resident": residentMode, "oracle_pattern": pattern, "local_taylor": localTaylor, "tile_words": tileWords, "setup_seconds": setupSeconds, "right_spectrum_preserved": residentMode, "reused": true, "inverse_reused": true, "geometry_reuse_checked": shapes > 1})
+				emit(map[string]any{"kind": "measurement", "case": label, "s": s, "dimension": dim, "shape": shape, "a_count": ac, "b_count": bc, "first_coefficient": start, "words": words, "slot_bytes": h.ExtensionBytes, "output_word_bytes": 4, "seconds": seconds, "work_seconds": workSeconds, "validation_capture_seconds": captureSeconds, "local_seconds": localSeconds, "local_work_seconds": localWork, "local_capture_seconds": localCapture, "operation_start": op, "proof_events": proofs, "taylor_proof_events": taylorProofs, "owned_device_bytes": gpu.OwnedBytes(), "output_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(actual)), "matches": true, "resident": residentMode, "oracle_pattern": pattern, "leading_coefficient": leading, "local_taylor": localTaylor, "tile_words": tileWords, "setup_seconds": setupSeconds, "right_spectrum_preserved": residentMode, "reused": true, "inverse_reused": true, "geometry_reuse_checked": shapes > 1})
 				emit(map[string]any{"kind": "phase", "phase": label, "event": "completed", "completed": 1, "total": 1})
 			}
 		}()

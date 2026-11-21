@@ -9,6 +9,16 @@ type productTestOptions struct {
 	TileWords             uint64
 	Pattern               string
 	Shapes                int
+	// Input injects bounded real-polynomial shards without duplicating the FFT driver.
+	Input func(s, dim, shape int, first, words uint64) productCaseInput
+}
+
+// productCaseInput owns this rank's coefficient shards and an independent oracle.
+// Counts describe global polynomials; leading need not be one for normalized roots.
+type productCaseInput struct {
+	Left, Right, Expected []uint32
+	ACount, BCount        uint64
+	Leading               uint32
 }
 
 func productCoefficient(index, count uint64, s, operand int) uint32 {

@@ -81,9 +81,14 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Local GPU roots and distributed final merge](distributed-root-merge/report.md):
+  shared product driver, bounded synthetic closed supports, complete native/scalar
+  references and paired input ownership checks; prepared inside existing caps.
+
 - [Larger structured GPU products](resident-product-larger/report.md): exact
   streaming/prefix oracle,N16384/65536/262144,host/local-resident comparison;
-  submitted as78469 inside unchanged caps with explicit per-file proof bounds.
+  passed78469; at262144 values resident net1.554 s versus host-stored GPU4.911 s,
+  with unchanged caps and complete bounded proof logs.
 
 - [GPU-owned local Taylor data](resident-taylor-local/report.md): same recurrence/
   remote source schedule, local GPU access and raw-write validity checks;

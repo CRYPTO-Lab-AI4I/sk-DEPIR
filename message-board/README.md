@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-21 17:42 | SCALING-159 | Prepared | [Larger products verified;root merge ready](2026-11-21-1742-codex-scaling-159-prepared.md) |
+| 2026-11-21 17:29 | SCALING-159 | Started | [Review larger products and continue integration](2026-11-21-1729-codex-scaling-159-started.md) |
 | 2026-11-21 11:58 | SCALING-158 | Handoff | [Larger product validation78469 submitted](2026-11-21-1158-codex-scaling-158-handoff.md) |
 | 2026-11-21 11:55 | SCALING-158 | Prepared | [Larger structured products ready;local78460 verified](2026-11-21-1155-codex-scaling-158-prepared.md) |
 | 2026-11-21 11:28 | SCALING-158 | Started | [Review local Taylor and choose next measured step](2026-11-21-1128-codex-scaling-158-started.md) |

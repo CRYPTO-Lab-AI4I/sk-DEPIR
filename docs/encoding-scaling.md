@@ -2877,3 +2877,38 @@ generator/verification and coordinated persistence remain separate; stillstep1.
 Submitted as **78469**, `larger-01`, producer `5525143`;
 [receipt](../experiments/resident-product-larger/submission.json).
 No monitoring; await completion ping before dependent work or result review.
+
+### Local roots into the distributed product (SCALING-159)
+
+78469 passed all22 arms/52 rank outputs, including every structured coefficient,
+arbitrary references, inverse reuse and small CUDA memcheck/leak checks.
+738source/184original evidence/108cache identities reconciled. HPC gnode13/gnode14,
+2H200/4CPU/8GiB requested RAM; controller4min13.462s, normal RSS383.594MiB/process,
+sanitizer414.480MiB/process, ownedGPU4.612MiB/card, retainedcache32.303MiB.
+Structured median net host/local resident seconds: N16384 0.349606/0.225291,
+N65536 1.245009/0.591319, N262144 4.911230/1.553557. Resident speedups1.55/2.11/3.16×;
+not full preprocessing estimates. Proof logs max12.924MiB within32MiB cap.
+[Results](../experiments/resident-product-larger/report.md).
+
+Proceed with [root merge integration](../experiments/distributed-root-merge/report.md):
+each GPU constructs a normalized polynomial for disjoint Frobenius-closed roots;
+both then cooperate on the final product using the existing resident driver,
+FFT/Taylor/pointwise schedule and checked transports. Inject real coefficient
+shards and an independent complete native CPU reference, plus scalar witnesses;
+normalization means constant1, not necessarily leading1. No second arithmetic
+implementation or backend-specific root recurrence.
+
+Bounded gate: s17 field, N4096/16384/65536, root count N−4, one merge per arm;
+arbitrary regression + small root sanitizer + three normal roots (5arms).
+Support/native reference are intentionally replicated and complete local operands
+exchanged only in this small diagnostic gate. This adds bounded host work/traffic;
+it does not implement partitioned production support or claim zero global copies.
+Release factor-engine workspace before distributed FFT work; enforce aggregate
+128MiB owned GPU/card during overlap. No allocation/resource/default increase.
+Projected controller3–6min inside720s/15min, full root timing unmeasured.
+
+After success, replace diagnostic input exchange with partitioned ownership and
+connect repeated/truncated products for Newton/generator identities through the
+same executor. Explicit s18 field admission remains separate (tables/fixtures and
+independent references); distributed discovery, coordinated restart/publication
+and assembled scaling validation are still required before fulls18 preprocessing.

@@ -1,11 +1,14 @@
 # Larger structured GPU products with exact coefficient checks
 
-Status: **submitted as78469**, run `larger-01`, producer `5525143`.
-Local CPU/race, complete test-binary and reviewer checks pass.
-[Submission receipt](submission.json); [scheduler log](slurm-78469.log);
-results will be retained under `runs/larger-01/`. No monitoring after submission.
-No new larger-domain GPU result yet. Source follows `d327890`/`acf8368`; receipt/
-controller record the frozen producer. [Readiness evidence](readiness/checks.json).
+Status: **78469 passed all 22 arms**, producer `5525143`, on HPC gnode13/gnode14
+(two H200s, four CPU cores, 8 GiB requested host RAM). Controller runtime:
+**4 min 13.462 s**. Independent review verified 738 source, 184 original evidence
+and 108 cache identities, all 52 rank/product outputs and both small sanitizer
+arms with zero CUDA errors/leaks.
+[Submission](submission.json), [raw results](runs/larger-01/results.json),
+[analysis](runs/larger-01/analysis.json), [review summary](runs/larger-01/review-checks.json),
+[scheduler log](slurm-78469.log), [readiness](readiness/checks.json).
+
 This follows [passed local Taylor78460](../resident-taylor-local/report.md): at
 N16384, local-access resident median work0.222795–0.224370 seconds versus host-
 stored GPU0.352875–0.361130 seconds, with unchanged resident payload. Both use GPU.
@@ -127,3 +130,32 @@ No agent monitoring after submission. If this gate passes, use the measured
 large-component costs to move toward distributed root/Newton executor integration
 and s18 field admission, rather than repeating small tile comparisons. Whole
 pipeline discovery/generator/persistence/scaling remain distinct; stillstep1.
+
+## Completed measurements (SCALING-159)
+
+Three samples per backend/size; structured dense inputs, s17 field. Net product
+work includes input upload, result readback, communication and proof logging,
+but subtracts the separately recorded diagnostic right-spectrum capture.
+Setup, CPU oracle, output checks and persistence are outside this product clock
+and inside the controller runtime. These are profiled component measurements.
+
+| Evaluation values | Host-stored GPU median (range) | Local-access resident GPU median (range) | Resident speedup |
+|---|---|---|---|
+| 16,384 | 0.349606 s (0.346083–0.350733 s) | 0.225291 s (0.224596–0.226843 s) | 1.55× |
+| 65,536 | 1.245009 s (1.239719–1.247973 s) | 0.591319 s (0.590708–0.592592 s) | 2.11× |
+| 262,144 | 4.911230 s (4.905237–4.914341 s) | 1.553557 s (1.552168–1.560198 s) | 3.16× |
+
+Maximum logged normal host RSS: **383.594 MiB/process**; small sanitized RSS:
+**414.480 MiB/process**. Maximum owned GPU allocation: **4.612 MiB/card**, excluding
+context/driver memory. Retained cache: **32.303 MiB**. Largest proof stdout file:
+**12.924 MiB**, below the unchanged 32 MiB/file limit; no proofs dropped.
+The sample-0 largest resident Go profile spends 80% of sampled CPU time in opaque
+cgo calls; this cannot distinguish kernel execution, GPU waits or MPI/native work.
+The linear oracle no longer dominates that profile.
+
+All three sizes passed the independent prefix oracle coefficient by coefficient.
+Arbitrary-input references, inverse workspace reuse and small sanitizer checks
+also passed. Larger inputs were not sanitized. These results support proceeding
+to [local GPU roots plus a distributed final merge](../distributed-root-merge/report.md),
+not a fulls18 runtime projection or production backend/default change. Partitioned
+support, Newton integration, discovery and coordinated persistence remain.

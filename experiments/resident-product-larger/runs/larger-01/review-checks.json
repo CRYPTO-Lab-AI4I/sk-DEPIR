@@ -1,0 +1,213 @@
+{
+  "status": "passed",
+  "job_id": "78469",
+  "revision": "5525143aa9e2674c2525eb911a5a72f5e0802699",
+  "source_files_verified": 738,
+  "evidence_files_verified": 184,
+  "cache_files_verified": 108,
+  "arms": 22,
+  "rank_product_outputs": 52,
+  "controller_seconds": 253.46184760390315,
+  "cache_MiB": 32.30311679840088,
+  "maximum_proof_log_MiB": 12.924368858337402,
+  "samples": [
+    {
+      "values": 16384,
+      "dimension": 14,
+      "shape": 0,
+      "backend": "host",
+      "count": 3,
+      "samples": [
+        {
+          "seconds": 0.346083347,
+          "work_seconds": 0.346083347,
+          "capture_seconds": 0
+        },
+        {
+          "seconds": 0.349605705,
+          "work_seconds": 0.349605705,
+          "capture_seconds": 0
+        },
+        {
+          "seconds": 0.350732684,
+          "work_seconds": 0.350732684,
+          "capture_seconds": 0
+        }
+      ],
+      "median_seconds": 0.349605705,
+      "median_work_seconds": 0.349605705,
+      "minimum_work_seconds": 0.346083347,
+      "maximum_work_seconds": 0.350732684
+    },
+    {
+      "values": 16384,
+      "dimension": 14,
+      "shape": 0,
+      "backend": "resident-local",
+      "count": 3,
+      "samples": [
+        {
+          "seconds": 0.225360861,
+          "work_seconds": 0.225290558,
+          "capture_seconds": 7.0303e-05
+        },
+        {
+          "seconds": 0.224672669,
+          "work_seconds": 0.224596002,
+          "capture_seconds": 8.2194e-05
+        },
+        {
+          "seconds": 0.226910936,
+          "work_seconds": 0.22684314,
+          "capture_seconds": 6.7796e-05
+        }
+      ],
+      "median_seconds": 0.225360861,
+      "median_work_seconds": 0.225290558,
+      "minimum_work_seconds": 0.224596002,
+      "maximum_work_seconds": 0.22684314
+    },
+    {
+      "values": 65536,
+      "dimension": 16,
+      "shape": 0,
+      "backend": "host",
+      "count": 3,
+      "samples": [
+        {
+          "seconds": 1.245009014,
+          "work_seconds": 1.245009014,
+          "capture_seconds": 0
+        },
+        {
+          "seconds": 1.239718563,
+          "work_seconds": 1.239718563,
+          "capture_seconds": 0
+        },
+        {
+          "seconds": 1.247972928,
+          "work_seconds": 1.247972928,
+          "capture_seconds": 0
+        }
+      ],
+      "median_seconds": 1.245009014,
+      "median_work_seconds": 1.245009014,
+      "minimum_work_seconds": 1.239718563,
+      "maximum_work_seconds": 1.247972928
+    },
+    {
+      "values": 65536,
+      "dimension": 16,
+      "shape": 0,
+      "backend": "resident-local",
+      "count": 3,
+      "samples": [
+        {
+          "seconds": 0.591093432,
+          "work_seconds": 0.590708016,
+          "capture_seconds": 0.000403686
+        },
+        {
+          "seconds": 0.591565088,
+          "work_seconds": 0.591318818,
+          "capture_seconds": 0.00024627
+        },
+        {
+          "seconds": 0.59291775,
+          "work_seconds": 0.592592495,
+          "capture_seconds": 0.000347487
+        }
+      ],
+      "median_seconds": 0.591565088,
+      "median_work_seconds": 0.591318818,
+      "minimum_work_seconds": 0.590708016,
+      "maximum_work_seconds": 0.592592495
+    },
+    {
+      "values": 262144,
+      "dimension": 18,
+      "shape": 0,
+      "backend": "host",
+      "count": 3,
+      "samples": [
+        {
+          "seconds": 4.911229806,
+          "work_seconds": 4.911229806,
+          "capture_seconds": 0
+        },
+        {
+          "seconds": 4.905236702,
+          "work_seconds": 4.905236702,
+          "capture_seconds": 0
+        },
+        {
+          "seconds": 4.914340679,
+          "work_seconds": 4.914340679,
+          "capture_seconds": 0
+        }
+      ],
+      "median_seconds": 4.911229806,
+      "median_work_seconds": 4.911229806,
+      "minimum_work_seconds": 4.905236702,
+      "maximum_work_seconds": 4.914340679
+    },
+    {
+      "values": 262144,
+      "dimension": 18,
+      "shape": 0,
+      "backend": "resident-local",
+      "count": 3,
+      "samples": [
+        {
+          "seconds": 1.5552612099999998,
+          "work_seconds": 1.5535566729999999,
+          "capture_seconds": 0.001704537
+        },
+        {
+          "seconds": 1.553670638,
+          "work_seconds": 1.552168009,
+          "capture_seconds": 0.001502629
+        },
+        {
+          "seconds": 1.561345743,
+          "work_seconds": 1.560198433,
+          "capture_seconds": 0.001261097
+        }
+      ],
+      "median_seconds": 1.5552612099999998,
+      "median_work_seconds": 1.5535566729999999,
+      "minimum_work_seconds": 1.552168009,
+      "maximum_work_seconds": 1.560198433
+    }
+  ],
+  "normal_peak_RSS_MiB": 383.59375,
+  "sanitized_peak_RSS_MiB": 414.48046875,
+  "maximum_owned_GPU_MiB": 4.612071990966797,
+  "sanitizers": {
+    "ones-memcheck-host": [
+      {
+        "errors": 0,
+        "leaked_bytes": 0,
+        "leaked_allocations": 0
+      },
+      {
+        "errors": 0,
+        "leaked_bytes": 0,
+        "leaked_allocations": 0
+      }
+    ],
+    "ones-memcheck-resident-local": [
+      {
+        "errors": 0,
+        "leaked_bytes": 0,
+        "leaked_allocations": 0
+      },
+      {
+        "errors": 0,
+        "leaked_bytes": 0,
+        "leaked_allocations": 0
+      }
+    ]
+  },
+  "hosts": "gnode13\ngnode14\n"
+}

@@ -9,7 +9,7 @@ FFT=runpy.run_path(str(HERE.parent/'distributed-gpu-fft/run.py'))
 VECTORS=FFT['VECTORS']
 
 
-def review(rows,directory,pointwise_words=None,cases=None,tile_words=127,shapes=(0,1)):
+def review(rows,directory,pointwise_words=None,cases=None,tile_words=127,shapes=(0,1),geometry=None):
     hosts=[r for r in rows if r.get('kind')=='host'];assert len(hosts)==2 and {r['rank']for r in hosts}=={0,1}and len({r['host']for r in hosts})==2
     assert all(r['visible_devices']and ','not in r['visible_devices']for r in hosts)
     cases=VECTORS['CASES']if cases is None else cases
@@ -20,7 +20,11 @@ def review(rows,directory,pointwise_words=None,cases=None,tile_words=127,shapes=
         n=1<<dim;cols=1<<(dim//2);levels=dim-dim//2;capacity=min(n,3*max(cols,n//cols));span=2+2*levels
         selected=[r for r in checks if r['s']==s and r['dimension']==dim];assert len(selected)==2 and {r['rank']for r in selected}=={0,1}and all(r['matches']is True and r['words']==(pointwise_words(n,capacity)if pointwise_words else min(capacity,17))for r in selected)
         for shape in shapes:
-            label=f's{s}-d{dim}-shape-{shape}';ac,bc=(n//4+1,3*n//4)if shape==0 else(n//4,n//2)
+            label=f's{s}-d{dim}-shape-{shape}'
+            ac,bc=(n//4+1,3*n//4)if shape==0 else(n//4,n//2)
+            leading=1
+            if geometry is not None:ac,bc,leading=geometry(s,dim,shape)
+            assert ac>0 and bc>0 and ac+bc-1<=n and 0<leading<1<<s
             for child in (0,1,2):
                 start=operation+child*span;inverse=child==2;specs.append((label,child,n,cols,start,inverse,capacity))
                 first_op=start+(0 if inverse else 2*levels)
@@ -38,7 +42,8 @@ def review(rows,directory,pointwise_words=None,cases=None,tile_words=127,shapes=
                 assert all(v<1<<s for v in coeff)
                 for j,v in enumerate(coeff):
                     k=rank*n//2+j
-                    if k in (0,ac+bc-2):assert v==1
+                    if k==0:assert v==1
+                    if k==ac+bc-2:assert v==leading
                     if k>=ac+bc-1:assert v==0
                 assert r['proof_events']==sum(key[0]==rank and key[1]==label for key in expected_packets)
             operation+=3*span
