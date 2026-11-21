@@ -81,9 +81,13 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Larger structured GPU products](resident-product-larger/report.md): exact
+  streaming/prefix oracle,N16384/65536/262144,host/local-resident comparison;
+  prepared inside unchanged caps with explicit per-file proof bounds.
+
 - [GPU-owned local Taylor data](resident-taylor-local/report.md): same recurrence/
   remote source schedule, local GPU access and raw-write validity checks;
-  correctness/sanitizer/matched three-backend validation78460 submitted.
+  78460 passes correctness/sanitizers and matched speedup atN16384, same resident memory.
 
 - [Matched resident/host product scaling](resident-product-scaling/report.md):
   N4096/16384,127/4096-word tiles and3samples/pair;78432 passed, resident still slower.

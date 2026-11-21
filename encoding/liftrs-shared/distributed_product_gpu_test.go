@@ -15,16 +15,19 @@ import (
 	"time"
 )
 
-func productCoefficient(index, count uint64, s, operand int) uint32 {
-	if index >= count {
-		return 0
+func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, s int, dims []int, output string, operation *uint64, emit func(map[string]any), opt productTestOptions) {
+	residentMode, tileWords, localTaylor := opt.Resident, opt.TileWords, opt.LocalTaylor
+	pattern := opt.Pattern
+	if pattern == "" {
+		pattern = "random"
 	}
-	if index == 0 || index+1 == count {
-		return 1
+	shapes := opt.Shapes
+	if shapes == 0 {
+		shapes = 2
 	}
-	return uint32((index+1)*0x9e3779b9^uint64(operand+1)*0x1337) & ((uint32(1) << uint(s)) - 1)
-}
-func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, s int, dims []int, output string, operation *uint64, emit func(map[string]any), residentMode bool, tileWords uint64, localTaylor bool) {
+	if (pattern != "random" && pattern != "ones") || (shapes != 1 && shapes != 2) {
+		t.Fatal("product test pattern/shape admission")
+	}
 	for _, dim := range dims {
 		n := uint64(1) << uint(dim)
 		rows, cols := uint64(1)<<uint(dim-dim/2), uint64(1)<<uint(dim/2)
@@ -111,7 +114,7 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 				emit(map[string]any{"kind": "pointwise-check", "s": s, "dimension": dim, "words": len(a), "matches": true})
 			}
 			var retained uint64
-			for shape := 0; shape < 2; shape++ {
+			for shape := 0; shape < shapes; shape++ {
 				ac, bc := n/4+1, 3*n/4
 				if shape == 1 {
 					ac, bc = n/4, n/2
@@ -119,21 +122,11 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 				label := fmt.Sprintf("s%d-d%d-shape-%d", s, dim, shape)
 				emit(map[string]any{"kind": "phase", "phase": label, "event": "started", "completed": 0, "total": 1})
 				left, right := make([]Word, words), make([]Word, words)
-				expected := make([]uint32, words)
+				expected := productExpected(start, words, ac, bc, s, base, pattern)
 				for j := range left {
 					k := start + uint64(j)
-					left[j] = Word(productCoefficient(k, ac, s, 0))
-					right[j] = Word(productCoefficient(k, bc, s, 1))
-					if k < ac+bc-1 {
-						lo := uint64(0)
-						if k >= bc {
-							lo = k - bc + 1
-						}
-						hi := min(k, ac-1)
-						for i := lo; i <= hi; i++ {
-							expected[j] ^= base.Mul(productCoefficient(i, ac, s, 0), productCoefficient(k-i, bc, s, 1))
-						}
-					}
+					left[j] = Word(productInputCoefficient(k, ac, s, 0, pattern))
+					right[j] = Word(productInputCoefficient(k, bc, s, 1, pattern))
 				}
 				op := *operation
 				span := uint64(2 + 2*(dim-dim/2))
@@ -200,9 +193,13 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 					},
 				}
 				var rightSpectrum []Word
+				var inverseOwned uint64
 				var captureDuration time.Duration
 				last := time.Now()
 				notice := func(phase string, done, total uint64) {
+					if phase == "rank-product-pointwise" && total > 0 && done == total {
+						inverseOwned = gpu.OwnedBytes()
+					}
 					if residentMode && phase == "rank-product-pointwise" && done == 0 {
 						captureBegan := time.Now()
 						rightSpectrum = make([]Word, words)
@@ -256,6 +253,9 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 				localSeconds := time.Since(began).Seconds()
 				localCapture := captureDuration.Seconds()
 				localWork := localSeconds - localCapture
+				if inverseOwned == 0 || gpu.OwnedBytes() != inverseOwned {
+					t.Fatal("inverse workspace allocation grew")
+				}
 				seconds := w.Max(localSeconds)
 				workSeconds := w.Max(localWork)
 				captureSeconds := w.Max(localCapture)
@@ -285,7 +285,7 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 				if !reflect.DeepEqual(actual, expected) {
 					t.Fatal("distributed product/schoolbook", label)
 				}
-				emit(map[string]any{"kind": "measurement", "case": label, "s": s, "dimension": dim, "shape": shape, "a_count": ac, "b_count": bc, "first_coefficient": start, "words": words, "slot_bytes": h.ExtensionBytes, "output_word_bytes": 4, "seconds": seconds, "work_seconds": workSeconds, "validation_capture_seconds": captureSeconds, "local_seconds": localSeconds, "local_work_seconds": localWork, "local_capture_seconds": localCapture, "operation_start": op, "proof_events": proofs, "taylor_proof_events": taylorProofs, "owned_device_bytes": gpu.OwnedBytes(), "output_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(actual)), "matches": true, "resident": residentMode, "local_taylor": localTaylor, "tile_words": tileWords, "setup_seconds": setupSeconds, "right_spectrum_preserved": residentMode, "reused": true})
+				emit(map[string]any{"kind": "measurement", "case": label, "s": s, "dimension": dim, "shape": shape, "a_count": ac, "b_count": bc, "first_coefficient": start, "words": words, "slot_bytes": h.ExtensionBytes, "output_word_bytes": 4, "seconds": seconds, "work_seconds": workSeconds, "validation_capture_seconds": captureSeconds, "local_seconds": localSeconds, "local_work_seconds": localWork, "local_capture_seconds": localCapture, "operation_start": op, "proof_events": proofs, "taylor_proof_events": taylorProofs, "owned_device_bytes": gpu.OwnedBytes(), "output_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(actual)), "matches": true, "resident": residentMode, "oracle_pattern": pattern, "local_taylor": localTaylor, "tile_words": tileWords, "setup_seconds": setupSeconds, "right_spectrum_preserved": residentMode, "reused": true, "inverse_reused": true, "geometry_reuse_checked": shapes > 1})
 				emit(map[string]any{"kind": "phase", "phase": label, "event": "completed", "completed": 1, "total": 1})
 			}
 		}()
@@ -298,8 +298,8 @@ func TestDistributedGPUProducts(t *testing.T) {
 	}
 	withDistributedGPUStages(t, output, func(w *mpi.World, emit func(map[string]any)) {
 		operation := uint64(1)
-		distributedProductGPUCases[uint32](t, w, 4, []int{4, 5, 8}, output, &operation, emit, false, 127, false)
-		distributedProductGPUCases[uint64](t, w, 17, []int{5, 9, 12}, output, &operation, emit, false, 127, false)
+		distributedProductGPUCases[uint32](t, w, 4, []int{4, 5, 8}, output, &operation, emit, productTestOptions{TileWords: 127})
+		distributedProductGPUCases[uint64](t, w, 17, []int{5, 9, 12}, output, &operation, emit, productTestOptions{TileWords: 127})
 		emit(map[string]any{"kind": "completed", "cases": 12})
 	})
 }
@@ -313,8 +313,8 @@ func TestDistributedResidentProducts(t *testing.T) {
 	}
 	withDistributedGPUStages(t, output, func(w *mpi.World, emit func(map[string]any)) {
 		operation := uint64(1)
-		distributedProductGPUCases[uint32](t, w, 4, []int{4, 5, 8}, output, &operation, emit, true, 127, false)
-		distributedProductGPUCases[uint64](t, w, 17, []int{5, 9, 12}, output, &operation, emit, true, 127, false)
+		distributedProductGPUCases[uint32](t, w, 4, []int{4, 5, 8}, output, &operation, emit, productTestOptions{Resident: true, TileWords: 127})
+		distributedProductGPUCases[uint64](t, w, 17, []int{5, 9, 12}, output, &operation, emit, productTestOptions{Resident: true, TileWords: 127})
 		emit(map[string]any{"kind": "completed", "cases": 12})
 	})
 }
@@ -342,7 +342,40 @@ func TestMatchedGPUProducts(t *testing.T) {
 	}
 	withDistributedGPUStages(t, output, func(w *mpi.World, emit func(map[string]any)) {
 		operation := uint64(1)
-		distributedProductGPUCases[uint64](t, w, 17, dims, output, &operation, emit, backend != "host", tile, backend == "resident-local")
+		distributedProductGPUCases[uint64](t, w, 17, dims, output, &operation, emit, productTestOptions{Resident: backend != "host", TileWords: tile, LocalTaylor: backend == "resident-local"})
 		emit(map[string]any{"kind": "completed", "cases": 2 * len(dims)})
+	})
+}
+
+// TestScaledGPUProducts keeps resource/log-size admission explicit. The larger
+// evaluation grid crosses the s17 base field while remaining in its extension.
+func TestScaledGPUProducts(t *testing.T) {
+	output := os.Getenv("PIR_GPU_MATRIX_STAGE_OUTPUT")
+	if output == "" {
+		t.Skip("explicit structured product scaling")
+	}
+	dim, err := strconv.Atoi(os.Getenv("PIR_SCALED_DIM"))
+	if err != nil || (dim != 12 && dim != 14 && dim != 16 && dim != 18) {
+		t.Fatal("scaled dimension admission")
+	}
+	pattern := os.Getenv("PIR_SCALED_PATTERN")
+	if pattern != "random" && pattern != "ones" {
+		t.Fatal("scaled pattern")
+	}
+	if pattern == "random" && dim > 14 {
+		t.Fatal("quadratic oracle not admitted at larger sizes")
+	}
+	shapes, err := strconv.Atoi(os.Getenv("PIR_SCALED_SHAPES"))
+	if err != nil || (shapes != 1 && shapes != 2) || (dim > 14 && shapes != 1) {
+		t.Fatal("scaled proof-log admission")
+	}
+	backend := os.Getenv("PIR_PRODUCT_BACKEND")
+	if backend != "host" && backend != "resident-local" {
+		t.Fatal("scaled backend")
+	}
+	withDistributedGPUStages(t, output, func(w *mpi.World, emit func(map[string]any)) {
+		op := uint64(1)
+		distributedProductGPUCases[uint64](t, w, 17, []int{dim}, output, &op, emit, productTestOptions{Resident: backend != "host", LocalTaylor: backend == "resident-local", TileWords: 4096, Pattern: pattern, Shapes: shapes})
+		emit(map[string]any{"kind": "completed", "cases": shapes})
 	})
 }

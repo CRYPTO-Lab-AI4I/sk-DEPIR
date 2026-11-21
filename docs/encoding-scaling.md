@@ -2845,3 +2845,31 @@ results `experiments/resident-taylor-local/runs/local-01/`. Same resource envelo
 no monitoring. After completion ping, verify all legacy/local FFT/product guards,
 exact remote coverage and sanitizer results, then compare3sample distributions
 before choosing further scaling or integration. Defaults remain unchanged.
+
+### Larger dense products with scalable exact validation (SCALING-158)
+
+78460 passed14arms:legacy products, local full-extension FFT/products normal and
+sanitized,24cache-guard events and matched samples.733source/122evidence/388cache
+identities, clean CUDA summaries,19.248MiB cache. Controller200.380s. AtN16384/
+tile4096 local median net222.795–224.370ms vs host352.875–361.130ms:1.58–1.61x
+faster; previous resident613.406–617.378ms. Matched local RSS375.418MiB/process,
+ownedGPU1.791MiB/card (unchanged), sanitizer peak418.320MiB/process. Main reference
+updated. This is not the production peer-engine/full-preprocessing baseline.
+
+Proceed to [larger products](../experiments/resident-product-larger/report.md):
+s17 field,N16384/65536/262144,host vs local-resident,3samples/backend. Both operands
+dense, B allones; exact streaming XOR producer oracle and independent prefix
+review check every coefficient in linear work. CPU/Python cross-check against
+schoolbook; retain arbitraryN16384 references and small structured sanitizer.
+Label structured data separately from arbitrary root products; no extrapolation.
+N262144 crosses the s17 base-field cardinality without changing s.
+
+Separate each size/one exact-domain geometry per normal arm to keep conservative
+proof files below24MiB within32MiB cap; retain zero-tail/geometry reuse in small
+references, assert inverse workspace reuse everywhere. Same2nodes/2H200/4CPU/
+8GiBhost caps; mainarrays3MiB/card atlargestN, projectedcache32–50MiB.22arms,
+projected250–500s inside720s/15min. No resource/default increase or dropped proof.
+Future larger proofs need bounded storage planning before another size increase.
+After a pass, progress toward distributed root/Newton executor integration and
+s18 field admission rather than repeat tiny comparisons. Whole-pipeline discovery,
+generator/verification and coordinated persistence remain separate; stillstep1.

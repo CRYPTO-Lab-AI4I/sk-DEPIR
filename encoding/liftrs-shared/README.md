@@ -915,4 +915,12 @@ entries zero. Private slot validity is invalidated before raw writes; canonical
 values are checked before local arithmetic when needed. No local host readback
 or target copy is required. Remote transfer, barriers, buffers and existing
 methods remain. [Local-access validation](../../experiments/resident-taylor-local/report.md)
-is prepared; defaults and fullsize claims are unchanged.
+passed78460, including full-extension FFT/product sanitizers and raw-write guards;
+defaults and fullsize claims are unchanged.
+
+[Local access78460](../../experiments/resident-taylor-local/report.md) is faster than
+host-stored GPU products atN16384 in the matched synthetic benchmark, with the
+same resident payload. [Larger structured products](../../experiments/resident-product-larger/report.md)
+now use an exact streaming/prefix oracle and bounded proof files; arbitrary input
+references are retained. These are explicit experiments, not a production default
+swap or fulls18 support/performance claim.

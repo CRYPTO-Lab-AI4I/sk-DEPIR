@@ -1,9 +1,32 @@
 # GPU-owned Taylor targets and sources
 
-Status: **job78460 submitted**, implementation `d327890`; [receipt](submission.json).
-Local CPU/race, native/HostTiled/C/CPP/CUDA/MPI builds and reviewer checks pass.
-GPU correctness/performance results remain pending. [Results destination](runs/local-01/),
-[job log](slurm-78460.log). Actual revision/build inputs are saved by the controller. [Readiness evidence](readiness/checks.json).
+Status: **78460 passed all14 arms**, producer `d327890`,2 HPC nodes /2 H200s /
+4 CPU cores /8 GiB requested RAM. Legacy products, local full-extension FFT
+normal/memcheck, local products normal/memcheck and all matched samples pass.
+Both sanitized arms report zero CUDA errors/leaks; all24 guard events verify
+upload/scatter/local-copy invalidation in both layouts/widths.733 source /122
+original evidence /388 cache identities verify;19.248 MiB cache retained.
+[Raw results](runs/local-01/results.json), [independent review](runs/local-01/analysis.json),
+[summary](runs/local-01/review-checks.json), [job log](slurm-78460.log).
+Controller **200.380 seconds (3min20.380s)**.
+
+Three-sample median net product work,4096-word tile, with all checks retained:
+
+| Synthetic values /shape |Host-stored GPU |Previous resident GPU |Local-access resident GPU |
+|---|---|---|---|
+|4096 /exact domain |111.230 ms |230.362 ms |91.947 ms |
+|4096 /zero tail |105.423 ms |224.587 ms |84.468 ms |
+|16384 /exact domain |361.130 ms |617.378 ms |224.370 ms |
+|16384 /zero tail |352.875 ms |613.406 ms |222.795 ms |
+
+AtN16384, local access is **1.58–1.61x faster than host-stored GPU** and about
+**2.75x faster than the previous resident path**. All are synthetic distributed
+products, not the production peer-engine preprocessing baseline. Matched local
+peak RSS **375.418 MiB/process**, owned GPU **1.791 MiB/card**, unchanged from
+previous resident payload. Small validation peak RSS **376.754 MiB normal /
+418.320 MiB sanitized per process**; context/driver excluded from owned bytes.
+No fullsize speedup follows. Next: [larger products with an exact scalable oracle](../resident-product-larger/report.md).
+[Readiness evidence](readiness/checks.json).
 
 [Matched products78432](../resident-product-scaling/report.md) passed all14 arms.
 At N16384/tile4096, median net product work was0.355987–0.365759 seconds with
@@ -96,8 +119,8 @@ shards, transport, Taylor window and two bounded host buffers stay. Three host
 proof flags and small kernel view metadata are added. At N16384 main GPU payload
 remains192 KiB/card, transfer32 KiB, Taylor3 KiB, host Taylor6 KiB/rank, before
 metadata/runtime/context. Field scans after raw writes add device reads/status
-checks, while local addressing may be strided for an interleaved view. Net runtime
-benefit is unknown; no hidden memory-for-time default is adopted. Local mode is
+checks, while local addressing may be strided for an interleaved view. Measured bounded benefits are reported above; fullsize benefit is unknown and
+no hidden memory-for-time default is adopted. Local mode is
 explicit and existing producer/library defaults remain unchanged.
 
 Total/net/capture and constructor clocks retain the matched experiment's exact
@@ -112,8 +135,7 @@ or unprofiled latency measurements.
 78432 took230.175 seconds including14 arms/builds/profiles; all small local shapes
 have prior FFT/product sanitizer cost measurements. This14-arm suite replaces
 some repeats with small validation; no new larger shape is added. Projected
-controller200–400 seconds fits existing720 seconds, leaving headroom. Runtime/
-peaks remain unknown until measured. Completed arms save before later phases.
+controller200–400 seconds fits existing720 seconds, leaving headroom. Measured bounded runtime/peaks are reported above; larger costs remain unknown. Completed arms save before later phases.
 
 ```sh
 python3 -B experiments/resident-taylor-local/test_review.py

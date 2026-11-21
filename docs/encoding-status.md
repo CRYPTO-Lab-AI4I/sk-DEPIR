@@ -22,7 +22,7 @@ component results, separate from the full s17 runs and fulls18 projections below
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>Resident remains slower; direct GPU access to local Taylor data is implemented, **validation78460 submitted**. Large-product scaling remains pending. |
+| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>Larger structured N16384/65536/262144 comparison prepared; fullsize scaling remains pending. Large-product scaling remains pending. |
 | 2. Distributed discovery | Existing discovery is not yet partitioned across nodes. |
 | 3. Generator construction and verification | Existing algorithms still need the distributed executor/data integration. |
 | 4. Coordinated checkpoints and publication | Helpers exist; distributed ownership/restart/assembly integration remains. |
@@ -68,7 +68,15 @@ leaks; controller **3min50.175s**. Both backends use GPU arithmetic. At16384 val
 **377.359 MiB host /375.188 MiB resident per process**; maximum owned GPU
 **1.575/1.791 MiB per card**, respectively. Larger tiles improve resident only
 **3.6–4.1%** at this size. [GPU-local Taylor access](../experiments/resident-taylor-local/report.md)
-is implemented; **validation78460 submitted**, results pending. No fulls18 or fullsize speedup claim.
+**passed78460**:legacy products, local full-extension FFT/products normal and
+sanitized, raw-write guards and all matched samples; zero CUDA errors/leaks.
+Controller **3min20.380s**. N16384 median net time **222.795–224.370 ms local GPU**
+versus **352.875–361.130 ms host-stored GPU**, **1.58–1.61x faster** (two shapes).
+Matched local RSS **375.418 MiB/process**, owned GPU **1.791 MiB/card**, unchanged
+resident payload; sanitizer peak RSS **418.320 MiB/process**.
+[Larger structured products](../experiments/resident-product-larger/report.md) are
+prepared, with exact linear/prefix oracles and explicit input/log-budget limits.
+No fulls18 or production preprocessing speedup claim.
 
 ## Current s=17 results
 

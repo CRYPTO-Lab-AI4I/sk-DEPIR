@@ -9,17 +9,17 @@ FFT=runpy.run_path(str(HERE.parent/'distributed-gpu-fft/run.py'))
 VECTORS=FFT['VECTORS']
 
 
-def review(rows,directory,pointwise_words=None,cases=None,tile_words=127):
+def review(rows,directory,pointwise_words=None,cases=None,tile_words=127,shapes=(0,1)):
     hosts=[r for r in rows if r.get('kind')=='host'];assert len(hosts)==2 and {r['rank']for r in hosts}=={0,1}and len({r['host']for r in hosts})==2
     assert all(r['visible_devices']and ','not in r['visible_devices']for r in hosts)
     cases=VECTORS['CASES']if cases is None else cases
-    values=[r for r in rows if r.get('kind')=='measurement'];assert len(values)==4*len(cases)
+    values=[r for r in rows if r.get('kind')=='measurement'];assert len(values)==2*len(shapes)*len(cases)
     checks=[r for r in rows if r.get('kind')=='pointwise-check'];assert len(checks)==2*len(cases)
     specs=[];expected_packets={};operation=1
     for s,dim in cases:
         n=1<<dim;cols=1<<(dim//2);levels=dim-dim//2;capacity=min(n,3*max(cols,n//cols));span=2+2*levels
         selected=[r for r in checks if r['s']==s and r['dimension']==dim];assert len(selected)==2 and {r['rank']for r in selected}=={0,1}and all(r['matches']is True and r['words']==(pointwise_words(n,capacity)if pointwise_words else min(capacity,17))for r in selected)
-        for shape in (0,1):
+        for shape in shapes:
             label=f's{s}-d{dim}-shape-{shape}';ac,bc=(n//4+1,3*n//4)if shape==0 else(n//4,n//2)
             for child in (0,1,2):
                 start=operation+child*span;inverse=child==2;specs.append((label,child,n,cols,start,inverse,capacity))
@@ -45,7 +45,7 @@ def review(rows,directory,pointwise_words=None,cases=None,tile_words=127):
     proof_count=VECTORS['review_transpose_routes'](rows,expected_packets)
     routes,counts=FFT['review_taylor_routes'](rows,specs)
     for r in values:assert r['taylor_proof_events']==sum(counts.get((r['rank'],r['case'],child),0)for child in (0,1,2))
-    assert all(sum(r.get('kind')=='completed'and r['rank']==rank and r['cases']==2*len(cases) for r in rows)==1 for rank in (0,1))
+    assert all(sum(r.get('kind')=='completed'and r['rank']==rank and r['cases']==len(shapes)*len(cases) for r in rows)==1 for rank in (0,1))
     assert not list(directory.glob('capture-*'))
     return dict(measurements=values,proof_events=proof_count,pointwise_checks=len(checks),**routes)
 

@@ -122,8 +122,8 @@ func TestLocalTaylorGPUProducts(t *testing.T) {
 	t.Setenv("PIR_TAYLOR_LOCAL_GUARD", "1")
 	withDistributedGPUStages(t, output, func(w *mpi.World, emit func(map[string]any)) {
 		op := uint64(1)
-		distributedProductGPUCases[uint32](t, w, 4, []int{4, 5, 8}, output, &op, emit, true, 4096, true)
-		distributedProductGPUCases[uint64](t, w, 17, []int{5, 9, 12}, output, &op, emit, true, 4096, true)
+		distributedProductGPUCases[uint32](t, w, 4, []int{4, 5, 8}, output, &op, emit, productTestOptions{Resident: true, TileWords: 4096, LocalTaylor: true})
+		distributedProductGPUCases[uint64](t, w, 17, []int{5, 9, 12}, output, &op, emit, productTestOptions{Resident: true, TileWords: 4096, LocalTaylor: true})
 		emit(map[string]any{"kind": "completed", "cases": 12})
 	})
 }

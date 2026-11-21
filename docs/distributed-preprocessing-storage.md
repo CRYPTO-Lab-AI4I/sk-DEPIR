@@ -92,5 +92,6 @@ FFT, product or canonical field values. Resident vectors passed78394 and complet
 products passed78399 with the same three arrays, operation schedule and
 arithmetic. Tiny resident products are slower than host under the current
 127-word/diagnostic boundary. Matched sizes/transfer batching passed78432:resident still slower atN16384.
-Direct local Taylor GPU access is implemented, retaining remote snapshots and
-shared arithmetic; correctness/matched validation is prepared before larger scaling. No large calibration or resource increase is implied.
+Direct local Taylor GPU access passed78460 and wins matchedN16384 products
+without increasing resident payload. Larger structured products with exact linear
+oracles are prepared before executor/pipeline integration. No large calibration or resource increase is implied.
