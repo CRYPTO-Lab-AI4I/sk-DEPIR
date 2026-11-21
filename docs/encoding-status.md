@@ -22,7 +22,7 @@ component results, separate from the full s17 runs and fulls18 projections below
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>Bounded operand ownership routing comparison prepared; fullsize root/Newton scaling remains pending. |
+| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>Bounded operand ownership routing comparison **submitted as78662**; fullsize root/Newton scaling remains pending. |
 | 2. Distributed discovery | Existing discovery is not yet partitioned across nodes. |
 | 3. Generator construction and verification | Existing algorithms still need the distributed executor/data integration. |
 | 4. Coordinated checkpoints and publication | Helpers exist; distributed ownership/restart/assembly integration remains. |
@@ -106,7 +106,7 @@ small sanitized **416.391 MiB/process**. Post-call owned GPU observations: produ
 factors run, so these are separate workspace observations, not aggregate peak
 GPU memory. One profiled sample/size; setup/oracles/persistence outside product
 clock. [Bounded input routing](../experiments/distributed-root-routing/report.md)
-is prepared with explicit peer/routed selection. Partitioned support,
+was submitted as **78662** with explicit peer/routed selection. Partitioned support,
 production root/Newton execution and fulls18 preprocessing remain.
 No fulls18 or production preprocessing speedup claim.
 

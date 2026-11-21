@@ -83,7 +83,7 @@ original methodology; apply this policy to new optimization runs.
 
 - [Bounded root operand routing](distributed-root-routing/report.md): coefficient
   ownership tiles replace full peer polynomials in an explicit comparison;
-  generic CPU/race tests, exact source/target proofs, same admitted GPU budget.
+  generic CPU/race tests, exact source/target proofs, submitted78662 within the same admitted GPU budget.
 
 - [Local GPU roots and distributed final merge](distributed-root-merge/report.md):
   shared product driver, bounded synthetic closed supports, complete native/scalar

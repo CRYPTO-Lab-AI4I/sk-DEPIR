@@ -2953,3 +2953,7 @@ support/CPU reference or all host input shards. After success, integrate rank-ow
 reduction and repeated/truncated products for Newton/generator identities through
 the same executor, with s18 arithmetic admission, partitioned discovery/support
 and coordinated restart/publication still separate. Still no fulls18 pipeline.
+
+Submitted operand-routing gate as **78662**, `routing-01`, producer `868a580`;
+[receipt](../experiments/distributed-root-routing/submission.json).
+No monitoring; await user completion ping before dependent work/result review.

@@ -97,7 +97,7 @@ versus **4.911 s** host-stored GPU (3.16× faster; structured inputs).
 [Root-merge integration](experiments/distributed-root-merge/report.md) **passed78508**:
 local GPU roots plus a distributed final product agree with native/scalar
 references through65532 synthetic roots (largest merge **0.603 s**).
-[Bounded operand routing](experiments/distributed-root-routing/report.md) is prepared
+[Bounded operand routing](experiments/distributed-root-routing/report.md) was submitted as **78662**
 as an explicit comparison with the retained whole-peer input path; routing times
 include coefficient-shard assembly.
 No fullsize/production preprocessing or fulls18 speedup is claimed. No encoding default

@@ -1,0 +1,15 @@
+{
+  "job_id": "78662",
+  "name": "routing-01",
+  "implementation_revision": "868a580ff9581420fe333a09f2b36633693338d0",
+  "recorded_utc": "2026-11-21T23:10:27.242774+00:00",
+  "command": "module load slurm/slurm/25.05; sbatch --parsable --output=experiments/distributed-root-routing/slurm-%j.log experiments/distributed-root-routing/run.sbatch routing-01",
+  "results": "experiments/distributed-root-routing/runs/routing-01/",
+  "log": "experiments/distributed-root-routing/slurm-78662.log",
+  "cache": ".cache/liftrs/distributed-root-routing/routing-01/",
+  "resources": "Same2 HPC nodes/2 H200/4CPU/8GiB requested host RAM;128MiB aggregate owned/card;1GiB RSS/rank;128MiB cache/2GiB scratch/32MiB file;720-second controller/15-minute scheduler;no pinned buffers",
+  "estimated_controller_minutes": "3\u20136 excluding queue; routed runtime unmeasured",
+  "scope": "5arms: peerN65536,small routed sanitizer,routedN4096/16384/65536; coefficient ownership without full peer polynomial; native/scalar references and exact source/payload/shard proofs;not production root/Newton or fulls18",
+  "monitoring": "None. Await user completion ping.",
+  "note": "Actual producing source/build identities saved by controller; following handoff changes affect documentation/receipt only."
+}

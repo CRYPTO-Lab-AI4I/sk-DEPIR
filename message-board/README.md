@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-21 23:10 | SCALING-160 | Handoff | [Bounded operand routing78662 submitted](2026-11-21-2310-codex-scaling-160-handoff.md) |
 | 2026-11-21 23:09 | SCALING-160 | Prepared | [Root merge verified;bounded operand routing ready](2026-11-21-2309-codex-scaling-160-prepared.md) |
 | 2026-11-21 22:59 | SCALING-160 | Started | [Review root merge and partition operand inputs](2026-11-21-2259-codex-scaling-160-started.md) |
 | 2026-11-21 17:43 | SCALING-159 | Handoff | [Root merge integration78508 submitted](2026-11-21-1743-codex-scaling-159-handoff.md) |

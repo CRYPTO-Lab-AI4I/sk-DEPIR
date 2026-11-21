@@ -1,6 +1,8 @@
 # Route root operands to their coefficient owners
 
-Status: prepared; no routed GPU result yet. This follows [passed root merge
+Status: **submitted as78662**, run `routing-01`, producer `868a580`.
+[Submission receipt](submission.json), [scheduler log](slurm-78662.log);
+results will be retained under `runs/routing-01/`. No routed GPU result yet. This follows [passed root merge
 78508](../distributed-root-merge/report.md), producer `0c16446`. The next allocation
 records its frozen revision and complete source manifest.
 [Readiness](readiness/checks.json), [runner](run.py), [Slurm entry](run.sbatch),
