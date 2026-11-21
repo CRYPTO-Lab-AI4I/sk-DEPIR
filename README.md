@@ -94,7 +94,12 @@ reference at16384 values, with unchanged resident payload.
 [Larger structured product validation](experiments/resident-product-larger/report.md)
 **passed78469**: at262144 values, local-access resident GPU work is **1.554 s**
 versus **4.911 s** host-stored GPU (3.16× faster; structured inputs).
-[Root-merge integration](experiments/distributed-root-merge/report.md) was submitted as **78508**.
+[Root-merge integration](experiments/distributed-root-merge/report.md) **passed78508**:
+local GPU roots plus a distributed final product agree with native/scalar
+references through65532 synthetic roots (largest merge **0.603 s**).
+[Bounded operand routing](experiments/distributed-root-routing/report.md) is prepared
+as an explicit comparison with the retained whole-peer input path; routing times
+include coefficient-shard assembly.
 No fullsize/production preprocessing or fulls18 speedup is claimed. No encoding default
 or client CUDA/MPI dependency changes.
 

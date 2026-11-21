@@ -22,7 +22,7 @@ def words(path,width=4):
     return data,[int.from_bytes(data[j:j+width],'little')for j in range(0,len(data),width)]
 
 
-def root_inputs(rows,directory,dim):
+def root_inputs(rows,directory,dim,layout="peer",verify_inputs=False):
     n=1<<dim;label=f's17-d{dim}-shape-0';count=n-4
     inputs=[r for r in rows if r.get('kind')=='root-input'];assert len(inputs)==2
     assert {r['rank']for r in inputs}=={0,1}
@@ -34,7 +34,11 @@ def root_inputs(rows,directory,dim):
         assert 0<r['root_owned_device_bytes']<=64<<20 and 0<r['peak_rss_bytes']<1<<30
         assert all(r[k]>=0 for k in ('reference_seconds','local_root_seconds','exchange_seconds','input_seconds'))
         prefix=directory/f'rank-{rank}-{label}'
-        for suffix,field in (('local-root','local_sha256'),('peer-root','peer_sha256'),('support','support_sha256')):
+        artifacts=[('local-root','local_sha256'),('support','support_sha256')]
+        if layout=='peer':artifacts.append(('peer-root','peer_sha256'))
+        assert r.get('input_layout','peer')==layout
+        assert r.get('peer_materialized',True)is(layout=='peer')
+        for suffix,field in artifacts:
             data,values=words(Path(str(prefix)+f'-{suffix}.bin'),8 if suffix=='support'else 4)
             assert hashlib.sha256(data).hexdigest()==r[field]
             saved[rank,suffix]=data
@@ -47,7 +51,14 @@ def root_inputs(rows,directory,dim):
         assert len(values)==n//2 and all(v<1<<17 for v in values)
         references.append(data)
     assert len(support)==count
-    assert saved[0,'local-root']==saved[1,'peer-root']and saved[1,'local-root']==saved[0,'peer-root']
+    if layout=='peer':assert saved[0,'local-root']==saved[1,'peer-root']and saved[1,'local-root']==saved[0,'peer-root']
+    else:assert not list(directory.glob('*-peer-root.bin'))
+    if verify_inputs:
+        for rank in (0,1):
+            for operand,suffix in enumerate(('left','right')):
+                source=saved[operand,'local-root']
+                expected=(source+b'\0'*(4*n-len(source)))[rank*2*n:(rank+1)*2*n]
+                assert (directory/f'rank-{rank}-{label}-{suffix}-input.bin').read_bytes()==expected
     padded=b''.join(references);reference=padded[:4*(count+1)]
     assert not any(padded[4*(count+1):])and int.from_bytes(reference[:4],'little')==1
     leading=int.from_bytes(reference[-4:],'little');assert 0<leading<1<<17
@@ -58,7 +69,7 @@ def root_inputs(rows,directory,dim):
 def review(rows,directory,spec):
     if spec['reference']:
         return LARGER['review'](rows,directory,dict(backend='resident-local',dim=14,pattern='random',shapes=[0,1]))
-    dim=spec['dim'];inputs,references,leading=root_inputs(rows,directory,dim)
+    dim=spec['dim'];inputs,references,leading=root_inputs(rows,directory,dim,spec.get('layout','peer'),spec.get('verify_inputs',False))
     result=PRODUCT['review'](rows,directory,cases=[(17,dim)],shapes=[0],tile_words=4096,
         pointwise_words=lambda n,capacity:min(n//2,capacity,17),geometry=lambda s,d,shape:((1<<d)//2-1,(1<<d)//2-1,leading))
     RESIDENT['resident_claims'](rows,result)

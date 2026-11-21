@@ -1,0 +1,9 @@
+=== RUN   TestRankOperandRouting
+--- PASS: TestRankOperandRouting (0.01s)
+=== RUN   TestRankOperandAdmissionAndFailure
+--- PASS: TestRankOperandAdmissionAndFailure (0.00s)
+=== RUN   TestRankOperandRejectsNoncanonicalReceive
+--- PASS: TestRankOperandRejectsNoncanonicalReceive (0.00s)
+=== RUN   TestRootMergeFixturePartition
+--- PASS: TestRootMergeFixturePartition (0.05s)
+PASS

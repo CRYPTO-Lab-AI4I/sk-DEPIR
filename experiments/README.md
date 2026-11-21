@@ -81,9 +81,14 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Bounded root operand routing](distributed-root-routing/report.md): coefficient
+  ownership tiles replace full peer polynomials in an explicit comparison;
+  generic CPU/race tests, exact source/target proofs, same admitted GPU budget.
+
 - [Local GPU roots and distributed final merge](distributed-root-merge/report.md):
   shared product driver, bounded synthetic closed supports, complete native/scalar
-  references and paired input ownership checks; submitted as78508 inside existing caps.
+  references and paired input ownership checks; passed78508 through65532 roots
+  with largest distributed product0.603 s, controller2min28.668 s.
 
 - [Larger structured GPU products](resident-product-larger/report.md): exact
   streaming/prefix oracle,N16384/65536/262144,host/local-resident comparison;

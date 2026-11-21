@@ -1,8 +1,14 @@
 # Local GPU roots with a distributed final merge
 
-Status: **submitted as78508**, run `roots-01`, producer `0c16446`.
-[Submission receipt](submission.json), [scheduler log](slurm-78508.log);
-results will be retained in `runs/roots-01/`. No new GPU result yet. This follows [passed larger products
+Status: **78508 passed all five arms**, run `roots-01`, producer `0c16446`,
+on HPC gnode13/gnode14 (two H200s, four CPU cores, 8 GiB requested host RAM).
+Controller runtime **2 min 28.668 s**. Independent review reconciled 743 source,
+61 original evidence and 60 cache identities; all 12 rank/product outputs passed,
+including small CUDA memcheck/leak checks with zero errors/leaks.
+[Submission](submission.json), [scheduler log](slurm-78508.log),
+[raw results](runs/roots-01/results.json), [analysis](runs/roots-01/analysis.json),
+[review summary](runs/roots-01/review-checks.json).
+This follows [passed larger products
 78469](../resident-product-larger/report.md). Producer revision and exact source
 identities will be retained by the controller; [readiness checks](readiness/checks.json)
 record local validation. Work SCALING-159.
@@ -132,3 +138,34 @@ After success, connect partitioned ownership/repeated or truncated products to t
 same executor for Newton/generator identities, with explicit s18 field admission.
 Distributed discovery, coordinated checkpoints/publication and assembled pipeline
 scaling remain before fulls18 preprocessing.
+
+## Completed integration measurements (SCALING-160)
+
+One normal sample per geometry; profiled component results, not a speedup study.
+The complete native reference and four scalar witnesses/rank passed, as did all
+saved coefficients, input pair/support checks, routes and inverse workspace reuse.
+
+| Evaluation values | Synthetic roots | Final distributed product net time | Slowest local GPU root time | Slowest complete input preparation |
+|---|---|---|---|---|
+| 4,096 | 4,092 | 0.087347 seconds | 0.004547 seconds | 0.077381 seconds |
+| 16,384 | 16,380 | 0.227747 seconds | 0.037162 seconds | 0.254278 seconds |
+| 65,536 | 65,532 | 0.602521 seconds | 0.192915 seconds | 1.763340 seconds |
+
+Complete input preparation includes CPU reference/witness checks, setup, partition,
+local roots, peer exchange and input evidence persistence. Subtime maxima need not
+add; final-product setup/capture/checks have the boundaries stated above. At the
+largest size, CPU reference/witness work took up to1.544547 seconds, separate from
+the final product clock. Retained cache **18.609 MiB**. Normal process peak RSS
+**390.387 MiB**, small sanitized peak RSS **416.391 MiB**.
+
+Post-call owned GPU observations: product workspace maximum **2.356 MiB/card**;
+factor engine maximum **3.103 MiB/card**. The resident product workspace remains
+allocated during factor construction, so neither observation alone is aggregate
+GPU peak memory; context/driver and transient allocation peaks are excluded.
+The admitted overlap bound remains128 MiB/card; no total physical peak claim.
+
+This proves local roots can feed a cooperatively distributed final product with
+complete coefficient agreement, not that whole-peer input exchange scales. Next
+compare [bounded coefficient routing](../distributed-root-routing/report.md),
+retaining this peer path. Diagnostic support/native references remain replicated;
+rank-owned production root/Newton execution and fulls18 preprocessing remain unrun.

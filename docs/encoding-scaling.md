@@ -2916,3 +2916,40 @@ and assembled scaling validation are still required before fulls18 preprocessing
 Root gate submitted as **78508**, `roots-01`, producer `0c16446`;
 [receipt](../experiments/distributed-root-merge/submission.json).
 No monitoring; await user completion ping before result review/dependent work.
+
+### Bounded operand ownership routing (SCALING-160)
+
+78508 passed5arms/12rank outputs and clean small root CUDA memcheck/leak checks;
+743source/61original evidence/60cache identities reconciled. HPC gnode13/gnode14,
+2H200/4CPU/8GiB RAM; controller148.668s, normal RSS390.387MiB/process, small
+sanitizer416.391MiB/process, retainedcache18.609MiB. Final distributed net product
+seconds N4096 0.087347,N16384 0.227747,N65536 0.602521. Largest slow local root
+0.192915s; complete input1.763340s including native/scalar verification (up to
+1.544547s). Separate post-call product/factor owned GPU2.356/3.103MiB/card; not
+aggregate/physical peak memory. [Evidence](../experiments/distributed-root-merge/report.md).
+
+Proceed to [routed inputs](../experiments/distributed-root-routing/report.md):
+replace whole-peer-polynomial exchange with deterministic owner-to-coefficient-
+shard tiles, reusing rank partitioning and MPI control/codec/proof helpers.
+Share one CUDA-free scheduler across rank counts/owner choices; no arithmetic
+or transport recurrence copy. Admit two owned outputs plus source/runtime memory.
+At N65536 this removes about128KiB host peer storage/rank and halves aggregate
+input network payload to131068bytes; GPU memory stays unchanged. More handshakes
+may cost time. Keep explicit peer/routed selection and same-allocation baseline;
+no automatic slower default. Input clocks now include shard assembly, so historical
+peer-only exchange times are not a matched comparison. Diagnostic storage grows
+slightly for saved input-shard evidence; projectedcache<32MiB.
+
+Validate1/2/3/5rank CPU routing (uneven/empty shards, same/different owners,
+source preservation, memory/range admission and transport errors), then5GPUarms:
+peer N65536, small routed memcheck and routed N4096/16384/65536. Review every
+coefficient, every expected operand-source proof and both owned input shards.
+Use same admitted2nodes/2H200/4CPU/8GiB RAM,128MiB aggregate owned/card,1GiB RSS/rank,
+128MiB cache/2GiB scratch/32MiB file,720s/15min; estimated3–6min controller, not
+measured routed runtime. No resource/default increase.
+
+This removes full peer-polynomial materialization, not replicated diagnostic
+support/CPU reference or all host input shards. After success, integrate rank-owned
+reduction and repeated/truncated products for Newton/generator identities through
+the same executor, with s18 arithmetic admission, partitioned discovery/support
+and coordinated restart/publication still separate. Still no fulls18 pipeline.

@@ -490,3 +490,14 @@ coefficients need not be1; normalization fixes the constant coefficient.
 The bounded gate replicates support/native reference and exchanges local
 polynomials before using owned coefficient shards. This is not a fullsize
 ownership plan, Newton integration or an ordinary-build CUDA dependency.
+
+[Root merge78508](../../experiments/distributed-root-merge/report.md) passed all
+five arms, including small CUDA memcheck/leak checks, through65532 synthetic
+roots; largest final distributed product net0.603 s. The next
+[operand routing comparison](../../experiments/distributed-root-routing/report.md)
+uses one transport-independent owner/interval/tile scheduler; CUDA-free CPU/race
+tests cover uneven and empty partitions across1/2/3/5ranks. A small MPI adapter
+reuses existing descriptors/codec/payload proofs. Explicit `peer|routed` input
+selection keeps the old reference; no production default changes. Per-shard memory
+admission counts each of two output arrays, with additional source/runtime costs.
+Diagnostic global support/native references still remain in the bounded gate.

@@ -1,0 +1,60 @@
+{
+  "job_id": "78508",
+  "status": "passed",
+  "revision": "0c16446da3dd20ee3065ad3e0980c402a379c7cb",
+  "source_files_verified": 743,
+  "evidence_files_verified": 61,
+  "cache_files_verified": 60,
+  "arms": 5,
+  "rank_product_outputs": 12,
+  "controller_seconds": 148.66832255292684,
+  "cache_MiB": 18.609375953674316,
+  "normal_peak_RSS_MiB": 390.38671875,
+  "sanitized_peak_RSS_MiB": 416.390625,
+  "maximum_product_owned_MiB": 2.356212615966797,
+  "maximum_root_owned_MiB": 3.1033668518066406,
+  "scope": "Post-call owned allocations, not total physical GPU peaks; resident product workspace coexists with root factor engine during input generation.",
+  "roots": [
+    {
+      "values": 4096,
+      "roots": 4092,
+      "net_product_seconds": 0.087346691,
+      "max_reference_seconds": 0.029841963,
+      "max_local_root_seconds": 0.004547482,
+      "max_exchange_seconds": 0.003734399,
+      "max_input_seconds": 0.077380766
+    },
+    {
+      "values": 16384,
+      "roots": 16380,
+      "net_product_seconds": 0.22774734,
+      "max_reference_seconds": 0.190439628,
+      "max_local_root_seconds": 0.03716181,
+      "max_exchange_seconds": 0.006928615,
+      "max_input_seconds": 0.254278066
+    },
+    {
+      "values": 65536,
+      "roots": 65532,
+      "net_product_seconds": 0.602520803,
+      "max_reference_seconds": 1.544547246,
+      "max_local_root_seconds": 0.192915399,
+      "max_exchange_seconds": 0.013462134,
+      "max_input_seconds": 1.763340145
+    }
+  ],
+  "sanitizers": {
+    "root-memcheck": [
+      {
+        "errors": 0,
+        "leaked_bytes": 0,
+        "leaked_allocations": 0
+      },
+      {
+        "errors": 0,
+        "leaked_bytes": 0,
+        "leaked_allocations": 0
+      }
+    ]
+  }
+}

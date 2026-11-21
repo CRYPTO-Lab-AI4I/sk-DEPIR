@@ -17,9 +17,10 @@ import (
 
 // rootProductInput connects local GPU factor construction to the shared
 // distributed final product. This bounded gate replicates support/CPU reference
-// and exchanges whole local polynomials; it does not admit that layout at s18.
+// and explicitly selects peer exchange or coefficient routing for comparison.
+// Replicated support/native references do not establish a fullsize s18 layout.
 // Only the final FFT/product is sharded, with no gathered GPU output.
-func rootProductInput(t *testing.T, w *mpi.World, directory string, emit func(map[string]any)) func(int, int, int, uint64, uint64) productCaseInput {
+func rootProductInput(t *testing.T, w *mpi.World, directory string, emit func(map[string]any), layout string) func(int, int, int, uint64, uint64) productCaseInput {
 	return func(s, dim, shape int, first, words uint64) productCaseInput {
 		t.Helper()
 		n := 1 << uint(dim)
@@ -94,30 +95,62 @@ func rootProductInput(t *testing.T, w *mpi.World, directory string, emit func(ma
 		checkpoint("begin")
 		before := mpi.PayloadFingerprint(local)
 		exchangeBegan := time.Now()
-		peer, err := w.Peer(local, n/2-1)
-		if err != nil || len(peer) != len(local) || peer[0] != 1 || mpi.PayloadFingerprint(local) != before {
-			t.Fatal("root peer extent/preservation", err)
-		}
-		for _, v := range peer {
-			if v >= 1<<uint(s) {
-				t.Fatal("noncanonical peer root")
+		var peer []uint32
+		result := productCaseInput{Expected: make([]uint32, words), ACount: uint64(len(local)), BCount: uint64(len(local)), Leading: reference[len(reference)-1]}
+		var sentWords, receivedWords uint64
+		if layout == "peer" {
+			result.Left, result.Right = make([]uint32, words), make([]uint32, words)
+			peer, err = w.Peer(local, n/2-1)
+			if err != nil || len(peer) != len(local) || peer[0] != 1 {
+				t.Fatal("root peer extent", err)
 			}
+			for _, v := range peer {
+				if v >= 1<<uint(s) {
+					t.Fatal("noncanonical peer root")
+				}
+			}
+			sentWords, receivedWords = uint64(len(local)), uint64(len(peer))
+			a, b := local, peer
+			if w.Rank == 1 {
+				a, b = peer, local
+			}
+			for j := range result.Left {
+				k := first + uint64(j)
+				if k < uint64(len(a)) {
+					result.Left[j] = a[k]
+				}
+				if k < uint64(len(b)) {
+					result.Right[j] = b[k]
+				}
+			}
+		} else {
+			link := operandMPI{world: w, record: func(direction string, p operandPacket, data []uint32, own, remote [64]byte) {
+				if direction == "send" {
+					sentWords += p.Words
+				} else {
+					receivedWords += p.Words
+				}
+				if mpi.ProofMismatch(own, remote) {
+					saveMatrixStageWords(t, filepath.Join(directory, fmt.Sprintf("capture-rank-%d-operand-%d-offset-%d-%s.bin", w.Rank, p.Operand, p.Offset, direction)), data)
+				}
+				emit(map[string]any{"kind": "operand-proof", "direction": direction, "packet": p, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
+			}}
+			var inputs [2][]uint32
+			inputs[w.Rank] = local
+			shards, e := routePolynomialOperands(rankOperandPlan{Operation: 1, Domain: uint64(n), TileWords: 4096, Limit: 1 << uint(s), MaxLocalWords: words, Counts: [2]uint64{uint64(len(local)), uint64(len(local))}, Owners: [2]int{0, 1}, Rank: w.Rank, Ranks: w.Size}, inputs, link, func(operand int, done, total uint64) {
+				notice(fmt.Sprintf("operand-%d", operand), done, total, "coefficients")
+			})
+			if e != nil {
+				t.Fatal(e)
+			}
+			result.Left, result.Right = shards[0], shards[1]
+		}
+		if mpi.PayloadFingerprint(local) != before {
+			t.Fatal("root source mutated during input routing")
 		}
 		exchangeSeconds := time.Since(exchangeBegan).Seconds()
-		a, b := local, peer
-		if w.Rank == 1 {
-			a, b = peer, local
-		}
-		result := productCaseInput{Left: make([]uint32, words), Right: make([]uint32, words), Expected: make([]uint32, words), ACount: uint64(len(a)), BCount: uint64(len(b)), Leading: reference[len(reference)-1]}
-		for j := range result.Left {
-			k := first + uint64(j)
-			if k < uint64(len(a)) {
-				result.Left[j] = a[k]
-			}
-			if k < uint64(len(b)) {
-				result.Right[j] = b[k]
-			}
-			if k < uint64(len(reference)) {
+		for j := range result.Expected {
+			if k := first + uint64(j); k < uint64(len(reference)) {
 				result.Expected[j] = reference[k]
 			}
 		}
@@ -128,11 +161,19 @@ func rootProductInput(t *testing.T, w *mpi.World, directory string, emit func(ma
 		}
 		saveMatrixStageWords(t, filepath.Join(directory, label+"-support.bin"), support)
 		saveMatrixStageWords(t, filepath.Join(directory, label+"-local-root.bin"), local)
-		saveMatrixStageWords(t, filepath.Join(directory, label+"-peer-root.bin"), peer)
+		if layout == "peer" {
+			saveMatrixStageWords(t, filepath.Join(directory, label+"-peer-root.bin"), peer)
+		}
+		saveMatrixStageWords(t, filepath.Join(directory, label+"-left-input.bin"), result.Left)
+		saveMatrixStageWords(t, filepath.Join(directory, label+"-right-input.bin"), result.Right)
 		saveMatrixStageWords(t, filepath.Join(directory, label+"-reference.bin"), result.Expected)
+		peerDigest := ""
+		if layout == "peer" {
+			peerDigest = fmt.Sprintf("%x", mpi.PayloadFingerprint(peer))
+		}
 		// Equal scalar references on both ranks are diagnostic scaffolding, never
 		// retained as a distributed production memory model.
-		emit(map[string]any{"kind": "root-input", "case": fmt.Sprintf("s%d-d%d-shape-%d", s, dim, shape), "s": s, "dimension": dim, "support_count": len(fixture.support), "local_count": len(parts[w.Rank]), "a_count": len(a), "b_count": len(b), "leading_coefficient": result.Leading, "reference_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(reference)), "local_sha256": fmt.Sprintf("%x", before), "peer_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(peer)), "support_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(support)), "reference_seconds": referenceSeconds, "local_root_seconds": rootSeconds, "exchange_seconds": exchangeSeconds, "input_seconds": time.Since(started).Seconds(), "root_owned_device_bytes": owned, "scalar_witnesses": 4, "local_preserved": true})
+		emit(map[string]any{"kind": "root-input", "case": fmt.Sprintf("s%d-d%d-shape-%d", s, dim, shape), "s": s, "dimension": dim, "support_count": len(fixture.support), "local_count": len(parts[w.Rank]), "a_count": result.ACount, "b_count": result.BCount, "leading_coefficient": result.Leading, "reference_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(reference)), "local_sha256": fmt.Sprintf("%x", before), "peer_sha256": peerDigest, "peer_materialized": layout == "peer", "support_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(support)), "reference_seconds": referenceSeconds, "local_root_seconds": rootSeconds, "exchange_seconds": exchangeSeconds, "input_seconds": time.Since(started).Seconds(), "root_owned_device_bytes": owned, "scalar_witnesses": 4, "local_preserved": true, "input_layout": layout, "sent_words": sentWords, "received_words": receivedWords, "route_tile_words": 4096})
 		return result
 	}
 }
@@ -148,9 +189,16 @@ func TestDistributedRootMerge(t *testing.T) {
 	if err != nil || (dim != 12 && dim != 14 && dim != 16) {
 		t.Fatal("root merge dimension")
 	}
+	layout := os.Getenv("PIR_ROOT_INPUT_LAYOUT")
+	if layout == "" {
+		layout = "peer"
+	} // Preserve the previously validated explicit test entry.
+	if layout != "peer" && layout != "routed" {
+		t.Fatal("root input layout")
+	}
 	withDistributedGPUStages(t, output, func(w *mpi.World, emit func(map[string]any)) {
 		op := uint64(1)
-		distributedProductGPUCases[uint64](t, w, 17, []int{dim}, output, &op, emit, productTestOptions{Resident: true, LocalTaylor: true, TileWords: 4096, Pattern: "roots", Shapes: 1, Input: rootProductInput(t, w, output, emit)})
+		distributedProductGPUCases[uint64](t, w, 17, []int{dim}, output, &op, emit, productTestOptions{Resident: true, LocalTaylor: true, TileWords: 4096, Pattern: "roots", Shapes: 1, Input: rootProductInput(t, w, output, emit, layout)})
 		emit(map[string]any{"kind": "completed", "cases": 1})
 	})
 }

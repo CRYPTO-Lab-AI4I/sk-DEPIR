@@ -22,7 +22,7 @@ component results, separate from the full s17 runs and fulls18 projections below
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>Local GPU roots + distributed final-merge integration **submitted as78508**; fullsize scaling remains pending. |
+| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>Bounded operand ownership routing comparison prepared; fullsize root/Newton scaling remains pending. |
 | 2. Distributed discovery | Existing discovery is not yet partitioned across nodes. |
 | 3. Generator construction and verification | Existing algorithms still need the distributed executor/data integration. |
 | 4. Coordinated checkpoints and publication | Helpers exist; distributed ownership/restart/assembly integration remains. |
@@ -89,9 +89,25 @@ RSS **414.480 MiB/process**, maximum owned GPU **4.612 MiB/card**.
 Three profiled samples/backend/size; both use GPU arithmetic. Setup/oracle and
 persistence are outside net product time, inside controller time. Detailed ranges
 and boundaries are in the report. These are **s17-field synthetic components**,
-not s18 PIR preprocessing. [Next root-merge integration](../experiments/distributed-root-merge/report.md)
-was submitted as **78508** within the same resource caps; partitioned production support and
-Newton integration remain.
+not s18 PIR preprocessing. [Root-merge integration](../experiments/distributed-root-merge/report.md)
+**passed78508** within the same resource caps.
+
+| Evaluation values | Synthetic roots | Final distributed product net time |
+|---|---|---|
+| 4,096 | 4,092 | 0.087347 seconds |
+| 16,384 | 16,380 | 0.227747 seconds |
+| 65,536 | 65,532 | 0.602521 seconds |
+
+Five arms/12 rank outputs passed including small root sanitizer; complete native
+coefficient references and scalar witnesses. HPC gnode13/gnode14,2H200/4CPU/8GiB
+requested RAM. Controller **2 min28.668 s**; normal peak RSS **390.387 MiB/process**,
+small sanitized **416.391 MiB/process**. Post-call owned GPU observations: product
+**2.356 MiB/card**, factor engine **3.103 MiB/card**; product stays allocated while
+factors run, so these are separate workspace observations, not aggregate peak
+GPU memory. One profiled sample/size; setup/oracles/persistence outside product
+clock. [Bounded input routing](../experiments/distributed-root-routing/report.md)
+is prepared with explicit peer/routed selection. Partitioned support,
+production root/Newton execution and fulls18 preprocessing remain.
 No fulls18 or production preprocessing speedup claim.
 
 ## Current s=17 results

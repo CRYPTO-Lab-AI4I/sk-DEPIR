@@ -95,5 +95,6 @@ arithmetic. Tiny resident products are slower than host under the current
 Direct local Taylor GPU access passed78460 and wins matchedN16384 products
 without increasing resident payload. Larger structured products with exact linear
 oracles passed78469 through262144 values (resident1.554 s vs host-stored GPU4.911 s).
-Local GPU roots plus a distributed final product are the next bounded integration
-gate; full support ownership and Newton integration remain. No large calibration or resource increase is implied.
+Local GPU roots plus a distributed final product passed78508 through65532 roots
+(largest profiled net product0.603 s). Next compare bounded operand routing with
+the retained peer path; full support ownership and Newton integration remain. No large calibration or resource increase is implied.
