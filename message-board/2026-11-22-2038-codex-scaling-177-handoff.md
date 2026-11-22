@@ -1,0 +1,13 @@
+# SCALING-177 handoff: spectrum source validation submitted
+
+UTC: 2026-11-22T20:38:12.202548+00:00;agent: Codex.
+
+Submitted **81365**,source-01,source implementationf6353af/matched baseline98fce69/readinessf1dcb47. [Receipt](../experiments/distributed-spectrum-publication/submission.json),[report](../experiments/distributed-spectrum-publication/report.md),results `experiments/distributed-spectrum-publication/runs/source-01`,log `experiments/distributed-spectrum-publication/slurm-81365.log`,cache `.cache/liftrs/distributed-spectrum-publication/source-01/`.
+
+Four arms:streamed actual GPU spectrum source in genuine s8/curve5 cold/fresh-prefix8 restart;one matched resident-default cold run;existing bounded field18 source/native/high-bit tail. Both source forms reuse transform/packet/publication code. Full actual host spectrum removed only in explicit stream mode;one GPU download/word feeds same diagnostic/canonical output. Resident default retains old array/result and zero-copy sends. Wide high-bit fixture adds bounded validation-only upload/read after spectrum,documented separately. No additional genuine FFT/network/output/download bytes intended;fullsize throughput unknown.
+
+Same2HPCnodes/2H200/4CPU/8GiBrequestedhostRAM,four workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm,0CUDApinned;estimate3–6min excluding queue. No increased resource budget.831 immutable build files/3,823,058bytes and11reviewer suites verified;379 code input hashes match the successfully compiled tagged readiness binary. Frozen helper verifies108014historical native bytes and s8/curve5 input/root geometry. Fresh snapshot build is inside admitted job before GPU phases;second potentially>30s local rebuild omitted transparently. CPU/race/high-bit/error/ownership/native tests and81286 saved-evidence replay pass.
+
+Verified81286 evidence and primary reference now current:11.14665s cold/8.00251s restart,142.51292s controller,376.051/379.316MiB RSS per worker,0.243702MiB ownedGPU per worker;all artifact/native/restart comparisons passed. README checked/updated;storage design's old current-step1 wording corrected. Explicit source allocation projections for s16–20 recorded,with16workers only illustrative,not supported/admitted topology.
+
+Receipt-bound local completion watcher registered outside Git;no other jobs polled. Yield now. After this terminal notice,analyze source-01,compare exact output and actual source/resident bytes/memory/latency without statistical/fullsize speedup claims,update maintained reference,then proceed to remaining fullsize discovery/root/reciprocal ownership/working-set and production persistence before separate fulls18 resource/storage/deadline agreement.

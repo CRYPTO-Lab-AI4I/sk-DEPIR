@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-bounded GPU spectrum publication after the passed s8/curve5 measurement **81286**,then scalable fullsize ownership/working-set admission and
+bounded GPU spectrum publication (submitted **81365**) after the passed s8/curve5 measurement **81286**,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1111,7 +1111,7 @@ resource admission.
 [Prepared implementation and resource plan](../experiments/distributed-spectrum-publication/report.md)
 replace the actual host spectrum shard with4096-word source tiles;GPU workspace
 and output/transfer bytes are unchanged in the genuine path. GPU validation is
-pending;resident remains default and fullsize latency is unknown.
+submitted as **81365**;resident remains default and fullsize latency is unknown.
 
 | s | Host spectrum allocation avoided (aggregate) | Per worker with16 workers | Status/feasibility |
 |---|---|---|---|
@@ -1125,3 +1125,12 @@ These are isolated allocations,not total RSS/device/storage savings or16-worker
 support/admission. Other host arrays,root ownership imbalance and fullsize logs/
 checkpoint/artifact paths still require review. Wide validation retains small
 native oracle arrays explicitly and separately tests high-bit GPU reads.
+
+
+GPU spectrum-source validation **81365** is submitted,source-01,implementation
+f6353af/matched baseline98fce69/readinessf1dcb47. Source genuine s8 cold/restart,
+matched resident-default cold,and bounded canonical field18 GPU source/high-bit
+checks. Same **two HPC nodes/two H200s/four CPU cores/8 GiB requested host RAM**,
+existing guards/caps;estimate3–6min excluding queue. Results pending.
+[Exact scope,source/native preflight and trade-offs](../experiments/distributed-spectrum-publication/report.md).
+No fulls18 run or new topology admission;resident default retained.

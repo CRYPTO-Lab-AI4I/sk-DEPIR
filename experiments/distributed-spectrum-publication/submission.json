@@ -1,0 +1,17 @@
+{
+  "job_id": "81365",
+  "name": "source-01",
+  "implementation_revision": "98fce69",
+  "spectrum_implementation_revision": "f6353af",
+  "submission_revision": "f1dcb4786a958288a2712eabd8eb7f2f7095a5e9",
+  "recorded_utc": "2026-11-22T20:37:22.413467+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-spectrum-publication/slurm-%j.log experiments/distributed-spectrum-publication/run.sbatch source-01",
+  "results": "experiments/distributed-spectrum-publication/runs/source-01",
+  "log": "experiments/distributed-spectrum-publication/slurm-81365.log",
+  "cache": ".cache/liftrs/distributed-spectrum-publication/source-01/",
+  "resources": "same2HPCnodes/2H200/4CPU/8GiBrequestedhost;4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm,0CUDApinned",
+  "scope": "Explicit spectrum source s8/curve5 cold/fresh-prefix8 restart,matched resident cold,bounded field18 GPU source/native/high-bit validation;not fulls18",
+  "estimated_controller_minutes": "3\u20136 excluding queue;fullsize source/resident latency unknown",
+  "monitoring": "Receipt-bound local completion notice;no model polling",
+  "note": "831 frozen build files/3823058bytes,11 reviewers,379 code input hashes identical to compiled tagged binary,108014 historical native bytes and actual s8 inputs verified;fresh frozen build before GPU work inside allocation;resident default unchanged."
+}

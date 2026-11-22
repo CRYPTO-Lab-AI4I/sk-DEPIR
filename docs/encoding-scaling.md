@@ -3553,3 +3553,16 @@ this checks legacy behavior and provides one source/resident latency sample
 under identical inputs/proof/checkpoint boundaries. Fixed arm order and one sample
 are not statistical speedup evidence. Resource caps unchanged;projected extra
 approximately11s arm time plus profile review fits the recorded3–6min estimate.
+
+
+SCALING-177 submitted **81365**,source-01,after831-file/3,823,058-byte
+frozen-source preflight,11reviewer suites and108014historical native-byte checks.
+379 code-file hashes match the compiled readiness binary;fresh snapshot build
+runs before GPU phases inside admitted allocation. [Receipt](../experiments/distributed-spectrum-publication/submission.json),
+[report](../experiments/distributed-spectrum-publication/report.md). Four arms:
+source genuine s8 cold/fresh-process restart,matched resident cold,and bounded
+field18 source/high-bit validation. Same two-node/two-H200 caps;estimate3–6min
+excluding queue. Local notification registered,no model polling. After completion
+verify all saved source/artifact/memory/download evidence and same-allocation
+latencies,update reference,then finish fullsize ownership/working-set and
+production discovery/persistence admission. Fulls18 remains unrun/unadmitted.

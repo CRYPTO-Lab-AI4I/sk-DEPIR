@@ -137,4 +137,4 @@ isolated allocation projection,not total-RSS measurement or topology admission.
 Fullsize throughput may change from interleaving file/network/GPU reads;resident
 remains default and the experimental source option stays explicit. Complete
 discovery/root/reciprocal working sets and production persistence remain separate
-fullsize admission boundaries. GPU composition validation is pending.
+fullsize admission boundaries. GPU composition validation is submitted as **81365**;results pending.

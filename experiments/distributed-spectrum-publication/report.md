@@ -1,6 +1,6 @@
 # GPU-backed spectrum publication
 
-Status: prepared; GPU validation not yet submitted. Implementation **f6353af** plus matched baseline **98fce69**;parent4b29540.
+Status: **submitted81365**,source-01;GPU results pending. Implementation **f6353af** plus matched baseline **98fce69**;parent4b29540.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/). Results will be
 `runs/source-01/`; immutable source, native references, binaries and reusable
@@ -156,3 +156,10 @@ potentially>30s local rebuild was omitted;fresh frozen-source compilation runs
 inside the admitted allocation before GPU phases. [Native preflight](readiness/snapshot-native.log),
 [compiled native tests](readiness/native-tests.log),[CPU](readiness/cpu.log),
 [race](readiness/race.log). No local CUDA/MPI initialization.
+
+
+Submitted **81365** after readinessf1dcb47. [Receipt](submission.json),
+[scheduler log](slurm-81365.log),results `runs/source-01/`. Four arms:source cold,
+fresh-process source restart,matched resident cold,and bounded field18 GPU source/
+high-bit regression. Same two-node/two-H200 caps;estimate3–6min excluding queue.
+Local completion notification registered outside Git;no model polling.
