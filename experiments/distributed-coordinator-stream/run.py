@@ -38,7 +38,7 @@ def review(rows,directory,resume=False,source=None,cold=None):
 
 def suite(c):
     c['run']('coordinator-review-tests',['python3','-B','experiments/distributed-coordinator-stream/test_review.py'],30)
-    manifest=json.loads((c['source']/'experiments/distributed-coordinator-stream/readiness/reference-inputs.json').read_text())
+    manifest=json.loads((c['source']/'experiments/distributed-coordinator-stream/reference-inputs.json').read_text())
     target=c['cache']/'reference-inputs'
     total=copy_inputs(VECTORS['BASE']['ROOT'],manifest,target)
     c['resources'].update(reference_input_bytes=total,reference_strategy='retained native files,streamed support;no full coordinator reference/archive arrays')

@@ -526,6 +526,7 @@ next-step notes above. Coordinator diagnostic arrays remain a small-pilot limit.
 [Canonical s18 field admission](../experiments/s18-field-admission/report.md)
 passed78917: bounded full-extension FFT/products and clean small memchecks.
 [Coordinator-memory integration](../experiments/distributed-coordinator-stream/report.md)
-was submitted as79202 for streamed support/retained native reference inputs in
-the genuine cold/restart pipeline. GPU recurrences and ordinary defaults remain. No full s18
+remains pending:79202 failed before GPU work because its source snapshot
+omitted the reference-input manifest. Packaging is corrected for a fresh
+cold/restart retry with streamed support and retained native inputs. GPU recurrences and ordinary defaults remain. No full s18
 pipeline result exists.

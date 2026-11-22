@@ -3157,3 +3157,19 @@ scaling/capacity admission remain before fulls18 submission.
 Submitted **79202**, `coordinator-01`, implementation `bf2eb86`;
 [receipt](../experiments/distributed-coordinator-stream/submission.json). Same admitted
 two-node/two-H200 budget. Do not monitor;wait for completion ping.
+
+
+### Repair runtime input packaging before retry (SCALING-167)
+
+79202 failed after13.676 seconds,before GPU setup or cold/resume math. The source
+snapshot excluded the required experiment JSON manifest; local tests had supplied
+it directly. This was an avoidable packaging bug,not arithmetic evidence. Keep
+failed raw results/receipt and mark the coordinator integration unvalidated.
+
+Move the active manifest to experiment root,admit that exact JSON input path to
+the existing bounded Git-blob snapshot,and regression-test selector inclusion/
+continued exclusion of results/readiness JSON. Before submitting coordinator-02,
+create the actual committed-source snapshot and verify/copy all real reference
+inputs from its manifest. No extra calibration job or Go/CUDA arithmetic change.
+Retry the same two-arm suite and admitted resources; preserve failed run/cache.
+[Failure and correction](../experiments/distributed-coordinator-stream/report.md#failed-launch79202-and-packaging-correction-scaling-167).

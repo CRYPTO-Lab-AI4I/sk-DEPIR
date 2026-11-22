@@ -8,6 +8,14 @@ H=runpy.run_path(str(Path(__file__).with_name('run.py')))
 
 
 class ReviewTest(unittest.TestCase):
+    def test_runtime_manifest_is_a_snapshot_input(self):
+        selector=H['VECTORS']['BASE']['build_input']
+        self.assertTrue(selector('experiments/distributed-coordinator-stream/reference-inputs.json'))
+        for name in ('experiments/distributed-coordinator-stream/readiness/checks.json',
+                     'experiments/distributed-coordinator-stream/runs/example/results.json',
+                     'experiments/other/reference-inputs.json'):
+            self.assertFalse(selector(name))
+
     def test_reference_copy_and_corruption(self):
         with tempfile.TemporaryDirectory()as tmp:
             root=Path(tmp);source=root/'source';source.mkdir();manifest=dict(source='source',files={})
@@ -26,7 +34,7 @@ class ReviewTest(unittest.TestCase):
         try:
             with tempfile.TemporaryDirectory()as tmp:
                 root=Path(tmp);source=root/'source';source.mkdir();cache=root/'cache';cache.mkdir()
-                metadata=root/'experiments/distributed-coordinator-stream/readiness';metadata.mkdir(parents=True)
+                metadata=root/'experiments/distributed-coordinator-stream';metadata.mkdir(parents=True)
                 manifest=dict(source='source',files={})
                 for size in (4,6):
                     for suffix in ('reference.json','support.bin','reference-code.bin','rank-0-reference-p.bin','rank-0-reference-g.bin','rank-0-reference-spectrum.bin'):

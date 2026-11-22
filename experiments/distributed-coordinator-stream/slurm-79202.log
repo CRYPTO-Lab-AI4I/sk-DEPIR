@@ -1,0 +1,31 @@
+{"utc": "2026-11-22T13:14:12.573030+00:00", "phase": "hosts", "event": "started", "completed": 0, "unit": "commands", "elapsed_seconds": 12.04683894899972}
+{"utc": "2026-11-22T13:14:12.610517+00:00", "phase": "hosts", "event": "completed", "completed": 1, "unit": "commands", "elapsed_seconds": 12.084320570999807}
+{"utc": "2026-11-22T13:14:12.612061+00:00", "phase": "mpi-plugins", "event": "started", "completed": 1, "unit": "commands", "elapsed_seconds": 12.085860619999949}
+{"utc": "2026-11-22T13:14:12.660956+00:00", "phase": "mpi-plugins", "event": "completed", "completed": 2, "unit": "commands", "elapsed_seconds": 12.134757829999671}
+{"utc": "2026-11-22T13:14:12.662036+00:00", "phase": "mpi", "event": "started", "completed": 2, "unit": "commands", "elapsed_seconds": 12.135835226999916}
+{"utc": "2026-11-22T13:14:13.395812+00:00", "phase": "mpi", "event": "completed", "completed": 3, "unit": "commands", "elapsed_seconds": 12.869615998999961}
+{"utc": "2026-11-22T13:14:13.396962+00:00", "phase": "nvcc", "event": "started", "completed": 3, "unit": "commands", "elapsed_seconds": 12.87076077699976}
+{"utc": "2026-11-22T13:14:13.480116+00:00", "phase": "nvcc", "event": "completed", "completed": 4, "unit": "commands", "elapsed_seconds": 12.953917295999872}
+{"utc": "2026-11-22T13:14:13.481289+00:00", "phase": "compiler", "event": "started", "completed": 4, "unit": "commands", "elapsed_seconds": 12.955087660999652}
+{"utc": "2026-11-22T13:14:13.531826+00:00", "phase": "compiler", "event": "completed", "completed": 5, "unit": "commands", "elapsed_seconds": 13.005628587000047}
+{"utc": "2026-11-22T13:14:13.532911+00:00", "phase": "go", "event": "started", "completed": 5, "unit": "commands", "elapsed_seconds": 13.006710211999689}
+{"utc": "2026-11-22T13:14:13.996409+00:00", "phase": "go", "event": "completed", "completed": 6, "unit": "commands", "elapsed_seconds": 13.47021100899974}
+{"utc": "2026-11-22T13:14:13.997683+00:00", "phase": "coordinator-review-tests", "event": "started", "completed": 6, "unit": "commands", "elapsed_seconds": 13.471480783000061}
+{"utc": "2026-11-22T13:14:14.200644+00:00", "phase": "coordinator-review-tests", "event": "completed", "completed": 7, "unit": "commands", "elapsed_seconds": 13.674447858999883}
+Traceback (most recent call last):
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/distributed-coordinator-stream/run.py", line 56, in <module>
+    else:VECTORS['BASE']['main'](here=HERE,extra_suite=suite)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 161, in main
+    record.update(extra_suite(dict(run=run,source=source,cache=cache,out=out,go=go,env=env,resources=record['resources'],save=save)))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/distributed-coordinator-stream/run.py", line 41, in suite
+    manifest=json.loads((c['source']/'experiments/distributed-coordinator-stream/readiness/reference-inputs.json').read_text())
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/depir-distributed-coordinator-stream-79202/source/experiments/distributed-coordinator-stream/readiness/reference-inputs.json'

@@ -1,0 +1,53 @@
+{
+  "status": "failed",
+  "job_id": "79202",
+  "revision": "bf2eb8665a9467c060959a6ec5f8a0a1a5b8bf97",
+  "source_files_verified": 785,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 8,
+  "cache_files_verified": 0,
+  "tests": [
+    "TestWideOrbitArithmetic",
+    "TestTableFreeFields"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.0200879049998548,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.0358245799998258,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.7199477409999417,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 0.07005942399973719,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.03720684300014909,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.42208070500009853,
+      "exit_code": 0
+    },
+    {
+      "label": "coordinator-review-tests",
+      "seconds": 0.11698080999985905,
+      "exit_code": 0
+    }
+  ],
+  "scope": "Retained native references and streamed support in small genuine cold/restart pipeline;not node failure/fullsize/s18 admission.",
+  "arms": {},
+  "error": "[Errno 2] No such file or directory: '/tmp/depir-distributed-coordinator-stream-79202/source/experiments/distributed-coordinator-stream/readiness/reference-inputs.json'"
+}

@@ -1,11 +1,13 @@
 # Bounded coordinator diagnostics in the genuine pipeline
 
-Status: **submitted as79202**, `coordinator-01`, implementation `bf2eb86`.
-[Receipt](submission.json), [scheduler log](slurm-79202.log). Integrated results
-pending; actual producing source/revision is sealed by the shared controller.
+Status: **79202 failed before GPU work** (`coordinator-01`, source `bf2eb86`).
+[Receipt](submission.json), [scheduler log](slurm-79202.log),
+[raw results](runs/coordinator-01/results.json), [independent review](runs/coordinator-01/analysis.json).
+Snapshot packaging is corrected; retry `coordinator-02` is prepared. No integrated
+retained-reference result yet. Actual producing source/revision is sealed by the controller.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/checks.json),
-[reference manifest](readiness/reference-inputs.json).
+[reference manifest](reference-inputs.json).
 Expected results: `runs/coordinator-01/`; reusable artifacts/snapshots/profiles at
 `.cache/liftrs/distributed-coordinator-stream/coordinator-01/`, outside Git.
 Follows [passed genuine restart78915](../distributed-restart-pilot/report.md) and
@@ -122,3 +124,26 @@ cost. No stable speedup/RSS claim or fullsize extrapolation is made. Flush exist
 timestamped phases/pass/prefix progress and resource logs; retain completed arms,
 profiles and all source/evidence/cache identities before later work. Submit and
 yield without monitoring; review only after the user's completion ping.
+
+
+## Failed launch79202 and packaging correction (SCALING-167)
+
+79202 stopped after **13.676 seconds**, on HPC gnode10/gnode11, before builds,
+GPU setup or either cold/resume arm. Its source snapshot intentionally excludes
+experiment JSON; the newly required runtime reference manifest was therefore
+missing. The local test supplied that file directly and missed the packaging
+boundary. This is a launcher bug, not a GPU arithmetic/restart failure. Verified
+785 producing source identities,8 original evidence files and0 cache files;
+all completed environment/reviewer commands passed. No encoding/preprocessing
+runtime or memory measurement was produced. Existing78917 arithmetic and78915
+restart results remain valid.
+
+Move the active manifest to the experiment root and explicitly include only that
+reviewed JSON path in the shared snapshot selector. Other experiment JSON,
+readiness metadata and results remain excluded; source size/file caps remain.
+A regression checks the actual selector, and a pre-submission check creates the
+real Git-blob snapshot, loads the manifest from it and verifies/copies every real
+reference input. This covers the missing boundary without another GPU calibration
+job. Python source/packaging changed only; Go/CUDA sources and prior checks remain
+unchanged. Same resources and3–6-minute estimate for the retry, excluding queue.
+Keep the failed run and its original receipt intact; retry uses a fresh run/cache.
