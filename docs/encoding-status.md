@@ -19,15 +19,16 @@ deployment costs before accepting a scaling milestone.
 
 The small two-rank pipeline is assembled and validated through discovery, roots,
 Newton iteration, the complete identity and spectrum, plus fresh-process restart
-and streamed publication. **Bounded canonical s18 FFT/products passed78917. Current focus: remove full
-coordinator diagnostic arrays, then step5 scaling integration.** Steps1–4 have
+and streamed publication. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
+diagnostics/restart passed79213. Current focus: four-worker collectives, then
+larger root/discovery ownership and step5 scaling integration.** Steps1–4 have
 small-case correctness evidence; larger rank counts and fullsize scaling remain unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
 
 | Step | Status |
 |---|---|
 | 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>**Integrated genuine s4/s6 pilot passed78898**: repeated sharded root/Newton/identity/spectrum and canonical artifacts.<br>**Canonical s18 bounded FFT/products passed78917**, with clean small CUDA memchecks. Multi-level rank-owned root execution and fullsize scaling remain pending. |
-| 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing passed78909 for genuine s4/s6. Coordinator entropy source remains; 79202 streamed support/retained-reference attempt failed before GPU work (omitted snapshot manifest); packaging fixed, retry79213 submitted. No fullsize result. |
+| 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing passed78909 for genuine s4/s6. Coordinator entropy source remains; streamed support/retained-reference cold and fresh-process resume passed79213; full coordinator support/oracle arrays removed in the explicit pilot mode. No fullsize result. |
 | 3. Generator construction and verification | Sharded Newton/identity/spectrum integration passed78898 for genuine s4/s6. Fullsize integration remains. |
 | 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898; partitioned discovery passed78909. **Fresh-process prefix8 restart and bounded streamed publication passed78915** for genuine s4/s6, with identical canonical code/generator output. Fullsize/node-failure recovery remains. |
 | 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. [Canonical s18 bounded FFT/products passed78917](../experiments/s18-field-admission/report.md). Larger scaling and fulls18 remain unrun. |
@@ -303,7 +304,7 @@ excludes device allocations unless stated.
 | 15 | Laptop measured | Peak host process RSS: 20.55 GiB | 3 h 16 min 7 s† | Measured on laptop |
 | 16 | HPC measured | Peak host process RSS: 72.575 GiB | GPU: 2 h 20 min 15.469 s | Measured on HPC |
 | 17 | **HPC measured; passed75832**<br>K:3876566203; support from75819 | **Peak sampled host RSS:348.393GiB**<br>Device peak:not sampled; product arrays384GiB aggregate (model)<br>Final device owned:256.009GiB observed | **Construction/identity/spectrum:9h16min46s**, includes root checkpoints<br>Verified resumed worker:9h58min38s<br>Earlier discovery:21min38s | **Demonstrated on HPC:4H200,32 active CPU workers, one node**<br>Canonical preprocessing:235.324GiB<br>[Full evidence/boundaries](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088) |
-| 18 | Full preprocessing:not run<br>**Exact dimension measured76647:K16300262095**<br>Bounded export76710 and transform/split components76756 passed<br>Genuine s4/s6 distributed pipeline/restart passed78915<br>Canonical s18 bounded GPU arithmetic passed78917; full distributed workflow still unrun<br>See [component results](#s18-lower-memory-preprocessing-work) | Projected final host arrays:889.446GiB<br>Projected discovery arrays:770.893GiB<br>Peak RSS:unknown | Full preprocessing:unknown<br>Count-only GPU sum:37.4ms, excludes setup |1536GiB device product arrays (model)<br>16GPU power-of-two projection across4nodes at112GiB/card<br>Distributed host/GPU implementation and larger storage admission required<br>Alternative: split final-product arrays project384 GiB on4 GPUs; [complete route comparison](#s18-complete-preprocessing-route-decision) records Newton/discovery host limits |
+| 18 | Full preprocessing:not run<br>**Exact dimension measured76647:K16300262095**<br>Bounded export76710 and transform/split components76756 passed<br>Genuine s4/s6 pipeline/restart passed78915; streamed coordinator copies removed/verified79213<br>Canonical s18 bounded GPU arithmetic passed78917; full distributed workflow still unrun<br>See [component results](#s18-lower-memory-preprocessing-work) | Projected final host arrays:889.446GiB<br>Projected discovery arrays:770.893GiB<br>Peak RSS:unknown | Full preprocessing:unknown<br>Count-only GPU sum:37.4ms, excludes setup |1536GiB device product arrays (model)<br>16GPU power-of-two projection across4nodes at112GiB/card<br>Distributed host/GPU implementation and larger storage admission required<br>Alternative: split final-product arrays project384 GiB on4 GPUs; [complete route comparison](#s18-complete-preprocessing-route-decision) records Newton/discovery host limits |
 | 19 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 | 20 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 
@@ -853,8 +854,22 @@ No fulls18 memory/runtime or stable speedup follows from these bounded samples.
 
 [Next coordinator-memory integration](../experiments/distributed-coordinator-stream/report.md)
 streams canonical support and reads retained, verified native reference files
-instead of constructing complete reference/support copies on rank0. **79202 failed before GPU work**: snapshot omitted the runtime manifest.
-Packaging is fixed; cold/fresh-resume retry **79213** submitted in the same
-two-node envelope, after the real snapshot/input-copy preflight passed.
+instead of constructing complete reference/support copies on rank0. Original **79202 failed before GPU work**: snapshot omitted the runtime manifest.
+Packaging was fixed; **79213 passed cold and fresh-process resume** in the same
+two-node envelope, including exact streamed support and canonical outputs.
 No CUDA kernel/default change or repeated sanitizer. Native input generation is
 separate measured setup, not a production/fullsize reference requirement.
+
+
+79213 result: HPC gnode09/gnode11,2H200/4CPU/8GiB requested RAM; controller
+**2 min15.180 seconds**,cache **15.355 MiB**. Cold/resume peak process RSS
+**373.082/371.145 MiB**; observed post-call ownedGPU **0.075245 MiB/card**
+(excluding contexts/transients/factor peaks). Complete profiled s4 cases
+**1.656894/1.531600 seconds**,s6 **0.511963/0.511681 seconds**. No stable speedup
+or fullsize memory/runtime inferred. [Evidence](../experiments/distributed-coordinator-stream/report.md).
+
+[Four-worker gate](../experiments/distributed-four-worker/report.md) prepared:
+4 MPI workers share2H200s on2nodes,4CPU cores/8GiB host unchanged. Each worker
+owns at most64MiB GPU payload,128MiB/card aggregate. This is multi-peer correctness,
+not four-GPU speedup; four-worker full root/discovery/persistence integration and
+fulls18 remain unvalidated. Existing two-worker/client defaults remain.

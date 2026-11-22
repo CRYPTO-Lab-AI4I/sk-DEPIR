@@ -1,0 +1,54 @@
+{
+  "utc": "2026-11-22T13:35:06.380402+00:00",
+  "status": "local checks passed;GPU four-worker execution pending",
+  "parent_revision": "8fac1c408e9fb34874af7dde5aaeb611d75011d8",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_vectors_gpu_test.go": "02598fdc3a5a414fc3678b40244df13b5feb3db34e236c9fc28056100459a81b",
+    "encoding/liftrs-shared/distributed_product_gpu_test.go": "ae7e37a0bfb618f1120c852f1c686563e3fa855eaa97d07ecb1b687e7467910c",
+    "encoding/liftrs-shared/distributed_resident_gpu_test.go": "7ed6da57f95a8abb8f3c879884ffd7268b8c58570b9dfac31ee0edaed3e73c9b",
+    "encoding/liftrs-shared/s18_field_gpu_test.go": "7c969e049b03c3d92167db175d01b5e3e7f458530e621fa4372900e35f3d966f",
+    "experiments/distributed-gpu-vectors/run.py": "c5b81b019e2ef24387f3ff1e27b479ed1c67127c5752e7023d6213cbefc71e9e",
+    "experiments/distributed-gpu-vectors/test_review.py": "005ec0a4947882e761511a9037d8b87825f36fbe2edda1bc71d43ca47e523925",
+    "experiments/distributed-gpu-fft/run.py": "f56589b6df6dab0a39afce1589b5cfcc134df51db3110dd680a5016b70c6fbe1",
+    "experiments/distributed-gpu-fft/test_review.py": "6f6b4bae94951268d0dac4a5c04deb2777fbfa74f0a3028c889a7edc8a63892b",
+    "experiments/distributed-gpu-product/run.py": "77cccddbcac8e504d04e787ae3f67b8a26a227db84ccaa7dfd522494859ac643",
+    "experiments/distributed-gpu-product/test_review.py": "030a7fa8bfea18bb29700831db3a4d3fd115d11cb116c4e1f83c85388115592e",
+    "experiments/distributed-resident-fft/run.py": "6c38052ac0ac3d6fde504a1e5ae78d9be59705d2a8ad94ca3bf7c36f36d15ac9",
+    "experiments/distributed-resident-product/run.py": "c2a4db18010662a6768f984996e1e79044954e71c4bad736c5cc498218e6f181",
+    "experiments/s18-field-admission/run.py": "5bf1ac6852b1960941da8737e87bd5310afb6a94a8f9554f0a4ce388d2735eaf",
+    "experiments/distributed-four-worker/run.py": "a6b9559e641f032f418f4d5a69436112227938cdce846e7e6623bb0e1a09d599",
+    "experiments/distributed-four-worker/run.sbatch": "196f13550366ee5706245b397bd4b154843438173532535d57b2ef98a4605eea",
+    "experiments/distributed-four-worker/analyze.py": "3e4c82e7bbd6a014e7641ab5d20ce9f7cbaac1eb08012e82843fb11043a03008",
+    "experiments/distributed-four-worker/test_review.py": "d88add6f8ab4f231f6ebd9e196cc20f8eef1ffb5c9aa454a2dfe7a05dc4f43fb"
+  },
+  "unchanged_cuda_source_sha256": {
+    "encoding/liftrs-cuda/preparation.cu": "ad9fff2a8e1abe78fefc9de9bbecfb5562210bec671872b6294d560940ee6e9c",
+    "encoding/liftrs-cuda/rank_storage.cuh": "b63ae124b4c7c054ecca1190a9e9861761227f9dcfb13808415b9a4bd4821f56"
+  },
+  "artifact": {
+    "path": ".cache/liftrs/distributed-four-worker/readiness/four-worker.test",
+    "bytes": 12278264,
+    "sha256": "0d313e00a3ea1be7ad8db9b0bfdd399772bb9628f44c70228c1872144916c6ed"
+  },
+  "checks": {
+    "build.log": "# runtime/cgo\n[lnode02:00128] opal_ifinit: socket() failed with errno=1\n# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi\n[lnode02:00494] opal_ifinit: socket() failed with errno=1\n# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp\n[lnode02:00497] opal_ifinit: socket() failed with errno=1\n",
+    "fft-review.log": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.029s\n\nOK\n",
+    "native.log": "=== RUN   TestS18NativeField\n--- PASS: TestS18NativeField (0.09s)\nPASS\n",
+    "product-review.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.051s\n\nOK\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.307s\n",
+    "review.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.086s\n\nOK\n",
+    "vector-review.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.017s\n\nOK\n"
+  },
+  "commands": {
+    "build": "module load gcc/14.2.0 openmpi/gcc/64/4.1.8; GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=1 CC=mpicc CXX=mpicxx .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-four-worker/readiness/four-worker.test ./encoding/liftrs-shared",
+    "native": ".cache/liftrs/distributed-four-worker/readiness/four-worker.test -test.run ^TestS18NativeField$ -test.v -test.timeout=20s",
+    "race": "GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=1 .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test -race ./encoding/liftrs-shared -run '^TestRankTranspose|^TestRankMatrixVectors$|^TestRankVectorAdmission$|^TestRankTaylor|^TestRankAdditive|^TestRankProduct' -count=1 -timeout=20s"
+  },
+  "limits": "same2nodes/2H200/4CPU/8GiBhost;4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720s/15min;0pinned",
+  "limitations": [
+    "No local GPU/MPI initialization;four-worker collective support awaits job.",
+    "Shared2GPU topology is correctness validation,not4GPU throughput.",
+    "Full four-worker root/discovery/restart integration and fulls18 remain unvalidated.",
+    "Native compiler socket warnings retained;build/native checks pass."
+  ]
+}

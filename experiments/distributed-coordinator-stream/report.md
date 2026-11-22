@@ -1,11 +1,10 @@
 # Bounded coordinator diagnostics in the genuine pipeline
 
-Status: **79202 failed before GPU work** (`coordinator-01`, source `bf2eb86`).
-[Receipt](submission.json), [scheduler log](slurm-79202.log),
-[raw results](runs/coordinator-01/results.json), [independent review](runs/coordinator-01/analysis.json).
-Snapshot packaging is corrected; **retry79213 submitted**, `coordinator-02`.
-[Retry receipt](submission-retry.json), [retry scheduler log](slurm-79213.log).
-No integrated retained-reference result yet. Actual producing source/revision is sealed by the controller.
+Status: **retry79213 passed**, `coordinator-02`, producing revision `53271bf`.
+[Retry receipt](submission-retry.json), [scheduler log](slurm-79213.log),
+[raw results](runs/coordinator-02/results.json), [independent review](runs/coordinator-02/analysis.json),
+[summary](runs/coordinator-02/review-checks.json). Original79202 packaging failure
+and receipt remain below; no math ran in that failed allocation.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/checks.json),
 [reference manifest](reference-inputs.json).
@@ -154,3 +153,28 @@ The [real committed-snapshot preflight](readiness/retry-checks.json) passed on
 source `f6e743e`:786 source files /3,623,064 bytes,including the manifest,then all
 12 real reference inputs /69,746 bytes verified and copied read-only. Reviewer
 tests executed successfully from that snapshot. No local GPU/MPI initialization.
+
+
+## Completed cold/restart integration79213 (SCALING-168)
+
+Both genuine s4/s6 cold and fresh-prefix8-resume arms passed, including retained
+reference flags, streamed support, all route proofs, complete P*G identity,
+canonical code/generator bytes and process identity changes. Producing revision
+`53271bf`; reconciled786 source/41 original evidence/203 cache files. HPC
+gnode09/gnode11,2H200/4CPU/8 GiB requested RAM,unchanged limits. Controller
+**2 min15.180 seconds**; retained cache **15.355 MiB**. No guard fired.
+
+| Arm | s4 complete profiled case | s6 complete profiled case | Peak process RSS | Observed post-call owned GPU/card |
+|---|---|---|---|---|
+| Cold | 1.656894 seconds | 0.511963 seconds | 373.082 MiB | 0.075245 MiB |
+| Fresh-process prefix8 resume | 1.531600 seconds | 0.511681 seconds | 371.145 MiB | 0.075245 MiB |
+
+Times include file checks/copies,setup,logging,proofs,persistence and publication.
+Independent native input generation is separately measured reusable setup above.
+GPU observations exclude context/driver/transients/earlier factor peaks. Tiny
+single samples do not establish stable speedup or measurable fullsize RSS savings;
+array removal is an ownership result. No complete coordinator native polynomial
+oracle or support archive is created in this explicit mode. Rank-local copies
+and the bounded small-reference format remain. This is not fulls18 support.
+Next:four-worker FFT/product correctness using the same two GPUs,then more-rank
+root/discovery integration and representative scaling.

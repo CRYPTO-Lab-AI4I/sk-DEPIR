@@ -19,7 +19,15 @@ func s18GPUFieldCases(t *testing.T, product bool) {
 	if os.Getenv("PIR_S18_FIELD_SMALL") == "1" {
 		dims = []int{5}
 	}
-	withDistributedGPUStages(t, output, func(w *mpi.World, emit func(map[string]any)) {
+	ranks := 2
+	switch os.Getenv("PIR_S18_FIELD_RANKS") {
+	case "", "2":
+	case "4":
+		ranks = 4
+	default:
+		t.Fatal("worker count admission")
+	}
+	withRankGPUStages(t, output, ranks, func(w *mpi.World, emit func(map[string]any)) {
 		operation := uint64(1)
 		if product {
 			distributedProductGPUCases[uint64](t, w, 18, dims, output, &operation, emit, productTestOptions{Resident: true, LocalTaylor: true, TileWords: 127})
@@ -37,7 +45,11 @@ func TestS18GPUProducts(t *testing.T) { s18GPUFieldCases(t, true) }
 // GPU or MPI initialization occurs, and no full 2^36-element grid is allocated.
 func TestS18NativeField(t *testing.T) {
 	t.Setenv("PIR_GPU_MATRIX_STAGE_TAYLOR", "1")
-	for _, dim := range []int{5, 12} {
-		matrixStageOracle(t, 18, dim, 0, 2)
+	for _, ranks := range []int{2, 4} {
+		for rank := 0; rank < ranks; rank++ {
+			for _, dim := range []int{5, 12} {
+				matrixStageOracle(t, 18, dim, rank, ranks)
+			}
+		}
 	}
 }

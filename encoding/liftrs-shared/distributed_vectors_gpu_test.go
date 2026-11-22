@@ -269,6 +269,12 @@ func matrixStageGPUCases[Word transposeWord](t *testing.T, w *mpi.World, s int, 
 
 // withDistributedGPUStages shares MPI ownership, logging and admitted guards.
 func withDistributedGPUStages(t *testing.T, output string, body func(*mpi.World, func(map[string]any))) {
+	withRankGPUStages(t, output, 2, body)
+}
+
+// Four workers share two admitted GPUs;64MiB/worker bounds aggregate owned
+// payload to the existing128MiB/card budget. Ordinary gates remain two workers.
+func withRankGPUStages(t *testing.T, output string, ranks int, body func(*mpi.World, func(map[string]any))) {
 	for _, path := range []string{os.Args[0], os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), output} {
 		if _, err := os.Stat(path); err != nil {
 			t.Fatal("rank path preflight", path, err)
@@ -286,8 +292,8 @@ func withDistributedGPUStages(t *testing.T, output string, body func(*mpi.World,
 			t.Error(err)
 		}
 	}()
-	if w.Size != 2 {
-		t.Fatal("two ranks required")
+	if (ranks != 2 && ranks != 4) || w.Size != ranks {
+		t.Fatal("rank count admission")
 	}
 	w.ChunkWords = 1024
 	if err = w.EnableStaging(); err != nil {

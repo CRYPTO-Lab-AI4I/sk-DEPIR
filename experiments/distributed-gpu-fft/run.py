@@ -13,7 +13,7 @@ def packet_key(p):
     return (p['Operation'],p['Domain'],p['Columns'],p['Level'],p['Quotient'],t['Block'],t['First'],t['Count'],p['Slot'],p['Source'],p['Words'])
 
 
-def expected_windows(n,cols,degrees,level,quotient,capacity):
+def expected_windows(n,cols,degrees,level,quotient,capacity,ranks=2):
     """Enumerate global target intervals, independently of rank cursors/waves."""
     if not degrees:return []
     half=cols<<level;span=capacity//(len(degrees)+1);minimum,maximum=min(degrees),max(degrees)
@@ -22,8 +22,8 @@ def expected_windows(n,cols,degrees,level,quotient,capacity):
     for block in range(0,n,2*half):
         target_base=block+(half if quotient else 0)
         begin,end=(0,maximum)if quotient else(minimum,half)
-        for target in (0,1):
-            lo=max(target_base+begin,target*n//2);hi=min(target_base+end,(target+1)*n//2)
+        for target in range(ranks):
+            lo=max(target_base+begin,target*n//ranks);hi=min(target_base+end,(target+1)*n//ranks)
             for start in range(lo,hi,span):
                 count=min(span,hi-start);first=start-target_base
                 for slot,d in enumerate(degrees):
@@ -32,14 +32,14 @@ def expected_windows(n,cols,degrees,level,quotient,capacity):
                     # half. Exclude inactive prefixes that may overlap targets.
                     active=origin+(0 if quotient else max(0,min(count,d-first)))
                     end_source=min(origin+count,block+2*half)
-                    for source in (0,1):
+                    for source in range(ranks):
                         if source==target:continue
-                        a=max(active,source*n//2);b=min(end_source,(source+1)*n//2)
+                        a=max(active,source*n//ranks);b=min(end_source,(source+1)*n//ranks)
                         if a<b:events.append((target,source,block,first,count,slot,a,b-a))
     return events
 
 
-def review_taylor_routes(rows,specs):
+def review_taylor_routes(rows,specs,ranks=2):
     """Check Taylor routes for (case,pass,n,cols,start,inverse,capacity) specs."""
     expected={};actual={};packets={};plans=[r for r in rows if r.get('kind')=='taylor-plan'];plan_count=0
     for label,pass_id,n,cols,operation,inverse,capacity in specs:
@@ -47,11 +47,11 @@ def review_taylor_routes(rows,specs):
         for step in range(levels):
             level=step if inverse else levels-1-step
             selected=[r for r in plans if r['case']==label and r['pass']==pass_id and r['level']==level]
-            assert len(selected)==2 and {r['rank']for r in selected}=={0,1};plan_count+=2
-            assert selected[0]['degrees']==selected[1]['degrees']and all(r['capacity']==capacity and r['operation_start']==operation for r in selected)
+            assert len(selected)==ranks and {r['rank']for r in selected}==set(range(ranks));plan_count+=ranks
+            assert all(r['degrees']==selected[0]['degrees']for r in selected)and all(r['capacity']==capacity and r['operation_start']==operation for r in selected)
             for stage in (0,1):
                 quotient=(stage==0)!=inverse;op=base+2*step+stage
-                for target,source,block,first,count,slot,a,words in expected_windows(n,cols,selected[0]['degrees'],level,quotient,capacity):
+                for target,source,block,first,count,slot,a,words in expected_windows(n,cols,selected[0]['degrees'],level,quotient,capacity,ranks):
                     p=dict(Operation=op,Domain=n,Columns=cols,Level=level,Quotient=quotient,Target=dict(Block=block,First=first,Count=count),Slot=slot,Source=a,Words=words)
                     for rank,peer,direction in ((source,target,'send'),(target,source,'receive')):expected[(rank,label,pass_id,peer,direction,packet_key(p))]=words
     assert len(plans)==plan_count
@@ -70,17 +70,17 @@ def review_taylor_routes(rows,specs):
     return dict(taylor_proof_events=len(actual),taylor_plans=len(plans)),counts
 
 
-def review(rows,directory,cases=None):
+def review(rows,directory,cases=None,ranks=2):
     cases=VECTORS['CASES']if cases is None else cases
     operations={};specs=[];measurements=[r for r in rows if r.get('kind')=='measurement'];operation=1
     for index,(s,dim)in enumerate(cases):
         label=f's{s}-d{dim}';n=1<<dim;cols=1<<(dim//2);levels=dim-dim//2;capacity=min(n,3*max(cols,n//cols))
         for pass_id in (0,1):
-            starts=[r['operation_start']for r in measurements if r['case']==label and r['pass']==pass_id];assert starts==[operation,operation]
+            starts=[r['operation_start']for r in measurements if r['case']==label and r['pass']==pass_id];assert starts==[operation]*ranks
             operations[(index,pass_id)]=operation+(2*levels if pass_id==0 else 0)
             specs.append((label,pass_id,n,cols,operation,pass_id==1,capacity));operation+=2+2*levels
-    common=VECTORS['review'](rows,directory,operations=operations,full_fft=True,cases=cases)
-    routes,counts=review_taylor_routes(rows,specs)
+    common=VECTORS['review'](rows,directory,operations=operations,full_fft=True,cases=cases,ranks=ranks)
+    routes,counts=review_taylor_routes(rows,specs,ranks)
     for r in measurements:assert r['taylor_proof_events']==counts.get((r['rank'],r['case'],r['pass']),0)
     return dict(**common,**routes)
 

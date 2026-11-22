@@ -10,21 +10,21 @@ OLD=runpy.run_path(str(HERE.parent/'distributed-gpu-vectors/test_review.py'))
 
 
 class ReviewTest(unittest.TestCase):
-    def fixture(self,d,cases=None):
+    def fixture(self,d,cases=None,ranks=2):
         cases=H['VECTORS']['CASES']if cases is None else cases
-        rows=OLD['ReviewTest']().fixture(d,cases);remap={};starts={};operation=1;extra=[];counts={}
+        rows=OLD['ReviewTest']().fixture(d,cases,ranks);remap={};starts={};operation=1;extra=[];counts={}
         for index,(s,dim)in enumerate(cases):
             label=f's{s}-d{dim}';n=1<<dim;cols=1<<(dim//2);levels=dim-dim//2;capacity=min(n,3*max(cols,n//cols))
             for p in (0,1):
                 starts[(label,p)]=operation;matrix=operation+(2*levels if p==0 else 0)
                 for j in (0,1):remap[4*index+2*p+1+j]=matrix+j
-                counts[(label,p,0)]=counts[(label,p,1)]=0
+                counts.update({(label,p,r):0 for r in range(ranks)})
                 for step in range(levels):
                     level=levels-1-step if p==0 else step;degrees=[1<<level]
-                    for rank in (0,1):extra.append(dict(kind='taylor-plan',rank=rank,case=label,level=level,degrees=degrees,capacity=capacity,operation_start=operation,**{'pass':p}))
+                    for rank in range(ranks):extra.append(dict(kind='taylor-plan',rank=rank,case=label,level=level,degrees=degrees,capacity=capacity,operation_start=operation,**{'pass':p}))
                     for stage in (0,1):
                         q=(stage==0)!=(p==1);op=operation+(2 if p==1 else 0)+2*step+stage
-                        for target,source,block,first,count,slot,a,words in H['expected_windows'](n,cols,degrees,level,q,capacity):
+                        for target,source,block,first,count,slot,a,words in H['expected_windows'](n,cols,degrees,level,q,capacity,ranks):
                             packet=dict(Operation=op,Domain=n,Columns=cols,Level=level,Quotient=q,Target=dict(Block=block,First=first,Count=count),Slot=slot,Source=a,Words=words)
                             for rank,peer,direction in ((source,target,'send'),(target,source,'receive')):
                                 extra.append(dict(kind='taylor-proof',rank=rank,case=label,peer=peer,direction=direction,packet=packet,own_proof='00'*64,remote_proof='00'*64,**{'pass':p}));counts[(label,p,rank)]+=1

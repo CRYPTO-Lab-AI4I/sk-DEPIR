@@ -3178,3 +3178,28 @@ Real Git-blob snapshot/input-copy check passed on f6e743e (786 source files,
 12 reference inputs/69,746bytes). Submitted retry **79213**,coordinator-02,after
 freezing that evidence as53271bf. [Retry receipt](../experiments/distributed-coordinator-stream/submission-retry.json).
 Same resources;no monitoring until completion ping.
+
+
+### Coordinator integration passed;four-worker collectives (SCALING-168)
+
+79213 passed genuine s4/s6 cold+fresh-process prefix8 resume with streamed support
+and retained native references. Verified786 source/41 evidence/203 cache files,
+controller2min15.180s,cache15.355MiB,HPCgnode09/gnode11,2H200/4CPU/8GiB RAM.
+Cold/resume RSS373.082/371.145MiB/process,post-call ownedGPU0.075245MiB/card
+(context/transients/factor peaks excluded). Full coordinator archive/native arrays
+are absent in this explicit pilot mode; no fullsize RSS/speedup inferred.
+[Evidence](../experiments/distributed-coordinator-stream/report.md).
+
+Proceed with [four-worker collective integration](../experiments/distributed-four-worker/report.md)
+before more-rank roots/discovery. Reuse FFT/product recurrences,typed MPI codecs,
+Taylor schedules and exact native/scalar/schoolbook references. Generalize existing
+reviewers to all peer rounds,without duplicating arithmetic or retaining pair-only
+proof assumptions. Existing two-worker defaults remain explicit.
+
+Same2nodes/2H200/4CPU/8GiB requested RAM:2workers/card,1CPU/worker;64MiB ownedGPU
+cap/worker bounds128MiB/card aggregate. Per-worker arrays shrink,aggregate payload
+is unchanged;field metadata and CUDA contexts duplicate. Extra sharing/CPU/routing
+cost is unknown and may slow this bounded test; it is not a new performance default.
+Use one normal32/4096-value FFT/product suite and smallest32-value sanitizers
+for the new worker layout. Then integrate rank-owned multi-level roots/discovery
+and perform representative scaling before a fulls18 topology/budget submission.

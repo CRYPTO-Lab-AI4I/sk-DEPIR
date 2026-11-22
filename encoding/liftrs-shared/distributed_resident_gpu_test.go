@@ -26,7 +26,7 @@ func residentVectorCases[Word transposeWord](t *testing.T, w *mpi.World, s int, 
 		n := uint64(1) << uint(dim)
 		rows, cols := uint64(1)<<uint(dim-dim/2), uint64(1)<<uint(dim/2)
 		first, count := rankBand(rows, w.Rank, w.Size)
-		gpu, err := cuda.NewRankStorage(cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: s, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: tables.log, Powers: tables.powers, Devices: []int{0}, MaxElements: n, DeviceBytes: 128 << 20}, rows, cols, w.Rank, w.Size, 127)
+		gpu, err := cuda.NewRankStorage(cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: s, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: tables.log, Powers: tables.powers, Devices: []int{0}, MaxElements: n, DeviceBytes: (128 << 20) / uint64(max(1, w.Size/2))}, rows, cols, w.Rank, w.Size, 127)
 		if err != nil {
 			t.Fatal(err)
 		}

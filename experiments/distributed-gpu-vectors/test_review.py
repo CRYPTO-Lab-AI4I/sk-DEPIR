@@ -9,23 +9,25 @@ H=runpy.run_path(str(Path(__file__).with_name('run.py')))
 
 
 class ReviewTest(unittest.TestCase):
-    def fixture(self,d,cases=None):
+    def fixture(self,d,cases=None,ranks=2):
         cases=H['CASES']if cases is None else cases
-        rows=[dict(kind='host',rank=r,host=f'node{r}',visible_devices='0')for r in (0,1)]
+        rows=[dict(kind='host',rank=r,host=f'node{r//(ranks//2)}',visible_devices='0')for r in range(ranks)]
         for index,(s,dim)in enumerate(cases):
             label=f's{s}-d{dim}';nr,nc=1<<(dim-dim//2),1<<(dim//2);width=4 if s==4 else 8
             for p in (0,1):
-                for rank in (0,1):
-                    data=b''.join(((((i+1)*0x9e3779b9)^(1<<(2*s-1)))&((1<<(2*s))-1)).to_bytes(width,'little')for i in range(rank*nr*nc//2,(rank+1)*nr*nc//2))
+                for rank in range(ranks):
+                    data=b''.join(((((i+1)*0x9e3779b9)^(1<<(2*s-1)))&((1<<(2*s))-1)).to_bytes(width,'little')for i in range(rank*nr*nc//ranks,(rank+1)*nr*nc//ranks))
                     for suffix in ('output','expected'):(d/f'rank-{rank}-{label}-pass-{p}-{suffix}.bin').write_bytes(data)
                     count=0
                     for op in (4*index+2*p+1,4*index+2*p+2):
-                        for offset in range(0,nr*nc//4,127):
-                            for direction in ('send','receive'):
-                                count+=1;rows.append(dict(kind='tile-proof',rank=rank,case=label,pass_id=p,operation=op,offset=offset,words=min(127,nr*nc//4-offset),peer=1-rank,round=1,direction=direction,own_proof='00'*64,remote_proof='00'*64))
-                                rows[-1]['pass']=rows[-1].pop('pass_id')
-                    row=dict(kind='measurement',rank=rank,case=label,s=s,dimension=dim,rank_first=rank*nr//2,rank_rows=nr//2,word_bytes=width,words=nr*nc//2,matches=True,seconds=1,proof_events=count,owned_device_bytes=1,peak_rss_bytes=1,output_sha256=hashlib.sha256(data).hexdigest());row['pass']=p;rows.append(row)
-        rows.extend(dict(kind='completed',rank=r,cases=2*len(cases))for r in (0,1));return rows
+                        for peer in range(ranks):
+                            if peer==rank:continue
+                            for offset in range(0,nr*nc//(ranks*ranks),127):
+                                for direction in ('send','receive'):
+                                    count+=1;round_id=((peer-rank)if direction=='send'else(rank-peer))%ranks
+                                    rows.append(dict(kind='tile-proof',rank=rank,case=label,operation=op,offset=offset,words=min(127,nr*nc//(ranks*ranks)-offset),peer=peer,round=round_id,direction=direction,own_proof='00'*64,remote_proof='00'*64,**{'pass':p}))
+                    row=dict(kind='measurement',rank=rank,case=label,s=s,dimension=dim,rank_first=rank*nr//ranks,rank_rows=nr//ranks,word_bytes=width,words=nr*nc//ranks,matches=True,seconds=1,proof_events=count,owned_device_bytes=1,peak_rss_bytes=1,output_sha256=hashlib.sha256(data).hexdigest());row['pass']=p;rows.append(row)
+        rows.extend(dict(kind='completed',rank=r,cases=2*len(cases))for r in range(ranks));return rows
 
     def test_coverage_and_missing_packet(self):
         with tempfile.TemporaryDirectory()as tmp:

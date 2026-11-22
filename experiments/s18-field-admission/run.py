@@ -31,7 +31,7 @@ def suite(c):
     arms=[]
     for spec in specs():
         arms.append(dict(name=spec['name'],test='TestS18GPUFFT'if spec['kind']=='fft'else'TestS18GPUProducts',
-            memcheck=spec['memcheck'],profile=not spec['small'],env=dict(PIR_S18_FIELD_SMALL='1'if spec['small']else'0'),
+            memcheck=spec['memcheck'],profile=not spec['small'],env=dict(PIR_S18_FIELD_RANKS='2',PIR_S18_FIELD_SMALL='1'if spec['small']else'0'),
             review=lambda rows,directory,spec=spec:review(rows,directory,spec)))
     return VECTORS['suite'](c,full_fft=True,arms=arms,scope='canonical s18 field,bounded32/4096-element full-extension FFT and base-field products;small32-element sanitizer;not genuine/full s18 preprocessing')
 

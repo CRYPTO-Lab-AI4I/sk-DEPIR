@@ -13,7 +13,7 @@ def review(rows,directory):
     return resident_claims(rows,result)
 
 
-def resident_claims(rows,result):
+def resident_claims(rows,result,ranks=2):
     """Review resident preservation/reuse independently of admitted sizes/tiling."""
     retained={}
     for r in result['measurements']:
@@ -22,7 +22,7 @@ def resident_claims(rows,result):
     for r in rows:
         if r.get('kind')=='pointwise-check':
             assert all(r.get(k)is True for k in ('resident','alias_rejected','layout_rejected','invalid_rejected','third_preserved'))
-            assert r['checked_words']==1<<(r['dimension']-1)
+            assert r['checked_words']==(1<<r['dimension'])//ranks
     return result
 
 

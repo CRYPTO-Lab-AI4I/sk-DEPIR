@@ -43,7 +43,7 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 			t.Fatal(err)
 		}
 		tables := newBoundedPreparationProducts(base, 18)
-		options := cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: s, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: tables.log, Powers: tables.powers, Devices: []int{0}, MaxElements: n, DeviceBytes: 128 << 20}
+		options := cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: s, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: tables.log, Powers: tables.powers, Devices: []int{0}, MaxElements: n, DeviceBytes: (128 << 20) / uint64(max(1, w.Size/2))}
 		setupBegan := time.Now()
 		var stage *cuda.VectorPreparation
 		var resident *cuda.RankStorage
