@@ -1,0 +1,15 @@
+{
+  "job_id": "78898",
+  "name": "pilot-01",
+  "implementation_revision": "32d0d12dabcd391901ca5669efceda56c6ffe8e4",
+  "recorded_utc": "2026-11-22T08:16:35.956053+00:00",
+  "command": "module load slurm/slurm/25.05; sbatch --parsable --output=experiments/distributed-preprocessing-pilot/slurm-%j.log experiments/distributed-preprocessing-pilot/run.sbatch pilot-01",
+  "results": "experiments/distributed-preprocessing-pilot/runs/pilot-01/",
+  "log": "experiments/distributed-preprocessing-pilot/slurm-78898.log",
+  "cache": ".cache/liftrs/distributed-preprocessing-pilot/pilot-01/",
+  "resources": "Same2 HPC nodes/2 H200/4CPU/8GiB requested host RAM;128MiB owned/card,1GiB RSS/rank;128MiB cache/2GiB scratch/32MiB file;720-second controller/15-minute scheduler;no pinned buffers",
+  "scope": "2 integrated arms: normal genuine s4/s6,smallest s4 CUDA memcheck/leak;GPU discovery,sharded root/Newton/identity/spectrum,coordinated prefix commit/reload,canonical artifact comparison;coordinator discovery/publication remain;not fulls18 or fresh-process recovery",
+  "estimated_controller_minutes": "3\u20136 excluding queue; new integrated GPU runtime unmeasured",
+  "monitoring": "None. Await user completion ping.",
+  "note": "Actual producing source/revision recorded by controller; later handoff changes affect documentation/receipt only."
+}

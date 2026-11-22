@@ -1,6 +1,8 @@
 # Integrated genuine-code distributed preprocessing pilot
 
-Status: implemented; local checks passed; GPU validation not yet submitted.
+Status: **submitted as78898**, run `pilot-01`, implementation `32d0d12`.
+[Submission receipt](submission.json), [scheduler log](slurm-78898.log);
+results will be retained under `runs/pilot-01/`. Local checks passed; no GPU outcome yet.
 [Runner](run.py), [Slurm entry](run.sbatch), [reviewer](analyze.py),
 [boundary regressions](test_review.py), [readiness](readiness/checks.json).
 Producer revision/source manifests are recorded at allocation start.

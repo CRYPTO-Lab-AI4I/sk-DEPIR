@@ -3021,3 +3021,7 @@ one level at2ranks, and reload stays within one allocation. Explicitly retain
 partitioned discovery/publication, multi-level reduction, s18 arithmetic admission,
 fresh-process recovery and representative scaling as remaining work. No fulls18
 or performance acceptance claim; first measure the assembled correctness gate.
+
+Submitted the consolidated genuine pipeline gate as **78898**, `pilot-01`,
+implementation `32d0d12`; [receipt](../experiments/distributed-preprocessing-pilot/submission.json).
+No monitoring; await completion ping before dependent work/result review.

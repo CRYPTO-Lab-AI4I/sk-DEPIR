@@ -83,7 +83,7 @@ original methodology; apply this policy to new optimization runs.
 
 - [Integrated genuine-code preprocessing pilot](distributed-preprocessing-pilot/report.md):
   discovery, sharded roots/Newton/identity/spectrum, prefix commit/reload and canonical
-  artifact comparison; one normal suite and one smallest-case sanitizer, prepared.
+  artifact comparison; one normal suite and one smallest-case sanitizer, submitted78898.
 
 - [Bounded root operand routing](distributed-root-routing/report.md): coefficient
   ownership tiles replace full peer polynomials in an explicit comparison;

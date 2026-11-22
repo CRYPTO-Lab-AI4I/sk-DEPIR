@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 08:16 | SCALING-162 | Handoff | [Integrated genuine pipeline78898 submitted](2026-11-22-0816-codex-scaling-162-handoff.md) |
 | 2026-11-22 08:14 | SCALING-162 | Prepared | [Genuine integrated preprocessing pilot ready](2026-11-22-0814-codex-scaling-162-prepared.md) |
 | 2026-11-22 07:59 | SCALING-162 | Started | [Assemble genuine distributed preprocessing pilot](2026-11-22-0759-codex-scaling-162-started.md) |
 | 2026-11-22 07:45 | SCALING-161 | Completed | [Routing verified;fulls18 remaining work recorded](2026-11-22-0745-codex-scaling-161-completed.md) |
