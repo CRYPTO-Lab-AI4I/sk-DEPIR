@@ -96,5 +96,7 @@ Direct local Taylor GPU access passed78460 and wins matchedN16384 products
 without increasing resident payload. Larger structured products with exact linear
 oracles passed78469 through262144 values (resident1.554 s vs host-stored GPU4.911 s).
 Local GPU roots plus a distributed final product passed78508 through65532 roots
-(largest profiled net product0.603 s). Next compare bounded operand routing with
-the retained peer path; full support ownership and Newton integration remain. No large calibration or resource increase is implied.
+(largest profiled net product0.603 s). Bounded operand routing passed78662 with no full peer polynomial and half
+the largest-case input traffic. One-sample timings do not establish a latency
+advantage. Complete root/Newton execution, full support ownership and distributed
+discovery/checkpoint/publication integration remain. No large calibration or resource increase is implied.

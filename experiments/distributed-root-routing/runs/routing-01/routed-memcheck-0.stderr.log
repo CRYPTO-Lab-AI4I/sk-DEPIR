@@ -1,0 +1,91 @@
+[gnode08:361749] mca: base: components_register: registering framework btl components
+[gnode08:361749] mca: base: components_register: found loaded component openib
+[gnode08:361749] mca: base: components_register: component openib register function successful
+[gnode08:361749] mca: base: components_register: found loaded component self
+[gnode08:361749] mca: base: components_register: component self register function successful
+[gnode08:361749] mca: base: components_register: found loaded component sm
+[gnode08:361749] mca: base: components_register: found loaded component tcp
+[gnode08:361749] mca: base: components_register: component tcp register function successful
+[gnode08:361749] mca: base: components_register: found loaded component vader
+[gnode08:361749] mca: base: components_register: component vader register function successful
+[gnode08:361749] mca: base: components_open: opening btl components
+[gnode08:361749] mca: base: components_open: found loaded component openib
+[gnode08:361749] mca: base: components_open: component openib open function successful
+[gnode08:361749] mca: base: components_open: found loaded component self
+[gnode08:361749] mca: base: components_open: component self open function successful
+[gnode08:361749] mca: base: components_open: found loaded component tcp
+[gnode08:361749] mca: base: components_open: component tcp open function successful
+[gnode08:361749] mca: base: components_open: found loaded component vader
+[gnode08:361749] mca: base: components_open: component vader open function successful
+[gnode08:361749] select: initializing btl component openib
+[gnode08:361749] Checking distance from this process to device=mlx5_0
+[gnode08:361749] Process is bound: distance to device is 0.000000
+[gnode08:361749] Checking distance from this process to device=mlx5_1
+[gnode08:361749] Process is bound: distance to device is 0.000000
+[gnode08:361749] Checking distance from this process to device=mlx5_bond_0
+[gnode08:361749] Process is bound: distance to device is 0.000000
+--------------------------------------------------------------------------
+WARNING: No preset parameters were found for the device that Open MPI
+detected:
+
+  Local host:            gnode08
+  Device name:           mlx5_0
+  Device vendor ID:      0x02c9
+  Device vendor part ID: 4129
+
+Default device parameters will be used, which may result in lower
+performance.  You can edit any of the files specified by the
+btl_openib_device_param_files MCA parameter to set values for your
+device.
+
+NOTE: You can turn off this warning by setting the MCA parameter
+      btl_openib_warn_no_device_params_found to 0.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   gnode08
+  Local device: mlx5_1
+--------------------------------------------------------------------------
+[gnode08:361749] select: init of component openib returned failure
+[gnode08:361749] mca: base: close: component openib closed
+[gnode08:361749] mca: base: close: unloading component openib
+[gnode08:361749] select: initializing btl component self
+[gnode08:361749] select: init of component self returned success
+[gnode08:361749] select: initializing btl component tcp
+[gnode08:361749] btl: tcp: Searching for exclude address+prefix: 127.0.0.1 / 8
+[gnode08:361749] btl: tcp: Found match: 127.0.0.1 (lo)
+[gnode08:361749] btl: tcp: Using interface: sppp 
+[gnode08:361749] btl:tcp: Attempting to bind to AF_INET port 1024
+[gnode08:361749] btl:tcp: Successfully bound to AF_INET port 1024
+[gnode08:361749] btl:tcp: my listening v4 socket is 0.0.0.0:1024
+[gnode08:361749] btl:tcp: examining interface bond0
+[gnode08:361749] btl:tcp: using ipv6 interface bond0
+[gnode08:361749] btl:tcp: examining interface ibP1s3
+[gnode08:361749] btl:tcp: using ipv6 interface ibP1s3
+[gnode08:361749] btl:tcp: examining interface docker0
+[gnode08:361749] btl:tcp: using ipv6 interface docker0
+[gnode08:361749] select: init of component tcp returned success
+[gnode08:361749] select: initializing btl component vader
+[gnode08:361749] select: init of component vader returned failure
+[gnode08:361749] mca: base: close: component vader closed
+[gnode08:361749] mca: base: close: unloading component vader
+[gnode08:361749] mca: base: components_register: registering framework pml components
+[gnode08:361749] mca: base: components_register: found loaded component ucx
+[gnode08:361749] mca: base: components_register: component ucx register function successful
+[gnode08:361749] mca: base: components_open: opening pml components
+[gnode08:361749] mca: base: components_open: found loaded component ucx
+[gnode08:361749] mca: base: components_open: component ucx open function successful
+[gnode08:361749] select: initializing pml component ucx
+[gnode08:361749] select: init returned priority 51
+[gnode08:361749] selected ucx best priority 51
+[gnode08:361749] select: component ucx selected
+{"utc":"2026-11-21T23:38:33.66767514Z","phase":"support-order-validation","event":"progress","completed":4092,"total":4092,"unit":"exponents","elapsed_seconds":0.00001536}
+{"utc":"2026-11-21T23:38:33.668053786Z","phase":"support-Frobenius-validation","event":"progress","completed":4092,"total":4092,"unit":"exponents","elapsed_seconds":0.000394005}
+{"kind":"mpi-chunk","utc":"2026-11-21T23:38:33Z","rank":0,"peer":1,"phase":"coefficient32-transfer","sending":false,"event":"completed","completed":2047,"total":2047,"unit":"words","elapsed_seconds":0.000003}
+[gnode08:361749] mca: base: close: component ucx closed
+[gnode08:361749] mca: base: close: unloading component ucx
+[gnode08:361749] mca: base: close: component self closed
+[gnode08:361749] mca: base: close: unloading component self
+[gnode08:361749] mca: base: close: component tcp closed
+[gnode08:361749] mca: base: close: unloading component tcp

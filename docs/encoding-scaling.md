@@ -2957,3 +2957,42 @@ and coordinated restart/publication still separate. Still no fulls18 pipeline.
 Submitted operand-routing gate as **78662**, `routing-01`, producer `868a580`;
 [receipt](../experiments/distributed-root-routing/submission.json).
 No monitoring; await user completion ping before dependent work/result review.
+
+### Fulls18 remaining work after routed inputs (SCALING-161)
+
+78662 passed5arms/10rank outputs, exact source-derived proofs, input shards,
+native/scalar output references and clean small CUDA sanitizer. Actual producer
+ca57b77 (implementation868a580),750source/63original evidence/76cache identities.
+HPC gnode08/gnode10,2H200/4CPU/8GiB requested RAM; controller178.915s,
+normal RSS390.715MiB/process, small sanitizer415.520MiB/process, cache21.002MiB.
+Largest routed/peer net product0.601303/0.597966s, input assembly32.968/30.703ms;
+one sample/arrival skew, not a stable regression/speedup claim. Full peer storage
+131068bytes/rank removed; aggregate input payload262136→131068bytes. Separate
+post-call product/factor GPU2.356/3.103MiB/card, not aggregate physical peaks.
+[Evidence](../experiments/distributed-root-routing/report.md).
+
+We remain at step1 integration, with bounded arithmetic, complete FFT/products,
+local root generation/final distributed merge and coefficient routing validated.
+Remaining concrete work, before a fulls18 preprocessing submission:
+
+1. Connect the rank-owned root reduction tree to a reusable distributed product
+   executor; support repeated and truncated Newton products and the complete
+   polynomial identity check and generator spectrum. Current gate performs one
+   bounded final merge, with diagnostic full support/native reference copies.
+2. Partition actual discovery, grid and support state across ranks, preserving
+   deterministic sampling, exact ownership and every correctness check.
+3. Explicitly admit/validate s18 canonical arithmetic, parameter/size limits and
+   GPU tables/plans against independent CPU/scalar references. Current distributed
+   integration uses the s17 field; large evaluation grids do not imply s18 support.
+4. Integrate coordinated checkpoints/restart and sharded final artifact assembly,
+   checksums and publication into the distributed workflow; existing helpers alone
+   do not establish recoverable multi-node preprocessing.
+5. Run the assembled pipeline on small genuine code instances, verify complete
+   artifacts against references, then a representative larger case including host/
+   device memory, communication, setup and I/O. Select/admit GPU/node counts with
+   headroom from those measurements, then launch fulls18.
+
+This is substantial integration/scale validation, not readiness for a full launch.
+Do not invent a percentage complete or an end-to-end runtime from tiny component
+results. Capacity projections and broader GPU-count design are distinct from
+resource admission. No new job launched for this requested status review.

@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "job_id": "78662",
+  "revision": "ca57b77801fc7c708e9d931feaac753feff90ffd",
+  "source_files_verified": 750,
+  "evidence_files_verified": 63,
+  "cache_files_verified": 76,
+  "controller_seconds": 178.91481460817158,
+  "cache_MiB": 21.001626014709473,
+  "arms": 5,
+  "rank_outputs": 10,
+  "normal_RSS_MiB": 390.71484375,
+  "sanitized_RSS_MiB": 415.51953125,
+  "post_call_product_owned_MiB": 2.356212615966797,
+  "post_call_root_owned_MiB": 3.1033668518066406,
+  "hosts": "gnode08\ngnode10\n",
+  "cases": {
+    "peer-reference": {
+      "product_net_seconds": 0.5979659199999999,
+      "max_input_route_seconds": 0.030703052,
+      "max_input_seconds": 1.933624194,
+      "operand_proof_events": 0,
+      "sent_words": 65534,
+      "peer_materialized": true
+    },
+    "routed-memcheck": {
+      "product_net_seconds": 0.587588869,
+      "max_input_route_seconds": 0.004360174,
+      "max_input_seconds": 0.061942445,
+      "operand_proof_events": 2,
+      "sent_words": 2047,
+      "peer_materialized": false
+    },
+    "routed-d12": {
+      "product_net_seconds": 0.084729495,
+      "max_input_route_seconds": 0.001073782,
+      "max_input_seconds": 0.053407505,
+      "operand_proof_events": 2,
+      "sent_words": 2047,
+      "peer_materialized": false
+    },
+    "routed-d14": {
+      "product_net_seconds": 0.232467047,
+      "max_input_route_seconds": 0.000891043,
+      "max_input_seconds": 0.246000109,
+      "operand_proof_events": 4,
+      "sent_words": 8191,
+      "peer_materialized": false
+    },
+    "routed-d16": {
+      "product_net_seconds": 0.601302642,
+      "max_input_route_seconds": 0.032967916,
+      "max_input_seconds": 1.7820918780000001,
+      "operand_proof_events": 16,
+      "sent_words": 32767,
+      "peer_materialized": false
+    }
+  },
+  "sanitizers": {
+    "routed-memcheck": [
+      {
+        "errors": 0,
+        "leaked_bytes": 0,
+        "leaked_allocations": 0
+      },
+      {
+        "errors": 0,
+        "leaked_bytes": 0,
+        "leaked_allocations": 0
+      }
+    ]
+  }
+}

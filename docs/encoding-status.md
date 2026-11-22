@@ -6,7 +6,7 @@ exploratory targets**: keep their rows as algorithms, layouts and measurements
 improve. This is the maintained capacity and results reference for the
 [scaling plan](encoding-scaling.md), separate from TRL 5 acceptance.
 
-Updated 2026-11-21; full s17 encoding source `ed0c026`.
+Updated 2026-11-22; full s17 encoding source `ed0c026`.
 **Resident CPU encoding76645 and four-H200 GPU encoding76706 both passed at s17**,
 using the same verified preprocessing and deterministic database. Complete
 canonical and tightly packed output hashes match. GPU retry76706 supersedes the
@@ -22,7 +22,7 @@ component results, separate from the full s17 runs and fulls18 projections below
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>Bounded operand ownership routing comparison **submitted as78662**; fullsize root/Newton scaling remains pending. |
+| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>Complete rank-owned root/Newton execution and fullsize scaling remain pending. |
 | 2. Distributed discovery | Existing discovery is not yet partitioned across nodes. |
 | 3. Generator construction and verification | Existing algorithms still need the distributed executor/data integration. |
 | 4. Coordinated checkpoints and publication | Helpers exist; distributed ownership/restart/assembly integration remains. |
@@ -106,8 +106,22 @@ small sanitized **416.391 MiB/process**. Post-call owned GPU observations: produ
 factors run, so these are separate workspace observations, not aggregate peak
 GPU memory. One profiled sample/size; setup/oracles/persistence outside product
 clock. [Bounded input routing](../experiments/distributed-root-routing/report.md)
-was submitted as **78662** with explicit peer/routed selection. Partitioned support,
-production root/Newton execution and fulls18 preprocessing remain.
+**passed78662**, all5arms/10rank outputs with clean small sanitizer and exact
+source-derived input proofs. Largest routed product **0.601303 seconds** versus
+peer **0.597966 seconds**; input assembly/routing **32.968/30.703 milliseconds**,
+respectively. One sample includes arrival skew; no stable speedup/penalty inferred.
+Routed input removes **131,068 bytes** of peer-polynomial host storage per rank
+and halves aggregate input traffic (**262,136→131,068 bytes**).
+HPC gnode08/gnode10,2H200/4CPU/8GiB requested RAM; controller **2 min58.915 s**.
+Normal RSS **390.715 MiB/process**, small sanitized **415.520 MiB/process**;
+post-call owned product/factor **2.356/3.103 MiB/card**, separate workspace
+observations rather than aggregate physical peak. Cache **21.002 MiB**.
+
+The next implementation step is a reusable distributed executor for complete
+rank-owned root reduction and repeated/truncated Newton products. Partitioned
+discovery/support, explicit s18 arithmetic admission, coordinated checkpoint/
+publication and assembled scaling validation also remain. Current GPU integration
+uses two ranks with s17-field synthetic supports, not fulls18 preprocessing.
 No fulls18 or production preprocessing speedup claim.
 
 ## Current s=17 results

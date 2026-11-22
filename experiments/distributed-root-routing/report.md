@@ -1,8 +1,14 @@
 # Route root operands to their coefficient owners
 
-Status: **submitted as78662**, run `routing-01`, producer `868a580`.
-[Submission receipt](submission.json), [scheduler log](slurm-78662.log);
-results will be retained under `runs/routing-01/`. No routed GPU result yet. This follows [passed root merge
+Status: **78662 passed all five arms**, run `routing-01`, actual producer
+`ca57b77` (implementation `868a580`), on HPC gnode08/gnode10 (two H200s,
+four CPU cores, 8 GiB requested host RAM). Controller **2 min 58.915 s**.
+Independent review verified750 source/63 original evidence/76 cache identities,
+all10 rank/product outputs and the small CUDA sanitizer (zero errors/leaks).
+[Submission](submission.json), [scheduler log](slurm-78662.log),
+[raw results](runs/routing-01/results.json), [analysis](runs/routing-01/analysis.json),
+[review summary](runs/routing-01/review-checks.json).
+This follows [passed root merge
 78508](../distributed-root-merge/report.md), producer `0c16446`. The next allocation
 records its frozen revision and complete source manifest.
 [Readiness](readiness/checks.json), [runner](run.py), [Slurm entry](run.sbatch),
@@ -147,3 +153,37 @@ outside Git with retained checksum manifests. Earlier caches/profiles remain.
 After this gate, integrate rank-owned reduction/repeated and truncated products
 for Newton/generator identities through the same executor; admit s18 arithmetic
 and partitioned support independently. Full distributed preprocessing is unrun.
+
+## Completed routing gate (SCALING-161)
+
+Every planned source-derived operand proof and saved input shard passed. Routed
+arms retain no peer polynomial; native/scalar references and all final coefficients
+match, including nonzero final coefficients on both ranks. The scheduler CPU/race
+checks and small CUDA memcheck/leak arm passed; larger GPU cases were not sanitized.
+
+| Normal arm | Final product net time | Slowest input assembly/routing time | Aggregate input network payload |
+|---|---|---|---|
+| Peer, N65536 | 0.597966 seconds | 30.703 milliseconds | 262,136 bytes |
+| Routed, N4096 | 0.084729 seconds | 1.074 milliseconds | 8,188 bytes |
+| Routed, N16384 | 0.232467 seconds | 0.891 milliseconds | 32,764 bytes |
+| Routed, N65536 | 0.601303 seconds | 32.968 milliseconds | 131,068 bytes |
+
+At the largest shape, routed input removes131068 bytes of full peer-polynomial
+host storage per rank and halves aggregate network payload. Input assembly was
+2.265 milliseconds slower in this single sample; final product differed by about
+3.337 milliseconds. These timings include rank arrival skew and do not establish
+a repeatable latency penalty or speedup. Retain explicit comparison/default policy;
+no production selection follows automatically from one sample. Extra input-shard
+evidence persistence remains outside these clocks, inside complete job time.
+
+Normal maximum host RSS **390.715 MiB/process**; small sanitized RSS **415.520
+MiB/process**; retained cache **21.002 MiB**. Post-call owned GPU observations:
+product **2.356 MiB/card**, factor engine **3.103 MiB/card**. Product and factor
+storage overlap during input setup, so these separate observations are not an
+aggregate or physical GPU peak measurement; context/transient allocation excluded.
+
+This completes bounded input-routing validation, not the complete distributed
+preprocessing executor. Remaining work: rank-owned root reduction and repeated/
+truncated Newton products; partitioned discovery/support; explicit s18 field
+admission; coordinated checkpoint/restart and artifact publication; assembled
+small pipeline then representative scale/resource validation. Fulls18 is unrun.
