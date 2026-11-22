@@ -21,7 +21,8 @@ passed **81286**; [bounded GPU spectrum publication](experiments/distributed-spe
 passed **81365**,including a matched resident-default comparison;
 [bounded discovery-result consumption](experiments/distributed-discovery-results/report.md)
 passed **81454**; the [full-size allocation audit](experiments/distributed-fullsize-audit/report.md)
-records remaining limits,with [Newton prefix-input validation](experiments/distributed-prefix-inputs/report.md) next;
+records remaining limits,with [Newton prefix-input validation](experiments/distributed-prefix-inputs/report.md)
+submitted as **81729**;
 full s18 preprocessing remains unrun.
 
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)

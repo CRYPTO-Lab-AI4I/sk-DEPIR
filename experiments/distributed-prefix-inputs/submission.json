@@ -1,0 +1,16 @@
+{
+  "job_id": "81729",
+  "name": "prefix-01",
+  "implementation_revision": "2f63e9d",
+  "submission_revision": "75524c21f36b944e2f94e3713411078ac71eb23e",
+  "recorded_utc": "2026-11-22T23:55:58.110665+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-prefix-inputs/slurm-%j.log experiments/distributed-prefix-inputs/run.sbatch prefix-01",
+  "results": "experiments/distributed-prefix-inputs/runs/prefix-01",
+  "log": "experiments/distributed-prefix-inputs/slurm-81729.log",
+  "cache": ".cache/liftrs/distributed-prefix-inputs/prefix-01/",
+  "resources": "same2HPCnodes/2H200/4CPU/8GiBrequestedhost;4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm,0CUDApinned",
+  "scope": "Genuine s8/curve5 prefix-input cold/fresh-prefix8 restart,matched dense input,bounded field18 prefix/source/native checks;not fulls18",
+  "estimated_controller_minutes": "3\u20136 excluding queue;fullsize prefix latency unknown",
+  "monitoring": "Receipt-bound local completion notification;no model polling",
+  "note": "845 frozen build inputs/3856765bytes,13reviewers+audit tests,383 code hashes identical to compiled readiness tree,108014 historical native bytes and actual s8 inputs verified;fresh snapshot build inside allocation before GPU work;dense default unchanged,no resource increase."
+}

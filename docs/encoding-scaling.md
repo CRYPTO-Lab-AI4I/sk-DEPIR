@@ -3629,3 +3629,18 @@ Measure actual cloned/uploaded words,exact outputs and matched latency before
 choosing it;fullsize time remains unknown and default stays dense. Keep topology/
 capacity projections separate from implementation support/admission. Same existing
 two-node/two-H200 caps and snapshot/native/controller checks apply.
+
+
+SCALING-179 submitted **81729**,prefix-01,implementation2f63e9d/readiness75524c2.
+845 frozen build inputs/3,856,765bytes,13reviewer suites plus audit tests and
+108014historical native bytes checked;383 code hashes match compiled readiness
+tree. Fresh snapshot build runs inside allocation before GPU phases.
+[Receipt](../experiments/distributed-prefix-inputs/submission.json),
+[report](../experiments/distributed-prefix-inputs/report.md),
+[fullsize audit](../experiments/distributed-fullsize-audit/report.md).
+Same two-node/two-H200 caps;estimate3–6min excluding queue. Local completion
+notification registered,no model monitoring. After terminal notice,reconcile
+all evidence and actual clone/upload/memory/latency/native output checks,update
+the reference,then follow the audit's production parameter/rank/lifecycle,
+bounded persistence/proof/progress and real per-phase count/admission steps.
+No fulls18 feasibility or budget increase follows from the payload formulas.

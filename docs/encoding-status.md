@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-full-size allocation/ownership audit and Newton prefix-input views after discovery-result tiles passed **81454**,then scalable fullsize ownership/working-set admission and
+Newton prefix-input views (submitted **81729**) following the full-size allocation/ownership audit and passed discovery tiles **81454**,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1208,7 +1208,7 @@ prototype explicit Newton root-prefix input views;fulls18 remains unrun.
 array payloads,host inventories/GC uncertainty,root-domain imbalance,persistence
 and current implementation limits. [Explicit prefix input prototype](../experiments/distributed-prefix-inputs/report.md)
 avoids Newton's whole root clone/mask and uploads only selected coefficients,
-using the same zero-reset GPU product. Dense remains default;validation pending.
+using the same zero-reset GPU product. Dense remains default;validation submitted as **81729**.
 
 | s | Three-array GPU payload at16 cards | Payload-only minimum power-of-two cards at112 GiB/card | Root clone avoided per worker/step at16 workers | Full distributed feasibility |
 |---|---|---|---|---|
@@ -1225,3 +1225,12 @@ unknown. Current diagnostic serialization can create full temporary buffers;
 P/G/identity plus spectrum debug files add1.25 TiB at s18. Current transpose proof
 logging alone would emit440,401,920rows/worker. Native-reference/four-worker/pilot
 limits,production persistence and local root counts remain separate gates.
+
+
+Newton prefix-input validation **81729** submitted,prefix-01,implementation
+2f63e9d/readiness75524c2. Genuine s8/curve5 prefix cold/fresh restart,matched dense
+input,and bounded field18 prefix/native/source checks. Other memory flags held
+constant in matched arms. Same **two HPC nodes/two H200s/four CPU cores/8 GiB
+total requested host RAM** and existing caps;estimate3–6min excluding queue.
+[Exact preflight,scope and trade-offs](../experiments/distributed-prefix-inputs/report.md).
+Results pending;dense default retained. Fulls18 remains unrun/unadmitted.

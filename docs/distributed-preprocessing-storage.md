@@ -160,3 +160,10 @@ into the already zero-reset GPU slots. Dense default/correctness checks remain.
 At s18/16workers the clone is16 GiB/worker;this is an avoided allocation,not a
 measured total-RSS saving. Production bounded persistence/proofs and parameter/rank
 ownership admission remain;small-case success does not admit fulls18.
+
+
+Prefix-input validation is submitted as **81729**,within the existing two-node/
+two-H200 caps. [Exact scope and evidence](../experiments/distributed-prefix-inputs/report.md).
+Results pending;dense default unchanged. The source-based audit is now the
+reference for remaining production lifecycle/rank,persistence/proof/logging and
+per-phase memory admission work;fulls18 remains unrun.

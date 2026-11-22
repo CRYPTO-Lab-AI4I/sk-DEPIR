@@ -1,6 +1,6 @@
 # Newton prefix input views
 
-Status: prepared;GPU validation not yet submitted. Implementation **2f63e9d**;parent83b828d.
+Status: **submitted81729**,prefix-01;GPU results pending. Implementation **2f63e9d**;parent83b828d.
 [Runner](run.py),[Slurm entry](run.sbatch),[analyzer](analyze.py),
 [reviewer tests](test_review.py),[readiness](readiness/). Planned results:
 `runs/prefix-01/`;reusable immutable source,binaries,native references,profiles and
@@ -138,3 +138,10 @@ before GPU phases;second potentially>30s local rebuild omitted transparently.
 [Native preflight](readiness/snapshot-native.log),[CPU](readiness/cpu.log),
 [race](readiness/race.log),[native tests](readiness/native-tests.log).
 No local CUDA/MPI initialization.
+
+
+Submitted **81729** after readiness75524c2. [Receipt](submission.json),
+[scheduler log](slurm-81729.log),results `runs/prefix-01/`. Four arms:prefix cold,
+fresh-process prefix8 restart,matched dense cold,and bounded field18 prefix/native
+checks. Existing two-node/two-H200 caps retained;estimate3–6min excluding queue.
+Receipt-bound local completion notification registered outside Git;no model polling.
