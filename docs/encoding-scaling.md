@@ -3444,3 +3444,41 @@ after committed-source/native-input preflight84fe1a7.
 Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;GPU results pending.
 Genuine cold/restart remains s4/s6;field18 root/tail cases are bounded components.
 Fulls18 preprocessing remains unrun.
+
+
+### Owned roots passed;compact restart storage (SCALING-175)
+
+81079 passed818 source/92 evidence/538 cache seals,all42 commands and every native
+leaf/stage/final comparison. Complete narrow cold/restart and bounded wide checks
+passed. Controller2min30.945s;arms6.301/5.052/6.355/3.766s;RSS376.793/376.992/
+379.969/379.785MiB per worker;ownedGPU0.064MiB narrow/3.125MiB tail/3.149MiB wide
+roots per worker,context/driver extra;cache16.211MiB. Same2HPCnodes/2H200/4CPU/8GiB.
+[Evidence](../experiments/distributed-owned-roots/report.md).
+
+Next persistence boundary:stop saving the whole padded N/r vector for every
+reciprocal prefix. Add optional layout=prefix,store only each rank's completed
+prefix intersection in canonical4-byte base slots,hash exact payloads and retain
+empty rank files/quorum commits. Derive stored lengths from bound shape/prefix/rank
+metadata;restore zero padding into the admitted resident array with64KiB I/O,
+exact EOF/hash/range checks. Reject omitted nonzero padding. Retain legacy padded
+format/default and bulk-I/O behavior. In-process reload must not add global-support
+scans. No coded database packing or GPU layout change.
+
+Explicit compact experiment keeps all existing owned cold/restart,native,packet,
+canonical/identity/spectrum and bounded wide regressions;record actual saved bytes
+against padded equivalents. Same2nodes/2H200/4CPU/8GiB,4workers,64MiBowned/worker=
+128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720s/15min,0CUDApinned.
+Estimate3–6min excluding queue. No new CUDA arithmetic/sanitizer-only arm. Native/
+CPU/race/adversarial-layout/legacy replay and exact frozen-source/input checks
+precede allocation. [Runner and trade-offs](../experiments/distributed-prefix-checkpoints/report.md).
+
+Under strict0<K<N/2,cold checkpoint payload falls from4N(2s+1) to4(2N−1) bytes;
+s18 projects9.25TiB versus approximately512GiB,excluding all other retained data.
+See maintained restart-payload table for s16–20. Extra zero-tail validation and
+small-read throughput costs are unmeasured at fullsize;compact mode stays explicit,
+not a slower default when padded fits. This is a storage projection,not admission
+or a complete fulls18 cache estimate. No useful caches/profiles are deleted.
+
+After codec validation,measure larger real workload/I/O/checkpoint behavior and
+finish scalable complete discovery/working-set/full wide-domain execution before
+fulls18 topology,resource/storage/headroom/deadline agreement. Fulls18 remains unrun.

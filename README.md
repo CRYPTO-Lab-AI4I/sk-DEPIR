@@ -14,7 +14,8 @@ The [complete four-worker cold/restart pipeline](experiments/distributed-pipelin
 passed for genuine s4/s6 on four workers sharing two H200s across two HPC nodes,
 including partitioned discovery and hierarchical roots.
 [Wide adapter validation](experiments/distributed-pipeline-wide/report.md) also passed.
-[Owned root execution](experiments/distributed-owned-roots/report.md) is next;
+[Owned root execution](experiments/distributed-owned-roots/report.md) also passed.
+[Compact checkpoint validation](experiments/distributed-prefix-checkpoints/report.md) is next;
 full s18 preprocessing remains unrun.
 
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)

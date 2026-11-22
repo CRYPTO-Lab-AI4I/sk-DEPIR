@@ -22,6 +22,20 @@ def read_words(path,width=4):
     return data,[int.from_bytes(data[j:j+width],'little')for j in range(0,len(data),width)]
 
 
+def checkpoint_bytes(directory,label,stage,commit):
+    """Expand a bounded diagnostic checkpoint,checking exact stored intervals/hashes."""
+    n,ranks,prefix=commit['n'],commit['ranks'],commit['prefix'];layout=commit.get('layout','')
+    assert layout in ('','prefix')and 0<prefix<=n and 1<=ranks<=64 and len(commit['sha256'])==ranks
+    result=[]
+    for rank in range(ranks):
+        quotient,remainder=divmod(n,ranks);first=quotient*rank+min(rank,remainder);words=quotient+(rank<remainder)
+        stored=min(words,max(0,prefix-first))if layout=='prefix'else words
+        data=(directory/f'{label}-rank-{rank}-{stage}.bin').read_bytes()
+        assert len(data)==4*stored and hashlib.sha256(data).hexdigest()==commit['sha256'][rank]
+        result.append(data+b'\0'*(4*(words-stored)))
+    return b''.join(result)
+
+
 def artifacts(directory,s,k,initial=1,ranks=2):
     n=1<<(2*s);label=f's{s}'
     def joined(stage):return b''.join((directory/f'{label}-rank-{r}-{stage}.bin').read_bytes()for r in range(ranks))
@@ -37,8 +51,10 @@ def artifacts(directory,s,k,initial=1,ranks=2):
     binding=hashlib.sha256((directory/f'{label}-support.bin').read_bytes()).hexdigest()
     for stage,count,source in [('root',k+1,reference['p'])]+[(f'newton-{size}',size,reference['g'][:4*size])for size in prefixes(n-k)if size>=initial]:
         commit=json.loads((directory/f'{label}-{stage}-commit.json').read_text())
-        assert commit==dict(s=s,k=k,n=n,prefix=count,ranks=ranks,support_sha256=binding,stage=stage,sha256=[hashlib.sha256((directory/f'{label}-rank-{r}-{stage}.bin').read_bytes()).hexdigest()for r in range(ranks)])
-        assert joined(stage)==source+b'\0'*(4*(n-count))
+        expected=dict(s=s,k=k,n=n,prefix=count,ranks=ranks,support_sha256=binding,stage=stage,sha256=[hashlib.sha256((directory/f'{label}-rank-{r}-{stage}.bin').read_bytes()).hexdigest()for r in range(ranks)])
+        if 'layout'in commit:expected['layout']='prefix'
+        assert commit==expected
+        assert checkpoint_bytes(directory,label,stage,commit)==source+b'\0'*(4*(n-count))
     actual=(directory/f'{label}-code.bin').read_bytes();expected=(directory/f'{label}-reference-code.bin').read_bytes()
     assert actual==expected and actual[:9]==b'LRSprobe1'and len(actual)==25+4*(k+1+n)
     assert [int.from_bytes(actual[i:i+4],'little')for i in (9,13,17,21)]==[s,2,k,n]

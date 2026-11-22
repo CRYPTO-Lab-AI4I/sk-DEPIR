@@ -1,0 +1,25 @@
+=== RUN   TestRankPrefixResumeAdmission
+--- PASS: TestRankPrefixResumeAdmission (0.03s)
+=== RUN   TestRankPrefixCompactRoundTrip
+--- PASS: TestRankPrefixCompactRoundTrip (0.00s)
+=== RUN   TestRankPrefixCompactBoundsAndCanonicalValues
+--- PASS: TestRankPrefixCompactBoundsAndCanonicalValues (0.00s)
+=== RUN   TestRankPrefixWideExtents
+--- PASS: TestRankPrefixWideExtents (0.00s)
+=== RUN   TestRootHierarchyShapes
+    root_hierarchy_gpu_test.go:263: roots=16 rank=0 leaf=5 child domain=16 final domain=32
+    root_hierarchy_gpu_test.go:263: roots=16 rank=1 leaf=5 child domain=16 final domain=32
+    root_hierarchy_gpu_test.go:263: roots=16 rank=2 leaf=5 child domain=16 final domain=32
+    root_hierarchy_gpu_test.go:263: roots=16 rank=3 leaf=5 child domain=16 final domain=32
+    root_hierarchy_gpu_test.go:263: roots=4092 rank=0 leaf=1025 child domain=4096 final domain=4096
+    root_hierarchy_gpu_test.go:263: roots=4092 rank=1 leaf=1025 child domain=4096 final domain=4096
+    root_hierarchy_gpu_test.go:263: roots=4092 rank=2 leaf=1023 child domain=2048 final domain=4096
+    root_hierarchy_gpu_test.go:263: roots=4092 rank=3 leaf=1023 child domain=2048 final domain=4096
+--- PASS: TestRootHierarchyShapes (0.05s)
+=== RUN   TestPilotHierarchyReferences
+    root_hierarchy_gpu_test.go:385: s=4 retained K=97 support digest/closure and four-rank hierarchy admitted
+    root_hierarchy_gpu_test.go:385: s=6 retained K=1910 support digest/closure and four-rank hierarchy admitted
+--- PASS: TestPilotHierarchyReferences (0.00s)
+=== RUN   TestS18NativeField
+--- PASS: TestS18NativeField (0.03s)
+PASS

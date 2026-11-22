@@ -1,6 +1,6 @@
 # Owned root execution with retained native validation
 
-Status: **submitted81079**,owned-01,implementation638a273;GPU results pending. Parent revision0f57378.
+Status: **passed81079**,owned-01,implementation638a273;GPU results passed. Parent revision0f57378.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [retained root manifest](root-references.json),
 [readiness](readiness/). Producing revision/source hashes will be sealed by the
@@ -134,7 +134,7 @@ python3 -B experiments/distributed-owned-roots/analyze.py owned-01
 
 [Build](readiness/build.log), [native shapes](readiness/native.log),
 [race](readiness/race.log), [reviewer](readiness/review.log).
-GPU composition remains pending. Scalable complete field18 discovery/working-set
+GPU owned-root composition passed81079. Scalable complete field18 discovery/working-set
 admission,full-domain generator/spectrum and final artifacts,larger representative
 scaling/interruption/relaunch,measured headroom and separate fulls18 admission
 remain. A successful small owned-root gate does not establish fulls18 readiness.
@@ -153,3 +153,26 @@ Submitted **81079** after readiness commit84fe1a7.
 `runs/owned-01/`. Same resources/caps and3–6 minute estimate excluding queue.
 Local receipt-bound completion notification registered;no model polling after
 submission. Review saved evidence after completion notice.
+
+
+## Measured outcome — HPC81079
+
+[Raw results](runs/owned-01/results.json), [analysis](runs/owned-01/analysis.json),
+[logs/profiles](runs/owned-01/), [scheduler log](slurm-81079.log).
+Producing revision84fe1a7;818 source/92 evidence/538 cache digests reconcile;all42
+commands passed. Controller **2min30.945 seconds**;cold **6.301 seconds**,resume
+**5.052 seconds**,wide tail **6.355 seconds**,owned-wide roots **3.766 seconds**.
+Every native leaf/stage/final shard matched,alongside canonical/generator bytes,
+completed prefixes,full identity,spectrum,restart and wide stream checks.
+Owned-root genuine workers used only discovered local support/shards/counts.
+The synthetic field18 fixture remains bounded test input,not fulls18 discovery.
+
+Maximum measurement-row RSS per worker:cold **376.793MiB**,resume **376.992MiB**,
+wide **379.969MiB**,owned-wide **379.785MiB**. Reported owned GPU:**0.064MiB/worker
+narrow /3.125MiB wide tail /3.149MiB owned-wide**,context/driver/transients additional.
+Cache **16.211MiB**. Same two HPC nodes/two H200s/four CPU cores/8GiB requested RAM.
+No algorithmic speedup is inferred from changed diagnostic boundaries.
+
+Next:[compact restart prefixes](../distributed-prefix-checkpoints/report.md),omitting
+only verified zero padding while retaining legacy format/default and optional
+bounded restore. Fullsize runtime/storage admission remains separate.

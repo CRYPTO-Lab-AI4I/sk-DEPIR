@@ -1,0 +1,48 @@
+{
+  "utc": "2026-11-22T19:49:03.265489+00:00",
+  "status": "passed-final-local;compact cold/restart GPU integration pending",
+  "parent_revision": "525888f",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_recovery.go": "06f1514cbdc3310677c770f46c05291cd2fb52224dfc0b04e5ebdbc1a6f14ffd",
+    "encoding/liftrs-shared/distributed_recovery_test.go": "40ede7e76c231ff92ddb053109e68c4686d14c99422376f82fc392fdf9c4076c",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go": "167e6931dfba5d31484fb747b8f9f082dbb9c2718a35af812b53792e594538aa",
+    "experiments/distributed-preprocessing-pilot/run.py": "ca0d10e7a71fa5fa4e34efd842b1748ff7d65ad52b5049b57e885b2c1371312f",
+    "experiments/distributed-prefix-checkpoints/analyze.py": "b4432739e089a2c30b3ad2818aa19f1230d5281f5ac46059929d9a73929e8bdf",
+    "experiments/distributed-prefix-checkpoints/run.py": "ea8be5607737fee675f872d9b93fbd839c18911a9abdd93883ebddb375c4cbfd",
+    "experiments/distributed-prefix-checkpoints/test_review.py": "efea3f7e5c9ac4912749ede35ae52186d5465f1f50baa8b30b874dd7356f1183",
+    "experiments/distributed-prefix-checkpoints/run.sbatch": "b5932a088dd75c59c11d2a85aafafff0d20fa4c1c5cb655b3968435a403374a9"
+  },
+  "checks": {
+    "build.log": "# runtime/cgo\n[lnode02:00128] opal_ifinit: socket() failed with errno=1\n# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp\n[lnode02:00497] opal_ifinit: socket() failed with errno=1\n",
+    "cpu.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t0.006s\n",
+    "distributed-coordinator-stream.log": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.005s\n\nOK\n",
+    "distributed-discovery-hierarchy.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+    "distributed-owned-roots.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n",
+    "distributed-pipeline-four.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.031s\n\nOK\n",
+    "distributed-pipeline-wide.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n",
+    "distributed-prefix-checkpoints.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.036s\n\nOK\n",
+    "distributed-preprocessing-pilot.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n",
+    "distributed-restart-pilot.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.028s\n\nOK\n",
+    "distributed-root-hierarchy.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.037s\n\nOK\n",
+    "initial-empty-fixture.log": "--- FAIL: TestRankPrefixCompactBoundsAndCanonicalValues (0.00s)\n    distributed_recovery_test.go:171: empty ownership band prefix resident admission\nFAIL\nFAIL\tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t0.005s\nFAIL\n",
+    "initial-reader-build.log": "# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared [github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.test]\nencoding/liftrs-shared/distributed_recovery.go:240:12: invalid operation: sum != expected (mismatched types [32]byte and []byte)\nFAIL\tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared [build failed]\nFAIL\n",
+    "legacy-cpu.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t0.003s\n",
+    "legacy-replay.log": "81079 four-arm saved evidence reviewed through updated backward-compatible artifact/checkpoint code;no scheduler queries/output edits.\n",
+    "native.log": "=== RUN   TestRankPrefixResumeAdmission\n--- PASS: TestRankPrefixResumeAdmission (0.03s)\n=== RUN   TestRankPrefixCompactRoundTrip\n--- PASS: TestRankPrefixCompactRoundTrip (0.00s)\n=== RUN   TestRankPrefixCompactBoundsAndCanonicalValues\n--- PASS: TestRankPrefixCompactBoundsAndCanonicalValues (0.00s)\n=== RUN   TestRankPrefixWideExtents\n--- PASS: TestRankPrefixWideExtents (0.00s)\n=== RUN   TestRootHierarchyShapes\n    root_hierarchy_gpu_test.go:263: roots=16 rank=0 leaf=5 child domain=16 final domain=32\n    root_hierarchy_gpu_test.go:263: roots=16 rank=1 leaf=5 child domain=16 final domain=32\n    root_hierarchy_gpu_test.go:263: roots=16 rank=2 leaf=5 child domain=16 final domain=32\n    root_hierarchy_gpu_test.go:263: roots=16 rank=3 leaf=5 child domain=16 final domain=32\n    root_hierarchy_gpu_test.go:263: roots=4092 rank=0 leaf=1025 child domain=4096 final domain=4096\n    root_hierarchy_gpu_test.go:263: roots=4092 rank=1 leaf=1025 child domain=4096 final domain=4096\n    root_hierarchy_gpu_test.go:263: roots=4092 rank=2 leaf=1023 child domain=2048 final domain=4096\n    root_hierarchy_gpu_test.go:263: roots=4092 rank=3 leaf=1023 child domain=2048 final domain=4096\n--- PASS: TestRootHierarchyShapes (0.05s)\n=== RUN   TestPilotHierarchyReferences\n    root_hierarchy_gpu_test.go:385: s=4 retained K=97 support digest/closure and four-rank hierarchy admitted\n    root_hierarchy_gpu_test.go:385: s=6 retained K=1910 support digest/closure and four-rank hierarchy admitted\n--- PASS: TestPilotHierarchyReferences (0.00s)\n=== RUN   TestS18NativeField\n--- PASS: TestS18NativeField (0.03s)\nPASS\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.050s\n",
+    "review.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.039s\n\nOK\n"
+  },
+  "commands": {
+    "cpu": "CGO_ENABLED=0 go test ./encoding/liftrs-shared -run ^TestRankPrefix -count=1 -timeout=20s",
+    "race": "go test -race ./encoding/liftrs-shared -run ^TestRankPrefix|^TestRankStream|^TestRankOperand|^TestShardedRoot -count=1 -timeout=20s",
+    "build": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-prefix-checkpoints-readiness.test ./encoding/liftrs-shared",
+    "native": "PIR_PIPELINE_REFERENCE_FROM=$PWD/.cache/liftrs/distributed-coordinator-stream/readiness/reference-checked .cache/liftrs/distributed-prefix-checkpoints-readiness.test -test.run ^TestRankPrefix|^TestRootHierarchyShapes$|^TestS18NativeField$|^TestPilotHierarchyReferences$ -test.v -test.timeout=20s"
+  },
+  "limits": "same2HPCnodes/2H200/4CPU/8GiBhost;4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720s/15min,0CUDApinned",
+  "limitations": [
+    "Initial empty-rank fixture and digest-type compile failures retained;corrected before allocation;final checks pass.",
+    "No local GPU/MPI initialization.",
+    "Legacy padded format/default/bulk I/O preserved;compact bounded-read throughput and CPU cost unknown at fullsize.",
+    "Storage projections cover restart payload only;fulls18 not run/admitted."
+  ]
+}

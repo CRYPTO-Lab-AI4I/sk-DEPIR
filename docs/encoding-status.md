@@ -21,9 +21,9 @@ The small pipeline is assembled and validated through discovery,roots,Newton
 iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
-GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Current focus:
-remove complete diagnostic support/oracle arrays from root execution,then validate
-scalable fullsize ownership and step5 scaling.** Steps1–4 have
+GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Current focus:
+compact restart storage,then scalable fullsize ownership/working-set admission and
+representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
 
@@ -1001,7 +1001,7 @@ the generic pipeline executor and existing router/product/tree without loading
 complete diagnostic support/native root arrays in genuine workers. Independent
 native leaf/stage/final files remain controller validation,with complete checksum
 provenance. Explicit experimental owned mode retains the diagnostic default;
-new GPU validation is pending at both field widths. Same admitted resources/caps.
+owned-root GPU validation passed81079 at both field widths. Same admitted resources/caps.
 Then finish scalable complete discovery/working-set/full wide-domain workflow,
 representative scaling/restart and separate fulls18 admission. No fullsize runtime
 or capacity claim follows from the small component pass.
@@ -1010,6 +1010,46 @@ or capacity claim follows from the small component pass.
 Owned-root combined validation submitted as **81079**,owned-01,implementation638a273,
 after committed-source/native-input preflight84fe1a7.
 [Receipt and resources](../experiments/distributed-owned-roots/submission.json).
-Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;GPU results pending.
+Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;GPU validation passed81079.
 Genuine cold/restart remains s4/s6;field18 root/tail cases are bounded components.
 Fulls18 preprocessing remains unrun.
+
+
+### Owned roots passed;restart storage (SCALING-175)
+
+[81079 passed](../experiments/distributed-owned-roots/report.md):818 source/92
+evidence/538 cache seals and42 commands. Controller **2min30.945 seconds**;cold
+**6.301 seconds**,resume **5.052 seconds**,wide tail **6.355 seconds**,owned-wide
+roots **3.766 seconds**. HPC:two nodes/two H200s/four CPU cores/8GiB requested RAM,
+four workers. Maximum measurement-row RSS per worker:**376.793/376.992/379.969/
+379.785MiB** by arm;owned GPU **0.064MiB narrow /3.125MiB wide tail /3.149MiB
+owned-wide per worker**,context/driver/transients additional;cache **16.211MiB**.
+All native leaves/stages/final outputs and complete narrow cold/restart artifacts
+matched. Small owned-root correctness passes;fulls18 cells remain unrun.
+
+The [next optional compact prefix layout](../experiments/distributed-prefix-checkpoints/report.md)
+omits only verified disk padding and restores an admitted resident shard through
+bounded I/O. Legacy padded data/default remain. CPU checking and large-file small-read
+throughput are unmeasured;do not assume a cost-free runtime optimization. GPU arrays
+and packed database encoding are unchanged. GPU cold/restart validation pending.
+
+#### Restart payload projections
+
+For the distributed pilot,assuming N=2^(2s),0<K<N/2 and retaining every completed
+root/Newton prefix once,padded bytes are4N(2s+1);compact bytes are4(2N−1).
+This is restart payload only,excluding metadata,code/support/generator/spectrum,
+debug snapshots,profiles and temporary storage. It is not the historical s17
+runner's storage inventory or full-run admission;K=N/2 uses a smaller schedule.
+
+| s | Padded restart payload,projected | Compact restart payload,projected | Validation/admission |
+|---|---|---|---|
+| 16 | 528GiB | approximately32GiB | Not run with this distributed format;storage admission required |
+| 17 | 2.1875TiB | approximately128GiB | Not run with this distributed format;storage admission required |
+| 18 | 9.25TiB | approximately512GiB | Not run;full workflow and storage admission remain |
+| 19 | 39TiB | approximately2TiB | Exploratory,not run/admitted |
+| 20 | 164TiB | approximately8TiB | Exploratory,not run/admitted |
+
+Shared retained bytes are independent of GPU count. Physical filesystem capacity
+and agreed full-run budgets must cover all artifacts,not just these payloads.
+Larger runtime/I/O/restart measurements and fulls18 resource/headroom/deadline
+agreement remain required.

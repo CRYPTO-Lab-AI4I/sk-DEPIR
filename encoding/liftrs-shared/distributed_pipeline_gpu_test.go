@@ -109,6 +109,13 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 		emit(map[string]any{"kind": "stage", "case": label, "phase": phase, "event": state})
 	}
 	resumeFrom := os.Getenv("PIR_PIPELINE_RESUME_FROM")
+	checkpointLayout := os.Getenv("PIR_PIPELINE_CHECKPOINT_LAYOUT")
+	if checkpointLayout == "" {
+		checkpointLayout = "padded"
+	}
+	if checkpointLayout != "padded" && checkpointLayout != "prefix" {
+		t.Fatal("checkpoint layout")
+	}
 	rootMode := os.Getenv("PIR_PIPELINE_ROOT_MODE")
 	if rootMode == "" {
 		rootMode = "diagnostic"
@@ -496,8 +503,17 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	// reuse. Reload one interior prefix in-process to exercise the resume boundary;
 	// this does not claim recovery from a fresh process or failed node.
 	persist := func(stage string, values []uint32, keep int, reload bool) []uint32 {
-		save(stage, values)
-		own := mpi.PayloadFingerprint(values)
+		var own [32]byte
+		if checkpointLayout == "prefix" {
+			var err error
+			own, err = writeCompactRankPrefix(filepath.Join(directory, fmt.Sprintf("%s-rank-%d-%s.bin", label, w.Rank, stage)), values, s, uint64(n), uint64(keep), w.Rank, w.Size)
+			if err != nil {
+				t.Fatal("compact checkpoint save", err)
+			}
+		} else {
+			save(stage, values)
+			own = mpi.PayloadFingerprint(values)
+		}
 		var frame [64]byte
 		copy(frame[:32], own[:])
 		copy(frame[32:], own[:])
@@ -515,6 +531,9 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 		w.Barrier()
 		manifest := map[string]any{"s": s, "k": k, "n": n, "prefix": keep, "ranks": w.Size, "support_sha256": supportSHA, "stage": stage}
 		manifest["sha256"] = hashes
+		if checkpointLayout == "prefix" {
+			manifest["layout"] = "prefix"
+		}
 		if w.Rank == 0 {
 			data, _ := json.MarshalIndent(manifest, "", "  ")
 			file, e := os.OpenFile(filepath.Join(directory, label+"-"+stage+"-commit.json"), os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
@@ -536,17 +555,23 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 			if e != nil || !bytes.Equal(commit, expectedManifest) {
 				t.Fatal("checkpoint commit binding", e)
 			}
-			data, e := os.ReadFile(filepath.Join(directory, fmt.Sprintf("%s-rank-%d-%s.bin", label, w.Rank, stage)))
-			if e != nil || len(data) != 4*len(values) || sha256.Sum256(data) != own {
-				t.Fatal("checkpoint reload", e)
+			path := filepath.Join(directory, fmt.Sprintf("%s-rank-%d-%s.bin", label, w.Rank, stage))
+			var loaded []uint32
+			if checkpointLayout == "prefix" {
+				loaded, e = readRankPrefixValues(path, s, "prefix", uint64(n), uint64(keep), w.Rank, w.Size, words, fmt.Sprintf("%x", own))
+			} else {
+				data, err := os.ReadFile(path)
+				if err != nil {
+					t.Fatal("checkpoint reload", err)
+				}
+				loaded, e = decodePaddedPrefix(data, s, first, uint64(keep), words, fmt.Sprintf("%x", own))
 			}
-			loaded := make([]uint32, len(values))
-			for j := range loaded {
-				loaded[j] = binary.LittleEndian.Uint32(data[4*j:])
+			if e != nil {
+				t.Fatal("checkpoint reload", e)
 			}
 			values = loaded
 		}
-		emit(map[string]any{"kind": "checkpoint", "case": label, "stage": stage, "prefix": keep, "reloaded": reload, "support_sha256": supportSHA})
+		emit(map[string]any{"kind": "checkpoint", "case": label, "stage": stage, "prefix": keep, "reloaded": reload, "support_sha256": supportSHA, "layout": checkpointLayout})
 		return values
 	}
 	root = persist("root", root, k+1, false)
@@ -663,7 +688,7 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	}
 	w.Barrier()
 	event("artifact-publication", "completed")
-	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "root_counts": leafCounts, "root_mode": rootMode, "discovery_layout": layout, "initial_prefix": initialPrefix, "discovery_performed": resumeFrom == "", "root_performed": resumeFrom == "", "publication": publication, "pid": os.Getpid(), "reference_mode": map[bool]string{true: "retained", false: "native"}[referenceFrom != ""], "support_streamed": referenceFrom != ""})
+	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "root_counts": leafCounts, "root_mode": rootMode, "checkpoint_layout": checkpointLayout, "discovery_layout": layout, "initial_prefix": initialPrefix, "discovery_performed": resumeFrom == "", "root_performed": resumeFrom == "", "publication": publication, "pid": os.Getpid(), "reference_mode": map[bool]string{true: "retained", false: "native"}[referenceFrom != ""], "support_streamed": referenceFrom != ""})
 }
 
 // Explicit bounded native-reference export for the pilot's independent inputs.

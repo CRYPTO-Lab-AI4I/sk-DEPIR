@@ -1,0 +1,4 @@
+# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared [github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.test]
+encoding/liftrs-shared/distributed_recovery.go:240:12: invalid operation: sum != expected (mismatched types [32]byte and []byte)
+FAIL	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared [build failed]
+FAIL

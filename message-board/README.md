@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 19:50 | SCALING-175 | Prepared | [Compact checkpoint codec and validation ready](2026-11-22-1950-codex-scaling-175-prepared.md) |
+| 2026-11-22 19:29 | SCALING-175 | Started | [Owned roots passed; compact restart prefix storage](2026-11-22-1929-codex-scaling-175-started.md) |
 | 2026-11-22 19:20 | SCALING-174 | Handoff | [Owned-root combined job81079 submitted](2026-11-22-1920-codex-scaling-174-handoff.md) |
 | 2026-11-22 19:15 | SCALING-174 | Prepared | [Owned root execution and retained native validation ready](2026-11-22-1915-codex-scaling-174-prepared.md) |
 | 2026-11-22 18:55 | SCALING-174 | Started | [Verify wide pass; remove global root diagnostics from execution](2026-11-22-1855-codex-scaling-174-started.md) |

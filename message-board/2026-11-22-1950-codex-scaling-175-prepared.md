@@ -1,0 +1,13 @@
+# SCALING-175 — prepared
+
+UTC: 2026-11-22T19:50:02.882959+00:00. Agent: Codex.
+
+81079 passed818 source/92 evidence/538 cache seals and42 commands. Controller2min30.945s,arms6.301/5.052/6.355/3.766s;RSS376.793/376.992/379.969/379.785MiB per worker;GPU0.064MiB narrow/3.125MiB tail/3.149MiB wide roots per worker,context/driver extra;cache16.211MiB. All native root comparisons and complete narrow/wide checks passed. Evidence/profiles and primary status/README updates retained.
+
+Added optional compact prefix checkpoint layout:derive exact rank prefix intersections,verify omitted zero tail,write canonical4-byte coefficients with bounded I/O,hash exact payload and retain empty rank files/quorum commits. Restore into one admitted zero-padded resident array via64KiB reads,checking exact EOF/digest/range/shape. Existing padded format/default and bulk-I/O behavior remain. In-process local reload does not add global support scans. Independent artifact decoder handles both formats;controller computes actual payload versus padded equivalents. No GPU arithmetic/layout or encoded-database format change.
+
+[Report/runner](../experiments/distributed-prefix-checkpoints/report.md) document additional tail-check CPU work and unknown large-file small-read throughput cost;mode is explicit,not a slower production default. Under0<K<N/2,cold restart payload projects4N(2s+1) versus4(2N−1):s18 9.25TiB versus approximately512GiB,excluding other artifacts and not full-run admission. Maintained reference retains projected s16–20 rows. Expected small cold bytes:s4 2044/9216 compact/padded,s6 32764/212992;resume2020/7168 and32740/180224. All actual counts will be checked.
+
+Final CPU/race,all-tagged build,native field/root/retained shape tests,nine Python suites,81079 four-arm saved-evidence replay and git diff --check passed. Metadata-only s16–20 checks cross2^32 without allocations. Local wrong empty-rank fixture and digest-type compile error were corrected before allocation;initial logs retained separately from passing checks. No MPI/GPU initialization locally.
+
+Same2HPCnodes/2H200/4CPU/8GiB request,4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720s/15min,0CUDApinned. Reuse owned-root four-arm suite with compact cold/fresh-prefix8 resume;no CUDA change/repeated sanitizer-only arm. Estimate3–6min excluding queue. Commit then verify actual frozen source/scripts and both retained native input sets before submission. Fullsize working-set/discovery/wide workflow,larger runtime/I/O/restart and fulls18 resource/storage/headroom/deadline agreement remain.
