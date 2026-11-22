@@ -1,0 +1,16 @@
+{
+  "job_id": "81286",
+  "name": "scaling-01",
+  "implementation_revision": "7395079",
+  "submission_revision": "50f4867ca4438e58af54f39a0f1ff93075a6580e",
+  "recorded_utc": "2026-11-22T20:17:27.815506+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-pipeline-scaling/slurm-%j.log experiments/distributed-pipeline-scaling/run.sbatch scaling-01",
+  "results": "experiments/distributed-pipeline-scaling/runs/scaling-01",
+  "log": "experiments/distributed-pipeline-scaling/slurm-81286.log",
+  "cache": ".cache/liftrs/distributed-pipeline-scaling/scaling-01/",
+  "resources": "same2HPCnodes/2H200/4CPU/8GiBhost;4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm,0CUDApinned",
+  "scope": "Genuine s8/curve5 full discovery/owned roots/Newton/identity/spectrum/canonical publication,cold/fresh-prefix8 resume;not fulls18",
+  "estimated_controller_minutes": "3\u20136 excluding queue",
+  "monitoring": "Receipt-bound local completion notification;no model polling",
+  "note": "827-file frozen source and ten reviewer suites passed;108014 historical native bytes and actual larger native geometry verified;no increased budget/default change."
+}

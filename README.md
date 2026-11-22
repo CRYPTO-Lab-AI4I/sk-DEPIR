@@ -16,7 +16,8 @@ including partitioned discovery and hierarchical roots.
 [Wide adapter validation](experiments/distributed-pipeline-wide/report.md) also passed.
 [Owned root execution](experiments/distributed-owned-roots/report.md) also passed.
 [Compact checkpoint validation](experiments/distributed-prefix-checkpoints/report.md) passed, including fresh-process restart;
-a larger genuine complete-pipeline measurement is next;
+the [larger genuine s8/curve5 cold/restart measurement](experiments/distributed-pipeline-scaling/report.md)
+is submitted as **81286**;
 full s18 preprocessing remains unrun.
 
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)

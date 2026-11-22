@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-a larger genuine complete-pipeline measurement,then scalable fullsize ownership/working-set admission and
+a larger genuine s8/curve5 complete-pipeline measurement (submitted **81286**),then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -33,7 +33,7 @@ These results are separate from the full s17 runs and fulls18 projections below.
 | 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing passed78909 for genuine s4/s6. Four-worker genuine discovery-to-hierarchy passed79541. Coordinator entropy source remains; streamed support/retained-reference cold and fresh-process resume passed79213; full coordinator support/oracle arrays removed in the explicit pilot mode. No fullsize result. |
 | 3. Generator construction and verification | Sharded Newton/identity/spectrum integration passed78898 for genuine s4/s6. Four-worker complete genuine cold/restart passed79983;fullsize integration remains. |
 | 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898; partitioned discovery passed78909. **Fresh-process prefix8 restart and bounded streamed publication passed78915** for genuine s4/s6, with identical canonical code/generator output. Four-worker complete cold/restart passed79983. **Optional compact prefix checkpoint cold/restart passed81190**, with exact stored lengths/hashes and identical final artifacts. Fullsize/node-failure recovery remains. |
-| 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. [Canonical s18 bounded FFT/products passed78917](../experiments/s18-field-admission/report.md). Complete four-worker cold/restart passed79983. Larger scaling and fulls18 remain unrun. |
+| 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. [Canonical s18 bounded FFT/products passed78917](../experiments/s18-field-admission/report.md). Complete four-worker cold/restart passed79983. **Larger genuine s8/curve5 cold/restart submitted81286**,two nodes/two H200s;results pending. Fulls18 remains unrun. |
 
 [FFT evidence](../experiments/distributed-gpu-fft/report.md): controller runtime
 **2 min15.343s**, normal suite **1.971s**, sanitizer suite **3.726s**. Logged host
@@ -1076,3 +1076,11 @@ Peak per-worker RSS stayed below **381 MiB**;owned GPU memory below **3.15 MiB/w
 cache feasibility remain unknown. The next gate is a larger genuine complete
 workload within admitted resources,then fullsize working-set/ownership admission.
 [Exact timings, resources and evidence](../experiments/distributed-prefix-checkpoints/report.md#verified-compact-restart-checkpoints-job81190-scaling-176).
+
+
+Larger genuine s8/curve5 validation **81286** is submitted,implementation7395079,
+readiness50f4867. N65,536/K7,381;complete cold and fresh-process prefix8 restart,
+owned roots and explicit compact checkpoints. Same2HPCnodes/2H200/4CPU/8GiB
+requested host RAM,existing caps;estimate3–6min excluding queue. Results pending.
+[Runner,exact preflight,resources and limits](../experiments/distributed-pipeline-scaling/report.md).
+Fulls18 remains unrun/unadmitted;no resident default or memory–time policy change.

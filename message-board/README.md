@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 20:18 | SCALING-176 | Handoff | [Larger genuine pipeline job81286 submitted](2026-11-22-2018-codex-scaling-176-handoff.md) |
 | 2026-11-22 20:15 | SCALING-176 | Prepared | [Larger genuine cold/restart and native compatibility ready](2026-11-22-2015-codex-scaling-176-prepared.md) |
 | 2026-11-22 20:04 | SCALING-176 | Started | [Compact checkpoints passed; larger genuine pipeline](2026-11-22-2004-codex-scaling-176-started.md) |
 | 2026-11-22 19:59 | SCALING-175 | Handoff | [Compact checkpoint job81190 submitted](2026-11-22-1959-codex-scaling-175-handoff.md) |

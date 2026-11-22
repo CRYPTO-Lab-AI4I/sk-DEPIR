@@ -1,6 +1,6 @@
 # Larger genuine distributed preprocessing
 
-Status: prepared; GPU measurement not yet submitted. Implementation revision **7395079**;parent9139e9e.
+Status: **submitted 81286**,scaling-01; GPU results pending. Implementation revision **7395079**;parent9139e9e.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/). Results will be
 `runs/scaling-01/`; reusable source, native references, binaries and artifacts
@@ -134,3 +134,9 @@ export/admission and codec tests,and verified **108,014 historical native bytes*
 plus genuine s8/curve5 support/code and every native leaf/merge/final reference.
 [Build](readiness/frozen-build.log), [native regression](readiness/frozen-preflight.log),
 [native tests](readiness/frozen-native-tests.log). GPU results remain pending.
+
+
+Submitted **81286** after readiness50f4867. [Receipt](submission.json),
+[scheduler log](slurm-81286.log),results `runs/scaling-01/`. Same resources and
+3–6 minute estimate excluding queue. Receipt-bound local completion notification
+registered outside Git;no model polling. Analyze only after completion notice.

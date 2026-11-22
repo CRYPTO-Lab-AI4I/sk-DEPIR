@@ -3509,3 +3509,16 @@ submission. Reuse two nodes/two H200s/four CPU cores/8 GiB total requested host 
 and all existing caps. No repeated wide/sanitizer arms unless changed logic needs
 them. After that measurement,use measured phase/memory/I/O costs to finish scalable
 fullsize ownership and admission;fulls18 is neither run nor newly authorized.
+
+
+SCALING-176 submitted **81286**,scaling-01,after exact827-file/3,803,974-byte
+committed-source and native-byte preflight on7395079/readiness50f4867.
+[Receipt](../experiments/distributed-pipeline-scaling/submission.json),
+[report](../experiments/distributed-pipeline-scaling/report.md). Explicit s8/curve5
+keeps K7381≤N/2;native exporter matches genuine discovery ownership and108014
+historical reference bytes. Two nodes/two H200s/four CPU cores/8 GiB requested
+RAM;existing caps retained. Estimate3–6min excluding queue;GPU results pending.
+Local completion notification registered,no model monitoring. After terminal notice
+verify both arms and measured phase/memory/storage costs,update the maintained
+reference,then proceed with fullsize ownership/working-set and scalable artifacts
+before separately admitting fulls18.
