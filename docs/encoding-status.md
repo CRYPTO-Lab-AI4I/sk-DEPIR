@@ -23,7 +23,7 @@ component results, separate from the full s17 runs and fulls18 projections below
 | Step | Status |
 |---|---|
 | 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>**Integrated genuine s4/s6 pilot passed78898**: repeated sharded root/Newton/identity/spectrum and canonical artifacts.<br>Multi-level rank-owned root execution and fullsize scaling remain pending. |
-| 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing implemented in the assembled pilot; GPU validation pending. Coordinator entropy source/diagnostic support archive remain; no fullsize result. |
+| 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing implemented in the assembled pilot; validation submitted as78909. Coordinator entropy source/diagnostic support archive remain; no fullsize result. |
 | 3. Generator construction and verification | Sharded Newton/identity/spectrum integration passed78898 for genuine s4/s6. Fullsize integration remains. |
 | 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898 in the small pilot. Fresh-process restart and fullsize publication remain. |
 | 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. Larger scaling and fulls18 remain unrun. |
@@ -803,7 +803,7 @@ cold/warm setup effects, not unprofiled scaling estimates. Both canonical artifa
 hashes match independent native preprocessing; all prefix/route checks passed.
 
 [Partitioned discovery integration](../experiments/distributed-discovery-pilot/report.md)
-is implemented for the next same-budget assembled gate. It retains local monomial
+was submitted as **78909** in the same-budget assembled gate. It retains local monomial
 lists, grids and union bits, and routes closed orbits directly; only bounded
 sampling traffic and a diagnostic support archive use the coordinator. New GPU
 outcome remains pending. This does not admit s18 parameters or fullsize workloads.

@@ -1,0 +1,15 @@
+{
+  "job_id": "78909",
+  "name": "discovery-01",
+  "implementation_revision": "dfc868e331b108692275f612c9a0fc5e1d5a6ba7",
+  "recorded_utc": "2026-11-22T08:41:30.061059+00:00",
+  "command": "module load slurm/slurm/25.05; sbatch --parsable --output=experiments/distributed-discovery-pilot/slurm-%j.log experiments/distributed-discovery-pilot/run.sbatch discovery-01",
+  "results": "experiments/distributed-discovery-pilot/runs/discovery-01/",
+  "log": "experiments/distributed-discovery-pilot/slurm-78909.log",
+  "cache": ".cache/liftrs/distributed-discovery-pilot/discovery-01/",
+  "resources": "Same2 HPC nodes/2 H200/4CPU/8GiB requested RAM;128MiB owned/card,1GiB RSS/rank;128MiB cache/2GiB scratch/32MiB file;720-second controller/15-minute scheduler;no pinned buffers",
+  "scope": "2 complete genuine pipeline arms: normal s4/s6,smallest s4 sanitizer;local monomials/grid/union/direct orbit routing;exact entropy/sample/native/canonical checks;coordinator random source/diagnostic archive/publication remain;not fulls18 or fresh-process recovery",
+  "estimated_controller_minutes": "3\u20136 excluding queue; new runtime unmeasured",
+  "monitoring": "None. Await user completion ping.",
+  "note": "Actual producing source/revision recorded by controller. Handoff changes affect documentation and receipt only."
+}

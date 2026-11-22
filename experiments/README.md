@@ -83,7 +83,7 @@ original methodology; apply this policy to new optimization runs.
 
 - [Partitioned discovery in the genuine pipeline](distributed-discovery-pilot/report.md):
   rank-local monomials/grids/union and direct orbit routing, exact entropy digest,
-  same complete artifact checks; implemented for normal/small sanitizer validation.
+  same complete artifact checks; normal/small sanitizer validation submitted78909.
 
 - [Integrated genuine-code preprocessing pilot](distributed-preprocessing-pilot/report.md):
   discovery, sharded roots/Newton/identity/spectrum, prefix commit/reload and canonical

@@ -1,6 +1,8 @@
 # Partition discovery in the assembled genuine pipeline
 
-Status: implemented and locally compiled; integrated GPU validation pending.
+Status: **submitted as78909**, run `discovery-01`, implementation `dfc868e`.
+[Submission receipt](submission.json), [scheduler log](slurm-78909.log);
+results will be retained in `runs/discovery-01/`. No new GPU outcome yet.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [focused reviewer tests](test_review.py), [readiness](readiness/checks.json).
 Producer revision and complete source identities are recorded by the controller.

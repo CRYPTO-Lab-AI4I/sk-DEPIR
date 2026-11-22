@@ -3052,3 +3052,7 @@ still gathers small arrays. Multi-level roots,s18 arithmetic,restart/streamed
 publication and representative fullsize admission remain. Retain the coordinator
 mode explicitly; one normal s4/s6 arm and smallest s4 sanitizer in the same prior
 2node/2H200 resource envelope, with no new kernel-calibration series.
+
+Submitted partitioned discovery in the assembled pipeline as **78909**,
+`discovery-01`, implementation `dfc868e`; [receipt](../experiments/distributed-discovery-pilot/submission.json).
+No monitoring; wait for completion ping before dependent work/result review.

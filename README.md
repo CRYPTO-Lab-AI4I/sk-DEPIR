@@ -106,7 +106,7 @@ root/Newton, discovery, s18 field admission and coordinated publication remain.
 **passed78898** for genuine s4/s6: discovery through sharded root/Newton/identity/
 spectrum and byte-identical canonical artifacts, with completed-prefix save/reload
 and a clean smallest-case CUDA sanitizer. [Partitioned discovery](experiments/distributed-discovery-pilot/report.md)
-is implemented for integrated GPU validation; coordinator discovery remains an
+was submitted as **78909**; coordinator discovery remains an
 explicit reference, and small diagnostic archives/final assembly still gather.
 No fullsize/production preprocessing or fulls18 speedup is claimed. No encoding default
 or client CUDA/MPI dependency changes.
