@@ -1,0 +1,19 @@
+{
+  "utc": "2026-11-22T14:29:19.771937+00:00",
+  "status": "passed",
+  "revision": "6785af2d3135c39b448f1d94ea8f9e19cbade4a8",
+  "source_files": 798,
+  "snapshot_bytes": 3675323,
+  "required_paths": [
+    "experiments/distributed-root-hierarchy/run.py",
+    "experiments/distributed-root-hierarchy/run.sbatch",
+    "experiments/distributed-root-hierarchy/test_review.py",
+    "experiments/distributed-root/rank.sh",
+    "experiments/distributed-root/mpi/world.go",
+    "experiments/distributed-root/mpi/communicator_test.go",
+    "encoding/liftrs-shared/root_shards.go",
+    "encoding/liftrs-shared/root_hierarchy_gpu_test.go"
+  ],
+  "reviewer_output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.033s\n\nOK\n",
+  "scope": "Real committed-source snapshot includes hierarchy/communicator/driver/wrapper and reviewer suite passes from it;no local MPI/GPU initialization"
+}
