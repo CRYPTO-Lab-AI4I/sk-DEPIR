@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 20:33 | SCALING-177 | Prepared | [GPU spectrum source and validation ready](2026-11-22-2033-codex-scaling-177-prepared.md) |
+| 2026-11-22 20:24 | SCALING-177 | Started | [Larger pipeline passed; bounded spectrum publication](2026-11-22-2024-codex-scaling-177-started.md) |
 | 2026-11-22 20:18 | SCALING-176 | Handoff | [Larger genuine pipeline job81286 submitted](2026-11-22-2018-codex-scaling-176-handoff.md) |
 | 2026-11-22 20:15 | SCALING-176 | Prepared | [Larger genuine cold/restart and native compatibility ready](2026-11-22-2015-codex-scaling-176-prepared.md) |
 | 2026-11-22 20:04 | SCALING-176 | Started | [Compact checkpoints passed; larger genuine pipeline](2026-11-22-2004-codex-scaling-176-started.md) |

@@ -38,7 +38,7 @@ def review(rows,directory,resume=False,source=None,cold=None):
     return result
 
 
-def suite(c):
+def suite(c,review_fn=review,extra_arms=None):
     c['run']('scaling-review-tests',['python3','-B','experiments/distributed-pipeline-scaling/test_review.py'],30)
     c['env'].update(CGO_ENABLED='1',CC='mpicc',CXX='mpicxx',PIR_PIPELINE_CASES='8',PIR_PIPELINE_CURVE='5',PIR_PIPELINE_SMALL='0',PIR_PIPELINE_ROOT_MODE='owned',PIR_PIPELINE_CHECKPOINT_LAYOUT='prefix')
     target=c['cache']/'reference-inputs';target.mkdir()
@@ -57,7 +57,7 @@ def suite(c):
         'bash','-c','set -eu; for p in "$1"/* "$2"/*; do test -r "$p"; done','reference-preflight',target,c['cache']/'root-reference-files'],30)
     c['resources'].update(reference_cases=list(CASES),root_reference_bytes=total,reference_strategy='Independent native CPU export,retained exact leaf/stage/final/canonical data;not GPU arithmetic inputs')
     c['save']()
-    result=RESTART['suite'](c,reference_from=target,review_fn=review,ranks=4)
+    result=RESTART['suite'](c,reference_from=target,review_fn=review_fn,ranks=4,extra_arms=extra_arms)
     result['checkpoint_storage']={mode:COMPACT['storage'](c['cache']/mode,cases=CASES)for mode in ('cold','resume')}
     c['resources'].update(scope='Genuine complete s8 discovery/owned roots/Newton/identity/spectrum/canonical publication plus fresh prefix8 restart;not fulls18',checkpoint_layout='explicit prefix;legacy padded default retained')
     return result

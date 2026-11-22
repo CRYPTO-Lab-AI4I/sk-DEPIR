@@ -20,12 +20,59 @@ type rankValueLink[Word transposeWord] interface {
 // Word selects file width and must match the section/header representation.
 // On error collective callers must abort peers before attempting another phase.
 func streamRankValues[Word transposeWord](p rankStreamPlan, input []Word, writer io.Writer, link rankValueLink[Word]) error {
+	first, words, width, err := admitRankStream[Word](p, writer, link)
+	if err != nil {
+		return err
+	}
+	if uint64(len(input)) != words {
+		return fmt.Errorf("stream publication input admission")
+	}
+	for j, v := range input {
+		if uint64(v) >= p.Limit || (first+uint64(j) >= p.Count && v != 0) {
+			return fmt.Errorf("stream publication coefficient/padding")
+		}
+	}
+	return streamRankOutput(p, width, func(offset, count uint64) ([]Word, error) {
+		return input[offset : offset+count], nil
+	}, writer, link)
+}
+
+// streamRankReadValues publishes a complete canonical section from bounded reads.
+// It never allocates the full source shard; read fills the requested local tile.
+// Count must equal Domain: omitted padding is only supported by the array path,
+// which validates that padding before any network or output operation.
+func streamRankReadValues[Word transposeWord](p rankStreamPlan, read func(uint64, []Word) error, writer io.Writer, link rankValueLink[Word]) error {
+	_, words, width, err := admitRankStream[Word](p, writer, link)
+	if err != nil {
+		return err
+	}
+	if p.Count != p.Domain || read == nil {
+		return fmt.Errorf("complete stream source required")
+	}
+	tile := make([]Word, min(p.TileWords, words))
+	return streamRankOutput(p, width, func(offset, count uint64) ([]Word, error) {
+		values := tile[:count]
+		if err := read(offset, values); err != nil {
+			return nil, err
+		}
+		for _, value := range values {
+			if uint64(value) >= p.Limit {
+				return nil, fmt.Errorf("stream source field range")
+			}
+		}
+		return values, nil
+	}, writer, link)
+}
+
+// Both source forms share ordering, packet descriptors, receiver admission and
+// canonical serialization. Array callers retain their original zero-copy sends.
+func admitRankStream[Word transposeWord](p rankStreamPlan, writer io.Writer, link rankValueLink[Word]) (uint64, uint64, uint8, error) {
 	if p.Operation == 0 || p.Domain == 0 || p.Count == 0 || p.Count > p.Domain || p.TileWords == 0 || p.TileWords > 1<<20 || p.Ranks < 1 || p.Ranks > 64 || p.Rank < 0 || p.Rank >= p.Ranks || p.Limit < 2 || (p.Rank == 0 && writer == nil) || (p.Ranks > 1 && link == nil) {
-		return fmt.Errorf("stream publication plan")
+		return 0, 0, 0, fmt.Errorf("stream publication plan")
 	}
 	first, words := rankBand(p.Domain, p.Rank, p.Ranks)
-	if words > p.MaxLocalWords || uint64(len(input)) != words {
-		return fmt.Errorf("stream publication input admission")
+	if words > p.MaxLocalWords {
+		return 0, 0, 0, fmt.Errorf("stream publication input admission")
 	}
 	var zero Word
 	width := uint8(4)
@@ -33,13 +80,12 @@ func streamRankValues[Word transposeWord](p rankStreamPlan, input []Word, writer
 		width = 8
 	}
 	if width == 4 && p.Limit > 1<<32 {
-		return fmt.Errorf("stream publication word range")
+		return 0, 0, 0, fmt.Errorf("stream publication word range")
 	}
-	for j, v := range input {
-		if uint64(v) >= p.Limit || (first+uint64(j) >= p.Count && v != 0) {
-			return fmt.Errorf("stream publication coefficient/padding")
-		}
-	}
+	return first, words, width, nil
+}
+
+func streamRankOutput[Word transposeWord](p rankStreamPlan, width uint8, read func(uint64, uint64) ([]Word, error), writer io.Writer, link rankValueLink[Word]) error {
 	var tile []Word
 	if p.Rank == 0 {
 		_, largest := rankBand(p.Domain, 0, p.Ranks)
@@ -64,11 +110,19 @@ func streamRankValues[Word transposeWord](p rankStreamPlan, input []Word, writer
 			take := min(p.TileWords, count-offset)
 			packet := operandPacket{p.Operation, p.Domain, 0, start + offset, take, source, 0}
 			if source == 0 {
-				if err := write(input[offset : offset+take]); err != nil {
+				values, err := read(offset, take)
+				if err != nil {
+					return err
+				}
+				if err := write(values); err != nil {
 					return err
 				}
 			} else if p.Rank == source {
-				if err := link.SendOperand(packet, input[offset:offset+take]); err != nil {
+				values, err := read(offset, take)
+				if err != nil {
+					return err
+				}
+				if err := link.SendOperand(packet, values); err != nil {
 					return err
 				}
 			} else {

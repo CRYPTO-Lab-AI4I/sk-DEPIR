@@ -1,0 +1,21 @@
+=== RUN   TestRankStreamCanonicalPublication
+--- PASS: TestRankStreamCanonicalPublication (0.03s)
+=== RUN   TestRankStreamPublicationErrors
+--- PASS: TestRankStreamPublicationErrors (0.00s)
+=== RUN   TestRankStreamReadCanonicalPublication
+--- PASS: TestRankStreamReadCanonicalPublication (0.00s)
+=== RUN   TestRankStreamReadErrors
+--- PASS: TestRankStreamReadErrors (0.00s)
+=== RUN   TestRankPrefixResumeAdmission
+--- PASS: TestRankPrefixResumeAdmission (0.01s)
+=== RUN   TestRankPrefixCompactRoundTrip
+--- PASS: TestRankPrefixCompactRoundTrip (0.00s)
+=== RUN   TestRankPrefixCompactBoundsAndCanonicalValues
+--- PASS: TestRankPrefixCompactBoundsAndCanonicalValues (0.00s)
+=== RUN   TestRankPrefixWideExtents
+--- PASS: TestRankPrefixWideExtents (0.00s)
+=== RUN   TestPilotCurve
+--- PASS: TestPilotCurve (0.00s)
+=== RUN   TestPilotCases
+--- PASS: TestPilotCases (0.00s)
+PASS

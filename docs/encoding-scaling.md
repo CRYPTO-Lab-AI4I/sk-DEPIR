@@ -3511,14 +3511,37 @@ them. After that measurement,use measured phase/memory/I/O costs to finish scala
 fullsize ownership and admission;fulls18 is neither run nor newly authorized.
 
 
-SCALING-176 submitted **81286**,scaling-01,after exact827-file/3,803,974-byte
+SCALING-176 **passed81286**,scaling-01,after exact827-file/3,803,974-byte
 committed-source and native-byte preflight on7395079/readiness50f4867.
 [Receipt](../experiments/distributed-pipeline-scaling/submission.json),
 [report](../experiments/distributed-pipeline-scaling/report.md). Explicit s8/curve5
 keeps K7381≤N/2;native exporter matches genuine discovery ownership and108014
 historical reference bytes. Two nodes/two H200s/four CPU cores/8 GiB requested
-RAM;existing caps retained. Estimate3–6min excluding queue;GPU results pending.
+RAM;existing caps retained. Measured142.513s controller,11.147s cold/8.003s restart.
 Local completion notification registered,no model monitoring. After terminal notice
 verify both arms and measured phase/memory/storage costs,update the maintained
 reference,then proceed with fullsize ownership/working-set and scalable artifacts
 before separately admitting fulls18.
+
+
+## Bounded spectrum publication (SCALING-177)
+
+Larger complete genuine s8/curve5 cold/restart81286 passed. Update maintained
+reference with measured timing/memory/storage;fulls18 remains unrun. Next remove
+the full host spectrum shard from an explicit optional publication mode. Share
+the existing GPU spectrum transform and canonical typed publisher;read each
+resident GPU tile once,verify its field range,and send/write the same tile to
+canonical output and retained diagnostic shards. No additional FFTs,device→host
+bytes,network payload or retained output bytes intended. Keep live GPU workspace
+unchanged until publication completes.
+
+Wide host spectrum saving is8N/r bytes:at s18,512GiB aggregate or32GiB/worker with
+16workers,replaced by a bounded tile. This is not a total-RSS saving measurement
+or16GPU admission. Fullsize latency remains unknown (interleaving I/O,transfer
+and range checks may alter throughput),so retain resident default and select
+streaming explicitly. Validate byte-identical narrow complete cold/restart and
+wide arithmetic/source boundaries without repeating unaffected large suites.
+Same admitted two-node/two-H200 resources/caps;preflight shared paths,ordinary
+CPU/race/error/high-bit and exact committed source before submission. After
+completion,update scaling reference and remaining fullsize ownership/working-set
+requirements before separate fulls18 resource/storage/deadline admission.

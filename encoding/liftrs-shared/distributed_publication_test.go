@@ -98,3 +98,87 @@ func TestRankStreamPublicationErrors(t *testing.T) {
 		t.Fatal("nonzero padding accepted")
 	}
 }
+
+// Callback sources preserve wide high bits, exact local read order and canonical
+// global ordering, including uneven/empty ownership. Each element is read once.
+func publicationReadCases[Word transposeWord](t *testing.T, limit uint64, pattern func(uint64) Word) {
+	t.Helper()
+	for _, ranks := range []int{1, 2, 3, 5, 9} {
+		link := publicationTestLink[Word]{make(map[int]chan publicationMessage[Word])}
+		for rank := 1; rank < ranks; rank++ {
+			link.wire[rank] = make(chan publicationMessage[Word])
+		}
+		var output bytes.Buffer
+		var wait sync.WaitGroup
+		errors := make([]error, ranks)
+		for rank := 0; rank < ranks; rank++ {
+			wait.Add(1)
+			go func(rank int) {
+				defer wait.Done()
+				first, words := rankBand(7, rank, ranks)
+				completed := uint64(0)
+				read := func(offset uint64, values []Word) error {
+					if offset != completed || len(values) == 0 || len(values) > 2 {
+						return fmt.Errorf("source order/bound")
+					}
+					for j := range values {
+						values[j] = pattern(first + offset + uint64(j))
+					}
+					completed += uint64(len(values))
+					return nil
+				}
+				errors[rank] = streamRankReadValues(rankStreamPlan{1, 7, 7, 2, limit, words, rank, ranks}, read, &output, link)
+				if completed != words {
+					errors[rank] = fmt.Errorf("source read count")
+				}
+			}(rank)
+		}
+		wait.Wait()
+		for _, err := range errors {
+			if err != nil {
+				t.Fatal(err)
+			}
+		}
+		expected := []Word{}
+		for j := uint64(0); j < 7; j++ {
+			expected = append(expected, pattern(j))
+		}
+		var encoded bytes.Buffer
+		if err := binary.Write(&encoded, binary.LittleEndian, expected); err != nil {
+			t.Fatal(err)
+		}
+		if !bytes.Equal(output.Bytes(), encoded.Bytes()) {
+			t.Fatal("source publication", ranks)
+		}
+	}
+}
+
+func TestRankStreamReadCanonicalPublication(t *testing.T) {
+	publicationReadCases[uint32](t, 1<<16, func(i uint64) uint32 { return uint32(i * 37) })
+	publicationReadCases[uint64](t, 1<<40, func(i uint64) uint64 { return (1 << 35) + i*117 })
+}
+
+func TestRankStreamReadErrors(t *testing.T) {
+	p := rankStreamPlan{1, 2, 2, 1, 16, 2, 0, 1}
+	for _, invalid := range []rankStreamPlan{
+		{1, 2, 1, 1, 16, 2, 0, 1}, // No implicit unchecked padding.
+		{1, 2, 2, 1, 16, 1, 0, 1}, // Reject resident ownership admission first.
+	} {
+		called := false
+		if err := streamRankReadValues[uint32](invalid, func(uint64, []uint32) error { called = true; return nil }, &bytes.Buffer{}, nil); err == nil || called {
+			t.Fatal("invalid source admission")
+		}
+	}
+	if err := streamRankReadValues[uint32](p, nil, &bytes.Buffer{}, nil); err == nil {
+		t.Fatal("nil source")
+	}
+	if err := streamRankReadValues[uint32](p, func(uint64, []uint32) error { return fmt.Errorf("injected source read") }, &bytes.Buffer{}, nil); err == nil {
+		t.Fatal("source failure")
+	}
+	if err := streamRankReadValues[uint32](p, func(_ uint64, v []uint32) error { v[0] = 16; return nil }, &bytes.Buffer{}, nil); err == nil {
+		t.Fatal("source field range")
+	}
+	if err := streamRankReadValues[uint32](p, func(_ uint64, v []uint32) error { v[0] = 1; return nil }, failedPublicationWriter{}, nil); err == nil {
+		t.Fatal("source writer failure")
+	}
+}

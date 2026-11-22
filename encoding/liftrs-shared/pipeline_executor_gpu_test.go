@@ -90,6 +90,21 @@ func (d *pipelineGPU[Word]) Spectrum(name string, g []uint32, count uint64) []Wo
 	if err != nil {
 		d.t.Fatal(name, err)
 	}
-	d.emit(map[string]any{"kind": "executor-call", "case": d.call, "s": d.s, "dimension": d.dim, "operation_start": d.start, "mode": "spectrum", "keep": d.Executor.Plan.Rows * d.Executor.Plan.Columns, "matches": true})
+	d.spectrumDone()
 	return result
+}
+
+// PrepareSpectrum keeps slot0 live for tile publication instead of materializing
+// the full host spectrum. Operation IDs and completion proofs match Spectrum.
+func (d *pipelineGPU[Word]) PrepareSpectrum(name string, g []uint32, count uint64) {
+	d.t.Helper()
+	d.begin(name)
+	if err := d.Executor.PrepareSpectrum(g, count); err != nil {
+		d.t.Fatal(err)
+	}
+	d.spectrumDone()
+}
+
+func (d *pipelineGPU[Word]) spectrumDone() {
+	d.emit(map[string]any{"kind": "executor-call", "case": d.call, "s": d.s, "dimension": d.dim, "operation_start": d.start, "mode": "spectrum", "keep": d.Executor.Plan.Rows * d.Executor.Plan.Columns, "matches": true})
 }

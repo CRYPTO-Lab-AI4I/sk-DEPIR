@@ -93,26 +93,38 @@ func (e *rankGPUExecutor[Word]) Product(left, right []uint32, ac, bc, keep uint6
 	return out, nil
 }
 
-func (e *rankGPUExecutor[Word]) Spectrum(values []uint32, count uint64) ([]Word, error) {
+// PrepareSpectrum leaves the transformed spectrum in GPU slot0. A caller may
+// publish bounded reads before resetting/closing this workspace. This separates
+// the transform from host ownership without adding transforms or transfers.
+func (e *rankGPUExecutor[Word]) PrepareSpectrum(values []uint32, count uint64) error {
 	p := e.Plan
 	_, matrix, err := rankAdditivePlans(p, e.Capacity, false)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	e.Plan.Operation = matrix.Operation + 2
 	if err = e.GPU.Reset(0, p.Rows, p.Columns, false); err != nil {
-		return nil, err
+		return err
 	}
 	if err = e.load(0, values, count); err != nil {
-		return nil, err
+		return err
 	}
 	if err = rankResidentAdditiveTransform[Word](p, e.GPU, 0, 2, e.Capacity, false, e.Transpose, e.Windows, e.degrees, e.Notice, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+// Spectrum retains the original resident host result and allocation boundary.
+func (e *rankGPUExecutor[Word]) Spectrum(values []uint32, count uint64) ([]Word, error) {
+	if err := e.PrepareSpectrum(values, count); err != nil {
 		return nil, err
 	}
+	p := e.Plan
 	out := make([]Word, p.InputWords)
 	for first := uint64(0); first < p.InputWords; {
 		take := min(p.TileWords, p.InputWords-first)
-		if err = storageTransfer(e.GPU, 0, first, out[first:first+take], false); err != nil {
+		if err := storageTransfer(e.GPU, 0, first, out[first:first+take], false); err != nil {
 			return nil, err
 		}
 		first += take

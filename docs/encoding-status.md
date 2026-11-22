@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-a larger genuine s8/curve5 complete-pipeline measurement (submitted **81286**),then scalable fullsize ownership/working-set admission and
+bounded GPU spectrum publication after the passed s8/curve5 measurement **81286**,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -33,7 +33,7 @@ These results are separate from the full s17 runs and fulls18 projections below.
 | 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing passed78909 for genuine s4/s6. Four-worker genuine discovery-to-hierarchy passed79541. Coordinator entropy source remains; streamed support/retained-reference cold and fresh-process resume passed79213; full coordinator support/oracle arrays removed in the explicit pilot mode. No fullsize result. |
 | 3. Generator construction and verification | Sharded Newton/identity/spectrum integration passed78898 for genuine s4/s6. Four-worker complete genuine cold/restart passed79983;fullsize integration remains. |
 | 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898; partitioned discovery passed78909. **Fresh-process prefix8 restart and bounded streamed publication passed78915** for genuine s4/s6, with identical canonical code/generator output. Four-worker complete cold/restart passed79983. **Optional compact prefix checkpoint cold/restart passed81190**, with exact stored lengths/hashes and identical final artifacts. Fullsize/node-failure recovery remains. |
-| 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. [Canonical s18 bounded FFT/products passed78917](../experiments/s18-field-admission/report.md). Complete four-worker cold/restart passed79983. **Larger genuine s8/curve5 cold/restart submitted81286**,two nodes/two H200s;results pending. Fulls18 remains unrun. |
+| 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. [Canonical s18 bounded FFT/products passed78917](../experiments/s18-field-admission/report.md). Complete four-worker cold/restart passed79983. **Larger genuine s8/curve5 cold/restart passed81286**,two nodes/two H200s;11.147s cold/8.003s restart. Fulls18 remains unrun. |
 
 [FFT evidence](../experiments/distributed-gpu-fft/report.md): controller runtime
 **2 min15.343s**, normal suite **1.971s**, sanitizer suite **3.726s**. Logged host
@@ -1078,9 +1078,50 @@ workload within admitted resources,then fullsize working-set/ownership admission
 [Exact timings, resources and evidence](../experiments/distributed-prefix-checkpoints/report.md#verified-compact-restart-checkpoints-job81190-scaling-176).
 
 
-Larger genuine s8/curve5 validation **81286** is submitted,implementation7395079,
+Larger genuine s8/curve5 validation **81286** passed,implementation7395079,
 readiness50f4867. N65,536/K7,381;complete cold and fresh-process prefix8 restart,
 owned roots and explicit compact checkpoints. Same2HPCnodes/2H200/4CPU/8GiB
-requested host RAM,existing caps;estimate3–6min excluding queue. Results pending.
+requested host RAM,existing caps. Measured controller2min22.513s;see outcome below.
 [Runner,exact preflight,resources and limits](../experiments/distributed-pipeline-scaling/report.md).
 Fulls18 remains unrun/unadmitted;no resident default or memory–time policy change.
+
+
+### Larger genuine distributed workload81286
+
+| Genuine case | Preprocessing cold arm | Fresh-process prefix8 restart | Measured memory | Feasibility/status |
+|---|---|---|---|---|
+| s=8,curve degree5,N65,536,K7,381 | **Passed;runtime11.146650 seconds** | **Passed;runtime8.002511 seconds**,identical outputs | Peak RSS **376.051/379.316 MiB per worker** cold/restart;owned GPU **0.244 MiB per worker** (driver/context additional) | Measured on **two HPC nodes/two H200s/four workers/four CPU cores/8 GiB total requested host RAM**;fits existing admitted caps |
+
+Controller runtime2min22.513s includes builds,native setup,profiles and review.
+Cache33.965MiB;cold checkpoint524284bytes versus4456448padded bytes. Complete
+discovery,owned root hierarchy,Newton/full identity,spectrum,canonical publication
+and fresh restart passed exact independent references. This is a genuine smaller
+code,not fulls18 or an s18 cost estimate. [Full evidence](../experiments/distributed-pipeline-scaling/report.md#verified-larger-workload81286).
+
+Next explicit memory option:stream resident GPU spectrum tiles through the same
+canonical publisher,avoiding8N/r host bytes for wide fields (s18:512GiB aggregate,
+32GiB/worker at16workers),with no additional transforms or output/transfer bytes
+intended. GPU workspace unchanged;fullsize latency unknown,so resident remains
+default. Sixteen workers are a capacity example,not implementation support or
+resource admission.
+
+
+### Optional GPU spectrum source: host allocation projection
+
+[Prepared implementation and resource plan](../experiments/distributed-spectrum-publication/report.md)
+replace the actual host spectrum shard with4096-word source tiles;GPU workspace
+and output/transfer bytes are unchanged in the genuine path. GPU validation is
+pending;resident remains default and fullsize latency is unknown.
+
+| s | Host spectrum allocation avoided (aggregate) | Per worker with16 workers | Status/feasibility |
+|---|---|---|---|
+| 16 | 16 GiB | 1 GiB | Projection for new source mode;not yet measured |
+| 17 | 128 GiB | 8 GiB | Projection;existing full resident s17 results remain authoritative |
+| 18 | 512 GiB | 32 GiB | Projection;full workflow feasibility/admission remain unresolved |
+| 19 | 2 TiB | 128 GiB | Exploratory projection;full workflow unrun |
+| 20 | 8 TiB | 512 GiB | Exploratory projection;full workflow unrun |
+
+These are isolated allocations,not total RSS/device/storage savings or16-worker
+support/admission. Other host arrays,root ownership imbalance and fullsize logs/
+checkpoint/artifact paths still require review. Wide validation retains small
+native oracle arrays explicitly and separately tests high-bit GPU reads.

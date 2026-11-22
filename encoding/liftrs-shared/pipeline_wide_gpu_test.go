@@ -188,9 +188,25 @@ func checkWidePipelineTail(t *testing.T, w *mpi.World, output string, dim int, e
 	call = label + "/spectrum"
 	start = e.Plan.Operation
 	pass = 0
-	spectrum, err := e.Spectrum(g, uint64(target))
-	if err != nil {
-		t.Fatal(err)
+	spectrumMode := os.Getenv("PIR_PIPELINE_SPECTRUM")
+	if spectrumMode == "" {
+		spectrumMode = "resident"
+	}
+	var spectrum []uint64
+	var source *pilotSpectrumSource[uint64]
+	if spectrumMode == "stream" {
+		if err := e.PrepareSpectrum(g, uint64(target)); err != nil {
+			t.Fatal(err)
+		}
+		source = newPilotSpectrumSource[uint64](t, gpu, filepath.Join(output, fmt.Sprintf("%s-rank-%d-spectrum.bin", label, w.Rank)), words, 1<<36)
+		defer source.File.Close()
+	} else if spectrumMode == "resident" {
+		spectrum, err = e.Spectrum(g, uint64(target))
+		if err != nil {
+			t.Fatal(err)
+		}
+	} else {
+		t.Fatal("wide spectrum output mode")
 	}
 	emit(map[string]any{"kind": "tail-call", "case": call, "s": s, "dimension": dim, "operation_start": start, "mode": "spectrum", "keep": n})
 	matrix, err := cpp.NewWideMatrix(s, h.Polynomial, dim, dim/2)
@@ -208,14 +224,18 @@ func checkWidePipelineTail(t *testing.T, w *mpi.World, output string, dim int, e
 	if err = matrix.Close(); err != nil {
 		t.Fatal(err)
 	}
-	if !reflect.DeepEqual(spectrum, native[first:first+words]) {
+	if source == nil && !reflect.DeepEqual(spectrum, native[first:first+words]) {
 		t.Fatal("wide spectrum/native FFT")
 	}
 	high := make([]uint64, words)
 	for j := range high {
 		high[j] = ((uint64(1) << 35) ^ ((first + uint64(j) + 1) * 0x9e3779b9)) & ((uint64(1) << 36) - 1)
 	}
-	for suffix, values := range map[string][]uint64{"spectrum": spectrum, "expected-spectrum": native[first : first+words], "high": high} {
+	outputs := map[string][]uint64{"expected-spectrum": native[first : first+words], "high": high}
+	if source == nil {
+		outputs["spectrum"] = spectrum
+	}
+	for suffix, values := range outputs {
 		saveMatrixStageWords(t, filepath.Join(output, fmt.Sprintf("%s-rank-%d-%s.bin", label, w.Rank, suffix)), values)
 	}
 	saveMatrixStageWords(t, filepath.Join(output, fmt.Sprintf("%s-rank-%d-generator.bin", label, w.Rank)), g)
@@ -241,7 +261,52 @@ func checkWidePipelineTail(t *testing.T, w *mpi.World, output string, dim int, e
 	publish("stream-generator", func(file *os.File) {
 		publishPilotValues(t, w, n, uint64(target), 1<<s, g, file, link, &e.Plan.Operation)
 	})
-	publish("stream-spectrum", func(file *os.File) { publishPilotValues(t, w, n, n, 1<<36, spectrum, file, wide, &e.Plan.Operation) })
-	publish("stream-high", func(file *os.File) { publishPilotValues(t, w, n, n, 1<<36, high, file, wide, &e.Plan.Operation) })
-	emit(map[string]any{"kind": "wide-tail", "case": label, "s": s, "dimension": dim, "n": n, "target": target, "root_count": count, "first": first, "words": words, "slot_bytes": 8, "coefficient_bytes": 4, "owned_device_bytes": gpu.OwnedBytes(), "matches": true})
+	publish("stream-spectrum", func(file *os.File) {
+		if source == nil {
+			publishPilotValues(t, w, n, n, 1<<36, spectrum, file, wide, &e.Plan.Operation)
+			return
+		}
+		read := func(offset uint64, tile []uint64) error {
+			if err := source.Read(offset, tile); err != nil {
+				return err
+			}
+			if !reflect.DeepEqual(tile, native[first+offset:first+offset+uint64(len(tile))]) {
+				return fmt.Errorf("wide spectrum source/native FFT")
+			}
+			return nil
+		}
+		publishPilotReadValues(t, w, n, 1<<36, read, file, wide, &e.Plan.Operation)
+		if err := source.Finish(); err != nil {
+			t.Fatal(err)
+		}
+	})
+	highDownloaded := uint64(0)
+	publish("stream-high", func(file *os.File) {
+		if source == nil {
+			publishPilotValues(t, w, n, n, 1<<36, high, file, wide, &e.Plan.Operation)
+			return
+		}
+		// These small transforms lie within Fq,so their actual spectra need not have
+		// high extension bits. Exercise those bits with a separate GPU upload/read
+		// fixture after spectrum publication;this is validation-only transfer work.
+		for offset := uint64(0); offset < words; {
+			take := min(uint64(4096), words-offset)
+			if err := storageTransfer(gpu, 0, offset, high[offset:offset+take], true); err != nil {
+				t.Fatal(err)
+			}
+			offset += take
+		}
+		highSource := newPilotSpectrumSource[uint64](t, gpu, filepath.Join(output, fmt.Sprintf("%s-rank-%d-high-source.bin", label, w.Rank)), words, 1<<36)
+		defer highSource.File.Close()
+		publishPilotReadValues(t, w, n, 1<<36, highSource.Read, file, wide, &e.Plan.Operation)
+		if err := highSource.Finish(); err != nil {
+			t.Fatal(err)
+		}
+		highDownloaded = highSource.Completed
+	})
+	downloaded := uint64(len(spectrum))
+	if source != nil {
+		downloaded = source.Completed
+	}
+	emit(map[string]any{"kind": "wide-tail", "high_source_downloaded_words": highDownloaded, "spectrum_mode": spectrumMode, "spectrum_resident_host_words": len(spectrum), "spectrum_downloaded_words": downloaded, "case": label, "s": s, "dimension": dim, "n": n, "target": target, "root_count": count, "first": first, "words": words, "slot_bytes": 8, "coefficient_bytes": 4, "owned_device_bytes": gpu.OwnedBytes(), "matches": true})
 }

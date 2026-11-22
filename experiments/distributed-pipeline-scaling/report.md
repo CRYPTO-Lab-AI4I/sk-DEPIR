@@ -1,6 +1,6 @@
 # Larger genuine distributed preprocessing
 
-Status: **submitted 81286**,scaling-01; GPU results pending. Implementation revision **7395079**;parent9139e9e.
+Status: **passed81286**,scaling-01. Implementation revision **7395079**;parent9139e9e.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/). Results will be
 `runs/scaling-01/`; reusable source, native references, binaries and artifacts
@@ -133,10 +133,47 @@ suites checked from the actual frozen source. Built that source,ran its native
 export/admission and codec tests,and verified **108,014 historical native bytes**
 plus genuine s8/curve5 support/code and every native leaf/merge/final reference.
 [Build](readiness/frozen-build.log), [native regression](readiness/frozen-preflight.log),
-[native tests](readiness/frozen-native-tests.log). GPU results remain pending.
+[native tests](readiness/frozen-native-tests.log). GPU results passed81286 (see measured outcome below).
 
 
 Submitted **81286** after readiness50f4867. [Receipt](submission.json),
 [scheduler log](slurm-81286.log),results `runs/scaling-01/`. Same resources and
 3–6 minute estimate excluding queue. Receipt-bound local completion notification
 registered outside Git;no model polling. Analyze only after completion notice.
+
+
+## Verified larger workload:81286
+
+Independent reconciliation passed producing revision50f4867: **827 source files,
+59 evidence files and274 cache files** verified. Both genuine s8/curve5 arms passed
+all discovery/native root/packet/complete prefix/identity/spectrum/canonical-code
+checks. Fresh MPI processes restored prefix8 and produced identical artifacts.
+
+| Measurement | Cold | Fresh-process restart |
+|---|---|---|
+| Profiled arm wall time (launcher included) | 11.146650 seconds | 8.002511 seconds |
+| Maximum-rank pipeline time | 9.631938 seconds | 6.729504 seconds |
+| Peak host RSS per worker | 376.051 MiB | 379.316 MiB |
+| Owned GPU memory per worker | 0.244 MiB | 0.244 MiB |
+| Compact checkpoint payload | 524,284 bytes | 524,260 bytes |
+| Equivalent padded checkpoint payload | 4,456,448 bytes | 3,932,160 bytes |
+| Largest worker stdout log | 6,140,382 bytes | 3,226,233 bytes |
+
+Total controller wall time **2 min22.513 s**,including reference export/build,
+CPU/race checks,compilation,profiling and independent review. Native export took
+**1.473112 seconds** in this allocation. Total retained cache **33.965 MiB**.
+HPC gnode16/17,two H200s,four workers/four CPU cores,8 GiB requested host RAM;
+existing caps unchanged. CUDA driver/context memory is additional to owned bytes.
+Measured log sizes remained below the32 MiB/file cap and the22.2 MB projection.
+No fullsize timing extrapolation is established by this one larger case.
+
+Cold rank0 CPU profile spent95.14% of samples in cgocall,including69.69% cumulative
+in local Taylor calls;cgocall also includes blocking/synchronization,so this is not
+a pure kernel-time estimate. Save/reload/publication still allocate full resident
+root/generator/identity/spectrum host shards. Next prototype bounded GPU spectrum
+publication to avoid the full host spectrum allocation;retain resident default
+and document unknown fullsize latency. Complete discovery/ownership and fullsize
+resource/storage/headroom/deadline admission remain.
+
+[Analysis](runs/scaling-01/analysis.json),[raw results](runs/scaling-01/results.json),
+[cold profile](runs/scaling-01/cold-profile-0.log),[scheduler log](slurm-81286.log).

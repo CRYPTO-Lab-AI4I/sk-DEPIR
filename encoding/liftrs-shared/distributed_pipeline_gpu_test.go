@@ -133,6 +133,13 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	if publication != "gather" && publication != "stream" {
 		t.Fatal("publication mode")
 	}
+	spectrumMode := os.Getenv("PIR_PIPELINE_SPECTRUM")
+	if spectrumMode == "" {
+		spectrumMode = "resident"
+	}
+	if (spectrumMode != "resident" && spectrumMode != "stream") || (spectrumMode == "stream" && publication != "stream") {
+		t.Fatal("spectrum output mode")
+	}
 	var restoredRoot, restoredPrefix rankPrefixState
 	if resumeFrom != "" {
 		var e error
@@ -628,14 +635,28 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	}
 	save("g", g)
 	save("identity", identity)
-	spectrum := driver.Spectrum("spectrum", g, uint64(n-k))
-	saveMatrixStageWords(t, filepath.Join(directory, fmt.Sprintf("%s-rank-%d-spectrum.bin", label, w.Rank)), spectrum)
+	var spectrum []Word
+	var readSpectrum func(uint64, []Word) error
+	var spectrumSource *pilotSpectrumSource[Word]
+	spectrumWords := uint64(words)
+	spectrumDownloaded := uint64(words)
+	if spectrumMode == "resident" {
+		spectrum = driver.Spectrum("spectrum", g, uint64(n-k))
+		saveMatrixStageWords(t, filepath.Join(directory, fmt.Sprintf("%s-rank-%d-spectrum.bin", label, w.Rank)), spectrum)
+	} else {
+		driver.PrepareSpectrum("spectrum", g, uint64(n-k))
+		spectrumWords = min(uint64(words), uint64(4096))
+		spectrumDownloaded = 0
+		spectrumSource = newPilotSpectrumSource[Word](t, gpu, filepath.Join(directory, fmt.Sprintf("%s-rank-%d-spectrum.bin", label, w.Rank)), uint64(words), uint64(1)<<uint(2*s))
+		defer spectrumSource.File.Close()
+		readSpectrum = spectrumSource.Read
+	}
 	event("artifact-publication", "started")
 	if publication == "stream" {
 		spectrumLink := typedOperandMPI[Word]{world: w, record: func(direction string, p operandPacket, data []Word, own, remote [64]byte) {
 			emit(map[string]any{"kind": "operand-proof", "case": label, "direction": direction, "packet": p, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
 		}}
-		publishPilotStream(t, w, directory, label, h, root, g, spectrum, reference, link, spectrumLink, &executor.Plan.Operation)
+		publishPilotStream(t, w, directory, label, h, root, g, spectrum, readSpectrum, reference, link, spectrumLink, &executor.Plan.Operation)
 	} else {
 		publish := func(values []uint32) []uint32 {
 			op := executor.Plan.Operation
@@ -686,9 +707,15 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 		}
 
 	}
+	if spectrumSource != nil {
+		if err := spectrumSource.Finish(); err != nil {
+			t.Fatal(err)
+		}
+		spectrumDownloaded = spectrumSource.Completed
+	}
 	w.Barrier()
 	event("artifact-publication", "completed")
-	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "root_counts": leafCounts, "root_mode": rootMode, "checkpoint_layout": checkpointLayout, "discovery_layout": layout, "initial_prefix": initialPrefix, "discovery_performed": resumeFrom == "", "root_performed": resumeFrom == "", "publication": publication, "pid": os.Getpid(), "reference_mode": map[bool]string{true: "retained", false: "native"}[referenceFrom != ""], "support_streamed": referenceFrom != ""})
+	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "root_counts": leafCounts, "spectrum_downloaded_words": spectrumDownloaded, "spectrum_mode": spectrumMode, "spectrum_host_words": spectrumWords, "spectrum_resident_host_words": len(spectrum), "root_mode": rootMode, "checkpoint_layout": checkpointLayout, "discovery_layout": layout, "initial_prefix": initialPrefix, "discovery_performed": resumeFrom == "", "root_performed": resumeFrom == "", "publication": publication, "pid": os.Getpid(), "reference_mode": map[bool]string{true: "retained", false: "native"}[referenceFrom != ""], "support_streamed": referenceFrom != ""})
 }
 
 // Explicit bounded native-reference export for the pilot's independent inputs.

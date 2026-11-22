@@ -1,0 +1,13 @@
+# SCALING-177 prepared: GPU spectrum source
+
+UTC: 2026-11-22T20:33:33.266882+00:00;agent: Codex.
+
+81286 passed827 source/59 evidence/274cache reconciliation;complete genuine s8/curve5 cold11.14665s/restart8.00251s/controller142.51292s,peak RSS376.051/379.316MiB per worker,owned GPU0.243702MiB/worker. Primary status table/README/plan/report updated with measured storage/resources/latency and no fulls18 claim.
+
+Shared rank publication now accepts complete bounded readers while array sources retain original full range/padding validation and zero-copy sends. Extracted existing spectrum transform into PrepareSpectrum;resident Spectrum retains original host result. Explicit pilot spectrum=stream keeps GPUslot0 live,reads each word exactly once,and feeds one tile to diagnostic and canonical output. Shared source handles narrow and64-bit wide field data,exact sequence/completion and sync. Added source mode/allocation/download counters;canonical artifacts/packet IDs remain unchanged. No extra genuine transform/network/output/device-to-host spectrum bytes intended. Memory saving:avoid16/128/512GiB aggregate host spectrum at s16/17/18,respectively;bounded buffers/other allocations additional. GPU workspace unchanged;fullsize latency unknown,so resident default preserved.
+
+New experiment [distributed-spectrum-publication](../experiments/distributed-spectrum-publication/report.md) reuses genuine s8/curve5 cold/fresh-prefix8 restart plus one existing bounded field18 tail. Wide small actual spectra have no high extension bits;preflight corrected that proposed assertion before allocation. Existing deliberate high-bit fixture now uploads/reads GPUslot0 after spectrum publication,with exact byte comparisons. This extra bounded transfer is validation-only and explicitly documented;actual wide spectrum has no resident actual result,but independent small native oracle arrays remain counted.
+
+Ordinary CPU/race,tagged build/native source/prefix tests,11Python reviewers and81286 saved-evidence replay pass. CPU tests cover exact-once offsets,uneven/empty ownership,high bits,field/source/writer/plan errors. New CUDA arithmetic absent;no repeated sanitizer-only arm. Exact committed source/native regression preflight still required.
+
+Same2HPCnodes/2H200/4CPU/8GiBrequestedRAM,four workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720s/15min,0CUDApinned. Estimate3–6min excluding queue,cache<48MiB/log<12MiB projections based on prior admitted evidence. No resource increase. README and storage design checked/updated;removed stale current-step1 wording in storage design. Next freeze/verify actual snapshot,submit and yield. Fulls18 remains unrun/unadmitted;watcher outside Git,no other jobs polled.

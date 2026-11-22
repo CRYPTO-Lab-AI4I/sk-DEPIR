@@ -1,0 +1,4 @@
+=== RUN   TestExportPilotReferences
+    distributed_pipeline_gpu_test.go:736: s=8 reference files exported without GPU/MPI initialization
+--- PASS: TestExportPilotReferences (1.25s)
+PASS

@@ -1,11 +1,11 @@
 # Distributed preprocessing: GPU-resident working storage
 
-Next implementation step after [small distributed products passed78321](../experiments/distributed-gpu-product/report.md).
-The first [resident-storage/transpose prototype](../experiments/distributed-gpu-storage/report.md)
-passed bounded validation78392 (208 normal +208 sanitized rank/pass results,
-zero CUDA errors/leaks). Resident Taylor/FFT/product
-integration, fullsize costs and resource admission remain separate. We remain
-on step1 (distributed large products/FFTs).
+This design began after [small distributed products passed78321](../experiments/distributed-gpu-product/report.md).
+Resident storage,complete FFT/products and the genuine distributed pipeline now
+have bounded correctness and scaling evidence through s8/curve5 (81286).
+See the [maintained status reference](encoding-status.md#current-distributed-preprocessing-step)
+for current gates. Fulls18 remains unrun;the current allocation boundary is
+[bounded host spectrum publication](#bounded-host-spectrum-publication).
 
 The existing host-shard implementation is a correctness reference. Its conservative
 product model includes six full host shards, while GPU arithmetic uses bounded
@@ -14,7 +14,7 @@ that reference workload does not resolve the storage design needed for fast larg
 preprocessing. Prototype resident storage first, retaining the same arithmetic,
 canonical values, ownership schedule and independent references.
 
-## Concrete implementation sequence
+## Original implementation sequence (bounded validation completed)
 
 1. Separate rank transpose and Taylor source-window storage access from their
    shared communication schedule. Keep the current host adapter as a regression
@@ -47,7 +47,7 @@ canonical values, ownership schedule and independent references.
 N is the padded domain; P is the GPU/rank count; w is the internal field slot size
 (8 bytes at s17/s18). These are payload models, not measured peaks.
 
-| Resource/cost | Validated host reference | Proposed resident backend |
+| Resource/cost | Validated host reference | Resident backend (bounded validated) |
 |---|---|---|
 | Main GPU arrays | Bounded arithmetic tiles | Three shards, approximately3Nw/P per GPU |
 | Main host arrays | Up to six shards, approximately6Nw/P per rank, including caller-retained inputs | Bounded transport/window buffers; caller inputs, final output and other preprocessing state are additional |
@@ -123,3 +123,18 @@ and resume a persisted prefix in fresh MPI processes. This changes host I/O/stat
 ownership, not GPU arithmetic; keep CPU corruption/stream/race checks and one
 integrated cold/resume comparison. Diagnostic CPU/support arrays still remain,
 and resumed rank count is fixed. No fulls18 memory/node-failure claim follows.
+
+
+## Bounded host spectrum publication
+
+The complete genuine s8/curve5 pipeline passed81286 with resident spectrum output.
+The [next explicit prototype](../experiments/distributed-spectrum-publication/report.md)
+keeps the same GPU transform in slot0 while the shared canonical publisher reads
+4096-word tiles. One download feeds diagnostic and canonical output;no additional
+FFT or genuine output/transfer bytes. Wide host spectrum allocation falls by8N/r
+minus bounded buffers (s18:512GiB aggregate,32GiB/worker at16workers). This is an
+isolated allocation projection,not total-RSS measurement or topology admission.
+Fullsize throughput may change from interleaving file/network/GPU reads;resident
+remains default and the experimental source option stays explicit. Complete
+discovery/root/reciprocal working sets and production persistence remain separate
+fullsize admission boundaries. GPU composition validation is pending.
