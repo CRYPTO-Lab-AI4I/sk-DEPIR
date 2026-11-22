@@ -10,6 +10,10 @@ by default; keep large local caches outside Git and report instrumentation overh
 
 The current development target is **TRL 5**: a usable, validated client and preprocessing library. The [roadmap](ROADMAP.md) gives the ordered tasks and acceptance criteria. Storage is treated as a plain I/O endpoint returning requested records; server-side protocol computation is outside the scope. TRL 6 acceptance is deferred; evaluating encoding-efficiency improvements remains in scope.
 
+The [hierarchical distributed root validation](experiments/distributed-root-hierarchy/report.md)
+passed on four workers sharing two HPC H200s. The next [genuine discovery-to-tree integration](experiments/distributed-discovery-hierarchy/report.md)
+keeps the same arithmetic and transport; full s18 preprocessing remains unrun.
+
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)
 are the reference for preprocessing and CPU/GPU encoding modes, including
 multi-GPU estimates. The [current s17 summary](docs/encoding-status.md#current-s17-results)

@@ -26,26 +26,51 @@ type discoveryResult struct {
 
 // Counts use integer control frames, not floating-point reductions. Phase and
 // sequence bind each exchange; all ranks make the same sample/stop decision.
-func discoveryCounts(t *testing.T, w *mpi.World, phase, sequence, own, limit uint64) [2]uint64 {
-	var frame [64]byte
-	for j, v := range []uint64{own, phase, sequence, uint64(w.Rank)} {
-		binary.LittleEndian.PutUint64(frame[8*j:], v)
+func discoveryCounts(t *testing.T, w *mpi.World, phase, sequence, own, limit uint64) []uint64 {
+	t.Helper()
+	counts := make([]uint64, w.Size)
+	counts[w.Rank] = own
+	// Each pair exchanges in global order, so blocking control sends cannot cycle.
+	// Phase/sequence/rank binding remains identical for the original two ranks.
+	for source := 0; source < w.Size; source++ {
+		for target := source + 1; target < w.Size; target++ {
+			if w.Rank != source && w.Rank != target {
+				continue
+			}
+			peer := source
+			if w.Rank == source {
+				peer = target
+			}
+			var frame [64]byte
+			for j, v := range []uint64{own, phase, sequence, uint64(w.Rank)} {
+				binary.LittleEndian.PutUint64(frame[8*j:], v)
+			}
+			remote, err := w.ExchangeControl(peer, frame)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if binary.LittleEndian.Uint64(remote[8:]) != phase || binary.LittleEndian.Uint64(remote[16:]) != sequence || binary.LittleEndian.Uint64(remote[24:]) != uint64(peer) || !bytes.Equal(remote[32:], make([]byte, 32)) {
+				t.Fatal("discovery count phase")
+			}
+			counts[peer] = binary.LittleEndian.Uint64(remote[:])
+		}
 	}
-	remote, err := w.ExchangeControl(1-w.Rank, frame)
-	if err != nil {
-		t.Fatal(err)
+	var total uint64
+	for _, count := range counts {
+		if count > limit-total {
+			t.Fatal("discovery count bound")
+		}
+		total += count
 	}
-	if binary.LittleEndian.Uint64(remote[8:]) != phase || binary.LittleEndian.Uint64(remote[16:]) != sequence || binary.LittleEndian.Uint64(remote[24:]) != uint64(1-w.Rank) || !bytes.Equal(remote[32:], make([]byte, 32)) {
-		t.Fatal("discovery count phase")
+	return counts
+}
+
+func discoveryTotal(counts []uint64) uint64 {
+	var total uint64
+	for _, count := range counts {
+		total += count
 	}
-	other := binary.LittleEndian.Uint64(remote[:])
-	if own > limit || other > limit-own {
-		t.Fatal("discovery count bound")
-	}
-	if w.Rank == 0 {
-		return [2]uint64{own, other}
-	}
-	return [2]uint64{other, own}
+	return total
 }
 
 // Discovery control/data use the existing MPI codecs and before/after proofs.
@@ -105,8 +130,8 @@ func discoveryWire[Word transposeWord](t *testing.T, w *mpi.World, kind, sequenc
 // independently and never depends on that archive or a global support copy.
 func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec Spec, emit func(map[string]any), archiveSink func([]uint64) error) discoveryResult {
 	t.Helper()
-	if w.Size != 2 {
-		t.Fatal("partitioned discovery pilot requires two ranks")
+	if w.Size < 2 || w.Size > 64 || w.Size&(w.Size-1) != 0 {
+		t.Fatal("partitioned discovery requires power-of-two ranks through64")
 	}
 	s := spec.FieldDegree
 	n := uint64(1) << uint(2*s)
@@ -136,7 +161,7 @@ func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec S
 		observe(map[string]any{"kind": "progress", "phase": "local-good-monomials", "completed": offset, "total": words, "unit": "positions"})
 	}
 	counts := discoveryCounts(t, w, 1, 0, uint64(len(good)), n)
-	k := int(counts[0] + counts[1])
+	k := int(discoveryTotal(counts))
 	h, _, err := canonicalScalingCodeHeader(s, spec.CurveDegree, uint64(k), n)
 	if err != nil {
 		t.Fatal(err)
@@ -190,7 +215,7 @@ func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec S
 	for samples < discoverySampleLimit(s) && global < uint64(k) {
 		clear(grid)
 		sequence := uint64(samples + 1)
-		for owner := 0; owner < 2; owner++ {
+		for owner := 0; owner < w.Size; owner++ {
 			if w.Rank != 0 && w.Rank != owner {
 				continue
 			}
@@ -206,8 +231,8 @@ func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec S
 						tile[j] = discoverySampleValue(randomBytes[j*size:(j+1)*size], s)
 					}
 				}
-				if owner == 1 {
-					discoveryWire(t, w, 1, sequence, n, offset, 0, 1, tile, observe)
+				if owner != 0 {
+					discoveryWire(t, w, 1, sequence, n, offset, 0, owner, tile, observe)
 				}
 				if w.Rank == owner {
 					for j, v := range tile {
@@ -235,7 +260,7 @@ func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec S
 			}
 		}
 		totals := discoveryCounts(t, w, 2, sequence, localCount, n)
-		global = totals[0] + totals[1]
+		global = discoveryTotal(totals)
 		samples++
 		observe(map[string]any{"kind": "discovery-sample", "s": s, "sample": samples, "operation_start": operation, "local_count": localCount, "global_count": global, "k": k, "grid_words": words, "first": first, "good_counts": counts})
 	}
@@ -251,54 +276,60 @@ func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec S
 			raw = append(raw, int(first+j))
 		}
 	}
-	// Route both members to one deterministic orbit owner, using only local
-	// source lists and bounded packets. This rule has no global balance promise.
+	// Route each closed orbit to its deterministic owner. Count exchange and
+	// payload ordering use only local source lists; no global support is needed.
 	var roots []int
-	var remoteCount uint64
-	for _, v := range raw {
-		if discoveryRootOwner(uint64(v), q, n-1, 2) == w.Rank {
-			roots = append(roots, v)
-		} else {
-			remoteCount++
+	for _, index := range raw {
+		if discoveryRootOwner(uint64(index), q, n-1, w.Size) == w.Rank {
+			roots = append(roots, index)
 		}
 	}
-	routed := discoveryCounts(t, w, 3, 0, remoteCount, uint64(k))
 	tile := make([]uint64, 4096)
-	for source := 0; source < 2; source++ {
-		target := 1 - source
-		sent := uint64(0)
-		at := 0
-		if w.Rank == source {
-			for _, index := range raw {
-				if discoveryRootOwner(uint64(index), q, n-1, 2) != target {
-					continue
-				}
-				tile[at] = uint64(index)
-				at++
-				if at == len(tile) {
-					discoveryWire(t, w, 2, 0, n, sent, source, target, tile, observe)
-					sent += uint64(at)
-					at = 0
-				}
+	for target := 0; target < w.Size; target++ {
+		var outgoing uint64
+		for _, index := range raw {
+			if target != w.Rank && discoveryRootOwner(uint64(index), q, n-1, w.Size) == target {
+				outgoing++
 			}
-			if at > 0 {
-				discoveryWire(t, w, 2, 0, n, sent, source, target, tile[:at], observe)
-				sent += uint64(at)
+		}
+		routed := discoveryCounts(t, w, 3, uint64(target), outgoing, uint64(k))
+		for source := 0; source < w.Size; source++ {
+			if source == target || (w.Rank != source && w.Rank != target) {
+				continue
 			}
-			if sent != routed[source] {
-				t.Fatal("orbit route count")
-			}
-		} else {
-			for received := uint64(0); received < routed[source]; {
-				take := min(uint64(len(tile)), routed[source]-received)
-				discoveryWire(t, w, 2, 0, n, received, source, target, tile[:take], observe)
-				for _, index := range tile[:take] {
-					if index >= n-1 || discoveryRootOwner(index, q, n-1, 2) != w.Rank {
-						t.Fatal("orbit route ownership")
+			if w.Rank == source {
+				sent, at := uint64(0), 0
+				for _, index := range raw {
+					if discoveryRootOwner(uint64(index), q, n-1, w.Size) != target {
+						continue
 					}
-					roots = append(roots, int(index))
+					tile[at] = uint64(index)
+					at++
+					if at == len(tile) {
+						discoveryWire(t, w, 2, 0, n, sent, source, target, tile, observe)
+						sent += uint64(at)
+						at = 0
+					}
 				}
-				received += take
+				if at > 0 {
+					discoveryWire(t, w, 2, 0, n, sent, source, target, tile[:at], observe)
+					sent += uint64(at)
+				}
+				if sent != routed[source] {
+					t.Fatal("orbit route count")
+				}
+			} else {
+				for received := uint64(0); received < routed[source]; {
+					take := min(uint64(len(tile)), routed[source]-received)
+					discoveryWire(t, w, 2, 0, n, received, source, target, tile[:take], observe)
+					for _, index := range tile[:take] {
+						if index >= n-1 || discoveryRootOwner(index, q, n-1, w.Size) != w.Rank {
+							t.Fatal("orbit route ownership")
+						}
+						roots = append(roots, int(index))
+					}
+					received += take
+				}
 			}
 		}
 	}
@@ -326,26 +357,32 @@ func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec S
 			}
 		}
 	}
-	for offset := uint64(0); offset < totals[1]; {
-		take := min(uint64(len(tile)), totals[1]-offset)
-		if w.Rank == 1 {
-			for j := uint64(0); j < take; j++ {
-				tile[j] = uint64(raw[offset+j])
-			}
+	for source := 1; source < w.Size; source++ {
+		if w.Rank != 0 && w.Rank != source {
+			continue
 		}
-		discoveryWire(t, w, 3, 0, n, offset, 1, 0, tile[:take], observe)
-		if w.Rank == 0 {
-			if archiveSink != nil {
-				if err = archiveSink(tile[:take]); err != nil {
-					t.Fatal(err)
-				}
-			} else {
-				for _, index := range tile[:take] {
-					archive = append(archive, int(index))
+		for offset := uint64(0); offset < totals[source]; {
+			take := min(uint64(len(tile)), totals[source]-offset)
+			if w.Rank == source {
+				for j := uint64(0); j < take; j++ {
+					tile[j] = uint64(raw[offset+j])
 				}
 			}
+			discoveryWire(t, w, 3, 0, n, offset, source, 0, tile[:take], observe)
+			if w.Rank == 0 {
+				if archiveSink != nil {
+					if err = archiveSink(tile[:take]); err != nil {
+						t.Fatal(err)
+					}
+				} else {
+					for _, index := range tile[:take] {
+						archive = append(archive, int(index))
+					}
+				}
+			}
+			offset += take
 		}
-		offset += take
+
 	}
 	sum := ""
 	if w.Rank == 0 {

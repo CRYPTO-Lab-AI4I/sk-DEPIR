@@ -3274,3 +3274,35 @@ Submitted **79376**,hierarchy-01,implementation6785af2 after actual-source
 snapshot preflight6bbd8f5 (798files/3,675,323bytes;reviewer passes from snapshot).
 [Receipt](../experiments/distributed-root-hierarchy/submission.json). Same physical
 resources/aggregate caps;no monitoring until completion ping.
+
+
+### Hierarchy passed; connect genuine discovery (SCALING-171)
+
+79376 passed:16 normal and8 sanitized worker/product outputs,4 clean CUDA
+error/leak summaries;798 source/51 evidence/100 cache hashes reconcile. Complete
+controller runtime2 min20.307 seconds;normal arm6.189 seconds;normal peak logged
+RSS386.105 MiB/worker,sanitized415.605 MiB;reported ownedGPU3.118 MiB/worker maximum,
+excluding CUDA context/driver. Two HPC nodes/twoH200/four CPU cores/8 GiB requested
+host RAM. [Measured report](../experiments/distributed-root-hierarchy/report.md).
+
+Proceed with genuine s4/s6 partitioned discovery directly feeding the four-worker
+hierarchy,sharing the existing discovery and root executor/review code. Preserve
+original global-good random-byte order,integer phase/sequence bounds,closed-orbit
+ownership,all routing proofs and independent native references. The count exchange
+now supports power-of-two ranks through64;only2/4 have an admitted test entry.
+Do not claim tested support beyond the actual allocation.
+
+Use a single composed profiled normal arm under the unchanged2node/2H200/4CPU/
+8GiB request,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/
+32MiBfile,720s controller/15min scheduler. No CUDA arithmetic changes or repeated
+sanitizer-only allocation;79376 and previous genuine pilots retain that evidence.
+Expect2–4 minutes excluding queue,including build/setup/profiles/review;unknown
+larger-scale runtime. Native preflight checks actual K,leaf counts and subgroup
+domains before submission,not guessed balanced supports. Replicated bounded native
+references are diagnostic only;this is not the production memory strategy.
+
+Then carry Newton,complete identity,spectrum,coordinated completed-prefix commits,
+fresh-process restart and streamed publication through the same topology. Perform
+representative assembled scaling and choose final resources/headroom/deadline
+before separate fulls18 admission. No slower memory mode or production default
+changes. [Runner and trade-offs](../experiments/distributed-discovery-hierarchy/report.md).

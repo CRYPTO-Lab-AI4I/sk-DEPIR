@@ -1,11 +1,10 @@
 # Hierarchical distributed root products
 
-Status: **submitted as79376**, `hierarchy-01`, implementation `6785af2`.
-[Receipt](submission.json), [scheduler log](slurm-79376.log). Integrated GPU results
-pending; the controller records the actual producing revision and identities.
+Status: **passed79376**, `hierarchy-01`, implementation `6785af2`, producing revision `5268f7b`.
+[Receipt](submission.json), [scheduler log](slurm-79376.log). [Reconciled analysis](runs/hierarchy-01/analysis.json) verifies the producing source, outputs and cache identities.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/checks.json).
-Results will be retained in `runs/hierarchy-01/`; snapshots,binaries,shards and
+Results are retained in `runs/hierarchy-01/`; snapshots,binaries,shards and
 profiles in `.cache/liftrs/distributed-root-hierarchy/hierarchy-01/` outside Git.
 Follows [four-worker collective validation79239](../distributed-four-worker/report.md).
 
@@ -157,4 +156,30 @@ its odd-count support. No node-loss/elastic restart claim is made.
 [Actual committed-snapshot preflight](readiness/snapshot-checks.json) passed on
 6785af2:798 source files /3,675,323 bytes,required MPI/driver/wrapper/runner paths
 present,and reviewer suite passed from the snapshot. Submission6bbd8f5 adds only
-that evidence. No local GPU/MPI initialization;subgroup integration awaits79376.
+that evidence. No local GPU/MPI initialization was used during readiness; allocation79376 now validates subgroup integration.
+
+
+## Measured outcome — HPC job79376
+
+[Raw result](runs/hierarchy-01/results.json), [analysis](runs/hierarchy-01/analysis.json),
+[phase/profile evidence](runs/hierarchy-01/), [scheduler log](slurm-79376.log).
+All25 commands passed. Reconciled798 source files,51 sealed evidence files and100
+retained cache files against producing revision5268f7b. The later reviewer extraction
+also reproduces the saved analysis; original source provenance is unchanged.
+
+| Measurement | Result |
+|---|---|
+| Complete controller runtime,including build/review/profiles | 2 min20.307 seconds |
+| Normal arm,16/4092 synthetic s18 roots | 6.189 seconds;16 verified worker/product outputs |
+| Small16-root CUDA memcheck arm | 3.981 seconds;8 verified outputs;all4 summaries report0 errors and0 leaked bytes |
+| Peak logged process RSS | Normal386.105 MiB/worker;sanitized415.605 MiB/worker |
+| Maximum reported owned GPU allocation | Normal3.118 MiB/worker;sanitized3.070 MiB/worker;contexts/driver/transients additional |
+| Retained cache | 16.566 MiB,including frozen source,binaries,profiles and polynomial shards |
+
+Hardware/allocation remains two HPC H200 nodes,four workers sharing two cards,
+four CPU cores and8 GiB total requested host RAM. No throughput projection for
+fulls18 follows from these small cases. The bounded tree,unequal child domains,
+inter-level payloads,subgroup closure and parent reuse passed. Next connect genuine
+partitioned discovery to this same tree,then generalize the remaining pipeline's
+pair-only control/commit assumptions and validate its Newton/identity/spectrum,
+restart and streamed publication before representative scaling/full-run admission.

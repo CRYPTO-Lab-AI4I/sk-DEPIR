@@ -33,7 +33,7 @@ def review(rows,directory,pointwise_words=None,cases=None,tile_words=127,shapes=
                         for key,words in VECTORS['transpose_packets'](rank,label,child,op,n,tile_words,ranks):expected_packets[key]=words
             chosen=[r for r in values if r['case']==label];assert len(chosen)==ranks and {r['rank']for r in chosen}==set(range(ranks))and all(r['seconds']==chosen[0]['seconds']>0 for r in chosen)
             for r in chosen:
-                rank=r['rank'];assert(r['s'],r['dimension'],r['shape'],r['a_count'],r['b_count'],r['first_coefficient'],r['words'],r['slot_bytes'],r['output_word_bytes'],r['operation_start'])==(s,dim,shape,ac,bc,rank*n//ranks,n//ranks,4 if s==4 else 8,4,operation)
+                rank=r['rank'];assert(r['s'],r['dimension'],r['shape'],r['a_count'],r['b_count'],r['first_coefficient'],r['words'],r['slot_bytes'],r['output_word_bytes'],r['operation_start'])==(s,dim,shape,ac,bc,rank*n//ranks,n//ranks,4 if s<=16 else 8,4,operation)
                 assert r['matches']is True and 0<r['owned_device_bytes']<=128<<20 and 0<r['peak_rss_bytes']<1<<30
                 prefix=f'rank-{rank}-{label}';a=(directory/(prefix+'-output.bin')).read_bytes();b=(directory/(prefix+'-expected.bin')).read_bytes()
                 assert a==b and len(a)==4*n//ranks and hashlib.sha256(a).hexdigest()==r['output_sha256']

@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 15:16 | SCALING-171 | Prepared | [Hierarchy passed; genuine discovery integration ready](2026-11-22-1516-codex-scaling-171-prepared.md) |
+| 2026-11-22 15:08 | SCALING-171 | Started | [Review hierarchy; integrate genuine discovery](2026-11-22-1508-codex-scaling-171-started.md) |
 | 2026-11-22 14:30 | SCALING-170 | Handoff | [Hierarchical root validation79376 submitted](2026-11-22-1430-codex-scaling-170-handoff.md) |
 | 2026-11-22 14:28 | SCALING-170 | Prepared | [Hierarchical root validation ready](2026-11-22-1428-codex-scaling-170-prepared.md) |
 | 2026-11-22 13:56 | SCALING-170 | Started | [Hierarchical sharded root merge integration](2026-11-22-1356-codex-scaling-170-started.md) |

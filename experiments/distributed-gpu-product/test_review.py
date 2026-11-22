@@ -42,7 +42,7 @@ class ReviewTest(unittest.TestCase):
                     for k in range(rank*n//ranks,(rank+1)*n//ranks):coeff.append(max(0,min(k,ac-1)-max(0,k-bc+1)+1)%2 if k<ac+bc-1 else 0)
                     data=b''.join(v.to_bytes(4,'little')for v in coeff)
                     for suffix in ('output','expected'):(d/f'rank-{rank}-{label}-{suffix}.bin').write_bytes(data)
-                    rows.append(dict(kind='measurement',rank=rank,case=label,s=s,dimension=dim,shape=shape,a_count=ac,b_count=bc,first_coefficient=rank*n//ranks,words=n//ranks,slot_bytes=4 if s==4 else 8,output_word_bytes=4,seconds=1,operation_start=operation,proof_events=proofs[rank],taylor_proof_events=windows[rank],owned_device_bytes=1,peak_rss_bytes=1,output_sha256=hashlib.sha256(data).hexdigest(),matches=True))
+                    rows.append(dict(kind='measurement',rank=rank,case=label,s=s,dimension=dim,shape=shape,a_count=ac,b_count=bc,first_coefficient=rank*n//ranks,words=n//ranks,slot_bytes=4 if s<=16 else 8,output_word_bytes=4,seconds=1,operation_start=operation,proof_events=proofs[rank],taylor_proof_events=windows[rank],owned_device_bytes=1,peak_rss_bytes=1,output_sha256=hashlib.sha256(data).hexdigest(),matches=True))
                 operation+=3*span
         rows.extend(dict(kind='completed',rank=r,cases=2*len(cases))for r in range(ranks));return rows
 
@@ -56,6 +56,13 @@ class ReviewTest(unittest.TestCase):
         with tempfile.TemporaryDirectory()as tmp:
             d=Path(tmp);rows=self.fixture(d);p=next(d.glob('*-output.bin'));a=bytearray(p.read_bytes());a[0]^=1;p.write_bytes(a)
             with self.assertRaises(AssertionError):H['review'](rows,d)
+
+    def test_six_bit_field_keeps_four_byte_extension_slots(self):
+        with tempfile.TemporaryDirectory()as tmp:
+            d=Path(tmp);rows=self.fixture(d,cases=[(6,6)],ranks=4)
+            self.assertEqual(len(H['review'](rows,d,cases=[(6,6)],ranks=4)['measurements']),8)
+            next(r for r in rows if r['kind']=='measurement')['slot_bytes']=8
+            with self.assertRaises(AssertionError):H['review'](rows,d,cases=[(6,6)],ranks=4)
 
     def test_product_runner_selection(self):
         class Captured(Exception):pass

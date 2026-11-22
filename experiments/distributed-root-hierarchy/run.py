@@ -49,16 +49,15 @@ def review_operands(rows,stage,source_bytes):
     return len(packets)
 
 
-def review(rows,directory,small=False):
+def review(rows,directory,small=False,cases=None):
     hosts=[r for r in rows if r.get('kind')=='host'];assert len(hosts)==4 and {r['rank']for r in hosts}==set(range(4))and len({r['host']for r in hosts})==2
     for host in {r['host']for r in hosts}:
         selected=[r for r in hosts if r['host']==host]
         assert len(selected)==2 and len({r['visible_devices']for r in selected})==1
-    cases=[16]if small else[16,4092];results={};all_measurements=[]
+    cases=([(18,16,"roots-16",[5]*4)]if small else[(18,16,"roots-16",[5]*4),(18,4092,"roots-4092",[1025,1025,1023,1023])])if cases is None else cases;results={};all_measurements=[]
     def words(data):assert len(data)%4==0;return[int.from_bytes(data[i:i+4],'little')for i in range(0,len(data),4)]
-    for count in cases:
-        label=f'roots-{count}';trees=[r for r in rows if r.get('kind')=='root-tree'and r['case']==label];assert len(trees)==4
-        expected_counts=[5,5,5,5]if count==16 else[1025,1025,1023,1023]
+    for s,count,label,expected_counts in cases:
+        trees=[r for r in rows if r.get('kind')=='root-tree'and r['case']==label];assert len(trees)==4
         for r in trees:assert r['leaf_counts']==expected_counts and r['levels']==2 and r['support_count']==count and r['matches']is True
         expected_stages=stages(expected_counts);sources={}
         for rank in range(4):
@@ -76,14 +75,14 @@ def review(rows,directory,small=False):
             # reviewer validates arithmetic/routes independently of host count.
             dest=directory/f'{label}-level-{stage["Level"]}-group-{first}'
             src=[sources[(first+layout['First'],layout['Ranks'])]for layout in stage['Sources']]
-            outputs=b''.join((dest/f'rank-{r}-s18-d{dim}-shape-0-expected.bin').read_bytes()for r in range(size))
+            outputs=b''.join((dest/f'rank-{r}-s{s}-d{dim}-shape-0-expected.bin').read_bytes()for r in range(size))
             leading=words(outputs)[stage['Count']-1]
-            result=PRODUCT['review'](selected,dest,cases=[(18,dim)],shapes=(0,),ranks=size,host_count=len({r['host']for r in selected if r.get('kind')=='host'}),pointwise_words=lambda n,capacity:min(n//size,capacity,17),geometry=lambda s,d,shape:(stage['Sources'][0]['Count'],stage['Sources'][1]['Count'],leading))
+            result=PRODUCT['review'](selected,dest,cases=[(s,dim)],shapes=(0,),ranks=size,host_count=len({r['host']for r in selected if r.get('kind')=='host'}),pointwise_words=lambda n,capacity:min(n//size,capacity,17),geometry=lambda s,d,shape:(stage['Sources'][0]['Count'],stage['Sources'][1]['Count'],leading))
             FOUR['FIELD']['RESIDENT']['resident_claims'](selected,result,ranks=size)
             assert all(r['owned_device_bytes']<=64<<20 and r['local_taylor']is True for r in result['measurements'])
             source_count=review_operands(selected,stage,src)
-            actual=b''.join((dest/f'rank-{r}-s18-d{dim}-shape-0-output.bin').read_bytes()for r in range(size));assert actual==outputs
-            coeff=words(actual);assert coeff[0]==1 and coeff[stage['Count']-1]!=0 and not any(coeff[stage['Count']:])and all(v<1<<18 for v in coeff)
+            actual=b''.join((dest/f'rank-{r}-s{s}-d{dim}-shape-0-output.bin').read_bytes()for r in range(size));assert actual==outputs
+            coeff=words(actual);assert coeff[0]==1 and coeff[stage['Count']-1]!=0 and not any(coeff[stage['Count']:])and all(v<1<<s for v in coeff)
             sources[(first,size)]=actual;all_measurements.extend(result['measurements']);case_results.append(dict(stage=stage,operand_proofs=source_count,**result))
         final=expected_stages[-1]
         actual=b''.join((directory/f'{label}-rank-{rank}-final.bin').read_bytes()for rank in range(4));ref=b''.join((directory/f'{label}-rank-{rank}-reference.bin').read_bytes()for rank in range(4))
@@ -91,7 +90,7 @@ def review(rows,directory,small=False):
         closed=[r for r in rows if r.get('kind')=='root-group-closed'and r['case']==label];assert len(closed)==8
         for rank in range(4):
             assert sorted(r['level']for r in closed if r['rank']==rank)==[1,2]
-            witness=[r for r in rows if r.get('kind')=='root-reference'and r.get('case')==label and r['rank']==rank];assert len(witness)==1 and witness[0]['matches']is True and witness[0]['witnesses']==3 and witness[0]['wide_indices']is True
+            witness=[r for r in rows if r.get('kind')=='root-reference'and r.get('case')==label and r['rank']==rank];assert len(witness)==1 and witness[0]['matches']is True and witness[0]['witnesses']==3 and witness[0]['wide_indices']is(s>=17)
             final_rows=[r for r in rows if r.get('kind')=='root-final'and r['case']==label and r['rank']==rank];assert len(final_rows)==1 and final_rows[0]['matches']is True and final_rows[0]['domain']==final['Domain']and final_rows[0]['count']==count+1 and final_rows[0]['seconds']>0
         results[label]=case_results
     assert sum(r.get('kind')=='root-stage'for r in rows)==8*len(cases)

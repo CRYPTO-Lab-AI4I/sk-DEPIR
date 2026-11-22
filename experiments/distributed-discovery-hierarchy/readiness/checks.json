@@ -1,0 +1,35 @@
+{
+  "utc": "2026-11-22T15:16:14.320542+00:00",
+  "status": "passed-local;integrated GPU results pending",
+  "parent_revision": "5268f7b",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_discovery_gpu_test.go": "5be9a19fcbef746f92464dec694765efd7a0e3475cb22063878ffce1fcf949d5",
+    "encoding/liftrs-shared/root_hierarchy_gpu_test.go": "018635432ee75a633e76f7001dfcaec691c6c363c971d9d637a2d85ef9dec7ae",
+    "experiments/distributed-discovery-pilot/run.py": "c7fdd7012a914551efdfcf2799959c5ace1acda96d897a92e3c1ad55285a622c",
+    "experiments/distributed-root-hierarchy/run.py": "8820ade3b53089c974f138aa5dbee5b86c01c83f533e32dd41f5c6a39d295ee0",
+    "experiments/distributed-gpu-product/run.py": "e4b58c4496d9ab2d42442388e4b6beea35855f8a1ccba9d646f397d3f70bdfc8",
+    "experiments/distributed-gpu-product/test_review.py": "523732219030900c49c5f98769a721f77cdfa8fe1af36b148029713792ed1d7f",
+    "experiments/distributed-discovery-hierarchy/analyze.py": "9b65824534011d1db0ca1734ffa2465ce57f63e3a84ef519073f5a5f6663f6bc",
+    "experiments/distributed-discovery-hierarchy/run.py": "9278eed7c37aca01be7f861f0d976a7bcc3837d30f92118415be3b6b85ce6f12",
+    "experiments/distributed-discovery-hierarchy/test_review.py": "4b9ec1214fa93b171ffca6802c70de98dafab94d1b70512582328391650a7077",
+    "experiments/distributed-discovery-hierarchy/run.sbatch": "171adb89a555b6ead9783b1df6bafced7d6c8caae68118f5d574bca7573d9da9"
+  },
+  "checks": {
+    "build.log": "# runtime/cgo\n[lnode02:00128] opal_ifinit: socket() failed with errno=1\n# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp\n[lnode02:00497] opal_ifinit: socket() failed with errno=1\n",
+    "discovery-review.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.001s\n\nOK\n",
+    "hierarchy-review.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.051s\n\nOK\n",
+    "native.log": "=== RUN   TestPartitionedDiscoveryShapes\n    distributed_discovery_gpu_test.go:429: s=4 N=256 K=97 samples=1 owned roots=62/35\n    distributed_discovery_gpu_test.go:429: s=6 N=4096 K=1910 samples=1 owned roots=1159/751\n--- PASS: TestPartitionedDiscoveryShapes (0.06s)\n=== RUN   TestRankOperandRouting\n--- PASS: TestRankOperandRouting (0.00s)\n=== RUN   TestRankOperandAdmissionAndFailure\n--- PASS: TestRankOperandAdmissionAndFailure (0.00s)\n=== RUN   TestRankOperandRejectsNoncanonicalReceive\n--- PASS: TestRankOperandRejectsNoncanonicalReceive (0.00s)\n=== RUN   TestRootHierarchyShapes\n    root_hierarchy_gpu_test.go:262: roots=16 rank=0 leaf=5 child domain=16 final domain=32\n    root_hierarchy_gpu_test.go:262: roots=16 rank=1 leaf=5 child domain=16 final domain=32\n    root_hierarchy_gpu_test.go:262: roots=16 rank=2 leaf=5 child domain=16 final domain=32\n    root_hierarchy_gpu_test.go:262: roots=16 rank=3 leaf=5 child domain=16 final domain=32\n    root_hierarchy_gpu_test.go:262: roots=4092 rank=0 leaf=1025 child domain=4096 final domain=4096\n    root_hierarchy_gpu_test.go:262: roots=4092 rank=1 leaf=1025 child domain=4096 final domain=4096\n    root_hierarchy_gpu_test.go:262: roots=4092 rank=2 leaf=1023 child domain=2048 final domain=4096\n    root_hierarchy_gpu_test.go:262: roots=4092 rank=3 leaf=1023 child domain=2048 final domain=4096\n--- PASS: TestRootHierarchyShapes (0.04s)\n=== RUN   TestGenuineHierarchyShapes\n    root_hierarchy_gpu_test.go:351: s=4 rank=0 K=97 samples=1 leaves=[37 25 27 12] child=64 final=128\n    root_hierarchy_gpu_test.go:351: s=4 rank=1 K=97 samples=1 leaves=[37 25 27 12] child=64 final=128\n    root_hierarchy_gpu_test.go:351: s=4 rank=2 K=97 samples=1 leaves=[37 25 27 12] child=64 final=128\n    root_hierarchy_gpu_test.go:351: s=4 rank=3 K=97 samples=1 leaves=[37 25 27 12] child=64 final=128\n    root_hierarchy_gpu_test.go:351: s=6 rank=0 K=1910 samples=1 leaves=[681 462 480 291] child=2048 final=2048\n    root_hierarchy_gpu_test.go:351: s=6 rank=1 K=1910 samples=1 leaves=[681 462 480 291] child=2048 final=2048\n    root_hierarchy_gpu_test.go:351: s=6 rank=2 K=1910 samples=1 leaves=[681 462 480 291] child=1024 final=2048\n    root_hierarchy_gpu_test.go:351: s=6 rank=3 K=1910 samples=1 leaves=[681 462 480 291] child=1024 final=2048\n--- PASS: TestGenuineHierarchyShapes (0.05s)\n=== RUN   TestShardedRootTree\n--- PASS: TestShardedRootTree (0.00s)\n=== RUN   TestShardedRootAdmission\n--- PASS: TestShardedRootAdmission (0.00s)\nPASS\n",
+    "product-review.log": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.055s\n\nOK\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.075s\n",
+    "review.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+  },
+  "native_command": ".cache/liftrs/distributed-discovery-hierarchy-readiness.test -test.run ^TestGenuineHierarchyShapes$|^TestPartitionedDiscoveryShapes$|^TestRootHierarchyShapes$|^TestShardedRoot|^TestRankOperand -test.v -test.timeout=20s",
+  "build_command": "module load gcc/14.2.0 openmpi/gcc/64/4.1.8; CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-discovery-hierarchy-readiness.test ./encoding/liftrs-shared",
+  "limits": "same2nodes/2H200/4CPU/8GiBhost;4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720s/15min;0CUDApinned",
+  "limitations": [
+    "No local MPI/GPU initialization;four-worker genuine discovery/hierarchy needs allocated validation.",
+    "Small native support/prepared references are replicated diagnostics,not fullsize ownership.",
+    "Newton/identity/spectrum/restart/publication beyondtwo workers remain to integrate.",
+    "No CUDA arithmetic changes;prior clean memchecks retained;no repeated sanitizer-only arm."
+  ]
+}

@@ -11,23 +11,23 @@ VECTORS=PILOT['VECTORS'];FFT=PILOT['FFT']
 CANONICAL={4:'69ebae873990075af7c9c558b5e9d76b2a4d237b89b4bb824205eb2de049c712',6:'a384ea4123bb5bcbfaa9cde64afbe6e6c9091373e6c22129ceda8abdec5709c4'}
 
 
-def summary(rows,s):
+def summary(rows,s,ranks=2):
     results=[r for r in rows if r.get('kind')=='discovery-result'and r['s']==s]
-    assert len(results)==2 and {r['rank']for r in results}=={0,1}
+    assert len(results)==ranks and {r['rank']for r in results}==set(range(ranks))
     results.sort(key=lambda r:r['rank']);n=1<<(2*s);k=results[0]['k'];samples=results[0]['samples']
-    assert 0<samples<=2+(128+s-1)//s and results[1]['samples']==samples
+    assert 0<samples<=2+(128+s-1)//s and all(r['samples']==samples for r in results)
     assert sum(r['local_good']for r in results)==sum(r['raw_count']for r in results)==sum(r['root_count']for r in results)==k
-    for r in results:assert r['k']==k and r['grid_words']==n//2 and r['first']==r['rank']*n//2 and 0<r['owned_device_bytes']<=64<<20 and r['peak_rss_bytes']<1<<30
+    for r in results:assert r['k']==k and r['grid_words']==n//ranks and r['first']==r['rank']*n//ranks and 0<r['owned_device_bytes']<=64<<20 and r['peak_rss_bytes']<1<<30
     reference=[r for r in rows if r.get('kind')=='discovery-reference'and r['s']==s]
     assert len(reference)==1 and reference[0]['rank']==0 and reference[0]['matches']is True and reference[0]['samples']==samples
     assert len(results[0]['entropy_sha256'])==64 and results[0]['entropy_sha256']==reference[0]['entropy_sha256']==reference[0]['reference_entropy_sha256']
-    count_rows=[r for r in rows if r.get('kind')=='discovery-sample'and r['s']==s];assert len(count_rows)==2*samples
-    previous=[0,0]
+    count_rows=[r for r in rows if r.get('kind')=='discovery-sample'and r['s']==s];assert len(count_rows)==ranks*samples
+    previous=[0]*ranks
     for sample in range(1,samples+1):
-        pair=sorted([r for r in count_rows if r['sample']==sample],key=lambda r:r['rank']);assert len(pair)==2 and [r['rank']for r in pair]==[0,1]
+        pair=sorted([r for r in count_rows if r['sample']==sample],key=lambda r:r['rank']);assert len(pair)==ranks and [r['rank']for r in pair]==list(range(ranks))
         total=sum(r['local_count']for r in pair)
         for rank,r in enumerate(pair):
-            assert r['k']==k and r['global_count']==total and previous[rank]<=r['local_count']<=n//2
+            assert r['k']==k and r['global_count']==total and previous[rank]<=r['local_count']<=n//ranks
             assert r['good_counts']==[q['local_good']for q in results]and r['operation_start']==1+(sample-1)*(4+2*s)
             previous[rank]=r['local_count']
         assert total<k if sample<samples else total==k
@@ -39,38 +39,49 @@ def review(rows,directory,small=False,streamed=False):
     core=[r for r in rows if r.get('discovery')is not True]
     result=PILOT['review'](core,directory,small,streamed=streamed)
     for r in result['measurements']:assert r['discovery_layout']=='distributed'
-    cases=[4]if small else[4,6];transpose={};specs=[];expected={};payload={};summaries={}
+    cases=[4]if small else[4,6]
+    for s in cases:assert result['artifacts'][f's{s}']['code_sha256']==CANONICAL[s]
+    result.update(review_discovery(distributed,directory,cases))
+    return result
+
+
+def review_discovery(distributed,directory,cases,ranks=2):
+    """Review the shared discovery component independently of later pipeline stages."""
+    transpose={};specs=[];expected={};payload={};summaries={}
     def wire(label,kind,sequence,n,offset,count,source,target,width,data=None):
         for rank,direction in ((source,'send'),(target,'receive')):
             key=(label,rank,direction,kind,sequence,n,offset,count,source,target,width);expected[key]=True
             if data is not None:payload[key]=hashlib.sha256(data).digest()
     for s in cases:
-        info,k,samples=summary(distributed,s);summaries[f's{s}']=info;n=1<<(2*s);q=1<<s;label=f's{s}';capacity=min(n,3*q)
-        assert result['artifacts'][label]['code_sha256']==CANONICAL[s]
+        info,k,samples=summary(distributed,s,ranks);summaries[f's{s}']=info;n=1<<(2*s);q=1<<s;label=f's{s}';capacity=min(n,3*q)
         indices=[]
-        for rank in (0,1):
+        for rank in range(ranks):
             _,part=PILOT['read_words'](directory/f'{label}-rank-{rank}-support.bin',8)
             assert len(part)==info[rank]['root_count']
-            assert all(min(i,i*q%(n-1))%2==rank for i in part)
+            assert all(min(i,i*q%(n-1))%ranks==rank for i in part)
             indices.extend(part)
         indices.sort()
         for sample in range(1,samples+1):
             start=1+(sample-1)*(4+2*s)
             for suffix,operations in (('base',(start,start+1)),('inverse',(start+2,start+3))):
                 case=f'{label}/discovery-{sample}/{suffix}'
-                for rank in (0,1):
+                for rank in range(ranks):
                     for op in operations:
-                        for direction in ('send','receive'):transpose[(rank,case,0,op,0,direction)]=n//4
+                        for key,words in VECTORS['transpose_packets'](rank,case,0,op,n,4096,ranks):transpose[key]=words
             specs.append((f'{label}/discovery-{sample}/inverse',0,n,q,start+2,True,capacity))
-            for offset in range(0,info[1]['local_good'],4096):wire(label,1,sample,n,offset,min(4096,info[1]['local_good']-offset),0,1,4)
-        for source in (0,1):
-            outgoing=[i for i in indices if source*n//2<=i<(source+1)*n//2 and min(i,i*q%(n-1))%2!=source]
-            for offset in range(0,len(outgoing),4096):
-                part=outgoing[offset:offset+4096];wire(label,2,0,n,offset,len(part),source,1-source,8,b''.join(i.to_bytes(8,'little')for i in part))
-        archive=[i for i in indices if i>=n//2]
-        for offset in range(0,len(archive),4096):
-            part=archive[offset:offset+4096];wire(label,3,0,n,offset,len(part),1,0,8,b''.join(i.to_bytes(8,'little')for i in part))
-    VECTORS['review_transpose_routes'](distributed,transpose);FFT['review_taylor_routes'](distributed,specs)
+            for owner in range(1,ranks):
+                for offset in range(0,info[owner]['local_good'],4096):wire(label,1,sample,n,offset,min(4096,info[owner]['local_good']-offset),0,owner,4)
+        for source in range(ranks):
+            for target in range(ranks):
+                if source==target:continue
+                outgoing=[i for i in indices if source*n//ranks<=i<(source+1)*n//ranks and min(i,i*q%(n-1))%ranks==target]
+                for offset in range(0,len(outgoing),4096):
+                    part=outgoing[offset:offset+4096];wire(label,2,0,n,offset,len(part),source,target,8,b''.join(i.to_bytes(8,'little')for i in part))
+        for source in range(1,ranks):
+            archive=[i for i in indices if source*n//ranks<=i<(source+1)*n//ranks]
+            for offset in range(0,len(archive),4096):
+                part=archive[offset:offset+4096];wire(label,3,0,n,offset,len(part),source,0,8,b''.join(i.to_bytes(8,'little')for i in part))
+    VECTORS['review_transpose_routes'](distributed,transpose,ranks);FFT['review_taylor_routes'](distributed,specs,ranks)
     actual={}
     for r in distributed:
         if r.get('kind')!='discovery-wire':continue
@@ -80,10 +91,9 @@ def review(rows,directory,small=False,streamed=False):
         if key in payload:assert own[:32]==payload[key]
     assert set(actual)==set(expected)
     for key,r in actual.items():
-        peer=(key[0],1-key[1],'receive'if key[2]=='send'else'send',*key[3:]);other=actual[peer]
+        peer=(key[0],key[9]if key[2]=='send'else key[8],'receive'if key[2]=='send'else'send',*key[3:]);other=actual[peer]
         assert r['own_proof']==other['remote_proof']and r['remote_proof']==other['own_proof']
-    result.update(discovery=summaries,discovery_wire_events=len(actual))
-    return result
+    return dict(discovery=summaries,discovery_wire_events=len(actual))
 
 
 def suite(c):
