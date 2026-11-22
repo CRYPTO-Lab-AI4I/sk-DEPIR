@@ -1,0 +1,25 @@
+=== RUN   TestDiscoverySamplingAndOrbitOwnership
+--- PASS: TestDiscoverySamplingAndOrbitOwnership (0.00s)
+=== RUN   TestDiscoveryUnionCanonicalTiles
+--- PASS: TestDiscoveryUnionCanonicalTiles (0.01s)
+=== RUN   TestDiscoveryUnionRejectsBeforeMutation
+--- PASS: TestDiscoveryUnionRejectsBeforeMutation (0.00s)
+=== RUN   TestDiscoveryResultMode
+--- PASS: TestDiscoveryResultMode (0.00s)
+=== RUN   TestRankStreamCanonicalPublication
+--- PASS: TestRankStreamCanonicalPublication (0.01s)
+=== RUN   TestRankStreamPublicationErrors
+--- PASS: TestRankStreamPublicationErrors (0.00s)
+=== RUN   TestRankStreamReadCanonicalPublication
+--- PASS: TestRankStreamReadCanonicalPublication (0.00s)
+=== RUN   TestRankStreamReadErrors
+--- PASS: TestRankStreamReadErrors (0.00s)
+=== RUN   TestRankPrefixResumeAdmission
+--- PASS: TestRankPrefixResumeAdmission (0.01s)
+=== RUN   TestRankPrefixCompactRoundTrip
+--- PASS: TestRankPrefixCompactRoundTrip (0.00s)
+=== RUN   TestRankPrefixCompactBoundsAndCanonicalValues
+--- PASS: TestRankPrefixCompactBoundsAndCanonicalValues (0.00s)
+=== RUN   TestRankPrefixWideExtents
+--- PASS: TestRankPrefixWideExtents (0.00s)
+PASS

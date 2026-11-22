@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-bounded GPU spectrum publication (submitted **81365**) after the passed s8/curve5 measurement **81286**,then scalable fullsize ownership/working-set admission and
+bounded discovery-result consumption after GPU spectrum publication passed **81365**,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -32,7 +32,7 @@ These results are separate from the full s17 runs and fulls18 projections below.
 | 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>**Integrated genuine s4/s6 pilot passed78898**: repeated sharded root/Newton/identity/spectrum and canonical artifacts.<br>**Canonical s18 bounded FFT/products passed78917**, with clean small CUDA memchecks. **Four-worker canonical s18 FFT/products passed79239 on two GPUs**,with clean small sanitizers. [Hierarchical sharded root execution passed79376](../experiments/distributed-root-hierarchy/report.md), including unequal child domains and clean small CUDA checks. Fullsize scaling remains pending. |
 | 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing passed78909 for genuine s4/s6. Four-worker genuine discovery-to-hierarchy passed79541. Coordinator entropy source remains; streamed support/retained-reference cold and fresh-process resume passed79213; full coordinator support/oracle arrays removed in the explicit pilot mode. No fullsize result. |
 | 3. Generator construction and verification | Sharded Newton/identity/spectrum integration passed78898 for genuine s4/s6. Four-worker complete genuine cold/restart passed79983;fullsize integration remains. |
-| 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898; partitioned discovery passed78909. **Fresh-process prefix8 restart and bounded streamed publication passed78915** for genuine s4/s6, with identical canonical code/generator output. Four-worker complete cold/restart passed79983. **Optional compact prefix checkpoint cold/restart passed81190**, with exact stored lengths/hashes and identical final artifacts. Fullsize/node-failure recovery remains. |
+| 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898; partitioned discovery passed78909. **Fresh-process prefix8 restart and bounded streamed publication passed78915** for genuine s4/s6, with identical canonical code/generator output. Four-worker complete cold/restart passed79983. **Optional compact prefix checkpoint cold/restart passed81190**, with exact stored lengths/hashes and identical final artifacts. **Optional GPU-backed spectrum publication passed81365**,including matched resident output and bounded wide/high-bit checks. Fullsize/node-failure recovery remains. |
 | 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. [Canonical s18 bounded FFT/products passed78917](../experiments/s18-field-admission/report.md). Complete four-worker cold/restart passed79983. **Larger genuine s8/curve5 cold/restart passed81286**,two nodes/two H200s;11.147s cold/8.003s restart. Fulls18 remains unrun. |
 
 [FFT evidence](../experiments/distributed-gpu-fft/report.md): controller runtime
@@ -1111,11 +1111,11 @@ resource admission.
 [Prepared implementation and resource plan](../experiments/distributed-spectrum-publication/report.md)
 replace the actual host spectrum shard with4096-word source tiles;GPU workspace
 and output/transfer bytes are unchanged in the genuine path. GPU validation is
-submitted as **81365**;resident remains default and fullsize latency is unknown.
+passed **81365**;resident remains default and fullsize latency is unknown.
 
 | s | Host spectrum allocation avoided (aggregate) | Per worker with16 workers | Status/feasibility |
 |---|---|---|---|
-| 16 | 16 GiB | 1 GiB | Projection for new source mode;not yet measured |
+| 16 | 16 GiB | 1 GiB | Projection for s16;bounded s8/field18 source passed81365 |
 | 17 | 128 GiB | 8 GiB | Projection;existing full resident s17 results remain authoritative |
 | 18 | 512 GiB | 32 GiB | Projection;full workflow feasibility/admission remain unresolved |
 | 19 | 2 TiB | 128 GiB | Exploratory projection;full workflow unrun |
@@ -1127,10 +1127,50 @@ checkpoint/artifact paths still require review. Wide validation retains small
 native oracle arrays explicitly and separately tests high-bit GPU reads.
 
 
-GPU spectrum-source validation **81365** is submitted,source-01,implementation
+GPU spectrum-source validation **81365** passed,source-01,implementation
 f6353af/matched baseline98fce69/readinessf1dcb47. Source genuine s8 cold/restart,
 matched resident-default cold,and bounded canonical field18 GPU source/high-bit
 checks. Same **two HPC nodes/two H200s/four CPU cores/8 GiB requested host RAM**,
-existing guards/caps;estimate3–6min excluding queue. Results pending.
+existing guards/caps. Measured168.928s controller;see measured outcome below.
 [Exact scope,source/native preflight and trade-offs](../experiments/distributed-spectrum-publication/report.md).
 No fulls18 run or new topology admission;resident default retained.
+
+
+### Spectrum source/resident measurements81365
+
+| Genuine s8/curve5 mode | Status and runtime | Memory evidence | HPC resources |
+|---|---|---|---|
+| GPU source cold | Passed;10.713813 seconds | RSS379.027 MiB/worker;actual spectrum0resident words plus4096-word source tile | Two nodes/two H200s/four workers/four CPU cores/8 GiB requested host RAM |
+| GPU source fresh-prefix8 restart | Passed;7.749624 seconds | RSS379.039 MiB/worker;same bounded source allocation | Same allocation |
+| GPU resident cold | Passed;10.346982 seconds | RSS379.180 MiB/worker;16,384resident actual spectrum words | Same allocation |
+
+All canonical outputs match;each source downloads exactly16,384words/worker once.
+Owned GPU0.244MiB/worker in genuine arms;context/driver additional. Source cold was
+3.545%slower in this one fixed-order sample;not a fullsize runtime projection.
+Bounded field18 source/high-bit checks also pass (5.793278s,RSS380.199MiB/worker,
+owned GPU3.125MiB/worker). Total controller2min48.928s;cache37.413MiB.
+[Exact evidence/limits](../experiments/distributed-spectrum-publication/report.md#verified-result81365).
+Resident remains default;source remains explicit. Fulls18 is unrun. Next target
+the full host discovery-result copy;phase-specific spectrum/discovery allocation
+savings must not be summed as a simultaneous total-RSS saving.
+
+
+### Optional discovery-result tiles: phase-specific allocation projection
+
+[Prepared shared implementation/resource plan](../experiments/distributed-discovery-results/report.md)
+consumes each GPU discovery result once into the existing local union bitmap.
+Resident remains default;GPU validation and fullsize latency are pending.
+
+| s | Avoided discovery-result host allocation (aggregate) | Per worker with16 workers | Full-workflow status |
+|---|---|---|---|
+| 16 | 16 GiB per sample | 1 GiB | Allocation projection for new optional mode |
+| 17 | 128 GiB per sample | 8 GiB | Projection;existing full resident results remain authoritative |
+| 18 | 512 GiB per sample | 32 GiB | Projection;full workflow ownership/admission unresolved |
+| 19 | 2 TiB per sample | 128 GiB | Exploratory,full workflow unrun |
+| 20 | 8 TiB per sample | 512 GiB | Exploratory,full workflow unrun |
+
+A≤4096-word source tile replaces that array;GPU workspace,base grid,monomial list,
+bitmap,support and root arrays remain. These savings occur in a different phase
+from spectrum output and must not be summed as total peak-RSS evidence. Sixteen
+workers are illustrative,not a supported/admitted topology. Same two-node/two-H200
+validation caps;fulls18 remains unrun.

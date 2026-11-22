@@ -1,6 +1,6 @@
 # GPU-backed spectrum publication
 
-Status: **submitted81365**,source-01;GPU results pending. Implementation **f6353af** plus matched baseline **98fce69**;parent4b29540.
+Status: **passed81365**,source-01. Implementation **f6353af** plus matched baseline **98fce69**;parent4b29540.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/). Results will be
 `runs/source-01/`; immutable source, native references, binaries and reusable
@@ -163,3 +163,42 @@ Submitted **81365** after readinessf1dcb47. [Receipt](submission.json),
 fresh-process source restart,matched resident cold,and bounded field18 GPU source/
 high-bit regression. Same two-node/two-H200 caps;estimate3–6min excluding queue.
 Local completion notification registered outside Git;no model polling.
+
+
+## Verified result:81365
+
+Independent reconciliation passed **831 source/94 evidence/496 retained cache
+files**,producing revisionf1dcb47. Source cold/fresh restart,matched resident cold
+and bounded field18 source/high-bit arms all passed exact native roots/prefixes/
+identity/spectrum/canonical artifacts,packet proofs and source allocation/read counts.
+
+| Arm | Profiled wall time | Peak RSS per worker | Owned GPU per worker |
+|---|---|---|---|
+| s8 source cold | 10.713813 seconds | 379.027 MiB | 0.244 MiB |
+| s8 source fresh-prefix8 restart | 7.749624 seconds | 379.039 MiB | 0.244 MiB |
+| s8 resident cold | 10.346982 seconds | 379.180 MiB | 0.244 MiB |
+| Bounded field18 source/high-bit tail | 5.793278 seconds | 380.199 MiB | 3.125 MiB |
+
+HPC gnode16/17,two H200s,four workers/four CPU cores,8 GiB requested host RAM;
+existing caps unchanged. CUDA context/driver memory is additional to owned bytes.
+Controller wall time **2 min48.928 s**;complete retained cache **37.413 MiB**.
+Source mode uses **0 resident actual spectrum words**,one≤4096-word source tile,
+and exactly16,384downloaded words/worker in each genuine arm. Resident uses
+16,384host spectrum words. The source tile adds a bounded source allocation;
+the existing coordinator receive tile and serialization buffers remain. Small
+RSS differences do not measure the fullsize array saving. Wide actual spectra
+and deliberately high-bit GPU source data match exact native/original bytes.
+
+In this fixed-order,single-allocation sample,source cold took **0.366831 seconds
+more (3.545%)** than resident. This is not a statistically established penalty or
+a fullsize estimate. Both used the same compact checkpoint/root/code parameters;
+all output and checkpoint bytes match. Cold compact checkpoint payload524284bytes
+versus4456448padded;fresh restart524260versus3932160padded. Resident default stays
+unchanged;stream mode remains explicit when memory requires it or deliberately
+selected for measurement.
+
+[Analysis](runs/source-01/analysis.json),[raw results](runs/source-01/results.json),
+[scheduler log](slurm-81365.log). Next remove the full host discovery-result copy
+per sample with optional tile consumption into the existing local support union.
+This targets another phase's8N/r allocation;it must not be added to spectrum
+savings as simultaneous peak-RSS evidence. Fulls18 remains unrun/unadmitted.

@@ -120,6 +120,12 @@ func (e *rankGPUExecutor[Word]) Spectrum(values []uint32, count uint64) ([]Word,
 	if err := e.PrepareSpectrum(values, count); err != nil {
 		return nil, err
 	}
+	return e.residentResult()
+}
+
+// residentResult keeps direct GPU reads into the final owned host allocation.
+// Spectrum and discovery use the same width-selected transfer boundary.
+func (e *rankGPUExecutor[Word]) residentResult() ([]Word, error) {
 	p := e.Plan
 	out := make([]Word, p.InputWords)
 	for first := uint64(0); first < p.InputWords; {
@@ -139,66 +145,98 @@ func (e *rankGPUExecutor[Word]) degrees(level int) ([]uint64, error) {
 	return e.GPU.TaylorDegrees(level)
 }
 
-// Discovery transforms a base-field coefficient shard through the tensor Fq
-// grid and extension interpolation, retaining all intermediate grids on GPUs.
-// observe switches route identifiers between tensor and interpolation stages.
-func (e *rankGPUExecutor[Word]) Discovery(values []uint32, observe func(bool, uint64)) ([]Word, error) {
+// PrepareDiscovery runs the same tensor Fq grid and extension interpolation
+// on GPUs,retaining operation IDs and leaving the result in slot0. observe
+// switches route identifiers between tensor and inverse stages.
+func (e *rankGPUExecutor[Word]) PrepareDiscovery(values []uint32, observe func(bool, uint64)) error {
 	p := e.Plan
 	if p.Rows != p.Columns || p.Rows != e.Limit || p.Operation > ^uint64(0)-2 {
-		return nil, fmt.Errorf("discovery full base grid")
+		return fmt.Errorf("discovery full base grid")
 	}
 	back, err := newRankTransposePlan(p.Operation+1, p.Columns, p.Rows, p.Rank, p.Ranks, max(p.InputWords, p.OutputWords), p.TileWords)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	inverse := p
 	inverse.Operation += 2
 	_, _, err = rankAdditivePlans(inverse, e.Capacity, true)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	// Inverse schedules consume the same complete operation span as forwards.
 	plans, err := rankProductPlans(inverse, e.Capacity)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	e.Plan.Operation = inverse.Operation + (plans[1].Operation - plans[0].Operation)
 	if observe != nil {
 		observe(false, p.Operation)
 	}
 	if err = e.GPU.Reset(0, p.Rows, p.Columns, false); err != nil {
-		return nil, err
+		return err
 	}
 	if err = e.load(0, values, p.Rows*p.Columns); err != nil {
-		return nil, err
+		return err
 	}
 	if err = transposeResident[Word](p, e.GPU, 0, 2, true, e.Transpose, e.Notice); err != nil {
-		return nil, err
+		return err
 	}
 	if err = e.GPU.BaseVectors(2); err != nil {
-		return nil, err
+		return err
 	}
 	if err = transposeResident[Word](back, e.GPU, 2, 0, true, e.Transpose, e.Notice); err != nil {
-		return nil, err
+		return err
 	}
 	if err = e.GPU.BaseVectors(0); err != nil {
-		return nil, err
+		return err
 	}
 	if observe != nil {
 		observe(true, inverse.Operation)
 	}
 	if err = rankResidentAdditiveTransform[Word](inverse, e.GPU, 0, 2, e.Capacity, true, e.Transpose, e.Windows, e.degrees, e.Notice, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+// Discovery preserves the resident host result and original direct read targets.
+func (e *rankGPUExecutor[Word]) Discovery(values []uint32, observe func(bool, uint64)) ([]Word, error) {
+	if err := e.PrepareDiscovery(values, observe); err != nil {
 		return nil, err
 	}
-	out := make([]Word, p.InputWords)
+	return e.residentResult()
+}
+
+// DiscoveryTiles reads each local result word once into one bounded tile.
+// consume must process it before return and must not reset the GPU workspace.
+// Callback/transfer errors invalidate the collective session just like Discovery.
+func (e *rankGPUExecutor[Word]) DiscoveryTiles(values []uint32, observe func(bool, uint64), consume func(uint64, []Word) error) error {
+	if consume == nil {
+		return fmt.Errorf("discovery tile consumer required")
+	}
+	if err := e.PrepareDiscovery(values, observe); err != nil {
+		return err
+	}
+	p := e.Plan
+	tile := make([]Word, min(p.TileWords, p.InputWords))
+	if e.Notice != nil {
+		e.Notice("discovery-result-consume", 0, p.InputWords)
+	}
 	for first := uint64(0); first < p.InputWords; {
-		take := min(p.TileWords, p.InputWords-first)
-		if err = storageTransfer(e.GPU, 0, first, out[first:first+take], false); err != nil {
-			return nil, err
+		take := min(uint64(len(tile)), p.InputWords-first)
+		values := tile[:take]
+		if err := storageTransfer(e.GPU, 0, first, values, false); err != nil {
+			return err
+		}
+		if err := consume(first, values); err != nil {
+			return err
 		}
 		first += take
+		if e.Notice != nil {
+			e.Notice("discovery-result-consume", first, p.InputWords)
+		}
 	}
-	return out, nil
+	return nil
 }
 
 // MergeRoots consumes only this rank's child shard and a validated stage plan.

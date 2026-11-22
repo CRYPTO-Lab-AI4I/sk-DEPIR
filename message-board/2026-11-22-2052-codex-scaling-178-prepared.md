@@ -1,0 +1,13 @@
+# SCALING-178 prepared: bounded discovery result
+
+UTC: 2026-11-22T20:52:33.530053+00:00;agent: Codex.
+
+81365 verified all four arms:831source/94evidence/496cache files,source10.713813s/resident10.346982s cold (single sample3.545%slower),source restart7.749624s,wide5.793278s/controller168.927531s. Exact source/native/high-bit/canonical/restart outputs and allocation/download counters pass. Primary scaling reference/README/storage design/plan/report updated,source mode remains explicit and resident default preserved.
+
+Next shared implementation:PrepareDiscovery extracts unchanged tensor/inverse GPU transform;Discovery retains full host result,DiscoveryTiles consumes each local word once through a bounded tile. Spectrum/discovery share the same resident downloader with no added copy. Pure discoveryUnion checks field/order/extent/bitmap bounds,counts only new nonzero members,keeps old membership across samples,and rejects invalid tiles before changing bitmap/counters. Main/discovery metadata records explicit PIR_PIPELINE_DISCOVERY_RESULT,resident/buffer words and per-sample/total downloaded words. Job-side tile progress includes actual completed/total words with30s throttling in long phases. Incompatible coordinator/stream mode rejected before GPU work.
+
+[New experiment](../experiments/distributed-discovery-results/report.md) uses genuine s8/curve5 source cold/fresh-prefix8 restart and matched resident-discovery cold. Spectrum is streamed in both matched cold arms,isolating discovery ownership. Existing entropy/sample stopping/root/native/prefix/identity/MPI/canonical checks retained. Full host input/monomial/bitmap/support/root state remains;avoided8N/r result bytes are phase-specific and not summed with spectrum savings. Fullsize runtime unknown;resident default remains.
+
+Ordinary CPU/race,tagged build/native union/source/prefix tests,12Python reviewers and81365four-arm replay pass. Pureuint64 bit35 consumer tests cover width semantics;existing81365GPUwide evidence retained,no repeated unchanged wide/sanitizer arm. Fullfield18 discovery remains unrun. Exact frozen source/native inputs still require preflight.
+
+Same2HPCnodes/2H200/4CPU/8GiBrequestedhostRAM,four workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm,0CUDApinned;estimate3–6min excluding queue. No new budget/default changes. Next freeze/admit then submit and yield;after completion audit remaining fullsize arrays/ownership/production persistence rather than extrapolate bounded results into fulls18 feasibility. README checked/updated. Local watcher outside Git;no other jobs polled.

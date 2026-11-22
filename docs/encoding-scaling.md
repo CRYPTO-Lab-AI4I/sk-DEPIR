@@ -3555,7 +3555,7 @@ are not statistical speedup evidence. Resource caps unchanged;projected extra
 approximately11s arm time plus profile review fits the recorded3–6min estimate.
 
 
-SCALING-177 submitted **81365**,source-01,after831-file/3,823,058-byte
+SCALING-177 **passed81365**,source-01,after831-file/3,823,058-byte
 frozen-source preflight,11reviewer suites and108014historical native-byte checks.
 379 code-file hashes match the compiled readiness binary;fresh snapshot build
 runs before GPU phases inside admitted allocation. [Receipt](../experiments/distributed-spectrum-publication/submission.json),
@@ -3566,3 +3566,28 @@ excluding queue. Local notification registered,no model polling. After completio
 verify all saved source/artifact/memory/download evidence and same-allocation
 latencies,update reference,then finish fullsize ownership/working-set and
 production discovery/persistence admission. Fulls18 remains unrun/unadmitted.
+
+
+## Bounded discovery-result consumption (SCALING-178)
+
+Spectrum source81365 passed all four arms,with matched identical resident output.
+One cold sample:10.713813s source versus10.346982s resident (3.545%slower),so keep
+resident default;fullsize latency remains unknown. Maintained reference records
+actual memory/source counters and bounded wide/high-bit validation.
+
+Next split the existing discovery GPU transform from full-host result ownership.
+An explicit optional tile consumer updates the same local union bitmap in original
+index order,reading every GPU result word exactly once per sample. Keep random
+bytes,global sample order,stopping criterion,root ownership,reference/identity/
+canonical checks and resident default. GPU workspace/output/storage bytes and
+transform counts remain unchanged;streaming result latency is unmeasured.
+Avoid8N/r host bytes during discovery (s18:512GiBaggregate/32GiBperworker with
+illustrative16workers),replacing that array with a bounded tile. Spectrum/discovery
+savings belong to different phases;do not sum them as peak-RSS evidence.
+
+Use shared pure union-consumer tests for bounds/range/exact order/duplicates and
+64-bit nonzero values,then genuine s8 cold/restart with a matched resident discovery
+arm using the same spectrum mode. No repeated unchanged wide arithmetic/sanitizer
+arm is needed;retain81365's validated64-bit GPU transfer/publication evidence.
+Check actual frozen inputs before any submission. Same two-node/two-H200 resource
+caps;fulls18 still requires full ownership/working-set/persistence admission.

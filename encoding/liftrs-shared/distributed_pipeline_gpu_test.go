@@ -140,6 +140,10 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	if (spectrumMode != "resident" && spectrumMode != "stream") || (spectrumMode == "stream" && publication != "stream") {
 		t.Fatal("spectrum output mode")
 	}
+	discoveryMode, discoveryErr := discoveryResultMode(os.Getenv("PIR_PIPELINE_DISCOVERY_RESULT"))
+	if discoveryErr != nil {
+		t.Fatal(discoveryErr)
+	}
 	var restoredRoot, restoredPrefix rankPrefixState
 	if resumeFrom != "" {
 		var e error
@@ -165,6 +169,9 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	}
 	if layout != "coordinator" && layout != "distributed" {
 		t.Fatal("discovery layout")
+	}
+	if discoveryMode == "stream" && layout != "distributed" {
+		t.Fatal("streamed discovery result requires distributed discovery")
 	}
 	referenceFrom := os.Getenv("PIR_PIPELINE_REFERENCE_FROM")
 	if w.Size > 2 && (layout != "distributed" || publication != "stream" || referenceFrom == "") {
@@ -715,7 +722,7 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	}
 	w.Barrier()
 	event("artifact-publication", "completed")
-	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "root_counts": leafCounts, "spectrum_downloaded_words": spectrumDownloaded, "spectrum_mode": spectrumMode, "spectrum_host_words": spectrumWords, "spectrum_resident_host_words": len(spectrum), "root_mode": rootMode, "checkpoint_layout": checkpointLayout, "discovery_layout": layout, "initial_prefix": initialPrefix, "discovery_performed": resumeFrom == "", "root_performed": resumeFrom == "", "publication": publication, "pid": os.Getpid(), "reference_mode": map[bool]string{true: "retained", false: "native"}[referenceFrom != ""], "support_streamed": referenceFrom != ""})
+	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "root_counts": leafCounts, "spectrum_downloaded_words": spectrumDownloaded, "spectrum_mode": spectrumMode, "spectrum_host_words": spectrumWords, "spectrum_resident_host_words": len(spectrum), "root_mode": rootMode, "checkpoint_layout": checkpointLayout, "discovery_result_mode": discoveryMode, "discovery_layout": layout, "initial_prefix": initialPrefix, "discovery_performed": resumeFrom == "", "root_performed": resumeFrom == "", "publication": publication, "pid": os.Getpid(), "reference_mode": map[bool]string{true: "retained", false: "native"}[referenceFrom != ""], "support_streamed": referenceFrom != ""})
 }
 
 // Explicit bounded native-reference export for the pilot's independent inputs.

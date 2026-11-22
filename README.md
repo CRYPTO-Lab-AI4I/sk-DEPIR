@@ -18,7 +18,8 @@ including partitioned discovery and hierarchical roots.
 [Compact checkpoint validation](experiments/distributed-prefix-checkpoints/report.md) passed, including fresh-process restart;
 the [larger genuine s8/curve5 cold/restart measurement](experiments/distributed-pipeline-scaling/report.md)
 passed **81286**; [bounded GPU spectrum publication](experiments/distributed-spectrum-publication/report.md)
-validation is submitted as **81365**,with a matched resident-default comparison;
+passed **81365**,including a matched resident-default comparison;
+[bounded discovery-result consumption](experiments/distributed-discovery-results/report.md) is next;
 full s18 preprocessing remains unrun.
 
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)

@@ -12,6 +12,7 @@ import (
 	"os"
 	"sort"
 	"testing"
+	"time"
 
 	cpp "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp"
 	cuda "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda"
@@ -121,6 +122,10 @@ func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec S
 	if w.Size < 2 || w.Size > 64 || w.Size&(w.Size-1) != 0 {
 		t.Fatal("partitioned discovery requires power-of-two ranks through64")
 	}
+	outputMode, modeErr := discoveryResultMode(os.Getenv("PIR_PIPELINE_DISCOVERY_RESULT"))
+	if modeErr != nil {
+		t.Fatal(modeErr)
+	}
 	s := spec.FieldDegree
 	n := uint64(1) << uint(2*s)
 	q := uint64(1) << uint(s)
@@ -172,8 +177,11 @@ func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec S
 	op := uint64(0)
 	capacity := min(n, 3*q)
 	executor := rankGPUExecutor[Word]{GPU: gpu, Plan: plan, Capacity: capacity, Limit: q}
+	lastNotice := map[string]time.Time{}
 	executor.Notice = func(phase string, done, total uint64) {
-		if done == 0 || done == total {
+		key := call + "/" + phase
+		if done == 0 || done == total || time.Since(lastNotice[key]) >= 30*time.Second {
+			lastNotice[key] = time.Now()
 			observe(map[string]any{"kind": "progress", "phase": phase, "completed": done, "total": total, "call": call})
 		}
 	}
@@ -200,6 +208,11 @@ func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec S
 	samples := 0
 	global := uint64(0)
 	localCount := uint64(0)
+	totalDownloaded := uint64(0)
+	resultWords, residentWords := words, words
+	if outputMode == "stream" {
+		resultWords, residentWords = min(words, executor.Plan.TileWords), 0
+	}
 	for samples < discoverySampleLimit(s) && global < uint64(k) {
 		clear(grid)
 		sequence := uint64(samples + 1)
@@ -231,26 +244,43 @@ func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec S
 			}
 		}
 		operation := executor.Plan.Operation
-		values, e := executor.Discovery(grid, func(inverse bool, start uint64) {
+		observeTransform := func(inverse bool, start uint64) {
 			op = start
 			call = fmt.Sprintf("%s/discovery-%d/base", label, samples+1)
 			if inverse {
 				call = fmt.Sprintf("%s/discovery-%d/inverse", label, samples+1)
 			}
-		})
-		if e != nil {
-			t.Fatal(e)
 		}
-		for j, v := range values {
-			if v != 0 && !found.has(j) {
-				found.add(j)
-				localCount++
+		downloadedWords := uint64(0)
+		if outputMode == "stream" {
+			union := discoveryUnion[Word]{Found: found, Words: words, Limit: n}
+			if err := executor.DiscoveryTiles(grid, observeTransform, union.Consume); err != nil {
+				t.Fatal(err)
+			}
+			added, err := union.Complete()
+			if err != nil {
+				t.Fatal(err)
+			}
+			localCount += added
+			downloadedWords = union.Next
+		} else {
+			values, err := executor.Discovery(grid, observeTransform)
+			if err != nil {
+				t.Fatal(err)
+			}
+			downloadedWords = uint64(len(values))
+			for j, value := range values {
+				if value != 0 && !found.has(j) {
+					found.add(j)
+					localCount++
+				}
 			}
 		}
+		totalDownloaded += downloadedWords
 		totals := discoveryCounts(t, w, 2, sequence, localCount, n)
 		global = discoveryTotal(totals)
 		samples++
-		observe(map[string]any{"kind": "discovery-sample", "s": s, "sample": samples, "operation_start": operation, "local_count": localCount, "global_count": global, "k": k, "grid_words": words, "first": first, "good_counts": counts})
+		observe(map[string]any{"kind": "discovery-sample", "result_mode": outputMode, "result_resident_host_words": residentWords, "result_buffer_words": resultWords, "result_downloaded_words": downloadedWords, "s": s, "sample": samples, "operation_start": operation, "local_count": localCount, "global_count": global, "k": k, "grid_words": words, "first": first, "good_counts": counts})
 	}
 	if global != uint64(k) {
 		t.Fatal("distributed discovery incomplete", global, k)
@@ -376,7 +406,7 @@ func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec S
 	if w.Rank == 0 {
 		sum = fmt.Sprintf("%x", entropy.Sum(nil))
 	}
-	observe(map[string]any{"kind": "discovery-result", "s": s, "samples": samples, "k": k, "grid_words": words, "first": first, "local_good": len(good), "raw_count": len(raw), "root_count": len(roots), "entropy_sha256": sum, "owned_device_bytes": gpu.OwnedBytes()})
+	observe(map[string]any{"kind": "discovery-result", "result_mode": outputMode, "result_resident_host_words": residentWords, "result_buffer_words": resultWords, "result_downloaded_words": totalDownloaded, "s": s, "samples": samples, "k": k, "grid_words": words, "first": first, "local_good": len(good), "raw_count": len(raw), "root_count": len(roots), "entropy_sha256": sum, "owned_device_bytes": gpu.OwnedBytes()})
 	return discoveryResult{roots, archive, k, samples, sum}
 }
 

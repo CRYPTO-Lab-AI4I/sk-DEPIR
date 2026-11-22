@@ -5,7 +5,7 @@ Resident storage,complete FFT/products and the genuine distributed pipeline now
 have bounded correctness and scaling evidence through s8/curve5 (81286).
 See the [maintained status reference](encoding-status.md#current-distributed-preprocessing-step)
 for current gates. Fulls18 remains unrun;the current allocation boundary is
-[bounded host spectrum publication](#bounded-host-spectrum-publication).
+[bounded discovery-result consumption](../experiments/distributed-discovery-results/report.md).
 
 The existing host-shard implementation is a correctness reference. Its conservative
 product model includes six full host shards, while GPU arithmetic uses bounded
@@ -137,4 +137,9 @@ isolated allocation projection,not total-RSS measurement or topology admission.
 Fullsize throughput may change from interleaving file/network/GPU reads;resident
 remains default and the experimental source option stays explicit. Complete
 discovery/root/reciprocal working sets and production persistence remain separate
-fullsize admission boundaries. GPU composition validation is submitted as **81365**;results pending.
+fullsize admission boundaries. GPU composition validation passed **81365**,including canonical wide/high-bit checks
+and a matched resident arm. Source cold was3.545%slower in one bounded sample;
+fullsize latency remains unknown and resident stays default. Next consume discovery
+results directly from GPU tiles into the local union bitmap,avoiding the same
+8N/r host allocation in that different phase. Do not sum those phase-specific
+savings into a simultaneous peak-memory claim.
