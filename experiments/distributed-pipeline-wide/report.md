@@ -136,3 +136,11 @@ GPU integration remains pending. Fulls18 still needs scalable discovery/root own
 without replicated bounded reference state,complete wide full-domain workflow,
 representative larger scaling/restart,measured capacity/headroom and separate
 full-run admission. This gate does not authorize that allocation.
+
+
+[Actual committed-source preflight](readiness/snapshot-checks.json) passed on
+**ee36990**:811 build inputs/3,726,681 bytes. All required
+wide/pipeline/MPI/wrapper/manifest paths exist;all seven reviewer suites passed
+from frozen source. The exact snapshot input-copy helper verified69,746 retained
+native bytes before allocation. The following readiness commit changes only
+documentation/evidence.

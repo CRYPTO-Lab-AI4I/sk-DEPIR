@@ -1,0 +1,49 @@
+{
+  "utc": "2026-11-22T18:49:06.655401+00:00",
+  "status": "passed",
+  "revision": "ee36990b376579b029bf103e120efc503154c228",
+  "source_files": 811,
+  "source_bytes": 3726681,
+  "required": [
+    "encoding/liftrs-shared/pipeline_wide_gpu_test.go",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go",
+    "encoding/liftrs-shared/distributed_publication_gpu_test.go",
+    "experiments/distributed-pipeline-wide/run.py",
+    "experiments/distributed-pipeline-wide/run.sbatch",
+    "experiments/distributed-pipeline-wide/test_review.py",
+    "experiments/distributed-root/rank.sh",
+    "experiments/distributed-root/mpi/world.go",
+    "experiments/distributed-coordinator-stream/reference-inputs.json"
+  ],
+  "retained_input_bytes_verified": 69746,
+  "checks": {
+    "distributed-pipeline-wide": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n"
+    },
+    "distributed-pipeline-four": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.032s\n\nOK\n"
+    },
+    "distributed-preprocessing-pilot": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n"
+    },
+    "distributed-restart-pilot": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.028s\n\nOK\n"
+    },
+    "distributed-coordinator-stream": {
+      "exit_code": 0,
+      "output": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.005s\n\nOK\n"
+    },
+    "distributed-root-hierarchy": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.037s\n\nOK\n"
+    },
+    "distributed-discovery-hierarchy": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+    }
+  }
+}
