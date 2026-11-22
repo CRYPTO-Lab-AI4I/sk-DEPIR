@@ -3593,7 +3593,7 @@ Check actual frozen inputs before any submission. Same two-node/two-H200 resourc
 caps;fulls18 still requires full ownership/working-set/persistence admission.
 
 
-SCALING-178 submitted **81454**,results-01,implementation1d8e000/readiness77b9c8a.
+SCALING-178 **passed81454**,results-01,implementation1d8e000/readiness77b9c8a.
 837 frozen build inputs/3,837,521bytes and12reviewer suites checked;381 code hashes
 match compiled readiness source. Frozen helper verified108014historical native
 bytes and actual s8/curve5 input/root geometry. Fresh frozen-source build before
@@ -3605,3 +3605,27 @@ matched latency/allocation/count/canonical outputs,update reference,and audit
 remaining fullsize discovery/root/reciprocal liveness/ownership and production
 persistence/logging before separate fulls18 topology/resource/storage/deadline
 admission. Fulls18 remains unrun.
+
+
+## Fullsize allocation audit and Newton prefix inputs (SCALING-179)
+
+Discovery tiles81454 passed all three arms;one cold sample11.256600s tiled versus
+10.994534s resident (2.384%slower). Update maintained reference with actual counters/
+resources and unknown fullsize costs. Resident stays default.
+
+Audit actual phase arrays,source-level lifetimes/GC uncertainty,root ownership/
+per-group domains,device payload versus runtime headroom,serialization,retained
+bytes and bounded-pilot/production limits. Do not extrapolate small RSS or add
+separate-phase savings. Current public/distributed execution is not fulls18-ready.
+
+One avoidable allocation is every Newton step's append(root...) then zero-mask.
+Prototype an explicit prefix input view:use the existing GPU zero reset,validate/
+upload only the selected coefficient intersection,and reuse the same nonaliasing
+product transforms. Dense default retains strict padding checks. Prefix views
+deliberately omit the unused tail;they must be explicit and must not weaken dense
+validation. Avoid4N/r clone bytes per step (s18:16GiB/worker at illustrative16workers)
+and expected zero-tail uploads;no extra transforms/network/storage intended.
+Measure actual cloned/uploaded words,exact outputs and matched latency before
+choosing it;fullsize time remains unknown and default stays dense. Keep topology/
+capacity projections separate from implementation support/admission. Same existing
+two-node/two-H200 caps and snapshot/native/controller checks apply.

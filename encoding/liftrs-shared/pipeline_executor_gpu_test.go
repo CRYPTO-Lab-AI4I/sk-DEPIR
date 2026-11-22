@@ -74,9 +74,21 @@ func (d *pipelineGPU[Word]) productDone(ac, bc, keep uint64) {
 	d.emit(map[string]any{"kind": "executor-call", "case": d.call, "s": d.s, "dimension": d.dim, "operation_start": d.start, "mode": "product", "a_count": ac, "b_count": bc, "keep": keep, "matches": true})
 }
 func (d *pipelineGPU[Word]) Product(name string, a, b []uint32, ac, bc, keep uint64) []uint32 {
+	return d.product(name, a, b, ac, bc, keep, false)
+}
+
+func (d *pipelineGPU[Word]) ProductPrefixInputs(name string, a, b []uint32, ac, bc, keep uint64) []uint32 {
+	return d.product(name, a, b, ac, bc, keep, true)
+}
+
+func (d *pipelineGPU[Word]) product(name string, a, b []uint32, ac, bc, keep uint64, prefix bool) []uint32 {
 	d.t.Helper()
 	d.begin(name)
-	result, err := d.Executor.Product(a, b, ac, bc, keep)
+	run := d.Executor.Product
+	if prefix {
+		run = d.Executor.ProductPrefixInputs
+	}
+	result, err := run(a, b, ac, bc, keep)
 	if err != nil {
 		d.t.Fatal(name, err)
 	}

@@ -12,27 +12,43 @@ import (
 // coefficient shards; no complete polynomial is gathered by this executor.
 // A failed operation invalidates the session; collective callers must abort.
 type rankGPUExecutor[Word transposeWord] struct {
-	GPU             *cuda.RankStorage
-	Plan            rankTransposePlan
-	Capacity, Limit uint64
-	Transpose       transposeLink[Word]
-	Windows         taylorLink[Word]
-	Notice          func(string, uint64, uint64)
-	Degrees         func(int) ([]uint64, error)
+	GPU                *cuda.RankStorage
+	Plan               rankTransposePlan
+	Capacity, Limit    uint64
+	Transpose          transposeLink[Word]
+	Windows            taylorLink[Word]
+	Notice             func(string, uint64, uint64)
+	Degrees            func(int) ([]uint64, error)
+	UploadedInputWords uint64
 }
 
 func (e *rankGPUExecutor[Word]) load(slot int, values []uint32, count uint64) error {
+	return e.loadInput(slot, values, count, false)
+}
+
+// A prefix input is a logical view;unused source values are never uploaded.
+// The product zeroes both destination slots before either load. Dense sources
+// retain their complete canonical-value and zero-padding validation.
+func (e *rankGPUExecutor[Word]) loadInput(slot int, values []uint32, count uint64, prefix bool) error {
 	p := e.Plan
 	if uint64(len(values)) != p.InputWords || count == 0 || count > p.Rows*p.Columns {
 		return fmt.Errorf("executor input shard/count")
 	}
-	tile := make([]Word, min(p.TileWords, p.InputWords))
-	for first := uint64(0); first < uint64(len(values)); {
-		take := min(uint64(len(tile)), uint64(len(values))-first)
+	extent := p.InputWords
+	if prefix {
+		var err error
+		extent, err = rankPrefixInputWords(p.Rows*p.Columns, p.InputFirst*p.Columns, p.InputWords, count)
+		if err != nil {
+			return err
+		}
+	}
+	tile := make([]Word, min(p.TileWords, extent))
+	for first := uint64(0); first < extent; {
+		take := min(uint64(len(tile)), extent-first)
 		for j := uint64(0); j < take; j++ {
 			v := values[first+j]
 			k := p.InputFirst*p.Columns + first + j
-			if uint64(v) >= e.Limit || (k >= count && v != 0) {
+			if uint64(v) >= e.Limit || (!prefix && k >= count && v != 0) {
 				return fmt.Errorf("executor canonical input/padding")
 			}
 			tile[j] = Word(v)
@@ -40,12 +56,23 @@ func (e *rankGPUExecutor[Word]) load(slot int, values []uint32, count uint64) er
 		if err := storageTransfer(e.GPU, slot, first, tile[:take], true); err != nil {
 			return err
 		}
+		e.UploadedInputWords += take
 		first += take
 	}
 	return nil
 }
 
 func (e *rankGPUExecutor[Word]) Product(left, right []uint32, ac, bc, keep uint64) ([]uint32, error) {
+	return e.product(left, right, ac, bc, keep, false)
+}
+
+// ProductPrefixInputs treats each source as its selected prefix followed by zero.
+// It borrows source slices unchanged and shares the dense product's transforms.
+func (e *rankGPUExecutor[Word]) ProductPrefixInputs(left, right []uint32, ac, bc, keep uint64) ([]uint32, error) {
+	return e.product(left, right, ac, bc, keep, true)
+}
+
+func (e *rankGPUExecutor[Word]) product(left, right []uint32, ac, bc, keep uint64, prefix bool) ([]uint32, error) {
 	p := e.Plan
 	n := p.Rows * p.Columns
 	if ac == 0 || bc == 0 || ac > n || bc > n-ac+1 || keep == 0 || keep > ac+bc-1 {
@@ -62,10 +89,10 @@ func (e *rankGPUExecutor[Word]) Product(left, right []uint32, ac, bc, keep uint6
 			return nil, err
 		}
 	}
-	if err = e.load(0, left, ac); err != nil {
+	if err = e.loadInput(0, left, ac, prefix); err != nil {
 		return nil, err
 	}
-	if err = e.load(1, right, bc); err != nil {
+	if err = e.loadInput(1, right, bc, prefix); err != nil {
 		return nil, err
 	}
 	if err = rankResidentPolynomialProduct[Word](p, e.GPU, 0, 1, 2, e.Capacity, e.Transpose, e.Windows, e.degrees, e.Notice, true); err != nil {

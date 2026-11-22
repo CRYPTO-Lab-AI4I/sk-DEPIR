@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 23:52 | SCALING-179 | Prepared | [Allocation audit and prefix-input validation ready](2026-11-22-2352-codex-scaling-179-prepared.md) |
+| 2026-11-22 21:05 | SCALING-179 | Started | [Discovery passed; allocation audit and prefix inputs](2026-11-22-2105-codex-scaling-179-started.md) |
 | 2026-11-22 20:56 | SCALING-178 | Handoff | [Discovery-result job81454 submitted](2026-11-22-2056-codex-scaling-178-handoff.md) |
 | 2026-11-22 20:52 | SCALING-178 | Prepared | [Discovery-result tiles and matched validation ready](2026-11-22-2052-codex-scaling-178-prepared.md) |
 | 2026-11-22 20:42 | SCALING-178 | Started | [Spectrum source passed; bounded discovery result](2026-11-22-2042-codex-scaling-178-started.md) |

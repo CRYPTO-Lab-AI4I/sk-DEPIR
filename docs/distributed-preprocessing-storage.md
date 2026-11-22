@@ -145,8 +145,18 @@ results directly from GPU tiles into the local union bitmap,avoiding the same
 savings into a simultaneous peak-memory claim.
 
 
-Optional discovery-result composition validation is submitted as **81454** on
+Optional discovery-result composition validation passed **81454** on
 the existing two-node/two-H200 budget. It holds spectrum mode constant while
 comparing discovery tiles with resident results. [Scope and evidence](../experiments/distributed-discovery-results/report.md).
-Results pending;fullsize ownership/liveness and production persistence/logging
+Fullsize ownership/liveness and production persistence/logging
 remain separate gates before fulls18 admission.
+
+
+The [fullsize audit](../experiments/distributed-fullsize-audit/report.md) now
+records actual code allocation/traffic/storage/logging limits. Next validate
+[explicit Newton prefix inputs](../experiments/distributed-prefix-inputs/report.md),
+removing the4N/r root clone/mask and uploading only selected input intersections
+into the already zero-reset GPU slots. Dense default/correctness checks remain.
+At s18/16workers the clone is16 GiB/worker;this is an avoided allocation,not a
+measured total-RSS saving. Production bounded persistence/proofs and parameter/rank
+ownership admission remain;small-case success does not admit fulls18.

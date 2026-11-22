@@ -35,6 +35,12 @@ func checkWidePipelineTail(t *testing.T, w *mpi.World, output string, dim int, e
 	n := uint64(1) << uint(dim)
 	rows, cols := uint64(1)<<uint(dim-dim/2), uint64(1)<<uint(dim/2)
 	label := fmt.Sprintf("s18-d%d", dim)
+	inputMode, inputErr := newtonInputMode(os.Getenv("PIR_PIPELINE_NEWTON_INPUT"))
+	if inputErr != nil {
+		t.Fatal(inputErr)
+	}
+	newtonUploads, newtonCloneWords := uint64(0), uint64(0)
+	newtonSteps := 0
 	count, target := 17, 64
 	if dim == 5 {
 		count, target = 9, 16
@@ -123,11 +129,15 @@ func checkWidePipelineTail(t *testing.T, w *mpi.World, output string, dim int, e
 	wide := typedOperandMPI[uint64]{world: w, record: func(direction string, p operandPacket, data []uint64, own, remote [64]byte) {
 		proof(8, direction, p, own, remote)
 	}}
-	product := func(name string, a, b []uint32, ac, bc, keep uint64) []uint32 {
+	product := func(name string, a, b []uint32, ac, bc, keep uint64, prefix bool) []uint32 {
 		call = label + "/" + name
 		start = e.Plan.Operation
 		pass = 0
-		result, err := e.Product(a, b, ac, bc, keep)
+		run := e.Product
+		if prefix {
+			run = e.ProductPrefixInputs
+		}
+		result, err := run(a, b, ac, bc, keep)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -145,13 +155,20 @@ func checkWidePipelineTail(t *testing.T, w *mpi.World, output string, dim int, e
 			return err
 		}
 		ac := min(count, size)
-		left := append([]uint32(nil), root...)
-		for j := range left {
-			if first+uint64(j) >= uint64(ac) {
-				left[j] = 0
+		left := root
+		if inputMode == "dense" {
+			left = append([]uint32(nil), root...)
+			newtonCloneWords = uint64(len(left))
+			for j := range left {
+				if first+uint64(j) >= uint64(ac) {
+					left[j] = 0
+				}
 			}
 		}
-		g = product(fmt.Sprintf("newton-%d", size), left, squared, uint64(ac), uint64(min(2*known-1, size)), uint64(size))
+		before := e.UploadedInputWords
+		g = product(fmt.Sprintf("newton-%d", size), left, squared, uint64(ac), uint64(min(2*known-1, size)), uint64(size), inputMode == "prefix")
+		newtonUploads += e.UploadedInputWords - before
+		newtonSteps++
 		if !reflect.DeepEqual(g, own(expected[:size])) {
 			return fmt.Errorf("wide independent reciprocal prefix")
 		}
@@ -162,7 +179,7 @@ func checkWidePipelineTail(t *testing.T, w *mpi.World, output string, dim int, e
 	if err != nil {
 		t.Fatal(err)
 	}
-	identity := product("identity", root, g, uint64(count), uint64(target), uint64(count+target-1))
+	identity := product("identity", root, g, uint64(count), uint64(target), uint64(count+target-1), false)
 	convolution := make([]uint32, count+target-1)
 	for i, a := range p {
 		for j, b := range expected {
@@ -308,5 +325,5 @@ func checkWidePipelineTail(t *testing.T, w *mpi.World, output string, dim int, e
 	if source != nil {
 		downloaded = source.Completed
 	}
-	emit(map[string]any{"kind": "wide-tail", "high_source_downloaded_words": highDownloaded, "spectrum_mode": spectrumMode, "spectrum_resident_host_words": len(spectrum), "spectrum_downloaded_words": downloaded, "case": label, "s": s, "dimension": dim, "n": n, "target": target, "root_count": count, "first": first, "words": words, "slot_bytes": 8, "coefficient_bytes": 4, "owned_device_bytes": gpu.OwnedBytes(), "matches": true})
+	emit(map[string]any{"kind": "wide-tail", "newton_input_mode": inputMode, "newton_root_clone_words_per_step": newtonCloneWords, "newton_input_upload_words": newtonUploads, "newton_steps": newtonSteps, "high_source_downloaded_words": highDownloaded, "spectrum_mode": spectrumMode, "spectrum_resident_host_words": len(spectrum), "spectrum_downloaded_words": downloaded, "case": label, "s": s, "dimension": dim, "n": n, "target": target, "root_count": count, "first": first, "words": words, "slot_bytes": 8, "coefficient_bytes": 4, "owned_device_bytes": gpu.OwnedBytes(), "matches": true})
 }

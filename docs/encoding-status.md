@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-bounded discovery-result consumption (submitted **81454**) after GPU spectrum publication passed **81365**,then scalable fullsize ownership/working-set admission and
+full-size allocation/ownership audit and Newton prefix-input views after discovery-result tiles passed **81454**,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1159,7 +1159,7 @@ savings must not be summed as a simultaneous total-RSS saving.
 
 [Prepared shared implementation/resource plan](../experiments/distributed-discovery-results/report.md)
 consumes each GPU discovery result once into the existing local union bitmap.
-Resident remains default;GPU validation is submitted as **81454**,and fullsize latency remains unknown.
+Resident remains default;bounded validation passed **81454**,and fullsize latency remains unknown.
 
 | s | Avoided discovery-result host allocation (aggregate) | Per worker with16 workers | Full-workflow status |
 |---|---|---|---|
@@ -1176,10 +1176,52 @@ workers are illustrative,not a supported/admitted topology. Same two-node/two-H2
 validation caps;fulls18 remains unrun.
 
 
-Discovery-result tile validation **81454** submitted,results-01,implementation
+Discovery-result tile validation **81454** passed,results-01,implementation
 1d8e000/readiness77b9c8a. Genuine s8/curve5 cold/fresh-prefix8 restart and matched
 resident-discovery cold,holding streamed spectrum output constant. Same **two HPC
 nodes/two H200s/four CPU cores/8 GiB total requested host RAM** and prior caps;
-estimate3–6min excluding queue. Results pending.
+measured2min50.037s controller;see outcome below.
 [Source/native preflight,scope and trade-offs](../experiments/distributed-discovery-results/report.md).
 Fulls18 remains unrun/unadmitted;no resident default or resource increase.
+
+
+### Discovery-result measurements81454
+
+| Genuine s8/curve5 mode | Status/runtime | Host memory and ownership | HPC allocation |
+|---|---|---|---|
+| Tiled discovery cold | Passed;11.256600 seconds | Peak RSS377.820 MiB/worker;0resident result words plus4096-word tile | Two nodes/two H200s/four workers/four CPU cores/8 GiB total requested host RAM |
+| Fresh-process prefix8 restart | Passed;7.952252 seconds | Peak RSS378.926 MiB/worker;no discovery repeated | Same allocation |
+| Resident discovery cold | Passed;10.994534 seconds | Peak RSS377.977 MiB/worker;16,384resident result words | Same allocation |
+
+Both cold arms use streamed spectrum output and match all native/canonical/
+restart checks. Each sample reads16,384words/worker once;two samples. Owned GPU
+0.244MiB/worker,driver/context additional;controller2min50.037s;cache37.154MiB.
+Tile mode was2.384%slower in one fixed-order matched sample,not a fullsize cost
+estimate. [Exact evidence](../experiments/distributed-discovery-results/report.md#verified-result81454).
+Resident remains default. Next audit remaining fullsize arrays/ownership and
+prototype explicit Newton root-prefix input views;fulls18 remains unrun.
+
+
+### Source-based fullsize audit and Newton prefix views
+
+[Reproducible audit](../experiments/distributed-fullsize-audit/report.md) separates
+array payloads,host inventories/GC uncertainty,root-domain imbalance,persistence
+and current implementation limits. [Explicit prefix input prototype](../experiments/distributed-prefix-inputs/report.md)
+avoids Newton's whole root clone/mask and uploads only selected coefficients,
+using the same zero-reset GPU product. Dense remains default;validation pending.
+
+| s | Three-array GPU payload at16 cards | Payload-only minimum power-of-two cards at112 GiB/card | Root clone avoided per worker/step at16 workers | Full distributed feasibility |
+|---|---|---|---|---|
+| 16 | 3 GiB/card | 1 | 1 GiB | Projection;new distributed fullsize path unrun |
+| 17 | 24 GiB/card | 4 | 4 GiB | New distributed path unrun;historical full resident results passed |
+| 18 | 96 GiB/card | 16 | 16 GiB | Payload may fit;complete ownership/production/admission unresolved |
+| 19 | 384 GiB/card | 64 | 64 GiB | Exploratory;current CUDA/Taylor limits stop this configuration |
+| 20 | 1.5 TiB/card | 256 | 256 GiB | Hypothetical hardware,availability unverified;also beyond current64-rank bound |
+
+Device tables/windows/context and host/native/GC memory are additional;these are
+not run resources or full-feasibility claims. Prefix s18 Newton input uploads
+project36 TiB→1,394.893 GiB,without reducing FFT/network work. Fullsize latency is
+unknown. Current diagnostic serialization can create full temporary buffers;
+P/G/identity plus spectrum debug files add1.25 TiB at s18. Current transpose proof
+logging alone would emit440,401,920rows/worker. Native-reference/four-worker/pilot
+limits,production persistence and local root counts remain separate gates.

@@ -1,0 +1,21 @@
+=== RUN   TestDiscoveryUnionCanonicalTiles
+--- PASS: TestDiscoveryUnionCanonicalTiles (0.01s)
+=== RUN   TestDiscoveryUnionRejectsBeforeMutation
+--- PASS: TestDiscoveryUnionRejectsBeforeMutation (0.00s)
+=== RUN   TestRankPrefixInputView
+--- PASS: TestRankPrefixInputView (0.00s)
+=== RUN   TestRankPrefixInputWideBounds
+--- PASS: TestRankPrefixInputWideBounds (0.00s)
+=== RUN   TestRankStreamCanonicalPublication
+--- PASS: TestRankStreamCanonicalPublication (0.02s)
+=== RUN   TestRankStreamPublicationErrors
+--- PASS: TestRankStreamPublicationErrors (0.00s)
+=== RUN   TestRankStreamReadCanonicalPublication
+--- PASS: TestRankStreamReadCanonicalPublication (0.00s)
+=== RUN   TestRankStreamReadErrors
+--- PASS: TestRankStreamReadErrors (0.00s)
+=== RUN   TestRankPrefixCompactRoundTrip
+--- PASS: TestRankPrefixCompactRoundTrip (0.01s)
+=== RUN   TestRankPrefixCompactBoundsAndCanonicalValues
+--- PASS: TestRankPrefixCompactBoundsAndCanonicalValues (0.00s)
+PASS

@@ -1,6 +1,6 @@
 # Bounded discovery-result consumption
 
-Status: **submitted81454**,results-01;GPU results pending. Implementation **1d8e000**;parent0ec3410.
+Status: **passed81454**,results-01. Implementation **1d8e000**;parent0ec3410.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/). Planned results:
 `runs/results-01/`; immutable source, native references, binaries/profiles and
@@ -153,3 +153,35 @@ cold,fresh-process prefix8 restart,and matched resident-discovery cold;spectrum
 is streamed in both matched cold arms. Same resources/caps;estimate3–6min excluding
 queue. Receipt-bound local completion notification registered outside Git;no model
 polling. Analyze only after terminal notice.
+
+
+## Verified result:81454
+
+Independent reconciliation passed **837 source/79 evidence/402 cache identities**,
+producing77b9c8a. All three genuine s8/curve5 arms passed exact entropy,sample
+counts/stopping,support/root/identity/spectrum/canonical artifact and fresh-process
+restart comparisons. Two discovery samples/worker each read16,384words exactly
+once;tile mode retained0full result words and4096buffer words versus16,384resident
+result words. No extra transforms,output or download words.
+
+| Arm | Profiled wall time | Peak host RSS/worker | Owned GPU/worker |
+|---|---|---|---|
+| Tiled discovery cold | 11.256600 seconds | 377.820 MiB | 0.244 MiB |
+| Fresh-process prefix8 restart | 7.952252 seconds | 378.926 MiB | 0.244 MiB |
+| Resident discovery cold | 10.994534 seconds | 377.977 MiB | 0.244 MiB |
+
+Spectrum output was streamed in both matched cold arms. Tiled discovery was
+**0.262066 seconds (2.384%) slower** in this one fixed-order sample. This does
+not establish a statistical or fullsize runtime penalty. Small RSS differences
+do not measure the projected large allocation saving. Resident default remains;
+tiled discovery is explicit. Controller runtime **2 min50.037 s**;cache
+**37.154 MiB**. HPC gnode16/17,two H200s,four workers/four CPU cores,8 GiB requested
+host RAM;all previous caps retained,CUDA context/driver extra to owned bytes.
+
+[Analysis](runs/results-01/analysis.json),[raw results](runs/results-01/results.json),
+[scheduler log](slurm-81454.log). Next source-based fullsize audit includes live
+root/Newton arrays,root imbalance,serialization buffers,storage/logging and
+production parameter/restart limits. One concrete candidate is the full Newton
+root clone used only to zero-mask its prefix:4N/r bytes per step,16 GiB/worker
+at s18/16workers. Prototype an explicit prefix view against the existing zeroed
+GPU workspace,without another product implementation. Fulls18 remains unrun.

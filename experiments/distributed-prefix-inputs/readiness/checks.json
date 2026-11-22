@@ -1,0 +1,50 @@
+{
+  "status": "final local checks passed;GPU validation pending",
+  "utc": "2026-11-22T23:52:24.657201+00:00",
+  "parent_revision": "83b828d",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_prefix_input.go": "4dc9f98ca4f51287cc3493c81626a228f5ec0e7b7a32eb562df0f84f5f0a2131",
+    "encoding/liftrs-shared/distributed_prefix_input_test.go": "8b4d8b91eef1eacc45ffb1ba061cb12e7a414e898eba90f8dc6f6f65bd53442f",
+    "encoding/liftrs-shared/distributed_executor_cuda.go": "32beb5958a97d382b60e5f3925c0c35fbbaa4ad8ed316d9225e33cf6e54016c7",
+    "encoding/liftrs-shared/pipeline_executor_gpu_test.go": "47bd542fecfe65ef20a0ef30f3feb14dfd81f3c748500f0cb7c20900b6b78ea5",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go": "988d819854d1133826ea5cb9c33cd5195e1d995cb753536ef885806c4173a539",
+    "encoding/liftrs-shared/pipeline_wide_gpu_test.go": "2192eb1f82bd89f36ddf230bf1b84f20b74cc59a9fa1ec95745595b4f22010ff",
+    "experiments/distributed-prefix-inputs/analyze.py": "8fd63cf837ffa2299de4256a3a6daf4ac1269dc3c2b4c82cda2029dbb841a91f",
+    "experiments/distributed-prefix-inputs/run.py": "1fdf5e14de6f2cb367b8b82935b50f647bcb7e10c480fefeaa89ebbc6f9912af",
+    "experiments/distributed-prefix-inputs/test_review.py": "246580775e03003e7591b27de9f4c08e5e68f533c867755cf7b1e17e23053ce7"
+  },
+  "checks": {
+    "audit-tests.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.001s\n\nOK\n",
+    "build.log": "",
+    "cpu.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t0.013s\n",
+    "distributed-coordinator-stream.log": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.005s\n\nOK\n",
+    "distributed-discovery-hierarchy.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+    "distributed-discovery-results.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+    "distributed-owned-roots.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n",
+    "distributed-pipeline-four.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.031s\n\nOK\n",
+    "distributed-pipeline-scaling.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.004s\n\nOK\n",
+    "distributed-pipeline-wide.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n",
+    "distributed-prefix-checkpoints.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.034s\n\nOK\n",
+    "distributed-preprocessing-pilot.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.008s\n\nOK\n",
+    "distributed-restart-pilot.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.027s\n\nOK\n",
+    "distributed-root-hierarchy.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.037s\n\nOK\n",
+    "distributed-spectrum-publication.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+    "initial-review-fixture.log": ".F\n======================================================================\nFAIL: test_prefix_clone_and_upload_accounting (__main__.ReviewTest.test_prefix_clone_and_upload_accounting)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/hpc/home/crypto/tmour/sk-DEPIR/experiments/distributed-prefix-inputs/test_review.py\", line 15, in test_prefix_clone_and_upload_accounting\n    result=dict(measurements=[r]);self.assertIs(H['input_claims'](result,'prefix'),result)\n                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/hpc/home/crypto/tmour/sk-DEPIR/experiments/distributed-prefix-inputs/run.py\", line 25, in input_claims\n    assert r['newton_input_upload_words']==expected\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n\n----------------------------------------------------------------------\nRan 2 tests in 0.001s\n\nFAILED (failures=1)\n",
+    "legacy-replay.log": "All three81454 saved arms match prior composition through shared reviewers;no scheduler query.\n",
+    "native-tests.log": "=== RUN   TestDiscoveryUnionCanonicalTiles\n--- PASS: TestDiscoveryUnionCanonicalTiles (0.01s)\n=== RUN   TestDiscoveryUnionRejectsBeforeMutation\n--- PASS: TestDiscoveryUnionRejectsBeforeMutation (0.00s)\n=== RUN   TestRankPrefixInputView\n--- PASS: TestRankPrefixInputView (0.00s)\n=== RUN   TestRankPrefixInputWideBounds\n--- PASS: TestRankPrefixInputWideBounds (0.00s)\n=== RUN   TestRankStreamCanonicalPublication\n--- PASS: TestRankStreamCanonicalPublication (0.02s)\n=== RUN   TestRankStreamPublicationErrors\n--- PASS: TestRankStreamPublicationErrors (0.00s)\n=== RUN   TestRankStreamReadCanonicalPublication\n--- PASS: TestRankStreamReadCanonicalPublication (0.00s)\n=== RUN   TestRankStreamReadErrors\n--- PASS: TestRankStreamReadErrors (0.00s)\n=== RUN   TestRankPrefixCompactRoundTrip\n--- PASS: TestRankPrefixCompactRoundTrip (0.01s)\n=== RUN   TestRankPrefixCompactBoundsAndCanonicalValues\n--- PASS: TestRankPrefixCompactBoundsAndCanonicalValues (0.00s)\nPASS\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.048s\n",
+    "review.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.001s\n\nOK\n"
+  },
+  "commands": {
+    "cpu": "CGO_ENABLED=0 go test ./encoding/liftrs-shared -run ^TestRankPrefixInput|^TestDiscoveryUnion|^TestRankStream -count=1 -timeout=20s",
+    "race": "go test -race ./encoding/liftrs-shared -run ^TestRankPrefixInput|^TestRankStream|^TestDiscoveryUnion -count=1 -timeout=20s",
+    "build": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-prefix-inputs-readiness.test ./encoding/liftrs-shared",
+    "native": "readiness binary -test.run ^TestRankPrefixInput|^TestRankStream|^TestDiscoveryUnion|^TestRankPrefixCompact -test.v -test.timeout=20s"
+  },
+  "limitations": [
+    "Initial independent interval fixture corrected132\u2192195 before any GPU submission;failure log retained.",
+    "No local CUDA/MPI initialization.",
+    "Source/traffic/host inventory projections are not fullsize peak memory or speedup evidence.",
+    "Dense input default and strict padding validation retained;prefix semantics deliberately omit unused tail."
+  ]
+}

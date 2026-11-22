@@ -144,6 +144,10 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	if discoveryErr != nil {
 		t.Fatal(discoveryErr)
 	}
+	inputMode, inputErr := newtonInputMode(os.Getenv("PIR_PIPELINE_NEWTON_INPUT"))
+	if inputErr != nil {
+		t.Fatal(inputErr)
+	}
 	var restoredRoot, restoredPrefix rankPrefixState
 	if resumeFrom != "" {
 		var e error
@@ -602,6 +606,9 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 		g[0] = 1
 	}
 	initialPrefix := known
+	newtonUploads := uint64(0)
+	newtonCloneWords := uint64(0)
+	newtonSteps := 0
 	err = reciprocalSchedule(known, n-k, func(size int) error {
 		squareOp := executor.Plan.Operation
 		executor.Plan.Operation++
@@ -610,14 +617,23 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 			return e
 		}
 		aCount := min(k+1, size)
-		a := append([]uint32(nil), root...)
-		for j := range a {
-			if first+uint64(j) >= uint64(aCount) {
-				a[j] = 0
+		a := root
+		multiply := driver.ProductPrefixInputs
+		if inputMode == "dense" {
+			a = append([]uint32(nil), root...)
+			newtonCloneWords = uint64(len(a))
+			for j := range a {
+				if first+uint64(j) >= uint64(aCount) {
+					a[j] = 0
+				}
 			}
+			multiply = product
 		}
 		squareCount := min(2*known-1, size)
-		g = product(fmt.Sprintf("newton-%d", size), a, squared, uint64(aCount), uint64(squareCount), uint64(size))
+		before := executor.UploadedInputWords
+		g = multiply(fmt.Sprintf("newton-%d", size), a, squared, uint64(aCount), uint64(squareCount), uint64(size))
+		newtonUploads += executor.UploadedInputWords - before
+		newtonSteps++
 		reload := !reloaded && size >= 8 && size < n-k
 		g = persist(fmt.Sprintf("newton-%d", size), g, size, reload)
 		reloaded = reloaded || reload
@@ -722,7 +738,7 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	}
 	w.Barrier()
 	event("artifact-publication", "completed")
-	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "root_counts": leafCounts, "spectrum_downloaded_words": spectrumDownloaded, "spectrum_mode": spectrumMode, "spectrum_host_words": spectrumWords, "spectrum_resident_host_words": len(spectrum), "root_mode": rootMode, "checkpoint_layout": checkpointLayout, "discovery_result_mode": discoveryMode, "discovery_layout": layout, "initial_prefix": initialPrefix, "discovery_performed": resumeFrom == "", "root_performed": resumeFrom == "", "publication": publication, "pid": os.Getpid(), "reference_mode": map[bool]string{true: "retained", false: "native"}[referenceFrom != ""], "support_streamed": referenceFrom != ""})
+	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "root_counts": leafCounts, "spectrum_downloaded_words": spectrumDownloaded, "spectrum_mode": spectrumMode, "spectrum_host_words": spectrumWords, "spectrum_resident_host_words": len(spectrum), "root_mode": rootMode, "checkpoint_layout": checkpointLayout, "newton_input_mode": inputMode, "newton_root_clone_words_per_step": newtonCloneWords, "newton_input_upload_words": newtonUploads, "newton_steps": newtonSteps, "discovery_result_mode": discoveryMode, "discovery_layout": layout, "initial_prefix": initialPrefix, "discovery_performed": resumeFrom == "", "root_performed": resumeFrom == "", "publication": publication, "pid": os.Getpid(), "reference_mode": map[bool]string{true: "retained", false: "native"}[referenceFrom != ""], "support_streamed": referenceFrom != ""})
 }
 
 // Explicit bounded native-reference export for the pilot's independent inputs.

@@ -20,7 +20,8 @@ the [larger genuine s8/curve5 cold/restart measurement](experiments/distributed-
 passed **81286**; [bounded GPU spectrum publication](experiments/distributed-spectrum-publication/report.md)
 passed **81365**,including a matched resident-default comparison;
 [bounded discovery-result consumption](experiments/distributed-discovery-results/report.md)
-validation is submitted as **81454**;
+passed **81454**; the [full-size allocation audit](experiments/distributed-fullsize-audit/report.md)
+records remaining limits,with [Newton prefix-input validation](experiments/distributed-prefix-inputs/report.md) next;
 full s18 preprocessing remains unrun.
 
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)
