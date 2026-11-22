@@ -3,8 +3,9 @@
 Status: **79202 failed before GPU work** (`coordinator-01`, source `bf2eb86`).
 [Receipt](submission.json), [scheduler log](slurm-79202.log),
 [raw results](runs/coordinator-01/results.json), [independent review](runs/coordinator-01/analysis.json).
-Snapshot packaging is corrected; retry `coordinator-02` is prepared. No integrated
-retained-reference result yet. Actual producing source/revision is sealed by the controller.
+Snapshot packaging is corrected; **retry79213 submitted**, `coordinator-02`.
+[Retry receipt](submission-retry.json), [retry scheduler log](slurm-79213.log).
+No integrated retained-reference result yet. Actual producing source/revision is sealed by the controller.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/checks.json),
 [reference manifest](reference-inputs.json).

@@ -527,6 +527,6 @@ next-step notes above. Coordinator diagnostic arrays remain a small-pilot limit.
 passed78917: bounded full-extension FFT/products and clean small memchecks.
 [Coordinator-memory integration](../experiments/distributed-coordinator-stream/report.md)
 remains pending:79202 failed before GPU work because its source snapshot
-omitted the reference-input manifest. Packaging is corrected for a fresh
-cold/restart retry with streamed support and retained native inputs. GPU recurrences and ordinary defaults remain. No full s18
+omitted the reference-input manifest. Packaging is corrected; cold/restart
+retry79213 is submitted with streamed support and retained native inputs. GPU recurrences and ordinary defaults remain. No full s18
 pipeline result exists.

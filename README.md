@@ -117,8 +117,8 @@ CPU references remain small-pilot limits.
 references, with clean small CUDA memchecks. Ordinary CPU lookup defaults and
 allocation guards remain. [Bounded coordinator diagnostics](experiments/distributed-coordinator-stream/report.md)
 remain unvalidated: **79202 stopped before GPU work** because its snapshot
-omitted the runtime input manifest. Packaging is fixed; a genuine cold/restart
-retry with streamed support and retained native files is prepared. Full s18 preprocessing is not validated.
+omitted the runtime input manifest. Packaging is fixed; retry **79213** was
+submitted after checking the actual frozen source and reference inputs. Full s18 preprocessing is not validated.
 No fullsize/production preprocessing or fulls18 speedup is claimed. No encoding default
 or client CUDA/MPI dependency changes.
 

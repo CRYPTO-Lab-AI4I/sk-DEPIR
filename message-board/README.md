@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 13:20 | SCALING-167 | Handoff | [Verified snapshot;coordinator retry79213 submitted](2026-11-22-1320-codex-scaling-167-handoff.md) |
 | 2026-11-22 13:19 | SCALING-167 | Prepared | [Packaging fixed;real snapshot preflight before retry](2026-11-22-1319-codex-scaling-167-prepared.md) |
 | 2026-11-22 13:17 | SCALING-167 | Started | [Fix omitted reference-input snapshot manifest](2026-11-22-1317-codex-scaling-167-started.md) |
 | 2026-11-22 13:14 | SCALING-166 | Handoff | [Bounded coordinator cold/restart79202 submitted](2026-11-22-1314-codex-scaling-166-handoff.md) |

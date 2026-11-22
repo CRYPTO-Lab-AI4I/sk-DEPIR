@@ -3173,3 +3173,8 @@ create the actual committed-source snapshot and verify/copy all real reference
 inputs from its manifest. No extra calibration job or Go/CUDA arithmetic change.
 Retry the same two-arm suite and admitted resources; preserve failed run/cache.
 [Failure and correction](../experiments/distributed-coordinator-stream/report.md#failed-launch79202-and-packaging-correction-scaling-167).
+
+Real Git-blob snapshot/input-copy check passed on f6e743e (786 source files,
+12 reference inputs/69,746bytes). Submitted retry **79213**,coordinator-02,after
+freezing that evidence as53271bf. [Retry receipt](../experiments/distributed-coordinator-stream/submission-retry.json).
+Same resources;no monitoring until completion ping.
