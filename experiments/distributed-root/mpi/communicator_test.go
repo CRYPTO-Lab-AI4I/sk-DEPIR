@@ -14,6 +14,9 @@ func TestCommunicatorAdmission(t *testing.T) {
 		if _, err := w.Counts(1); err == nil {
 			t.Fatal("closed counts")
 		}
+		if _, err := w.ControlFrames([64]byte{}); err == nil {
+			t.Fatal("closed control gather")
+		}
 		if err := w.Close(); err == nil {
 			t.Fatal("closed release")
 		}

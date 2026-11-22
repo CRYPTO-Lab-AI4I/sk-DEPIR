@@ -3312,3 +3312,39 @@ Genuine four-worker discovery/root integration submitted as **79541**,genuine-01
 implementationb94139c after committed-source preflight17bf5e5.
 [Receipt and resources](../experiments/distributed-discovery-hierarchy/submission.json).
 GPU results pending;fulls18 and four-worker complete generator/restart remain unrun.
+
+
+### Genuine hierarchy passed; complete four-worker pilot (SCALING-172)
+
+79541 passed802 source/36 evidence/77 cache reconciliations and all22 commands;
+normal arm6.421s,complete controller2 min14.604s,RSS377.020MiB/worker maximum,
+ownedGPU0.064MiB discovery/0.048MiB products per worker (context/driver extra),
+cache14.718MiB. Two HPC nodes/twoH200/four CPU cores/8GiB request. Exact support,
+entropy,closed-orbit ownership and every native root reference/proof matched.
+[Evidence](../experiments/distributed-discovery-hierarchy/report.md).
+
+Proceed with the [complete four-worker cold/restart pilot](../experiments/distributed-pipeline-four/report.md):
+share fixed-size MPI control gathering for discovery,binding and ordered checkpoint
+hashes;retain the existing two-worker default. The same hierarchy returns compact
+root shards;reuse interval routing to full-domain ownership before unchanged
+Newton/full identity/spectrum. Save/sync all owned prefixes before coordinator
+commit,then launch fresh processes from verified root/prefix8 and stream identical
+canonical/generator artifacts. Review all ranks,expected transform/Taylor/square/
+publication packets and independent retained native prefixes;retain CPU profiles.
+
+One allocation,two profiled arms,unchanged2nodes/2H200/4CPU/8GiB host,64MiBowned/
+worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720s/15min.
+Estimate3–5min excluding queue,with ordinary per-arm deadlines and headroom from
+small measured workloads. No CUDA changes/repeated sanitizer-only gate. Root
+expansion temporarily holds compact shard and two full-domain host shards;no extra
+transform/gather. Small native hierarchy support replication remains explicit
+bounded diagnostic overhead,not production memory ownership. See report for units,
+logging/timing boundaries and old proof-log sizing evidence. No default/memory mode
+or physical resource increase. Replay legacy two-worker evidence and verify actual
+committed-source snapshot before submission.
+
+After the assembled topology passes,remove bounded diagnostic/fullsize limitations,
+carry canonical wide-slot data through the complete pipeline,validate meaningful
+larger cases and interruption/relaunch,measure setup/host/device/communication/I/O,
+and admit the chosen fulls18 topology/resources/deadline separately. Fulls18 remains
+unrun;passing small components does not finish those boundaries.

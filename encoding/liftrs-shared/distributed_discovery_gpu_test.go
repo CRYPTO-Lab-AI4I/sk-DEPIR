@@ -28,32 +28,20 @@ type discoveryResult struct {
 // sequence bind each exchange; all ranks make the same sample/stop decision.
 func discoveryCounts(t *testing.T, w *mpi.World, phase, sequence, own, limit uint64) []uint64 {
 	t.Helper()
+	var frame [64]byte
+	for j, v := range []uint64{own, phase, sequence, uint64(w.Rank)} {
+		binary.LittleEndian.PutUint64(frame[8*j:], v)
+	}
+	frames, err := w.ControlFrames(frame)
+	if err != nil {
+		t.Fatal(err)
+	}
 	counts := make([]uint64, w.Size)
-	counts[w.Rank] = own
-	// Each pair exchanges in global order, so blocking control sends cannot cycle.
-	// Phase/sequence/rank binding remains identical for the original two ranks.
-	for source := 0; source < w.Size; source++ {
-		for target := source + 1; target < w.Size; target++ {
-			if w.Rank != source && w.Rank != target {
-				continue
-			}
-			peer := source
-			if w.Rank == source {
-				peer = target
-			}
-			var frame [64]byte
-			for j, v := range []uint64{own, phase, sequence, uint64(w.Rank)} {
-				binary.LittleEndian.PutUint64(frame[8*j:], v)
-			}
-			remote, err := w.ExchangeControl(peer, frame)
-			if err != nil {
-				t.Fatal(err)
-			}
-			if binary.LittleEndian.Uint64(remote[8:]) != phase || binary.LittleEndian.Uint64(remote[16:]) != sequence || binary.LittleEndian.Uint64(remote[24:]) != uint64(peer) || !bytes.Equal(remote[32:], make([]byte, 32)) {
-				t.Fatal("discovery count phase")
-			}
-			counts[peer] = binary.LittleEndian.Uint64(remote[:])
+	for rank, remote := range frames {
+		if binary.LittleEndian.Uint64(remote[8:]) != phase || binary.LittleEndian.Uint64(remote[16:]) != sequence || binary.LittleEndian.Uint64(remote[24:]) != uint64(rank) || !bytes.Equal(remote[32:], make([]byte, 32)) {
+			t.Fatal("discovery count phase")
 		}
+		counts[rank] = binary.LittleEndian.Uint64(remote[:])
 	}
 	var total uint64
 	for _, count := range counts {

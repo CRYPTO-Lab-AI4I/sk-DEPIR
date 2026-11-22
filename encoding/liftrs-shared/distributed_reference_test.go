@@ -250,3 +250,20 @@ func TestOrderedSupportWriter(t *testing.T) {
 		}
 	}
 }
+
+// Only bounded hierarchy diagnostics read this complete native support. Actual
+// discovery/root input ownership never comes from these reference coordinates.
+func readPilotSupport(directory string, record pilotReferenceRecord) (*CodeSupport, error) {
+	info := record.Parameters
+	path := filepath.Join(directory, fmt.Sprintf("s%d-support.bin", info.Spec.FieldDegree))
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	support, err := ReadCodeSupport(file, SupportRecord{Version: 1, Parameters: info, ElementBytes: supportWidth(info.Spec.FieldDegree), Bytes: info.K * uint64(supportWidth(info.Spec.FieldDegree)), SHA256: record.SHA[filepath.Base(path)]}, PreprocessingLimits{MaxElements: 1 << 20, MaxHostArrayBytes: 32 << 20})
+	ce := file.Close()
+	if err != nil {
+		return nil, err
+	}
+	return support, ce
+}

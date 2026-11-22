@@ -339,6 +339,34 @@ func (w *World) ExchangeControl(peer int, proof [64]byte) ([64]byte, error) {
 	return remote, nil
 }
 
+// ControlFrames gathers at most64 fixed-size control records (4KiB/rank).
+// All ranks must call in the same phase order; callers bind and validate record
+// contents. Lexicographic pair order prevents cycles with blocking exchanges.
+func (w *World) ControlFrames(own [64]byte) ([][64]byte, error) {
+	if !w.live() || w.Size < 1 || w.Size > 64 || w.Rank < 0 || w.Rank >= w.Size {
+		return nil, fmt.Errorf("MPI control ownership")
+	}
+	out := make([][64]byte, w.Size)
+	out[w.Rank] = own
+	for source := 0; source < w.Size; source++ {
+		for target := source + 1; target < w.Size; target++ {
+			if w.Rank != source && w.Rank != target {
+				continue
+			}
+			peer := source
+			if w.Rank == source {
+				peer = target
+			}
+			remote, err := w.ExchangeControl(peer, own)
+			if err != nil {
+				return nil, err
+			}
+			out[peer] = remote
+		}
+	}
+	return out, nil
+}
+
 // ExchangeProof retains the original diagnostic handshake on control tag30.
 func (w *World) ExchangeProof(peer int, proof [64]byte) ([64]byte, error) {
 	return w.ExchangeControl(peer, proof)

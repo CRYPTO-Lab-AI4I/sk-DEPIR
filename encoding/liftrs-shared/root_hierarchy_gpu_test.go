@@ -53,7 +53,7 @@ func TestHierarchicalRootMerge(t *testing.T) {
 // checkRootHierarchy shares the same subgroup lifecycle, routed-product driver
 // and independent native checks for synthetic fixtures and genuine discovery.
 // Only localIndices enter GPU leaf construction; parts are bounded oracle data.
-func checkRootHierarchy(t *testing.T, world *mpi.World, output, label string, fixture *rootFixture, parts [][]int, localIndices []int, emit func(map[string]any)) {
+func checkRootHierarchy(t *testing.T, world *mpi.World, output, label string, fixture *rootFixture, parts [][]int, localIndices []int, emit func(map[string]any)) ([]uint32, rootShardLayout) {
 	t.Helper()
 	began := time.Now()
 	s := fixture.header.Spec.FieldDegree
@@ -220,6 +220,7 @@ func checkRootHierarchy(t *testing.T, world *mpi.World, output, label string, fi
 		t.Fatal("parent communicator after child close")
 	}
 	emit(map[string]any{"kind": "root-final", "case": label, "domain": final.Domain, "count": final.Count, "words": words, "matches": true, "levels": len(stages), "seconds": world.Max(time.Since(began).Seconds())})
+	return result, rootShardLayout{0, world.Size, final.Domain, final.Count}
 }
 
 // Bound native setup and every planned shape before admitting the GPU job.
@@ -350,5 +351,37 @@ func TestGenuineHierarchyShapes(t *testing.T) {
 			}
 			t.Logf("s=%d rank=%d K=%d samples=%d leaves=%v child=%d final=%d", s, rank, len(support.exponents), support.parameters.Samples, counts, stages[0].Domain, stages[1].Domain)
 		}
+	}
+}
+
+// Actual retained diagnostic inputs must pass the support reader and hierarchy
+// geometry before an allocation; this test initializes neither CUDA nor MPI.
+func TestPilotHierarchyReferences(t *testing.T) {
+	directory := os.Getenv("PIR_PIPELINE_REFERENCE_FROM")
+	if directory == "" {
+		t.Skip("explicit retained-input preflight")
+	}
+	for _, s := range []int{4, 6} {
+		record, err := readPilotReference(directory, s)
+		if err != nil {
+			t.Fatal(err)
+		}
+		support, err := readPilotSupport(directory, record)
+		if err != nil {
+			t.Fatal(err)
+		}
+		counts := make([]uint64, 4)
+		for j := range counts {
+			counts[j] = 1
+		}
+		for _, index := range support.exponents {
+			counts[discoveryRootOwner(uint64(index), 1<<uint(s), record.Parameters.N-1, 4)]++
+		}
+		for rank := range counts {
+			if _, err := rankRootMergeStages(rank, counts, record.Parameters.N); err != nil {
+				t.Fatal(err)
+			}
+		}
+		t.Logf("s=%d retained K=%d support digest/closure and four-rank hierarchy admitted", s, len(support.exponents))
 	}
 }

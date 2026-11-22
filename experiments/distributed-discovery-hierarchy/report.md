@@ -1,10 +1,10 @@
 # Genuine discovery feeding hierarchical root products
 
-Status: **submitted79541**, `genuine-01`, implementationb94139c. Parent revision5268f7b;
+Status: **passed79541**, `genuine-01`, implementationb94139c. Parent revision5268f7b;
 producing revision and source hashes will be sealed by the controller.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer regressions](test_review.py), [local readiness](readiness/).
-After submission,the receipt links the exact output directory and scheduler log.
+[Submission receipt](submission.json) links the exact output directory and scheduler log.
 Reusable frozen source,binaries,polynomial shards and profiles stay outside Git
 under `.cache/liftrs/distributed-discovery-hierarchy/<run>/`.
 
@@ -112,7 +112,7 @@ Local native preflight passed genuine shapes and legacy/synthetic geometry/routi
 [tagged compile log](readiness/build.log), [native log](readiness/native.log),
 [discovery reviewer](readiness/discovery-review.log),
 [hierarchy reviewer](readiness/hierarchy-review.log), [new reviewer](readiness/review.log).
-GPU/MPI combination remains pending; bounded correctness is not fulls18 support,
+GPU/MPI combination passed79541; bounded correctness is not fulls18 support,
 full-pipeline generator validation or node-loss recovery.
 
 
@@ -127,3 +127,23 @@ Submitted **79541** after readiness commit17bf5e5.
 results `runs/genuine-01/`; unchanged resources and2–4 minute estimate excluding
 queue. No scheduler/process/result monitoring after submission; review the saved
 results after completion notice.
+
+
+## Measured outcome — HPC79541
+
+[Raw results](runs/genuine-01/results.json), [reconciled analysis](runs/genuine-01/analysis.json),
+[phase logs/profiles](runs/genuine-01/), [scheduler log](slurm-79541.log).
+Producing revisionf153e4f;802 source/36 evidence/77 cache digests reconcile;
+all22 commands passed. Complete controller **2 min14.604 seconds**,normal composed
+arm **6.421 seconds**,16 verified hierarchical worker/product outputs. Independent
+s4/s6 sampling,entropy,support ownership,all communication proofs and native
+leaf/subtree/final root polynomials matched. No sanitizer arm was rerun;prior clean
+CUDA coverage is unchanged. Maximum logged RSS across discovery/products
+**377.020 MiB/worker**. Owned device arrays:discovery **0.064 MiB/worker maximum**,
+root products **0.048 MiB/worker maximum**,excluding context/driver/transients.
+Retained cache **14.718 MiB**. Two HPC nodes/twoH200/fourCPU/8GiB requested RAM,
+four workers/two per card. These tiny field4/6 allocations are not s18 memory costs.
+
+Next: [complete four-worker cold/restart pipeline](../distributed-pipeline-four/report.md),
+then remove remaining bounded diagnostic/fullsize restrictions,validate canonical
+wide-slot complete execution and representative scaling before fulls18 admission.

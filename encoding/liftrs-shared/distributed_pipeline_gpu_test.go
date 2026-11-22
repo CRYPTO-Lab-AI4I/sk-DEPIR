@@ -15,6 +15,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"sort"
+	"strconv"
 	"testing"
 	"time"
 
@@ -57,7 +58,9 @@ func TestDistributedPilotShapes(t *testing.T) {
 	}
 }
 
-// This is an assembled two-rank pilot, not a fullsize production entry point.
+// This is an explicitly bounded pilot, not a fullsize production entry point.
+// Four ranks additionally select the shared diagnostic root hierarchy; ordinary
+// two-rank runs retain their original merge and timing boundaries.
 // Discovery can use coordinator or partitioned grids; publication uses a
 // coordinator. P/G stay sharded throughout root/Newton/identity/spectrum;
 // explicit stream mode also bounds artifact/support publication buffers.
@@ -70,9 +73,20 @@ func TestDistributedPreprocessingPilot(t *testing.T) {
 	if os.Getenv("PIR_PIPELINE_SMALL") == "1" {
 		cases = cases[:1]
 	}
-	withDistributedGPUStages(t, directory, func(w *mpi.World, emit func(map[string]any)) {
+	ranks := 2
+	if value := os.Getenv("PIR_PIPELINE_RANKS"); value != "" {
+		var err error
+		ranks, err = strconv.Atoi(value)
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+	withRankGPUStages(t, directory, ranks, func(w *mpi.World, emit func(map[string]any)) {
 		for _, s := range cases {
 			runDistributedPilot(t, w, directory, s, emit)
+		}
+		if ranks > 2 && os.Getenv("PIR_PIPELINE_RESUME_FROM") == "" {
+			emit(map[string]any{"kind": "hierarchy-completed", "cases": len(cases)})
 		}
 		emit(map[string]any{"kind": "completed", "cases": len(cases)})
 	})
@@ -101,11 +115,11 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	var restoredRoot, restoredPrefix rankPrefixState
 	if resumeFrom != "" {
 		var e error
-		restoredRoot, e = loadRankPrefix(resumeFrom, label, s, w.Rank, w.Size, "root", uint64(n/2))
+		restoredRoot, e = loadRankPrefix(resumeFrom, label, s, w.Rank, w.Size, "root", uint64(n/w.Size))
 		if e != nil {
 			t.Fatal("resume root", e)
 		}
-		restoredPrefix, e = loadRankPrefix(resumeFrom, label, s, w.Rank, w.Size, "newton-8", uint64(n/2))
+		restoredPrefix, e = loadRankPrefix(resumeFrom, label, s, w.Rank, w.Size, "newton-8", uint64(n/w.Size))
 		if e != nil {
 			t.Fatal("resume prefix", e)
 		}
@@ -125,6 +139,9 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 		t.Fatal("discovery layout")
 	}
 	referenceFrom := os.Getenv("PIR_PIPELINE_REFERENCE_FROM")
+	if w.Size > 2 && (layout != "distributed" || publication != "stream" || referenceFrom == "") {
+		t.Fatal("multi-rank pilot requires distributed/stream and retained references")
+	}
 	var retained pilotReferenceRecord
 	if referenceFrom != "" {
 		if layout != "distributed" || publication != "stream" {
@@ -271,13 +288,11 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 		copy(binding[32:], digest[:])
 	}
 
-	remote, err := w.ExchangeControl(1-w.Rank, binding)
+	frames, err := w.ControlFrames(binding)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if w.Rank == 1 {
-		binding = remote
-	}
+	binding = frames[0]
 	if !bytes.Equal(binding[:32], binding[32:]) {
 		t.Fatal("support binding")
 	}
@@ -354,15 +369,11 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	}
 
 	sort.Ints(shard)
-	leftCount := 0
-	if w.Rank == 0 {
-		leftCount = len(shard) + 1
+	leafCounts, err := w.Counts(uint64(len(shard) + 1))
+	if err != nil || discoveryTotal(leafCounts) != uint64(k+w.Size) {
+		t.Fatal("support ownership counts", err)
 	}
-	ac := w.ShareCount(uint64(leftCount))
-	bc := uint64(k+2) - ac
-	if uint64(len(shard)+1) != ([2]uint64{ac, bc})[w.Rank] {
-		t.Fatal("support ownership count")
-	}
+	ac, bc := leafCounts[0], leafCounts[1]
 	indices := make([]uint64, len(shard))
 	for j, v := range shard {
 		indices[j] = uint64(v)
@@ -377,7 +388,7 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	options := cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: s, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: tables.log, Powers: tables.powers, Devices: []int{0}, MaxElements: uint64(n), DeviceBytes: 64 << 20}
 	fixture := &rootFixture{header: h, extension: field, n: n, maximum: n, base: orbitField{q: q, base: base, lookup: tables}}
 	var local []uint32
-	if resumeFrom == "" {
+	if resumeFrom == "" && w.Size == 2 {
 		factor, err := cuda.NewPreparation(options)
 		if err != nil {
 			t.Fatal(err)
@@ -393,6 +404,29 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 			t.Fatal(err, closeErr)
 		}
 
+	}
+	// The same validated hierarchy supplies compact coefficient shards. Its
+	// complete native support is small diagnostic-only data,loaded from the trusted
+	// retained input,never used as discovery input or as the owned GPU root input.
+	var compactRoot []uint32
+	var compactLayout rootShardLayout
+	if resumeFrom == "" && w.Size > 2 {
+		expectedSupport, e := readPilotSupport(referenceFrom, retained)
+		if e != nil {
+			t.Fatal(e)
+		}
+		bounded := *fixture
+		bounded.support = expectedSupport.exponents
+		bounded.maximum = 4
+		for bounded.maximum < k+1 {
+			bounded.maximum *= 2
+		}
+		parts := make([][]int, w.Size)
+		for _, index := range bounded.support {
+			owner := discoveryRootOwner(uint64(index), q, uint64(n-1), w.Size)
+			parts[owner] = append(parts[owner], index)
+		}
+		compactRoot, compactLayout = checkRootHierarchy(t, w, directory, label, &bounded, parts, shard, emit)
 	}
 	if resumeFrom == "" {
 		event("local-roots", "completed")
@@ -457,6 +491,19 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	var root []uint32
 	if resumeFrom != "" {
 		root = restoredRoot.Values
+	} else if w.Size > 2 {
+		sources := [2]rootShardLayout{compactLayout, {0, 1, 1, 1}}
+		inputs := [2][]uint32{compactRoot, nil}
+		if w.Rank == 0 {
+			inputs[1] = []uint32{1}
+		}
+		pair, e := routeShardedOperands(rankShardOperandPlan{1, uint64(n), 4096, q, words, w.Rank, w.Size, sources}, inputs, link, nil)
+		if e != nil {
+			t.Fatal("root full-domain redistribution", e)
+		}
+		root = pair[0]
+		executor.Plan.Operation = 2
+		emit(map[string]any{"kind": "root-reshape", "case": label, "source": compactLayout, "domain": n, "operation": 1, "matches": true})
 	} else {
 		var inputs [2][]uint32
 		inputs[w.Rank] = local
@@ -477,16 +524,19 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 		var frame [64]byte
 		copy(frame[:32], own[:])
 		copy(frame[32:], own[:])
-		other, e := w.ExchangeControl(1-w.Rank, frame)
-		if e != nil || !bytes.Equal(other[:32], other[32:]) {
-			t.Fatal("checkpoint peer digest", e)
+		frames, e := w.ControlFrames(frame)
+		if e != nil {
+			t.Fatal("checkpoint digests", e)
+		}
+		hashes := make([]string, w.Size)
+		for rank, record := range frames {
+			if !bytes.Equal(record[:32], record[32:]) {
+				t.Fatal("checkpoint peer digest")
+			}
+			hashes[rank] = fmt.Sprintf("%x", record[:32])
 		}
 		w.Barrier()
-		manifest := map[string]any{"s": s, "k": k, "n": n, "prefix": keep, "ranks": 2, "support_sha256": supportSHA, "stage": stage}
-		hashes := []string{fmt.Sprintf("%x", own), fmt.Sprintf("%x", other[:32])}
-		if w.Rank == 1 {
-			hashes[0], hashes[1] = hashes[1], hashes[0]
-		}
+		manifest := map[string]any{"s": s, "k": k, "n": n, "prefix": keep, "ranks": w.Size, "support_sha256": supportSHA, "stage": stage}
 		manifest["sha256"] = hashes
 		if w.Rank == 0 {
 			data, _ := json.MarshalIndent(manifest, "", "  ")
@@ -638,7 +688,7 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	}
 	w.Barrier()
 	event("artifact-publication", "completed")
-	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "discovery_layout": layout, "initial_prefix": initialPrefix, "discovery_performed": resumeFrom == "", "root_performed": resumeFrom == "", "publication": publication, "pid": os.Getpid(), "reference_mode": map[bool]string{true: "retained", false: "native"}[referenceFrom != ""], "support_streamed": referenceFrom != ""})
+	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "root_counts": leafCounts, "discovery_layout": layout, "initial_prefix": initialPrefix, "discovery_performed": resumeFrom == "", "root_performed": resumeFrom == "", "publication": publication, "pid": os.Getpid(), "reference_mode": map[bool]string{true: "retained", false: "native"}[referenceFrom != ""], "support_streamed": referenceFrom != ""})
 }
 
 // Explicit bounded native-reference export for the pilot's independent inputs.

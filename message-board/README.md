@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 16:18 | SCALING-172 | Prepared | [Complete four-worker cold/restart pilot ready](2026-11-22-1618-codex-scaling-172-prepared.md) |
+| 2026-11-22 16:06 | SCALING-172 | Started | [Verify genuine hierarchy; assemble four-worker pipeline](2026-11-22-1606-codex-scaling-172-started.md) |
 | 2026-11-22 15:18 | SCALING-171 | Handoff | [Genuine discovery/root job79541 submitted](2026-11-22-1518-codex-scaling-171-handoff.md) |
 | 2026-11-22 15:16 | SCALING-171 | Prepared | [Hierarchy passed; genuine discovery integration ready](2026-11-22-1516-codex-scaling-171-prepared.md) |
 | 2026-11-22 15:08 | SCALING-171 | Started | [Review hierarchy; integrate genuine discovery](2026-11-22-1508-codex-scaling-171-started.md) |

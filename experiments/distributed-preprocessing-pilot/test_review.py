@@ -10,7 +10,7 @@ H=runpy.run_path(str(Path(__file__).with_name('run.py')))
 
 
 class ReviewTest(unittest.TestCase):
-    def fixture(self,d):
+    def fixture(self,d,ranks=2):
         # Synthetic parser fixture only; real polynomial identities are checked
         # by the GPU pilot against the complete native preprocessing oracle.
         s=4;k=8;n=256;label='s4';word=lambda v:v.to_bytes(4,'little')
@@ -19,15 +19,15 @@ class ReviewTest(unittest.TestCase):
         for stage,data in reference.items():(d/f'{label}-rank-0-reference-{stage}.bin').write_bytes(data)
         (d/'s4-support.bin').write_bytes(b'synthetic parser support')
         binding=hashlib.sha256(b'synthetic parser support').hexdigest()
-        for rank in (0,1):(d/f's4-rank-{rank}-support.bin').write_bytes(b''.join(i.to_bytes(8,'little')for i in range(1+rank*4,5+rank*4)))
+        for rank in range(ranks):(d/f's4-rank-{rank}-support.bin').write_bytes(b''.join(i.to_bytes(8,'little')for i in range(1+rank*(k//ranks),1+(rank+1)*(k//ranks))))
         full=dict(p=p+b'\0'*(4*(n-k-1)),g=g+b'\0'*(4*k),spectrum=spectrum,identity=word(1)+word(0)*(n-2)+word(1))
         for stage,data in full.items():
-            for rank in (0,1):(d/f'{label}-rank-{rank}-{stage}.bin').write_bytes(data[rank*2*n:(rank+1)*2*n])
+            for rank in range(ranks):(d/f'{label}-rank-{rank}-{stage}.bin').write_bytes(data[rank*4*n//ranks:(rank+1)*4*n//ranks])
         for stage,count,data in [('root',k+1,p)]+[(f'newton-{v}',v,g[:4*v])for v in H['prefixes'](n-k)]:
             data+=b'\0'*(4*(n-count));hashes=[]
-            for rank in (0,1):
-                block=data[rank*2*n:(rank+1)*2*n];(d/f'{label}-rank-{rank}-{stage}.bin').write_bytes(block);hashes.append(hashlib.sha256(block).hexdigest())
-            (d/f'{label}-{stage}-commit.json').write_text(json.dumps(dict(s=s,k=k,n=n,prefix=count,ranks=2,support_sha256=binding,stage=stage,sha256=hashes)))
+            for rank in range(ranks):
+                block=data[rank*4*n//ranks:(rank+1)*4*n//ranks];(d/f'{label}-rank-{rank}-{stage}.bin').write_bytes(block);hashes.append(hashlib.sha256(block).hexdigest())
+            (d/f'{label}-{stage}-commit.json').write_text(json.dumps(dict(s=s,k=k,n=n,prefix=count,ranks=ranks,support_sha256=binding,stage=stage,sha256=hashes)))
         code=b'LRSprobe1'+b''.join(word(v)for v in (s,2,k,n))+p+spectrum
         for stage in ('code','reference-code'):(d/f's4-{stage}.bin').write_bytes(code)
         return s,k

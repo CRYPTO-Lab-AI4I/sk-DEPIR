@@ -1,0 +1,19 @@
+=== RUN   TestRankOperandRootExpansion
+--- PASS: TestRankOperandRootExpansion (0.01s)
+=== RUN   TestDistributedPilotShapes
+--- PASS: TestDistributedPilotShapes (0.05s)
+=== RUN   TestGenuineHierarchyShapes
+    root_hierarchy_gpu_test.go:352: s=4 rank=0 K=97 samples=1 leaves=[37 25 27 12] child=64 final=128
+    root_hierarchy_gpu_test.go:352: s=4 rank=1 K=97 samples=1 leaves=[37 25 27 12] child=64 final=128
+    root_hierarchy_gpu_test.go:352: s=4 rank=2 K=97 samples=1 leaves=[37 25 27 12] child=64 final=128
+    root_hierarchy_gpu_test.go:352: s=4 rank=3 K=97 samples=1 leaves=[37 25 27 12] child=64 final=128
+    root_hierarchy_gpu_test.go:352: s=6 rank=0 K=1910 samples=1 leaves=[681 462 480 291] child=2048 final=2048
+    root_hierarchy_gpu_test.go:352: s=6 rank=1 K=1910 samples=1 leaves=[681 462 480 291] child=2048 final=2048
+    root_hierarchy_gpu_test.go:352: s=6 rank=2 K=1910 samples=1 leaves=[681 462 480 291] child=1024 final=2048
+    root_hierarchy_gpu_test.go:352: s=6 rank=3 K=1910 samples=1 leaves=[681 462 480 291] child=1024 final=2048
+--- PASS: TestGenuineHierarchyShapes (0.05s)
+=== RUN   TestPilotHierarchyReferences
+    root_hierarchy_gpu_test.go:385: s=4 retained K=97 support digest/closure and four-rank hierarchy admitted
+    root_hierarchy_gpu_test.go:385: s=6 retained K=1910 support digest/closure and four-rank hierarchy admitted
+--- PASS: TestPilotHierarchyReferences (0.01s)
+PASS

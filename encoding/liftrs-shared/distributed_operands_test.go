@@ -139,3 +139,62 @@ func TestRankOperandRejectsNoncanonicalReceive(t *testing.T) {
 		t.Fatal("noncanonical receive accepted")
 	}
 }
+
+// Compact hierarchy outputs must expand into the later full-domain ownership,
+// including padding-only ranks,without changing any source or adding a transform.
+func TestRankOperandRootExpansion(t *testing.T) {
+	const ranks = 4
+	link := operandTestLink{make(map[[2]int]chan operandMessage)}
+	for a := 0; a < ranks; a++ {
+		for b := 0; b < ranks; b++ {
+			if a != b {
+				link.wire[[2]int{a, b}] = make(chan operandMessage)
+			}
+		}
+	}
+	input := make([]uint32, 32)
+	for j := 0; j < 23; j++ {
+		input[j] = uint32(j + 1)
+	}
+	original := append([]uint32(nil), input...)
+	results := make([][2][]uint32, ranks)
+	failures := make([]error, ranks)
+	var wait sync.WaitGroup
+	for rank := 0; rank < ranks; rank++ {
+		wait.Add(1)
+		go func(rank int) {
+			defer wait.Done()
+			own := [2][]uint32{input[rank*8 : (rank+1)*8], nil}
+			if rank == 0 {
+				own[1] = []uint32{1}
+			}
+			results[rank], failures[rank] = routeShardedOperands(rankShardOperandPlan{1, 64, 3, 32, 16, rank, ranks, [2]rootShardLayout{{0, ranks, 32, 23}, {0, 1, 1, 1}}}, own, link, nil)
+		}(rank)
+	}
+	wait.Wait()
+	for rank, err := range failures {
+		if err != nil {
+			t.Fatal(err)
+		}
+		for j, v := range results[rank][0] {
+			index := rank*16 + j
+			var expected uint32
+			if index < 23 {
+				expected = uint32(index + 1)
+			}
+			if v != expected {
+				t.Fatal("expanded root coefficient/padding", rank, j, v)
+			}
+			identity := uint32(0)
+			if index == 0 {
+				identity = 1
+			}
+			if results[rank][1][j] != identity {
+				t.Fatal("identity routing")
+			}
+		}
+	}
+	if !reflect.DeepEqual(input, original) {
+		t.Fatal("source changed")
+	}
+}
