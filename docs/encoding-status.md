@@ -28,7 +28,7 @@ These results are separate from the full s17 runs and fulls18 projections below.
 | 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>**Integrated genuine s4/s6 pilot passed78898**: repeated sharded root/Newton/identity/spectrum and canonical artifacts.<br>Multi-level rank-owned root execution and fullsize scaling remain pending. |
 | 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing passed78909 for genuine s4/s6. Coordinator entropy source/diagnostic support archive remain; no fullsize result. |
 | 3. Generator construction and verification | Sharded Newton/identity/spectrum integration passed78898 for genuine s4/s6. Fullsize integration remains. |
-| 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898; partitioned discovery passed78909. Fresh-process prefix restart and bounded streamed publication implemented; validation pending. Fullsize/node-failure recovery remains. |
+| 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898; partitioned discovery passed78909. Fresh-process prefix restart and bounded streamed publication submitted as78915; validation pending. Fullsize/node-failure recovery remains. |
 | 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. Larger scaling and fulls18 remain unrun. |
 
 [FFT evidence](../experiments/distributed-gpu-fft/report.md): controller runtime
@@ -818,4 +818,4 @@ MiB/process**; observed post-call discovery/final-executor owned GPU **0.075245
 MiB/card**, excluding context/transients/factor peaks. Retained cache **14.764 MiB**.
 Case times s4/s6 **1.156618/0.502099 seconds** include diagnostics and setup; no
 repeatable speedup inferred. [Fresh-process restart/publication gate](../experiments/distributed-restart-pilot/report.md)
-is implemented for the same cases, retaining defaults and no new CUDA arithmetic.
+was submitted as **78915** for the same cases, retaining defaults and no new CUDA arithmetic.

@@ -83,7 +83,7 @@ original methodology; apply this policy to new optimization runs.
 
 - [Fresh-process restart and bounded publication](distributed-restart-pilot/report.md):
   cold s4/s6 then fresh MPI-process prefix8 resume, streamed canonical/generator
-  artifacts; host-boundary checks, no repeated CUDA-kernel sanitizer, prepared.
+  artifacts; host-boundary checks, no repeated CUDA-kernel sanitizer, submitted78915.
 
 - [Partitioned discovery in the genuine pipeline](distributed-discovery-pilot/report.md):
   rank-local monomials/grids/union and direct orbit routing, exact entropy digest,

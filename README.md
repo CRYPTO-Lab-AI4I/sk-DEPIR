@@ -108,7 +108,7 @@ spectrum and byte-identical canonical artifacts, with completed-prefix save/relo
 and a clean smallest-case CUDA sanitizer. [Partitioned discovery](experiments/distributed-discovery-pilot/report.md)
 **passed78909**, including exact random-byte/sample agreement and canonical
 artifacts. [Fresh-process restart and streamed publication](experiments/distributed-restart-pilot/report.md)
-are implemented for validation in the same pipeline. Coordinator diagnostic
+were submitted as **78915** in the same pipeline. Coordinator diagnostic
 archives and CPU references remain small-pilot limits.
 No fullsize/production preprocessing or fulls18 speedup is claimed. No encoding default
 or client CUDA/MPI dependency changes.

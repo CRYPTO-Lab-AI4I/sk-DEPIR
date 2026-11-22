@@ -1,6 +1,8 @@
 # Fresh-process restart and bounded canonical publication
 
-Status: implemented; local CPU/MPI build checks passed; integrated validation pending.
+Status: **submitted as78915**, run `restart-01`, implementation `98695bc`.
+[Submission receipt](submission.json), [scheduler log](slurm-78915.log);
+results will be retained under `runs/restart-01/`. No integrated outcome yet.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [focused reviewer tests](test_review.py), [readiness](readiness/checks.json).
 This follows [passed partitioned discovery78909](../distributed-discovery-pilot/report.md).

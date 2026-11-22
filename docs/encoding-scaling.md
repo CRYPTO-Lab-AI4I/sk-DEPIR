@@ -3087,3 +3087,7 @@ reviewers. Same admitted2nodes/2H200/4CPU/8GiB RAM,128MiBowned/card,1GiBRSS/rank
 Remaining fullsize boundaries are s18 arithmetic admission,more ranks/multi-level
 roots,streamed diagnostic support/reference removal,actual failure recovery and
 representative capacity/performance validation. No fulls18 launch implied.
+
+Submitted cold/fresh-process resume with streamed publication as **78915**,
+`restart-01`, implementation `98695bc`; [receipt](../experiments/distributed-restart-pilot/submission.json).
+No monitoring; await completion ping before result review or dependent work.

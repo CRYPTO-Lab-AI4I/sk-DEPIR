@@ -1,0 +1,15 @@
+{
+  "job_id": "78915",
+  "name": "restart-01",
+  "implementation_revision": "98695bc3899823a810079fe075815c603cba2264",
+  "recorded_utc": "2026-11-22T09:13:48.111654+00:00",
+  "command": "module load slurm/slurm/25.05; sbatch --parsable --output=experiments/distributed-restart-pilot/slurm-%j.log experiments/distributed-restart-pilot/run.sbatch restart-01",
+  "results": "experiments/distributed-restart-pilot/runs/restart-01/",
+  "log": "experiments/distributed-restart-pilot/slurm-78915.log",
+  "cache": ".cache/liftrs/distributed-restart-pilot/restart-01/",
+  "resources": "Same2 HPC nodes/2 H200/4CPU/8GiB requested RAM;128MiB owned/card,1GiB RSS/rank,128MiB cache/2GiB scratch/32MiB file;720-second controller/15-minute scheduler;no pinned buffers",
+  "scope": "2 integrated arms: cold genuine s4/s6 streamed artifacts,then fresh MPI processes resume completed prefix8 from cold disk state;complete identity/spectrum/native/canonical checks;no new CUDA arithmetic or repeated sanitizer;fixed rank count,not node-failure/fulls18",
+  "estimated_controller_minutes": "3\u20136 excluding queue; new runtime unmeasured",
+  "monitoring": "None. Await user completion ping.",
+  "note": "Actual producing source/revision recorded by controller; following handoff changes affect documentation and receipt only."
+}
