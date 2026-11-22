@@ -925,3 +925,9 @@ The next bounded allocation checks genuine s4/s6 sampling/support and every
 inter-level polynomial against native references. GPU validation is pending;
 full-pipeline Newton/restart/publication beyond two workers is still unvalidated.
 No fulls18 preprocessing/encoding table cell is promoted by these component tests.
+
+
+Genuine four-worker discovery/root integration submitted as **79541**,genuine-01,
+implementationb94139c after committed-source preflight17bf5e5.
+[Receipt and resources](../experiments/distributed-discovery-hierarchy/submission.json).
+GPU results pending;fulls18 and four-worker complete generator/restart remain unrun.

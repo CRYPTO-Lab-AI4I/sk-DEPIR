@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 15:18 | SCALING-171 | Handoff | [Genuine discovery/root job79541 submitted](2026-11-22-1518-codex-scaling-171-handoff.md) |
 | 2026-11-22 15:16 | SCALING-171 | Prepared | [Hierarchy passed; genuine discovery integration ready](2026-11-22-1516-codex-scaling-171-prepared.md) |
 | 2026-11-22 15:08 | SCALING-171 | Started | [Review hierarchy; integrate genuine discovery](2026-11-22-1508-codex-scaling-171-started.md) |
 | 2026-11-22 14:30 | SCALING-170 | Handoff | [Hierarchical root validation79376 submitted](2026-11-22-1430-codex-scaling-170-handoff.md) |

@@ -3306,3 +3306,9 @@ fresh-process restart and streamed publication through the same topology. Perfor
 representative assembled scaling and choose final resources/headroom/deadline
 before separate fulls18 admission. No slower memory mode or production default
 changes. [Runner and trade-offs](../experiments/distributed-discovery-hierarchy/report.md).
+
+
+Genuine four-worker discovery/root integration submitted as **79541**,genuine-01,
+implementationb94139c after committed-source preflight17bf5e5.
+[Receipt and resources](../experiments/distributed-discovery-hierarchy/submission.json).
+GPU results pending;fulls18 and four-worker complete generator/restart remain unrun.

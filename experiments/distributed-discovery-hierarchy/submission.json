@@ -1,0 +1,16 @@
+{
+  "job_id": "79541",
+  "name": "genuine-01",
+  "implementation_revision": "b94139c989d61d31d7c34d2a20f38ef5573284f8",
+  "submission_revision": "17bf5e51b32914fcaef84ce3d6ba4b38a94760a3",
+  "recorded_utc": "2026-11-22T15:17:49.250036+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-discovery-hierarchy/slurm-%j.log experiments/distributed-discovery-hierarchy/run.sbatch genuine-01",
+  "results": "experiments/distributed-discovery-hierarchy/runs/genuine-01",
+  "log": "experiments/distributed-discovery-hierarchy/slurm-79541.log",
+  "cache": ".cache/liftrs/distributed-discovery-hierarchy/genuine-01/",
+  "resources": "same2 HPC nodes/2H200/4CPU/8GiB requested RAM;4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm,0CUDApinned",
+  "scope": "Genuine s4/s6 four-worker discovery feeding concurrent two-worker subgroup then four-worker root merges;not full generator/restart/fulls18",
+  "estimated_controller_minutes": "2\u20134 excluding queue;new combined runtime unmeasured",
+  "monitoring": "Receipt-bound local completion watcher;no model polling.",
+  "note": "Actual committed-source snapshot802files/3,687,781bytes and all reviewers verified before submission;producing revision sealed by controller."
+}

@@ -1,6 +1,6 @@
 # Genuine discovery feeding hierarchical root products
 
-Status: prepared; GPU allocation not yet submitted. Parent revision5268f7b;
+Status: **submitted79541**, `genuine-01`, implementationb94139c. Parent revision5268f7b;
 producing revision and source hashes will be sealed by the controller.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer regressions](test_review.py), [local readiness](readiness/).
@@ -120,3 +120,10 @@ full-pipeline generator validation or node-loss recovery.
 implementation revision **b94139c**:802 build inputs,3,687,781 bytes;required driver,
 MPI,wrapper and runner paths exist,and all four shared/new reviewer suites pass
 from that frozen source. The subsequent readiness-record commit changes no code.
+
+
+Submitted **79541** after readiness commit17bf5e5.
+[Receipt](submission.json), [scheduler log](slurm-79541.log),
+results `runs/genuine-01/`; unchanged resources and2–4 minute estimate excluding
+queue. No scheduler/process/result monitoring after submission; review the saved
+results after completion notice.
