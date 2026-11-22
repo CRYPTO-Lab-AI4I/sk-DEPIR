@@ -1,0 +1,16 @@
+{
+  "utc": "2026-11-22T13:35:29.145768+00:00",
+  "status": "passed",
+  "revision": "139d75ed275b1993906f75844c4409552083aa3e",
+  "source_files": 790,
+  "snapshot_bytes": 3633152,
+  "required_files_verified": [
+    "experiments/distributed-four-worker/run.py",
+    "experiments/distributed-four-worker/run.sbatch",
+    "experiments/distributed-four-worker/test_review.py",
+    "experiments/distributed-root/rank.sh",
+    "encoding/liftrs-shared/s18_field_gpu_test.go"
+  ],
+  "reviewer_output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.075s\n\nOK\n",
+  "scope": "Actual committed-source snapshot and four-worker launcher/proof reviewers;no GPU/MPI initialization"
+}
