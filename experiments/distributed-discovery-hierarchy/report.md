@@ -114,3 +114,9 @@ Local native preflight passed genuine shapes and legacy/synthetic geometry/routi
 [hierarchy reviewer](readiness/hierarchy-review.log), [new reviewer](readiness/review.log).
 GPU/MPI combination remains pending; bounded correctness is not fulls18 support,
 full-pipeline generator validation or node-loss recovery.
+
+
+[Committed-snapshot preflight](readiness/snapshot-checks.json) passed on
+implementation revision **b94139c**:802 build inputs,3,687,781 bytes;required driver,
+MPI,wrapper and runner paths exist,and all four shared/new reviewer suites pass
+from that frozen source. The subsequent readiness-record commit changes no code.
