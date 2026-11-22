@@ -126,3 +126,65 @@ func (e *rankGPUExecutor[Word]) degrees(level int) ([]uint64, error) {
 	}
 	return e.GPU.TaylorDegrees(level)
 }
+
+// Discovery transforms a base-field coefficient shard through the tensor Fq
+// grid and extension interpolation, retaining all intermediate grids on GPUs.
+// observe switches route identifiers between tensor and interpolation stages.
+func (e *rankGPUExecutor[Word]) Discovery(values []uint32, observe func(bool, uint64)) ([]Word, error) {
+	p := e.Plan
+	if p.Rows != p.Columns || p.Rows != e.Limit || p.Operation > ^uint64(0)-2 {
+		return nil, fmt.Errorf("discovery full base grid")
+	}
+	back, err := newRankTransposePlan(p.Operation+1, p.Columns, p.Rows, p.Rank, p.Ranks, max(p.InputWords, p.OutputWords), p.TileWords)
+	if err != nil {
+		return nil, err
+	}
+	inverse := p
+	inverse.Operation += 2
+	_, _, err = rankAdditivePlans(inverse, e.Capacity, true)
+	if err != nil {
+		return nil, err
+	}
+	// Inverse schedules consume the same complete operation span as forwards.
+	plans, err := rankProductPlans(inverse, e.Capacity)
+	if err != nil {
+		return nil, err
+	}
+	e.Plan.Operation = inverse.Operation + (plans[1].Operation - plans[0].Operation)
+	if observe != nil {
+		observe(false, p.Operation)
+	}
+	if err = e.GPU.Reset(0, p.Rows, p.Columns, false); err != nil {
+		return nil, err
+	}
+	if err = e.load(0, values, p.Rows*p.Columns); err != nil {
+		return nil, err
+	}
+	if err = transposeResident[Word](p, e.GPU, 0, 2, true, e.Transpose, e.Notice); err != nil {
+		return nil, err
+	}
+	if err = e.GPU.BaseVectors(2); err != nil {
+		return nil, err
+	}
+	if err = transposeResident[Word](back, e.GPU, 2, 0, true, e.Transpose, e.Notice); err != nil {
+		return nil, err
+	}
+	if err = e.GPU.BaseVectors(0); err != nil {
+		return nil, err
+	}
+	if observe != nil {
+		observe(true, inverse.Operation)
+	}
+	if err = rankResidentAdditiveTransform[Word](inverse, e.GPU, 0, 2, e.Capacity, true, e.Transpose, e.Windows, e.degrees, e.Notice, true); err != nil {
+		return nil, err
+	}
+	out := make([]Word, p.InputWords)
+	for first := uint64(0); first < p.InputWords; {
+		take := min(p.TileWords, p.InputWords-first)
+		if err = storageTransfer(e.GPU, 0, first, out[first:first+take], false); err != nil {
+			return nil, err
+		}
+		first += take
+	}
+	return out, nil
+}

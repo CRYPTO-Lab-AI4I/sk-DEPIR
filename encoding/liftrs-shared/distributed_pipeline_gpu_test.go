@@ -8,6 +8,7 @@ import (
 	"encoding/binary"
 	"encoding/json"
 	"fmt"
+	"io"
 	"math/rand"
 	"os"
 	"path/filepath"
@@ -21,13 +22,17 @@ import (
 )
 
 func pilotReference(t *testing.T, s int) (*CodeSupport, *PreparedCode) {
+	return pilotReferenceReader(t, s, rand.New(rand.NewSource(109)))
+}
+
+func pilotReferenceReader(t *testing.T, s int, random io.Reader) (*CodeSupport, *PreparedCode) {
 	t.Helper()
 	session, err := NewCodePreprocessor(Spec{s, 2, 2}, preprocessingOptions(s, 1))
 	if err != nil {
 		t.Fatal(err)
 	}
 	defer session.Close()
-	support, err := session.Discover(OrbitOptions{Random: rand.New(rand.NewSource(109))})
+	support, err := session.Discover(OrbitOptions{Random: random})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -52,7 +57,8 @@ func TestDistributedPilotShapes(t *testing.T) {
 }
 
 // This is an assembled two-rank pilot, not a fullsize production entry point.
-// Discovery and publication use a coordinator. P/G stay sharded throughout root,
+// Discovery can use coordinator or partitioned grids; publication uses a
+// coordinator. P/G stay sharded throughout root,
 // Newton, identity and spectrum work; only final artifact assembly gathers them.
 func TestDistributedPreprocessingPilot(t *testing.T) {
 	directory := os.Getenv("PIR_GPU_MATRIX_STAGE_OUTPUT")
@@ -84,31 +90,54 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 		emit(map[string]any{"kind": "stage", "case": label, "phase": phase, "event": state})
 	}
 	event("discovery-reference", "started")
-	var support *CodeSupport
+	var support, expected *CodeSupport
 	var reference *PreparedCode
+	layout := os.Getenv("PIR_PIPELINE_DISCOVERY")
+	if layout == "" {
+		layout = "coordinator"
+	}
+	if layout != "coordinator" && layout != "distributed" {
+		t.Fatal("discovery layout")
+	}
+	expectedEntropy := ""
 	if w.Rank == 0 {
-		expected, oracle := pilotReference(t, s)
-		reference = oracle
-		options := preprocessingOptions(s, 1)
-		options.Backend = "cuda"
-		options.GPUPath = os.Getenv("PIR_GPU_PREPARATION_LIBRARY")
-		options.GPUDevices = []int{0}
-		options.GPUBytes = 64 << 20
-		options.Progress = func(p PreprocessingProgress) {
-			emit(map[string]any{"kind": "progress", "case": label, "phase": "discovery/" + p.Phase, "event": p.Event, "completed": p.Completed, "total": p.Total, "unit": p.Unit})
-		}
-		session, err := NewCodePreprocessor(Spec{s, 2, 2}, options)
-		if err != nil {
-			t.Fatal(err)
-		}
-		support, err = session.Discover(OrbitOptions{Random: rand.New(rand.NewSource(109))})
-		closeErr := session.Close()
-		if err != nil || closeErr != nil || !reflect.DeepEqual(support.exponents, expected.exponents) || support.parameters != expected.parameters {
-			t.Fatal("GPU/native discovery", err, closeErr)
+		hash := sha256.New()
+		expected, reference = pilotReferenceReader(t, s, io.TeeReader(rand.New(rand.NewSource(109)), hash))
+		expectedEntropy = fmt.Sprintf("%x", hash.Sum(nil))
+		if layout == "coordinator" {
+			options := preprocessingOptions(s, 1)
+			options.Backend = "cuda"
+			options.GPUPath = os.Getenv("PIR_GPU_PREPARATION_LIBRARY")
+			options.GPUDevices = []int{0}
+			options.GPUBytes = 64 << 20
+			options.Progress = func(p PreprocessingProgress) {
+				emit(map[string]any{"kind": "progress", "case": label, "phase": "discovery/" + p.Phase, "event": p.Event, "completed": p.Completed, "total": p.Total, "unit": p.Unit})
+			}
+			session, err := NewCodePreprocessor(Spec{s, 2, 2}, options)
+			if err != nil {
+				t.Fatal(err)
+			}
+			support, err = session.Discover(OrbitOptions{Random: rand.New(rand.NewSource(109))})
+			closeErr := session.Close()
+			if err != nil || closeErr != nil || !reflect.DeepEqual(support.exponents, expected.exponents) || support.parameters != expected.parameters {
+				t.Fatal("GPU/native discovery", err, closeErr)
+			}
+
 		}
 		save("reference-p", reference.code.p)
 		save("reference-g", reference.generator)
 		save("reference-spectrum", reference.code.spectrum32)
+	}
+	var discovered discoveryResult
+	if layout == "distributed" {
+		discovered = partitionedDiscovery[uint32](t, w, Spec{s, 2, 2}, emit)
+		if w.Rank == 0 {
+			if !reflect.DeepEqual(discovered.Archive, expected.exponents) || discovered.Samples != expected.parameters.Samples || discovered.Entropy != expectedEntropy {
+				t.Fatal("partitioned discovery/native sampling mismatch")
+			}
+			support = &CodeSupport{parameters: expected.parameters, exponents: discovered.Archive}
+			emit(map[string]any{"kind": "discovery-reference", "discovery": true, "case": label, "s": s, "samples": discovered.Samples, "entropy_sha256": discovered.Entropy, "reference_entropy_sha256": expectedEntropy, "matches": true})
+		}
 	}
 	count := 0
 	if support != nil {
@@ -161,42 +190,47 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 			t.Fatal(err)
 		}
 	}
-	if w.Rank == 0 {
-		err = routeRootSupport(supportSorted, support.exponents, n, q, 2, 127, func(owner int, values []uint64) error {
-			if owner == 0 {
+	if layout == "distributed" {
+		shard = discovered.Roots
+	} else {
+		if w.Rank == 0 {
+			err = routeRootSupport(supportSorted, support.exponents, n, q, 2, 127, func(owner int, values []uint64) error {
+				if owner == 0 {
+					for _, v := range values {
+						shard = append(shard, int(v))
+					}
+					return nil
+				}
+				before := mpi.PayloadFingerprint(values)
+				if err := w.SendIndices(1, values); err != nil {
+					return err
+				}
+				proofSupport("send", values, before)
+				return nil
+			})
+			if err != nil {
+				t.Fatal(err)
+			}
+			if err = w.SendIndices(1, nil); err != nil {
+				t.Fatal(err)
+			}
+		} else {
+			for {
+				values, e := w.ReceiveIndices()
+				if e != nil {
+					t.Fatal(e)
+				}
+				if len(values) == 0 {
+					break
+				}
+				proofSupport("receive", values, mpi.PayloadFingerprint(values))
 				for _, v := range values {
 					shard = append(shard, int(v))
 				}
-				return nil
-			}
-			before := mpi.PayloadFingerprint(values)
-			if err := w.SendIndices(1, values); err != nil {
-				return err
-			}
-			proofSupport("send", values, before)
-			return nil
-		})
-		if err != nil {
-			t.Fatal(err)
-		}
-		if err = w.SendIndices(1, nil); err != nil {
-			t.Fatal(err)
-		}
-	} else {
-		for {
-			values, e := w.ReceiveIndices()
-			if e != nil {
-				t.Fatal(e)
-			}
-			if len(values) == 0 {
-				break
-			}
-			proofSupport("receive", values, mpi.PayloadFingerprint(values))
-			for _, v := range values {
-				shard = append(shard, int(v))
 			}
 		}
 	}
+
 	sort.Ints(shard)
 	leftCount := 0
 	if w.Rank == 0 {
@@ -453,5 +487,5 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	}
 	w.Barrier()
 	event("artifact-publication", "completed")
-	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc})
+	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "discovery_layout": layout})
 }

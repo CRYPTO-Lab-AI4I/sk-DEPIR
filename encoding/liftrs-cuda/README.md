@@ -510,3 +510,29 @@ reuses base-field multiplication/operand transport, adding no FFT. CPU/native
 checks pass; GPU validation is pending. Coordinator discovery/publication and
 in-allocation prefix reload remain explicitly bounded pilot behavior. No public
 API/default or ordinary-build CUDA/MPI dependency changes.
+
+[Integrated preprocessing78898](../../experiments/distributed-preprocessing-pilot/report.md)
+passed genuine s4/s6 and the smallest CUDA sanitizer, including every prefix and
+canonical code bytes. The [partitioned discovery pilot](../../experiments/distributed-discovery-pilot/report.md)
+now uses local monomial enumeration, grid and union bits, and direct closed-orbit
+ownership. Sampling width/order/masks are shared with ordinary discovery; the
+native entropy-stream digest and final canonical hashes must match. GPU validation
+of this new mode is pending. Coordinator diagnostic archive/publication and
+fullsize/s18 admission remain separate. No ordinary CPU-client dependency change.
+
+`RankStorage.BaseVectors(slot)` exposes one forward Fq tensor-vector stage through
+axis2 of the existing rank-vector ABI; axes0/1 retain their existing meaning.
+It reuses the existing kernel/base metadata, requires a full q-by-q global shape,
+an interleaved slot and base-field values, and rejects invalid input before
+mutation. It uses no affine row origin. Complete distributed discovery composes
+two rank transposes/tensor stages and the existing extension interpolation.
+For an already admitted, interleaved slot (loaded through bounded logical I/O):
+
+```go
+if err := storage.BaseVectors(0); err != nil {
+    return err
+}
+```
+
+This call transforms the owned complete vectors, not the complete two-axis grid.
+Old preprocessing libraries reject the explicit new axis; no fallback is chosen.

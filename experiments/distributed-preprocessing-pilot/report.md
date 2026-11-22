@@ -1,8 +1,12 @@
 # Integrated genuine-code distributed preprocessing pilot
 
-Status: **submitted as78898**, run `pilot-01`, implementation `32d0d12`.
-[Submission receipt](submission.json), [scheduler log](slurm-78898.log);
-results will be retained under `runs/pilot-01/`. Local checks passed; no GPU outcome yet.
+Status: **78898 passed**, producing revision `32d0d12`, on HPC gnode14/gnode15
+(two H200s, four CPU cores, 8 GiB requested host RAM). Normal genuine s4/s6
+pipeline and smallest s4 CUDA sanitizer passed; zero CUDA errors/leaks.
+Independent review verified759 source/35 original evidence/144 cache identities.
+[Submission](submission.json), [raw results](runs/pilot-01/results.json),
+[analysis](runs/pilot-01/analysis.json), [review summary](runs/pilot-01/review-checks.json),
+[scheduler log](slurm-78898.log).
 [Runner](run.py), [Slurm entry](run.sbatch), [reviewer](analyze.py),
 [boundary regressions](test_review.py), [readiness](readiness/checks.json).
 Producer revision/source manifests are recorded at allocation start.
@@ -140,3 +144,32 @@ python3 -B experiments/distributed-preprocessing-pilot/analyze.py pilot-01
 Raw results/profiles/logs: `runs/pilot-01/`. Reusable source/binaries and prefix/
 artifact evidence: `.cache/liftrs/distributed-preprocessing-pilot/pilot-01/`, outside
 Git with retained checksum manifests. Prior caches/profiles are preserved.
+
+## Completed integrated result (SCALING-163)
+
+Both genuine instances passed discovery/native support agreement, every root/
+generator/identity/spectrum coefficient, every prefix commit and interior reload,
+all expected communication routes, and byte-identical canonical artifacts.
+
+| Normal instance | N | K | Complete measured case time | Canonical artifact SHA-256 |
+|---|---|---|---|---|
+| s4,m2,t2 | 256 | 97 | 2.112602 seconds | `69ebae873990075af7c9c558b5e9d76b2a4d237b89b4bb824205eb2de049c712` |
+| s6,m2,t2 | 4,096 | 1,910 | 0.426373 seconds | `a384ea4123bb5bcbfaa9cde64afbe6e6c9091373e6c22129ceda8abdec5709c4` |
+
+Times include CPU oracles, setup, cold/warm context effects, logging/profiling,
+prefix fsync/reload and publication checks; they are not unprofiled latency or
+comparable strong-scaling samples. The s4 case initializes the GPU context first.
+Normal arm3.925 seconds, smallest sanitizer arm3.875 seconds, full controller
+**2 min9.545 seconds** including builds and profile rendering.
+
+Normal host peak RSS **372.371 MiB/process**, small sanitizer **414.961 MiB/process**.
+Post-call resident executor owned GPU maximum **0.075245 MiB/card**; this excludes
+context/driver and earlier discovery/factor engine peaks. Retained cache
+**14.700 MiB**, including reusable binaries, profiles, prefixes and artifacts.
+The sanitized s4 artifact hash exactly matches the normal output.
+
+The assembled path now has a genuine complete correctness result. Next
+[partition discovery](../distributed-discovery-pilot/report.md) inside the same
+pipeline, retaining the validated coordinator mode as an explicit reference.
+No fresh-process recovery, multi-level root tree, s18 admission or fullsize
+capacity/performance claim follows from this small result.

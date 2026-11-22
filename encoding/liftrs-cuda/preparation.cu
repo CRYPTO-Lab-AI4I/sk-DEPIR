@@ -1218,9 +1218,10 @@ extern "C" void pg_rank_destroy(void *h) {
 
 extern "C" int pg_rank_vectors(void *h, unsigned slot, int columns, int inverse, char *error, size_t cap) {
   return api(error, cap, [&] {
-    if ((columns != 0 && columns != 1) || (inverse != 0 && inverse != 1))
+    // Axis2 selects the existing base tensor plan; the ABI signature is stable.
+    if (columns < 0 || columns > 2 || (inverse != 0 && inverse != 1) || (columns == 2 && inverse))
       throw std::runtime_error("rank vector axis/direction");
-    visit_rank(h, [&](auto &state) { state.vectors(slot, columns != 0, inverse != 0); });
+    visit_rank(h, [&](auto &state) { state.vectors(slot, columns != 0, inverse != 0, columns == 2); });
   });
 
 }

@@ -103,9 +103,11 @@ case, retaining exact input/output checks. One-sample timings do not establish
 a stable runtime advantage; the peer path remains available. Full distributed
 root/Newton, discovery, s18 field admission and coordinated publication remain.
 [Integrated genuine-code pilot](experiments/distributed-preprocessing-pilot/report.md)
-was submitted as **78898**: discovery through sharded root/Newton/identity/
-spectrum and canonical artifact comparison, with completed-prefix save/reload.
-It uses a coordinator for discovery and final artifact assembly.
+**passed78898** for genuine s4/s6: discovery through sharded root/Newton/identity/
+spectrum and byte-identical canonical artifacts, with completed-prefix save/reload
+and a clean smallest-case CUDA sanitizer. [Partitioned discovery](experiments/distributed-discovery-pilot/report.md)
+is implemented for integrated GPU validation; coordinator discovery remains an
+explicit reference, and small diagnostic archives/final assembly still gather.
 No fullsize/production preprocessing or fulls18 speedup is claimed. No encoding default
 or client CUDA/MPI dependency changes.
 

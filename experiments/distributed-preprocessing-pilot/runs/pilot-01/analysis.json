@@ -1,0 +1,315 @@
+{
+  "status": "passed",
+  "job_id": "78898",
+  "revision": "32d0d12dabcd391901ca5669efceda56c6ffe8e4",
+  "source_files_verified": 759,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 35,
+  "cache_files_verified": 144,
+  "tests": [
+    "TestWideOrbitArithmetic",
+    "TestTableFreeFields"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.011755438521504402,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.035763341933488846,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.3186723683029413,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 0.00816417671740055,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.11842629313468933,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.05636296980082989,
+      "exit_code": 0
+    },
+    {
+      "label": "pilot-review-tests",
+      "seconds": 0.11699061654508114,
+      "exit_code": 0
+    },
+    {
+      "label": "integrated-cpu",
+      "seconds": 16.827545657753944,
+      "exit_code": 0
+    },
+    {
+      "label": "integrated-race",
+      "seconds": 19.437408035621047,
+      "exit_code": 0
+    },
+    {
+      "label": "ucx-version",
+      "seconds": 0.06937522813677788,
+      "exit_code": 0
+    },
+    {
+      "label": "ucx-config",
+      "seconds": 0.16826431266963482,
+      "exit_code": 0
+    },
+    {
+      "label": "review-tests",
+      "seconds": 0.11883329041302204,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu-orchestration",
+      "seconds": 0.568108705803752,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu-race",
+      "seconds": 2.092422926798463,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 21.011090587824583,
+      "exit_code": 0
+    },
+    {
+      "label": "test-build",
+      "seconds": 21.34285356104374,
+      "exit_code": 0
+    },
+    {
+      "label": "rank-preflight",
+      "seconds": 0.5187806319445372,
+      "exit_code": 0
+    },
+    {
+      "label": "normal",
+      "seconds": 3.9248560294508934,
+      "exit_code": 0
+    },
+    {
+      "label": "profile-0",
+      "seconds": 29.289013830944896,
+      "exit_code": 0
+    },
+    {
+      "label": "profile-1",
+      "seconds": 0.8188845403492451,
+      "exit_code": 0
+    },
+    {
+      "label": "memcheck",
+      "seconds": 3.8752047326415777,
+      "exit_code": 0
+    }
+  ],
+  "scope": "Genuine small-code pilot; coordinator discovery/publication remain;not fulls18 preprocessing.",
+  "arms": {
+    "normal": {
+      "measurements": [
+        {
+          "case": "s4",
+          "elapsed_seconds": 2.124683306,
+          "first": 0,
+          "identity_verified": true,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 54708,
+          "peak_rss_bytes": 390459392,
+          "prefix_reloaded": true,
+          "rank": 0,
+          "root_a_count": 50,
+          "root_b_count": 49,
+          "s": 4,
+          "seconds": 2.112601817,
+          "utc": "2026-11-22T08:17:33.386034175Z",
+          "words": 128
+        },
+        {
+          "case": "s6",
+          "elapsed_seconds": 2.5513569,
+          "first": 0,
+          "identity_verified": true,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 78900,
+          "peak_rss_bytes": 390459392,
+          "prefix_reloaded": true,
+          "rank": 0,
+          "root_a_count": 956,
+          "root_b_count": 956,
+          "s": 6,
+          "seconds": 0.426372646,
+          "utc": "2026-11-22T08:17:33.812709155Z",
+          "words": 2048
+        },
+        {
+          "case": "s4",
+          "elapsed_seconds": 2.122205296,
+          "first": 128,
+          "identity_verified": true,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 54708,
+          "peak_rss_bytes": 378007552,
+          "prefix_reloaded": true,
+          "rank": 1,
+          "root_a_count": 50,
+          "root_b_count": 49,
+          "s": 4,
+          "seconds": 2.112601817,
+          "utc": "2026-11-22T08:17:33.385999841Z",
+          "words": 128
+        },
+        {
+          "case": "s6",
+          "elapsed_seconds": 2.548888229,
+          "first": 2048,
+          "identity_verified": true,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 78900,
+          "peak_rss_bytes": 390275072,
+          "prefix_reloaded": true,
+          "rank": 1,
+          "root_a_count": 956,
+          "root_b_count": 956,
+          "s": 6,
+          "seconds": 0.426372646,
+          "utc": "2026-11-22T08:17:33.812681538Z",
+          "words": 2048
+        }
+      ],
+      "artifacts": {
+        "s4": {
+          "code_sha256": "69ebae873990075af7c9c558b5e9d76b2a4d237b89b4bb824205eb2de049c712",
+          "checkpoint_prefixes": [
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            159
+          ]
+        },
+        "s6": {
+          "code_sha256": "a384ea4123bb5bcbfaa9cde64afbe6e6c9091373e6c22129ceda8abdec5709c4",
+          "checkpoint_prefixes": [
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            2186
+          ]
+        }
+      },
+      "executor_calls": 52,
+      "operand_proof_events": 20
+    },
+    "memcheck": {
+      "measurements": [
+        {
+          "case": "s4",
+          "elapsed_seconds": 2.589200241,
+          "first": 0,
+          "identity_verified": true,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 54708,
+          "peak_rss_bytes": 435118080,
+          "prefix_reloaded": true,
+          "rank": 0,
+          "root_a_count": 50,
+          "root_b_count": 49,
+          "s": 4,
+          "seconds": 2.588920564,
+          "utc": "2026-11-22T08:18:08.211081205Z",
+          "words": 128
+        },
+        {
+          "case": "s4",
+          "elapsed_seconds": 2.587478918,
+          "first": 128,
+          "identity_verified": true,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 54708,
+          "peak_rss_bytes": 433053696,
+          "prefix_reloaded": true,
+          "rank": 1,
+          "root_a_count": 50,
+          "root_b_count": 49,
+          "s": 4,
+          "seconds": 2.588920564,
+          "utc": "2026-11-22T08:18:08.211060335Z",
+          "words": 128
+        }
+      ],
+      "artifacts": {
+        "s4": {
+          "code_sha256": "69ebae873990075af7c9c558b5e9d76b2a4d237b89b4bb824205eb2de049c712",
+          "checkpoint_prefixes": [
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            159
+          ]
+        }
+      },
+      "executor_calls": 22,
+      "operand_proof_events": 10,
+      "sanitizer": [
+        {
+          "errors": 0,
+          "leaked_bytes": 0,
+          "leaked_allocations": 0
+        },
+        {
+          "errors": 0,
+          "leaked_bytes": 0,
+          "leaked_allocations": 0
+        }
+      ]
+    }
+  },
+  "error": null
+}

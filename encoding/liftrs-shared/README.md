@@ -955,3 +955,12 @@ reuses base-field multiplication/operand transport, adding no FFT. CPU/native
 checks pass; GPU validation is pending. Coordinator discovery/publication and
 in-allocation prefix reload remain explicitly bounded pilot behavior. No public
 API/default or ordinary-build CUDA/MPI dependency changes.
+
+[Integrated preprocessing78898](../../experiments/distributed-preprocessing-pilot/report.md)
+passed genuine s4/s6 and the smallest CUDA sanitizer, including every prefix and
+canonical code bytes. The [partitioned discovery pilot](../../experiments/distributed-discovery-pilot/report.md)
+now uses local monomial enumeration, grid and union bits, and direct closed-orbit
+ownership. Sampling width/order/masks are shared with ordinary discovery; the
+native entropy-stream digest and final canonical hashes must match. GPU validation
+of this new mode is pending. Coordinator diagnostic archive/publication and
+fullsize/s18 admission remain separate. No ordinary CPU-client dependency change.

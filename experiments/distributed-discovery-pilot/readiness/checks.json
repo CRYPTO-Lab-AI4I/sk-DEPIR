@@ -1,0 +1,50 @@
+{
+  "recorded_utc": "2026-11-22T08:40:05.811553+00:00",
+  "checks": [
+    "Final CUDA shared library and CPP/CUDA/MPI test binary compile passed",
+    "Native actual shape preflight passed0.07s: s4 N256 K97 sample1 roots62/35; s6 N4096 K1910 sample1 roots1159/751",
+    "Shared sampling/ownership and existing polynomial/sparse tests passed0.586s; race2.129s",
+    "2focused discovery stream/stop/runner tests and3existing canonical/prefix boundary tests passed",
+    "Python AST,shell syntax,gofmt/source-doc whitespace checked"
+  ],
+  "source_sha256": {
+    "encoding/liftrs-cuda/preparation.cu": "f4842379cab2a92e9dcd9259e544b36e936505c351da899dbb471553f2767d69",
+    "encoding/liftrs-cuda/preparation_api.h": "8ea08ba5488077eccb3d250ba81f17c637df6bb4a4c9e01d8584f8f7afe89fe8",
+    "encoding/liftrs-cuda/rank_storage.cuh": "b63ae124b4c7c054ecca1190a9e9861761227f9dcfb13808415b9a4bd4821f56",
+    "encoding/liftrs-cuda/rank_storage.go": "6e7aa56a1cd20a0156a89e713850f16e2b1033dc3c9c0a902c9fb56b89f574f5",
+    "encoding/liftrs-shared/discovery_sampling.go": "513fe6029d553c882c6b3d55bb47b5ca35e7426fb30e9681133e0330de9003b8",
+    "encoding/liftrs-shared/discovery_sampling_test.go": "e81d6e9c53d366fcdb6167fca7545ba09250aead90dadbe33bd906f48ee06673",
+    "encoding/liftrs-shared/preprocessing_core.go": "a5aaef0d031d9166223cb9855a2c83cd9a859cee848fdae1f2d0c148277f3eb9",
+    "encoding/liftrs-shared/distributed_executor_cuda.go": "fd5e76bf683ff854433fa89c255d39e783cacc93d25e27c8d0d9990f808c10d4",
+    "encoding/liftrs-shared/distributed_discovery_gpu_test.go": "6eabcd228c793591afbc7bce2e848363ae6e45b7e7bbe944295ca9db2db4538d",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go": "8f92e14729f6679d586e372229c863f057fedad9cd2ec09fdd476c95fd467f97",
+    "experiments/distributed-discovery-pilot/run.py": "e6a22d05000b6f64cf22459f8a58415a8ef4649d17977f1338211afeecabbb36",
+    "experiments/distributed-discovery-pilot/run.sbatch": "5e0f730b435c5faadaccc265b0b4dcd413ef649cf5eeee28595e7adda546d0de",
+    "experiments/distributed-discovery-pilot/analyze.py": "d7db88a8e956e02b6338778641978fce282d5f525f9cfc5d34dc663e18d3affb",
+    "experiments/distributed-discovery-pilot/test_review.py": "f3738dcc6485a0bb7dfd1105dec5ce5214be576e01f744d1b19c113ea2c75f6c"
+  },
+  "artifacts": {
+    ".cache/liftrs/distributed-discovery-pilot/readiness/discovery.test": {
+      "bytes": 12097280,
+      "sha256": "50d12e9d2846af184380f2987299104e4bbe7aa03e054e24833d3fbe835e1030"
+    },
+    ".cache/liftrs/distributed-discovery-pilot/readiness/libliftrs-cuda.so": {
+      "bytes": 2947728,
+      "sha256": "6e2886b161e7c944877013ab3d83fc286793cea45aaa7538bc462f6c60c61c64"
+    }
+  },
+  "go_build_command": "module load gcc/14.2.0 openmpi/gcc/64/4.1.8; GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=1 CC=mpicc CXX=mpicxx .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-discovery-pilot/readiness/discovery.test ./encoding/liftrs-shared",
+  "cuda_build_command": "module load cuda12.9/toolkit/12.9.1; nvcc -std=c++17 -O3 -lineinfo -arch=sm_90 -shared -Xcompiler=-fPIC,-pthread encoding/liftrs-cuda/matrix.cu encoding/liftrs-cuda/preparation.cu -o .cache/liftrs/distributed-discovery-pilot/readiness/libliftrs-cuda.so",
+  "fixture_command": ".cache/liftrs/distributed-discovery-pilot/readiness/discovery.test -test.run '^TestPartitionedDiscoveryShapes$|^TestDiscoverySampling' -test.v -test.timeout=20s",
+  "cpu_command": "GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=0 .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test ./encoding/liftrs-shared -run '^TestDiscoverySampling|^TestRankSquare|^TestPolynomialProductsIndependent$|^TestFastPolynomialDivision$' -count=1 -timeout=20s",
+  "race_command": "same with CGO_ENABLED=1 and go test -race",
+  "limits": "same2 HPC nodes/2 H200/4CPU/8GiB RAM;128MiB owned/card,1GiB RSS/rank,128MiB cache/2GiB scratch/32MiB file;720s/15min;no pinned buffers",
+  "limitations": [
+    "No local GPU/MPI execution. Base plan selection reuses existing kernel; integrated smallest-case sanitizer pending.",
+    "Current integration admits two ranks. Native enum/partition APIs are wider but do not establish larger GPU-rank support.",
+    "Grid payload per card decreases but aggregate host grid payload increases; runtime unknown and old coordinator mode remains default.",
+    "Rank0 still supplies random stream and gathers a diagnostic archive/final artifact; not a fulls18 memory/publication/recovery claim.",
+    "Orbit owner loads may differ substantially; admit actual per-rank loads/headroom rather than assuming halves.",
+    "Build compiler probes may log restricted socket warnings; compiled binaries and no-MPI shape tests succeed."
+  ]
+}

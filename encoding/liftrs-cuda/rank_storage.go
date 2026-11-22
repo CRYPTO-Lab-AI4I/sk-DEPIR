@@ -273,3 +273,16 @@ func (v *RankStorage) TaylorLocal64(slot int, snapshot []uint64, capacity uint64
 	runtime.KeepAlive(snapshot)
 	return err
 }
+
+// BaseVectors evaluates complete Fq vectors with zero affine origin. The slot
+// must be interleaved in the full q-by-q discovery grid. GPU range validation
+// requires base-field values before mutation. Uses the existing vector kernel;
+// older libraries reject this explicit axis rather than selecting a fallback.
+func (v *RankStorage) BaseVectors(slot int) error {
+	if slot < 0 || slot >= 3 {
+		return fmt.Errorf("GPU base vector slot")
+	}
+	return v.call(func(b *C.pg_bridge, text *C.char) C.int {
+		return C.pg_bridge_rank_vectors(b, v.handle, C.uint(slot), 2, 0, text, 512)
+	})
+}

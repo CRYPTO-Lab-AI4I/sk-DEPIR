@@ -55,6 +55,7 @@ int pg_rank_transfer(void *, unsigned, size_t, void *, size_t, int, char *, size
 int pg_rank_local(void *, unsigned, unsigned, char *, size_t);
 int pg_rank_tile(void *, unsigned, unsigned, size_t, void *, size_t, int, char *, size_t);
 // Optional in-place complete-vector arithmetic on an interleaved rank view.
+// Axis0/1: existing extension vectors; axis2: forward base tensor vectors.
 int pg_rank_vectors(void *, unsigned, int, int, char *, size_t);
 // Optional resident Taylor metadata/target update; snapshot is read-only and
 // bounded, capacity accounts for a reusable device window (not a full shard).

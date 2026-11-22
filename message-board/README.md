@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 08:40 | SCALING-163 | Prepared | [Integrated pilot passed;partitioned discovery ready](2026-11-22-0840-codex-scaling-163-prepared.md) |
+| 2026-11-22 08:25 | SCALING-163 | Started | [Review integrated pilot and partition discovery](2026-11-22-0825-codex-scaling-163-started.md) |
 | 2026-11-22 08:16 | SCALING-162 | Handoff | [Integrated genuine pipeline78898 submitted](2026-11-22-0816-codex-scaling-162-handoff.md) |
 | 2026-11-22 08:14 | SCALING-162 | Prepared | [Genuine integrated preprocessing pilot ready](2026-11-22-0814-codex-scaling-162-prepared.md) |
 | 2026-11-22 07:59 | SCALING-162 | Started | [Assemble genuine distributed preprocessing pilot](2026-11-22-0759-codex-scaling-162-started.md) |

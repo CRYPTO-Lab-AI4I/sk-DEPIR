@@ -108,3 +108,11 @@ is pending. Its discovery and artifact publication use a coordinator, and prefix
 reload stays within one allocation; those are not a fulls18 ownership/recovery
 layout. New host-state lifetimes and communication need measurement before any
 larger resource admission, while the validated three-array GPU layout is retained.
+
+The integrated genuine pipeline passed78898, including prefix reload and canonical
+artifacts. Next partition discovery grids/union state in that pipeline. The new
+mode uses the same three resident GPU arrays for tensor evaluation/interpolation,
+local monomial lists/union bits and bounded index/sample traffic. Its deterministic
+orbit assignment can be imbalanced; aggregate host/device memory and runtime must
+be measured before a larger budget is admitted. Diagnostic archive and final
+publication gathers remain small-pilot boundaries, not a fulls18 storage layout.

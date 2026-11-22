@@ -30,7 +30,7 @@ func discoverSupport[Word preparationWord](spec Spec, good []int, options OrbitO
 		return nil, 0, err
 	}
 	if options.MaxSamples == 0 {
-		options.MaxSamples = 2 + (128+spec.FieldDegree-1)/spec.FieldDegree
+		options.MaxSamples = discoverySampleLimit(spec.FieldDegree)
 	}
 	q := 1 << uint(spec.FieldDegree)
 	n := q * q
@@ -64,10 +64,7 @@ func discoverSupport[Word preparationWord](spec Spec, good []int, options OrbitO
 		}
 	}
 	grid := make([]Word, n)
-	sampleBytes := 1
-	if spec.FieldDegree > 8 {
-		sampleBytes = 4
-	}
+	sampleBytes := discoverySampleWidth(spec.FieldDegree)
 	// Streaming preserves the original coefficient/random-byte order. Reuse one
 	// grid and a bounded random buffer instead of retaining a4K-byte random array.
 	var random [65536]byte
@@ -80,11 +77,7 @@ func discoverSupport[Word preparationWord](spec Spec, good []int, options OrbitO
 			}
 			for j := 0; j < take; j++ {
 				offset := j * sampleBytes
-				value := uint32(random[offset])
-				if sampleBytes == 4 {
-					value |= uint32(random[offset+1])<<8 | uint32(random[offset+2])<<16 | uint32(random[offset+3])<<24
-				}
-				grid[good[first+j]] = Word(value & uint32(q-1))
+				grid[good[first+j]] = Word(discoverySampleValue(random[offset:offset+sampleBytes], spec.FieldDegree))
 			}
 			first += take
 			if notice != nil {

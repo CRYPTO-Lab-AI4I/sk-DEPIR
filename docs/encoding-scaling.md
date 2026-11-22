@@ -3025,3 +3025,30 @@ or performance acceptance claim; first measure the assembled correctness gate.
 Submitted the consolidated genuine pipeline gate as **78898**, `pilot-01`,
 implementation `32d0d12`; [receipt](../experiments/distributed-preprocessing-pilot/submission.json).
 No monitoring; await completion ping before dependent work/result review.
+
+### Partition discovery inside the assembled pipeline (SCALING-163)
+
+78898 passed normal genuine s4/s6 plus the smallest CUDA sanitizer with zero
+errors/leaks.759source/35original evidence/144cache identities, producer32d0d12.
+HPC gnode14/gnode15,2H200/4CPU/8GiB RAM; controller129.545s, normal arm3.925s,
+san3.875s, RSS372.371/414.961MiB/process, cache14.700MiB. Canonical code hashes,
+all intermediate prefixes and all routes match independent native preprocessing.
+Complete s4/s6 case times2.112602/0.426373s include setup/oracles/checkpoint/I/O,
+so cold first-context effects preclude scaling comparisons. [Evidence](../experiments/distributed-preprocessing-pilot/report.md).
+
+Next [assembled discovery gate](../experiments/distributed-discovery-pilot/report.md):
+local native range enumeration and monomial lists, rank-owned sample grids,
+resident two-axis base evaluation plus extension interpolation, local support
+union bits and collective exact integer stopping counts. Rank0 supplies the
+original random-byte stream in global-good order using bounded coefficient tiles;
+compare its digest and sample count to the independent native oracle. Shared
+sampling width/decode/mask helpers preserve the ordinary implementation.
+
+Route discovered indices directly to a deterministic Frobenius-orbit owner;
+that rule does not promise balanced loads (actual s4 roots62/35, s6 roots1159/751).
+Only a small support archive for reference/persistence is gathered afterward;
+root computation uses local routed subsets, not that archive. Final publication
+still gathers small arrays. Multi-level roots,s18 arithmetic,restart/streamed
+publication and representative fullsize admission remain. Retain the coordinator
+mode explicitly; one normal s4/s6 arm and smallest s4 sanitizer in the same prior
+2node/2H200 resource envelope, with no new kernel-calibration series.

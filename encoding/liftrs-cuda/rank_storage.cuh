@@ -89,7 +89,7 @@ template <class Word> class RankStorage {
   }
   // Raw slots accept all bits, so validate complete operands before field-table
   // indexing or any arithmetic write. Flag and launches reuse bounded storage.
-  void validate(unsigned slot,const char *phase) {
+  void validate(unsigned slot,const char *phase,bool base=false) {
     const size_t words=views_[slot].words();
     canonical_[slot]=false;
     check(cudaSetDevice(card().id));
@@ -103,7 +103,7 @@ template <class Word> class RankStorage {
     for (size_t offset = 0; offset < words;) {
       const size_t take = std::min<size_t>(1u << 20, words - offset);
       rank_validate<<<(take + 255) / 256, 256>>>(data(slot) + offset, take,
-          uint64_t(1) << (2 * engine_.s_), bad);
+          uint64_t(1) << (base ? engine_.s_ : 2 * engine_.s_), bad);
       sync(); offset += take;
       if (offset == words || std::chrono::steady_clock::now() - last >= std::chrono::seconds(30)) {
         engine_.event(phase, offset == words ? "completed" : "progress", offset, words, began);
@@ -210,7 +210,8 @@ public:
   }
   // Reuse the same local-vector launcher as VectorStage. Shape/layout admit only
   // the canonical balanced matrix, with complete vectors and global affine rows.
-  void vectors(unsigned slot, bool columns, bool inverse) {
+  // Base mode selects the existing Fq tensor metadata and zero affine origin.
+  void vectors(unsigned slot, bool columns, bool inverse, bool base=false) {
     data(slot);
     const size_t domain = rows_ * columns_;
     engine_.shape(domain);
@@ -222,8 +223,13 @@ public:
     if (rows_ != rows || columns_ != cols || !v.interleaved ||
         v.rows != (columns ? cols : rows) || v.columns != (columns ? rows : cols))
       throw std::runtime_error("rank vector canonical shape/interleaved layout");
-    validate(slot,"rank-vector-field-validation");
-    auto *metadata = engine_.plan(card(), domain);
+    if (base && (domain != (size_t(1) << (2*engine_.s_)) || !columns || inverse))
+      throw std::runtime_error("rank base-grid vectors require full q by q forward shape");
+    validate(slot,base ? "rank-base-field-validation" : "rank-vector-field-validation",base);
+    // The existing tensor metadata uses Fq for BOTH axes and no affine row
+    // origin. Extension-row/column plans and their recurrences stay unchanged.
+    auto *metadata = base ? static_cast<Matrix<Word> *>(card().base.data)
+                          : engine_.plan(card(), domain);
     canonical_[slot]=false;
     engine_.vector_stage(card(), data(slot), metadata, domain, columns, inverse,
         v.columns, v.first, v.count);

@@ -22,11 +22,11 @@ component results, separate from the full s17 runs and fulls18 projections below
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>**Integrated genuine s4/s6 pilot submitted as78898; GPU validation pending**: repeated sharded root/Newton/identity/spectrum and canonical artifacts.<br>Multi-level rank-owned root execution and fullsize scaling remain pending. |
-| 2. Distributed discovery | Existing discovery is not yet partitioned across nodes. |
-| 3. Generator construction and verification | Sharded Newton/identity/spectrum integration implemented in the genuine s4/s6 pilot; GPU validation pending. Fullsize integration remains. |
-| 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and coordinator artifact assembly integrated in the pilot; GPU validation pending. Fresh-process restart and fullsize publication remain. |
-| 5. Complete scaling validation | One assembled genuine small-code pipeline gate submitted as78898 (normal + smallest sanitizer). Larger scaling and fulls18 remain unrun. |
+| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>**Integrated genuine s4/s6 pilot passed78898**: repeated sharded root/Newton/identity/spectrum and canonical artifacts.<br>Multi-level rank-owned root execution and fullsize scaling remain pending. |
+| 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing implemented in the assembled pilot; GPU validation pending. Coordinator entropy source/diagnostic support archive remain; no fullsize result. |
+| 3. Generator construction and verification | Sharded Newton/identity/spectrum integration passed78898 for genuine s4/s6. Fullsize integration remains. |
+| 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898 in the small pilot. Fresh-process restart and fullsize publication remain. |
+| 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. Larger scaling and fulls18 remain unrun. |
 
 [FFT evidence](../experiments/distributed-gpu-fft/report.md): controller runtime
 **2 min15.343s**, normal suite **1.971s**, sanitizer suite **3.726s**. Logged host
@@ -790,6 +790,20 @@ products, s18 arithmetic and preprocessing integration remain pending.
 
 The [integrated pilot](../experiments/distributed-preprocessing-pilot/report.md)
 reuses the validated kernels instead of adding another isolated component series.
-CPU/native shape and boundary checks passed locally; no GPU outcome yet. Discovery
+CPU/native checks and both integrated GPU arms passed78898. Discovery
 and final artifact assembly still use the coordinator, and two ranks exercise
 one root merge. Its prefix reload does not establish fresh-process/node recovery.
+
+Integrated78898: HPC gnode14/gnode15,2H200/4CPU/8GiB RAM, controller **2 min9.545 s**.
+Normal peak RSS **372.371 MiB/process**, smallest sanitizer **414.961 MiB/process**;
+post-call executor owned GPU **0.075245 MiB/card**, excluding context and earlier
+engine peaks; retained cache **14.700 MiB**. Complete measured s4/s6 cases
+**2.112602/0.426373 seconds**, including reference/checkpoint/publication work and
+cold/warm setup effects, not unprofiled scaling estimates. Both canonical artifact
+hashes match independent native preprocessing; all prefix/route checks passed.
+
+[Partitioned discovery integration](../experiments/distributed-discovery-pilot/report.md)
+is implemented for the next same-budget assembled gate. It retains local monomial
+lists, grids and union bits, and routes closed orbits directly; only bounded
+sampling traffic and a diagnostic support archive use the coordinator. New GPU
+outcome remains pending. This does not admit s18 parameters or fullsize workloads.

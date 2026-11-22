@@ -1,0 +1,196 @@
+{
+  "status": "passed",
+  "arms": {
+    "normal": {
+      "measurements": [
+        {
+          "case": "s4",
+          "elapsed_seconds": 2.124683306,
+          "first": 0,
+          "identity_verified": true,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 54708,
+          "peak_rss_bytes": 390459392,
+          "prefix_reloaded": true,
+          "rank": 0,
+          "root_a_count": 50,
+          "root_b_count": 49,
+          "s": 4,
+          "seconds": 2.112601817,
+          "utc": "2026-11-22T08:17:33.386034175Z",
+          "words": 128
+        },
+        {
+          "case": "s6",
+          "elapsed_seconds": 2.5513569,
+          "first": 0,
+          "identity_verified": true,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 78900,
+          "peak_rss_bytes": 390459392,
+          "prefix_reloaded": true,
+          "rank": 0,
+          "root_a_count": 956,
+          "root_b_count": 956,
+          "s": 6,
+          "seconds": 0.426372646,
+          "utc": "2026-11-22T08:17:33.812709155Z",
+          "words": 2048
+        },
+        {
+          "case": "s4",
+          "elapsed_seconds": 2.122205296,
+          "first": 128,
+          "identity_verified": true,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 54708,
+          "peak_rss_bytes": 378007552,
+          "prefix_reloaded": true,
+          "rank": 1,
+          "root_a_count": 50,
+          "root_b_count": 49,
+          "s": 4,
+          "seconds": 2.112601817,
+          "utc": "2026-11-22T08:17:33.385999841Z",
+          "words": 128
+        },
+        {
+          "case": "s6",
+          "elapsed_seconds": 2.548888229,
+          "first": 2048,
+          "identity_verified": true,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 78900,
+          "peak_rss_bytes": 390275072,
+          "prefix_reloaded": true,
+          "rank": 1,
+          "root_a_count": 956,
+          "root_b_count": 956,
+          "s": 6,
+          "seconds": 0.426372646,
+          "utc": "2026-11-22T08:17:33.812681538Z",
+          "words": 2048
+        }
+      ],
+      "artifacts": {
+        "s4": {
+          "code_sha256": "69ebae873990075af7c9c558b5e9d76b2a4d237b89b4bb824205eb2de049c712",
+          "checkpoint_prefixes": [
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            159
+          ]
+        },
+        "s6": {
+          "code_sha256": "a384ea4123bb5bcbfaa9cde64afbe6e6c9091373e6c22129ceda8abdec5709c4",
+          "checkpoint_prefixes": [
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            2186
+          ]
+        }
+      },
+      "executor_calls": 52,
+      "operand_proof_events": 20
+    },
+    "memcheck": {
+      "measurements": [
+        {
+          "case": "s4",
+          "elapsed_seconds": 2.589200241,
+          "first": 0,
+          "identity_verified": true,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 54708,
+          "peak_rss_bytes": 435118080,
+          "prefix_reloaded": true,
+          "rank": 0,
+          "root_a_count": 50,
+          "root_b_count": 49,
+          "s": 4,
+          "seconds": 2.588920564,
+          "utc": "2026-11-22T08:18:08.211081205Z",
+          "words": 128
+        },
+        {
+          "case": "s4",
+          "elapsed_seconds": 2.587478918,
+          "first": 128,
+          "identity_verified": true,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 54708,
+          "peak_rss_bytes": 433053696,
+          "prefix_reloaded": true,
+          "rank": 1,
+          "root_a_count": 50,
+          "root_b_count": 49,
+          "s": 4,
+          "seconds": 2.588920564,
+          "utc": "2026-11-22T08:18:08.211060335Z",
+          "words": 128
+        }
+      ],
+      "artifacts": {
+        "s4": {
+          "code_sha256": "69ebae873990075af7c9c558b5e9d76b2a4d237b89b4bb824205eb2de049c712",
+          "checkpoint_prefixes": [
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            159
+          ]
+        }
+      },
+      "executor_calls": 22,
+      "operand_proof_events": 10,
+      "sanitizer": [
+        {
+          "errors": 0,
+          "leaked_bytes": 0,
+          "leaked_allocations": 0
+        },
+        {
+          "errors": 0,
+          "leaked_bytes": 0,
+          "leaked_allocations": 0
+        }
+      ]
+    }
+  }
+}

@@ -81,9 +81,13 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Partitioned discovery in the genuine pipeline](distributed-discovery-pilot/report.md):
+  rank-local monomials/grids/union and direct orbit routing, exact entropy digest,
+  same complete artifact checks; implemented for normal/small sanitizer validation.
+
 - [Integrated genuine-code preprocessing pilot](distributed-preprocessing-pilot/report.md):
   discovery, sharded roots/Newton/identity/spectrum, prefix commit/reload and canonical
-  artifact comparison; one normal suite and one smallest-case sanitizer, submitted78898.
+  artifact comparison; normal genuine s4/s6 and smallest sanitizer passed78898.
 
 - [Bounded root operand routing](distributed-root-routing/report.md): coefficient
   ownership tiles replace full peer polynomials in an explicit comparison;
