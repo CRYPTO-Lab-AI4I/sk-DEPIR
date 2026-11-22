@@ -116,8 +116,8 @@ CPU references remain small-pilot limits.
 **passed78917**: canonical s18 full-extension FFTs/products matched independent
 references, with clean small CUDA memchecks. Ordinary CPU lookup defaults and
 allocation guards remain. [Bounded coordinator diagnostics](experiments/distributed-coordinator-stream/report.md)
-are prepared for a genuine cold/restart comparison using streamed support and
-retained native files. Full s18 preprocessing is not validated.
+were submitted as **79202** for a genuine cold/restart comparison using streamed
+support and retained native files. Full s18 preprocessing is not validated.
 No fullsize/production preprocessing or fulls18 speedup is claimed. No encoding default
 or client CUDA/MPI dependency changes.
 

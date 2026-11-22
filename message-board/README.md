@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 13:14 | SCALING-166 | Handoff | [Bounded coordinator cold/restart79202 submitted](2026-11-22-1314-codex-scaling-166-handoff.md) |
 | 2026-11-22 13:13 | SCALING-166 | Prepared | [s18 passed;coordinator-memory integration ready](2026-11-22-1313-codex-scaling-166-prepared.md) |
 | 2026-11-22 09:46 | SCALING-166 | Started | [s18 arithmetic passed;bound coordinator diagnostics](2026-11-22-0946-codex-scaling-166-started.md) |
 | 2026-11-22 09:30 | SCALING-165 | Handoff | [Canonical s18 field validation78917 submitted](2026-11-22-0930-codex-scaling-165-handoff.md) |

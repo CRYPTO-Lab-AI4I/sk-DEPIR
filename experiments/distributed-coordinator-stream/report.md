@@ -1,7 +1,8 @@
 # Bounded coordinator diagnostics in the genuine pipeline
 
-Status: **prepared; integrated validation pending**. Freeze implementation before
-submission; actual revision/source identities are recorded by the shared controller.
+Status: **submitted as79202**, `coordinator-01`, implementation `bf2eb86`.
+[Receipt](submission.json), [scheduler log](slurm-79202.log). Integrated results
+pending; actual producing source/revision is sealed by the shared controller.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/checks.json),
 [reference manifest](readiness/reference-inputs.json).

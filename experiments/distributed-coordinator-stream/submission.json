@@ -1,0 +1,15 @@
+{
+  "job_id": "79202",
+  "name": "coordinator-01",
+  "implementation_revision": "bf2eb8665a9467c060959a6ec5f8a0a1a5b8bf97",
+  "recorded_utc": "2026-11-22T13:14:40.638747+00:00",
+  "command": "module load slurm/slurm/25.05; sbatch --parsable --output=experiments/distributed-coordinator-stream/slurm-%j.log experiments/distributed-coordinator-stream/run.sbatch coordinator-01",
+  "results": "experiments/distributed-coordinator-stream/runs/coordinator-01",
+  "log": "experiments/distributed-coordinator-stream/slurm-79202.log",
+  "cache": ".cache/liftrs/distributed-coordinator-stream/coordinator-01/",
+  "resources": "Same2 HPC nodes/2 H200/4CPU/8GiB requested RAM;128MiB owned/card,1GiB RSS/rank,128MiB cache/2GiB scratch/32MiB file;720-second controller/15-minute scheduler;no pinned buffers",
+  "scope": "Genuine s4/s6 cold/fresh-prefix8-resume;streamed support and retained verified native references;complete identity/route/byte checks;no CUDA recurrence change/repeated sanitizer;not fulls18/node-failure recovery",
+  "estimated_controller_minutes": "3\u20136 excluding queue;new layout runtime unmeasured",
+  "monitoring": "None;wait for user completion ping.",
+  "note": "Actual producing source/revision sealed by controller;following receipt edits are documentation only."
+}

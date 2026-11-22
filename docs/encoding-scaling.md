@@ -3153,3 +3153,7 @@ availability. One cold/fresh-process-resume allocation using existing kernels;
 no repeated CUDA sanitizer. Same resource envelope and source/reference preflight.
 After passing,larger rank counts/multi-level root ownership and representative
 scaling/capacity admission remain before fulls18 submission.
+
+Submitted **79202**, `coordinator-01`, implementation `bf2eb86`;
+[receipt](../experiments/distributed-coordinator-stream/submission.json). Same admitted
+two-node/two-H200 budget. Do not monitor;wait for completion ping.
