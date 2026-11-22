@@ -56,11 +56,7 @@ func polyInverseRecover(f orbitField, a []uint32, n int, prefix []uint32, save f
 	if g == nil {
 		g = []uint32{f.inv(a[0])}
 	}
-	for len(g) < n {
-		size := 2 * len(g)
-		if size > n {
-			size = n
-		}
+	err := reciprocalSchedule(len(g), n, func(size int) error {
 		aa := a
 		if len(aa) > size {
 			aa = aa[:size]
@@ -80,10 +76,12 @@ func polyInverseRecover(f orbitField, a []uint32, n int, prefix []uint32, save f
 			copy(g, next)
 		}
 		if save != nil {
-			if err := save(g); err != nil {
-				panic(cppFailure{err})
-			}
+			return save(g)
 		}
+		return nil
+	})
+	if err != nil {
+		panic(cppFailure{err})
 	}
 	return g
 }

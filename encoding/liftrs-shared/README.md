@@ -946,3 +946,12 @@ reuses existing descriptors/codec/payload proofs. Explicit `peer|routed` input
 selection keeps the old reference; no production default changes. Per-shard memory
 admission counts each of two output arrays, with additional source/runtime costs.
 Diagnostic global support/native references still remain in the bounded gate.
+
+The [integrated genuine pilot](../../experiments/distributed-preprocessing-pilot/report.md)
+joins the existing discovery/root algorithms with one reusable sharded GPU
+executor for Newton products, identity verification and spectrum generation.
+Host and distributed inverses share prefix doubling; sparse sharded squaring
+reuses base-field multiplication/operand transport, adding no FFT. CPU/native
+checks pass; GPU validation is pending. Coordinator discovery/publication and
+in-allocation prefix reload remain explicitly bounded pilot behavior. No public
+API/default or ordinary-build CUDA/MPI dependency changes.

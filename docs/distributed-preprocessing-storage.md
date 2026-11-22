@@ -100,3 +100,11 @@ Local GPU roots plus a distributed final product passed78508 through65532 roots
 the largest-case input traffic. One-sample timings do not establish a latency
 advantage. Complete root/Newton execution, full support ownership and distributed
 discovery/checkpoint/publication integration remain. No large calibration or resource increase is implied.
+
+The [assembled genuine pilot](../experiments/distributed-preprocessing-pilot/report.md)
+now connects the reusable resident executor to root/Newton/identity/spectrum work,
+with host coefficient shards and bounded sparse squaring transfers. GPU validation
+is pending. Its discovery and artifact publication use a coordinator, and prefix
+reload stays within one allocation; those are not a fulls18 ownership/recovery
+layout. New host-state lifetimes and communication need measurement before any
+larger resource admission, while the validated three-array GPU layout is retained.

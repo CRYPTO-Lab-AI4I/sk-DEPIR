@@ -1,0 +1,47 @@
+{
+  "recorded_utc": "2026-11-22T08:14:49.085337+00:00",
+  "checks": [
+    "CPU sparse ownership/shared Newton schedule plus existing polynomial/division/unbalanced tests passed0.608s; race2.124s",
+    "Alltag CPP/CUDA/MPI test binary compiled; native genuine s4/s6 fixture preparation0.06s and sparse schedule0.01s without CUDA/MPI initialization",
+    "3focused artifact/checkpoint/runner regressions passed; Python AST/shell/gofmt/source-doc whitespace checked",
+    "No new CUDA arithmetic; reuse previously validated resident kernels and exact route reviewers",
+    "Conservative full-term endpoint count/rank s4=1488,s6=16555; at800bytes each combined<14MiB, below32MiB file cap"
+  ],
+  "source_sha256": {
+    "encoding/liftrs-shared/orbit_polynomial.go": "32ca128b595ef84cda0786a01269623dedcf37a55959891e8dbba2b238374e0c",
+    "encoding/liftrs-shared/reciprocal_schedule.go": "d416cf7b270a07a2b5a13f10f2b87d88e1b836869c004090a643009203e6e1ff",
+    "encoding/liftrs-shared/distributed_square.go": "c29175e6703cc40f8101f6a62b9839c0130e990e304785ad2ec2f7006a5b85e0",
+    "encoding/liftrs-shared/distributed_square_test.go": "0ac76c0ac03afc6bf58422bcb046718f7aeffce5058c824546eb0f52052bb211",
+    "encoding/liftrs-shared/distributed_executor_cuda.go": "b5347d7f1035fb20152ba973b2fb8c62913424b525e8d667dee0cfd81eeffaeb",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go": "c140d6840403abbd757b2bdb55e893e889d8ec431fe9f8647d418a735e35855a",
+    "experiments/distributed-preprocessing-pilot/run.py": "9dec5fe0279ee02ee715c4ce3f94ef589b0025532596bf28ab1b2c7f5074986e",
+    "experiments/distributed-preprocessing-pilot/run.sbatch": "8f0d78cc168fdbd2989b32b7ea7df19a69304a83b801da45f2e877659a29450b",
+    "experiments/distributed-preprocessing-pilot/analyze.py": "013253ee99cda5f5052ec632d9932f08770e2414b888a603bf8f9d46454d3a8f",
+    "experiments/distributed-preprocessing-pilot/test_review.py": "ab7b30b3fe482efb4633636c5fde1136f347150e489ddd2eaf8b076abe599884"
+  },
+  "unchanged_native_source_sha256": {
+    "encoding/liftrs-cuda/preparation.cu": "d59b36d29eb9d314b4c77a1134a45e7bf0371e819d73c8ca5649df95baa936ad",
+    "encoding/liftrs-cuda/rank_storage.cuh": "4231624ae8c33b880f479746438a0917543ae574ac93140c27ae48489ac2770f",
+    "encoding/liftrs-cuda/taylor_window.cuh": "13f6858abab481512cf56f75afc5bc8d0884d58e491532a11a6c235013082cff",
+    "encoding/liftrs-cuda/vector_stage.cuh": "8c0b183e1137c4ccd0d0301823d65d471a5718af3d95431e1d04d251ae71558a",
+    "encoding/liftrs-cuda/preparation_api.h": "a9dc25a716cb64c292f14b8c0bbe7fc17155de0b3d591cd75ed5ae0248e71f50",
+    "encoding/liftrs-cuda/preparation_bridge.h": "94b396b06a881f371ccf5decb34c4752601b83001f4b8ae9d95a122de141ea12"
+  },
+  "artifact": {
+    "path": ".cache/liftrs/distributed-preprocessing-pilot/readiness/pilot.test",
+    "bytes": 12029896,
+    "sha256": "3f062a2b093ae2d32ec5613b5e73654874ef1892dd1cc2aa00f0f6883225a56e"
+  },
+  "cpu_command": "GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=0 .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test ./encoding/liftrs-shared -run ^TestRankSquare|^TestPolynomialProductsIndependent$|^TestFastPolynomialDivision$|^TestUnbalancedPolynomialProducts$ -count=1 -timeout=20s",
+  "race_command": "same with CGO_ENABLED=1,go test -race and without unbalanced test",
+  "build_command": "module load gcc/14.2.0 openmpi/gcc/64/4.1.8; GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=1 CC=mpicc CXX=mpicxx .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-preprocessing-pilot/readiness/pilot.test ./encoding/liftrs-shared",
+  "fixture_command": ".cache/liftrs/distributed-preprocessing-pilot/readiness/pilot.test -test.run '^TestDistributedPilotShapes$|^TestRankSquare' -test.v -test.timeout=20s",
+  "limits": "Same2 HPC nodes/2 H200/4CPU/8GiB host;128MiB owned/card,1GiB RSS/rank;128MiB cache/2GiB scratch/32MiB file;720s/15min;no pinned buffers",
+  "limitations": [
+    "No local GPU/MPI execution. Smallest pipeline only sanitized in the prepared allocation.",
+    "Coordinator discovery/CPU oracle/final publication and one root merge remain bounded pilot behavior; not fulls18 distribution or parameter support.",
+    "Prefix commit/reload is in-process,not fresh-process or failed-node recovery.",
+    "No production default/public API/dependency change; no new runtime estimate inferred from kernels.",
+    "Initial compile caught a field-width type mismatch; fixed before GPU submission. Native compiler probes may log restricted socket warnings; build and no-MPI fixture execution pass."
+  ]
+}

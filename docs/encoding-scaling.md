@@ -2996,3 +2996,28 @@ This is substantial integration/scale validation, not readiness for a full launc
 Do not invent a percentage complete or an end-to-end runtime from tiny component
 results. Capacity projections and broader GPU-count design are distinct from
 resource admission. No new job launched for this requested status review.
+
+### Assemble before further calibration (SCALING-162)
+
+User requested necessary validation without an extended isolated-kernel series.
+Proceed with one [integrated genuine-code pilot](../experiments/distributed-preprocessing-pilot/report.md):
+existing coordinator GPU discovery/native reference, owned support/root factors,
+sharded final root product, shared Newton prefix schedule and bounded sharded
+squaring, complete P*G identity, canonical spectrum, coordinated prefix commit/
+reload and final byte-identical canonical artifact. Reuse validated GPU kernels,
+transport and exact route reviewers; no separate new kernel calibration jobs.
+
+Two arms in one existing allocation: normal genuine s4/s6, smallest s4 CUDA
+memcheck/leak. Focus CPU regressions on sparse ownership/iteration and new
+checkpoint/publication boundaries, preserving existing polynomial/division tests.
+Same admitted2nodes/2H200/4CPU/8GiB host,128MiB owned/card,1GiB RSS/rank,
+128MiB cache/2GiB scratch/32MiB file,720s/15min. Estimate3–6min controller;
+conservative normal log payload<14MiB/rank before other records. No budget change.
+
+This implements a reusable repeated-operation executor; P/G remain sharded during
+root/Newton/identity/spectrum work. Discovery and final artifact assembly use a
+coordinator, CPU reference arrays are small diagnostic data, root reduction has
+one level at2ranks, and reload stays within one allocation. Explicitly retain
+partitioned discovery/publication, multi-level reduction, s18 arithmetic admission,
+fresh-process recovery and representative scaling as remaining work. No fulls18
+or performance acceptance claim; first measure the assembled correctness gate.

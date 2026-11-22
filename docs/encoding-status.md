@@ -22,11 +22,11 @@ component results, separate from the full s17 runs and fulls18 projections below
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>Complete rank-owned root/Newton execution and fullsize scaling remain pending. |
+| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>**Integrated genuine s4/s6 pilot implemented; GPU validation pending**: repeated sharded root/Newton/identity/spectrum and canonical artifacts.<br>Multi-level rank-owned root execution and fullsize scaling remain pending. |
 | 2. Distributed discovery | Existing discovery is not yet partitioned across nodes. |
-| 3. Generator construction and verification | Existing algorithms still need the distributed executor/data integration. |
-| 4. Coordinated checkpoints and publication | Helpers exist; distributed ownership/restart/assembly integration remains. |
-| 5. Complete scaling validation | Assembled small pipeline then larger runs remain; fulls18 preprocessing unrun. |
+| 3. Generator construction and verification | Sharded Newton/identity/spectrum integration implemented in the genuine s4/s6 pilot; GPU validation pending. Fullsize integration remains. |
+| 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and coordinator artifact assembly integrated in the pilot; GPU validation pending. Fresh-process restart and fullsize publication remain. |
+| 5. Complete scaling validation | One assembled genuine small-code pipeline gate prepared (normal + smallest sanitizer). Larger scaling and fulls18 remain unrun. |
 
 [FFT evidence](../experiments/distributed-gpu-fft/report.md): controller runtime
 **2 min15.343s**, normal suite **1.971s**, sanitizer suite **3.726s**. Logged host
@@ -787,3 +787,9 @@ independent CPU/scalar and CUDA checks; **78307 passed** all small forward/inver
 results and transfer checks. Host-shard products **passed78321**; bounded resident
 FFT **passed78396** and resident products **passed78399**. GPU-resident large
 products, s18 arithmetic and preprocessing integration remain pending.
+
+The [integrated pilot](../experiments/distributed-preprocessing-pilot/report.md)
+reuses the validated kernels instead of adding another isolated component series.
+CPU/native shape and boundary checks passed locally; no GPU outcome yet. Discovery
+and final artifact assembly still use the coordinator, and two ranks exercise
+one root merge. Its prefix reload does not establish fresh-process/node recovery.

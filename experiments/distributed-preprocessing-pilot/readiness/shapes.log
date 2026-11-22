@@ -1,0 +1,5 @@
+=== RUN   TestDistributedPilotShapes
+--- PASS: TestDistributedPilotShapes (0.06s)
+=== RUN   TestRankSquareAndReciprocalSchedule
+--- PASS: TestRankSquareAndReciprocalSchedule (0.01s)
+PASS
