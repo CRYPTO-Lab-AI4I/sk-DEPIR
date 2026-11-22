@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 18:47 | SCALING-173 | Prepared | [Wide adapters and combined validation ready](2026-11-22-1847-codex-scaling-173-prepared.md) |
+| 2026-11-22 16:28 | SCALING-173 | Started | [Verify complete pipeline; integrate wide adapters](2026-11-22-1628-codex-scaling-173-started.md) |
 | 2026-11-22 16:20 | SCALING-172 | Handoff | [Complete four-worker cold/restart job79983 submitted](2026-11-22-1620-codex-scaling-172-handoff.md) |
 | 2026-11-22 16:18 | SCALING-172 | Prepared | [Complete four-worker cold/restart pilot ready](2026-11-22-1618-codex-scaling-172-prepared.md) |
 | 2026-11-22 16:06 | SCALING-172 | Started | [Verify genuine hierarchy; assemble four-worker pipeline](2026-11-22-1606-codex-scaling-172-started.md) |

@@ -1,0 +1,125 @@
+[gnode16:2286922] mca: base: components_register: registering framework btl components
+[gnode16:2286922] mca: base: components_register: found loaded component openib
+[gnode16:2286922] mca: base: components_register: component openib register function successful
+[gnode16:2286922] mca: base: components_register: found loaded component self
+[gnode16:2286922] mca: base: components_register: component self register function successful
+[gnode16:2286922] mca: base: components_register: found loaded component sm
+[gnode16:2286922] mca: base: components_register: found loaded component tcp
+[gnode16:2286922] mca: base: components_register: component tcp register function successful
+[gnode16:2286922] mca: base: components_register: found loaded component vader
+[gnode16:2286922] mca: base: components_register: component vader register function successful
+[gnode16:2286922] mca: base: components_open: opening btl components
+[gnode16:2286922] mca: base: components_open: found loaded component openib
+[gnode16:2286922] mca: base: components_open: component openib open function successful
+[gnode16:2286922] mca: base: components_open: found loaded component self
+[gnode16:2286922] mca: base: components_open: component self open function successful
+[gnode16:2286922] mca: base: components_open: found loaded component tcp
+[gnode16:2286922] mca: base: components_open: component tcp open function successful
+[gnode16:2286922] mca: base: components_open: found loaded component vader
+[gnode16:2286922] mca: base: components_open: component vader open function successful
+[gnode16:2286922] select: initializing btl component openib
+[gnode16:2286922] Checking distance from this process to device=mlx5_0
+[gnode16:2286922] hwloc_distances->nbobjs=2
+[gnode16:2286922] hwloc_distances->values[0]=10
+[gnode16:2286922] hwloc_distances->values[1]=21
+[gnode16:2286922] Process is bound: distance to device is 0.000000
+[gnode16:2286922] Checking distance from this process to device=mlx5_1
+[gnode16:2286922] hwloc_distances->nbobjs=2
+[gnode16:2286922] hwloc_distances->values[0]=10
+[gnode16:2286922] hwloc_distances->values[1]=21
+[gnode16:2286922] Process is bound: distance to device is 0.000000
+[gnode16:2286922] Checking distance from this process to device=mlx5_bond_0
+[gnode16:2286922] hwloc_distances->nbobjs=2
+[gnode16:2286922] hwloc_distances->values[0]=10
+[gnode16:2286922] hwloc_distances->values[1]=21
+[gnode16:2286922] Process is bound: distance to device is 0.000000
+--------------------------------------------------------------------------
+WARNING: No preset parameters were found for the device that Open MPI
+detected:
+
+  Local host:            gnode16
+  Device name:           mlx5_0
+  Device vendor ID:      0x02c9
+  Device vendor part ID: 4129
+
+Default device parameters will be used, which may result in lower
+performance.  You can edit any of the files specified by the
+btl_openib_device_param_files MCA parameter to set values for your
+device.
+
+NOTE: You can turn off this warning by setting the MCA parameter
+      btl_openib_warn_no_device_params_found to 0.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   gnode16
+  Local device: mlx5_1
+--------------------------------------------------------------------------
+[gnode16:2286922] select: init of component openib returned failure
+[gnode16:2286922] mca: base: close: component openib closed
+[gnode16:2286922] mca: base: close: unloading component openib
+[gnode16:2286922] select: initializing btl component self
+[gnode16:2286922] select: init of component self returned success
+[gnode16:2286922] select: initializing btl component tcp
+[gnode16:2286922] btl: tcp: Searching for exclude address+prefix: 127.0.0.1 / 8
+[gnode16:2286922] btl: tcp: Found match: 127.0.0.1 (lo)
+[gnode16:2286922] btl: tcp: Using interface: sppp 
+[gnode16:2286922] btl:tcp: Attempting to bind to AF_INET port 1024
+[gnode16:2286922] btl:tcp: Successfully bound to AF_INET port 1024
+[gnode16:2286922] btl:tcp: my listening v4 socket is 0.0.0.0:1024
+[gnode16:2286922] btl:tcp: examining interface bond0
+[gnode16:2286922] btl:tcp: using ipv6 interface bond0
+[gnode16:2286922] btl:tcp: examining interface ibP1s3
+[gnode16:2286922] btl:tcp: using ipv6 interface ibP1s3
+[gnode16:2286922] btl:tcp: examining interface docker0
+[gnode16:2286922] btl:tcp: using ipv6 interface docker0
+[gnode16:2286922] select: init of component tcp returned success
+[gnode16:2286922] select: initializing btl component vader
+[gnode16:2286922] select: init of component vader returned success
+[gnode16:2286922] mca: base: components_register: registering framework pml components
+[gnode16:2286922] mca: base: components_register: found loaded component ucx
+[gnode16:2286922] mca: base: components_register: component ucx register function successful
+[gnode16:2286922] mca: base: components_open: opening pml components
+[gnode16:2286922] mca: base: components_open: found loaded component ucx
+[gnode16:2286922] mca: base: components_open: component ucx open function successful
+[gnode16:2286922] select: initializing pml component ucx
+[gnode16:2286922] select: init returned priority 51
+[gnode16:2286922] selected ucx best priority 51
+[gnode16:2286922] select: component ucx selected
+{"utc":"2026-11-22T16:21:09.392873532Z","phase":"support-order-validation","event":"progress","completed":11,"total":11,"unit":"exponents","elapsed_seconds":4.63e-7}
+{"utc":"2026-11-22T16:21:09.392897557Z","phase":"support-Frobenius-validation","event":"progress","completed":11,"total":11,"unit":"exponents","elapsed_seconds":0.000024488}
+{"utc":"2026-11-22T16:21:09.400630548Z","phase":"read-support","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.000002946}
+{"utc":"2026-11-22T16:21:09.400640484Z","phase":"support-order-validation","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":4.92e-7}
+{"utc":"2026-11-22T16:21:09.400643977Z","phase":"support-Frobenius-validation","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.000003985}
+{"utc":"2026-11-22T16:21:09.418941189Z","phase":"support-order-validation","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.000006023}
+{"utc":"2026-11-22T16:21:09.418953955Z","phase":"support-Frobenius-validation","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.000018789}
+{"utc":"2026-11-22T16:21:09.423345582Z","phase":"support-order-validation","event":"progress","completed":11,"total":11,"unit":"exponents","elapsed_seconds":4.44e-7}
+{"utc":"2026-11-22T16:21:09.42335551Z","phase":"support-Frobenius-validation","event":"progress","completed":11,"total":11,"unit":"exponents","elapsed_seconds":0.000010371}
+{"utc":"2026-11-22T16:21:09.433674571Z","phase":"support-order-validation","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":4.42e-7}
+{"utc":"2026-11-22T16:21:09.433686074Z","phase":"support-Frobenius-validation","event":"progress","completed":37,"total":37,"unit":"exponents","elapsed_seconds":0.000011946}
+{"utc":"2026-11-22T16:21:09.488039577Z","phase":"support-order-validation","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":7.52e-7}
+{"utc":"2026-11-22T16:21:09.488056658Z","phase":"support-Frobenius-validation","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.000017833}
+{"utc":"2026-11-22T16:21:10.550115693Z","phase":"support-order-validation","event":"progress","completed":290,"total":290,"unit":"exponents","elapsed_seconds":0.000001229}
+{"utc":"2026-11-22T16:21:10.550140804Z","phase":"support-Frobenius-validation","event":"progress","completed":290,"total":290,"unit":"exponents","elapsed_seconds":0.000026341}
+{"utc":"2026-11-22T16:21:10.555671504Z","phase":"read-support","event":"progress","completed":1910,"total":1910,"unit":"exponents","elapsed_seconds":0.000393281}
+{"utc":"2026-11-22T16:21:10.555686118Z","phase":"support-order-validation","event":"progress","completed":1910,"total":1910,"unit":"exponents","elapsed_seconds":0.000004891}
+{"utc":"2026-11-22T16:21:10.555701196Z","phase":"support-Frobenius-validation","event":"progress","completed":1910,"total":1910,"unit":"exponents","elapsed_seconds":0.000019969}
+{"utc":"2026-11-22T16:21:10.555922119Z","phase":"support-order-validation","event":"progress","completed":1910,"total":1910,"unit":"exponents","elapsed_seconds":0.000004435}
+{"utc":"2026-11-22T16:21:10.556079977Z","phase":"support-Frobenius-validation","event":"progress","completed":1910,"total":1910,"unit":"exponents","elapsed_seconds":0.000162293}
+{"utc":"2026-11-22T16:21:10.558844151Z","phase":"support-order-validation","event":"progress","completed":290,"total":290,"unit":"exponents","elapsed_seconds":0.00000129}
+{"utc":"2026-11-22T16:21:10.558868951Z","phase":"support-Frobenius-validation","event":"progress","completed":290,"total":290,"unit":"exponents","elapsed_seconds":0.00002609}
+{"utc":"2026-11-22T16:21:10.81425455Z","phase":"support-order-validation","event":"progress","completed":769,"total":769,"unit":"exponents","elapsed_seconds":0.000002218}
+{"utc":"2026-11-22T16:21:10.814316528Z","phase":"support-Frobenius-validation","event":"progress","completed":769,"total":769,"unit":"exponents","elapsed_seconds":0.000064195}
+{"utc":"2026-11-22T16:21:11.118744008Z","phase":"support-order-validation","event":"progress","completed":1910,"total":1910,"unit":"exponents","elapsed_seconds":0.000004763}
+{"utc":"2026-11-22T16:21:11.118890699Z","phase":"support-Frobenius-validation","event":"progress","completed":1910,"total":1910,"unit":"exponents","elapsed_seconds":0.000151453}
+[gnode16:2286922] 1 more process has sent help message help-mpi-btl-openib.txt / no device params found
+[gnode16:2286922] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[gnode16:2286922] mca: base: close: component ucx closed
+[gnode16:2286922] mca: base: close: unloading component ucx
+[gnode16:2286922] mca: base: close: component self closed
+[gnode16:2286922] mca: base: close: unloading component self
+[gnode16:2286922] mca: base: close: component tcp closed
+[gnode16:2286922] mca: base: close: unloading component tcp
+[gnode16:2286922] mca: base: close: component vader closed
+[gnode16:2286922] mca: base: close: unloading component vader

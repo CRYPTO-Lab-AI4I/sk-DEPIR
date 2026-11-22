@@ -40,7 +40,7 @@ def review(rows,directory,resume=False,source=None,cold=None):
     return result
 
 
-def suite(c):
+def suite(c,extra_arms=None):
     c['run']('pipeline-four-review-tests',['python3','-B','experiments/distributed-pipeline-four/test_review.py'],30)
     c['env'].update(CGO_ENABLED='1',CC='mpicc',CXX='mpicxx')
     c['run']('control-admission',[c['go'],'test','-tags','liftrs_mpi','./experiments/distributed-root/mpi','-count=1','-timeout=20s'],45)
@@ -51,7 +51,7 @@ def suite(c):
     c['save']()
     c['run']('reference-preflight',['srun','--nodes=2','--ntasks=4','--ntasks-per-node=2','--cpus-per-task=1','--export=ALL,TMPDIR=/tmp','--chdir='+str(c['cache']),
         'bash','-c','set -eu; for p in "$1"/*; do test -r "$p"; done','reference-preflight',target],30)
-    return RESTART['suite'](c,reference_from=target,review_fn=review,ranks=4)
+    return RESTART['suite'](c,reference_from=target,review_fn=review,ranks=4,extra_arms=extra_arms)
 
 
 if __name__=='__main__':

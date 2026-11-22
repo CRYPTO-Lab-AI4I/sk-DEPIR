@@ -48,7 +48,7 @@ func samePilotFiles(a, b string) error {
 
 // Only rank0 owns output descriptors. Every node sends just its non-padding
 // section in bounded tiles; no full receive/publication array is allocated.
-func publishPilotStream(t *testing.T, w *mpi.World, directory, label string, h ScalingCodeHeader, root, g, spectrum []uint32, reference *PreparedCode, link operandMPI, operation *uint64) {
+func publishPilotStream[Word transposeWord](t *testing.T, w *mpi.World, directory, label string, h ScalingCodeHeader, root, g []uint32, spectrum []Word, reference *PreparedCode, link operandMPI, spectrumLink typedOperandMPI[Word], operation *uint64) {
 	t.Helper()
 	var code, generator *os.File
 	if w.Rank == 0 {
@@ -67,17 +67,9 @@ func publishPilotStream(t *testing.T, w *mpi.World, directory, label string, h S
 			t.Fatal(err)
 		}
 	}
-	section := func(values []uint32, count, limit uint64, destination io.Writer) {
-		op := *operation
-		*operation = op + 1
-		_, words := rankBand(h.N, w.Rank, w.Size)
-		if err := streamRankValues(rankStreamPlan{op, h.N, count, 4096, limit, words, w.Rank, w.Size}, values, destination, link); err != nil {
-			t.Fatal(err)
-		}
-	}
-	section(root, h.K+1, uint64(1)<<uint(h.Spec.FieldDegree), code)
-	section(g, h.N-h.K, uint64(1)<<uint(h.Spec.FieldDegree), generator)
-	section(spectrum, h.N, uint64(1)<<uint(2*h.Spec.FieldDegree), code)
+	publishPilotValues(t, w, h.N, h.K+1, uint64(1)<<uint(h.Spec.FieldDegree), root, code, link, operation)
+	publishPilotValues(t, w, h.N, h.N-h.K, uint64(1)<<uint(h.Spec.FieldDegree), g, generator, link, operation)
+	publishPilotValues(t, w, h.N, h.N, uint64(1)<<uint(2*h.Spec.FieldDegree), spectrum, code, spectrumLink, operation)
 	if w.Rank == 0 {
 		if err := code.Sync(); err != nil {
 			t.Fatal(err)
@@ -105,5 +97,18 @@ func publishPilotStream(t *testing.T, w *mpi.World, directory, label string, h S
 		if err := samePilotFiles(filepath.Join(directory, label+"-generator.bin"), filepath.Join(directory, label+"-rank-0-reference-g.bin")); err != nil {
 			t.Fatal(err)
 		}
+	}
+}
+
+// Base coefficients keep4-byte slots;extension spectra use their canonical Word
+// width. This shared section boundary also permits bounded raw-field diagnostics
+// without pretending a small transform is a complete full-domain code artifact.
+func publishPilotValues[Word transposeWord](t *testing.T, w *mpi.World, domain, count, limit uint64, values []Word, destination io.Writer, link rankValueLink[Word], operation *uint64) {
+	t.Helper()
+	op := *operation
+	*operation = op + 1
+	_, words := rankBand(domain, w.Rank, w.Size)
+	if err := streamRankValues(rankStreamPlan{op, domain, count, 4096, limit, words, w.Rank, w.Size}, values, destination, link); err != nil {
+		t.Fatal(err)
 	}
 }

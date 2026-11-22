@@ -83,7 +83,11 @@ func TestDistributedPreprocessingPilot(t *testing.T) {
 	}
 	withRankGPUStages(t, directory, ranks, func(w *mpi.World, emit func(map[string]any)) {
 		for _, s := range cases {
-			runDistributedPilot(t, w, directory, s, emit)
+			if s <= 16 {
+				runDistributedPilot[uint32](t, w, directory, s, emit)
+			} else {
+				runDistributedPilot[uint64](t, w, directory, s, emit)
+			}
 		}
 		if ranks > 2 && os.Getenv("PIR_PIPELINE_RESUME_FROM") == "" {
 			emit(map[string]any{"kind": "hierarchy-completed", "cases": len(cases)})
@@ -92,7 +96,7 @@ func TestDistributedPreprocessingPilot(t *testing.T) {
 	})
 }
 
-func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, emit func(map[string]any)) {
+func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directory string, s int, emit func(map[string]any)) {
 	t.Helper()
 	began := time.Now()
 	n := 1 << uint(2*s)
@@ -108,6 +112,9 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	publication := os.Getenv("PIR_PIPELINE_PUBLICATION")
 	if publication == "" {
 		publication = "gather"
+	}
+	if s > 16 && publication != "stream" {
+		t.Fatal("wide pipeline requires streamed publication")
 	}
 	if publication != "gather" && publication != "stream" {
 		t.Fatal("publication mode")
@@ -205,7 +212,7 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 		archiveSink = archive.append
 	}
 	if layout == "distributed" && resumeFrom == "" {
-		discovered = partitionedDiscovery[uint32](t, w, Spec{s, 2, 2}, emit, archiveSink)
+		discovered = partitionedDiscovery[Word](t, w, Spec{s, 2, 2}, emit, archiveSink)
 		if w.Rank == 0 {
 			expectedSamples := 0
 			if referenceFrom == "" {
@@ -462,11 +469,11 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 			emit(map[string]any{"kind": "progress", "case": label, "call": call, "phase": phase, "pass": pass, "completed": done, "total": total})
 		}
 	}
-	executor := rankGPUExecutor[uint32]{GPU: gpu, Plan: p, Capacity: capacity, Limit: q, Notice: notice}
-	executor.Transpose = transposeMPI[uint32]{world: w, rank: w.Rank, record: func(direction string, peer int, p transposePacket, data []uint32, own, remote [64]byte) {
+	executor := rankGPUExecutor[Word]{GPU: gpu, Plan: p, Capacity: capacity, Limit: q, Notice: notice}
+	executor.Transpose = transposeMPI[Word]{world: w, rank: w.Rank, record: func(direction string, peer int, p transposePacket, data []Word, own, remote [64]byte) {
 		emit(map[string]any{"kind": "tile-proof", "case": call, "pass": pass, "operation": p.Operation, "round": p.Round, "offset": p.Offset, "words": p.Words, "peer": peer, "direction": direction, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
 	}}
-	executor.Windows = taylorMPI[uint32]{world: w, record: func(direction string, peer int, p taylorPacket, data []uint32, own, remote [64]byte) {
+	executor.Windows = taylorMPI[Word]{world: w, record: func(direction string, peer int, p taylorPacket, data []Word, own, remote [64]byte) {
 		emit(map[string]any{"kind": "taylor-proof", "case": call, "pass": pass, "packet": p, "peer": peer, "direction": direction, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
 	}}
 	executor.Degrees = func(level int) ([]uint64, error) {
@@ -631,11 +638,14 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	if err != nil {
 		t.Fatal(err)
 	}
-	save("spectrum", spectrum)
+	saveMatrixStageWords(t, filepath.Join(directory, fmt.Sprintf("%s-rank-%d-spectrum.bin", label, w.Rank)), spectrum)
 	emit(map[string]any{"kind": "executor-call", "case": call, "s": s, "operation_start": callOp, "mode": "spectrum", "keep": n, "matches": true})
 	event("artifact-publication", "started")
 	if publication == "stream" {
-		publishPilotStream(t, w, directory, label, h, root, g, spectrum, reference, link, &executor.Plan.Operation)
+		spectrumLink := typedOperandMPI[Word]{world: w, record: func(direction string, p operandPacket, data []Word, own, remote [64]byte) {
+			emit(map[string]any{"kind": "operand-proof", "case": label, "direction": direction, "packet": p, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
+		}}
+		publishPilotStream(t, w, directory, label, h, root, g, spectrum, reference, link, spectrumLink, &executor.Plan.Operation)
 	} else {
 		publish := func(values []uint32) []uint32 {
 			op := executor.Plan.Operation
@@ -654,7 +664,7 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 			}
 			return result
 		}
-		fullP, fullG, fullSpectrum := publish(root), publish(g), publish(spectrum)
+		fullP, fullG, fullSpectrum := publish(root), publish(g), publish(any(spectrum).([]uint32))
 		if w.Rank == 0 {
 			if !reflect.DeepEqual(fullP[:k+1], reference.code.p) || !reflect.DeepEqual(fullG[:n-k], reference.generator) || !reflect.DeepEqual(fullSpectrum, reference.code.spectrum32) {
 				t.Fatal("complete canonical output oracle")

@@ -36,7 +36,7 @@ def review(rows,directory,resume=False,source=None,cold=None,ranks=2,hierarchy=F
     result['processes']=processes;return result
 
 
-def suite(c,reference_from=None,review_fn=review,ranks=2):
+def suite(c,reference_from=None,review_fn=review,ranks=2,extra_arms=None):
     c['run']('restart-review-tests',['python3','-B','experiments/distributed-restart-pilot/test_review.py'],30)
     c['env'].update(CGO_ENABLED='1',CC='mpicc',CXX='mpicxx')
     for name,race in (('restart-publication-cpu',[]),('restart-publication-race',['-race'])):
@@ -49,6 +49,7 @@ def suite(c,reference_from=None,review_fn=review,ranks=2):
         env=dict(PIR_PIPELINE_RANKS=str(ranks),PIR_PIPELINE_SMALL='0',PIR_PIPELINE_DISCOVERY='distributed',PIR_PIPELINE_PUBLICATION='stream',PIR_PIPELINE_RESUME_FROM='',PIR_PIPELINE_REFERENCE_FROM=''if reference_from is None else str(reference_from)),review=review_fn),
         dict(name='resume',test='TestDistributedPreprocessingPilot',memcheck=False,profile=True,
         env=dict(PIR_PIPELINE_RANKS=str(ranks),PIR_PIPELINE_SMALL='0',PIR_PIPELINE_DISCOVERY='distributed',PIR_PIPELINE_PUBLICATION='stream',PIR_PIPELINE_RESUME_FROM=str(source),PIR_PIPELINE_REFERENCE_FROM=''if reference_from is None else str(reference_from)),review=resumed)]
+    if extra_arms:arms.extend(extra_arms)
     # No CUDA arithmetic changed. The preceding integrated discovery allocation
     # already sanitized the maintained kernels; validate new host boundaries here.
     return VECTORS['suite'](c,full_fft=False,arms=arms,ranks=ranks,scope='genuine s4/s6 cold plus fresh MPI-process resume from prefix8,streamed canonical/generator artifacts;trusted manifests,same rank count;no node-failure or fulls18 claim')

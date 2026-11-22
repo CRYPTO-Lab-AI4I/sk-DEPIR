@@ -21,19 +21,18 @@ The small two-rank pipeline is assembled and validated through discovery, roots,
 Newton iteration, the complete identity and spectrum, plus fresh-process restart
 and streamed publication. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
-GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Current focus: validate the complete
-four-worker cold/restart pipeline,then step5 scaling validation.** Steps1–4 have
-small-case correctness evidence; full-pipeline execution beyond two workers and
-fullsize scaling remain unvalidated.
+GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Current focus: validate wide
+assembled adapters and scalable fullsize ownership,then step5 scaling validation.** Steps1–4 have
+small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
 
 | Step | Status |
 |---|---|
 | 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>**Integrated genuine s4/s6 pilot passed78898**: repeated sharded root/Newton/identity/spectrum and canonical artifacts.<br>**Canonical s18 bounded FFT/products passed78917**, with clean small CUDA memchecks. **Four-worker canonical s18 FFT/products passed79239 on two GPUs**,with clean small sanitizers. [Hierarchical sharded root execution passed79376](../experiments/distributed-root-hierarchy/report.md), including unequal child domains and clean small CUDA checks. Fullsize scaling remains pending. |
 | 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing passed78909 for genuine s4/s6. Four-worker genuine discovery-to-hierarchy passed79541. Coordinator entropy source remains; streamed support/retained-reference cold and fresh-process resume passed79213; full coordinator support/oracle arrays removed in the explicit pilot mode. No fullsize result. |
-| 3. Generator construction and verification | Sharded Newton/identity/spectrum integration passed78898 for genuine s4/s6. Fullsize integration remains. |
-| 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898; partitioned discovery passed78909. **Fresh-process prefix8 restart and bounded streamed publication passed78915** for genuine s4/s6, with identical canonical code/generator output. Fullsize/node-failure recovery remains. |
-| 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. [Canonical s18 bounded FFT/products passed78917](../experiments/s18-field-admission/report.md). Larger scaling and fulls18 remain unrun. |
+| 3. Generator construction and verification | Sharded Newton/identity/spectrum integration passed78898 for genuine s4/s6. Four-worker complete genuine cold/restart passed79983;fullsize integration remains. |
+| 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898; partitioned discovery passed78909. **Fresh-process prefix8 restart and bounded streamed publication passed78915** for genuine s4/s6, with identical canonical code/generator output. Four-worker complete cold/restart passed79983. Fullsize/node-failure recovery remains. |
+| 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. [Canonical s18 bounded FFT/products passed78917](../experiments/s18-field-admission/report.md). Complete four-worker cold/restart passed79983. Larger scaling and fulls18 remain unrun. |
 
 [FFT evidence](../experiments/distributed-gpu-fft/report.md): controller runtime
 **2 min15.343s**, normal suite **1.971s**, sanitizer suite **3.726s**. Logged host
@@ -888,8 +887,8 @@ runtime/peak memory or four-GPU speedup follows. [Evidence](../experiments/distr
 | Work | Remaining boundary |
 |---|---|
 | Multi-level rank-owned root reduction | Hierarchical stage plan,sharded routing and subgroup GPU composition passed79376 for synthetic s18 supports16/4092; genuine discovery-to-tree integration passed79541. The product/FFT backend already passes four-worker tests. |
-| Full pipeline at the intended topology | Four-worker discovery/hierarchy passed79541. Complete four-worker root/Newton/identity/spectrum/streamed-output composition and generalized control/commits are implemented; cold/restart GPU validation is pending. Genuine end-to-end evidence still covers s4/s6 with two workers; s18 evidence is component-only. |
-| Restart and final artifacts at that topology | Verify coordinated completed-stage/prefix commits,resume and canonical publication for the selected rank count,including interruption/relaunch. Fixed two-worker fresh-process resume already passes. |
+| Full pipeline at the intended topology | Four-worker discovery/hierarchy passed79541. Complete genuine s4/s6 four-worker cold/restart passed79983,including roots/Newton/identity/spectrum/streamed output and coordinated commits. Fullsize diagnostic-free ownership and wide full-domain execution remain; s18 evidence is component-only. |
+| Restart and final artifacts at that topology | Four-worker coordinated commits,fresh-process prefix8 resume and canonical publication passed79983. Representative larger interruption/relaunch and final topology validation remain;no node-loss claim. |
 | Representative scaling and full-run admission | Validate one assembled smaller case,then meaningful larger workloads with host/device peaks,communication,I/O and progress logging. Use results to choose GPU/node count,storage,deadline and headroom;obtain full-run resource agreement,then launch fulls18. |
 
 The exact s18 dimension is already measured;the arithmetic and reciprocal/identity
@@ -922,7 +921,7 @@ shares phase-bound integer count exchange,partitioned discovery and orbit routin
 across2/4 workers,and feeds locally discovered roots into the same subgroup tree.
 Allocation79541 passed genuine s4/s6 sampling/support and every
 inter-level polynomial against native references;
-full-pipeline Newton/restart/publication beyond two workers is still unvalidated.
+complete four-worker Newton/restart/publication now passes79983;fullsize behavior remains unvalidated.
 No fulls18 preprocessing/encoding table cell is promoted by these component tests.
 
 
@@ -944,7 +943,7 @@ These are small s4/s6 correctness measurements,not fulls18 capacity/runtime.
 hierarchy and the existing reciprocal/identity/spectrum/streamed publication,with
 rank-bound committed prefixes and a fresh MPI-process prefix8 restart. Shared
 control gathering/reviewers preserve the two-worker path;bounded native support
-replication is diagnostic only. Same allocation/caps;GPU validation pending.
+replication is diagnostic only. Same allocation/caps;small complete four-worker GPU validation passed79983.
 Then validate fullsize ownership/wide-slot execution and representative scaling
 before final topology,headroom and full-run budget admission. Fulls18 table cells
 remain unrun;the pending small complete pilot does not establish fulls18 readiness.
@@ -953,5 +952,25 @@ remain unrun;the pending small complete pilot does not establish fulls18 readine
 Complete four-worker cold/restart validation submitted as **79983**,pipeline-01,
 implementatione48a26e after committed-source/native-input preflightbbc1f91.
 [Receipt and resources](../experiments/distributed-pipeline-four/submission.json).
-Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;new GPU results pending.
+Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;GPU results passed79983.
 Fulls18 remains unrun;this is a genuine s4/s6 topology/correctness allocation.
+
+
+### Complete four-worker pass;wide adapters next (SCALING-173)
+
+[79983 passed](../experiments/distributed-pipeline-four/report.md),including cold
+execution and fresh-process prefix8 resume. HPC:two H200s/two nodes,four CPU cores,
+8GiB requested host RAM,four workers. Controller **2 min11.447 seconds**;cold
+launcher arm **7.603 seconds**,resume **4.945 seconds**. Maximum pipeline-row RSS
+**376.535 MiB cold /377.840 MiB resume per worker**;reported owned GPU **0.064
+MiB/worker**,context/driver/transients additional;cache **15.541 MiB**. All completed
+prefixes,full identity,spectrum,communication proofs and native canonical/generator
+bytes passed;806 source/56 evidence/387 cache digests reconcile. Fulls18 cells remain unrun.
+
+[Wide adapter validation](../experiments/distributed-pipeline-wide/report.md) keeps
+one generic pipeline,32-bit base coefficients and size-dependent extension spectra.
+It combines genuine four-worker cold/restart with bounded canonical field18
+reciprocal/product/spectrum and explicit high-bit8-byte publication. These32/4096-point
+field components are not the2^36-point s18 code grid or a fulls18 artifact. Same
+allocation/caps;GPU results pending. Scalable diagnostic-free ownership,full wide-domain
+workflow,representative scaling/restart and separate full-run admission remain.

@@ -1,6 +1,6 @@
 # Four-worker complete distributed preprocessing pilot
 
-Status: **submitted79983**,pipeline-01,implementatione48a26e;GPU/MPI results pending. Parent revisionf153e4f;
+Status: **passed79983**,pipeline-01,implementatione48a26e;GPU/MPI results passed. Parent revisionf153e4f;
 actual implementation/producing revision will be recorded with the committed
 snapshot and sealed controller results. [Runner](run.py), [Slurm entry](run.sbatch),
 [analyzer](analyze.py), [reviewer tests](test_review.py), [readiness](readiness/).
@@ -123,7 +123,7 @@ python3 -B experiments/distributed-pipeline-four/analyze.py pipeline-01
 [Tagged build](readiness/build.log), [native shapes](readiness/native.log),
 [MPI admission](readiness/mpi-control.log), [race checks](readiness/race.log),
 [legacy evidence replay](readiness/legacy-replay.log) and reviewer logs are retained.
-GPU/MPI composition remains pending. Fulls18 still needs scalable ownership without
+GPU/MPI composition passed79983. Fulls18 still needs scalable ownership without
 these bounded replicated diagnostics,canonical wide-slot complete-pipeline admission,
 representative scaling,resource/headroom review and separate full-run agreement.
 
@@ -140,3 +140,28 @@ Submitted **79983** after readiness commitbbc1f91.
 [Receipt](submission.json), [scheduler log](slurm-79983.log),results
 `runs/pipeline-01/`. Same resources/caps and3–5 minute estimate excluding queue.
 No model polling after submission;review saved evidence after completion notice.
+
+
+## Measured outcome — HPC79983
+
+[Raw results](runs/pipeline-01/results.json), [reconciled analysis](runs/pipeline-01/analysis.json),
+[logs/profiles](runs/pipeline-01/), [scheduler log](slurm-79983.log).
+Producing revisionbbc1f91;806 source/56 evidence/387 cache files reconcile;
+all30 commands passed. Controller **2 min11.447 seconds**;cold launcher arm
+**7.603 seconds**,fresh-process resume arm **4.945 seconds**,each covering genuine
+s4/s6 on four workers. Each arm has8 verified rank/case measurements. All saved
+prefixes,root bindings,full cyclic identity,spectrum,communication proofs,canonical
+code/generator bytes and new-process records passed. Canonical hashes match the
+independently retained native files. No sanitizer arm repeated.
+
+Maximum pipeline-row RSS **376.535 MiB/worker cold /377.840 MiB/worker resume**;
+reported owned GPU **0.064 MiB/worker maximum** in these rows,excluding context,
+driver and unobserved transients. Component rows retain separate observations;
+these are not synchronized total-memory peaks. Retained cache **15.541 MiB**.
+HPC allocation:two H200s/two nodes,four CPU cores,8GiB total requested host RAM,
+four workers/two per card. This closes the small complete four-worker topology
+and fresh-process restart gate,not fulls18 or node-loss recovery.
+
+Next:[wide assembled adapters](../distributed-pipeline-wide/report.md),then scalable
+diagnostic-free ownership,full wide-domain execution,representative scaling/restart
+and separate fulls18 resource admission.

@@ -3355,3 +3355,36 @@ implementatione48a26e after committed-source/native-input preflightbbc1f91.
 [Receipt and resources](../experiments/distributed-pipeline-four/submission.json).
 Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;new GPU results pending.
 Fulls18 remains unrun;this is a genuine s4/s6 topology/correctness allocation.
+
+
+### Complete four-worker pass;wide adapters (SCALING-173)
+
+79983 passed806 source/56 evidence/387 cache reconciliations,all30 commands and
+complete genuine s4/s6 cold/fresh-prefix8 resume. Native canonical/generator bytes,
+all completed prefixes,full identity,spectrum and routing proofs matched.
+Controller2 min11.447s,cold launcher7.603s,resume4.945s;pipeline-row RSS376.535/377.840
+MiB/worker,owned GPU0.064MiB/worker,context/driver/transients additional;cache15.541MiB.
+Same2HPCnodes/2H200/4CPU/8GiB request. [Evidence](../experiments/distributed-pipeline-four/report.md).
+
+Remove32-bit-only assembled spectrum/publication assumptions using one generic
+extension word type and existing typed MPI/stream codecs;base P/G stay32-bit.
+Next allocation combines the genuine cold/restart regression with a bounded
+canonical field18 tail:Newton prefixes,complete nonaliasing product,native spectrum,
+4-byte base output and8-byte spectrum/high-bit publication. Independent Python
+shift/XOR recurrence checks every prefix/convolution and square-route payload;
+verify all FFT/Taylor/transpose/publication packets. Raw bounded output is not a
+fulls18 code artifact. Native preflight,all-tagged build,byte-truncation regression
+and actual committed-source snapshot checks precede submission.
+
+Same2nodes/2H200/4CPU/8GiB,4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,
+128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm,0CUDApinned. One three-arm
+profiled allocation,no CUDA arithmetic changes/repeated sanitizer-only gate.
+Estimate3–5min excluding queue,based on measured prior work and bounded shapes.
+Three64-bit extension arrays use24N/r bytes versus12N/r with32-bit slots;streaming
+adds at most32KiB of tile storage without another whole spectrum. This is required
+representation,not an optional memory trade;fullsize wider-transfer cost is unknown.
+[Runner and limits](../experiments/distributed-pipeline-wide/report.md).
+
+Then complete scalable ownership without bounded replicated support/oracles,
+canonical wide full-domain execution,meaningful larger scaling/restart and separate
+fulls18 topology/resource/headroom/deadline admission. Fulls18 remains unrun.

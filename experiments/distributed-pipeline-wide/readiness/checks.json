@@ -1,0 +1,42 @@
+{
+  "utc": "2026-11-22T18:46:19.312608+00:00",
+  "status": "passed-local;integrated GPU results pending",
+  "parent_revision": "9e3dbc2",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go": "a43113cd261a375ec3f7af96287534b3472ce2eef10f874e9cea4ce6f7605450",
+    "encoding/liftrs-shared/distributed_publication_gpu_test.go": "c7cddd5e8aeda6ec15000808a0f986c814dac6970c64243568d68c86279e13b0",
+    "encoding/liftrs-shared/pipeline_wide_gpu_test.go": "50dca792b1fa9ca3210543be38086dbdced339b2488091587eb7dc9c519fb2dc",
+    "experiments/distributed-pipeline-four/run.py": "788a1836c2c56b0a542dbdd332d125c685f5d03c3f42a79e63eccb26e50235b0",
+    "experiments/distributed-restart-pilot/run.py": "3cb7438e0fb8eadda8735df322510b9797968c811632592395f204108a27e606",
+    "experiments/distributed-pipeline-wide/analyze.py": "257ea985582fb67cc3f781f87b66e6735ea52e1c27980719d13b9422faa7e7eb",
+    "experiments/distributed-pipeline-wide/run.py": "3707f2dd83a4a47fb8ee68a32463f4add823a927e235a77a4dc3793e10c7ea75",
+    "experiments/distributed-pipeline-wide/test_review.py": "50f17cb55dc0c22ee1884079db7f611369a80a96b148fe8df31bbdac020051c5",
+    "experiments/distributed-pipeline-wide/run.sbatch": "946dab6310196b7df5bf9c1c75bfa2abd19ff6b47087cc020498f08af15aa442"
+  },
+  "checks": {
+    "build.log": "# runtime/cgo\n[lnode02:00128] opal_ifinit: socket() failed with errno=1\n# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp\n[lnode02:00497] opal_ifinit: socket() failed with errno=1\n",
+    "distributed-coordinator-stream.log": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.005s\n\nOK\n",
+    "distributed-discovery-hierarchy.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+    "distributed-pipeline-four.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.031s\n\nOK\n",
+    "distributed-pipeline-wide.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n",
+    "distributed-preprocessing-pilot.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.008s\n\nOK\n",
+    "distributed-restart-pilot.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.029s\n\nOK\n",
+    "distributed-root-hierarchy.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.039s\n\nOK\n",
+    "legacy-replay.log": "79983 complete four-worker cold/resume evidence re-reviewed successfully using the generalized adapters/reviewers;no scheduler queries or saved output changes.\n",
+    "native.log": "=== RUN   TestDistributedPilotShapes\n--- PASS: TestDistributedPilotShapes (0.07s)\n=== RUN   TestGenuineHierarchyShapes\n    root_hierarchy_gpu_test.go:352: s=4 rank=0 K=97 samples=1 leaves=[37 25 27 12] child=64 final=128\n    root_hierarchy_gpu_test.go:352: s=4 rank=1 K=97 samples=1 leaves=[37 25 27 12] child=64 final=128\n    root_hierarchy_gpu_test.go:352: s=4 rank=2 K=97 samples=1 leaves=[37 25 27 12] child=64 final=128\n    root_hierarchy_gpu_test.go:352: s=4 rank=3 K=97 samples=1 leaves=[37 25 27 12] child=64 final=128\n    root_hierarchy_gpu_test.go:352: s=6 rank=0 K=1910 samples=1 leaves=[681 462 480 291] child=2048 final=2048\n    root_hierarchy_gpu_test.go:352: s=6 rank=1 K=1910 samples=1 leaves=[681 462 480 291] child=2048 final=2048\n    root_hierarchy_gpu_test.go:352: s=6 rank=2 K=1910 samples=1 leaves=[681 462 480 291] child=1024 final=2048\n    root_hierarchy_gpu_test.go:352: s=6 rank=3 K=1910 samples=1 leaves=[681 462 480 291] child=1024 final=2048\n--- PASS: TestGenuineHierarchyShapes (0.05s)\n=== RUN   TestPilotHierarchyReferences\n    root_hierarchy_gpu_test.go:385: s=4 retained K=97 support digest/closure and four-rank hierarchy admitted\n    root_hierarchy_gpu_test.go:385: s=6 retained K=1910 support digest/closure and four-rank hierarchy admitted\n--- PASS: TestPilotHierarchyReferences (0.01s)\n=== RUN   TestS18NativeField\n--- PASS: TestS18NativeField (0.03s)\nPASS\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.045s\n",
+    "review.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n"
+  },
+  "commands": {
+    "build": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-pipeline-wide-readiness.test ./encoding/liftrs-shared",
+    "native": "PIR_PIPELINE_REFERENCE_FROM=$PWD/.cache/liftrs/distributed-coordinator-stream/readiness/reference-checked .cache/liftrs/distributed-pipeline-wide-readiness.test -test.run ^TestS18NativeField$|^TestGenuineHierarchyShapes$|^TestPilotHierarchyReferences$|^TestDistributedPilotShapes$ -test.v -test.timeout=20s",
+    "race": "go test -race ./encoding/liftrs-shared -run ^TestRankStream|^TestRankPrefix|^TestRankOperand|^TestShardedRoot -count=1 -timeout=20s"
+  },
+  "limits": "same2nodes/2H200/4CPU/8GiBhost;4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720s/15min,0CUDApinned",
+  "limitations": [
+    "No local MPI/GPU initialization;integrated wide adapter validation pending.",
+    "Wide tail is bounded canonical field18,not a fulls18 grid/code/cyclic identity.",
+    "No CUDA arithmetic change;prior clean sanitizer evidence retained.",
+    "Fullsize ownership/wide-domain workflow/scaling/admission remain."
+  ]
+}
