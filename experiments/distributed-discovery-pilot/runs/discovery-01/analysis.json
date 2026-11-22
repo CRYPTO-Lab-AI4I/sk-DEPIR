@@ -1,0 +1,447 @@
+{
+  "status": "passed",
+  "job_id": "78909",
+  "revision": "dfc868e331b108692275f612c9a0fc5e1d5a6ba7",
+  "source_files_verified": 766,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 35,
+  "cache_files_verified": 144,
+  "tests": [
+    "TestWideOrbitArithmetic",
+    "TestTableFreeFields"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.01911499910056591,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.019351959228515625,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.6195681225508451,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 0.023326976224780083,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.021770309656858444,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.07049145549535751,
+      "exit_code": 0
+    },
+    {
+      "label": "discovery-review-tests",
+      "seconds": 0.11738203279674053,
+      "exit_code": 0
+    },
+    {
+      "label": "discovery-cpu",
+      "seconds": 21.039703153073788,
+      "exit_code": 0
+    },
+    {
+      "label": "discovery-race",
+      "seconds": 19.936894230544567,
+      "exit_code": 0
+    },
+    {
+      "label": "ucx-version",
+      "seconds": 0.07777633145451546,
+      "exit_code": 0
+    },
+    {
+      "label": "ucx-config",
+      "seconds": 0.1677353624254465,
+      "exit_code": 0
+    },
+    {
+      "label": "review-tests",
+      "seconds": 0.17957610078155994,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu-orchestration",
+      "seconds": 1.4385210629552603,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu-race",
+      "seconds": 2.1709215585142374,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 20.44986387528479,
+      "exit_code": 0
+    },
+    {
+      "label": "test-build",
+      "seconds": 21.178123166784644,
+      "exit_code": 0
+    },
+    {
+      "label": "rank-preflight",
+      "seconds": 0.5183967929333448,
+      "exit_code": 0
+    },
+    {
+      "label": "normal",
+      "seconds": 3.1739368457347155,
+      "exit_code": 0
+    },
+    {
+      "label": "profile-0",
+      "seconds": 33.5838033426553,
+      "exit_code": 0
+    },
+    {
+      "label": "profile-1",
+      "seconds": 1.0695907846093178,
+      "exit_code": 0
+    },
+    {
+      "label": "memcheck",
+      "seconds": 2.5243914406746626,
+      "exit_code": 0
+    }
+  ],
+  "scope": "Sharded discovery in a genuine small-code pilot; diagnostic archive/publication remain;not fulls18 preprocessing.",
+  "arms": {
+    "normal": {
+      "measurements": [
+        {
+          "case": "s4",
+          "discovery_layout": "distributed",
+          "elapsed_seconds": 1.166628862,
+          "first": 0,
+          "identity_verified": true,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 54708,
+          "peak_rss_bytes": 390119424,
+          "prefix_reloaded": true,
+          "rank": 0,
+          "root_a_count": 63,
+          "root_b_count": 36,
+          "s": 4,
+          "seconds": 1.156618449,
+          "utc": "2026-11-22T08:42:36.949091572Z",
+          "words": 128
+        },
+        {
+          "case": "s6",
+          "discovery_layout": "distributed",
+          "elapsed_seconds": 1.669018462,
+          "first": 0,
+          "identity_verified": true,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 78900,
+          "peak_rss_bytes": 392876032,
+          "prefix_reloaded": true,
+          "rank": 0,
+          "root_a_count": 1160,
+          "root_b_count": 752,
+          "s": 6,
+          "seconds": 0.502098883,
+          "utc": "2026-11-22T08:42:37.451481018Z",
+          "words": 2048
+        },
+        {
+          "case": "s4",
+          "discovery_layout": "distributed",
+          "elapsed_seconds": 1.167146486,
+          "first": 128,
+          "identity_verified": true,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 54708,
+          "peak_rss_bytes": 379527168,
+          "prefix_reloaded": true,
+          "rank": 1,
+          "root_a_count": 63,
+          "root_b_count": 36,
+          "s": 4,
+          "seconds": 1.156618449,
+          "utc": "2026-11-22T08:42:36.948003506Z",
+          "words": 128
+        },
+        {
+          "case": "s6",
+          "discovery_layout": "distributed",
+          "elapsed_seconds": 1.669535499,
+          "first": 2048,
+          "identity_verified": true,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 78900,
+          "peak_rss_bytes": 392486912,
+          "prefix_reloaded": true,
+          "rank": 1,
+          "root_a_count": 1160,
+          "root_b_count": 752,
+          "s": 6,
+          "seconds": 0.502098883,
+          "utc": "2026-11-22T08:42:37.450392677Z",
+          "words": 2048
+        }
+      ],
+      "artifacts": {
+        "s4": {
+          "code_sha256": "69ebae873990075af7c9c558b5e9d76b2a4d237b89b4bb824205eb2de049c712",
+          "checkpoint_prefixes": [
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            159
+          ]
+        },
+        "s6": {
+          "code_sha256": "a384ea4123bb5bcbfaa9cde64afbe6e6c9091373e6c22129ceda8abdec5709c4",
+          "checkpoint_prefixes": [
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            2186
+          ]
+        }
+      },
+      "executor_calls": 52,
+      "operand_proof_events": 20,
+      "discovery": {
+        "s4": [
+          {
+            "case": "s4",
+            "discovery": true,
+            "elapsed_seconds": 0.961223154,
+            "entropy_sha256": "29cd25dfeea9b2cc2ec684de3df533e3b97fe64f1ec954a2e2e50c43906861b5",
+            "first": 0,
+            "grid_words": 128,
+            "k": 97,
+            "kind": "discovery-result",
+            "local_good": 66,
+            "owned_device_bytes": 54708,
+            "peak_rss_bytes": 385798144,
+            "rank": 0,
+            "raw_count": 66,
+            "root_count": 62,
+            "s": 4,
+            "samples": 1,
+            "utc": "2026-11-22T08:42:36.743684796Z"
+          },
+          {
+            "case": "s4",
+            "discovery": true,
+            "elapsed_seconds": 0.961743697,
+            "entropy_sha256": "",
+            "first": 128,
+            "grid_words": 128,
+            "k": 97,
+            "kind": "discovery-result",
+            "local_good": 31,
+            "owned_device_bytes": 54708,
+            "peak_rss_bytes": 378478592,
+            "rank": 1,
+            "raw_count": 31,
+            "root_count": 35,
+            "s": 4,
+            "samples": 1,
+            "utc": "2026-11-22T08:42:36.742600235Z"
+          }
+        ],
+        "s6": [
+          {
+            "case": "s6",
+            "discovery": true,
+            "elapsed_seconds": 1.236368083,
+            "entropy_sha256": "1ca47a40c8b6a579b06d3d5921ee5312060b2a71233fccffb0c631c2fb49d594",
+            "first": 0,
+            "grid_words": 2048,
+            "k": 1910,
+            "kind": "discovery-result",
+            "local_good": 1180,
+            "owned_device_bytes": 78900,
+            "peak_rss_bytes": 390119424,
+            "rank": 0,
+            "raw_count": 1180,
+            "root_count": 1159,
+            "s": 6,
+            "samples": 1,
+            "utc": "2026-11-22T08:42:37.018829923Z"
+          },
+          {
+            "case": "s6",
+            "discovery": true,
+            "elapsed_seconds": 1.236879782,
+            "entropy_sha256": "",
+            "first": 2048,
+            "grid_words": 2048,
+            "k": 1910,
+            "kind": "discovery-result",
+            "local_good": 730,
+            "owned_device_bytes": 78900,
+            "peak_rss_bytes": 390348800,
+            "rank": 1,
+            "raw_count": 730,
+            "root_count": 751,
+            "s": 6,
+            "samples": 1,
+            "utc": "2026-11-22T08:42:37.017736304Z"
+          }
+        ]
+      },
+      "discovery_wire_events": 16
+    },
+    "memcheck": {
+      "measurements": [
+        {
+          "case": "s4",
+          "discovery_layout": "distributed",
+          "elapsed_seconds": 1.295269603,
+          "first": 0,
+          "identity_verified": true,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 54708,
+          "peak_rss_bytes": 422711296,
+          "prefix_reloaded": true,
+          "rank": 0,
+          "root_a_count": 63,
+          "root_b_count": 36,
+          "s": 4,
+          "seconds": 1.306724419,
+          "utc": "2026-11-22T08:43:15.01392682Z",
+          "words": 128
+        },
+        {
+          "case": "s4",
+          "discovery_layout": "distributed",
+          "elapsed_seconds": 1.30708148,
+          "first": 128,
+          "identity_verified": true,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 54708,
+          "peak_rss_bytes": 430829568,
+          "prefix_reloaded": true,
+          "rank": 1,
+          "root_a_count": 63,
+          "root_b_count": 36,
+          "s": 4,
+          "seconds": 1.306724419,
+          "utc": "2026-11-22T08:43:15.012856687Z",
+          "words": 128
+        }
+      ],
+      "artifacts": {
+        "s4": {
+          "code_sha256": "69ebae873990075af7c9c558b5e9d76b2a4d237b89b4bb824205eb2de049c712",
+          "checkpoint_prefixes": [
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            159
+          ]
+        }
+      },
+      "executor_calls": 22,
+      "operand_proof_events": 10,
+      "discovery": {
+        "s4": [
+          {
+            "case": "s4",
+            "discovery": true,
+            "elapsed_seconds": 0.800277541,
+            "entropy_sha256": "29cd25dfeea9b2cc2ec684de3df533e3b97fe64f1ec954a2e2e50c43906861b5",
+            "first": 0,
+            "grid_words": 128,
+            "k": 97,
+            "kind": "discovery-result",
+            "local_good": 66,
+            "owned_device_bytes": 54708,
+            "peak_rss_bytes": 419921920,
+            "rank": 0,
+            "raw_count": 66,
+            "root_count": 62,
+            "s": 4,
+            "samples": 1,
+            "utc": "2026-11-22T08:43:14.518933979Z"
+          },
+          {
+            "case": "s4",
+            "discovery": true,
+            "elapsed_seconds": 0.812092933,
+            "entropy_sha256": "",
+            "first": 128,
+            "grid_words": 128,
+            "k": 97,
+            "kind": "discovery-result",
+            "local_good": 31,
+            "owned_device_bytes": 54708,
+            "peak_rss_bytes": 427778048,
+            "rank": 1,
+            "raw_count": 31,
+            "root_count": 35,
+            "s": 4,
+            "samples": 1,
+            "utc": "2026-11-22T08:43:14.517867549Z"
+          }
+        ]
+      },
+      "discovery_wire_events": 8,
+      "sanitizer": [
+        {
+          "errors": 0,
+          "leaked_bytes": 0,
+          "leaked_allocations": 0
+        },
+        {
+          "errors": 0,
+          "leaked_bytes": 0,
+          "leaked_allocations": 0
+        }
+      ]
+    }
+  },
+  "error": null
+}

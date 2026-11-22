@@ -1,0 +1,48 @@
+{
+  "recorded_utc": "2026-11-22T09:11:28.232449+00:00",
+  "checks": [
+    "Canonical32/64 streaming across1/2/3/5 contiguous ranks,source preservation,writer failure/nonzero padding rejection,checkpoint corruption/ownership/prefix/memory guards pass",
+    "Full focused CPU plus existing arithmetic/sampling tests0.588s,race2.143s; final prefix/stream-only0.006s,race1.026s",
+    "Final CPP/CUDA/MPI binary compiled; native genuine/discovery shapes and stream/recovery tests pass without GPU/MPI initialization",
+    "2restart review tests plus3existing artifact/prefix and2discovery review tests pass;AST/shell/gofmt/source whitespace checked",
+    "CUDA source hashes unchanged from78909; no new local CUDA build or repeat kernel sanitizer needed"
+  ],
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_recovery.go": "fd0c8658783494612e44fff70c0fe73eccff82683e4139ab07f059c5beeb87a5",
+    "encoding/liftrs-shared/distributed_recovery_test.go": "6abdf66f8ddb1301e468882151186b186d882d3cc3f66821cbb160c76943fa5a",
+    "encoding/liftrs-shared/distributed_publication.go": "c08dd556ba646f66a257089f406b676b183c3a6f4d44a6477a695b6d559ddc1e",
+    "encoding/liftrs-shared/distributed_publication_test.go": "572f74f6902db389b6d7c0779b9da3d93420924ed9b74e7f30bec561ea0f5c71",
+    "encoding/liftrs-shared/distributed_publication_gpu_test.go": "14f0933dc0e0c158561b52d90eb560b4df11b43a494ebb76baa8688b80619659",
+    "encoding/liftrs-shared/distributed_operands_mpi_test.go": "113f9ffefbfeae74ead93eb4a81ad038b8ebc27d487dc9c0b28fd6b01d1b7224",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go": "f5d11ea5f23bb81dedb0bd3276ccec2f3586354e8692c2156e42f604d7ef47e3",
+    "experiments/distributed-preprocessing-pilot/run.py": "003b98ad380445cbbd32358eddecca53ad46b9c31b2a2d0663a8e93a73bb6bd2",
+    "experiments/distributed-discovery-pilot/run.py": "9aaa9634dd1a1a37da03542a5a11656102e037c63c8fe0ebad08726cd02103c3",
+    "experiments/distributed-restart-pilot/run.py": "457503589dcc0607b9ccda9413cbc82a521271ec398778598ed0d4a9de6a5718",
+    "experiments/distributed-restart-pilot/run.sbatch": "1796cabf99f936d1797c611813aa243aa7d5bb6a4e33247e6e71a3af4e3d96b4",
+    "experiments/distributed-restart-pilot/analyze.py": "bc2b8294925016ab250d6595d8ef49dd7bb961fe34dc5346330e63462e37ab76",
+    "experiments/distributed-restart-pilot/test_review.py": "d743e6e24c1b690aa38e7d8969789df4a87fe05e8e1a75c72ba5e106b94b40c2"
+  },
+  "unchanged_cuda_source_sha256": {
+    "encoding/liftrs-cuda/preparation.cu": "f4842379cab2a92e9dcd9259e544b36e936505c351da899dbb471553f2767d69",
+    "encoding/liftrs-cuda/preparation_api.h": "8ea08ba5488077eccb3d250ba81f17c637df6bb4a4c9e01d8584f8f7afe89fe8",
+    "encoding/liftrs-cuda/rank_storage.cuh": "b63ae124b4c7c054ecca1190a9e9861761227f9dcfb13808415b9a4bd4821f56",
+    "encoding/liftrs-cuda/rank_storage.go": "6e7aa56a1cd20a0156a89e713850f16e2b1033dc3c9c0a902c9fb56b89f574f5"
+  },
+  "artifact": {
+    "path": ".cache/liftrs/distributed-restart-pilot/readiness/restart.test",
+    "bytes": 12201472,
+    "sha256": "93a5e30299863b586a41885b4c386cb3ac2e4c10fe400b4237590d85c0402ecf"
+  },
+  "build_command": "module load gcc/14.2.0 openmpi/gcc/64/4.1.8; GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=1 CC=mpicc CXX=mpicxx .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-restart-pilot/readiness/restart.test ./encoding/liftrs-shared",
+  "fixture_command": ".cache/liftrs/distributed-restart-pilot/readiness/restart.test -test.run '^TestDistributedPilotShapes$|^TestPartitionedDiscoveryShapes$|^TestRankPrefix|^TestRankStream' -test.v -test.timeout=20s",
+  "cpu_command": "GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=0 .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test ./encoding/liftrs-shared -run '^TestRankPrefix|^TestRankStream|^TestRankSquare|^TestDiscoverySampling|^TestPolynomialProductsIndependent$|^TestFastPolynomialDivision$' -count=1 -timeout=20s",
+  "race_command": "same with CGO_ENABLED=1 and go test -race",
+  "limits": "same2HPCnodes/2H200/4CPU/8GiB RAM;128MiBowned/card,1GiBRSS/rank,128MiBcache/2GiBscratch/32MiBfile;720s/15min;no pinned buffers",
+  "limitations": [
+    "No local MPI/GPU execution. Fresh-process resume and streamed mode await integrated cold/resume job.",
+    "Trusted source/checkpoint provenance required; checksums are corruption detection,not authentication.",
+    "Fixed rank count; no arbitrary node failure,elastic restart or fulls18 support claim.",
+    "Native diagnostic oracle/support archive remain; removed publication copies do not establish fullsize host-memory feasibility.",
+    "Native compiler probes may log restricted local socket warnings; build and no-MPI preflight succeed."
+  ]
+}

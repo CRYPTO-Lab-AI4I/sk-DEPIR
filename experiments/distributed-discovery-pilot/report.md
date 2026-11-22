@@ -1,8 +1,12 @@
 # Partition discovery in the assembled genuine pipeline
 
-Status: **submitted as78909**, run `discovery-01`, implementation `dfc868e`.
-[Submission receipt](submission.json), [scheduler log](slurm-78909.log);
-results will be retained in `runs/discovery-01/`. No new GPU outcome yet.
+Status: **78909 passed**, producer `dfc868e`, on HPC gnode15/gnode16
+(two H200s, four CPU cores, 8 GiB requested host RAM). Normal genuine s4/s6
+and smallest s4 CUDA sanitizer passed with zero errors/leaks.
+Independent review verified766 source/35 original evidence/144 cache identities.
+[Submission](submission.json), [raw results](runs/discovery-01/results.json),
+[analysis](runs/discovery-01/analysis.json), [review summary](runs/discovery-01/review-checks.json),
+[scheduler log](slurm-78909.log).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [focused reviewer tests](test_review.py), [readiness](readiness/checks.json).
 Producer revision and complete source identities are recorded by the controller.
@@ -131,3 +135,24 @@ python3 -B experiments/distributed-discovery-pilot/analyze.py discovery-01
 Raw results/logs/profiles: `runs/discovery-01/`. Reusable source/binaries and
 coefficient/checkpoint artifacts: `.cache/liftrs/distributed-discovery-pilot/discovery-01/`
 (outside Git, manifest hashes retained). Previous caches/profiles remain.
+
+## Completed integrated discovery (SCALING-164)
+
+Rank-local monomial/grid/union, exact integer stopping counts, every sampled-byte
+stream digest and sample count, routed root ownership, all prefix/identity/
+spectrum checks and complete canonical artifacts passed. Both instances used
+one sample with seed109. Artifacts match78898 exactly. Normal case times:
+s4 **1.156618 seconds**, s6 **0.502099 seconds**, including setup/oracles/FS and
+cold/warm effects; these are not stable latency/speedup measurements.
+
+Controller **2 min21.458 s**; normal arm **3.174 s**, smallest sanitizer **2.524 s**.
+Logged normal maximum host RSS **374.676 MiB/process**; sanitized **410.871 MiB/process**.
+Post-call observed owned GPU maximum across discovery/final executor **0.075245
+MiB/card**, excluding context, transient and earlier factor peaks. Cache **14.764
+MiB**. The smallest sanitized canonical artifact equals normal output.
+
+Next validate [fresh-process prefix resume and bounded publication](../distributed-restart-pilot/report.md)
+inside this same genuine pipeline. No new CUDA arithmetic or repeated kernel
+sanitizer series is required for that host-boundary work. Multi-level/multi-rank
+root execution, larger arithmetic admission, streamed diagnostic archives and
+fullsize resource/performance validation remain separate.

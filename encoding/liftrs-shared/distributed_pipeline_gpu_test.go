@@ -89,6 +89,29 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	event := func(phase, state string) {
 		emit(map[string]any{"kind": "stage", "case": label, "phase": phase, "event": state})
 	}
+	resumeFrom := os.Getenv("PIR_PIPELINE_RESUME_FROM")
+	publication := os.Getenv("PIR_PIPELINE_PUBLICATION")
+	if publication == "" {
+		publication = "gather"
+	}
+	if publication != "gather" && publication != "stream" {
+		t.Fatal("publication mode")
+	}
+	var restoredRoot, restoredPrefix rankPrefixState
+	if resumeFrom != "" {
+		var e error
+		restoredRoot, e = loadRankPrefix(resumeFrom, label, s, w.Rank, w.Size, "root", uint64(n/2))
+		if e != nil {
+			t.Fatal("resume root", e)
+		}
+		restoredPrefix, e = loadRankPrefix(resumeFrom, label, s, w.Rank, w.Size, "newton-8", uint64(n/2))
+		if e != nil {
+			t.Fatal("resume prefix", e)
+		}
+		if restoredRoot.Record.K != restoredPrefix.Record.K || restoredRoot.Record.SupportSHA != restoredPrefix.Record.SupportSHA {
+			t.Fatal("resume cross-record binding")
+		}
+	}
 	event("discovery-reference", "started")
 	var support, expected *CodeSupport
 	var reference *PreparedCode
@@ -104,7 +127,9 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 		hash := sha256.New()
 		expected, reference = pilotReferenceReader(t, s, io.TeeReader(rand.New(rand.NewSource(109)), hash))
 		expectedEntropy = fmt.Sprintf("%x", hash.Sum(nil))
-		if layout == "coordinator" {
+		if resumeFrom != "" {
+			support = expected
+		} else if layout == "coordinator" {
 			options := preprocessingOptions(s, 1)
 			options.Backend = "cuda"
 			options.GPUPath = os.Getenv("PIR_GPU_PREPARATION_LIBRARY")
@@ -129,7 +154,7 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 		save("reference-spectrum", reference.code.spectrum32)
 	}
 	var discovered discoveryResult
-	if layout == "distributed" {
+	if layout == "distributed" && resumeFrom == "" {
 		discovered = partitionedDiscovery[uint32](t, w, Spec{s, 2, 2}, emit)
 		if w.Rank == 0 {
 			if !reflect.DeepEqual(discovered.Archive, expected.exponents) || discovered.Samples != expected.parameters.Samples || discovered.Entropy != expectedEntropy {
@@ -150,6 +175,9 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	h, field, err := canonicalScalingCodeHeader(s, 2, uint64(k), uint64(n))
 	if err != nil {
 		t.Fatal(err)
+	}
+	if resumeFrom != "" && restoredRoot.Record.K != k {
+		t.Fatal("resume/native K binding")
 	}
 	base, err := NewBinaryField(s, h.Polynomial)
 	if err != nil {
@@ -180,6 +208,9 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 		t.Fatal("support binding")
 	}
 	supportSHA := fmt.Sprintf("%x", binding[:32])
+	if resumeFrom != "" && supportSHA != restoredRoot.Record.SupportSHA {
+		t.Fatal("resume/native support binding")
+	}
 	event("discovery-reference", "completed")
 	event("route-support", "started")
 	var shard []int
@@ -190,7 +221,24 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 			t.Fatal(err)
 		}
 	}
-	if layout == "distributed" {
+	if resumeFrom != "" {
+		data, e := readBoundedPilotFile(filepath.Join(resumeFrom, fmt.Sprintf("%s-rank-%d-support.bin", label, w.Rank)), 8*uint64(k))
+		if e != nil || len(data)%8 != 0 {
+			t.Fatal("resume support shard", e)
+		}
+		for offset := 0; offset < len(data); offset += 8 {
+			index := binary.LittleEndian.Uint64(data[offset:])
+			if index >= uint64(n-1) {
+				t.Fatal("resume support range")
+			}
+			shard = append(shard, int(index))
+		}
+		if len(shard) > 0 {
+			if e := validateExponentSupportWith(supportSorted, shard, n, q, nil); e != nil {
+				t.Fatal(e)
+			}
+		}
+	} else if layout == "distributed" {
 		shard = discovered.Roots
 	} else {
 		if w.Rank == 0 {
@@ -247,23 +295,34 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	}
 	saveMatrixStageWords(t, filepath.Join(directory, fmt.Sprintf("%s-rank-%d-support.bin", label, w.Rank)), indices)
 	event("route-support", "completed")
-	event("local-roots", "started")
+	if resumeFrom == "" {
+		event("local-roots", "started")
+	} else {
+		event("local-roots", "restored")
+	}
 	options := cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: s, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: tables.log, Powers: tables.powers, Devices: []int{0}, MaxElements: uint64(n), DeviceBytes: 64 << 20}
-	factor, err := cuda.NewPreparation(options)
-	if err != nil {
-		t.Fatal(err)
-	}
 	fixture := &rootFixture{header: h, extension: field, n: n, maximum: n, base: orbitField{q: q, base: base, lookup: tables}}
-	local, err := fixture.root(supportSorted, factor, shard, func(stage string) { event("roots/"+stage, "started") }, func(stage string, done, total uint64, unit string) {
-		if done == total {
-			emit(map[string]any{"kind": "progress", "case": label, "phase": "roots/" + stage, "completed": done, "total": total, "unit": unit})
+	var local []uint32
+	if resumeFrom == "" {
+		factor, err := cuda.NewPreparation(options)
+		if err != nil {
+			t.Fatal(err)
 		}
-	})
-	closeErr := factor.Close()
-	if err != nil || closeErr != nil {
-		t.Fatal(err, closeErr)
+
+		local, err = fixture.root(supportSorted, factor, shard, func(stage string) { event("roots/"+stage, "started") }, func(stage string, done, total uint64, unit string) {
+			if done == total {
+				emit(map[string]any{"kind": "progress", "case": label, "phase": "roots/" + stage, "completed": done, "total": total, "unit": unit})
+			}
+		})
+		closeErr := factor.Close()
+		if err != nil || closeErr != nil {
+			t.Fatal(err, closeErr)
+		}
+
 	}
-	event("local-roots", "completed")
+	if resumeFrom == "" {
+		event("local-roots", "completed")
+	}
 	gpu, err := cuda.NewRankStorage(options, uint64(1)<<uint(s), uint64(1)<<uint(s), w.Rank, w.Size, 4096)
 	if err != nil {
 		t.Fatal(err)
@@ -321,13 +380,19 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	link := operandMPI{world: w, record: func(direction string, p operandPacket, data []uint32, own, remote [64]byte) {
 		emit(map[string]any{"kind": "operand-proof", "case": label, "direction": direction, "packet": p, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
 	}}
-	var inputs [2][]uint32
-	inputs[w.Rank] = local
-	pair, err := routePolynomialOperands(rankOperandPlan{Operation: 1, Domain: uint64(n), TileWords: 4096, Limit: q, MaxLocalWords: words, Counts: [2]uint64{ac, bc}, Owners: [2]int{0, 1}, Rank: w.Rank, Ranks: w.Size}, inputs, link, nil)
-	if err != nil {
-		t.Fatal(err)
+	var root []uint32
+	if resumeFrom != "" {
+		root = restoredRoot.Values
+	} else {
+		var inputs [2][]uint32
+		inputs[w.Rank] = local
+		pair, err := routePolynomialOperands(rankOperandPlan{Operation: 1, Domain: uint64(n), TileWords: 4096, Limit: q, MaxLocalWords: words, Counts: [2]uint64{ac, bc}, Owners: [2]int{0, 1}, Rank: w.Rank, Ranks: w.Size}, inputs, link, nil)
+		if err != nil {
+			t.Fatal(err)
+		}
+		root = product("root", pair[0], pair[1], ac, bc, uint64(k+1))
+
 	}
-	root := product("root", pair[0], pair[1], ac, bc, uint64(k+1))
 	save("p", root)
 	// Each completed prefix is durably saved on every rank, then committed before
 	// reuse. Reload one interior prefix in-process to exercise the resume boundary;
@@ -385,11 +450,18 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	}
 	root = persist("root", root, k+1, false)
 	g := make([]uint32, words)
-	if first == 0 {
-		g[0] = 1
-	}
 	known := 1
 	reloaded := false
+	if resumeFrom != "" {
+		g = restoredPrefix.Values
+		known = restoredPrefix.Record.Prefix
+		reloaded = true
+		g = persist(fmt.Sprintf("newton-%d", known), g, known, false)
+		emit(map[string]any{"kind": "resume", "case": label, "prefix": known, "root_support_sha256": restoredRoot.Record.SupportSHA, "source": resumeFrom, "pid": os.Getpid(), "verified": true})
+	} else if first == 0 {
+		g[0] = 1
+	}
+	initialPrefix := known
 	err = reciprocalSchedule(known, n-k, func(size int) error {
 		squareOp := executor.Plan.Operation
 		executor.Plan.Operation++
@@ -438,54 +510,59 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	save("spectrum", spectrum)
 	emit(map[string]any{"kind": "executor-call", "case": call, "s": s, "operation_start": callOp, "mode": "spectrum", "keep": n, "matches": true})
 	event("artifact-publication", "started")
-	publish := func(values []uint32) []uint32 {
-		op := executor.Plan.Operation
-		executor.Plan.Operation++
-		packet := operandPacket{op, uint64(n), 0, words, words, 1, 0}
-		if w.Rank == 1 {
-			if e := link.SendOperand(packet, values); e != nil {
+	if publication == "stream" {
+		publishPilotStream(t, w, directory, label, h, root, g, spectrum, reference, link, &executor.Plan.Operation)
+	} else {
+		publish := func(values []uint32) []uint32 {
+			op := executor.Plan.Operation
+			executor.Plan.Operation++
+			packet := operandPacket{op, uint64(n), 0, words, words, 1, 0}
+			if w.Rank == 1 {
+				if e := link.SendOperand(packet, values); e != nil {
+					t.Fatal(e)
+				}
+				return nil
+			}
+			result := make([]uint32, n)
+			copy(result, values)
+			if e := link.ReceiveOperand(packet, result[words:]); e != nil {
 				t.Fatal(e)
 			}
-			return nil
+			return result
 		}
-		result := make([]uint32, n)
-		copy(result, values)
-		if e := link.ReceiveOperand(packet, result[words:]); e != nil {
-			t.Fatal(e)
-		}
-		return result
-	}
-	fullP, fullG, fullSpectrum := publish(root), publish(g), publish(spectrum)
-	if w.Rank == 0 {
-		if !reflect.DeepEqual(fullP[:k+1], reference.code.p) || !reflect.DeepEqual(fullG[:n-k], reference.generator) || !reflect.DeepEqual(fullSpectrum, reference.code.spectrum32) {
-			t.Fatal("complete canonical output oracle")
-		}
-		code := &ScalingCodeData{header: h, field: field, p: fullP[:k+1], spectrum32: fullSpectrum}
-		var actual, expected bytes.Buffer
-		if err = WriteScalingCode(&actual, code); err != nil {
-			t.Fatal(err)
-		}
-		if err = WriteScalingCode(&expected, reference.code); err != nil {
-			t.Fatal(err)
-		}
-		if !bytes.Equal(actual.Bytes(), expected.Bytes()) {
-			t.Fatal("canonical artifact bytes")
-		}
-		for name, data := range map[string][]byte{"code": actual.Bytes(), "reference-code": expected.Bytes()} {
-			file, e := os.OpenFile(filepath.Join(directory, label+"-"+name+".bin"), os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
-			if e != nil {
-				t.Fatal(e)
+		fullP, fullG, fullSpectrum := publish(root), publish(g), publish(spectrum)
+		if w.Rank == 0 {
+			if !reflect.DeepEqual(fullP[:k+1], reference.code.p) || !reflect.DeepEqual(fullG[:n-k], reference.generator) || !reflect.DeepEqual(fullSpectrum, reference.code.spectrum32) {
+				t.Fatal("complete canonical output oracle")
 			}
-			if _, e = file.Write(data); e == nil {
-				e = file.Sync()
+			code := &ScalingCodeData{header: h, field: field, p: fullP[:k+1], spectrum32: fullSpectrum}
+			var actual, expected bytes.Buffer
+			if err = WriteScalingCode(&actual, code); err != nil {
+				t.Fatal(err)
 			}
-			ce := file.Close()
-			if e != nil || ce != nil {
-				t.Fatal(e, ce)
+			if err = WriteScalingCode(&expected, reference.code); err != nil {
+				t.Fatal(err)
+			}
+			if !bytes.Equal(actual.Bytes(), expected.Bytes()) {
+				t.Fatal("canonical artifact bytes")
+			}
+			for name, data := range map[string][]byte{"code": actual.Bytes(), "reference-code": expected.Bytes()} {
+				file, e := os.OpenFile(filepath.Join(directory, label+"-"+name+".bin"), os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
+				if e != nil {
+					t.Fatal(e)
+				}
+				if _, e = file.Write(data); e == nil {
+					e = file.Sync()
+				}
+				ce := file.Close()
+				if e != nil || ce != nil {
+					t.Fatal(e, ce)
+				}
 			}
 		}
+
 	}
 	w.Barrier()
 	event("artifact-publication", "completed")
-	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "discovery_layout": layout})
+	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "discovery_layout": layout, "initial_prefix": initialPrefix, "discovery_performed": resumeFrom == "", "root_performed": resumeFrom == "", "publication": publication, "pid": os.Getpid()})
 }

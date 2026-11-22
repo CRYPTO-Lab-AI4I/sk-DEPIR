@@ -1,0 +1,156 @@
+File: vectors.test
+Build ID: 9dfd47a2e825490fccd83f52cf7737a0d96f6b62
+Type: cpu
+Time: 2026-11-22 09:42:35 CET
+Duration: 2.22s, Total samples = 890ms (40.03%)
+Showing nodes accounting for 890ms, 100% of 890ms total
+      flat  flat%   sum%        cum   cum%
+     800ms 89.89% 89.89%      800ms 89.89%  runtime.cgocall
+      30ms  3.37% 93.26%       30ms  3.37%  [libc.so.6]
+      30ms  3.37% 96.63%       30ms  3.37%  internal/runtime/syscall/linux.Syscall6
+      10ms  1.12% 97.75%       30ms  3.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.withDistributedGPUStages.func2
+      10ms  1.12% 98.88%       10ms  1.12%  runtime.activeModules (inline)
+      10ms  1.12%   100%       10ms  1.12%  slices.insertionSortOrdered[go.shape.string]
+         0     0%   100%       20ms  2.25%  encoding/json.(*Encoder).Encode
+         0     0%   100%       10ms  1.12%  encoding/json/v2.MarshalEncode
+         0     0%   100%       10ms  1.12%  encoding/json/v2.makeMapArshaler.func2
+         0     0%   100%       10ms  1.12%  encoding/json/v2.marshalEncode
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Preparation).Apply32
+         0     0%   100%       30ms  3.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Preparation).Product
+         0     0%   100%       30ms  3.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Preparation).Product.func1 (inline)
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Preparation).transform
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp.(*Preparation).transform.func2 (inline)
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_preparation_apply
+         0     0%   100%       30ms  3.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp._Cfunc_liftrs_preparation_product
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Preparation).RootFactorsInto
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*Preparation).RootFactorsInto.func1 (inline)
+         0     0%   100%      120ms 13.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*RankStorage).TaylorLocal32
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*RankStorage).Tile32
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*RankStorage).Transfer32
+         0     0%   100%       40ms  4.49%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*RankStorage).Vectors
+         0     0%   100%       40ms  4.49%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*RankStorage).Vectors.func1
+         0     0%   100%       40ms  4.49%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*RankStorage).Vectors.func1.1 (inline)
+         0     0%   100%      180ms 20.22%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*RankStorage).call
+         0     0%   100%      120ms 13.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*RankStorage).taylor
+         0     0%   100%      120ms 13.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*RankStorage).taylor.func1
+         0     0%   100%      120ms 13.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*RankStorage).taylor.func1.1 (inline)
+         0     0%   100%       20ms  2.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*RankStorage).transfer
+         0     0%   100%       20ms  2.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*RankStorage).transfer.func1
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*RankStorage).transfer.func1.1 (inline)
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.(*RankStorage).transfer.func1.2 (inline)
+         0     0%   100%      220ms 24.72%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.NewPreparation
+         0     0%   100%      220ms 24.72%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda.NewRankStorage
+         0     0%   100%      220ms 24.72%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_pg_bridge_open
+         0     0%   100%      110ms 12.36%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_pg_bridge_rank_taylor_local
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_pg_bridge_rank_tile
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_pg_bridge_rank_transfer
+         0     0%   100%       40ms  4.49%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_pg_bridge_rank_vectors
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda._Cfunc_pg_bridge_roots
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CodePreprocessor).Discover
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CodePreprocessor).Discover.func2
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CodePreprocessor).Discover.func2.2
+         0     0%   100%       30ms  3.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CodePreprocessor).Prepare
+         0     0%   100%       30ms  3.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*CodePreprocessor).preparePolynomials
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*factorProductBuilder).finish
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*factorProductBuilder).flush
+         0     0%   100%       30ms  3.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*polynomialProducts).multiply
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*preparationReporter).run
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*rankGPUExecutor[go.shape.uint32]).Discovery
+         0     0%   100%      240ms 26.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*rankGPUExecutor[go.shape.uint32]).Product
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*rankGPUExecutor[go.shape.uint32]).Spectrum
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*rankGPUExecutor[go.shape.uint32]).degrees
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.(*rootFixture).root
+         0     0%   100%      860ms 96.63%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestDistributedPreprocessingPilot
+         0     0%   100%      620ms 69.66%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.TestDistributedPreprocessingPilot.func1
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.discoverSupport[go.shape.uint32]
+         0     0%   100%      230ms 25.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.partitionedDiscovery[go.shape.uint32]
+         0     0%   100%       40ms  4.49%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.pilotReferenceReader
+         0     0%   100%       20ms  2.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyInverseRecover
+         0     0%   100%       20ms  2.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyInverseRecover.func1
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMul (inline)
+         0     0%   100%       30ms  3.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.polyMulLow
+         0     0%   100%       30ms  3.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.preparationConvolver.convolve
+         0     0%   100%       20ms  2.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.prepareCyclicGenerator
+         0     0%   100%       30ms  3.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.prepareCyclicPolynomials
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.prepareCyclicRoot (inline)
+         0     0%   100%       20ms  2.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.prepareCyclicRootWith
+         0     0%   100%      250ms 28.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankAdditiveSchedule
+         0     0%   100%      230ms 25.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankProductSchedule
+         0     0%   100%      230ms 25.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankProductSchedule.func1 (inline)
+         0     0%   100%       70ms  7.87%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankProductSchedule.func2 (inline)
+         0     0%   100%       90ms 10.11%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankProductSchedule.func3 (inline)
+         0     0%   100%       70ms  7.87%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankProductSchedule.func4 (inline)
+         0     0%   100%      250ms 28.09%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankResidentAdditiveTransform[go.shape.uint32]
+         0     0%   100%      170ms 19.10%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankResidentAdditiveTransform[go.shape.uint32].func1
+         0     0%   100%       80ms  8.99%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankResidentAdditiveTransform[go.shape.uint32].func2
+         0     0%   100%      230ms 25.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankResidentPolynomialProduct[go.shape.uint32]
+         0     0%   100%      230ms 25.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankResidentPolynomialProduct[go.shape.uint32].func1
+         0     0%   100%      170ms 19.10%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankResidentTaylor[go.shape.uint32]
+         0     0%   100%      160ms 17.98%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankResidentTaylor[go.shape.uint32].func1
+         0     0%   100%       80ms  8.99%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankResidentVectors[go.shape.uint32]
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankResidentVectors[go.shape.uint32].func1
+         0     0%   100%       30ms  3.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankResidentVectors[go.shape.uint32].func2
+         0     0%   100%       30ms  3.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankResidentVectors[go.shape.uint32].func3
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankResidentVectors[go.shape.uint32].func4
+         0     0%   100%       80ms  8.99%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankSeparableSchedule
+         0     0%   100%      170ms 19.10%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankTaylorConversion
+         0     0%   100%      160ms 17.98%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankTaylorStoredPass[go.shape.uint32]
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rankTaylorStoredPass[go.shape.uint32].func2
+         0     0%   100%      230ms 25.84%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.reciprocalSchedule
+         0     0%   100%      120ms 13.48%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.residentTaylorStorage[go.shape.uint32].Apply
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.residentTransposeStorage[go.shape.uint32].Pack
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.rootProduct
+         0     0%   100%      620ms 69.66%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runDistributedPilot
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runDistributedPilot.func1
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runDistributedPilot.func10
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runDistributedPilot.func11
+         0     0%   100%      240ms 26.97%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runDistributedPilot.func12
+         0     0%   100%       80ms  8.99%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runDistributedPilot.func14
+         0     0%   100%      210ms 23.60%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runDistributedPilot.func15
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.runDistributedPilot.func8
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.saveMatrixStageWords[go.shape.uint32]
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.storageTransfer[go.shape.uint32]
+         0     0%   100%       30ms  3.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.taylorMPI[go.shape.uint32].Barrier
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.taylorMPI[go.shape.uint32].ReceiveWindow
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.taylorMPI[go.shape.uint32].ReceiveWindow.func1
+         0     0%   100%       20ms  2.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeMPI[go.shape.uint32].SendTile
+         0     0%   100%       20ms  2.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeMPI[go.shape.uint32].control
+         0     0%   100%       40ms  4.49%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeResident[go.shape.uint32]
+         0     0%   100%       40ms  4.49%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeStored[go.shape.uint32]
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeStored[go.shape.uint32].func1
+         0     0%   100%       30ms  3.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeStored[go.shape.uint32].func2
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.transposeStored[go.shape.uint32].func3
+         0     0%   100%      860ms 96.63%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.withDistributedGPUStages
+         0     0%   100%       20ms  2.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared.withDistributedGPUStages.func1
+         0     0%   100%       30ms  3.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).Barrier
+         0     0%   100%       10ms  1.12%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).CheckPayloadProof
+         0     0%   100%       20ms  2.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).Close
+         0     0%   100%       90ms 10.11%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.(*World).ExchangeControl
+         0     0%   100%      220ms 24.72%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi.Open
+         0     0%   100%       20ms  2.25%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi._Cfunc_MPI_Finalize
+         0     0%   100%       30ms  3.37%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi._Cfunc_barrier_world
+         0     0%   100%       90ms 10.11%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi._Cfunc_exchange_proof
+         0     0%   100%      220ms 24.72%  github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi._Cfunc_open_world
+         0     0%   100%       10ms  1.12%  internal/poll.(*FD).Write
+         0     0%   100%       10ms  1.12%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%       10ms  1.12%  os.(*File).Write
+         0     0%   100%       10ms  1.12%  os.(*File).write (inline)
+         0     0%   100%       20ms  2.25%  os.OpenFile
+         0     0%   100%       20ms  2.25%  os.ignoringEINTR (inline)
+         0     0%   100%       20ms  2.25%  os.open
+         0     0%   100%       20ms  2.25%  os.openFileNolog
+         0     0%   100%       20ms  2.25%  os.openFileNolog.func1 (inline)
+         0     0%   100%       30ms  3.37%  runtime._ExternalCode
+         0     0%   100%       10ms  1.12%  runtime.cgoCheckArg
+         0     0%   100%       10ms  1.12%  runtime.cgoCheckPointer
+         0     0%   100%       10ms  1.12%  runtime.cgoIsGoPointer
+         0     0%   100%       10ms  1.12%  slices.Sort[go.shape.[]string,go.shape.string] (inline)
+         0     0%   100%       10ms  1.12%  slices.pdqsortOrdered[go.shape.string]
+         0     0%   100%       20ms  2.25%  syscall.Open (inline)
+         0     0%   100%       30ms  3.37%  syscall.RawSyscall6
+         0     0%   100%       10ms  1.12%  syscall.Syscall
+         0     0%   100%       20ms  2.25%  syscall.Syscall6
+         0     0%   100%       10ms  1.12%  syscall.Write (inline)
+         0     0%   100%       20ms  2.25%  syscall.openat
+         0     0%   100%       10ms  1.12%  syscall.write
+         0     0%   100%      860ms 96.63%  testing.tRunner

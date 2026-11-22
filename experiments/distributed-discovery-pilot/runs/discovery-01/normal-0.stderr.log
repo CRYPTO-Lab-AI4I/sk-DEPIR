@@ -1,0 +1,157 @@
+[gnode15:3908256] mca: base: components_register: registering framework btl components
+[gnode15:3908256] mca: base: components_register: found loaded component openib
+[gnode15:3908256] mca: base: components_register: component openib register function successful
+[gnode15:3908256] mca: base: components_register: found loaded component self
+[gnode15:3908256] mca: base: components_register: component self register function successful
+[gnode15:3908256] mca: base: components_register: found loaded component sm
+[gnode15:3908256] mca: base: components_register: found loaded component tcp
+[gnode15:3908256] mca: base: components_register: component tcp register function successful
+[gnode15:3908256] mca: base: components_register: found loaded component vader
+[gnode15:3908256] mca: base: components_register: component vader register function successful
+[gnode15:3908256] mca: base: components_open: opening btl components
+[gnode15:3908256] mca: base: components_open: found loaded component openib
+[gnode15:3908256] mca: base: components_open: component openib open function successful
+[gnode15:3908256] mca: base: components_open: found loaded component self
+[gnode15:3908256] mca: base: components_open: component self open function successful
+[gnode15:3908256] mca: base: components_open: found loaded component tcp
+[gnode15:3908256] mca: base: components_open: component tcp open function successful
+[gnode15:3908256] mca: base: components_open: found loaded component vader
+[gnode15:3908256] mca: base: components_open: component vader open function successful
+[gnode15:3908256] select: initializing btl component openib
+[gnode15:3908256] Checking distance from this process to device=mlx5_0
+[gnode15:3908256] Process is bound: distance to device is 0.000000
+[gnode15:3908256] Checking distance from this process to device=mlx5_1
+[gnode15:3908256] Process is bound: distance to device is 0.000000
+[gnode15:3908256] Checking distance from this process to device=mlx5_bond_0
+[gnode15:3908256] Process is bound: distance to device is 0.000000
+--------------------------------------------------------------------------
+WARNING: No preset parameters were found for the device that Open MPI
+detected:
+
+  Local host:            gnode15
+  Device name:           mlx5_0
+  Device vendor ID:      0x02c9
+  Device vendor part ID: 4129
+
+Default device parameters will be used, which may result in lower
+performance.  You can edit any of the files specified by the
+btl_openib_device_param_files MCA parameter to set values for your
+device.
+
+NOTE: You can turn off this warning by setting the MCA parameter
+      btl_openib_warn_no_device_params_found to 0.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   gnode15
+  Local device: mlx5_1
+--------------------------------------------------------------------------
+[gnode15:3908256] select: init of component openib returned failure
+[gnode15:3908256] mca: base: close: component openib closed
+[gnode15:3908256] mca: base: close: unloading component openib
+[gnode15:3908256] select: initializing btl component self
+[gnode15:3908256] select: init of component self returned success
+[gnode15:3908256] select: initializing btl component tcp
+[gnode15:3908256] btl: tcp: Searching for exclude address+prefix: 127.0.0.1 / 8
+[gnode15:3908256] btl: tcp: Found match: 127.0.0.1 (lo)
+[gnode15:3908256] btl: tcp: Using interface: sppp 
+[gnode15:3908256] btl:tcp: Attempting to bind to AF_INET port 1024
+[gnode15:3908256] btl:tcp: Successfully bound to AF_INET port 1024
+[gnode15:3908256] btl:tcp: my listening v4 socket is 0.0.0.0:1024
+[gnode15:3908256] btl:tcp: examining interface bond0
+[gnode15:3908256] btl:tcp: using ipv6 interface bond0
+[gnode15:3908256] btl:tcp: examining interface ibP1s3
+[gnode15:3908256] btl:tcp: using ipv6 interface ibP1s3
+[gnode15:3908256] btl:tcp: examining interface docker0
+[gnode15:3908256] btl:tcp: using ipv6 interface docker0
+[gnode15:3908256] select: init of component tcp returned success
+[gnode15:3908256] select: initializing btl component vader
+[gnode15:3908256] select: init of component vader returned failure
+[gnode15:3908256] mca: base: close: component vader closed
+[gnode15:3908256] mca: base: close: unloading component vader
+[gnode15:3908256] mca: base: components_register: registering framework pml components
+[gnode15:3908256] mca: base: components_register: found loaded component ucx
+[gnode15:3908256] mca: base: components_register: component ucx register function successful
+[gnode15:3908256] mca: base: components_open: opening pml components
+[gnode15:3908256] mca: base: components_open: found loaded component ucx
+[gnode15:3908256] mca: base: components_open: component ucx open function successful
+[gnode15:3908256] select: initializing pml component ucx
+[gnode15:3908256] select: init returned priority 51
+[gnode15:3908256] selected ucx best priority 51
+[gnode15:3908256] select: component ucx selected
+{"utc":"2026-11-22T08:42:35.817562828Z","phase":"exact-good-monomials","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.000020903}
+{"utc":"2026-11-22T08:42:35.83141276Z","phase":"exact-good-monomials","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.013870853}
+{"utc":"2026-11-22T08:42:35.83142752Z","phase":"discovery-sample","event":"progress","completed":97,"total":97,"unit":"coefficients","elapsed_seconds":0.013885593}
+{"utc":"2026-11-22T08:42:35.831432357Z","phase":"discovery-base-grid","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.01389043}
+{"utc":"2026-11-22T08:42:35.831473624Z","phase":"discovery-base-grid","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.013931698}
+{"utc":"2026-11-22T08:42:35.831476479Z","phase":"discovery-extension-interpolation","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.013934553}
+{"utc":"2026-11-22T08:42:35.831600832Z","phase":"discovery-extension-interpolation","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.014058905}
+{"utc":"2026-11-22T08:42:35.831604816Z","phase":"discovery-support-union","event":"progress","completed":256,"total":256,"unit":"positions","elapsed_seconds":0.01406289}
+{"utc":"2026-11-22T08:42:35.831609215Z","phase":"discovery-support-output","event":"progress","completed":256,"total":256,"unit":"positions","elapsed_seconds":0.014067289}
+{"utc":"2026-11-22T08:42:35.831612954Z","phase":"support-order-validation","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.014071028}
+{"utc":"2026-11-22T08:42:35.831616181Z","phase":"support-Frobenius-validation","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.014074255}
+{"utc":"2026-11-22T08:42:35.831638299Z","phase":"validation","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.000016186}
+{"utc":"2026-11-22T08:42:35.831641791Z","phase":"support-order-validation","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.000019678}
+{"utc":"2026-11-22T08:42:35.831644373Z","phase":"support-Frobenius-validation","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.00002226}
+{"utc":"2026-11-22T08:42:35.831647162Z","phase":"validation","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.000025049}
+{"utc":"2026-11-22T08:42:35.831649478Z","phase":"root-product","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.000027365}
+{"utc":"2026-11-22T08:42:35.83166462Z","phase":"root-product","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.000042508}
+{"utc":"2026-11-22T08:42:35.831915477Z","phase":"root-product","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.000293364}
+{"utc":"2026-11-22T08:42:35.831919803Z","phase":"normalization","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.00029769}
+{"utc":"2026-11-22T08:42:35.831931033Z","phase":"normalization","event":"progress","completed":98,"total":98,"unit":"coefficients","elapsed_seconds":0.000308919}
+{"utc":"2026-11-22T08:42:35.831935542Z","phase":"normalization","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.000313429}
+{"utc":"2026-11-22T08:42:35.831938172Z","phase":"reciprocal","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.000316059}
+{"utc":"2026-11-22T08:42:35.831944565Z","phase":"reciprocal-prefix","event":"progress","completed":2,"total":159,"unit":"coefficients","elapsed_seconds":0.000322452}
+{"utc":"2026-11-22T08:42:35.832508484Z","phase":"reciprocal-prefix","event":"progress","completed":159,"total":159,"unit":"coefficients","elapsed_seconds":0.000886371}
+{"utc":"2026-11-22T08:42:35.832513137Z","phase":"reciprocal","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.000891023}
+{"utc":"2026-11-22T08:42:35.832516072Z","phase":"identity","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.000893959}
+{"utc":"2026-11-22T08:42:35.832754881Z","phase":"identity-verification","event":"progress","completed":256,"total":256,"unit":"coefficients","elapsed_seconds":0.001132768}
+{"utc":"2026-11-22T08:42:35.832760298Z","phase":"identity","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.001138184}
+{"utc":"2026-11-22T08:42:35.832774552Z","phase":"generator-spectrum","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.001152441}
+{"utc":"2026-11-22T08:42:35.832827492Z","phase":"generator-spectrum","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.001205379}
+{"utc":"2026-11-22T08:42:36.743607841Z","phase":"support-order-validation","event":"progress","completed":62,"total":62,"unit":"exponents","elapsed_seconds":6.97e-7}
+{"utc":"2026-11-22T08:42:36.743622612Z","phase":"support-Frobenius-validation","event":"progress","completed":62,"total":62,"unit":"exponents","elapsed_seconds":0.000015468}
+{"utc":"2026-11-22T08:42:36.744034998Z","phase":"write-support","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.000003764}
+{"utc":"2026-11-22T08:42:36.949601316Z","phase":"exact-good-monomials","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":4.25e-7}
+{"utc":"2026-11-22T08:42:36.949657683Z","phase":"exact-good-monomials","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.000056792}
+{"utc":"2026-11-22T08:42:36.94968821Z","phase":"discovery-sample","event":"progress","completed":1910,"total":1910,"unit":"coefficients","elapsed_seconds":0.000087319}
+{"utc":"2026-11-22T08:42:36.949692109Z","phase":"discovery-base-grid","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.000091218}
+{"utc":"2026-11-22T08:42:36.950411501Z","phase":"discovery-base-grid","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.00081061}
+{"utc":"2026-11-22T08:42:36.950415224Z","phase":"discovery-extension-interpolation","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.000814333}
+{"utc":"2026-11-22T08:42:36.952373401Z","phase":"discovery-extension-interpolation","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.002772511}
+{"utc":"2026-11-22T08:42:36.952389168Z","phase":"discovery-support-union","event":"progress","completed":4096,"total":4096,"unit":"positions","elapsed_seconds":0.002788277}
+{"utc":"2026-11-22T08:42:36.952408657Z","phase":"discovery-support-output","event":"progress","completed":4096,"total":4096,"unit":"positions","elapsed_seconds":0.002807767}
+{"utc":"2026-11-22T08:42:36.95241669Z","phase":"support-order-validation","event":"progress","completed":1910,"total":1910,"unit":"exponents","elapsed_seconds":0.002815799}
+{"utc":"2026-11-22T08:42:36.952427056Z","phase":"support-Frobenius-validation","event":"progress","completed":1910,"total":1910,"unit":"exponents","elapsed_seconds":0.002826165}
+{"utc":"2026-11-22T08:42:36.952449073Z","phase":"validation","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.000012621}
+{"utc":"2026-11-22T08:42:36.952457181Z","phase":"support-order-validation","event":"progress","completed":1910,"total":1910,"unit":"exponents","elapsed_seconds":0.000020728}
+{"utc":"2026-11-22T08:42:36.952467473Z","phase":"support-Frobenius-validation","event":"progress","completed":1910,"total":1910,"unit":"exponents","elapsed_seconds":0.00003102}
+{"utc":"2026-11-22T08:42:36.952469732Z","phase":"validation","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.000033279}
+{"utc":"2026-11-22T08:42:36.95247205Z","phase":"root-product","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.000035598}
+{"utc":"2026-11-22T08:42:36.952604019Z","phase":"root-product","event":"progress","completed":1910,"total":1910,"unit":"exponents","elapsed_seconds":0.000167566}
+{"utc":"2026-11-22T08:42:36.965031599Z","phase":"root-product","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.012595147}
+{"utc":"2026-11-22T08:42:36.965038187Z","phase":"normalization","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.012601734}
+{"utc":"2026-11-22T08:42:36.965058542Z","phase":"normalization","event":"progress","completed":1911,"total":1911,"unit":"coefficients","elapsed_seconds":0.01262209}
+{"utc":"2026-11-22T08:42:36.965062173Z","phase":"normalization","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.01262572}
+{"utc":"2026-11-22T08:42:36.965064608Z","phase":"reciprocal","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.012628155}
+{"utc":"2026-11-22T08:42:36.965067852Z","phase":"reciprocal-prefix","event":"progress","completed":2,"total":2186,"unit":"coefficients","elapsed_seconds":0.012631399}
+{"utc":"2026-11-22T08:42:36.982125953Z","phase":"reciprocal-prefix","event":"progress","completed":2186,"total":2186,"unit":"coefficients","elapsed_seconds":0.0296895}
+{"utc":"2026-11-22T08:42:36.982135348Z","phase":"reciprocal","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.029698895}
+{"utc":"2026-11-22T08:42:36.982138836Z","phase":"identity","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.029702384}
+{"utc":"2026-11-22T08:42:36.989475897Z","phase":"identity-verification","event":"progress","completed":4096,"total":4096,"unit":"coefficients","elapsed_seconds":0.037039444}
+{"utc":"2026-11-22T08:42:36.989483396Z","phase":"identity","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.037046944}
+{"utc":"2026-11-22T08:42:36.98949145Z","phase":"generator-spectrum","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.037054997}
+{"utc":"2026-11-22T08:42:36.991194168Z","phase":"generator-spectrum","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.038757715}
+{"utc":"2026-11-22T08:42:37.018688946Z","phase":"support-order-validation","event":"progress","completed":1159,"total":1159,"unit":"exponents","elapsed_seconds":0.000002978}
+{"utc":"2026-11-22T08:42:37.018771587Z","phase":"support-Frobenius-validation","event":"progress","completed":1159,"total":1159,"unit":"exponents","elapsed_seconds":0.00008562}
+{"utc":"2026-11-22T08:42:37.019132368Z","phase":"write-support","event":"progress","completed":1910,"total":1910,"unit":"exponents","elapsed_seconds":0.000010101}
+{"kind":"mpi-chunk","utc":"2026-11-22T08:42:37Z","rank":0,"peer":1,"phase":"coefficient32-transfer","sending":false,"event":"completed","completed":2048,"total":2048,"unit":"words","elapsed_seconds":0.000005}
+{"kind":"mpi-chunk","utc":"2026-11-22T08:42:37Z","rank":0,"peer":1,"phase":"coefficient32-transfer","sending":false,"event":"completed","completed":2048,"total":2048,"unit":"words","elapsed_seconds":0.000006}
+{"kind":"mpi-chunk","utc":"2026-11-22T08:42:37Z","rank":0,"peer":1,"phase":"coefficient32-transfer","sending":false,"event":"completed","completed":2048,"total":2048,"unit":"words","elapsed_seconds":0.000006}
+[gnode15:3908256] mca: base: close: component ucx closed
+[gnode15:3908256] mca: base: close: unloading component ucx
+[gnode15:3908256] mca: base: close: component self closed
+[gnode15:3908256] mca: base: close: unloading component self
+[gnode15:3908256] mca: base: close: component tcp closed
+[gnode15:3908256] mca: base: close: unloading component tcp

@@ -106,8 +106,10 @@ root/Newton, discovery, s18 field admission and coordinated publication remain.
 **passed78898** for genuine s4/s6: discovery through sharded root/Newton/identity/
 spectrum and byte-identical canonical artifacts, with completed-prefix save/reload
 and a clean smallest-case CUDA sanitizer. [Partitioned discovery](experiments/distributed-discovery-pilot/report.md)
-was submitted as **78909**; coordinator discovery remains an
-explicit reference, and small diagnostic archives/final assembly still gather.
+**passed78909**, including exact random-byte/sample agreement and canonical
+artifacts. [Fresh-process restart and streamed publication](experiments/distributed-restart-pilot/report.md)
+are implemented for validation in the same pipeline. Coordinator diagnostic
+archives and CPU references remain small-pilot limits.
 No fullsize/production preprocessing or fulls18 speedup is claimed. No encoding default
 or client CUDA/MPI dependency changes.
 

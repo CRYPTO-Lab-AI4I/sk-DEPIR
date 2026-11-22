@@ -3056,3 +3056,34 @@ mode explicitly; one normal s4/s6 arm and smallest s4 sanitizer in the same prio
 Submitted partitioned discovery in the assembled pipeline as **78909**,
 `discovery-01`, implementation `dfc868e`; [receipt](../experiments/distributed-discovery-pilot/submission.json).
 No monitoring; wait for completion ping before dependent work/result review.
+
+### Fresh-process continuation and bounded publication (SCALING-164)
+
+78909 passed both integrated arms: genuine s4/s6 sharded discovery through exact
+canonical artifacts, and clean smallest CUDA sanitizer. Producerdfc868e,
+766source/35original evidence/144cache identities. HPC gnode15/gnode16,
+2H200/4CPU/8GiB RAM; controller141.458s, normal/san arms3.174/2.524s,
+RSS374.676/410.871MiB/process, cache14.764MiB. Entropy/sample counts and artifacts
+match independent native output and78898. Post-call discovery/final ownedGPU
+0.075245MiB/card excludes context/transients/factor peaks. [Evidence](../experiments/distributed-discovery-pilot/report.md).
+
+Proceed with [restart/streamed publication](../experiments/distributed-restart-pilot/report.md):
+load bounded root/prefix8 files with trusted support/shape/hash/field/padding and
+memory checks before GPU work. Fresh MPI processes skip discovery/roots, continue
+remaining Newton stages and repeat complete identity/spectrum/canonical checks.
+The same rank count is required; arbitrary node loss/elasticity are not claimed.
+
+Stream rank-ordered canonical sections through one bounded tile, retaining the
+previous gather default unless stream mode is explicit. Remove12*N bytes of full
+publication arrays plus about8*N+8*K serialized buffers on the coordinator;
+retain diagnostic native arrays. Extra unified G file costs4*(N−K) bytes beside
+shards, runtime unknown. Keep32/64-bit representation and typed transport shared.
+No extra FFT or CUDA kernel. One allocation: cold genuine s4/s6 then fresh-process
+resume; no repeated GPU sanitizer because native kernels unchanged. Focus CPU/race
+and corruption/admission tests on new host boundaries, reusing exact route/artifact
+reviewers. Same admitted2nodes/2H200/4CPU/8GiB RAM,128MiBowned/card,1GiBRSS/rank,
+128MiBcache/2GiBscratch/32MiBfile,720s/15min; estimated3–6min controller.
+
+Remaining fullsize boundaries are s18 arithmetic admission,more ranks/multi-level
+roots,streamed diagnostic support/reference removal,actual failure recovery and
+representative capacity/performance validation. No fulls18 launch implied.

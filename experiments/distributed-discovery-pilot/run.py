@@ -34,10 +34,10 @@ def summary(rows,s):
     return results,k,samples
 
 
-def review(rows,directory,small=False):
+def review(rows,directory,small=False,streamed=False):
     distributed=[r for r in rows if r.get('discovery')is True]
     core=[r for r in rows if r.get('discovery')is not True]
-    result=PILOT['review'](core,directory,small)
+    result=PILOT['review'](core,directory,small,streamed=streamed)
     for r in result['measurements']:assert r['discovery_layout']=='distributed'
     cases=[4]if small else[4,6];transpose={};specs=[];expected={};payload={};summaries={}
     def wire(label,kind,sequence,n,offset,count,source,target,width,data=None):

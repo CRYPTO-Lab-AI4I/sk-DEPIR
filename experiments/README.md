@@ -81,9 +81,13 @@ original methodology; apply this policy to new optimization runs.
 
 ## Recorded experiments
 
+- [Fresh-process restart and bounded publication](distributed-restart-pilot/report.md):
+  cold s4/s6 then fresh MPI-process prefix8 resume, streamed canonical/generator
+  artifacts; host-boundary checks, no repeated CUDA-kernel sanitizer, prepared.
+
 - [Partitioned discovery in the genuine pipeline](distributed-discovery-pilot/report.md):
   rank-local monomials/grids/union and direct orbit routing, exact entropy digest,
-  same complete artifact checks; normal/small sanitizer validation submitted78909.
+  same complete artifact checks; normal genuine s4/s6 and small sanitizer passed78909.
 
 - [Integrated genuine-code preprocessing pilot](distributed-preprocessing-pilot/report.md):
   discovery, sharded roots/Newton/identity/spectrum, prefix commit/reload and canonical

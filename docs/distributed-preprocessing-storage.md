@@ -116,3 +116,10 @@ local monomial lists/union bits and bounded index/sample traffic. Its determinis
 orbit assignment can be imbalanced; aggregate host/device memory and runtime must
 be measured before a larger budget is admitted. Diagnostic archive and final
 publication gathers remain small-pilot boundaries, not a fulls18 storage layout.
+
+Partitioned discovery passed78909 in the genuine pipeline. Next remove complete
+publication receive arrays and serialized buffers through explicit streamed output,
+and resume a persisted prefix in fresh MPI processes. This changes host I/O/state
+ownership, not GPU arithmetic; keep CPU corruption/stream/race checks and one
+integrated cold/resume comparison. Diagnostic CPU/support arrays still remain,
+and resumed rank count is fixed. No fulls18 memory/node-failure claim follows.

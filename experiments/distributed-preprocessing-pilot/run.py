@@ -22,7 +22,7 @@ def read_words(path,width=4):
     return data,[int.from_bytes(data[j:j+width],'little')for j in range(0,len(data),width)]
 
 
-def artifacts(directory,s,k):
+def artifacts(directory,s,k,initial=1):
     n=1<<(2*s);label=f's{s}'
     def joined(stage):return b''.join((directory/f'{label}-rank-{r}-{stage}.bin').read_bytes()for r in (0,1))
     reference={stage:(directory/f'{label}-rank-0-reference-{stage}.bin').read_bytes()for stage in ('p','g','spectrum')}
@@ -35,20 +35,20 @@ def artifacts(directory,s,k):
         assert indices==sorted(set(indices))and not set(support).intersection(indices);support.extend(indices)
     assert len(support)==k
     binding=hashlib.sha256((directory/f'{label}-support.bin').read_bytes()).hexdigest()
-    for stage,count,source in [('root',k+1,reference['p'])]+[(f'newton-{size}',size,reference['g'][:4*size])for size in prefixes(n-k)]:
+    for stage,count,source in [('root',k+1,reference['p'])]+[(f'newton-{size}',size,reference['g'][:4*size])for size in prefixes(n-k)if size>=initial]:
         commit=json.loads((directory/f'{label}-{stage}-commit.json').read_text())
         assert commit==dict(s=s,k=k,n=n,prefix=count,ranks=2,support_sha256=binding,stage=stage,sha256=[hashlib.sha256((directory/f'{label}-rank-{r}-{stage}.bin').read_bytes()).hexdigest()for r in (0,1)])
         assert joined(stage)==source+b'\0'*(4*(n-count))
     actual=(directory/f'{label}-code.bin').read_bytes();expected=(directory/f'{label}-reference-code.bin').read_bytes()
     assert actual==expected and actual[:9]==b'LRSprobe1'and len(actual)==25+4*(k+1+n)
     assert [int.from_bytes(actual[i:i+4],'little')for i in (9,13,17,21)]==[s,2,k,n]
-    return dict(code_sha256=hashlib.sha256(actual).hexdigest(),checkpoint_prefixes=prefixes(n-k))
+    return dict(code_sha256=hashlib.sha256(actual).hexdigest(),checkpoint_prefixes=[size for size in prefixes(n-k)if size>=initial])
 
 
 def packet_key(p):return tuple(p[k]for k in ('Operation','Domain','Operand','Offset','Words','Source','Target'))
 
 
-def review(rows,directory,small=False):
+def review(rows,directory,small=False,initial=1,streamed=False):
     cases=[4]if small else[4,6];values=[r for r in rows if r.get('kind')=='pipeline'];assert len(values)==2*len(cases)
     hosts=[r for r in rows if r.get('kind')=='host'];assert len(hosts)==2 and len({r['host']for r in hosts})==2
     assert all(r['visible_devices']and ','not in r['visible_devices']for r in hosts)
@@ -64,11 +64,13 @@ def review(rows,directory,small=False):
             assert all(r[x]is True for x in ('matches','identity_verified','prefix_reloaded'))and 0<r['owned_device_bytes']<=128<<20 and r['peak_rss_bytes']<1<<30
         for rank,count in ((0,ac),(1,bc)):
             assert (directory/f'{label}-rank-{rank}-support.bin').stat().st_size==8*(count-1)
-            target=1-rank;first=target*n//2;end=min(first+n//2,count)
-            for offset in range(first,end,4096):operand_packet(label,1,n,rank,offset,min(4096,end-offset),rank,target)
+            if initial==1:
+                target=1-rank;first=target*n//2;end=min(first+n//2,count)
+                for offset in range(first,end,4096):operand_packet(label,1,n,rank,offset,min(4096,end-offset),rank,target)
         operations=[];op=1
-        operations.append((label+'/root','product',op,ac,bc,k+1));op+=3*span;known=1
-        for size in prefixes(n-k):
+        if initial==1:operations.append((label+'/root','product',op,ac,bc,k+1));op+=3*span
+        known=initial
+        for size in (size for size in prefixes(n-k)if size>initial):
             for source in (0,1):
                 for target in (0,1):
                     if source==target:continue
@@ -77,7 +79,12 @@ def review(rows,directory,small=False):
             op+=1;operations.append((label+f'/newton-{size}','product',op,min(k+1,size),min(2*known-1,size),size));op+=3*span;known=size
         operations.append((label+'/identity','product',op,k+1,n-k,n));op+=3*span
         operations.append((label+'/spectrum','spectrum',op,None,None,n));op+=span
-        for _ in range(3):operand_packet(label,op,n,0,n//2,n//2,1,0);op+=1
+        if streamed:
+            for count in (k+1,n-k,n):
+                for offset in range(n//2,count,4096):operand_packet(label,op,n,0,offset,min(4096,count-offset),1,0)
+                op+=1
+        else:
+            for _ in range(3):operand_packet(label,op,n,0,n//2,n//2,1,0);op+=1
         for name,mode,start,a,b,keep in operations:
             for rank in (0,1):expected_calls[name,rank]=(s,start,mode,a,b,keep)
             for child in range(3 if mode=='product'else 1):
@@ -85,7 +92,7 @@ def review(rows,directory,small=False):
                 for rank in (0,1):
                     for transpose_op in (matrix,matrix+1):
                         for direction in ('send','receive'):transpose[(rank,name,child,transpose_op,0,direction)]=n//4
-        result[label]=artifacts(directory,s,k)
+        result[label]=artifacts(directory,s,k,initial)
     actual_calls={}
     for r in calls:
         key=(r['case'],r['rank']);assert key not in actual_calls and r['matches']is True
@@ -105,7 +112,7 @@ def review(rows,directory,small=False):
         assert r['own_proof']==peer['remote_proof']and r['remote_proof']==peer['own_proof']
     for s in cases:
         label=f's{s}';checks=[r for r in rows if r.get('kind')=='checkpoint'and r['case']==label]
-        assert sum(r['reloaded']for r in checks)==2
+        assert sum(r['reloaded']for r in checks)==(2 if initial==1 else 0)
     assert all(sum(r.get('kind')=='completed'and r['rank']==rank and r['cases']==len(cases)for r in rows)==1 for rank in (0,1))
     assert not list(directory.glob('capture-*'))
     return dict(measurements=values,artifacts=result,executor_calls=len(calls),operand_proof_events=len(proofs))

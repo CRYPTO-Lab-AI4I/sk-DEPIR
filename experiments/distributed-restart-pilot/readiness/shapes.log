@@ -1,0 +1,13 @@
+=== RUN   TestPartitionedDiscoveryShapes
+    distributed_discovery_gpu_test.go:372: s=4 N=256 K=97 samples=1 owned roots=62/35
+    distributed_discovery_gpu_test.go:372: s=6 N=4096 K=1910 samples=1 owned roots=1159/751
+--- PASS: TestPartitionedDiscoveryShapes (0.12s)
+=== RUN   TestDistributedPilotShapes
+--- PASS: TestDistributedPilotShapes (0.05s)
+=== RUN   TestRankStreamCanonicalPublication
+--- PASS: TestRankStreamCanonicalPublication (0.01s)
+=== RUN   TestRankStreamPublicationErrors
+--- PASS: TestRankStreamPublicationErrors (0.00s)
+=== RUN   TestRankPrefixResumeAdmission
+--- PASS: TestRankPrefixResumeAdmission (0.00s)
+PASS

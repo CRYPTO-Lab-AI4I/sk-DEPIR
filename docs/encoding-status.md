@@ -17,15 +17,18 @@ deployment costs before accepting a scaling milestone.
 
 ## Current distributed preprocessing step
 
-We are on **step1: distributed large products and FFTs**. These are bounded
-component results, separate from the full s17 runs and fulls18 projections below.
+The small two-rank pipeline is assembled and validated through discovery, roots,
+Newton iteration, the complete identity and spectrum. **Current focus: step4,
+fresh-process recovery and streamed publication.** Steps1–3 have bounded correctness
+evidence; s18 parameters, larger rank counts and fullsize scaling remain unvalidated.
+These results are separate from the full s17 runs and fulls18 projections below.
 
 | Step | Status |
 |---|---|
 | 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>**Integrated genuine s4/s6 pilot passed78898**: repeated sharded root/Newton/identity/spectrum and canonical artifacts.<br>Multi-level rank-owned root execution and fullsize scaling remain pending. |
-| 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing implemented in the assembled pilot; validation submitted as78909. Coordinator entropy source/diagnostic support archive remain; no fullsize result. |
+| 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing passed78909 for genuine s4/s6. Coordinator entropy source/diagnostic support archive remain; no fullsize result. |
 | 3. Generator construction and verification | Sharded Newton/identity/spectrum integration passed78898 for genuine s4/s6. Fullsize integration remains. |
-| 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898 in the small pilot. Fresh-process restart and fullsize publication remain. |
+| 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898; partitioned discovery passed78909. Fresh-process prefix restart and bounded streamed publication implemented; validation pending. Fullsize/node-failure recovery remains. |
 | 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. Larger scaling and fulls18 remain unrun. |
 
 [FFT evidence](../experiments/distributed-gpu-fft/report.md): controller runtime
@@ -803,7 +806,16 @@ cold/warm setup effects, not unprofiled scaling estimates. Both canonical artifa
 hashes match independent native preprocessing; all prefix/route checks passed.
 
 [Partitioned discovery integration](../experiments/distributed-discovery-pilot/report.md)
-was submitted as **78909** in the same-budget assembled gate. It retains local monomial
+**passed78909** in the same-budget assembled gate. It retains local monomial
 lists, grids and union bits, and routes closed orbits directly; only bounded
-sampling traffic and a diagnostic support archive use the coordinator. New GPU
-outcome remains pending. This does not admit s18 parameters or fullsize workloads.
+sampling traffic and a diagnostic support archive use the coordinator. This does not admit s18 parameters or fullsize workloads.
+
+78909 verified partitioned discovery through the complete genuine pipeline: exact
+entropy/sample counts, root routing, prefix checks and retained canonical hashes;
+small sanitizer clean. HPC gnode15/gnode16,2H200/4CPU/8GiB RAM, controller
+**2 min21.458 s**. Normal peak RSS **374.676 MiB/process**, sanitized **410.871
+MiB/process**; observed post-call discovery/final-executor owned GPU **0.075245
+MiB/card**, excluding context/transients/factor peaks. Retained cache **14.764 MiB**.
+Case times s4/s6 **1.156618/0.502099 seconds** include diagnostics and setup; no
+repeatable speedup inferred. [Fresh-process restart/publication gate](../experiments/distributed-restart-pilot/report.md)
+is implemented for the same cases, retaining defaults and no new CUDA arithmetic.

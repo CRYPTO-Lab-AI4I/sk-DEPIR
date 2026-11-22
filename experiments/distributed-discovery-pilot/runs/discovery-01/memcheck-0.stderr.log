@@ -1,0 +1,121 @@
+[gnode15:3909635] mca: base: components_register: registering framework btl components
+[gnode15:3909635] mca: base: components_register: found loaded component openib
+[gnode15:3909635] mca: base: components_register: component openib register function successful
+[gnode15:3909635] mca: base: components_register: found loaded component self
+[gnode15:3909635] mca: base: components_register: component self register function successful
+[gnode15:3909635] mca: base: components_register: found loaded component sm
+[gnode15:3909635] mca: base: components_register: found loaded component tcp
+[gnode15:3909635] mca: base: components_register: component tcp register function successful
+[gnode15:3909635] mca: base: components_register: found loaded component vader
+[gnode15:3909635] mca: base: components_register: component vader register function successful
+[gnode15:3909635] mca: base: components_open: opening btl components
+[gnode15:3909635] mca: base: components_open: found loaded component openib
+[gnode15:3909635] mca: base: components_open: component openib open function successful
+[gnode15:3909635] mca: base: components_open: found loaded component self
+[gnode15:3909635] mca: base: components_open: component self open function successful
+[gnode15:3909635] mca: base: components_open: found loaded component tcp
+[gnode15:3909635] mca: base: components_open: component tcp open function successful
+[gnode15:3909635] mca: base: components_open: found loaded component vader
+[gnode15:3909635] mca: base: components_open: component vader open function successful
+[gnode15:3909635] select: initializing btl component openib
+[gnode15:3909635] Checking distance from this process to device=mlx5_0
+[gnode15:3909635] Process is bound: distance to device is 0.000000
+[gnode15:3909635] Checking distance from this process to device=mlx5_1
+[gnode15:3909635] Process is bound: distance to device is 0.000000
+[gnode15:3909635] Checking distance from this process to device=mlx5_bond_0
+[gnode15:3909635] Process is bound: distance to device is 0.000000
+--------------------------------------------------------------------------
+WARNING: No preset parameters were found for the device that Open MPI
+detected:
+
+  Local host:            gnode15
+  Device name:           mlx5_0
+  Device vendor ID:      0x02c9
+  Device vendor part ID: 4129
+
+Default device parameters will be used, which may result in lower
+performance.  You can edit any of the files specified by the
+btl_openib_device_param_files MCA parameter to set values for your
+device.
+
+NOTE: You can turn off this warning by setting the MCA parameter
+      btl_openib_warn_no_device_params_found to 0.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   gnode15
+  Local device: mlx5_1
+--------------------------------------------------------------------------
+[gnode15:3909635] select: init of component openib returned failure
+[gnode15:3909635] mca: base: close: component openib closed
+[gnode15:3909635] mca: base: close: unloading component openib
+[gnode15:3909635] select: initializing btl component self
+[gnode15:3909635] select: init of component self returned success
+[gnode15:3909635] select: initializing btl component tcp
+[gnode15:3909635] btl: tcp: Searching for exclude address+prefix: 127.0.0.1 / 8
+[gnode15:3909635] btl: tcp: Found match: 127.0.0.1 (lo)
+[gnode15:3909635] btl: tcp: Using interface: sppp 
+[gnode15:3909635] btl:tcp: Attempting to bind to AF_INET port 1024
+[gnode15:3909635] btl:tcp: Successfully bound to AF_INET port 1024
+[gnode15:3909635] btl:tcp: my listening v4 socket is 0.0.0.0:1024
+[gnode15:3909635] btl:tcp: examining interface bond0
+[gnode15:3909635] btl:tcp: using ipv6 interface bond0
+[gnode15:3909635] btl:tcp: examining interface ibP1s3
+[gnode15:3909635] btl:tcp: using ipv6 interface ibP1s3
+[gnode15:3909635] btl:tcp: examining interface docker0
+[gnode15:3909635] btl:tcp: using ipv6 interface docker0
+[gnode15:3909635] select: init of component tcp returned success
+[gnode15:3909635] select: initializing btl component vader
+[gnode15:3909635] select: init of component vader returned failure
+[gnode15:3909635] mca: base: close: component vader closed
+[gnode15:3909635] mca: base: close: unloading component vader
+[gnode15:3909635] mca: base: components_register: registering framework pml components
+[gnode15:3909635] mca: base: components_register: found loaded component ucx
+[gnode15:3909635] mca: base: components_register: component ucx register function successful
+[gnode15:3909635] mca: base: components_open: opening pml components
+[gnode15:3909635] mca: base: components_open: found loaded component ucx
+[gnode15:3909635] mca: base: components_open: component ucx open function successful
+[gnode15:3909635] select: initializing pml component ucx
+[gnode15:3909635] select: init returned priority 51
+[gnode15:3909635] selected ucx best priority 51
+[gnode15:3909635] select: component ucx selected
+{"utc":"2026-11-22T08:43:13.719199804Z","phase":"exact-good-monomials","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":9.1e-7}
+{"utc":"2026-11-22T08:43:13.719287908Z","phase":"exact-good-monomials","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.000089013}
+{"utc":"2026-11-22T08:43:13.719299135Z","phase":"discovery-sample","event":"progress","completed":97,"total":97,"unit":"coefficients","elapsed_seconds":0.00010024}
+{"utc":"2026-11-22T08:43:13.719303112Z","phase":"discovery-base-grid","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.000104216}
+{"utc":"2026-11-22T08:43:13.719341126Z","phase":"discovery-base-grid","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.00014223}
+{"utc":"2026-11-22T08:43:13.719343885Z","phase":"discovery-extension-interpolation","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.00014499}
+{"utc":"2026-11-22T08:43:13.71945369Z","phase":"discovery-extension-interpolation","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.000254794}
+{"utc":"2026-11-22T08:43:13.719457849Z","phase":"discovery-support-union","event":"progress","completed":256,"total":256,"unit":"positions","elapsed_seconds":0.000258953}
+{"utc":"2026-11-22T08:43:13.719461931Z","phase":"discovery-support-output","event":"progress","completed":256,"total":256,"unit":"positions","elapsed_seconds":0.000263036}
+{"utc":"2026-11-22T08:43:13.719465451Z","phase":"support-order-validation","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.000266555}
+{"utc":"2026-11-22T08:43:13.719468235Z","phase":"support-Frobenius-validation","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.00026934}
+{"utc":"2026-11-22T08:43:13.719484142Z","phase":"validation","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.000011691}
+{"utc":"2026-11-22T08:43:13.719487677Z","phase":"support-order-validation","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.000015226}
+{"utc":"2026-11-22T08:43:13.719490355Z","phase":"support-Frobenius-validation","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.000017903}
+{"utc":"2026-11-22T08:43:13.719492904Z","phase":"validation","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.000020453}
+{"utc":"2026-11-22T08:43:13.719495099Z","phase":"root-product","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.000022647}
+{"utc":"2026-11-22T08:43:13.719507808Z","phase":"root-product","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.000035357}
+{"utc":"2026-11-22T08:43:13.719720957Z","phase":"root-product","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.000248505}
+{"utc":"2026-11-22T08:43:13.719724089Z","phase":"normalization","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.000251637}
+{"utc":"2026-11-22T08:43:13.7197342Z","phase":"normalization","event":"progress","completed":98,"total":98,"unit":"coefficients","elapsed_seconds":0.000261749}
+{"utc":"2026-11-22T08:43:13.719737992Z","phase":"normalization","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.00026554}
+{"utc":"2026-11-22T08:43:13.719740241Z","phase":"reciprocal","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.00026779}
+{"utc":"2026-11-22T08:43:13.719745339Z","phase":"reciprocal-prefix","event":"progress","completed":2,"total":159,"unit":"coefficients","elapsed_seconds":0.000272888}
+{"utc":"2026-11-22T08:43:13.720282661Z","phase":"reciprocal-prefix","event":"progress","completed":159,"total":159,"unit":"coefficients","elapsed_seconds":0.000810213}
+{"utc":"2026-11-22T08:43:13.720287562Z","phase":"reciprocal","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.00081511}
+{"utc":"2026-11-22T08:43:13.720290576Z","phase":"identity","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.000818124}
+{"utc":"2026-11-22T08:43:13.720521984Z","phase":"identity-verification","event":"progress","completed":256,"total":256,"unit":"coefficients","elapsed_seconds":0.001049533}
+{"utc":"2026-11-22T08:43:13.720527403Z","phase":"identity","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.001054952}
+{"utc":"2026-11-22T08:43:13.720531103Z","phase":"generator-spectrum","event":"started","completed":0,"total":1,"unit":"operations","elapsed_seconds":0.001058651}
+{"utc":"2026-11-22T08:43:13.720583071Z","phase":"generator-spectrum","event":"completed","completed":1,"total":1,"unit":"operations","elapsed_seconds":0.00111062}
+{"utc":"2026-11-22T08:43:14.518855242Z","phase":"support-order-validation","event":"progress","completed":62,"total":62,"unit":"exponents","elapsed_seconds":0.000001027}
+{"utc":"2026-11-22T08:43:14.518879449Z","phase":"support-Frobenius-validation","event":"progress","completed":62,"total":62,"unit":"exponents","elapsed_seconds":0.000025235}
+{"utc":"2026-11-22T08:43:14.519359162Z","phase":"write-support","event":"progress","completed":97,"total":97,"unit":"exponents","elapsed_seconds":0.000002962}
+[gnode15:3909635] mca: base: close: component ucx closed
+[gnode15:3909635] mca: base: close: unloading component ucx
+[gnode15:3909635] mca: base: close: component self closed
+[gnode15:3909635] mca: base: close: unloading component self
+[gnode15:3909635] mca: base: close: component tcp closed
+[gnode15:3909635] mca: base: close: unloading component tcp

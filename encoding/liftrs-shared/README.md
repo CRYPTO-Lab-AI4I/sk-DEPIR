@@ -964,3 +964,12 @@ ownership. Sampling width/order/masks are shared with ordinary discovery; the
 native entropy-stream digest and final canonical hashes must match. GPU validation
 of this new mode is pending. Coordinator diagnostic archive/publication and
 fullsize/s18 admission remain separate. No ordinary CPU-client dependency change.
+
+[Partitioned discovery78909](../../experiments/distributed-discovery-pilot/report.md)
+passed the complete genuine pipeline and small CUDA sanitizer. The next
+[restart/publication gate](../../experiments/distributed-restart-pilot/report.md)
+adds bounded trusted-manifest loading and canonical ordered32/64-bit publication,
+reusing one typed MPI codec/proof adapter. Explicit stream mode avoids coordinator
+publication arrays; prefix resume skips discovery/roots in a fresh MPI process.
+Both are implemented but not yet integrated-validated. Defaults remain unchanged;
+this does not establish s18 support, elastic restart or node-failure recovery.
