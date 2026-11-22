@@ -26,7 +26,7 @@ def stages(counts):
 def packet_key(p):return tuple(p[k]for k in ('Operation','Domain','Operand','Offset','Words','Source','Target'))
 
 
-def review_operands(rows,stage,source_bytes):
+def review_operands(rows,stage,source_bytes,tile_words=127):
     n=stage['Domain'];ranks=stage['Ranks'];expected={};packets={}
     for operand,layout in enumerate(stage['Sources']):
         child=source_bytes[operand];assert len(child)==4*layout['Domain']
@@ -35,8 +35,8 @@ def review_operands(rows,stage,source_bytes):
             for target in range(ranks):
                 if source==target:continue
                 lo=max(begin,target*n//ranks);hi=min(end,(target+1)*n//ranks)
-                for first in range(lo,hi,127):
-                    count=min(127,hi-first);p=(1,n,operand,first,count,source,target)
+                for first in range(lo,hi,tile_words):
+                    count=min(tile_words,hi-first);p=(1,n,operand,first,count,source,target)
                     sha=hashlib.sha256(child[4*first:4*(first+count)]).digest()
                     for rank,direction in ((source,'send'),(target,'receive')):expected[(rank,direction,p)]=sha
     for r in rows:

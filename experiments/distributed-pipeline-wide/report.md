@@ -1,6 +1,6 @@
 # Wide distributed preprocessing adapters
 
-Status: **submitted80962**,wide-01,implementationee36990;GPU results pending. Parent revision9e3dbc2.
+Status: **passed80962**,wide-01,implementationee36990;GPU results passed. Parent revision9e3dbc2.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/). Actual implementation and
 producing revision will be sealed by the committed snapshot/controller. Results
@@ -132,7 +132,7 @@ python3 -B experiments/distributed-pipeline-wide/analyze.py wide-01
 
 [Build](readiness/build.log), [native](readiness/native.log), [race](readiness/race.log),
 [reviewer](readiness/review.log), [legacy replay](readiness/legacy-replay.log).
-GPU integration remains pending. Fulls18 still needs scalable discovery/root ownership
+GPU adapter integration passed80962. Fulls18 still needs scalable discovery/root ownership
 without replicated bounded reference state,complete wide full-domain workflow,
 representative larger scaling/restart,measured capacity/headroom and separate
 full-run admission. This gate does not authorize that allocation.
@@ -151,3 +151,27 @@ Submitted **80962** after readiness commit31c360d.
 `runs/wide-01/`. Same resources/caps and3–5 minute estimate excluding queue.
 Receipt-bound local completion notification registered;no model polling after
 submission. Review the saved evidence after completion notice.
+
+
+## Measured outcome — HPC80962
+
+[Raw results](runs/wide-01/results.json), [analysis](runs/wide-01/analysis.json),
+[logs/profiles](runs/wide-01/), [scheduler log](slurm-80962.log).
+Producing revision31c360d;811 source/74 evidence/473 cache digests reconcile;
+all36 commands passed. Controller **2min27.889 seconds**;cold arm **6.097 seconds**,
+resume **4.585 seconds**,wide tail **6.090 seconds**. Each arm has8 rank/case
+measurements. Genuine canonical/generator output,completed prefixes,full cyclic
+identity and new-process restart matched retained native bytes. Bounded field18
+reciprocal prefixes,complete nonaliasing convolution,native spectrum and high-bit
+publication passed all scalar,packet and byte checks. This is not a fulls18 grid.
+
+Maximum logged measurement-row RSS per worker:**378.285MiB cold /377.750MiB
+resume /379.883MiB wide**. Owned GPU arrays:**0.064MiB/worker narrow /3.125MiB/worker
+wide**,excluding context/driver/transients. Cache **16.001MiB**. HPC allocation
+remained two H200s/two nodes,four CPU cores,8GiB requested RAM,four workers.
+These are diagnostic profiled arm times,not unprofiled fulls18 latency.
+
+Next:[owned root execution](../distributed-owned-roots/report.md),removing complete
+worker diagnostic support/oracle arrays while retaining native leaf/stage/final
+validation through checksum-verified controller files. Fullsize ownership and
+scaling/admission boundaries remain.

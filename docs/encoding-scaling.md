@@ -3396,3 +3396,43 @@ after committed-source/native-input preflight31c360d.
 Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;GPU results pending.
 Genuine complete cold/restart is s4/s6;field18 tail is bounded32/4096 points.
 Fulls18 preprocessing remains unrun.
+
+
+### Wide adapters passed;owned roots without worker diagnostic arrays (SCALING-174)
+
+80962 passed811 source/74 evidence/473 cache seals and all36 commands. Controller
+2min27.889s;cold6.097s,resume4.585s,wide6.090s. Maximum measurement-row RSS378.285 /
+377.750 /379.883MiB per worker;owned GPU0.064MiB narrow /3.125MiB wide per worker,
+context/driver/transients additional;cache16.001MiB. Same2HPCnodes/2H200/4CPU/8GiB.
+All genuine cold/restart and bounded canonical field18 scalar/native/packet/high-bit
+publication checks passed. [Evidence](../experiments/distributed-pipeline-wide/report.md).
+
+Next share the maintained generic GPU adapter across actual root subgroup merges
+and later pipeline stages. MergeRoots consumes only local child shards,counts and
+checked transport;reuse resident product and tree normalization checks. Explicit
+owned mode constructs GPU leaves directly from locally discovered roots and never
+loads complete diagnostic support/native arrays. Keep existing diagnostic default
+available. Retain all leaf/stage/final correctness comparisons via independently
+verified native files checked by the controller,not supplied to GPU arithmetic.
+
+One four-arm allocation:owned genuine s4/s6 cold/fresh-prefix8 resume,bounded
+field18 adapter regression,and owned field18 synthetic16/4092-root reduction.
+Same2nodes/2H200/4CPU/8GiB,4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,
+128MiBcache/2GiBscratch/32MiBfile,720s/15min,0CUDApinned. Estimate3–6min excluding
+queue. Required native manifest112,460 bytes plus existing69,746-byte code inputs
+is explicitly frozen,checksum checked and reviewed before submission. No CUDA
+arithmetic change/redundant sanitizer-only arm. Native geometry,CPU/race ownership,
+manifest packaging and actual committed-source tests precede allocation.
+
+Memory/runtime accounting:remove replicated O(K) diagnostic support/native arrays
+from genuine root workers;keep owned support/current child/parent shards. GPU
+three-array layout and production three-FFT/network work remain. Controller file
+copy/verification and diagnostic scratch boundaries change;do not present shorter
+arm times as algorithmic speedups. Include setup/reference/review/I/O in complete
+job time;fullsize costs remain unknown. Existing faster validated production paths
+and defaults remain. [Runner and exact limits](../experiments/distributed-owned-roots/report.md).
+
+After this gate,finish scalable complete field18 discovery/working-set admission,
+full-domain generator/spectrum/artifact workflow,meaningful larger scaling and
+interruption/relaunch,then choose fulls18 topology/resources/headroom/deadline and
+obtain separate admission. Small owned-root correctness is not fulls18 readiness.

@@ -74,9 +74,9 @@ def build_input(name):
     path=Path(name)
     if any(part in ('runs','artifacts','message-board','docs') for part in path.parts):return False
     code={'.go','.c','.cc','.cpp','.cxx','.h','.hpp','.cu','.cuh','.s','.S','.py','.sh','.sbatch','.inc','.syso'}
-    # This reviewed input manifest is required at runtime; other experiment JSON
+    # Reviewed runtime input manifests are explicit; other experiment JSON
     # remains excluded so historical results cannot inflate the frozen source.
-    return name=='experiments/distributed-coordinator-stream/reference-inputs.json' or path.suffix in code or path.name in ('go.mod','go.sum') or (path.suffix=='.json' and not name.startswith('experiments/'))
+    return name in ('experiments/distributed-coordinator-stream/reference-inputs.json','experiments/distributed-owned-roots/root-references.json') or path.suffix in code or path.name in ('go.mod','go.sum') or (path.suffix=='.json' and not name.startswith('experiments/'))
 
 
 def snapshot(revision,destination):

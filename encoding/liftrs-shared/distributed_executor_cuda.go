@@ -188,3 +188,30 @@ func (e *rankGPUExecutor[Word]) Discovery(values []uint32, observe func(bool, ui
 	}
 	return out, nil
 }
+
+// MergeRoots consumes only this rank's child shard and a validated stage plan.
+// All source intervals and field/padding bounds are checked before multiplication.
+// reduceShardedRoots additionally enforces normalization/degree after each stage.
+// Communicator lifetime and abort-on-peer-failure remain the caller's responsibility.
+func (e *rankGPUExecutor[Word]) MergeRoots(stage rankRootMergeStage, input []uint32, link operandLink) ([]uint32, error) {
+	if e == nil || e.GPU == nil {
+		return nil, fmt.Errorf("root merge executor unavailable")
+	}
+	p := e.Plan
+	n := p.Rows * p.Columns
+	ac, bc := stage.Sources[0].Count, stage.Sources[1].Count
+	if stage.Ranks != p.Ranks || stage.Domain != n || ac == 0 || bc == 0 || ac > n || bc > n-ac+1 || stage.Count != ac+bc-1 {
+		return nil, fmt.Errorf("root merge executor shape")
+	}
+	var local [2][]uint32
+	for j, source := range stage.Sources {
+		if p.Rank >= source.First && p.Rank < source.First+source.Ranks {
+			local[j] = input
+		}
+	}
+	pair, err := routeShardedOperands(rankShardOperandPlan{p.Operation, n, p.TileWords, e.Limit, p.InputWords, p.Rank, p.Ranks, stage.Sources}, local, link, nil)
+	if err != nil {
+		return nil, err
+	}
+	return e.Product(pair[0], pair[1], ac, bc, stage.Count)
+}

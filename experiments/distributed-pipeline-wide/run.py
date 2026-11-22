@@ -111,10 +111,13 @@ def wide_review(rows,directory):
     return dict(measurements=values,executor_calls=len(observed),operand_proofs=len(actual),scope='Bounded canonical field18 reciprocal/product/spectrum and high-bit raw publication;not a fulls18 grid/code artifact.')
 
 
-def suite(c):
+def suite(c,review_fn=None,extra_arms=None):
     c['run']('wide-pipeline-review-tests',['python3','-B','experiments/distributed-pipeline-wide/test_review.py'],30)
     extra=[dict(name='wide',test='TestWidePipelineTail',memcheck=False,profile=True,env=dict(PIR_PIPELINE_RESUME_FROM=''),review=wide_review)]
-    result=FOUR['suite'](c,extra_arms=extra)
+    if extra_arms:extra.extend(extra_arms)
+    options=dict(extra_arms=extra)
+    if review_fn is not None:options['review_fn']=review_fn
+    result=FOUR['suite'](c,**options)
     c['resources']['scope']='Genuine s4/s6 four-worker cold/restart plus bounded canonical field18 adapter tail;not fulls18'
     return result
 

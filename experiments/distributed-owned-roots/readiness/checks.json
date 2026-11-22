@@ -1,0 +1,47 @@
+{
+  "utc": "2026-11-22T19:14:14.729495+00:00",
+  "status": "passed-local;owned root GPU integration pending",
+  "parent_revision": "0f57378",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_executor_cuda.go": "eda4c93994a6d4a6cfe12a8409729cd6bf493cc5a06e88d56c502ce9ce2f5246",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go": "9562157e4bdf3a462e99864ae51e023381ec66305b484f7677ebfa93b3609c5e",
+    "encoding/liftrs-shared/pipeline_executor_gpu_test.go": "a76c221c3be7d0f37f8cef10e22244bd1431df25a3462d15d06cae5a8f71aa20",
+    "encoding/liftrs-shared/pipeline_roots_gpu_test.go": "d47df32dcb6df55506752796334351e6110d171c8598154f7ad83ed810d72fd6",
+    "experiments/distributed-pipeline-four/run.py": "0712f48e1fb045b70ee852f0ce2ff29d23864b3a7c6229fff8d845bd62115d4e",
+    "experiments/distributed-pipeline-wide/run.py": "82939b946ba6eef77a41c0cd62d22ed6eb91fc67b00fd4ac92132338b3348fe3",
+    "experiments/distributed-root-hierarchy/run.py": "e065f2f995325333d5bbe6eea197a045ee1c02608a31e71ac447d7470f3fc9f6",
+    "experiments/gpu-staged-transport/run.py": "619f43712191e96cb43f22ab500f67f95f9d749c0ea8270233158d9a182256b8",
+    "experiments/distributed-owned-roots/analyze.py": "e181a037d488f416c810c275c8e6f228e478be24842b087a1ee4beabbc1af1ec",
+    "experiments/distributed-owned-roots/run.py": "cacce51c29726b0476163088e28881b1a91775b43fe2e526fce94efe8eacaa07",
+    "experiments/distributed-owned-roots/test_review.py": "04047446c551e46109a36aace92c8bf97bb3b208f76675f7af8b89867b618cdf",
+    "experiments/distributed-owned-roots/run.sbatch": "efbf7a3db5c2a4364e1d7573d644e6f8465d75001560fb463b3b495c3f86d761",
+    "experiments/distributed-owned-roots/root-references.json": "dc4b1982d9849759ff6e1dfa120d92e7786883e32b388d0be791537e032cb810"
+  },
+  "checks": {
+    "build.log": "# runtime/cgo\n[lnode02:00128] opal_ifinit: socket() failed with errno=1\n# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp\n[lnode02:00497] opal_ifinit: socket() failed with errno=1\n",
+    "distributed-coordinator-stream.log": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.004s\n\nOK\n",
+    "distributed-discovery-hierarchy.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+    "distributed-owned-roots.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n",
+    "distributed-pipeline-four.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.031s\n\nOK\n",
+    "distributed-pipeline-wide.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n",
+    "distributed-preprocessing-pilot.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n",
+    "distributed-restart-pilot.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.027s\n\nOK\n",
+    "distributed-root-hierarchy.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.037s\n\nOK\n",
+    "legacy-replay.log": "Verified80962 cold/resume/wide evidence re-reviewed successfully;no scheduler queries or saved output edits.\n",
+    "native.log": "=== RUN   TestRankOperandRootExpansion\n--- PASS: TestRankOperandRootExpansion (0.02s)\n=== RUN   TestRootHierarchyShapes\n    root_hierarchy_gpu_test.go:263: roots=16 rank=0 leaf=5 child domain=16 final domain=32\n    root_hierarchy_gpu_test.go:263: roots=16 rank=1 leaf=5 child domain=16 final domain=32\n    root_hierarchy_gpu_test.go:263: roots=16 rank=2 leaf=5 child domain=16 final domain=32\n    root_hierarchy_gpu_test.go:263: roots=16 rank=3 leaf=5 child domain=16 final domain=32\n    root_hierarchy_gpu_test.go:263: roots=4092 rank=0 leaf=1025 child domain=4096 final domain=4096\n    root_hierarchy_gpu_test.go:263: roots=4092 rank=1 leaf=1025 child domain=4096 final domain=4096\n    root_hierarchy_gpu_test.go:263: roots=4092 rank=2 leaf=1023 child domain=2048 final domain=4096\n    root_hierarchy_gpu_test.go:263: roots=4092 rank=3 leaf=1023 child domain=2048 final domain=4096\n--- PASS: TestRootHierarchyShapes (0.05s)\n=== RUN   TestGenuineHierarchyShapes\n    root_hierarchy_gpu_test.go:352: s=4 rank=0 K=97 samples=1 leaves=[37 25 27 12] child=64 final=128\n    root_hierarchy_gpu_test.go:352: s=4 rank=1 K=97 samples=1 leaves=[37 25 27 12] child=64 final=128\n    root_hierarchy_gpu_test.go:352: s=4 rank=2 K=97 samples=1 leaves=[37 25 27 12] child=64 final=128\n    root_hierarchy_gpu_test.go:352: s=4 rank=3 K=97 samples=1 leaves=[37 25 27 12] child=64 final=128\n    root_hierarchy_gpu_test.go:352: s=6 rank=0 K=1910 samples=1 leaves=[681 462 480 291] child=2048 final=2048\n    root_hierarchy_gpu_test.go:352: s=6 rank=1 K=1910 samples=1 leaves=[681 462 480 291] child=2048 final=2048\n    root_hierarchy_gpu_test.go:352: s=6 rank=2 K=1910 samples=1 leaves=[681 462 480 291] child=1024 final=2048\n    root_hierarchy_gpu_test.go:352: s=6 rank=3 K=1910 samples=1 leaves=[681 462 480 291] child=1024 final=2048\n--- PASS: TestGenuineHierarchyShapes (0.05s)\n=== RUN   TestPilotHierarchyReferences\n    root_hierarchy_gpu_test.go:385: s=4 retained K=97 support digest/closure and four-rank hierarchy admitted\n    root_hierarchy_gpu_test.go:385: s=6 retained K=1910 support digest/closure and four-rank hierarchy admitted\n--- PASS: TestPilotHierarchyReferences (0.00s)\n=== RUN   TestS18NativeField\n--- PASS: TestS18NativeField (0.03s)\nPASS\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.046s\n",
+    "review.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.009s\n\nOK\n"
+  },
+  "commands": {
+    "build": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-owned-roots-readiness.test ./encoding/liftrs-shared",
+    "native": "PIR_PIPELINE_REFERENCE_FROM=$PWD/.cache/liftrs/distributed-coordinator-stream/readiness/reference-checked .cache/liftrs/distributed-owned-roots-readiness.test -test.run ^TestRootHierarchyShapes$|^TestGenuineHierarchyShapes$|^TestPilotHierarchyReferences$|^TestS18NativeField$|^TestRankOperandRootExpansion$ -test.v -test.timeout=20s",
+    "race": "go test -race ./encoding/liftrs-shared -run ^TestShardedRoot|^TestRankOperand|^TestRankPrefix|^TestRankStream -count=1 -timeout=20s"
+  },
+  "limits": "same2HPCnodes/2H200/4CPU/8GiBhost;4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720s/15min,0CUDApinned",
+  "limitations": [
+    "No local CUDA/MPI initialization;owned executor GPU composition pending.",
+    "Native root checks move to controller-retained files;do not compare arm time as kernel speedup.",
+    "Synthetic field18 input fixture remains bounded replicated test generation;actual reduction needs only local shards.",
+    "No fulls18 grid/artifact/node-loss claim or resource/default increase."
+  ]
+}

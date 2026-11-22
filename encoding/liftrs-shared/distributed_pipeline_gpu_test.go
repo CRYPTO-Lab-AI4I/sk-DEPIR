@@ -109,6 +109,16 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 		emit(map[string]any{"kind": "stage", "case": label, "phase": phase, "event": state})
 	}
 	resumeFrom := os.Getenv("PIR_PIPELINE_RESUME_FROM")
+	rootMode := os.Getenv("PIR_PIPELINE_ROOT_MODE")
+	if rootMode == "" {
+		rootMode = "diagnostic"
+	}
+	if rootMode != "diagnostic" && rootMode != "owned" {
+		t.Fatal("root mode")
+	}
+	if rootMode == "owned" && w.Size != 4 {
+		t.Fatal("owned-root pilot requires four ranks")
+	}
 	publication := os.Getenv("PIR_PIPELINE_PUBLICATION")
 	if publication == "" {
 		publication = "gather"
@@ -395,7 +405,7 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	options := cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: s, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: tables.log, Powers: tables.powers, Devices: []int{0}, MaxElements: uint64(n), DeviceBytes: 64 << 20}
 	fixture := &rootFixture{header: h, extension: field, n: n, maximum: n, base: orbitField{q: q, base: base, lookup: tables}}
 	var local []uint32
-	if resumeFrom == "" && w.Size == 2 {
+	if resumeFrom == "" && (w.Size == 2 || rootMode == "owned") {
 		factor, err := cuda.NewPreparation(options)
 		if err != nil {
 			t.Fatal(err)
@@ -417,7 +427,9 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	// retained input,never used as discovery input or as the owned GPU root input.
 	var compactRoot []uint32
 	var compactLayout rootShardLayout
-	if resumeFrom == "" && w.Size > 2 {
+	if resumeFrom == "" && w.Size > 2 && rootMode == "owned" {
+		compactRoot, compactLayout = ownedPipelineRoots[Word](t, w, directory, label, fixture, options, leafCounts, local, emit)
+	} else if resumeFrom == "" && w.Size > 2 {
 		expectedSupport, e := readPilotSupport(referenceFrom, retained)
 		if e != nil {
 			t.Fatal(e)
@@ -438,60 +450,18 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	if resumeFrom == "" {
 		event("local-roots", "completed")
 	}
-	gpu, err := cuda.NewRankStorage(options, uint64(1)<<uint(s), uint64(1)<<uint(s), w.Rank, w.Size, 4096)
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer gpu.Close()
-	p, err := newRankTransposePlan(1, uint64(1)<<uint(s), uint64(1)<<uint(s), w.Rank, w.Size, uint64(n), 4096)
-	if err != nil {
-		t.Fatal(err)
-	}
-	capacity := min(uint64(n), 3*(uint64(1)<<uint(s)))
-	first := p.InputFirst * p.Columns
-	words := p.InputWords
-	call := ""
-	callOp := uint64(0)
-	pass := 0
-	span := uint64(2 + 2*s)
-	notice := func(phase string, done, total uint64) {
-		if done == 0 {
-			switch phase {
-			case "rank-product-left-forward":
-				pass = 0
-			case "rank-product-right-forward":
-				pass = 1
-			case "rank-product-inverse":
-				pass = 2
-			}
+	driver := openPipelineGPU[Word](t, w, options, 2*s, label, emit)
+	executor := &driver.Executor
+	gpu := executor.GPU
+	defer func() {
+		if err := gpu.Close(); err != nil {
+			t.Error(err)
 		}
-		if done == 0 || done == total {
-			emit(map[string]any{"kind": "progress", "case": label, "call": call, "phase": phase, "pass": pass, "completed": done, "total": total})
-		}
-	}
-	executor := rankGPUExecutor[Word]{GPU: gpu, Plan: p, Capacity: capacity, Limit: q, Notice: notice}
-	executor.Transpose = transposeMPI[Word]{world: w, rank: w.Rank, record: func(direction string, peer int, p transposePacket, data []Word, own, remote [64]byte) {
-		emit(map[string]any{"kind": "tile-proof", "case": call, "pass": pass, "operation": p.Operation, "round": p.Round, "offset": p.Offset, "words": p.Words, "peer": peer, "direction": direction, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
-	}}
-	executor.Windows = taylorMPI[Word]{world: w, record: func(direction string, peer int, p taylorPacket, data []Word, own, remote [64]byte) {
-		emit(map[string]any{"kind": "taylor-proof", "case": call, "pass": pass, "packet": p, "peer": peer, "direction": direction, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
-	}}
-	executor.Degrees = func(level int) ([]uint64, error) {
-		degrees, e := gpu.TaylorDegrees(level)
-		if e == nil {
-			emit(map[string]any{"kind": "taylor-plan", "case": call, "pass": pass, "operation_start": callOp + uint64(pass)*span, "level": level, "degrees": degrees, "capacity": capacity})
-		}
-		return degrees, e
-	}
-	product := func(name string, a, b []uint32, aCount, bCount, keep uint64) []uint32 {
-		call, callOp, pass = label+"/"+name, executor.Plan.Operation, 0
-		result, e := executor.Product(a, b, aCount, bCount, keep)
-		if e != nil {
-			t.Fatal(name, e)
-		}
-		emit(map[string]any{"kind": "executor-call", "case": call, "s": s, "operation_start": callOp, "mode": "product", "a_count": aCount, "b_count": bCount, "keep": keep, "matches": true})
-		return result
-	}
+	}()
+	p := executor.Plan
+	first, words := p.InputFirst*p.Columns, p.InputWords
+	product := driver.Product
+	notice := executor.Notice
 	link := operandMPI{world: w, record: func(direction string, p operandPacket, data []uint32, own, remote [64]byte) {
 		emit(map[string]any{"kind": "operand-proof", "case": label, "direction": direction, "packet": p, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
 	}}
@@ -633,13 +603,8 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	}
 	save("g", g)
 	save("identity", identity)
-	call, callOp, pass = label+"/spectrum", executor.Plan.Operation, 0
-	spectrum, err := executor.Spectrum(g, uint64(n-k))
-	if err != nil {
-		t.Fatal(err)
-	}
+	spectrum := driver.Spectrum("spectrum", g, uint64(n-k))
 	saveMatrixStageWords(t, filepath.Join(directory, fmt.Sprintf("%s-rank-%d-spectrum.bin", label, w.Rank)), spectrum)
-	emit(map[string]any{"kind": "executor-call", "case": call, "s": s, "operation_start": callOp, "mode": "spectrum", "keep": n, "matches": true})
 	event("artifact-publication", "started")
 	if publication == "stream" {
 		spectrumLink := typedOperandMPI[Word]{world: w, record: func(direction string, p operandPacket, data []Word, own, remote [64]byte) {
@@ -698,7 +663,7 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	}
 	w.Barrier()
 	event("artifact-publication", "completed")
-	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "root_counts": leafCounts, "discovery_layout": layout, "initial_prefix": initialPrefix, "discovery_performed": resumeFrom == "", "root_performed": resumeFrom == "", "publication": publication, "pid": os.Getpid(), "reference_mode": map[bool]string{true: "retained", false: "native"}[referenceFrom != ""], "support_streamed": referenceFrom != ""})
+	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "root_counts": leafCounts, "root_mode": rootMode, "discovery_layout": layout, "initial_prefix": initialPrefix, "discovery_performed": resumeFrom == "", "root_performed": resumeFrom == "", "publication": publication, "pid": os.Getpid(), "reference_mode": map[bool]string{true: "retained", false: "native"}[referenceFrom != ""], "support_streamed": referenceFrom != ""})
 }
 
 // Explicit bounded native-reference export for the pilot's independent inputs.

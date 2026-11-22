@@ -1,0 +1,456 @@
+{
+  "provenance": {
+    "80962": {
+      "revision": "31c360d66f7f8dc438a7313448828a80740979f1",
+      "results": "experiments/distributed-pipeline-wide/runs/wide-01/results.json"
+    },
+    "79376": {
+      "revision": "5268f7b6ffb122c30afe3e32f24633fd24d00080",
+      "results": "experiments/distributed-root-hierarchy/runs/hierarchy-01/results.json"
+    }
+  },
+  "cases": [
+    {
+      "label": "s4",
+      "s": 4,
+      "count": 97,
+      "counts": [
+        37,
+        25,
+        27,
+        12
+      ],
+      "run": "distributed-pipeline-wide",
+      "name": "wide-01",
+      "job": "80962"
+    },
+    {
+      "label": "s6",
+      "s": 6,
+      "count": 1910,
+      "counts": [
+        681,
+        462,
+        480,
+        291
+      ],
+      "run": "distributed-pipeline-wide",
+      "name": "wide-01",
+      "job": "80962"
+    },
+    {
+      "label": "roots-16",
+      "s": 18,
+      "count": 16,
+      "counts": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "run": "distributed-root-hierarchy",
+      "name": "hierarchy-01",
+      "job": "79376"
+    },
+    {
+      "label": "roots-4092",
+      "s": 18,
+      "count": 4092,
+      "counts": [
+        1025,
+        1025,
+        1023,
+        1023
+      ],
+      "run": "distributed-root-hierarchy",
+      "name": "hierarchy-01",
+      "job": "79376"
+    }
+  ],
+  "files": {
+    "s4-rank-0-leaf.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s4-rank-0-leaf-reference.bin",
+      "bytes": 148,
+      "sha256": "fd35248f63bb0861ed94aab8ad7d58671739b997ee06ba166f0bdaf7738dc039",
+      "job_id": "80962"
+    },
+    "s4-rank-0-final.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s4-rank-0-reference.bin",
+      "bytes": 128,
+      "sha256": "3a836b11a9fca7d18f3ad2ca9fb1090d24ef739694bb6a6eaad1d10fb14b89d9",
+      "job_id": "80962"
+    },
+    "s4-rank-1-leaf.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s4-rank-1-leaf-reference.bin",
+      "bytes": 100,
+      "sha256": "75966eb6fca5d056aa3bdfdf49f92f619a2c8be38eabb0e9b95b785b7be71844",
+      "job_id": "80962"
+    },
+    "s4-rank-1-final.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s4-rank-1-reference.bin",
+      "bytes": 128,
+      "sha256": "d52bf08a316abf888d89d108ebfc7b8da8b54daf60a4404d404a8d79cf3dfc60",
+      "job_id": "80962"
+    },
+    "s4-rank-2-leaf.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s4-rank-2-leaf-reference.bin",
+      "bytes": 108,
+      "sha256": "726ee6255dc394c39f81e914f768fdd971c49c717b04268a1a81c989f5163489",
+      "job_id": "80962"
+    },
+    "s4-rank-2-final.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s4-rank-2-reference.bin",
+      "bytes": 128,
+      "sha256": "463b798dd0d6217031d1c8c80ad66238d647453bd95513df68b0f788fd2b4850",
+      "job_id": "80962"
+    },
+    "s4-rank-3-leaf.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s4-rank-3-leaf-reference.bin",
+      "bytes": 48,
+      "sha256": "3b7783fe6c3a4c11638d9ff5a1d6fd0407cb71f35da51003af0c1b8f912ac5ec",
+      "job_id": "80962"
+    },
+    "s4-rank-3-final.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s4-rank-3-reference.bin",
+      "bytes": 128,
+      "sha256": "baaf36d22dc28f002964f8e92f2d6e2e19c1bfb4681be7b5822e553bb336352d",
+      "job_id": "80962"
+    },
+    "s4-level-1-group-0-rank-0-output.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s4-level-1-group-0/rank-0-s4-d6-shape-0-expected.bin",
+      "bytes": 128,
+      "sha256": "f4c4d74dd9bfb44e4039da178853a29840865fd38c06bfc74176feaaecc13653",
+      "job_id": "80962"
+    },
+    "s4-level-1-group-0-rank-1-output.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s4-level-1-group-0/rank-1-s4-d6-shape-0-expected.bin",
+      "bytes": 128,
+      "sha256": "afb907e1a193fa3897d5a0017d336d995e623a9b3f3902872054cbdef2e4365b",
+      "job_id": "80962"
+    },
+    "s4-level-1-group-2-rank-0-output.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s4-level-1-group-2/rank-0-s4-d6-shape-0-expected.bin",
+      "bytes": 128,
+      "sha256": "05a9ac1c450db1ec42ebc9896dd0190c228e5de6f4dd6c2f775241c93c01b8fe",
+      "job_id": "80962"
+    },
+    "s4-level-1-group-2-rank-1-output.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s4-level-1-group-2/rank-1-s4-d6-shape-0-expected.bin",
+      "bytes": 128,
+      "sha256": "10317c4862bf11b1c13f5f10fbf1860493e83aeeb8e84c346549f0d58e34c50b",
+      "job_id": "80962"
+    },
+    "s4-level-2-group-0-rank-0-output.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s4-level-2-group-0/rank-0-s4-d7-shape-0-expected.bin",
+      "bytes": 128,
+      "sha256": "3a836b11a9fca7d18f3ad2ca9fb1090d24ef739694bb6a6eaad1d10fb14b89d9",
+      "job_id": "80962"
+    },
+    "s4-level-2-group-0-rank-1-output.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s4-level-2-group-0/rank-1-s4-d7-shape-0-expected.bin",
+      "bytes": 128,
+      "sha256": "d52bf08a316abf888d89d108ebfc7b8da8b54daf60a4404d404a8d79cf3dfc60",
+      "job_id": "80962"
+    },
+    "s4-level-2-group-0-rank-2-output.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s4-level-2-group-0/rank-2-s4-d7-shape-0-expected.bin",
+      "bytes": 128,
+      "sha256": "463b798dd0d6217031d1c8c80ad66238d647453bd95513df68b0f788fd2b4850",
+      "job_id": "80962"
+    },
+    "s4-level-2-group-0-rank-3-output.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s4-level-2-group-0/rank-3-s4-d7-shape-0-expected.bin",
+      "bytes": 128,
+      "sha256": "baaf36d22dc28f002964f8e92f2d6e2e19c1bfb4681be7b5822e553bb336352d",
+      "job_id": "80962"
+    },
+    "s6-rank-0-leaf.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s6-rank-0-leaf-reference.bin",
+      "bytes": 2724,
+      "sha256": "dd7d4181a2e682adfb58ba1e5c1385cc7206e446a84aa4b120c57afcae657fcd",
+      "job_id": "80962"
+    },
+    "s6-rank-0-final.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s6-rank-0-reference.bin",
+      "bytes": 2048,
+      "sha256": "c27ef39a8483c48bde59b31ee20c0f872a23755cc30eb093c84309e952a98e0c",
+      "job_id": "80962"
+    },
+    "s6-rank-1-leaf.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s6-rank-1-leaf-reference.bin",
+      "bytes": 1848,
+      "sha256": "7cf271a9a0e1ff5c63186f494204a60a4bacc7433f4458d13c927e5790910bd4",
+      "job_id": "80962"
+    },
+    "s6-rank-1-final.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s6-rank-1-reference.bin",
+      "bytes": 2048,
+      "sha256": "2e60c1e2b7f8b956a21be7d135b78485d644134ec3db1a834f5d8d8a38e74308",
+      "job_id": "80962"
+    },
+    "s6-rank-2-leaf.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s6-rank-2-leaf-reference.bin",
+      "bytes": 1920,
+      "sha256": "1758cdaec8b7412f5b7c7d2b0d97e96eac454e96d4723b3a26964fa6fd8115f8",
+      "job_id": "80962"
+    },
+    "s6-rank-2-final.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s6-rank-2-reference.bin",
+      "bytes": 2048,
+      "sha256": "3ef59326a3938facdac9486e708b3dddc78fc2d9950cad64670cc159e4bba8f9",
+      "job_id": "80962"
+    },
+    "s6-rank-3-leaf.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s6-rank-3-leaf-reference.bin",
+      "bytes": 1164,
+      "sha256": "0046f7e56d5e83f2abc312d2bb2cca605dbc35cc2a36f9098ecb28a9cf0bc060",
+      "job_id": "80962"
+    },
+    "s6-rank-3-final.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s6-rank-3-reference.bin",
+      "bytes": 2048,
+      "sha256": "1a61fd4a91feb2e371d7d3d8a2b4abb579ee6cc08a213439c9ee2392e4bf362c",
+      "job_id": "80962"
+    },
+    "s6-level-1-group-0-rank-0-output.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s6-level-1-group-0/rank-0-s6-d11-shape-0-expected.bin",
+      "bytes": 4096,
+      "sha256": "59a83a48db6c236d76281bbb3a7850c4eeb416893dafbc13c52038d0d9b2e02c",
+      "job_id": "80962"
+    },
+    "s6-level-1-group-0-rank-1-output.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s6-level-1-group-0/rank-1-s6-d11-shape-0-expected.bin",
+      "bytes": 4096,
+      "sha256": "6b8b3c83dd92ed2ec6d89b2da60e05f35a252f3f09ab60739cd035372d62dcc0",
+      "job_id": "80962"
+    },
+    "s6-level-1-group-2-rank-0-output.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s6-level-1-group-2/rank-0-s6-d10-shape-0-expected.bin",
+      "bytes": 2048,
+      "sha256": "1373e8bef1c39a86d8823ae67e13037abfdb522208600d5e2419a542b64a9757",
+      "job_id": "80962"
+    },
+    "s6-level-1-group-2-rank-1-output.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s6-level-1-group-2/rank-1-s6-d10-shape-0-expected.bin",
+      "bytes": 2048,
+      "sha256": "59ec9887ccee0155ee16cf38c879d58a8ef8eb3449c47ec1cc3e6e5d6af8630d",
+      "job_id": "80962"
+    },
+    "s6-level-2-group-0-rank-0-output.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s6-level-2-group-0/rank-0-s6-d11-shape-0-expected.bin",
+      "bytes": 2048,
+      "sha256": "c27ef39a8483c48bde59b31ee20c0f872a23755cc30eb093c84309e952a98e0c",
+      "job_id": "80962"
+    },
+    "s6-level-2-group-0-rank-1-output.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s6-level-2-group-0/rank-1-s6-d11-shape-0-expected.bin",
+      "bytes": 2048,
+      "sha256": "2e60c1e2b7f8b956a21be7d135b78485d644134ec3db1a834f5d8d8a38e74308",
+      "job_id": "80962"
+    },
+    "s6-level-2-group-0-rank-2-output.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s6-level-2-group-0/rank-2-s6-d11-shape-0-expected.bin",
+      "bytes": 2048,
+      "sha256": "3ef59326a3938facdac9486e708b3dddc78fc2d9950cad64670cc159e4bba8f9",
+      "job_id": "80962"
+    },
+    "s6-level-2-group-0-rank-3-output.bin": {
+      "source": ".cache/liftrs/distributed-pipeline-wide/wide-01/cold/s6-level-2-group-0/rank-3-s6-d11-shape-0-expected.bin",
+      "bytes": 2048,
+      "sha256": "1a61fd4a91feb2e371d7d3d8a2b4abb579ee6cc08a213439c9ee2392e4bf362c",
+      "job_id": "80962"
+    },
+    "roots-16-rank-0-leaf.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-16-rank-0-leaf-reference.bin",
+      "bytes": 20,
+      "sha256": "a193537fc87b1d905bbc9de58a71f7a14e8c2e5e9b939a658a698c7a63ca49c9",
+      "job_id": "79376"
+    },
+    "roots-16-rank-0-final.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-16-rank-0-reference.bin",
+      "bytes": 32,
+      "sha256": "669384a37447a3ab54dd3848350bb218c05c7253064b4fc7717c987ec6a4b9f4",
+      "job_id": "79376"
+    },
+    "roots-16-rank-1-leaf.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-16-rank-1-leaf-reference.bin",
+      "bytes": 20,
+      "sha256": "6555df3917ace74cecf43e9f7cedca34318d591e2cf001daf82b2f58ce09e69f",
+      "job_id": "79376"
+    },
+    "roots-16-rank-1-final.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-16-rank-1-reference.bin",
+      "bytes": 32,
+      "sha256": "158ee7f027721879127bb1b51e44bdb42945def080a87365cf2323f949bb6819",
+      "job_id": "79376"
+    },
+    "roots-16-rank-2-leaf.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-16-rank-2-leaf-reference.bin",
+      "bytes": 20,
+      "sha256": "972bf0761bb6e47d85a477073c6b58626af5e334889aff458cb97d741a64567b",
+      "job_id": "79376"
+    },
+    "roots-16-rank-2-final.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-16-rank-2-reference.bin",
+      "bytes": 32,
+      "sha256": "12954605d19085ed84a734385eefa3a45137c70c62d79ea6995507b17c926313",
+      "job_id": "79376"
+    },
+    "roots-16-rank-3-leaf.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-16-rank-3-leaf-reference.bin",
+      "bytes": 20,
+      "sha256": "6fedebad7747b496e7af3c22a92df970a35de5a879cc54fc42771c4b1b53cc4a",
+      "job_id": "79376"
+    },
+    "roots-16-rank-3-final.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-16-rank-3-reference.bin",
+      "bytes": 32,
+      "sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+      "job_id": "79376"
+    },
+    "roots-16-level-1-group-0-rank-0-output.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-16-level-1-group-0/rank-0-s18-d4-shape-0-expected.bin",
+      "bytes": 32,
+      "sha256": "356ab7d6830a61034d9b80ff6f99689c3b4fdd9b9a80a2be4375ac58d9351ff1",
+      "job_id": "79376"
+    },
+    "roots-16-level-1-group-0-rank-1-output.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-16-level-1-group-0/rank-1-s18-d4-shape-0-expected.bin",
+      "bytes": 32,
+      "sha256": "b98640cecd8e077afab7750c60d853fb3d7ca9d5f95524d457af8d3a771fd3a4",
+      "job_id": "79376"
+    },
+    "roots-16-level-1-group-2-rank-0-output.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-16-level-1-group-2/rank-0-s18-d4-shape-0-expected.bin",
+      "bytes": 32,
+      "sha256": "290ab4d7f6eaaa95f2665ae14a94835ab94e4834855233c47cb31c1e287f5069",
+      "job_id": "79376"
+    },
+    "roots-16-level-1-group-2-rank-1-output.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-16-level-1-group-2/rank-1-s18-d4-shape-0-expected.bin",
+      "bytes": 32,
+      "sha256": "0cf578b3bc025f9ab2c847e48d0b2fa2e395894ac92b1608f0393d44b69863d6",
+      "job_id": "79376"
+    },
+    "roots-16-level-2-group-0-rank-0-output.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-16-level-2-group-0/rank-0-s18-d5-shape-0-expected.bin",
+      "bytes": 32,
+      "sha256": "669384a37447a3ab54dd3848350bb218c05c7253064b4fc7717c987ec6a4b9f4",
+      "job_id": "79376"
+    },
+    "roots-16-level-2-group-0-rank-1-output.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-16-level-2-group-0/rank-1-s18-d5-shape-0-expected.bin",
+      "bytes": 32,
+      "sha256": "158ee7f027721879127bb1b51e44bdb42945def080a87365cf2323f949bb6819",
+      "job_id": "79376"
+    },
+    "roots-16-level-2-group-0-rank-2-output.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-16-level-2-group-0/rank-2-s18-d5-shape-0-expected.bin",
+      "bytes": 32,
+      "sha256": "12954605d19085ed84a734385eefa3a45137c70c62d79ea6995507b17c926313",
+      "job_id": "79376"
+    },
+    "roots-16-level-2-group-0-rank-3-output.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-16-level-2-group-0/rank-3-s18-d5-shape-0-expected.bin",
+      "bytes": 32,
+      "sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+      "job_id": "79376"
+    },
+    "roots-4092-rank-0-leaf.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-4092-rank-0-leaf-reference.bin",
+      "bytes": 4100,
+      "sha256": "1c61b7c27b1778d09b4071a0d1da756ceae128f97abbd9a8e3ddde5311d1b229",
+      "job_id": "79376"
+    },
+    "roots-4092-rank-0-final.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-4092-rank-0-reference.bin",
+      "bytes": 4096,
+      "sha256": "21477d035a4f823073ef016b6f65512ffcc0c792379d4d4d69070a5d3897e1f3",
+      "job_id": "79376"
+    },
+    "roots-4092-rank-1-leaf.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-4092-rank-1-leaf-reference.bin",
+      "bytes": 4100,
+      "sha256": "d263584b27520540d9a107619a19ebe9f010fbba9f94d44bb0024ab9e2e33429",
+      "job_id": "79376"
+    },
+    "roots-4092-rank-1-final.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-4092-rank-1-reference.bin",
+      "bytes": 4096,
+      "sha256": "86b0acee3426b6724cc97af85b91f67cd9934871f0ffb91cf90ae748c851389d",
+      "job_id": "79376"
+    },
+    "roots-4092-rank-2-leaf.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-4092-rank-2-leaf-reference.bin",
+      "bytes": 4092,
+      "sha256": "e66e1c0c7aba40c263e553ca79513f4ac288c1ae024f4b27c9e9e6a7e5734338",
+      "job_id": "79376"
+    },
+    "roots-4092-rank-2-final.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-4092-rank-2-reference.bin",
+      "bytes": 4096,
+      "sha256": "fef29ec4c86f6624efa5df9e6c36737f488315b5b058b02b2287055f4d142d62",
+      "job_id": "79376"
+    },
+    "roots-4092-rank-3-leaf.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-4092-rank-3-leaf-reference.bin",
+      "bytes": 4092,
+      "sha256": "0df039e051351ec4a5b5997952a6105e183a9d9c34689801d6b657874595b1fd",
+      "job_id": "79376"
+    },
+    "roots-4092-rank-3-final.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-4092-rank-3-reference.bin",
+      "bytes": 4096,
+      "sha256": "6dbe3444319b745d99bbf2504a4db63531240785f61e0b44a4496d04d044eb9c",
+      "job_id": "79376"
+    },
+    "roots-4092-level-1-group-0-rank-0-output.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-4092-level-1-group-0/rank-0-s18-d12-shape-0-expected.bin",
+      "bytes": 8192,
+      "sha256": "f200ae12801c66410c7f3bddda46c8db9c28e0441a78fe424065fecd0b5495c2",
+      "job_id": "79376"
+    },
+    "roots-4092-level-1-group-0-rank-1-output.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-4092-level-1-group-0/rank-1-s18-d12-shape-0-expected.bin",
+      "bytes": 8192,
+      "sha256": "2164fd152cd078f8851345d62bda3846c7dde7b528cffec5d9b89a0e6eb0994a",
+      "job_id": "79376"
+    },
+    "roots-4092-level-1-group-2-rank-0-output.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-4092-level-1-group-2/rank-0-s18-d11-shape-0-expected.bin",
+      "bytes": 4096,
+      "sha256": "8fa2ff9bc0300ee5aa10edda59fc8e9e904a9b48b9857a8aec73fe78a12a586c",
+      "job_id": "79376"
+    },
+    "roots-4092-level-1-group-2-rank-1-output.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-4092-level-1-group-2/rank-1-s18-d11-shape-0-expected.bin",
+      "bytes": 4096,
+      "sha256": "a31e9bae0a291424acb4073344c42138008ea49d15128cc957c894d47c0d9c05",
+      "job_id": "79376"
+    },
+    "roots-4092-level-2-group-0-rank-0-output.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-4092-level-2-group-0/rank-0-s18-d12-shape-0-expected.bin",
+      "bytes": 4096,
+      "sha256": "21477d035a4f823073ef016b6f65512ffcc0c792379d4d4d69070a5d3897e1f3",
+      "job_id": "79376"
+    },
+    "roots-4092-level-2-group-0-rank-1-output.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-4092-level-2-group-0/rank-1-s18-d12-shape-0-expected.bin",
+      "bytes": 4096,
+      "sha256": "86b0acee3426b6724cc97af85b91f67cd9934871f0ffb91cf90ae748c851389d",
+      "job_id": "79376"
+    },
+    "roots-4092-level-2-group-0-rank-2-output.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-4092-level-2-group-0/rank-2-s18-d12-shape-0-expected.bin",
+      "bytes": 4096,
+      "sha256": "fef29ec4c86f6624efa5df9e6c36737f488315b5b058b02b2287055f4d142d62",
+      "job_id": "79376"
+    },
+    "roots-4092-level-2-group-0-rank-3-output.bin": {
+      "source": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/normal/roots-4092-level-2-group-0/rank-3-s18-d12-shape-0-expected.bin",
+      "bytes": 4096,
+      "sha256": "6dbe3444319b745d99bbf2504a4db63531240785f61e0b44a4496d04d044eb9c",
+      "job_id": "79376"
+    }
+  }
+}

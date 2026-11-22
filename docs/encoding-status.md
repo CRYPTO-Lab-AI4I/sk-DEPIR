@@ -21,8 +21,9 @@ The small pipeline is assembled and validated through discovery,roots,Newton
 iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
-GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Current focus: validate wide
-assembled adapters and scalable fullsize ownership,then step5 scaling validation.** Steps1–4 have
+GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Current focus:
+remove complete diagnostic support/oracle arrays from root execution,then validate
+scalable fullsize ownership and step5 scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
 
@@ -972,13 +973,35 @@ one generic pipeline,32-bit base coefficients and size-dependent extension spect
 It combines genuine four-worker cold/restart with bounded canonical field18
 reciprocal/product/spectrum and explicit high-bit8-byte publication. These32/4096-point
 field components are not the2^36-point s18 code grid or a fulls18 artifact. Same
-allocation/caps;GPU results pending. Scalable diagnostic-free ownership,full wide-domain
+allocation/caps;bounded wide adapter GPU validation passed80962. Scalable diagnostic-free ownership,full wide-domain
 workflow,representative scaling/restart and separate full-run admission remain.
 
 
 Wide adapter combined validation submitted as **80962**,wide-01,implementationee36990,
 after committed-source/native-input preflight31c360d.
 [Receipt and resources](../experiments/distributed-pipeline-wide/submission.json).
-Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;GPU results pending.
+Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;GPU validation passed80962.
 Genuine complete cold/restart is s4/s6;field18 tail is bounded32/4096 points.
 Fulls18 preprocessing remains unrun.
+
+
+### Wide adapters passed;owned root execution (SCALING-174)
+
+[80962 passed](../experiments/distributed-pipeline-wide/report.md):811 source/74
+evidence/473 cache seals;36 commands. Controller **2min27.889 seconds**;cold
+**6.097 seconds**,resume **4.585 seconds**,wide **6.090 seconds**. HPC:two H200s /
+two nodes /four CPU cores /8GiB requested RAM,four workers. Maximum measurement-row
+RSS **378.285/377.750/379.883MiB per worker** for cold/resume/wide;owned GPU
+**0.064MiB/worker narrow /3.125MiB/worker wide**,context/driver/transients additional;
+cache **16.001MiB**. All genuine prefixes/canonical bytes and bounded field18
+scalar/native/64-bit stream checks passed. Fulls18 cells remain unrun.
+
+[Owned-root integration](../experiments/distributed-owned-roots/report.md) shares
+the generic pipeline executor and existing router/product/tree without loading
+complete diagnostic support/native root arrays in genuine workers. Independent
+native leaf/stage/final files remain controller validation,with complete checksum
+provenance. Explicit experimental owned mode retains the diagnostic default;
+new GPU validation is pending at both field widths. Same admitted resources/caps.
+Then finish scalable complete discovery/working-set/full wide-domain workflow,
+representative scaling/restart and separate fulls18 admission. No fullsize runtime
+or capacity claim follows from the small component pass.

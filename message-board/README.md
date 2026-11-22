@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 19:15 | SCALING-174 | Prepared | [Owned root execution and retained native validation ready](2026-11-22-1915-codex-scaling-174-prepared.md) |
+| 2026-11-22 18:55 | SCALING-174 | Started | [Verify wide pass; remove global root diagnostics from execution](2026-11-22-1855-codex-scaling-174-started.md) |
 | 2026-11-22 18:50 | SCALING-173 | Handoff | [Wide adapter combined job80962 submitted](2026-11-22-1850-codex-scaling-173-handoff.md) |
 | 2026-11-22 18:47 | SCALING-173 | Prepared | [Wide adapters and combined validation ready](2026-11-22-1847-codex-scaling-173-prepared.md) |
 | 2026-11-22 16:28 | SCALING-173 | Started | [Verify complete pipeline; integrate wide adapters](2026-11-22-1628-codex-scaling-173-started.md) |
