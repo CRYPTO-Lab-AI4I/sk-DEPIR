@@ -1,0 +1,58 @@
+{
+  "utc": "2026-11-22T19:56:20.766137+00:00",
+  "status": "passed",
+  "revision": "3dd18458db1c19e7963d8376eb32c0aea6dd7a99",
+  "source_files": 822,
+  "source_bytes": 3788125,
+  "required": [
+    "encoding/liftrs-shared/distributed_recovery.go",
+    "encoding/liftrs-shared/distributed_recovery_test.go",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go",
+    "experiments/distributed-prefix-checkpoints/run.py",
+    "experiments/distributed-prefix-checkpoints/run.sbatch",
+    "experiments/distributed-prefix-checkpoints/test_review.py",
+    "experiments/distributed-owned-roots/root-references.json",
+    "experiments/distributed-coordinator-stream/reference-inputs.json",
+    "experiments/distributed-root/rank.sh"
+  ],
+  "root_reference_bytes_verified": 112460,
+  "code_reference_bytes_verified": 69746,
+  "checks": {
+    "distributed-prefix-checkpoints": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.036s\n\nOK\n"
+    },
+    "distributed-owned-roots": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n"
+    },
+    "distributed-pipeline-wide": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n"
+    },
+    "distributed-pipeline-four": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.031s\n\nOK\n"
+    },
+    "distributed-restart-pilot": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.028s\n\nOK\n"
+    },
+    "distributed-preprocessing-pilot": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n"
+    },
+    "distributed-coordinator-stream": {
+      "exit_code": 0,
+      "output": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.005s\n\nOK\n"
+    },
+    "distributed-root-hierarchy": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.037s\n\nOK\n"
+    },
+    "distributed-discovery-hierarchy": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+    }
+  }
+}

@@ -135,3 +135,11 @@ python3 -B experiments/distributed-prefix-checkpoints/analyze.py prefix-01
 payload/storage boundary;fulls18 still needs complete discovery/working-set admission,
 full wide-domain execution/artifacts,representative larger runtime/I/O/restart
 measurements and separate resource/storage/headroom/deadline agreement.
+
+
+[Committed-source preflight](readiness/snapshot-checks.json) passed on
+**3dd1845**:822 build inputs/3,788,125 bytes. All required codec,
+pipeline,wrapper and native-manifest paths exist;all nine reviewer suites passed
+from frozen source. Exact snapshot helpers verified112,460 retained root bytes
+and69,746 native code bytes before allocation. Subsequent readiness commit
+changes documentation/evidence only.
