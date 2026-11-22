@@ -1,0 +1,90 @@
+{
+  "status": "passed",
+  "utc": "2026-11-22T20:36:33.054187+00:00",
+  "revision": "98fce69320c62690018ac6849f1716a8a8b31c0c",
+  "source_files": 831,
+  "source_bytes": 3823058,
+  "required": [
+    "encoding/liftrs-shared/distributed_publication.go",
+    "encoding/liftrs-shared/distributed_publication_test.go",
+    "encoding/liftrs-shared/distributed_publication_gpu_test.go",
+    "encoding/liftrs-shared/distributed_executor_cuda.go",
+    "encoding/liftrs-shared/pipeline_executor_gpu_test.go",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go",
+    "encoding/liftrs-shared/pipeline_wide_gpu_test.go",
+    "experiments/distributed-spectrum-publication/run.py",
+    "experiments/distributed-spectrum-publication/analyze.py",
+    "experiments/distributed-spectrum-publication/test_review.py",
+    "experiments/distributed-spectrum-publication/run.sbatch",
+    "experiments/distributed-pipeline-scaling/run.py",
+    "experiments/distributed-pipeline-scaling/preflight.py",
+    "experiments/distributed-root/rank.sh",
+    "experiments/distributed-coordinator-stream/reference-inputs.json",
+    "experiments/distributed-owned-roots/root-references.json"
+  ],
+  "checks": {
+    "distributed-spectrum-publication": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+    },
+    "distributed-pipeline-scaling": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.004s\n\nOK\n"
+    },
+    "distributed-prefix-checkpoints": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.036s\n\nOK\n"
+    },
+    "distributed-owned-roots": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n"
+    },
+    "distributed-pipeline-wide": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n"
+    },
+    "distributed-pipeline-four": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.034s\n\nOK\n"
+    },
+    "distributed-restart-pilot": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.028s\n\nOK\n"
+    },
+    "distributed-preprocessing-pilot": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n"
+    },
+    "distributed-coordinator-stream": {
+      "exit_code": 0,
+      "output": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.004s\n\nOK\n"
+    },
+    "distributed-root-hierarchy": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.038s\n\nOK\n"
+    },
+    "distributed-discovery-hierarchy": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+    }
+  },
+  "native_historical_bytes_verified": 108014,
+  "native_parameters": {
+    "spec": {
+      "FieldDegree": 8,
+      "Dimension": 2,
+      "CurveDegree": 5
+    },
+    "k": 7381,
+    "n": 65536,
+    "polynomial": 285,
+    "delta": 32,
+    "omega": 260,
+    "samples": 2
+  },
+  "native_code_inputs_verified": 379,
+  "native_binary_sha256": "adadcb99fcddb0b938d6e1e10061efcb8576cb6f0b59e8d2f2e6798bde61b61f",
+  "native_build_provenance": "Existing tagged readiness binary compiled from byte-identical Go/C/C++ inputs,verified against frozen source;fresh frozen-source build occurs inside admitted allocation before GPU phases. No second>30s local rebuild.",
+  "native_build_log": "build.log",
+  "native_preflight": "snapshot-native.log"
+}

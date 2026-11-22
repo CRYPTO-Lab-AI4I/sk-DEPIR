@@ -1,6 +1,6 @@
 # GPU-backed spectrum publication
 
-Status: prepared; GPU validation not yet submitted. Parent revision4b29540.
+Status: prepared; GPU validation not yet submitted. Implementation **f6353af** plus matched baseline **98fce69**;parent4b29540.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/). Results will be
 `runs/source-01/`; immutable source, native references, binaries and reusable
@@ -144,3 +144,15 @@ Next:reconcile exact source/cache/evidence and both widths,update maintained
 scaling reference with measured latency/memory/output bytes,then finish remaining
 fullsize discovery/ownership/root/reciprocal working-set admission and production
 artifact/checkpoint paths before separate fulls18 resource/storage/deadline agreement.
+
+
+[Committed-source preflight](readiness/snapshot-checks.json) passed on98fce69:
+**831 build inputs /3,823,058 bytes**,all required publisher/source/wide/
+wrapper/manifest paths and11reviewer suites verified from frozen source. The
+existing tagged native binary was compiled from **379 byte-identical code inputs**;
+its hash and source equality are recorded. Frozen helper execution verified
+108014 historical native bytes and actual genuine s8/curve5 inputs. A second
+potentially>30s local rebuild was omitted;fresh frozen-source compilation runs
+inside the admitted allocation before GPU phases. [Native preflight](readiness/snapshot-native.log),
+[compiled native tests](readiness/native-tests.log),[CPU](readiness/cpu.log),
+[race](readiness/race.log). No local CUDA/MPI initialization.

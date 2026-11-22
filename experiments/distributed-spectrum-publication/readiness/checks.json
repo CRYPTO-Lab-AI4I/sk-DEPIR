@@ -1,6 +1,6 @@
 {
   "utc": "2026-11-22T20:33:33.204225+00:00",
-  "status": "local checks passed;GPU validation pending",
+  "status": "passed local and frozen-source/native preflight;GPU composition pending",
   "parent_revision": "4b29540",
   "source_sha256": {
     "encoding/liftrs-shared/distributed_executor_cuda.go": "72dd1ffbc9beed424fcc7c08d11b1284f96ccc355d7c13348000d98f3e761129",
@@ -11,9 +11,9 @@
     "encoding/liftrs-shared/distributed_pipeline_gpu_test.go": "15fe865459db5a3a3487068748d355e01164785a37229fbf570d12d2d7c32689",
     "encoding/liftrs-shared/pipeline_wide_gpu_test.go": "cf5bdabc851f11abd6f085516783b1d8bc7c252f892627466e359938cf490328",
     "experiments/distributed-pipeline-scaling/run.py": "602a42fe0e9edb6305575ec75a2b96874e44a6cfd02eaa35057296cf1ad2b816",
-    "experiments/distributed-spectrum-publication/analyze.py": "453995056c44114741dc52a2a571d28c6bcf2fc913357b49c4914947c88259cb",
-    "experiments/distributed-spectrum-publication/run.py": "b8c357c5435a0d5c203857fe617af89e28448b83ce92e87776de58c4c5511e75",
-    "experiments/distributed-spectrum-publication/test_review.py": "37f5f6f78ca6c6f7ccfa74f176c9f9e9d8e38eb2a480171f5db42429be2d049b"
+    "experiments/distributed-spectrum-publication/analyze.py": "f2ee3ed26abf822497a8d51be179e72a30980c28afd86e9eb9f51b382907df98",
+    "experiments/distributed-spectrum-publication/run.py": "92198d244bb1132017a92c266f1e750752f4af2fc32e33a1633c4e26ede189ba",
+    "experiments/distributed-spectrum-publication/test_review.py": "012bc80491468c4fc6c21b07ee154edb2aa4ebae8d92744309afbdbc6a84f575"
   },
   "checks": {
     "build.log": "",
@@ -45,5 +45,9 @@
     "race": "go test -race ./encoding/liftrs-shared -run ^TestRankStream|^TestRankPrefix|^TestRankOperand -count=1 -timeout=20s",
     "build": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-spectrum-publication-readiness.test ./encoding/liftrs-shared",
     "native": "readiness binary -test.run ^TestRankStream|^TestRankPrefix|^TestPilotCases$|^TestPilotCurve$ -test.v -test.timeout=20s"
-  }
+  },
+  "notes": [
+    "Added matched resident arm after first local checks;final11 frozen reviewer suites pass.",
+    "Native readiness binary code inputs are byte-identical to snapshot;fresh snapshot build is inside admitted Slurm job."
+  ]
 }
