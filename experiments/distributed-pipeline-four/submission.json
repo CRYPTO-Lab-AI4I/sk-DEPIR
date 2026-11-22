@@ -1,0 +1,16 @@
+{
+  "job_id": "79983",
+  "name": "pipeline-01",
+  "implementation_revision": "e48a26e",
+  "submission_revision": "bbc1f91ed35fa8347c81e3e44de86a66b91e7057",
+  "recorded_utc": "2026-11-22T16:19:41.178730+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-pipeline-four/slurm-%j.log experiments/distributed-pipeline-four/run.sbatch pipeline-01",
+  "results": "experiments/distributed-pipeline-four/runs/pipeline-01",
+  "log": "experiments/distributed-pipeline-four/slurm-79983.log",
+  "cache": ".cache/liftrs/distributed-pipeline-four/pipeline-01/",
+  "resources": "same2 HPC nodes/2H200/4CPU/8GiB requested RAM;4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm,0CUDApinned",
+  "scope": "Genuine s4/s6 complete four-worker cold/fresh-prefix8 resume;shared discovery/hierarchy/Newton/identity/spectrum/streamed canonical and generator artifacts;not fulls18 or node-loss recovery",
+  "estimated_controller_minutes": "3\u20135 excluding queue;new composed complete latency unmeasured",
+  "monitoring": "Receipt-bound local completion watcher;no model polling.",
+  "note": "Committed-source snapshot and exact native-input manifest/helpers checked before submission;source and producing revision sealed by controller;no resource/default increase."
+}

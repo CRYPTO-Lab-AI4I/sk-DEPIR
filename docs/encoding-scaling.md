@@ -3348,3 +3348,10 @@ carry canonical wide-slot data through the complete pipeline,validate meaningful
 larger cases and interruption/relaunch,measure setup/host/device/communication/I/O,
 and admit the chosen fulls18 topology/resources/deadline separately. Fulls18 remains
 unrun;passing small components does not finish those boundaries.
+
+
+Complete four-worker cold/restart validation submitted as **79983**,pipeline-01,
+implementatione48a26e after committed-source/native-input preflightbbc1f91.
+[Receipt and resources](../experiments/distributed-pipeline-four/submission.json).
+Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;new GPU results pending.
+Fulls18 remains unrun;this is a genuine s4/s6 topology/correctness allocation.

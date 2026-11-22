@@ -1,6 +1,6 @@
 # Four-worker complete distributed preprocessing pilot
 
-Status: prepared; GPU/MPI cold/restart validation pending. Parent revisionf153e4f;
+Status: **submitted79983**,pipeline-01,implementatione48a26e;GPU/MPI results pending. Parent revisionf153e4f;
 actual implementation/producing revision will be recorded with the committed
 snapshot and sealed controller results. [Runner](run.py), [Slurm entry](run.sbatch),
 [analyzer](analyze.py), [reviewer tests](test_review.py), [readiness](readiness/).
@@ -134,3 +134,9 @@ retained-native manifest paths exist. All six affected reviewer entry points pas
 from frozen source;69,746 retained input bytes were independently copied and
 checksum-verified using that snapshot's exact helper. Subsequent readiness commit
 changes documentation/evidence only.
+
+
+Submitted **79983** after readiness commitbbc1f91.
+[Receipt](submission.json), [scheduler log](slurm-79983.log),results
+`runs/pipeline-01/`. Same resources/caps and3–5 minute estimate excluding queue.
+No model polling after submission;review saved evidence after completion notice.

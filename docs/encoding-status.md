@@ -948,3 +948,10 @@ replication is diagnostic only. Same allocation/caps;GPU validation pending.
 Then validate fullsize ownership/wide-slot execution and representative scaling
 before final topology,headroom and full-run budget admission. Fulls18 table cells
 remain unrun;the pending small complete pilot does not establish fulls18 readiness.
+
+
+Complete four-worker cold/restart validation submitted as **79983**,pipeline-01,
+implementatione48a26e after committed-source/native-input preflightbbc1f91.
+[Receipt and resources](../experiments/distributed-pipeline-four/submission.json).
+Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;new GPU results pending.
+Fulls18 remains unrun;this is a genuine s4/s6 topology/correctness allocation.
