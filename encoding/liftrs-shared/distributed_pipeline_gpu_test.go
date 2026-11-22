@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"crypto/sha256"
 	"encoding/binary"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -58,8 +59,8 @@ func TestDistributedPilotShapes(t *testing.T) {
 
 // This is an assembled two-rank pilot, not a fullsize production entry point.
 // Discovery can use coordinator or partitioned grids; publication uses a
-// coordinator. P/G stay sharded throughout root,
-// Newton, identity and spectrum work; only final artifact assembly gathers them.
+// coordinator. P/G stay sharded throughout root/Newton/identity/spectrum;
+// explicit stream mode also bounds artifact/support publication buffers.
 func TestDistributedPreprocessingPilot(t *testing.T) {
 	directory := os.Getenv("PIR_GPU_MATRIX_STAGE_OUTPUT")
 	if directory == "" {
@@ -113,6 +114,7 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 		}
 	}
 	event("discovery-reference", "started")
+	var err error
 	var support, expected *CodeSupport
 	var reference *PreparedCode
 	layout := os.Getenv("PIR_PIPELINE_DISCOVERY")
@@ -122,8 +124,25 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	if layout != "coordinator" && layout != "distributed" {
 		t.Fatal("discovery layout")
 	}
+	referenceFrom := os.Getenv("PIR_PIPELINE_REFERENCE_FROM")
+	var retained pilotReferenceRecord
+	if referenceFrom != "" {
+		if layout != "distributed" || publication != "stream" {
+			t.Fatal("retained reference requires distributed/stream mode")
+		}
+		var e error
+		retained, e = readPilotReference(referenceFrom, s)
+		if e != nil {
+			t.Fatal(e)
+		}
+		if w.Rank == 0 {
+			if e = retainPilotReference(referenceFrom, directory, retained); e != nil {
+				t.Fatal(e)
+			}
+		}
+	}
 	expectedEntropy := ""
-	if w.Rank == 0 {
+	if w.Rank == 0 && referenceFrom == "" {
 		hash := sha256.New()
 		expected, reference = pilotReferenceReader(t, s, io.TeeReader(rand.New(rand.NewSource(109)), hash))
 		expectedEntropy = fmt.Sprintf("%x", hash.Sum(nil))
@@ -154,18 +173,57 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 		save("reference-spectrum", reference.code.spectrum32)
 	}
 	var discovered discoveryResult
+	streamedSHA := ""
+	var archiveFile *os.File
+	archiveHash := sha256.New()
+	var archive *orderedSupportWriter
+	var archiveSink func([]uint64) error
+	if referenceFrom != "" && resumeFrom == "" && w.Rank == 0 {
+		archiveFile, err = os.OpenFile(filepath.Join(directory, label+"-support.bin"), os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer archiveFile.Close()
+		archive = &orderedSupportWriter{Writer: io.MultiWriter(archiveFile, archiveHash), S: s, N: uint64(n)}
+		archiveSink = archive.append
+	}
 	if layout == "distributed" && resumeFrom == "" {
-		discovered = partitionedDiscovery[uint32](t, w, Spec{s, 2, 2}, emit)
+		discovered = partitionedDiscovery[uint32](t, w, Spec{s, 2, 2}, emit, archiveSink)
 		if w.Rank == 0 {
-			if !reflect.DeepEqual(discovered.Archive, expected.exponents) || discovered.Samples != expected.parameters.Samples || discovered.Entropy != expectedEntropy {
+			expectedSamples := 0
+			if referenceFrom == "" {
+				if !reflect.DeepEqual(discovered.Archive, expected.exponents) {
+					t.Fatal("partitioned discovery/native support mismatch")
+				}
+				expectedSamples = expected.parameters.Samples
+				support = &CodeSupport{parameters: expected.parameters, exponents: discovered.Archive}
+			} else {
+				expectedEntropy = retained.Entropy
+				expectedSamples = retained.Parameters.Samples
+				if len(discovered.Archive) != 0 || archive.Count != retained.Parameters.K || discovered.K != int(retained.Parameters.K) {
+					t.Fatal("streamed support count")
+				}
+				if err = archiveFile.Sync(); err != nil {
+					t.Fatal(err)
+				}
+				if err = archiveFile.Close(); err != nil {
+					t.Fatal(err)
+				}
+				streamedSHA = fmt.Sprintf("%x", archiveHash.Sum(nil))
+				if streamedSHA != retained.SHA[label+"-support.bin"] {
+					t.Fatal("streamed support checksum")
+				}
+			}
+			if discovered.Samples != expectedSamples || discovered.Entropy != expectedEntropy {
 				t.Fatal("partitioned discovery/native sampling mismatch")
 			}
-			support = &CodeSupport{parameters: expected.parameters, exponents: discovered.Archive}
 			emit(map[string]any{"kind": "discovery-reference", "discovery": true, "case": label, "s": s, "samples": discovered.Samples, "entropy_sha256": discovered.Entropy, "reference_entropy_sha256": expectedEntropy, "matches": true})
 		}
 	}
 	count := 0
-	if support != nil {
+	if referenceFrom != "" {
+		count = int(retained.Parameters.K)
+	} else if support != nil {
 		count = len(support.exponents)
 	}
 	k := int(w.ShareCount(uint64(count)))
@@ -186,17 +244,33 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	tables := newPreparationProducts(base)
 	var binding [64]byte
 	if w.Rank == 0 {
-		var data bytes.Buffer
-		if _, err = support.Write(&data); err != nil {
-			t.Fatal(err)
+		digest := [32]byte{}
+		if referenceFrom != "" {
+			if resumeFrom != "" {
+				if err = copyPilotSupport(referenceFrom, directory, label, retained); err != nil {
+					t.Fatal(err)
+				}
+				streamedSHA = retained.SHA[label+"-support.bin"]
+			}
+			raw, e := hex.DecodeString(streamedSHA)
+			if e != nil || len(raw) != 32 {
+				t.Fatal("support digest", e)
+			}
+			copy(digest[:], raw)
+		} else {
+			var data bytes.Buffer
+			if _, err = support.Write(&data); err != nil {
+				t.Fatal(err)
+			}
+			digest = sha256.Sum256(data.Bytes())
+			if err = os.WriteFile(filepath.Join(directory, label+"-support.bin"), data.Bytes(), 0600); err != nil {
+				t.Fatal(err)
+			}
 		}
-		digest := sha256.Sum256(data.Bytes())
 		copy(binding[:32], digest[:])
 		copy(binding[32:], digest[:])
-		if err = os.WriteFile(filepath.Join(directory, label+"-support.bin"), data.Bytes(), 0600); err != nil {
-			t.Fatal(err)
-		}
 	}
+
 	remote, err := w.ExchangeControl(1-w.Rank, binding)
 	if err != nil {
 		t.Fatal(err)
@@ -564,5 +638,48 @@ func runDistributedPilot(t *testing.T, w *mpi.World, directory string, s int, em
 	}
 	w.Barrier()
 	event("artifact-publication", "completed")
-	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "discovery_layout": layout, "initial_prefix": initialPrefix, "discovery_performed": resumeFrom == "", "root_performed": resumeFrom == "", "publication": publication, "pid": os.Getpid()})
+	emit(map[string]any{"kind": "pipeline", "case": label, "s": s, "n": n, "k": k, "first": first, "words": words, "matches": true, "identity_verified": true, "prefix_reloaded": reloaded, "owned_device_bytes": gpu.OwnedBytes(), "seconds": w.Max(time.Since(began).Seconds()), "root_a_count": ac, "root_b_count": bc, "discovery_layout": layout, "initial_prefix": initialPrefix, "discovery_performed": resumeFrom == "", "root_performed": resumeFrom == "", "publication": publication, "pid": os.Getpid(), "reference_mode": map[bool]string{true: "retained", false: "native"}[referenceFrom != ""], "support_streamed": referenceFrom != ""})
+}
+
+// Explicit bounded native-reference export for the pilot's independent inputs.
+// Setup is kept separate from distributed runtime and retained with checksums.
+func TestExportPilotReferences(t *testing.T) {
+	directory := os.Getenv("PIR_PIPELINE_REFERENCE_EXPORT")
+	if directory == "" {
+		t.Skip("explicit bounded native reference export")
+	}
+	for _, s := range []int{4, 6} {
+		entropy := sha256.New()
+		support, prepared := pilotReferenceReader(t, s, io.TeeReader(rand.New(rand.NewSource(109)), entropy))
+		label := fmt.Sprintf("s%d", s)
+		for stage, values := range map[string][]uint32{"p": prepared.code.p, "g": prepared.generator, "spectrum": prepared.code.spectrum32} {
+			saveMatrixStageWords(t, filepath.Join(directory, label+"-rank-0-reference-"+stage+".bin"), values)
+		}
+		write := func(name string, fn func(io.Writer) error) {
+			f, e := os.OpenFile(filepath.Join(directory, name), os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
+			if e != nil {
+				t.Fatal(e)
+			}
+			e = fn(f)
+			if e == nil {
+				e = f.Sync()
+			}
+			ce := f.Close()
+			if e != nil || ce != nil {
+				t.Fatal(e, ce)
+			}
+		}
+		write(label+"-reference-code.bin", func(w io.Writer) error { return WriteScalingCode(w, prepared.code) })
+		write(label+"-support.bin", func(w io.Writer) error { _, e := support.Write(w); return e })
+		record := pilotReferenceRecord{Parameters: support.parameters, Entropy: fmt.Sprintf("%x", entropy.Sum(nil)), SHA: map[string]string{}}
+		for name := range pilotReferenceSizes(record.Parameters) {
+			data, e := os.ReadFile(filepath.Join(directory, name))
+			if e != nil {
+				t.Fatal(e)
+			}
+			record.SHA[name] = fmt.Sprintf("%x", sha256.Sum256(data))
+		}
+		write(label+"-reference.json", func(w io.Writer) error { return json.NewEncoder(w).Encode(record) })
+		t.Logf("s=%d reference files exported without GPU/MPI initialization", s)
+	}
 }

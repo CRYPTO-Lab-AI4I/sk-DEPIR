@@ -112,10 +112,12 @@ artifacts. [Fresh-process restart and streamed publication](experiments/distribu
 **passed78915** in the same pipeline: new MPI processes resumed prefix8 and
 produced byte-identical code/generator files. Coordinator diagnostic archives and
 CPU references remain small-pilot limits.
-[Bounded s18 field admission](experiments/s18-field-admission/report.md) now admits
-server metadata through s18 and prepares a canonical-field GPU FFT/product gate;
-GPU results are pending. Ordinary CPU lookup defaults and all allocation guards
-remain. Full s18 preprocessing is not validated.
+[Bounded s18 field admission](experiments/s18-field-admission/report.md)
+**passed78917**: canonical s18 full-extension FFTs/products matched independent
+references, with clean small CUDA memchecks. Ordinary CPU lookup defaults and
+allocation guards remain. [Bounded coordinator diagnostics](experiments/distributed-coordinator-stream/report.md)
+are prepared for a genuine cold/restart comparison using streamed support and
+retained native files. Full s18 preprocessing is not validated.
 No fullsize/production preprocessing or fulls18 speedup is claimed. No encoding default
 or client CUDA/MPI dependency changes.
 

@@ -523,5 +523,9 @@ results and transfer checks. Distributed polynomial products **passed bounded va
 passed78392–78469. Genuine s4/s6 root/Newton/discovery/identity/spectrum integration
 and streamed fresh-process restart passed78898–78915; these supersede the earlier
 next-step notes above. Coordinator diagnostic arrays remain a small-pilot limit.
-[Canonical s18 field admission](../experiments/s18-field-admission/report.md) is
-prepared, with GPU validation pending; no full s18 pipeline result exists.
+[Canonical s18 field admission](../experiments/s18-field-admission/report.md)
+passed78917: bounded full-extension FFT/products and clean small memchecks.
+[Coordinator-memory integration](../experiments/distributed-coordinator-stream/report.md)
+now prepares streamed support/retained native reference inputs for the genuine
+cold/restart pipeline. GPU recurrences and ordinary defaults remain. No full s18
+pipeline result exists.

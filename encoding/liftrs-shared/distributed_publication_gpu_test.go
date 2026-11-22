@@ -85,22 +85,24 @@ func publishPilotStream(t *testing.T, w *mpi.World, directory, label string, h S
 		if err := generator.Sync(); err != nil {
 			t.Fatal(err)
 		}
-		expected, err := os.OpenFile(filepath.Join(directory, label+"-reference-code.bin"), os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
-		if err != nil {
+		if reference != nil {
+			expected, err := os.OpenFile(filepath.Join(directory, label+"-reference-code.bin"), os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
+			if err != nil {
+				t.Fatal(err)
+			}
+			err = WriteScalingCode(expected, reference.code)
+			if err == nil {
+				err = expected.Sync()
+			}
+			closeErr := expected.Close()
+			if err != nil || closeErr != nil {
+				t.Fatal(err, closeErr)
+			}
+		}
+		if err := samePilotFiles(filepath.Join(directory, label+"-code.bin"), filepath.Join(directory, label+"-reference-code.bin")); err != nil {
 			t.Fatal(err)
 		}
-		err = WriteScalingCode(expected, reference.code)
-		if err == nil {
-			err = expected.Sync()
-		}
-		closeErr := expected.Close()
-		if err != nil || closeErr != nil {
-			t.Fatal(err, closeErr)
-		}
-		if err = samePilotFiles(filepath.Join(directory, label+"-code.bin"), filepath.Join(directory, label+"-reference-code.bin")); err != nil {
-			t.Fatal(err)
-		}
-		if err = samePilotFiles(filepath.Join(directory, label+"-generator.bin"), filepath.Join(directory, label+"-rank-0-reference-g.bin")); err != nil {
+		if err := samePilotFiles(filepath.Join(directory, label+"-generator.bin"), filepath.Join(directory, label+"-rank-0-reference-g.bin")); err != nil {
 			t.Fatal(err)
 		}
 	}

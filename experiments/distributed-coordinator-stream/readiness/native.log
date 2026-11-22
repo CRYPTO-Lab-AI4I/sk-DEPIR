@@ -1,0 +1,13 @@
+=== RUN   TestPartitionedDiscoveryShapes
+    distributed_discovery_gpu_test.go:392: s=4 N=256 K=97 samples=1 owned roots=62/35
+    distributed_discovery_gpu_test.go:392: s=6 N=4096 K=1910 samples=1 owned roots=1159/751
+--- PASS: TestPartitionedDiscoveryShapes (0.06s)
+=== RUN   TestExportPilotReferences
+    distributed_pipeline_gpu_test.go:683: s=4 reference files exported without GPU/MPI initialization
+    distributed_pipeline_gpu_test.go:683: s=6 reference files exported without GPU/MPI initialization
+--- PASS: TestExportPilotReferences (0.19s)
+=== RUN   TestRetainedPilotReference
+--- PASS: TestRetainedPilotReference (0.01s)
+=== RUN   TestOrderedSupportWriter
+--- PASS: TestOrderedSupportWriter (0.00s)
+PASS

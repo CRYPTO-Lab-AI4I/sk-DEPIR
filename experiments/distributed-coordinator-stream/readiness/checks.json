@@ -1,0 +1,49 @@
+{
+  "utc": "2026-11-22T13:13:47.428979+00:00",
+  "status": "passed-local-readiness;integrated cold/restart pending",
+  "parent_revision": "6c60e383bee32e4ea3e1a5bf1a9de516658e5647",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_reference_test.go": "fadd433adbf6185b9819d626c7b199ef24b41cb11b8a332a97e5874d0fe42448",
+    "encoding/liftrs-shared/distributed_discovery_gpu_test.go": "cc5750bdd787e79ee870ad45058853839df949d658fff5e7db955c2496796b97",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go": "b9ce458ec5346284508f0827cb7d303d2f7717787f23d3f53c36dfd3bd9e0f42",
+    "encoding/liftrs-shared/distributed_publication_gpu_test.go": "bb3b63c005ad99a964b9005d0947441c77e47905abc3c985b26840e5ecf626fa",
+    "experiments/distributed-restart-pilot/run.py": "c8e5b0326522211e6a8c497bf60e18c76233eb3aaf4852672b712757858e4819",
+    "experiments/distributed-coordinator-stream/run.py": "c331476ff47d0b377fc9e40d63fcc55d2a3ad5b18a896216fa68ff21b824af6b",
+    "experiments/distributed-coordinator-stream/run.sbatch": "83ca6aea66cec525064e619bf9962076b774e3085e2ddebe57680a63565f8cd0",
+    "experiments/distributed-coordinator-stream/analyze.py": "9297461d048c3d6677b370792a0a1a316bca4f4a3496a6e26add83d3fad39c9c",
+    "experiments/distributed-coordinator-stream/test_review.py": "2b5f90b1862a57aef54fc1864770cbc0d17168ee724aaaeb31f75b521fb42e97",
+    "experiments/distributed-coordinator-stream/readiness/reference-inputs.json": "3fa5ac9d06d37195432fbb564d7d72fc4ae0bf946dac56507bc080861cb9a0b5"
+  },
+  "unchanged_from_78917": {
+    "encoding/liftrs-cuda/preparation.cu": "ad9fff2a8e1abe78fefc9de9bbecfb5562210bec671872b6294d560940ee6e9c",
+    "encoding/liftrs-cuda/rank_storage.cuh": "b63ae124b4c7c054ecca1190a9e9861761227f9dcfb13808415b9a4bd4821f56",
+    "encoding/liftrs-shared/distributed_executor_cuda.go": "fd5e76bf683ff854433fa89c255d39e783cacc93d25e27c8d0d9990f808c10d4"
+  },
+  "artifact": {
+    "path": ".cache/liftrs/distributed-coordinator-stream/readiness/coordinator.test",
+    "bytes": 12277576,
+    "sha256": "956e25b5dadcfc0e511c12ddebfcf2a00993c02dbeada85d65e55601b8d0043c"
+  },
+  "checks": {
+    "build.log": "# runtime/cgo\n[lnode02:00128] opal_ifinit: socket() failed with errno=1\n# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp\n[lnode02:00497] opal_ifinit: socket() failed with errno=1\n# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi\n[lnode02:00494] opal_ifinit: socket() failed with errno=1\n",
+    "cpu.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t0.010s\n",
+    "discovery-review.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.001s\n\nOK\n",
+    "native.log": "=== RUN   TestPartitionedDiscoveryShapes\n    distributed_discovery_gpu_test.go:392: s=4 N=256 K=97 samples=1 owned roots=62/35\n    distributed_discovery_gpu_test.go:392: s=6 N=4096 K=1910 samples=1 owned roots=1159/751\n--- PASS: TestPartitionedDiscoveryShapes (0.06s)\n=== RUN   TestExportPilotReferences\n    distributed_pipeline_gpu_test.go:683: s=4 reference files exported without GPU/MPI initialization\n    distributed_pipeline_gpu_test.go:683: s=6 reference files exported without GPU/MPI initialization\n--- PASS: TestExportPilotReferences (0.19s)\n=== RUN   TestRetainedPilotReference\n--- PASS: TestRetainedPilotReference (0.01s)\n=== RUN   TestOrderedSupportWriter\n--- PASS: TestOrderedSupportWriter (0.00s)\nPASS\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.044s\n",
+    "restart-review.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.028s\n\nOK\n",
+    "review.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n"
+  },
+  "commands": {
+    "cpu": "GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=0 .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test ./encoding/liftrs-shared -run '^TestRetainedPilotReference$|^TestOrderedSupportWriter$|^TestRankPrefix|^TestRankStream' -count=1 -timeout=20s",
+    "race": "same with CGO_ENABLED=1 go test -race",
+    "build": "module load gcc/14.2.0 openmpi/gcc/64/4.1.8; CGO_ENABLED=1 CC=mpicc CXX=mpicxx .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-coordinator-stream/readiness/coordinator.test ./encoding/liftrs-shared",
+    "native": "PIR_PIPELINE_REFERENCE_EXPORT=.cache/liftrs/distributed-coordinator-stream/readiness/reference-checked .cache/liftrs/distributed-coordinator-stream/readiness/coordinator.test -test.run '^TestExportPilotReferences$|^TestRetainedPilotReference$|^TestOrderedSupportWriter$|^TestPartitionedDiscoveryShapes$' -test.v -test.timeout=20s"
+  },
+  "limitations": [
+    "No local GPU/MPI initialization;integrated retained-reference cold/restart awaits job.",
+    "Native input generation0.19s includes writes/fsync;separate reusable validation setup,not unprofiled preprocessing latency.",
+    "Small bounded fixture loader N<=2^20;no claim of fulls18 native reference availability.",
+    "No GPU recurrence changed,no repeated sanitizer;78917 clean summaries retained.",
+    "Approval-review usage limit briefly blocked final build;user resumed and review/build succeeded."
+  ]
+}

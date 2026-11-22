@@ -100,9 +100,10 @@ func discoveryWire[Word transposeWord](t *testing.T, w *mpi.World, kind, sequenc
 
 // Grids, monomial lists and union bits are rank-local. Random bytes are produced
 // in original global-good order by rank0 and sent as bounded coefficient tiles.
-// Only the final small diagnostic archive is gathered; root ownership is routed
+// The optional archive sink streams canonical support; nil retains the small
+// diagnostic gather. Root ownership is routed
 // independently and never depends on that archive or a global support copy.
-func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec Spec, emit func(map[string]any)) discoveryResult {
+func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec Spec, emit func(map[string]any), archiveSink func([]uint64) error) discoveryResult {
 	t.Helper()
 	if w.Size != 2 {
 		t.Fatal("partitioned discovery pilot requires two ranks")
@@ -310,7 +311,20 @@ func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec S
 	totals := discoveryCounts(t, w, 4, 0, uint64(len(raw)), uint64(k))
 	archive := []int(nil)
 	if w.Rank == 0 {
-		archive = append(archive, raw...)
+		if archiveSink == nil {
+			archive = append(archive, raw...)
+		} else {
+			for offset := 0; offset < len(raw); {
+				take := min(len(tile), len(raw)-offset)
+				for j := 0; j < take; j++ {
+					tile[j] = uint64(raw[offset+j])
+				}
+				if err = archiveSink(tile[:take]); err != nil {
+					t.Fatal(err)
+				}
+				offset += take
+			}
+		}
 	}
 	for offset := uint64(0); offset < totals[1]; {
 		take := min(uint64(len(tile)), totals[1]-offset)
@@ -321,8 +335,14 @@ func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec S
 		}
 		discoveryWire(t, w, 3, 0, n, offset, 1, 0, tile[:take], observe)
 		if w.Rank == 0 {
-			for _, index := range tile[:take] {
-				archive = append(archive, int(index))
+			if archiveSink != nil {
+				if err = archiveSink(tile[:take]); err != nil {
+					t.Fatal(err)
+				}
+			} else {
+				for _, index := range tile[:take] {
+					archive = append(archive, int(index))
+				}
 			}
 		}
 		offset += take

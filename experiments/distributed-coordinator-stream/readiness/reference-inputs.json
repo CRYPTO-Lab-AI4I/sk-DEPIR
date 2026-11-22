@@ -1,0 +1,54 @@
+{
+  "source": ".cache/liftrs/distributed-coordinator-stream/readiness/reference-checked",
+  "files": {
+    "s4-rank-0-reference-g.bin": {
+      "bytes": 636,
+      "sha256": "aa18d4b0cdc8ba8c6aecdd44b96318bed5e11e97b2a979f6d8ebef7e73b488c6"
+    },
+    "s4-rank-0-reference-p.bin": {
+      "bytes": 392,
+      "sha256": "9664f919580bd6cd003c7d8e8ee21b836c697ee999afbb4b73722247ed3009d1"
+    },
+    "s4-rank-0-reference-spectrum.bin": {
+      "bytes": 1024,
+      "sha256": "c791b68448317f26c069c06dcf88746445cababb558088ab1c3922b3c5e17ca8"
+    },
+    "s4-reference-code.bin": {
+      "bytes": 1441,
+      "sha256": "69ebae873990075af7c9c558b5e9d76b2a4d237b89b4bb824205eb2de049c712"
+    },
+    "s4-reference.json": {
+      "bytes": 698,
+      "sha256": "6166f7919912c3377a0da2632b41abe3304a9e1dea1aab7ff58a0218c9bddb3e"
+    },
+    "s4-support.bin": {
+      "bytes": 388,
+      "sha256": "a3ff242a0af62c4d7f3f9ea90047a69903883c2876908687a48c4ab48e23c02b"
+    },
+    "s6-rank-0-reference-g.bin": {
+      "bytes": 8744,
+      "sha256": "3b30f7097c93b479e4bfb455445dbbe2d2ed2c92b9236429748f2fea4bb90112"
+    },
+    "s6-rank-0-reference-p.bin": {
+      "bytes": 7644,
+      "sha256": "560f66705d05178b967c3144c0cd228f542be47bdcfb9828fce2303d747f88dd"
+    },
+    "s6-rank-0-reference-spectrum.bin": {
+      "bytes": 16384,
+      "sha256": "51cbb70b1a55fc8cd3395d5d11bc3ea96a9ec257ec1b1825cc70af65200db6b4"
+    },
+    "s6-reference-code.bin": {
+      "bytes": 24053,
+      "sha256": "a384ea4123bb5bcbfaa9cde64afbe6e6c9091373e6c22129ceda8abdec5709c4"
+    },
+    "s6-reference.json": {
+      "bytes": 702,
+      "sha256": "1e006093cb6becf1ba163f79db8508830e6c78f77203e59df7a714744123cb17"
+    },
+    "s6-support.bin": {
+      "bytes": 7640,
+      "sha256": "d7fb67bc32b65f485e8619bc0881bb50ec2792c52b1767c174a973e2a2f62824"
+    }
+  },
+  "provenance": "Independent native export TestExportPilotReferences;all five files/case match retained78915 cold reference/support hashes;fixed seed109;native preflight0.19s including fsync;not fullsize runtime."
+}

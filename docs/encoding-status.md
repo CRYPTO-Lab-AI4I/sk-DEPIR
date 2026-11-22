@@ -19,18 +19,18 @@ deployment costs before accepting a scaling milestone.
 
 The small two-rank pipeline is assembled and validated through discovery, roots,
 Newton iteration, the complete identity and spectrum, plus fresh-process restart
-and streamed publication. **Current focus: bounded s18 arithmetic admission,
-then step5 scaling integration.** Steps1–4 have small-case correctness evidence;
-s18 GPU arithmetic, larger rank counts and fullsize scaling remain unvalidated.
+and streamed publication. **Bounded canonical s18 FFT/products passed78917. Current focus: remove full
+coordinator diagnostic arrays, then step5 scaling integration.** Steps1–4 have
+small-case correctness evidence; larger rank counts and fullsize scaling remain unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>**Integrated genuine s4/s6 pilot passed78898**: repeated sharded root/Newton/identity/spectrum and canonical artifacts.<br>Multi-level rank-owned root execution and fullsize scaling remain pending. |
-| 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing passed78909 for genuine s4/s6. Coordinator entropy source/diagnostic support archive remain; no fullsize result. |
+| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>**Integrated genuine s4/s6 pilot passed78898**: repeated sharded root/Newton/identity/spectrum and canonical artifacts.<br>**Canonical s18 bounded FFT/products passed78917**, with clean small CUDA memchecks. Multi-level rank-owned root execution and fullsize scaling remain pending. |
+| 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing passed78909 for genuine s4/s6. Coordinator entropy source remains; bounded streamed support/retained-reference mode is prepared for integrated validation. No fullsize result. |
 | 3. Generator construction and verification | Sharded Newton/identity/spectrum integration passed78898 for genuine s4/s6. Fullsize integration remains. |
 | 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898; partitioned discovery passed78909. **Fresh-process prefix8 restart and bounded streamed publication passed78915** for genuine s4/s6, with identical canonical code/generator output. Fullsize/node-failure recovery remains. |
-| 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. [Canonical s18 bounded FFT/product gate](../experiments/s18-field-admission/report.md) submitted as78917; GPU validation pending. Larger scaling and fulls18 remain unrun. |
+| 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. [Canonical s18 bounded FFT/products passed78917](../experiments/s18-field-admission/report.md). Larger scaling and fulls18 remain unrun. |
 
 [FFT evidence](../experiments/distributed-gpu-fft/report.md): controller runtime
 **2 min15.343s**, normal suite **1.971s**, sanitizer suite **3.726s**. Logged host
@@ -303,7 +303,7 @@ excludes device allocations unless stated.
 | 15 | Laptop measured | Peak host process RSS: 20.55 GiB | 3 h 16 min 7 s† | Measured on laptop |
 | 16 | HPC measured | Peak host process RSS: 72.575 GiB | GPU: 2 h 20 min 15.469 s | Measured on HPC |
 | 17 | **HPC measured; passed75832**<br>K:3876566203; support from75819 | **Peak sampled host RSS:348.393GiB**<br>Device peak:not sampled; product arrays384GiB aggregate (model)<br>Final device owned:256.009GiB observed | **Construction/identity/spectrum:9h16min46s**, includes root checkpoints<br>Verified resumed worker:9h58min38s<br>Earlier discovery:21min38s | **Demonstrated on HPC:4H200,32 active CPU workers, one node**<br>Canonical preprocessing:235.324GiB<br>[Full evidence/boundaries](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088) |
-| 18 | Full preprocessing:not run<br>**Exact dimension measured76647:K16300262095**<br>Bounded export76710 and transform/split components76756 passed<br>Genuine s4/s6 distributed pipeline/restart passed78915<br>Canonical s18 GPU arithmetic submitted78917; pending<br>See [component results](#s18-lower-memory-preprocessing-work) | Projected final host arrays:889.446GiB<br>Projected discovery arrays:770.893GiB<br>Peak RSS:unknown | Full preprocessing:unknown<br>Count-only GPU sum:37.4ms, excludes setup |1536GiB device product arrays (model)<br>16GPU power-of-two projection across4nodes at112GiB/card<br>Distributed host/GPU implementation and larger storage admission required<br>Alternative: split final-product arrays project384 GiB on4 GPUs; [complete route comparison](#s18-complete-preprocessing-route-decision) records Newton/discovery host limits |
+| 18 | Full preprocessing:not run<br>**Exact dimension measured76647:K16300262095**<br>Bounded export76710 and transform/split components76756 passed<br>Genuine s4/s6 distributed pipeline/restart passed78915<br>Canonical s18 bounded GPU arithmetic passed78917; full distributed workflow still unrun<br>See [component results](#s18-lower-memory-preprocessing-work) | Projected final host arrays:889.446GiB<br>Projected discovery arrays:770.893GiB<br>Peak RSS:unknown | Full preprocessing:unknown<br>Count-only GPU sum:37.4ms, excludes setup |1536GiB device product arrays (model)<br>16GPU power-of-two projection across4nodes at112GiB/card<br>Distributed host/GPU implementation and larger storage admission required<br>Alternative: split final-product arrays project384 GiB on4 GPUs; [complete route comparison](#s18-complete-preprocessing-route-decision) records Newton/discovery host limits |
 | 19 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 | 20 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 
@@ -831,13 +831,29 @@ Fullsize/node-failure recovery and removal of coordinator diagnostic arrays rema
 
 ### Canonical s18 field admission (SCALING-165)
 
-[Bounded gate submitted78917](../experiments/s18-field-admission/report.md) reuses the
+[Bounded gate passed78917](../experiments/s18-field-admission/report.md) reuses the
 maintained resident FFT/product and transport schedules at s18, with36-bit
 extension values in8-byte slots and18-bit base coefficients in4-byte slots.
 Host/native metadata and support codecs now admit s18, retaining all full-domain
 allocation checks. Existing CPU lookup defaults remain limited through s17;
 explicit GPU server tables add less than3 MiB/set on host/device, versus less
-than1.5 MiB at s17. No lower-memory/slower mode is selected. GPU validation is
-pending; fulls18 preprocessing and encoding cells remain unrun. The normal case
+than1.5 MiB at s17. No lower-memory/slower mode is selected. GPU validation passed; fulls18 preprocessing and encoding cells remain unrun. The normal case
 uses32/4096 values; sanitizer uses32 only. These are component sizes, not genuine
 s18 code lengths (2^36). Existing two-node resource admission is unchanged.
+
+
+78917: HPC gnode14/gnode15,2H200/4CPU/8GiB requested RAM; controller **2 min25.876
+seconds**. All16 normal and8 small sanitized outputs passed; zero CUDA errors/
+leaks in four sanitized processes. Normal FFT/product host peak RSS **378.676 /
+376.270 MiB per process**, small sanitized **414.059 /411.086 MiB**. Maximum
+reported owned GPU **3.118 MiB/card**, excluding context/driver/transients; cache
+**16.478 MiB**. At4096 values, one-sample profiled forward/inverse **38.957/36.906
+ms**, product shapes **95.070/93.402 ms**, with diagnostic boundaries in report.
+No fulls18 memory/runtime or stable speedup follows from these bounded samples.
+
+[Next coordinator-memory integration](../experiments/distributed-coordinator-stream/report.md)
+streams canonical support and reads retained, verified native reference files
+instead of constructing complete reference/support copies on rank0. Prepared;
+integrated cold/fresh-resume validation pending, same two-node resource envelope.
+No CUDA kernel/default change or repeated sanitizer. Native input generation is
+separate measured setup, not a production/fullsize reference requirement.

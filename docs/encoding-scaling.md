@@ -3123,3 +3123,33 @@ small gates without a new correctness boundary.
 Submitted **78917**, `field-01`, frozen implementation `3a8f317` within the same
 two-node/two-H200 envelope. [Receipt](../experiments/s18-field-admission/submission.json).
 No monitoring; await completion ping before dependent work/results review.
+
+
+### s18 arithmetic verified; bound coordinator diagnostics (SCALING-166)
+
+78917 passed all canonical s18 bounded FFT/product arms and smallest memchecks:
+16 normal/8 sanitized rank outputs,zero errors/leaks. HPC2H200/2nodes/4CPU/8GiB
+requested RAM; controller2min25.876s,normal peak RSS378.676MiB/process,sanitized
+414.059MiB/process,maximum reported ownedGPU3.118MiB/card (contexts/transients
+additional),cache16.478MiB. [Evidence](../experiments/s18-field-admission/report.md).
+Earlier submitted/pending text is historical; arithmetic admission now has bounded
+evidence. Genuine s18 discovery/root/generator/fullsize execution is still unrun.
+
+Proceed with [coordinator-memory integration](../experiments/distributed-coordinator-stream/report.md):
+stream sorted support to the canonical file through the existing tile/codec; retain
+only rank-local supports. Use checksummed native reference files from separately
+measured bounded setup instead of retaining/rebuilding full CPU oracle arrays in
+the distributed job. Preserve exact support/sample/entropy/canonical and complete
+P*G identity checks. Reference files remain validation inputs, not discovery inputs.
+
+Explicit retained mode only, requiring distributed discovery and streamed output;
+old native-oracle/gather defaults remain. Minimum removed coordinator payload is
+8N+20K+4 bytes at current32-bit field width; other native transient setup is also
+skipped but its full memory saving is unmeasured. Bounded copy/codec buffers and
+reference-file reads replace arrays; reference file copies/extra I/O and reusable
+input storage are reported,with runtime trade-off unknown. This is an experimental
+validation layout,not a new default or a claim of fullsize native reference
+availability. One cold/fresh-process-resume allocation using existing kernels;
+no repeated CUDA sanitizer. Same resource envelope and source/reference preflight.
+After passing,larger rank counts/multi-level root ownership and representative
+scaling/capacity admission remain before fulls18 submission.

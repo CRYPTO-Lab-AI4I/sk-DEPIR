@@ -36,7 +36,7 @@ def review(rows,directory,resume=False,source=None,cold=None):
     result['processes']=processes;return result
 
 
-def suite(c):
+def suite(c,reference_from=None,review_fn=review):
     c['run']('restart-review-tests',['python3','-B','experiments/distributed-restart-pilot/test_review.py'],30)
     c['env'].update(CGO_ENABLED='1',CC='mpicc',CXX='mpicxx')
     for name,race in (('restart-publication-cpu',[]),('restart-publication-race',['-race'])):
@@ -44,11 +44,11 @@ def suite(c):
     source=c['cache']/'cold'
     def resumed(rows,directory):
         cold=json.loads((c['out']/'composition.json').read_text())['arms']['cold']
-        return review(rows,directory,True,source,cold)
+        return review_fn(rows,directory,True,source,cold)
     arms=[dict(name='cold',test='TestDistributedPreprocessingPilot',memcheck=False,profile=True,
-        env=dict(PIR_PIPELINE_SMALL='0',PIR_PIPELINE_DISCOVERY='distributed',PIR_PIPELINE_PUBLICATION='stream',PIR_PIPELINE_RESUME_FROM=''),review=review),
+        env=dict(PIR_PIPELINE_SMALL='0',PIR_PIPELINE_DISCOVERY='distributed',PIR_PIPELINE_PUBLICATION='stream',PIR_PIPELINE_RESUME_FROM='',PIR_PIPELINE_REFERENCE_FROM=''if reference_from is None else str(reference_from)),review=review_fn),
         dict(name='resume',test='TestDistributedPreprocessingPilot',memcheck=False,profile=True,
-        env=dict(PIR_PIPELINE_SMALL='0',PIR_PIPELINE_DISCOVERY='distributed',PIR_PIPELINE_PUBLICATION='stream',PIR_PIPELINE_RESUME_FROM=str(source)),review=resumed)]
+        env=dict(PIR_PIPELINE_SMALL='0',PIR_PIPELINE_DISCOVERY='distributed',PIR_PIPELINE_PUBLICATION='stream',PIR_PIPELINE_RESUME_FROM=str(source),PIR_PIPELINE_REFERENCE_FROM=''if reference_from is None else str(reference_from)),review=resumed)]
     # No CUDA arithmetic changed. The preceding integrated discovery allocation
     # already sanitized the maintained kernels; validate new host boundaries here.
     return VECTORS['suite'](c,full_fft=False,arms=arms,scope='genuine s4/s6 cold plus fresh MPI-process resume from prefix8,streamed canonical/generator artifacts;trusted manifests,same rank count;no node-failure or fulls18 claim')

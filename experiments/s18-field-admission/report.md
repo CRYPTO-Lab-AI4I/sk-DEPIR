@@ -1,11 +1,11 @@
 # Bounded canonical s18 field admission
 
-Status: **submitted as78917**, `field-01`, implementation `3a8f317`. GPU results
-pending. [Receipt](submission.json), [scheduler log](slurm-78917.log). Actual
+Status: **passed78917**, `field-01`, producing implementation `3a8f317`. [Receipt](submission.json), [scheduler log](slurm-78917.log). Actual
 producing source/revision is recorded by the frozen allocation controller.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness checks](readiness/checks.json).
-Results will be retained under `runs/field-01/`; reusable snapshots, binaries and
+[Raw results](runs/field-01/results.json), [independent analysis](runs/field-01/analysis.json),
+[review summary](runs/field-01/review-checks.json). Results retained under `runs/field-01/`; reusable snapshots, binaries and
 artifact shards under `.cache/liftrs/s18-field-admission/field-01/`, outside Git.
 This follows [passed genuine s4/s6 restart78915](../distributed-restart-pilot/report.md).
 
@@ -100,3 +100,32 @@ CUDA12.9, GCC14.2/OpenMPI4.1.8, Go1.27.3 (local pinned toolchain); source/eviden
 cache hashes and actual revision, node identities and software resources recorded
 by the controller. Ordinary builds remain CUDA/MPI-free. Local compiler probes
 may print restricted socket warnings; distinguish these from build/test failures.
+
+## Reviewed result (SCALING-166)
+
+**All four arms passed** on HPC gnode14/gnode15, two H200s/four CPU cores/8 GiB
+requested host RAM, within unchanged limits. Controller **2 min25.876 seconds**
+including builds, CPU/race checks and profiles. All780 source identities,51
+original evidence files and52 cached files reconciled; cache **16.478 MiB**.
+16 normal rank/pass/product outputs and8 sanitized outputs matched exactly.
+All four sanitized processes reported **zero CUDA errors and zero leaked bytes/
+allocations**. Full-extension pointwise and every transpose/Taylor route passed.
+
+| Arm | Launcher runtime | Peak process RSS | Maximum reported owned GPU/card |
+|---|---|---|---|
+| FFT normal | 2.923 seconds | 378.676 MiB | 3.118 MiB |
+| Product normal | 2.522 seconds | 376.270 MiB | 3.118 MiB |
+| FFT memcheck | 2.374 seconds | 414.059 MiB | 3.071 MiB |
+| Product memcheck | 2.229 seconds | 411.086 MiB | 3.071 MiB |
+
+Largest4096-value normal samples: forward **38.957 ms**, inverse **36.906 ms**;
+product shapes **95.070 ms /93.402 ms**. These are profiled, single diagnostic
+samples with the existing proof/capture boundaries, not full workflow latency or
+stable speedup. GPU figures exclude CUDA contexts/driver and unobserved transients.
+Native table/serialization checks and CPU/race orchestration also passed. No guard
+fired. This establishes bounded canonical s18 arithmetic, **not** fulls18
+preprocessing, discovery, root tree, generator or production support.
+
+Next integrated step removes coordinator diagnostic full-array copies in the
+small genuine pipeline using streamed support and retained native reference files;
+then larger ranks/multi-level roots and representative size scaling remain.
