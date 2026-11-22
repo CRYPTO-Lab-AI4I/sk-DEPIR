@@ -20,14 +20,16 @@ deployment costs before accepting a scaling milestone.
 The small two-rank pipeline is assembled and validated through discovery, roots,
 Newton iteration, the complete identity and spectrum, plus fresh-process restart
 and streamed publication. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
-diagnostics/restart passed79213. Current focus: four-worker collectives, then
-larger root/discovery ownership and step5 scaling integration.** Steps1–4 have
-small-case correctness evidence; larger rank counts and fullsize scaling remain unvalidated.
+diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
+GPUs. Current focus: multi-level rank-owned roots,more-worker discovery and
+full-pipeline integration,then step5 scaling validation.** Steps1–4 have
+small-case correctness evidence; full-pipeline execution beyond two workers and
+fullsize scaling remain unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>**Integrated genuine s4/s6 pilot passed78898**: repeated sharded root/Newton/identity/spectrum and canonical artifacts.<br>**Canonical s18 bounded FFT/products passed78917**, with clean small CUDA memchecks. Multi-level rank-owned root execution and fullsize scaling remain pending. |
+| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>**Integrated genuine s4/s6 pilot passed78898**: repeated sharded root/Newton/identity/spectrum and canonical artifacts.<br>**Canonical s18 bounded FFT/products passed78917**, with clean small CUDA memchecks. **Four-worker canonical s18 FFT/products passed79239 on two GPUs**,with clean small sanitizers. Multi-level rank-owned root execution and fullsize scaling remain pending. |
 | 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing passed78909 for genuine s4/s6. Coordinator entropy source remains; streamed support/retained-reference cold and fresh-process resume passed79213; full coordinator support/oracle arrays removed in the explicit pilot mode. No fullsize result. |
 | 3. Generator construction and verification | Sharded Newton/identity/spectrum integration passed78898 for genuine s4/s6. Fullsize integration remains. |
 | 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898; partitioned discovery passed78909. **Fresh-process prefix8 restart and bounded streamed publication passed78915** for genuine s4/s6, with identical canonical code/generator output. Fullsize/node-failure recovery remains. |
@@ -304,7 +306,7 @@ excludes device allocations unless stated.
 | 15 | Laptop measured | Peak host process RSS: 20.55 GiB | 3 h 16 min 7 s† | Measured on laptop |
 | 16 | HPC measured | Peak host process RSS: 72.575 GiB | GPU: 2 h 20 min 15.469 s | Measured on HPC |
 | 17 | **HPC measured; passed75832**<br>K:3876566203; support from75819 | **Peak sampled host RSS:348.393GiB**<br>Device peak:not sampled; product arrays384GiB aggregate (model)<br>Final device owned:256.009GiB observed | **Construction/identity/spectrum:9h16min46s**, includes root checkpoints<br>Verified resumed worker:9h58min38s<br>Earlier discovery:21min38s | **Demonstrated on HPC:4H200,32 active CPU workers, one node**<br>Canonical preprocessing:235.324GiB<br>[Full evidence/boundaries](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088) |
-| 18 | Full preprocessing:not run<br>**Exact dimension measured76647:K16300262095**<br>Bounded export76710 and transform/split components76756 passed<br>Genuine s4/s6 pipeline/restart passed78915; streamed coordinator copies removed/verified79213<br>Canonical s18 bounded GPU arithmetic passed78917; full distributed workflow still unrun<br>See [component results](#s18-lower-memory-preprocessing-work) | Projected final host arrays:889.446GiB<br>Projected discovery arrays:770.893GiB<br>Peak RSS:unknown | Full preprocessing:unknown<br>Count-only GPU sum:37.4ms, excludes setup |1536GiB device product arrays (model)<br>16GPU power-of-two projection across4nodes at112GiB/card<br>Distributed host/GPU implementation and larger storage admission required<br>Alternative: split final-product arrays project384 GiB on4 GPUs; [complete route comparison](#s18-complete-preprocessing-route-decision) records Newton/discovery host limits |
+| 18 | Full preprocessing:not run<br>**Exact dimension measured76647:K16300262095**<br>Bounded export76710 and transform/split components76756 passed<br>Genuine s4/s6 pipeline/restart passed78915; streamed coordinator copies removed/verified79213<br>Canonical s18 bounded GPU arithmetic passed78917;four-worker components passed79239 on2GPUs;full distributed workflow still unrun<br>See [component results](#s18-lower-memory-preprocessing-work) | Projected final host arrays:889.446GiB<br>Projected discovery arrays:770.893GiB<br>Peak RSS:unknown | Full preprocessing:unknown<br>Count-only GPU sum:37.4ms, excludes setup |1536GiB device product arrays (model)<br>16GPU power-of-two projection across4nodes at112GiB/card<br>Distributed full-size host/GPU integration and larger storage admission required<br>Alternative: split final-product arrays project384 GiB on4 GPUs; [complete route comparison](#s18-complete-preprocessing-route-decision) records Newton/discovery host limits |
 | 19 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 | 20 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 
@@ -868,8 +870,30 @@ separate measured setup, not a production/fullsize reference requirement.
 **1.656894/1.531600 seconds**,s6 **0.511963/0.511681 seconds**. No stable speedup
 or fullsize memory/runtime inferred. [Evidence](../experiments/distributed-coordinator-stream/report.md).
 
-[Four-worker gate](../experiments/distributed-four-worker/report.md) submitted as **79239**:
+[Four-worker gate](../experiments/distributed-four-worker/report.md) **passed79239**:
 4 MPI workers share2H200s on2nodes,4CPU cores/8GiB host unchanged. Each worker
-owns at most64MiB GPU payload,128MiB/card aggregate. This is multi-peer correctness,
-not four-GPU speedup; four-worker full root/discovery/persistence integration and
+owns at most64MiB GPU payload,128MiB/card aggregate. This validates multi-peer correctness; four-worker full root/discovery/persistence integration and
 fulls18 remain unvalidated. Existing two-worker/client defaults remain.
+
+
+79239: HPC gnode08/gnode09,4MPI workers /2H200s /4CPU cores /8GiB requested RAM.
+Controller **2 min27.292 seconds**,cache **16.531 MiB**,32 normal and16 small
+sanitized outputs passed;8 clean CUDA error/leak summaries. Normal peak process
+RSS **378.047 MiB**,sanitized **413.871 MiB**;reported ownedGPU **3.095 MiB per
+worker**,two workers/card (context/driver/transients additional). No fullsize
+runtime/peak memory or four-GPU speedup follows. [Evidence](../experiments/distributed-four-worker/report.md).
+
+### Remaining work before full s18 preprocessing (SCALING-169)
+
+| Work | Remaining boundary |
+|---|---|
+| Multi-level rank-owned root reduction | Replace the assembled pilot's single two-owner merge with a scalable merge tree,keeping large intermediate products distributed. The product/FFT backend now passes four-worker tests. |
+| Full pipeline at the intended topology | Remove pair-only discovery/count/control/support routing and commit assumptions;carry root,Newton,complete identity,spectrum and streamed output through the same scalable topology. Genuine end-to-end evidence currently covers s4/s6 with two workers; s18 evidence is component-only. |
+| Restart and final artifacts at that topology | Verify coordinated completed-stage/prefix commits,resume and canonical publication for the selected rank count,including interruption/relaunch. Fixed two-worker fresh-process resume already passes. |
+| Representative scaling and full-run admission | Validate one assembled smaller case,then meaningful larger workloads with host/device peaks,communication,I/O and progress logging. Use results to choose GPU/node count,storage,deadline and headroom;obtain full-run resource agreement,then launch fulls18. |
+
+The exact s18 dimension is already measured;the arithmetic and reciprocal/identity
+algorithms exist. Current work is connecting their distributed ownership and
+validating complete-scale resource behavior. Historical16H200/four-node capacity
+projections are not a finalized implementation,measured runtime or an admitted
+full-run budget. Fulls18 preprocessing and encoding table cells remain unrun.

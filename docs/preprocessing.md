@@ -529,5 +529,6 @@ passed78917: bounded full-extension FFT/products and clean small memchecks.
 passed79213 cold/fresh-resume with streamed support and retained native inputs;
 original79202 packaging failure remains recorded. Full coordinator reference and
 archive arrays are absent in that explicit pilot mode. Four-worker collectives
-are submitted as79239,still on two GPUs. GPU recurrences and ordinary defaults remain. No full s18
+passed79239,still on two GPUs. Larger root/discovery ownership and full-pipeline
+integration at the intended rank count remain. GPU recurrences and ordinary defaults remain. No full s18
 pipeline result exists.

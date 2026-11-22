@@ -3209,3 +3209,32 @@ preflight372cf19 (790 files;reviewer passes from frozen source).
 [Receipt](../experiments/distributed-four-worker/submission.json). Same2H200/2nodes/
 4CPU/8GiB request,4workers with64MiBowned each/128MiBcard aggregate. No monitoring
 until completion ping.
+
+
+### Four-worker collectives passed;remaining fulls18 integration (SCALING-169)
+
+79239 passed all32 normal/16 small sanitized outputs,8 clean error/leak summaries.
+HPCgnode08/gnode09,4workers sharing2H200s,4CPU/8GiB RAM,controller2min27.292s,
+normal RSS378.047MiB/process,sanitized413.871MiB,reported ownedGPU3.095MiB/worker
+(two/card;contexts/transients extra),cache16.531MiB. Verified790source/78evidence/
+100cache files. [Evidence](../experiments/distributed-four-worker/report.md).
+
+Next implementation:generalize rank-owned root reduction beyond the assembled
+pilot's two-owner final merge,reusing the now-validated collective executor.
+Then remove pair-only discovery/count/support/control and checkpoint-commit
+assumptions;carry Newton/completeidentity/spectrum/streamed artifacts through
+that topology. Algorithms already exist; preserve their representation/checks
+and share implementations instead of adding separate size-specific procedures.
+The current genuine integrated pilot remains s4/s6,two workers;the s18/four-worker
+result is bounded arithmetic only.
+
+Validate the assembled topology on small genuine cases,then a representative
+larger workload rather than repeating already-closed micro-gates. Verify saved
+completed stages/prefixes and interruption/relaunch at that topology. Record total
+host/device peaks,communication,I/O and complete latency,including setup and
+persistence. Choose finalGPU/node count,storage,headroom and deadline using those
+results;full-run admission remains separate. Any memory-time trade-off remains
+explicit/optional under the existing policy. Then launch fulls18.
+
+The maintained [remaining-work table](encoding-status.md#remaining-work-before-full-s18-preprocessing-scaling-169)
+is the current checklist. No new job submitted for this evidence/status update.

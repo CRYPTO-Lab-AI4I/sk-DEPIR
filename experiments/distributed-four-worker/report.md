@@ -1,11 +1,12 @@
 # Four-worker distributed GPU collective validation
 
-Status: **submitted as79239**, `workers-01`, implementation `139d75e`.
-[Receipt](submission.json), [scheduler log](slurm-79239.log). GPU results pending;
-actual producing revision/source identities are recorded by the controller.
+Status: **passed79239**, `workers-01`, producing revision `372cf19`.
+[Receipt](submission.json), [scheduler log](slurm-79239.log),
+[raw results](runs/workers-01/results.json), [independent analysis](runs/workers-01/analysis.json),
+[review summary](runs/workers-01/review-checks.json).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/checks.json).
-Expected results `runs/workers-01/`, reusable snapshots/shards/profiles in
+Retained results `runs/workers-01/`, reusable snapshots/shards/profiles in
 `.cache/liftrs/distributed-four-worker/workers-01/` outside Git.
 
 The genuine two-rank coordinator-memory/restart pipeline passed79213, and bounded
@@ -110,3 +111,33 @@ admission is inferred from capacity estimates.
 3,633,152 bytes,required driver/wrapper/runner files present,and new reviewer
 suite passed from frozen source. No local GPU/MPI initialization. Submission
 revision372cf19 adds only this evidence to implementation139d75e.
+
+
+## Completed four-worker validation (SCALING-169)
+
+**All four arms passed** on HPC gnode08/gnode09,4MPI workers sharing2H200s,
+4CPU cores/8GiB requested RAM. Producing source372cf19;790 source identities,
+78 original evidence files and100 cache files reconciled. Controller **2 min
+27.292 seconds**,retained cache **16.531 MiB**. All32 normal outputs and16 small
+sanitized outputs matched; all8 sanitized processes reported **zero errors and
+zero leaked bytes/allocations**. Exact peer/round/Taylor and preservation checks
+passed. No resource guard fired.
+
+| Arm | Launcher runtime | Peak process RSS | Maximum reported owned GPU per worker |
+|---|---|---|---|
+| FFT normal | 3.728 seconds | 378.047 MiB | 3.095 MiB |
+| Product normal | 4.194 seconds | 377.984 MiB | 3.095 MiB |
+| FFT memcheck | 3.738 seconds | 413.871 MiB | 3.070 MiB |
+| Product memcheck | 3.081 seconds | 411.184 MiB | 3.070 MiB |
+
+GPU figures are per worker,two workers/card,and exclude contexts/driver/unobserved
+transients. Controller includes builds/profiles/oracles/I/O; launcher timings are
+whole suites,not full preprocessing latency. No four-GPU throughput or stable
+speedup follows from this two-GPU sharing topology.
+
+This closes the bounded four-worker collective gate. The genuine discovery/root/
+Newton/restart pipeline is still validated at two workers and s4/s6. Remaining:
+connect multi-level rank-owned roots and more-worker discovery/control to this
+backend,carry the full generator/verification/checkpoint/publication sequence
+through that topology,and measure representative larger scaling before fulls18
+resource admission. The current fulls18 workload remains unrun.
