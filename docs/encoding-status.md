@@ -30,7 +30,7 @@ These results are separate from the full s17 runs and fulls18 projections below.
 | 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing passed78909 for genuine s4/s6. Coordinator entropy source/diagnostic support archive remain; no fullsize result. |
 | 3. Generator construction and verification | Sharded Newton/identity/spectrum integration passed78898 for genuine s4/s6. Fullsize integration remains. |
 | 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898; partitioned discovery passed78909. **Fresh-process prefix8 restart and bounded streamed publication passed78915** for genuine s4/s6, with identical canonical code/generator output. Fullsize/node-failure recovery remains. |
-| 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. [Canonical s18 bounded FFT/product gate](../experiments/s18-field-admission/report.md) prepared; GPU validation pending. Larger scaling and fulls18 remain unrun. |
+| 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. [Canonical s18 bounded FFT/product gate](../experiments/s18-field-admission/report.md) submitted as78917; GPU validation pending. Larger scaling and fulls18 remain unrun. |
 
 [FFT evidence](../experiments/distributed-gpu-fft/report.md): controller runtime
 **2 min15.343s**, normal suite **1.971s**, sanitizer suite **3.726s**. Logged host
@@ -303,7 +303,7 @@ excludes device allocations unless stated.
 | 15 | Laptop measured | Peak host process RSS: 20.55 GiB | 3 h 16 min 7 s† | Measured on laptop |
 | 16 | HPC measured | Peak host process RSS: 72.575 GiB | GPU: 2 h 20 min 15.469 s | Measured on HPC |
 | 17 | **HPC measured; passed75832**<br>K:3876566203; support from75819 | **Peak sampled host RSS:348.393GiB**<br>Device peak:not sampled; product arrays384GiB aggregate (model)<br>Final device owned:256.009GiB observed | **Construction/identity/spectrum:9h16min46s**, includes root checkpoints<br>Verified resumed worker:9h58min38s<br>Earlier discovery:21min38s | **Demonstrated on HPC:4H200,32 active CPU workers, one node**<br>Canonical preprocessing:235.324GiB<br>[Full evidence/boundaries](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088) |
-| 18 | Full preprocessing:not run<br>**Exact dimension measured76647:K16300262095**<br>Bounded export76710 and transform/split components76756 passed<br>Genuine s4/s6 distributed pipeline/restart passed78915<br>Canonical s18 GPU arithmetic gate prepared; pending<br>See [component results](#s18-lower-memory-preprocessing-work) | Projected final host arrays:889.446GiB<br>Projected discovery arrays:770.893GiB<br>Peak RSS:unknown | Full preprocessing:unknown<br>Count-only GPU sum:37.4ms, excludes setup |1536GiB device product arrays (model)<br>16GPU power-of-two projection across4nodes at112GiB/card<br>Distributed host/GPU implementation and larger storage admission required<br>Alternative: split final-product arrays project384 GiB on4 GPUs; [complete route comparison](#s18-complete-preprocessing-route-decision) records Newton/discovery host limits |
+| 18 | Full preprocessing:not run<br>**Exact dimension measured76647:K16300262095**<br>Bounded export76710 and transform/split components76756 passed<br>Genuine s4/s6 distributed pipeline/restart passed78915<br>Canonical s18 GPU arithmetic submitted78917; pending<br>See [component results](#s18-lower-memory-preprocessing-work) | Projected final host arrays:889.446GiB<br>Projected discovery arrays:770.893GiB<br>Peak RSS:unknown | Full preprocessing:unknown<br>Count-only GPU sum:37.4ms, excludes setup |1536GiB device product arrays (model)<br>16GPU power-of-two projection across4nodes at112GiB/card<br>Distributed host/GPU implementation and larger storage admission required<br>Alternative: split final-product arrays project384 GiB on4 GPUs; [complete route comparison](#s18-complete-preprocessing-route-decision) records Newton/discovery host limits |
 | 19 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 | 20 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 
@@ -831,7 +831,7 @@ Fullsize/node-failure recovery and removal of coordinator diagnostic arrays rema
 
 ### Canonical s18 field admission (SCALING-165)
 
-[Prepared bounded gate](../experiments/s18-field-admission/report.md) reuses the
+[Bounded gate submitted78917](../experiments/s18-field-admission/report.md) reuses the
 maintained resident FFT/product and transport schedules at s18, with36-bit
 extension values in8-byte slots and18-bit base coefficients in4-byte slots.
 Host/native metadata and support codecs now admit s18, retaining all full-domain

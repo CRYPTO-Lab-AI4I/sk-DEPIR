@@ -1,0 +1,15 @@
+{
+  "job_id": "78917",
+  "name": "field-01",
+  "implementation_revision": "3a8f3172fa0c788eb1037d48bd23bffe173137ae",
+  "recorded_utc": "2026-11-22T09:30:30.672270+00:00",
+  "command": "module load slurm/slurm/25.05; sbatch --parsable --output=experiments/s18-field-admission/slurm-%j.log experiments/s18-field-admission/run.sbatch field-01",
+  "results": "experiments/s18-field-admission/runs/field-01",
+  "log": "experiments/s18-field-admission/slurm-78917.log",
+  "cache": ".cache/liftrs/s18-field-admission/field-01/",
+  "resources": "Same2 HPC nodes/2 H200/4CPU/8GiB requested RAM;128MiB owned/card,1GiB RSS/rank,128MiB cache/2GiB scratch/32MiB file;720-second controller/15-minute scheduler;no pinned buffers",
+  "scope": "Canonical s18 field:normal32/4096-value FFT/products,small32-value FFT/product memcheck;existing native/scalar/schoolbook/proof checks;not genuine/fulls18 preprocessing",
+  "estimated_controller_minutes": "3\u20136 excluding queue;new field runtime unmeasured",
+  "monitoring": "None. Await user completion ping.",
+  "note": "Actual producing revision/source identities recorded by controller;following receipt changes affect documentation only."
+}

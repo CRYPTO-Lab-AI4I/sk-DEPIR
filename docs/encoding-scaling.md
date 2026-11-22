@@ -3119,3 +3119,7 @@ After passing, integrate more ranks/multi-level root ownership and remove full
 coordinator diagnostic/support arrays, then measure representative larger scaling
 before selecting/admitting a fulls18 topology/budget. Avoid repeating unchanged
 small gates without a new correctness boundary.
+
+Submitted **78917**, `field-01`, frozen implementation `3a8f317` within the same
+two-node/two-H200 envelope. [Receipt](../experiments/s18-field-admission/submission.json).
+No monitoring; await completion ping before dependent work/results review.

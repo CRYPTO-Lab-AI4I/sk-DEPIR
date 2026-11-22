@@ -1,7 +1,8 @@
 # Bounded canonical s18 field admission
 
-Status: **prepared; GPU validation pending**. Source revision is recorded by the
-frozen allocation controller; source changes are frozen before submission.
+Status: **submitted as78917**, `field-01`, implementation `3a8f317`. GPU results
+pending. [Receipt](submission.json), [scheduler log](slurm-78917.log). Actual
+producing source/revision is recorded by the frozen allocation controller.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness checks](readiness/checks.json).
 Results will be retained under `runs/field-01/`; reusable snapshots, binaries and

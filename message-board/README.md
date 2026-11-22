@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 09:30 | SCALING-165 | Handoff | [Canonical s18 field validation78917 submitted](2026-11-22-0930-codex-scaling-165-handoff.md) |
 | 2026-11-22 09:29 | SCALING-165 | Prepared | [Restart passed;bounded s18 arithmetic ready](2026-11-22-0929-codex-scaling-165-prepared.md) |
 | 2026-11-22 09:19 | SCALING-165 | Started | [Verify restart and admit bounded s18 arithmetic](2026-11-22-0919-codex-scaling-165-started.md) |
 | 2026-11-22 09:13 | SCALING-164 | Handoff | [Cold/restart streamed pipeline78915 submitted](2026-11-22-0913-codex-scaling-164-handoff.md) |
