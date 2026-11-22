@@ -1,0 +1,99 @@
+{
+  "status": "passed",
+  "utc": "2026-11-22T23:54:40.366052+00:00",
+  "revision": "2f63e9d1083ace3594bcbca473d82afab717d87d",
+  "source_files": 845,
+  "source_bytes": 3856765,
+  "required": [
+    "encoding/liftrs-shared/distributed_prefix_input.go",
+    "encoding/liftrs-shared/distributed_prefix_input_test.go",
+    "encoding/liftrs-shared/distributed_executor_cuda.go",
+    "encoding/liftrs-shared/pipeline_executor_gpu_test.go",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go",
+    "encoding/liftrs-shared/pipeline_wide_gpu_test.go",
+    "experiments/distributed-prefix-inputs/run.py",
+    "experiments/distributed-prefix-inputs/test_review.py",
+    "experiments/distributed-prefix-inputs/analyze.py",
+    "experiments/distributed-prefix-inputs/run.sbatch",
+    "experiments/distributed-pipeline-scaling/preflight.py",
+    "experiments/distributed-root/rank.sh",
+    "experiments/distributed-coordinator-stream/reference-inputs.json",
+    "experiments/distributed-owned-roots/root-references.json"
+  ],
+  "checks": {
+    "distributed-fullsize-audit": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+    },
+    "distributed-prefix-inputs": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+    },
+    "distributed-discovery-results": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+    },
+    "distributed-spectrum-publication": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+    },
+    "distributed-pipeline-scaling": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.004s\n\nOK\n"
+    },
+    "distributed-prefix-checkpoints": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.035s\n\nOK\n"
+    },
+    "distributed-owned-roots": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n"
+    },
+    "distributed-pipeline-wide": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n"
+    },
+    "distributed-pipeline-four": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.031s\n\nOK\n"
+    },
+    "distributed-restart-pilot": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.028s\n\nOK\n"
+    },
+    "distributed-preprocessing-pilot": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n"
+    },
+    "distributed-coordinator-stream": {
+      "exit_code": 0,
+      "output": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.004s\n\nOK\n"
+    },
+    "distributed-root-hierarchy": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.037s\n\nOK\n"
+    },
+    "distributed-discovery-hierarchy": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+    }
+  },
+  "native_historical_bytes_verified": 108014,
+  "native_parameters": {
+    "spec": {
+      "FieldDegree": 8,
+      "Dimension": 2,
+      "CurveDegree": 5
+    },
+    "k": 7381,
+    "n": 65536,
+    "polynomial": 285,
+    "delta": 32,
+    "omega": 260,
+    "samples": 2
+  },
+  "native_code_inputs_verified": 383,
+  "native_binary_sha256": "997bedb5a7ed899a8f378f8214b22dfa3c7d11fa0b81a41bd2680d621e30381d",
+  "native_build_provenance": "Successfully compiled tagged binary;all frozen code input hashes match build tree. Fresh frozen-source compilation occurs inside admitted allocation before GPU phases;second potentially>30s local rebuild omitted.",
+  "native_preflight": "snapshot-native.log"
+}

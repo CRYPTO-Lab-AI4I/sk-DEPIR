@@ -1,6 +1,6 @@
 # Newton prefix input views
 
-Status: prepared;GPU validation not yet submitted. Parent revision83b828d.
+Status: prepared;GPU validation not yet submitted. Implementation **2f63e9d**;parent83b828d.
 [Runner](run.py),[Slurm entry](run.sbatch),[analyzer](analyze.py),
 [reviewer tests](test_review.py),[readiness](readiness/). Planned results:
 `runs/prefix-01/`;reusable immutable source,binaries,native references,profiles and
@@ -126,3 +126,15 @@ admission,bounded diagnostic/proof/progress recording and complete persistence/
 restart policy. Current small-case harness and proof logs cannot simply be scaled
 to fulls18. Fulls18 remains unrun and needs separate topology/resource/storage/
 headroom/deadline agreement.
+
+
+[Committed-source preflight](readiness/snapshot-checks.json) passed on2f63e9d:
+**845 build inputs /3,856,765 bytes**,required prefix/executor/pilot/wide/
+wrapper/manifest paths and13reviewers plus audit tests checked from frozen source.
+All383code hashes match the successfully compiled tagged readiness tree;binary
+hash is recorded. Frozen preflight verified108014historical native bytes and
+actual s8/curve5 input/root geometry. Fresh frozen-source build is inside allocation
+before GPU phases;second potentially>30s local rebuild omitted transparently.
+[Native preflight](readiness/snapshot-native.log),[CPU](readiness/cpu.log),
+[race](readiness/race.log),[native tests](readiness/native-tests.log).
+No local CUDA/MPI initialization.
