@@ -10,9 +10,10 @@ OLD=runpy.run_path(str(HERE.parent/'distributed-gpu-vectors/test_review.py'))
 
 
 class ReviewTest(unittest.TestCase):
-    def fixture(self,d):
-        rows=OLD['ReviewTest']().fixture(d);remap={};starts={};operation=1;extra=[];counts={}
-        for index,(s,dim)in enumerate(H['VECTORS']['CASES']):
+    def fixture(self,d,cases=None):
+        cases=H['VECTORS']['CASES']if cases is None else cases
+        rows=OLD['ReviewTest']().fixture(d,cases);remap={};starts={};operation=1;extra=[];counts={}
+        for index,(s,dim)in enumerate(cases):
             label=f's{s}-d{dim}';n=1<<dim;cols=1<<(dim//2);levels=dim-dim//2;capacity=min(n,3*max(cols,n//cols))
             for p in (0,1):
                 starts[(label,p)]=operation;matrix=operation+(2*levels if p==0 else 0)

@@ -70,15 +70,16 @@ def review_taylor_routes(rows,specs):
     return dict(taylor_proof_events=len(actual),taylor_plans=len(plans)),counts
 
 
-def review(rows,directory):
+def review(rows,directory,cases=None):
+    cases=VECTORS['CASES']if cases is None else cases
     operations={};specs=[];measurements=[r for r in rows if r.get('kind')=='measurement'];operation=1
-    for index,(s,dim)in enumerate(VECTORS['CASES']):
+    for index,(s,dim)in enumerate(cases):
         label=f's{s}-d{dim}';n=1<<dim;cols=1<<(dim//2);levels=dim-dim//2;capacity=min(n,3*max(cols,n//cols))
         for pass_id in (0,1):
             starts=[r['operation_start']for r in measurements if r['case']==label and r['pass']==pass_id];assert starts==[operation,operation]
             operations[(index,pass_id)]=operation+(2*levels if pass_id==0 else 0)
             specs.append((label,pass_id,n,cols,operation,pass_id==1,capacity));operation+=2+2*levels
-    common=VECTORS['review'](rows,directory,operations=operations,full_fft=True)
+    common=VECTORS['review'](rows,directory,operations=operations,full_fft=True,cases=cases)
     routes,counts=review_taylor_routes(rows,specs)
     for r in measurements:assert r['taylor_proof_events']==counts.get((r['rank'],r['case'],r['pass']),0)
     return dict(**common,**routes)

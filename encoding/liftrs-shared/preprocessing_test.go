@@ -217,22 +217,27 @@ func TestPreprocessingLimits(t *testing.T) {
 	if _, err = session.Prepare(support, PreparationReuse{SaveRoot: func(*RootCheckpoint) error { return nil }}); err == nil {
 		t.Fatal("unbound checkpoint")
 	}
-	// Metadata-only s17 admission. Native discovery must reject its bitset/table
-	// before attempting the enormous Go grid; numeric caps authorize no allocation.
-	wide := PreprocessingOptions{Backend: "cpp", Workers: 1, Limits: PreprocessingLimits{MaxElements: 1 << 34, MaxHostArrayBytes: 128 << 30, NativeBytes: 1 << 20}}
-	large, err := NewCodePreprocessor(Spec{17, 2, 5}, wide)
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer large.Close()
-	if _, err = large.Discover(OrbitOptions{}); err == nil {
-		t.Fatal("s17 bitset cap")
-	}
-	if native, _ := large.OwnedBytes(); native > 1<<20 {
-		t.Fatal("cap leaked huge allocation")
-	}
-	if _, err = large.Prepare(nil, PreparationReuse{}); err == nil {
-		t.Fatal("missing support")
+	// Metadata-only admission cannot authorize a full-domain grid: native
+	// discovery must reject the bitset/table before allocating the Go grid.
+	for _, degree := range []int{17, 18} {
+		n := uint64(1) << uint(2*degree)
+		wide := PreprocessingOptions{Backend: "cpp", Workers: 1, Limits: PreprocessingLimits{MaxElements: n, MaxHostArrayBytes: n * 8, NativeBytes: 1 << 20}}
+		large, err := NewCodePreprocessor(Spec{degree, 2, 5}, wide)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if _, err = large.Discover(OrbitOptions{}); err == nil {
+			t.Fatalf("s%d bitset cap", degree)
+		}
+		if native, _ := large.OwnedBytes(); native > 1<<20 {
+			t.Fatal("cap leaked huge allocation")
+		}
+		if _, err = large.Prepare(nil, PreparationReuse{}); err == nil {
+			t.Fatal("missing support")
+		}
+		if err = large.Close(); err != nil {
+			t.Fatal(err)
+		}
 	}
 }
 

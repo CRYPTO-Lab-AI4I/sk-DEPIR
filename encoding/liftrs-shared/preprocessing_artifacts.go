@@ -34,7 +34,7 @@ func supportWidth(s int) uint8 {
 // atomic publication and must persist the returned manifest/provenance. A write
 // failure can leave a partial destination; no completed record is returned.
 func (s *CodeSupport) Write(destination io.Writer) (SupportRecord, error) {
-	if s == nil || destination == nil || s.parameters.K == 0 || s.parameters.K != uint64(len(s.exponents)) || s.parameters.Spec.FieldDegree < 2 || s.parameters.Spec.FieldDegree > 17 {
+	if s == nil || destination == nil || s.parameters.K == 0 || s.parameters.K != uint64(len(s.exponents)) || s.parameters.Spec.FieldDegree < 2 || s.parameters.Spec.FieldDegree > 18 {
 		return SupportRecord{}, fmt.Errorf("support writer required")
 	}
 	h := s.parameters
@@ -69,7 +69,7 @@ func (s *CodeSupport) Write(destination io.Writer) (SupportRecord, error) {
 }
 func validSupportParameters(info SupportParameters, limits PreprocessingLimits) error {
 	s := info.Spec.FieldDegree
-	if s < 2 || s > 17 || info.Spec.Dimension != 2 || info.K < 1 || info.K >= info.N || info.Samples < 0 || limits.MaxElements < info.N || limits.MaxHostArrayBytes == 0 || info.N > uint64(^uint(0)>>1) || info.K > uint64(^uint(0)>>1)/8 || info.K*8 > limits.MaxHostArrayBytes || info.N/8 > limits.MaxHostArrayBytes {
+	if s < 2 || s > 18 || info.Spec.Dimension != 2 || info.K < 1 || info.K >= info.N || info.Samples < 0 || limits.MaxElements < info.N || limits.MaxHostArrayBytes == 0 || info.N > uint64(^uint(0)>>1) || info.K > uint64(^uint(0)>>1)/8 || info.K*8 > limits.MaxHostArrayBytes || info.N/8 > limits.MaxHostArrayBytes {
 		return fmt.Errorf("support shape/host limits")
 	}
 	h, _, err := canonicalScalingCodeHeader(s, info.Spec.CurveDegree, 1, info.N)

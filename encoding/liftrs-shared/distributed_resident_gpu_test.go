@@ -22,7 +22,7 @@ func residentVectorCases[Word transposeWord](t *testing.T, w *mpi.World, s int, 
 		if err != nil {
 			t.Fatal(err)
 		}
-		tables := newPreparationProducts(base)
+		tables := newBoundedPreparationProducts(base, 18)
 		n := uint64(1) << uint(dim)
 		rows, cols := uint64(1)<<uint(dim-dim/2), uint64(1)<<uint(dim/2)
 		first, count := rankBand(rows, w.Rank, w.Size)
@@ -138,7 +138,7 @@ func residentVectorCases[Word transposeWord](t *testing.T, w *mpi.World, s int, 
 					t.Fatal("resident vectors allocation grew on inverse")
 				}
 				width := 4
-				if s == 17 {
+				if s > 16 {
 					width = 8
 				}
 				emit(map[string]any{"kind": "measurement", "case": label, "pass": pass, "s": s, "dimension": dim, "rank_first": first, "rank_rows": count, "word_bytes": width, "words": len(got), "matches": true, "full_fft": fullFFT, "operation_start": op, "taylor_proof_events": taylorProofs, "resident": true, "local_taylor": localTaylor, "third_preserved": true, "reused": true, "range_rejection_preserved": true, "owned_device_bytes": retained, "seconds": seconds, "proof_events": proofs, "output_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(got))})

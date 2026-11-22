@@ -78,3 +78,28 @@ func TestPreparationProducts(t *testing.T) {
 		t.Fatal("unbounded table")
 	}
 }
+
+// Server-only s18 tables must agree with polynomial arithmetic without changing
+// the ordinary CPU lookup default or silently increasing its memory footprint.
+func TestPreparationProductsS18Admission(t *testing.T) {
+	polynomial, _ := BinaryPolynomial(18)
+	f, err := NewBinaryField(18, polynomial)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if newPreparationProducts(f) != nil {
+		t.Fatal("ordinary lookup default changed")
+	}
+	table := newBoundedPreparationProducts(f, 18)
+	if table == nil || (len(table.log)+len(table.powers))*4 >= 3<<20 {
+		t.Fatal("server table budget")
+	}
+	rng := rand.New(rand.NewSource(18))
+	for a := uint32(0); a < 1<<18; a++ {
+		for _, b := range []uint32{0, 1, (1 << 18) - 1, rng.Uint32() & ((1 << 18) - 1)} {
+			if table.mul(a, b) != binaryOracleMul(a, b, 18, polynomial) {
+				t.Fatalf("s18 lookup a=%d b=%d", a, b)
+			}
+		}
+	}
+}

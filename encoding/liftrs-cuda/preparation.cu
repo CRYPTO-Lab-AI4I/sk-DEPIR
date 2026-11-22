@@ -563,7 +563,7 @@ public:
     local_vectors_ = layout && !std::strcmp(layout, "local");
     liftrs::FieldT<Word> field;
     liftrs::preparation::set_field(field, s, polynomial, delta);
-    if (s > 17 || !logs || !powers || lc != (size_t(1) << s) ||
+    if (s > 18 || !logs || !powers || lc != (size_t(1) << s) ||
         pc != 2 * (lc - 1) || !ids || !count || count > max_devices ||
         (count & (count - 1)) || !maximum || (maximum & (maximum - 1)) ||
         maximum > field.q || maximum < count || !cap || omega >= field.q ||

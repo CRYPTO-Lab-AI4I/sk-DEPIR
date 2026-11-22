@@ -1,0 +1,313 @@
+{
+  "job_id": "78915",
+  "status": "passed",
+  "revision": "98695bc3899823a810079fe075815c603cba2264",
+  "source_files_verified": 775,
+  "evidence_files_verified": 37,
+  "cache_files_verified": 191,
+  "controller_seconds": 122.63506418839097,
+  "cache_MiB": 15.215863227844238,
+  "hosts": "gnode14\ngnode15\n",
+  "arms": {
+    "cold": {
+      "measurements": [
+        {
+          "case": "s4",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "elapsed_seconds": 1.941284949,
+          "first": 0,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 54708,
+          "peak_rss_bytes": 379355136,
+          "pid": 1125020,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 0,
+          "root_a_count": 63,
+          "root_b_count": 36,
+          "root_performed": true,
+          "s": 4,
+          "seconds": 1.928593505,
+          "utc": "2026-11-22T09:14:33.487450182Z",
+          "words": 128
+        },
+        {
+          "case": "s6",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "elapsed_seconds": 2.481212989,
+          "first": 0,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 78900,
+          "peak_rss_bytes": 391159808,
+          "pid": 1125020,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 0,
+          "root_a_count": 1160,
+          "root_b_count": 752,
+          "root_performed": true,
+          "s": 6,
+          "seconds": 0.539676495,
+          "utc": "2026-11-22T09:14:34.027378301Z",
+          "words": 2048
+        },
+        {
+          "case": "s4",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "elapsed_seconds": 1.939348479,
+          "first": 128,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 54708,
+          "peak_rss_bytes": 390021120,
+          "pid": 3933669,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 1,
+          "root_a_count": 63,
+          "root_b_count": 36,
+          "root_performed": true,
+          "s": 4,
+          "seconds": 1.928593505,
+          "utc": "2026-11-22T09:14:33.488595266Z",
+          "words": 128
+        },
+        {
+          "case": "s6",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "elapsed_seconds": 2.479280556,
+          "first": 2048,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 78900,
+          "peak_rss_bytes": 391069696,
+          "pid": 3933669,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 1,
+          "root_a_count": 1160,
+          "root_b_count": 752,
+          "root_performed": true,
+          "s": 6,
+          "seconds": 0.539676495,
+          "utc": "2026-11-22T09:14:34.028527303Z",
+          "words": 2048
+        }
+      ],
+      "processes": {
+        "0": {
+          "pid": 1125020,
+          "host": "gnode14"
+        },
+        "1": {
+          "pid": 3933669,
+          "host": "gnode15"
+        }
+      },
+      "artifacts": {
+        "s4": {
+          "code_sha256": "69ebae873990075af7c9c558b5e9d76b2a4d237b89b4bb824205eb2de049c712",
+          "checkpoint_prefixes": [
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            159
+          ]
+        },
+        "s6": {
+          "code_sha256": "a384ea4123bb5bcbfaa9cde64afbe6e6c9091373e6c22129ceda8abdec5709c4",
+          "checkpoint_prefixes": [
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            2186
+          ]
+        }
+      },
+      "max_RSS_MiB": 373.0390625,
+      "max_owned_MiB": 0.07524490356445312
+    },
+    "resume": {
+      "measurements": [
+        {
+          "case": "s4",
+          "discovery_layout": "distributed",
+          "discovery_performed": false,
+          "elapsed_seconds": 1.404052021,
+          "first": 0,
+          "identity_verified": true,
+          "initial_prefix": 8,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 54708,
+          "peak_rss_bytes": 390033408,
+          "pid": 1126338,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 0,
+          "root_a_count": 63,
+          "root_b_count": 36,
+          "root_performed": false,
+          "s": 4,
+          "seconds": 1.4037864469999999,
+          "utc": "2026-11-22T09:15:06.058183931Z",
+          "words": 128
+        },
+        {
+          "case": "s6",
+          "discovery_layout": "distributed",
+          "discovery_performed": false,
+          "elapsed_seconds": 1.890741199,
+          "first": 0,
+          "identity_verified": true,
+          "initial_prefix": 8,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 78900,
+          "peak_rss_bytes": 391081984,
+          "pid": 1126338,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 0,
+          "root_a_count": 1160,
+          "root_b_count": 752,
+          "root_performed": false,
+          "s": 6,
+          "seconds": 0.4863899,
+          "utc": "2026-11-22T09:15:06.544873063Z",
+          "words": 2048
+        },
+        {
+          "case": "s4",
+          "discovery_layout": "distributed",
+          "discovery_performed": false,
+          "elapsed_seconds": 1.396040895,
+          "first": 128,
+          "identity_verified": true,
+          "initial_prefix": 8,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 54708,
+          "peak_rss_bytes": 378744832,
+          "pid": 3934632,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 1,
+          "root_a_count": 63,
+          "root_b_count": 36,
+          "root_performed": false,
+          "s": 4,
+          "seconds": 1.4037864469999999,
+          "utc": "2026-11-22T09:15:06.059339583Z",
+          "words": 128
+        },
+        {
+          "case": "s6",
+          "discovery_layout": "distributed",
+          "discovery_performed": false,
+          "elapsed_seconds": 1.88273479,
+          "first": 2048,
+          "identity_verified": true,
+          "initial_prefix": 8,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 78900,
+          "peak_rss_bytes": 390213632,
+          "pid": 3934632,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 1,
+          "root_a_count": 1160,
+          "root_b_count": 752,
+          "root_performed": false,
+          "s": 6,
+          "seconds": 0.4863899,
+          "utc": "2026-11-22T09:15:06.546033596Z",
+          "words": 2048
+        }
+      ],
+      "processes": {
+        "0": {
+          "pid": 1126338,
+          "host": "gnode14"
+        },
+        "1": {
+          "pid": 3934632,
+          "host": "gnode15"
+        }
+      },
+      "artifacts": {
+        "s4": {
+          "code_sha256": "69ebae873990075af7c9c558b5e9d76b2a4d237b89b4bb824205eb2de049c712",
+          "checkpoint_prefixes": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            159
+          ]
+        },
+        "s6": {
+          "code_sha256": "a384ea4123bb5bcbfaa9cde64afbe6e6c9091373e6c22129ceda8abdec5709c4",
+          "checkpoint_prefixes": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            2186
+          ]
+        }
+      },
+      "max_RSS_MiB": 372.96484375,
+      "max_owned_MiB": 0.07524490356445312
+    }
+  }
+}

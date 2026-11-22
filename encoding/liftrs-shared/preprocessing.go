@@ -119,7 +119,8 @@ type CodePreprocessor struct {
 }
 
 // NewCodePreprocessor constructs only bounded metadata. CPU native supports
-// s2..17, m2; explicit GPUDevices selects the resident CUDA width/peer prototype.
+// s2..18 metadata, m2; full s18 preparation remains unvalidated. Explicit
+// GPUDevices selects the resident CUDA width/peer prototype.
 // The legacy CUDA adapter remains s<=16. No automatic
 // CPU/streamed fallback is selected for an unavailable requested backend.
 func NewCodePreprocessor(spec Spec, options PreprocessingOptions) (*CodePreprocessor, error) {
@@ -130,7 +131,7 @@ func NewCodePreprocessor(spec Spec, options PreprocessingOptions) (*CodePreproce
 // remains private to CountCodeMonomials and cannot escape into Discover/Prepare.
 func newCodePreprocessor(spec Spec, options PreprocessingOptions, countOnly bool) (*CodePreprocessor, error) {
 	s := spec.FieldDegree
-	if s < 2 || s > 17 || spec.Dimension != 2 || options.Workers < 1 || options.Workers > 64 ||
+	if s < 2 || s > 18 || spec.Dimension != 2 || options.Workers < 1 || options.Workers > 64 ||
 		(options.Backend != "cpp" && options.Backend != "cuda") {
 		return nil, fmt.Errorf("invalid preprocessing specification/backend/workers")
 	}

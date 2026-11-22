@@ -7,7 +7,8 @@ requirement; the native preprocessing executor is an explicit backend, not an
 automatic fallback from GPU execution.
 
 The experimental `NewCodePreprocessor` session implements the m=2 procedure
-through s17. Corrected bounded native/reference, regression, race and sanitizer
+through s17; metadata/support codecs now admit s18 under explicit allocation
+guards. Full s18 preprocessing remains unvalidated. Corrected bounded native/reference, regression, race and sanitizer
 validation passes job74447. **GPU server execution is now the active target**:
 a width-selected resident peer engine implements the heavy preprocessing kernels
 on1/2/4/8 same-node GPUs in source. One-GPU checks pass job74453; corrected two-GPU validation
@@ -26,7 +27,9 @@ GPU count is chosen for the fastest measured complete server workflow, without
 a two-card design ceiling. The current two-GPU test is only initial validation.
 Compare more cards and, where useful, multiple nodes; include setup, communication,
 host memory and persistence. The current peer engine handles same-node devices;
-a cross-node implementation is still required before larger distributed runs.
+a bounded two-node implementation now passes the genuine s4/s6 pipeline and
+fresh-process restart78915. Larger ranks/fields and fullsize runs remain separate
+validation steps; see the current [scaling reference](encoding-status.md).
 
 ## One procedure, interchangeable execution
 
@@ -36,7 +39,7 @@ a cross-node implementation is still required before larger distributed runs.
 | Sampling and support union | `preprocessing_core.go: discoverSupport` | Accept only after the observed support has exact independently counted K |
 | Root product, normalization, reciprocal and identity | `preprocessing_core.go: prepareCyclicPolynomials` | Verify the entire P·G=1+X^(N−1) before publication, including restart |
 | Small products and Newton reciprocal | Existing `orbit_product.go`, `preparation_products.go` | Base-field coefficients stay uint32; full convolution padding prevents prefix aliasing |
-| Transforms, large products, batched roots and enumeration | Native `preparation.hpp`, Go binding `preparation.go` | One C++ template selects uint32 through s16, uint64 at s17 |
+| Transforms, large products, batched roots and enumeration | Native `preparation.hpp`, Go binding `preparation.go` | One C++ template selects uint32 through s16, uint64 thereafter |
 | GPU discovery, roots, transforms/products | `liftrs-cuda/preparation.cu` and shared kernel headers | Same sampling/polynomial flow; width-selected peer shards and explicit per-device caps |
 | Legacy CUDA32 adapter | `preprocessing_cuda.go` | Retains existing explicit CUDA32 execution for reference/comparison |
 | Session, progress and publication boundary | `preprocessing.go` | Single caller; no retained Go pointers; returned Go data survives Close |
@@ -516,5 +519,9 @@ adds transfers and is not selected for full-size preprocessing or changed defaul
 
 The [Taylor-complete distributed FFT gate](../experiments/distributed-gpu-fft/report.md) is now implemented, with
 independent CPU/scalar and CUDA checks; **78307 passed** all small forward/inverse
-results and transfer checks. Distributed polynomial products **passed bounded validation78321**. Next is GPU-resident working storage;
-large-product scaling, s18 arithmetic and preprocessing integration remain pending.
+results and transfer checks. Distributed polynomial products **passed bounded validation78321**. GPU-resident storage/local Taylor and bounded larger products subsequently
+passed78392–78469. Genuine s4/s6 root/Newton/discovery/identity/spectrum integration
+and streamed fresh-process restart passed78898–78915; these supersede the earlier
+next-step notes above. Coordinator diagnostic arrays remain a small-pilot limit.
+[Canonical s18 field admission](../experiments/s18-field-admission/report.md) is
+prepared, with GPU validation pending; no full s18 pipeline result exists.

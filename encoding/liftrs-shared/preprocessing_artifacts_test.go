@@ -132,3 +132,27 @@ func TestPreprocessingWideSupportEncoding(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+// A tiny synthetic closed orbit checks wide support persistence without a full
+// s18 discovery allocation; it is not a claim of genuine s18 code discovery.
+func TestPreprocessingArtifactsS18(t *testing.T) {
+	h, _, err := canonicalScalingCodeHeader(18, 5, 2, 1<<36)
+	if err != nil {
+		t.Fatal(err)
+	}
+	support := &CodeSupport{parameters: SupportParameters{Spec: h.Spec, K: 2, N: h.N, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega}, exponents: []int{1, 1 << 18}}
+	var payload bytes.Buffer
+	record, err := support.Write(&payload)
+	if err != nil || record.ElementBytes != 8 || payload.Len() != 16 {
+		t.Fatal("s18 support width", err)
+	}
+	limits := PreprocessingLimits{MaxElements: 1 << 36, MaxHostArrayBytes: 8 << 30}
+	loaded, err := ReadCodeSupport(bytes.NewReader(payload.Bytes()), record, limits)
+	if err != nil || !reflect.DeepEqual(loaded.exponents, support.exponents) {
+		t.Fatal("s18 support persistence", err)
+	}
+	limits.MaxHostArrayBytes = 1 << 20
+	if _, err = ReadCodeSupport(bytes.NewReader(payload.Bytes()), record, limits); err == nil {
+		t.Fatal("s18 admission guard")
+	}
+}

@@ -9,9 +9,10 @@ H=runpy.run_path(str(Path(__file__).with_name('run.py')))
 
 
 class ReviewTest(unittest.TestCase):
-    def fixture(self,d):
+    def fixture(self,d,cases=None):
+        cases=H['CASES']if cases is None else cases
         rows=[dict(kind='host',rank=r,host=f'node{r}',visible_devices='0')for r in (0,1)]
-        for index,(s,dim)in enumerate(H['CASES']):
+        for index,(s,dim)in enumerate(cases):
             label=f's{s}-d{dim}';nr,nc=1<<(dim-dim//2),1<<(dim//2);width=4 if s==4 else 8
             for p in (0,1):
                 for rank in (0,1):
@@ -24,7 +25,7 @@ class ReviewTest(unittest.TestCase):
                                 count+=1;rows.append(dict(kind='tile-proof',rank=rank,case=label,pass_id=p,operation=op,offset=offset,words=min(127,nr*nc//4-offset),peer=1-rank,round=1,direction=direction,own_proof='00'*64,remote_proof='00'*64))
                                 rows[-1]['pass']=rows[-1].pop('pass_id')
                     row=dict(kind='measurement',rank=rank,case=label,s=s,dimension=dim,rank_first=rank*nr//2,rank_rows=nr//2,word_bytes=width,words=nr*nc//2,matches=True,seconds=1,proof_events=count,owned_device_bytes=1,peak_rss_bytes=1,output_sha256=hashlib.sha256(data).hexdigest());row['pass']=p;rows.append(row)
-        rows.extend(dict(kind='completed',rank=r,cases=12)for r in (0,1));return rows
+        rows.extend(dict(kind='completed',rank=r,cases=2*len(cases))for r in (0,1));return rows
 
     def test_coverage_and_missing_packet(self):
         with tempfile.TemporaryDirectory()as tmp:

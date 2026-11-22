@@ -8,8 +8,8 @@ FFT=runpy.run_path(str(HERE.parent/'distributed-gpu-fft/run.py'))
 VECTORS=FFT['VECTORS']
 
 
-def review(rows,directory):
-    result=FFT['review'](rows,directory)
+def review(rows,directory,cases=None):
+    result=FFT['review'](rows,directory,cases=cases)
     retained={}
     for r in result['measurements']:
         assert all(r.get(k)is True for k in ('resident','third_preserved','reused','range_rejection_preserved'))

@@ -1,8 +1,9 @@
 # Fresh-process restart and bounded canonical publication
 
-Status: **submitted as78915**, run `restart-01`, implementation `98695bc`.
-[Submission receipt](submission.json), [scheduler log](slurm-78915.log);
-results will be retained under `runs/restart-01/`. No integrated outcome yet.
+Status: **passed78915**, run `restart-01`, producing source `98695bc`.
+[Submission receipt](submission.json), [scheduler log](slurm-78915.log),
+[raw results](runs/restart-01/results.json), [independent analysis](runs/restart-01/analysis.json),
+[review summary](runs/restart-01/review-checks.json).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [focused reviewer tests](test_review.py), [readiness](readiness/checks.json).
 This follows [passed partitioned discovery78909](../distributed-discovery-pilot/report.md).
@@ -129,3 +130,28 @@ Raw results/profiles/logs: `runs/restart-01/`. Cold/resume prefix/code evidence,
 source and binaries: `.cache/liftrs/distributed-restart-pilot/restart-01/`, outside
 Git with checksum manifests. `cold/` remains intact when `resume/` starts. This
 is a fixed-configuration fresh-process restart, not fullsize/node-failure recovery.
+
+## Completed restart validation (SCALING-165)
+
+HPC gnode14/gnode15, two H200s, four CPU cores and8 GiB requested RAM; caps
+unchanged. Controller **2 min2.635 seconds** including build, checks and profiling.
+Cold launcher **3.773 seconds**, resume launcher **2.971 seconds**. Both genuine
+instances passed every full identity, route, prefix and artifact check.
+
+| Arm | s4 complete diagnostic case | s6 complete diagnostic case | Peak process RSS | Observed post-call owned GPU/card |
+|---|---|---|---|---|
+| Cold | 1.928594 seconds | 0.539676 seconds | 373.039 MiB | 0.075245 MiB |
+| Fresh-process prefix8 resume | 1.403786 seconds | 0.486390 seconds | 372.965 MiB | 0.075245 MiB |
+
+Case times include independent CPU oracle/setup, persistence, logging and checks;
+no stable speedup is inferred. Post-call GPU observations exclude CUDA context,
+transient arrays and earlier factor peaks; they are not total device peaks.
+
+New process identities were verified on each rank. Resume explicitly skipped
+GPU discovery/root construction and began at prefix8; both code/generator files
+matched cold and retained canonical artifacts. Reconciled775 source identities,
+37 original evidence files and191 cached files; reusable cache **15.216 MiB**
+is retained outside Git at the path above. No resource guard fired. Fixed-rank
+fresh-process recovery passed; arbitrary node failure/fullsize recovery remains
+unvalidated. Next: explicit bounded canonical s18 arithmetic admission, then larger
+rank/size integration and removal of diagnostic full-array requirements.

@@ -101,15 +101,21 @@ references through65532 synthetic roots (largest merge **0.603 s**).
 complete peer copies are removed and input traffic is halved in the largest
 case, retaining exact input/output checks. One-sample timings do not establish
 a stable runtime advantage; the peer path remains available. Full distributed
-root/Newton, discovery, s18 field admission and coordinated publication remain.
+fullsize root/Newton, discovery and coordinated publication remain; the bounded
+assembled pipeline is described next.
 [Integrated genuine-code pilot](experiments/distributed-preprocessing-pilot/report.md)
 **passed78898** for genuine s4/s6: discovery through sharded root/Newton/identity/
 spectrum and byte-identical canonical artifacts, with completed-prefix save/reload
 and a clean smallest-case CUDA sanitizer. [Partitioned discovery](experiments/distributed-discovery-pilot/report.md)
 **passed78909**, including exact random-byte/sample agreement and canonical
 artifacts. [Fresh-process restart and streamed publication](experiments/distributed-restart-pilot/report.md)
-were submitted as **78915** in the same pipeline. Coordinator diagnostic
-archives and CPU references remain small-pilot limits.
+**passed78915** in the same pipeline: new MPI processes resumed prefix8 and
+produced byte-identical code/generator files. Coordinator diagnostic archives and
+CPU references remain small-pilot limits.
+[Bounded s18 field admission](experiments/s18-field-admission/report.md) now admits
+server metadata through s18 and prepares a canonical-field GPU FFT/product gate;
+GPU results are pending. Ordinary CPU lookup defaults and all allocation guards
+remain. Full s18 preprocessing is not validated.
 No fullsize/production preprocessing or fulls18 speedup is claimed. No encoding default
 or client CUDA/MPI dependency changes.
 

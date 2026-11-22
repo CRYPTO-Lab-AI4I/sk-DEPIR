@@ -1,0 +1,66 @@
+{
+  "utc": "2026-11-22T09:28:51.927238+00:00",
+  "status": "passed-local-readiness;GPU/MPI execution pending",
+  "parent_revision": "0d68404bd5bce0e4ea8d51f2cbac4dc68b0355d1",
+  "source_sha256": {
+    "encoding/liftrs-cuda/preparation.cu": "ad9fff2a8e1abe78fefc9de9bbecfb5562210bec671872b6294d560940ee6e9c",
+    "encoding/liftrs-cuda/preparation.go": "c07b8af1f7db91e169eadae2087a81f62f3263518c8151b0ac07ca09507c31cd",
+    "encoding/liftrs-cuda/vector_preparation.go": "63aa25b19a649ee125826a378a9081cb4f0a9cbaed9134dd068ae72084605476",
+    "encoding/liftrs-shared/distributed_product_gpu_test.go": "767bcfb23a54165d23be98094076abbf9ab3afaec1a2b77a3fd9d13a4907a23b",
+    "encoding/liftrs-shared/distributed_resident_gpu_test.go": "553a75817eb992821ea3692fbe2ad0439c22bde44439d828980d527e122bdfd7",
+    "encoding/liftrs-shared/preparation_products.go": "4423a32f18a9aaa1c5027a4919b9abd5afff109192c8d54501d0e7e44fb44a56",
+    "encoding/liftrs-shared/preparation_products_test.go": "baaa1e635a205e6e81f8d4d024ebe0cbfd6c5c64bf2250aa7839b4090d6a22fa",
+    "encoding/liftrs-shared/preprocessing.go": "3cd3fdab45075b8294f1f6f83c9a8821be7a59a2548c170cd9dbd6a45c489166",
+    "encoding/liftrs-shared/preprocessing_artifacts.go": "74a7612cc7cae20b98614f43bb1f7baf7369baca6c459a3ad8b0ca8fa5bc495a",
+    "encoding/liftrs-shared/preprocessing_artifacts_test.go": "abb3d2a9a5f7eb68fd0e1d30bee697d436b13993bdfa66e84d02e4c146def01d",
+    "encoding/liftrs-shared/preprocessing_cuda.go": "6c37369b12762d4e47e5d08ff19734525ff838327fffbae06e237c84daec807d",
+    "encoding/liftrs-shared/preprocessing_test.go": "7e608994b2e40aabdd5b01c75301516a0722f5417f5ad3108435af1ebde68181",
+    "encoding/liftrs-shared/s18_field_gpu_test.go": "f159dadb2647a231623e09af84d6429ed2eb4e17be9d6981b7bb307913d67118",
+    "experiments/distributed-gpu-fft/run.py": "ff4b96fe3e54a8feaa610b4ce670ade29782b94bab4feea1cd6f9f81b7a3c864",
+    "experiments/distributed-gpu-fft/test_review.py": "5f22431680448fde9df947d6a7371e919d5d4177302768dfd82c3997c6fc25d9",
+    "experiments/distributed-gpu-vectors/run.py": "4e4ea1a917a3494fc01ff6edfc853684d7ff45a12e158369f47b258c1590a71a",
+    "experiments/distributed-gpu-vectors/test_review.py": "c9aa5a4da4aead4fd1781a6bbe8ce22bbf3ef67cbc4200d67c2c0daeb45fc132",
+    "experiments/distributed-resident-fft/run.py": "26b5ba37f6eb7c835162181e5c46db553ff5509aff8e98c0a99ec1975c651330",
+    "experiments/s18-field-admission/analyze.py": "7ecdb5952096f5625bdc2247330e24d2c2d63a34cef1dcb11ad8335f04e235ff",
+    "experiments/s18-field-admission/run.py": "d0793e12ccb98ddd4830475d996f62f06e608b41fcc702a8fbb517de9b8fc6f8",
+    "experiments/s18-field-admission/run.sbatch": "499e739cc71efb3fb718c70350d8f78e41f9fb46fa7050f5348ee3fe6a543d35",
+    "experiments/s18-field-admission/test_review.py": "ffad3dfb9c8f28c6417d38ce646ddd2b8e59617318eabbd0aedb25d732654d86"
+  },
+  "checks": {
+    "build.log": "# runtime/cgo\n[lnode02:00128] opal_ifinit: socket() failed with errno=1\n# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi\n[lnode02:00494] opal_ifinit: socket() failed with errno=1\n# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp\n[lnode02:00497] opal_ifinit: socket() failed with errno=1\n",
+    "cpu.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t0.636s\n",
+    "cuda-build.log": "",
+    "fft-review.log": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.110s\n\nOK\n",
+    "native.log": "=== RUN   TestPreprocessingArtifactsS18\n--- PASS: TestPreprocessingArtifactsS18 (0.02s)\n=== RUN   TestPreprocessingLimits\n--- PASS: TestPreprocessingLimits (0.01s)\n=== RUN   TestS18NativeField\n--- PASS: TestS18NativeField (0.01s)\nPASS\n",
+    "product-review.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.056s\n\nOK\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t3.135s\n",
+    "resident-review.log": "......\n----------------------------------------------------------------------\nRan 6 tests in 0.057s\n\nOK\n",
+    "review.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.048s\n\nOK\n",
+    "vector-review.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.017s\n\nOK\n"
+  },
+  "artifacts": [
+    {
+      "path": ".cache/liftrs/s18-field-admission/readiness/s18.test",
+      "bytes": 12222416,
+      "sha256": "6562fb8897b1259818c3fd86f315f1f96f726aaaa9ef55c2ac6ac04a58803589"
+    },
+    {
+      "path": ".cache/liftrs/s18-field-admission/readiness/libliftrs-cuda.so",
+      "bytes": 2947728,
+      "sha256": "5acfe264f1e976b3a6dc9b0c0d8ab284a42dc9822e348f2f9fe8d93a66ceef33"
+    }
+  ],
+  "commands": {
+    "cpu": "GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=0 .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test ./encoding/liftrs-shared -run '^TestPreparationProductsS18Admission$|^TestPreprocessingArtifacts$|^TestRankPrefix|^TestRankStream' -count=1 -timeout=20s",
+    "race": "same env with CGO_ENABLED=1 go test -race -run '^TestPreparationProductsS18Admission$|^TestPreprocessingArtifacts'",
+    "build": "module load gcc/14.2.0 openmpi/gcc/64/4.1.8; CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/s18-field-admission/readiness/s18.test ./encoding/liftrs-shared",
+    "native": ".cache/liftrs/s18-field-admission/readiness/s18.test -test.run '^TestS18NativeField$|^TestPreprocessingLimits$|^TestPreprocessingArtifactsS18$' -test.v -test.timeout=20s",
+    "cuda": "module load cuda12.9/toolkit/12.9.1; nvcc -std=c++17 -O3 -lineinfo -arch=sm_90 -shared -Xcompiler=-fPIC,-pthread encoding/liftrs-cuda/matrix.cu encoding/liftrs-cuda/preparation.cu -o .cache/liftrs/s18-field-admission/readiness/libliftrs-cuda.so"
+  },
+  "limitations": [
+    "No local GPU or MPI initialization;distributed s18 arithmetic awaits admitted job.",
+    "No fulls18 grid/support discovery,generator or code artifact validated.",
+    "Local OpenMPI compiler probes log restricted socket warnings;build and native checks pass.",
+    "Normal CPU lookup defaults unchanged;explicit server s18 tables use less than3MiB/set."
+  ]
+}

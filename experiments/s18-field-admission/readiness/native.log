@@ -1,0 +1,7 @@
+=== RUN   TestPreprocessingArtifactsS18
+--- PASS: TestPreprocessingArtifactsS18 (0.02s)
+=== RUN   TestPreprocessingLimits
+--- PASS: TestPreprocessingLimits (0.01s)
+=== RUN   TestS18NativeField
+--- PASS: TestS18NativeField (0.01s)
+PASS

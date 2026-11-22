@@ -51,11 +51,12 @@ type Preparation struct {
 
 // NewPreparation loads the explicit trusted library and builds bounded metadata
 // on the selected GPUs. Peer access and allocation errors are returned; no
-// host-backed mode or CPU arithmetic fallback is selected.
+// host-backed mode or CPU arithmetic fallback is selected. Metadata admits s2..18;
+// full-grid execution still requires independent memory and workload admission.
 func NewPreparation(options PreparationOptions) (*Preparation, error) {
 	s := options.S
 	count := len(options.Devices)
-	if options.Path == "" || s < 2 || s > 17 || options.Polynomial>>uint(s) != 1 || options.Delta == 0 || options.Delta >= 1<<uint(s) || len(options.Logs) != 1<<uint(s) || len(options.Powers) != 2*((1<<uint(s))-1) || count == 0 || count > 8 || count&(count-1) != 0 || options.MaxElements < 4 || options.MaxElements&(options.MaxElements-1) != 0 || options.MaxElements > 1<<uint(2*s) || options.DeviceBytes == 0 || unsafe.Sizeof(int(0)) != 8 {
+	if options.Path == "" || s < 2 || s > 18 || options.Polynomial>>uint(s) != 1 || options.Delta == 0 || options.Delta >= 1<<uint(s) || len(options.Logs) != 1<<uint(s) || len(options.Powers) != 2*((1<<uint(s))-1) || count == 0 || count > 8 || count&(count-1) != 0 || options.MaxElements < 4 || options.MaxElements&(options.MaxElements-1) != 0 || options.MaxElements > 1<<uint(2*s) || options.DeviceBytes == 0 || unsafe.Sizeof(int(0)) != 8 {
 		return nil, fmt.Errorf("invalid resident GPU preprocessing options")
 	}
 	devices := make([]C.int, count)

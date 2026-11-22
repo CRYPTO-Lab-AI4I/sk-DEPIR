@@ -29,13 +29,14 @@ def review_transpose_routes(rows,expected_packets):
     return len(proofs)
 
 
-def review(rows,directory,operations=None,full_fft=False):
+def review(rows,directory,operations=None,full_fft=False,cases=None):
+    cases=CASES if cases is None else cases
     hosts=[r for r in rows if r.get('kind')=='host']
     assert len(hosts)==2 and {r['rank']for r in hosts}=={0,1}and len({r['host']for r in hosts})==2
     assert all(r['visible_devices']and ','not in r['visible_devices']for r in hosts)
-    values=[r for r in rows if r.get('kind')=='measurement'];assert len(values)==24
+    values=[r for r in rows if r.get('kind')=='measurement'];assert len(values)==4*len(cases)
     proofs=[r for r in rows if r.get('kind')=='tile-proof'];expected_packets={};actual_packets={};packets={}
-    for index,(s,dim)in enumerate(CASES):
+    for index,(s,dim)in enumerate(cases):
         label=f's{s}-d{dim}';nr,nc=1<<(dim-dim//2),1<<(dim//2);width=4 if s==4 else 8
         for pass_id in (0,1):
             selected=[r for r in values if r['case']==label and r['pass']==pass_id]
@@ -58,7 +59,7 @@ def review(rows,directory,operations=None,full_fft=False):
                             expected_packets[(rank,label,pass_id,op,offset,direction)]=min(127,nr*nc//4-offset);count+=1
                 assert r['proof_events']==count
     proof_count=review_transpose_routes(rows,expected_packets)
-    assert all(sum(r.get('kind')=='completed'and r['rank']==rank and r['cases']==12 for r in rows)==1 for rank in (0,1))
+    assert all(sum(r.get('kind')=='completed'and r['rank']==rank and r['cases']==2*len(cases) for r in rows)==1 for rank in (0,1))
     assert not list(directory.glob('capture-*'))
     return dict(measurements=values,proof_events=proof_count)
 

@@ -23,7 +23,7 @@ func makeCUDAPreparationBackend(h ScalingCodeHeader, options PreprocessingOption
 		return makeResidentCUDAPreparationBackend(h, options, native)
 	}
 	if h.Spec.FieldDegree > 16 {
-		return nil, fmt.Errorf("s17 CUDA preprocessing requires explicit GPUDevices and the resident preparation library")
+		return nil, fmt.Errorf("s>=17 CUDA preprocessing requires explicit GPUDevices and the resident preparation library")
 	}
 	_, extension, _, _ := orbitFields(h.Spec.FieldDegree, h.Polynomial)
 	base, _ := NewBinaryField(h.Spec.FieldDegree, h.Polynomial)
@@ -91,7 +91,7 @@ func makeResidentCUDAPreparationBackend(h ScalingCodeHeader, options Preprocessi
 	if err != nil {
 		return nil, err
 	}
-	table := newPreparationProducts(base)
+	table := newBoundedPreparationProducts(base, 18)
 	engine, err := cuda.NewPreparation(cuda.PreparationOptions{Path: options.GPUPath, S: h.Spec.FieldDegree, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: table.log, Powers: table.powers, Devices: options.GPUDevices, MaxElements: h.N, DeviceBytes: options.GPUBytes})
 	if err != nil {
 		return nil, err

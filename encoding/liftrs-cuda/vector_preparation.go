@@ -108,7 +108,7 @@ func (v *VectorPreparation) Apply32(data []uint32, columns, inverse bool, first,
 	return err
 }
 
-// Apply64 is Apply32 for s17's eight-byte extension-field slots.
+// Apply64 is Apply32 for eight-byte extension-field slots (s>16).
 func (v *VectorPreparation) Apply64(data []uint64, columns, inverse bool, first, count uint64) error {
 	err := v.apply(preparationPointer(data), len(data), 8, columns, inverse, first, count)
 	runtime.KeepAlive(data)

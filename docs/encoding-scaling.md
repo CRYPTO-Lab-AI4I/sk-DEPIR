@@ -3091,3 +3091,31 @@ representative capacity/performance validation. No fulls18 launch implied.
 Submitted cold/fresh-process resume with streamed publication as **78915**,
 `restart-01`, implementation `98695bc`; [receipt](../experiments/distributed-restart-pilot/submission.json).
 No monitoring; await completion ping before result review or dependent work.
+
+
+### Restart verified; canonical s18 field admission (SCALING-165)
+
+78915 passed cold and fresh-process prefix8 restart with streamed canonical/G
+publication for genuine s4/s6. Both ranks loaded saved root/prefix state, skipped
+discovery/root computation and completed remaining Newton/identity/spectrum with
+identical artifacts. Controller2 min2.635 s; host peak RSS373.039 MiB cold /
+372.965 MiB resume, post-call ownedGPU0.075245 MiB/card (not peak/context),
+retained cache15.216 MiB. [Evidence](../experiments/distributed-restart-pilot/report.md).
+The preceding submission/pending statements are historical; this is the reviewed
+outcome. Fixed-rank restart is validated; arbitrary failures/elasticity are not.
+
+Proceed with [bounded s18 field admission](../experiments/s18-field-admission/report.md),
+reusing the existing recurrences and native/scalar oracles. Admit s18 server
+metadata and support widths; preserve full-array/native/GPU guards and ordinary
+CPU lookup defaults. Explicit server lookup tables need less than3 MiB/set on
+host/device (s17 less than1.5 MiB), within existing caps. No extra transform,
+transfer strategy, slower default or larger resource admission is introduced.
+
+One allocation:32/4096-value full-extension forward/inverse FFTs and exact base
+products, then32-value FFT/product sanitizers for the new field. Maintain complete
+output/transpose/Taylor proofs, profiling, shared-node preflight and checkpointed
+phase evidence. This tests s18 arithmetic, not full2^36-value preprocessing.
+After passing, integrate more ranks/multi-level root ownership and remove full
+coordinator diagnostic/support arrays, then measure representative larger scaling
+before selecting/admitting a fulls18 topology/budget. Avoid repeating unchanged
+small gates without a new correctness boundary.
