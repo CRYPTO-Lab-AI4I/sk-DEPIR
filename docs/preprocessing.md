@@ -532,3 +532,19 @@ archive arrays are absent in that explicit pilot mode. Four-worker collectives
 passed79239,still on two GPUs. Larger root/discovery ownership and full-pipeline
 integration at the intended rank count remain. GPU recurrences and ordinary defaults remain. No full s18
 pipeline result exists.
+
+
+## Hierarchical distributed root ownership
+
+[Hierarchical root integration](../experiments/distributed-root-hierarchy/report.md)
+now shares a field-independent2/4/...-worker stage plan,existing bounded operand
+routing and maintained distributed GPU products. Independent subgroup handles
+isolate sibling merges;intermediate coefficient shards move directly to the next
+group without a complete polynomial gather. Domain growth/unequal child domains
+are explicit. The former single-owner routing adapter uses that same implementation.
+
+GPU validation is pending. Per-stage communicator/GPU setup and host redistribution
+add work whose runtime cost is unknown;the prototype changes no production/default
+mode. Fulls18 discovery/generator/persistence integration still remains. Ordinary
+CPU client builds acquire no MPI/CUDA dependency. See the experiment for admission,
+progress/profiling,reference provenance and exact limitations.

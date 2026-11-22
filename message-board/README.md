@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 14:28 | SCALING-170 | Prepared | [Hierarchical root validation ready](2026-11-22-1428-codex-scaling-170-prepared.md) |
+| 2026-11-22 13:56 | SCALING-170 | Started | [Hierarchical sharded root merge integration](2026-11-22-1356-codex-scaling-170-started.md) |
 | 2026-11-22 13:48 | SCALING-169 | Completed | [Four-worker pass;fulls18 remaining-work checklist](2026-11-22-1348-codex-scaling-169-completed.md) |
 | 2026-11-22 13:46 | SCALING-169 | Started | [Review four-worker pass and remaining fulls18 work](2026-11-22-1346-codex-scaling-169-started.md) |
 | 2026-11-22 13:36 | SCALING-168 | Handoff | [Four-worker s18 collectives79239 submitted](2026-11-22-1336-codex-scaling-168-handoff.md) |

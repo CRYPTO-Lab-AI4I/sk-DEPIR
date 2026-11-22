@@ -9,6 +9,10 @@ type productTestOptions struct {
 	TileWords             uint64
 	Pattern               string
 	Shapes                int
+	// DeviceBytes may lower the per-worker cap when a subgroup shares a card.
+	DeviceBytes uint64
+	// Result borrows the verified owning output shard for a following merge level.
+	Result func([]uint32)
 	// Input injects bounded real-polynomial shards without duplicating the FFT driver.
 	Input func(s, dim, shape int, first, words uint64) productCaseInput
 }

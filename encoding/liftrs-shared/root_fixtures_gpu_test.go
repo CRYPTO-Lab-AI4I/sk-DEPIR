@@ -14,7 +14,7 @@ import (
 
 // rootFixture shares deterministic canonical-field inputs across scheduling
 // experiments. Synthetic subsets are Frobenius-closed, not genuine PIR codes.
-// No full domain grid is allocated; s=17 cases deliberately include wide indices.
+// No full domain grid is allocated; s>=17 cases deliberately include wide indices.
 type rootFixture struct {
 	header     ScalingCodeHeader
 	extension  wideOrbitField
@@ -55,7 +55,7 @@ func makeRootFixture(s, count int, genuine bool) (*rootFixture, error) {
 		}
 		sort.Ints(support)
 	}
-	if s == 17 && support[len(support)-1] <= 1<<32 {
+	if s >= 17 && support[len(support)-1] <= 1<<32 {
 		return nil, fmt.Errorf("wide root indices absent")
 	}
 	maximum := 4
@@ -79,7 +79,7 @@ func makeRootArithmetic(s int) (*rootFixture, error) {
 		return nil, err
 	}
 	return &rootFixture{header: h, extension: extension, n: n, maximum: 4,
-		base: orbitField{q: 1 << uint(s), base: base, lookup: newPreparationProducts(base)}}, nil
+		base: orbitField{q: 1 << uint(s), base: base, lookup: newBoundedPreparationProducts(base, 18)}}, nil
 }
 
 func (f *rootFixture) withEngine(engine rootWorkerEngine) orbitField {
@@ -90,6 +90,10 @@ func (f *rootFixture) withEngine(engine rootWorkerEngine) orbitField {
 
 func (f *rootFixture) root(mode supportMembership, engine rootWorkerEngine, subset []int,
 	checkpoint func(string), notice preparationNotice) (p []uint32, err error) {
+	// Fixture callers may omit phase markers;the shared algorithm requires a sink.
+	if checkpoint == nil {
+		checkpoint = func(string) {}
+	}
 	defer recoverPreparation(&err)
 	if len(subset) == 0 {
 		return []uint32{1}, nil

@@ -3238,3 +3238,34 @@ explicit/optional under the existing policy. Then launch fulls18.
 
 The maintained [remaining-work table](encoding-status.md#remaining-work-before-full-s18-preprocessing-scaling-169)
 is the current checklist. No new job submitted for this evidence/status update.
+
+
+### Hierarchical sharded root implementation (SCALING-170)
+
+Implement the next root step as growing isolated MPI groups2,4,...,not repeated
+whole-world products for every subtree. Sibling groups execute concurrently;
+all intermediate products remain base-coefficient shards. Reuse one generalized
+owner/shard operand router and the maintained product executor. Stage admission
+uses leaf counts,field-domain cap and minimum canonical matrix dimensions;unequal
+child domains are handled by bounded interval redistribution. No fixed s or
+language/backend split is introduced into the schedule.
+
+MPI groups own explicit communicators/staging and borrow the root's locked thread;
+closing a child must not finalize/unlock the root. Failures abort the original
+job before blocked group cleanup. Counts stay integer64-bit metadata. Preserve
+legacy world codecs/defaults and test their existing owner-routing semantics.
+
+Validate16/4092 synthetic s18 roots on4workers/2H200,then smallest16-root sanitizer
+in one allocation. Check native leaves/subtrees/final output,scalar witnesses,
+all per-group FFT/transpose/Taylor proofs and actual inter-level source hashes.
+Native preflight covers exact leaf counts/domains before submission;real frozen
+snapshot preflight is required. [Report](../experiments/distributed-root-hierarchy/report.md).
+
+Trade-offs:three extension arrays per group domain;current child,two routed inputs
+and result host shards may overlap. No full intermediate gather. Per-stage GPU/
+communicator setup,metadata and host/network transfers add unmeasured cost;existing
+faster/default paths remain. Same physical budget and64MiB/worker ownedGPU cap,
+128MiB/card aggregate;no resource increase. Production strategy selection follows
+complete measurements. Fulls18 worst-case generator capacity remains unmeasured.
+After this passes,integrate more-worker genuine discovery/Newton/identity/spectrum
+and coordinated persistence,then meaningful assembled scaling/full-run admission.

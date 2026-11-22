@@ -9,8 +9,8 @@ FFT=runpy.run_path(str(HERE.parent/'distributed-gpu-fft/run.py'))
 VECTORS=FFT['VECTORS']
 
 
-def review(rows,directory,pointwise_words=None,cases=None,tile_words=127,shapes=(0,1),geometry=None,ranks=2):
-    hosts=[r for r in rows if r.get('kind')=='host'];assert len(hosts)==ranks and {r['rank']for r in hosts}==set(range(ranks))and len({r['host']for r in hosts})==2
+def review(rows,directory,pointwise_words=None,cases=None,tile_words=127,shapes=(0,1),geometry=None,ranks=2,host_count=2):
+    hosts=[r for r in rows if r.get('kind')=='host'];assert len(hosts)==ranks and {r['rank']for r in hosts}==set(range(ranks))and len({r['host']for r in hosts})==host_count
     assert all(r['visible_devices']and ','not in r['visible_devices']for r in hosts)
     cases=VECTORS['CASES']if cases is None else cases
     values=[r for r in rows if r.get('kind')=='measurement'];assert len(values)==ranks*len(shapes)*len(cases)

@@ -44,6 +44,12 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 		}
 		tables := newBoundedPreparationProducts(base, 18)
 		options := cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: s, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: tables.log, Powers: tables.powers, Devices: []int{0}, MaxElements: n, DeviceBytes: (128 << 20) / uint64(max(1, w.Size/2))}
+		if opt.DeviceBytes != 0 {
+			if opt.DeviceBytes > options.DeviceBytes {
+				t.Fatal("product cap increase")
+			}
+			options.DeviceBytes = opt.DeviceBytes
+		}
 		setupBegan := time.Now()
 		var stage *cuda.VectorPreparation
 		var resident *cuda.RankStorage
@@ -304,6 +310,9 @@ func distributedProductGPUCases[Word transposeWord](t *testing.T, w *mpi.World, 
 				saveMatrixStageWords(t, filepath.Join(output, prefix+"-expected.bin"), expected)
 				if !reflect.DeepEqual(actual, expected) {
 					t.Fatal("distributed product/schoolbook", label)
+				}
+				if opt.Result != nil {
+					opt.Result(actual)
 				}
 				emit(map[string]any{"kind": "measurement", "case": label, "s": s, "dimension": dim, "shape": shape, "a_count": ac, "b_count": bc, "first_coefficient": start, "words": words, "slot_bytes": h.ExtensionBytes, "output_word_bytes": 4, "seconds": seconds, "work_seconds": workSeconds, "validation_capture_seconds": captureSeconds, "local_seconds": localSeconds, "local_work_seconds": localWork, "local_capture_seconds": localCapture, "operation_start": op, "proof_events": proofs, "taylor_proof_events": taylorProofs, "owned_device_bytes": gpu.OwnedBytes(), "output_sha256": fmt.Sprintf("%x", mpi.PayloadFingerprint(actual)), "matches": true, "resident": residentMode, "oracle_pattern": pattern, "leading_coefficient": leading, "local_taylor": localTaylor, "tile_words": tileWords, "setup_seconds": setupSeconds, "right_spectrum_preserved": residentMode, "reused": true, "inverse_reused": true, "geometry_reuse_checked": shapes > 1})
 				emit(map[string]any{"kind": "phase", "phase": label, "event": "completed", "completed": 1, "total": 1})

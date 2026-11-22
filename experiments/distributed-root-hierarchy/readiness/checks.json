@@ -1,0 +1,58 @@
+{
+  "utc": "2026-11-22T14:28:48.301323+00:00",
+  "status": "passed-local-readiness;GPU/MPI subgroup integration pending",
+  "parent_revision": "9b55dbbe85674fed075bd1508e128bca089a3e71",
+  "source_sha256": {
+    "encoding/liftrs-shared/root_shards.go": "e0a5da66705d9a1b190e61085ba2939f54c2901f59277e461280c19eabe82928",
+    "encoding/liftrs-shared/root_shards_test.go": "5ab2143c9f4eff00589ddeaf01f6ec54561bf231b64d4b2b49510ea953af5f1d",
+    "encoding/liftrs-shared/distributed_operands.go": "0bd49716f26b72da9bbe0719f2d464b7e0d398b23e001bc01322416b1784e6fc",
+    "encoding/liftrs-shared/root_hierarchy_gpu_test.go": "1449163a56b64fe2b3d5d81323082b26aefec088c447b6026df206ffb8031f54",
+    "encoding/liftrs-shared/root_fixtures_gpu_test.go": "3f82ebb00fb37923761ead3449ebfd2155bb535eef6a36572575701d1d5b1cac",
+    "encoding/liftrs-shared/distributed_product_oracle_test.go": "ed9f2d1061df150790f05975885260c27e6b1f6452d7573865975f3fb93d9687",
+    "encoding/liftrs-shared/distributed_product_gpu_test.go": "bd43c134804a8141f2f0907b716e9e605a7d1181c63b9e0fd08f976e45e45941",
+    "experiments/distributed-root/mpi/world.go": "486dc0cda10f10b6705c1c6743a9201a2b3625c5e13e505d3c58c355e52b55e5",
+    "experiments/distributed-root/mpi/communicator_test.go": "20f6b8e140644692c008aca1c89ae3a775fcec788170b8fb4ff1deb3b5046d20",
+    "experiments/distributed-gpu-product/run.py": "826d70c0b9173589f6c534f5a88fbdb4022b1469adc170ac9c70b75471a16e68",
+    "experiments/distributed-root-hierarchy/run.py": "7aa182484961307881960824b26873bf10741b46184d68abee3c11a8b9f10eff",
+    "experiments/distributed-root-hierarchy/run.sbatch": "81d3270fc0d156b779b903b505aceb073ef58fac8ea5616072a15987eda4f5fc",
+    "experiments/distributed-root-hierarchy/analyze.py": "d68edcdf215a340d2a1221db9a0bc150814e218f63b0548fbfe3d4c7cdd8a90c",
+    "experiments/distributed-root-hierarchy/test_review.py": "2376550acbc0cbec8a62d5e9c5b50781fac1a71f4204235505307ad4a5ad8d4b"
+  },
+  "unchanged_cuda_sha256": {
+    "encoding/liftrs-cuda/preparation.cu": "ad9fff2a8e1abe78fefc9de9bbecfb5562210bec671872b6294d560940ee6e9c",
+    "encoding/liftrs-cuda/rank_storage.cuh": "b63ae124b4c7c054ecca1190a9e9861761227f9dcfb13808415b9a4bd4821f56"
+  },
+  "artifact": {
+    "path": ".cache/liftrs/distributed-root-hierarchy/readiness/hierarchy.test",
+    "bytes": 12360944,
+    "sha256": "b71a89da2460b485375de3417d360d8df170c2adb6d7bee46bf9bbc9de3bf5bf"
+  },
+  "checks": {
+    "build.log": "# runtime/cgo\n[lnode02:00128] opal_ifinit: socket() failed with errno=1\n# github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp\n[lnode02:00497] opal_ifinit: socket() failed with errno=1\n",
+    "cpu.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t0.004s\n",
+    "four-worker-review.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.086s\n\nOK\n",
+    "legacy-cpu.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t0.006s\n",
+    "mpi-admission.log": "# runtime/cgo\n[lnode02:00128] opal_ifinit: socket() failed with errno=1\nok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi\t0.005s\n",
+    "mpi-build.log": "# runtime/cgo\n[lnode02:00128] opal_ifinit: socket() failed with errno=1\nok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi\t0.006s\n",
+    "native.log": "=== RUN   TestRankOperandRouting\n--- PASS: TestRankOperandRouting (0.04s)\n=== RUN   TestRankOperandAdmissionAndFailure\n--- PASS: TestRankOperandAdmissionAndFailure (0.00s)\n=== RUN   TestRankOperandRejectsNoncanonicalReceive\n--- PASS: TestRankOperandRejectsNoncanonicalReceive (0.00s)\n=== RUN   TestRootHierarchyShapes\n    root_hierarchy_gpu_test.go:243: roots=16 rank=0 leaf=5 child domain=16 final domain=32\n    root_hierarchy_gpu_test.go:243: roots=16 rank=1 leaf=5 child domain=16 final domain=32\n    root_hierarchy_gpu_test.go:243: roots=16 rank=2 leaf=5 child domain=16 final domain=32\n    root_hierarchy_gpu_test.go:243: roots=16 rank=3 leaf=5 child domain=16 final domain=32\n    root_hierarchy_gpu_test.go:243: roots=4092 rank=0 leaf=1025 child domain=4096 final domain=4096\n    root_hierarchy_gpu_test.go:243: roots=4092 rank=1 leaf=1025 child domain=4096 final domain=4096\n    root_hierarchy_gpu_test.go:243: roots=4092 rank=2 leaf=1023 child domain=2048 final domain=4096\n    root_hierarchy_gpu_test.go:243: roots=4092 rank=3 leaf=1023 child domain=2048 final domain=4096\n--- PASS: TestRootHierarchyShapes (0.08s)\n=== RUN   TestShardedRootTree\n--- PASS: TestShardedRootTree (0.00s)\n=== RUN   TestShardedRootAdmission\n--- PASS: TestShardedRootAdmission (0.00s)\nPASS\n",
+    "product-review.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.051s\n\nOK\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.058s\n",
+    "review.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.040s\n\nOK\n"
+  },
+  "commands": {
+    "cpu": "GOTOOLCHAIN=local GOMAXPROCS=2 GOFLAGS=-p=2 GOCACHE=/tmp/depir-vector-local-cache CGO_ENABLED=0 .cache/liftrs/toolchains/go1.27.3-linux-amd64/go/bin/go test ./encoding/liftrs-shared -run '^TestShardedRoot|^TestRankOperand' -count=1 -timeout=20s",
+    "race": "same env with CGO_ENABLED=1 go test -race -run '^TestShardedRoot|^TestRankOperand|^TestRootTree'",
+    "mpi": "module load gcc/14.2.0 openmpi/gcc/64/4.1.8; CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -tags liftrs_mpi ./experiments/distributed-root/mpi -count=1 -timeout=20s",
+    "build": "same native environment; go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-root-hierarchy/readiness/hierarchy.test ./encoding/liftrs-shared",
+    "native": ".cache/liftrs/distributed-root-hierarchy/readiness/hierarchy.test -test.run '^TestRootHierarchyShapes$|^TestShardedRoot|^TestRankOperand' -test.v -test.timeout=20s"
+  },
+  "limits": "same2nodes/2H200/4CPU/8GiBhost;4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720s/15min;0CUDApinned",
+  "limitations": [
+    "No local MPI/GPU initialization;subgroup isolation/lifetime and integrated GPU hierarchy await job.",
+    "Only synthetic s18 subsets16/4092 roots;small diagnostic support/native arrays replicated.",
+    "Full genuine discovery/Newton/checkpoint/publication integration remains two-worker-only.",
+    "Native preflight caught missing no-op fixture checkpoint hook;fixed before submission;current native shapes pass0.08s.",
+    "Historical262144-root fixture replay skipped:unchanged arithmetic throughs17;new bounded field18 native oracle and routed-stage tests cover changes.",
+    "Local compiler socket warnings retained separately from successful builds/tests."
+  ]
+}

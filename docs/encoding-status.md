@@ -21,7 +21,8 @@ The small two-rank pipeline is assembled and validated through discovery, roots,
 Newton iteration, the complete identity and spectrum, plus fresh-process restart
 and streamed publication. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
-GPUs. Current focus: multi-level rank-owned roots,more-worker discovery and
+GPUs. Current focus: validate the implemented hierarchical sharded root merge,then
+more-worker discovery and
 full-pipeline integration,then step5 scaling validation.** Steps1–4 have
 small-case correctness evidence; full-pipeline execution beyond two workers and
 fullsize scaling remain unvalidated.
@@ -29,7 +30,7 @@ These results are separate from the full s17 runs and fulls18 projections below.
 
 | Step | Status |
 |---|---|
-| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>**Integrated genuine s4/s6 pilot passed78898**: repeated sharded root/Newton/identity/spectrum and canonical artifacts.<br>**Canonical s18 bounded FFT/products passed78917**, with clean small CUDA memchecks. **Four-worker canonical s18 FFT/products passed79239 on two GPUs**,with clean small sanitizers. Multi-level rank-owned root execution and fullsize scaling remain pending. |
+| 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>**Integrated genuine s4/s6 pilot passed78898**: repeated sharded root/Newton/identity/spectrum and canonical artifacts.<br>**Canonical s18 bounded FFT/products passed78917**, with clean small CUDA memchecks. **Four-worker canonical s18 FFT/products passed79239 on two GPUs**,with clean small sanitizers. [Hierarchical sharded root execution](../experiments/distributed-root-hierarchy/report.md) implemented; GPU validation pending. Fullsize scaling remains pending. |
 | 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing passed78909 for genuine s4/s6. Coordinator entropy source remains; streamed support/retained-reference cold and fresh-process resume passed79213; full coordinator support/oracle arrays removed in the explicit pilot mode. No fullsize result. |
 | 3. Generator construction and verification | Sharded Newton/identity/spectrum integration passed78898 for genuine s4/s6. Fullsize integration remains. |
 | 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898; partitioned discovery passed78909. **Fresh-process prefix8 restart and bounded streamed publication passed78915** for genuine s4/s6, with identical canonical code/generator output. Fullsize/node-failure recovery remains. |
@@ -887,7 +888,7 @@ runtime/peak memory or four-GPU speedup follows. [Evidence](../experiments/distr
 
 | Work | Remaining boundary |
 |---|---|
-| Multi-level rank-owned root reduction | Replace the assembled pilot's single two-owner merge with a scalable merge tree,keeping large intermediate products distributed. The product/FFT backend now passes four-worker tests. |
+| Multi-level rank-owned root reduction | Hierarchical stage plan,sharded routing and subgroup GPU composition implemented; integrated GPU validation pending. The product/FFT backend already passes four-worker tests. |
 | Full pipeline at the intended topology | Remove pair-only discovery/count/control/support routing and commit assumptions;carry root,Newton,complete identity,spectrum and streamed output through the same scalable topology. Genuine end-to-end evidence currently covers s4/s6 with two workers; s18 evidence is component-only. |
 | Restart and final artifacts at that topology | Verify coordinated completed-stage/prefix commits,resume and canonical publication for the selected rank count,including interruption/relaunch. Fixed two-worker fresh-process resume already passes. |
 | Representative scaling and full-run admission | Validate one assembled smaller case,then meaningful larger workloads with host/device peaks,communication,I/O and progress logging. Use results to choose GPU/node count,storage,deadline and headroom;obtain full-run resource agreement,then launch fulls18. |
@@ -897,3 +898,16 @@ algorithms exist. Current work is connecting their distributed ownership and
 validating complete-scale resource behavior. Historical16H200/four-node capacity
 projections are not a finalized implementation,measured runtime or an admitted
 full-run budget. Fulls18 preprocessing and encoding table cells remain unrun.
+
+
+### Hierarchical root integration prepared (SCALING-170)
+
+[Prototype and trade-offs](../experiments/distributed-root-hierarchy/report.md):
+concurrent2-worker sibling products feed a4-worker final merge via bounded shard
+redistribution. Explicit MPI group handles share existing codecs/proofs and close
+before parent reuse. CPU/race/native shape checks pass; integrated GPU execution
+is pending. Normal synthetic s18 cases16/4092 roots include unequal4096/2048 child
+transform domains;small16-root memcheck covers the new layout. Same4workers/
+2H200/2nodes/4CPU/8GiB request,64MiBowned/worker,128MiB/card aggregate.
+Additional stage setup/host transfers are unmeasured;no production default or
+fullsize capacity/runtime claim changes. Fulls18 preprocessing/encoding remain unrun.

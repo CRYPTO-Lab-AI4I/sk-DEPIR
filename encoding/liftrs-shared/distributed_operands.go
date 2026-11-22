@@ -32,67 +32,95 @@ type operandLink interface {
 // MaxLocalWords admits each output separately; budget both outputs, owned input
 // and transport/runtime memory together before invoking the collective.
 func routePolynomialOperands(p rankOperandPlan, local [2][]uint32, link operandLink, notice func(int, uint64, uint64)) (out [2][]uint32, err error) {
+	sources := [2]rootShardLayout{}
+	for j := range sources {
+		sources[j] = rootShardLayout{p.Owners[j], 1, p.Counts[j], p.Counts[j]}
+	}
+	return routeShardedOperands(rankShardOperandPlan{p.Operation, p.Domain, p.TileWords, p.Limit, p.MaxLocalWords, p.Rank, p.Ranks, sources}, local, link, notice)
+}
+
+// rankShardOperandPlan also admits already-distributed child polynomials. A
+// one-rank source is the existing owner-to-shards case; both use the same codec,
+// packet order and bounded interval intersections. Sources may overlap in ranks.
+type rankShardOperandPlan struct {
+	Operation, Domain, TileWords, Limit, MaxLocalWords uint64
+	Rank, Ranks                                        int
+	Sources                                            [2]rootShardLayout
+}
+
+func routeShardedOperands(p rankShardOperandPlan, local [2][]uint32, link operandLink, notice func(int, uint64, uint64)) (out [2][]uint32, err error) {
 	if p.Operation == 0 || p.Domain == 0 || p.Domain > uint64(^uint(0)>>1) || p.Ranks < 1 || p.Ranks > 64 || p.Rank < 0 || p.Rank >= p.Ranks || p.TileWords == 0 || p.TileWords > 1<<20 || p.Limit < 2 || p.Limit > 1<<32 || (p.Ranks > 1 && link == nil) {
 		return out, fmt.Errorf("operand routing plan")
 	}
-	for operand := range local {
-		if p.Counts[operand] == 0 || p.Counts[operand] > p.Domain || p.Owners[operand] < 0 || p.Owners[operand] >= p.Ranks {
+	for operand, source := range p.Sources {
+		if source.First < 0 || source.Ranks < 1 || source.First > p.Ranks-source.Ranks || source.Domain == 0 || source.Domain > p.Domain || source.Count == 0 || source.Count > source.Domain {
 			return out, fmt.Errorf("operand routing ownership/extent")
 		}
-		expected := uint64(0)
-		if p.Owners[operand] == p.Rank {
-			expected = p.Counts[operand]
+		first, words := uint64(0), uint64(0)
+		if p.Rank >= source.First && p.Rank < source.First+source.Ranks {
+			first, words = rankBand(source.Domain, p.Rank-source.First, source.Ranks)
 		}
-		if uint64(len(local[operand])) != expected {
+		if uint64(len(local[operand])) != words {
 			return out, fmt.Errorf("operand routing local extent")
 		}
-		for _, v := range local[operand] {
-			if uint64(v) >= p.Limit {
-				return out, fmt.Errorf("operand routing canonical input")
+		for j, v := range local[operand] {
+			if uint64(v) >= p.Limit || (first+uint64(j) >= source.Count && v != 0) {
+				return out, fmt.Errorf("operand routing canonical input/padding")
 			}
 		}
 	}
-	first, words := rankBand(p.Domain, p.Rank, p.Ranks)
+	_, words := rankBand(p.Domain, p.Rank, p.Ranks)
 	if words > p.MaxLocalWords {
 		return out, fmt.Errorf("operand routing local memory admission")
 	}
-	for operand := range out {
+	for operand, layout := range p.Sources {
 		out[operand] = make([]uint32, words)
-		total := p.Counts[operand]
-		if p.Rank != p.Owners[operand] {
-			total = min(words, total-min(first, total))
-		}
-		var done uint64
-		if notice != nil {
-			notice(operand, 0, total)
-		}
-		for target := 0; target < p.Ranks; target++ {
-			start, count := rankBand(p.Domain, target, p.Ranks)
-			count = min(count, p.Counts[operand]-min(start, p.Counts[operand]))
-			if p.Rank != p.Owners[operand] && p.Rank != target {
-				continue
-			}
-			for offset := uint64(0); offset < count; {
-				take := min(p.TileWords, count-offset)
-				packet := operandPacket{p.Operation, p.Domain, uint64(operand), start + offset, take, p.Owners[operand], target}
-				if target == p.Owners[operand] {
-					copy(out[operand][offset:offset+take], local[operand][start+offset:start+offset+take])
-				} else if p.Rank == p.Owners[operand] {
-					err = link.SendOperand(packet, local[operand][start+offset:start+offset+take])
-				} else {
-					tile := out[operand][offset : offset+take]
-					err = link.ReceiveOperand(packet, tile)
-					if err == nil {
-						for _, v := range tile {
-							if uint64(v) >= p.Limit {
-								err = fmt.Errorf("operand routing canonical receive")
-								break
-							}
+		// Enumerate only non-padding interval overlaps. The global order prevents
+		// cyclic waits with synchronous links,including unequal/empty child shards.
+		visits := func(visit func(int, int, uint64, uint64, uint64, uint64) error) error {
+			for source := layout.First; source < layout.First+layout.Ranks; source++ {
+				first, count := rankBand(layout.Domain, source-layout.First, layout.Ranks)
+				end := min(first+count, layout.Count)
+				for target := 0; target < p.Ranks; target++ {
+					if p.Rank != source && p.Rank != target {
+						continue
+					}
+					start, take := rankBand(p.Domain, target, p.Ranks)
+					lo, hi := max(first, start), min(end, start+take)
+					if lo < hi {
+						if e := visit(source, target, first, start, lo, hi); e != nil {
+							return e
 						}
 					}
 				}
-				if err != nil {
-					return out, err
+			}
+			return nil
+		}
+		var done, total uint64
+		visits(func(_, _ int, _, _, lo, hi uint64) error { total += hi - lo; return nil })
+		if notice != nil {
+			notice(operand, 0, total)
+		}
+		err = visits(func(source, target int, sourceFirst, targetFirst, lo, hi uint64) error {
+			for offset := lo; offset < hi; {
+				take := min(p.TileWords, hi-offset)
+				packet := operandPacket{p.Operation, p.Domain, uint64(operand), offset, take, source, target}
+				if source == target {
+					copy(out[operand][offset-targetFirst:offset-targetFirst+take], local[operand][offset-sourceFirst:offset-sourceFirst+take])
+				} else if p.Rank == source {
+					if e := link.SendOperand(packet, local[operand][offset-sourceFirst:offset-sourceFirst+take]); e != nil {
+						return e
+					}
+				} else {
+					tile := out[operand][offset-targetFirst : offset-targetFirst+take]
+					if e := link.ReceiveOperand(packet, tile); e != nil {
+						return e
+					}
+					for _, v := range tile {
+						if uint64(v) >= p.Limit {
+							return fmt.Errorf("operand routing canonical receive")
+						}
+					}
 				}
 				offset += take
 				done += take
@@ -100,6 +128,10 @@ func routePolynomialOperands(p rankOperandPlan, local [2][]uint32, link operandL
 					notice(operand, done, total)
 				}
 			}
+			return nil
+		})
+		if err != nil {
+			return out, err
 		}
 	}
 	return out, nil
