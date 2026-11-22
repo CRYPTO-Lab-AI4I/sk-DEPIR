@@ -126,3 +126,11 @@ python3 -B experiments/distributed-pipeline-four/analyze.py pipeline-01
 GPU/MPI composition remains pending. Fulls18 still needs scalable ownership without
 these bounded replicated diagnostics,canonical wide-slot complete-pipeline admission,
 representative scaling,resource/headroom review and separate full-run agreement.
+
+
+[Committed-snapshot preflight](readiness/snapshot-checks.json) passed on **e48a26e**:
+806 build inputs/3,703,423 bytes;required wrapper/MPI/pipeline and
+retained-native manifest paths exist. All six affected reviewer entry points passed
+from frozen source;69,746 retained input bytes were independently copied and
+checksum-verified using that snapshot's exact helper. Subsequent readiness commit
+changes documentation/evidence only.
