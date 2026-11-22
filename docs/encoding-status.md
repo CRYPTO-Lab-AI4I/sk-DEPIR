@@ -868,7 +868,7 @@ separate measured setup, not a production/fullsize reference requirement.
 **1.656894/1.531600 seconds**,s6 **0.511963/0.511681 seconds**. No stable speedup
 or fullsize memory/runtime inferred. [Evidence](../experiments/distributed-coordinator-stream/report.md).
 
-[Four-worker gate](../experiments/distributed-four-worker/report.md) prepared:
+[Four-worker gate](../experiments/distributed-four-worker/report.md) submitted as **79239**:
 4 MPI workers share2H200s on2nodes,4CPU cores/8GiB host unchanged. Each worker
 owns at most64MiB GPU payload,128MiB/card aggregate. This is multi-peer correctness,
 not four-GPU speedup; four-worker full root/discovery/persistence integration and

@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 13:36 | SCALING-168 | Handoff | [Four-worker s18 collectives79239 submitted](2026-11-22-1336-codex-scaling-168-handoff.md) |
 | 2026-11-22 13:35 | SCALING-168 | Prepared | [Four-worker collective gate ready](2026-11-22-1335-codex-scaling-168-prepared.md) |
 | 2026-11-22 13:27 | SCALING-168 | Started | [Coordinator passed;four-worker collective integration](2026-11-22-1327-codex-scaling-168-started.md) |
 | 2026-11-22 13:20 | SCALING-167 | Handoff | [Verified snapshot;coordinator retry79213 submitted](2026-11-22-1320-codex-scaling-167-handoff.md) |

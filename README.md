@@ -120,7 +120,7 @@ allocation guards remain. [Bounded coordinator diagnostics](experiments/distribu
 streaming support and reading retained native reference files. The coordinator
 no longer builds full reference/support copies in this explicit pilot mode.
 [Four-worker collective validation](experiments/distributed-four-worker/report.md)
-is prepared on the same two GPUs; larger root/discovery integration remains. Full s18 preprocessing is not validated.
+was submitted as **79239** on the same two GPUs; larger root/discovery integration remains. Full s18 preprocessing is not validated.
 No fullsize/production preprocessing or fulls18 speedup is claimed. No encoding default
 or client CUDA/MPI dependency changes.
 

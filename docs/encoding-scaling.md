@@ -3203,3 +3203,9 @@ cost is unknown and may slow this bounded test; it is not a new performance defa
 Use one normal32/4096-value FFT/product suite and smallest32-value sanitizers
 for the new worker layout. Then integrate rank-owned multi-level roots/discovery
 and perform representative scaling before a fulls18 topology/budget submission.
+
+Submitted **79239**,workers-01,implementation139d75e after recording real snapshot
+preflight372cf19 (790 files;reviewer passes from frozen source).
+[Receipt](../experiments/distributed-four-worker/submission.json). Same2H200/2nodes/
+4CPU/8GiB request,4workers with64MiBowned each/128MiBcard aggregate. No monitoring
+until completion ping.

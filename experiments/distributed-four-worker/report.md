@@ -1,6 +1,7 @@
 # Four-worker distributed GPU collective validation
 
-Status: **prepared; GPU validation pending**. Freeze source before submission;
+Status: **submitted as79239**, `workers-01`, implementation `139d75e`.
+[Receipt](submission.json), [scheduler log](slurm-79239.log). GPU results pending;
 actual producing revision/source identities are recorded by the controller.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/checks.json).
@@ -103,3 +104,9 @@ warnings separately from successful builds. Full multi-level distributed roots,
 four-worker genuine discovery/generator/restart integration,more physical GPUs/
 nodes and fulls18 remain separate remaining work. No new experiment resource
 admission is inferred from capacity estimates.
+
+
+[Committed snapshot check](readiness/snapshot-checks.json) passed:790 files /
+3,633,152 bytes,required driver/wrapper/runner files present,and new reviewer
+suite passed from frozen source. No local GPU/MPI initialization. Submission
+revision372cf19 adds only this evidence to implementation139d75e.
