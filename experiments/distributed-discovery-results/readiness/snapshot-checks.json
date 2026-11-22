@@ -1,0 +1,92 @@
+{
+  "status": "passed",
+  "utc": "2026-11-22T20:54:01.637399+00:00",
+  "revision": "1d8e0006bd41ff422cff32b539a92130c7e2ab72",
+  "source_files": 837,
+  "source_bytes": 3837521,
+  "required": [
+    "encoding/liftrs-shared/discovery_union.go",
+    "encoding/liftrs-shared/discovery_union_test.go",
+    "encoding/liftrs-shared/distributed_executor_cuda.go",
+    "encoding/liftrs-shared/distributed_discovery_gpu_test.go",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go",
+    "experiments/distributed-discovery-results/run.py",
+    "experiments/distributed-discovery-results/test_review.py",
+    "experiments/distributed-discovery-results/analyze.py",
+    "experiments/distributed-discovery-results/run.sbatch",
+    "experiments/distributed-spectrum-publication/run.py",
+    "experiments/distributed-pipeline-scaling/run.py",
+    "experiments/distributed-pipeline-scaling/preflight.py",
+    "experiments/distributed-root/rank.sh",
+    "experiments/distributed-coordinator-stream/reference-inputs.json",
+    "experiments/distributed-owned-roots/root-references.json"
+  ],
+  "checks": {
+    "distributed-discovery-results": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+    },
+    "distributed-spectrum-publication": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+    },
+    "distributed-pipeline-scaling": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.004s\n\nOK\n"
+    },
+    "distributed-prefix-checkpoints": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.035s\n\nOK\n"
+    },
+    "distributed-owned-roots": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n"
+    },
+    "distributed-pipeline-wide": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n"
+    },
+    "distributed-pipeline-four": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.031s\n\nOK\n"
+    },
+    "distributed-restart-pilot": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.027s\n\nOK\n"
+    },
+    "distributed-preprocessing-pilot": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n"
+    },
+    "distributed-coordinator-stream": {
+      "exit_code": 0,
+      "output": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.005s\n\nOK\n"
+    },
+    "distributed-root-hierarchy": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.037s\n\nOK\n"
+    },
+    "distributed-discovery-hierarchy": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+    }
+  },
+  "native_historical_bytes_verified": 108014,
+  "native_parameters": {
+    "spec": {
+      "FieldDegree": 8,
+      "Dimension": 2,
+      "CurveDegree": 5
+    },
+    "k": 7381,
+    "n": 65536,
+    "polynomial": 285,
+    "delta": 32,
+    "omega": 260,
+    "samples": 2
+  },
+  "native_code_inputs_verified": 381,
+  "native_binary_sha256": "1fe6d91e3d38280a2076f0bd0797e4f9b599548886d911d6fd15d3fc3dab0d9e",
+  "native_build_provenance": "Successfully compiled tagged binary;all frozen code inputs byte-identical to build tree. Fresh frozen-source build before GPU phases inside admitted allocation;no unnecessary second potentially>30s local rebuild.",
+  "native_preflight": "snapshot-native.log"
+}

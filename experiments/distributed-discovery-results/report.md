@@ -1,6 +1,6 @@
 # Bounded discovery-result consumption
 
-Status: prepared; GPU validation not yet submitted. Parent revision0ec3410.
+Status: prepared; GPU validation not yet submitted. Implementation **1d8e000**;parent0ec3410.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/). Planned results:
 `runs/results-01/`; immutable source, native references, binaries/profiles and
@@ -133,3 +133,15 @@ RSS/device memory and exact outputs. Next audit remaining live discovery/root/
 reciprocal arrays,ownership bounds and production persistence/logging rather than
 extrapolating these small cases into fulls18 support. Fulls18 requires concrete
 working-set,topology/storage/headroom/deadline agreement and remains unrun.
+
+
+[Committed-source preflight](readiness/snapshot-checks.json) passed on1d8e000:
+**837 build inputs /3,837,521 bytes**,required union/executor/pilot/
+wrapper/native-manifest paths and12reviewer suites checked from frozen source.
+All **381 code input hashes** match the successfully compiled tagged readiness
+binary's build tree;binary hash is recorded. Frozen preflight helper checked
+108014 historical native bytes and actual s8/curve5 support/root geometry.
+Fresh snapshot build runs inside admitted allocation before GPU phases;second
+potentially>30s local rebuild omitted. [Native preflight](readiness/snapshot-native.log),
+[CPU](readiness/cpu.log),[race](readiness/race.log),[native tests](readiness/native-tests.log).
+No local CUDA/MPI initialization.
