@@ -1,0 +1,55 @@
+{
+  "utc": "2026-11-22T19:18:42.403515+00:00",
+  "status": "passed",
+  "revision": "638a273b73a2682d62308f2cbb255f0286ff6cce",
+  "source_files": 818,
+  "source_bytes": 3770325,
+  "required": [
+    "encoding/liftrs-shared/distributed_executor_cuda.go",
+    "encoding/liftrs-shared/pipeline_executor_gpu_test.go",
+    "encoding/liftrs-shared/pipeline_roots_gpu_test.go",
+    "experiments/distributed-owned-roots/run.py",
+    "experiments/distributed-owned-roots/root-references.json",
+    "experiments/distributed-owned-roots/run.sbatch",
+    "experiments/distributed-coordinator-stream/reference-inputs.json",
+    "experiments/distributed-root/rank.sh",
+    "experiments/distributed-root/mpi/world.go"
+  ],
+  "root_reference_files": 64,
+  "root_reference_bytes_verified": 112460,
+  "code_reference_bytes_verified": 69746,
+  "checks": {
+    "distributed-owned-roots": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n"
+    },
+    "distributed-pipeline-wide": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n"
+    },
+    "distributed-pipeline-four": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.031s\n\nOK\n"
+    },
+    "distributed-restart-pilot": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.028s\n\nOK\n"
+    },
+    "distributed-preprocessing-pilot": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n"
+    },
+    "distributed-coordinator-stream": {
+      "exit_code": 0,
+      "output": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.005s\n\nOK\n"
+    },
+    "distributed-root-hierarchy": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.037s\n\nOK\n"
+    },
+    "distributed-discovery-hierarchy": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+    }
+  }
+}

@@ -138,3 +138,11 @@ GPU composition remains pending. Scalable complete field18 discovery/working-set
 admission,full-domain generator/spectrum and final artifacts,larger representative
 scaling/interruption/relaunch,measured headroom and separate fulls18 admission
 remain. A successful small owned-root gate does not establish fulls18 readiness.
+
+
+[Actual committed-source preflight](readiness/snapshot-checks.json) passed on
+**638a273**:818 build inputs/3,770,325 bytes. All required root/
+MPI/wrapper/runtime-manifest paths exist;all eight reviewer suites passed from
+frozen source. Its exact copy helpers verified112,460 retained root bytes
+and69,746 native code bytes before allocation. The subsequent readiness
+commit changes only documentation/evidence.
