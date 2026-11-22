@@ -20,6 +20,14 @@ def review(rows,directory,resume=False,source=None,cold=None):
     return source_claims(SCALE['review'](rows,directory,resume,source,cold),narrow=True)
 
 
+def resident_review(rows,directory):
+    result=SCALE['review'](rows,directory)
+    for r in result['measurements']:
+        assert r['spectrum_mode']=='resident'
+        assert r['spectrum_resident_host_words']==r['spectrum_host_words']==r['spectrum_downloaded_words']==r['words']
+    return result
+
+
 def wide_review(rows,directory):
     result=source_claims(WIDE['wide_review'](rows,directory))
     # Low-dimensional field18 spectra can remain in Fq. The separate high-bit
@@ -36,7 +44,7 @@ def wide_review(rows,directory):
 def suite(c):
     c['run']('spectrum-source-review-tests',['python3','-B','experiments/distributed-spectrum-publication/test_review.py'],30)
     c['env']['PIR_PIPELINE_SPECTRUM']='stream'
-    extra=[dict(name='wide',test='TestWidePipelineTail',memcheck=False,profile=True,env=dict(PIR_PIPELINE_RESUME_FROM='',PIR_PIPELINE_SPECTRUM='stream'),review=wide_review)]
+    extra=[dict(name='resident',test='TestDistributedPreprocessingPilot',memcheck=False,profile=True,env=dict(PIR_PIPELINE_RESUME_FROM='',PIR_PIPELINE_SPECTRUM='resident'),review=resident_review),dict(name='wide',test='TestWidePipelineTail',memcheck=False,profile=True,env=dict(PIR_PIPELINE_RESUME_FROM='',PIR_PIPELINE_SPECTRUM='stream'),review=wide_review)]
     result=SCALE['suite'](c,review_fn=review,extra_arms=extra)
     c['resources'].update(spectrum_output='explicit GPU tile source,one download/word,no actual resident host spectrum',scope='Genuine s8/curve5 source-backed cold/fresh-prefix8 restart and bounded canonical field18 source/native/high-bit regression;not fulls18')
     return result

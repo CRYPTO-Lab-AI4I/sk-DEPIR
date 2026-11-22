@@ -68,10 +68,18 @@ arm/controller latency and bytes,not just the transform phase. No old cache is d
 
 Reuse the [larger complete suite](../distributed-pipeline-scaling/run.py) and
 its independently generated native code/support/generator/spectrum and every
-root leaf/merge/final reference. Two genuine s8/curve5 arms:cold plus fresh-process
+root leaf/merge/final reference. Two source-mode genuine s8/curve5 arms:cold plus fresh-process
 prefix8 restart. Require identical canonical output,all MPI route/proof checks,
 completed-prefix/full identity verification,no resident actual host spectrum,
 source tile≤4096words,and exactly local-word-count downloaded once per arm.
+
+A third genuine cold arm retains the resident default in the same allocation.
+It repeats exact native/artifact checks and requires the full resident spectrum
+allocation. This verifies the extracted common transform's old behavior and gives
+one matched source/resident latency sample. Both use identical code,inputs,proof
+logging and compact checkpoint layout. Arm order is fixed,with no statistical
+speedup claim;cache/node/ordering effects remain. This short extra arm is needed
+to check the default and make the memory–time trade-off reviewable.
 
 One bounded field18 arm reuses the existing wide tail with dimensions5 and12,
 actual GPU-backed spectrum reads,independent native FFT/reciprocal/convolution,
@@ -100,7 +108,7 @@ No increased budgets or fixed GPU-count design ceiling.
 
 Estimate **3–6 minutes excluding queue**,based on81286's2min22.513s controller
 and81190's2min49.562s for four arms. Cold/restart workload is unchanged except its
-output source;the extra bounded wide arm previously took6.841s including setup
+output source;the matched resident arm previously took11.147s and the bounded wide arm6.841s including setup
 and verification. Fullsize latency remains unknown. Cache projected below48 MiB;
 worker logs below12 MiB/file based on81286's6.14 MB cold log and81190's7.77 MB wide
 log. Native/reference cache plus existing binaries/diagnostics remain well below

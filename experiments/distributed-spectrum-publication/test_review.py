@@ -23,9 +23,11 @@ class ReviewTest(unittest.TestCase):
             env,kw=captured[0]
             self.assertEqual(env,dict(PIR_PIPELINE_SPECTRUM='stream'))
             self.assertIs(kw['review_fn'],H['review'])
-            self.assertEqual(len(kw['extra_arms']),1)
-            self.assertEqual(kw['extra_arms'][0]['test'],'TestWidePipelineTail')
-            self.assertIs(kw['extra_arms'][0]['review'],H['wide_review'])
+            self.assertEqual(len(kw['extra_arms']),2)
+            self.assertEqual(kw['extra_arms'][0]['name'],'resident')
+            self.assertIs(kw['extra_arms'][0]['review'],H['resident_review'])
+            self.assertEqual(kw['extra_arms'][1]['test'],'TestWidePipelineTail')
+            self.assertIs(kw['extra_arms'][1]['review'],H['wide_review'])
         finally:H['SCALE']['suite']=old
 
 

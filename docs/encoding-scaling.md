@@ -3545,3 +3545,11 @@ Same admitted two-node/two-H200 resources/caps;preflight shared paths,ordinary
 CPU/race/error/high-bit and exact committed source before submission. After
 completion,update scaling reference and remaining fullsize ownership/working-set
 requirements before separate fulls18 resource/storage/deadline admission.
+
+
+The bounded spectrum suite also includes one matched resident-default cold arm
+in the same allocation. Extracting the shared transform changes that code path;
+this checks legacy behavior and provides one source/resident latency sample
+under identical inputs/proof/checkpoint boundaries. Fixed arm order and one sample
+are not statistical speedup evidence. Resource caps unchanged;projected extra
+approximately11s arm time plus profile review fits the recorded3–6min estimate.
