@@ -9,10 +9,10 @@ DISCOVERY=runpy.run_path(str(HERE.parent/'distributed-discovery-pilot/run.py'))
 PILOT=DISCOVERY['PILOT'];VECTORS=PILOT['VECTORS']
 
 
-def review(rows,directory,resume=False,source=None,cold=None,ranks=2,hierarchy=False,core_review=None):
+def review(rows,directory,resume=False,source=None,cold=None,ranks=2,hierarchy=False,core_review=None,cases=(4,6),canonical=None,curve=2):
     if resume:
         assert not any(r.get('discovery')is True for r in rows)
-        result=PILOT['review'](rows,directory,initial=8,streamed=True,ranks=ranks,hierarchy=hierarchy)
+        result=PILOT['review'](rows,directory,initial=8,streamed=True,ranks=ranks,hierarchy=hierarchy,cases=cases,curve=curve)
     else:result=DISCOVERY['review'](rows,directory,streamed=True)if core_review is None else core_review(rows,directory)
     processes={}
     hosts={r['rank']:r['host']for r in rows if r.get('kind')=='host'}
@@ -21,14 +21,14 @@ def review(rows,directory,resume=False,source=None,cold=None,ranks=2,hierarchy=F
         assert r['pid']>0
         processes[str(r['rank'])]=dict(pid=r['pid'],host=hosts[r['rank']])
         s=r['s'];label=f's{s}'
-        assert result['artifacts'][label]['code_sha256']==DISCOVERY['CANONICAL'][s]
+        assert result['artifacts'][label]['code_sha256']==(DISCOVERY['CANONICAL']if canonical is None else canonical)[s]
         assert (directory/f'{label}-generator.bin').read_bytes()==(directory/f'{label}-rank-0-reference-g.bin').read_bytes()
     if resume:
         assert source is not None and cold is not None
-        events=[r for r in rows if r.get('kind')=='resume'];assert len(events)==2*ranks
+        events=[r for r in rows if r.get('kind')=='resume'];assert len(events)==len(cases)*ranks
         for r in events:assert Path(r['source'])==source and r['prefix']==8 and r['verified']is True
         for rank,process in processes.items():assert process!=cold['processes'][rank]
-        for s in (4,6):
+        for s in cases:
             for rank in range(ranks):
                 for stage in ('root','newton-8'):
                     name=f's{s}-rank-{rank}-{stage}.bin';assert (directory/name).read_bytes()==(source/name).read_bytes()

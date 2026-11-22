@@ -9,8 +9,82 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"strconv"
+	"strings"
 	"testing"
 )
+
+// Pilot cases are explicit bounded test shapes, not production parameter support.
+// Keep the historical suite unless a scaling experiment selects another shape.
+func pilotCases(value string, small bool) ([]int, error) {
+	cases := []int{4, 6}
+	if value != "" {
+		cases = nil
+		seen := map[int]bool{}
+		for _, part := range strings.Split(value, ",") {
+			s, err := strconv.Atoi(part)
+			if err != nil || s < 4 || s > 8 || seen[s] {
+				return nil, fmt.Errorf("bounded pilot cases")
+			}
+			seen[s] = true
+			cases = append(cases, s)
+		}
+	}
+	if small {
+		cases = cases[:1]
+	}
+	return cases, nil
+}
+
+// Curve selection is independent of backend/case selection; historical tests use2.
+func selectedPilotCurve(t *testing.T) int {
+	t.Helper()
+	value := os.Getenv("PIR_PIPELINE_CURVE")
+	if value == "" {
+		return 2
+	}
+	curve, err := strconv.Atoi(value)
+	if err != nil || curve < 2 || curve > 5 {
+		t.Fatal("bounded pilot curve degree")
+	}
+	return curve
+}
+
+func selectedPilotCases(t *testing.T) []int {
+	t.Helper()
+	cases, err := pilotCases(os.Getenv("PIR_PIPELINE_CASES"), os.Getenv("PIR_PIPELINE_SMALL") == "1")
+	if err != nil {
+		t.Fatal(err)
+	}
+	return cases
+}
+
+func TestPilotCurve(t *testing.T) {
+	for _, value := range []string{"", "2", "5"} {
+		t.Setenv("PIR_PIPELINE_CURVE", value)
+		want := 2
+		if value == "5" {
+			want = 5
+		}
+		if got := selectedPilotCurve(t); got != want {
+			t.Fatal(got, want)
+		}
+	}
+}
+
+func TestPilotCases(t *testing.T) {
+	for _, value := range []string{"3", "9", "8,8", "", "4,6", "8"} {
+		cases, err := pilotCases(value, false)
+		valid := value == "" || value == "4,6" || value == "8"
+		if (err == nil) != valid {
+			t.Fatalf("%q cases=%v error=%v", value, cases, err)
+		}
+	}
+	cases, err := pilotCases("8,6", true)
+	if err != nil || len(cases) != 1 || cases[0] != 8 {
+		t.Fatal(cases, err)
+	}
+}
 
 // Retained references are test inputs with independently verified provenance,
 // not a discovery source or a substitute for the complete polynomial identity.
@@ -49,7 +123,7 @@ func readPilotReference(directory string, s int) (pilotReferenceRecord, error) {
 		return record, fmt.Errorf("reference trailing metadata")
 	}
 	info := record.Parameters
-	if info.Spec != (Spec{s, 2, 2}) || info.N != uint64(1)<<uint(2*s) || info.Samples < 1 || info.Samples > discoverySampleLimit(s) {
+	if (info.Spec.FieldDegree != s || info.Spec.Dimension != 2 || info.Spec.CurveDegree < 2 || info.Spec.CurveDegree > 5) || info.N != uint64(1)<<uint(2*s) || info.Samples < 1 || info.Samples > discoverySampleLimit(s) {
 		return record, fmt.Errorf("reference shape")
 	}
 	if err = validSupportParameters(info, PreprocessingLimits{MaxElements: 1 << 20, MaxHostArrayBytes: 32 << 20}); err != nil {

@@ -9,9 +9,9 @@ OWN=runpy.run_path(str(HERE.parent/'distributed-owned-roots/run.py'))
 VECTORS=OWN['VECTORS']
 
 
-def storage(directory):
+def storage(directory,cases=(4,6)):
     result={}
-    for s in (4,6):
+    for s in cases:
         label=f's{s}';n=1<<(2*s);payload=padded=empty=stages=0
         for path in sorted(directory.glob(f'{label}-*-commit.json')):
             record=json.loads(path.read_text());assert record['layout']=='prefix'and record['n']==n and record['ranks']==4

@@ -1,0 +1,48 @@
+{
+  "utc": "2026-11-22T20:14:44.364152+00:00",
+  "status": "local checks passed;exact final frozen source check pending",
+  "parent_revision": "9139e9e",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_reference_test.go": "9ea12d69f69b768e7425bb12de9ceefd3e0270bf01a07aa1ee5eacfc354ce913",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go": "9efbb8ca212e95a5be1b539e258047d67dc0c45a1ee0d14f5734fe0f61f8b8f0",
+    "encoding/liftrs-shared/root_hierarchy_gpu_test.go": "0566d97da4d4bb45020cfe9e6353a6b4d9554f71c73e19024e5d99b1c773e0fa",
+    "experiments/distributed-owned-roots/run.py": "1f7f2eeaf8ea1a47b64e59809f2ebcd2e69174d6f3187c148226d89c97f58da2",
+    "experiments/distributed-preprocessing-pilot/run.py": "37a21cefbcf07bea134ada6bfa1bc9e7426a8db22de613b21cbf216105c2a433",
+    "experiments/distributed-restart-pilot/run.py": "8a7f07ce101d1ce90e362720a6d6ce9af609764e93ff16164b230013bd7bf9aa",
+    "experiments/distributed-prefix-checkpoints/run.py": "23a039e70bc6d5b1f5fbaf2f67093c94ab99c8f027e906fa201e9cf4440a02da",
+    "experiments/distributed-pipeline-scaling/analyze.py": "f0625b386ac8f1b10ce98002b359bb11d4bcf09cad70ca7226bac3610c0e1e66",
+    "experiments/distributed-pipeline-scaling/preflight.py": "8f4088af1c50f83b10c22bc821dd29ac0c5be5a3340f49f45267e7b126f8a13a",
+    "experiments/distributed-pipeline-scaling/run.py": "5700c2a9dd9eb502eb0e10fc8525cdd118497193b5aef0adde168f6014ea2270",
+    "experiments/distributed-pipeline-scaling/test_review.py": "a0683b34393925cfcba8471cfdfd8adb29af91cf5284eaca42bdeaccb42e614d"
+  },
+  "checks": {
+    "build.log": "",
+    "cpu.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t0.020s\n",
+    "distributed-coordinator-stream.log": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.005s\n\nOK\n",
+    "distributed-discovery-hierarchy.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+    "distributed-owned-roots.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n",
+    "distributed-pipeline-four.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.031s\n\nOK\n",
+    "distributed-pipeline-wide.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n",
+    "distributed-prefix-checkpoints.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.035s\n\nOK\n",
+    "distributed-preprocessing-pilot.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.008s\n\nOK\n",
+    "distributed-restart-pilot.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.028s\n\nOK\n",
+    "distributed-root-hierarchy.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.037s\n\nOK\n",
+    "initial-curve2-s8.log": "=== RUN   TestExportPilotReferences\n    distributed_pipeline_gpu_test.go:700: support differs from preprocessing/code-data shape\n--- FAIL: TestExportPilotReferences (0.18s)\nFAIL\n",
+    "initial-ownership-mismatch.log": "Native code/support/default metadata hashes matched; leaf comparison failed at s4-rank-0-leaf.bin. Export used balanced synthetic partition instead of discoveryRootOwner. Corrected to discovery stable orbit ownership before any GPU submission.\n",
+    "legacy-export-checked.log": "=== RUN   TestExportPilotReferences\n    distributed_pipeline_gpu_test.go:736: s=4 reference files exported without GPU/MPI initialization\n    distributed_pipeline_gpu_test.go:736: s=6 reference files exported without GPU/MPI initialization\n--- PASS: TestExportPilotReferences (0.40s)\n=== RUN   TestPilotHierarchyReferences\n    root_hierarchy_gpu_test.go:386: s=4 retained K=97 support digest/closure and four-rank hierarchy admitted\n    root_hierarchy_gpu_test.go:386: s=6 retained K=1910 support digest/closure and four-rank hierarchy admitted\n--- PASS: TestPilotHierarchyReferences (0.00s)\nPASS\n",
+    "legacy-export.log": "=== RUN   TestExportPilotReferences\n    distributed_pipeline_gpu_test.go:736: s=4 reference files exported without GPU/MPI initialization\n    distributed_pipeline_gpu_test.go:736: s=6 reference files exported without GPU/MPI initialization\n--- PASS: TestExportPilotReferences (0.28s)\nPASS\n",
+    "legacy-replay.log": "All four81190 arms match saved composition exactly through updated shared reviewers;no scheduler query.\n",
+    "native-export-checked.log": "=== RUN   TestExportPilotReferences\n    distributed_pipeline_gpu_test.go:736: s=8 reference files exported without GPU/MPI initialization\n--- PASS: TestExportPilotReferences (1.08s)\n=== RUN   TestPilotHierarchyReferences\n    root_hierarchy_gpu_test.go:386: s=8 retained K=7381 support digest/closure and four-rank hierarchy admitted\n--- PASS: TestPilotHierarchyReferences (0.00s)\nPASS\n",
+    "native-export.log": "=== RUN   TestExportPilotReferences\n    distributed_pipeline_gpu_test.go:736: s=8 reference files exported without GPU/MPI initialization\n--- PASS: TestExportPilotReferences (1.33s)\nPASS\n",
+    "native-input.log": "=== RUN   TestPilotCases\n--- PASS: TestPilotCases (0.00s)\n=== RUN   TestPilotHierarchyReferences\n    root_hierarchy_gpu_test.go:386: s=8 retained K=7381 support digest/closure and four-rank hierarchy admitted\n--- PASS: TestPilotHierarchyReferences (0.00s)\nPASS\n",
+    "native-s7.log": "=== RUN   TestExportPilotReferences\n    distributed_pipeline_gpu_test.go:700: support differs from preprocessing/code-data shape\n--- FAIL: TestExportPilotReferences (0.03s)\nFAIL\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.061s\n",
+    "review.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.004s\n\nOK\n"
+  },
+  "notes": [
+    "Curve-degree2 s7/s8 rejected by K\u2264N/2 native preparation;select5 explicitly for s8.",
+    "Exporter ownership corrected to shared discoveryRootOwner;all108014 historical native bytes now match.",
+    "Both preflight issues caught before GPU submission.",
+    "No increased budgets/default changes;fulls18 remains unrun."
+  ]
+}

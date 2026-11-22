@@ -29,7 +29,7 @@ func pilotReference(t *testing.T, s int) (*CodeSupport, *PreparedCode) {
 
 func pilotReferenceReader(t *testing.T, s int, random io.Reader) (*CodeSupport, *PreparedCode) {
 	t.Helper()
-	session, err := NewCodePreprocessor(Spec{s, 2, 2}, preprocessingOptions(s, 1))
+	session, err := NewCodePreprocessor(Spec{s, 2, selectedPilotCurve(t)}, preprocessingOptions(s, 1))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -45,10 +45,10 @@ func pilotReferenceReader(t *testing.T, s int, random io.Reader) (*CodeSupport, 
 	return support, prepared
 }
 
-// Native-only preflight covers actual K, degree and Newton bounds for the two
+// Native-only preflight covers actual K, degree and Newton bounds for the selected
 // genuine pilot shapes. It initializes neither CUDA nor MPI.
 func TestDistributedPilotShapes(t *testing.T) {
-	for _, s := range []int{4, 6} {
+	for _, s := range selectedPilotCases(t) {
 		support, prepared := pilotReference(t, s)
 		k := len(support.exponents)
 		n := 1 << uint(2*s)
@@ -69,10 +69,7 @@ func TestDistributedPreprocessingPilot(t *testing.T) {
 	if directory == "" {
 		t.Skip("explicit complete preprocessing pilot")
 	}
-	cases := []int{4, 6}
-	if os.Getenv("PIR_PIPELINE_SMALL") == "1" {
-		cases = cases[:1]
-	}
+	cases := selectedPilotCases(t)
 	ranks := 2
 	if value := os.Getenv("PIR_PIPELINE_RANKS"); value != "" {
 		var err error
@@ -173,6 +170,9 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 		}
 		var e error
 		retained, e = readPilotReference(referenceFrom, s)
+		if e == nil && retained.Parameters.Spec.CurveDegree != selectedPilotCurve(t) {
+			e = fmt.Errorf("retained curve degree mismatch")
+		}
 		if e != nil {
 			t.Fatal(e)
 		}
@@ -198,7 +198,7 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 			options.Progress = func(p PreprocessingProgress) {
 				emit(map[string]any{"kind": "progress", "case": label, "phase": "discovery/" + p.Phase, "event": p.Event, "completed": p.Completed, "total": p.Total, "unit": p.Unit})
 			}
-			session, err := NewCodePreprocessor(Spec{s, 2, 2}, options)
+			session, err := NewCodePreprocessor(Spec{s, 2, selectedPilotCurve(t)}, options)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -229,7 +229,7 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 		archiveSink = archive.append
 	}
 	if layout == "distributed" && resumeFrom == "" {
-		discovered = partitionedDiscovery[Word](t, w, Spec{s, 2, 2}, emit, archiveSink)
+		discovered = partitionedDiscovery[Word](t, w, Spec{s, 2, selectedPilotCurve(t)}, emit, archiveSink)
 		if w.Rank == 0 {
 			expectedSamples := 0
 			if referenceFrom == "" {
@@ -271,7 +271,7 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	if k < 2 || k > n/2 {
 		t.Fatal("pilot K")
 	}
-	h, field, err := canonicalScalingCodeHeader(s, 2, uint64(k), uint64(n))
+	h, field, err := canonicalScalingCodeHeader(s, selectedPilotCurve(t), uint64(k), uint64(n))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -698,7 +698,7 @@ func TestExportPilotReferences(t *testing.T) {
 	if directory == "" {
 		t.Skip("explicit bounded native reference export")
 	}
-	for _, s := range []int{4, 6} {
+	for _, s := range selectedPilotCases(t) {
 		entropy := sha256.New()
 		support, prepared := pilotReferenceReader(t, s, io.TeeReader(rand.New(rand.NewSource(109)), entropy))
 		label := fmt.Sprintf("s%d", s)
@@ -730,6 +730,9 @@ func TestExportPilotReferences(t *testing.T) {
 			record.SHA[name] = fmt.Sprintf("%x", sha256.Sum256(data))
 		}
 		write(label+"-reference.json", func(w io.Writer) error { return json.NewEncoder(w).Encode(record) })
+		if os.Getenv("PIR_PIPELINE_ROOT_EXPORT") == "1" {
+			exportPilotRootReferences(t, directory, s, support)
+		}
 		t.Logf("s=%d reference files exported without GPU/MPI initialization", s)
 	}
 }

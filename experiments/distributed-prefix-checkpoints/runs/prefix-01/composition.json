@@ -1,0 +1,2209 @@
+{
+  "status": "passed",
+  "arms": {
+    "cold": {
+      "measurements": [
+        {
+          "case": "s4",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "elapsed_seconds": 2.755478423,
+          "first": 0,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 53940,
+          "peak_rss_bytes": 381825024,
+          "pid": 2477086,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 0,
+          "reference_mode": "retained",
+          "root_a_count": 37,
+          "root_b_count": 25,
+          "root_counts": [
+            37,
+            25,
+            27,
+            12
+          ],
+          "root_mode": "owned",
+          "root_performed": true,
+          "s": 4,
+          "seconds": 2.742444533,
+          "support_streamed": true,
+          "utc": "2026-11-22T19:57:57.676146584Z",
+          "words": 64
+        },
+        {
+          "case": "s6",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "elapsed_seconds": 5.560350831,
+          "first": 0,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 66612,
+          "peak_rss_bytes": 383922176,
+          "pid": 2477086,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 0,
+          "reference_mode": "retained",
+          "root_a_count": 681,
+          "root_b_count": 462,
+          "root_counts": [
+            681,
+            462,
+            480,
+            291
+          ],
+          "root_mode": "owned",
+          "root_performed": true,
+          "s": 6,
+          "seconds": 2.804527673,
+          "support_streamed": true,
+          "utc": "2026-11-22T19:58:00.481018982Z",
+          "words": 1024
+        },
+        {
+          "case": "s4",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "elapsed_seconds": 2.753949775,
+          "first": 64,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 53940,
+          "peak_rss_bytes": 393932800,
+          "pid": 2477087,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 1,
+          "reference_mode": "retained",
+          "root_a_count": 37,
+          "root_b_count": 25,
+          "root_counts": [
+            37,
+            25,
+            27,
+            12
+          ],
+          "root_mode": "owned",
+          "root_performed": true,
+          "s": 4,
+          "seconds": 2.742444533,
+          "support_streamed": true,
+          "utc": "2026-11-22T19:57:57.676152308Z",
+          "words": 64
+        },
+        {
+          "case": "s6",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "elapsed_seconds": 5.558816607,
+          "first": 1024,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 66612,
+          "peak_rss_bytes": 394981376,
+          "pid": 2477087,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 1,
+          "reference_mode": "retained",
+          "root_a_count": 681,
+          "root_b_count": 462,
+          "root_counts": [
+            681,
+            462,
+            480,
+            291
+          ],
+          "root_mode": "owned",
+          "root_performed": true,
+          "s": 6,
+          "seconds": 2.804527673,
+          "support_streamed": true,
+          "utc": "2026-11-22T19:58:00.481018964Z",
+          "words": 1024
+        },
+        {
+          "case": "s4",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "elapsed_seconds": 2.750488642,
+          "first": 128,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 53940,
+          "peak_rss_bytes": 392298496,
+          "pid": 144773,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 2,
+          "reference_mode": "retained",
+          "root_a_count": 37,
+          "root_b_count": 25,
+          "root_counts": [
+            37,
+            25,
+            27,
+            12
+          ],
+          "root_mode": "owned",
+          "root_performed": true,
+          "s": 4,
+          "seconds": 2.742444533,
+          "support_streamed": true,
+          "utc": "2026-11-22T19:57:57.67696545Z",
+          "words": 64
+        },
+        {
+          "case": "s6",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "elapsed_seconds": 5.55536572,
+          "first": 2048,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 66612,
+          "peak_rss_bytes": 392298496,
+          "pid": 144773,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 2,
+          "reference_mode": "retained",
+          "root_a_count": 681,
+          "root_b_count": 462,
+          "root_counts": [
+            681,
+            462,
+            480,
+            291
+          ],
+          "root_mode": "owned",
+          "root_performed": true,
+          "s": 6,
+          "seconds": 2.804527673,
+          "support_streamed": true,
+          "utc": "2026-11-22T19:58:00.481842598Z",
+          "words": 1024
+        },
+        {
+          "case": "s4",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "elapsed_seconds": 2.748730516,
+          "first": 192,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 53940,
+          "peak_rss_bytes": 394108928,
+          "pid": 144774,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 3,
+          "reference_mode": "retained",
+          "root_a_count": 37,
+          "root_b_count": 25,
+          "root_counts": [
+            37,
+            25,
+            27,
+            12
+          ],
+          "root_mode": "owned",
+          "root_performed": true,
+          "s": 4,
+          "seconds": 2.742444533,
+          "support_streamed": true,
+          "utc": "2026-11-22T19:57:57.676971666Z",
+          "words": 64
+        },
+        {
+          "case": "s6",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "elapsed_seconds": 5.553601305,
+          "first": 3072,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 66612,
+          "peak_rss_bytes": 395157504,
+          "pid": 144774,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 3,
+          "reference_mode": "retained",
+          "root_a_count": 681,
+          "root_b_count": 462,
+          "root_counts": [
+            681,
+            462,
+            480,
+            291
+          ],
+          "root_mode": "owned",
+          "root_performed": true,
+          "s": 6,
+          "seconds": 2.804527673,
+          "support_streamed": true,
+          "utc": "2026-11-22T19:58:00.481842583Z",
+          "words": 1024
+        }
+      ],
+      "artifacts": {
+        "s4": {
+          "code_sha256": "69ebae873990075af7c9c558b5e9d76b2a4d237b89b4bb824205eb2de049c712",
+          "checkpoint_prefixes": [
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            159
+          ]
+        },
+        "s6": {
+          "code_sha256": "a384ea4123bb5bcbfaa9cde64afbe6e6c9091373e6c22129ceda8abdec5709c4",
+          "checkpoint_prefixes": [
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            2186
+          ]
+        }
+      },
+      "executor_calls": 96,
+      "operand_proof_events": 48,
+      "discovery": {
+        "s4": [
+          {
+            "case": "s4",
+            "discovery": true,
+            "elapsed_seconds": 1.788283928,
+            "entropy_sha256": "29cd25dfeea9b2cc2ec684de3df533e3b97fe64f1ec954a2e2e50c43906861b5",
+            "first": 0,
+            "grid_words": 64,
+            "k": 97,
+            "kind": "discovery-result",
+            "local_good": 43,
+            "owned_device_bytes": 53940,
+            "peak_rss_bytes": 378863616,
+            "rank": 0,
+            "raw_count": 43,
+            "root_count": 36,
+            "s": 4,
+            "samples": 1,
+            "utc": "2026-11-22T19:57:56.708950232Z"
+          },
+          {
+            "case": "s4",
+            "discovery": true,
+            "elapsed_seconds": 1.786672592,
+            "entropy_sha256": "",
+            "first": 64,
+            "grid_words": 64,
+            "k": 97,
+            "kind": "discovery-result",
+            "local_good": 23,
+            "owned_device_bytes": 53940,
+            "peak_rss_bytes": 390365184,
+            "rank": 1,
+            "raw_count": 23,
+            "root_count": 24,
+            "s": 4,
+            "samples": 1,
+            "utc": "2026-11-22T19:57:56.708874016Z"
+          },
+          {
+            "case": "s4",
+            "discovery": true,
+            "elapsed_seconds": 1.783260734,
+            "entropy_sha256": "",
+            "first": 128,
+            "grid_words": 64,
+            "k": 97,
+            "kind": "discovery-result",
+            "local_good": 23,
+            "owned_device_bytes": 53940,
+            "peak_rss_bytes": 388956160,
+            "rank": 2,
+            "raw_count": 23,
+            "root_count": 26,
+            "s": 4,
+            "samples": 1,
+            "utc": "2026-11-22T19:57:56.70973672Z"
+          },
+          {
+            "case": "s4",
+            "discovery": true,
+            "elapsed_seconds": 1.7815263350000001,
+            "entropy_sha256": "",
+            "first": 192,
+            "grid_words": 64,
+            "k": 97,
+            "kind": "discovery-result",
+            "local_good": 8,
+            "owned_device_bytes": 53940,
+            "peak_rss_bytes": 390410240,
+            "rank": 3,
+            "raw_count": 8,
+            "root_count": 11,
+            "s": 4,
+            "samples": 1,
+            "utc": "2026-11-22T19:57:56.709766778Z"
+          }
+        ],
+        "s6": [
+          {
+            "case": "s6",
+            "discovery": true,
+            "elapsed_seconds": 2.842996376,
+            "entropy_sha256": "1ca47a40c8b6a579b06d3d5921ee5312060b2a71233fccffb0c631c2fb49d594",
+            "first": 0,
+            "grid_words": 1024,
+            "k": 1910,
+            "kind": "discovery-result",
+            "local_good": 715,
+            "owned_device_bytes": 66612,
+            "peak_rss_bytes": 382873600,
+            "rank": 0,
+            "raw_count": 715,
+            "root_count": 680,
+            "s": 6,
+            "samples": 1,
+            "utc": "2026-11-22T19:57:57.763663151Z"
+          },
+          {
+            "case": "s6",
+            "discovery": true,
+            "elapsed_seconds": 2.841333933,
+            "entropy_sha256": "",
+            "first": 1024,
+            "grid_words": 1024,
+            "k": 1910,
+            "kind": "discovery-result",
+            "local_good": 465,
+            "owned_device_bytes": 66612,
+            "peak_rss_bytes": 393932800,
+            "rank": 1,
+            "raw_count": 465,
+            "root_count": 461,
+            "s": 6,
+            "samples": 1,
+            "utc": "2026-11-22T19:57:57.763535901Z"
+          },
+          {
+            "case": "s6",
+            "discovery": true,
+            "elapsed_seconds": 2.837945439,
+            "entropy_sha256": "",
+            "first": 2048,
+            "grid_words": 1024,
+            "k": 1910,
+            "kind": "discovery-result",
+            "local_good": 465,
+            "owned_device_bytes": 66612,
+            "peak_rss_bytes": 392298496,
+            "rank": 2,
+            "raw_count": 465,
+            "root_count": 479,
+            "s": 6,
+            "samples": 1,
+            "utc": "2026-11-22T19:57:57.764421711Z"
+          },
+          {
+            "case": "s6",
+            "discovery": true,
+            "elapsed_seconds": 2.836235711,
+            "entropy_sha256": "",
+            "first": 3072,
+            "grid_words": 1024,
+            "k": 1910,
+            "kind": "discovery-result",
+            "local_good": 265,
+            "owned_device_bytes": 66612,
+            "peak_rss_bytes": 394108928,
+            "rank": 3,
+            "raw_count": 265,
+            "root_count": 290,
+            "s": 6,
+            "samples": 1,
+            "utc": "2026-11-22T19:57:57.764476339Z"
+          }
+        ]
+      },
+      "discovery_wire_events": 72,
+      "hierarchy": {
+        "measurements": [
+          {
+            "dimension": 6,
+            "elapsed_seconds": 1.918843896,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 0,
+            "group_size": 2,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 53460,
+            "peak_rss_bytes": 378863616,
+            "rank": 0,
+            "stage": {
+              "Level": 1,
+              "First": 0,
+              "Ranks": 2,
+              "Domain": 64,
+              "Count": 61,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 1,
+                  "Domain": 37,
+                  "Count": 37
+                },
+                {
+                  "First": 1,
+                  "Ranks": 1,
+                  "Domain": 25,
+                  "Count": 25
+                }
+              ]
+            },
+            "tree_case": "s4",
+            "tree_level": 1,
+            "utc": "2026-11-22T19:57:56.839512249Z"
+          },
+          {
+            "dimension": 6,
+            "elapsed_seconds": 1.9171748100000001,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 1,
+            "group_size": 2,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 53460,
+            "peak_rss_bytes": 392884224,
+            "rank": 1,
+            "stage": {
+              "Level": 1,
+              "First": 0,
+              "Ranks": 2,
+              "Domain": 64,
+              "Count": 61,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 1,
+                  "Domain": 37,
+                  "Count": 37
+                },
+                {
+                  "First": 1,
+                  "Ranks": 1,
+                  "Domain": 25,
+                  "Count": 25
+                }
+              ]
+            },
+            "tree_case": "s4",
+            "tree_level": 1,
+            "utc": "2026-11-22T19:57:56.839377267Z"
+          },
+          {
+            "dimension": 6,
+            "elapsed_seconds": 1.9138561269999999,
+            "event": "completed",
+            "group_first": 2,
+            "group_rank": 0,
+            "group_size": 2,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 53460,
+            "peak_rss_bytes": 388956160,
+            "rank": 0,
+            "stage": {
+              "Level": 1,
+              "First": 2,
+              "Ranks": 2,
+              "Domain": 64,
+              "Count": 38,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 1,
+                  "Domain": 27,
+                  "Count": 27
+                },
+                {
+                  "First": 1,
+                  "Ranks": 1,
+                  "Domain": 12,
+                  "Count": 12
+                }
+              ]
+            },
+            "tree_case": "s4",
+            "tree_level": 1,
+            "utc": "2026-11-22T19:57:56.840333088Z"
+          },
+          {
+            "dimension": 6,
+            "elapsed_seconds": 1.9122780879999999,
+            "event": "completed",
+            "group_first": 2,
+            "group_rank": 1,
+            "group_size": 2,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 53460,
+            "peak_rss_bytes": 390410240,
+            "rank": 1,
+            "stage": {
+              "Level": 1,
+              "First": 2,
+              "Ranks": 2,
+              "Domain": 64,
+              "Count": 38,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 1,
+                  "Domain": 27,
+                  "Count": 27
+                },
+                {
+                  "First": 1,
+                  "Ranks": 1,
+                  "Domain": 12,
+                  "Count": 12
+                }
+              ]
+            },
+            "tree_case": "s4",
+            "tree_level": 1,
+            "utc": "2026-11-22T19:57:56.840519304Z"
+          },
+          {
+            "dimension": 7,
+            "elapsed_seconds": 2.047978245,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 0,
+            "group_size": 4,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 53556,
+            "peak_rss_bytes": 381825024,
+            "rank": 0,
+            "stage": {
+              "Level": 2,
+              "First": 0,
+              "Ranks": 4,
+              "Domain": 128,
+              "Count": 98,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 2,
+                  "Domain": 64,
+                  "Count": 61
+                },
+                {
+                  "First": 2,
+                  "Ranks": 2,
+                  "Domain": 64,
+                  "Count": 38
+                }
+              ]
+            },
+            "tree_case": "s4",
+            "tree_level": 2,
+            "utc": "2026-11-22T19:57:56.968646622Z"
+          },
+          {
+            "dimension": 7,
+            "elapsed_seconds": 2.04632112,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 1,
+            "group_size": 4,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 53556,
+            "peak_rss_bytes": 392884224,
+            "rank": 1,
+            "stage": {
+              "Level": 2,
+              "First": 0,
+              "Ranks": 4,
+              "Domain": 128,
+              "Count": 98,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 2,
+                  "Domain": 64,
+                  "Count": 61
+                },
+                {
+                  "First": 2,
+                  "Ranks": 2,
+                  "Domain": 64,
+                  "Count": 38
+                }
+              ]
+            },
+            "tree_case": "s4",
+            "tree_level": 2,
+            "utc": "2026-11-22T19:57:56.968523724Z"
+          },
+          {
+            "dimension": 7,
+            "elapsed_seconds": 2.042917576,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 2,
+            "group_size": 4,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 53556,
+            "peak_rss_bytes": 391249920,
+            "rank": 2,
+            "stage": {
+              "Level": 2,
+              "First": 0,
+              "Ranks": 4,
+              "Domain": 128,
+              "Count": 98,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 2,
+                  "Domain": 64,
+                  "Count": 61
+                },
+                {
+                  "First": 2,
+                  "Ranks": 2,
+                  "Domain": 64,
+                  "Count": 38
+                }
+              ]
+            },
+            "tree_case": "s4",
+            "tree_level": 2,
+            "utc": "2026-11-22T19:57:56.969394516Z"
+          },
+          {
+            "dimension": 7,
+            "elapsed_seconds": 2.041340627,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 3,
+            "group_size": 4,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 53556,
+            "peak_rss_bytes": 390410240,
+            "rank": 3,
+            "stage": {
+              "Level": 2,
+              "First": 0,
+              "Ranks": 4,
+              "Domain": 128,
+              "Count": 98,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 2,
+                  "Domain": 64,
+                  "Count": 61
+                },
+                {
+                  "First": 2,
+                  "Ranks": 2,
+                  "Domain": 64,
+                  "Count": 38
+                }
+              ]
+            },
+            "tree_case": "s4",
+            "tree_level": 2,
+            "utc": "2026-11-22T19:57:56.96958185Z"
+          },
+          {
+            "dimension": 11,
+            "elapsed_seconds": 3.112490591,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 0,
+            "group_size": 2,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 66612,
+            "peak_rss_bytes": 382873600,
+            "rank": 0,
+            "stage": {
+              "Level": 1,
+              "First": 0,
+              "Ranks": 2,
+              "Domain": 2048,
+              "Count": 1142,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 1,
+                  "Domain": 681,
+                  "Count": 681
+                },
+                {
+                  "First": 1,
+                  "Ranks": 1,
+                  "Domain": 462,
+                  "Count": 462
+                }
+              ]
+            },
+            "tree_case": "s6",
+            "tree_level": 1,
+            "utc": "2026-11-22T19:57:58.033158871Z"
+          },
+          {
+            "dimension": 11,
+            "elapsed_seconds": 3.111073331,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 1,
+            "group_size": 2,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 66612,
+            "peak_rss_bytes": 393932800,
+            "rank": 1,
+            "stage": {
+              "Level": 1,
+              "First": 0,
+              "Ranks": 2,
+              "Domain": 2048,
+              "Count": 1142,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 1,
+                  "Domain": 681,
+                  "Count": 681
+                },
+                {
+                  "First": 1,
+                  "Ranks": 1,
+                  "Domain": 462,
+                  "Count": 462
+                }
+              ]
+            },
+            "tree_case": "s6",
+            "tree_level": 1,
+            "utc": "2026-11-22T19:57:58.033275954Z"
+          },
+          {
+            "dimension": 10,
+            "elapsed_seconds": 3.078700673,
+            "event": "completed",
+            "group_first": 2,
+            "group_rank": 0,
+            "group_size": 2,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 60084,
+            "peak_rss_bytes": 392298496,
+            "rank": 0,
+            "stage": {
+              "Level": 1,
+              "First": 2,
+              "Ranks": 2,
+              "Domain": 1024,
+              "Count": 770,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 1,
+                  "Domain": 480,
+                  "Count": 480
+                },
+                {
+                  "First": 1,
+                  "Ranks": 1,
+                  "Domain": 291,
+                  "Count": 291
+                }
+              ]
+            },
+            "tree_case": "s6",
+            "tree_level": 1,
+            "utc": "2026-11-22T19:57:58.005177586Z"
+          },
+          {
+            "dimension": 10,
+            "elapsed_seconds": 3.076786575,
+            "event": "completed",
+            "group_first": 2,
+            "group_rank": 1,
+            "group_size": 2,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 60084,
+            "peak_rss_bytes": 394108928,
+            "rank": 1,
+            "stage": {
+              "Level": 1,
+              "First": 2,
+              "Ranks": 2,
+              "Domain": 1024,
+              "Count": 770,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 1,
+                  "Domain": 480,
+                  "Count": 480
+                },
+                {
+                  "First": 1,
+                  "Ranks": 1,
+                  "Domain": 291,
+                  "Count": 291
+                }
+              ]
+            },
+            "tree_case": "s6",
+            "tree_level": 1,
+            "utc": "2026-11-22T19:57:58.005027933Z"
+          },
+          {
+            "dimension": 11,
+            "elapsed_seconds": 3.3089538960000002,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 0,
+            "group_size": 4,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 60468,
+            "peak_rss_bytes": 383922176,
+            "rank": 0,
+            "stage": {
+              "Level": 2,
+              "First": 0,
+              "Ranks": 4,
+              "Domain": 2048,
+              "Count": 1911,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 2,
+                  "Domain": 2048,
+                  "Count": 1142
+                },
+                {
+                  "First": 2,
+                  "Ranks": 2,
+                  "Domain": 1024,
+                  "Count": 770
+                }
+              ]
+            },
+            "tree_case": "s6",
+            "tree_level": 2,
+            "utc": "2026-11-22T19:57:58.229622147Z"
+          },
+          {
+            "dimension": 11,
+            "elapsed_seconds": 3.307296673,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 1,
+            "group_size": 4,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 60468,
+            "peak_rss_bytes": 393932800,
+            "rank": 1,
+            "stage": {
+              "Level": 2,
+              "First": 0,
+              "Ranks": 4,
+              "Domain": 2048,
+              "Count": 1911,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 2,
+                  "Domain": 2048,
+                  "Count": 1142
+                },
+                {
+                  "First": 2,
+                  "Ranks": 2,
+                  "Domain": 1024,
+                  "Count": 770
+                }
+              ]
+            },
+            "tree_case": "s6",
+            "tree_level": 2,
+            "utc": "2026-11-22T19:57:58.229499305Z"
+          },
+          {
+            "dimension": 11,
+            "elapsed_seconds": 3.303864341,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 2,
+            "group_size": 4,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 60468,
+            "peak_rss_bytes": 392298496,
+            "rank": 2,
+            "stage": {
+              "Level": 2,
+              "First": 0,
+              "Ranks": 4,
+              "Domain": 2048,
+              "Count": 1911,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 2,
+                  "Domain": 2048,
+                  "Count": 1142
+                },
+                {
+                  "First": 2,
+                  "Ranks": 2,
+                  "Domain": 1024,
+                  "Count": 770
+                }
+              ]
+            },
+            "tree_case": "s6",
+            "tree_level": 2,
+            "utc": "2026-11-22T19:57:58.230341255Z"
+          },
+          {
+            "dimension": 11,
+            "elapsed_seconds": 3.302245038,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 3,
+            "group_size": 4,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 60468,
+            "peak_rss_bytes": 394108928,
+            "rank": 3,
+            "stage": {
+              "Level": 2,
+              "First": 0,
+              "Ranks": 4,
+              "Domain": 2048,
+              "Count": 1911,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 2,
+                  "Domain": 2048,
+                  "Count": 1142
+                },
+                {
+                  "First": 2,
+                  "Ranks": 2,
+                  "Domain": 1024,
+                  "Count": 770
+                }
+              ]
+            },
+            "tree_case": "s6",
+            "tree_level": 2,
+            "utc": "2026-11-22T19:57:58.230486417Z"
+          }
+        ],
+        "cases": [
+          "s4",
+          "s6"
+        ],
+        "reference_mode": "retained controller files;no complete root diagnostic arrays in executor"
+      },
+      "processes": {
+        "0": {
+          "pid": 2477086,
+          "host": "gnode16"
+        },
+        "1": {
+          "pid": 2477087,
+          "host": "gnode16"
+        },
+        "2": {
+          "pid": 144773,
+          "host": "gnode17"
+        },
+        "3": {
+          "pid": 144774,
+          "host": "gnode17"
+        }
+      }
+    },
+    "resume": {
+      "measurements": [
+        {
+          "case": "s4",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": false,
+          "elapsed_seconds": 2.459478959,
+          "first": 0,
+          "identity_verified": true,
+          "initial_prefix": 8,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 53940,
+          "peak_rss_bytes": 392380416,
+          "pid": 2478686,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 0,
+          "reference_mode": "retained",
+          "root_a_count": 37,
+          "root_b_count": 25,
+          "root_counts": [
+            37,
+            25,
+            27,
+            12
+          ],
+          "root_mode": "owned",
+          "root_performed": false,
+          "s": 4,
+          "seconds": 2.459208111,
+          "support_streamed": true,
+          "utc": "2026-11-22T19:58:41.211468313Z",
+          "words": 64
+        },
+        {
+          "case": "s6",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": false,
+          "elapsed_seconds": 4.02441561,
+          "first": 0,
+          "identity_verified": true,
+          "initial_prefix": 8,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 66612,
+          "peak_rss_bytes": 393428992,
+          "pid": 2478686,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 0,
+          "reference_mode": "retained",
+          "root_a_count": 681,
+          "root_b_count": 462,
+          "root_counts": [
+            681,
+            462,
+            480,
+            291
+          ],
+          "root_mode": "owned",
+          "root_performed": false,
+          "s": 6,
+          "seconds": 1.564550954,
+          "support_streamed": true,
+          "utc": "2026-11-22T19:58:42.77640514Z",
+          "words": 1024
+        },
+        {
+          "case": "s4",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": false,
+          "elapsed_seconds": 2.458942659,
+          "first": 64,
+          "identity_verified": true,
+          "initial_prefix": 8,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 53940,
+          "peak_rss_bytes": 392110080,
+          "pid": 2478687,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 1,
+          "reference_mode": "retained",
+          "root_a_count": 37,
+          "root_b_count": 25,
+          "root_counts": [
+            37,
+            25,
+            27,
+            12
+          ],
+          "root_mode": "owned",
+          "root_performed": false,
+          "s": 4,
+          "seconds": 2.459208111,
+          "support_streamed": true,
+          "utc": "2026-11-22T19:58:41.211468339Z",
+          "words": 64
+        },
+        {
+          "case": "s6",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": false,
+          "elapsed_seconds": 4.023879177,
+          "first": 1024,
+          "identity_verified": true,
+          "initial_prefix": 8,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 66612,
+          "peak_rss_bytes": 392110080,
+          "pid": 2478687,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 1,
+          "reference_mode": "retained",
+          "root_a_count": 681,
+          "root_b_count": 462,
+          "root_counts": [
+            681,
+            462,
+            480,
+            291
+          ],
+          "root_mode": "owned",
+          "root_performed": false,
+          "s": 6,
+          "seconds": 1.564550954,
+          "support_streamed": true,
+          "utc": "2026-11-22T19:58:42.776405033Z",
+          "words": 1024
+        },
+        {
+          "case": "s4",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": false,
+          "elapsed_seconds": 2.450103665,
+          "first": 128,
+          "identity_verified": true,
+          "initial_prefix": 8,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 53940,
+          "peak_rss_bytes": 377307136,
+          "pid": 145579,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 2,
+          "reference_mode": "retained",
+          "root_a_count": 37,
+          "root_b_count": 25,
+          "root_counts": [
+            37,
+            25,
+            27,
+            12
+          ],
+          "root_mode": "owned",
+          "root_performed": false,
+          "s": 4,
+          "seconds": 2.459208111,
+          "support_streamed": true,
+          "utc": "2026-11-22T19:58:41.212287281Z",
+          "words": 64
+        },
+        {
+          "case": "s6",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": false,
+          "elapsed_seconds": 4.015039621,
+          "first": 2048,
+          "identity_verified": true,
+          "initial_prefix": 8,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 66612,
+          "peak_rss_bytes": 388014080,
+          "pid": 145579,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 2,
+          "reference_mode": "retained",
+          "root_a_count": 681,
+          "root_b_count": 462,
+          "root_counts": [
+            681,
+            462,
+            480,
+            291
+          ],
+          "root_mode": "owned",
+          "root_performed": false,
+          "s": 6,
+          "seconds": 1.564550954,
+          "support_streamed": true,
+          "utc": "2026-11-22T19:58:42.777223341Z",
+          "words": 1024
+        },
+        {
+          "case": "s4",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": false,
+          "elapsed_seconds": 2.449906923,
+          "first": 192,
+          "identity_verified": true,
+          "initial_prefix": 8,
+          "k": 97,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 256,
+          "owned_device_bytes": 53940,
+          "peak_rss_bytes": 391536640,
+          "pid": 145580,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 3,
+          "reference_mode": "retained",
+          "root_a_count": 37,
+          "root_b_count": 25,
+          "root_counts": [
+            37,
+            25,
+            27,
+            12
+          ],
+          "root_mode": "owned",
+          "root_performed": false,
+          "s": 4,
+          "seconds": 2.459208111,
+          "support_streamed": true,
+          "utc": "2026-11-22T19:58:41.212287357Z",
+          "words": 64
+        },
+        {
+          "case": "s6",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": false,
+          "elapsed_seconds": 4.014842817,
+          "first": 3072,
+          "identity_verified": true,
+          "initial_prefix": 8,
+          "k": 1910,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 66612,
+          "peak_rss_bytes": 393633792,
+          "pid": 145580,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 3,
+          "reference_mode": "retained",
+          "root_a_count": 681,
+          "root_b_count": 462,
+          "root_counts": [
+            681,
+            462,
+            480,
+            291
+          ],
+          "root_mode": "owned",
+          "root_performed": false,
+          "s": 6,
+          "seconds": 1.564550954,
+          "support_streamed": true,
+          "utc": "2026-11-22T19:58:42.777223335Z",
+          "words": 1024
+        }
+      ],
+      "artifacts": {
+        "s4": {
+          "code_sha256": "69ebae873990075af7c9c558b5e9d76b2a4d237b89b4bb824205eb2de049c712",
+          "checkpoint_prefixes": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            159
+          ]
+        },
+        "s6": {
+          "code_sha256": "a384ea4123bb5bcbfaa9cde64afbe6e6c9091373e6c22129ceda8abdec5709c4",
+          "checkpoint_prefixes": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            2186
+          ]
+        }
+      },
+      "executor_calls": 72,
+      "operand_proof_events": 36,
+      "processes": {
+        "0": {
+          "pid": 2478686,
+          "host": "gnode16"
+        },
+        "1": {
+          "pid": 2478687,
+          "host": "gnode16"
+        },
+        "2": {
+          "pid": 145579,
+          "host": "gnode17"
+        },
+        "3": {
+          "pid": 145580,
+          "host": "gnode17"
+        }
+      }
+    },
+    "wide": {
+      "measurements": [
+        {
+          "case": "s18-d5",
+          "coefficient_bytes": 4,
+          "dimension": 5,
+          "elapsed_seconds": 2.032044502,
+          "first": 0,
+          "kind": "wide-tail",
+          "matches": true,
+          "n": 32,
+          "owned_device_bytes": 3251340,
+          "peak_rss_bytes": 380383232,
+          "rank": 0,
+          "root_count": 9,
+          "s": 18,
+          "slot_bytes": 8,
+          "target": 16,
+          "utc": "2026-11-22T19:58:53.325245286Z",
+          "words": 8
+        },
+        {
+          "case": "s18-d12",
+          "coefficient_bytes": 4,
+          "dimension": 12,
+          "elapsed_seconds": 5.340456801,
+          "first": 0,
+          "kind": "wide-tail",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 3277068,
+          "peak_rss_bytes": 395747328,
+          "rank": 0,
+          "root_count": 17,
+          "s": 18,
+          "slot_bytes": 8,
+          "target": 64,
+          "utc": "2026-11-22T19:58:56.633657883Z",
+          "words": 1024
+        },
+        {
+          "case": "s18-d5",
+          "coefficient_bytes": 4,
+          "dimension": 5,
+          "elapsed_seconds": 2.032329318,
+          "first": 8,
+          "kind": "wide-tail",
+          "matches": true,
+          "n": 32,
+          "owned_device_bytes": 3251340,
+          "peak_rss_bytes": 382472192,
+          "rank": 1,
+          "root_count": 9,
+          "s": 18,
+          "slot_bytes": 8,
+          "target": 16,
+          "utc": "2026-11-22T19:58:53.324291457Z",
+          "words": 8
+        },
+        {
+          "case": "s18-d12",
+          "coefficient_bytes": 4,
+          "dimension": 12,
+          "elapsed_seconds": 5.338818143,
+          "first": 1024,
+          "kind": "wide-tail",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 3277068,
+          "peak_rss_bytes": 398508032,
+          "rank": 1,
+          "root_count": 17,
+          "s": 18,
+          "slot_bytes": 8,
+          "target": 64,
+          "utc": "2026-11-22T19:58:56.630779906Z",
+          "words": 1024
+        },
+        {
+          "case": "s18-d5",
+          "coefficient_bytes": 4,
+          "dimension": 5,
+          "elapsed_seconds": 2.021266877,
+          "first": 16,
+          "kind": "wide-tail",
+          "matches": true,
+          "n": 32,
+          "owned_device_bytes": 3251340,
+          "peak_rss_bytes": 393129984,
+          "rank": 2,
+          "root_count": 9,
+          "s": 18,
+          "slot_bytes": 8,
+          "target": 16,
+          "utc": "2026-11-22T19:58:53.325149553Z",
+          "words": 8
+        },
+        {
+          "case": "s18-d12",
+          "coefficient_bytes": 4,
+          "dimension": 12,
+          "elapsed_seconds": 5.327804474,
+          "first": 2048,
+          "kind": "wide-tail",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 3277068,
+          "peak_rss_bytes": 397991936,
+          "rank": 2,
+          "root_count": 17,
+          "s": 18,
+          "slot_bytes": 8,
+          "target": 64,
+          "utc": "2026-11-22T19:58:56.631686983Z",
+          "words": 1024
+        },
+        {
+          "case": "s18-d5",
+          "coefficient_bytes": 4,
+          "dimension": 5,
+          "elapsed_seconds": 2.019563052,
+          "first": 24,
+          "kind": "wide-tail",
+          "matches": true,
+          "n": 32,
+          "owned_device_bytes": 3251340,
+          "peak_rss_bytes": 393355264,
+          "rank": 3,
+          "root_count": 9,
+          "s": 18,
+          "slot_bytes": 8,
+          "target": 16,
+          "utc": "2026-11-22T19:58:53.325184553Z",
+          "words": 8
+        },
+        {
+          "case": "s18-d12",
+          "coefficient_bytes": 4,
+          "dimension": 12,
+          "elapsed_seconds": 5.326090318,
+          "first": 3072,
+          "kind": "wide-tail",
+          "matches": true,
+          "n": 4096,
+          "owned_device_bytes": 3277068,
+          "peak_rss_bytes": 395472896,
+          "rank": 3,
+          "root_count": 17,
+          "s": 18,
+          "slot_bytes": 8,
+          "target": 64,
+          "utc": "2026-11-22T19:58:56.631710597Z",
+          "words": 1024
+        }
+      ],
+      "executor_calls": 56,
+      "operand_proofs": 28,
+      "scope": "Bounded canonical field18 reciprocal/product/spectrum and high-bit raw publication;not a fulls18 grid/code artifact."
+    },
+    "owned-wide": {
+      "measurements": [
+        {
+          "dimension": 4,
+          "elapsed_seconds": 1.458680508,
+          "event": "completed",
+          "group_first": 0,
+          "group_rank": 0,
+          "group_size": 2,
+          "kind": "root-stage",
+          "matches": true,
+          "owned_device_bytes": 3251244,
+          "peak_rss_bytes": 382730240,
+          "rank": 0,
+          "stage": {
+            "Level": 1,
+            "First": 0,
+            "Ranks": 2,
+            "Domain": 16,
+            "Count": 9,
+            "Sources": [
+              {
+                "First": 0,
+                "Ranks": 1,
+                "Domain": 5,
+                "Count": 5
+              },
+              {
+                "First": 1,
+                "Ranks": 1,
+                "Domain": 5,
+                "Count": 5
+              }
+            ]
+          },
+          "tree_case": "roots-16",
+          "tree_level": 1,
+          "utc": "2026-11-22T19:59:05.275239025Z"
+        },
+        {
+          "dimension": 4,
+          "elapsed_seconds": 1.457029984,
+          "event": "completed",
+          "group_first": 0,
+          "group_rank": 1,
+          "group_size": 2,
+          "kind": "root-stage",
+          "matches": true,
+          "owned_device_bytes": 3251244,
+          "peak_rss_bytes": 380145664,
+          "rank": 1,
+          "stage": {
+            "Level": 1,
+            "First": 0,
+            "Ranks": 2,
+            "Domain": 16,
+            "Count": 9,
+            "Sources": [
+              {
+                "First": 0,
+                "Ranks": 1,
+                "Domain": 5,
+                "Count": 5
+              },
+              {
+                "First": 1,
+                "Ranks": 1,
+                "Domain": 5,
+                "Count": 5
+              }
+            ]
+          },
+          "tree_case": "roots-16",
+          "tree_level": 1,
+          "utc": "2026-11-22T19:59:05.275096582Z"
+        },
+        {
+          "dimension": 4,
+          "elapsed_seconds": 1.454752722,
+          "event": "completed",
+          "group_first": 2,
+          "group_rank": 0,
+          "group_size": 2,
+          "kind": "root-stage",
+          "matches": true,
+          "owned_device_bytes": 3251244,
+          "peak_rss_bytes": 388046848,
+          "rank": 0,
+          "stage": {
+            "Level": 1,
+            "First": 2,
+            "Ranks": 2,
+            "Domain": 16,
+            "Count": 9,
+            "Sources": [
+              {
+                "First": 0,
+                "Ranks": 1,
+                "Domain": 5,
+                "Count": 5
+              },
+              {
+                "First": 1,
+                "Ranks": 1,
+                "Domain": 5,
+                "Count": 5
+              }
+            ]
+          },
+          "tree_case": "roots-16",
+          "tree_level": 1,
+          "utc": "2026-11-22T19:59:05.276074567Z"
+        },
+        {
+          "dimension": 4,
+          "elapsed_seconds": 1.456175135,
+          "event": "completed",
+          "group_first": 2,
+          "group_rank": 1,
+          "group_size": 2,
+          "kind": "root-stage",
+          "matches": true,
+          "owned_device_bytes": 3251244,
+          "peak_rss_bytes": 391786496,
+          "rank": 1,
+          "stage": {
+            "Level": 1,
+            "First": 2,
+            "Ranks": 2,
+            "Domain": 16,
+            "Count": 9,
+            "Sources": [
+              {
+                "First": 0,
+                "Ranks": 1,
+                "Domain": 5,
+                "Count": 5
+              },
+              {
+                "First": 1,
+                "Ranks": 1,
+                "Domain": 5,
+                "Count": 5
+              }
+            ]
+          },
+          "tree_case": "roots-16",
+          "tree_level": 1,
+          "utc": "2026-11-22T19:59:05.275864422Z"
+        },
+        {
+          "dimension": 5,
+          "elapsed_seconds": 1.529291647,
+          "event": "completed",
+          "group_first": 0,
+          "group_rank": 0,
+          "group_size": 4,
+          "kind": "root-stage",
+          "matches": true,
+          "owned_device_bytes": 3251340,
+          "peak_rss_bytes": 383778816,
+          "rank": 0,
+          "stage": {
+            "Level": 2,
+            "First": 0,
+            "Ranks": 4,
+            "Domain": 32,
+            "Count": 17,
+            "Sources": [
+              {
+                "First": 0,
+                "Ranks": 2,
+                "Domain": 16,
+                "Count": 9
+              },
+              {
+                "First": 2,
+                "Ranks": 2,
+                "Domain": 16,
+                "Count": 9
+              }
+            ]
+          },
+          "tree_case": "roots-16",
+          "tree_level": 2,
+          "utc": "2026-11-22T19:59:05.345850137Z"
+        },
+        {
+          "dimension": 5,
+          "elapsed_seconds": 1.527638771,
+          "event": "completed",
+          "group_first": 0,
+          "group_rank": 1,
+          "group_size": 4,
+          "kind": "root-stage",
+          "matches": true,
+          "owned_device_bytes": 3251340,
+          "peak_rss_bytes": 394473472,
+          "rank": 1,
+          "stage": {
+            "Level": 2,
+            "First": 0,
+            "Ranks": 4,
+            "Domain": 32,
+            "Count": 17,
+            "Sources": [
+              {
+                "First": 0,
+                "Ranks": 2,
+                "Domain": 16,
+                "Count": 9
+              },
+              {
+                "First": 2,
+                "Ranks": 2,
+                "Domain": 16,
+                "Count": 9
+              }
+            ]
+          },
+          "tree_case": "roots-16",
+          "tree_level": 2,
+          "utc": "2026-11-22T19:59:05.345705331Z"
+        },
+        {
+          "dimension": 5,
+          "elapsed_seconds": 1.525427278,
+          "event": "completed",
+          "group_first": 0,
+          "group_rank": 2,
+          "group_size": 4,
+          "kind": "root-stage",
+          "matches": true,
+          "owned_device_bytes": 3251340,
+          "peak_rss_bytes": 390905856,
+          "rank": 2,
+          "stage": {
+            "Level": 2,
+            "First": 0,
+            "Ranks": 4,
+            "Domain": 32,
+            "Count": 17,
+            "Sources": [
+              {
+                "First": 0,
+                "Ranks": 2,
+                "Domain": 16,
+                "Count": 9
+              },
+              {
+                "First": 2,
+                "Ranks": 2,
+                "Domain": 16,
+                "Count": 9
+              }
+            ]
+          },
+          "tree_case": "roots-16",
+          "tree_level": 2,
+          "utc": "2026-11-22T19:59:05.346749109Z"
+        },
+        {
+          "dimension": 5,
+          "elapsed_seconds": 1.527140575,
+          "event": "completed",
+          "group_first": 0,
+          "group_rank": 3,
+          "group_size": 4,
+          "kind": "root-stage",
+          "matches": true,
+          "owned_device_bytes": 3251340,
+          "peak_rss_bytes": 391786496,
+          "rank": 3,
+          "stage": {
+            "Level": 2,
+            "First": 0,
+            "Ranks": 4,
+            "Domain": 32,
+            "Count": 17,
+            "Sources": [
+              {
+                "First": 0,
+                "Ranks": 2,
+                "Domain": 16,
+                "Count": 9
+              },
+              {
+                "First": 2,
+                "Ranks": 2,
+                "Domain": 16,
+                "Count": 9
+              }
+            ]
+          },
+          "tree_case": "roots-16",
+          "tree_level": 2,
+          "utc": "2026-11-22T19:59:05.346829824Z"
+        },
+        {
+          "dimension": 12,
+          "elapsed_seconds": 2.119018441,
+          "event": "completed",
+          "group_first": 0,
+          "group_rank": 0,
+          "group_size": 2,
+          "kind": "root-stage",
+          "matches": true,
+          "owned_device_bytes": 3301644,
+          "peak_rss_bytes": 388378624,
+          "rank": 0,
+          "stage": {
+            "Level": 1,
+            "First": 0,
+            "Ranks": 2,
+            "Domain": 4096,
+            "Count": 2049,
+            "Sources": [
+              {
+                "First": 0,
+                "Ranks": 1,
+                "Domain": 1025,
+                "Count": 1025
+              },
+              {
+                "First": 1,
+                "Ranks": 1,
+                "Domain": 1025,
+                "Count": 1025
+              }
+            ]
+          },
+          "tree_case": "roots-4092",
+          "tree_level": 1,
+          "utc": "2026-11-22T19:59:05.935576984Z"
+        },
+        {
+          "dimension": 12,
+          "elapsed_seconds": 2.117339748,
+          "event": "completed",
+          "group_first": 0,
+          "group_rank": 1,
+          "group_size": 2,
+          "kind": "root-stage",
+          "matches": true,
+          "owned_device_bytes": 3301644,
+          "peak_rss_bytes": 396955648,
+          "rank": 1,
+          "stage": {
+            "Level": 1,
+            "First": 0,
+            "Ranks": 2,
+            "Domain": 4096,
+            "Count": 2049,
+            "Sources": [
+              {
+                "First": 0,
+                "Ranks": 1,
+                "Domain": 1025,
+                "Count": 1025
+              },
+              {
+                "First": 1,
+                "Ranks": 1,
+                "Domain": 1025,
+                "Count": 1025
+              }
+            ]
+          },
+          "tree_case": "roots-4092",
+          "tree_level": 1,
+          "utc": "2026-11-22T19:59:05.935406321Z"
+        },
+        {
+          "dimension": 11,
+          "elapsed_seconds": 1.85492436,
+          "event": "completed",
+          "group_first": 2,
+          "group_rank": 0,
+          "group_size": 2,
+          "kind": "root-stage",
+          "matches": true,
+          "owned_device_bytes": 3277068,
+          "peak_rss_bytes": 393003008,
+          "rank": 0,
+          "stage": {
+            "Level": 1,
+            "First": 2,
+            "Ranks": 2,
+            "Domain": 2048,
+            "Count": 2045,
+            "Sources": [
+              {
+                "First": 0,
+                "Ranks": 1,
+                "Domain": 1023,
+                "Count": 1023
+              },
+              {
+                "First": 1,
+                "Ranks": 1,
+                "Domain": 1023,
+                "Count": 1023
+              }
+            ]
+          },
+          "tree_case": "roots-4092",
+          "tree_level": 1,
+          "utc": "2026-11-22T19:59:05.676246083Z"
+        },
+        {
+          "dimension": 11,
+          "elapsed_seconds": 1.85628434,
+          "event": "completed",
+          "group_first": 2,
+          "group_rank": 1,
+          "group_size": 2,
+          "kind": "root-stage",
+          "matches": true,
+          "owned_device_bytes": 3277068,
+          "peak_rss_bytes": 396734464,
+          "rank": 1,
+          "stage": {
+            "Level": 1,
+            "First": 2,
+            "Ranks": 2,
+            "Domain": 2048,
+            "Count": 2045,
+            "Sources": [
+              {
+                "First": 0,
+                "Ranks": 1,
+                "Domain": 1023,
+                "Count": 1023
+              },
+              {
+                "First": 1,
+                "Ranks": 1,
+                "Domain": 1023,
+                "Count": 1023
+              }
+            ]
+          },
+          "tree_case": "roots-4092",
+          "tree_level": 1,
+          "utc": "2026-11-22T19:59:05.675973634Z"
+        },
+        {
+          "dimension": 12,
+          "elapsed_seconds": 2.539116045,
+          "event": "completed",
+          "group_first": 0,
+          "group_rank": 0,
+          "group_size": 4,
+          "kind": "root-stage",
+          "matches": true,
+          "owned_device_bytes": 3277068,
+          "peak_rss_bytes": 399114240,
+          "rank": 0,
+          "stage": {
+            "Level": 2,
+            "First": 0,
+            "Ranks": 4,
+            "Domain": 4096,
+            "Count": 4093,
+            "Sources": [
+              {
+                "First": 0,
+                "Ranks": 2,
+                "Domain": 4096,
+                "Count": 2049
+              },
+              {
+                "First": 2,
+                "Ranks": 2,
+                "Domain": 2048,
+                "Count": 2045
+              }
+            ]
+          },
+          "tree_case": "roots-4092",
+          "tree_level": 2,
+          "utc": "2026-11-22T19:59:06.355674557Z"
+        },
+        {
+          "dimension": 12,
+          "elapsed_seconds": 2.537457975,
+          "event": "completed",
+          "group_first": 0,
+          "group_rank": 1,
+          "group_size": 4,
+          "kind": "root-stage",
+          "matches": true,
+          "owned_device_bytes": 3277068,
+          "peak_rss_bytes": 396955648,
+          "rank": 1,
+          "stage": {
+            "Level": 2,
+            "First": 0,
+            "Ranks": 4,
+            "Domain": 4096,
+            "Count": 4093,
+            "Sources": [
+              {
+                "First": 0,
+                "Ranks": 2,
+                "Domain": 4096,
+                "Count": 2049
+              },
+              {
+                "First": 2,
+                "Ranks": 2,
+                "Domain": 2048,
+                "Count": 2045
+              }
+            ]
+          },
+          "tree_case": "roots-4092",
+          "tree_level": 2,
+          "utc": "2026-11-22T19:59:06.355524503Z"
+        },
+        {
+          "dimension": 12,
+          "elapsed_seconds": 2.535103276,
+          "event": "completed",
+          "group_first": 0,
+          "group_rank": 2,
+          "group_size": 4,
+          "kind": "root-stage",
+          "matches": true,
+          "owned_device_bytes": 3277068,
+          "peak_rss_bytes": 393003008,
+          "rank": 2,
+          "stage": {
+            "Level": 2,
+            "First": 0,
+            "Ranks": 4,
+            "Domain": 4096,
+            "Count": 4093,
+            "Sources": [
+              {
+                "First": 0,
+                "Ranks": 2,
+                "Domain": 4096,
+                "Count": 2049
+              },
+              {
+                "First": 2,
+                "Ranks": 2,
+                "Domain": 2048,
+                "Count": 2045
+              }
+            ]
+          },
+          "tree_case": "roots-4092",
+          "tree_level": 2,
+          "utc": "2026-11-22T19:59:06.356425106Z"
+        },
+        {
+          "dimension": 12,
+          "elapsed_seconds": 2.536945728,
+          "event": "completed",
+          "group_first": 0,
+          "group_rank": 3,
+          "group_size": 4,
+          "kind": "root-stage",
+          "matches": true,
+          "owned_device_bytes": 3277068,
+          "peak_rss_bytes": 396734464,
+          "rank": 3,
+          "stage": {
+            "Level": 2,
+            "First": 0,
+            "Ranks": 4,
+            "Domain": 4096,
+            "Count": 4093,
+            "Sources": [
+              {
+                "First": 0,
+                "Ranks": 2,
+                "Domain": 4096,
+                "Count": 2049
+              },
+              {
+                "First": 2,
+                "Ranks": 2,
+                "Domain": 2048,
+                "Count": 2045
+              }
+            ]
+          },
+          "tree_case": "roots-4092",
+          "tree_level": 2,
+          "utc": "2026-11-22T19:59:06.356634966Z"
+        }
+      ],
+      "cases": [
+        "roots-16",
+        "roots-4092"
+      ],
+      "reference_mode": "retained controller files;no complete root diagnostic arrays in executor"
+    }
+  }
+}

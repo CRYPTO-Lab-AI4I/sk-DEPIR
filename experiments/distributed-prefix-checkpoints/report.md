@@ -1,6 +1,6 @@
 # Compact restart prefix checkpoints
 
-Status: **submitted81190**,prefix-01,implementation3dd1845;GPU results pending. Parent revision525888f.
+Status: **passed81190**,prefix-01,implementation3dd1845; producing revision `e9d019a`. Parent revision525888f.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/). Exact producing revision
 will be sealed by the committed snapshot/controller. Results use `runs/prefix-01/`;
@@ -131,7 +131,7 @@ python3 -B experiments/distributed-prefix-checkpoints/analyze.py prefix-01
 ```
 
 [CPU](readiness/cpu.log), [race](readiness/race.log), [build](readiness/build.log),
-[reviewer](readiness/review.log). GPU integration pending. This closes only a restart
+[reviewer](readiness/review.log). GPU integration passed81190 (see verified outcome below). This closes only a restart
 payload/storage boundary;fulls18 still needs complete discovery/working-set admission,
 full wide-domain execution/artifacts,representative larger runtime/I/O/restart
 measurements and separate resource/storage/headroom/deadline agreement.
@@ -150,3 +150,33 @@ Submitted **81190** after readiness commite9d019a.
 `runs/prefix-01/`. Same resources/caps and3–6 minute estimate excluding queue.
 Receipt-bound local completion notification registered;no model polling after
 submission. Review saved evidence after completion notice.
+
+
+## Verified compact restart checkpoints: job81190 (SCALING-176)
+
+Independent reconciliation passed: producing revision `e9d019a`, **822 source,
+93 evidence and 538 retained cache files** verified. Controller runtime was
+**2 min 49.562 s**. The four arms took **7.355 s cold**, **5.397 s fresh-process
+restart**, **6.841 s bounded field18 tail**, and **4.070 s bounded field18 roots**.
+These include profiling, proof logging, setup, communication, persistence and
+correctness checks; controller time additionally includes compilation/review.
+They are not isolated codec timings or a matched latency comparison with81079.
+
+| Genuine case | Cold compact checkpoint payload | Padded equivalent | Fresh restart compact payload | Padded equivalent |
+|---|---|---|---|---|
+| s=4 | 2,044 bytes | 9,216 bytes | 2,020 bytes | 7,168 bytes |
+| s=6 | 32,764 bytes | 212,992 bytes | 32,740 bytes | 180,224 bytes |
+
+Native leaf/merge/final root bytes, completed prefixes, canonical code/generator,
+full polynomial identity and spectrum matched. Fresh processes restored prefix8
+and produced identical artifacts. Empty rank files and exact hashes/extents were
+verified. Allocation: **two HPC nodes (gnode16/17), two H200s, four workers/four
+CPU cores, 8 GiB requested host RAM total**. Peak per-worker RSS was
+**376.852 MiB cold / 375.398 MiB restart / 380.047 MiB wide tail / 380.625 MiB wide
+roots**. Owned GPU memory peaked at **0.064 MiB/worker narrow**, **3.125 MiB/worker
+wide tail**, **3.149 MiB/worker wide roots**; driver/context memory is additional.
+The compact layout remains optional and padded remains default. Full-size runtime,
+I/O throughput and complete-cache savings remain unmeasured. **Full s18 is unrun.**
+
+[Receipt](submission.json), [analysis](runs/prefix-01/analysis.json),
+[raw results](runs/prefix-01/results.json), [scheduler log](slurm-81190.log).

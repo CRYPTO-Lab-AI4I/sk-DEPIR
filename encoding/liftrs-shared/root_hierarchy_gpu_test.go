@@ -4,6 +4,7 @@ package liftrs
 
 import (
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 	"io"
 	"math/bits"
@@ -361,7 +362,7 @@ func TestPilotHierarchyReferences(t *testing.T) {
 	if directory == "" {
 		t.Skip("explicit retained-input preflight")
 	}
-	for _, s := range []int{4, 6} {
+	for _, s := range selectedPilotCases(t) {
 		record, err := readPilotReference(directory, s)
 		if err != nil {
 			t.Fatal(err)
@@ -383,5 +384,78 @@ func TestPilotHierarchyReferences(t *testing.T) {
 			}
 		}
 		t.Logf("s=%d retained K=%d support digest/closure and four-rank hierarchy admitted", s, len(support.exponents))
+	}
+}
+
+// Export native leaves and every merge result once, outside distributed timing.
+// The controller checks these files; GPU workers never receive them as inputs.
+func exportPilotRootReferences(t *testing.T, directory string, s int, support *CodeSupport) {
+	t.Helper()
+	fixture, err := makeRootArithmetic(s)
+	if err != nil {
+		t.Fatal(err)
+	}
+	fixture.maximum = fixture.n
+	native, err := cpp.NewPreparation(s, fixture.header.Polynomial, fixture.header.Omega, 1, uint64(fixture.n), 32<<20)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer func() {
+		if err := native.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
+	// Match discovery's stable orbit owner, not the synthetic fixture's balanced partition.
+	parts := make([][]int, 4)
+	for _, index := range support.exponents {
+		owner := discoveryRootOwner(uint64(index), 1<<uint(s), uint64(fixture.n-1), 4)
+		parts[owner] = append(parts[owner], index)
+	}
+	counts := make([]uint64, 4)
+	label := fmt.Sprintf("s%d", s)
+	root := func(indices []int) []uint32 {
+		values, e := fixture.root(supportSorted, native, indices, nil, nil)
+		if e != nil {
+			t.Fatal(e)
+		}
+		return values
+	}
+	for rank, part := range parts {
+		values := root(part)
+		counts[rank] = uint64(len(values))
+		saveMatrixStageWords(t, filepath.Join(directory, fmt.Sprintf("%s-rank-%d-leaf.bin", label, rank)), values)
+	}
+	// Generate each group once, directly from its support using the native engine.
+	// This does not reuse the distributed merge arithmetic or its outputs.
+	for level := 1; level <= 2; level++ {
+		size := 1 << uint(level)
+		for first := 0; first < 4; first += size {
+			stages, e := rankRootMergeStages(first, counts, uint64(fixture.n))
+			if e != nil {
+				t.Fatal(e)
+			}
+			stage := stages[level-1]
+			indices := []int{}
+			for rank := first; rank < first+size; rank++ {
+				indices = append(indices, parts[rank]...)
+			}
+			sort.Ints(indices)
+			values := make([]uint32, stage.Domain)
+			copy(values, root(indices))
+			for rank := 0; rank < size; rank++ {
+				shard := values[rank*len(values)/size : (rank+1)*len(values)/size]
+				saveMatrixStageWords(t, filepath.Join(directory, fmt.Sprintf("%s-level-%d-group-%d-rank-%d-output.bin", label, level, first, rank)), shard)
+				if size == 4 {
+					saveMatrixStageWords(t, filepath.Join(directory, fmt.Sprintf("%s-rank-%d-final.bin", label, rank)), shard)
+				}
+			}
+		}
+	}
+	data, err := json.Marshal(map[string]any{"label": label, "s": s, "count": len(support.exponents), "counts": counts})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(directory, label+"-roots.json"), data, 0600); err != nil {
+		t.Fatal(err)
 	}
 }

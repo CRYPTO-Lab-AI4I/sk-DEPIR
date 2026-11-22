@@ -92,15 +92,15 @@ def review_roots(rows,directory,manifest,references,wide=False):
     return dict(measurements=values,cases=[c['label']for c in cases],reference_mode='retained controller files;no complete root diagnostic arrays in executor')
 
 
-def review(rows,directory,resume=False,source=None,cold=None):
+def review(rows,directory,resume=False,source=None,cold=None,cases=(4,6),canonical=None,curve=2):
     manifest=json.loads((directory.parent/'root-references.json').read_text());references=directory.parent/'root-reference-files'
     def cold_review(rows,directory):
         core=[r for r in rows if r.get('discovery')is not True and 'tree_case'not in r]
-        result=PILOT['review'](core,directory,streamed=True,ranks=4,hierarchy=True)
-        result.update(DISCOVERY['review_discovery']([r for r in rows if r.get('discovery')is True],directory,[4,6],ranks=4))
+        result=PILOT['review'](core,directory,streamed=True,ranks=4,hierarchy=True,cases=cases,curve=curve)
+        result.update(DISCOVERY['review_discovery']([r for r in rows if r.get('discovery')is True],directory,cases,ranks=4))
         result['hierarchy']=review_roots(rows,directory,manifest,references)
         return result
-    result=FOUR['RESTART']['review'](rows,directory,resume,source,cold,ranks=4,hierarchy=True,core_review=cold_review)
+    result=FOUR['RESTART']['review'](rows,directory,resume,source,cold,ranks=4,hierarchy=True,core_review=cold_review,cases=cases,canonical=canonical,curve=curve)
     assert all(r['root_mode']=='owned'and r['reference_mode']=='retained'and r['support_streamed']is True and r['discovery_layout']=='distributed'for r in result['measurements'])
     if resume:assert not any('tree_case'in r or r.get('kind')in('root-tree','root-reshape')for r in rows)
     return result

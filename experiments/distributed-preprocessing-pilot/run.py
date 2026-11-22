@@ -36,7 +36,7 @@ def checkpoint_bytes(directory,label,stage,commit):
     return b''.join(result)
 
 
-def artifacts(directory,s,k,initial=1,ranks=2):
+def artifacts(directory,s,k,initial=1,ranks=2,curve=2):
     n=1<<(2*s);label=f's{s}'
     def joined(stage):return b''.join((directory/f'{label}-rank-{r}-{stage}.bin').read_bytes()for r in range(ranks))
     reference={stage:(directory/f'{label}-rank-0-reference-{stage}.bin').read_bytes()for stage in ('p','g','spectrum')}
@@ -57,16 +57,16 @@ def artifacts(directory,s,k,initial=1,ranks=2):
         assert checkpoint_bytes(directory,label,stage,commit)==source+b'\0'*(4*(n-count))
     actual=(directory/f'{label}-code.bin').read_bytes();expected=(directory/f'{label}-reference-code.bin').read_bytes()
     assert actual==expected and actual[:9]==b'LRSprobe1'and len(actual)==25+4*(k+1+n)
-    assert [int.from_bytes(actual[i:i+4],'little')for i in (9,13,17,21)]==[s,2,k,n]
+    assert [int.from_bytes(actual[i:i+4],'little')for i in (9,13,17,21)]==[s,curve,k,n]
     return dict(code_sha256=hashlib.sha256(actual).hexdigest(),checkpoint_prefixes=[size for size in prefixes(n-k)if size>=initial])
 
 
 def packet_key(p):return tuple(p[k]for k in ('Operation','Domain','Operand','Offset','Words','Source','Target'))
 
 
-def review(rows,directory,small=False,initial=1,streamed=False,ranks=2,hierarchy=False):
+def review(rows,directory,small=False,initial=1,streamed=False,ranks=2,hierarchy=False,cases=None,curve=2):
     assert ranks in (2,4)and(ranks==2 or hierarchy)
-    cases=[4]if small else[4,6];values=[r for r in rows if r.get('kind')=='pipeline'];assert len(values)==ranks*len(cases)
+    cases=([4]if small else[4,6])if cases is None else cases;values=[r for r in rows if r.get('kind')=='pipeline'];assert len(values)==ranks*len(cases)
     hosts=[r for r in rows if r.get('kind')=='host'];assert len(hosts)==ranks and len({r['host']for r in hosts})==2
     assert all(r['visible_devices']and ','not in r['visible_devices']for r in hosts)
     assert {r['rank']for r in hosts}==set(range(ranks))
@@ -131,7 +131,7 @@ def review(rows,directory,small=False,initial=1,streamed=False,ranks=2,hierarchy
                 for rank in range(ranks):
                     for transpose_op in (matrix,matrix+1):
                         for key,words in VECTORS['transpose_packets'](rank,name,child,transpose_op,n,4096,ranks):transpose[key]=words
-        result[label]=artifacts(directory,s,k,initial,ranks)
+        result[label]=artifacts(directory,s,k,initial,ranks,curve)
     actual_calls={}
     for r in calls:
         key=(r['case'],r['rank']);assert key not in actual_calls and r['matches']is True

@@ -1,0 +1,4 @@
+=== RUN   TestExportPilotReferences
+    distributed_pipeline_gpu_test.go:700: support differs from preprocessing/code-data shape
+--- FAIL: TestExportPilotReferences (0.03s)
+FAIL

@@ -3484,9 +3484,28 @@ finish scalable complete discovery/working-set/full wide-domain execution before
 fulls18 topology,resource/storage/headroom/deadline agreement. Fulls18 remains unrun.
 
 
-Compact checkpoint validation submitted as **81190**,prefix-01,implementation3dd1845,
-after committed-source/native-input preflighte9d019a.
+Compact checkpoint validation **passed81190**,prefix-01,implementation3dd1845,
+producing revisione9d019a.
 [Receipt and resources](../experiments/distributed-prefix-checkpoints/submission.json).
-Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;GPU results pending.
-Legacy padded defaults remain;compact storage/runtime figures are not yet measured.
-Fulls18 preprocessing remains unrun.
+Same2HPCnodes/2H200/4CPU/8GiB request and existing caps. Exact small checkpoint
+bytes and full cold/restart correctness passed;fullsize throughput remains unknown.
+Legacy padded defaults remain. Fulls18 preprocessing remains unrun.
+
+
+## Larger genuine distributed pipeline (SCALING-176)
+
+Compact checkpoint job81190 passed all four arms and exact storage/native/restart
+checks. See the maintained reference and compact experiment report. Keep padded
+as default;compact remains an explicit experimental selection with unmeasured
+fullsize throughput cost.
+
+Next measure a genuine s8 complete discovery→owned roots→Newton→identity→spectrum→
+publication pipeline and fresh-process restart. Reuse shared algorithms,reviewers
+and native reference export with explicit bounded case selection;retain historical
+s4/s6 defaults. Independent native leaf/merge/final and canonical references are
+prepared outside distributed runtime and retained with hashes. Budget source,
+files,cache,rank RSS/device memory,packet proof logs and controller time before
+submission. Reuse two nodes/two H200s/four CPU cores/8 GiB total requested host RAM
+and all existing caps. No repeated wide/sanitizer arms unless changed logic needs
+them. After that measurement,use measured phase/memory/I/O costs to finish scalable
+fullsize ownership and admission;fulls18 is neither run nor newly authorized.
