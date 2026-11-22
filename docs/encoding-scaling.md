@@ -3591,3 +3591,17 @@ arm using the same spectrum mode. No repeated unchanged wide arithmetic/sanitize
 arm is needed;retain81365's validated64-bit GPU transfer/publication evidence.
 Check actual frozen inputs before any submission. Same two-node/two-H200 resource
 caps;fulls18 still requires full ownership/working-set/persistence admission.
+
+
+SCALING-178 submitted **81454**,results-01,implementation1d8e000/readiness77b9c8a.
+837 frozen build inputs/3,837,521bytes and12reviewer suites checked;381 code hashes
+match compiled readiness source. Frozen helper verified108014historical native
+bytes and actual s8/curve5 input/root geometry. Fresh frozen-source build before
+GPU phases is inside allocation. [Receipt](../experiments/distributed-discovery-results/submission.json),
+[report](../experiments/distributed-discovery-results/report.md). Same two-node/
+two-H200 caps,three arms,3–6min estimate excluding queue. Local completion notifier
+registered;no model polling. After terminal notice,reconcile all evidence and
+matched latency/allocation/count/canonical outputs,update reference,and audit
+remaining fullsize discovery/root/reciprocal liveness/ownership and production
+persistence/logging before separate fulls18 topology/resource/storage/deadline
+admission. Fulls18 remains unrun.

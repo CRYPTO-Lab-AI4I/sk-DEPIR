@@ -1,0 +1,16 @@
+{
+  "job_id": "81454",
+  "name": "results-01",
+  "implementation_revision": "1d8e000",
+  "submission_revision": "77b9c8ab3ee6a89700e4559c889d70f461e27467",
+  "recorded_utc": "2026-11-22T20:55:16.571302+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-discovery-results/slurm-%j.log experiments/distributed-discovery-results/run.sbatch results-01",
+  "results": "experiments/distributed-discovery-results/runs/results-01",
+  "log": "experiments/distributed-discovery-results/slurm-81454.log",
+  "cache": ".cache/liftrs/distributed-discovery-results/results-01/",
+  "resources": "same2HPCnodes/2H200/4CPU/8GiBrequestedhost;4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm,0CUDApinned",
+  "scope": "Genuine s8/curve5 tile discovery cold/fresh-prefix8 restart plus matched resident discovery cold;spectrum streamed in both;not fulls18",
+  "estimated_controller_minutes": "3\u20136 excluding queue;new fullsize tile-consumption latency unknown",
+  "monitoring": "Receipt-bound local completion notification;no model polling",
+  "note": "837 frozen build files/3837521bytes,12 reviewers,381 byte-identical code inputs to compiled tagged binary,108014 historical native bytes and actual s8 inputs verified;fresh frozen build inside allocation before GPU phases;resident defaults retained,no increased caps."
+}

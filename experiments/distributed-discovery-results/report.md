@@ -1,6 +1,6 @@
 # Bounded discovery-result consumption
 
-Status: prepared; GPU validation not yet submitted. Implementation **1d8e000**;parent0ec3410.
+Status: **submitted81454**,results-01;GPU results pending. Implementation **1d8e000**;parent0ec3410.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/). Planned results:
 `runs/results-01/`; immutable source, native references, binaries/profiles and
@@ -145,3 +145,11 @@ Fresh snapshot build runs inside admitted allocation before GPU phases;second
 potentially>30s local rebuild omitted. [Native preflight](readiness/snapshot-native.log),
 [CPU](readiness/cpu.log),[race](readiness/race.log),[native tests](readiness/native-tests.log).
 No local CUDA/MPI initialization.
+
+
+Submitted **81454** after readiness77b9c8a. [Receipt](submission.json),
+[scheduler log](slurm-81454.log),results `runs/results-01/`. Three arms:tile-discovery
+cold,fresh-process prefix8 restart,and matched resident-discovery cold;spectrum
+is streamed in both matched cold arms. Same resources/caps;estimate3–6min excluding
+queue. Receipt-bound local completion notification registered outside Git;no model
+polling. Analyze only after terminal notice.

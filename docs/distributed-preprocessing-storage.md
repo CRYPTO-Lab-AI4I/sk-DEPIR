@@ -143,3 +143,10 @@ fullsize latency remains unknown and resident stays default. Next consume discov
 results directly from GPU tiles into the local union bitmap,avoiding the same
 8N/r host allocation in that different phase. Do not sum those phase-specific
 savings into a simultaneous peak-memory claim.
+
+
+Optional discovery-result composition validation is submitted as **81454** on
+the existing two-node/two-H200 budget. It holds spectrum mode constant while
+comparing discovery tiles with resident results. [Scope and evidence](../experiments/distributed-discovery-results/report.md).
+Results pending;fullsize ownership/liveness and production persistence/logging
+remain separate gates before fulls18 admission.

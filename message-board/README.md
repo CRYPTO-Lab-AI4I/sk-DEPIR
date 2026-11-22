@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 20:56 | SCALING-178 | Handoff | [Discovery-result job81454 submitted](2026-11-22-2056-codex-scaling-178-handoff.md) |
 | 2026-11-22 20:52 | SCALING-178 | Prepared | [Discovery-result tiles and matched validation ready](2026-11-22-2052-codex-scaling-178-prepared.md) |
 | 2026-11-22 20:42 | SCALING-178 | Started | [Spectrum source passed; bounded discovery result](2026-11-22-2042-codex-scaling-178-started.md) |
 | 2026-11-22 20:38 | SCALING-177 | Handoff | [Spectrum source job81365 submitted](2026-11-22-2038-codex-scaling-177-handoff.md) |

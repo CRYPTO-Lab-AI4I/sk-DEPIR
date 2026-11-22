@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-bounded discovery-result consumption after GPU spectrum publication passed **81365**,then scalable fullsize ownership/working-set admission and
+bounded discovery-result consumption (submitted **81454**) after GPU spectrum publication passed **81365**,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1159,7 +1159,7 @@ savings must not be summed as a simultaneous total-RSS saving.
 
 [Prepared shared implementation/resource plan](../experiments/distributed-discovery-results/report.md)
 consumes each GPU discovery result once into the existing local union bitmap.
-Resident remains default;GPU validation and fullsize latency are pending.
+Resident remains default;GPU validation is submitted as **81454**,and fullsize latency remains unknown.
 
 | s | Avoided discovery-result host allocation (aggregate) | Per worker with16 workers | Full-workflow status |
 |---|---|---|---|
@@ -1174,3 +1174,12 @@ bitmap,support and root arrays remain. These savings occur in a different phase
 from spectrum output and must not be summed as total peak-RSS evidence. Sixteen
 workers are illustrative,not a supported/admitted topology. Same two-node/two-H200
 validation caps;fulls18 remains unrun.
+
+
+Discovery-result tile validation **81454** submitted,results-01,implementation
+1d8e000/readiness77b9c8a. Genuine s8/curve5 cold/fresh-prefix8 restart and matched
+resident-discovery cold,holding streamed spectrum output constant. Same **two HPC
+nodes/two H200s/four CPU cores/8 GiB total requested host RAM** and prior caps;
+estimate3–6min excluding queue. Results pending.
+[Source/native preflight,scope and trade-offs](../experiments/distributed-discovery-results/report.md).
+Fulls18 remains unrun/unadmitted;no resident default or resource increase.
