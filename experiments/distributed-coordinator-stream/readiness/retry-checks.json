@@ -1,0 +1,19 @@
+{
+  "utc": "2026-11-22T13:19:27.238014+00:00",
+  "status": "passed",
+  "revision": "f6e743eca0f0ccbdc458a829afbf00964a27895d",
+  "source_files": 786,
+  "snapshot_bytes": 3623064,
+  "manifest": "experiments/distributed-coordinator-stream/reference-inputs.json",
+  "manifest_sha256": "3fa5ac9d06d37195432fbb564d7d72fc4ae0bf946dac56507bc080861cb9a0b5",
+  "reference_files": 12,
+  "verified_reference_bytes": 69746,
+  "checks": [
+    "Real committed Git-blob snapshot includes runtime manifest.",
+    "Manifest loaded from frozen source,not worktree readiness.",
+    "All12 actual input lengths/hashes verified and copied read-only.",
+    "Focused reviewer suite executed from actual snapshot.",
+    "Go/CUDA sources unchanged;prior native/CPU/race checks retained."
+  ],
+  "limits": "same2nodes/2H200/4CPU/8GiBhost;128MiBowned/card,1GiBRSS/rank,128MiBcache/2GiBscratch/32MiBfile,720s/15min;no GPU initialization locally"
+}

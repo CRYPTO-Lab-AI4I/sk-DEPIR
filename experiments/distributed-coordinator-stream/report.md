@@ -8,8 +8,8 @@ retained-reference result yet. Actual producing source/revision is sealed by the
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/checks.json),
 [reference manifest](reference-inputs.json).
-Expected results: `runs/coordinator-01/`; reusable artifacts/snapshots/profiles at
-`.cache/liftrs/distributed-coordinator-stream/coordinator-01/`, outside Git.
+Retry results: `runs/coordinator-02/`; reusable artifacts/snapshots/profiles at
+`.cache/liftrs/distributed-coordinator-stream/coordinator-02/`, outside Git.
 Follows [passed genuine restart78915](../distributed-restart-pilot/report.md) and
 [passed bounded s18 arithmetic78917](../s18-field-admission/report.md).
 
@@ -94,9 +94,9 @@ python3 -B experiments/distributed-coordinator-stream/test_review.py
 python3 -B experiments/distributed-coordinator-stream/run.py --check
 module load slurm/slurm/25.05
 sbatch --parsable --output=experiments/distributed-coordinator-stream/slurm-%j.log \
- experiments/distributed-coordinator-stream/run.sbatch coordinator-01
+ experiments/distributed-coordinator-stream/run.sbatch coordinator-02
 # After completion ping:
-python3 -B experiments/distributed-coordinator-stream/analyze.py coordinator-01
+python3 -B experiments/distributed-coordinator-stream/analyze.py coordinator-02
 ```
 
 Do not overwrite retained inputs; regenerate in a fresh directory and compare
@@ -147,3 +147,9 @@ reference input. This covers the missing boundary without another GPU calibratio
 job. Python source/packaging changed only; Go/CUDA sources and prior checks remain
 unchanged. Same resources and3–6-minute estimate for the retry, excluding queue.
 Keep the failed run and its original receipt intact; retry uses a fresh run/cache.
+
+
+The [real committed-snapshot preflight](readiness/retry-checks.json) passed on
+source `f6e743e`:786 source files /3,623,064 bytes,including the manifest,then all
+12 real reference inputs /69,746 bytes verified and copied read-only. Reviewer
+tests executed successfully from that snapshot. No local GPU/MPI initialization.
