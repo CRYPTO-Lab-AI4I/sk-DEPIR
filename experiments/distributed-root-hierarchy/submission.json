@@ -1,0 +1,16 @@
+{
+  "job_id": "79376",
+  "name": "hierarchy-01",
+  "implementation_revision": "6785af2d3135c39b448f1d94ea8f9e19cbade4a8",
+  "submission_revision": "6bbd8f5",
+  "recorded_utc": "2026-11-22T14:30:46.143432+00:00",
+  "command": "module load slurm/slurm/25.05; sbatch --parsable --output=experiments/distributed-root-hierarchy/slurm-%j.log experiments/distributed-root-hierarchy/run.sbatch hierarchy-01",
+  "results": "experiments/distributed-root-hierarchy/runs/hierarchy-01",
+  "log": "experiments/distributed-root-hierarchy/slurm-79376.log",
+  "cache": ".cache/liftrs/distributed-root-hierarchy/hierarchy-01/",
+  "resources": "Same2 HPC nodes/2H200/4CPU/8GiB requested RAM;4workers,64MiBowned/worker=128MiB/card aggregate,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm,0CUDApinned",
+  "scope": "Synthetic s18 hierarchical roots16/4092,isolated2+2 then4-worker merges,sharded inter-level handoff;normal and small16-root CUDA memcheck;not fulls18 discovery/Newton/restart",
+  "estimated_controller_minutes": "3\u20136 excluding queue;new hierarchy runtime unmeasured",
+  "monitoring": "None;wait for user completion ping.",
+  "note": "Actual committed-source snapshot798files/3,675,323bytes and reviewer paths verified before submission;producing revision/source sealed by controller;receipt changes documentation only."
+}

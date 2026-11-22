@@ -3269,3 +3269,8 @@ faster/default paths remain. Same physical budget and64MiB/worker ownedGPU cap,
 complete measurements. Fulls18 worst-case generator capacity remains unmeasured.
 After this passes,integrate more-worker genuine discovery/Newton/identity/spectrum
 and coordinated persistence,then meaningful assembled scaling/full-run admission.
+
+Submitted **79376**,hierarchy-01,implementation6785af2 after actual-source
+snapshot preflight6bbd8f5 (798files/3,675,323bytes;reviewer passes from snapshot).
+[Receipt](../experiments/distributed-root-hierarchy/submission.json). Same physical
+resources/aggregate caps;no monitoring until completion ping.

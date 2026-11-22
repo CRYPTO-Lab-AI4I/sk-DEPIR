@@ -1,7 +1,8 @@
 # Hierarchical distributed root products
 
-Status: **implemented; integrated GPU validation pending**. Freeze source before
-submission; the controller records the actual producing revision and identities.
+Status: **submitted as79376**, `hierarchy-01`, implementation `6785af2`.
+[Receipt](submission.json), [scheduler log](slurm-79376.log). Integrated GPU results
+pending; the controller records the actual producing revision and identities.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/checks.json).
 Results will be retained in `runs/hierarchy-01/`; snapshots,binaries,shards and
@@ -151,3 +152,9 @@ Full genuine discovery/Newton/checkpoint/publication integration beyond two
 workers,larger representative scaling and fulls18 remain unvalidated. Odd worker
 counts are not admitted by this hierarchy; the original reference tree retains
 its odd-count support. No node-loss/elastic restart claim is made.
+
+
+[Actual committed-snapshot preflight](readiness/snapshot-checks.json) passed on
+6785af2:798 source files /3,675,323 bytes,required MPI/driver/wrapper/runner paths
+present,and reviewer suite passed from the snapshot. Submission6bbd8f5 adds only
+that evidence. No local GPU/MPI initialization;subgroup integration awaits79376.

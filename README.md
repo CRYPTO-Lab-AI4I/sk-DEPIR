@@ -124,7 +124,7 @@ no longer builds full reference/support copies in this explicit pilot mode.
 rank-owned root/discovery and full-pipeline integration remain before fulls18.
 [Hierarchical root integration](experiments/distributed-root-hierarchy/report.md)
 is implemented for growing worker groups with sharded intermediate products;
-its GPU validation is pending. Existing execution defaults remain. Full s18 preprocessing is not validated.
+GPU validation is submitted as **79376**. Existing execution defaults remain. Full s18 preprocessing is not validated.
 No fullsize/production preprocessing or fulls18 speedup is claimed. No encoding default
 or client CUDA/MPI dependency changes.
 

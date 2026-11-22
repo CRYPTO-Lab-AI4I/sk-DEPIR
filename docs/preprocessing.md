@@ -543,7 +543,7 @@ isolate sibling merges;intermediate coefficient shards move directly to the next
 group without a complete polynomial gather. Domain growth/unequal child domains
 are explicit. The former single-owner routing adapter uses that same implementation.
 
-GPU validation is pending. Per-stage communicator/GPU setup and host redistribution
+GPU validation is submitted as79376. Per-stage communicator/GPU setup and host redistribution
 add work whose runtime cost is unknown;the prototype changes no production/default
 mode. Fulls18 discovery/generator/persistence integration still remains. Ordinary
 CPU client builds acquire no MPI/CUDA dependency. See the experiment for admission,
