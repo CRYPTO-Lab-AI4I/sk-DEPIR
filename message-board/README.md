@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-22 19:59 | SCALING-175 | Handoff | [Compact checkpoint job81190 submitted](2026-11-22-1959-codex-scaling-175-handoff.md) |
 | 2026-11-22 19:50 | SCALING-175 | Prepared | [Compact checkpoint codec and validation ready](2026-11-22-1950-codex-scaling-175-prepared.md) |
 | 2026-11-22 19:29 | SCALING-175 | Started | [Owned roots passed; compact restart prefix storage](2026-11-22-1929-codex-scaling-175-started.md) |
 | 2026-11-22 19:20 | SCALING-174 | Handoff | [Owned-root combined job81079 submitted](2026-11-22-1920-codex-scaling-174-handoff.md) |

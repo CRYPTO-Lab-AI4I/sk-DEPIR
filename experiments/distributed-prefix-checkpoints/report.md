@@ -1,6 +1,6 @@
 # Compact restart prefix checkpoints
 
-Status: prepared; GPU cold/restart integration pending. Parent revision525888f.
+Status: **submitted81190**,prefix-01,implementation3dd1845;GPU results pending. Parent revision525888f.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/). Exact producing revision
 will be sealed by the committed snapshot/controller. Results use `runs/prefix-01/`;
@@ -143,3 +143,10 @@ pipeline,wrapper and native-manifest paths exist;all nine reviewer suites passed
 from frozen source. Exact snapshot helpers verified112,460 retained root bytes
 and69,746 native code bytes before allocation. Subsequent readiness commit
 changes documentation/evidence only.
+
+
+Submitted **81190** after readiness commite9d019a.
+[Receipt](submission.json), [scheduler log](slurm-81190.log),results
+`runs/prefix-01/`. Same resources/caps and3–6 minute estimate excluding queue.
+Receipt-bound local completion notification registered;no model polling after
+submission. Review saved evidence after completion notice.

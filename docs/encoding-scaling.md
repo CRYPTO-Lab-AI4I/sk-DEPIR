@@ -3482,3 +3482,11 @@ or a complete fulls18 cache estimate. No useful caches/profiles are deleted.
 After codec validation,measure larger real workload/I/O/checkpoint behavior and
 finish scalable complete discovery/working-set/full wide-domain execution before
 fulls18 topology,resource/storage/headroom/deadline agreement. Fulls18 remains unrun.
+
+
+Compact checkpoint validation submitted as **81190**,prefix-01,implementation3dd1845,
+after committed-source/native-input preflighte9d019a.
+[Receipt and resources](../experiments/distributed-prefix-checkpoints/submission.json).
+Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;GPU results pending.
+Legacy padded defaults remain;compact storage/runtime figures are not yet measured.
+Fulls18 preprocessing remains unrun.

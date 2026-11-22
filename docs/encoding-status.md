@@ -1053,3 +1053,11 @@ Shared retained bytes are independent of GPU count. Physical filesystem capacity
 and agreed full-run budgets must cover all artifacts,not just these payloads.
 Larger runtime/I/O/restart measurements and fulls18 resource/headroom/deadline
 agreement remain required.
+
+
+Compact checkpoint validation submitted as **81190**,prefix-01,implementation3dd1845,
+after committed-source/native-input preflighte9d019a.
+[Receipt and resources](../experiments/distributed-prefix-checkpoints/submission.json).
+Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;GPU results pending.
+Legacy padded defaults remain;compact storage/runtime figures are not yet measured.
+Fulls18 preprocessing remains unrun.
