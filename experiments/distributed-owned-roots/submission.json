@@ -1,0 +1,16 @@
+{
+  "job_id": "81079",
+  "name": "owned-01",
+  "implementation_revision": "638a273",
+  "submission_revision": "84fe1a74e339cc5a736cc513f7b2bf89339366a2",
+  "recorded_utc": "2026-11-22T19:18:43.282670+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-owned-roots/slurm-%j.log experiments/distributed-owned-roots/run.sbatch owned-01",
+  "results": "experiments/distributed-owned-roots/runs/owned-01",
+  "log": "experiments/distributed-owned-roots/slurm-81079.log",
+  "cache": ".cache/liftrs/distributed-owned-roots/owned-01/",
+  "resources": "same2HPCnodes/2H200/4CPU/8GiBrequestedRAM;4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm,0CUDApinned",
+  "scope": "Owned-root genuine s4/s6 cold/fresh-prefix8 resume plus bounded field18 tail and owned synthetic16/4092 root reductions;retained native leaf/stage/final controller comparisons;not fulls18",
+  "estimated_controller_minutes": "3\u20136 excluding queue;changed validation boundaries are not a kernel-speed benchmark",
+  "monitoring": "Receipt-bound local completion watcher;no model polling.",
+  "note": "Exact committed snapshot/eight reviewers/explicit runtime manifest verified;112460root+69746code native bytes checked before admission;no resource/default increase;actual producing revision sealed by controller."
+}

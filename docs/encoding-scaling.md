@@ -3436,3 +3436,11 @@ After this gate,finish scalable complete field18 discovery/working-set admission
 full-domain generator/spectrum/artifact workflow,meaningful larger scaling and
 interruption/relaunch,then choose fulls18 topology/resources/headroom/deadline and
 obtain separate admission. Small owned-root correctness is not fulls18 readiness.
+
+
+Owned-root combined validation submitted as **81079**,owned-01,implementation638a273,
+after committed-source/native-input preflight84fe1a7.
+[Receipt and resources](../experiments/distributed-owned-roots/submission.json).
+Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;GPU results pending.
+Genuine cold/restart remains s4/s6;field18 root/tail cases are bounded components.
+Fulls18 preprocessing remains unrun.

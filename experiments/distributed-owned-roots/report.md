@@ -1,6 +1,6 @@
 # Owned root execution with retained native validation
 
-Status: prepared; integrated GPU results pending. Parent revision0f57378.
+Status: **submitted81079**,owned-01,implementation638a273;GPU results pending. Parent revision0f57378.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [retained root manifest](root-references.json),
 [readiness](readiness/). Producing revision/source hashes will be sealed by the
@@ -146,3 +146,10 @@ MPI/wrapper/runtime-manifest paths exist;all eight reviewer suites passed from
 frozen source. Its exact copy helpers verified112,460 retained root bytes
 and69,746 native code bytes before allocation. The subsequent readiness
 commit changes only documentation/evidence.
+
+
+Submitted **81079** after readiness commit84fe1a7.
+[Receipt](submission.json), [scheduler log](slurm-81079.log),results
+`runs/owned-01/`. Same resources/caps and3–6 minute estimate excluding queue.
+Local receipt-bound completion notification registered;no model polling after
+submission. Review saved evidence after completion notice.

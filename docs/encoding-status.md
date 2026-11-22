@@ -1005,3 +1005,11 @@ new GPU validation is pending at both field widths. Same admitted resources/caps
 Then finish scalable complete discovery/working-set/full wide-domain workflow,
 representative scaling/restart and separate fulls18 admission. No fullsize runtime
 or capacity claim follows from the small component pass.
+
+
+Owned-root combined validation submitted as **81079**,owned-01,implementation638a273,
+after committed-source/native-input preflight84fe1a7.
+[Receipt and resources](../experiments/distributed-owned-roots/submission.json).
+Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;GPU results pending.
+Genuine cold/restart remains s4/s6;field18 root/tail cases are bounded components.
+Fulls18 preprocessing remains unrun.
