@@ -1,6 +1,6 @@
 # Larger genuine distributed preprocessing
 
-Status: prepared; GPU measurement not yet submitted. Parent revision9139e9e.
+Status: prepared; GPU measurement not yet submitted. Implementation revision **7395079**;parent9139e9e.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/). Results will be
 `runs/scaling-01/`; reusable source, native references, binaries and artifacts
@@ -125,3 +125,12 @@ python3 -B experiments/distributed-pipeline-scaling/analyze.py scaling-01
 Next: inspect larger measured phase/memory/I/O/checkpoint costs, finish scalable
 fullsize discovery/ownership/working-set and artifact paths, then review fulls18
 resources, storage, headroom and deadlines. Fulls18 remains unrun and unadmitted.
+
+
+[Committed-source preflight](readiness/snapshot-checks.json) passed on7395079:
+**827 files /3,803,974 bytes**, all required inputs/wrapper paths and ten reviewer
+suites checked from the actual frozen source. Built that source,ran its native
+export/admission and codec tests,and verified **108,014 historical native bytes**
+plus genuine s8/curve5 support/code and every native leaf/merge/final reference.
+[Build](readiness/frozen-build.log), [native regression](readiness/frozen-preflight.log),
+[native tests](readiness/frozen-native-tests.log). GPU results remain pending.

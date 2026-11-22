@@ -1,0 +1,15 @@
+=== RUN   TestRankPrefixResumeAdmission
+--- PASS: TestRankPrefixResumeAdmission (0.00s)
+=== RUN   TestRankPrefixCompactRoundTrip
+--- PASS: TestRankPrefixCompactRoundTrip (0.00s)
+=== RUN   TestRankPrefixCompactBoundsAndCanonicalValues
+--- PASS: TestRankPrefixCompactBoundsAndCanonicalValues (0.00s)
+=== RUN   TestRankPrefixWideExtents
+--- PASS: TestRankPrefixWideExtents (0.00s)
+=== RUN   TestPilotCurve
+--- PASS: TestPilotCurve (0.00s)
+=== RUN   TestPilotCases
+--- PASS: TestPilotCases (0.00s)
+=== RUN   TestRetainedPilotReference
+--- PASS: TestRetainedPilotReference (0.00s)
+PASS

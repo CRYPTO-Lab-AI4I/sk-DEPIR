@@ -1,0 +1,90 @@
+{
+  "status": "passed",
+  "utc": "2026-11-22T20:16:04.218763+00:00",
+  "revision": "7395079ce6932afdca97821c1ae65774029f751f",
+  "source_files": 827,
+  "source_bytes": 3803974,
+  "required": [
+    "encoding/liftrs-shared/distributed_reference_test.go",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go",
+    "encoding/liftrs-shared/root_hierarchy_gpu_test.go",
+    "experiments/distributed-pipeline-scaling/run.py",
+    "experiments/distributed-pipeline-scaling/preflight.py",
+    "experiments/distributed-pipeline-scaling/run.sbatch",
+    "experiments/distributed-root/rank.sh",
+    "experiments/distributed-owned-roots/root-references.json",
+    "experiments/distributed-coordinator-stream/reference-inputs.json"
+  ],
+  "checks": {
+    "distributed-pipeline-scaling": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.004s\n\nOK\n"
+    },
+    "distributed-prefix-checkpoints": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.035s\n\nOK\n"
+    },
+    "distributed-owned-roots": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n"
+    },
+    "distributed-pipeline-wide": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n"
+    },
+    "distributed-pipeline-four": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.032s\n\nOK\n"
+    },
+    "distributed-restart-pilot": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.028s\n\nOK\n"
+    },
+    "distributed-preprocessing-pilot": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.008s\n\nOK\n"
+    },
+    "distributed-coordinator-stream": {
+      "exit_code": 0,
+      "output": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.005s\n\nOK\n"
+    },
+    "distributed-root-hierarchy": {
+      "exit_code": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.037s\n\nOK\n"
+    },
+    "distributed-discovery-hierarchy": {
+      "exit_code": 0,
+      "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+    }
+  },
+  "native_historical_bytes_verified": 108014,
+  "native_parameters": {
+    "spec": {
+      "FieldDegree": 8,
+      "Dimension": 2,
+      "CurveDegree": 5
+    },
+    "k": 7381,
+    "n": 65536,
+    "polynomial": 285,
+    "delta": 32,
+    "omega": 260,
+    "samples": 2
+  },
+  "native_root_cases": [
+    {
+      "count": 7381,
+      "counts": [
+        3442,
+        1507,
+        1541,
+        895
+      ],
+      "label": "s8",
+      "s": 8
+    }
+  ],
+  "native_reference_files": 16,
+  "native_preflight": "frozen-preflight.log",
+  "native_tests": "frozen-native-tests.log"
+}
