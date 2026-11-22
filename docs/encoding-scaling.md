@@ -3388,3 +3388,11 @@ representation,not an optional memory trade;fullsize wider-transfer cost is unkn
 Then complete scalable ownership without bounded replicated support/oracles,
 canonical wide full-domain execution,meaningful larger scaling/restart and separate
 fulls18 topology/resource/headroom/deadline admission. Fulls18 remains unrun.
+
+
+Wide adapter combined validation submitted as **80962**,wide-01,implementationee36990,
+after committed-source/native-input preflight31c360d.
+[Receipt and resources](../experiments/distributed-pipeline-wide/submission.json).
+Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;GPU results pending.
+Genuine complete cold/restart is s4/s6;field18 tail is bounded32/4096 points.
+Fulls18 preprocessing remains unrun.

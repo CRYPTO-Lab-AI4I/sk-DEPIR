@@ -1,6 +1,6 @@
 # Wide distributed preprocessing adapters
 
-Status: prepared; integrated GPU results pending. Parent revision9e3dbc2.
+Status: **submitted80962**,wide-01,implementationee36990;GPU results pending. Parent revision9e3dbc2.
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/). Actual implementation and
 producing revision will be sealed by the committed snapshot/controller. Results
@@ -144,3 +144,10 @@ wide/pipeline/MPI/wrapper/manifest paths exist;all seven reviewer suites passed
 from frozen source. The exact snapshot input-copy helper verified69,746 retained
 native bytes before allocation. The following readiness commit changes only
 documentation/evidence.
+
+
+Submitted **80962** after readiness commit31c360d.
+[Receipt](submission.json), [scheduler log](slurm-80962.log),results
+`runs/wide-01/`. Same resources/caps and3–5 minute estimate excluding queue.
+Receipt-bound local completion notification registered;no model polling after
+submission. Review the saved evidence after completion notice.

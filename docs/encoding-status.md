@@ -17,9 +17,9 @@ deployment costs before accepting a scaling milestone.
 
 ## Current distributed preprocessing step
 
-The small two-rank pipeline is assembled and validated through discovery, roots,
-Newton iteration, the complete identity and spectrum, plus fresh-process restart
-and streamed publication. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
+The small pipeline is assembled and validated through discovery,roots,Newton
+iteration,the complete identity and spectrum,plus fresh-process restart and
+streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Current focus: validate wide
 assembled adapters and scalable fullsize ownership,then step5 scaling validation.** Steps1–4 have
@@ -974,3 +974,11 @@ reciprocal/product/spectrum and explicit high-bit8-byte publication. These32/409
 field components are not the2^36-point s18 code grid or a fulls18 artifact. Same
 allocation/caps;GPU results pending. Scalable diagnostic-free ownership,full wide-domain
 workflow,representative scaling/restart and separate full-run admission remain.
+
+
+Wide adapter combined validation submitted as **80962**,wide-01,implementationee36990,
+after committed-source/native-input preflight31c360d.
+[Receipt and resources](../experiments/distributed-pipeline-wide/submission.json).
+Same2HPCnodes/2H200/4CPU/8GiB request and existing caps;GPU results pending.
+Genuine complete cold/restart is s4/s6;field18 tail is bounded32/4096 points.
+Fulls18 preprocessing remains unrun.

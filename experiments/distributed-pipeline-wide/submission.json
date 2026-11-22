@@ -1,0 +1,16 @@
+{
+  "job_id": "80962",
+  "name": "wide-01",
+  "implementation_revision": "ee36990",
+  "submission_revision": "31c360d66f7f8dc438a7313448828a80740979f1",
+  "recorded_utc": "2026-11-22T18:49:07.432693+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-pipeline-wide/slurm-%j.log experiments/distributed-pipeline-wide/run.sbatch wide-01",
+  "results": "experiments/distributed-pipeline-wide/runs/wide-01",
+  "log": "experiments/distributed-pipeline-wide/slurm-80962.log",
+  "cache": ".cache/liftrs/distributed-pipeline-wide/wide-01/",
+  "resources": "same2HPCnodes/2H200/4CPU/8GiBrequestedRAM;4workers,64MiBowned/worker=128MiB/card,1GiBRSS/worker,128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm,0CUDApinned",
+  "scope": "Genuine s4/s6 four-worker cold/fresh-prefix8 resume plus bounded canonical field18 reciprocal/product/spectrum and high-bit raw publication;not fulls18",
+  "estimated_controller_minutes": "3\u20135 excluding queue;new wide adapter latency unmeasured",
+  "monitoring": "Receipt-bound local completion watcher;no model polling.",
+  "note": "Actual committed source and seven reviewers checked;exact retained native-input helper verified69746bytes;source/producing revision sealed by controller;no resource/default increase."
+}
