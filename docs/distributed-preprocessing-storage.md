@@ -470,3 +470,5 @@ G²,product output), dense80GiB, plus scratch and reserve. The historical48GiB
 figure counts prefix inputs only; no added array is implied. Update fullsize node
 packing/headroom from representative data before full s18 approval; no fullsize
 RSS/runtime claim from this small test.
+
+SCALING-194: user approved the exact eight-worker s8 test (8cores/16GiBhost RAM,2HPCnodes/2H200; all other limits in the report). Submission pending; fulls18 remains unadmitted.

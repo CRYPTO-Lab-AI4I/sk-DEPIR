@@ -23,7 +23,7 @@ checks on **four workers across two HPC nodes/two H200s**. Final publication
 reload **82101 passed**. Canonical field18 FFT/products also pass at bounded sizes;
 these are not full s18 runs.
 
-**Assembled arithmetic resume82102 and actual command82181 passed. Current focus: named host-phase admission/eight-worker validation (SCALING-194), prepared; resource agreement pending.**
+**Assembled arithmetic resume82102 and actual command82181 passed. Current focus: named host-phase admission/eight-worker validation (SCALING-194), resource-approved; submission pending.**
 Then parameterized launch/full working-set admission and representative larger
 GPU/node scaling remain. Full s18 preprocessing is **not run / not admitted**.
 The measurements below distinguish small-case integration from fullsize projections
@@ -1568,7 +1568,7 @@ and larger parameter/topology/whole-job admission remain. Same HPC allocation:
 | Durable assembled prefix commits82101 | **Passed**, including fresh-process file reload | Controller **2 min41.494 s**; assembled launcher **9.893 s**; peak host RSS **380.570 MiB/worker**; owned GPU **0.244 MiB/worker** (driver/context extra) |
 | Assembled arithmetic resume82102 | **Passed** | Controller **3 min11.398 s**; restart launcher **8.297 s**; peak host RSS **381.387 MiB/worker**, owned GPU **0.244 MiB/worker** (driver/context extra) |
 | Parameterized MPI command82181 | **Passed** | Controller **2 min54.239 s**; command restart **7.896 s**, peak host RSS **376.066 MiB/worker** |
-| Host phase inventories /eight-worker validation | Implemented; proposed test **not submitted /not yet admitted** | Proposed2nodes/2H200/8cores/16GiBhost RAM;3–7min controller estimate; limits/report below |
+| Host phase inventories /eight-worker validation | Implemented; test **approved /not yet submitted** | Proposed2nodes/2H200/8cores/16GiBhost RAM;3–7min controller estimate; limits/report below |
 | Full s18 preprocessing | **Not run / not admitted** | Capacity projections above are not measured costs or implementation support |
 
 Durable assembled checkpoint validation **82101 passed** under unchanged caps;
@@ -1615,6 +1615,6 @@ output), dense80GiB, plus scratch/reserve. Earlier48GiB is input arrays only.
 No new numerical allocation or memory–time policy change.
 
 Eight-worker/two-H200 cold/restart is prepared, requesting8cores/16GiBhost RAM
-versus current4cores/8GiB; no submission before agreement. This tests worker
+versus current4cores/8GiB; resource agreement granted; submission pending. This tests worker
 ownership/deeper root groups, not eight-GPU throughput. Fullsize host reserve,
 node/GPU packing and complete s18 resources remain unvalidated/unadmitted.

@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 17:09 | SCALING-194 | Resumed | [Eight-worker resources approved](2026-11-23-1709-codex-scaling-194-approved.md) |
 | 2026-11-23 16:41 | SCALING-194 | Handoff | [Eight-worker test ready; CPU/RAM agreement pending](2026-11-23-1641-codex-scaling-194-handoff.md) |
 | 2026-11-23 16:38 | SCALING-194 | Prepared | [Host phases and eight-worker resource plan ready](2026-11-23-1638-codex-scaling-194-prepared.md) |
 | 2026-11-23 16:24 | SCALING-194 | Started | [Command passed; admit host phases and prepare larger ranks](2026-11-23-1624-codex-scaling-194-started.md) |

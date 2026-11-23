@@ -1,6 +1,6 @@
 # Host phase admission and eight-worker validation
 
-Status: **prepared; awaiting resource agreement; no job submitted**. SCALING-194
+Status: **resource-approved; not yet submitted**. SCALING-194
 follows [passed actual command82181](../distributed-command/report.md#verified-outcome82181).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
@@ -86,7 +86,7 @@ python3 -B experiments/distributed-host-admission/prepare_reference.py \
  experiments/distributed-host-admission/reference.py
 ```
 
-## Proposed resources — approval required
+## Approved resources
 
 | Resource | Current admitted validation | Proposed eight-worker test |
 |---|---|---|
@@ -140,5 +140,10 @@ checks pass without local GPU/MPI initialization. Native preflight reproduces
 **108014 historical bytes** and actual s8/curve5 reference/root geometry.
 Saved82181evidence also passes the generalized reviewer's default four-worker path.
 [Source checks](readiness/source-checks.json), [reviewers](readiness/frozen-reviewers.json),
-[native preflight](readiness/native-preflight.log). No job submitted; CPU/RAM
-resource agreement is the remaining requirement before this prepared test launches.
+[native preflight](readiness/native-preflight.log). No job submitted at readiness completion; CPU/RAM agreement subsequently granted below.
+
+### Resource agreement
+
+User approved this exact small eight-worker test on 2026-11-23:8CPUcores/
+16GiBhost RAM total,2nodes/2H200, with all per-worker/device/storage/time limits
+in the table retained. Full s18 remains unadmitted.
