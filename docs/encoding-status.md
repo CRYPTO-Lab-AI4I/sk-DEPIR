@@ -23,7 +23,7 @@ checks on **four workers across two HPC nodes/two H200s**. Final publication
 reload **82101 passed**. Canonical field18 FFT/products also pass at bounded sizes;
 these are not full s18 runs.
 
-**Current focus: assembled arithmetic resume (SCALING-192), prepared for validation.**
+**Current focus: assembled arithmetic resume (SCALING-192), submitted82102; results pending.**
 Then parameterized launch/full working-set admission and representative larger
 GPU/node scaling remain. Full s18 preprocessing is **not run / not admitted**.
 The measurements below distinguish small-case integration from fullsize projections
@@ -34,7 +34,7 @@ and the separate full s17 preprocessing/encoding results.
 | 1. Distributed products and FFTs | **Bounded resident products passed78399**:24 normal +24 sanitized rank/product outputs; host reference also passed.<br>Resident storage78392, vectors78394 and complete FFT78396 passed.<br>**Matched comparison78432 passed** (96 normal +8 small sanitized outputs).<br>**GPU-local Taylor passed78460**, now faster in matched small products.<br>**Larger structured products passed78469** through262144 values; resident3.16× faster at largest size.<br>**Local GPU roots + distributed final merge passed78508**, through65532 roots.<br>**Bounded operand ownership routing passed78662** (all5 arms,10 rank outputs).<br>**Integrated genuine s4/s6 pilot passed78898**: repeated sharded root/Newton/identity/spectrum and canonical artifacts.<br>**Canonical s18 bounded FFT/products passed78917**, with clean small CUDA memchecks. **Four-worker canonical s18 FFT/products passed79239 on two GPUs**,with clean small sanitizers. [Hierarchical sharded root execution passed79376](../experiments/distributed-root-hierarchy/report.md), including unequal child domains and clean small CUDA checks. Fullsize scaling remains pending. |
 | 2. Distributed discovery | Local monomial/grid/union ownership and direct orbit routing passed78909 for genuine s4/s6. Four-worker genuine discovery-to-hierarchy passed79541. Coordinator entropy source remains; streamed support/retained-reference cold and fresh-process resume passed79213; full coordinator support/oracle arrays removed in the explicit pilot mode. No fullsize result. |
 | 3. Generator construction and verification | Sharded Newton/identity/spectrum integration passed78898 for genuine s4/s6. Four-worker complete genuine cold/restart passed79983;fullsize integration remains. |
-| 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898; partitioned discovery passed78909. **Fresh-process prefix8 restart and bounded streamed publication passed78915** for genuine s4/s6, with identical canonical code/generator output. Four-worker complete cold/restart passed79983. **Optional compact prefix checkpoint cold/restart passed81190**, with exact stored lengths/hashes and identical final artifacts. **Optional GPU-backed spectrum publication passed81365**,including matched resident output and bounded wide/high-bit checks. **Assembled final commit82100 and source-bound durable prefixes/file reload82101 passed**; assembled arithmetic resume is prepared. Fullsize/node-failure recovery remains. |
+| 4. Coordinated checkpoints and publication | Completed-prefix commit/reload and byte-identical canonical artifacts passed78898; partitioned discovery passed78909. **Fresh-process prefix8 restart and bounded streamed publication passed78915** for genuine s4/s6, with identical canonical code/generator output. Four-worker complete cold/restart passed79983. **Optional compact prefix checkpoint cold/restart passed81190**, with exact stored lengths/hashes and identical final artifacts. **Optional GPU-backed spectrum publication passed81365**,including matched resident output and bounded wide/high-bit checks. **Assembled final commit82100 and source-bound durable prefixes/file reload82101 passed**; assembled arithmetic resume is submitted82102. Fullsize/node-failure recovery remains. |
 | 5. Complete scaling validation | Assembled genuine s4/s6 normal pipeline and s4 sanitizer passed78898. [Canonical s18 bounded FFT/products passed78917](../experiments/s18-field-admission/report.md). Complete four-worker cold/restart passed79983. **Larger genuine s8/curve5 cold/restart passed81286**,two nodes/two H200s;11.147s cold/8.003s restart. Fulls18 remains unrun. |
 
 [FFT evidence](../experiments/distributed-gpu-fft/report.md): controller runtime
@@ -1566,7 +1566,7 @@ and larger parameter/topology/whole-job admission remain. Same HPC allocation:
 |---|---|---|
 | Final publication82100 | **Passed** | Controller **2 min38.073 s**; assembled launcher **8.510 s**; peak host RSS **378.824 MiB/worker**; owned GPU **0.244 MiB/worker** (context/driver extra); retained cache **36.220 MiB** |
 | Durable assembled prefix commits82101 | **Passed**, including fresh-process file reload | Controller **2 min41.494 s**; assembled launcher **9.893 s**; peak host RSS **380.570 MiB/worker**; owned GPU **0.244 MiB/worker** (driver/context extra) |
-| Assembled arithmetic resume | Prepared; not run | Estimated controller **3–6 min**, same admitted limits; fullsize runtime/memory unknown |
+| Assembled arithmetic resume | **Submitted82102; results pending** | Estimated controller **3–6 min**, same admitted limits; fullsize runtime/memory unknown |
 | Full s18 preprocessing | **Not run / not admitted** | Capacity projections above are not measured costs or implementation support |
 
 Durable assembled checkpoint validation **82101 passed** under unchanged caps;
@@ -1585,3 +1585,5 @@ archive reuse. Same HPC budget2nodes/2H200/4cores/8GiB requested host RAM/4worke
 resource limits and timing boundaries in the report. No fullsize capacity change.
 Restarted arithmetic still unvalidated; larger topology/complete job admission
 remain after this test.
+
+Assembled arithmetic-resume validation [82102 receipt](../experiments/distributed-workflow-resume/submission.json); results pending.

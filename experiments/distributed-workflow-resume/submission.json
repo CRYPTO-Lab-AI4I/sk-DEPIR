@@ -1,0 +1,16 @@
+{
+  "job_id": "82102",
+  "name": "resume-01",
+  "implementation_revision": "9006b3b",
+  "submission_revision": "ed99872e639b209d42eb949f6782707aa1240340",
+  "recorded_utc": "2026-11-23T10:56:53.736908+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-workflow-resume/slurm-%j.log experiments/distributed-workflow-resume/run.sbatch resume-01",
+  "results": "experiments/distributed-workflow-resume/runs/resume-01",
+  "log": "experiments/distributed-workflow-resume/slurm-82102.log",
+  "cache": ".cache/liftrs/distributed-workflow-resume/resume-01/",
+  "resources": "2 HPC nodes/2 H200/4 CPU cores/8 GiB requested host RAM total;4 workers;64 MiB owned GPU/worker=128 MiB/card;1 GiB RSS/worker;zero CUDA-pinned;128 MiB retained cache/2 GiB scratch/32 MiB file;720-second controller/15-minute Slurm;exclude gnode03",
+  "scope": "Reviewed pilot cold/restart plus assembled durable cold and fresh-process prefix8 arithmetic restart;shared numerical tail and no-copy archive reuse;not fullsize/node-loss recovery",
+  "estimated_controller_minutes": "3\u20136 excluding queue",
+  "monitoring": "Receipt-bound local completion notification;no model polling",
+  "note": "920 frozen inputs/406 matching compiled code hashes;25 frozen reviewers and ordinary CPU/race/tagged/native checks passed. No resource increase or unchanged wide/dense/sanitizer repeat."
+}

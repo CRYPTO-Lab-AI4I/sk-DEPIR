@@ -1,6 +1,6 @@
 # Assembled arithmetic resume
 
-Status: **prepared, integration not yet run**. SCALING-192 follows
+Status: **submitted job82102**, resume-01; integration results pending. SCALING-192 follows
 [passed durable checkpoint82101](../distributed-workflow-checkpoints/report.md#verified-outcome82101).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
@@ -123,3 +123,10 @@ CPU-native preflight verifies **108014 historical bytes** and actual s8/curve5
 native/root inputs. [Source checks](readiness/source-checks.json),
 [reviewers](readiness/frozen-reviewers.json), [native preflight](readiness/native-preflight.log).
 Fresh source builds and each-node environment/path preflight remain inside the job.
+
+### Submission82102
+
+Submitted from **ed99872**, implementation **9006b3b**. [Receipt](submission.json).
+Results `runs/resume-01/`, Slurm log `slurm-82102.log`, retained cache above.
+Same admitted limits; estimated controller **3–6 minutes excluding queue**.
+Submission is not a pass; no agent polling until the terminal notice.

@@ -3920,3 +3920,5 @@ comparisons. Then parameterized command/full phase and working-set admission,
 representative larger topology, and complete fulls18 resource approval. Fulls18
 remains unrun/unadmitted; failure during discovery/root construction is not yet
 covered by this completed-Newton-prefix restart boundary.
+
+Assembled arithmetic-resume validation **82102 submitted** under unchanged caps; [receipt](../experiments/distributed-workflow-resume/submission.json). Reviewed pilot cold/restart plus assembled cold and fresh-process prefix8 restart; results pending. Fulls18 remains unrun/unadmitted.
