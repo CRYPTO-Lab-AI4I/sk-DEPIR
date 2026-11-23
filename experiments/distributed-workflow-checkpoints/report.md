@@ -1,6 +1,6 @@
 # Durable assembled workflow checkpoints
 
-Status: **prepared, no GPU integration result yet**. SCALING-191 follows
+Status: **submitted job82101**, checkpoints-01; integration results pending. SCALING-191 follows
 [passed publication82100](../distributed-publication-commit/report.md#verified-outcome82100).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
@@ -134,3 +134,10 @@ its final relative-path inventory to fail. [Original log](readiness/native-prefl
 is retained. The corrected invocation uses the repository root containing both
 paths and passes. This was a local inventory-command error; no GPU allocation
 was consumed and the job's existing source/cache layout is unchanged.
+
+### Submission82101
+
+Submitted from **28c37c7**, implementation **ce295e2**. [Receipt](submission.json).
+Results `runs/checkpoints-01/`, Slurm log `slurm-82101.log`, retained cache above.
+Same admitted limits; estimate **3–6 minutes excluding queue**. Submission is not
+validation success. No agent polling; hand off until the terminal notice.

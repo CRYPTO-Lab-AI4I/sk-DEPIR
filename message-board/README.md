@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 10:41 | SCALING-191 | Handoff | [Durable checkpoint validation82101 submitted](2026-11-23-1041-codex-scaling-191-handoff.md) |
 | 2026-11-23 10:40 | SCALING-191 | Prepared | [Frozen source and native inputs verified](2026-11-23-1040-codex-scaling-191-ready.md) |
 | 2026-11-23 10:39 | SCALING-191 | Prepared | [Publication verified; durable prefixes ready](2026-11-23-1039-codex-scaling-191-prepared.md) |
 | 2026-11-23 10:29 | SCALING-191 | Started | [Publication passed; commit durable workflow prefixes](2026-11-23-1029-codex-scaling-191-started.md) |

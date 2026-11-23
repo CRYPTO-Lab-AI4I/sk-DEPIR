@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-durable assembled prefix commits **prepared (SCALING-191)** after final publication commit **passed82100** following independently verified workflow82099 (original controller job failed) following passed discovery runtime **82097** following passed session integration **82096** following passed root runtime **82085** following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+durable assembled prefix commits **submitted82101 (SCALING-191)** after final publication commit **passed82100** following independently verified workflow82099 (original controller job failed) following passed discovery runtime **82097** following passed session integration **82096** following passed root runtime **82085** following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1551,7 +1551,7 @@ proof/native checks and three manifest-bound payloads match. Timing boundaries d
 no direct speedup claim. Fulls18 remains unrun/unadmitted.
 
 
-### Durable assembled checkpoint integration — prepared
+### Durable assembled checkpoint integration — submitted82101
 
 [Plan/implementation](../experiments/distributed-workflow-checkpoints/report.md):
 source-bound coordinated compact root/Newton commits, sealed support alias without
@@ -1563,5 +1563,7 @@ and larger parameter/topology/whole-job admission remain. Same HPC allocation:
 | Validation | Status | Runtime / memory |
 |---|---|---|
 | Final publication82100 | **Passed** | Controller **2 min38.073 s**; assembled launcher **8.510 s**; peak host RSS **378.824 MiB/worker**; owned GPU **0.244 MiB/worker** (context/driver extra); retained cache **36.220 MiB** |
-| Durable assembled prefix commits | Prepared; not run | Estimated controller **3–6 min**; same admitted limits, fullsize peak/cost unknown |
+| Durable assembled prefix commits | **Submitted82101; results pending** | Estimated controller **3–6 min**; same admitted limits, fullsize peak/cost unknown |
 | Full s18 preprocessing | **Not run / not admitted** | Capacity projections above are not measured costs or implementation support |
+
+Checkpoint validation receipt: [82101](../experiments/distributed-workflow-checkpoints/submission.json); no result claim.

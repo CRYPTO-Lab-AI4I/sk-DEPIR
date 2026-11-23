@@ -3885,3 +3885,5 @@ fresh CPU process with profile. This validates persisted recovery inputs; arithm
 resume in the assembled runtime remains next, followed by parameterized command,
 phase admission and representative topology/fulljob approval. No unchanged wide/
 dense/sanitizer repeat. Fulls18 remains unrun/unadmitted.
+
+Durable assembled checkpoint validation **82101 submitted** under unchanged caps; [receipt](../experiments/distributed-workflow-checkpoints/submission.json). Pilot cold/restart plus assembled commits and fresh-process file reload; results pending, no arithmetic-resume/full s18 claim.

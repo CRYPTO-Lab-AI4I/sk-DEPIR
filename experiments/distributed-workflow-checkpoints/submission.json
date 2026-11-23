@@ -1,0 +1,16 @@
+{
+  "job_id": "82101",
+  "name": "checkpoints-01",
+  "implementation_revision": "ce295e2",
+  "submission_revision": "28c37c75faf1312358610e4580127155000b26fc",
+  "recorded_utc": "2026-11-23T10:41:44.971566+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-workflow-checkpoints/slurm-%j.log experiments/distributed-workflow-checkpoints/run.sbatch checkpoints-01",
+  "results": "experiments/distributed-workflow-checkpoints/runs/checkpoints-01",
+  "log": "experiments/distributed-workflow-checkpoints/slurm-82101.log",
+  "cache": ".cache/liftrs/distributed-workflow-checkpoints/checkpoints-01/",
+  "resources": "2 HPC nodes/2 H200/4 CPU cores/8 GiB requested host RAM total;4 workers;64 MiB owned GPU/worker=128 MiB/card;1 GiB RSS/worker;zero CUDA-pinned;128 MiB retained cache/2 GiB scratch/32 MiB file;720-second controller/15-minute Slurm;exclude gnode03",
+  "scope": "Reviewed pilot cold/restart plus assembled durable source-bound prefix commits and fresh-process root/prefix8 CPU file reload;not assembled arithmetic resume/fullsize",
+  "estimated_controller_minutes": "3\u20136 excluding queue",
+  "monitoring": "Receipt-bound local completion notification;no model polling",
+  "note": "915 frozen inputs/405 matching code hashes;24 frozen reviewer suites and CPU/race/tagged/native checks passed. Manual preflight provenance-root mistake corrected and retained;no GPU allocation consumed. No resource increase/unchanged wide/sanitizer."
+}
