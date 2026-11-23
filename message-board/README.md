@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 10:55 | SCALING-192 | Prepared | [Frozen restart source and native inputs verified](2026-11-23-1055-codex-scaling-192-ready.md) |
 | 2026-11-23 10:53 | SCALING-192 | Prepared | [Shared cold/restart arithmetic ready](2026-11-23-1053-codex-scaling-192-prepared.md) |
 | 2026-11-23 10:44 | SCALING-192 | Started | [Durable checkpoints passed; integrate arithmetic resume](2026-11-23-1044-codex-scaling-192-started.md) |
 | 2026-11-23 10:41 | SCALING-191 | Handoff | [Durable checkpoint validation82101 submitted](2026-11-23-1041-codex-scaling-191-handoff.md) |

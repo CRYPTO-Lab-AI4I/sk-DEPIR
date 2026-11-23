@@ -112,3 +112,14 @@ python3 -B experiments/distributed-workflow-resume/analyze.py resume-01
 Next: parameterized launch command with complete phase memory/retained-storage/
 restart admission, representative larger topology validation and full s18 resource
 agreement. **Full s18 preprocessing remains unrun/unadmitted.**
+
+### Frozen-source readiness
+
+Implementation **9006b3b** freezes **920 build inputs**; all **406** compiled code
+hashes and every selected build input match the working tree. All **25 frozen
+reviewer suites** pass. Ordinary CGO-disabled CPU tests, CPU/race tests and tagged
+admission/recovery/publication/reciprocal tests pass without GPU/MPI initialization.
+CPU-native preflight verifies **108014 historical bytes** and actual s8/curve5
+native/root inputs. [Source checks](readiness/source-checks.json),
+[reviewers](readiness/frozen-reviewers.json), [native preflight](readiness/native-preflight.log).
+Fresh source builds and each-node environment/path preflight remain inside the job.
