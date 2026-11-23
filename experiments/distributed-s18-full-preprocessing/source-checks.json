@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "revision": "ff99e373c74d403b6105e4cd94083506d30aaf74",
+  "frozen_build_inputs": 959,
+  "required_paths": [
+    "cmd/pir-preprocess-mpi/main.go",
+    "cmd/pir-preprocess-mpi/rank.sh",
+    "experiments/distributed-s18-full-preprocessing/node.sh",
+    "experiments/distributed-host-admission/reference.py",
+    "encoding/liftrs-cuda/matrix.cu",
+    "encoding/liftrs-cuda/preparation.cu"
+  ],
+  "scope": "Frozen source/path check only;no GPU/MPI initialization or large allocation"
+}

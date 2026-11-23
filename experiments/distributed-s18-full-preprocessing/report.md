@@ -141,3 +141,11 @@ Expected results: `runs/full-01/`; reusable data/profiles linked from metadata u
 `.cache/liftrs/distributed-s18-full-preprocessing/full-01/`. No job submitted.
 AGENTS.md resource-admission rules require agreement: this exceeds current small
 validation ceilings in nodes, GPUs, CPU, host/device RAM, storage and time.
+
+### Prepared-source checkpoint
+
+Prepared implementation **ff99e37**. [Frozen-source path check](source-checks.json)
+selected959 build inputs and verified the command, rank/node wrappers, native s8
+reference and CUDA translation units against the committed tree. No MPI/GPU was
+initialized for this check. Resource agreement is pending; admitted=false and
+no fulljob submitted. Partition capacity was queried without inspecting jobs.
