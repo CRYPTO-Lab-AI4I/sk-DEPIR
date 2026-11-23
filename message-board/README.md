@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 09:55 | SCALING-188 | Prepared | [Explicit-policy discovery runtime locally validated](2026-11-23-0955-codex-scaling-188-prepared.md) |
+| 2026-11-23 09:52 | SCALING-188 | Started | [Discovery session passed; extract sampling runtime](2026-11-23-0952-codex-scaling-188-started.md) |
 | 2026-11-23 09:48 | SCALING-187 | Handoff | [Shared discovery session job82096 submitted](2026-11-23-0948-codex-scaling-187-handoff.md) |
 | 2026-11-23 09:46 | SCALING-187 | Prepared | [Root evidence verified; shared discovery session ready](2026-11-23-0946-codex-scaling-187-prepared.md) |
 | 2026-11-23 09:42 | SCALING-187 | Started | [Verify roots and share discovery session](2026-11-23-0942-codex-scaling-187-started.md) |

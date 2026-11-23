@@ -1,0 +1,32 @@
+{
+  "status": "CPU/race/tagged-native/library and reviewer checks passed;GPU integration pending",
+  "utc": "2026-11-23T09:55:53.961337+00:00",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_discovery_runtime.go": "ec41cd8c2b5a1500709bcb72cbaa2d53f53a0471e11cad2936b1c06266b4af66",
+    "encoding/liftrs-shared/distributed_discovery_runtime_test.go": "2494c27347a33ef828ef3d3b446f3e2e9e030a0d5e0e9167adcd29675c81a843",
+    "encoding/liftrs-shared/distributed_discovery_gpu_test.go": "315ae0a376c8d4510d6591d59b24c96ce612bc99b14ddfd72e6038daa5d2b46f",
+    "experiments/distributed-discovery-loop/run.py": "f56a3131959461440861b19a6c8c432a602387827f94ab160069d83ff72c9f0b",
+    "experiments/distributed-discovery-loop/analyze.py": "e1a01429d67d1fdc6813666517fbdde336e55dd4b0c35f945fa1bad542b54320",
+    "experiments/distributed-discovery-loop/test_review.py": "52fe26d6d81d82c46fb003143952ec8c1ebfaa0c492d39a8c72a888c591af599"
+  },
+  "checks": {
+    "build.log": "",
+    "cpu.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t0.008s\n",
+    "library-build.log": "",
+    "native-tests.log": "=== RUN   TestDiscoverySamplingAndOrbitOwnership\n--- PASS: TestDiscoverySamplingAndOrbitOwnership (0.00s)\n=== RUN   TestDiscoveryUnionCanonicalTiles\n--- PASS: TestDiscoveryUnionCanonicalTiles (0.02s)\n=== RUN   TestDiscoveryUnionRejectsBeforeMutation\n--- PASS: TestDiscoveryUnionRejectsBeforeMutation (0.00s)\n=== RUN   TestDiscoveryResultMode\n--- PASS: TestDiscoveryResultMode (0.00s)\n=== RUN   TestRankDiscoveryRuntimeAdmission\n--- PASS: TestRankDiscoveryRuntimeAdmission (0.00s)\n=== RUN   TestRankDiscoveryCountFrames\n--- PASS: TestRankDiscoveryCountFrames (0.00s)\n=== RUN   TestRankGPUSessionAdmission\n--- PASS: TestRankGPUSessionAdmission (0.01s)\n=== RUN   TestRankGPUSessionFailureAndClose\n--- PASS: TestRankGPUSessionFailureAndClose (0.00s)\n=== RUN   TestRankGPUDiscoveryFailure\n--- PASS: TestRankGPUDiscoveryFailure (0.00s)\nPASS\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.064s\n",
+    "review.log": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n"
+  },
+  "commands": {
+    "cpu": "CGO_ENABLED=0 go test ./encoding/liftrs-shared -run ^TestDiscovery|^TestRankRoot|^TestRankReciprocal -count=1 -timeout=20s",
+    "library": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go build -tags liftrs_cpp,liftrs_cuda,liftrs_mpi ./encoding/liftrs-shared",
+    "race": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -race -tags liftrs_cpp,liftrs_cuda,liftrs_mpi ./encoding/liftrs-shared -run ^TestRankDiscovery|^TestRankGPUDiscovery|^TestRankGPUSession|^TestDiscovery -count=1 -timeout=20s",
+    "build": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-discovery-loop-readiness.test ./encoding/liftrs-shared"
+  },
+  "limitations": [
+    "No local CUDA/MPI initialization.",
+    "Explicit logical list caps do not bound Go capacity growth/aggregate RSS/native/GPU resources.",
+    "Runtime needs explicit suitable random reader;seed109only in test adapter.",
+    "Native monomial enumeration remains CPU server work;no GPU-only/fullsize-performance claim."
+  ]
+}

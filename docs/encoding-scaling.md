@@ -3795,4 +3795,20 @@ cold/coordinated restart/resident preservation; no unchanged wide/dense/sanitize
 Production discovery sampling/ownership, full phase admission/non-oracle entry and
 bounded retention/publication remain;fulls18 unrun/unadmitted.
 
-Shared discovery-session validation **82096 submitted** under unchanged caps; [receipt](../experiments/distributed-discovery-runtime/submission.json). Streamed cold/restart/resident-preservation arms;results pending,no full s18 admission.
+Shared discovery-session validation **82096 passed** under unchanged caps; [receipt](../experiments/distributed-discovery-runtime/submission.json). All streamed cold/restart/resident-preservation arms passed;no full s18 admission.
+
+
+## Explicit-policy discovery loop runtime (SCALING-188)
+
+82096passed shared session integration. Next move sampling/union/closed-orbit routing/
+archive loop from tests into error-returning runtime with explicit randomness,
+CUDA/result options and logical list/shard caps. Preserve original good enumeration,
+entropy/sample/masking/transform/count/proof/order semantics;seed109stays in test
+adapter,not runtime default. Caller aborts peers on errors;no partial publication.
+[Plan](../experiments/distributed-discovery-loop/report.md). Native GoodMonomialRange
+is still CPU server work;no GPU-only/fastest fullsize claim. No new intentional
+arrays/transforms/transfers/files;single-list bounds are not aggregate memory.
+Validate local policy/count/wire errors plus same-budget cold/restart/resident
+composition,no unchanged wide/dense/sanitizer. Then assemble production parameter/
+phase ownership/non-oracle entry,bounded persistence/final publication and agree
+larger topology/whole-job resources. Full s18 remains unrun/unadmitted.

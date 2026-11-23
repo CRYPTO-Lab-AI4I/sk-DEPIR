@@ -1,6 +1,6 @@
 # Shared discovery GPU session
 
-Status: **submitted job82096**, discovery-01; integration results pending. Implementation **f3b3b6c** (parent e8695dd).
+Status: **passed job82096**, all three discovery-01 arms independently verified. Implementation **f3b3b6c** (parent e8695dd).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [configuration test](test_review.py), [readiness](readiness/).
 Planned results `runs/discovery-01/`; immutable source, binaries, profiles and
@@ -103,3 +103,28 @@ The allocation rebuilds committed source and preflights paths/environment on eve
 Job **82096** submitted from **bfa536a**, implementation **f3b3b6c**.
 [Receipt](submission.json);results `runs/discovery-01/`,Slurm log `slurm-82096.log`.
 Unchanged resources above;estimate3–6minutes excluding queue. No polling or GPU result claim.
+
+## Verified result82096
+
+Receipt/producing revision **bfa536a**, **890 source /78 evidence /402 cache files**
+and all three arms independently reconcile. [Analysis](runs/discovery-01/analysis.json),
+[raw results](runs/discovery-01/results.json), [Slurm log](slurm-82096.log).
+Exact entropy, sample/union/support/owner counts, transform/proof identities,
+native/Taylor/canonical output, checkpoint frames and diagnostic totals match.
+
+| Mode | Result/runtime | Peak host RSS |
+|---|---|---|
+| Genuine s8 streamed cold |Passed;8.816028 seconds |377.402 MiB/worker |
+| Coordinated prefix8 restart |Passed;6.604928 seconds |377.555 MiB/worker |
+| Resident-discovery cold control |Passed;9.292102 seconds |379.422 MiB/worker |
+
+HPC two nodes/two H200s/four workers/four cores/8 GiB requested RAM under unchanged
+caps. Owned GPU0.244 MiB/worker;context/driver/MPI additional. Controller **2 min37.875
+seconds**, cache **37.485 MiB**. Native/canonical artifacts match between cold modes.
+Rows precede deferred GPU close;launcher includes it. Single samples are not fullsize
+speed or peak-memory claims;resident default remains.
+
+Next move sampling/ownership/archive orchestration into explicit-policy runtime,
+keeping the deterministic seed in the test adapter and preserving error propagation,
+then assemble non-oracle production entry/phase admission/bounded publication.
+Full s18 remains unrun/unadmitted.
