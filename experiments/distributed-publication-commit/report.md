@@ -1,6 +1,6 @@
 # Committed final workflow output
 
-Status: prepared; integration not yet submitted. Parent revision a7eebbe.
+Status: prepared; integration not yet submitted. Implementation **1d6d89d** (parent a7eebbe).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
 Planned results `runs/publication-01/`; immutable source/binaries/reusable data
@@ -123,3 +123,13 @@ python3 -B experiments/distributed-publication-commit/analyze.py publication-01
 After validation integrate production coordinated prefix checkpoint/restart and
 parameterized command/full phase admission,then representative larger topology and
 complete fulls18 resource agreement. Fulls18 remains unrun/unadmitted.
+
+### Immutable-source readiness
+
+Implementation **1d6d89d** is frozen into **908 build inputs**;
+all **402** Go/C/C++/CUDA hashes match compiled readiness source.
+All **23 frozen reviewer suites** pass. CPU-only native preflight reproduces
+**108014 historical reference bytes** plus actual s8/curve5 inputs/root geometry.
+[Source checks](readiness/source-checks.json), [reviewers](readiness/frozen-reviewers.json),
+[native preflight](readiness/native-preflight.log). No local CUDA/MPI initialization.
+Fresh committed-source build and each-node path/environment preflight remain in the job.
