@@ -1,0 +1,17 @@
+{
+  "job_id": "82194",
+  "name": "host-01",
+  "implementation_revision": "aff14a1",
+  "submission_revision": "0b63d7213bc655592fa358656248d5e2ad9a268a",
+  "recorded_utc": "2026-11-23T17:09:56.023415+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-host-admission/slurm-%j.log experiments/distributed-host-admission/run.sbatch host-01",
+  "results": "experiments/distributed-host-admission/runs/host-01",
+  "log": "experiments/distributed-host-admission/slurm-82194.log",
+  "cache": ".cache/liftrs/distributed-host-admission/host-01/",
+  "resources": "2 HPC nodes/2 H200/8 CPU cores/16 GiB requested host RAM total;8 workers;32 MiB owned GPU/worker=128 MiB/card;1 GiB RSS/worker;768 MiB declared host reserve/worker;zero CUDA-pinned;128 MiB cache/2 GiB scratch/32 MiB file;720-second controller/15-minute Slurm;exclude gnode03",
+  "scope": "Approved small s8/curve5 eight-worker command cold/fresh-prefix8 restart with named host-phase admission;not fulls18/eight GPUs",
+  "estimated_controller_minutes": "3\u20137 excluding queue",
+  "monitoring": "Receipt-bound local completion notification;no model polling",
+  "approval": "User explicitly approved after confirming this is a small test,not the full run; recorded in commit0b63d72",
+  "note": "939 frozen inputs/414 matching compiled code hashes,27 frozen reviewers,CPU/race/tagged/native/historical checks passed. Runtime/native/GC reserve is an allowance,not measured fullsize peak memory."
+}

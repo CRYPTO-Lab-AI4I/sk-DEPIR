@@ -555,4 +555,4 @@ mode. Fulls18 discovery/generator/persistence integration still remains. Ordinar
 CPU client builds acquire no MPI/CUDA dependency. See the experiment for admission,
 progress/profiling,reference provenance and exact limitations.
 
-The [named host-phase inventory](../experiments/distributed-host-admission/report.md) adds an explicit runtime/native/GC allowance. Its eight-worker validation is prepared but not resource-admitted; fullsize measured headroom remains pending.
+The [named host-phase inventory](../experiments/distributed-host-admission/report.md) adds an explicit runtime/native/GC allowance. Its eight-worker validation is approved and submitted as82194; fullsize measured headroom remains pending.

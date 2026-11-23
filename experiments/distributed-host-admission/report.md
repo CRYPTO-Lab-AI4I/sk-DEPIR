@@ -1,6 +1,6 @@
 # Host phase admission and eight-worker validation
 
-Status: **resource-approved; not yet submitted**. SCALING-194
+Status: **submitted job82194**, host-01; results pending. SCALING-194
 follows [passed actual command82181](../distributed-command/report.md#verified-outcome82181).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
@@ -147,3 +147,11 @@ Saved82181evidence also passes the generalized reviewer's default four-worker pa
 User approved this exact small eight-worker test on 2026-11-23:8CPUcores/
 16GiBhost RAM total,2nodes/2H200, with all per-worker/device/storage/time limits
 in the table retained. Full s18 remains unadmitted.
+
+### Submission82194
+
+Submitted from **0b63d72**, implementation **aff14a1**. [Receipt](submission.json).
+Results `runs/host-01/`, Slurm log `slurm-82194.log`, reusable cache above.
+Approved8CPUcores/16GiBhostRAM/2nodes/2H200 and all limits in the resource table.
+Estimated controller **3–7 minutes excluding queue**. Submission is not a pass.
+Completion notification registered locally; no agent polling. Fulls18 unrun/unadmitted.

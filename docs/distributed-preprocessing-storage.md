@@ -471,4 +471,6 @@ figure counts prefix inputs only; no added array is implied. Update fullsize nod
 packing/headroom from representative data before full s18 approval; no fullsize
 RSS/runtime claim from this small test.
 
-SCALING-194: user approved the exact eight-worker s8 test (8cores/16GiBhost RAM,2HPCnodes/2H200; all other limits in the report). Submission pending; fulls18 remains unadmitted.
+SCALING-194: user approved the exact eight-worker s8 test (8cores/16GiBhost RAM,2HPCnodes/2H200; all other limits in the report). Submitted82194; results pending; fulls18 remains unadmitted.
+
+Eight-worker validation **82194 submitted** after explicit user approval; [receipt](../experiments/distributed-host-admission/submission.json). Actual command cold/restart at s8 on8workers/2H200/2nodes,8cores/16GiBrequestedRAM total; no fulls18 claim.
