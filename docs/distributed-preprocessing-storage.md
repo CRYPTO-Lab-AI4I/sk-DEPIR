@@ -286,3 +286,5 @@ one method;resident default remains. No extra intentional arrays/transforms/I/O.
 cold/coordinated restart/resident preservation; no unchanged wide/dense/sanitizer.
 Production discovery sampling/ownership, full phase admission/non-oracle entry and
 bounded retention/publication remain;fulls18 unrun/unadmitted.
+
+Shared discovery-session validation **82096 submitted** under unchanged caps; [receipt](../experiments/distributed-discovery-runtime/submission.json). Streamed cold/restart/resident-preservation arms;results pending,no full s18 admission.

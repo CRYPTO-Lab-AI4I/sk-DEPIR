@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 09:48 | SCALING-187 | Handoff | [Shared discovery session job82096 submitted](2026-11-23-0948-codex-scaling-187-handoff.md) |
 | 2026-11-23 09:46 | SCALING-187 | Prepared | [Root evidence verified; shared discovery session ready](2026-11-23-0946-codex-scaling-187-prepared.md) |
 | 2026-11-23 09:42 | SCALING-187 | Started | [Verify roots and share discovery session](2026-11-23-0942-codex-scaling-187-started.md) |
 | 2026-11-23 09:39 | SCALING-186 | Handoff | [Root runtime job82085 submitted](2026-11-23-0939-codex-scaling-186-handoff.md) |

@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-shared discovery session integration following passed root runtime **82085** following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+shared discovery session integration **submitted82096** following passed root runtime **82085** following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1450,7 +1450,7 @@ Actual leaf/stage/native/proof/canonical/checkpoint checks pass. Post-run analyz
 scratch-source path corrected with exact producing Git/hash binding;no GPU rerun.
 No fullsize/whole-process admission claim.
 
-### Prepared shared discovery session
+### Shared discovery session — submitted82096
 
 [Plan](../experiments/distributed-discovery-runtime/report.md): reuse internal GPU
 session for discovery allocation/transports/progress/error/close in both streamed
@@ -1458,3 +1458,5 @@ and default resident result modes. Sampling/randomness/union/archive order and
 transform/proof identities remain;bounded harness still owns orchestration.
 Same-budget cold/restart/resident-preservation validation;no new resource or
 fulls18 support. Production phase admission/non-oracle entry/publication remain.
+
+Discovery-session integration **82096 submitted**: [receipt](../experiments/distributed-discovery-runtime/submission.json). Streamed cold/restart/resident-preservation arms under unchanged two-node/two-H200 caps;results pending. Full s18 remains unrun/unadmitted.

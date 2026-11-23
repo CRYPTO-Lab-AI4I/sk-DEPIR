@@ -1,6 +1,6 @@
 # Shared discovery GPU session
 
-Status: prepared; integration not yet submitted. Implementation **f3b3b6c** (parent e8695dd).
+Status: **submitted job82096**, discovery-01; integration results pending. Implementation **f3b3b6c** (parent e8695dd).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [configuration test](test_review.py), [readiness](readiness/).
 Planned results `runs/discovery-01/`; immutable source, binaries, profiles and
@@ -97,3 +97,9 @@ All **20 frozen reviewer suites** pass. CPU-only native preflight reproduces
 [Source checks](readiness/source-checks.json), [reviewers](readiness/frozen-reviewers.json),
 [native preflight](readiness/native-preflight.log). No local CUDA/MPI initialization.
 The allocation rebuilds committed source and preflights paths/environment on every node.
+
+### Submission82096
+
+Job **82096** submitted from **bfa536a**, implementation **f3b3b6c**.
+[Receipt](submission.json);results `runs/discovery-01/`,Slurm log `slurm-82096.log`.
+Unchanged resources above;estimate3–6minutes excluding queue. No polling or GPU result claim.
