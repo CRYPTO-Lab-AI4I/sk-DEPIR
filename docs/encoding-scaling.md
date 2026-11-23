@@ -3694,4 +3694,6 @@ Then finish production ownership/lifecycle/non-oracle execution, bounded retenti
 coordinated restart and actual per-phase count/domain/resource admission. Full s18
 remains unrun/unadmitted; bounded diagnostic writes alone do not establish readiness.
 
-Diagnostic serialization validation **81744** submitted under unchanged two-node/two-H200 caps; [receipt](../experiments/distributed-diagnostic-writes/submission.json). Results pending; full s18 remains unrun/unadmitted.
+Diagnostic serialization validation **81744** failed final controller review after passing bounded cold/restart and bulk control; wide inherited bulk mode. [receipt](../experiments/distributed-diagnostic-writes/submission.json). Retain partial passes; retry only missing bounded wide. Full s18 remains unrun/unadmitted.
+
+SCALING-182: explicitly reset the diagnostic mode after the bulk control, test actual suite configuration before allocation, and rerun only bounded wide using [the targeted runner](../experiments/distributed-diagnostic-writes/run-wide.py). No arithmetic change, repeated cold/restart or resource increase.

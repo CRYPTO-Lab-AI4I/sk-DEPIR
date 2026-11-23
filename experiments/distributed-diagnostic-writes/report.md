@@ -1,6 +1,6 @@
 # Bounded diagnostic serialization
 
-Status: **submitted job 81744**, writes-01; GPU composition results pending. Implementation revision **04af166** (parent 7d774ed).
+Status: **81744 failed final controller review**; bounded cold/restart and bulk control independently passed. Wide ran in bulk mode; bounded wide validation remains missing. Implementation revision **04af166** (parent 7d774ed).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer regression](test_review.py), [local readiness](readiness/).
 Planned results: `runs/writes-01/`. Immutable source, binaries, native references
@@ -156,3 +156,62 @@ The allocation rebuilds the committed snapshot and preflights every node.
 Job **81744** submitted from **c30ef0d**, unchanged resources above.
 [Receipt](submission.json); results `runs/writes-01/`, Slurm log `slurm-81744.log`.
 No scheduler polling or GPU result claim follows submission.
+
+## Failure81744 and targeted correction
+
+The allocation completed every GPU command and saved profiles/artifacts, then the
+final Python reviewer failed. The shared launcher carries arm environment overrides
+forward. The bulk control set `PIR_PIPELINE_DIAGNOSTIC_WRITE=full`; the following wide
+arm omitted an explicit reset and therefore also ran bulk. The reviewer correctly
+rejected its absent bounded-write progress. This was an avoidable experiment
+configuration error, not a GPU arithmetic, resource-guard or encoding failure.
+
+[Original raw results](runs/writes-01/results.json) remain **failed**, unchanged;
+[Slurm traceback](slurm-81744.log), [independent partial analysis](runs/writes-01/analysis.json).
+All **857 source / 96 evidence / 496 cache** seals reconcile to producing revision
+**c30ef0d**. Every recorded command exited zero without a resource guard failure.
+Independent packet/digest/native/canonical/restart checks pass for all four arms;
+the historical wide result establishes **bulk arithmetic only**, not bounded writes.
+
+| Arm | Independent result | Runtime | Peak host RSS |
+|---|---|---|---|
+| Bounded s8 cold | Passed; 32 diagnostic files / 989,708 bytes logged exactly | 9.135297 seconds | 376.750 MiB/worker |
+| Bounded s8 prefix8 restart | Passed; 16 files / 845,480 bytes logged exactly | 6.804956 seconds | 379.473 MiB/worker |
+| Matched s8 bulk control | Passed; canonical artifacts identical to bounded cold | 9.338670 seconds | 378.961 MiB/worker |
+| Field18 wide, actual bulk | Arithmetic passed; bounded write validation missing | 4.929941 seconds cumulative | 379.082 MiB/worker |
+
+Same admitted HPC resources; owned GPU peaks unchanged (0.244 MiB/worker s8,
+3.125 MiB/worker wide). Controller **2 min 55.735 seconds**, retained cache
+**37.621 MiB**. Single cold comparison is not a full-size throughput claim.
+Zero logged files for bulk means bounded instrumentation was off, not zero files
+written or retained. All native/canonical diagnostic files remain available.
+
+`comparison_arms()` now explicitly selects bounded mode for wide. A focused test
+executes the actual suite configuration and simulates successive environment
+updates, so inheriting bulk mode fails before an allocation. The targeted retry
+configuration has its own regression. Existing progress validation still rejects
+missing, incomplete or failed bounded writes. Go/CUDA arithmetic and writer code
+are unchanged; no repeated cold/restart or sanitizer run is needed.
+
+The [targeted runner](run-wide.py) and [Slurm entry](run-wide.sbatch) execute only the
+missing bounded wide arm, with the same maintained node/path preflight, resource
+caps, CPU checks, profiles and independent native/digest/byte verification. It
+rebuilds committed source and creates a separate cache/results directory; the
+failed run and its passing phases remain intact. No larger budget is requested.
+Estimate **2–4 minutes excluding queue**, with the existing 720-second controller /
+15-minute scheduler limits and all memory/storage caps unchanged. It does not
+claim full s18 preprocessing or wide full-domain scaling.
+
+```sh
+python3 -B experiments/distributed-diagnostic-writes/test_review.py
+module load slurm/slurm/25.05
+sbatch --parsable --output=experiments/distributed-diagnostic-writes/slurm-%j.log \
+ experiments/distributed-diagnostic-writes/run-wide.sbatch wide-02
+# After a terminal notice:
+python3 -B experiments/distributed-diagnostic-writes/analyze.py wide-02
+```
+
+The corrected analyzer recognizes only the exact immutable 81744 producing revision
+as this known partial failure, retains its failed status, and labels its wide mode
+as bulk. It never infers bounded success from missing instrumentation. A successful
+targeted retry must provide complete bounded logs and pass all independent checks.

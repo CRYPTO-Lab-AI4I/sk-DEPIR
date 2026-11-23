@@ -7,6 +7,39 @@ import tempfile
 import unittest
 H=runpy.run_path(str(Path(__file__).with_name('run.py')))
 class ReviewTest(unittest.TestCase):
+    def test_actual_suite_restores_bounded_mode_after_bulk(self):
+        # Exercise the actual suite configuration before GPU/build work, then
+        # reproduce the maintained launcher's successive environment updates.
+        class Captured(Exception):pass
+        captured={}
+        original=H['SCALE']['suite']
+        def capture(c,**kwargs):
+            captured.update(base=dict(c['env']),arms=kwargs['extra_arms'])
+            raise Captured()
+        H['SCALE']['suite']=capture
+        try:
+            with self.assertRaises(Captured):H['suite'](dict(env={},run=lambda *args:None,go='go'))
+        finally:H['SCALE']['suite']=original
+        env=captured['base'];self.assertEqual(env['PIR_PIPELINE_DIAGNOSTIC_WRITE'],'bounded')
+        for arm in captured['arms']:
+            env.update(arm['env'])
+            self.assertEqual(env['PIR_PIPELINE_DIAGNOSTIC_WRITE'],'full'if arm['name']=='bulk'else'bounded')
+
+    def test_targeted_retry_runs_only_bounded_wide(self):
+        target=runpy.run_path(str(Path(__file__).with_name('run-wide.py')))
+        class Captured(Exception):pass
+        captured={};original=target['H']['VECTORS']['suite']
+        def capture(c,**kwargs):
+            captured.update(env=c['env'],**kwargs);raise Captured()
+        target['H']['VECTORS']['suite']=capture
+        try:
+            with self.assertRaises(Captured):target['suite'](dict(env={'PIR_PIPELINE_DIAGNOSTIC_WRITE':'full'},run=lambda *args:None))
+        finally:target['H']['VECTORS']['suite']=original
+        self.assertEqual(captured['ranks'],4)
+        self.assertEqual([a['name']for a in captured['arms']],['wide'])
+        self.assertEqual(captured['env']['PIR_PIPELINE_DIAGNOSTIC_WRITE'],'bounded')
+        self.assertEqual(captured['arms'][0]['env']['PIR_PIPELINE_DIAGNOSTIC_WRITE'],'bounded')
+
     def test_diagnostic_progress(self):
         with tempfile.TemporaryDirectory()as tmp:
             p=Path(tmp);rows=[]

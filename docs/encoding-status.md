@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-bounded diagnostic serialization **submitted81744** following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+bounded diagnostic serialization (81744 partial passes; targeted wide correction next) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1297,7 +1297,7 @@ feasibility or runtime follows from this small validation.
 [Exact methods/evidence](../experiments/distributed-proof-recording/report.md#verified-result81738). Next: explicit bounded diagnostic serialization, preserving all stored bytes and default behavior.
 
 
-### Bounded diagnostic serialization — submitted81744
+### Bounded diagnostic serialization — 81744 partial passes
 
 [Implementation/validation plan](../experiments/distributed-diagnostic-writes/report.md):
 explicit bounded writes limit extra serialization to 64 KiB instead of a full
@@ -1307,4 +1307,17 @@ and full-size throughput/RSS are unmeasured; bulk remains default. CPU allocatio
 and four-arm cold/restart/bulk/wide validation use existing two-node/two-H200 caps.
 No full s18 run or feasibility claim.
 
-Diagnostic serialization validation **81744** is submitted: four cold/restart/bulk/wide arms with the same two-node/two-H200 allocation. [Receipt](../experiments/distributed-diagnostic-writes/submission.json). GPU results pending; no full s18 admission.
+Diagnostic validation **81744 failed final controller review** after all GPU commands completed. Bounded cold/restart and matched bulk control independently passed; wide inherited bulk mode and does not validate bounded writes. [Exact failure and partial evidence](../experiments/distributed-diagnostic-writes/report.md#failure81744-and-targeted-correction). No full s18 admission.
+
+
+| 81744 mode on HPC (two nodes/two H200s/four workers/four cores/8 GiB requested RAM) | Status | Runtime | Peak host RSS |
+|---|---|---|---|
+| s8 bounded diagnostic cold | Passed independently; overall job failed controller review | 9.135297 seconds | 376.750 MiB/worker |
+| s8 bounded prefix8 restart | Passed independently | 6.804956 seconds | 379.473 MiB/worker |
+| s8 bulk control | Passed; same canonical output | 9.338670 seconds | 378.961 MiB/worker |
+| Bounded field18 workflow, actual bulk writes | Arithmetic passed; intended bounded-write check missing | 4.929941 seconds cumulative | 379.082 MiB/worker |
+
+The failure was an inherited experiment option, corrected with explicit arm settings
+and a regression that exercises the suite configuration before GPU work. Preserve
+all partial results; retry only bounded wide under unchanged caps. Large-file
+throughput/peak-memory savings and full s18 feasibility remain unmeasured.

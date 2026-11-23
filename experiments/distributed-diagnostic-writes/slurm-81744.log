@@ -1,0 +1,104 @@
+{"utc": "2026-11-23T00:40:40.828784+00:00", "phase": "hosts", "event": "started", "completed": 0, "unit": "commands", "elapsed_seconds": 3.899291133042425}
+{"utc": "2026-11-23T00:40:40.902906+00:00", "phase": "hosts", "event": "completed", "completed": 1, "unit": "commands", "elapsed_seconds": 3.9734171780291945}
+{"utc": "2026-11-23T00:40:40.904490+00:00", "phase": "mpi-plugins", "event": "started", "completed": 1, "unit": "commands", "elapsed_seconds": 3.9749909109668806}
+{"utc": "2026-11-23T00:40:41.036822+00:00", "phase": "mpi-plugins", "event": "completed", "completed": 2, "unit": "commands", "elapsed_seconds": 4.1073292510118335}
+{"utc": "2026-11-23T00:40:41.038851+00:00", "phase": "mpi", "event": "started", "completed": 2, "unit": "commands", "elapsed_seconds": 4.109351234976202}
+{"utc": "2026-11-23T00:40:41.436131+00:00", "phase": "mpi", "event": "completed", "completed": 3, "unit": "commands", "elapsed_seconds": 4.506640788982622}
+{"utc": "2026-11-23T00:40:41.437581+00:00", "phase": "nvcc", "event": "started", "completed": 3, "unit": "commands", "elapsed_seconds": 4.508080883068033}
+{"utc": "2026-11-23T00:40:41.518778+00:00", "phase": "nvcc", "event": "completed", "completed": 4, "unit": "commands", "elapsed_seconds": 4.589282747008838}
+{"utc": "2026-11-23T00:40:41.520176+00:00", "phase": "compiler", "event": "started", "completed": 4, "unit": "commands", "elapsed_seconds": 4.590675828047097}
+{"utc": "2026-11-23T00:40:41.554618+00:00", "phase": "compiler", "event": "completed", "completed": 5, "unit": "commands", "elapsed_seconds": 4.6251228969777}
+{"utc": "2026-11-23T00:40:41.556079+00:00", "phase": "go", "event": "started", "completed": 5, "unit": "commands", "elapsed_seconds": 4.626579585019499}
+{"utc": "2026-11-23T00:40:41.609304+00:00", "phase": "go", "event": "completed", "completed": 6, "unit": "commands", "elapsed_seconds": 4.679809689056128}
+{"utc": "2026-11-23T00:40:41.611040+00:00", "phase": "diagnostic-review-tests", "event": "started", "completed": 6, "unit": "commands", "elapsed_seconds": 4.681540622957982}
+{"utc": "2026-11-23T00:40:41.793247+00:00", "phase": "diagnostic-review-tests", "event": "completed", "completed": 7, "unit": "commands", "elapsed_seconds": 4.863753020064905}
+{"utc": "2026-11-23T00:40:41.805046+00:00", "phase": "diagnostic-cpu", "event": "started", "completed": 7, "unit": "commands", "elapsed_seconds": 4.875546948052943}
+{"utc": "2026-11-23T00:40:57.967428+00:00", "phase": "diagnostic-cpu", "event": "completed", "completed": 8, "unit": "commands", "elapsed_seconds": 21.037941307993606}
+{"utc": "2026-11-23T00:40:57.969641+00:00", "phase": "diagnostic-race", "event": "started", "completed": 8, "unit": "commands", "elapsed_seconds": 21.04014198796358}
+{"utc": "2026-11-23T00:41:16.196575+00:00", "phase": "diagnostic-race", "event": "completed", "completed": 9, "unit": "commands", "elapsed_seconds": 39.267089363071136}
+{"utc": "2026-11-23T00:41:16.214877+00:00", "phase": "scaling-review-tests", "event": "started", "completed": 9, "unit": "commands", "elapsed_seconds": 39.28537777799647}
+{"utc": "2026-11-23T00:41:16.423471+00:00", "phase": "scaling-review-tests", "event": "completed", "completed": 10, "unit": "commands", "elapsed_seconds": 39.493982985964976}
+{"utc": "2026-11-23T00:41:16.428167+00:00", "phase": "native-reference-build", "event": "started", "completed": 10, "unit": "commands", "elapsed_seconds": 39.498667614068836}
+{"utc": "2026-11-23T00:41:35.133685+00:00", "phase": "native-reference-build", "event": "completed", "completed": 11, "unit": "commands", "elapsed_seconds": 58.20419886300806}
+{"utc": "2026-11-23T00:41:35.136314+00:00", "phase": "native-reference-export", "event": "started", "completed": 11, "unit": "commands", "elapsed_seconds": 58.2068144090008}
+{"utc": "2026-11-23T00:41:36.869124+00:00", "phase": "native-reference-export", "event": "completed", "completed": 12, "unit": "commands", "elapsed_seconds": 59.93963780696504}
+{"utc": "2026-11-23T00:41:37.109123+00:00", "phase": "native-input-admission", "event": "started", "completed": 12, "unit": "commands", "elapsed_seconds": 60.179630844970234}
+{"utc": "2026-11-23T00:41:37.239811+00:00", "phase": "native-input-admission", "event": "completed", "completed": 13, "unit": "commands", "elapsed_seconds": 60.31032059597783}
+{"utc": "2026-11-23T00:41:37.241551+00:00", "phase": "reference-preflight", "event": "started", "completed": 13, "unit": "commands", "elapsed_seconds": 60.31205135805067}
+{"utc": "2026-11-23T00:41:37.946308+00:00", "phase": "reference-preflight", "event": "completed", "completed": 14, "unit": "commands", "elapsed_seconds": 61.01682239596266}
+{"utc": "2026-11-23T00:41:37.951816+00:00", "phase": "restart-review-tests", "event": "started", "completed": 14, "unit": "commands", "elapsed_seconds": 61.02231855597347}
+{"utc": "2026-11-23T00:41:38.112413+00:00", "phase": "restart-review-tests", "event": "completed", "completed": 15, "unit": "commands", "elapsed_seconds": 61.182922565029}
+{"utc": "2026-11-23T00:41:38.114225+00:00", "phase": "restart-publication-cpu", "event": "started", "completed": 15, "unit": "commands", "elapsed_seconds": 61.18472494906746}
+{"utc": "2026-11-23T00:41:38.676529+00:00", "phase": "restart-publication-cpu", "event": "completed", "completed": 16, "unit": "commands", "elapsed_seconds": 61.74704357399605}
+{"utc": "2026-11-23T00:41:38.678300+00:00", "phase": "restart-publication-race", "event": "started", "completed": 16, "unit": "commands", "elapsed_seconds": 61.74880093103275}
+{"utc": "2026-11-23T00:41:40.396391+00:00", "phase": "restart-publication-race", "event": "completed", "completed": 17, "unit": "commands", "elapsed_seconds": 63.46690399805084}
+{"utc": "2026-11-23T00:41:40.398330+00:00", "phase": "ucx-version", "event": "started", "completed": 17, "unit": "commands", "elapsed_seconds": 63.46883065602742}
+{"utc": "2026-11-23T00:41:40.527630+00:00", "phase": "ucx-version", "event": "completed", "completed": 18, "unit": "commands", "elapsed_seconds": 63.59813891199883}
+{"utc": "2026-11-23T00:41:40.529436+00:00", "phase": "ucx-config", "event": "started", "completed": 18, "unit": "commands", "elapsed_seconds": 63.59993694501463}
+{"utc": "2026-11-23T00:41:40.753497+00:00", "phase": "ucx-config", "event": "completed", "completed": 19, "unit": "commands", "elapsed_seconds": 63.82400580099784}
+{"utc": "2026-11-23T00:41:40.759837+00:00", "phase": "review-tests", "event": "started", "completed": 19, "unit": "commands", "elapsed_seconds": 63.83034042303916}
+{"utc": "2026-11-23T00:41:40.919160+00:00", "phase": "review-tests", "event": "completed", "completed": 20, "unit": "commands", "elapsed_seconds": 63.989668705035}
+{"utc": "2026-11-23T00:41:40.921226+00:00", "phase": "cpu-orchestration", "event": "started", "completed": 20, "unit": "commands", "elapsed_seconds": 63.991725970990956}
+{"utc": "2026-11-23T00:41:41.582837+00:00", "phase": "cpu-orchestration", "event": "completed", "completed": 21, "unit": "commands", "elapsed_seconds": 64.65335020900238}
+{"utc": "2026-11-23T00:41:41.584410+00:00", "phase": "cpu-race", "event": "started", "completed": 21, "unit": "commands", "elapsed_seconds": 64.654910227051}
+{"utc": "2026-11-23T00:41:43.598101+00:00", "phase": "cpu-race", "event": "completed", "completed": 22, "unit": "commands", "elapsed_seconds": 66.66861447296105}
+{"utc": "2026-11-23T00:41:43.599810+00:00", "phase": "cuda-build", "event": "started", "completed": 22, "unit": "commands", "elapsed_seconds": 66.67031088797376}
+{"utc": "2026-11-23T00:42:04.151906+00:00", "phase": "cuda-build", "event": "completed", "completed": 23, "unit": "commands", "elapsed_seconds": 87.22242501599248}
+{"utc": "2026-11-23T00:42:04.153931+00:00", "phase": "test-build", "event": "started", "completed": 23, "unit": "commands", "elapsed_seconds": 87.224431953975}
+{"utc": "2026-11-23T00:42:06.652443+00:00", "phase": "test-build", "event": "completed", "completed": 24, "unit": "commands", "elapsed_seconds": 89.72295853402466}
+{"utc": "2026-11-23T00:42:06.656923+00:00", "phase": "rank-preflight", "event": "started", "completed": 24, "unit": "commands", "elapsed_seconds": 89.72742394602392}
+{"utc": "2026-11-23T00:42:07.324042+00:00", "phase": "rank-preflight", "event": "completed", "completed": 25, "unit": "commands", "elapsed_seconds": 90.39455556496978}
+{"utc": "2026-11-23T00:42:07.353825+00:00", "phase": "cold", "event": "started", "completed": 25, "unit": "commands", "elapsed_seconds": 90.42432655405719}
+{"utc": "2026-11-23T00:42:18.070399+00:00", "phase": "cold", "event": "completed", "completed": 26, "unit": "commands", "elapsed_seconds": 101.14091273699887}
+{"utc": "2026-11-23T00:42:19.900167+00:00", "phase": "cold-profile-0", "event": "started", "completed": 26, "unit": "commands", "elapsed_seconds": 102.97067772003356}
+{"utc": "2026-11-23T00:42:48.353323+00:00", "phase": "cold-profile-0", "event": "completed", "completed": 27, "unit": "commands", "elapsed_seconds": 131.42383697105106}
+{"utc": "2026-11-23T00:42:48.355529+00:00", "phase": "cold-profile-1", "event": "started", "completed": 27, "unit": "commands", "elapsed_seconds": 131.42602968297433}
+{"utc": "2026-11-23T00:42:49.232224+00:00", "phase": "cold-profile-1", "event": "completed", "completed": 28, "unit": "commands", "elapsed_seconds": 132.30273742298596}
+{"utc": "2026-11-23T00:42:49.234016+00:00", "phase": "cold-profile-2", "event": "started", "completed": 28, "unit": "commands", "elapsed_seconds": 132.30451676796656}
+{"utc": "2026-11-23T00:42:49.954429+00:00", "phase": "cold-profile-2", "event": "completed", "completed": 29, "unit": "commands", "elapsed_seconds": 133.02494129096158}
+{"utc": "2026-11-23T00:42:49.956028+00:00", "phase": "cold-profile-3", "event": "started", "completed": 29, "unit": "commands", "elapsed_seconds": 133.02652902901173}
+{"utc": "2026-11-23T00:42:50.858618+00:00", "phase": "cold-profile-3", "event": "completed", "completed": 30, "unit": "commands", "elapsed_seconds": 133.9291306460509}
+{"utc": "2026-11-23T00:42:50.862107+00:00", "phase": "resume", "event": "started", "completed": 30, "unit": "commands", "elapsed_seconds": 133.93260878801811}
+{"utc": "2026-11-23T00:42:59.022040+00:00", "phase": "resume", "event": "completed", "completed": 31, "unit": "commands", "elapsed_seconds": 142.0925518280128}
+{"utc": "2026-11-23T00:42:59.968449+00:00", "phase": "resume-profile-0", "event": "started", "completed": 31, "unit": "commands", "elapsed_seconds": 143.0389588479884}
+{"utc": "2026-11-23T00:43:00.732114+00:00", "phase": "resume-profile-0", "event": "completed", "completed": 32, "unit": "commands", "elapsed_seconds": 143.8026269719703}
+{"utc": "2026-11-23T00:43:00.733821+00:00", "phase": "resume-profile-1", "event": "started", "completed": 32, "unit": "commands", "elapsed_seconds": 143.8043222540291}
+{"utc": "2026-11-23T00:43:02.439221+00:00", "phase": "resume-profile-1", "event": "completed", "completed": 33, "unit": "commands", "elapsed_seconds": 145.50973388901912}
+{"utc": "2026-11-23T00:43:02.441109+00:00", "phase": "resume-profile-2", "event": "started", "completed": 33, "unit": "commands", "elapsed_seconds": 145.5116093470715}
+{"utc": "2026-11-23T00:43:03.278558+00:00", "phase": "resume-profile-2", "event": "completed", "completed": 34, "unit": "commands", "elapsed_seconds": 146.349072351004}
+{"utc": "2026-11-23T00:43:03.280138+00:00", "phase": "resume-profile-3", "event": "started", "completed": 34, "unit": "commands", "elapsed_seconds": 146.3506387830712}
+{"utc": "2026-11-23T00:43:04.003203+00:00", "phase": "resume-profile-3", "event": "completed", "completed": 35, "unit": "commands", "elapsed_seconds": 147.07371702603996}
+{"utc": "2026-11-23T00:43:04.006661+00:00", "phase": "bulk", "event": "started", "completed": 35, "unit": "commands", "elapsed_seconds": 147.07716204505414}
+{"utc": "2026-11-23T00:43:14.765858+00:00", "phase": "bulk", "event": "completed", "completed": 36, "unit": "commands", "elapsed_seconds": 157.8363728299737}
+{"utc": "2026-11-23T00:43:16.575336+00:00", "phase": "bulk-profile-0", "event": "started", "completed": 36, "unit": "commands", "elapsed_seconds": 159.64584572904278}
+{"utc": "2026-11-23T00:43:17.811489+00:00", "phase": "bulk-profile-0", "event": "completed", "completed": 37, "unit": "commands", "elapsed_seconds": 160.8820031019859}
+{"utc": "2026-11-23T00:43:17.813497+00:00", "phase": "bulk-profile-1", "event": "started", "completed": 37, "unit": "commands", "elapsed_seconds": 160.8839973610593}
+{"utc": "2026-11-23T00:43:18.440196+00:00", "phase": "bulk-profile-1", "event": "completed", "completed": 38, "unit": "commands", "elapsed_seconds": 161.51071029505692}
+{"utc": "2026-11-23T00:43:18.441855+00:00", "phase": "bulk-profile-2", "event": "started", "completed": 38, "unit": "commands", "elapsed_seconds": 161.51235532201827}
+{"utc": "2026-11-23T00:43:19.130819+00:00", "phase": "bulk-profile-2", "event": "completed", "completed": 39, "unit": "commands", "elapsed_seconds": 162.20133258705027}
+{"utc": "2026-11-23T00:43:19.132401+00:00", "phase": "bulk-profile-3", "event": "started", "completed": 39, "unit": "commands", "elapsed_seconds": 162.2029013640713}
+{"utc": "2026-11-23T00:43:19.940026+00:00", "phase": "bulk-profile-3", "event": "completed", "completed": 40, "unit": "commands", "elapsed_seconds": 163.01053866406437}
+{"utc": "2026-11-23T00:43:19.943705+00:00", "phase": "wide", "event": "started", "completed": 40, "unit": "commands", "elapsed_seconds": 163.01420539803803}
+{"utc": "2026-11-23T00:43:26.421705+00:00", "phase": "wide", "event": "completed", "completed": 41, "unit": "commands", "elapsed_seconds": 169.49221911397763}
+{"utc": "2026-11-23T00:43:28.117567+00:00", "phase": "wide-profile-0", "event": "started", "completed": 41, "unit": "commands", "elapsed_seconds": 171.18807765701786}
+{"utc": "2026-11-23T00:43:29.143127+00:00", "phase": "wide-profile-0", "event": "completed", "completed": 42, "unit": "commands", "elapsed_seconds": 172.21364196005743}
+{"utc": "2026-11-23T00:43:29.144605+00:00", "phase": "wide-profile-1", "event": "started", "completed": 42, "unit": "commands", "elapsed_seconds": 172.21510560705792}
+{"utc": "2026-11-23T00:43:29.777787+00:00", "phase": "wide-profile-1", "event": "completed", "completed": 43, "unit": "commands", "elapsed_seconds": 172.84830196702387}
+{"utc": "2026-11-23T00:43:29.779355+00:00", "phase": "wide-profile-2", "event": "started", "completed": 43, "unit": "commands", "elapsed_seconds": 172.8498561399756}
+{"utc": "2026-11-23T00:43:30.472243+00:00", "phase": "wide-profile-2", "event": "completed", "completed": 44, "unit": "commands", "elapsed_seconds": 173.54275645501912}
+{"utc": "2026-11-23T00:43:30.473866+00:00", "phase": "wide-profile-3", "event": "started", "completed": 44, "unit": "commands", "elapsed_seconds": 173.54436689196154}
+{"utc": "2026-11-23T00:43:31.183962+00:00", "phase": "wide-profile-3", "event": "completed", "completed": 45, "unit": "commands", "elapsed_seconds": 174.25447470904328}
+Traceback (most recent call last):
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/distributed-diagnostic-writes/run.py", line 59, in <module>
+    else:VECTORS['BASE']['main'](here=HERE,extra_suite=suite)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/gpu-staged-transport/run.py", line 163, in main
+    record.update(extra_suite(dict(run=run,source=source,cache=cache,out=out,go=go,env=env,resources=record['resources'],save=save)))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/distributed-diagnostic-writes/run.py", line 49, in suite
+    counts[mode]=diagnostic_review(c['out'],mode,c['cache']/mode,mode!='bulk')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/experiments/distributed-diagnostic-writes/run.py", line 27, in diagnostic_review
+    assert last
+           ^^^^
+AssertionError

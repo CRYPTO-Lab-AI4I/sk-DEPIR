@@ -1,0 +1,9 @@
+# SCALING-182 prepared: preserve81744 partials and retry only missing wide
+
+UTC: 2026-11-23T00:48:01.261425+00:00; agent: Codex.
+
+81744 source857/evidence96/cache496 seals reconcile; all GPU commands/profiles exited0. Controller failed final diagnostic log assertion because wide inherited the bulk control's full mode. Original raw status remains failed. Independently verified cold/restart bounded diagnostics (32files989708bytes /16files845480bytes), bulk canonical equality, all native/proof/artifact checks and actual wide bulk arithmetic. Cold9.135297seconds/bulk9.338670seconds; restart6.804956seconds. No fullsize speed claim.
+
+Fixed experiment arm definition to explicitly restore bounded wide mode. Regression executes actual suite configuration and simulates inherited updates; targeted retry regression verifies only one bounded wide arm is requested. Corrected analyzer preserves exact historical failure and labels actual bulk mode, rather than treating missing logs as success. [Report/partial analysis](../experiments/distributed-diagnostic-writes/report.md#failure81744-and-targeted-correction) and README/primary scaling reference/plan/storage design updated. All previous Go/CUDA/writer code unchanged.
+
+New targeted run-wide.py/run-wide.sbatch reuse the maintained shared controller/preflight/resources and independent reviewers, rebuilding committed source. Only bounded field18 runs; no repeated cold/restart/sanitizer allocation. Existing2nodes/2H200/4cores/8GiBrequestedRAM,64MiBownedGPU/1GiBRSS perworker,128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm. Estimate2–4min excluding queue. Exact frozen scripts/code checks precede submission. Source compatibility/native reference evidence reused because Go/CUDA hashes and readiness binary are unchanged; no local GPU/MPI work. Fulls18 unrun/unadmitted.

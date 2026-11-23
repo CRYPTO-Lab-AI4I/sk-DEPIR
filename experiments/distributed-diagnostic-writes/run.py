@@ -24,7 +24,7 @@ def diagnostic_review(out,mode,directory,bounded=True):
             else:assert done==0
             last[name]=done,total
         if bounded:
-            assert last
+            assert last,f"missing bounded diagnostic progress: {mode}, rank {rank}"
             for name,(done,total)in last.items():
                 assert done==total==(directory/name).stat().st_size
                 files+=1;total_bytes+=total
@@ -36,12 +36,17 @@ def review(rows,directory,resume=False,source=None,cold=None):
     return PROOF['review'](rows,directory,resume,source,cold)
 
 
+def comparison_arms():
+    # The shared runner carries overrides forward: every codec transition must be explicit.
+    return [dict(name='bulk',test='TestDistributedPreprocessingPilot',memcheck=False,profile=True,env=dict(PIR_PIPELINE_RESUME_FROM='',PIR_PIPELINE_DIAGNOSTIC_WRITE='full'),review=lambda rows,directory:review(rows,directory)),dict(name='wide',test='TestWidePipelineTail',memcheck=False,profile=True,env=dict(PIR_PIPELINE_RESUME_FROM='',PIR_PIPELINE_DIAGNOSTIC_WRITE='bounded'),review=PROOF['trace_wide_review'])]
+
+
 def suite(c):
     c['run']('diagnostic-review-tests',['python3','-B','experiments/distributed-diagnostic-writes/test_review.py'],30)
     c['env'].update(PIR_PIPELINE_DIAGNOSTIC_WRITE='bounded',PIR_PIPELINE_PROOF_LOG='trace',LIFTRS_GPU_TAYLOR_PROGRESS='bounded',PIR_PIPELINE_NEWTON_INPUT='prefix',PIR_PIPELINE_DISCOVERY_RESULT='stream',PIR_PIPELINE_SPECTRUM='stream',CGO_ENABLED='1',CC='mpicc',CXX='mpicxx')
     for label,race in (('diagnostic-cpu',[]),('diagnostic-race',['-race'])):
         c['run'](label,[c['go'],'test',*race,'./encoding/liftrs-shared','-run','^TestDiagnosticWrite|^TestProofLog','-count=1','-timeout=20s'],60)
-    extra=[dict(name='bulk',test='TestDistributedPreprocessingPilot',memcheck=False,profile=True,env=dict(PIR_PIPELINE_RESUME_FROM='',PIR_PIPELINE_DIAGNOSTIC_WRITE='full'),review=lambda rows,directory:review(rows,directory)),dict(name='wide',test='TestWidePipelineTail',memcheck=False,profile=True,env=dict(PIR_PIPELINE_RESUME_FROM=''),review=PROOF['trace_wide_review'])]
+    extra=comparison_arms()
     result=SCALE['suite'](c,review_fn=review,extra_arms=extra)
     arms=result['composed_vectors']['arms'];assert arms['cold']['artifacts']==arms['bulk']['artifacts']
     counts={};native={}
