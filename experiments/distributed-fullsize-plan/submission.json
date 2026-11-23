@@ -1,0 +1,13 @@
+{
+  "job_id": "82200",
+  "name": "owners-01",
+  "submission_revision": "7bbf1938d497e38339c3860f8b82abc0edb96ccd",
+  "recorded_utc": "2026-11-23T18:32:44.733155+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-fullsize-plan/slurm-%j.log experiments/distributed-fullsize-plan/run.sbatch owners-01",
+  "results": "experiments/distributed-fullsize-plan/runs/owners-01",
+  "log": "experiments/distributed-fullsize-plan/slurm-82200.log",
+  "resources": "1 HPC node/2 CPU cores/4 GiB requested RAM/no GPU;1 GiB child address space/32 MiB file;720-second controller/15-minute Slurm",
+  "scope": "One read/hash/count pass of retained full s17 support;ownership histograms2\u201364workers;not fulls18 preprocessing",
+  "admission": "Below existing approved validation ceilings;no new support data cache or larger allocation",
+  "estimated_controller_minutes": "1\u201310 excluding queue"
+}

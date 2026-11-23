@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 18:32 | SCALING-196 | Handoff | [Read-only ownership scan82200 submitted](2026-11-23-1832-codex-scaling-196-handoff.md) |
 | 2026-11-23 18:31 | SCALING-196 | Prepared | [Recovery evidence and bounded root inventory ready](2026-11-23-1831-codex-scaling-196-prepared.md) |
 | 2026-11-23 18:21 | SCALING-196 | Started | [Recovery passed; audit fullsize root ownership and resources](2026-11-23-1821-codex-scaling-196-started.md) |
 | 2026-11-23 18:11 | SCALING-195 | Handoff | [Representative recovery82199 submitted](2026-11-23-1811-codex-scaling-195-handoff.md) |

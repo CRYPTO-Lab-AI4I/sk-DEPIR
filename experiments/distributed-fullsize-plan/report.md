@@ -105,3 +105,10 @@ After the scan, use actual skew and root rounding to tighten the fullsize invent
 choose node/card packing, generous host reserve, checkpoint/deadline/storage limits
 and a representative large allocation measurement if still necessary. Present the
 complete fulls18 resource plan for agreement before its submission.
+
+## Submission82200
+
+Submitted from **7bbf193**; [receipt](submission.json). Results
+`runs/owners-01/`, log `slurm-82200.log`. Same bounded resources above.
+Estimated **1–10 minutes excluding queue**; no agent monitoring. Fulls18 remains
+unrun/unadmitted. Submission is not a successful scan.

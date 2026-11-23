@@ -1572,7 +1572,7 @@ and larger parameter/topology/whole-job admission remain. Same HPC allocation:
 | Parameterized MPI command82181 | **Passed** | Controller **2 min54.239 s**; command restart **7.896 s**, peak host RSS **376.066 MiB/worker** |
 | Host phase inventories /eight-worker82194 | **Passed** | Controller **2 min51.032 s**; cold **15.555 s**, restart **11.050 s**; logged peak RSS **374.309 /374.105 MiB/worker** |
 | Discovery/root recovery and s10 representative case82199 | **Passed all four arms** | Controller **6 min34.547 s**; cold **71.482 s**, discovery recovery **70.117 s**, root recovery **49.614 s**, prefix8 recovery **43.343 s**; logged peak host RSS **380.117 /381.652 /382.391 /381.242 MiB/worker**, respectively; HPC2nodes/2H200/8cores/16GiB requested RAM |
-| Fullsize root ownership/resource inventory | **Prepared: read-only retained s17 archive scan** | No GPU; planned1 HPC node/2cores/4GiB requested RAM; no new support payload; fullsize allocation/runtime unmeasured |
+| Fullsize root ownership/resource inventory | **Submitted82200: read-only retained s17 archive scan; results pending** | No GPU; planned1 HPC node/2cores/4GiB requested RAM; no new support payload; fullsize allocation/runtime unmeasured |
 | Full s18 preprocessing | **Not run / not admitted** | Capacity projections above are not measured costs or implementation support |
 
 Durable assembled checkpoint validation **82101 passed** under unchanged caps;
