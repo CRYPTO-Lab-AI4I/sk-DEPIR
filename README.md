@@ -36,7 +36,7 @@ passed through **81744 partial results plus81746 wide validation**;
 [assembled arithmetic resume](experiments/distributed-workflow-resume/report.md) passed **82102**;
 [parameterized MPI server command](cmd/pir-preprocess-mpi/README.md) passed **82181**;
 [named host-phase admission and eight-worker validation](experiments/distributed-host-admission/report.md) passed **82194**;
-[completed-discovery/root recovery and larger s10 validation](experiments/distributed-discovery-restart/report.md) are prepared within the same resource ceilings;
+[completed-discovery/root recovery and larger s10 validation](experiments/distributed-discovery-restart/report.md) are submitted as **82199** within the same resource ceilings;
 full s18 preprocessing remains unrun.
 
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)

@@ -557,4 +557,4 @@ progress/profiling,reference provenance and exact limitations.
 
 The [named host-phase inventory](../experiments/distributed-host-admission/report.md) adds an explicit runtime/native/GC allowance. Its eight-worker validation passed82194; fullsize measured headroom remains pending.
 
-[Completed-stage recovery](../experiments/distributed-discovery-restart/report.md) now also loads the sealed discovery archive or normalized root; larger s10 validation is prepared, with fullsize reserve/partial-stage recovery still unvalidated.
+[Completed-stage recovery](../experiments/distributed-discovery-restart/report.md) now also loads the sealed discovery archive or normalized root; larger s10 validation is submitted as82199, with fullsize reserve/partial-stage recovery still unvalidated.

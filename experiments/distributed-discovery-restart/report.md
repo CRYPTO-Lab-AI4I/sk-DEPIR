@@ -1,6 +1,6 @@
 # Discovery archive recovery and representative s10 validation
 
-Status: **prepared; integration not yet run**. SCALING-195 follows
+Status: **submitted job82199**, recovery-01; integration results pending. SCALING-195 follows
 [passed eight-worker82194](../distributed-host-admission/report.md#verified-outcome82194).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
@@ -167,3 +167,11 @@ verified against native72839 seals, and saved82194 evidence still passes general
 review. [Source checks](readiness/source-checks.json), [reviewers](readiness/frozen-reviewers.json),
 [native preflight](readiness/native-preflight.log). Each-node executable/wrapper/
 library/config/output checks and fresh frozen builds remain inside the allocation.
+
+### Submission82199
+
+Submitted from **0f02d72**, implementation **b79c5c4**. [Receipt](submission.json).
+Results `runs/recovery-01/`, Slurm log `slurm-82199.log`, reusable cache above.
+Same approved2nodes/2H200/8cores/16GiB and all existing byte/storage/time ceilings.
+Estimated controller **4–9 minutes excluding queue**. Submission is not a pass;
+completion notification registered locally, no agent polling. Fulls18 unrun/unadmitted.

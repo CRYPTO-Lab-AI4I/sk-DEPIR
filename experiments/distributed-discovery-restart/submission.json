@@ -1,0 +1,17 @@
+{
+  "job_id": "82199",
+  "name": "recovery-01",
+  "implementation_revision": "b79c5c4",
+  "submission_revision": "0f02d726e55107fe716fe16826ab7f985a73a91d",
+  "recorded_utc": "2026-11-23T18:11:46.533900+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-discovery-restart/slurm-%j.log experiments/distributed-discovery-restart/run.sbatch recovery-01",
+  "results": "experiments/distributed-discovery-restart/runs/recovery-01",
+  "log": "experiments/distributed-discovery-restart/slurm-82199.log",
+  "cache": ".cache/liftrs/distributed-discovery-restart/recovery-01/",
+  "resources": "2 HPC nodes/2 H200/8 CPU cores/16 GiB requested host RAM total;8 workers;32 MiB owned GPU/worker=128 MiB/card;1 GiB RSS/worker;768 MiB host allowance/worker;zero CUDA-pinned;128 MiB cache/2 GiB scratch/32 MiB file;720-second controller/15-minute Slurm;exclude gnode03",
+  "scope": "Representative genuine s10/curve5,N1048576,K146641,cold/completed-discovery/root-only/prefix8 recovery;not fulls18",
+  "estimated_controller_minutes": "4\u20139 excluding queue",
+  "monitoring": "Receipt-bound local completion notification;no model polling",
+  "admission": "Existing approved eight-worker resource ceilings retained;source/historical measurements budget the next representative shape;no budget increase or fulls18 authorization",
+  "note": "949 frozen inputs/418 compiled code hashes,28 frozen reviewers,CPU/race/tagged/native checks pass. Native s10 cache72839 payload/header hashes verified. Explicit summary logs retain runtime checks/native/final equality;no full raw-proof replay for new shape."
+}

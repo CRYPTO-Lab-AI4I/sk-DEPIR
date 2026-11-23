@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 18:11 | SCALING-195 | Handoff | [Representative recovery82199 submitted](2026-11-23-1811-codex-scaling-195-handoff.md) |
 | 2026-11-23 18:10 | SCALING-195 | Prepared | [Frozen recovery source and native references verified](2026-11-23-1810-codex-scaling-195-ready.md) |
 | 2026-11-23 18:08 | SCALING-195 | Prepared | [Discovery/root recovery and larger validation ready](2026-11-23-1808-codex-scaling-195-prepared.md) |
 | 2026-11-23 17:25 | SCALING-195 | Started | [Eight workers passed; recover discovery and increase representative size](2026-11-23-1725-codex-scaling-195-started.md) |

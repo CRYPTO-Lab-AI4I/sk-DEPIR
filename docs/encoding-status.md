@@ -23,7 +23,7 @@ checks on **four workers across two HPC nodes/two H200s**. Final publication
 reload **82101 passed**. Canonical field18 FFT/products also pass at bounded sizes;
 these are not full s18 runs.
 
-**Assembled arithmetic resume82102, actual command82181 and eight-worker82194 passed. Current focus: completed-discovery/root recovery and larger representative s10 validation (SCALING-195), prepared within the same ceilings.**
+**Assembled arithmetic resume82102, actual command82181 and eight-worker82194 passed. Current focus: completed-discovery/root recovery and larger representative s10 validation (SCALING-195), submitted82199; results pending.**
 Then parameterized launch/full working-set admission and representative larger
 GPU/node scaling remain. Full s18 preprocessing is **not run / not admitted**.
 The measurements below distinguish small-case integration from fullsize projections
@@ -1569,7 +1569,7 @@ and larger parameter/topology/whole-job admission remain. Same HPC allocation:
 | Assembled arithmetic resume82102 | **Passed** | Controller **3 min11.398 s**; restart launcher **8.297 s**; peak host RSS **381.387 MiB/worker**, owned GPU **0.244 MiB/worker** (driver/context extra) |
 | Parameterized MPI command82181 | **Passed** | Controller **2 min54.239 s**; command restart **7.896 s**, peak host RSS **376.066 MiB/worker** |
 | Host phase inventories /eight-worker82194 | **Passed** | Controller **2 min51.032 s**; cold **15.555 s**, restart **11.050 s**; logged peak RSS **374.309 /374.105 MiB/worker** |
-| Discovery/root recovery and s10 representative case | Prepared; not run | Same approved ceilings; estimated controller **4–9 min**; fullsize memory/runtime unknown |
+| Discovery/root recovery and s10 representative case | **Submitted82199; results pending** | Same approved ceilings; estimated controller **4–9 min**; fullsize memory/runtime unknown |
 | Full s18 preprocessing | **Not run / not admitted** | Capacity projections above are not measured costs or implementation support |
 
 Durable assembled checkpoint validation **82101 passed** under unchanged caps;
@@ -1638,3 +1638,5 @@ explicit job option, preserving runtime checks/native-work/full artifact equalit
 but omitting independent full raw-proof replay for this larger shape. Recovery
 from unfinished discovery/subtrees and fullsize reserve/node/storage/time admission
 remain. No fulls18 job has been run or admitted.
+
+Representative s10 recovery [82199 receipt](../experiments/distributed-discovery-restart/submission.json); no result/fullsize claim.

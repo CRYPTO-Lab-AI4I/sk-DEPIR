@@ -4010,3 +4010,5 @@ checks/native work and full artifact equality remain, no full raw replay for thi
 new shape. Record that diagnostic boundary; no unchanged s8/sanitizer suite.
 Then use representative data for fullsize reserve/root ownership/node packing/
 storage/time/checkpoint admission; no automatic fulls18 launch or budget increase.
+
+SCALING-195 representative s10 cold/discovery/root/prefix8 recovery **82199 submitted**; [receipt](../experiments/distributed-discovery-restart/submission.json). All previously approved eight-worker resource ceilings unchanged; results pending, fulls18 unrun/unadmitted.
