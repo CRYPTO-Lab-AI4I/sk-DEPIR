@@ -113,10 +113,14 @@ def suite(c,full_fft=False,review_fn=review,test_name="TestDistributedGPUVectors
         env.update(arm_spec.get('env',{}))
         dest=cache/mode;dest.mkdir();env['PIR_GPU_MATRIX_STAGE_OUTPUT']=str(dest)
         env['PIR_GPU_MATRIX_STAGE_TAYLOR']='1'if full_fft and mode!='separable'else'0'
+        rank_wrapper=arm_spec.get('wrapper',wrapper)
+        if 'command'in arm_spec:
+            run(mode+'-entry-preflight',['srun','--nodes=2','--ntasks='+str(ranks),'--ntasks-per-node='+str(per_node),'--cpus-per-task='+str(cpus),'--chdir='+str(cache),'bash','-c','set -eu; test -x "$1"; test -r "$2"','entry-preflight',arm_spec['command'][0],rank_wrapper],30)
         launcher=['timeout','--signal=TERM','--kill-after=10s','240s','srun','--mpi=pmix_v3','--nodes=2','--ntasks='+str(ranks),'--ntasks-per-node='+str(per_node),'--cpus-per-task='+str(cpus),
-            '--export=ALL,TMPDIR=/tmp',*gpu_binding,'--cpu-bind=cores','--distribution=block:block','--chdir='+str(cache),'--kill-on-bad-exit=1','bash',wrapper,out/mode]
+            '--export=ALL,TMPDIR=/tmp',*gpu_binding,'--cpu-bind=cores','--distribution=block:block','--chdir='+str(cache),'--kill-on-bad-exit=1','bash',rank_wrapper,out/mode]
         selected_test=arm_spec.get('test',reference_test if mode=='full-reference'else('TestDistributedGPUVectors'if mode=='separable'else test_name))
-        command=[binary,'-test.run=^'+selected_test+'$','-test.v','-test.timeout=220s']
+        command=arm_spec.get('command',[binary,'-test.run=^'+selected_test+'$','-test.v','-test.timeout=220s'])
+        profile_binary=command[0]
         if is_memcheck:command=['compute-sanitizer','--tool','memcheck','--leak-check','full','--error-exitcode','99',*command]
         run(mode,[*launcher,*command],260)
         checker=arm_spec.get('review',reference_review if mode=='full-reference'else(review if mode=='separable'else review_fn))
@@ -125,7 +129,7 @@ def suite(c,full_fft=False,review_fn=review,test_name="TestDistributedGPUVectors
             arm['sanitizer']=[STAGE['sanitizer_summary']((out/f'{mode}-{r}.stdout.log').read_text(),(out/f'{mode}-{r}.stderr.log').read_text())for r in range(ranks)]
         state['arms'][mode]=arm;save()
         if arm_spec.get('profile',mode=='normal'):
-            for rank in range(ranks):run(('profile-'if mode=='normal'else mode+'-profile-')+str(rank),[go,'tool','pprof','-symbolize=none','-top',binary,out/f'{mode}-{rank}.pprof'],45)
+            for rank in range(ranks):run(('profile-'if mode=='normal'else mode+'-profile-')+str(rank),[go,'tool','pprof','-symbolize=none','-top',profile_binary,out/f'{mode}-{rank}.pprof'],45)
     state['status']='passed';save();return dict(composed_vectors=state)
 
 

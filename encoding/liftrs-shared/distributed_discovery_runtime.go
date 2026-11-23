@@ -22,6 +22,8 @@ type rankDiscoveryOptions struct {
 	Device                                                                  int
 	DeviceBytes, MaxLocalWords, MaxGoodWords, MaxRootWords, MaxArchiveWords uint64
 	Random                                                                  io.Reader
+	// Optional job admission after exact K is known,before GPU discovery allocations.
+	AdmitCode func(ScalingCodeHeader) error
 }
 
 func admitRankDiscovery[Word transposeWord](w *mpi.World, spec Spec, o rankDiscoveryOptions, emit func(map[string]any)) error {
@@ -203,6 +205,11 @@ func discoverRankSupport[Word transposeWord](w *mpi.World, spec Spec, options ra
 	h, _, err := canonicalScalingCodeHeader(s, spec.CurveDegree, uint64(k), n)
 	if err != nil {
 		return result, err
+	}
+	if options.AdmitCode != nil {
+		if err = options.AdmitCode(h); err != nil {
+			return result, err
+		}
 	}
 	base, err := NewBinaryField(s, h.Polynomial)
 	if err != nil {

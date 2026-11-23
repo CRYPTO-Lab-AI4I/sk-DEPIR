@@ -1,6 +1,6 @@
 # Assembled arithmetic resume
 
-Status: **submitted job82102**, resume-01; integration results pending. SCALING-192 follows
+Status: **passed job82102**, resume-01; all four arms independently verified. SCALING-192 follows
 [passed durable checkpoint82101](../distributed-workflow-checkpoints/report.md#verified-outcome82101).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
@@ -130,3 +130,25 @@ Submitted from **ed99872**, implementation **9006b3b**. [Receipt](submission.jso
 Results `runs/resume-01/`, Slurm log `slurm-82102.log`, retained cache above.
 Same admitted limits; estimated controller **3–6 minutes excluding queue**.
 Submission is not a pass; no agent polling until the terminal notice.
+
+### Verified outcome82102
+
+Producing revision **ed99872**. [Analysis](runs/resume-01/analysis.json),
+[raw results](runs/resume-01/results.json), [Slurm log](slurm-82102.log).
+All **920 source /105 evidence /476 cache** seals reconcile. Controller
+**3 min11.398 s**; retained logical cache **37.851 MiB**. HPC allocation above.
+
+| Arm | Launcher runtime | Peak host RSS per worker | Outcome |
+|---|---|---|---|
+| Pilot cold | 11.055 s | 381.492 MiB | Passed |
+| Pilot restart | 7.692 s | 380.402 MiB | Passed |
+| Assembled cold | 10.691 s | 381.152 MiB | Passed |
+| Assembled fresh prefix8 restart | 8.297 s | 381.387 MiB | Passed |
+
+Restart completed13Newton steps/161367aggregate upload words without root clones,
+matching pilot restart's ordered arithmetic proofs/native Taylor work, all remaining
+compact checkpoints/identity/final bytes. Its15commit manifests/60shards and source
+bindings pass; support was hashed once by rank0 and reused by hard link. Cold retains
+all17commit/68shard and76baseline file checks. Owned GPU about0.244MiB/worker,
+excluding driver/context/MPI. Fresh CPU file reload also passed. Timing boundaries
+differ; no direct speedup or fullsize inference. Next: [parameterized command](../distributed-command/report.md).

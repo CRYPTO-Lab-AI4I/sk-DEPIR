@@ -31,6 +31,12 @@ a bounded two-node implementation now passes the genuine s4/s6 pipeline and
 fresh-process restart78915. Larger ranks/fields and fullsize runs remain separate
 validation steps; see the current [scaling reference](encoding-status.md).
 
+The new experimental [MPI server command](../cmd/pir-preprocess-mpi/README.md)
+exposes the shared distributed cold/restarted runtime without test-oracle inputs.
+Its [bounded validation](../experiments/distributed-command/report.md) is prepared;
+complete fullsize host-phase/topology/resource admission remains pending. Source
+parameters through s18 are not demonstrated fullsize support.
+
 ## One procedure, interchangeable execution
 
 | Responsibility | Implementation | Invariant |

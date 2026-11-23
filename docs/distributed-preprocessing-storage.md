@@ -413,4 +413,29 @@ representative larger topology, and complete fulls18 resource approval. Fulls18
 remains unrun/unadmitted; failure during discovery/root construction is not yet
 covered by this completed-Newton-prefix restart boundary.
 
-Assembled arithmetic-resume validation **82102 submitted** under unchanged caps; [receipt](../experiments/distributed-workflow-resume/submission.json). Reviewed pilot cold/restart plus assembled cold and fresh-process prefix8 restart; results pending. Fulls18 remains unrun/unadmitted.
+Assembled arithmetic-resume validation **82102 passed**;
+[verified evidence](../experiments/distributed-workflow-resume/runs/resume-01/analysis.json).
+Controller **3 min11.398 s**, assembled cold **10.691 s** /restart **8.297 s**;
+restart peak host RSS **381.387 MiB/worker**, owned GPU about **0.244 MiB/worker**
+(context/driver extra). Remaining13steps/proof/native work/checkpoints/final bytes
+match the pilot, with one support hash/no-copy archive. Fulls18 unrun/unadmitted.
+
+
+## Parameterized distributed server command (SCALING-193)
+
+82102passed assembled cold/fresh-prefix8 arithmetic restart. Add the actual
+[command](../cmd/pir-preprocess-mpi/README.md) around shared runtime, independent of
+test oracles, with explicit JSON parameters/modes/limits, all-rank policy agreement,
+secure default randomness, mandatory profiles and periodic local resource guards.
+At exact K, admit canonical/compact checkpoint/metadata retention before GPU
+discovery allocations; retain local list/shard/rounded root/CUDA guards.
+[Validation plan](../experiments/distributed-command/report.md): actual binary cold/
+restart compared with reviewed pilot under unchanged two-node/two-H200 caps.
+
+Omit test-only support/root-stage/identity copies while preserving live checks and
+full proof/native/output comparisons. New admission/watchdog/metadata overhead is
+unmeasured fullsize; no numerical array/transform/transfer change intended. Memory/
+log policies stay explicit; command does not authorize resource increases.
+Complete fullsize host/GC/native working-set/headroom admission still remains,
+then representative larger rank/topology and fulls18 resource agreement. Current
+samplers and individual array caps are not a complete phase memory model.

@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 16:13 | SCALING-193 | Prepared | [Parameterized server command ready](2026-11-23-1613-codex-scaling-193-prepared.md) |
+| 2026-11-23 11:02 | SCALING-193 | Started | [Restart passed; parameterize distributed entry](2026-11-23-1102-codex-scaling-193-started.md) |
 | 2026-11-23 10:56 | SCALING-192 | Handoff | [Assembled arithmetic restart82102 submitted](2026-11-23-1056-codex-scaling-192-handoff.md) |
 | 2026-11-23 10:55 | SCALING-192 | Prepared | [Frozen restart source and native inputs verified](2026-11-23-1055-codex-scaling-192-ready.md) |
 | 2026-11-23 10:53 | SCALING-192 | Prepared | [Shared cold/restart arithmetic ready](2026-11-23-1053-codex-scaling-192-prepared.md) |
