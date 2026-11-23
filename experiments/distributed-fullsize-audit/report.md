@@ -101,11 +101,12 @@ aliases. A production retention policy must avoid unnecessary new duplication
 without deleting reusable verified caches. Filesystem capacity/throughput and
 resource admission must cover the complete retained set and restart scratch.
 
-Current fresh restart hashes the complete global support file in each rank for
+Default local fresh restart hashes the complete global support file in each rank for
 both root and prefix loads. At s18 that is242.893 GiB per worker,about3.795 TiB
-aggregate for16workers,before shard reads. A coordinated verified-manifest or
-partitioned support binding needs design before calling this an efficient restart;
-no checksum or correctness check is silently removed.
+aggregate for16workers,before shard reads. An explicit [coordinated support-binding prototype](../distributed-restart-binding/report.md)
+now preserves the full checksum and every shard check while requiring per-checkpoint
+metadata agreement;its GPU comparison/full-size latency remain unmeasured. Default
+local mode stays available;this does not establish efficient production restart.
 
 Current4096-word proof logging cannot be scaled unchanged. Main Newton/identity/
 spectrum alone use112FFTs at s18. Their transposes would emit **440,401,920 proof

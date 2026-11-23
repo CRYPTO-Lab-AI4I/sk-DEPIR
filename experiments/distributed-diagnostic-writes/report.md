@@ -1,6 +1,6 @@
 # Bounded diagnostic serialization
 
-Status: **81744 failed final controller review**; bounded cold/restart and bulk control independently passed. Wide ran in bulk mode; targeted bounded wide validation **submitted81746**, results pending. Implementation revision **04af166** (parent 7d774ed).
+Status: **81744 failed final controller review**; bounded cold/restart and bulk control independently passed. Wide ran in bulk mode; targeted bounded wide validation **passed81746**. Implementation revision **04af166** (parent 7d774ed).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer regression](test_review.py), [local readiness](readiness/).
 Planned results: `runs/writes-01/`. Immutable source, binaries, native references
@@ -229,3 +229,26 @@ No extra local GPU/MPI execution or repeated arithmetic calibration was needed.
 ### Targeted submission81746
 
 Job **81746** submitted from **5fa440e**, implementation **845c3eb**; [receipt](submission-wide-02.json). Results `runs/wide-02/`, log `slurm-81746.log`. Existing resource caps unchanged; estimate2–4minutes excluding queue. Only the missing bounded wide validation runs. No polling or new GPU result claim.
+
+## Verified result81746
+
+Targeted retry **81746 passed**, completing bounded diagnostic validation with
+81744's independently verified cold/restart/control partial passes. The original
+81744 scheduler/controller failure remains recorded as failed; it is not relabeled.
+[Receipt](submission-wide-02.json), [analysis](runs/wide-02/analysis.json),
+[raw results](runs/wide-02/results.json), [Slurm log](slurm-81746.log).
+Producing revision **5fa440e**; **859 source /34 evidence /97 cache files** reconcile.
+All **72 diagnostic files /197,888 bytes** match complete bounded progress totals,
+independent native references, packet/digest reviews and canonical output checks.
+
+HPC gnode13/gnode14, two H200s/four MPI workers/four cores/8 GiB requested host RAM
+with the unchanged admitted caps. Bounded field18 d5/d12 workflow cumulative time
+**5.211485 seconds**, peak RSS **379.434 MiB/worker**, owned GPU **3.125 MiB/worker**
+(context/MPI/driver additional). Controller **2 min5.422 seconds**, retained cache
+**15.389 MiB**. No cold/restart or sanitizer repetition. These small-file measurements
+do not establish full-size throughput, peak RSS or s18 preprocessing feasibility.
+
+The bounded codec is now validated for the planned narrow/wide composition. Bulk
+remains default, with explicit bounded selection for memory-constrained execution.
+Next address coordinated restart support verification and production lifecycle/
+ownership/non-oracle/retention/count/domain admission. Full s18 remains unrun.

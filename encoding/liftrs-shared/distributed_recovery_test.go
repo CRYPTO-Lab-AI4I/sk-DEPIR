@@ -54,6 +54,10 @@ func TestRankPrefixResumeAdmission(t *testing.T) {
 	if _, err = loadRankPrefix(directory, "s4", 4, 0, 2, "newton-8", 128); err == nil {
 		t.Fatal("bad shard accepted")
 	}
+	// External support agreement must never bypass the shared shard checksum.
+	if _, err = loadRankPrefixWithSupport(directory, "s4", 4, 0, 2, "newton-8", 128, func(rankPrefixRecord) error { return nil }); err == nil {
+		t.Fatal("agreed support bypassed corrupt shard")
+	}
 }
 
 // Compact roots include a partially owned rank and completely empty payloads.

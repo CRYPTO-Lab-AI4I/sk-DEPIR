@@ -1,0 +1,139 @@
+[gnode14:2635649] mca: base: components_register: registering framework btl components
+[gnode14:2635649] mca: base: components_register: found loaded component openib
+[gnode14:2635649] mca: base: components_register: component openib register function successful
+[gnode14:2635649] mca: base: components_register: found loaded component self
+[gnode14:2635649] mca: base: components_register: component self register function successful
+[gnode14:2635649] mca: base: components_register: found loaded component sm
+[gnode14:2635649] mca: base: components_register: found loaded component tcp
+[gnode14:2635649] mca: base: components_register: component tcp register function successful
+[gnode14:2635649] mca: base: components_register: found loaded component vader
+[gnode14:2635649] mca: base: components_register: component vader register function successful
+[gnode14:2635649] mca: base: components_open: opening btl components
+[gnode14:2635649] mca: base: components_open: found loaded component openib
+[gnode14:2635649] mca: base: components_open: component openib open function successful
+[gnode14:2635649] mca: base: components_open: found loaded component self
+[gnode14:2635649] mca: base: components_open: component self open function successful
+[gnode14:2635649] mca: base: components_open: found loaded component tcp
+[gnode14:2635649] mca: base: components_open: component tcp open function successful
+[gnode14:2635649] mca: base: components_open: found loaded component vader
+[gnode14:2635649] mca: base: components_open: component vader open function successful
+[gnode14:2635649] select: initializing btl component openib
+[gnode14:2635649] Checking distance from this process to device=mlx5_0
+[gnode14:2635649] hwloc_distances->nbobjs=2
+[gnode14:2635649] hwloc_distances->values[0]=10
+[gnode14:2635649] hwloc_distances->values[1]=21
+[gnode14:2635649] Process is bound: distance to device is 0.000000
+[gnode14:2635649] Checking distance from this process to device=mlx5_1
+[gnode14:2635649] hwloc_distances->nbobjs=2
+[gnode14:2635649] hwloc_distances->values[0]=10
+[gnode14:2635649] hwloc_distances->values[1]=21
+[gnode14:2635649] Process is bound: distance to device is 0.000000
+[gnode14:2635649] Checking distance from this process to device=mlx5_bond_0
+[gnode14:2635649] hwloc_distances->nbobjs=2
+[gnode14:2635649] hwloc_distances->values[0]=10
+[gnode14:2635649] hwloc_distances->values[1]=21
+[gnode14:2635649] Process is bound: distance to device is 0.000000
+--------------------------------------------------------------------------
+WARNING: No preset parameters were found for the device that Open MPI
+detected:
+
+  Local host:            gnode14
+  Device name:           mlx5_0
+  Device vendor ID:      0x02c9
+  Device vendor part ID: 4129
+
+Default device parameters will be used, which may result in lower
+performance.  You can edit any of the files specified by the
+btl_openib_device_param_files MCA parameter to set values for your
+device.
+
+NOTE: You can turn off this warning by setting the MCA parameter
+      btl_openib_warn_no_device_params_found to 0.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   gnode14
+  Local device: mlx5_1
+--------------------------------------------------------------------------
+[gnode14:2635649] select: init of component openib returned failure
+[gnode14:2635649] mca: base: close: component openib closed
+[gnode14:2635649] mca: base: close: unloading component openib
+[gnode14:2635649] select: initializing btl component self
+[gnode14:2635649] select: init of component self returned success
+[gnode14:2635649] select: initializing btl component tcp
+[gnode14:2635649] btl: tcp: Searching for exclude address+prefix: 127.0.0.1 / 8
+[gnode14:2635649] btl: tcp: Found match: 127.0.0.1 (lo)
+[gnode14:2635649] btl: tcp: Using interface: sppp 
+[gnode14:2635649] btl:tcp: Attempting to bind to AF_INET port 1024
+[gnode14:2635649] btl:tcp: Successfully bound to AF_INET port 1024
+[gnode14:2635649] btl:tcp: my listening v4 socket is 0.0.0.0:1024
+[gnode14:2635649] btl:tcp: examining interface bond0
+[gnode14:2635649] btl:tcp: using ipv6 interface bond0
+[gnode14:2635649] btl:tcp: examining interface ibP1s3
+[gnode14:2635649] btl:tcp: using ipv6 interface ibP1s3
+[gnode14:2635649] btl:tcp: examining interface docker0
+[gnode14:2635649] btl:tcp: using ipv6 interface docker0
+[gnode14:2635649] select: init of component tcp returned success
+[gnode14:2635649] select: initializing btl component vader
+[gnode14:2635649] select: init of component vader returned success
+[gnode14:2635649] mca: base: components_register: registering framework pml components
+[gnode14:2635649] mca: base: components_register: found loaded component ucx
+[gnode14:2635649] mca: base: components_register: component ucx register function successful
+[gnode14:2635649] mca: base: components_open: opening pml components
+[gnode14:2635649] mca: base: components_open: found loaded component ucx
+[gnode14:2635649] mca: base: components_open: component ucx open function successful
+[gnode14:2635649] select: initializing pml component ucx
+[gnode14:2635649] select: init returned priority 51
+[gnode14:2635649] selected ucx best priority 51
+[gnode14:2635649] select: component ucx selected
+{"completed":0,"elapsed_seconds":0.000003631,"mode":"bounded","peak_rss_bytes":390062080,"phase":"s18-d5-rank-3-prefix-2.bin","total":32,"unit":"bytes","utc":"2026-11-23T00:50:35.315635899Z","work":"diagnostic-write"}
+{"completed":32,"elapsed_seconds":0.000024618,"mode":"bounded","peak_rss_bytes":390062080,"phase":"s18-d5-rank-3-prefix-2.bin","total":32,"unit":"bytes","utc":"2026-11-23T00:50:35.315657175Z","work":"diagnostic-write"}
+{"completed":0,"elapsed_seconds":0.000003207,"mode":"bounded","peak_rss_bytes":391110656,"phase":"s18-d5-rank-3-prefix-4.bin","total":32,"unit":"bytes","utc":"2026-11-23T00:50:35.353234892Z","work":"diagnostic-write"}
+{"completed":32,"elapsed_seconds":0.000021106,"mode":"bounded","peak_rss_bytes":391110656,"phase":"s18-d5-rank-3-prefix-4.bin","total":32,"unit":"bytes","utc":"2026-11-23T00:50:35.353253333Z","work":"diagnostic-write"}
+{"completed":0,"elapsed_seconds":0.000005035,"mode":"bounded","peak_rss_bytes":393228288,"phase":"s18-d5-rank-3-prefix-8.bin","total":32,"unit":"bytes","utc":"2026-11-23T00:50:35.391019869Z","work":"diagnostic-write"}
+{"completed":32,"elapsed_seconds":0.000023047,"mode":"bounded","peak_rss_bytes":393228288,"phase":"s18-d5-rank-3-prefix-8.bin","total":32,"unit":"bytes","utc":"2026-11-23T00:50:35.391038336Z","work":"diagnostic-write"}
+{"completed":0,"elapsed_seconds":0.000004259,"mode":"bounded","peak_rss_bytes":393228288,"phase":"s18-d5-rank-3-prefix-16.bin","total":32,"unit":"bytes","utc":"2026-11-23T00:50:35.443568751Z","work":"diagnostic-write"}
+{"completed":32,"elapsed_seconds":0.000022249,"mode":"bounded","peak_rss_bytes":393228288,"phase":"s18-d5-rank-3-prefix-16.bin","total":32,"unit":"bytes","utc":"2026-11-23T00:50:35.443587188Z","work":"diagnostic-write"}
+{"completed":0,"elapsed_seconds":0.000003605,"mode":"bounded","peak_rss_bytes":393228288,"phase":"s18-d5-rank-3-identity.bin","total":32,"unit":"bytes","utc":"2026-11-23T00:50:35.479693562Z","work":"diagnostic-write"}
+{"completed":32,"elapsed_seconds":0.000022367,"mode":"bounded","peak_rss_bytes":393228288,"phase":"s18-d5-rank-3-identity.bin","total":32,"unit":"bytes","utc":"2026-11-23T00:50:35.47971284Z","work":"diagnostic-write"}
+{"completed":0,"elapsed_seconds":0.000024979,"mode":"bounded","peak_rss_bytes":393228288,"phase":"s18-d5-rank-3-expected-spectrum.bin","total":64,"unit":"bytes","utc":"2026-11-23T00:50:35.50641806Z","work":"diagnostic-write"}
+{"completed":64,"elapsed_seconds":0.000042019,"mode":"bounded","peak_rss_bytes":393228288,"phase":"s18-d5-rank-3-expected-spectrum.bin","total":64,"unit":"bytes","utc":"2026-11-23T00:50:35.506435691Z","work":"diagnostic-write"}
+{"completed":0,"elapsed_seconds":0.000003092,"mode":"bounded","peak_rss_bytes":393228288,"phase":"s18-d5-rank-3-high.bin","total":64,"unit":"bytes","utc":"2026-11-23T00:50:35.509750898Z","work":"diagnostic-write"}
+{"completed":64,"elapsed_seconds":0.000024833,"mode":"bounded","peak_rss_bytes":393228288,"phase":"s18-d5-rank-3-high.bin","total":64,"unit":"bytes","utc":"2026-11-23T00:50:35.509772941Z","work":"diagnostic-write"}
+{"completed":0,"elapsed_seconds":0.000002861,"mode":"bounded","peak_rss_bytes":393228288,"phase":"s18-d5-rank-3-generator.bin","total":32,"unit":"bytes","utc":"2026-11-23T00:50:35.51298351Z","work":"diagnostic-write"}
+{"completed":32,"elapsed_seconds":0.00001732,"mode":"bounded","peak_rss_bytes":393228288,"phase":"s18-d5-rank-3-generator.bin","total":32,"unit":"bytes","utc":"2026-11-23T00:50:35.512998271Z","work":"diagnostic-write"}
+{"utc":"2026-11-23T00:50:35Z","phase":"rank-Taylor-windows-summary","work":"gpu-preparation","event":"completed","completed":48,"total":48,"elapsed_ms":247,"unit":"windows"}
+{"utc":"2026-11-23T00:50:35Z","phase":"rank-Taylor-coefficients-summary","work":"gpu-preparation","event":"completed","completed":144,"total":144,"elapsed_ms":247,"unit":"coefficients"}
+{"completed":0,"elapsed_seconds":0.000005948,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-prefix-2.bin","total":4096,"unit":"bytes","utc":"2026-11-23T00:50:35.932667981Z","work":"diagnostic-write"}
+{"completed":4096,"elapsed_seconds":0.000027813,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-prefix-2.bin","total":4096,"unit":"bytes","utc":"2026-11-23T00:50:35.932690159Z","work":"diagnostic-write"}
+{"completed":0,"elapsed_seconds":0.00000535,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-prefix-4.bin","total":4096,"unit":"bytes","utc":"2026-11-23T00:50:36.333604327Z","work":"diagnostic-write"}
+{"completed":4096,"elapsed_seconds":0.000025941,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-prefix-4.bin","total":4096,"unit":"bytes","utc":"2026-11-23T00:50:36.33362534Z","work":"diagnostic-write"}
+{"completed":0,"elapsed_seconds":0.000006754,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-prefix-8.bin","total":4096,"unit":"bytes","utc":"2026-11-23T00:50:36.730113875Z","work":"diagnostic-write"}
+{"completed":4096,"elapsed_seconds":0.000034824,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-prefix-8.bin","total":4096,"unit":"bytes","utc":"2026-11-23T00:50:36.730142544Z","work":"diagnostic-write"}
+{"completed":0,"elapsed_seconds":0.000005416,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-prefix-16.bin","total":4096,"unit":"bytes","utc":"2026-11-23T00:50:37.140111709Z","work":"diagnostic-write"}
+{"completed":4096,"elapsed_seconds":0.00002685,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-prefix-16.bin","total":4096,"unit":"bytes","utc":"2026-11-23T00:50:37.140133497Z","work":"diagnostic-write"}
+{"completed":0,"elapsed_seconds":0.000005185,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-prefix-32.bin","total":4096,"unit":"bytes","utc":"2026-11-23T00:50:37.600991229Z","work":"diagnostic-write"}
+{"completed":4096,"elapsed_seconds":0.000026461,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-prefix-32.bin","total":4096,"unit":"bytes","utc":"2026-11-23T00:50:37.601012931Z","work":"diagnostic-write"}
+{"completed":0,"elapsed_seconds":0.000005097,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-prefix-64.bin","total":4096,"unit":"bytes","utc":"2026-11-23T00:50:37.999751352Z","work":"diagnostic-write"}
+{"completed":4096,"elapsed_seconds":0.000027006,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-prefix-64.bin","total":4096,"unit":"bytes","utc":"2026-11-23T00:50:37.999773707Z","work":"diagnostic-write"}
+[gnode14:2635649] 1 more process has sent help message help-mpi-btl-openib.txt / no device params found
+[gnode14:2635649] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+{"completed":0,"elapsed_seconds":0.000003381,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-identity.bin","total":4096,"unit":"bytes","utc":"2026-11-23T00:50:38.412655406Z","work":"diagnostic-write"}
+{"completed":4096,"elapsed_seconds":0.000026914,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-identity.bin","total":4096,"unit":"bytes","utc":"2026-11-23T00:50:38.412679255Z","work":"diagnostic-write"}
+{"completed":0,"elapsed_seconds":0.00000645,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-expected-spectrum.bin","total":8192,"unit":"bytes","utc":"2026-11-23T00:50:38.584920186Z","work":"diagnostic-write"}
+{"completed":8192,"elapsed_seconds":0.000036643,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-expected-spectrum.bin","total":8192,"unit":"bytes","utc":"2026-11-23T00:50:38.584950741Z","work":"diagnostic-write"}
+{"completed":0,"elapsed_seconds":0.000008281,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-high.bin","total":8192,"unit":"bytes","utc":"2026-11-23T00:50:38.649667457Z","work":"diagnostic-write"}
+{"completed":8192,"elapsed_seconds":0.000032238,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-high.bin","total":8192,"unit":"bytes","utc":"2026-11-23T00:50:38.649692037Z","work":"diagnostic-write"}
+{"completed":0,"elapsed_seconds":0.000008761,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-generator.bin","total":4096,"unit":"bytes","utc":"2026-11-23T00:50:38.653508136Z","work":"diagnostic-write"}
+{"completed":4096,"elapsed_seconds":0.00003764,"mode":"bounded","peak_rss_bytes":397676544,"phase":"s18-d12-rank-3-generator.bin","total":4096,"unit":"bytes","utc":"2026-11-23T00:50:38.653538405Z","work":"diagnostic-write"}
+{"utc":"2026-11-23T00:50:38Z","phase":"rank-Taylor-windows-summary","work":"gpu-preparation","event":"completed","completed":3300,"total":3300,"elapsed_ms":3150,"unit":"windows"}
+{"utc":"2026-11-23T00:50:38Z","phase":"rank-Taylor-coefficients-summary","work":"gpu-preparation","event":"completed","completed":78144,"total":78144,"elapsed_ms":3150,"unit":"coefficients"}
+[gnode14:2635649] mca: base: close: component ucx closed
+[gnode14:2635649] mca: base: close: unloading component ucx
+[gnode14:2635649] mca: base: close: component self closed
+[gnode14:2635649] mca: base: close: unloading component self
+[gnode14:2635649] mca: base: close: component tcp closed
+[gnode14:2635649] mca: base: close: unloading component tcp
+[gnode14:2635649] mca: base: close: component vader closed
+[gnode14:2635649] mca: base: close: unloading component vader

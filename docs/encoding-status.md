@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-bounded diagnostic serialization (81744 partial passes; targeted wide retry **81746** submitted) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+coordinated restart support binding following bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1297,7 +1297,7 @@ feasibility or runtime follows from this small validation.
 [Exact methods/evidence](../experiments/distributed-proof-recording/report.md#verified-result81738). Next: explicit bounded diagnostic serialization, preserving all stored bytes and default behavior.
 
 
-### Bounded diagnostic serialization — 81744 partial passes
+### Bounded diagnostic serialization — passed81744 partials plus81746
 
 [Implementation/validation plan](../experiments/distributed-diagnostic-writes/report.md):
 explicit bounded writes limit extra serialization to 64 KiB instead of a full
@@ -1322,4 +1322,28 @@ and a regression that exercises the suite configuration before GPU work. Preserv
 all partial results; retry only bounded wide under unchanged caps. Large-file
 throughput/peak-memory savings and full s18 feasibility remain unmeasured.
 
-Targeted bounded-wide retry **81746 submitted**: [receipt](../experiments/distributed-diagnostic-writes/submission-wide-02.json). Same two HPC nodes/two H200s/four cores/8 GiB requested RAM and existing caps; only missing wide arm rerun, estimate2–4minutes excluding queue. GPU results pending; original81744 overall status remains failed with partial passes preserved.
+Targeted bounded-wide retry **81746 passed**: [receipt](../experiments/distributed-diagnostic-writes/submission-wide-02.json). Same two HPC nodes/two H200s/four cores/8 GiB requested RAM and existing caps; only missing wide arm rerun, estimate2–4minutes excluding queue. 81746 passed; original81744 overall status remains failed with partial passes preserved.
+
+
+### Completed bounded diagnostic composition81746
+
+| Mode on HPC | Result | Runtime | Memory | Saved diagnostic evidence |
+|---|---|---|---|---|
+| Bounded field18 d5/d12 workflow | Passed81746 | 5.211485 seconds cumulative | Peak RSS379.434 MiB/worker;owned GPU3.125 MiB/worker |72 files/197,888 bytes;exact native/canonical matches |
+
+Two nodes/two H200s/four workers/four CPU cores/8 GiB requested host RAM, unchanged
+caps;controller2min5.422s. [Methods/evidence](../experiments/distributed-diagnostic-writes/report.md#verified-result81746).
+Combined with81744's separately labeled narrow partial passes, this completes the
+planned bounded diagnostic codec validation. Bulk remains default; large-file
+latency and peak-RSS savings remain unknown. Full s18 unrun/unadmitted.
+
+### Prepared coordinated restart support binding
+
+[Plan](../experiments/distributed-restart-binding/report.md): explicit one full-file
+coordinator checksum plus complete per-checkpoint metadata agreement, retaining all
+local shard/checksum/field/padding/ownership checks and immutable-cache assumptions.
+At illustrative s18/16workers, support verification reads project3.795TiBaggregate
+->121.446GiB, adding two small collective rounds. Memory is bounded; no extra stored
+support copy or GPU work. Full-size latency remains unmeasured;local remains default.
+Three-arm cold/coordinated-restart/local-restart comparison uses existing two-node/
+two-H200 caps;this is not fullsize production support or admission.

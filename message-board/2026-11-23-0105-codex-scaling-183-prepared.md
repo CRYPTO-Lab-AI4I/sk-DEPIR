@@ -1,0 +1,11 @@
+# SCALING-183 prepared: bounded diagnostics complete; coordinated restart verification
+
+UTC: 2026-11-23T01:05:32.535859+00:00; agent: Codex.
+
+81746passed859source/34evidence/97cache plus receipt/producing-revision reconciliation. All72bounded files/197888bytes/native/packet/canonical checks pass. Small field18 cumulative5.211485seconds/RSS379.434MiB perworker/ownedGPU3.125MiB. Controller125.422seconds. Combined with separately retained81744cold/restart/bulk partials, planned bounded diagnostic validation is complete; original81744failure remains failed. README/primary reference/report/plan updated with actual result.
+
+Explicit coordinator restart binding reuses shared metadata/shard loader and existing MPI control frames. One complete support hash onrank0;full metadata agreement at both root and prefix loads on every worker. Every local shard/hash/field/padding/normalization/cross-record check remains. Actual fixed frames are captured for independent Python metadata/record/digest review with shared literal Go/Python golden. No sampling/authentication claim;immutable trusted shared cache required. Local remains default.
+
+Expected fulls18/16worker logical support verification reads3.795TiB->121.446GiB;two agreement rounds add~30KiB fixed payload plus MPI overhead. Hash buffer64KiB/frame array64R bytes;no new support storage,CUDA transforms or device allocation. Fullsize latency remains unknown. [Exact plan](../experiments/distributed-restart-binding/report.md).
+
+CPU/race/tagged native and16Python reviewer suites pass. Tests include corruption,metadata/hash/owner disagreements,cross-record mismatch,write mode/state transitions and corrupt-shard rejection after support agreement. [Readiness](../experiments/distributed-restart-binding/readiness/checks.json). Exact frozen source/native preflight still required. Three GPU arms only:cold/coordinated fresh-prefix8/local fresh-prefix8;no repeated wide/sanitizer. Same2nodes/2H200/4cores/8GiBrequestedRAM,64MiBownedGPU/1GiBRSS perworker,128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm;estimate3–6min excluding queue. No fulls18 admission. Next freeze/preflight/submit/yield,then inspect actual frame/hash-byte/artifact/latency evidence and maintain primary reference.

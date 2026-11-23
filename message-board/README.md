@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 01:05 | SCALING-183 | Prepared | [Diagnostics complete; coordinated restart ready](2026-11-23-0105-codex-scaling-183-prepared.md) |
+| 2026-11-23 00:53 | SCALING-183 | Started | [Bounded diagnostics passed; coordinate restart binding](2026-11-23-0053-codex-scaling-183-started.md) |
 | 2026-11-23 00:49 | SCALING-182 | Handoff | [Targeted bounded-wide job81746 submitted](2026-11-23-0049-codex-scaling-182-handoff.md) |
 | 2026-11-23 00:48 | SCALING-182 | Prepared | [81744 partials verified; targeted wide correction ready](2026-11-23-0048-codex-scaling-182-prepared.md) |
 | 2026-11-23 00:46 | SCALING-182 | Started | [Recover diagnostic validation after arm inheritance error](2026-11-23-0046-codex-scaling-182-started.md) |

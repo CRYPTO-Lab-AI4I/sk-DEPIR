@@ -1,0 +1,33 @@
+{
+  "status": "CPU/race/tagged native/reviewer checks passed;GPU comparison pending",
+  "utc": "2026-11-23T01:05:32.520361+00:00",
+  "parent_revision": "2227ccc",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_support_binding.go": "2dea43f4e5dc49f90c77851f10373f298c7f3a9695ebacfbc82b3bcf964e4862",
+    "encoding/liftrs-shared/distributed_support_binding_test.go": "c6d7e54caf30e6b61807a0a8d433bf0936171ff02904927dfd3ee99de1a0b832",
+    "encoding/liftrs-shared/distributed_recovery.go": "2f1fcf7464f7e67c9f6fb79912bddf273d00b3d96289c73b98b30e421c5ea2a4",
+    "encoding/liftrs-shared/distributed_recovery_test.go": "5b167a443ce373cd35bc9fe47ca6746869390d422f66ca950d37beac3d4cca61",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go": "38497081ef0a4ecaa00d3c98988b4f920527725636c303ac9db9039b64c507e4",
+    "experiments/distributed-restart-binding/run.py": "a660dbfa461cec282aec59af0a381044ccd3f404a57f2fab39eb1cc13063b04c",
+    "experiments/distributed-restart-binding/analyze.py": "0ac76973fc52e0687ae75536b4c74145b6a8583643d896cea3314fb4b906f67e",
+    "experiments/distributed-restart-binding/test_review.py": "a606668b115f302934b0a8e8233f59a2a070bc2101bd89a6c06eb922e5821414"
+  },
+  "checks": {
+    "build.log": "",
+    "cpu.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t0.016s\n",
+    "native-tests.log": "=== RUN   TestDiagnosticWrite\n--- PASS: TestDiagnosticWrite (0.01s)\n=== RUN   TestRankPrefixInputView\n--- PASS: TestRankPrefixInputView (0.00s)\n=== RUN   TestRankPrefixInputWideBounds\n--- PASS: TestRankPrefixInputWideBounds (0.00s)\n=== RUN   TestProofLogOrderingAndBounds\n--- PASS: TestProofLogOrderingAndBounds (0.00s)\n=== RUN   TestProofLogAdmissionAndSerialization\n--- PASS: TestProofLogAdmissionAndSerialization (0.00s)\n=== RUN   TestProofLogGolden\n--- PASS: TestProofLogGolden (0.00s)\n=== RUN   TestRankPrefixResumeAdmission\n--- PASS: TestRankPrefixResumeAdmission (0.01s)\n=== RUN   TestRankPrefixCompactRoundTrip\n--- PASS: TestRankPrefixCompactRoundTrip (0.00s)\n=== RUN   TestRankPrefixCompactBoundsAndCanonicalValues\n--- PASS: TestRankPrefixCompactBoundsAndCanonicalValues (0.00s)\n=== RUN   TestRankPrefixWideExtents\n--- PASS: TestRankPrefixWideExtents (0.00s)\n=== RUN   TestRankSupportAgreement\n--- PASS: TestRankSupportAgreement (0.00s)\n=== RUN   TestRankSupportMetadataGolden\n--- PASS: TestRankSupportMetadataGolden (0.00s)\nPASS\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.079s\n",
+    "review.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n"
+  },
+  "commands": {
+    "cpu": "CGO_ENABLED=0 GOTOOLCHAIN=local GOPROXY=off GOSUMDB=off go test ./encoding/liftrs-shared -run ^TestRankSupport|^TestRankPrefix|^TestDiagnosticWrite|^TestProofLog -count=1 -timeout=20s",
+    "race": "CGO_ENABLED=1 go test -race ./encoding/liftrs-shared -run ^TestRankSupport|^TestRankPrefix|^TestDiagnosticWrite|^TestProofLog -count=1 -timeout=20s",
+    "build": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-restart-binding-readiness.test ./encoding/liftrs-shared",
+    "native": ".cache/liftrs/distributed-restart-binding-readiness.test -test.run ^TestRankSupport|^TestRankPrefix|^TestDiagnosticWrite|^TestProofLog -test.v -test.timeout=20s"
+  },
+  "limitations": [
+    "No local CUDA/MPI initialization;GPU arithmetic unchanged.",
+    "Coordination requires immutable trusted shared cache;checksums/metadata agreement are not authentication.",
+    "Fullsize read savings are logical I/O projections,not measured latency/RSS or admission."
+  ]
+}

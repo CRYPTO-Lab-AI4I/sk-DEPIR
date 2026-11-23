@@ -190,4 +190,22 @@ Diagnostic serialization validation **81744** failed final controller review aft
 
 SCALING-182: explicitly reset the diagnostic mode after the bulk control, test actual suite configuration before allocation, and rerun only bounded wide using [the targeted runner](../experiments/distributed-diagnostic-writes/run-wide.py). No arithmetic change, repeated cold/restart or resource increase.
 
-Targeted missing bounded-wide validation **81746** submitted under unchanged caps; [receipt](../experiments/distributed-diagnostic-writes/submission-wide-02.json). Results pending; passing81744cold/restart/bulk phases are not repeated.
+Targeted missing bounded-wide validation **81746 passed** under unchanged caps; [receipt](../experiments/distributed-diagnostic-writes/submission-wide-02.json). All72bounded files/native/canonical checks passed;passing81744cold/restart/bulk phases were not repeated.
+
+
+## Coordinated restart support binding (SCALING-183)
+
+Bounded diagnostic composition is complete through81744retained partial passes
+and81746passed targeted wide;original81744overall failure remains visible.
+Next use one full coordinator support checksum plus fresh agreement on all workers'
+complete root/prefix metadata. Reuse the same recovery/shard validator, maintain
+trusted immutable input assumptions and full checksum coverage, retain local mode
+as default, and measure coordinated versus local fresh restart from the same cold
+cache. Capture both fixed control-frame rounds for independent metadata/digest
+review;do not introduce unbounded packet logs or remove checks. Projected support
+verification reads at s18/16workers:3.795TiB->121.446GiB aggregate,with two collective
+rounds (about30KiB total fixed payload);latency remains unknown. No extra support
+storage or GPU transforms;bounded hash/control buffers. [Exact design/resources](../experiments/distributed-restart-binding/report.md).
+Same admitted two-node/two-H200 comparison;no unchanged wide/sanitizer repeat.
+Production ownership/lifecycle/non-oracle entry,bounded retention and actual phase
+count/domain/resource admission remain;full s18 is unrun/unadmitted.

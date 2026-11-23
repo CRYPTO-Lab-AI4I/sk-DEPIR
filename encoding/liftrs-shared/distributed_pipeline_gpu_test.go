@@ -148,20 +148,75 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	if inputErr != nil {
 		t.Fatal(inputErr)
 	}
+	supportMode, modeErr := restartSupportMode(os.Getenv("PIR_PIPELINE_RESTART_SUPPORT"))
+	if modeErr != nil {
+		t.Fatal(modeErr)
+	}
 	var restoredRoot, restoredPrefix rankPrefixState
 	if resumeFrom != "" {
+		var binding *rankSupportBinding
+		var passes, bytesRead uint64
+		if supportMode == "coordinator" {
+			var e error
+			binding, e = newRankSupportBinding(resumeFrom, label, w.Rank, w.Size)
+			if e != nil {
+				t.Fatal(e)
+			}
+		}
+		supportStage := ""
+		last := time.Now()
+		report := func(done, total uint64) {
+			if done != 0 && done != total && time.Since(last) < 30*time.Second {
+				return
+			}
+			last = time.Now()
+			emit(map[string]any{"kind": "restart-support-progress", "case": label, "mode": supportMode, "phase": "support-checksum", "checkpoint": supportStage, "completed": done, "total": total, "unit": "bytes"})
+		}
+		verify := func(record rankPrefixRecord) error {
+			supportStage = record.Stage
+			if binding != nil {
+				gather := func(own [64]byte) ([][64]byte, error) {
+					frames, e := w.ControlFrames(own)
+					if e != nil {
+						return nil, e
+					}
+					encoded := make([]string, len(frames))
+					for rank, frame := range frames {
+						encoded[rank] = fmt.Sprintf("%x", frame)
+					}
+					emit(map[string]any{"kind": "restart-support-agreement", "case": label, "checkpoint": record.Stage, "source": resumeFrom, "frames": encoded})
+					return frames, nil
+				}
+				return binding.verify(record, gather, report)
+			}
+			digest, size, e := hashRankSupport(filepath.Join(resumeFrom, label+"-support.bin"), 16*uint64(n)+65536, report)
+			if e != nil {
+				return e
+			}
+			passes++
+			bytesRead += size
+			if fmt.Sprintf("%x", digest) != record.SupportSHA {
+				return fmt.Errorf("local support checksum")
+			}
+			return nil
+		}
 		var e error
-		restoredRoot, e = loadRankPrefix(resumeFrom, label, s, w.Rank, w.Size, "root", uint64(n/w.Size))
+		restoredRoot, e = loadRankPrefixWithSupport(resumeFrom, label, s, w.Rank, w.Size, "root", uint64(n/w.Size), verify)
 		if e != nil {
 			t.Fatal("resume root", e)
 		}
-		restoredPrefix, e = loadRankPrefix(resumeFrom, label, s, w.Rank, w.Size, "newton-8", uint64(n/w.Size))
+		restoredPrefix, e = loadRankPrefixWithSupport(resumeFrom, label, s, w.Rank, w.Size, "newton-8", uint64(n/w.Size), verify)
 		if e != nil {
 			t.Fatal("resume prefix", e)
 		}
 		if restoredRoot.Record.K != restoredPrefix.Record.K || restoredRoot.Record.SupportSHA != restoredPrefix.Record.SupportSHA {
 			t.Fatal("resume cross-record binding")
 		}
+		agreements := uint64(0)
+		if binding != nil {
+			passes, bytesRead, agreements = binding.HashPasses, binding.HashBytes, binding.Agreements
+		}
+		emit(map[string]any{"kind": "restart-support", "case": label, "mode": supportMode, "hash_passes": passes, "hashed_bytes": bytesRead, "agreements": agreements, "verified": true})
 	}
 	event("discovery-reference", "started")
 	var err error

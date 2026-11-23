@@ -52,6 +52,13 @@ func readBoundedPilotFile(path string, limit uint64) ([]byte, error) {
 // before any GPU allocation. Manifests/checksums detect corruption, not malicious
 // rewrites; callers must retain trusted experiment/source provenance separately.
 func loadRankPrefix(directory, label string, s, rank, ranks int, stage string, maxWords uint64) (rankPrefixState, error) {
+	return loadRankPrefixWithSupport(directory, label, s, rank, ranks, stage, maxWords, nil)
+}
+
+// Only the coordinated caller supplies a verifier; metadata and shard admission
+// remain shared with ordinary local recovery. The verifier must bind the entire
+// support file before this function loads any checkpoint values.
+func loadRankPrefixWithSupport(directory, label string, s, rank, ranks int, stage string, maxWords uint64, verify func(rankPrefixRecord) error) (rankPrefixState, error) {
 	var state rankPrefixState
 	if s < 2 || s > 20 || ranks < 1 || ranks > 64 || rank < 0 || rank >= ranks {
 		return state, fmt.Errorf("prefix ownership")
@@ -97,16 +104,16 @@ func loadRankPrefix(directory, label string, s, rank, ranks int, stage string, m
 			return state, fmt.Errorf("prefix digest format")
 		}
 	}
-	source, err := os.Open(filepath.Join(directory, label+"-support.bin"))
-	if err != nil {
-		return state, err
-	}
-	hasher := sha256.New()
-	limit := 16*n + 65536
-	size, err := io.Copy(hasher, io.LimitReader(source, int64(limit)+1))
-	closeErr := source.Close()
-	if err != nil || closeErr != nil || uint64(size) > limit || fmt.Sprintf("%x", hasher.Sum(nil)) != r.SupportSHA {
-		return state, fmt.Errorf("prefix support binding")
+	if verify == nil {
+		digest, _, e := hashRankSupport(filepath.Join(directory, label+"-support.bin"), 16*n+65536, nil)
+		if e != nil {
+			return state, fmt.Errorf("prefix support binding: %w", e)
+		}
+		if fmt.Sprintf("%x", digest) != r.SupportSHA {
+			return state, fmt.Errorf("prefix support checksum")
+		}
+	} else if e := verify(r); e != nil {
+		return state, e
 	}
 	state.Values, err = readRankPrefixValues(filepath.Join(directory, fmt.Sprintf("%s-rank-%d-%s.bin", label, rank, stage)), s, r.Layout, n, uint64(count), rank, ranks, maxWords, r.SHA[rank])
 	if err != nil {
