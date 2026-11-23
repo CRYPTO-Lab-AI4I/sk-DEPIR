@@ -1,6 +1,6 @@
 # Bounded diagnostic serialization
 
-Status: prepared; GPU composition not yet submitted. Parent revision 7d774ed.
+Status: prepared; GPU composition not yet submitted. Implementation revision **04af166** (parent 7d774ed).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer regression](test_review.py), [local readiness](readiness/).
 Planned results: `runs/writes-01/`. Immutable source, binaries, native references
@@ -139,3 +139,14 @@ CGO_ENABLED=0 GOTOOLCHAIN=local GOPROXY=off GOSUMDB=off \
 Initial use of a newer codec API failed the module's Go1.21 compatibility check;
 the final implementation uses existing endian primitives without raising the
 supported Go version. No GPU allocation was used to discover or resolve that issue.
+
+### Committed-source readiness
+
+Implementation **04af166** was frozen into **857 build inputs**. All **385**
+Go/C/C++/CUDA source hashes match the compiled readiness tree, all **15 frozen
+Python reviewer suites** passed, and CPU-only native preflight reproduced
+**108014 historical reference bytes** plus actual s8/curve5 inputs and owned-root
+references. [Source checks](readiness/source-checks.json),
+[frozen reviewers](readiness/frozen-reviewers.json),
+[native preflight](readiness/native-preflight.log). No local CUDA/MPI initialization.
+The allocation rebuilds the committed snapshot and preflights every node.
