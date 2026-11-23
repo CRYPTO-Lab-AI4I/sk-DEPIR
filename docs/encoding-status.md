@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-bounded proof/native recording **submitted 81738** following passed Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+bounded diagnostic serialization following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1253,16 +1253,56 @@ Dense remains default. Next bounded proof/native recording must preserve all
 runtime verification/resource guards;fulls18 production/admission remain unresolved.
 
 
-### Bounded proof/native recording — submitted81738
+### Bounded proof/native recording — passed81738
 
 [Implementation and paired validation plan](../experiments/distributed-proof-recording/report.md)
 retain all runtime descriptor/payload/peer/field/identity checks and per-proof RSS
 guards while optionally storing fixed per-kind ordered digest/count/byte summaries.
 Full/default behavior remains;trace mode additionally hashes full small baselines.
 Native window totals replace optional per-window starts/completions while parent
-pass/target progress and errors remain. GPU validation **submitted81738**, six paired arms; results pending.
+pass/target progress and errors remain. GPU validation **passed81738**, all six paired arms.
 
 This addresses the audit's recording growth,not GPU payload,fullsize rank support
 or production persistence. Summary serialization/hashing overhead and fullsize
 latency remain unknown. Six paired cold/restart/field18 arms use existing two-node/
 two-H200 caps;no fulls18 or larger allocation is authorized.
+
+### Proof-recording measurements81738
+
+| Arm | Result/runtime | Peak host RSS | Aggregate rank stdout | Proof records checked |
+|---|---|---|---|---|
+| cold | Passed; 9.496726 seconds | 378.316 MiB/worker | 22.693 MiB | 31,574 |
+| resume | Passed; 6.765242 seconds | 378.070 MiB/worker | 12.224 MiB | 17,090 |
+| summary-cold | Passed; 9.415148 seconds | 378.484 MiB/worker | 2.792 MiB | 31,574 |
+| summary-resume | Passed; 6.813566 seconds | 378.051 MiB/worker | 1.927 MiB | 17,090 |
+| wide | Passed; 4.874992 seconds | 379.629 MiB/worker | 25.383 MiB | 40,012 |
+| summary-wide | Passed; 4.944900 seconds | 380.543 MiB/worker | 1.061 MiB | 40,012 |
+
+Cold summary replaces 31,574 per-packet rows with 16 summaries; restart replaces
+17,090 with 12; wide replaces 40,012 with 12. Ordered digests, counts, semantic byte
+lengths, all native Taylor window/coefficient totals and every output comparison
+match. Runtime MPI/field/full-identity/canonical checks remained enabled.
+Owned GPU peaks are 0.244 MiB/worker for s8 and 3.125 MiB/worker for bounded field18;
+CUDA/MPI/context memory is additional. Controller runtime **3 min 19.204 seconds**;
+retained cache **40.750 MiB** (exact inventory is sealed in raw results).
+
+One paired cold summary was faster, while restart and wide summary were slower.
+These single, fixed-order samples do not establish a runtime benefit or penalty
+at full size; trace includes hashing that default full mode omits. Summary remains
+explicit. Stdout totals include other unsuppressed stage/plan/metric events; native
+stderr also remains, so these are not total retained-storage figures. No full s18
+feasibility or runtime follows from this small validation.
+
+
+[Exact methods/evidence](../experiments/distributed-proof-recording/report.md#verified-result81738). Next: explicit bounded diagnostic serialization, preserving all stored bytes and default behavior.
+
+
+### Prepared bounded diagnostic serialization
+
+[Implementation/validation plan](../experiments/distributed-diagnostic-writes/report.md):
+explicit bounded writes limit extra serialization to 64 KiB instead of a full
+snapshot byte buffer. s18/16-worker base snapshot projects 16 GiB saved per writer;
+source arrays, retained bytes and GPU workspace remain unchanged. Extra write calls
+and full-size throughput/RSS are unmeasured; bulk remains default. CPU allocation
+and four-arm cold/restart/bulk/wide validation use existing two-node/two-H200 caps.
+No full s18 run or feasibility claim.

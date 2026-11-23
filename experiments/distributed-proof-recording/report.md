@@ -1,6 +1,6 @@
 # Bounded protocol proof and native window recording
 
-Status: **submitted job 81738**, recording-01; GPU results pending. Implementation revision **08f1100** (parent 8a9b915).
+Status: **passed job 81738**, all six recording-01 arms independently verified. Implementation revision **08f1100** (parent 8a9b915).
 [Runner](run.py),[Slurm entry](run.sbatch),[analyzer](analyze.py),
 [reviewer tests](test_review.py),[readiness](readiness/). Planned results:
 `runs/recording-01/`;immutable source,binaries,native references,profiles and
@@ -166,3 +166,40 @@ authored source/documentation whitespace checks passed.
 Job **81738** submitted from **cd681de** with unchanged resources above.
 [Receipt](submission.json); results will be `runs/recording-01/`, Slurm log
 `slurm-81738.log`. No scheduler polling or result claim follows submission.
+
+### Verified result81738
+
+All six arms passed independent source/evidence/cache reconciliation: **851 source
+files, 130 evidence files and 692 cache files**. Producing revision **cd681de**;
+[receipt](submission.json), [analysis](runs/recording-01/analysis.json),
+[raw results](runs/recording-01/results.json), [Slurm log](slurm-81738.log).
+HPC gnode13/gnode14, two H200s, four MPI workers/four CPU cores and 8 GiB requested
+host RAM total, with the unchanged admitted guards described above.
+
+| Arm | Result/runtime | Peak host RSS | Aggregate rank stdout | Proof records checked |
+|---|---|---|---|---|
+| cold | Passed; 9.496726 seconds | 378.316 MiB/worker | 22.693 MiB | 31,574 |
+| resume | Passed; 6.765242 seconds | 378.070 MiB/worker | 12.224 MiB | 17,090 |
+| summary-cold | Passed; 9.415148 seconds | 378.484 MiB/worker | 2.792 MiB | 31,574 |
+| summary-resume | Passed; 6.813566 seconds | 378.051 MiB/worker | 1.927 MiB | 17,090 |
+| wide | Passed; 4.874992 seconds | 379.629 MiB/worker | 25.383 MiB | 40,012 |
+| summary-wide | Passed; 4.944900 seconds | 380.543 MiB/worker | 1.061 MiB | 40,012 |
+
+Cold summary replaces 31,574 per-packet rows with 16 summaries; restart replaces
+17,090 with 12; wide replaces 40,012 with 12. Ordered digests, counts, semantic byte
+lengths, all native Taylor window/coefficient totals and every output comparison
+match. Runtime MPI/field/full-identity/canonical checks remained enabled.
+Owned GPU peaks are 0.244 MiB/worker for s8 and 3.125 MiB/worker for bounded field18;
+CUDA/MPI/context memory is additional. Controller runtime **3 min 19.204 seconds**;
+retained cache **40.750 MiB** (exact inventory is sealed in raw results).
+
+One paired cold summary was faster, while restart and wide summary were slower.
+These single, fixed-order samples do not establish a runtime benefit or penalty
+at full size; trace includes hashing that default full mode omits. Summary remains
+explicit. Stdout totals include other unsuppressed stage/plan/metric events; native
+stderr also remains, so these are not total retained-storage figures. No full s18
+feasibility or runtime follows from this small validation.
+
+Next: bound diagnostic serialization without changing bytes, durability or
+verification; then continue production ownership/lifecycle/non-oracle entry,
+bounded persistence/restart and real-count resource admission.

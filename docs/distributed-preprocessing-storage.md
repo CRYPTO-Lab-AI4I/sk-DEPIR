@@ -177,4 +177,11 @@ remain the default and small reference for paired validation;this changes stored
 evidence,not mathematical checks. Production parameters/ranks/non-oracle/persistence
 remain separate work before fulls18 admission.
 
-Bounded proof/native recording comparison **81738** is submitted under the existing two-node/two-H200 budget; [receipt](../experiments/distributed-proof-recording/submission.json). Results pending.
+Bounded proof/native recording comparison **81738** passed under the existing two-node/two-H200 budget; [receipt](../experiments/distributed-proof-recording/submission.json). All six arms passed.
+
+
+The next [bounded diagnostic serialization validation](../experiments/distributed-diagnostic-writes/report.md)
+keeps diagnostic files byte-identical and retained storage unchanged, but explicitly
+limits the extra serialization buffer to 64 KiB. Bulk writes remain default; extra
+write calls and large-file throughput remain a measured/unknown trade-off. This
+addresses temporary buffers, not production retention or coordinated restart.

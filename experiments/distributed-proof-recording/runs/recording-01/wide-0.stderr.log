@@ -1,0 +1,94 @@
+[gnode13:1545651] mca: base: components_register: registering framework btl components
+[gnode13:1545651] mca: base: components_register: found loaded component openib
+[gnode13:1545651] mca: base: components_register: component openib register function successful
+[gnode13:1545651] mca: base: components_register: found loaded component self
+[gnode13:1545651] mca: base: components_register: component self register function successful
+[gnode13:1545651] mca: base: components_register: found loaded component sm
+[gnode13:1545651] mca: base: components_register: found loaded component tcp
+[gnode13:1545651] mca: base: components_register: component tcp register function successful
+[gnode13:1545651] mca: base: components_register: found loaded component vader
+[gnode13:1545651] mca: base: components_register: component vader register function successful
+[gnode13:1545651] mca: base: components_open: opening btl components
+[gnode13:1545651] mca: base: components_open: found loaded component openib
+[gnode13:1545651] mca: base: components_open: component openib open function successful
+[gnode13:1545651] mca: base: components_open: found loaded component self
+[gnode13:1545651] mca: base: components_open: component self open function successful
+[gnode13:1545651] mca: base: components_open: found loaded component tcp
+[gnode13:1545651] mca: base: components_open: component tcp open function successful
+[gnode13:1545651] mca: base: components_open: found loaded component vader
+[gnode13:1545651] mca: base: components_open: component vader open function successful
+[gnode13:1545651] select: initializing btl component openib
+[gnode13:1545651] Checking distance from this process to device=mlx5_0
+[gnode13:1545651] Process is bound: distance to device is 0.000000
+[gnode13:1545651] Checking distance from this process to device=mlx5_1
+[gnode13:1545651] Process is bound: distance to device is 0.000000
+[gnode13:1545651] Checking distance from this process to device=mlx5_bond_0
+[gnode13:1545651] Process is bound: distance to device is 0.000000
+--------------------------------------------------------------------------
+WARNING: No preset parameters were found for the device that Open MPI
+detected:
+
+  Local host:            gnode13
+  Device name:           mlx5_0
+  Device vendor ID:      0x02c9
+  Device vendor part ID: 4129
+
+Default device parameters will be used, which may result in lower
+performance.  You can edit any of the files specified by the
+btl_openib_device_param_files MCA parameter to set values for your
+device.
+
+NOTE: You can turn off this warning by setting the MCA parameter
+      btl_openib_warn_no_device_params_found to 0.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   gnode13
+  Local device: mlx5_1
+--------------------------------------------------------------------------
+[gnode13:1545651] select: init of component openib returned failure
+[gnode13:1545651] mca: base: close: component openib closed
+[gnode13:1545651] mca: base: close: unloading component openib
+[gnode13:1545651] select: initializing btl component self
+[gnode13:1545651] select: init of component self returned success
+[gnode13:1545651] select: initializing btl component tcp
+[gnode13:1545651] btl: tcp: Searching for exclude address+prefix: 127.0.0.1 / 8
+[gnode13:1545651] btl: tcp: Found match: 127.0.0.1 (lo)
+[gnode13:1545651] btl: tcp: Using interface: sppp 
+[gnode13:1545651] btl:tcp: Attempting to bind to AF_INET port 1024
+[gnode13:1545651] btl:tcp: Successfully bound to AF_INET port 1024
+[gnode13:1545651] btl:tcp: my listening v4 socket is 0.0.0.0:1024
+[gnode13:1545651] btl:tcp: examining interface bond0
+[gnode13:1545651] btl:tcp: using ipv6 interface bond0
+[gnode13:1545651] btl:tcp: examining interface ibP1s3
+[gnode13:1545651] btl:tcp: using ipv6 interface ibP1s3
+[gnode13:1545651] btl:tcp: examining interface docker0
+[gnode13:1545651] btl:tcp: using ipv6 interface docker0
+[gnode13:1545651] select: init of component tcp returned success
+[gnode13:1545651] select: initializing btl component vader
+[gnode13:1545651] select: init of component vader returned success
+[gnode13:1545651] mca: base: components_register: registering framework pml components
+[gnode13:1545651] mca: base: components_register: found loaded component ucx
+[gnode13:1545651] mca: base: components_register: component ucx register function successful
+[gnode13:1545651] mca: base: components_open: opening pml components
+[gnode13:1545651] mca: base: components_open: found loaded component ucx
+[gnode13:1545651] mca: base: components_open: component ucx open function successful
+[gnode13:1545651] select: initializing pml component ucx
+[gnode13:1545651] select: init returned priority 51
+[gnode13:1545651] selected ucx best priority 51
+[gnode13:1545651] select: component ucx selected
+{"utc":"2026-11-23T00:31:21Z","phase":"rank-Taylor-windows-summary","work":"gpu-preparation","event":"completed","completed":64,"total":64,"elapsed_ms":288,"unit":"windows"}
+{"utc":"2026-11-23T00:31:21Z","phase":"rank-Taylor-coefficients-summary","work":"gpu-preparation","event":"completed","completed":240,"total":240,"elapsed_ms":288,"unit":"coefficients"}
+[gnode13:1545651] 1 more process has sent help message help-mpi-btl-openib.txt / no device params found
+[gnode13:1545651] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+{"utc":"2026-11-23T00:31:24Z","phase":"rank-Taylor-windows-summary","work":"gpu-preparation","event":"completed","completed":4532,"total":4532,"elapsed_ms":3079,"unit":"windows"}
+{"utc":"2026-11-23T00:31:24Z","phase":"rank-Taylor-coefficients-summary","work":"gpu-preparation","event":"completed","completed":110880,"total":110880,"elapsed_ms":3079,"unit":"coefficients"}
+[gnode13:1545651] mca: base: close: component ucx closed
+[gnode13:1545651] mca: base: close: unloading component ucx
+[gnode13:1545651] mca: base: close: component self closed
+[gnode13:1545651] mca: base: close: unloading component self
+[gnode13:1545651] mca: base: close: component tcp closed
+[gnode13:1545651] mca: base: close: unloading component tcp
+[gnode13:1545651] mca: base: close: component vader closed
+[gnode13:1545651] mca: base: close: unloading component vader

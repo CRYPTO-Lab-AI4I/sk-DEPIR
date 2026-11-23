@@ -3671,4 +3671,25 @@ After recording validation,proceed to production parameter/rank/lifecycle,non-or
 verification and bounded persistence/restart ownership from the audit. Fulls18
 remains unrun/unadmitted;small paired timings do not establish fullsize costs.
 
-Bounded proof/native recording validation **81738** is submitted (six paired cold/restart/field18 arms, unchanged two-node/two-H200 budget); [receipt](../experiments/distributed-proof-recording/submission.json). Results pending; no full s18 admission.
+Bounded proof/native recording validation **81738** passed (six paired cold/restart/field18 arms, unchanged two-node/two-H200 budget); [receipt](../experiments/distributed-proof-recording/submission.json). All six arms passed; no full s18 admission.
+
+
+## Bounded diagnostic serialization (SCALING-181)
+
+Recording validation 81738 passed all six arms and independent ordered proof/native
+window/canonical comparisons. Stdout dropped from 22.693 to 2.792 MiB for the cold
+pair, with mixed one-sample timings; retain explicit summary selection and no
+full-size speed claim.
+
+Next replace the diagnostic writer's full temporary serialization array with an
+explicit 64 KiB buffered codec. Preserve all file bytes, widths, exclusive creation,
+sync/close, diagnostics and correctness checks; default bulk mode remains. Projected
+s18 base temporary saving is 16 GiB per writer at illustrative 16-worker ownership,
+with no retained-byte savings. More writes/progress checks could cost runtime;
+large-file throughput/RSS remain unmeasured. Measure small CPU allocations and
+matched GPU cold/restart plus bounded wide output under existing caps. Do not add
+an unchanged arithmetic sanitizer arm. [Plan/resources](../experiments/distributed-diagnostic-writes/report.md).
+
+Then finish production ownership/lifecycle/non-oracle execution, bounded retention,
+coordinated restart and actual per-phase count/domain/resource admission. Full s18
+remains unrun/unadmitted; bounded diagnostic writes alone do not establish readiness.

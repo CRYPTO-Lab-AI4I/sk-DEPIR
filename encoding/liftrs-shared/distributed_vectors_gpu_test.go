@@ -20,11 +20,38 @@ import (
 
 func saveMatrixStageWords[Word transposeWord](t *testing.T, path string, data []Word) {
 	t.Helper()
+	bounded, err := diagnosticWriteMode(os.Getenv("PIR_PIPELINE_DIAGNOSTIC_WRITE"))
+	if err != nil {
+		t.Fatal(err)
+	}
 	f, err := os.OpenFile(path, os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err = binary.Write(f, binary.LittleEndian, data); err == nil {
+	if bounded {
+		began, last := time.Now(), time.Now()
+		report := func(completed, total uint64) {
+			if completed != 0 && completed != total && time.Since(last) < 30*time.Second {
+				return
+			}
+			last = time.Now()
+			var usage syscall.Rusage
+			if e := syscall.Getrusage(syscall.RUSAGE_SELF, &usage); e != nil || usage.Maxrss >= 1<<20 {
+				panic("diagnostic RSS guard")
+			}
+			row := map[string]any{"work": "diagnostic-write", "phase": filepath.Base(path), "mode": "bounded", "utc": time.Now().UTC().Format(time.RFC3339Nano), "completed": completed, "total": total, "unit": "bytes", "elapsed_seconds": time.Since(began).Seconds(), "peak_rss_bytes": uint64(usage.Maxrss) * 1024}
+			if e := json.NewEncoder(os.Stderr).Encode(row); e != nil {
+				panic(e)
+			}
+		}
+		err = writeDiagnosticWords(f, data, report)
+		if err != nil {
+			_ = json.NewEncoder(os.Stderr).Encode(map[string]any{"work": "diagnostic-write", "phase": filepath.Base(path), "utc": time.Now().UTC().Format(time.RFC3339Nano), "event": "failed", "error": err.Error()})
+		}
+	} else {
+		err = binary.Write(f, binary.LittleEndian, data)
+	}
+	if err == nil {
 		err = f.Sync()
 	}
 	closeErr := f.Close()

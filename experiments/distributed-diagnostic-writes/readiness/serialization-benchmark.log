@@ -1,0 +1,10 @@
+goos: linux
+goarch: amd64
+pkg: github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared
+cpu: INTEL(R) XEON(R) SILVER 4516Y+
+BenchmarkDiagnosticWrite/full/uint32-96         	       3	   3484646 ns/op	1203.65 MB/s	 4194304 B/op	       1 allocs/op
+BenchmarkDiagnosticWrite/full/uint64-96         	       3	   3956915 ns/op	2119.99 MB/s	 8388608 B/op	       1 allocs/op
+BenchmarkDiagnosticWrite/bounded/uint32-96      	       3	   1195035 ns/op	3509.78 MB/s	   65536 B/op	       1 allocs/op
+BenchmarkDiagnosticWrite/bounded/uint64-96      	       3	   1621886 ns/op	5172.13 MB/s	   65541 B/op	       1 allocs/op
+PASS
+ok  	github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared	0.068s
