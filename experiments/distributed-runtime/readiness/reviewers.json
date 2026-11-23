@@ -1,0 +1,155 @@
+[
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-coordinator-stream/test_review.py"
+    ],
+    "status": "passed",
+    "output": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.005s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-discovery-hierarchy/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-discovery-results/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-owned-roots/test_review.py"
+    ],
+    "status": "passed",
+    "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.008s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-pipeline-four/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.032s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-pipeline-scaling/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.004s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-pipeline-wide/test_review.py"
+    ],
+    "status": "passed",
+    "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-prefix-checkpoints/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.036s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-prefix-inputs/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-preprocessing-pilot/test_review.py"
+    ],
+    "status": "passed",
+    "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.008s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-restart-pilot/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.028s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-root-hierarchy/test_review.py"
+    ],
+    "status": "passed",
+    "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.037s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-spectrum-publication/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-proof-recording/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.001s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-diagnostic-writes/test_review.py"
+    ],
+    "status": "passed",
+    "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.124s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-restart-binding/test_review.py"
+    ],
+    "status": "passed",
+    "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.005s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "experiments/distributed-runtime/test_review.py"
+    ],
+    "status": "passed",
+    "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n"
+  }
+]

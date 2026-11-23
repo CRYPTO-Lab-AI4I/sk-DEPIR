@@ -1,0 +1,11 @@
+# SCALING-184 prepared: shared non-test MPI/GPU runtime
+
+UTC: 2026-11-23T01:29:03.397155+00:00; agent: Codex.
+
+81750passed865source/79evidence/376cache seals,all three arm/metadata/native/canonical checks. One29,524-byte support hash versus eight236,192bytes;coordinated6.792011s/local6.661931s on cached s8. Local default retained. Main reference/README/report/plan updated;fullsize latency unmeasured.
+
+MPI operand/Taylor transports moved intact to runtime;transpose transport split from its tests. Internal rankGPUSession now owns shared GPU construction/product/prefix/spectrum/progress/close,error returns and failed-state rejection;thin test adapter retains fatal reporting. Narrow and wide use same runtime session;wide retains tail-call vocabulary and independent native recurrence/FFT checks. Owned roots accept domain bound instead of unused fixture object. Transport bodies preserved exactly, original storage routines preserved verbatim with shared transfer helper appended. [Scope/report](../experiments/distributed-runtime/report.md).
+
+Local runtime build exposed an existing test-only storageTransfer dependency;the move briefly overwrote a storage file,but compile checks caught missing routines and they were restored before GPU work. Final CPU-only,CUDA-only(GCC/noMPI),MPI-only,combined and full tagged builds pass. Pure lifecycle/admission/slot-width/error-state tests,tagged race checks and17Python reviewers pass. [Readiness](../experiments/distributed-runtime/readiness/checks.json). No local GPU/MPI initialization. No CUDA/protocol/kernel/layout/checkpoint change,no public production API/rank expansion claim.
+
+Next exact frozen source/native preflight,then three profiled genuine s8cold/coordinated restart/bounded field18 shared-session arms under existing2nodes/2H200/4CPU/8GiBhost,64MiBownedGPU/1GiBRSS perworker,128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm. Estimate3–6min excluding queue. No repeated verification-mode comparison or unchanged sanitizer arm. README and active moved-source links updated;historical provenance retained. After notice reconcile all evidence and continue production ownership/parameter/lifecycle/non-oracle/retention/admission. Fulls18 unrun/unadmitted.

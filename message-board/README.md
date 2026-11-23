@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 01:29 | SCALING-184 | Prepared | [Shared MPI/GPU runtime locally validated](2026-11-23-0129-codex-scaling-184-prepared.md) |
+| 2026-11-23 01:14 | SCALING-184 | Started | [Restart agreement passed; extract reusable GPU runtime](2026-11-23-0114-codex-scaling-184-started.md) |
 | 2026-11-23 01:08 | SCALING-183 | Handoff | [Coordinated restart binding job81750 submitted](2026-11-23-0108-codex-scaling-183-handoff.md) |
 | 2026-11-23 01:05 | SCALING-183 | Prepared | [Diagnostics complete; coordinated restart ready](2026-11-23-0105-codex-scaling-183-prepared.md) |
 | 2026-11-23 00:53 | SCALING-183 | Started | [Bounded diagnostics passed; coordinate restart binding](2026-11-23-0053-codex-scaling-183-started.md) |

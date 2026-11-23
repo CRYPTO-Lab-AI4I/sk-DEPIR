@@ -1,0 +1,7 @@
+# SCALING-184 started: verify restart agreement and extract reusable GPU runtime
+
+UTC: 2026-11-23T01:14:22.708231+00:00; agent: Codex.
+
+81750 receipt/source/evidence/cache independently passed865/79/376 seals and all three arm/metadata frame/native/canonical checks. Coordinator one29,524-byte hash versus local eight236,192bytes;6.792011versus6.661931seconds on small cached input,so local stays default. Update main reference/report/README, retaining all measured scope/unknown fullsize costs.
+
+Next recorded production lifecycle/non-oracle reuse step: move the already validated MPI operand/transpose/Taylor transport and GPU session wiring from test-only files into internal build-tagged runtime files. Keep ordinary CPU builds independent of MPI/CUDA and keep test/native references as independent observers. Thin test adapters retain fatal-test reporting; runtime APIs return errors and expose explicit session close/failure state. Reuse one kernel/session implementation for narrow/wide cases, preserving operation identities/proof payloads/canonical files. Remove the owned root wrapper's unnecessary fixture object argument. This is internal extraction,not public production entry/rank expansion or fulls18 support. Validate build variants,pure lifecycle/admission errors,retained reviewers/native references and one bounded cold/restart+wide integration under existing resources;no unchanged sanitizer or repeated local-vs-coordinator comparison.

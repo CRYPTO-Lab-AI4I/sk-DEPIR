@@ -1,4 +1,4 @@
-//go:build linux && liftrs_cpp && liftrs_cuda && liftrs_mpi && cgo
+//go:build linux && liftrs_mpi && cgo
 
 package liftrs
 

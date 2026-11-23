@@ -15,15 +15,15 @@ import (
 // Only local roots/coefficients and small integer counts enter this executor.
 // Independent retained native files are checked by the controller after the arm;
 // they are neither loaded here nor used as arithmetic inputs.
-func ownedPipelineRoots[Word transposeWord](t *testing.T, w *mpi.World, directory, label string, fixture *rootFixture, options cuda.PreparationOptions, counts []uint64, local []uint32, emit func(map[string]any)) ([]uint32, rootShardLayout) {
+func ownedPipelineRoots[Word transposeWord](t *testing.T, w *mpi.World, directory, label string, maxDomain uint64, options cuda.PreparationOptions, counts []uint64, local []uint32, emit func(map[string]any)) ([]uint32, rootShardLayout) {
 	t.Helper()
 	saveMatrixStageWords(t, filepath.Join(directory, fmt.Sprintf("%s-rank-%d-leaf.bin", label, w.Rank)), local)
-	stages, err := rankRootMergeStages(w.Rank, counts, uint64(fixture.n))
+	stages, err := rankRootMergeStages(w.Rank, counts, maxDomain)
 	if err != nil {
 		t.Fatal(err)
 	}
 	emit(map[string]any{"kind": "root-tree", "case": label, "leaf_counts": counts, "levels": len(stages), "support_count": discoveryTotal(counts) - uint64(w.Size), "matches": true})
-	result, err := reduceShardedRoots(w.Rank, counts, uint64(fixture.n), uint64(1)<<uint(options.S), local, func(stage rankRootMergeStage, input []uint32) ([]uint32, error) {
+	result, err := reduceShardedRoots(w.Rank, counts, maxDomain, uint64(1)<<uint(options.S), local, func(stage rankRootMergeStage, input []uint32) ([]uint32, error) {
 		group, err := w.Split(w.Rank/stage.Ranks, w.Rank)
 		if err != nil {
 			return nil, err
@@ -53,7 +53,7 @@ func ownedPipelineRoots[Word transposeWord](t *testing.T, w *mpi.World, director
 		driver.begin("root")
 		merged, err := driver.Executor.MergeRoots(stage, input, link)
 		owned := driver.Executor.GPU.OwnedBytes()
-		closeErr := driver.Executor.GPU.Close()
+		closeErr := driver.Close()
 		if err != nil {
 			return nil, err
 		}
@@ -111,7 +111,7 @@ func TestOwnedWideRoots(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			ownedPipelineRoots[uint64](t, w, output, fmt.Sprintf("roots-%d", count), fixture, options, counts, local, emit)
+			ownedPipelineRoots[uint64](t, w, output, fmt.Sprintf("roots-%d", count), uint64(fixture.n), options, counts, local, emit)
 		}
 		emit(map[string]any{"kind": "hierarchy-completed", "cases": 2})
 	})

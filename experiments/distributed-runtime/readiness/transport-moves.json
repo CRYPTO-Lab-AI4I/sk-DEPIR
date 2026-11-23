@@ -1,0 +1,21 @@
+{
+  "distributed_operands_mpi.go": {
+    "original": "encoding/liftrs-shared/distributed_operands_mpi_test.go",
+    "transport_body_sha256": "7300c47aa592b1614ee2a06098f5f1182e5b526f60a5065dcba4149fcfd2be35",
+    "status": "exact body preserved"
+  },
+  "distributed_taylor_mpi.go": {
+    "original": "encoding/liftrs-shared/distributed_taylor_gpu_test.go",
+    "transport_body_sha256": "b86b4ea30a1d479682dced9948fabe887947b69856c2b5a3ec55e63af20f3c2b",
+    "status": "exact body preserved"
+  },
+  "distributed_transpose_mpi.go": {
+    "original": "encoding/liftrs-shared/distributed_transpose_mpi_test.go",
+    "transport_body_sha256": "9083e26d187ca6a3db1005c5a7e2a7687c07956d330a379a9475195f7ee79737",
+    "status": "exact body preserved"
+  },
+  "distributed_storage_cuda.go": {
+    "original_routines_sha256": "f33e686af90b3bb74a8fed34753321668a42eb9df6883d0028f70f91b88cf6b5",
+    "status": "all original storage routines preserved verbatim;only shared transfer helper appended"
+  }
+}

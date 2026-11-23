@@ -508,7 +508,7 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	var compactRoot []uint32
 	var compactLayout rootShardLayout
 	if resumeFrom == "" && w.Size > 2 && rootMode == "owned" {
-		compactRoot, compactLayout = ownedPipelineRoots[Word](t, w, directory, label, fixture, options, leafCounts, local, emit)
+		compactRoot, compactLayout = ownedPipelineRoots[Word](t, w, directory, label, uint64(n), options, leafCounts, local, emit)
 	} else if resumeFrom == "" && w.Size > 2 {
 		expectedSupport, e := readPilotSupport(referenceFrom, retained)
 		if e != nil {
@@ -534,7 +534,7 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	executor := &driver.Executor
 	gpu := executor.GPU
 	defer func() {
-		if err := gpu.Close(); err != nil {
+		if err := driver.Close(); err != nil {
 			t.Error(err)
 		}
 	}()

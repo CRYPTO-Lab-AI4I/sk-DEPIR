@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-coordinated restart support binding **submitted81750** following bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+shared MPI/GPU runtime extraction following passed restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1337,7 +1337,7 @@ Combined with81744's separately labeled narrow partial passes, this completes th
 planned bounded diagnostic codec validation. Bulk remains default; large-file
 latency and peak-RSS savings remain unknown. Full s18 unrun/unadmitted.
 
-### Coordinated restart support binding — submitted81750
+### Coordinated restart support binding — passed81750
 
 [Plan](../experiments/distributed-restart-binding/report.md): explicit one full-file
 coordinator checksum plus complete per-checkpoint metadata agreement, retaining all
@@ -1348,4 +1348,31 @@ support copy or GPU work. Full-size latency remains unmeasured;local remains def
 Three-arm cold/coordinated-restart/local-restart comparison uses existing two-node/
 two-H200 caps;this is not fullsize production support or admission.
 
-Coordinated/local restart comparison **81750 submitted**: [receipt](../experiments/distributed-restart-binding/submission.json). Three cold/restart/control arms,unchanged two-node/two-H200 allocation;results pending. Local default retained;fulls18 unrun/unadmitted.
+Coordinated/local restart comparison **81750 passed**: [receipt](../experiments/distributed-restart-binding/submission.json). Three cold/restart/control arms,unchanged two-node/two-H200 allocation;all passed. Local default retained;fulls18 unrun/unadmitted.
+
+
+### Coordinated restart measurements81750
+
+| Genuine s8/curve5 mode on HPC | Result/runtime | Verification traffic,aggregate | Peak host RSS |
+|---|---|---|---|
+| Cold | Passed;9.149322 seconds |0 recovery hashes |379.121 MiB/worker |
+| Coordinated fresh-prefix8 restart | Passed;6.792011 seconds |1 hash/29,524 bytes;two metadata agreements/worker |379.160 MiB/worker |
+| Local fresh-prefix8 restart | Passed;6.661931 seconds |8 hashes/236,192 bytes |377.895 MiB/worker |
+
+Same two nodes/two H200s/four workers/four CPU cores/8 GiB requested host RAM.
+Owned GPU0.244 MiB/worker;context/MPI/driver extra. Controller2min39.483s/cache37.252MiB.
+[Methods and evidence](../experiments/distributed-restart-binding/report.md#verified-result81750).
+One small cached coordinated sample was1.953%slower;local remains default. Logical
+hash bytes are not physical disk metrics or full-size latency estimates. Full s18
+remains unrun/unadmitted. Runtime rows precede deferred GPU close;launcher timing
+includes it.
+
+### Prepared shared MPI/GPU runtime extraction
+
+[Plan](../experiments/distributed-runtime/report.md): unchanged validated transport
+moves from test-only files into internal MPI runtime,with one error-returning GPU
+session shared by narrow/wide workflows. Thin test adapters retain independent
+native/canonical/proof observers. Ordinary CPU,CUDA-only,MPI-only and combined
+builds stay explicit;no public production CLI/rank expansion/fulls18 claim. Resource
+payloads/layouts/defaults unchanged;bounded cold/restart/wide integration uses the
+existing two-node/two-H200 budget,not repeated verification-mode timing/sanitizers.

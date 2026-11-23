@@ -14,15 +14,6 @@ import (
 )
 
 func storagePattern(index uint64) uint64 { return (index+1)*0x9e3779b97f4a7c15 ^ 0xa5a5a5a5a5a5a5a5 }
-func storageTransfer[Word transposeWord](gpu *cuda.RankStorage, slot int, offset uint64, tile []Word, upload bool) error {
-	switch v := any(tile).(type) {
-	case []uint32:
-		return gpu.Transfer32(slot, offset, v, upload)
-	case []uint64:
-		return gpu.Transfer64(slot, offset, v, upload)
-	}
-	return fmt.Errorf("storage test slot width")
-}
 func storageIO[Word transposeWord](t *testing.T, gpu *cuda.RankStorage, slot int, data []Word, upload bool) {
 	t.Helper()
 	for offset := 0; offset < len(data); {

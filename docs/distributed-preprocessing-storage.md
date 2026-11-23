@@ -210,4 +210,26 @@ Same admitted two-node/two-H200 comparison;no unchanged wide/sanitizer repeat.
 Production ownership/lifecycle/non-oracle entry,bounded retention and actual phase
 count/domain/resource admission remain;full s18 is unrun/unadmitted.
 
-Coordinated restart binding validation **81750 submitted** under unchanged caps; [receipt](../experiments/distributed-restart-binding/submission.json). Three cold/coordinated/local arms;results pending,no fulls18 admission.
+Coordinated restart binding validation **81750 passed** under unchanged caps; [receipt](../experiments/distributed-restart-binding/submission.json). All three cold/coordinated/local arms passed;no fulls18 admission.
+
+
+## Internal runtime extraction (SCALING-184)
+
+81750validated one coordinator support hash versus eight local hashes,with all
+metadata/native/shard/canonical checks. Small cached restart6.792011s versus6.661931s
+local;keep local default and distinguish logical traffic from physical I/O/fullsize
+latency. Update the main reference with measured resources/counters.
+
+Next move existing operand/transpose/Taylor MPI transports and GPU session wiring
+from test-only code into internal runtime,sharing constructor/progress/operation
+identity and product/spectrum logic across narrow/wide cases. Keep test error
+adapters and independent oracles separate;runtime returns errors,owns GPU close
+and rejects failed/closed reuse. Preserve exact protocol checks and storage/kernel
+bodies. Explicit build variants retain CPU-only and optional GPU client support.
+The current experiment-scoped MPI bridge and bounded harness remain;this does not
+create a public production API or admit larger ranks/full s18. [Exact scope](../experiments/distributed-runtime/report.md).
+
+Validate local build matrix/admission/lifecycle errors,unchanged native references
+and one existing-budget cold/coordinated-restart/wide composition. No repeated
+local-vs-coordinator or unchanged sanitizer arm. Then continue production parameter/
+ownership/phase admission,non-oracle entry and bounded retention/publication.

@@ -33,7 +33,6 @@ func checkWidePipelineTail(t *testing.T, w *mpi.World, output string, dim int, e
 	t.Helper()
 	const s = 18
 	n := uint64(1) << uint(dim)
-	rows, cols := uint64(1)<<uint(dim-dim/2), uint64(1)<<uint(dim/2)
 	label := fmt.Sprintf("s18-d%d", dim)
 	inputMode, inputErr := newtonInputMode(os.Getenv("PIR_PIPELINE_NEWTON_INPUT"))
 	if inputErr != nil {
@@ -77,49 +76,26 @@ func checkWidePipelineTail(t *testing.T, w *mpi.World, output string, dim int, e
 		}
 		return out
 	}
-	gpu, err := cuda.NewRankStorage(cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: s, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: tables.log, Powers: tables.powers, Devices: []int{0}, MaxElements: n, DeviceBytes: 64 << 20}, rows, cols, w.Rank, w.Size, 4096)
+	record := func(row map[string]any) {
+		// Keep the wide oracle's established event vocabulary while sharing all
+		// execution, transport, operation identities and progress with runtime.
+		if row["kind"] == "executor-call" {
+			row["kind"] = "tail-call"
+			delete(row, "matches")
+		}
+		emit(row)
+	}
+	session, err := newRankGPUSession[uint64](w, cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: s, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: tables.log, Powers: tables.powers, Devices: []int{0}, MaxElements: n, DeviceBytes: 64 << 20}, dim, label, record)
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer gpu.Close()
-	plan, err := newRankTransposePlan(1, rows, cols, w.Rank, w.Size, n, 4096)
-	if err != nil {
-		t.Fatal(err)
-	}
-	capacity := min(n, 3*max(rows, cols))
-	call := label
-	pass := 0
-	start := uint64(1)
-	span := uint64(2 + 2*(dim-dim/2))
-	e := rankGPUExecutor[uint64]{GPU: gpu, Plan: plan, Capacity: capacity, Limit: 1 << s}
-	e.Notice = func(phase string, done, total uint64) {
-		if done == 0 {
-			switch phase {
-			case "rank-product-left-forward":
-				pass = 0
-			case "rank-product-right-forward":
-				pass = 1
-			case "rank-product-inverse":
-				pass = 2
-			}
+	defer func() {
+		if err := session.Close(); err != nil {
+			t.Error(err)
 		}
-		if done == 0 || done == total {
-			emit(map[string]any{"kind": "progress", "case": call, "pass": pass, "phase": phase, "completed": done, "total": total})
-		}
-	}
-	e.Transpose = transposeMPI[uint64]{world: w, rank: w.Rank, record: func(direction string, peer int, p transposePacket, data []uint64, own, remote [64]byte) {
-		emit(map[string]any{"kind": "tile-proof", "case": call, "pass": pass, "operation": p.Operation, "round": p.Round, "offset": p.Offset, "words": p.Words, "peer": peer, "direction": direction, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
-	}}
-	e.Windows = taylorMPI[uint64]{world: w, record: func(direction string, peer int, p taylorPacket, data []uint64, own, remote [64]byte) {
-		emit(map[string]any{"kind": "taylor-proof", "case": call, "pass": pass, "packet": p, "peer": peer, "direction": direction, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
-	}}
-	e.Degrees = func(level int) ([]uint64, error) {
-		degrees, err := gpu.TaylorDegrees(level)
-		if err == nil {
-			emit(map[string]any{"kind": "taylor-plan", "case": call, "pass": pass, "operation_start": start + uint64(pass)*span, "level": level, "degrees": degrees, "capacity": capacity})
-		}
-		return degrees, err
-	}
+	}()
+	e := &session.Executor
+	gpu := e.GPU
 	proof := func(width int, direction string, p operandPacket, own, remote [64]byte) {
 		emit(map[string]any{"kind": "operand-proof", "case": label, "word_bytes": width, "packet": p, "direction": direction, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
 	}
@@ -130,18 +106,14 @@ func checkWidePipelineTail(t *testing.T, w *mpi.World, output string, dim int, e
 		proof(8, direction, p, own, remote)
 	}}
 	product := func(name string, a, b []uint32, ac, bc, keep uint64, prefix bool) []uint32 {
-		call = label + "/" + name
-		start = e.Plan.Operation
-		pass = 0
-		run := e.Product
+		run := session.Product
 		if prefix {
-			run = e.ProductPrefixInputs
+			run = session.ProductPrefixInputs
 		}
-		result, err := run(a, b, ac, bc, keep)
+		result, err := run(name, a, b, ac, bc, keep)
 		if err != nil {
 			t.Fatal(err)
 		}
-		emit(map[string]any{"kind": "tail-call", "case": call, "s": s, "dimension": dim, "operation_start": start, "mode": "product", "a_count": ac, "b_count": bc, "keep": keep})
 		return result
 	}
 	root := own(p)
@@ -202,9 +174,6 @@ func checkWidePipelineTail(t *testing.T, w *mpi.World, output string, dim int, e
 		}
 	}
 	saveMatrixStageWords(t, filepath.Join(output, fmt.Sprintf("%s-rank-%d-identity.bin", label, w.Rank)), identity)
-	call = label + "/spectrum"
-	start = e.Plan.Operation
-	pass = 0
 	spectrumMode := os.Getenv("PIR_PIPELINE_SPECTRUM")
 	if spectrumMode == "" {
 		spectrumMode = "resident"
@@ -212,20 +181,19 @@ func checkWidePipelineTail(t *testing.T, w *mpi.World, output string, dim int, e
 	var spectrum []uint64
 	var source *pilotSpectrumSource[uint64]
 	if spectrumMode == "stream" {
-		if err := e.PrepareSpectrum(g, uint64(target)); err != nil {
+		if err := session.PrepareSpectrum("spectrum", g, uint64(target)); err != nil {
 			t.Fatal(err)
 		}
 		source = newPilotSpectrumSource[uint64](t, gpu, filepath.Join(output, fmt.Sprintf("%s-rank-%d-spectrum.bin", label, w.Rank)), words, 1<<36)
 		defer source.File.Close()
 	} else if spectrumMode == "resident" {
-		spectrum, err = e.Spectrum(g, uint64(target))
+		spectrum, err = session.Spectrum("spectrum", g, uint64(target))
 		if err != nil {
 			t.Fatal(err)
 		}
 	} else {
 		t.Fatal("wide spectrum output mode")
 	}
-	emit(map[string]any{"kind": "tail-call", "case": call, "s": s, "dimension": dim, "operation_start": start, "mode": "spectrum", "keep": n})
 	matrix, err := cpp.NewWideMatrix(s, h.Polynomial, dim, dim/2)
 	if err != nil {
 		t.Fatal(err)

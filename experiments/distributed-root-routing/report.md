@@ -33,7 +33,7 @@ budget both arrays, owned source polynomials and transport/runtime memory.
 Inputs are borrowed and preserved; a failure invalidates outputs and requires
 collective abort rather than continuing peers with missing data.
 
-The [MPI adapter](../../encoding/liftrs-shared/distributed_operands_mpi_test.go)
+The [MPI adapter](../../encoding/liftrs-shared/distributed_operands_mpi.go)
 uses existing control exchange, coefficient codec and before/after payload proofs.
 Descriptors bind operation, domain, operand, coefficient offset/count and both
 owners. The reviewer checks every planned route and paired proof against the
@@ -187,3 +187,5 @@ preprocessing executor. Remaining work: rank-owned root reduction and repeated/
 truncated Newton products; partitioned discovery/support; explicit s18 field
 admission; coordinated checkpoint/restart and artifact publication; assembled
 small pipeline then representative scale/resource validation. Fulls18 is unrun.
+
+The adapter implementation now lives in a build-tagged runtime file; historical measurements above retain their original producing revision and wire format.

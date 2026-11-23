@@ -190,3 +190,15 @@ func rankResidentPolynomialProduct[Word transposeWord](p rankTransposePlan, gpu 
 		},
 		func() error { return gpu.Pointwise(left, right) }, notice)
 }
+
+// storageTransfer is shared by runtime kernels and independent test drivers;
+// base/extension slot widths remain explicit in the caller's Word selection.
+func storageTransfer[Word transposeWord](gpu *cuda.RankStorage, slot int, offset uint64, tile []Word, upload bool) error {
+	switch v := any(tile).(type) {
+	case []uint32:
+		return gpu.Transfer32(slot, offset, v, upload)
+	case []uint64:
+		return gpu.Transfer64(slot, offset, v, upload)
+	}
+	return fmt.Errorf("storage slot width")
+}

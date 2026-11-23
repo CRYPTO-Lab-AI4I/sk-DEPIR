@@ -1,6 +1,6 @@
 # Coordinated support verification on checkpoint restart
 
-Status: **submitted job81750**, binding-01; GPU results pending. Implementation **946a2f6** (parent2227ccc).
+Status: **passed job81750**, all three binding-01 arms independently verified. Implementation **946a2f6** (parent2227ccc).
 [Runner](run.py), [Slurm entry](run.sbatch), [independent analyzer](analyze.py),
 [reviewer regressions](test_review.py), [readiness](readiness/).
 Planned results `runs/binding-01/`; immutable source, binaries, verified native
@@ -159,3 +159,34 @@ rebuilds committed source and checks paths/environment on every node before GPU 
 Job **81750** submitted from **15f3ab1**, implementation **946a2f6**.
 [Receipt](submission.json); results `runs/binding-01/`, Slurm log `slurm-81750.log`.
 Unchanged resources above; estimate3–6minutes excluding queue. No polling or GPU result claim.
+
+## Verified result81750
+
+All **865 source /79 evidence /376 cache files** reconcile to producing revision
+**15f3ab1** and the submitted receipt. [Analysis](runs/binding-01/analysis.json),
+[raw results](runs/binding-01/results.json), [Slurm log](slurm-81750.log),
+[receipt](submission.json). Every captured metadata/control frame matches the
+independent Python codec and actual persisted root/Newton manifests. Native Taylor
+counts,proof digests,local shard/canonical/generator/identity/spectrum comparisons,
+fresh-process recovery and diagnostic byte/progress totals passed.
+
+| Mode on genuine s8/curve5 | Status/runtime | Support checksum work,aggregate | Peak host RSS |
+|---|---|---|---|
+| Cold | Passed;9.149322 seconds | No recovery hashes |379.121 MiB/worker |
+| Coordinated prefix8 restart | Passed;6.792011 seconds |1 hash/29,524 bytes;2 metadata agreements per worker |379.160 MiB/worker |
+| Local prefix8 restart | Passed;6.661931 seconds |8 hashes/236,192 bytes |377.895 MiB/worker |
+
+HPC two nodes/two H200s/four workers/four CPU cores/8 GiB requested host RAM total,
+with the unchanged caps above. Owned GPU0.244 MiB/worker,context/MPI/driver extra.
+Controller **2 min39.483 seconds**, retained cache **37.252 MiB**. These runtime
+rows precede deferred GPU closure;launcher/controller timing includes it. The small
+support file was cached;logical bytes verified are not physical disk-read metrics.
+Coordinated restart was **1.953% slower** in one fixed-order sample. This demonstrates
+complete checksum/metadata agreement and eightfold less small-case verification
+traffic,not a full-size speedup. Local remains default;coordinator selection explicit.
+
+Next extract validated MPI transport and session ownership from test-only helpers
+into reusable internal runtime,retaining independent native/test observers. Then
+complete production parameter/rank/lifecycle,non-oracle entry,bounded retention,
+restart/publication ownership and real phase count/domain/resource admission.
+Full s18 remains unrun/unadmitted;its coordinated restart latency is unknown.

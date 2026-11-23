@@ -79,7 +79,7 @@ The CUDA plugin and complete CPP/CUDA/MPI test binary also compile locally;
 local compiler interface-probe socket warnings did not fail compilation.
 
 The [MPI/GPU test](../../encoding/liftrs-shared/distributed_vectors_gpu_test.go)
-and [Taylor transport adapter](../../encoding/liftrs-shared/distributed_taylor_gpu_test.go)
+and [Taylor transport adapter](../../encoding/liftrs-shared/distributed_taylor_mpi.go)
 reuse the existing bounded driver via an explicit full-FFT flag. Cases remain
 s4 dimensions4/5/8 and s17 dimensions5/9/12, forward/inverse on two ranks:
 24 rank/pass rows. A separable baseline is first repeated on the same build;
@@ -166,3 +166,5 @@ must reuse GPU arenas with bounded host exchange and measure communication/setup
 verification/persistence. Faster validated resident paths/defaults remain unchanged.
 After this gate: validate distributed products/identities, admit s18 arithmetic,
 and integrate discovery/Newton/checkpoint/publication before any full preprocessing.
+
+The adapter implementation now lives in a build-tagged runtime file; historical measurements above retain their original producing revision and wire format.
