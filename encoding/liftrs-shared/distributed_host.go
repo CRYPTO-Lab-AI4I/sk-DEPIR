@@ -26,7 +26,7 @@ func hostTransformScratch(s int, n uint64) map[string]uint64 {
 	// Two resident Taylor host windows, two transfer tiles,field log/power tables
 	// and bounded codec/routing scratch. Native allocations are in caller reserve.
 	capacity := min(n, 3*max(rows, cols))
-	return map[string]uint64{"Taylor_windows": 2 * capacity * width, "transfer_tiles": 2 * 4096 * width, "field_tables": 8 * (uint64(1) << uint(s)), "codec_and_control": 4 * 65536}
+	return map[string]uint64{"Taylor_windows": 2 * capacity * width, "transfer_tiles": 2 * 4096 * width, "field_tables": 4 * (3*(uint64(1)<<uint(s)) - 2), "codec_and_control": 4 * 65536}
 }
 func hostArrayPhase(phase string, s int, n, baseWords, indexWords, bitmapWords, extensionWords uint64) rankHostInventory {
 	components := hostTransformScratch(s, n)

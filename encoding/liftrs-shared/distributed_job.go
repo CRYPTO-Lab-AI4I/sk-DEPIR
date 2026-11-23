@@ -90,7 +90,7 @@ func (c DistributedPreprocessingConfig) Validate() error {
 			return fmt.Errorf("recovery requires source directory")
 		}
 	} else {
-		if !filepath.IsAbs(c.ResumeDirectory) || filepath.Clean(c.ResumeDirectory) == filepath.Clean(c.Directory) || c.Known < 1 || c.Known > n {
+		if !filepath.IsAbs(c.ResumeDirectory) || filepath.Clean(c.ResumeDirectory) == filepath.Clean(c.Directory) || c.Known > n {
 			return fmt.Errorf("recovery namespace/prefix")
 		}
 		if _, err := expectedDigest(c.SourceSHA); err != nil {

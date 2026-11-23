@@ -91,9 +91,19 @@ func resumeRankWorkflow[Word transposeWord](w *mpi.World, o rankWorkflowOptions,
 	if err != nil {
 		return result, err
 	}
-	prefix, err := loadRankPrefixWithSupport(r.Directory, r.Label, o.Spec.FieldDegree, w.Rank, w.Size, fmt.Sprintf("newton-%d", r.Known), o.MaxLocalWords, verify)
-	if err != nil {
-		return result, err
+	var prefix rankPrefixState
+	if r.Known == 1 {
+		// Normalized P(0)=1 proves the inverse's constant term;no G file exists
+		// before the first completed Newton step. All later steps stay shared.
+		prefix.Values = make([]uint32, len(root.Values))
+		if w.Rank == 0 {
+			prefix.Values[0] = 1
+		}
+	} else {
+		prefix, err = loadRankPrefixWithSupport(r.Directory, r.Label, o.Spec.FieldDegree, w.Rank, w.Size, fmt.Sprintf("newton-%d", r.Known), o.MaxLocalWords, verify)
+		if err != nil {
+			return result, err
+		}
 	}
 	emit(map[string]any{"kind": "restart-support", "case": r.Label, "mode": "coordinator", "hash_passes": binding.HashPasses, "hashed_bytes": binding.HashBytes, "agreements": binding.Agreements, "verified": true})
 	if sinks.DiscoveryReady != nil {

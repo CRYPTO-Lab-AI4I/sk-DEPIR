@@ -1,6 +1,6 @@
 # Host phase admission and eight-worker validation
 
-Status: **submitted job82194**, host-01; results pending. SCALING-194
+Status: **passed job82194**, host-01; eight-worker cold/restart independently verified. SCALING-194
 follows [passed actual command82181](../distributed-command/report.md#verified-outcome82181).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
@@ -155,3 +155,23 @@ Results `runs/host-01/`, Slurm log `slurm-82194.log`, reusable cache above.
 Approved8CPUcores/16GiBhostRAM/2nodes/2H200 and all limits in the resource table.
 Estimated controller **3–7 minutes excluding queue**. Submission is not a pass.
 Completion notification registered locally; no agent polling. Fulls18 unrun/unadmitted.
+
+### Verified outcome82194
+
+Producing revision **0b63d72**. [Analysis](runs/host-01/analysis.json),
+[raw results](runs/host-01/results.json), [Slurm log](slurm-82194.log).
+All **939 source /88 evidence /309 cache** seals reconcile. Controller
+**2 min51.032 s**; retained logical cache **25.285 MiB**. HPC2nodes/2H200/8cores/
+16GiBrequested RAM,8workers as admitted above.
+
+| Arm | Launcher runtime | Logged peak host RSS per worker | Max named phase bytes |
+|---|---|---|---|
+| Cold | 15.555 s | 374.309 MiB | 0.538 MiB |
+| Fresh prefix8 restart | 11.050 s | 374.105 MiB | 0.414 MiB |
+
+All eight-worker logical checkpoint/canonical outputs match the verified four-worker
+reference; all phase inventories/rounded domains/native work/commit/shard/source/
+alias checks pass. The768MiB reserve is a declared allowance, not measured memory;
+it is separate from both named arrays and observed RSS. Results do not establish
+fullsize headroom or multi-card throughput. Next: [recover discovery/root and test
+s10 under the same ceilings](../distributed-discovery-restart/report.md).

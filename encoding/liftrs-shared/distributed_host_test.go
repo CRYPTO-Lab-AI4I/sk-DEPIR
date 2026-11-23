@@ -8,6 +8,18 @@ func TestHostPhaseAdmission(t *testing.T) {
 	if p.Components["base_coefficients"] != 262144 {
 		t.Fatal("coefficient slots")
 	}
+	polynomial, err := BinaryPolynomial(8)
+	if err != nil {
+		t.Fatal(err)
+	}
+	base, err := NewBinaryField(8, polynomial)
+	if err != nil {
+		t.Fatal(err)
+	}
+	tables := newBoundedPreparationProducts(base, 18)
+	if p.Components["field_tables"] != 4*uint64(len(tables.log)+len(tables.powers)) {
+		t.Fatal("duplicated power table inventory")
+	}
 	if err := c.admitHost(p); err != nil {
 		t.Fatal(err)
 	}

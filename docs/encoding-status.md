@@ -23,7 +23,7 @@ checks on **four workers across two HPC nodes/two H200s**. Final publication
 reload **82101 passed**. Canonical field18 FFT/products also pass at bounded sizes;
 these are not full s18 runs.
 
-**Assembled arithmetic resume82102 and actual command82181 passed. Current focus: named host-phase admission/eight-worker validation (SCALING-194), submitted82194; results pending.**
+**Assembled arithmetic resume82102, actual command82181 and eight-worker82194 passed. Current focus: completed-discovery/root recovery and larger representative s10 validation (SCALING-195), prepared within the same ceilings.**
 Then parameterized launch/full working-set admission and representative larger
 GPU/node scaling remain. Full s18 preprocessing is **not run / not admitted**.
 The measurements below distinguish small-case integration from fullsize projections
@@ -1568,7 +1568,8 @@ and larger parameter/topology/whole-job admission remain. Same HPC allocation:
 | Durable assembled prefix commits82101 | **Passed**, including fresh-process file reload | Controller **2 min41.494 s**; assembled launcher **9.893 s**; peak host RSS **380.570 MiB/worker**; owned GPU **0.244 MiB/worker** (driver/context extra) |
 | Assembled arithmetic resume82102 | **Passed** | Controller **3 min11.398 s**; restart launcher **8.297 s**; peak host RSS **381.387 MiB/worker**, owned GPU **0.244 MiB/worker** (driver/context extra) |
 | Parameterized MPI command82181 | **Passed** | Controller **2 min54.239 s**; command restart **7.896 s**, peak host RSS **376.066 MiB/worker** |
-| Host phase inventories /eight-worker validation | Implemented; test **submitted82194; results pending** | Proposed2nodes/2H200/8cores/16GiBhost RAM;3–7min controller estimate; limits/report below |
+| Host phase inventories /eight-worker82194 | **Passed** | Controller **2 min51.032 s**; cold **15.555 s**, restart **11.050 s**; logged peak RSS **374.309 /374.105 MiB/worker** |
+| Discovery/root recovery and s10 representative case | Prepared; not run | Same approved ceilings; estimated controller **4–9 min**; fullsize memory/runtime unknown |
 | Full s18 preprocessing | **Not run / not admitted** | Capacity projections above are not measured costs or implementation support |
 
 Durable assembled checkpoint validation **82101 passed** under unchanged caps;
@@ -1615,8 +1616,25 @@ output), dense80GiB, plus scratch/reserve. Earlier48GiB is input arrays only.
 No new numerical allocation or memory–time policy change.
 
 Eight-worker/two-H200 cold/restart is prepared, requesting8cores/16GiBhost RAM
-versus current4cores/8GiB; resource agreement granted; submitted82194, results pending. This tests worker
+versus current4cores/8GiB; resource agreement granted;82194passed. This tests worker
 ownership/deeper root groups, not eight-GPU throughput. Fullsize host reserve,
 node/GPU packing and complete s18 resources remain unvalidated/unadmitted.
 
-Eight-worker validation [82194 receipt](../experiments/distributed-host-admission/submission.json); submission is not a pass.
+Eight-worker validation **82194 passed**;
+[verified evidence](../experiments/distributed-host-admission/runs/host-01/analysis.json).
+Controller **2 min51.032 s**, cold **15.555 s** /restart **11.050 s**;
+logged peak host RSS **374.309 /374.105 MiB per worker**. Largest named phase
+**0.538 MiB**, separate from768MiB declared reserve. All native/logical outputs and
+host/source/checkpoint checks pass. Fulls18 unrun/unadmitted.
+
+
+### Larger representative case and earlier recovery boundary
+
+[Plan/implementation](../experiments/distributed-discovery-restart/report.md):
+actual s10,m2,t5,N1048576,K146641 on8workers/2H200, with completed discovery,
+root-only and prefix8 recovery under the same8core/16GiB budgets. Reference is
+retained verified native72839; no fullsize result inferred. Summary logs are an
+explicit job option, preserving runtime checks/native-work/full artifact equality
+but omitting independent full raw-proof replay for this larger shape. Recovery
+from unfinished discovery/subtrees and fullsize reserve/node/storage/time admission
+remain. No fulls18 job has been run or admitted.

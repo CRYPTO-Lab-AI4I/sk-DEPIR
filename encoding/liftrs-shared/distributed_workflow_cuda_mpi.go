@@ -13,6 +13,7 @@ import (
 // This internal server workflow is deliberately separate from client encoding.
 // Limits cover individual shards/lists,not complete job/RSS/storage admission.
 type rankWorkflowOptions struct {
+	DiscoveryRecovery            *rankWorkflowRecovery
 	Spec                         Spec
 	Discovery                    rankDiscoveryOptions
 	MaxLocalWords                uint64
@@ -54,7 +55,12 @@ func prepareRankWorkflow[Word transposeWord](w *mpi.World, o rankWorkflowOptions
 		return result, fmt.Errorf("workflow output/shard admission")
 	}
 	label := fmt.Sprintf("s%d", o.Spec.FieldDegree)
-	discovered, err := discoverRankSupport[Word](w, o.Spec, o.Discovery, emit, sinks.Archive)
+	var discovered discoveryResult
+	if o.DiscoveryRecovery == nil {
+		discovered, err = discoverRankSupport[Word](w, o.Spec, o.Discovery, emit, sinks.Archive)
+	} else {
+		discovered, err = loadRankDiscovery(w, o, *o.DiscoveryRecovery, emit)
+	}
 	if err != nil {
 		return result, err
 	}

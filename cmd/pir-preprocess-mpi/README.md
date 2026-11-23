@@ -103,3 +103,15 @@ validation](../../experiments/distributed-host-admission/report.md). Earlier fro
 configurations need this field added to run against the new experimental schema.
 No forced GC or automatic switch to a slower mode is introduced. Fullsize reserve
 and actual aggregate RSS still need representative measurements.
+
+
+Recovery selectors now cover existing durable boundaries: `known_prefix=0` loads
+completed discovery from its sealed archive, `1` restores only the normalized
+root (initial inverse constant1), and `>=2` loads the corresponding committed
+Newton prefix. All use the trusted source hash and unchanged code/rank count.
+Cached discovery reads/hashes once on rank0, routes bounded owner tiles and checks
+metadata/count/order/range/payloads before GPU work, then shares cold root creation.
+It omits enumeration/sampling/discovery FFTs; fullsize I/O/routing cost is unknown.
+No old payload is copied or deleted. Partial discovery/root work is still not
+restartable. [Larger representative validation](../../experiments/distributed-discovery-restart/report.md)
+uses explicit summary logs under unchanged resource ceilings; fulls18 is unrun.

@@ -188,7 +188,10 @@ func runRankPreprocessingJob[Word transposeWord](w *mpi.World, c DistributedPrep
 	options.Discovery.AdmitHost = sinks.AdmitHost
 	options.Discovery.AdmitCode = c.admitFiles
 	var result rankWorkflowResult
-	if c.ResumeDirectory == "" {
+	if c.ResumeDirectory != "" && c.Known == 0 {
+		options.DiscoveryRecovery = &rankWorkflowRecovery{c.ResumeDirectory, label, c.SourceSHA, 0}
+	}
+	if c.ResumeDirectory == "" || c.Known == 0 {
 		result, err = prepareRankWorkflow[Word](w, options, sinks, emit)
 	} else {
 		result, err = resumeRankWorkflow[Word](w, options, rankWorkflowRecovery{c.ResumeDirectory, label, c.SourceSHA, c.Known}, sinks, emit)

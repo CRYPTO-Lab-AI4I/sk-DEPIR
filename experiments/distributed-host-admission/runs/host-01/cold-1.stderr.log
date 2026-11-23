@@ -1,0 +1,119 @@
+[gnode14:3394497] mca: base: components_register: registering framework btl components
+[gnode14:3394497] mca: base: components_register: found loaded component openib
+[gnode14:3394497] mca: base: components_register: component openib register function successful
+[gnode14:3394497] mca: base: components_register: found loaded component self
+[gnode14:3394497] mca: base: components_register: component self register function successful
+[gnode14:3394497] mca: base: components_register: found loaded component sm
+[gnode14:3394497] mca: base: components_register: found loaded component tcp
+[gnode14:3394497] mca: base: components_register: component tcp register function successful
+[gnode14:3394497] mca: base: components_register: found loaded component vader
+[gnode14:3394497] mca: base: components_register: component vader register function successful
+[gnode14:3394497] mca: base: components_open: opening btl components
+[gnode14:3394497] mca: base: components_open: found loaded component openib
+[gnode14:3394497] mca: base: components_open: component openib open function successful
+[gnode14:3394497] mca: base: components_open: found loaded component self
+[gnode14:3394497] mca: base: components_open: component self open function successful
+[gnode14:3394497] mca: base: components_open: found loaded component tcp
+[gnode14:3394497] mca: base: components_open: component tcp open function successful
+[gnode14:3394497] mca: base: components_open: found loaded component vader
+[gnode14:3394497] mca: base: components_open: component vader open function successful
+[gnode14:3394497] select: initializing btl component openib
+[gnode14:3394497] Checking distance from this process to device=mlx5_0
+[gnode14:3394497] Process is bound: distance to device is 0.000000
+[gnode14:3394497] Checking distance from this process to device=mlx5_1
+[gnode14:3394497] Process is bound: distance to device is 0.000000
+[gnode14:3394497] Checking distance from this process to device=mlx5_bond_0
+[gnode14:3394497] Process is bound: distance to device is 0.000000
+--------------------------------------------------------------------------
+WARNING: No preset parameters were found for the device that Open MPI
+detected:
+
+  Local host:            gnode14
+  Device name:           mlx5_0
+  Device vendor ID:      0x02c9
+  Device vendor part ID: 4129
+
+Default device parameters will be used, which may result in lower
+performance.  You can edit any of the files specified by the
+btl_openib_device_param_files MCA parameter to set values for your
+device.
+
+NOTE: You can turn off this warning by setting the MCA parameter
+      btl_openib_warn_no_device_params_found to 0.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   gnode14
+  Local device: mlx5_1
+--------------------------------------------------------------------------
+[gnode14:3394497] select: init of component openib returned failure
+[gnode14:3394497] mca: base: close: component openib closed
+[gnode14:3394497] mca: base: close: unloading component openib
+[gnode14:3394497] select: initializing btl component self
+[gnode14:3394497] select: init of component self returned success
+[gnode14:3394497] select: initializing btl component tcp
+[gnode14:3394497] btl: tcp: Searching for exclude address+prefix: 127.0.0.1 / 8
+[gnode14:3394497] btl: tcp: Found match: 127.0.0.1 (lo)
+[gnode14:3394497] btl: tcp: Using interface: sppp 
+[gnode14:3394497] btl:tcp: Attempting to bind to AF_INET port 1024
+[gnode14:3394497] btl:tcp: Attempting to bind to AF_INET port 1025
+[gnode14:3394497] btl:tcp: Attempting to bind to AF_INET port 1026
+[gnode14:3394497] btl:tcp: Successfully bound to AF_INET port 1026
+[gnode14:3394497] btl:tcp: my listening v4 socket is 0.0.0.0:1026
+[gnode14:3394497] btl:tcp: examining interface bond0
+[gnode14:3394497] btl:tcp: using ipv6 interface bond0
+[gnode14:3394497] btl:tcp: examining interface ibP1s3
+[gnode14:3394497] btl:tcp: using ipv6 interface ibP1s3
+[gnode14:3394497] btl:tcp: examining interface docker0
+[gnode14:3394497] btl:tcp: using ipv6 interface docker0
+[gnode14:3394497] select: init of component tcp returned success
+[gnode14:3394497] select: initializing btl component vader
+[gnode14:3394497] select: init of component vader returned success
+[gnode14:3394497] mca: base: components_register: registering framework pml components
+[gnode14:3394497] mca: base: components_register: found loaded component ucx
+[gnode14:3394497] mca: base: components_register: component ucx register function successful
+[gnode14:3394497] mca: base: components_open: opening pml components
+[gnode14:3394497] mca: base: components_open: found loaded component ucx
+[gnode14:3394497] mca: base: components_open: component ucx open function successful
+[gnode14:3394497] select: initializing pml component ucx
+[gnode14:3394497] select: init returned priority 51
+[gnode14:3394497] selected ucx best priority 51
+[gnode14:3394497] select: component ucx selected
+{"kind":"mpi-chunk","utc":"2026-11-23T17:10:48Z","rank":1,"group_rank":1,"group_size":8,"peer":0,"phase":"coefficient32-transfer","sending":false,"event":"completed","completed":1122,"total":1122,"unit":"words","elapsed_seconds":0.000025}
+{"kind":"mpi-chunk","utc":"2026-11-23T17:10:48Z","rank":1,"group_rank":1,"group_size":8,"peer":0,"phase":"coefficient32-transfer","sending":false,"event":"completed","completed":1122,"total":1122,"unit":"words","elapsed_seconds":0.000014}
+{"utc":"2026-11-23T17:10:49.18312335Z","phase":"support-order-validation","event":"progress","completed":1090,"total":1090,"unit":"exponents","elapsed_seconds":0.000002875}
+{"utc":"2026-11-23T17:10:49.183220428Z","phase":"support-Frobenius-validation","event":"progress","completed":1090,"total":1090,"unit":"exponents","elapsed_seconds":0.000099962}
+{"kind":"mpi-chunk","utc":"2026-11-23T17:10:49Z","rank":1,"group_rank":1,"group_size":8,"peer":0,"phase":"coefficient64-transfer","sending":true,"event":"completed","completed":1122,"total":1122,"unit":"words","elapsed_seconds":0.000011}
+{"utc":"2026-11-23T17:10:49Z","phase":"rank-Taylor-windows-summary","work":"gpu-preparation","event":"completed","completed":286,"total":286,"elapsed_ms":318,"unit":"windows"}
+{"utc":"2026-11-23T17:10:49Z","phase":"rank-Taylor-coefficients-summary","work":"gpu-preparation","event":"completed","completed":73792,"total":73792,"elapsed_ms":318,"unit":"coefficients"}
+{"kind":"mpi-chunk","utc":"2026-11-23T17:10:49Z","rank":1,"group_rank":1,"group_size":2,"peer":0,"phase":"coefficient32-transfer","sending":true,"event":"completed","completed":1091,"total":1091,"unit":"words","elapsed_seconds":0.000008}
+{"utc":"2026-11-23T17:10:49Z","phase":"rank-Taylor-windows-summary","work":"gpu-preparation","event":"completed","completed":1071,"total":1071,"elapsed_ms":705,"unit":"windows"}
+{"utc":"2026-11-23T17:10:49Z","phase":"rank-Taylor-coefficients-summary","work":"gpu-preparation","event":"completed","completed":25872,"total":25872,"elapsed_ms":705,"unit":"coefficients"}
+{"utc":"2026-11-23T17:10:50Z","phase":"rank-Taylor-windows-summary","work":"gpu-preparation","event":"completed","completed":708,"total":708,"elapsed_ms":860,"unit":"windows"}
+{"utc":"2026-11-23T17:10:50Z","phase":"rank-Taylor-coefficients-summary","work":"gpu-preparation","event":"completed","completed":32016,"total":32016,"elapsed_ms":860,"unit":"coefficients"}
+[gnode14:3394497] 1 more process has sent help message help-mpi-btl-openib.txt / no device params found
+[gnode14:3394497] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+{"utc":"2026-11-23T17:10:51Z","phase":"rank-Taylor-windows-summary","work":"gpu-preparation","event":"completed","completed":369,"total":369,"elapsed_ms":708,"unit":"windows"}
+{"utc":"2026-11-23T17:10:51Z","phase":"rank-Taylor-coefficients-summary","work":"gpu-preparation","event":"completed","completed":16800,"total":16800,"elapsed_ms":708,"unit":"coefficients"}
+{"kind":"mpi-chunk","utc":"2026-11-23T17:10:57Z","rank":1,"group_rank":1,"group_size":8,"peer":0,"phase":"coefficient32-transfer","sending":false,"event":"completed","completed":4096,"total":4096,"unit":"words","elapsed_seconds":0.000022}
+{"kind":"mpi-chunk","utc":"2026-11-23T17:10:58Z","rank":1,"group_rank":1,"group_size":8,"peer":0,"phase":"coefficient32-transfer","sending":false,"event":"completed","completed":4096,"total":4096,"unit":"words","elapsed_seconds":0.000021}
+{"kind":"mpi-chunk","utc":"2026-11-23T17:10:58Z","rank":1,"group_rank":1,"group_size":8,"peer":2,"phase":"coefficient32-transfer","sending":true,"event":"completed","completed":4096,"total":4096,"unit":"words","elapsed_seconds":0.000021}
+{"kind":"mpi-chunk","utc":"2026-11-23T17:10:58Z","rank":1,"group_rank":1,"group_size":8,"peer":3,"phase":"coefficient32-transfer","sending":true,"event":"completed","completed":4096,"total":4096,"unit":"words","elapsed_seconds":0.000012}
+{"kind":"mpi-chunk","utc":"2026-11-23T17:10:59Z","rank":1,"group_rank":1,"group_size":8,"peer":0,"phase":"coefficient32-transfer","sending":false,"event":"completed","completed":4096,"total":4096,"unit":"words","elapsed_seconds":0.000043}
+{"kind":"mpi-chunk","utc":"2026-11-23T17:10:59Z","rank":1,"group_rank":1,"group_size":8,"peer":2,"phase":"coefficient32-transfer","sending":true,"event":"completed","completed":4096,"total":4096,"unit":"words","elapsed_seconds":0.000021}
+{"kind":"mpi-chunk","utc":"2026-11-23T17:10:59Z","rank":1,"group_rank":1,"group_size":8,"peer":3,"phase":"coefficient32-transfer","sending":true,"event":"completed","completed":4096,"total":4096,"unit":"words","elapsed_seconds":0.000017}
+{"kind":"mpi-chunk","utc":"2026-11-23T17:11:00Z","rank":1,"group_rank":1,"group_size":8,"peer":0,"phase":"coefficient32-transfer","sending":true,"event":"completed","completed":4096,"total":4096,"unit":"words","elapsed_seconds":0.000010}
+{"kind":"mpi-chunk","utc":"2026-11-23T17:11:00Z","rank":1,"group_rank":1,"group_size":8,"peer":0,"phase":"coefficient32-transfer","sending":true,"event":"completed","completed":4096,"total":4096,"unit":"words","elapsed_seconds":0.000013}
+{"kind":"mpi-chunk","utc":"2026-11-23T17:11:00Z","rank":1,"group_rank":1,"group_size":8,"peer":0,"phase":"coefficient32-transfer","sending":true,"event":"completed","completed":4096,"total":4096,"unit":"words","elapsed_seconds":0.000012}
+{"kind":"mpi-chunk","utc":"2026-11-23T17:11:00Z","rank":1,"group_rank":1,"group_size":8,"peer":0,"phase":"coefficient32-transfer","sending":true,"event":"completed","completed":4096,"total":4096,"unit":"words","elapsed_seconds":0.000009}
+{"utc":"2026-11-23T17:11:00Z","phase":"rank-Taylor-windows-summary","work":"gpu-preparation","event":"completed","completed":7436,"total":7436,"elapsed_ms":8623,"unit":"windows"}
+{"utc":"2026-11-23T17:11:00Z","phase":"rank-Taylor-coefficients-summary","work":"gpu-preparation","event":"completed","completed":1918592,"total":1918592,"elapsed_ms":8623,"unit":"coefficients"}
+[gnode14:3394497] mca: base: close: component ucx closed
+[gnode14:3394497] mca: base: close: unloading component ucx
+[gnode14:3394497] mca: base: close: component self closed
+[gnode14:3394497] mca: base: close: unloading component self
+[gnode14:3394497] mca: base: close: component tcp closed
+[gnode14:3394497] mca: base: close: unloading component tcp
+[gnode14:3394497] mca: base: close: component vader closed
+[gnode14:3394497] mca: base: close: unloading component vader

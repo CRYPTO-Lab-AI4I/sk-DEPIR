@@ -3981,4 +3981,32 @@ RSS/runtime claim from this small test.
 
 SCALING-194: user approved the exact eight-worker s8 test (8cores/16GiBhost RAM,2HPCnodes/2H200; all other limits in the report). Submitted82194; results pending; fulls18 remains unadmitted.
 
-Eight-worker validation **82194 submitted** after explicit user approval; [receipt](../experiments/distributed-host-admission/submission.json). Actual command cold/restart at s8 on8workers/2H200/2nodes,8cores/16GiBrequestedRAM total; no fulls18 claim.
+Eight-worker validation **82194 passed**;
+[verified evidence](../experiments/distributed-host-admission/runs/host-01/analysis.json).
+Controller **2 min51.032 s**, cold **15.555 s** /restart **11.050 s**;
+logged peak host RSS **374.309 /374.105 MiB per worker**. Largest named phase
+**0.538 MiB**, separate from768MiB declared reserve. All native/logical outputs and
+host/source/checkpoint checks pass. Fulls18 unrun/unadmitted.
+
+
+## Complete-stage recovery and larger representative case (SCALING-195)
+
+82194passed eight-worker/phase admission. The already sealed discovery archive
+must also be loadable before committing a long fullsize trial. Add explicit
+known_prefix0 discovery recovery, root-only1 and existing Newton>=2 recovery,
+sharing root/numerical code. Coordinator reads/hashes once and routes bounded
+owner buckets; exact metadata/order/range/EOF/count/payload checks precede GPU work.
+No support payload copy, forced GC or slower default. Fulls18 archive read projects
+121.446GiB plus routing; latency remains unknown. Partial discovery/root subtrees
+are not checkpointed yet; document that granularity.
+
+[Plan/implementation](../experiments/distributed-discovery-restart/report.md):
+combine these boundaries with genuine s10/curve5 (16times larger grid), pinned to
+retained verified native cache72839, avoiding setup recomputation. Same approved
+2nodes/2H200/8cores/16GiB/RSS/device/cache/scratch/file/time ceilings. Source-derived
+shape/output bounds fit; historical native s10 timings provide budget evidence.
+Explicit summary proof logging avoids raw-row growth beyond32MiB/file; runtime
+checks/native work and full artifact equality remain, no full raw replay for this
+new shape. Record that diagnostic boundary; no unchanged s8/sanitizer suite.
+Then use representative data for fullsize reserve/root ownership/node packing/
+storage/time/checkpoint admission; no automatic fulls18 launch or budget increase.

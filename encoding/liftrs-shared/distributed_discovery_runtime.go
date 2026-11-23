@@ -100,9 +100,9 @@ func discoveryTotal(counts []uint64) uint64 {
 }
 
 // Discovery control/data use the existing MPI codecs and before/after proofs.
-// kind1=sample coefficients,2=closed-root routing,3=diagnostic support archive.
+// kind1=sample coefficients,2=closed-root routing,3=diagnostic support archive,4=cached discovery roots.
 func discoveryWire[Word transposeWord](w *mpi.World, kind, sequence, domain, offset uint64, source, target int, data []Word, emit func(map[string]any)) error {
-	if w == nil || w.Size < 2 || w.Size > 64 || source < 0 || target < 0 || source >= w.Size || target >= w.Size || source == target || (w.Rank != source && w.Rank != target) || kind < 1 || kind > 3 || domain == 0 || offset > domain || uint64(len(data)) > domain-offset || len(data) == 0 || len(data) > 1<<20 || emit == nil {
+	if w == nil || w.Size < 2 || w.Size > 64 || source < 0 || target < 0 || source >= w.Size || target >= w.Size || source == target || (w.Rank != source && w.Rank != target) || kind < 1 || kind > 4 || domain == 0 || offset > domain || uint64(len(data)) > domain-offset || len(data) == 0 || len(data) > 1<<20 || emit == nil {
 		return fmt.Errorf("discovery wire admission")
 	}
 	width := uint64(8)
