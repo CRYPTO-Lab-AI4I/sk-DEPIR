@@ -1,0 +1,16 @@
+{
+  "job_id": "81744",
+  "name": "writes-01",
+  "implementation_revision": "04af166",
+  "submission_revision": "c30ef0d73927bee7ad0f82982e841713976b04b7",
+  "recorded_utc": "2026-11-23T00:41:08.279896+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-diagnostic-writes/slurm-%j.log experiments/distributed-diagnostic-writes/run.sbatch writes-01",
+  "results": "experiments/distributed-diagnostic-writes/runs/writes-01",
+  "log": "experiments/distributed-diagnostic-writes/slurm-81744.log",
+  "cache": ".cache/liftrs/distributed-diagnostic-writes/writes-01/",
+  "resources": "2 HPC nodes / 2 H200 / 4 CPU cores / 8 GiB requested host RAM; 4 workers, 64 MiB owned GPU per worker = 128 MiB/card; 1 GiB RSS per worker; zero CUDA-pinned; 128 MiB retained cache / 2 GiB scratch / 32 MiB per file; 720-second controller / 15-minute Slurm limit; exclude gnode03",
+  "scope": "Genuine s8/curve5 bounded diagnostic cold/restart, matched bulk-write cold and bounded field18; exact native/canonical/proof checks retained; not full s18",
+  "estimated_controller_minutes": "3\u20136 excluding queue; fullsize disk/RSS costs unknown",
+  "monitoring": "Receipt-bound local completion notification; no model polling",
+  "note": "857 frozen build inputs,385 code hashes match compiled readiness source,15 frozen reviewers and108014 historical native bytes plus actual s8 inputs passed. Bulk default unchanged; no increased resources."
+}

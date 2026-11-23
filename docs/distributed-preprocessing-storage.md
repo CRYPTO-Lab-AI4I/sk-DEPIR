@@ -185,3 +185,5 @@ keeps diagnostic files byte-identical and retained storage unchanged, but explic
 limits the extra serialization buffer to 64 KiB. Bulk writes remain default; extra
 write calls and large-file throughput remain a measured/unknown trade-off. This
 addresses temporary buffers, not production retention or coordinated restart.
+
+Diagnostic serialization validation **81744** submitted under unchanged two-node/two-H200 caps; [receipt](../experiments/distributed-diagnostic-writes/submission.json). Results pending; full s18 remains unrun/unadmitted.

@@ -3693,3 +3693,5 @@ an unchanged arithmetic sanitizer arm. [Plan/resources](../experiments/distribut
 Then finish production ownership/lifecycle/non-oracle execution, bounded retention,
 coordinated restart and actual per-phase count/domain/resource admission. Full s18
 remains unrun/unadmitted; bounded diagnostic writes alone do not establish readiness.
+
+Diagnostic serialization validation **81744** submitted under unchanged two-node/two-H200 caps; [receipt](../experiments/distributed-diagnostic-writes/submission.json). Results pending; full s18 remains unrun/unadmitted.

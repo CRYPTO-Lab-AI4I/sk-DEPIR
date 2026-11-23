@@ -1,6 +1,6 @@
 # Bounded diagnostic serialization
 
-Status: prepared; GPU composition not yet submitted. Implementation revision **04af166** (parent 7d774ed).
+Status: **submitted job 81744**, writes-01; GPU composition results pending. Implementation revision **04af166** (parent 7d774ed).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer regression](test_review.py), [local readiness](readiness/).
 Planned results: `runs/writes-01/`. Immutable source, binaries, native references
@@ -150,3 +150,9 @@ references. [Source checks](readiness/source-checks.json),
 [frozen reviewers](readiness/frozen-reviewers.json),
 [native preflight](readiness/native-preflight.log). No local CUDA/MPI initialization.
 The allocation rebuilds the committed snapshot and preflights every node.
+
+### Submission
+
+Job **81744** submitted from **c30ef0d**, unchanged resources above.
+[Receipt](submission.json); results `runs/writes-01/`, Slurm log `slurm-81744.log`.
+No scheduler polling or GPU result claim follows submission.
