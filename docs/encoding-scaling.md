@@ -3762,3 +3762,5 @@ Use CPU cold/warm/failure references and one existing-budget cold/restart/defaul
 dense-preservation/wide integration; no unchanged sanitizer. Then continue production
 discovery/root/phase ownership, parameter admission, non-oracle end-to-end entry and
 bounded final publication. Full s18 remains unrun/unadmitted.
+
+Shared reciprocal runtime validation **81777 submitted** under unchanged caps; [receipt](../experiments/distributed-reciprocal/submission.json). Cold/restart/dense-preservation/wide arms;results pending,no public production/full s18 admission.

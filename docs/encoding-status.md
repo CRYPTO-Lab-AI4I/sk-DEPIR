@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-shared reciprocal/non-oracle generator runtime following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+shared reciprocal/non-oracle generator runtime **submitted81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1394,7 +1394,7 @@ context/MPI/driver memory additional. Controller2min40.959s;cache34.725MiB.
 No fullsize or production-entry claim. Rows precede deferred GPU close;launcher
 includes it. Native/proof/canonical/checkpoint/diagnostic checks all passed.
 
-### Prepared shared reciprocal orchestration
+### Shared reciprocal orchestration — submitted81777
 
 [Plan](../experiments/distributed-reciprocal/report.md): one backend-independent
 error-returning Newton loop for cold/resumed/narrow/wide workflows, retaining the
@@ -1404,3 +1404,5 @@ native/canonical observers remain independent. No additional intended coefficien
 arrays/transforms/I/O or default change;full-size GC/latency/RSS remain unmeasured.
 Same-budget cold/restart/dense-preservation/wide validation;not production entry,
 larger-rank support or full s18 admission.
+
+Shared reciprocal integration **81777 submitted**: [receipt](../experiments/distributed-reciprocal/submission.json). Cold/restart/default-dense-preservation/wide arms under unchanged two-node/two-H200 caps;results pending. Full s18 remains unrun/unadmitted.

@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 01:59 | SCALING-185 | Handoff | [Shared reciprocal job81777 submitted](2026-11-23-0159-codex-scaling-185-handoff.md) |
 | 2026-11-23 01:55 | SCALING-185 | Prepared | [Shared reciprocal and identity runtime locally validated](2026-11-23-0155-codex-scaling-185-prepared.md) |
 | 2026-11-23 01:39 | SCALING-185 | Started | [Runtime passed; share reciprocal orchestration](2026-11-23-0139-codex-scaling-185-started.md) |
 | 2026-11-23 01:33 | SCALING-184 | Handoff | [Shared MPI/GPU runtime job81763 submitted](2026-11-23-0133-codex-scaling-184-handoff.md) |

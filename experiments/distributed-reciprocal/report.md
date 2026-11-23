@@ -1,6 +1,6 @@
 # Shared sharded reciprocal orchestration
 
-Status: prepared; GPU integration not yet submitted. Implementation **46404c6** (parent9922a8a).
+Status: **submitted job81777**, reciprocal-01; GPU results pending. Implementation **46404c6** (parent9922a8a).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [arm regression](test_review.py), [readiness](readiness/).
 Planned results `runs/reciprocal-01/`; immutable source, binaries, native references
@@ -125,3 +125,9 @@ reference bytes** and validates actual s8/curve5 root/leaf/stage/canonical input
 [Source checks](readiness/source-checks.json), [frozen reviewers](readiness/frozen-reviewers.json),
 [native preflight](readiness/native-preflight.log). No local CUDA/MPI initialization.
 The admitted allocation rebuilds committed source and checks every node before GPU phases.
+
+### Submission81777
+
+Job **81777** submitted from **b808243**, implementation **46404c6**.
+[Receipt](submission.json);results `runs/reciprocal-01/`,Slurm log `slurm-81777.log`.
+Unchanged resources above;estimate3–6minutes excluding queue. No polling or GPU result claim.

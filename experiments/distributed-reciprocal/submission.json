@@ -1,0 +1,16 @@
+{
+  "job_id": "81777",
+  "name": "reciprocal-01",
+  "implementation_revision": "46404c6",
+  "submission_revision": "b8082433ef54406b3b1fefbf2a02ac70c38f0619",
+  "recorded_utc": "2026-11-23T01:59:29.075669+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-reciprocal/slurm-%j.log experiments/distributed-reciprocal/run.sbatch reciprocal-01",
+  "results": "experiments/distributed-reciprocal/runs/reciprocal-01",
+  "log": "experiments/distributed-reciprocal/slurm-81777.log",
+  "cache": ".cache/liftrs/distributed-reciprocal/reciprocal-01/",
+  "resources": "2 HPC nodes/2 H200/4 CPU cores/8 GiB requested host RAM total;4 workers;64 MiB owned GPU/worker=128 MiB/card;1 GiB RSS/worker;zero CUDA-pinned;128 MiB retained cache/2 GiB scratch/32 MiB file;720-second controller/15-minute Slurm;exclude gnode03",
+  "scope": "Shared backend-independent reciprocal/full-identity runtime:genuine s8 prefix cold/coordinated restart,dense cold preservation,bounded field18;not production entry/fulls18",
+  "estimated_controller_minutes": "3\u20136 excluding queue",
+  "monitoring": "Receipt-bound local completion notification;no model polling",
+  "note": "878 frozen inputs/392 matching compiled source hashes;18 frozen reviewers,CPU/race/tagged tests,108014 historical native bytes and actual s8 references passed. Same kernels/formats/checkpoint order/defaultdense;no increased resources or unchanged sanitizer."
+}
