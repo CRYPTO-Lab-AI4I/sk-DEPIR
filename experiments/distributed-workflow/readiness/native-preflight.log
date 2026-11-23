@@ -1,0 +1,139 @@
+{
+  "status": "passed",
+  "commands": [
+    {
+      "argv": [
+        "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-workflow-readiness.test",
+        "-test.run=^TestExportPilotReferences$|^TestPilotHierarchyReferences$",
+        "-test.v",
+        "-test.timeout=20s"
+      ],
+      "cases": "4,6",
+      "curve": "2",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-workflow-readiness.test",
+        "-test.run=^TestExportPilotReferences$|^TestPilotHierarchyReferences$",
+        "-test.v",
+        "-test.timeout=20s"
+      ],
+      "cases": "8",
+      "curve": "5",
+      "exit_code": 0
+    }
+  ],
+  "historical_bytes_verified": 108014,
+  "native_parameters": {
+    "spec": {
+      "FieldDegree": 8,
+      "Dimension": 2,
+      "CurveDegree": 5
+    },
+    "k": 7381,
+    "n": 65536,
+    "polynomial": 285,
+    "delta": 32,
+    "omega": 260,
+    "samples": 2
+  },
+  "root_references": {
+    "cases": [
+      {
+        "count": 7381,
+        "counts": [
+          3442,
+          1507,
+          1541,
+          895
+        ],
+        "label": "s8",
+        "s": 8
+      }
+    ],
+    "files": {
+      "s8-rank-0-leaf.bin": {
+        "source": ".cache/liftrs/distributed-workflow/readiness/native-checked/native/s8-rank-0-leaf.bin",
+        "bytes": 13768,
+        "sha256": "43518cc6d1e0fee4ff8d58b0e713cde5ba6b1f2f4b3d4f32e9097d53237aa21f"
+      },
+      "s8-rank-0-final.bin": {
+        "source": ".cache/liftrs/distributed-workflow/readiness/native-checked/native/s8-rank-0-final.bin",
+        "bytes": 8192,
+        "sha256": "f61759f4acf3d6a39a19a8e50bbf76f5171f6e38c54453d5e4b9d6eaa4d87c9b"
+      },
+      "s8-rank-1-leaf.bin": {
+        "source": ".cache/liftrs/distributed-workflow/readiness/native-checked/native/s8-rank-1-leaf.bin",
+        "bytes": 6028,
+        "sha256": "0b19b1d57ea008310ccc6a7658398b6753303c099798a2908a0f37b91f8b10a7"
+      },
+      "s8-rank-1-final.bin": {
+        "source": ".cache/liftrs/distributed-workflow/readiness/native-checked/native/s8-rank-1-final.bin",
+        "bytes": 8192,
+        "sha256": "c7d0fc38500f0242eb74ce3752b489dc18cff5d2308ef448d6d93300a32c5bf1"
+      },
+      "s8-rank-2-leaf.bin": {
+        "source": ".cache/liftrs/distributed-workflow/readiness/native-checked/native/s8-rank-2-leaf.bin",
+        "bytes": 6164,
+        "sha256": "c4600504898916785e1138f3a388fd1415b7a9572ea98b4d487e8cb1269fa5b8"
+      },
+      "s8-rank-2-final.bin": {
+        "source": ".cache/liftrs/distributed-workflow/readiness/native-checked/native/s8-rank-2-final.bin",
+        "bytes": 8192,
+        "sha256": "566e654cd7b463f891362ce8e3befcf9c5ee611491c3110aba7ba1c60aef6d67"
+      },
+      "s8-rank-3-leaf.bin": {
+        "source": ".cache/liftrs/distributed-workflow/readiness/native-checked/native/s8-rank-3-leaf.bin",
+        "bytes": 3580,
+        "sha256": "ee49e84fff6beea47ae2c7ff083f0cb1e77d125c7319697ee1bf4e3ee617b392"
+      },
+      "s8-rank-3-final.bin": {
+        "source": ".cache/liftrs/distributed-workflow/readiness/native-checked/native/s8-rank-3-final.bin",
+        "bytes": 8192,
+        "sha256": "f4943e948a8a9899ca69477b95a123d89439a46c60735af7121f0fc3734e80d8"
+      },
+      "s8-level-1-group-0-rank-0-output.bin": {
+        "source": ".cache/liftrs/distributed-workflow/readiness/native-checked/native/s8-level-1-group-0-rank-0-output.bin",
+        "bytes": 16384,
+        "sha256": "db3cca860bd69c4fb158af6680f24c3da44d03a7ca54c1ef21d21626b807ce24"
+      },
+      "s8-level-1-group-0-rank-1-output.bin": {
+        "source": ".cache/liftrs/distributed-workflow/readiness/native-checked/native/s8-level-1-group-0-rank-1-output.bin",
+        "bytes": 16384,
+        "sha256": "fa3b48d30a17f72026a7a90ac16120a1262773088ea0c75cddaddfc6680ce358"
+      },
+      "s8-level-1-group-2-rank-0-output.bin": {
+        "source": ".cache/liftrs/distributed-workflow/readiness/native-checked/native/s8-level-1-group-2-rank-0-output.bin",
+        "bytes": 8192,
+        "sha256": "11b01cfd71884edf92ea4bc24a2180c63b58354b065354bfa7b744bf8fcf156a"
+      },
+      "s8-level-1-group-2-rank-1-output.bin": {
+        "source": ".cache/liftrs/distributed-workflow/readiness/native-checked/native/s8-level-1-group-2-rank-1-output.bin",
+        "bytes": 8192,
+        "sha256": "560771b36cb5f4100f828e7ab2722e81c4bb0c8d51aab0f3653add4a03253065"
+      },
+      "s8-level-2-group-0-rank-0-output.bin": {
+        "source": ".cache/liftrs/distributed-workflow/readiness/native-checked/native/s8-level-2-group-0-rank-0-output.bin",
+        "bytes": 8192,
+        "sha256": "f61759f4acf3d6a39a19a8e50bbf76f5171f6e38c54453d5e4b9d6eaa4d87c9b"
+      },
+      "s8-level-2-group-0-rank-1-output.bin": {
+        "source": ".cache/liftrs/distributed-workflow/readiness/native-checked/native/s8-level-2-group-0-rank-1-output.bin",
+        "bytes": 8192,
+        "sha256": "c7d0fc38500f0242eb74ce3752b489dc18cff5d2308ef448d6d93300a32c5bf1"
+      },
+      "s8-level-2-group-0-rank-2-output.bin": {
+        "source": ".cache/liftrs/distributed-workflow/readiness/native-checked/native/s8-level-2-group-0-rank-2-output.bin",
+        "bytes": 8192,
+        "sha256": "566e654cd7b463f891362ce8e3befcf9c5ee611491c3110aba7ba1c60aef6d67"
+      },
+      "s8-level-2-group-0-rank-3-output.bin": {
+        "source": ".cache/liftrs/distributed-workflow/readiness/native-checked/native/s8-level-2-group-0-rank-3-output.bin",
+        "bytes": 8192,
+        "sha256": "f4943e948a8a9899ca69477b95a123d89439a46c60735af7121f0fc3734e80d8"
+      }
+    },
+    "provenance": "Independent native export from fixed seed109;not distributed arithmetic inputs"
+  }
+}

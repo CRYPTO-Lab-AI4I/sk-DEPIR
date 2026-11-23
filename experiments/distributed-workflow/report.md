@@ -1,6 +1,6 @@
 # Reference-independent distributed preprocessing workflow
 
-Status: prepared; GPU integration not yet submitted. Parent revision9af53a7.
+Status: prepared; GPU integration not yet submitted. Implementation **9a2edd5** (parent9af53a7).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
 Planned results `runs/workflow-01/`; immutable source, binaries and reusable data
@@ -130,3 +130,13 @@ python3 -B experiments/distributed-workflow/analyze.py workflow-01
 After verification update the maintained reference and integrate real production
 checkpoint/restart/atomic publication and parameterized command policy,then admit
 representative larger topology and complete s18 resources. Full s18 remains unrun.
+
+### Immutable-source readiness
+
+Implementation **9a2edd5** is frozen into **902 build inputs**;
+all **400** Go/C/C++/CUDA hashes match compiled readiness source.
+All **22 frozen reviewer suites** pass. CPU-only native preflight reproduces
+**108014 historical reference bytes** plus actual s8/curve5 inputs/root geometry.
+[Source checks](readiness/source-checks.json), [reviewers](readiness/frozen-reviewers.json),
+[native preflight](readiness/native-preflight.log). No local CUDA/MPI initialization.
+Fresh committed-source build and each-node path/environment preflight remain in the job.
