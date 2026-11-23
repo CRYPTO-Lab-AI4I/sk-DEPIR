@@ -23,9 +23,11 @@ checks on **four workers across two HPC nodes/two H200s**. Final publication
 reload **82101 passed**. Canonical field18 FFT/products also pass at bounded sizes;
 these are not full s18 runs.
 
-**Assembled arithmetic resume82102, actual command82181 and eight-worker82194 passed. Current focus: completed-discovery/root recovery and larger representative s10 validation (SCALING-195), submitted82199; results pending.**
-Then parameterized launch/full working-set admission and representative larger
-GPU/node scaling remain. Full s18 preprocessing is **not run / not admitted**.
+**Assembled arithmetic resume82102, actual command82181, eight-worker82194 and
+all four representative s10 cold/recovery cases82199 passed. Current focus:
+[fullsize ownership and resource admission](../experiments/distributed-fullsize-plan/report.md)
+(SCALING-196), starting with a read-only inventory of retained s17 support.**
+Full working-set headroom, node/GPU packing and full-job resource agreement remain. Full s18 preprocessing is **not run / not admitted**.
 The measurements below distinguish small-case integration from fullsize projections
 and the separate full s17 preprocessing/encoding results.
 
@@ -1569,7 +1571,8 @@ and larger parameter/topology/whole-job admission remain. Same HPC allocation:
 | Assembled arithmetic resume82102 | **Passed** | Controller **3 min11.398 s**; restart launcher **8.297 s**; peak host RSS **381.387 MiB/worker**, owned GPU **0.244 MiB/worker** (driver/context extra) |
 | Parameterized MPI command82181 | **Passed** | Controller **2 min54.239 s**; command restart **7.896 s**, peak host RSS **376.066 MiB/worker** |
 | Host phase inventories /eight-worker82194 | **Passed** | Controller **2 min51.032 s**; cold **15.555 s**, restart **11.050 s**; logged peak RSS **374.309 /374.105 MiB/worker** |
-| Discovery/root recovery and s10 representative case | **Submitted82199; results pending** | Same approved ceilings; estimated controller **4–9 min**; fullsize memory/runtime unknown |
+| Discovery/root recovery and s10 representative case82199 | **Passed all four arms** | Controller **6 min34.547 s**; cold **71.482 s**, discovery recovery **70.117 s**, root recovery **49.614 s**, prefix8 recovery **43.343 s**; logged peak host RSS **380.117 /381.652 /382.391 /381.242 MiB/worker**, respectively; HPC2nodes/2H200/8cores/16GiB requested RAM |
+| Fullsize root ownership/resource inventory | **Prepared: read-only retained s17 archive scan** | No GPU; planned1 HPC node/2cores/4GiB requested RAM; no new support payload; fullsize allocation/runtime unmeasured |
 | Full s18 preprocessing | **Not run / not admitted** | Capacity projections above are not measured costs or implementation support |
 
 Durable assembled checkpoint validation **82101 passed** under unchanged caps;
@@ -1639,4 +1642,4 @@ but omitting independent full raw-proof replay for this larger shape. Recovery
 from unfinished discovery/subtrees and fullsize reserve/node/storage/time admission
 remain. No fulls18 job has been run or admitted.
 
-Representative s10 recovery [82199 receipt](../experiments/distributed-discovery-restart/submission.json); no result/fullsize claim.
+Representative s10 recovery **82199 passed**: [verified evidence and timing boundaries](../experiments/distributed-discovery-restart/report.md#verified-outcome82199). This establishes completed-stage recovery at s10; fulls18 feasibility/runtime remain unmeasured.

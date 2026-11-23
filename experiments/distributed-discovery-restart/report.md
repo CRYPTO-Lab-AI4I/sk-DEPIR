@@ -1,6 +1,6 @@
 # Discovery archive recovery and representative s10 validation
 
-Status: **submitted job82199**, recovery-01; integration results pending. SCALING-195 follows
+Status: **passed job82199**, recovery-01; independently reviewed saved evidence. SCALING-195 follows
 [passed eight-worker82194](../distributed-host-admission/report.md#verified-outcome82194).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
@@ -175,3 +175,29 @@ Results `runs/recovery-01/`, Slurm log `slurm-82199.log`, reusable cache above.
 Same approved2nodes/2H200/8cores/16GiB and all existing byte/storage/time ceilings.
 Estimated controller **4–9 minutes excluding queue**. Submission is not a pass;
 completion notification registered locally, no agent polling. Fulls18 unrun/unadmitted.
+
+## Verified outcome82199
+
+[Independent analysis](runs/recovery-01/analysis.json), [saved evidence](runs/recovery-01/),
+[Slurm log](slurm-82199.log). Producing revision0f02d72, implementationb79c5c4.
+All **949 source /157 evidence /775 cache** seals reconcile. Controller runtime
+**6 min34.547 s**; retained logical cache **96.118 MiB**. Same approved HPC allocation:
+2 nodes/2 H200/8 cores/16 GiB requested host RAM,8 workers.
+
+| s10 arm | Launcher runtime | Logged peak host RSS per worker | Maximum named host phase per worker |
+|---|---|---|---|
+| Cold | 71.482 seconds | 380.117 MiB | 4.184 MiB |
+| Completed-discovery recovery | 70.117 seconds | 381.652 MiB | 3.563 MiB |
+| Root-only recovery | 49.614 seconds | 382.391 MiB | 2.316 MiB |
+| Prefix8 recovery | 43.343 seconds | 381.242 MiB | 2.316 MiB |
+
+All canonical/native/logical payloads, source bindings, commit/shard hashes, archive
+aliases, host admission and native-work checks passed. Cold/discovery/root arms each
+retain21 commits/168 shards; prefix8 retains19/152. Summary-mode runtime checks and
+full native/artifact equality passed; no independent full raw-proof transcript
+replay for this larger shape. Launcher timings include profile flush/shutdown;
+controller includes build/tests/review/sealing. Recovery timing is measured at s10
+only and is not a fullsize speedup projection.
+
+Next: [fullsize ownership/resource audit](../distributed-fullsize-plan/report.md),
+including a read-only scan of retained s17 support before fulls18 admission.

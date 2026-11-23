@@ -503,4 +503,25 @@ new shape. Record that diagnostic boundary; no unchanged s8/sanitizer suite.
 Then use representative data for fullsize reserve/root ownership/node packing/
 storage/time/checkpoint admission; no automatic fulls18 launch or budget increase.
 
-SCALING-195 representative s10 cold/discovery/root/prefix8 recovery **82199 submitted**; [receipt](../experiments/distributed-discovery-restart/submission.json). All previously approved eight-worker resource ceilings unchanged; results pending, fulls18 unrun/unadmitted.
+SCALING-195 representative s10 cold/discovery/root/prefix8 recovery **82199 passed**.
+[Verified evidence](../experiments/distributed-discovery-restart/report.md#verified-outcome82199):
+controller6 min34.547 s; launcher71.482/70.117/49.614/43.343 seconds; logged peak host
+RSS380.117/381.652/382.391/381.242 MiB per worker. Same HPC2nodes/2H200/8cores/16GiB
+requested RAM; full native/logical/artifact equality and runtime checks passed.
+Summary diagnostics omit independent full raw-proof replay for this larger shape.
+
+## Fullsize ownership and resource audit (SCALING-196)
+
+[Concrete audit and read-only runner](../experiments/distributed-fullsize-plan/report.md).
+1. Count exact2–64-worker ownership in the retained verified s17 support archive,
+   with one bounded streaming read/hash pass; no new support payload or GPU.
+2. Use actual skew/rounded root domains and source inventories to choose s18
+   node/card packing, runtime/native/GC allowance and host/device headroom.
+3. Budget complete storage, partial-stage recovery exposure and deadline; run a
+   representative larger allocation only if unresolved capacity/cost needs it.
+4. Present the complete fulls18 resource plan for agreement before submission.
+
+Sixteen-worker prefix Newton has64 GiB/worker in base arrays alone; three GPU
+arrays have96 GiB/card. Neither is a complete bound. Small s8/s10 support-set
+equality is recorded only as a cross-check; no discovery shortcut is adopted.
+All existing experiment ceilings remain; fulls18 unrun/unadmitted.
