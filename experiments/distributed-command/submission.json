@@ -1,0 +1,16 @@
+{
+  "job_id": "82181",
+  "name": "command-01",
+  "implementation_revision": "84df606",
+  "submission_revision": "a9fb7c2c71f7c3ed57c6c618b369f1c08542b926",
+  "recorded_utc": "2026-11-23T16:16:26.120486+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-command/slurm-%j.log experiments/distributed-command/run.sbatch command-01",
+  "results": "experiments/distributed-command/runs/command-01",
+  "log": "experiments/distributed-command/slurm-82181.log",
+  "cache": ".cache/liftrs/distributed-command/command-01/",
+  "resources": "2 HPC nodes/2 H200/4 CPU cores/8 GiB requested host RAM total;4 workers;64 MiB owned GPU/worker=128 MiB/card;1 GiB RSS/worker;zero CUDA-pinned;128 MiB retained cache/2 GiB scratch/32 MiB file;720-second controller/15-minute Slurm;exclude gnode03",
+  "scope": "Reviewed pilot cold/restart plus actual parameterized command cold/fresh-prefix8 restart;not complete fullsize host-phase/topology/resource admission",
+  "estimated_controller_minutes": "3\u20137 excluding queue",
+  "monitoring": "Receipt-bound local completion notification;no model polling",
+  "note": "931 frozen inputs/412 matching compiled code hashes;26 frozen reviewers including executed wrapper regression;actual command/tagged/reference/CPU/race/config/native preflight pass. No resource increase or unchanged wide/dense/sanitizer repeat."
+}

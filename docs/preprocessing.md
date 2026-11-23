@@ -33,7 +33,7 @@ validation steps; see the current [scaling reference](encoding-status.md).
 
 The new experimental [MPI server command](../cmd/pir-preprocess-mpi/README.md)
 exposes the shared distributed cold/restarted runtime without test-oracle inputs.
-Its [bounded validation](../experiments/distributed-command/report.md) is prepared;
+Its [bounded validation](../experiments/distributed-command/report.md) is submitted as82181;
 complete fullsize host-phase/topology/resource admission remains pending. Source
 parameters through s18 are not demonstrated fullsize support.
 

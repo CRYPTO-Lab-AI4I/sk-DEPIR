@@ -23,7 +23,7 @@ checks on **four workers across two HPC nodes/two H200s**. Final publication
 reload **82101 passed**. Canonical field18 FFT/products also pass at bounded sizes;
 these are not full s18 runs.
 
-**Assembled arithmetic resume82102 passed. Current focus: parameterized MPI server command (SCALING-193), prepared for bounded validation.**
+**Assembled arithmetic resume82102 passed. Current focus: parameterized MPI server command (SCALING-193), submitted82181; results pending.**
 Then parameterized launch/full working-set admission and representative larger
 GPU/node scaling remain. Full s18 preprocessing is **not run / not admitted**.
 The measurements below distinguish small-case integration from fullsize projections
@@ -1567,7 +1567,7 @@ and larger parameter/topology/whole-job admission remain. Same HPC allocation:
 | Final publication82100 | **Passed** | Controller **2 min38.073 s**; assembled launcher **8.510 s**; peak host RSS **378.824 MiB/worker**; owned GPU **0.244 MiB/worker** (context/driver extra); retained cache **36.220 MiB** |
 | Durable assembled prefix commits82101 | **Passed**, including fresh-process file reload | Controller **2 min41.494 s**; assembled launcher **9.893 s**; peak host RSS **380.570 MiB/worker**; owned GPU **0.244 MiB/worker** (driver/context extra) |
 | Assembled arithmetic resume82102 | **Passed** | Controller **3 min11.398 s**; restart launcher **8.297 s**; peak host RSS **381.387 MiB/worker**, owned GPU **0.244 MiB/worker** (driver/context extra) |
-| Parameterized MPI command | Prepared; not run | Estimated controller **3–7 min**, same admitted limits; complete fullsize host-phase/topology admission pending |
+| Parameterized MPI command | **Submitted82181; results pending** | Estimated controller **3–7 min**, same admitted limits; complete fullsize host-phase/topology admission pending |
 | Full s18 preprocessing | **Not run / not admitted** | Capacity projections above are not measured costs or implementation support |
 
 Durable assembled checkpoint validation **82101 passed** under unchanged caps;
@@ -1595,3 +1595,5 @@ restart peak host RSS **381.387 MiB/worker**, owned GPU about **0.244 MiB/worker
 match the pilot, with one support hash/no-copy archive. Fulls18 unrun/unadmitted.
 
 Parameterized command [implementation/validation plan](../experiments/distributed-command/report.md); storage/shape admission and runtime guards do not establish fullsize host-memory feasibility.
+
+Command validation [82181 receipt](../experiments/distributed-command/submission.json); no result claim.

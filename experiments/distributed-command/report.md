@@ -1,6 +1,6 @@
 # Parameterized distributed preprocessing entry
 
-Status: **prepared; command GPU validation not yet run**. SCALING-193 follows
+Status: **submitted job82181**, command-01; integration results pending. SCALING-193 follows
 [passed assembled restart82102](../distributed-workflow-resume/report.md#verified-outcome82102).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
@@ -119,3 +119,10 @@ Actual tagged command/reference binaries, CPU/race/admission tests and real
 [Source checks](readiness/source-checks.json), [reviewers](readiness/frozen-reviewers.json),
 [native preflight](readiness/native-preflight.log). Fresh frozen builds and each-node
 path/config/environment checks remain inside the job.
+
+### Submission82181
+
+Submitted from **a9fb7c2**, implementation **84df606**. [Receipt](submission.json).
+Results `runs/command-01/`, Slurm log `slurm-82181.log`, retained cache above.
+Same admitted limits; estimated controller **3–7 minutes excluding queue**.
+Submission is not a pass; no agent polling until the terminal notice.

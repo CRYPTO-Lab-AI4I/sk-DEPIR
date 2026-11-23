@@ -3947,3 +3947,5 @@ log policies stay explicit; command does not authorize resource increases.
 Complete fullsize host/GC/native working-set/headroom admission still remains,
 then representative larger rank/topology and fulls18 resource agreement. Current
 samplers and individual array caps are not a complete phase memory model.
+
+Parameterized command validation **82181 submitted** under unchanged caps; [receipt](../experiments/distributed-command/submission.json). Pilot cold/restart plus actual command cold/fresh-prefix8 restart; results pending. Fulls18 remains unrun/unadmitted.
