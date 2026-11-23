@@ -1,6 +1,6 @@
 # Coordinated support verification on checkpoint restart
 
-Status: prepared; GPU comparison not yet submitted. Parent revision 2227ccc.
+Status: prepared; GPU comparison not yet submitted. Implementation **946a2f6** (parent2227ccc).
 [Runner](run.py), [Slurm entry](run.sbatch), [independent analyzer](analyze.py),
 [reviewer regressions](test_review.py), [readiness](readiness/).
 Planned results `runs/binding-01/`; immutable source, binaries, verified native
@@ -141,3 +141,15 @@ python3 -B experiments/distributed-restart-binding/analyze.py binding-01
 After validation update the primary reference and continue production parameter/
 rank/lifecycle ownership, non-oracle execution, bounded retention and actual phase
 count/domain/resource admission. Full s18 remains unrun and unadmitted.
+
+### Immutable-source readiness
+
+Implementation **946a2f6** is frozen into **865 build inputs**; all **387**
+Go/C/C++/CUDA source hashes match the compiled readiness tree. All **16 frozen
+reviewer suites** and the focused CPU/race/tagged-native tests pass, including the
+independent typed-metadata golden and corrupt-shard regression. The frozen native
+preflight reproduces **108014 historical reference bytes** and validates actual
+s8/curve5 root/leaf/stage/canonical inputs without initializing CUDA or MPI.
+[Source checks](readiness/source-checks.json), [frozen reviewers](readiness/frozen-reviewers.json),
+[native preflight](readiness/native-preflight.log). The admitted allocation still
+rebuilds committed source and checks paths/environment on every node before GPU work.
