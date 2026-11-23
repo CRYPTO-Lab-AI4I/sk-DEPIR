@@ -1,0 +1,4 @@
+=== RUN   TestPilotHierarchyReferences
+    root_hierarchy_gpu_test.go:386: s=8 retained K=7381 support digest/closure and four-rank hierarchy admitted
+--- PASS: TestPilotHierarchyReferences (0.00s)
+PASS

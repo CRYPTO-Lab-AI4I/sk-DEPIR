@@ -1,0 +1,31 @@
+{
+  "status": "CPU-only admission/tagged-native/race/library/reviewer checks passed;assembled GPU execution pending",
+  "utc": "2026-11-23T10:08:30.631549+00:00",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_workflow_cuda_mpi.go": "1966c10b38177e861e9d6e95c16c7b6b7b4de75374ca257e5ba21e093c8874f5",
+    "encoding/liftrs-shared/distributed_workflow_cuda_mpi_test.go": "6da93475677a125add87aea4e7f178c9eb57e1fc645faf00592b67efffdff667",
+    "experiments/distributed-workflow/run.py": "72fec66e6ec7493b047979f70cac38c46f0f2e2ab1954840def48b6b8223d884",
+    "experiments/distributed-workflow/analyze.py": "feb5e855b58b553e026fc21932ef045976061efee0aa9fafd965021a453df2b8",
+    "experiments/distributed-workflow/test_review.py": "4b66befab525a4ae13ee7e8e01864a04033ef826d0a619c909705696bfcabf85",
+    "experiments/distributed-proof-recording/run.py": "1ad27e4464ee5e48b7fe11f39ac20ae30ac8881b3623daded38ef9d883fad19b"
+  },
+  "checks": {
+    "build.log": "",
+    "library-build.log": "",
+    "native-tests.log": "=== RUN   TestRankDiscoveryRuntimeAdmission\n--- PASS: TestRankDiscoveryRuntimeAdmission (0.01s)\n=== RUN   TestRankDiscoveryCountFrames\n--- PASS: TestRankDiscoveryCountFrames (0.00s)\n=== RUN   TestRankReciprocalColdWarmModes\n--- PASS: TestRankReciprocalColdWarmModes (0.00s)\n=== RUN   TestRankReciprocalRejectsFailures\n--- PASS: TestRankReciprocalRejectsFailures (0.00s)\n=== RUN   TestRankRootRuntimeEarlyErrors\n--- PASS: TestRankRootRuntimeEarlyErrors (0.02s)\n=== RUN   TestRankRootActualCountAdmission\n--- PASS: TestRankRootActualCountAdmission (0.00s)\n=== RUN   TestRankRootIdentityAndGuards\n--- PASS: TestRankRootIdentityAndGuards (0.00s)\n=== RUN   TestRankWorkflowAdmission\n--- PASS: TestRankWorkflowAdmission (0.00s)\nPASS\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.067s\n",
+    "review.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.002s\n\nOK\n",
+    "reviewer-replay.log": "Reviewer plumbing passed against independently verified82097cold data with explicit synthetic workflow metric fixture;not an assembled GPU execution result.\n{\"checkpoint_files\": 76, \"canonical_sha256\": \"703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526\"}\n"
+  },
+  "commands": {
+    "library": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go build -tags liftrs_cpp,liftrs_cuda,liftrs_mpi ./encoding/liftrs-shared",
+    "race": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -race -tags liftrs_cpp,liftrs_cuda,liftrs_mpi ./encoding/liftrs-shared -run ^TestRankWorkflowAdmission|^TestRankDiscovery|^TestRankRoot|^TestRankReciprocal -count=1 -timeout=20s",
+    "build": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-workflow-readiness.test ./encoding/liftrs-shared"
+  },
+  "limitations": [
+    "No local CUDA/MPI initialization.",
+    "Reviewer replay uses prior verified data/synthetic metrics and is not assembled-runtime evidence.",
+    "Runtime caller owns coordinated durable checkpoint/restart/output commit;test observers are not production persistence.",
+    "Logical array caps are not whole-workflow resource admission or full s18 support."
+  ]
+}

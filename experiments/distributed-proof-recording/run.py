@@ -47,7 +47,7 @@ def check_summaries(rows,reference,mode):
 
 def native_expected(rows):
     stages={(r['tree_case'],r['tree_level'],r['group_first']):r['stage']['Domain']for r in rows if r.get('kind')=='root-stage'and r['event']=='started'}
-    domains={r['case']:r['n']for r in rows if r.get('kind')in ('pipeline','wide-tail')}
+    domains={r['case']:r['n']for r in rows if r.get('kind')in ('pipeline','wide-tail','workflow-result')}
     totals={rank:dict(windows=0,coefficients=0)for rank in range(4)}
     for row in rows:
         if row.get('kind')!='taylor-plan'or not row['degrees']:continue

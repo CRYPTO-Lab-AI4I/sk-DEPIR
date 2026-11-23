@@ -1,0 +1,17 @@
+=== RUN   TestRankDiscoveryRuntimeAdmission
+--- PASS: TestRankDiscoveryRuntimeAdmission (0.01s)
+=== RUN   TestRankDiscoveryCountFrames
+--- PASS: TestRankDiscoveryCountFrames (0.00s)
+=== RUN   TestRankReciprocalColdWarmModes
+--- PASS: TestRankReciprocalColdWarmModes (0.00s)
+=== RUN   TestRankReciprocalRejectsFailures
+--- PASS: TestRankReciprocalRejectsFailures (0.00s)
+=== RUN   TestRankRootRuntimeEarlyErrors
+--- PASS: TestRankRootRuntimeEarlyErrors (0.02s)
+=== RUN   TestRankRootActualCountAdmission
+--- PASS: TestRankRootActualCountAdmission (0.00s)
+=== RUN   TestRankRootIdentityAndGuards
+--- PASS: TestRankRootIdentityAndGuards (0.00s)
+=== RUN   TestRankWorkflowAdmission
+--- PASS: TestRankWorkflowAdmission (0.00s)
+PASS

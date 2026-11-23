@@ -1,6 +1,6 @@
 # Explicit-policy partitioned discovery runtime
 
-Status: **submitted job82097**, loop-01; GPU integration results pending. Implementation **5423bc7** (parent48bbd15).
+Status: **passed job82097**, all three loop-01 arms independently verified. Implementation **5423bc7** (parent48bbd15).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [configuration regression](test_review.py), [readiness](readiness/).
 Planned results `runs/loop-01/`; immutable source/binaries/reusable caches outside
@@ -130,3 +130,27 @@ Fresh committed-source build and each-node path/environment preflight remain in 
 Job **82097** submitted from **c820151**, implementation **5423bc7**.
 [Receipt](submission.json);results `runs/loop-01/`,Slurm log `slurm-82097.log`.
 Unchanged resources above;estimate3–6minutes excluding queue. No polling or GPU result claim.
+
+## Verified result82097
+
+Receipt/producing revision **c820151**, **896 source /78 evidence /402 cache files**
+and all three arms independently reconcile. [Analysis](runs/loop-01/analysis.json),
+[raw results](runs/loop-01/results.json), [Slurm log](slurm-82097.log).
+All exact entropy/sample/union/support/owner/native/route/digest/Taylor/canonical/
+checkpoint/diagnostic checks pass;streamed and resident code artifacts match.
+
+| Mode | Result/runtime | Peak host RSS |
+|---|---|---|
+| Genuine s8 streamed cold |Passed;10.271066 seconds |377.656 MiB/worker |
+| Coordinated prefix8 restart |Passed;6.841209 seconds |380.207 MiB/worker |
+| Resident-discovery cold |Passed;9.283122 seconds |379.730 MiB/worker |
+
+Same admitted HPC two nodes/two H200s/four workers/four cores/8 GiB requested RAM.
+Owned GPU0.244 MiB/worker,context/MPI/driver extra. Controller **2 min52.256 seconds**,
+cache **37.534 MiB**. Rows precede deferred GPU close;launcher includes it. These
+single samples are not fullsize speedup evidence;resident/dense/local defaults remain.
+
+Next compose runtime discovery/root/reciprocal/full-identity/canonical writers into
+one reference-independent workflow with explicit caller persistence/output policy.
+Production checkpoint/restart/publication/command and complete resource admission
+remain;full s18 unrun/unadmitted.

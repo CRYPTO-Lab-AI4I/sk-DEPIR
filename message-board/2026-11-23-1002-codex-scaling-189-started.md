@@ -1,0 +1,5 @@
+# SCALING-189 started: discovery runtime passed; assemble reference-independent workflow
+
+UTC: 2026-11-23T10:02:23.041557+00:00; agent: Codex.
+
+82097 analyzer passed after completion notice;verify receipt/revision/seals and record measured results in README/main reference/report. Next compose shared discovery/local-root/subgroup-root/reciprocal/full-identity/streamed-publication into one error-returning internal runtime workflow without native-reference input or testing framework. Caller supplies explicit random/resource policy,archive/output writers and optional checkpoint/diagnostic observers. Keep every kernel/transport/field/ownership/identity check and default dense/resident semantics;no new algorithm. Validate assembled cold output against independently exported native code/generator and existing pilot artifacts under existing caps. Keep intermediate observer data/profiles. Durable coordinated restart policy/public CLI/full job admission remain explicit later gates;no fulls18 claim or resource increase.

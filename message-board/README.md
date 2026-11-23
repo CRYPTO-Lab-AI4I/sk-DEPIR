@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 10:08 | SCALING-189 | Prepared | [Reference-independent workflow locally validated](2026-11-23-1008-codex-scaling-189-prepared.md) |
+| 2026-11-23 10:02 | SCALING-189 | Started | [Discovery passed; assemble reference-independent workflow](2026-11-23-1002-codex-scaling-189-started.md) |
 | 2026-11-23 09:57 | SCALING-188 | Handoff | [Discovery-loop job82097 submitted](2026-11-23-0957-codex-scaling-188-handoff.md) |
 | 2026-11-23 09:55 | SCALING-188 | Prepared | [Explicit-policy discovery runtime locally validated](2026-11-23-0955-codex-scaling-188-prepared.md) |
 | 2026-11-23 09:52 | SCALING-188 | Started | [Discovery session passed; extract sampling runtime](2026-11-23-0952-codex-scaling-188-started.md) |

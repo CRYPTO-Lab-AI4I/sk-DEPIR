@@ -29,7 +29,8 @@ passed through **81744 partial results plus81746 wide validation**;
 [shared reciprocal orchestration](experiments/distributed-reciprocal/report.md) passed **81777**;
 [shared root runtime and count admission](experiments/distributed-root-runtime/report.md) passed **82085**;
 [shared discovery GPU session](experiments/distributed-discovery-runtime/report.md) passed **82096**;
-[explicit-policy discovery runtime](experiments/distributed-discovery-loop/report.md) is submitted as **82097**;
+[explicit-policy discovery runtime](experiments/distributed-discovery-loop/report.md) passed **82097**;
+[reference-independent runtime workflow](experiments/distributed-workflow/report.md) is next;
 full s18 preprocessing remains unrun.
 
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)

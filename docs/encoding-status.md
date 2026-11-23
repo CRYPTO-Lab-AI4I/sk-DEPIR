@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-explicit-policy discovery runtime **submitted82097** following passed session integration **82096** following passed root runtime **82085** following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+assembled reference-independent workflow following passed discovery runtime **82097** following passed session integration **82096** following passed root runtime **82085** following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1477,7 +1477,7 @@ All entropy/sample/support/native/proof/canonical checks passed. Single samples
 are not fullsize performance evidence;resident default retained. Rows precede
 deferred GPU close;launcher includes it.
 
-### Explicit-policy discovery runtime — submitted82097
+### Explicit-policy discovery runtime — passed82097
 
 [Plan](../experiments/distributed-discovery-loop/report.md): sampling/union/root-owner/
 archive loop becomes internal error-returning runtime with explicit random reader,
@@ -1486,4 +1486,30 @@ no native reference enters runtime. No intended extra arrays/FFT/transfers/files
 Single-list limits are not total RSS/admission. Same-budget cold/restart/resident
 validation;full production entry/persistence/phase admission remain,fulls18 unrun.
 
-Explicit-policy discovery validation **82097 submitted**: [receipt](../experiments/distributed-discovery-loop/submission.json). Streamed cold/restart/resident-preservation under unchanged two-node/two-H200 caps;results pending. Fulls18 unrun/unadmitted.
+Explicit-policy discovery validation **82097 passed**: [receipt](../experiments/distributed-discovery-loop/submission.json). All streamed cold/restart/resident-preservation arms passed under unchanged two-node/two-H200 caps. Fulls18 unrun/unadmitted.
+
+
+### Discovery runtime measurements82097
+
+| Mode on HPC | Result/runtime | Peak host RSS |
+|---|---|---|
+| Genuine s8 streamed cold |Passed;10.271066 seconds |377.656 MiB/worker |
+| Coordinated prefix8 restart |Passed;6.841209 seconds |380.207 MiB/worker |
+| Resident-discovery cold |Passed;9.283122 seconds |379.730 MiB/worker |
+
+Two nodes/two H200s/four workers/four cores/8 GiB requested RAM;owned GPU0.244MiB/
+worker,context/MPI/driver additional. Controller2min52.256s/cache37.534MiB.
+[Methods/evidence](../experiments/distributed-discovery-loop/report.md#verified-result82097).
+All entropy/native/proof/canonical checks pass;single samples are not fullsize
+performance evidence. Rows precede deferred GPU close;launcher includes it.
+
+### Prepared reference-independent runtime workflow
+
+[Plan](../experiments/distributed-workflow/report.md): compose runtime discovery,
+local/subgroup roots,reciprocal,full identity,spectrum and canonical writing without
+native reference inputs. Explicit caller randomness/resource/output/checkpoint
+policy;test observers retain comparison data. Same-budget pilot cold/restart plus
+assembled cold validates every output/checkpoint/proof against reviewed native data.
+Assembled observer persistence differs from pilot durable manifests;timings are not
+a direct speedup comparison. Production restart/atomic publication/command policy,
+larger topology and full resource admission remain. Full s18 unrun/unadmitted.

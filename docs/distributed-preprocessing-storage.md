@@ -305,4 +305,22 @@ composition,no unchanged wide/dense/sanitizer. Then assemble production paramete
 phase ownership/non-oracle entry,bounded persistence/final publication and agree
 larger topology/whole-job resources. Full s18 remains unrun/unadmitted.
 
-Explicit-policy discovery loop validation **82097 submitted** under unchanged caps; [receipt](../experiments/distributed-discovery-loop/submission.json). Cold/restart/resident-preservation arms;results pending,no full s18 admission.
+Explicit-policy discovery loop validation **82097 passed** under unchanged caps; [receipt](../experiments/distributed-discovery-loop/submission.json). All cold/restart/resident-preservation arms passed;no full s18 admission.
+
+
+## Reference-independent runtime workflow (SCALING-189)
+
+82097passed discovery runtime. Next compose existing discovery/local-root/subgroup-
+root/reciprocal/full-identity/spectrum/canonical sections into one error-returning
+workflow without native-reference inputs/testing policy. Caller supplies explicit
+random/resource/output/archive/checkpoint policy;test observers save intermediate
+arrays for independent comparisons. Preserve operation/kernel/transport identities
+and defaults;no intended extra coefficient arrays/transforms/transfers. Fullsize
+GC/latency/RSS remain unmeasured. [Plan](../experiments/distributed-workflow/report.md).
+
+Validate same-budget reviewed pilot cold/restart plus assembled cold, comparing
+all compact checkpoints,full proof digests/native roots/identity/final bytes. Observer
+writes are not production coordinated checkpoint commits;timing boundaries differ,
+so no direct speedup claim. No unchanged wide/dense/sanitizer repeat. Afterward
+integrate durable restart/atomic publication and parameterized command,then larger
+representative topology/complete resource admission. Fulls18 unrun/unadmitted.
