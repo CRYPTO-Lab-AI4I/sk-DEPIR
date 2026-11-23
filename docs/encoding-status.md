@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-final publication commit following independently verified workflow82099 (original controller job failed) following passed discovery runtime **82097** following passed session integration **82096** following passed root runtime **82085** following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+final publication commit **submitted82100** following independently verified workflow82099 (original controller job failed) following passed discovery runtime **82097** following passed session integration **82096** following passed root runtime **82085** following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1534,7 +1534,7 @@ Two nodes/two H200s/four workers/four cores/8 GiB requested RAM;owned GPU0.244Mi
 worker,context/MPI/driver extra. Controller151.588s/cache36.123MiB. No GPU rerun needed.
 Timing boundaries/persistence differ;no direct speedup/fullsize inference.
 
-### Prepared final publication commit
+### Final publication commit — submitted82100
 
 [Plan](../experiments/distributed-publication-commit/report.md): explicit staged
 payloads,streaming hashes/exact byte counts,payload sync and last-written synced
@@ -1542,3 +1542,5 @@ manifest bind complete code/generator/raw-support output. No payload reread/copy
 extra SHA CPU and manifest/directory sync latency unmeasured. Direct observer mode
 remains. Consumers verify manifest/hash before accepting outputs;no production
 restart/authentication claim. Same-budget integration;fulls18 unrun/unadmitted.
+
+Final publication-commit validation **82100 submitted**: [receipt](../experiments/distributed-publication-commit/submission.json). Pilot cold/restart+committed assembled runtime under unchanged two-node/two-H200 caps;results pending.82099rawfailed status retained with all execution arms independently verified. Fulls18 unrun/unadmitted.

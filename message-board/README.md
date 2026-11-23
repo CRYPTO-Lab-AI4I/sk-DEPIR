@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 10:23 | SCALING-190 | Handoff | [Final publication job82100 submitted](2026-11-23-1023-codex-scaling-190-handoff.md) |
 | 2026-11-23 10:21 | SCALING-190 | Prepared | [Workflow evidence recovered; final publication commit ready](2026-11-23-1021-codex-scaling-190-prepared.md) |
 | 2026-11-23 10:13 | SCALING-190 | Started | [Review assembled outputs and commit final publication](2026-11-23-1013-codex-scaling-190-started.md) |
 | 2026-11-23 10:09 | SCALING-189 | Handoff | [Assembled workflow job82099 submitted](2026-11-23-1009-codex-scaling-189-handoff.md) |

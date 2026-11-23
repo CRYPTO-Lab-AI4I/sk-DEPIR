@@ -1,6 +1,6 @@
 # Committed final workflow output
 
-Status: prepared; integration not yet submitted. Implementation **1d6d89d** (parent a7eebbe).
+Status: **submitted job82100**, publication-01; integration results pending. Implementation **1d6d89d** (parent a7eebbe).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
 Planned results `runs/publication-01/`; immutable source/binaries/reusable data
@@ -133,3 +133,9 @@ All **23 frozen reviewer suites** pass. CPU-only native preflight reproduces
 [Source checks](readiness/source-checks.json), [reviewers](readiness/frozen-reviewers.json),
 [native preflight](readiness/native-preflight.log). No local CUDA/MPI initialization.
 Fresh committed-source build and each-node path/environment preflight remain in the job.
+
+### Submission82100
+
+Job **82100** submitted from **d53213f**, implementation **1d6d89d**.
+[Receipt](submission.json);results `runs/publication-01/`,Slurm log `slurm-82100.log`.
+Unchanged resources above;estimate3–6minutes excluding queue. No polling or GPU result claim.

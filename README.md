@@ -31,7 +31,7 @@ passed through **81744 partial results plus81746 wide validation**;
 [shared discovery GPU session](experiments/distributed-discovery-runtime/report.md) passed **82096**;
 [explicit-policy discovery runtime](experiments/distributed-discovery-loop/report.md) passed **82097**;
 [reference-independent runtime workflow](experiments/distributed-workflow/report.md) has **verified82099 execution results** after a controller-review correction (original job status remains failed);
-[final publication commit](experiments/distributed-publication-commit/report.md) is next;
+[final publication commit](experiments/distributed-publication-commit/report.md) is submitted as **82100**;
 full s18 preprocessing remains unrun.
 
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)

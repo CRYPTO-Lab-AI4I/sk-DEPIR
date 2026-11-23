@@ -3851,3 +3851,5 @@ manifest/directory sync cost remain unmeasured;direct observer option retained.
 restart+committed assembled validation,no unchanged wide/dense/sanitizer. Then
 coordinated durable prefix restart/parameterized command/full phase admission and
 representative topology. Fulls18 unrun/unadmitted.
+
+Final publication-commit validation **82100 submitted** under unchanged caps; [receipt](../experiments/distributed-publication-commit/submission.json). Pilot cold/restart+committed assembled runtime;results pending,no production prefix restart/full s18 admission.

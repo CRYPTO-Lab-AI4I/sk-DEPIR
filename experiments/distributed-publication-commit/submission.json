@@ -1,0 +1,16 @@
+{
+  "job_id": "82100",
+  "name": "publication-01",
+  "implementation_revision": "1d6d89d",
+  "submission_revision": "d53213f92bec6645ddd99c721d3ec7873dc239bb",
+  "recorded_utc": "2026-11-23T10:23:10.995082+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-publication-commit/slurm-%j.log experiments/distributed-publication-commit/run.sbatch publication-01",
+  "results": "experiments/distributed-publication-commit/runs/publication-01",
+  "log": "experiments/distributed-publication-commit/slurm-82100.log",
+  "cache": ".cache/liftrs/distributed-publication-commit/publication-01/",
+  "resources": "2 HPC nodes/2 H200/4 CPU cores/8 GiB requested host RAM total;4 workers;64 MiB owned GPU/worker=128 MiB/card;1 GiB RSS/worker;zero CUDA-pinned;128 MiB retained cache/2 GiB scratch/32 MiB file;720-second controller/15-minute Slurm;exclude gnode03",
+  "scope": "Reviewed pilot cold/restart plus assembled runtime with explicit streamed-hash final publication manifest;not production prefix restart/fullsize",
+  "estimated_controller_minutes": "3\u20136 excluding queue",
+  "monitoring": "Receipt-bound local completion notification;no model polling",
+  "note": "908 frozen inputs/402 matching compiled source hashes;23 frozen reviewers,CPU/race/tagged tests and108014 historical native bytes plus actual s8 references passed.82099all executed arms independently verified after reviewer correction;rawfailed retained,no GPU rerun solely for correction.No resource increase/unchanged wide/sanitizer."
+}
