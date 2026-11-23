@@ -215,3 +215,13 @@ The corrected analyzer recognizes only the exact immutable 81744 producing revis
 as this known partial failure, retains its failed status, and labels its wide mode
 as bulk. It never infers bounded success from missing instrumentation. A successful
 targeted retry must provide complete bounded logs and pass all independent checks.
+
+### Targeted retry readiness
+
+Correction implementation **845c3eb** is frozen and passes all three focused
+regressions, including actual suite environment updates and the one-arm retry.
+The **385 Go/C/C++/CUDA sources** and prior compiled readiness binary are unchanged;
+prior native compatibility evidence remains applicable. [Frozen checks](correction/source-checks.json),
+[test output](correction/frozen-review-tests.log). The GPU allocation still performs
+its normal fresh committed-source build and every-node path/library preflight.
+No extra local GPU/MPI execution or repeated arithmetic calibration was needed.
