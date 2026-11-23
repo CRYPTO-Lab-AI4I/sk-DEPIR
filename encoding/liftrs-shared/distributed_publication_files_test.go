@@ -34,6 +34,13 @@ func TestWorkflowPublicationCommit(t *testing.T) {
 	if _, err = p.Archive.Write(make([]byte, 8*h.K)); err != nil {
 		t.Fatal(err)
 	}
+	sealed, err := p.SealArchive(8 * h.K)
+	if err != nil || sealed != fmt.Sprintf("%x", sha256.Sum256(make([]byte, 8*h.K))) {
+		t.Fatal("archive seal", err)
+	}
+	if _, err = p.Archive.Write([]byte{1}); err == nil {
+		t.Fatal("sealed archive mutated")
+	}
 	if _, err = os.Stat(filepath.Join(directory, "s4-code.bin")); !os.IsNotExist(err) {
 		t.Fatal("payload published early")
 	}
@@ -65,6 +72,14 @@ func TestWorkflowPublicationCommit(t *testing.T) {
 		if e != nil || uint64(len(data)) != f.Bytes || fmt.Sprintf("%x", sha256.Sum256(data)) != f.SHA256 {
 			t.Fatal("payload hash", f, e)
 		}
+	}
+	alias, e := os.Stat(filepath.Join(directory, "s4-support.bin"))
+	if e != nil {
+		t.Fatal(e)
+	}
+	archive, e := os.Stat(filepath.Join(directory, "s4-archive.raw"))
+	if e != nil || !os.SameFile(alias, archive) {
+		t.Fatal("support payload copied instead of linked", e)
 	}
 	if _, err = p.Commit(h, true, 2); err == nil {
 		t.Fatal("duplicate commit")

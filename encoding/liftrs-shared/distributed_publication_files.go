@@ -35,6 +35,7 @@ type workflowPublication struct {
 	hashes                   [3]hash.Hash
 	written                  [3]uint64
 	failed                   bool
+	archiveSealed            bool
 	closed, committed        bool
 }
 
@@ -218,7 +219,7 @@ type workflowPublicationWriter struct {
 
 func (w workflowPublicationWriter) Write(data []byte) (int, error) {
 	p := w.owner
-	if p.closed || p.failed {
+	if p.closed || p.failed || (w.index == 2 && p.archiveSealed) {
 		return 0, io.ErrClosedPipe
 	}
 	n, err := p.files[w.index].Write(data)
@@ -235,4 +236,25 @@ func (w workflowPublicationWriter) Write(data []byte) (int, error) {
 		return n, io.ErrShortWrite
 	}
 	return n, nil
+}
+
+// SealArchive makes its streamed digest immutable and creates a same-filesystem
+// checkpoint alias. This is a hard link,not another support payload allocation.
+// The alias survives final archive rename and incomplete final publication.
+func (p *workflowPublication) SealArchive(expectedBytes uint64) (digest string, err error) {
+	if p == nil || p.closed || p.failed || p.archiveSealed || p.written[2] != expectedBytes {
+		return "", fmt.Errorf("archive seal admission")
+	}
+	if err = p.files[2].Sync(); err != nil {
+		return "", err
+	}
+	source := filepath.Join(p.directory, p.names()[2]+".partial")
+	if err = os.Link(source, filepath.Join(p.directory, p.label+"-support.bin")); err != nil {
+		return "", err
+	}
+	if err = syncWorkflowDirectory(p.directory); err != nil {
+		return "", err
+	}
+	p.archiveSealed = true
+	return fmt.Sprintf("%x", p.hashes[2].Sum(nil)), nil
 }

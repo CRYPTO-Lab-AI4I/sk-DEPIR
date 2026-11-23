@@ -344,4 +344,36 @@ restart+committed assembled validation,no unchanged wide/dense/sanitizer. Then
 coordinated durable prefix restart/parameterized command/full phase admission and
 representative topology. Fulls18 unrun/unadmitted.
 
-Final publication-commit validation **82100 submitted** under unchanged caps; [receipt](../experiments/distributed-publication-commit/submission.json). Pilot cold/restart+committed assembled runtime;results pending,no production prefix restart/full s18 admission.
+Final publication-commit validation **82100 passed** under unchanged caps;
+[verified evidence](../experiments/distributed-publication-commit/runs/publication-01/analysis.json).
+Controller **2 min38.073 s**; cold **8.907 s**, restart **6.374 s**, committed assembled
+**8.510 s**; assembled peak host RSS **378.824 MiB/worker**. All76comparison files,
+proof/native checks and three manifest-bound payloads match. Timing boundaries differ;
+no direct speedup claim. Fulls18 remains unrun/unadmitted.
+
+
+## Durable assembled prefix commits (SCALING-191)
+
+82100passed final publication. Connect source-bound compact root/Newton commits
+using existing codec and checksum loader, without another support payload copy.
+At discovery completion sync/seal the streamed archive and hard-link it under the
+checkpoint loader's support name. Bind actual code header/curve/field/ranks/sample
+count/raw archive format and digest in a synced source record; bind its digest in
+each prefix record. Agree stage metadata before writes; sync all rank shards,
+collect digests, publish commit marker last and barrier before advertising success.
+Existing legacy checkpoint records remain loadable without the optional source digest.
+
+[Implementation and validation plan](../experiments/distributed-workflow-checkpoints/report.md).
+Explicit job option; default observer path unchanged. No added numerical arrays,
+transforms, GPU transfers or payload copy/reread on the cold path. Added metadata,
+control exchanges and sync latency are unmeasured; same-filesystem hard links and
+POSIX sync semantics required. Preserve incomplete data. Source hashes detect
+corruption, not malicious rewriting. Logical file inventories count the support
+alias again although its physical payload blocks are shared.
+
+Same-budget pilot cold/restart plus assembled durable commits, independent checks
+of all17commit manifests/68shards and source alias, then root/prefix8 loader in a
+fresh CPU process with profile. This validates persisted recovery inputs; arithmetic
+resume in the assembled runtime remains next, followed by parameterized command,
+phase admission and representative topology/fulljob approval. No unchanged wide/
+dense/sanitizer repeat. Fulls18 remains unrun/unadmitted.

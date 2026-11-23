@@ -3,6 +3,7 @@
 package liftrs
 
 import (
+	"crypto/sha256"
 	"fmt"
 	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi"
 	"io"
@@ -44,6 +45,14 @@ func TestAssembledRankWorkflow(t *testing.T) {
 		if mode != "direct" && mode != "commit" {
 			t.Fatal("workflow publication mode")
 		}
+		checkpoints := os.Getenv("PIR_WORKFLOW_CHECKPOINT") == "commit"
+		if v := os.Getenv("PIR_WORKFLOW_CHECKPOINT"); v != "" && v != "commit" {
+			t.Fatal("workflow checkpoint mode")
+		}
+		if checkpoints && mode != "commit" {
+			t.Fatal("checkpoint mode requires sealed publication archive")
+		}
+		var checkpointWriter *rankCheckpointWriter
 		var publication *workflowPublication
 		var codeWriter, generatorWriter, archiveWriter io.Writer
 		open := func(name string) *os.File {
@@ -73,6 +82,21 @@ func TestAssembledRankWorkflow(t *testing.T) {
 			}
 		}
 		sinks := rankWorkflowSinks{Code: codeWriter, Generator: generatorWriter, Archive: func(values []uint64) error { return writeDiagnosticWords(archiveWriter, values, nil) }}
+		if checkpoints {
+			sinks.DiscoveryReady = func(h ScalingCodeHeader, samples int) error {
+				supportSHA := ""
+				if w.Rank == 0 {
+					var err error
+					supportSHA, err = publication.SealArchive(8 * h.K)
+					if err != nil {
+						return err
+					}
+				}
+				var err error
+				checkpointWriter, err = newRankCheckpointWriter(w, directory, "s8", h, samples, supportSHA, 16384, emit)
+				return err
+			}
+		}
 		sinks.SupportObserver = func(values []int) error {
 			indices := make([]uint64, len(values))
 			for i, v := range values {
@@ -90,6 +114,9 @@ func TestAssembledRankWorkflow(t *testing.T) {
 			return nil
 		}
 		sinks.Checkpoint = func(stage string, keep uint64, values []uint32) ([]uint32, error) {
+			if checkpoints {
+				return values, checkpointWriter.Commit(stage, keep, values)
+			}
 			_, err := writeCompactRankPrefix(filepath.Join(directory, fmt.Sprintf("s8-rank-%d-%s.bin", w.Rank, stage)), values, 8, 65536, keep, w.Rank, w.Size)
 			return values, err
 		}
@@ -122,6 +149,33 @@ func TestAssembledRankWorkflow(t *testing.T) {
 			}
 		}
 		w.Barrier()
-		emit(map[string]any{"kind": "workflow-result", "case": "s8", "n": result.Header.N, "k": result.Header.K, "samples": result.DiscoverySamples, "root_counts": result.RootCounts, "refinement": result.Refinement, "identity_verified": result.IdentityVerified, "seconds": w.Max(time.Since(began).Seconds()), "reference_input": false, "publication_mode": mode})
+		emit(map[string]any{"kind": "workflow-result", "case": "s8", "n": result.Header.N, "k": result.Header.K, "samples": result.DiscoverySamples, "root_counts": result.RootCounts, "refinement": result.Refinement, "identity_verified": result.IdentityVerified, "seconds": w.Max(time.Since(began).Seconds()), "reference_input": false, "publication_mode": mode, "checkpoint_mode": map[bool]string{true: "commit", false: "observer"}[checkpoints]})
 	})
+}
+
+// Fresh-process validation of persisted files only. It does not resume arithmetic
+// or open MPI/CUDA;the controller separately retains all native comparisons.
+func TestReloadWorkflowCheckpoints(t *testing.T) {
+	directory := os.Getenv("PIR_WORKFLOW_RELOAD_SOURCE")
+	if directory == "" {
+		t.Skip("explicit saved checkpoint source")
+	}
+	sourceBytes, err := readBoundedPilotFile(filepath.Join(directory, "s8-checkpoint-source.json"), 65536)
+	if err != nil {
+		t.Fatal(err)
+	}
+	sourceSHA := fmt.Sprintf("%x", sha256.Sum256(sourceBytes))
+	source, err := readWorkflowCheckpointSource(directory, "s8", sourceSHA)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for rank := 0; rank < source.Ranks; rank++ {
+		for _, stage := range []string{"root", "newton-8"} {
+			state, err := loadRankPrefix(directory, "s8", 8, rank, source.Ranks, stage, 16384)
+			if err != nil || state.Record.SourceSHA != sourceSHA || state.Record.SupportSHA != source.SupportSHA {
+				t.Fatal("fresh checkpoint reload", rank, stage, err)
+			}
+			t.Logf("verified rank=%d stage=%s words=%d source=%s", rank, stage, len(state.Values), sourceSHA)
+		}
+	}
 }

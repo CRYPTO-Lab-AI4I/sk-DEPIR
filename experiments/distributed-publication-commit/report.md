@@ -1,9 +1,9 @@
 # Committed final workflow output
 
-Status: **submitted job82100**, publication-01; integration results pending. Implementation **1d6d89d** (parent a7eebbe).
+Status: **passed job82100**, publication-01; all three arms independently verified. Implementation **1d6d89d** (parent a7eebbe).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
-Planned results `runs/publication-01/`; immutable source/binaries/reusable data
+[Results](runs/publication-01/analysis.json), [raw results](runs/publication-01/results.json), [Slurm log](slurm-82100.log); immutable source/binaries/reusable data
 outside Git: `.cache/liftrs/distributed-publication-commit/publication-01/`.
 Implementation/producing revisions are recorded before submission.
 
@@ -139,3 +139,25 @@ Fresh committed-source build and each-node path/environment preflight remain in 
 Job **82100** submitted from **d53213f**, implementation **1d6d89d**.
 [Receipt](submission.json);results `runs/publication-01/`,Slurm log `slurm-82100.log`.
 Unchanged resources above;estimate3–6minutes excluding queue. No polling or GPU result claim.
+
+### Verified outcome82100
+
+Producing revision **d53213f**; receipt and all **908 source /81 evidence /371 cache**
+seals reconcile. Controller **2 min38.073 s**; retained logical cache **36.220 MiB**.
+HPC allocation as above, four workers on two H200s.
+
+| Arm | Launcher runtime | Peak host RSS per worker | Outcome |
+|---|---|---|---|
+| Pilot cold | 8.907 s | 380.117 MiB | Passed |
+| Pilot fresh-process restart | 6.374 s | 379.695 MiB | Passed |
+| Assembled committed publication | 8.510 s | 378.824 MiB | Passed |
+
+Owned device allocation about **0.244 MiB/worker**, excluding context/driver/MPI.
+All76intermediate comparison files, ordered proof hashes/counts, native roots and
+Taylor work, discovery entropy/count/ownership and final canonical bytes match.
+The saved manifest/event and three actual payload hashes/extents match, with no
+staged payload left. The exclusive reservation is retained intentionally.
+Timings have the different boundaries described above; this is correctness and
+persistence evidence, not a speedup estimate or fullsize peak-memory measurement.
+Next: [durable assembled prefix commits](../distributed-workflow-checkpoints/report.md),
+then arithmetic resume/parameterized command and complete phase/resource admission.

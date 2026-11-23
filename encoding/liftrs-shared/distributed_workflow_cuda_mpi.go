@@ -25,6 +25,7 @@ type rankWorkflowSinks struct {
 	Archive         func([]uint64) error
 	RootObserver    func(string, rankRootMergeStage, []uint32) error
 	SupportObserver func([]int) error
+	DiscoveryReady  func(ScalingCodeHeader, int) error
 	// A checkpoint may return a verified reload. All ranks must execute the
 	// same stage sequence;callback success alone is not a durable commit claim.
 	Checkpoint       func(string, uint64, []uint32) ([]uint32, error)
@@ -68,6 +69,11 @@ func prepareRankWorkflow[Word transposeWord](w *mpi.World, o rankWorkflowOptions
 	h, _, err := canonicalScalingCodeHeader(o.Spec.FieldDegree, o.Spec.CurveDegree, k, n)
 	if err != nil {
 		return result, err
+	}
+	if sinks.DiscoveryReady != nil {
+		if err = sinks.DiscoveryReady(h, discovered.Samples); err != nil {
+			return result, err
+		}
 	}
 	base, err := NewBinaryField(o.Spec.FieldDegree, h.Polynomial)
 	if err != nil {

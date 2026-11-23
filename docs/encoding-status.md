@@ -6,7 +6,7 @@ exploratory targets**: keep their rows as algorithms, layouts and measurements
 improve. This is the maintained capacity and results reference for the
 [scaling plan](encoding-scaling.md), separate from TRL 5 acceptance.
 
-Updated 2026-11-22; full s17 encoding source `ed0c026`.
+Updated 2026-11-23; full s17 encoding source `ed0c026`.
 **Resident CPU encoding76645 and four-H200 GPU encoding76706 both passed at s17**,
 using the same verified preprocessing and deterministic database. Complete
 canonical and tightly packed output hashes match. GPU retry76706 supersedes the
@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-final publication commit **submitted82100** following independently verified workflow82099 (original controller job failed) following passed discovery runtime **82097** following passed session integration **82096** following passed root runtime **82085** following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+durable assembled prefix commits **prepared (SCALING-191)** after final publication commit **passed82100** following independently verified workflow82099 (original controller job failed) following passed discovery runtime **82097** following passed session integration **82096** following passed root runtime **82085** following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1534,7 +1534,7 @@ Two nodes/two H200s/four workers/four cores/8 GiB requested RAM;owned GPU0.244Mi
 worker,context/MPI/driver extra. Controller151.588s/cache36.123MiB. No GPU rerun needed.
 Timing boundaries/persistence differ;no direct speedup/fullsize inference.
 
-### Final publication commit — submitted82100
+### Final publication commit — passed82100
 
 [Plan](../experiments/distributed-publication-commit/report.md): explicit staged
 payloads,streaming hashes/exact byte counts,payload sync and last-written synced
@@ -1543,4 +1543,25 @@ extra SHA CPU and manifest/directory sync latency unmeasured. Direct observer mo
 remains. Consumers verify manifest/hash before accepting outputs;no production
 restart/authentication claim. Same-budget integration;fulls18 unrun/unadmitted.
 
-Final publication-commit validation **82100 submitted**: [receipt](../experiments/distributed-publication-commit/submission.json). Pilot cold/restart+committed assembled runtime under unchanged two-node/two-H200 caps;results pending.82099rawfailed status retained with all execution arms independently verified. Fulls18 unrun/unadmitted.
+Final publication-commit validation **82100 passed** under unchanged caps;
+[verified evidence](../experiments/distributed-publication-commit/runs/publication-01/analysis.json).
+Controller **2 min38.073 s**; cold **8.907 s**, restart **6.374 s**, committed assembled
+**8.510 s**; assembled peak host RSS **378.824 MiB/worker**. All76comparison files,
+proof/native checks and three manifest-bound payloads match. Timing boundaries differ;
+no direct speedup claim. Fulls18 remains unrun/unadmitted.
+
+
+### Durable assembled checkpoint integration — prepared
+
+[Plan/implementation](../experiments/distributed-workflow-checkpoints/report.md):
+source-bound coordinated compact root/Newton commits, sealed support alias without
+payload copying, fresh-process root/prefix8 file reload. No new GPU/host capacity
+claim; extra metadata/control/sync latency unknown. Arithmetic restart integration
+and larger parameter/topology/whole-job admission remain. Same HPC allocation:
+2nodes/2H200/4cores/8GiB requested host RAM,4workers;limits in the report.
+
+| Validation | Status | Runtime / memory |
+|---|---|---|
+| Final publication82100 | **Passed** | Controller **2 min38.073 s**; assembled launcher **8.510 s**; peak host RSS **378.824 MiB/worker**; owned GPU **0.244 MiB/worker** (context/driver extra); retained cache **36.220 MiB** |
+| Durable assembled prefix commits | Prepared; not run | Estimated controller **3–6 min**; same admitted limits, fullsize peak/cost unknown |
+| Full s18 preprocessing | **Not run / not admitted** | Capacity projections above are not measured costs or implementation support |

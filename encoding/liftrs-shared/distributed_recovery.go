@@ -23,6 +23,7 @@ type rankPrefixRecord struct {
 	SupportSHA string   `json:"support_sha256"`
 	Stage      string   `json:"stage"`
 	SHA        []string `json:"sha256"`
+	SourceSHA  string   `json:"source_sha256,omitempty"`
 }
 type rankPrefixState struct {
 	Record rankPrefixRecord
@@ -102,6 +103,15 @@ func loadRankPrefixWithSupport(directory, label string, s, rank, ranks int, stag
 		b, e := hex.DecodeString(digest)
 		if e != nil || len(b) != 32 {
 			return state, fmt.Errorf("prefix digest format")
+		}
+	}
+	if r.SourceSHA != "" {
+		source, e := readWorkflowCheckpointSource(directory, label, r.SourceSHA)
+		if e != nil {
+			return state, e
+		}
+		if source.Header.Spec.FieldDegree != s || source.Header.K != uint64(r.K) || source.Header.N != uint64(r.N) || source.Ranks != ranks || source.SupportSHA != r.SupportSHA {
+			return state, fmt.Errorf("prefix/source metadata binding")
 		}
 	}
 	if verify == nil {

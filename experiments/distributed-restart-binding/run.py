@@ -14,8 +14,8 @@ SCALE=DIAG['SCALE'];VECTORS=DIAG['VECTORS'];PROOF=DIAG['PROOF']
 def binding_frame(record,directory,label):
     # Commit JSON is a sorted Go map; frame JSON is a typed Go struct. Rebuild
     # its field order explicitly, retaining exact integers and Go HTML escaping.
-    fields=('layout','s','k','n','prefix','ranks','support_sha256','stage','sha256')
-    ordered={k:record[k]for k in fields if k!='layout'or record.get(k)}
+    fields=('layout','s','k','n','prefix','ranks','support_sha256','stage','sha256','source_sha256')
+    ordered={k:record[k]for k in fields if k not in ('layout','source_sha256')or record.get(k)}
     body=dict(Context='sk-DEPIR-rank-support-v1',Directory=os.path.abspath(directory),Label=label,Record=ordered)
     encoded=json.dumps(body,separators=(',',':'),ensure_ascii=False)
     for char,escape in (('<','\\u003c'),('>','\\u003e'),('&','\\u0026'),('\u2028','\\u2028'),('\u2029','\\u2029')):encoded=encoded.replace(char,escape)
