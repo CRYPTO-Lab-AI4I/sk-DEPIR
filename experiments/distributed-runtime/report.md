@@ -1,6 +1,6 @@
 # Shared MPI/GPU preprocessing runtime
 
-Status: prepared; GPU integration not yet submitted. Parent revision830433c.
+Status: prepared; GPU integration not yet submitted. Implementation **c4685d4** (parent830433c).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [configuration regression](test_review.py), [readiness](readiness/).
 Planned results `runs/runtime-01/`. Immutable source, binaries, native references
@@ -123,3 +123,13 @@ python3 -B experiments/distributed-runtime/analyze.py runtime-01
 After validation,update the main scaling reference and continue parameterized
 production ownership/phase admission,non-oracle execution,bounded retention and
 restart/publication integration. Full s18 resources remain separately unadmitted.
+
+### Immutable-source readiness
+
+Implementation **c4685d4** is frozen into **872 build inputs**;all **390**
+Go/C/C++/CUDA source hashes match the compiled readiness tree. All **17 frozen
+reviewer suites** pass. CPU-only native preflight reproduces **108014 historical
+reference bytes** and validates actual s8/curve5 leaf/stage/root/canonical inputs.
+[Source checks](readiness/source-checks.json), [frozen reviewers](readiness/frozen-reviewers.json),
+[native preflight](readiness/native-preflight.log). No local CUDA/MPI initialization.
+The admitted allocation rebuilds this committed source and preflights every node.
