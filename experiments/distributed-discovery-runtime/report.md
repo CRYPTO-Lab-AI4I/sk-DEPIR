@@ -1,6 +1,6 @@
 # Shared discovery GPU session
 
-Status: prepared; integration not yet submitted. Parent revision e8695dd.
+Status: prepared; integration not yet submitted. Implementation **f3b3b6c** (parent e8695dd).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [configuration test](test_review.py), [readiness](readiness/).
 Planned results `runs/discovery-01/`; immutable source, binaries, profiles and
@@ -87,3 +87,13 @@ python3 -B experiments/distributed-discovery-runtime/analyze.py discovery-01
 After verification update the primary reference and continue production discovery
 sampling/ownership and phase admission, non-oracle end-to-end entry and bounded
 retention/publication. Fulls18 resources remain separately unadmitted.
+
+### Immutable-source readiness
+
+Implementation **f3b3b6c** is frozen into **890 build inputs**;
+all **396** Go/C/C++/CUDA hashes match compiled readiness source.
+All **20 frozen reviewer suites** pass. CPU-only native preflight reproduces
+**108014 historical reference bytes** plus actual s8/curve5 inputs/root geometry.
+[Source checks](readiness/source-checks.json), [reviewers](readiness/frozen-reviewers.json),
+[native preflight](readiness/native-preflight.log). No local CUDA/MPI initialization.
+The allocation rebuilds committed source and preflights paths/environment on every node.
