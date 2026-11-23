@@ -1,0 +1,21 @@
+{
+  "admitted": false,
+  "nodes": 8,
+  "ranks": 16,
+  "gpus_per_node": 2,
+  "cpus_per_rank": 4,
+  "host_request_GiB_per_node": 864,
+  "rss_GiB_per_rank": 400,
+  "host_reserve_GiB_per_rank": 192,
+  "owned_gpu_GiB_per_rank": 112,
+  "go_soft_GiB_per_rank": 256,
+  "output_GiB": 2048,
+  "retained_GiB": 2304,
+  "scratch_GiB": 8,
+  "minimum_initial_free_GiB": 2560,
+  "minimum_free_GiB": 128,
+  "file_GiB": 768,
+  "worker_hours": 94,
+  "controller_hours": 99,
+  "scheduler_hours": 100
+}

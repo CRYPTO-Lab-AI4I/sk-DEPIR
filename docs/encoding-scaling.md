@@ -4033,3 +4033,24 @@ Sixteen-worker prefix Newton has64 GiB/worker in base arrays alone; three GPU
 arrays have96 GiB/card. Neither is a complete bound. Small s8/s10 support-set
 equality is recorded only as a cross-check; no discovery shortcut is adopted.
 All existing experiment ceilings remain; fulls18 unrun/unadmitted.
+
+## Fullsize admission after retained ownership scan (SCALING-197)
+
+82200passed exact retained s17 SHA/order/count/owner checks:2 min23.040 s scan,
+14.785MiB peakRSS,1HPCnode/2cores/4GiB requestedRAM/noGPU. The largest16-worker
+list is482,718,852 roots,1.992times uniform; this is not an s18 measurement.
+[Evidence](../experiments/distributed-fullsize-plan/report.md#verified-outcome82200).
+
+Next [fulls18 trial](../experiments/distributed-s18-full-preprocessing/report.md)
+is prepared:16H200s/8nodes,2workers/node,64activeCPUcores total,864GiB requested
+hostRAM/node;112GiB ownedGPU/card,400GiB RSS/worker with192GiB explicit allowance.
+Worst admitted discovery inventory is176.516GiB/worker; uniform-list assumptions
+are avoided. Root cap leaves room for the final polynomial coefficient. Resident
+spectrum fits and remains selected; streamed discovery remains explicit because
+resident archive allowance would exceed this host policy. No library defaults change.
+
+Same-allocation s8 canonical/native preflight precedes full arrays.2TiB output /
+2.25TiB total retained /8GiB scratch;94h worker/99h controller/100h scheduler, with
+completed-stage checkpoint retention and independent final readback. Fullruntime
+unknown; cutoff is not a promise of completion. Existing small resource ceilings
+do not authorize this increase. **Prepared, not admitted or submitted.**

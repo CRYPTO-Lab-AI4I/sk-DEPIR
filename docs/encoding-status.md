@@ -25,8 +25,9 @@ these are not full s18 runs.
 
 **Assembled arithmetic resume82102, actual command82181, eight-worker82194 and
 all four representative s10 cold/recovery cases82199 passed. Current focus:
-[fullsize ownership and resource admission](../experiments/distributed-fullsize-plan/report.md)
-(SCALING-196), starting with a read-only inventory of retained s17 support.**
+[full s18 trial resource admission](../experiments/distributed-s18-full-preprocessing/report.md)
+(SCALING-197). Retained s17 ownership82200 passed: largest16-worker list is1.992
+times the average. The proposed layout is16H200s across8nodes, two workers/node.**
 Full working-set headroom, node/GPU packing and full-job resource agreement remain. Full s18 preprocessing is **not run / not admitted**.
 The measurements below distinguish small-case integration from fullsize projections
 and the separate full s17 preprocessing/encoding results.
@@ -310,7 +311,7 @@ excludes device allocations unless stated.
 | 15 | Laptop measured | Peak host process RSS: 20.55 GiB | 3 h 16 min 7 s† | Measured on laptop |
 | 16 | HPC measured | Peak host process RSS: 72.575 GiB | GPU: 2 h 20 min 15.469 s | Measured on HPC |
 | 17 | **HPC measured; passed75832**<br>K:3876566203; support from75819 | **Peak sampled host RSS:348.393GiB**<br>Device peak:not sampled; product arrays384GiB aggregate (model)<br>Final device owned:256.009GiB observed | **Construction/identity/spectrum:9h16min46s**, includes root checkpoints<br>Verified resumed worker:9h58min38s<br>Earlier discovery:21min38s | **Demonstrated on HPC:4H200,32 active CPU workers, one node**<br>Canonical preprocessing:235.324GiB<br>[Full evidence/boundaries](../experiments/gpu-s17-full-preprocessing/report.md#completed-full-preprocessing-scaling-088) |
-| 18 | Full preprocessing:not run<br>**Exact dimension measured76647:K16300262095**<br>Bounded export76710 and transform/split components76756 passed<br>Genuine s4/s6 pipeline/restart passed78915; streamed coordinator copies removed/verified79213<br>Canonical s18 bounded GPU arithmetic passed78917;four-worker components passed79239 on2GPUs;full distributed workflow still unrun<br>See [component results](#s18-lower-memory-preprocessing-work) | Projected final host arrays:889.446GiB<br>Projected discovery arrays:770.893GiB<br>Peak RSS:unknown | Full preprocessing:unknown<br>Count-only GPU sum:37.4ms, excludes setup |1536GiB device product arrays (model)<br>16GPU power-of-two projection across4nodes at112GiB/card<br>Distributed full-size host/GPU integration and larger storage admission required<br>Alternative: split final-product arrays project384 GiB on4 GPUs; [complete route comparison](#s18-complete-preprocessing-route-decision) records Newton/discovery host limits |
+| 18 | **Full preprocessing: not run /not admitted; guarded trial prepared**<br>Exact dimension measured76647:K16,300,262,095<br>Bounded field18 arithmetic and assembled s10 recovery passed; retained s17 ownership82200 passed<br>[Full trial resources/modes](../experiments/distributed-s18-full-preprocessing/report.md) | **Projected named host maximum:176.516 GiB/worker**<br>Additional runtime/native/GC allowance:192 GiB/worker<br>Proposed RSS guard:400 GiB/worker<br>Proposed requested RAM:864 GiB/node across8nodes<br>Full peak RSS:unmeasured | Full runtime:unknown;100-hour scheduler cutoff is a limit, not an estimate<br>Count-only GPU sum:37.4 milliseconds, excludes setup | **Proposed16H200s across8 HPC nodes**,2workers/cards per node<br>Principal device arrays:96 GiB/card;112 GiB owned cap/card<br>Resident spectrum retained; streamed discovery explicitly selected because resident archive inventory exceeds admitted host policy<br>Resources not yet admitted; no fullsize feasibility claim |
 | 19 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 | 20 | Not run | Peak RAM: unknown | unknown | Implementation/admission pending |
 
@@ -1572,8 +1573,8 @@ and larger parameter/topology/whole-job admission remain. Same HPC allocation:
 | Parameterized MPI command82181 | **Passed** | Controller **2 min54.239 s**; command restart **7.896 s**, peak host RSS **376.066 MiB/worker** |
 | Host phase inventories /eight-worker82194 | **Passed** | Controller **2 min51.032 s**; cold **15.555 s**, restart **11.050 s**; logged peak RSS **374.309 /374.105 MiB/worker** |
 | Discovery/root recovery and s10 representative case82199 | **Passed all four arms** | Controller **6 min34.547 s**; cold **71.482 s**, discovery recovery **70.117 s**, root recovery **49.614 s**, prefix8 recovery **43.343 s**; logged peak host RSS **380.117 /381.652 /382.391 /381.242 MiB/worker**, respectively; HPC2nodes/2H200/8cores/16GiB requested RAM |
-| Fullsize root ownership/resource inventory | **Submitted82200: read-only retained s17 archive scan; results pending** | No GPU; planned1 HPC node/2cores/4GiB requested RAM; no new support payload; fullsize allocation/runtime unmeasured |
-| Full s18 preprocessing | **Not run / not admitted** | Capacity projections above are not measured costs or implementation support |
+| Fullsize root ownership/resource inventory | **Passed82200: retained s17 archive scan** | Scan **2 min23.040 s**; peak host RSS **14.785 MiB**; HPCgnode13/1node/2cores/4GiB requested RAM/noGPU; largest16-worker list **482,718,852 indices (3.597 GiB raw)**; fullsize allocation/runtime unmeasured |
+| Full s18 preprocessing | **Prepared; not run /not admitted** | Proposed16H200/8nodes/64cores;864 GiB requested host RAM/node,400 GiB RSS guard/worker;112 GiB owned GPU/card; [complete plan](../experiments/distributed-s18-full-preprocessing/report.md); runtime/peak unknown |
 
 Durable assembled checkpoint validation **82101 passed** under unchanged caps;
 [verified evidence](../experiments/distributed-workflow-checkpoints/runs/checkpoints-01/analysis.json).
@@ -1643,3 +1644,20 @@ from unfinished discovery/subtrees and fullsize reserve/node/storage/time admiss
 remain. No fulls18 job has been run or admitted.
 
 Representative s10 recovery **82199 passed**: [verified evidence and timing boundaries](../experiments/distributed-discovery-restart/report.md#verified-outcome82199). This establishes completed-stage recovery at s10; fulls18 feasibility/runtime remain unmeasured.
+
+### Full s18 trial prepared after ownership audit82200
+
+[Verified scan](../experiments/distributed-fullsize-plan/report.md#verified-outcome82200):
+all retained s17 support hashes/counts passed;16-worker maximum is1.992 times
+uniform. Fulls18 distribution is a projection, not measured. The
+[prepared full trial](../experiments/distributed-s18-full-preprocessing/report.md)
+allows more than twice the projected maximum root list, uses16H200s across8nodes,
+400GiB RSS guard/worker and192GiB native/runtime/GC allowance/worker. Host peak and
+full runtime remain unknown. Eight-node packing adds unmeasured communication
+cost; no slower memory mode is silently substituted to pack four workers/node.
+Resident host spectrum remains selected because it fits; streamed discovery is
+explicit because the conservative resident archive inventory does not fit.
+2TiB logical outputs /2.25TiB total retained /8GiB scratch,94h worker/99h controller/
+100h scheduler are proposed limits, not measured costs or existing approvals.
+Same-allocation genuine s8/native-hash preflight precedes full arrays. Independent
+final payload hash readback is included. **No fulljob submitted; agreement pending.**

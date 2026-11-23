@@ -1,0 +1,6 @@
+{"utc":"2026-11-23T18:32:19Z","phase":"support-owner-scan","event":"started","completed":0,"total":3876566203,"unit":"indices","peak_rss_kib":15140,"seconds":0.00261658}
+{"utc":"2026-11-23T18:32:49Z","phase":"support-owner-scan","event":"progress","completed":710934528,"total":3876566203,"unit":"indices","peak_rss_kib":15140,"seconds":30.0199}
+{"utc":"2026-11-23T18:33:19Z","phase":"support-owner-scan","event":"progress","completed":1472200704,"total":3876566203,"unit":"indices","peak_rss_kib":15140,"seconds":60.0462}
+{"utc":"2026-11-23T18:33:49Z","phase":"support-owner-scan","event":"progress","completed":2344615936,"total":3876566203,"unit":"indices","peak_rss_kib":15140,"seconds":90.0482}
+{"utc":"2026-11-23T18:34:19Z","phase":"support-owner-scan","event":"progress","completed":3223322624,"total":3876566203,"unit":"indices","peak_rss_kib":15140,"seconds":120.131}
+{"utc":"2026-11-23T18:34:42Z","phase":"support-owner-scan","event":"completed","completed":3876566203,"total":3876566203,"unit":"indices","peak_rss_kib":15140,"seconds":143.041}

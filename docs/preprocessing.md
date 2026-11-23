@@ -559,4 +559,7 @@ The [named host-phase inventory](../experiments/distributed-host-admission/repor
 
 [Completed-stage recovery](../experiments/distributed-discovery-restart/report.md) now also loads the sealed discovery archive or normalized root; larger s10 validation **passed82199** for cold and all three recovery boundaries.
 The [fullsize ownership/resource audit](../experiments/distributed-fullsize-plan/report.md)
-is next; fullsize reserve and partial-stage recovery remain unvalidated.
+passed the retained s17 archive scan82200. A
+[full s18 trial](../experiments/distributed-s18-full-preprocessing/report.md) is prepared
+for16H200s across8nodes with explicit host/storage/deadline headroom; resource
+agreement remains pending. Fullsize reserve and partial-stage recovery remain unvalidated.

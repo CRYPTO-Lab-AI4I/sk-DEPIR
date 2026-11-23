@@ -112,3 +112,34 @@ Submitted from **7bbf193**; [receipt](submission.json). Results
 `runs/owners-01/`, log `slurm-82200.log`. Same bounded resources above.
 Estimated **1–10 minutes excluding queue**; no agent monitoring. Fulls18 remains
 unrun/unadmitted. Submission is not a successful scan.
+
+## Verified outcome82200
+
+[Analyzer](analyze.py), [analysis](runs/owners-01/analysis.json),
+[raw histogram](runs/owners-01/owners.json), [resource record](runs/owners-01/resources.log),
+[progress](runs/owners-01/progress.log), [Slurm log](slurm-82200.log).
+Receipt/revision7bbf193/sourceSHA, input SHA/count/bytes, folded histograms and
+monotonically increasing progress all reconcile. The analyzer does not reread
+29 GiB; the producing job checked the complete input SHA during its one pass.
+
+HPCgnode13,1node/2cores/4GiB requested RAM/noGPU. Scan **2 min23.040 s**;
+controller including build **2 min23.937 s**; peak process RSS **14.785 MiB**.
+All3,876,566,203 indices checked;28.883 GiB input remains unchanged.
+
+| Workers | Largest actual root list | Smallest list | Largest /uniform average | Largest list storage (raw indices) |
+|---|---|---|---|---|
+| 2 | 2,247,560,698 | 1,629,005,505 | 1.160 times | 16.746 GiB |
+| 4 | 1,355,297,730 | 736,780,003 | 1.398 times | 10.098 GiB |
+| 8 | 823,825,144 | 338,286,312 | 1.700 times | 6.138 GiB |
+| 16 | 482,718,852 | 154,654,880 | 1.992 times | 3.597 GiB |
+| 32 | 273,880,228 | 70,187,411 | 2.261 times | 2.041 GiB |
+| 64 | 151,323,728 | 31,531,660 | 2.498 times | 1.127 GiB |
+
+List storage excludes append-capacity headroom and polynomial arrays. Scaling the
+16-worker maximum only by K18/K17 projects about2.030 billion s18 roots; this is
+not an s18 proof. The [prepared full trial](../distributed-s18-full-preprocessing/report.md)
+allows4,294,967,295 roots per worker,16H200s/eight nodes,192GiB/worker additional
+host allowance and400GiB/worker RSS guard. Host headroom drives two workers/node.
+No fulljob is admitted/submitted; explicit larger-resource agreement is next.
+
+Reconcile saved evidence: `python3 -B experiments/distributed-fullsize-plan/analyze.py`.

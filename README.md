@@ -37,8 +37,10 @@ passed through **81744 partial results plus81746 wide validation**;
 [parameterized MPI server command](cmd/pir-preprocess-mpi/README.md) passed **82181**;
 [named host-phase admission and eight-worker validation](experiments/distributed-host-admission/report.md) passed **82194**;
 [completed-discovery/root recovery and larger s10 validation](experiments/distributed-discovery-restart/report.md) passed **82199** (all four s10 cold/recovery cases) within the same resource ceilings.
-The next step is the [fullsize ownership/resource audit](experiments/distributed-fullsize-plan/report.md);
-full s18 preprocessing remains unrun and unadmitted.
+The [retained s17 ownership audit](experiments/distributed-fullsize-plan/report.md#verified-outcome82200) passed **82200**.
+A [full s18 trial](experiments/distributed-s18-full-preprocessing/report.md) is prepared
+for16 H200s across8 HPC nodes with explicit host/storage headroom; it remains
+unrun and unadmitted.
 
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)
 are the reference for preprocessing and CPU/GPU encoding modes, including

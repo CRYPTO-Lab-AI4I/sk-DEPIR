@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "job_id": "82200",
+  "controller_seconds": 143.93680612102617,
+  "scan_seconds": 143.039567041,
+  "peak_rss_MiB": 14.78515625,
+  "input_GiB": 28.882668934762478,
+  "histograms": {
+    "64": {
+      "minimum": 31531660,
+      "maximum": 151323728,
+      "maximum_over_average": 2.498272461980704,
+      "maximum_index_GiB": 1.127449631690979
+    },
+    "32": {
+      "minimum": 70187411,
+      "maximum": 273880228,
+      "maximum_over_average": 2.260806816408186,
+      "maximum_index_GiB": 2.040566712617874
+    },
+    "16": {
+      "minimum": 154654880,
+      "maximum": 482718852,
+      "maximum_over_average": 1.992356438030887,
+      "maximum_index_GiB": 3.596535712480545
+    },
+    "8": {
+      "minimum": 338286312,
+      "maximum": 823825144,
+      "maximum_over_average": 1.7001131431470615,
+      "maximum_index_GiB": 6.137975633144379
+    },
+    "4": {
+      "minimum": 736780003,
+      "maximum": 1355297730,
+      "maximum_over_average": 1.398451783386195,
+      "maximum_index_GiB": 10.09775497019291
+    },
+    "2": {
+      "minimum": 1629005505,
+      "maximum": 2247560698,
+      "maximum_over_average": 1.159562654320546,
+      "maximum_index_GiB": 16.745632126927376
+    }
+  },
+  "limitation": "Saved evidence/source reconciliation;input SHA256 was checked by the job,not reread by this analyzer"
+}

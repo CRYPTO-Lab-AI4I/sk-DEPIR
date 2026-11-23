@@ -1,0 +1,12 @@
+{
+  "revision": "7bbf1938d497e38339c3860f8b82abc0edb96ccd",
+  "source_sha256": "59fe3125426e918a785a187efc22f5e35e419c3ec677ab8f2c2f87a19292ac84",
+  "input": ".cache/liftrs/gpu-s17-full-preprocessing/s17-m2-t5/support/support.bin",
+  "input_sha256": "1d5251ecf13148683a28bff04b7e3f1c5f71cd8e3094eb083e147cb28c2e2419",
+  "input_bytes": 31012529624,
+  "node": "gnode13",
+  "job_id": "82200",
+  "resources": "1 HPC node,2 CPU cores,4 GiB requested RAM,no GPU;1 GiB child address-space,32 MiB file cap;720s controller,15min Slurm",
+  "status": "passed",
+  "controller_seconds": 143.93680612102617
+}

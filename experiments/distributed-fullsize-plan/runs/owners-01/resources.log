@@ -1,0 +1,23 @@
+	Command being timed: "/tmp/depir-owner-owners-01-2915735/scan_support 17 8 3876566203 1d5251ecf13148683a28bff04b7e3f1c5f71cd8e3094eb083e147cb28c2e2419 /hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/gpu-s17-full-preprocessing/s17-m2-t5/support/support.bin /hpc/home/crypto/tmour/sk-DEPIR/experiments/distributed-fullsize-plan/runs/owners-01/owners.json"
+	User time (seconds): 57.95
+	System time (seconds): 18.80
+	Percent of CPU this job got: 53%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:23.04
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 15140
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 342
+	Voluntary context switches: 20116
+	Involuntary context switches: 181
+	Swaps: 0
+	File system inputs: 60571352
+	File system outputs: 56
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
