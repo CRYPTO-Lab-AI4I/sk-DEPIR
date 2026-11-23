@@ -1,6 +1,6 @@
 # Shared local and distributed root runtime
 
-Status: prepared; integration not yet submitted. Parent revision df409fa.
+Status: prepared; integration not yet submitted. Implementation **07872d5** (parent df409fa).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
 Planned results `runs/roots-01/`; immutable source, binaries and reusable caches:
@@ -98,3 +98,13 @@ python3 -B experiments/distributed-root-runtime/analyze.py roots-01
 After validation update the main reference and continue production discovery/phase
 ownership, non-oracle end-to-end entry, whole-workflow resource admission and bounded
 retention/publication. Full s18 remains unrun/unadmitted.
+
+### Immutable-source readiness
+
+Implementation **07872d5** is frozen into **886 build inputs**;
+all **396** Go/C/C++/CUDA hashes match the compiled readiness source.
+All **19 frozen reviewer suites** pass. CPU-only native preflight reproduced
+**108014 historical reference bytes** plus actual s8/curve5 inputs/root geometry.
+[Source checks](readiness/source-checks.json), [reviewers](readiness/frozen-reviewers.json),
+[native preflight](readiness/native-preflight.log). No local CUDA/MPI initialization.
+Fresh committed-source build and each-node path/environment preflight remain in the job.
