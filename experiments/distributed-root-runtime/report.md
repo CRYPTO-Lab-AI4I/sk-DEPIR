@@ -1,6 +1,6 @@
 # Shared local and distributed root runtime
 
-Status: prepared; integration not yet submitted. Implementation **07872d5** (parent df409fa).
+Status: **submitted job82085**, roots-01; integration results pending. Implementation **07872d5** (parent df409fa).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
 Planned results `runs/roots-01/`; immutable source, binaries and reusable caches:
@@ -108,3 +108,9 @@ All **19 frozen reviewer suites** pass. CPU-only native preflight reproduced
 [Source checks](readiness/source-checks.json), [reviewers](readiness/frozen-reviewers.json),
 [native preflight](readiness/native-preflight.log). No local CUDA/MPI initialization.
 Fresh committed-source build and each-node path/environment preflight remain in the job.
+
+### Submission82085
+
+Job **82085** submitted from **ac59ea6**, implementation **07872d5**.
+[Receipt](submission.json);results `runs/roots-01/`,Slurm log `slurm-82085.log`.
+Unchanged resources above;estimate3–6minutes excluding queue. No polling or GPU result claim.

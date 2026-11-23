@@ -27,7 +27,7 @@ passed through **81744 partial results plus81746 wide validation**;
 [coordinated restart support verification](experiments/distributed-restart-binding/report.md) passed **81750**;
 [shared MPI/GPU runtime extraction](experiments/distributed-runtime/report.md) passed **81763**;
 [shared reciprocal orchestration](experiments/distributed-reciprocal/report.md) passed **81777**;
-[shared root runtime and count admission](experiments/distributed-root-runtime/report.md) is next;
+[shared root runtime and count admission](experiments/distributed-root-runtime/report.md) is submitted as **82085**;
 full s18 preprocessing remains unrun.
 
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)

@@ -1,0 +1,16 @@
+{
+  "job_id": "82085",
+  "name": "roots-01",
+  "implementation_revision": "07872d5",
+  "submission_revision": "ac59ea631d6283d0eeb27959bc5bde4b32cdabd8",
+  "recorded_utc": "2026-11-23T09:39:56.002901+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-root-runtime/slurm-%j.log experiments/distributed-root-runtime/run.sbatch roots-01",
+  "results": "experiments/distributed-root-runtime/runs/roots-01",
+  "log": "experiments/distributed-root-runtime/slurm-82085.log",
+  "cache": ".cache/liftrs/distributed-root-runtime/roots-01/",
+  "resources": "2 HPC nodes/2 H200/4 CPU cores/8 GiB requested host RAM total;4 workers;64 MiB owned GPU/worker=128 MiB/card;1 GiB RSS/worker;zero CUDA-pinned;128 MiB retained cache/2 GiB scratch/32 MiB file;720-second controller/15-minute Slurm;exclude gnode03",
+  "scope": "Shared local/owned root runtime and actual-count single-shard admission:genuine s8 cold/coordinated restart,bounded field18 owned root merges;not whole-workflow admission/public production/full s18",
+  "estimated_controller_minutes": "3\u20136 excluding queue",
+  "monitoring": "Receipt-bound local completion notification;no model polling",
+  "note": "886 frozen inputs/396 matching compiled source hashes;19 frozen reviewers,CPU/race/tagged/library tests and108014 historical native bytes plus actual s8 references passed. Same kernels/representations,explicit diagnostic observer and subgroup close/abort policy;no increased resources/unchanged sanitizer."
+}

@@ -270,3 +270,5 @@ Validate CPU guards/failures, native compatibility and existing-budget genuine c
 restart plus owned-wide root merges. No unchanged reciprocal/dense/wide-tail/sanitizer
 repeat. Then continue production discovery/phase ownership, non-oracle end-to-end
 entry, complete resource admission and bounded retention/publication. Full s18 unrun.
+
+Root-runtime validation **82085 submitted** under unchanged caps; [receipt](../experiments/distributed-root-runtime/submission.json). Cold/restart/owned-wide arms;results pending,no full s18 admission.

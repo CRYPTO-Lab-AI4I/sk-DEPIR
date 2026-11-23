@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 09:39 | SCALING-186 | Handoff | [Root runtime job82085 submitted](2026-11-23-0939-codex-scaling-186-handoff.md) |
 | 2026-11-23 09:38 | SCALING-186 | Prepared | [Root runtime and actual-count admission locally validated](2026-11-23-0938-codex-scaling-186-prepared.md) |
 | 2026-11-23 07:05 | SCALING-186 | Started | [Reciprocal passed; extract root runtime and admission](2026-11-23-0705-codex-scaling-186-started.md) |
 | 2026-11-23 01:59 | SCALING-185 | Handoff | [Shared reciprocal job81777 submitted](2026-11-23-0159-codex-scaling-185-handoff.md) |

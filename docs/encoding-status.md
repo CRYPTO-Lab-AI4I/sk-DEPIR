@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-shared root runtime and actual-count shard admission following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+shared root runtime and actual-count shard admission **submitted82085** following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1423,7 +1423,7 @@ worker narrow,3.125MiB wide;driver/context/MPI extra. Controller3min4.002s/cache
 All native/canonical/proof/checkpoint/counter checks pass. No fullsize speed claim;
 default dense preserved. Rows precede deferred GPU close;launcher includes it.
 
-### Prepared root runtime and actual-count admission
+### Root runtime and actual-count admission — submitted82085
 
 [Plan](../experiments/distributed-root-runtime/report.md): local root construction
 and owned subgroup lifecycle become internal runtime with error returns and optional
@@ -1431,3 +1431,5 @@ diagnostic observer. Actual leaf counts/rounded stage shards must fit explicit
 single-shard bounds before GPU work;device allocation/RSS guards remain. This is
 not whole-process resource admission or full s18 support. Existing-budget cold/
 restart/owned-wide validation;no repeated unchanged dense/wide-tail/sanitizer arms.
+
+Root-runtime integration **82085 submitted**: [receipt](../experiments/distributed-root-runtime/submission.json). Cold/restart/owned-wide root arms under unchanged two-node/two-H200 caps;results pending. Single-shard admission is not whole-process/full s18 feasibility.
