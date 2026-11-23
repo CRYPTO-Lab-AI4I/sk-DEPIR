@@ -26,6 +26,7 @@ type rankWorkflowSinks struct {
 	RootObserver    func(string, rankRootMergeStage, []uint32) error
 	SupportObserver func([]int) error
 	DiscoveryReady  func(ScalingCodeHeader, int) error
+	AdmitHost       func(rankHostInventory) error
 	// A checkpoint may return a verified reload. All ranks must execute the
 	// same stage sequence;callback success alone is not a durable commit claim.
 	Checkpoint       func(string, uint64, []uint32) ([]uint32, error)
@@ -86,6 +87,17 @@ func prepareRankWorkflow[Word transposeWord](w *mpi.World, o rankWorkflowOptions
 	}
 	if _, err = admitRankRootStages(w.Rank, counts, n, o.MaxLocalWords); err != nil {
 		return result, err
+	}
+	if sinks.AdmitHost != nil {
+		inventories, e := rootHostInventories(o.Spec.FieldDegree, w.Rank, counts, n, uint64(cap(discovered.Roots)))
+		if e != nil {
+			return result, e
+		}
+		for _, p := range inventories {
+			if e = sinks.AdmitHost(p); e != nil {
+				return result, e
+			}
+		}
 	}
 	// The tree's exact coefficient count must match discovery's K before a GPU leaf allocation.
 	stages, err := rankRootMergeStages(w.Rank, counts, n)
@@ -186,6 +198,23 @@ func finishRankWorkflow[Word transposeWord](w *mpi.World, o rankWorkflowOptions,
 		g, err = checkpoint(fmt.Sprintf("newton-%d", known), known, g)
 		if err != nil {
 			return result, err
+		}
+	}
+	if sinks.AdmitHost != nil {
+		baseArrays := uint64(4)
+		if !o.PrefixInputs {
+			baseArrays++
+		}
+		phases := []rankHostInventory{hostArrayPhase("Newton", o.Spec.FieldDegree, n, baseArrays*words, 0, 0, 0), hostArrayPhase("identity", o.Spec.FieldDegree, n, 3*words, 0, 0, 0)}
+		extension := uint64(0)
+		if !o.StreamSpectrum {
+			extension = words
+		}
+		phases = append(phases, hostArrayPhase("spectrum-and-publication", o.Spec.FieldDegree, n, 3*words, 0, 0, extension))
+		for _, p := range phases {
+			if err = sinks.AdmitHost(p); err != nil {
+				return result, err
+			}
 		}
 	}
 	g, stats, err := refineRankReciprocal(rankReciprocalPlan{Domain: n, RootCount: k + 1, Target: n - k, Known: known, MaxLocalWords: o.MaxLocalWords, Rank: w.Rank, Ranks: w.Size, PrefixInputs: o.PrefixInputs}, root, g, rankReciprocalOps{

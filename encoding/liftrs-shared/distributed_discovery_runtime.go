@@ -24,6 +24,7 @@ type rankDiscoveryOptions struct {
 	Random                                                                  io.Reader
 	// Optional job admission after exact K is known,before GPU discovery allocations.
 	AdmitCode func(ScalingCodeHeader) error
+	AdmitHost func(rankHostInventory) error
 }
 
 func admitRankDiscovery[Word transposeWord](w *mpi.World, spec Spec, o rankDiscoveryOptions, emit func(map[string]any)) error {
@@ -208,6 +209,22 @@ func discoverRankSupport[Word transposeWord](w *mpi.World, spec Spec, options ra
 	}
 	if options.AdmitCode != nil {
 		if err = options.AdmitCode(h); err != nil {
+			return result, err
+		}
+	}
+	if options.AdmitHost != nil {
+		resultWords := words
+		if outputMode == "stream" {
+			resultWords = min(words, uint64(4096))
+		}
+		// Raw support is bounded by the owned band;route/archive lists may grow
+		// to twice their admitted length before Go's next append allocation.
+		indices := uint64(cap(good)) + min(uint64(k), words) + 2*options.MaxRootWords
+		if outputMode == "resident" {
+			indices += 2 * options.MaxArchiveWords
+		}
+		p := hostArrayPhase("discovery", s, n, words, indices, (words+63)/64, resultWords)
+		if err = options.AdmitHost(p); err != nil {
 			return result, err
 		}
 	}

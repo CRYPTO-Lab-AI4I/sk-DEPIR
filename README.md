@@ -34,7 +34,8 @@ passed through **81744 partial results plus81746 wide validation**;
 [final publication commit](experiments/distributed-publication-commit/report.md) passed **82100**;
 [durable assembled prefix commits and fresh-process file reload](experiments/distributed-workflow-checkpoints/report.md) passed **82101**;
 [assembled arithmetic resume](experiments/distributed-workflow-resume/report.md) passed **82102**;
-[parameterized MPI server command](cmd/pir-preprocess-mpi/README.md) is submitted for bounded validation as **82181**, with fullsize host-phase/topology admission still pending;
+[parameterized MPI server command](cmd/pir-preprocess-mpi/README.md) passed **82181**;
+[named host-phase admission and eight-worker validation](experiments/distributed-host-admission/report.md) are prepared, awaiting resource agreement;
 full s18 preprocessing remains unrun.
 
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)

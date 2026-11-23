@@ -45,15 +45,15 @@ def check_summaries(rows,reference,mode):
     return dict(records=sum(v['records']for v in expected.values()),kinds=len(expected),stored_proof_rows=len(proofs),summaries=len(actual))
 
 
-def native_expected(rows):
+def native_expected(rows,workers=4):
     stages={(r['tree_case'],r['tree_level'],r['group_first']):r['stage']['Domain']for r in rows if r.get('kind')=='root-stage'and r['event']=='started'}
     domains={r['case']:r['n']for r in rows if r.get('kind')in ('pipeline','wide-tail','workflow-result')}
-    totals={rank:dict(windows=0,coefficients=0)for rank in range(4)}
+    totals={rank:dict(windows=0,coefficients=0)for rank in range(workers)}
     for row in rows:
         if row.get('kind')!='taylor-plan'or not row['degrees']:continue
         if 'tree_case'in row:
             n=stages[row['tree_case'],row['tree_level'],row['group_first']];rank=row['group_rank'];ranks=row['group_size']
-        else:n=domains[row['case'].split('/')[0]];rank=row['rank'];ranks=4
+        else:n=domains[row['case'].split('/')[0]];rank=row['rank'];ranks=workers
         cols=1<<((n.bit_length()-1)//2);half=cols<<row['level'];span=row['capacity']//(len(row['degrees'])+1)
         first,end=rank*n//ranks,(rank+1)*n//ranks
         for block in range(0,n,2*half):
@@ -65,10 +65,10 @@ def native_expected(rows):
     return totals
 
 
-def native_review(out,mode,rows):
-    expected=native_expected(rows);actual={rank:dict(windows=0,coefficients=0)for rank in range(4)}
+def native_review(out,mode,rows,workers=4):
+    expected=native_expected(rows,workers=workers);actual={rank:dict(windows=0,coefficients=0)for rank in range(workers)}
     names={'rank-Taylor-windows-summary':'windows','rank-Taylor-coefficients-summary':'coefficients'}
-    for rank in range(4):
+    for rank in range(workers):
         for line in (out/f'{mode}-{rank}.stderr.log').read_text().splitlines():
             try:row=json.loads(line)
             except json.JSONDecodeError:continue

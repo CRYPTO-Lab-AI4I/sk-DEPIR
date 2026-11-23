@@ -44,7 +44,7 @@ def suite(c):
     binary=c['cache']/'pir-preprocess-mpi'
     c['run']('command-build',[c['go'],'build','-tags','liftrs_cpp,liftrs_cuda,liftrs_mpi','-o',binary,'./cmd/pir-preprocess-mpi'],120)
     wrapper=c['cache']/'preprocess-rank.sh';shutil.copyfile(c['source']/'cmd/pir-preprocess-mpi/rank.sh',wrapper)
-    config=dict(spec=dict(FieldDegree=8,Dimension=2,CurveDegree=5),ranks=4,library=str(c['cache']/'libliftrs-cuda.so'),device=0,device_bytes=64<<20,max_local_words=16384,max_good_words=65536,max_root_words=65536,max_archive_words=0,rss_bytes=1<<30,storage_bytes=16<<20,file_bytes=32<<20,deadline_seconds=220,newton_input='prefix',spectrum='stream',discovery_result='stream',proof_log='trace')
+    config=dict(spec=dict(FieldDegree=8,Dimension=2,CurveDegree=5),ranks=4,library=str(c['cache']/'libliftrs-cuda.so'),device=0,device_bytes=64<<20,max_local_words=16384,max_good_words=65536,max_root_words=65536,max_archive_words=0,rss_bytes=1<<30,host_reserve_bytes=768<<20,storage_bytes=16<<20,file_bytes=32<<20,deadline_seconds=220,newton_input='prefix',spectrum='stream',discovery_result='stream',proof_log='trace')
     # File cap is per file and may not exceed aggregate retained output cap.
     config['storage_bytes']=32<<20
     cold=c['cache']/'command-cold';resume=c['cache']/'command-resume'

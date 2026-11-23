@@ -51,6 +51,12 @@ func resumeRankWorkflow[Word transposeWord](w *mpi.World, o rankWorkflowOptions,
 	if h.Spec != o.Spec || source.Ranks != w.Size || r.Known > h.N-h.K || (r.Known != h.N-h.K && r.Known&(r.Known-1) != 0) {
 		return result, fmt.Errorf("workflow recovery source binding")
 	}
+	if sinks.AdmitHost != nil {
+		_, words := rankBand(h.N, w.Rank, w.Size)
+		if err = sinks.AdmitHost(hostArrayPhase("checkpoint-reload", o.Spec.FieldDegree, h.N, 2*words, 0, 0, 0)); err != nil {
+			return result, err
+		}
+	}
 	binding, err := newRankSupportBinding(r.Directory, r.Label, w.Rank, w.Size)
 	if err != nil {
 		return result, err

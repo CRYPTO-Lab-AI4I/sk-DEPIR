@@ -172,6 +172,20 @@ func runRankPreprocessingJob[Word transposeWord](w *mpi.World, c DistributedPrep
 		return values, checkpoint.Commit(stage, keep, values)
 	}
 	options := rankWorkflowOptions{Spec: c.Spec, MaxLocalWords: c.MaxLocalWords, PrefixInputs: c.NewtonInput == "prefix", StreamSpectrum: c.Spectrum == "stream", Discovery: rankDiscoveryOptions{Library: c.Library, Device: c.Device, DeviceBytes: c.DeviceBytes, MaxLocalWords: c.MaxLocalWords, MaxGoodWords: c.MaxGoodWords, MaxRootWords: c.MaxRootWords, MaxArchiveWords: c.MaxArchiveWords, ResultMode: c.DiscoveryResult, Random: random}}
+	sinks.AdmitHost = func(p rankHostInventory) error {
+		if e := c.admitHost(p); e != nil {
+			return e
+		}
+		emit(map[string]any{"kind": "host-phase-admission", "inventory": p, "reserve_bytes": c.HostReserveBytes, "rss_cap_bytes": c.RSSBytes, "scope": "named arrays plus caller allowance;not a measured peak bound"})
+		return nil
+	}
+	if c.ResumeDirectory == "" {
+		p := hostInventory("good-enumeration", map[string]uint64{"good_capacity_allowance": 16 * c.MaxGoodWords, "membership_block": 65536})
+		if err = sinks.AdmitHost(p); err != nil {
+			return err
+		}
+	}
+	options.Discovery.AdmitHost = sinks.AdmitHost
 	options.Discovery.AdmitCode = c.admitFiles
 	var result rankWorkflowResult
 	if c.ResumeDirectory == "" {

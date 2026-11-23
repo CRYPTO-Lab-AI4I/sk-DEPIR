@@ -1,6 +1,6 @@
 # Parameterized distributed preprocessing entry
 
-Status: **submitted job82181**, command-01; integration results pending. SCALING-193 follows
+Status: **passed job82181**, command-01; all four arms independently verified. SCALING-193 follows
 [passed assembled restart82102](../distributed-workflow-resume/report.md#verified-outcome82102).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
@@ -126,3 +126,25 @@ Submitted from **a9fb7c2**, implementation **84df606**. [Receipt](submission.jso
 Results `runs/command-01/`, Slurm log `slurm-82181.log`, retained cache above.
 Same admitted limits; estimated controller **3–7 minutes excluding queue**.
 Submission is not a pass; no agent polling until the terminal notice.
+
+### Verified outcome82181
+
+Producing revision **a9fb7c2**. [Analysis](runs/command-01/analysis.json),
+[raw results](runs/command-01/results.json), [Slurm log](slurm-82181.log).
+All **931 source /99 evidence /452 cache** seals reconcile. Controller
+**2 min54.239 s**; retained logical cache **44.791 MiB**. HPC allocation above.
+
+| Arm | Launcher runtime | Logged peak host RSS per worker | Outcome |
+|---|---|---|---|
+| Pilot cold | 10.095 s | 379.570 MiB | Passed |
+| Pilot restart | 7.790 s | 380.492 MiB | Passed |
+| Actual command cold | 10.261 s | 375.211 MiB | Passed |
+| Actual command prefix8 restart | 7.896 s | 376.066 MiB | Passed |
+
+Actual commands match all ordered arithmetic proof hashes/counts/bytes and native
+Taylor work, compact root/Newton files and final canonical payloads. Source/commit/
+shard/publication hashes, exact lengths and aliases pass; restart hashes support
+once on rank0 and performs13remaining Newton steps/161367aggregate upload words.
+No test-oracle input or extra diagnostic copies in the executable. Owned GPU about
+0.244MiB/worker, excluding context/driver/MPI. Different persistence/timing boundaries
+prevent direct speedup claims. Next: [named host-phase admission/eight-worker plan](../distributed-host-admission/report.md).

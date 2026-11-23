@@ -1,0 +1,13 @@
+=== RUN   TestRankDiscoveryRuntimeAdmission
+--- PASS: TestRankDiscoveryRuntimeAdmission (0.01s)
+=== RUN   TestRankDiscoveryCountFrames
+--- PASS: TestRankDiscoveryCountFrames (0.00s)
+=== RUN   TestHostPhaseAdmission
+--- PASS: TestHostPhaseAdmission (0.00s)
+=== RUN   TestDistributedJobAdmission
+--- PASS: TestDistributedJobAdmission (0.01s)
+=== RUN   TestRankWorkflowRecoveryAdmission
+--- PASS: TestRankWorkflowRecoveryAdmission (0.01s)
+=== RUN   TestRankWorkflowAdmission
+--- PASS: TestRankWorkflowAdmission (0.00s)
+PASS

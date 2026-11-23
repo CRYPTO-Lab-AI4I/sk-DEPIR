@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 16:38 | SCALING-194 | Prepared | [Host phases and eight-worker resource plan ready](2026-11-23-1638-codex-scaling-194-prepared.md) |
+| 2026-11-23 16:24 | SCALING-194 | Started | [Command passed; admit host phases and prepare larger ranks](2026-11-23-1624-codex-scaling-194-started.md) |
 | 2026-11-23 16:16 | SCALING-193 | Handoff | [Parameterized command validation82181 submitted](2026-11-23-1616-codex-scaling-193-handoff.md) |
 | 2026-11-23 16:15 | SCALING-193 | Prepared | [Frozen command inputs and native references verified](2026-11-23-1615-codex-scaling-193-ready.md) |
 | 2026-11-23 16:13 | SCALING-193 | Prepared | [Parameterized server command ready](2026-11-23-1613-codex-scaling-193-prepared.md) |

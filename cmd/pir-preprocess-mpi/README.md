@@ -40,6 +40,7 @@ values are bytes, `max_*_words` are element counts):
   "max_root_words": 65536,
   "max_archive_words": 0,
   "rss_bytes": 1073741824,
+  "host_reserve_bytes": 805306368,
   "storage_bytes": 33554432,
   "file_bytes": 33554432,
   "deadline_seconds": 220,
@@ -91,3 +92,14 @@ local-shard, rounded root-stage and actual CUDA owned-byte guards remain. Admiss
 currently checks named allocations and runtime RSS; **complete fullsize host/GC/
 native working-set headroom and larger topology still need review and measurements**.
 This command alone does not establish s18 feasibility or TRL5 acceptance.
+
+
+Host phase admission also requires `host_reserve_bytes`: an explicit allowance for
+native/MPI/CUDA-context/runtime state, retained predecessor arrays and GC/allocator
+slack. It is not a memory allocation or measured bound. The command emits named
+inventories using actual capacities/counts/rounded root domains and rejects phases
+whose named bytes plus this allowance exceed `rss_bytes`. [Model and proposed
+validation](../../experiments/distributed-host-admission/report.md). Earlier frozen
+configurations need this field added to run against the new experimental schema.
+No forced GC or automatic switch to a slower mode is introduced. Fullsize reserve
+and actual aggregate RSS still need representative measurements.

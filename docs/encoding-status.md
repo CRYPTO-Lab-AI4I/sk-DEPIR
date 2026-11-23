@@ -23,7 +23,7 @@ checks on **four workers across two HPC nodes/two H200s**. Final publication
 reload **82101 passed**. Canonical field18 FFT/products also pass at bounded sizes;
 these are not full s18 runs.
 
-**Assembled arithmetic resume82102 passed. Current focus: parameterized MPI server command (SCALING-193), submitted82181; results pending.**
+**Assembled arithmetic resume82102 and actual command82181 passed. Current focus: named host-phase admission/eight-worker validation (SCALING-194), prepared; resource agreement pending.**
 Then parameterized launch/full working-set admission and representative larger
 GPU/node scaling remain. Full s18 preprocessing is **not run / not admitted**.
 The measurements below distinguish small-case integration from fullsize projections
@@ -1567,7 +1567,8 @@ and larger parameter/topology/whole-job admission remain. Same HPC allocation:
 | Final publication82100 | **Passed** | Controller **2 min38.073 s**; assembled launcher **8.510 s**; peak host RSS **378.824 MiB/worker**; owned GPU **0.244 MiB/worker** (context/driver extra); retained cache **36.220 MiB** |
 | Durable assembled prefix commits82101 | **Passed**, including fresh-process file reload | Controller **2 min41.494 s**; assembled launcher **9.893 s**; peak host RSS **380.570 MiB/worker**; owned GPU **0.244 MiB/worker** (driver/context extra) |
 | Assembled arithmetic resume82102 | **Passed** | Controller **3 min11.398 s**; restart launcher **8.297 s**; peak host RSS **381.387 MiB/worker**, owned GPU **0.244 MiB/worker** (driver/context extra) |
-| Parameterized MPI command | **Submitted82181; results pending** | Estimated controller **3–7 min**, same admitted limits; complete fullsize host-phase/topology admission pending |
+| Parameterized MPI command82181 | **Passed** | Controller **2 min54.239 s**; command restart **7.896 s**, peak host RSS **376.066 MiB/worker** |
+| Host phase inventories /eight-worker validation | Implemented; proposed test **not submitted /not yet admitted** | Proposed2nodes/2H200/8cores/16GiBhost RAM;3–7min controller estimate; limits/report below |
 | Full s18 preprocessing | **Not run / not admitted** | Capacity projections above are not measured costs or implementation support |
 
 Durable assembled checkpoint validation **82101 passed** under unchanged caps;
@@ -1596,4 +1597,24 @@ match the pilot, with one support hash/no-copy archive. Fulls18 unrun/unadmitted
 
 Parameterized command [implementation/validation plan](../experiments/distributed-command/report.md); storage/shape admission and runtime guards do not establish fullsize host-memory feasibility.
 
-Command validation [82181 receipt](../experiments/distributed-command/submission.json); no result claim.
+Parameterized command validation **82181 passed**;
+[verified evidence](../experiments/distributed-command/runs/command-01/analysis.json).
+Controller **2 min54.239 s**, actual command cold **10.261 s** /restart **7.896 s**;
+peak host RSS **375.211 /376.066 MiB per worker**, respectively. All arithmetic/
+native/checkpoint/final comparisons match the pilot. Fulls18 unrun/unadmitted.
+
+
+### Host phase inventory and next worker count
+
+[Source-derived model and test budget](../experiments/distributed-host-admission/report.md).
+Actual list capacities/root counts/rounded group domains determine named phase
+bytes; command also requires caller `host_reserve_bytes` for unmodeled native/
+runtime/GC/retained state. This is not measured fullsize peak RSS. At s18/16workers,
+prefix Newton includes64GiB/worker base arrays (four arrays including product
+output), dense80GiB, plus scratch/reserve. Earlier48GiB is input arrays only.
+No new numerical allocation or memory–time policy change.
+
+Eight-worker/two-H200 cold/restart is prepared, requesting8cores/16GiBhost RAM
+versus current4cores/8GiB; no submission before agreement. This tests worker
+ownership/deeper root groups, not eight-GPU throughput. Fullsize host reserve,
+node/GPU packing and complete s18 resources remain unvalidated/unadmitted.

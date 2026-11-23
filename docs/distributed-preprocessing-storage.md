@@ -440,4 +440,33 @@ Complete fullsize host/GC/native working-set/headroom admission still remains,
 then representative larger rank/topology and fulls18 resource agreement. Current
 samplers and individual array caps are not a complete phase memory model.
 
-Parameterized command validation **82181 submitted** under unchanged caps; [receipt](../experiments/distributed-command/submission.json). Pilot cold/restart plus actual command cold/fresh-prefix8 restart; results pending. Fulls18 remains unrun/unadmitted.
+Parameterized command validation **82181 passed**;
+[verified evidence](../experiments/distributed-command/runs/command-01/analysis.json).
+Controller **2 min54.239 s**, actual command cold **10.261 s** /restart **7.896 s**;
+peak host RSS **375.211 /376.066 MiB per worker**, respectively. All arithmetic/
+native/checkpoint/final comparisons match the pilot. Fulls18 unrun/unadmitted.
+
+
+## Named host-phase admission and eight-worker plan (SCALING-194)
+
+82181passed the actual parameterized command. Add inventories for enumeration,
+discovery, local roots, each rounded root group/reshape, Newton/identity/spectrum
+and checkpoint reload. Use actual capacities/root counts, selected layouts and
+bounded Taylor/transfer/codec scratch. Require explicit caller runtime/native/MPI/
+CUDA-context/predecessor/GC reserve; admit named bytes + reserve against RSS cap.
+No forced collection, kernel/transform/transfer change or slower policy selection.
+A reserve is a declared allowance, not a measured fullsize bound.
+
+[Implementation and concrete test plan](../experiments/distributed-host-admission/report.md).
+Prepare eight-worker command cold/restart on two H200s/two HPC nodes, with logical
+outputs pinned to independently verified82181 and complete phase/native/shard/
+identity checks. Combine observer validation and the necessary next worker count;
+do not repeat unchanged four-worker/dense/sanitizer comparisons. Proposed8cores/
+16GiBrequested host RAM exceed the current4cores/8GiB and require agreement before
+submission; GPU/card caps/storage/time limits unchanged. No job submitted yet.
+
+Source-derived s18/16worker prefix Newton named base arrays are64GiB/worker (P,G,
+G²,product output), dense80GiB, plus scratch and reserve. The historical48GiB
+figure counts prefix inputs only; no added array is implied. Update fullsize node
+packing/headroom from representative data before full s18 approval; no fullsize
+RSS/runtime claim from this small test.

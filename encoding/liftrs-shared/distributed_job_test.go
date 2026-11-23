@@ -7,7 +7,7 @@ import (
 )
 
 func commandFixture() DistributedPreprocessingConfig {
-	return DistributedPreprocessingConfig{Spec: Spec{8, 2, 5}, Ranks: 4, Directory: "/owned/output", Library: "/trusted/lib.so", DeviceBytes: 64 << 20, MaxLocalWords: 16384, MaxGoodWords: 65536, MaxRootWords: 65536, RSSBytes: 1 << 30, StorageBytes: 16 << 20, FileBytes: 8 << 20, DeadlineSeconds: 240, NewtonInput: "prefix", Spectrum: "stream", DiscoveryResult: "stream", ProofLog: "trace"}
+	return DistributedPreprocessingConfig{Spec: Spec{8, 2, 5}, Ranks: 4, Directory: "/owned/output", Library: "/trusted/lib.so", DeviceBytes: 64 << 20, MaxLocalWords: 16384, MaxGoodWords: 65536, MaxRootWords: 65536, RSSBytes: 1 << 30, HostReserveBytes: 768 << 20, StorageBytes: 16 << 20, FileBytes: 8 << 20, DeadlineSeconds: 240, NewtonInput: "prefix", Spectrum: "stream", DiscoveryResult: "stream", ProofLog: "trace"}
 }
 func TestDistributedJobAdmission(t *testing.T) {
 	c := commandFixture()

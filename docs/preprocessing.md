@@ -33,7 +33,7 @@ validation steps; see the current [scaling reference](encoding-status.md).
 
 The new experimental [MPI server command](../cmd/pir-preprocess-mpi/README.md)
 exposes the shared distributed cold/restarted runtime without test-oracle inputs.
-Its [bounded validation](../experiments/distributed-command/report.md) is submitted as82181;
+Its [bounded validation](../experiments/distributed-command/report.md) passed82181;
 complete fullsize host-phase/topology/resource admission remains pending. Source
 parameters through s18 are not demonstrated fullsize support.
 
@@ -554,3 +554,5 @@ add work whose runtime cost is unknown;the prototype changes no production/defau
 mode. Fulls18 discovery/generator/persistence integration still remains. Ordinary
 CPU client builds acquire no MPI/CUDA dependency. See the experiment for admission,
 progress/profiling,reference provenance and exact limitations.
+
+The [named host-phase inventory](../experiments/distributed-host-admission/report.md) adds an explicit runtime/native/GC allowance. Its eight-worker validation is prepared but not resource-admitted; fullsize measured headroom remains pending.

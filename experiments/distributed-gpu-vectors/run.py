@@ -80,13 +80,14 @@ def review(rows,directory,operations=None,full_fft=False,cases=None,ranks=2):
     return dict(measurements=values,proof_events=proof_count)
 
 
-def suite(c,full_fft=False,review_fn=review,test_name="TestDistributedGPUVectors",scope=None,baseline=False,reference_review=None,reference_test="TestDistributedGPUVectors",arms=None,ranks=2):
-    assert ranks in (2,4)
-    per_node=ranks//2;cpus=4//ranks
-    gpu_binding=['--gpus-per-task=h200:1','--gpu-bind=single:1']if ranks==2 else['--gpus-per-node=h200:1','--gpu-bind=single:2','--gres-flags=allow-task-sharing']
+def suite(c,full_fft=False,review_fn=review,test_name="TestDistributedGPUVectors",scope=None,baseline=False,reference_review=None,reference_test="TestDistributedGPUVectors",arms=None,ranks=2,cpu_cores=4):
+    assert ranks in (2,4,8)and(ranks<=4 or arms is not None)
+    assert cpu_cores>=ranks and cpu_cores%ranks==0
+    per_node=ranks//2;cpus=cpu_cores//ranks
+    gpu_binding=['--gpus-per-task=h200:1','--gpu-bind=single:1']if ranks==2 else['--gpus-per-node=h200:1','--gpu-bind=single:'+str(per_node),'--gres-flags=allow-task-sharing']
     CONTROL['configure'](c)
     run=c['run'];go=c['go'];source=c['source'];cache=c['cache'];out=c['out'];env=c['env']
-    c['resources'].update(ranks=ranks,owned_cap_MiB_per_worker=128//per_node,rss_cap_GiB_per_rank=1,pinned_cap_MiB_per_rank=0,mpi_mode='staged',tile_words=127 if arms is None else 'per-arm',scope=scope or ('bounded distributed polynomial product'if test_name=='TestDistributedGPUProducts'else('bounded additive FFT with distributed Taylor'if full_fft else'separable GPU vectors with two rank transposes; Taylor absent')))
+    c['resources'].update(ranks=ranks,cpus_per_node=cpu_cores//2,owned_cap_MiB_per_worker=128//per_node,rss_cap_GiB_per_rank=1,pinned_cap_MiB_per_rank=0,mpi_mode='staged',tile_words=127 if arms is None else 'per-arm',scope=scope or ('bounded distributed polynomial product'if test_name=='TestDistributedGPUProducts'else('bounded additive FFT with distributed Taylor'if full_fft else'separable GPU vectors with two rank transposes; Taylor absent')))
     c['save']();env.update(PIR_GPU_MATRIX_STAGE_TAYLOR='1'if full_fft else'0',CGO_ENABLED='1',CC='mpicc',CXX='mpicxx',GOMAXPROCS='1',PIR_RANK_LOG_FILES='1',LIFTRS_CPU_PROGRESS='1')
     run('review-tests',['python3','-B','experiments/distributed-gpu-vectors/test_review.py'],30)
     run('cpu-orchestration',[go,'test','./encoding/liftrs-shared','-run','^TestRankTranspose|^TestRankMatrixVectors$|^TestRankVectorAdmission$|^TestRankTaylor|^TestRankAdditive|^TestRankProduct','-count=1','-timeout=45s'],90)

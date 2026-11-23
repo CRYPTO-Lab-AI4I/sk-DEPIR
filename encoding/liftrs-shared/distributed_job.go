@@ -12,27 +12,28 @@ import (
 // authorization. Named-array admission is separate from total RSS/Slurm limits.
 // CUDA/MPI remain optional build requirements of this experimental entry only.
 type DistributedPreprocessingConfig struct {
-	Spec            Spec   `json:"spec"`
-	Ranks           int    `json:"ranks"`
-	Directory       string `json:"directory"`
-	Library         string `json:"library"`
-	Device          int    `json:"device"`
-	DeviceBytes     uint64 `json:"device_bytes"`
-	MaxLocalWords   uint64 `json:"max_local_words"`
-	MaxGoodWords    uint64 `json:"max_good_words"`
-	MaxRootWords    uint64 `json:"max_root_words"`
-	MaxArchiveWords uint64 `json:"max_archive_words"`
-	RSSBytes        uint64 `json:"rss_bytes"`
-	StorageBytes    uint64 `json:"storage_bytes"`
-	FileBytes       uint64 `json:"file_bytes"`
-	DeadlineSeconds int    `json:"deadline_seconds"`
-	NewtonInput     string `json:"newton_input"`
-	Spectrum        string `json:"spectrum"`
-	DiscoveryResult string `json:"discovery_result"`
-	ProofLog        string `json:"proof_log"`
-	ResumeDirectory string `json:"resume_directory,omitempty"`
-	SourceSHA       string `json:"source_sha256,omitempty"`
-	Known           uint64 `json:"known_prefix,omitempty"`
+	Spec             Spec   `json:"spec"`
+	Ranks            int    `json:"ranks"`
+	Directory        string `json:"directory"`
+	Library          string `json:"library"`
+	Device           int    `json:"device"`
+	DeviceBytes      uint64 `json:"device_bytes"`
+	MaxLocalWords    uint64 `json:"max_local_words"`
+	MaxGoodWords     uint64 `json:"max_good_words"`
+	MaxRootWords     uint64 `json:"max_root_words"`
+	MaxArchiveWords  uint64 `json:"max_archive_words"`
+	RSSBytes         uint64 `json:"rss_bytes"`
+	HostReserveBytes uint64 `json:"host_reserve_bytes"`
+	StorageBytes     uint64 `json:"storage_bytes"`
+	FileBytes        uint64 `json:"file_bytes"`
+	DeadlineSeconds  int    `json:"deadline_seconds"`
+	NewtonInput      string `json:"newton_input"`
+	Spectrum         string `json:"spectrum"`
+	DiscoveryResult  string `json:"discovery_result"`
+	ProofLog         string `json:"proof_log"`
+	ResumeDirectory  string `json:"resume_directory,omitempty"`
+	SourceSHA        string `json:"source_sha256,omitempty"`
+	Known            uint64 `json:"known_prefix,omitempty"`
 }
 
 // ReadDistributedPreprocessingConfig rejects oversized, unknown or trailing JSON.
@@ -63,7 +64,7 @@ func ReadDistributedPreprocessingConfig(reader io.Reader) (c DistributedPreproce
 // These checks do not establish a fullsize host-memory or runtime estimate.
 func (c DistributedPreprocessingConfig) Validate() error {
 	s := c.Spec.FieldDegree
-	if s < 2 || s > 18 || c.Spec.Dimension != 2 || c.Spec.CurveDegree < 1 || c.Spec.CurveDegree >= (1<<uint(s))-1 || c.Ranks < 2 || c.Ranks > 64 || c.Ranks&(c.Ranks-1) != 0 || !filepath.IsAbs(c.Directory) || !filepath.IsAbs(c.Library) || c.Device < 0 || c.DeviceBytes == 0 || c.RSSBytes == 0 || c.StorageBytes == 0 || c.FileBytes == 0 || c.FileBytes > c.StorageBytes || c.DeadlineSeconds < 1 {
+	if s < 2 || s > 18 || c.Spec.Dimension != 2 || c.Spec.CurveDegree < 1 || c.Spec.CurveDegree >= (1<<uint(s))-1 || c.Ranks < 2 || c.Ranks > 64 || c.Ranks&(c.Ranks-1) != 0 || !filepath.IsAbs(c.Directory) || !filepath.IsAbs(c.Library) || c.Device < 0 || c.DeviceBytes == 0 || c.RSSBytes == 0 || c.HostReserveBytes == 0 || c.HostReserveBytes >= c.RSSBytes || c.StorageBytes == 0 || c.FileBytes == 0 || c.FileBytes > c.StorageBytes || c.DeadlineSeconds < 1 {
 		return fmt.Errorf("explicit valid distributed specification, paths and budgets required")
 	}
 	n := uint64(1) << uint(2*s)
