@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-explicit-policy discovery runtime following passed session integration **82096** following passed root runtime **82085** following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+explicit-policy discovery runtime **submitted82097** following passed session integration **82096** following passed root runtime **82085** following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1477,7 +1477,7 @@ All entropy/sample/support/native/proof/canonical checks passed. Single samples
 are not fullsize performance evidence;resident default retained. Rows precede
 deferred GPU close;launcher includes it.
 
-### Prepared explicit-policy discovery runtime
+### Explicit-policy discovery runtime — submitted82097
 
 [Plan](../experiments/distributed-discovery-loop/report.md): sampling/union/root-owner/
 archive loop becomes internal error-returning runtime with explicit random reader,
@@ -1485,3 +1485,5 @@ CUDA/result policy and logical host-list limits. Deterministic seed stays in tes
 no native reference enters runtime. No intended extra arrays/FFT/transfers/files.
 Single-list limits are not total RSS/admission. Same-budget cold/restart/resident
 validation;full production entry/persistence/phase admission remain,fulls18 unrun.
+
+Explicit-policy discovery validation **82097 submitted**: [receipt](../experiments/distributed-discovery-loop/submission.json). Streamed cold/restart/resident-preservation under unchanged two-node/two-H200 caps;results pending. Fulls18 unrun/unadmitted.

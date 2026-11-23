@@ -1,0 +1,16 @@
+{
+  "job_id": "82097",
+  "name": "loop-01",
+  "implementation_revision": "5423bc7",
+  "submission_revision": "c820151736f5c8973e0d78bc2973c0faca955e29",
+  "recorded_utc": "2026-11-23T09:57:08.283799+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-discovery-loop/slurm-%j.log experiments/distributed-discovery-loop/run.sbatch loop-01",
+  "results": "experiments/distributed-discovery-loop/runs/loop-01",
+  "log": "experiments/distributed-discovery-loop/slurm-82097.log",
+  "cache": ".cache/liftrs/distributed-discovery-loop/loop-01/",
+  "resources": "2 HPC nodes/2 H200/4 CPU cores/8 GiB requested host RAM total;4 workers;64 MiB owned GPU/worker=128 MiB/card;1 GiB RSS/worker;zero CUDA-pinned;128 MiB retained cache/2 GiB scratch/32 MiB file;720-second controller/15-minute Slurm;exclude gnode03",
+  "scope": "Explicit-policy discovery sampling/union/ownership/archive runtime:genuine s8 streamed cold/coordinated restart/resident preservation;not public production entry/fulls18",
+  "estimated_controller_minutes": "3\u20136 excluding queue",
+  "monitoring": "Receipt-bound local completion notification;no model polling",
+  "note": "896 frozen inputs/398 matching compiled source hashes;21 frozen reviewers,CPU/race/tagged/library tests and108014 historical native bytes plus actual s8 references passed.Explicit RNG/list/ownedGPU policy,seed only test adapter;no kernel/default/resource increase/unchanged sanitizer."
+}

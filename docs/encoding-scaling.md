@@ -3812,3 +3812,5 @@ Validate local policy/count/wire errors plus same-budget cold/restart/resident
 composition,no unchanged wide/dense/sanitizer. Then assemble production parameter/
 phase ownership/non-oracle entry,bounded persistence/final publication and agree
 larger topology/whole-job resources. Full s18 remains unrun/unadmitted.
+
+Explicit-policy discovery loop validation **82097 submitted** under unchanged caps; [receipt](../experiments/distributed-discovery-loop/submission.json). Cold/restart/resident-preservation arms;results pending,no full s18 admission.

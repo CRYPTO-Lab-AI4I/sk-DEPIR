@@ -1,6 +1,6 @@
 # Explicit-policy partitioned discovery runtime
 
-Status: prepared; GPU integration not yet submitted. Implementation **5423bc7** (parent48bbd15).
+Status: **submitted job82097**, loop-01; GPU integration results pending. Implementation **5423bc7** (parent48bbd15).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [configuration regression](test_review.py), [readiness](readiness/).
 Planned results `runs/loop-01/`; immutable source/binaries/reusable caches outside
@@ -124,3 +124,9 @@ All **21 frozen reviewer suites** pass. CPU-only native preflight reproduces
 [Source checks](readiness/source-checks.json), [reviewers](readiness/frozen-reviewers.json),
 [native preflight](readiness/native-preflight.log). No local CUDA/MPI initialization.
 Fresh committed-source build and each-node path/environment preflight remain in the job.
+
+### Submission82097
+
+Job **82097** submitted from **c820151**, implementation **5423bc7**.
+[Receipt](submission.json);results `runs/loop-01/`,Slurm log `slurm-82097.log`.
+Unchanged resources above;estimate3–6minutes excluding queue. No polling or GPU result claim.
