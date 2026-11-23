@@ -1,6 +1,6 @@
 # Explicit-policy partitioned discovery runtime
 
-Status: prepared; GPU integration not yet submitted. Parent revision48bbd15.
+Status: prepared; GPU integration not yet submitted. Implementation **5423bc7** (parent48bbd15).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [configuration regression](test_review.py), [readiness](readiness/).
 Planned results `runs/loop-01/`; immutable source/binaries/reusable caches outside
@@ -114,3 +114,13 @@ python3 -B experiments/distributed-discovery-loop/analyze.py loop-01
 After verification update the primary scaling reference and assemble production
 parameter/phase ownership and non-oracle workflow with bounded persistence/final
 publication. Admit representative topology and full job resources separately.
+
+### Immutable-source readiness
+
+Implementation **5423bc7** is frozen into **896 build inputs**;
+all **398** Go/C/C++/CUDA hashes match the compiled readiness tree.
+All **21 frozen reviewer suites** pass. CPU-only native preflight reproduces
+**108014 historical reference bytes** plus actual s8/curve5 inputs/root geometry.
+[Source checks](readiness/source-checks.json), [reviewers](readiness/frozen-reviewers.json),
+[native preflight](readiness/native-preflight.log). No local CUDA/MPI initialization.
+Fresh committed-source build and each-node path/environment preflight remain in the job.
