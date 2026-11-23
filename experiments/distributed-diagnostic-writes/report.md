@@ -1,6 +1,6 @@
 # Bounded diagnostic serialization
 
-Status: **81744 failed final controller review**; bounded cold/restart and bulk control independently passed. Wide ran in bulk mode; bounded wide validation remains missing. Implementation revision **04af166** (parent 7d774ed).
+Status: **81744 failed final controller review**; bounded cold/restart and bulk control independently passed. Wide ran in bulk mode; targeted bounded wide validation **submitted81746**, results pending. Implementation revision **04af166** (parent 7d774ed).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer regression](test_review.py), [local readiness](readiness/).
 Planned results: `runs/writes-01/`. Immutable source, binaries, native references
@@ -225,3 +225,7 @@ prior native compatibility evidence remains applicable. [Frozen checks](correcti
 [test output](correction/frozen-review-tests.log). The GPU allocation still performs
 its normal fresh committed-source build and every-node path/library preflight.
 No extra local GPU/MPI execution or repeated arithmetic calibration was needed.
+
+### Targeted submission81746
+
+Job **81746** submitted from **5fa440e**, implementation **845c3eb**; [receipt](submission-wide-02.json). Results `runs/wide-02/`, log `slurm-81746.log`. Existing resource caps unchanged; estimate2–4minutes excluding queue. Only the missing bounded wide validation runs. No polling or new GPU result claim.

@@ -1,0 +1,16 @@
+{
+  "job_id": "81746",
+  "name": "wide-02",
+  "implementation_revision": "845c3eb",
+  "submission_revision": "5fa440e178411ae263935c59069f6ab90919c4cf",
+  "recorded_utc": "2026-11-23T00:49:42.493399+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-diagnostic-writes/slurm-%j.log experiments/distributed-diagnostic-writes/run-wide.sbatch wide-02",
+  "results": "experiments/distributed-diagnostic-writes/runs/wide-02",
+  "log": "experiments/distributed-diagnostic-writes/slurm-81746.log",
+  "cache": ".cache/liftrs/distributed-diagnostic-writes/wide-02/",
+  "resources": "2 HPC nodes / 2 H200 / 4 CPU cores / 8 GiB requested host RAM; 4 MPI workers;64 MiB owned GPU/worker=128 MiB/card;1 GiB RSS/worker;zero CUDA-pinned;128 MiB retained cache/2 GiB scratch/32 MiB file;720-second controller/15-minute scheduler;exclude gnode03",
+  "scope": "Only missing bounded diagnostic field18 wide arm;81744 bounded cold/restart/bulk partial passes retained;not fulls18",
+  "estimated_controller_minutes": "2\u20134 excluding queue",
+  "monitoring": "Receipt-bound local completion notification;no model polling",
+  "note": "859 frozen build inputs;385 compiled Go/C/C++/CUDA sources and readiness binary unchanged;3 focused frozen configuration/progress regressions pass.Explicit bounded wide mode;no repeated cold/restart/sanitizer allocation,no resource increase."
+}

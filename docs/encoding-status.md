@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-bounded diagnostic serialization (81744 partial passes; targeted wide correction next) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+bounded diagnostic serialization (81744 partial passes; targeted wide retry **81746** submitted) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1321,3 +1321,5 @@ The failure was an inherited experiment option, corrected with explicit arm sett
 and a regression that exercises the suite configuration before GPU work. Preserve
 all partial results; retry only bounded wide under unchanged caps. Large-file
 throughput/peak-memory savings and full s18 feasibility remain unmeasured.
+
+Targeted bounded-wide retry **81746 submitted**: [receipt](../experiments/distributed-diagnostic-writes/submission-wide-02.json). Same two HPC nodes/two H200s/four cores/8 GiB requested RAM and existing caps; only missing wide arm rerun, estimate2–4minutes excluding queue. GPU results pending; original81744 overall status remains failed with partial passes preserved.

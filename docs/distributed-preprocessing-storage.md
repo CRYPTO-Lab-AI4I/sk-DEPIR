@@ -189,3 +189,5 @@ addresses temporary buffers, not production retention or coordinated restart.
 Diagnostic serialization validation **81744** failed final controller review after passing bounded cold/restart and bulk control; wide inherited bulk mode. [receipt](../experiments/distributed-diagnostic-writes/submission.json). Retain partial passes; retry only missing bounded wide. Full s18 remains unrun/unadmitted.
 
 SCALING-182: explicitly reset the diagnostic mode after the bulk control, test actual suite configuration before allocation, and rerun only bounded wide using [the targeted runner](../experiments/distributed-diagnostic-writes/run-wide.py). No arithmetic change, repeated cold/restart or resource increase.
+
+Targeted missing bounded-wide validation **81746** submitted under unchanged caps; [receipt](../experiments/distributed-diagnostic-writes/submission-wide-02.json). Results pending; passing81744cold/restart/bulk phases are not repeated.
