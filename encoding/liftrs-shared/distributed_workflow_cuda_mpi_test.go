@@ -37,6 +37,15 @@ func TestAssembledRankWorkflow(t *testing.T) {
 	withRankGPUStages(t, directory, 4, func(w *mpi.World, emit func(map[string]any)) {
 		began := time.Now()
 		var code, generator, archive *os.File
+		mode := os.Getenv("PIR_WORKFLOW_PUBLICATION")
+		if mode == "" {
+			mode = "direct"
+		}
+		if mode != "direct" && mode != "commit" {
+			t.Fatal("workflow publication mode")
+		}
+		var publication *workflowPublication
+		var codeWriter, generatorWriter, archiveWriter io.Writer
 		open := func(name string) *os.File {
 			f, err := os.OpenFile(filepath.Join(directory, name), os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
 			if err != nil {
@@ -45,14 +54,25 @@ func TestAssembledRankWorkflow(t *testing.T) {
 			return f
 		}
 		if w.Rank == 0 {
-			code = open("s8-code.bin")
-			defer code.Close()
-			generator = open("s8-generator.bin")
-			defer generator.Close()
-			archive = open("s8-archive.raw")
-			defer archive.Close()
+			if mode == "commit" {
+				var err error
+				publication, err = newWorkflowPublication(directory, "s8")
+				if err != nil {
+					t.Fatal(err)
+				}
+				defer publication.Close()
+				codeWriter, generatorWriter, archiveWriter = publication.Code, publication.Generator, publication.Archive
+			} else {
+				code = open("s8-code.bin")
+				defer code.Close()
+				generator = open("s8-generator.bin")
+				defer generator.Close()
+				archive = open("s8-archive.raw")
+				defer archive.Close()
+				codeWriter, generatorWriter, archiveWriter = code, generator, archive
+			}
 		}
-		sinks := rankWorkflowSinks{Code: code, Generator: generator, Archive: func(values []uint64) error { return writeDiagnosticWords(archive, values, nil) }}
+		sinks := rankWorkflowSinks{Code: codeWriter, Generator: generatorWriter, Archive: func(values []uint64) error { return writeDiagnosticWords(archiveWriter, values, nil) }}
 		sinks.SupportObserver = func(values []int) error {
 			indices := make([]uint64, len(values))
 			for i, v := range values {
@@ -83,19 +103,25 @@ func TestAssembledRankWorkflow(t *testing.T) {
 			t.Fatal(err)
 		}
 		if w.Rank == 0 {
-			for _, f := range []*os.File{code, generator, archive} {
-				if err = f.Sync(); err != nil {
+			if publication != nil {
+				record, err := publication.Commit(result.Header, result.IdentityVerified, result.DiscoverySamples)
+				if err != nil {
 					t.Fatal(err)
+				}
+				emit(map[string]any{"kind": "workflow-publication", "case": "s8", "record": record})
+			} else {
+				for _, f := range []*os.File{code, generator, archive} {
+					if err = f.Sync(); err != nil {
+						t.Fatal(err)
+					}
+				}
+				info, e := archive.Stat()
+				if e != nil || info.Size() != int64(result.Header.K)*8 {
+					t.Fatal("archive extent", e)
 				}
 			}
 		}
-		// Validate file width without loading a reference into runtime.
-		if w.Rank == 0 {
-			info, e := archive.Stat()
-			if e != nil || info.Size() != int64(result.Header.K)*8 {
-				t.Fatal("archive extent", e)
-			}
-		}
-		emit(map[string]any{"kind": "workflow-result", "case": "s8", "n": result.Header.N, "k": result.Header.K, "samples": result.DiscoverySamples, "root_counts": result.RootCounts, "refinement": result.Refinement, "identity_verified": result.IdentityVerified, "seconds": w.Max(time.Since(began).Seconds()), "reference_input": false})
+		w.Barrier()
+		emit(map[string]any{"kind": "workflow-result", "case": "s8", "n": result.Header.N, "k": result.Header.K, "samples": result.DiscoverySamples, "root_counts": result.RootCounts, "refinement": result.Refinement, "identity_verified": result.IdentityVerified, "seconds": w.Max(time.Since(began).Seconds()), "reference_input": false, "publication_mode": mode})
 	})
 }

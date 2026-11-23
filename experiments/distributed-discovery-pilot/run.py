@@ -11,7 +11,7 @@ VECTORS=PILOT['VECTORS'];FFT=PILOT['FFT']
 CANONICAL={4:'69ebae873990075af7c9c558b5e9d76b2a4d237b89b4bb824205eb2de049c712',6:'a384ea4123bb5bcbfaa9cde64afbe6e6c9091373e6c22129ceda8abdec5709c4'}
 
 
-def summary(rows,s,ranks=2):
+def summary(rows,s,ranks=2,native_reference=None):
     results=[r for r in rows if r.get('kind')=='discovery-result'and r['s']==s]
     assert len(results)==ranks and {r['rank']for r in results}==set(range(ranks))
     results.sort(key=lambda r:r['rank']);n=1<<(2*s);k=results[0]['k'];samples=results[0]['samples']
@@ -19,8 +19,17 @@ def summary(rows,s,ranks=2):
     assert sum(r['local_good']for r in results)==sum(r['raw_count']for r in results)==sum(r['root_count']for r in results)==k
     for r in results:assert r['k']==k and r['grid_words']==n//ranks and r['first']==r['rank']*n//ranks and 0<r['owned_device_bytes']<=64<<20 and r['peak_rss_bytes']<1<<30
     reference=[r for r in rows if r.get('kind')=='discovery-reference'and r['s']==s]
-    assert len(reference)==1 and reference[0]['rank']==0 and reference[0]['matches']is True and reference[0]['samples']==samples
-    assert len(results[0]['entropy_sha256'])==64 and results[0]['entropy_sha256']==reference[0]['entropy_sha256']==reference[0]['reference_entropy_sha256']
+    if native_reference is None:
+        assert len(reference)==1 and reference[0]['rank']==0 and reference[0]['matches']is True and reference[0]['samples']==samples
+        assert len(results[0]['entropy_sha256'])==64 and results[0]['entropy_sha256']==reference[0]['entropy_sha256']==reference[0]['reference_entropy_sha256']
+    else:
+        # A reference-independent runtime emits no in-process reference claim.
+        # Bind every measured count/entropy to separately verified native data.
+        assert not reference
+        parameters=native_reference['parameters']
+        assert parameters['spec']['FieldDegree']==s and parameters['spec']['Dimension']==2
+        assert (parameters['n'],parameters['k'],parameters['samples'])==(n,k,samples)
+        assert len(results[0]['entropy_sha256'])==64 and results[0]['entropy_sha256']==native_reference['entropy_sha256']
     count_rows=[r for r in rows if r.get('kind')=='discovery-sample'and r['s']==s];assert len(count_rows)==ranks*samples
     previous=[0]*ranks
     for sample in range(1,samples+1):
@@ -45,7 +54,7 @@ def review(rows,directory,small=False,streamed=False):
     return result
 
 
-def review_discovery(distributed,directory,cases,ranks=2):
+def review_discovery(distributed,directory,cases,ranks=2,native_references=None):
     """Review the shared discovery component independently of later pipeline stages."""
     transpose={};specs=[];expected={};payload={};summaries={}
     def wire(label,kind,sequence,n,offset,count,source,target,width,data=None):
@@ -53,7 +62,7 @@ def review_discovery(distributed,directory,cases,ranks=2):
             key=(label,rank,direction,kind,sequence,n,offset,count,source,target,width);expected[key]=True
             if data is not None:payload[key]=hashlib.sha256(data).digest()
     for s in cases:
-        info,k,samples=summary(distributed,s,ranks);summaries[f's{s}']=info;n=1<<(2*s);q=1<<s;label=f's{s}';capacity=min(n,3*q)
+        info,k,samples=summary(distributed,s,ranks,None if native_references is None else native_references[s]);summaries[f's{s}']=info;n=1<<(2*s);q=1<<s;label=f's{s}';capacity=min(n,3*q)
         indices=[]
         for rank in range(ranks):
             _,part=PILOT['read_words'](directory/f'{label}-rank-{rank}-support.bin',8)

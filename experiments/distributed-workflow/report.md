@@ -1,6 +1,6 @@
 # Reference-independent distributed preprocessing workflow
 
-Status: **submitted job82099**, workflow-01; GPU integration results pending. Implementation **9a2edd5** (parent9af53a7).
+Status: **82099 failed controller review; all executed arms passed corrected independent review.** Original raw status retained. Implementation **9a2edd5** (parent9af53a7).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
 Planned results `runs/workflow-01/`; immutable source, binaries and reusable data
@@ -146,3 +146,45 @@ Fresh committed-source build and each-node path/environment preflight remain in 
 Job **82099** submitted from **3074591**, implementation **9a2edd5**.
 [Receipt](submission.json);results `runs/workflow-01/`,Slurm log `slurm-82099.log`.
 Unchanged resources above;estimate3–6minutes excluding queue. No polling or GPU result claim.
+
+## Recovered validation82099
+
+Original job/controller status remains **failed**. All executed cold/restart/assembled
+commands exited0 without a guard failure. Source **902 files**, evidence **74 files**
+and cache **369 files** reconcile to producing revision **3074591** and receipt.
+[Raw failure](runs/workflow-01/results.json), [Slurm traceback](slurm-82099.log),
+[corrected independent analysis](runs/workflow-01/analysis.json),
+[recovery logs](recovery/). Saved assembled CPU profiles were processed afterward;
+those derived profile summaries are separate from original sealed outputs.
+
+The controller reused a legacy reviewer requiring an in-process discovery-reference
+event. The new runtime intentionally has no such input/event. Corrected review
+accepts separately verified native metadata explicitly,checks exact K/N/sample/
+entropy and every existing route/count invariant,and preserves strict default event
+requirements for old pilots. A regression tests the actual absent-event case and
+rejects altered native metadata. The initial preflight replay retained a legacy
+reference event and therefore missed this difference;it was reviewer-plumbing
+coverage,not assembled execution evidence. No native-reference claim is fabricated
+and no correctness comparison removed.
+
+All three executed arms now independently pass. Assembled matches **76 checkpoint/
+support/identity files**,full ordered proof counts/digests/semantic bytes,native root
+leaves/stages/final,Taylor counts and discovery entropy/ownership. Code/generator
+bytes match both reviewed pilot and independent native output;raw archive matches
+complete sorted support. No GPU rerun was necessary for this reviewer-only fix.
+
+| Mode | Independently verified runtime | Peak host RSS |
+|---|---|---|
+| Reviewed s8 cold pilot |8.897056 seconds |380.473 MiB/worker |
+| Coordinated prefix8 restart |6.239122 seconds |378.480 MiB/worker |
+| Assembled reference-independent cold |8.486219 seconds |378.082 MiB/worker |
+
+Same HPC two nodes/two H200s/four workers/four cores/8 GiB requested RAM. Owned GPU
+0.244 MiB/worker,context/MPI/driver extra. Controller before review failure **2 min
+31.588 seconds**, retained cache **36.123 MiB**. Assembled includes its runtime close/
+observer fsync;pilot rows precede deferred close. Different checkpoint/native-
+observer costs make these unsuitable as a direct speedup comparison.
+
+Next add explicit final staged-file/commit-manifest policy with streaming hashes,
+then coordinated durable checkpoint/restart,parameterized command and complete
+resource admission. Fulls18 remains unrun/unadmitted.

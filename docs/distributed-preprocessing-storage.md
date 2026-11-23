@@ -325,4 +325,21 @@ so no direct speedup claim. No unchanged wide/dense/sanitizer repeat. Afterward
 integrate durable restart/atomic publication and parameterized command,then larger
 representative topology/complete resource admission. Fulls18 unrun/unadmitted.
 
-Reference-independent assembled workflow validation **82099 submitted** under unchanged caps; [receipt](../experiments/distributed-workflow/submission.json). Pilot cold/restart+assembled cold;results pending,no production restart/full s18 admission.
+Reference-independent assembled workflow validation **82099 controller failed; all executed arms independently verified** under unchanged caps; [receipt](../experiments/distributed-workflow/submission.json). Pilot cold/restart/assembled outputs pass corrected native-metadata review;original failure retained,no production restart/full s18 admission.
+
+
+## Final workflow publication commit (SCALING-190)
+
+82099executed all three arms successfully;legacy reviewer then incorrectly required
+an in-process reference event. Keep raw controller failure,verify native metadata
+externally with strict checks/regression,and recover saved outputs/profiles without
+GPU rerun. All76comparison files/proof summaries/native/final bytes match.
+
+Next explicit final publication policy stages payloads,hashes/counts during writing,
+verifies runtime/header/extents,and commits a synced manifest last. Avoid fullsize
+reread/copy;retain incomplete files/reservations on failure. Extra SHA CPU and
+manifest/directory sync cost remain unmeasured;direct observer option retained.
+[Plan](../experiments/distributed-publication-commit/report.md). Same-budget cold/
+restart+committed assembled validation,no unchanged wide/dense/sanitizer. Then
+coordinated durable prefix restart/parameterized command/full phase admission and
+representative topology. Fulls18 unrun/unadmitted.

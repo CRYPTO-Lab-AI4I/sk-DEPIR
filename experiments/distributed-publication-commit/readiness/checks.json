@@ -1,0 +1,34 @@
+{
+  "status": "publication CPU/race/tagged-native and reviewer tests passed;committed GPU integration pending",
+  "utc": "2026-11-23T10:21:45.487070+00:00",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_publication_files.go": "6f90542ac5ac5735fd6a59c4e6fcfb846e2a47658146f0dc09614f11acf10c2f",
+    "encoding/liftrs-shared/distributed_publication_files_test.go": "318bdb54a6666c51174383af5c37648a97c53df10049e5180e80efaf8f03e85a",
+    "encoding/liftrs-shared/distributed_workflow_cuda_mpi_test.go": "b4758c561b24bcddb56be7f9c877a971d5e34e2e5a32967487cee76d3bb35e61",
+    "experiments/distributed-discovery-pilot/run.py": "38206536e12b97bb96f0724ff8ebc687d9d60d87ae543bc1a98548fde781d192",
+    "experiments/distributed-workflow/run.py": "a993c169b78a67bc44f3ecc47705d5e096b90a48665a49f087c5535b7e06a755",
+    "experiments/distributed-workflow/analyze.py": "1f9be82b46cc42351238ca6dfc690af57d33b9bb3f7f2343884cfbcfecaebc00",
+    "experiments/distributed-workflow/test_review.py": "957a78943c195bc3f7ce6fc60c237caf093453c5de721b9ed96af4005b00ca25",
+    "experiments/distributed-publication-commit/run.py": "46e899152c03e93c33e17f1bd8db7798921eabc832f54ac229a3793d18ac9c58",
+    "experiments/distributed-publication-commit/analyze.py": "c645270e3f58878c2e0afc3be8bf4f6eef410b08a08d651e4ad7b72d88e8a468",
+    "experiments/distributed-publication-commit/test_review.py": "4e322d245eab7c537ec4ea760b3b3d85209207d4781591c768a861a53a769ba4"
+  },
+  "checks": {
+    "build.log": "",
+    "cpu.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t0.006s\n",
+    "native-tests.log": "=== RUN   TestRankDiscoveryRuntimeAdmission\n--- PASS: TestRankDiscoveryRuntimeAdmission (0.07s)\n=== RUN   TestRankDiscoveryCountFrames\n--- PASS: TestRankDiscoveryCountFrames (0.00s)\n=== RUN   TestWorkflowPublicationCommit\n--- PASS: TestWorkflowPublicationCommit (0.01s)\n=== RUN   TestWorkflowPublicationIncompleteRetained\n--- PASS: TestWorkflowPublicationIncompleteRetained (0.00s)\n=== RUN   TestWorkflowPublicationWriteFailure\n--- PASS: TestWorkflowPublicationWriteFailure (0.00s)\n=== RUN   TestWorkflowPublicationManifestFailure\n--- PASS: TestWorkflowPublicationManifestFailure (0.00s)\n=== RUN   TestRankWorkflowAdmission\n--- PASS: TestRankWorkflowAdmission (0.00s)\nPASS\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.017s\n",
+    "review.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.001s\n\nOK\n"
+  },
+  "commands": {
+    "cpu": "CGO_ENABLED=0 go test ./encoding/liftrs-shared -run ^TestWorkflowPublication -count=1 -timeout=20s",
+    "race": "CGO_ENABLED=1 go test -race ./encoding/liftrs-shared -run ^TestWorkflowPublication -count=1 -timeout=20s",
+    "build": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-publication-commit-readiness.test ./encoding/liftrs-shared"
+  },
+  "limitations": [
+    "No local CUDA/MPI initialization.",
+    "Streaming hashes trust immutable caller-owned files;readers must verify committed hashes;not authentication.",
+    "Manifest commit is final-output policy,not durable distributed prefix restart/full s18 admission.",
+    "82099rawfailed status retained;all executed arms independently passed corrected review,without GPU rerun."
+  ]
+}

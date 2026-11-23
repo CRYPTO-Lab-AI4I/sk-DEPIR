@@ -1,0 +1,11 @@
+# SCALING-190 prepared: recovered workflow and explicit final commit
+
+UTC: 2026-11-23T10:21:45.515057+00:00; agent: Codex.
+
+82099rawcontroller failed after all commands exited0:reviewer expected in-process reference event absent by design. Corrected explicit native-metadata review retains strict pilot defaults and all entropy/count/route checks;regression tests absent-event and altered metadata. Independently reconciled902source/74evidence/369cache seals;all three executed arms pass,including76checkpoint/support/identity files,complete ordered proof summaries/native roots/Taylor/canonical code/generator/archive bytes. Originalfailedstatus retained. Saved assembled CPU profiles processed post-completion as separate derived logs. No GPU rerun for reviewer correction. README/mainreference/report/plan updated with actual boundaries and limits.
+
+New final publication helper exclusively stages payloads,hashes/counts as written,requires runtime identity/canonical header/extents,syncs/closes/renames payloads and commits synced manifest last. Private writers/immutable storage assumptions explicit;readers verify hashes,not authentication. Partial files/reservations retained;no overwrite/cleanup. No payload reread/copy/extra numerical arrays/FFT/transfers. Extra SHA CPU and manifest/directory sync cost unmeasured. Explicit PIR_WORKFLOW_PUBLICATION=commit;direct test observer preserved. [Plan](../experiments/distributed-publication-commit/report.md).
+
+CPU/race/tagged-native and23reviewer suites pass. [Readiness](../experiments/distributed-publication-commit/readiness/checks.json). Tests cover wrongheader/incompleteidentity/extent,write poison,manifest failure after payloadrename,no overwrite/repeatedclose and manifest hash validation. No local GPU/MPI initialization.
+
+Next frozen-source/native preflight then reviewed pilot cold/restart+committed assembled output under same2nodes/2H200/4CPU/8GiBhost,64MiBownedGPU/1GiBRSS perworker,128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm;estimate3–6minutes excluding queue. No unchanged wide/dense/sanitizer/resource increase. After terminal notice maintain primary reference and integrate coordinated durable prefix restart/parameterized command/full phase admission,then representative topology/full resource agreement. Fulls18 unrun/unadmitted.

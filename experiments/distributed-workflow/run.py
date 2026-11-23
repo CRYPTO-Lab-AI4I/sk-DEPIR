@@ -22,10 +22,25 @@ def workflow_claims(rows):
     return values
 
 
-def assembled_review(rows,directory,baseline_rows,baseline_directory):
+def publication_review(rows,directory):
+    path=directory/'s8-publication.json';record=json.loads(path.read_text())
+    events=[r for r in rows if r.get('kind')=='workflow-publication']
+    assert len(events)==1 and events[0]['rank']==0 and events[0]['record']==record
+    assert record['version']==1 and record['identity_verified']is True and record['samples']==2 and record['support_format']=='uint64-exponents-le'
+    assert record['header']['K']==7381 and record['header']['N']==65536
+    assert [f['name']for f in record['files']]==['s8-code.bin','s8-generator.bin','s8-archive.raw']
+    assert not list(directory.glob('s8-*.partial'))
+    for item in record['files']:
+        data=(directory/item['name']).read_bytes()
+        assert len(data)==item['bytes']and hashlib.sha256(data).hexdigest()==item['sha256']
+    return record
+
+
+def assembled_review(rows,directory,baseline_rows,baseline_directory,require_publication=False):
     values=workflow_claims(rows)
     proof=PROOF['check_summaries'](rows,baseline_rows,'trace')
-    discovery=OWN['DISCOVERY']['review_discovery']([r for r in rows if r.get('discovery')is True],directory,(8,),ranks=4)
+    native_metadata=json.loads((directory.parent/'reference-inputs/s8-reference.json').read_text())
+    discovery=OWN['DISCOVERY']['review_discovery']([r for r in rows if r.get('discovery')is True],directory,(8,),ranks=4,native_references={8:native_metadata})
     manifest=json.loads((directory.parent/'root-references.json').read_text())
     roots=OWN['review_roots'](rows,directory,manifest,directory.parent/'root-reference-files')
     prefixes=OWN['PILOT']['prefixes'](65536-7381)
@@ -45,7 +60,11 @@ def assembled_review(rows,directory,baseline_rows,baseline_directory):
         support.extend(int.from_bytes(data[i:i+8],'little')for i in range(0,len(data),8))
     expected=b''.join(v.to_bytes(8,'little')for v in sorted(support))
     assert (directory/'s8-archive.raw').read_bytes()==expected
-    return dict(measurements=values,proof_recording=proof,discovery=discovery,hierarchy=roots,matched_checkpoint_files=files,canonical_code_sha256=hashlib.sha256((directory/'s8-code.bin').read_bytes()).hexdigest(),scope='Reference-independent runtime;test/controller owns bounded diagnostic persistence,not production restart/publication')
+    publication=None
+    modes={r.get('publication_mode','direct')for r in values}
+    if require_publication:assert modes=={'commit'}
+    if modes=={'commit'}:publication=publication_review(rows,directory)
+    return dict(publication=publication,measurements=values,proof_recording=proof,discovery=discovery,hierarchy=roots,matched_checkpoint_files=files,canonical_code_sha256=hashlib.sha256((directory/'s8-code.bin').read_bytes()).hexdigest(),scope='Reference-independent runtime;test/controller owns bounded diagnostic persistence,not production restart/publication')
 
 
 def suite(c):
