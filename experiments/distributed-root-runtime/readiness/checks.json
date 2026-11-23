@@ -1,0 +1,36 @@
+{
+  "status": "focused CPU/race/tagged-native/library/reviewer checks passed;GPU integration pending",
+  "utc": "2026-11-23T09:38:16.946768+00:00",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_roots.go": "76e410bd66f96f409c0e0ff4d23c64348981ad9ff50e7d236687dbc317bda85d",
+    "encoding/liftrs-shared/distributed_roots_test.go": "1add1e20229022871b12a1d5abcc091b4bbf4f629f2cf44daa12827a0340cc71",
+    "encoding/liftrs-shared/distributed_roots_cuda_mpi.go": "b080538f91b4cab411fa06250138c95368db00183fa206923ce8f0a9c882b1a5",
+    "encoding/liftrs-shared/distributed_roots_cuda_mpi_test.go": "a625a967441a6c76c4000a067a1de611747bd8c427064fe00044e7516f9df7d3",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go": "39a73f7c58ce64735c5eab8e1a645dec0c83232f2960dad10a8b7260db3cd1c5",
+    "encoding/liftrs-shared/pipeline_roots_gpu_test.go": "00bc42c604533741033583719e68d78b290b3ce8b1a4a308c89b65744f34b817",
+    "encoding/liftrs-shared/root_fixtures_gpu_test.go": "35012ce6e6123d58add5d19634f603f2a972e89c8794cfe9c275183dde132cb4",
+    "encoding/liftrs-shared/root_workers_gpu_test.go": "a8b8e8b23851e79cd822bdd741c142337673be29cb981ae9a3577bec9cb682b4",
+    "experiments/distributed-root-runtime/run.py": "f383281b7c046dd5697ae0255d46a49a707f88e2a1412b358995bf56db0bc6c6",
+    "experiments/distributed-root-runtime/analyze.py": "963a9b508387612f7ade9a4871f207a0d1bcd1c1167137f83ceb460f9d212d92",
+    "experiments/distributed-root-runtime/test_review.py": "b18a7e38f15dd9d94253714a868ae62e3d2aa3b99bd5dd21a369ff64f3ac72d6"
+  },
+  "checks": {
+    "build.log": "",
+    "cpu.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t0.008s\n",
+    "library-build.log": "",
+    "native-tests.log": "=== RUN   TestRankReciprocalColdWarmModes\n--- PASS: TestRankReciprocalColdWarmModes (0.01s)\n=== RUN   TestRankReciprocalRejectsFailures\n--- PASS: TestRankReciprocalRejectsFailures (0.00s)\n=== RUN   TestRankFullCodeIdentity\n--- PASS: TestRankFullCodeIdentity (0.00s)\n=== RUN   TestRankRootRuntimeEarlyErrors\n--- PASS: TestRankRootRuntimeEarlyErrors (0.01s)\n=== RUN   TestRankRootActualCountAdmission\n--- PASS: TestRankRootActualCountAdmission (0.00s)\n=== RUN   TestRankRootIdentityAndGuards\n--- PASS: TestRankRootIdentityAndGuards (0.00s)\n=== RUN   TestRankGPUSessionAdmission\n--- PASS: TestRankGPUSessionAdmission (0.00s)\n=== RUN   TestRankGPUSessionFailureAndClose\n--- PASS: TestRankGPUSessionFailureAndClose (0.00s)\nPASS\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.032s\n",
+    "review.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.002s\n\nOK\n"
+  },
+  "commands": {
+    "cpu": "CGO_ENABLED=0 go test ./encoding/liftrs-shared -run ^TestRankRoot|^TestRankReciprocal|^TestRankFullCodeIdentity -count=1 -timeout=20s",
+    "library": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go build -tags liftrs_cuda,liftrs_mpi ./encoding/liftrs-shared",
+    "race": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -race -tags liftrs_cuda,liftrs_mpi ./encoding/liftrs-shared -run ^TestRankRoot|^TestRankGPUSession -count=1 -timeout=20s",
+    "build": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-root-runtime-readiness.test ./encoding/liftrs-shared"
+  },
+  "limitations": [
+    "No local CUDA/MPI initialization.",
+    "Actual-count single-shard cap is not total host/device/storage admission.",
+    "Previous approval-service usage-limit error prevented command execution;resumed same scoped validation succeeded."
+  ]
+}

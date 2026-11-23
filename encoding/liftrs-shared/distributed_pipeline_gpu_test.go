@@ -470,6 +470,11 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 	if err != nil || discoveryTotal(leafCounts) != uint64(k+w.Size) {
 		t.Fatal("support ownership counts", err)
 	}
+	// Current diagnostic files are capped at32MiB; admit each base shard before
+	// local factor construction. Whole-process/device admission remains separate.
+	if _, e := admitRankRootStages(w.Rank, leafCounts, uint64(n), 8<<20); e != nil {
+		t.Fatal(e)
+	}
 	ac, bc := leafCounts[0], leafCounts[1]
 	indices := make([]uint64, len(shard))
 	for j, v := range shard {
@@ -483,7 +488,7 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 		event("local-roots", "restored")
 	}
 	options := cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: s, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: tables.log, Powers: tables.powers, Devices: []int{0}, MaxElements: uint64(n), DeviceBytes: 64 << 20}
-	fixture := &rootFixture{header: h, extension: field, n: n, maximum: n, base: orbitField{q: q, base: base, lookup: tables}}
+	rootField := orbitField{q: q, base: base, lookup: tables}
 	var local []uint32
 	if resumeFrom == "" && (w.Size == 2 || rootMode == "owned") {
 		factor, err := cuda.NewPreparation(options)
@@ -491,7 +496,7 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 			t.Fatal(err)
 		}
 
-		local, err = fixture.root(supportSorted, factor, shard, func(stage string) { event("roots/"+stage, "started") }, func(stage string, done, total uint64, unit string) {
+		local, err = prepareRankRoot(supportSorted, rootField, uint64(n), factor, shard, func(stage string) { event("roots/"+stage, "started") }, func(stage string, done, total uint64, unit string) {
 			if done == total {
 				emit(map[string]any{"kind": "progress", "case": label, "phase": "roots/" + stage, "completed": done, "total": total, "unit": unit})
 			}
@@ -514,7 +519,7 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 		if e != nil {
 			t.Fatal(e)
 		}
-		bounded := *fixture
+		bounded := rootFixture{header: h, extension: field, n: n, maximum: n, base: rootField}
 		bounded.support = expectedSupport.exponents
 		bounded.maximum = 4
 		for bounded.maximum < k+1 {
@@ -666,7 +671,7 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 		Square: func(values []uint32, keep uint64) ([]uint32, error) {
 			op := executor.Plan.Operation
 			executor.Plan.Operation++
-			return squarePolynomialShard(rankSquarePlan{op, uint64(n), 4096, q, keep, words, w.Rank, w.Size}, values, func(v uint32) uint32 { return fixture.base.mul(v, v) }, link, func(done, total uint64) { notice("newton-square", done, total) })
+			return squarePolynomialShard(rankSquarePlan{op, uint64(n), 4096, q, keep, words, w.Rank, w.Size}, values, func(v uint32) uint32 { return rootField.mul(v, v) }, link, func(done, total uint64) { notice("newton-square", done, total) })
 		},
 		Product: func(name string, a, b []uint32, ac, bc, keep uint64, prefix bool) ([]uint32, uint64, error) {
 			before := executor.UploadedInputWords

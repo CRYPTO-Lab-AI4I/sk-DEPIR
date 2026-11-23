@@ -83,22 +83,11 @@ func makeRootArithmetic(s int) (*rootFixture, error) {
 }
 
 func (f *rootFixture) withEngine(engine rootWorkerEngine) orbitField {
-	base := f.base
-	base.products = &polynomialProducts{domain: uint64(f.n), cutoff: 4096, convolver: preparationConvolver{engine}}
-	return base
+	return rootFieldWithEngine(f.base, uint64(f.n), engine)
 }
 
-func (f *rootFixture) root(mode supportMembership, engine rootWorkerEngine, subset []int,
-	checkpoint func(string), notice preparationNotice) (p []uint32, err error) {
-	// Fixture callers may omit phase markers;the shared algorithm requires a sink.
-	if checkpoint == nil {
-		checkpoint = func(string) {}
-	}
-	defer recoverPreparation(&err)
-	if len(subset) == 0 {
-		return []uint32{1}, nil
-	}
-	return prepareCyclicRootWith(mode, f.withEngine(engine), subset, f.n, 1<<uint(f.header.Spec.FieldDegree), engine.RootFactorsInto, nil, nil, checkpoint, notice)
+func (f *rootFixture) root(mode supportMembership, engine rootWorkerEngine, subset []int, checkpoint func(string), notice preparationNotice) ([]uint32, error) {
+	return prepareRankRoot(mode, f.base, uint64(f.n), engine, subset, checkpoint, notice)
 }
 
 // These complete normalized-polynomial digests were independently retained by

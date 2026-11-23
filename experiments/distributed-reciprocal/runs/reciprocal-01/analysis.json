@@ -1,0 +1,2104 @@
+{
+  "status": "passed",
+  "job_id": "81777",
+  "revision": "b8082433ef54406b3b1fefbf2a02ac70c38f0619",
+  "source_files_verified": 878,
+  "source_override_files_verified": [],
+  "evidence_files_verified": 96,
+  "cache_files_verified": 496,
+  "tests": [
+    "TestWideOrbitArithmetic",
+    "TestTableFreeFields"
+  ],
+  "commands": [
+    {
+      "label": "hosts",
+      "seconds": 0.01566131494473666,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi-plugins",
+      "seconds": 0.018126704031601548,
+      "exit_code": 0
+    },
+    {
+      "label": "mpi",
+      "seconds": 0.38626479904633015,
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc",
+      "seconds": 0.006923367967829108,
+      "exit_code": 0
+    },
+    {
+      "label": "compiler",
+      "seconds": 0.01877947198227048,
+      "exit_code": 0
+    },
+    {
+      "label": "go",
+      "seconds": 0.06936677999328822,
+      "exit_code": 0
+    },
+    {
+      "label": "reciprocal-review-tests",
+      "seconds": 0.231656078947708,
+      "exit_code": 0
+    },
+    {
+      "label": "reciprocal-cpu",
+      "seconds": 16.618884444003925,
+      "exit_code": 0
+    },
+    {
+      "label": "reciprocal-race",
+      "seconds": 17.797463009948842,
+      "exit_code": 0
+    },
+    {
+      "label": "scaling-review-tests",
+      "seconds": 0.22638521995395422,
+      "exit_code": 0
+    },
+    {
+      "label": "native-reference-build",
+      "seconds": 18.687858892022632,
+      "exit_code": 0
+    },
+    {
+      "label": "native-reference-export",
+      "seconds": 1.6726325650233775,
+      "exit_code": 0
+    },
+    {
+      "label": "native-input-admission",
+      "seconds": 0.0767706569749862,
+      "exit_code": 0
+    },
+    {
+      "label": "reference-preflight",
+      "seconds": 0.6500346349785104,
+      "exit_code": 0
+    },
+    {
+      "label": "restart-review-tests",
+      "seconds": 0.11683123197872192,
+      "exit_code": 0
+    },
+    {
+      "label": "restart-publication-cpu",
+      "seconds": 0.5179361150367185,
+      "exit_code": 0
+    },
+    {
+      "label": "restart-publication-race",
+      "seconds": 1.731623283936642,
+      "exit_code": 0
+    },
+    {
+      "label": "ucx-version",
+      "seconds": 0.0681066430406645,
+      "exit_code": 0
+    },
+    {
+      "label": "ucx-config",
+      "seconds": 0.11681738996412605,
+      "exit_code": 0
+    },
+    {
+      "label": "review-tests",
+      "seconds": 0.11700725008267909,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu-orchestration",
+      "seconds": 0.6687699429458007,
+      "exit_code": 0
+    },
+    {
+      "label": "cpu-race",
+      "seconds": 2.2698587329359725,
+      "exit_code": 0
+    },
+    {
+      "label": "cuda-build",
+      "seconds": 20.464211355079897,
+      "exit_code": 0
+    },
+    {
+      "label": "test-build",
+      "seconds": 2.720377583988011,
+      "exit_code": 0
+    },
+    {
+      "label": "rank-preflight",
+      "seconds": 0.617956104921177,
+      "exit_code": 0
+    },
+    {
+      "label": "cold",
+      "seconds": 11.506615996011533,
+      "exit_code": 0
+    },
+    {
+      "label": "cold-profile-0",
+      "seconds": 29.30707804602571,
+      "exit_code": 0
+    },
+    {
+      "label": "cold-profile-1",
+      "seconds": 1.0079361739335582,
+      "exit_code": 0
+    },
+    {
+      "label": "cold-profile-2",
+      "seconds": 1.0687490780837834,
+      "exit_code": 0
+    },
+    {
+      "label": "cold-profile-3",
+      "seconds": 1.0683216759935021,
+      "exit_code": 0
+    },
+    {
+      "label": "resume",
+      "seconds": 8.09106842300389,
+      "exit_code": 0
+    },
+    {
+      "label": "resume-profile-0",
+      "seconds": 0.9374288050457835,
+      "exit_code": 0
+    },
+    {
+      "label": "resume-profile-1",
+      "seconds": 2.119485837058164,
+      "exit_code": 0
+    },
+    {
+      "label": "resume-profile-2",
+      "seconds": 1.167991429916583,
+      "exit_code": 0
+    },
+    {
+      "label": "resume-profile-3",
+      "seconds": 0.8676924179308116,
+      "exit_code": 0
+    },
+    {
+      "label": "dense",
+      "seconds": 10.958589266985655,
+      "exit_code": 0
+    },
+    {
+      "label": "dense-profile-0",
+      "seconds": 0.8184499279595912,
+      "exit_code": 0
+    },
+    {
+      "label": "dense-profile-1",
+      "seconds": 0.6677467819536105,
+      "exit_code": 0
+    },
+    {
+      "label": "dense-profile-2",
+      "seconds": 0.7686600970337167,
+      "exit_code": 0
+    },
+    {
+      "label": "dense-profile-3",
+      "seconds": 0.6787980229128152,
+      "exit_code": 0
+    },
+    {
+      "label": "wide",
+      "seconds": 6.293877298943698,
+      "exit_code": 0
+    },
+    {
+      "label": "wide-profile-0",
+      "seconds": 0.8182695580180734,
+      "exit_code": 0
+    },
+    {
+      "label": "wide-profile-1",
+      "seconds": 0.617778611020185,
+      "exit_code": 0
+    },
+    {
+      "label": "wide-profile-2",
+      "seconds": 0.6416290339548141,
+      "exit_code": 0
+    },
+    {
+      "label": "wide-profile-3",
+      "seconds": 0.6172400050563738,
+      "exit_code": 0
+    }
+  ],
+  "scope": "Shared reciprocal and full identity runtime;default dense preserved;not production entry/fulls18",
+  "arms": {
+    "cold": {
+      "measurements": [
+        {
+          "case": "s8",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "discovery_result_mode": "stream",
+          "elapsed_seconds": 10.031350132,
+          "first": 0,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 7381,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 65536,
+          "newton_input_mode": "prefix",
+          "newton_input_upload_words": 103238,
+          "newton_root_clone_words_per_step": 0,
+          "newton_steps": 16,
+          "owned_device_bytes": 255540,
+          "peak_rss_bytes": 394960896,
+          "pid": 1648201,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 0,
+          "reference_mode": "retained",
+          "root_a_count": 3442,
+          "root_b_count": 1507,
+          "root_counts": [
+            3442,
+            1507,
+            1541,
+            895
+          ],
+          "root_mode": "owned",
+          "root_performed": true,
+          "s": 8,
+          "seconds": 10.020557422,
+          "spectrum_downloaded_words": 16384,
+          "spectrum_host_words": 4096,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "support_streamed": true,
+          "utc": "2026-11-23T01:59:56.916746917Z",
+          "words": 16384
+        },
+        {
+          "case": "s8",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "discovery_result_mode": "stream",
+          "elapsed_seconds": 10.032981876,
+          "first": 16384,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 7381,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 65536,
+          "newton_input_mode": "prefix",
+          "newton_input_upload_words": 32767,
+          "newton_root_clone_words_per_step": 0,
+          "newton_steps": 16,
+          "owned_device_bytes": 255540,
+          "peak_rss_bytes": 394575872,
+          "pid": 1648202,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 1,
+          "reference_mode": "retained",
+          "root_a_count": 3442,
+          "root_b_count": 1507,
+          "root_counts": [
+            3442,
+            1507,
+            1541,
+            895
+          ],
+          "root_mode": "owned",
+          "root_performed": true,
+          "s": 8,
+          "seconds": 10.020557422,
+          "spectrum_downloaded_words": 16384,
+          "spectrum_host_words": 4096,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "support_streamed": true,
+          "utc": "2026-11-23T01:59:56.916774163Z",
+          "words": 16384
+        },
+        {
+          "case": "s8",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "discovery_result_mode": "stream",
+          "elapsed_seconds": 10.020103183,
+          "first": 32768,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 7381,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 65536,
+          "newton_input_mode": "prefix",
+          "newton_input_upload_words": 16384,
+          "newton_root_clone_words_per_step": 0,
+          "newton_steps": 16,
+          "owned_device_bytes": 255540,
+          "peak_rss_bytes": 394252288,
+          "pid": 2691914,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 2,
+          "reference_mode": "retained",
+          "root_a_count": 3442,
+          "root_b_count": 1507,
+          "root_counts": [
+            3442,
+            1507,
+            1541,
+            895
+          ],
+          "root_mode": "owned",
+          "root_performed": true,
+          "s": 8,
+          "seconds": 10.020557422,
+          "spectrum_downloaded_words": 16384,
+          "spectrum_host_words": 4096,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "support_streamed": true,
+          "utc": "2026-11-23T01:59:56.917044478Z",
+          "words": 16384
+        },
+        {
+          "case": "s8",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "discovery_result_mode": "stream",
+          "elapsed_seconds": 10.018300573,
+          "first": 49152,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 7381,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 65536,
+          "newton_input_mode": "prefix",
+          "newton_input_upload_words": 9003,
+          "newton_root_clone_words_per_step": 0,
+          "newton_steps": 16,
+          "owned_device_bytes": 255540,
+          "peak_rss_bytes": 396181504,
+          "pid": 2691915,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 3,
+          "reference_mode": "retained",
+          "root_a_count": 3442,
+          "root_b_count": 1507,
+          "root_counts": [
+            3442,
+            1507,
+            1541,
+            895
+          ],
+          "root_mode": "owned",
+          "root_performed": true,
+          "s": 8,
+          "seconds": 10.020557422,
+          "spectrum_downloaded_words": 16384,
+          "spectrum_host_words": 4096,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "support_streamed": true,
+          "utc": "2026-11-23T01:59:56.917053594Z",
+          "words": 16384
+        }
+      ],
+      "artifacts": {
+        "s8": {
+          "code_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+          "checkpoint_prefixes": [
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            4096,
+            8192,
+            16384,
+            32768,
+            58155
+          ]
+        }
+      },
+      "executor_calls": 72,
+      "operand_proof_events": 68,
+      "discovery": {
+        "s8": [
+          {
+            "case": "s8",
+            "discovery": true,
+            "elapsed_seconds": 1.8222933449999998,
+            "entropy_sha256": "715d5b67d8b142700845b8414411b0df86b803062aa91054cbe808547a9d59fc",
+            "first": 0,
+            "grid_words": 16384,
+            "k": 7381,
+            "kind": "discovery-result",
+            "local_good": 3512,
+            "owned_device_bytes": 255540,
+            "peak_rss_bytes": 390021120,
+            "rank": 0,
+            "raw_count": 3512,
+            "result_buffer_words": 4096,
+            "result_downloaded_words": 32768,
+            "result_mode": "stream",
+            "result_resident_host_words": 0,
+            "root_count": 3441,
+            "s": 8,
+            "samples": 2,
+            "utc": "2026-11-23T01:59:48.707690223Z"
+          },
+          {
+            "case": "s8",
+            "discovery": true,
+            "elapsed_seconds": 1.8237190810000001,
+            "entropy_sha256": "",
+            "first": 16384,
+            "grid_words": 16384,
+            "k": 7381,
+            "kind": "discovery-result",
+            "local_good": 1511,
+            "owned_device_bytes": 255540,
+            "peak_rss_bytes": 389332992,
+            "rank": 1,
+            "raw_count": 1511,
+            "result_buffer_words": 4096,
+            "result_downloaded_words": 32768,
+            "result_mode": "stream",
+            "result_resident_host_words": 0,
+            "root_count": 1506,
+            "s": 8,
+            "samples": 2,
+            "utc": "2026-11-23T01:59:48.707511513Z"
+          },
+          {
+            "case": "s8",
+            "discovery": true,
+            "elapsed_seconds": 1.810961676,
+            "entropy_sha256": "",
+            "first": 32768,
+            "grid_words": 16384,
+            "k": 7381,
+            "kind": "discovery-result",
+            "local_good": 1511,
+            "owned_device_bytes": 255540,
+            "peak_rss_bytes": 390057984,
+            "rank": 2,
+            "raw_count": 1511,
+            "result_buffer_words": 4096,
+            "result_downloaded_words": 32768,
+            "result_mode": "stream",
+            "result_resident_host_words": 0,
+            "root_count": 1540,
+            "s": 8,
+            "samples": 2,
+            "utc": "2026-11-23T01:59:48.707903157Z"
+          },
+          {
+            "case": "s8",
+            "discovery": true,
+            "elapsed_seconds": 1.8092284840000001,
+            "entropy_sha256": "",
+            "first": 49152,
+            "grid_words": 16384,
+            "k": 7381,
+            "kind": "discovery-result",
+            "local_good": 847,
+            "owned_device_bytes": 255540,
+            "peak_rss_bytes": 391987200,
+            "rank": 3,
+            "raw_count": 847,
+            "result_buffer_words": 4096,
+            "result_downloaded_words": 32768,
+            "result_mode": "stream",
+            "result_resident_host_words": 0,
+            "root_count": 894,
+            "s": 8,
+            "samples": 2,
+            "utc": "2026-11-23T01:59:48.707981617Z"
+          }
+        ]
+      },
+      "discovery_wire_events": 42,
+      "hierarchy": {
+        "measurements": [
+          {
+            "dimension": 13,
+            "elapsed_seconds": 2.485541023,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 0,
+            "group_size": 2,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 106548,
+            "peak_rss_bytes": 393912320,
+            "rank": 0,
+            "stage": {
+              "Level": 1,
+              "First": 0,
+              "Ranks": 2,
+              "Domain": 8192,
+              "Count": 4948,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 1,
+                  "Domain": 3442,
+                  "Count": 3442
+                },
+                {
+                  "First": 1,
+                  "Ranks": 1,
+                  "Domain": 1507,
+                  "Count": 1507
+                }
+              ]
+            },
+            "tree_case": "s8",
+            "tree_level": 1,
+            "utc": "2026-11-23T01:59:49.370937936Z"
+          },
+          {
+            "dimension": 13,
+            "elapsed_seconds": 2.487264195,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 1,
+            "group_size": 2,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 106548,
+            "peak_rss_bytes": 390381568,
+            "rank": 1,
+            "stage": {
+              "Level": 1,
+              "First": 0,
+              "Ranks": 2,
+              "Domain": 8192,
+              "Count": 4948,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 1,
+                  "Domain": 3442,
+                  "Count": 3442
+                },
+                {
+                  "First": 1,
+                  "Ranks": 1,
+                  "Domain": 1507,
+                  "Count": 1507
+                }
+              ]
+            },
+            "tree_case": "s8",
+            "tree_level": 1,
+            "utc": "2026-11-23T01:59:49.371056717Z"
+          },
+          {
+            "dimension": 12,
+            "elapsed_seconds": 2.384708881,
+            "event": "completed",
+            "group_first": 2,
+            "group_rank": 0,
+            "group_size": 2,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 81204,
+            "peak_rss_bytes": 392155136,
+            "rank": 0,
+            "stage": {
+              "Level": 1,
+              "First": 2,
+              "Ranks": 2,
+              "Domain": 4096,
+              "Count": 2435,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 1,
+                  "Domain": 1541,
+                  "Count": 1541
+                },
+                {
+                  "First": 1,
+                  "Ranks": 1,
+                  "Domain": 895,
+                  "Count": 895
+                }
+              ]
+            },
+            "tree_case": "s8",
+            "tree_level": 1,
+            "utc": "2026-11-23T01:59:49.281650376Z"
+          },
+          {
+            "dimension": 12,
+            "elapsed_seconds": 2.382760435,
+            "event": "completed",
+            "group_first": 2,
+            "group_rank": 1,
+            "group_size": 2,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 81204,
+            "peak_rss_bytes": 395132928,
+            "rank": 1,
+            "stage": {
+              "Level": 1,
+              "First": 2,
+              "Ranks": 2,
+              "Domain": 4096,
+              "Count": 2435,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 1,
+                  "Domain": 1541,
+                  "Count": 1541
+                },
+                {
+                  "First": 1,
+                  "Ranks": 1,
+                  "Domain": 895,
+                  "Count": 895
+                }
+              ]
+            },
+            "tree_case": "s8",
+            "tree_level": 1,
+            "utc": "2026-11-23T01:59:49.281513599Z"
+          },
+          {
+            "dimension": 13,
+            "elapsed_seconds": 2.963670164,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 0,
+            "group_size": 4,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 81972,
+            "peak_rss_bytes": 393912320,
+            "rank": 0,
+            "stage": {
+              "Level": 2,
+              "First": 0,
+              "Ranks": 4,
+              "Domain": 8192,
+              "Count": 7382,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 2,
+                  "Domain": 8192,
+                  "Count": 4948
+                },
+                {
+                  "First": 2,
+                  "Ranks": 2,
+                  "Domain": 4096,
+                  "Count": 2435
+                }
+              ]
+            },
+            "tree_case": "s8",
+            "tree_level": 2,
+            "utc": "2026-11-23T01:59:49.849067002Z"
+          },
+          {
+            "dimension": 13,
+            "elapsed_seconds": 2.9651476690000003,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 1,
+            "group_size": 4,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 81972,
+            "peak_rss_bytes": 390381568,
+            "rank": 1,
+            "stage": {
+              "Level": 2,
+              "First": 0,
+              "Ranks": 4,
+              "Domain": 8192,
+              "Count": 7382,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 2,
+                  "Domain": 8192,
+                  "Count": 4948
+                },
+                {
+                  "First": 2,
+                  "Ranks": 2,
+                  "Domain": 4096,
+                  "Count": 2435
+                }
+              ]
+            },
+            "tree_case": "s8",
+            "tree_level": 2,
+            "utc": "2026-11-23T01:59:49.848940146Z"
+          },
+          {
+            "dimension": 13,
+            "elapsed_seconds": 2.952382149,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 2,
+            "group_size": 4,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 81972,
+            "peak_rss_bytes": 392155136,
+            "rank": 2,
+            "stage": {
+              "Level": 2,
+              "First": 0,
+              "Ranks": 4,
+              "Domain": 8192,
+              "Count": 7382,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 2,
+                  "Domain": 8192,
+                  "Count": 4948
+                },
+                {
+                  "First": 2,
+                  "Ranks": 2,
+                  "Domain": 4096,
+                  "Count": 2435
+                }
+              ]
+            },
+            "tree_case": "s8",
+            "tree_level": 2,
+            "utc": "2026-11-23T01:59:49.849323584Z"
+          },
+          {
+            "dimension": 13,
+            "elapsed_seconds": 2.950700323,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 3,
+            "group_size": 4,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 81972,
+            "peak_rss_bytes": 395132928,
+            "rank": 3,
+            "stage": {
+              "Level": 2,
+              "First": 0,
+              "Ranks": 4,
+              "Domain": 8192,
+              "Count": 7382,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 2,
+                  "Domain": 8192,
+                  "Count": 4948
+                },
+                {
+                  "First": 2,
+                  "Ranks": 2,
+                  "Domain": 4096,
+                  "Count": 2435
+                }
+              ]
+            },
+            "tree_case": "s8",
+            "tree_level": 2,
+            "utc": "2026-11-23T01:59:49.849453508Z"
+          }
+        ],
+        "cases": [
+          "s8"
+        ],
+        "reference_mode": "retained controller files;no complete root diagnostic arrays in executor"
+      },
+      "processes": {
+        "0": {
+          "pid": 1648201,
+          "host": "gnode13"
+        },
+        "1": {
+          "pid": 1648202,
+          "host": "gnode13"
+        },
+        "2": {
+          "pid": 2691914,
+          "host": "gnode14"
+        },
+        "3": {
+          "pid": 2691915,
+          "host": "gnode14"
+        }
+      },
+      "proof_recording": {
+        "records": 31574,
+        "kinds": 16,
+        "stored_proof_rows": 31574,
+        "summaries": 16
+      },
+      "support_verification": {
+        "mode": "cold",
+        "hash_passes": 0,
+        "hashed_bytes": 0
+      }
+    },
+    "resume": {
+      "measurements": [
+        {
+          "case": "s8",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": false,
+          "discovery_result_mode": "stream",
+          "elapsed_seconds": 6.760040361,
+          "first": 0,
+          "identity_verified": true,
+          "initial_prefix": 8,
+          "k": 7381,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 65536,
+          "newton_input_mode": "prefix",
+          "newton_input_upload_words": 103213,
+          "newton_root_clone_words_per_step": 0,
+          "newton_steps": 13,
+          "owned_device_bytes": 255540,
+          "peak_rss_bytes": 394792960,
+          "pid": 1649865,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 0,
+          "reference_mode": "retained",
+          "root_a_count": 3442,
+          "root_b_count": 1507,
+          "root_counts": [
+            3442,
+            1507,
+            1541,
+            895
+          ],
+          "root_mode": "owned",
+          "root_performed": false,
+          "s": 8,
+          "seconds": 6.759729782,
+          "spectrum_downloaded_words": 16384,
+          "spectrum_host_words": 4096,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "support_streamed": true,
+          "utc": "2026-11-23T02:00:39.725490258Z",
+          "words": 16384
+        },
+        {
+          "case": "s8",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": false,
+          "discovery_result_mode": "stream",
+          "elapsed_seconds": 6.758422039,
+          "first": 16384,
+          "identity_verified": true,
+          "initial_prefix": 8,
+          "k": 7381,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 65536,
+          "newton_input_mode": "prefix",
+          "newton_input_upload_words": 32767,
+          "newton_root_clone_words_per_step": 0,
+          "newton_steps": 13,
+          "owned_device_bytes": 255540,
+          "peak_rss_bytes": 394907648,
+          "pid": 1649866,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 1,
+          "reference_mode": "retained",
+          "root_a_count": 3442,
+          "root_b_count": 1507,
+          "root_counts": [
+            3442,
+            1507,
+            1541,
+            895
+          ],
+          "root_mode": "owned",
+          "root_performed": false,
+          "s": 8,
+          "seconds": 6.759729782,
+          "spectrum_downloaded_words": 16384,
+          "spectrum_host_words": 4096,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "support_streamed": true,
+          "utc": "2026-11-23T02:00:39.725487932Z",
+          "words": 16384
+        },
+        {
+          "case": "s8",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": false,
+          "discovery_result_mode": "stream",
+          "elapsed_seconds": 6.753293318,
+          "first": 32768,
+          "identity_verified": true,
+          "initial_prefix": 8,
+          "k": 7381,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 65536,
+          "newton_input_mode": "prefix",
+          "newton_input_upload_words": 16384,
+          "newton_root_clone_words_per_step": 0,
+          "newton_steps": 13,
+          "owned_device_bytes": 255540,
+          "peak_rss_bytes": 396582912,
+          "pid": 2692792,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 2,
+          "reference_mode": "retained",
+          "root_a_count": 3442,
+          "root_b_count": 1507,
+          "root_counts": [
+            3442,
+            1507,
+            1541,
+            895
+          ],
+          "root_mode": "owned",
+          "root_performed": false,
+          "s": 8,
+          "seconds": 6.759729782,
+          "spectrum_downloaded_words": 16384,
+          "spectrum_host_words": 4096,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "support_streamed": true,
+          "utc": "2026-11-23T02:00:39.725763494Z",
+          "words": 16384
+        },
+        {
+          "case": "s8",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": false,
+          "discovery_result_mode": "stream",
+          "elapsed_seconds": 6.751736977,
+          "first": 49152,
+          "identity_verified": true,
+          "initial_prefix": 8,
+          "k": 7381,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 65536,
+          "newton_input_mode": "prefix",
+          "newton_input_upload_words": 9003,
+          "newton_root_clone_words_per_step": 0,
+          "newton_steps": 13,
+          "owned_device_bytes": 255540,
+          "peak_rss_bytes": 394092544,
+          "pid": 2692793,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 3,
+          "reference_mode": "retained",
+          "root_a_count": 3442,
+          "root_b_count": 1507,
+          "root_counts": [
+            3442,
+            1507,
+            1541,
+            895
+          ],
+          "root_mode": "owned",
+          "root_performed": false,
+          "s": 8,
+          "seconds": 6.759729782,
+          "spectrum_downloaded_words": 16384,
+          "spectrum_host_words": 4096,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "support_streamed": true,
+          "utc": "2026-11-23T02:00:39.725762191Z",
+          "words": 16384
+        }
+      ],
+      "artifacts": {
+        "s8": {
+          "code_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+          "checkpoint_prefixes": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            4096,
+            8192,
+            16384,
+            32768,
+            58155
+          ]
+        }
+      },
+      "executor_calls": 60,
+      "operand_proof_events": 62,
+      "processes": {
+        "0": {
+          "pid": 1649865,
+          "host": "gnode13"
+        },
+        "1": {
+          "pid": 1649866,
+          "host": "gnode13"
+        },
+        "2": {
+          "pid": 2692792,
+          "host": "gnode14"
+        },
+        "3": {
+          "pid": 2692793,
+          "host": "gnode14"
+        }
+      },
+      "proof_recording": {
+        "records": 17090,
+        "kinds": 12,
+        "stored_proof_rows": 17090,
+        "summaries": 12
+      },
+      "support_verification": {
+        "mode": "coordinator",
+        "hash_passes": 1,
+        "hashed_bytes": 29524,
+        "support_bytes": 29524
+      }
+    },
+    "dense": {
+      "measurements": [
+        {
+          "case": "s8",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "discovery_result_mode": "stream",
+          "elapsed_seconds": 9.593031155,
+          "first": 0,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 7381,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 65536,
+          "newton_input_mode": "dense",
+          "newton_input_upload_words": 524288,
+          "newton_root_clone_words_per_step": 16384,
+          "newton_steps": 16,
+          "owned_device_bytes": 255540,
+          "peak_rss_bytes": 394727424,
+          "pid": 1650435,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 0,
+          "reference_mode": "retained",
+          "root_a_count": 3442,
+          "root_b_count": 1507,
+          "root_counts": [
+            3442,
+            1507,
+            1541,
+            895
+          ],
+          "root_mode": "owned",
+          "root_performed": true,
+          "s": 8,
+          "seconds": 9.592736114000001,
+          "spectrum_downloaded_words": 16384,
+          "spectrum_host_words": 4096,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "support_streamed": true,
+          "utc": "2026-11-23T02:00:57.220762098Z",
+          "words": 16384
+        },
+        {
+          "case": "s8",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "discovery_result_mode": "stream",
+          "elapsed_seconds": 9.591010673,
+          "first": 16384,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 7381,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 65536,
+          "newton_input_mode": "dense",
+          "newton_input_upload_words": 524288,
+          "newton_root_clone_words_per_step": 16384,
+          "newton_steps": 16,
+          "owned_device_bytes": 255540,
+          "peak_rss_bytes": 398012416,
+          "pid": 1650436,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 1,
+          "reference_mode": "retained",
+          "root_a_count": 3442,
+          "root_b_count": 1507,
+          "root_counts": [
+            3442,
+            1507,
+            1541,
+            895
+          ],
+          "root_mode": "owned",
+          "root_performed": true,
+          "s": 8,
+          "seconds": 9.592736114000001,
+          "spectrum_downloaded_words": 16384,
+          "spectrum_host_words": 4096,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "support_streamed": true,
+          "utc": "2026-11-23T02:00:57.220772662Z",
+          "words": 16384
+        },
+        {
+          "case": "s8",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "discovery_result_mode": "stream",
+          "elapsed_seconds": 9.590232422,
+          "first": 32768,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 7381,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 65536,
+          "newton_input_mode": "dense",
+          "newton_input_upload_words": 524288,
+          "newton_root_clone_words_per_step": 16384,
+          "newton_steps": 16,
+          "owned_device_bytes": 255540,
+          "peak_rss_bytes": 397520896,
+          "pid": 2693223,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 2,
+          "reference_mode": "retained",
+          "root_a_count": 3442,
+          "root_b_count": 1507,
+          "root_counts": [
+            3442,
+            1507,
+            1541,
+            895
+          ],
+          "root_mode": "owned",
+          "root_performed": true,
+          "s": 8,
+          "seconds": 9.592736114000001,
+          "spectrum_downloaded_words": 16384,
+          "spectrum_host_words": 4096,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "support_streamed": true,
+          "utc": "2026-11-23T02:00:57.221027817Z",
+          "words": 16384
+        },
+        {
+          "case": "s8",
+          "checkpoint_layout": "prefix",
+          "discovery_layout": "distributed",
+          "discovery_performed": true,
+          "discovery_result_mode": "stream",
+          "elapsed_seconds": 9.591614736,
+          "first": 49152,
+          "identity_verified": true,
+          "initial_prefix": 1,
+          "k": 7381,
+          "kind": "pipeline",
+          "matches": true,
+          "n": 65536,
+          "newton_input_mode": "dense",
+          "newton_input_upload_words": 524288,
+          "newton_root_clone_words_per_step": 16384,
+          "newton_steps": 16,
+          "owned_device_bytes": 255540,
+          "peak_rss_bytes": 396623872,
+          "pid": 2693224,
+          "prefix_reloaded": true,
+          "publication": "stream",
+          "rank": 3,
+          "reference_mode": "retained",
+          "root_a_count": 3442,
+          "root_b_count": 1507,
+          "root_counts": [
+            3442,
+            1507,
+            1541,
+            895
+          ],
+          "root_mode": "owned",
+          "root_performed": true,
+          "s": 8,
+          "seconds": 9.592736114000001,
+          "spectrum_downloaded_words": 16384,
+          "spectrum_host_words": 4096,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "support_streamed": true,
+          "utc": "2026-11-23T02:00:57.221038351Z",
+          "words": 16384
+        }
+      ],
+      "artifacts": {
+        "s8": {
+          "code_sha256": "703fc47eb7cb3d085334b8c3cf48abb0bfbf700ca031aea087dcc4b293b78526",
+          "checkpoint_prefixes": [
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            4096,
+            8192,
+            16384,
+            32768,
+            58155
+          ]
+        }
+      },
+      "executor_calls": 72,
+      "operand_proof_events": 68,
+      "discovery": {
+        "s8": [
+          {
+            "case": "s8",
+            "discovery": true,
+            "elapsed_seconds": 1.568182315,
+            "entropy_sha256": "715d5b67d8b142700845b8414411b0df86b803062aa91054cbe808547a9d59fc",
+            "first": 0,
+            "grid_words": 16384,
+            "k": 7381,
+            "kind": "discovery-result",
+            "local_good": 3512,
+            "owned_device_bytes": 255540,
+            "peak_rss_bytes": 390533120,
+            "rank": 0,
+            "raw_count": 3512,
+            "result_buffer_words": 4096,
+            "result_downloaded_words": 32768,
+            "result_mode": "stream",
+            "result_resident_host_words": 0,
+            "root_count": 3441,
+            "s": 8,
+            "samples": 2,
+            "utc": "2026-11-23T02:00:49.195913306Z"
+          },
+          {
+            "case": "s8",
+            "discovery": true,
+            "elapsed_seconds": 1.5659801450000002,
+            "entropy_sha256": "",
+            "first": 16384,
+            "grid_words": 16384,
+            "k": 7381,
+            "kind": "discovery-result",
+            "local_good": 1511,
+            "owned_device_bytes": 255540,
+            "peak_rss_bytes": 390819840,
+            "rank": 1,
+            "raw_count": 1511,
+            "result_buffer_words": 4096,
+            "result_downloaded_words": 32768,
+            "result_mode": "stream",
+            "result_resident_host_words": 0,
+            "root_count": 1506,
+            "s": 8,
+            "samples": 2,
+            "utc": "2026-11-23T02:00:49.195742273Z"
+          },
+          {
+            "case": "s8",
+            "discovery": true,
+            "elapsed_seconds": 1.5653056969999999,
+            "entropy_sha256": "",
+            "first": 32768,
+            "grid_words": 16384,
+            "k": 7381,
+            "kind": "discovery-result",
+            "local_good": 1511,
+            "owned_device_bytes": 255540,
+            "peak_rss_bytes": 390987776,
+            "rank": 2,
+            "raw_count": 1511,
+            "result_buffer_words": 4096,
+            "result_downloaded_words": 32768,
+            "result_mode": "stream",
+            "result_resident_host_words": 0,
+            "root_count": 1540,
+            "s": 8,
+            "samples": 2,
+            "utc": "2026-11-23T02:00:49.196101287Z"
+          },
+          {
+            "case": "s8",
+            "discovery": true,
+            "elapsed_seconds": 1.5667407789999999,
+            "entropy_sha256": "",
+            "first": 49152,
+            "grid_words": 16384,
+            "k": 7381,
+            "kind": "discovery-result",
+            "local_good": 847,
+            "owned_device_bytes": 255540,
+            "peak_rss_bytes": 392429568,
+            "rank": 3,
+            "raw_count": 847,
+            "result_buffer_words": 4096,
+            "result_downloaded_words": 32768,
+            "result_mode": "stream",
+            "result_resident_host_words": 0,
+            "root_count": 894,
+            "s": 8,
+            "samples": 2,
+            "utc": "2026-11-23T02:00:49.19616449Z"
+          }
+        ]
+      },
+      "discovery_wire_events": 42,
+      "hierarchy": {
+        "measurements": [
+          {
+            "dimension": 13,
+            "elapsed_seconds": 2.201414996,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 0,
+            "group_size": 2,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 106548,
+            "peak_rss_bytes": 391581696,
+            "rank": 0,
+            "stage": {
+              "Level": 1,
+              "First": 0,
+              "Ranks": 2,
+              "Domain": 8192,
+              "Count": 4948,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 1,
+                  "Domain": 3442,
+                  "Count": 3442
+                },
+                {
+                  "First": 1,
+                  "Ranks": 1,
+                  "Domain": 1507,
+                  "Count": 1507
+                }
+              ]
+            },
+            "tree_case": "s8",
+            "tree_level": 1,
+            "utc": "2026-11-23T02:00:49.829146034Z"
+          },
+          {
+            "dimension": 13,
+            "elapsed_seconds": 2.199499725,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 1,
+            "group_size": 2,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 106548,
+            "peak_rss_bytes": 393965568,
+            "rank": 1,
+            "stage": {
+              "Level": 1,
+              "First": 0,
+              "Ranks": 2,
+              "Domain": 8192,
+              "Count": 4948,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 1,
+                  "Domain": 3442,
+                  "Count": 3442
+                },
+                {
+                  "First": 1,
+                  "Ranks": 1,
+                  "Domain": 1507,
+                  "Count": 1507
+                }
+              ]
+            },
+            "tree_case": "s8",
+            "tree_level": 1,
+            "utc": "2026-11-23T02:00:49.829261884Z"
+          },
+          {
+            "dimension": 12,
+            "elapsed_seconds": 2.116740649,
+            "event": "completed",
+            "group_first": 2,
+            "group_rank": 0,
+            "group_size": 2,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 81204,
+            "peak_rss_bytes": 394375168,
+            "rank": 0,
+            "stage": {
+              "Level": 1,
+              "First": 2,
+              "Ranks": 2,
+              "Domain": 4096,
+              "Count": 2435,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 1,
+                  "Domain": 1541,
+                  "Count": 1541
+                },
+                {
+                  "First": 1,
+                  "Ranks": 1,
+                  "Domain": 895,
+                  "Count": 895
+                }
+              ]
+            },
+            "tree_case": "s8",
+            "tree_level": 1,
+            "utc": "2026-11-23T02:00:49.747536276Z"
+          },
+          {
+            "dimension": 12,
+            "elapsed_seconds": 2.117982066,
+            "event": "completed",
+            "group_first": 2,
+            "group_rank": 1,
+            "group_size": 2,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 81204,
+            "peak_rss_bytes": 395575296,
+            "rank": 1,
+            "stage": {
+              "Level": 1,
+              "First": 2,
+              "Ranks": 2,
+              "Domain": 4096,
+              "Count": 2435,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 1,
+                  "Domain": 1541,
+                  "Count": 1541
+                },
+                {
+                  "First": 1,
+                  "Ranks": 1,
+                  "Domain": 895,
+                  "Count": 895
+                }
+              ]
+            },
+            "tree_case": "s8",
+            "tree_level": 1,
+            "utc": "2026-11-23T02:00:49.747405801Z"
+          },
+          {
+            "dimension": 13,
+            "elapsed_seconds": 2.6702888380000003,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 0,
+            "group_size": 4,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 81972,
+            "peak_rss_bytes": 391581696,
+            "rank": 0,
+            "stage": {
+              "Level": 2,
+              "First": 0,
+              "Ranks": 4,
+              "Domain": 8192,
+              "Count": 7382,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 2,
+                  "Domain": 8192,
+                  "Count": 4948
+                },
+                {
+                  "First": 2,
+                  "Ranks": 2,
+                  "Domain": 4096,
+                  "Count": 2435
+                }
+              ]
+            },
+            "tree_case": "s8",
+            "tree_level": 2,
+            "utc": "2026-11-23T02:00:50.298019897Z"
+          },
+          {
+            "dimension": 13,
+            "elapsed_seconds": 2.6689790540000002,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 1,
+            "group_size": 4,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 81972,
+            "peak_rss_bytes": 393965568,
+            "rank": 1,
+            "stage": {
+              "Level": 2,
+              "First": 0,
+              "Ranks": 4,
+              "Domain": 8192,
+              "Count": 7382,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 2,
+                  "Domain": 8192,
+                  "Count": 4948
+                },
+                {
+                  "First": 2,
+                  "Ranks": 2,
+                  "Domain": 4096,
+                  "Count": 2435
+                }
+              ]
+            },
+            "tree_case": "s8",
+            "tree_level": 2,
+            "utc": "2026-11-23T02:00:50.298741196Z"
+          },
+          {
+            "dimension": 13,
+            "elapsed_seconds": 2.665559116,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 2,
+            "group_size": 4,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 81972,
+            "peak_rss_bytes": 394375168,
+            "rank": 2,
+            "stage": {
+              "Level": 2,
+              "First": 0,
+              "Ranks": 4,
+              "Domain": 8192,
+              "Count": 7382,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 2,
+                  "Domain": 8192,
+                  "Count": 4948
+                },
+                {
+                  "First": 2,
+                  "Ranks": 2,
+                  "Domain": 4096,
+                  "Count": 2435
+                }
+              ]
+            },
+            "tree_case": "s8",
+            "tree_level": 2,
+            "utc": "2026-11-23T02:00:50.296354688Z"
+          },
+          {
+            "dimension": 13,
+            "elapsed_seconds": 2.666798312,
+            "event": "completed",
+            "group_first": 0,
+            "group_rank": 3,
+            "group_size": 4,
+            "kind": "root-stage",
+            "matches": true,
+            "owned_device_bytes": 81972,
+            "peak_rss_bytes": 395575296,
+            "rank": 3,
+            "stage": {
+              "Level": 2,
+              "First": 0,
+              "Ranks": 4,
+              "Domain": 8192,
+              "Count": 7382,
+              "Sources": [
+                {
+                  "First": 0,
+                  "Ranks": 2,
+                  "Domain": 8192,
+                  "Count": 4948
+                },
+                {
+                  "First": 2,
+                  "Ranks": 2,
+                  "Domain": 4096,
+                  "Count": 2435
+                }
+              ]
+            },
+            "tree_case": "s8",
+            "tree_level": 2,
+            "utc": "2026-11-23T02:00:50.296222022Z"
+          }
+        ],
+        "cases": [
+          "s8"
+        ],
+        "reference_mode": "retained controller files;no complete root diagnostic arrays in executor"
+      },
+      "processes": {
+        "0": {
+          "pid": 1650435,
+          "host": "gnode13"
+        },
+        "1": {
+          "pid": 1650436,
+          "host": "gnode13"
+        },
+        "2": {
+          "pid": 2693223,
+          "host": "gnode14"
+        },
+        "3": {
+          "pid": 2693224,
+          "host": "gnode14"
+        }
+      },
+      "proof_recording": {
+        "records": 31574,
+        "kinds": 16,
+        "stored_proof_rows": 31574,
+        "summaries": 16
+      },
+      "support_verification": {
+        "mode": "cold",
+        "hash_passes": 0,
+        "hashed_bytes": 0
+      }
+    },
+    "wide": {
+      "measurements": [
+        {
+          "case": "s18-d5",
+          "coefficient_bytes": 4,
+          "dimension": 5,
+          "elapsed_seconds": 1.734181204,
+          "first": 0,
+          "high_source_downloaded_words": 8,
+          "kind": "wide-tail",
+          "matches": true,
+          "n": 32,
+          "newton_input_mode": "prefix",
+          "newton_input_upload_words": 41,
+          "newton_root_clone_words_per_step": 0,
+          "newton_steps": 4,
+          "owned_device_bytes": 3251340,
+          "peak_rss_bytes": 384430080,
+          "rank": 0,
+          "root_count": 9,
+          "s": 18,
+          "slot_bytes": 8,
+          "spectrum_downloaded_words": 8,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "target": 16,
+          "utc": "2026-11-23T02:01:05.21486212Z",
+          "words": 8
+        },
+        {
+          "case": "s18-d12",
+          "coefficient_bytes": 4,
+          "dimension": 12,
+          "elapsed_seconds": 4.996661906,
+          "first": 0,
+          "high_source_downloaded_words": 1024,
+          "kind": "wide-tail",
+          "matches": true,
+          "n": 4096,
+          "newton_input_mode": "prefix",
+          "newton_input_upload_words": 184,
+          "newton_root_clone_words_per_step": 0,
+          "newton_steps": 6,
+          "owned_device_bytes": 3277068,
+          "peak_rss_bytes": 397635584,
+          "rank": 0,
+          "root_count": 17,
+          "s": 18,
+          "slot_bytes": 8,
+          "spectrum_downloaded_words": 1024,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "target": 64,
+          "utc": "2026-11-23T02:01:08.477342912Z",
+          "words": 1024
+        },
+        {
+          "case": "s18-d5",
+          "coefficient_bytes": 4,
+          "dimension": 5,
+          "elapsed_seconds": 1.7370419350000001,
+          "first": 8,
+          "high_source_downloaded_words": 8,
+          "kind": "wide-tail",
+          "matches": true,
+          "n": 32,
+          "newton_input_mode": "prefix",
+          "newton_input_upload_words": 8,
+          "newton_root_clone_words_per_step": 0,
+          "newton_steps": 4,
+          "owned_device_bytes": 3251340,
+          "peak_rss_bytes": 384544768,
+          "rank": 1,
+          "root_count": 9,
+          "s": 18,
+          "slot_bytes": 8,
+          "spectrum_downloaded_words": 8,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "target": 16,
+          "utc": "2026-11-23T02:01:05.213998093Z",
+          "words": 8
+        },
+        {
+          "case": "s18-d12",
+          "coefficient_bytes": 4,
+          "dimension": 12,
+          "elapsed_seconds": 4.999262585,
+          "first": 1024,
+          "high_source_downloaded_words": 1024,
+          "kind": "wide-tail",
+          "matches": true,
+          "n": 4096,
+          "newton_input_mode": "prefix",
+          "newton_input_upload_words": 0,
+          "newton_root_clone_words_per_step": 0,
+          "newton_steps": 6,
+          "owned_device_bytes": 3277068,
+          "peak_rss_bytes": 397447168,
+          "rank": 1,
+          "root_count": 17,
+          "s": 18,
+          "slot_bytes": 8,
+          "spectrum_downloaded_words": 1024,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "target": 64,
+          "utc": "2026-11-23T02:01:08.476218674Z",
+          "words": 1024
+        },
+        {
+          "case": "s18-d5",
+          "coefficient_bytes": 4,
+          "dimension": 5,
+          "elapsed_seconds": 1.726272708,
+          "first": 16,
+          "high_source_downloaded_words": 8,
+          "kind": "wide-tail",
+          "matches": true,
+          "n": 32,
+          "newton_input_mode": "prefix",
+          "newton_input_upload_words": 0,
+          "newton_root_clone_words_per_step": 0,
+          "newton_steps": 4,
+          "owned_device_bytes": 3251340,
+          "peak_rss_bytes": 395366400,
+          "rank": 2,
+          "root_count": 9,
+          "s": 18,
+          "slot_bytes": 8,
+          "spectrum_downloaded_words": 8,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "target": 16,
+          "utc": "2026-11-23T02:01:05.214646985Z",
+          "words": 8
+        },
+        {
+          "case": "s18-d12",
+          "coefficient_bytes": 4,
+          "dimension": 12,
+          "elapsed_seconds": 4.988059971,
+          "first": 2048,
+          "high_source_downloaded_words": 1024,
+          "kind": "wide-tail",
+          "matches": true,
+          "n": 4096,
+          "newton_input_mode": "prefix",
+          "newton_input_upload_words": 0,
+          "newton_root_clone_words_per_step": 0,
+          "newton_steps": 6,
+          "owned_device_bytes": 3277068,
+          "peak_rss_bytes": 399794176,
+          "rank": 2,
+          "root_count": 17,
+          "s": 18,
+          "slot_bytes": 8,
+          "spectrum_downloaded_words": 1024,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "target": 64,
+          "utc": "2026-11-23T02:01:08.476434139Z",
+          "words": 1024
+        },
+        {
+          "case": "s18-d5",
+          "coefficient_bytes": 4,
+          "dimension": 5,
+          "elapsed_seconds": 1.726104077,
+          "first": 24,
+          "high_source_downloaded_words": 8,
+          "kind": "wide-tail",
+          "matches": true,
+          "n": 32,
+          "newton_input_mode": "prefix",
+          "newton_input_upload_words": 0,
+          "newton_root_clone_words_per_step": 0,
+          "newton_steps": 4,
+          "owned_device_bytes": 3251340,
+          "peak_rss_bytes": 395337728,
+          "rank": 3,
+          "root_count": 9,
+          "s": 18,
+          "slot_bytes": 8,
+          "spectrum_downloaded_words": 8,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "target": 16,
+          "utc": "2026-11-23T02:01:05.214459046Z",
+          "words": 8
+        },
+        {
+          "case": "s18-d12",
+          "coefficient_bytes": 4,
+          "dimension": 12,
+          "elapsed_seconds": 4.988311256,
+          "first": 3072,
+          "high_source_downloaded_words": 1024,
+          "kind": "wide-tail",
+          "matches": true,
+          "n": 4096,
+          "newton_input_mode": "prefix",
+          "newton_input_upload_words": 0,
+          "newton_root_clone_words_per_step": 0,
+          "newton_steps": 6,
+          "owned_device_bytes": 3277068,
+          "peak_rss_bytes": 398512128,
+          "rank": 3,
+          "root_count": 17,
+          "s": 18,
+          "slot_bytes": 8,
+          "spectrum_downloaded_words": 1024,
+          "spectrum_mode": "stream",
+          "spectrum_resident_host_words": 0,
+          "target": 64,
+          "utc": "2026-11-23T02:01:08.47666614Z",
+          "words": 1024
+        }
+      ],
+      "executor_calls": 56,
+      "operand_proofs": 28,
+      "scope": "Bounded canonical field18 reciprocal/product/spectrum and high-bit raw publication;not a fulls18 grid/code artifact.",
+      "proof_recording": {
+        "records": 40012,
+        "kinds": 12,
+        "stored_proof_rows": 40012,
+        "summaries": 12
+      }
+    }
+  },
+  "diagnostic_writes": {
+    "cold": {
+      "files": 32,
+      "bytes": 989708,
+      "serialization_buffer_limit_bytes": 65536
+    },
+    "resume": {
+      "files": 16,
+      "bytes": 845480,
+      "serialization_buffer_limit_bytes": 65536
+    },
+    "dense": {
+      "files": 32,
+      "bytes": 989708,
+      "serialization_buffer_limit_bytes": 65536
+    },
+    "wide": {
+      "files": 72,
+      "bytes": 197888,
+      "serialization_buffer_limit_bytes": 65536
+    }
+  },
+  "native_taylor_totals": {
+    "cold": {
+      "0": {
+        "windows": 18702,
+        "coefficients": 4514928
+      },
+      "1": {
+        "windows": 16269,
+        "coefficients": 3635280
+      },
+      "2": {
+        "windows": 16149,
+        "coefficients": 3606240
+      },
+      "3": {
+        "windows": 13545,
+        "coefficients": 2709408
+      }
+    },
+    "resume": {
+      "0": {
+        "windows": 13115,
+        "coefficients": 3514304
+      },
+      "1": {
+        "windows": 11309,
+        "coefficients": 2820800
+      },
+      "2": {
+        "windows": 11309,
+        "coefficients": 2820800
+      },
+      "3": {
+        "windows": 9460,
+        "coefficients": 2116288
+      }
+    },
+    "dense": {
+      "0": {
+        "windows": 18702,
+        "coefficients": 4514928
+      },
+      "1": {
+        "windows": 16269,
+        "coefficients": 3635280
+      },
+      "2": {
+        "windows": 16149,
+        "coefficients": 3606240
+      },
+      "3": {
+        "windows": 13545,
+        "coefficients": 2709408
+      }
+    },
+    "wide": {
+      "0": {
+        "windows": 4596,
+        "coefficients": 111120
+      },
+      "1": {
+        "windows": 4200,
+        "coefficients": 100944
+      },
+      "2": {
+        "windows": 4618,
+        "coefficients": 111888
+      },
+      "3": {
+        "windows": 3348,
+        "coefficients": 78288
+      }
+    }
+  },
+  "checkpoint_storage": {
+    "cold": {
+      "s8": {
+        "payload_bytes": 524284,
+        "padded_equivalent_bytes": 4456448,
+        "saved_bytes": 3932164,
+        "zero_byte_rank_files": 47,
+        "completed_stages": 17
+      }
+    },
+    "resume": {
+      "s8": {
+        "payload_bytes": 524260,
+        "padded_equivalent_bytes": 3932160,
+        "saved_bytes": 3407900,
+        "zero_byte_rank_files": 41,
+        "completed_stages": 15
+      }
+    }
+  },
+  "error": null
+}

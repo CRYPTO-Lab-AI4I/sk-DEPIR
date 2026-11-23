@@ -22,13 +22,6 @@ import (
 var rootValidationFlag = flag.String("root-validation", "bitmap", "root/partition membership: bitmap or sorted")
 var rootReferenceValidationFlag = flag.String("root-reference-validation", "bitmap", "CPU fixture membership, held equal in matched comparisons")
 
-type rootWorkerEngine interface {
-	Product([]uint32, []uint32, int, int) ([]uint32, error)
-	RootFactorsInto([]int, [][4]uint32) error
-	OwnedBytes() uint64
-	Close() error
-}
-
 // Opt-in bounded scheduling experiment. Workers own separate executors; lookup
 // tables and caller support are immutable. No CLI fallback or public mode added.
 func TestIndependentRootWorkers(t *testing.T) {

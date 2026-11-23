@@ -255,4 +255,18 @@ dense-preservation/wide integration; no unchanged sanitizer. Then continue produ
 discovery/root/phase ownership, parameter admission, non-oracle end-to-end entry and
 bounded final publication. Full s18 remains unrun/unadmitted.
 
-Shared reciprocal runtime validation **81777 submitted** under unchanged caps; [receipt](../experiments/distributed-reciprocal/submission.json). Cold/restart/dense-preservation/wide arms;results pending,no public production/full s18 admission.
+Shared reciprocal runtime validation **81777 passed** under unchanged caps; [receipt](../experiments/distributed-reciprocal/submission.json). All cold/restart/dense-preservation/wide arms passed;no public production/full s18 admission.
+
+
+## Root runtime and actual-count admission (SCALING-186)
+
+81777passed shared reciprocal cold/restart/dense/wide integration. Next extract
+local root and subgroup lifecycle from test-only helpers, preserving factor/product/
+reduction kernels and abort/close ordering. Diagnostic saves become optional runtime
+observers while bounded tests retain every native reference comparison. Admit actual
+leaf and rounded stage shard lengths before leaf GPU work;this single-array cap is
+not aggregate RSS/device/storage admission. [Scope/resources](../experiments/distributed-root-runtime/report.md).
+Validate CPU guards/failures, native compatibility and existing-budget genuine cold/
+restart plus owned-wide root merges. No unchanged reciprocal/dense/wide-tail/sanitizer
+repeat. Then continue production discovery/phase ownership, non-oracle end-to-end
+entry, complete resource admission and bounded retention/publication. Full s18 unrun.

@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-shared reciprocal/non-oracle generator runtime **submitted81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+shared root runtime and actual-count shard admission following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1394,7 +1394,7 @@ context/MPI/driver memory additional. Controller2min40.959s;cache34.725MiB.
 No fullsize or production-entry claim. Rows precede deferred GPU close;launcher
 includes it. Native/proof/canonical/checkpoint/diagnostic checks all passed.
 
-### Shared reciprocal orchestration — submitted81777
+### Shared reciprocal orchestration — passed81777
 
 [Plan](../experiments/distributed-reciprocal/report.md): one backend-independent
 error-returning Newton loop for cold/resumed/narrow/wide workflows, retaining the
@@ -1405,4 +1405,29 @@ arrays/transforms/I/O or default change;full-size GC/latency/RSS remain unmeasur
 Same-budget cold/restart/dense-preservation/wide validation;not production entry,
 larger-rank support or full s18 admission.
 
-Shared reciprocal integration **81777 submitted**: [receipt](../experiments/distributed-reciprocal/submission.json). Cold/restart/default-dense-preservation/wide arms under unchanged two-node/two-H200 caps;results pending. Full s18 remains unrun/unadmitted.
+Shared reciprocal integration **81777 passed**: [receipt](../experiments/distributed-reciprocal/submission.json). All cold/restart/default-dense-preservation/wide arms passed under unchanged two-node/two-H200 caps. Full s18 remains unrun/unadmitted.
+
+
+### Reciprocal runtime measurements81777
+
+| Mode on HPC | Result/runtime | Peak host RSS |
+|---|---|---|
+| s8 prefix cold |Passed;10.020557 seconds |377.828 MiB/worker |
+| Coordinated prefix8 restart |Passed;6.759730 seconds |378.211 MiB/worker |
+| s8 dense cold control |Passed;9.592736 seconds |379.574 MiB/worker |
+| Bounded field18 d5/d12 |Passed;4.999263 seconds cumulative |381.273 MiB/worker |
+
+Two nodes/two H200s/four workers/four cores/8 GiB requested RAM. Owned GPU0.244MiB/
+worker narrow,3.125MiB wide;driver/context/MPI extra. Controller3min4.002s/cache37.760MiB.
+[Methods/evidence](../experiments/distributed-reciprocal/report.md#verified-result81777).
+All native/canonical/proof/checkpoint/counter checks pass. No fullsize speed claim;
+default dense preserved. Rows precede deferred GPU close;launcher includes it.
+
+### Prepared root runtime and actual-count admission
+
+[Plan](../experiments/distributed-root-runtime/report.md): local root construction
+and owned subgroup lifecycle become internal runtime with error returns and optional
+diagnostic observer. Actual leaf counts/rounded stage shards must fit explicit
+single-shard bounds before GPU work;device allocation/RSS guards remain. This is
+not whole-process resource admission or full s18 support. Existing-budget cold/
+restart/owned-wide validation;no repeated unchanged dense/wide-tail/sanitizer arms.

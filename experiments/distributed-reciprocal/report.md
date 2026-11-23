@@ -1,6 +1,6 @@
 # Shared sharded reciprocal orchestration
 
-Status: **submitted job81777**, reciprocal-01; GPU results pending. Implementation **46404c6** (parent9922a8a).
+Status: **passed job81777**, all four reciprocal-01 arms independently verified. Implementation **46404c6** (parent9922a8a).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [arm regression](test_review.py), [readiness](readiness/).
 Planned results `runs/reciprocal-01/`; immutable source, binaries, native references
@@ -131,3 +131,29 @@ The admitted allocation rebuilds committed source and checks every node before G
 Job **81777** submitted from **b808243**, implementation **46404c6**.
 [Receipt](submission.json);results `runs/reciprocal-01/`,Slurm log `slurm-81777.log`.
 Unchanged resources above;estimate3–6minutes excluding queue. No polling or GPU result claim.
+
+## Verified result81777
+
+Receipt/revision and **878 source /96 evidence /496 cache files** reconcile to
+producing revision **b808243**. [Analysis](runs/reciprocal-01/analysis.json),
+[raw results](runs/reciprocal-01/results.json), [Slurm log](slurm-81777.log).
+All independent native/prefix/full-identity/proof/canonical checks, upload/clone
+counters, checkpoint/reload sequence, restart frames and diagnostic totals passed.
+
+| Mode | Runtime | Peak host RSS |
+|---|---|---|
+| Genuine s8 prefix cold |10.020557 seconds |377.828 MiB/worker |
+| Fresh coordinated prefix8 restart |6.759730 seconds |378.211 MiB/worker |
+| Dense cold preservation control |9.592736 seconds |379.574 MiB/worker |
+| Bounded field18 d5/d12 |4.999263 seconds cumulative |381.273 MiB/worker |
+
+Same admitted HPC two nodes/two H200s/four workers/four cores/8 GiB requested RAM.
+Owned GPU0.244 MiB/worker narrow,3.125 MiB/worker wide;context/MPI/driver additional.
+Controller **3 min4.002 seconds**, cache **37.760 MiB**. All modes passed;one paired
+sample is not fullsize speedup evidence. Default dense remains. Runtime rows precede
+deferred GPU close;launcher/controller includes it.
+
+Next extract local root construction and owned subgroup lifecycle into reusable
+runtime with actual-count shard admission, retaining native observers. Production
+discovery/phase ownership, non-oracle entry, complete resource admission and final
+retention/publication remain. Full s18 remains unrun/unadmitted.
