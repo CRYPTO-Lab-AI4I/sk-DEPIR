@@ -1,6 +1,6 @@
 # Reference-independent distributed preprocessing workflow
 
-Status: prepared; GPU integration not yet submitted. Implementation **9a2edd5** (parent9af53a7).
+Status: **submitted job82099**, workflow-01; GPU integration results pending. Implementation **9a2edd5** (parent9af53a7).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
 Planned results `runs/workflow-01/`; immutable source, binaries and reusable data
@@ -140,3 +140,9 @@ All **22 frozen reviewer suites** pass. CPU-only native preflight reproduces
 [Source checks](readiness/source-checks.json), [reviewers](readiness/frozen-reviewers.json),
 [native preflight](readiness/native-preflight.log). No local CUDA/MPI initialization.
 Fresh committed-source build and each-node path/environment preflight remain in the job.
+
+### Submission82099
+
+Job **82099** submitted from **3074591**, implementation **9a2edd5**.
+[Receipt](submission.json);results `runs/workflow-01/`,Slurm log `slurm-82099.log`.
+Unchanged resources above;estimate3–6minutes excluding queue. No polling or GPU result claim.

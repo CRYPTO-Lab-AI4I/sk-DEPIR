@@ -1,0 +1,16 @@
+{
+  "job_id": "82099",
+  "name": "workflow-01",
+  "implementation_revision": "9a2edd5",
+  "submission_revision": "30745919d7b9975b35fadb329e9665ad05e7df01",
+  "recorded_utc": "2026-11-23T10:09:49.025328+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-workflow/slurm-%j.log experiments/distributed-workflow/run.sbatch workflow-01",
+  "results": "experiments/distributed-workflow/runs/workflow-01",
+  "log": "experiments/distributed-workflow/slurm-82099.log",
+  "cache": ".cache/liftrs/distributed-workflow/workflow-01/",
+  "resources": "2 HPC nodes/2 H200/4 CPU cores/8 GiB requested host RAM total;4 workers;64 MiB owned GPU/worker=128 MiB/card;1 GiB RSS/worker;zero CUDA-pinned;128 MiB retained cache/2 GiB scratch/32 MiB file;720-second controller/15-minute Slurm;exclude gnode03",
+  "scope": "Reviewed pilot cold/coordinated restart plus assembled reference-independent runtime cold;compare every checkpoint/proof/native output;not production restart/public CLI/fulls18",
+  "estimated_controller_minutes": "3\u20136 excluding queue",
+  "monitoring": "Receipt-bound local completion notification;no model polling",
+  "note": "902 frozen inputs/400 matching compiled source hashes;22 frozen reviewers,CPU-only admission/race/tagged/library tests and108014 historical native bytes plus actual s8 references passed.Runtime has no reference input;caller persistence differs from pilot,so no direct speedup claim.No resource increase/unchanged wide/sanitizer."
+}

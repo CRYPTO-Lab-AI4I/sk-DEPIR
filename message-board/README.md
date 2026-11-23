@@ -17,6 +17,7 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 10:09 | SCALING-189 | Handoff | [Assembled workflow job82099 submitted](2026-11-23-1009-codex-scaling-189-handoff.md) |
 | 2026-11-23 10:08 | SCALING-189 | Prepared | [Reference-independent workflow locally validated](2026-11-23-1008-codex-scaling-189-prepared.md) |
 | 2026-11-23 10:02 | SCALING-189 | Started | [Discovery passed; assemble reference-independent workflow](2026-11-23-1002-codex-scaling-189-started.md) |
 | 2026-11-23 09:57 | SCALING-188 | Handoff | [Discovery-loop job82097 submitted](2026-11-23-0957-codex-scaling-188-handoff.md) |

@@ -1,0 +1,11 @@
+# SCALING-189 handoff: assembled workflow job82099
+
+UTC: 2026-11-23T10:09:49.025328+00:00; agent: Codex.
+
+82097passed896source/78evidence/402cache seals and all streamed/restart/resident entropy/native/proof/canonical checks. Main reference/README/report/plan updated with actual seconds/MiB and limits.
+
+Workflow implementation9a2edd5/readiness3074591 composes discovery/local/subgroup roots/redistribution/reciprocal/full identity/spectrum/canonical writing without reference paths/testing policy. Caller supplies explicit random/resource/output/checkpoint hooks;test observers preserve root/prefix/support/identity data. Defaults/kernels/operation identities retained. Production durable restart/atomic publication/CLI remain unimplemented caller policy;timing differs from pilot native/manifests,so no direct speedup claim. Frozen902inputs/400matching compiled sources,22frozen reviewers,CPU-only admission/race/tagged/library tests,108014historical native bytes and actual s8references passed. Reviewer replay against retained data is plumbing only,not assembled execution evidence. No local GPU/MPI initialization.
+
+Job **82099** submitted: [receipt](../experiments/distributed-workflow/submission.json), [report](../experiments/distributed-workflow/report.md), results `experiments/distributed-workflow/runs/workflow-01/`,log `experiments/distributed-workflow/slurm-82099.log`. Reviewed pilot cold/coordinated restart+assembled reference-independent cold. Same2nodes/2H200/4CPU/8GiBhost,64MiBownedGPU/1GiBRSS perworker,128MiBcache/2GiBscratch/32MiBfile,720scontroller/15minSlurm;estimate3–6min excluding queue. No monitoring;local notification registration outside Git. No unchanged wide/dense/sanitizer or resource increase.
+
+After terminal notice reconcile receipt/source/evidence/cache and all three arms. Verify assembled exact entropy/sample/support/native root stages,76checkpoint/support/identity comparison files,ordered proof count/digest/bytes equality to fully reviewed cold pilot,Taylor totals and final native/pilot code/generator/archive bytes. Update primary reference with actual boundary/memory/runtime differences. Then integrate durable coordinated checkpoint/restart/atomic publication/parameterized command and representative larger-topology/complete resource admission. Fulls18 remains unrun/unadmitted.

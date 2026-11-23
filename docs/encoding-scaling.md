@@ -3832,3 +3832,5 @@ writes are not production coordinated checkpoint commits;timing boundaries diffe
 so no direct speedup claim. No unchanged wide/dense/sanitizer repeat. Afterward
 integrate durable restart/atomic publication and parameterized command,then larger
 representative topology/complete resource admission. Fulls18 unrun/unadmitted.
+
+Reference-independent assembled workflow validation **82099 submitted** under unchanged caps; [receipt](../experiments/distributed-workflow/submission.json). Pilot cold/restart+assembled cold;results pending,no production restart/full s18 admission.

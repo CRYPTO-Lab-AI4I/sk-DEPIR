@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-assembled reference-independent workflow following passed discovery runtime **82097** following passed session integration **82096** following passed root runtime **82085** following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+assembled reference-independent workflow **submitted82099** following passed discovery runtime **82097** following passed session integration **82096** following passed root runtime **82085** following passed reciprocal runtime **81777** following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1503,7 +1503,7 @@ worker,context/MPI/driver additional. Controller2min52.256s/cache37.534MiB.
 All entropy/native/proof/canonical checks pass;single samples are not fullsize
 performance evidence. Rows precede deferred GPU close;launcher includes it.
 
-### Prepared reference-independent runtime workflow
+### Reference-independent runtime workflow — submitted82099
 
 [Plan](../experiments/distributed-workflow/report.md): compose runtime discovery,
 local/subgroup roots,reciprocal,full identity,spectrum and canonical writing without
@@ -1513,3 +1513,5 @@ assembled cold validates every output/checkpoint/proof against reviewed native d
 Assembled observer persistence differs from pilot durable manifests;timings are not
 a direct speedup comparison. Production restart/atomic publication/command policy,
 larger topology and full resource admission remain. Full s18 unrun/unadmitted.
+
+Assembled runtime workflow validation **82099 submitted**: [receipt](../experiments/distributed-workflow/submission.json). Reviewed pilot cold/restart plus reference-independent assembled cold under unchanged two-node/two-H200 caps;results pending. Full s18 unrun/unadmitted.
