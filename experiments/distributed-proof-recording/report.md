@@ -1,6 +1,6 @@
 # Bounded protocol proof and native window recording
 
-Status: prepared;GPU validation not yet submitted. Parent revision8a9b915.
+Status: prepared; GPU validation not yet submitted. Implementation revision **08f1100** (parent 8a9b915).
 [Runner](run.py),[Slurm entry](run.sbatch),[analyzer](analyze.py),
 [reviewer tests](test_review.py),[readiness](readiness/). Planned results:
 `runs/recording-01/`;immutable source,binaries,native references,profiles and
@@ -146,3 +146,17 @@ and artifact comparisons in the maintained reference. Continue production
 parameter/rank/lifecycle and non-oracle execution,canonical persistence/restart
 ownership and per-phase real count/domain/resource admission. This does not admit
 or implement the full s18 workflow;fulls18 remains unrun.
+
+### Committed-source readiness
+
+Implementation **08f1100** was frozen into 851 build inputs; all 383 Go/C/C++/CUDA
+source hashes match the locally compiled readiness tree. All 14 frozen Python
+reviewer suites passed. The tagged native binary reproduced **108014 historical
+reference bytes** and exported/validated the actual s8/curve5 inputs and owned-root
+references. See [source checks](readiness/source-checks.json),
+[frozen reviewers](readiness/frozen-reviewers.json) and
+[native preflight](readiness/native-preflight.log). CUDA and tagged Go builds passed;
+no local GPU/MPI work was executed. The admitted allocation rebuilds committed
+source and checks paths/environment on every participating node before GPU phases.
+Raw retained MPI/tool outputs are preserved verbatim, including whitespace;
+authored source/documentation whitespace checks passed.
