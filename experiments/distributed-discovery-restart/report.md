@@ -155,3 +155,15 @@ The host inventory also corrects field-table accounting: the log has q entries
 and the duplicated-power table2(q−1), totaling **12q−8 bytes**, not8q. A CPU test
 compares the estimate with actual table lengths. This changes accounting only;
 82194's logged inventories remain historical values for that producing revision.
+
+### Frozen-source readiness
+
+Implementation **b79c5c4** freezes **949 build inputs**; all **418** compiled code
+hashes and selected inputs match the readiness tree. All **28 frozen reviewer
+suites** pass. CPU/race, tagged command/reference builds and admission checks pass
+without local GPU/MPI initialization. Native preflight matches **108014 historical
+bytes** plus actual s8/curve5 references. The s10 header/cache payloads were separately
+verified against native72839 seals, and saved82194 evidence still passes generalized
+review. [Source checks](readiness/source-checks.json), [reviewers](readiness/frozen-reviewers.json),
+[native preflight](readiness/native-preflight.log). Each-node executable/wrapper/
+library/config/output checks and fresh frozen builds remain inside the allocation.
