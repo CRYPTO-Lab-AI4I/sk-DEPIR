@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-coordinated restart support binding following bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+coordinated restart support binding **submitted81750** following bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1337,7 +1337,7 @@ Combined with81744's separately labeled narrow partial passes, this completes th
 planned bounded diagnostic codec validation. Bulk remains default; large-file
 latency and peak-RSS savings remain unknown. Full s18 unrun/unadmitted.
 
-### Prepared coordinated restart support binding
+### Coordinated restart support binding — submitted81750
 
 [Plan](../experiments/distributed-restart-binding/report.md): explicit one full-file
 coordinator checksum plus complete per-checkpoint metadata agreement, retaining all
@@ -1347,3 +1347,5 @@ At illustrative s18/16workers, support verification reads project3.795TiBaggrega
 support copy or GPU work. Full-size latency remains unmeasured;local remains default.
 Three-arm cold/coordinated-restart/local-restart comparison uses existing two-node/
 two-H200 caps;this is not fullsize production support or admission.
+
+Coordinated/local restart comparison **81750 submitted**: [receipt](../experiments/distributed-restart-binding/submission.json). Three cold/restart/control arms,unchanged two-node/two-H200 allocation;results pending. Local default retained;fulls18 unrun/unadmitted.

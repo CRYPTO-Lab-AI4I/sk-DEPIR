@@ -1,6 +1,6 @@
 # Coordinated support verification on checkpoint restart
 
-Status: prepared; GPU comparison not yet submitted. Implementation **946a2f6** (parent2227ccc).
+Status: **submitted job81750**, binding-01; GPU results pending. Implementation **946a2f6** (parent2227ccc).
 [Runner](run.py), [Slurm entry](run.sbatch), [independent analyzer](analyze.py),
 [reviewer regressions](test_review.py), [readiness](readiness/).
 Planned results `runs/binding-01/`; immutable source, binaries, verified native
@@ -153,3 +153,9 @@ s8/curve5 root/leaf/stage/canonical inputs without initializing CUDA or MPI.
 [Source checks](readiness/source-checks.json), [frozen reviewers](readiness/frozen-reviewers.json),
 [native preflight](readiness/native-preflight.log). The admitted allocation still
 rebuilds committed source and checks paths/environment on every node before GPU work.
+
+### Submission81750
+
+Job **81750** submitted from **15f3ab1**, implementation **946a2f6**.
+[Receipt](submission.json); results `runs/binding-01/`, Slurm log `slurm-81750.log`.
+Unchanged resources above; estimate3–6minutes excluding queue. No polling or GPU result claim.

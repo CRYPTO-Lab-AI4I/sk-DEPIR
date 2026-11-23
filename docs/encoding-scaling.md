@@ -3717,3 +3717,5 @@ storage or GPU transforms;bounded hash/control buffers. [Exact design/resources]
 Same admitted two-node/two-H200 comparison;no unchanged wide/sanitizer repeat.
 Production ownership/lifecycle/non-oracle entry,bounded retention and actual phase
 count/domain/resource admission remain;full s18 is unrun/unadmitted.
+
+Coordinated restart binding validation **81750 submitted** under unchanged caps; [receipt](../experiments/distributed-restart-binding/submission.json). Three cold/coordinated/local arms;results pending,no fulls18 admission.

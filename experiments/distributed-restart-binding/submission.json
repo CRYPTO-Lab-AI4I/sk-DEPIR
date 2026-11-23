@@ -1,0 +1,16 @@
+{
+  "job_id": "81750",
+  "name": "binding-01",
+  "implementation_revision": "946a2f6",
+  "submission_revision": "15f3ab102dc1bf280d50450ac7509531715a0787",
+  "recorded_utc": "2026-11-23T01:08:20.901701+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-restart-binding/slurm-%j.log experiments/distributed-restart-binding/run.sbatch binding-01",
+  "results": "experiments/distributed-restart-binding/runs/binding-01",
+  "log": "experiments/distributed-restart-binding/slurm-81750.log",
+  "cache": ".cache/liftrs/distributed-restart-binding/binding-01/",
+  "resources": "2 HPC nodes /2 H200 /4 CPU cores /8 GiB requested host RAM total;4 workers;64 MiB owned GPU/worker=128 MiB/card;1 GiB RSS/worker;zero CUDA-pinned;128 MiB retained cache/2 GiB scratch/32 MiB file;720-second controller/15-minute Slurm limit;exclude gnode03",
+  "scope": "Genuine s8 cold,coordinated prefix8 restart and matched local prefix8 restart;full support checksums/full checkpoint metadata agreement/local shard checks;not fulls18",
+  "estimated_controller_minutes": "3\u20136 excluding queue;full-size coordinated restart latency unknown",
+  "monitoring": "Receipt-bound local completion notification;no model polling",
+  "note": "865 frozen inputs,387 matching compiled source hashes,16 frozen reviewers,CPU/race/tagged tests and108014 historical native bytes plus actual s8 input/root geometry passed. Default local verification remains;no new resource budget,no repeated wide/sanitizer arm."
+}
