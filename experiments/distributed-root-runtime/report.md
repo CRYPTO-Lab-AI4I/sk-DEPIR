@@ -1,6 +1,6 @@
 # Shared local and distributed root runtime
 
-Status: **submitted job82085**, roots-01; integration results pending. Implementation **07872d5** (parent df409fa).
+Status: **passed job82085**, all three roots-01 arms independently verified. Implementation **07872d5** (parent df409fa).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
 Planned results `runs/roots-01/`; immutable source, binaries and reusable caches:
@@ -114,3 +114,33 @@ Fresh committed-source build and each-node path/environment preflight remain in 
 Job **82085** submitted from **ac59ea6**, implementation **07872d5**.
 [Receipt](submission.json);results `runs/roots-01/`,Slurm log `slurm-82085.log`.
 Unchanged resources above;estimate3–6minutes excluding queue. No polling or GPU result claim.
+
+## Verified result82085
+
+Receipt/producing revision **ac59ea6**, **886 source /80 evidence /370 cache files**
+and all three arms independently reconcile. [Analysis](runs/roots-01/analysis.json),
+[raw results](runs/roots-01/results.json), [Slurm log](slurm-82085.log).
+Native leaf/stage/final roots, actual-count admission, all transport/Taylor proof
+counts, canonical output, restart metadata and diagnostic totals match.
+
+| Arm | Result/runtime | Peak host RSS | Owned GPU |
+|---|---|---|---|
+| Genuine s8 cold |Passed;9.349141 seconds |377.965 MiB/worker |0.244 MiB/worker |
+| Coordinated prefix8 restart |Passed;6.174301 seconds |378.742 MiB/worker |0.244 MiB/worker |
+| Bounded field18 owned root merges |Passed;3.380598 seconds launcher elapsed |379.930 MiB/worker |3.149 MiB/worker |
+
+HPC gnode13/gnode14,two H200s/four workers/four CPU cores/8 GiB requested RAM under
+unchanged guards;context/MPI/driver memory additional. Cold/restart rows precede
+GPU close;owned-wide row uses complete launcher time (last root-stage timestamp
+2.075433seconds precedes final diagnostics/group cleanup). Controller **2 min31.543
+seconds**, cache **34.675 MiB**. No fullsize speed/peak-memory/production claim.
+
+The independent post-run analyzer initially assumed temporary source was retained
+inside the cache. It now loads the exact producing Git object and checks its sealed
+source hash; a focused regression rejects altered provenance without any retained
+source directory. Raw GPU/controller results remain unchanged and passed; no rerun
+was needed. This correction preserves complete native/reference checks.
+
+Next share discovery's duplicate GPU session wiring, then production sampling/
+ownership/phase admission, non-oracle end-to-end entry and bounded publication.
+Full s18 remains unrun/unadmitted.

@@ -1,0 +1,34 @@
+{
+  "status": "CPU/race/tagged native/library/reviewer checks passed;GPU integration pending",
+  "utc": "2026-11-23T09:46:41.324940+00:00",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_session_cuda_mpi.go": "96180bfd76d860d7aad093f50975b20d8a958805a19012c9e08bd1e31546d66c",
+    "encoding/liftrs-shared/distributed_session_cuda_mpi_test.go": "bb4f0f6b3223e28b5ee2e537dd6b5c5ea2bafd01febc1be2106e4219a048cc71",
+    "encoding/liftrs-shared/distributed_discovery_gpu_test.go": "3471592be4aa058626df5649c41dd8ba7a718542a6c8beccabe43dd7686739e8",
+    "experiments/distributed-root-runtime/run.py": "9d0b6c0694c6b848f560ef07122d1e42d91a845f240c200386147b2995770dda",
+    "experiments/distributed-root-runtime/analyze.py": "d44d41bd91ab6e48296c8cfe1224e7a818523b0707b407a682a22dcfe4b4d33c",
+    "experiments/distributed-root-runtime/test_review.py": "c781950be636197c181f9aed7c2bf2da8c7fe95394a2f87e5e37784cd0a918ec",
+    "experiments/distributed-discovery-runtime/run.py": "f51bb0bf70434900a503c72094e0f49620c61f8c668635aeb6d28b02f704b431",
+    "experiments/distributed-discovery-runtime/analyze.py": "4b5508f619c1dc39cd6f4e5baf4cf85dfdf476d42fad70fe014939711ba9d86e",
+    "experiments/distributed-discovery-runtime/test_review.py": "52fe26d6d81d82c46fb003143952ec8c1ebfaa0c492d39a8c72a888c591af599"
+  },
+  "checks": {
+    "build.log": "",
+    "cpu.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t0.008s\n",
+    "library-build.log": "",
+    "native-tests.log": "=== RUN   TestDiscoverySamplingAndOrbitOwnership\n--- PASS: TestDiscoverySamplingAndOrbitOwnership (0.00s)\n=== RUN   TestDiscoveryUnionCanonicalTiles\n--- PASS: TestDiscoveryUnionCanonicalTiles (0.00s)\n=== RUN   TestDiscoveryUnionRejectsBeforeMutation\n--- PASS: TestDiscoveryUnionRejectsBeforeMutation (0.00s)\n=== RUN   TestDiscoveryResultMode\n--- PASS: TestDiscoveryResultMode (0.00s)\n=== RUN   TestRankRootRuntimeEarlyErrors\n--- PASS: TestRankRootRuntimeEarlyErrors (0.01s)\n=== RUN   TestRankRootActualCountAdmission\n--- PASS: TestRankRootActualCountAdmission (0.00s)\n=== RUN   TestRankRootIdentityAndGuards\n--- PASS: TestRankRootIdentityAndGuards (0.00s)\n=== RUN   TestRankGPUSessionAdmission\n--- PASS: TestRankGPUSessionAdmission (0.00s)\n=== RUN   TestRankGPUSessionFailureAndClose\n--- PASS: TestRankGPUSessionFailureAndClose (0.00s)\n=== RUN   TestRankGPUDiscoveryFailure\n--- PASS: TestRankGPUDiscoveryFailure (0.00s)\nPASS\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.040s\n",
+    "review.log": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n"
+  },
+  "commands": {
+    "cpu": "CGO_ENABLED=0 go test ./encoding/liftrs-shared -run ^TestDiscovery|^TestRankRoot|^TestRankReciprocal -count=1 -timeout=20s",
+    "library": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go build -tags liftrs_cuda,liftrs_mpi ./encoding/liftrs-shared",
+    "race": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -race -tags liftrs_cuda,liftrs_mpi ./encoding/liftrs-shared -run ^TestRankGPUDiscovery|^TestRankGPUSession|^TestDiscovery -count=1 -timeout=20s",
+    "build": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-discovery-runtime-readiness.test ./encoding/liftrs-shared"
+  },
+  "limitations": [
+    "No local CUDA/MPI initialization.",
+    "Sampling/ownership orchestration still bounded harness;no production/fulls18 support.",
+    "Postrun root analyzer now uses immutable producing Git object and sealed hash,not scratch-source path."
+  ]
+}

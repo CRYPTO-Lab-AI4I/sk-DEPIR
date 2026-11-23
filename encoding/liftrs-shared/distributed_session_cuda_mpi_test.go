@@ -53,6 +53,9 @@ func TestRankGPUSessionFailureAndClose(t *testing.T) {
 	if err := d.PrepareSpectrum("retry", nil, 1); err == nil {
 		t.Fatal("prepare reused failed session")
 	}
+	if _, err := d.Discovery("retry", nil, nil); err == nil {
+		t.Fatal("discovery reused failed session")
+	}
 	if err := d.Close(); err != nil {
 		t.Fatal(err)
 	}
@@ -61,5 +64,12 @@ func TestRankGPUSessionFailureAndClose(t *testing.T) {
 	}
 	if !d.closed {
 		t.Fatal("close state")
+	}
+}
+
+func TestRankGPUDiscoveryFailure(t *testing.T) {
+	d := &rankGPUSession[uint32]{Executor: rankGPUExecutor[uint32]{GPU: &cuda.RankStorage{}}}
+	if _, err := d.Discovery("bad", nil, nil); err == nil || !d.failed {
+		t.Fatal("invalid discovery did not poison session")
 	}
 }

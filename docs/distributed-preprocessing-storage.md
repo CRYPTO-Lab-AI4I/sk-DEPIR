@@ -271,4 +271,18 @@ restart plus owned-wide root merges. No unchanged reciprocal/dense/wide-tail/san
 repeat. Then continue production discovery/phase ownership, non-oracle end-to-end
 entry, complete resource admission and bounded retention/publication. Full s18 unrun.
 
-Root-runtime validation **82085 submitted** under unchanged caps; [receipt](../experiments/distributed-root-runtime/submission.json). Cold/restart/owned-wide arms;results pending,no full s18 admission.
+Root-runtime validation **82085 passed** under unchanged caps; [receipt](../experiments/distributed-root-runtime/submission.json). All cold/restart/owned-wide arms passed;no full s18 admission.
+
+
+## Discovery GPU session integration (SCALING-187)
+
+82085passed root runtime/admission/native/canonical checks. Post-run analyzer's
+source path corrected with producing-revision/hash binding and a regression;
+raw results unchanged, no rerun. Next replace discovery's duplicate session setup
+with shared allocation/transport/progress/error/close, retaining sample randomness,
+order,union/stopping and native/proof checks. Both stream/resident branches use
+one method;resident default remains. No extra intentional arrays/transforms/I/O.
+[Plan](../experiments/distributed-discovery-runtime/report.md): same-budget streamed
+cold/coordinated restart/resident preservation; no unchanged wide/dense/sanitizer.
+Production discovery sampling/ownership, full phase admission/non-oracle entry and
+bounded retention/publication remain;fulls18 unrun/unadmitted.

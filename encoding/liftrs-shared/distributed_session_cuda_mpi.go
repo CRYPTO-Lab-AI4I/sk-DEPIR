@@ -160,3 +160,31 @@ func (d *rankGPUSession[Word]) usable() error {
 	}
 	return nil
 }
+
+// Discovery reuses this session's transport/workspace. A nil consumer preserves
+// resident output; an explicit consumer receives every result tile in order.
+// The caller owns sample randomness, union state and final discovery checks.
+func (d *rankGPUSession[Word]) Discovery(name string, values []uint32, consume func(uint64, []Word) error) ([]Word, error) {
+	if err := d.usable(); err != nil {
+		return nil, err
+	}
+	observe := func(inverse bool, start uint64) {
+		d.call = d.label + "/" + name + "/base"
+		if inverse {
+			d.call = d.label + "/" + name + "/inverse"
+		}
+		d.start, d.pass = start, 0
+	}
+	var out []Word
+	var err error
+	if consume == nil {
+		out, err = d.Executor.Discovery(values, observe)
+	} else {
+		err = d.Executor.DiscoveryTiles(values, observe, consume)
+	}
+	if err != nil {
+		d.failed = true
+		return nil, err
+	}
+	return out, nil
+}

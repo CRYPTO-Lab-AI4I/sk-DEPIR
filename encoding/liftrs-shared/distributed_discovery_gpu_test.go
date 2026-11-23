@@ -12,7 +12,6 @@ import (
 	"os"
 	"sort"
 	"testing"
-	"time"
 
 	cpp "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cpp"
 	cuda "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda"
@@ -164,40 +163,17 @@ func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec S
 		t.Fatal(err)
 	}
 	tables := newPreparationProducts(base)
-	gpu, err := cuda.NewRankStorage(cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: s, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: tables.log, Powers: tables.powers, Devices: []int{0}, MaxElements: n, DeviceBytes: 64 << 20}, q, q, w.Rank, w.Size, 4096)
+	session, err := newRankGPUSession[Word](w, cuda.PreparationOptions{Path: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), S: s, Polynomial: h.Polynomial, Delta: h.Delta, Omega: h.Omega, Logs: tables.log, Powers: tables.powers, Devices: []int{0}, MaxElements: n, DeviceBytes: 64 << 20}, 2*s, label, observe)
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer gpu.Close()
-	plan, err := newRankTransposePlan(1, q, q, w.Rank, w.Size, n, 4096)
-	if err != nil {
-		t.Fatal(err)
-	}
-	call := ""
-	op := uint64(0)
-	capacity := min(n, 3*q)
-	executor := rankGPUExecutor[Word]{GPU: gpu, Plan: plan, Capacity: capacity, Limit: q}
-	lastNotice := map[string]time.Time{}
-	executor.Notice = func(phase string, done, total uint64) {
-		key := call + "/" + phase
-		if done == 0 || done == total || time.Since(lastNotice[key]) >= 30*time.Second {
-			lastNotice[key] = time.Now()
-			observe(map[string]any{"kind": "progress", "phase": phase, "completed": done, "total": total, "call": call})
+	defer func() {
+		if err := session.Close(); err != nil {
+			t.Error(err)
 		}
-	}
-	executor.Transpose = transposeMPI[Word]{world: w, rank: w.Rank, record: func(direction string, peer int, p transposePacket, data []Word, own, remote [64]byte) {
-		observe(map[string]any{"kind": "tile-proof", "case": call, "pass": 0, "operation": p.Operation, "round": p.Round, "offset": p.Offset, "words": p.Words, "peer": peer, "direction": direction, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
-	}}
-	executor.Windows = taylorMPI[Word]{world: w, record: func(direction string, peer int, p taylorPacket, data []Word, own, remote [64]byte) {
-		observe(map[string]any{"kind": "taylor-proof", "case": call, "pass": 0, "packet": p, "peer": peer, "direction": direction, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
-	}}
-	executor.Degrees = func(level int) ([]uint64, error) {
-		degrees, e := gpu.TaylorDegrees(level)
-		if e == nil {
-			observe(map[string]any{"kind": "taylor-plan", "case": call, "pass": 0, "operation_start": op, "level": level, "degrees": degrees, "capacity": capacity})
-		}
-		return degrees, e
-	}
+	}()
+	executor := &session.Executor
+	gpu := executor.GPU
 	random := rand.New(rand.NewSource(109))
 	entropy := sha256.New()
 	reader := io.TeeReader(random, entropy)
@@ -244,17 +220,10 @@ func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec S
 			}
 		}
 		operation := executor.Plan.Operation
-		observeTransform := func(inverse bool, start uint64) {
-			op = start
-			call = fmt.Sprintf("%s/discovery-%d/base", label, samples+1)
-			if inverse {
-				call = fmt.Sprintf("%s/discovery-%d/inverse", label, samples+1)
-			}
-		}
 		downloadedWords := uint64(0)
 		if outputMode == "stream" {
 			union := discoveryUnion[Word]{Found: found, Words: words, Limit: n}
-			if err := executor.DiscoveryTiles(grid, observeTransform, union.Consume); err != nil {
+			if _, err := session.Discovery(fmt.Sprintf("discovery-%d", samples+1), grid, union.Consume); err != nil {
 				t.Fatal(err)
 			}
 			added, err := union.Complete()
@@ -264,7 +233,7 @@ func partitionedDiscovery[Word transposeWord](t *testing.T, w *mpi.World, spec S
 			localCount += added
 			downloadedWords = union.Next
 		} else {
-			values, err := executor.Discovery(grid, observeTransform)
+			values, err := session.Discovery(fmt.Sprintf("discovery-%d", samples+1), grid, nil)
 			if err != nil {
 				t.Fatal(err)
 			}

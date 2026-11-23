@@ -8,7 +8,7 @@ HERE=Path(__file__).resolve().parent;H=runpy.run_path(str(HERE/'run.py'))
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('name');a=p.parse_args()
 out=HERE/'runs'/a.name;raw=json.loads((out/'results.json').read_text());cache=Path(raw['cache'])
 result=runpy.run_path(str(HERE.parent/'s17-arithmetic/analyze.py'))['reconcile'](out,require_success=raw['status']=='passed',command_fields=('label','seconds','exit_code'))
-manifest=json.loads((cache/'source/experiments/distributed-owned-roots/root-references.json').read_text())
+manifest=H['producing_manifest'](raw)
 arms={};counts={};native={}
 for mode in ('cold','resume','owned-wide'):
     if not any(c['label']==mode and c['exit_code']==0 for c in raw['commands']):continue

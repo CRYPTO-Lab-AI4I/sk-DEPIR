@@ -2,10 +2,22 @@
 """Reject incorrect real-count root admission and inherited restart configuration."""
 from pathlib import Path
 import copy
+import hashlib
+from unittest.mock import patch
 import runpy
 import unittest
 H=runpy.run_path(str(Path(__file__).with_name('run.py')))
 class ReviewTest(unittest.TestCase):
+    def test_producing_manifest_needs_no_retained_source_directory(self):
+        data=b'{"cases":[]}'
+        key='experiments/distributed-owned-roots/root-references.json'
+        raw=dict(revision='producer',source_sha256={key:hashlib.sha256(data).hexdigest()})
+        with patch.object(H['subprocess'],'check_output',return_value=data)as read:
+            self.assertEqual(H['producing_manifest'](raw),dict(cases=[]))
+            self.assertEqual(read.call_args.args[0],['git','show','producer:'+key])
+            raw['source_sha256'][key]='00'*32
+            with self.assertRaises(AssertionError):H['producing_manifest'](raw)
+
     def test_actual_rounded_stage_admission(self):
         case=dict(label='s8',s=8,counts=[3442,1507,1541,895]);rows=[]
         for rank in range(4):rows.append(dict(kind='root-admission',case='s8',rank=rank,leaf_words=case['counts'][rank],largest_shard_words=4096 if rank<2 else 2048,max_local_words=8<<20,base_word_bytes=4,max_domain=65536,stages=2))

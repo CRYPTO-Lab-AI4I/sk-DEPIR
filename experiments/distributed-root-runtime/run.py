@@ -1,12 +1,23 @@
 #!/usr/bin/env python3
 """Root preparation/subgroup lifecycle without test helpers or oracle inputs."""
 from pathlib import Path
+import hashlib
 import json
+import subprocess
 import runpy
 import sys
 HERE=Path(__file__).resolve().parent
 RECIP=runpy.run_path(str(HERE.parent/'distributed-reciprocal/run.py'))
 BIND=RECIP['BIND'];SCALE=RECIP['SCALE'];VECTORS=RECIP['VECTORS'];PROOF=RECIP['PROOF'];DIAG=RECIP['DIAG'];OWN=SCALE['OWN']
+
+
+def producing_manifest(raw):
+    # Build source lives in scratch, not retained cache. Bind review to the
+    # producer's immutable Git object and its independently sealed source hash.
+    name='experiments/distributed-owned-roots/root-references.json'
+    data=subprocess.check_output(['git','show',raw['revision']+':'+name],cwd=VECTORS['BASE']['ROOT'])
+    assert hashlib.sha256(data).hexdigest()==raw['source_sha256'][name]
+    return json.loads(data)
 
 
 def admission_review(rows,cases):
