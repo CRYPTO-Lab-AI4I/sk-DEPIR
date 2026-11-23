@@ -1,0 +1,16 @@
+{
+  "job_id": "81763",
+  "name": "runtime-01",
+  "implementation_revision": "c4685d4",
+  "submission_revision": "742dbc7bdd6ed781bda150af4af7a8597f48bcbf",
+  "recorded_utc": "2026-11-23T01:33:08.300123+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-runtime/slurm-%j.log experiments/distributed-runtime/run.sbatch runtime-01",
+  "results": "experiments/distributed-runtime/runs/runtime-01",
+  "log": "experiments/distributed-runtime/slurm-81763.log",
+  "cache": ".cache/liftrs/distributed-runtime/runtime-01/",
+  "resources": "2 HPC nodes/2 H200/4 CPU cores/8 GiB requested host RAM total;4 workers;64 MiB owned GPU/worker=128 MiB/card;1 GiB RSS/worker;zero CUDA-pinned;128 MiB retained cache/2 GiB scratch/32 MiB file;720-second controller/15-minute Slurm;exclude gnode03",
+  "scope": "Internal non-test MPI/GPU session integration:genuine s8 cold/coordinated restart and bounded field18;independent native/proof/canonical checks;not public production entry/full s18",
+  "estimated_controller_minutes": "3\u20136 excluding queue",
+  "monitoring": "Receipt-bound local completion notification;no model polling",
+  "note": "872 frozen inputs/390 matching compiled source hashes;17 frozen reviewers;CPU/CUDA-only/MPI-only/combined build checks,lifecycle/race/tagged tests,108014 historical native bytes and actual s8 inputs passed. Transport bodies unchanged;all original storage routines preserved. No new resource budget/local-vs-coordinator repeat/unchanged sanitizer."
+}

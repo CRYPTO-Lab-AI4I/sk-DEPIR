@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-shared MPI/GPU runtime extraction following passed restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+shared MPI/GPU runtime extraction **submitted81763** following passed restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1367,7 +1367,7 @@ hash bytes are not physical disk metrics or full-size latency estimates. Full s1
 remains unrun/unadmitted. Runtime rows precede deferred GPU close;launcher timing
 includes it.
 
-### Prepared shared MPI/GPU runtime extraction
+### Shared MPI/GPU runtime extraction — submitted81763
 
 [Plan](../experiments/distributed-runtime/report.md): unchanged validated transport
 moves from test-only files into internal MPI runtime,with one error-returning GPU
@@ -1376,3 +1376,5 @@ native/canonical/proof observers. Ordinary CPU,CUDA-only,MPI-only and combined
 builds stay explicit;no public production CLI/rank expansion/fulls18 claim. Resource
 payloads/layouts/defaults unchanged;bounded cold/restart/wide integration uses the
 existing two-node/two-H200 budget,not repeated verification-mode timing/sanitizers.
+
+Shared-runtime integration **81763 submitted**: [receipt](../experiments/distributed-runtime/submission.json). Three cold/coordinated-restart/wide arms under unchanged two-node/two-H200 caps;results pending. Internal runtime only;no production/full s18 claim.

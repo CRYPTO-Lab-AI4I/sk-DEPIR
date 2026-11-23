@@ -1,6 +1,6 @@
 # Shared MPI/GPU preprocessing runtime
 
-Status: prepared; GPU integration not yet submitted. Implementation **c4685d4** (parent830433c).
+Status: **submitted job81763**, runtime-01; GPU integration results pending. Implementation **c4685d4** (parent830433c).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [configuration regression](test_review.py), [readiness](readiness/).
 Planned results `runs/runtime-01/`. Immutable source, binaries, native references
@@ -133,3 +133,9 @@ reference bytes** and validates actual s8/curve5 leaf/stage/root/canonical input
 [Source checks](readiness/source-checks.json), [frozen reviewers](readiness/frozen-reviewers.json),
 [native preflight](readiness/native-preflight.log). No local CUDA/MPI initialization.
 The admitted allocation rebuilds this committed source and preflights every node.
+
+### Submission81763
+
+Job **81763** submitted from **742dbc7**, implementation **c4685d4**.
+[Receipt](submission.json);results `runs/runtime-01/`,Slurm log `slurm-81763.log`.
+Unchanged resources above;estimate3–6minutes excluding queue. No polling or GPU result claim.

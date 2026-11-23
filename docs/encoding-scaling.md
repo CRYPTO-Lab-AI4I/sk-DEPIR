@@ -3741,3 +3741,5 @@ Validate local build matrix/admission/lifecycle errors,unchanged native referenc
 and one existing-budget cold/coordinated-restart/wide composition. No repeated
 local-vs-coordinator or unchanged sanitizer arm. Then continue production parameter/
 ownership/phase admission,non-oracle entry and bounded retention/publication.
+
+Shared MPI/GPU runtime validation **81763 submitted** under unchanged caps; [receipt](../experiments/distributed-runtime/submission.json). Cold/coordinated-restart/bounded field18 arms;results pending,no public production/full s18 admission.
