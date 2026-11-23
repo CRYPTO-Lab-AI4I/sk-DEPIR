@@ -26,14 +26,23 @@ void Resident<Word>::taylor_launch(Card &card,View view,size_t domain) {
   const auto began=std::chrono::steady_clock::now();
   const char *phase=view.quotient?"stage-Taylor-quotient":"stage-Taylor-remainder";
   active_domain_=domain;
-  event(phase,"started",0,view.count,began);
+  if (!bounded_taylor_progress_) event(phase,"started",0,view.count,began);
+  else if (!taylor_calls_) taylor_began_=began;
   try {
     window_taylor<<<(view.count+255)/256,256>>>(view,
         (view.block/(2*view.half))*view.half+view.first,
         static_cast<uint32_t*>(card.logs.data),static_cast<uint32_t*>(card.powers.data));
     check(cudaGetLastError());check(cudaDeviceSynchronize());
-    event(phase,"completed",view.count,view.count,began);
-  } catch(...) {event(phase,"failed",0,view.count,began);throw;}
+    if (!bounded_taylor_progress_) event(phase,"completed",view.count,view.count,began);
+    else { ++taylor_calls_; taylor_coefficients_+=view.count; }
+  } catch(...) {
+    taylor_failed_=true;
+    if (bounded_taylor_progress_ && liftrs::execution::progress_enabled())
+      liftrs::execution::progress_record(phase,"gpu-preparation","failed",0,view.count,
+        std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now()-began).count(),"coefficients");
+    else event(phase,"failed",0,view.count,began);
+    throw;
+  }
 }
 template <class Word> void Resident<Word>::taylor_stage(Card &card,Word *values,
     Matrix<Word>*plan,const Matrix<Word>&metadata,size_t domain,size_t capacity,

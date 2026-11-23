@@ -3631,7 +3631,7 @@ capacity projections separate from implementation support/admission. Same existi
 two-node/two-H200 caps and snapshot/native/controller checks apply.
 
 
-SCALING-179 submitted **81729**,prefix-01,implementation2f63e9d/readiness75524c2.
+SCALING-179 **passed81729**,prefix-01,implementation2f63e9d/readiness75524c2.
 845 frozen build inputs/3,856,765bytes,13reviewer suites plus audit tests and
 108014historical native bytes checked;383 code hashes match compiled readiness
 tree. Fresh snapshot build runs inside allocation before GPU phases.
@@ -3644,3 +3644,29 @@ all evidence and actual clone/upload/memory/latency/native output checks,update
 the reference,then follow the audit's production parameter/rank/lifecycle,
 bounded persistence/proof/progress and real per-phase count/admission steps.
 No fulls18 feasibility or budget increase follows from the payload formulas.
+
+
+## Bounded production recording (SCALING-180)
+
+Prefix81729 passed all four arms with exact output/counter comparisons. Record
+actual161392versus2097152Newton input words and0versus16384root-clone words/worker/
+step. Single cold sample11.328589s prefix/11.652888s dense;fullsize latency unknown.
+Keep dense default while preparing production integration.
+
+Bound proof recording with per-kind ordered/count/byte/digest summaries and
+approximately30s completed-record progress,retaining every live MPI descriptor/
+pre-post/payload/peer,field,identity and per-proof RSS guard. Full/default remains
+unchanged. Explicit trace mode records both full rows and summaries for independent
+small replay;summary mode retains no per-packet rows. Mark incomplete summaries
+on failure;digests are public evidence consistency,not authentication.
+
+Also bound native Taylor per-window start/completion output while keeping parent
+Go pass/target progress,observed native window/coefficient totals and always-visible
+errors. Do not disable LIFTRS_CPU_PROGRESS. Validate full-trace/summary pairs for
+genuine cold,fresh restart and bounded field18 in one existing allocation,compare
+every canonical artifact and ordered proof digest,and independently predict native
+window counts from target intervals. Pure source/golden/error/mode/partial-summary
+checks precede allocation. Same two-node/two-H200 caps;no extra resource admission.
+After recording validation,proceed to production parameter/rank/lifecycle,non-oracle
+verification and bounded persistence/restart ownership from the audit. Fulls18
+remains unrun/unadmitted;small paired timings do not establish fullsize costs.

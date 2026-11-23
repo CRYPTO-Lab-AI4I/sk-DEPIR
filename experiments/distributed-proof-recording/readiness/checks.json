@@ -1,0 +1,47 @@
+{
+  "status": "local CPU/race/native/reviewer and CUDA/tagged builds passed; GPU composition pending",
+  "utc": "2026-11-23T00:26:51.227924+00:00",
+  "parent_revision": "8a9b91544b1a5c01f8bb65a9db3ac8879be066ea",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_proof_log.go": "3774a3c84167ab456ddf367876a93f7979cf63943c550a7a8f4d021d0fa1c5b1",
+    "encoding/liftrs-shared/distributed_proof_log_test.go": "510d2c5ef2863781307fd52bc2f963ff7d54069917e665cdb40e4046af190296",
+    "encoding/liftrs-shared/distributed_vectors_gpu_test.go": "5451b443d9df21dda3587d755be6b564f06fead72ebf6651847d51e9ece6baf4",
+    "encoding/liftrs-shared/pipeline_executor_gpu_test.go": "63b9cdbd234ddf0114254fad3a4d31f576209808ef9c716d1efd91be73ba17ad",
+    "encoding/liftrs-cuda/preparation.cu": "c0dcb695e2517008488a702838baa044879c305e60e156a2a8f69f3a2976794a",
+    "encoding/liftrs-cuda/vector_stage.cuh": "6a7ec0e603a336c1d99b4a0734feff16966f4b37d7429a29ca0aa1deb94712a1",
+    "experiments/distributed-proof-recording/run.py": "74bd63567790ea9b7aea9d1338d4565277bf8976959830b24040f33e1a4b3b03",
+    "experiments/distributed-proof-recording/analyze.py": "7c9af6f03121427d9e3be907972703b3ef89a37393dd683643f4244aaf0d25c1",
+    "experiments/distributed-proof-recording/test_review.py": "1dff2b321d5904e29f23eaf275380b9ad3eed80fd75c347a7461ecb4499bfe36"
+  },
+  "checks": {
+    "build.log": "",
+    "cpu.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t0.004s\n",
+    "cuda-build.log": "",
+    "determinism.log": "Independent81729 and81454 cold/resume normalized proof counts,bytes,ordered SHA256 streams match exactly. Native expected-window totals derived from actual full traces.\n",
+    "distributed-coordinator-stream.log": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.005s\n\nOK\n",
+    "distributed-discovery-hierarchy.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+    "distributed-discovery-results.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+    "distributed-owned-roots.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.007s\n\nOK\n",
+    "distributed-pipeline-four.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.031s\n\nOK\n",
+    "distributed-pipeline-scaling.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.004s\n\nOK\n",
+    "distributed-pipeline-wide.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n",
+    "distributed-prefix-checkpoints.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.035s\n\nOK\n",
+    "distributed-prefix-inputs.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+    "distributed-preprocessing-pilot.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.008s\n\nOK\n",
+    "distributed-restart-pilot.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.035s\n\nOK\n",
+    "distributed-root-hierarchy.log": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.036s\n\nOK\n",
+    "distributed-spectrum-publication.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+    "native-tests.log": "=== RUN   TestDiscoveryUnionCanonicalTiles\n--- PASS: TestDiscoveryUnionCanonicalTiles (0.01s)\n=== RUN   TestDiscoveryUnionRejectsBeforeMutation\n--- PASS: TestDiscoveryUnionRejectsBeforeMutation (0.00s)\n=== RUN   TestRankPrefixInputView\n--- PASS: TestRankPrefixInputView (0.00s)\n=== RUN   TestRankPrefixInputWideBounds\n--- PASS: TestRankPrefixInputWideBounds (0.00s)\n=== RUN   TestProofLogOrderingAndBounds\n--- PASS: TestProofLogOrderingAndBounds (0.00s)\n=== RUN   TestProofLogAdmissionAndSerialization\n--- PASS: TestProofLogAdmissionAndSerialization (0.00s)\n=== RUN   TestProofLogGolden\n--- PASS: TestProofLogGolden (0.00s)\n=== RUN   TestRankStreamCanonicalPublication\n--- PASS: TestRankStreamCanonicalPublication (0.05s)\n=== RUN   TestRankStreamPublicationErrors\n--- PASS: TestRankStreamPublicationErrors (0.00s)\n=== RUN   TestRankStreamReadCanonicalPublication\n--- PASS: TestRankStreamReadCanonicalPublication (0.00s)\n=== RUN   TestRankStreamReadErrors\n--- PASS: TestRankStreamReadErrors (0.00s)\n=== RUN   TestRankPrefixCompactRoundTrip\n--- PASS: TestRankPrefixCompactRoundTrip (0.01s)\n=== RUN   TestRankPrefixCompactBoundsAndCanonicalValues\n--- PASS: TestRankPrefixCompactBoundsAndCanonicalValues (0.00s)\nPASS\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.053s\n",
+    "review.log": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.002s\n\nOK\n"
+  },
+  "binaries": {
+    ".cache/liftrs/distributed-proof-recording-readiness.test": "de182d85a0960854a1ca7415b90ae8ff0c8ab9869d09b2bfc3649ddd8096368e",
+    ".cache/liftrs/distributed-proof-recording-readiness.so": "9837384fabd1e1b8baef56d811f6b15d0e7ecfcb1d769bde7c99c4ca20b10ba9"
+  },
+  "limitations": [
+    "No local CUDA/MPI initialization; device composition awaits bounded allocation.",
+    "Default full recording unchanged; runtime checks and per-proof RSS guard retained.",
+    "Trace/summary comparison isolates stored proof-row writes; original no-hash and native logging overhead not isolated."
+  ]
+}

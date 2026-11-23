@@ -162,8 +162,17 @@ measured total-RSS saving. Production bounded persistence/proofs and parameter/r
 ownership admission remain;small-case success does not admit fulls18.
 
 
-Prefix-input validation is submitted as **81729**,within the existing two-node/
+Prefix-input validation passed **81729**,within the existing two-node/
 two-H200 caps. [Exact scope and evidence](../experiments/distributed-prefix-inputs/report.md).
-Results pending;dense default unchanged. The source-based audit is now the
+Dense default unchanged. The source-based audit is now the
 reference for remaining production lifecycle/rank,persistence/proof/logging and
 per-phase memory admission work;fulls18 remains unrun.
+
+
+Next production recording step replaces optional per-proof output with fixed
+per-kind ordered digests/counts and bounded completed-work progress. Every live
+verification and per-proof RSS guard remains. Native Taylor windows also need
+bounded totals with parent pass/target progress and errors retained. Full traces
+remain the default and small reference for paired validation;this changes stored
+evidence,not mathematical checks. Production parameters/ranks/non-oracle/persistence
+remain separate work before fulls18 admission.

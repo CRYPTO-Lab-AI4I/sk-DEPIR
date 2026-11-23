@@ -1,6 +1,6 @@
 # Newton prefix input views
 
-Status: **submitted81729**,prefix-01;GPU results pending. Implementation **2f63e9d**;parent83b828d.
+Status: **passed81729**,prefix-01. Implementation **2f63e9d**;parent83b828d.
 [Runner](run.py),[Slurm entry](run.sbatch),[analyzer](analyze.py),
 [reviewer tests](test_review.py),[readiness](readiness/). Planned results:
 `runs/prefix-01/`;reusable immutable source,binaries,native references,profiles and
@@ -145,3 +145,34 @@ Submitted **81729** after readiness75524c2. [Receipt](submission.json),
 fresh-process prefix8 restart,matched dense cold,and bounded field18 prefix/native
 checks. Existing two-node/two-H200 caps retained;estimate3–6min excluding queue.
 Receipt-bound local completion notification registered outside Git;no model polling.
+
+
+## Verified result:81729
+
+Independent reconciliation passed **845 source/96 evidence/496 cache identities**,
+producing75524c2. All four arms passed exact native root/prefix/identity/spectrum/
+canonical/restart checks and actual clone/upload counter comparisons.
+
+| Arm | Profiled wall time | Peak RSS per worker | Owned GPU per worker |
+|---|---|---|---|
+| Prefix-input cold | 11.328589 seconds | 377.789 MiB | 0.244 MiB |
+| Prefix-input fresh-prefix8 restart | 8.994542 seconds | 379.551 MiB | 0.244 MiB |
+| Matched dense-input cold | 11.652888 seconds | 380.027 MiB | 0.244 MiB |
+| Bounded field18 prefix/native/source | 6.687571 seconds | 379.930 MiB | 3.125 MiB |
+
+Prefix cold uploaded **161,392 extension words** aggregate versus **2,097,152**
+dense,a12.994-fold reduction in Newton input words. Prefix removed the
+**16,384-word root clone per worker per step**;at s8 this is64 KiB. Restart
+prefix uploads161,367words;the two wide shapes uploaded233words together,with
+no root clone. Dense default remains unchanged. In one fixed-order sample,prefix
+cold was **0.324299 seconds (2.783%) faster**;this is not a statistical/fullsize
+speedup claim. Small RSS differences do not measure the projected large saving.
+
+HPC gnode16/17,two H200s,four workers/four CPU cores,8 GiB requested host RAM;
+all prior caps retained,context/driver additional to owned bytes. Controller
+**3 min11.051 s**,cache **37.509 MiB**.
+[Analysis](runs/prefix-01/analysis.json),[raw results](runs/prefix-01/results.json),
+[scheduler log](slurm-81729.log). Next audit production integration begins with
+bounded proof/native progress recording,preserving every runtime verification
+and resource guard while avoiding billions of stored per-packet/window rows.
+Fulls18 remains unrun/unadmitted.

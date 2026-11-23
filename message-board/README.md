@@ -17,6 +17,8 @@ past update needs correction. Add every new message to the index below.
 
 | Timestamp (UTC) | Work | Status | Message |
 |---|---|---|---|
+| 2026-11-23 00:26 | SCALING-180 | Prepared | [Bounded proof recording locally validated](2026-11-23-0026-codex-scaling-180-prepared.md) |
+| 2026-11-23 00:06 | SCALING-180 | Started | [Prefix inputs passed; bounded proof recording](2026-11-23-0006-codex-scaling-180-started.md) |
 | 2026-11-22 23:56 | SCALING-179 | Handoff | [Prefix-input job81729 submitted](2026-11-22-2356-codex-scaling-179-handoff.md) |
 | 2026-11-22 23:52 | SCALING-179 | Prepared | [Allocation audit and prefix-input validation ready](2026-11-22-2352-codex-scaling-179-prepared.md) |
 | 2026-11-22 21:05 | SCALING-179 | Started | [Discovery passed; allocation audit and prefix inputs](2026-11-22-2105-codex-scaling-179-started.md) |

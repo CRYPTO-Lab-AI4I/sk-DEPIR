@@ -7,6 +7,7 @@ import (
 	cuda "github.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-cuda"
 	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi"
 	"testing"
+	"time"
 )
 
 // pipelineGPU shares the same workspace,operation identities and proof logging
@@ -36,6 +37,7 @@ func openPipelineGPU[Word transposeWord](t *testing.T, w *mpi.World, options cud
 	d := &pipelineGPU[Word]{t: t, label: label, s: options.S, dim: dim, span: uint64(2 + 2*(dim-dim/2)), emit: emit}
 	e := &d.Executor
 	*e = rankGPUExecutor[Word]{GPU: gpu, Plan: p, Capacity: min(rows*cols, 3*max(rows, cols)), Limit: uint64(1) << uint(options.S)}
+	lastNotice := map[string]time.Time{}
 	e.Notice = func(phase string, done, total uint64) {
 		if done == 0 {
 			switch phase {
@@ -47,7 +49,9 @@ func openPipelineGPU[Word transposeWord](t *testing.T, w *mpi.World, options cud
 				d.pass = 2
 			}
 		}
-		if done == 0 || done == total {
+		key := d.call + "/" + phase
+		if done == 0 || done == total || time.Since(lastNotice[key]) >= 30*time.Second {
+			lastNotice[key] = time.Now()
 			emit(map[string]any{"kind": "progress", "case": label, "call": d.call, "phase": phase, "pass": d.pass, "completed": done, "total": total})
 		}
 	}

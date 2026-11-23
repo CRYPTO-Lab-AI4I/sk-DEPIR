@@ -302,14 +302,30 @@ func withRankGPUStages(t *testing.T, output string, ranks int, body func(*mpi.Wo
 	if err = os.MkdirAll(output, 0700); err != nil {
 		t.Fatal(err)
 	}
+	recorder, recordErr := newProofLog(os.Getenv("PIR_PIPELINE_PROOF_LOG"))
+	if recordErr != nil {
+		t.Fatal(recordErr)
+	}
 	began := time.Now()
 	var mu sync.Mutex
+	lastProofProgress := time.Now()
 	emit := func(row map[string]any) {
 		mu.Lock()
 		defer mu.Unlock()
 		var usage syscall.Rusage
 		if e := syscall.Getrusage(syscall.RUSAGE_SELF, &usage); e != nil || usage.Maxrss >= 1<<20 {
 			panic("rank RSS guard")
+		}
+		hide, err := recorder.Record(row)
+		if err != nil {
+			panic(err)
+		}
+		if hide {
+			if time.Since(lastProofProgress) < 30*time.Second {
+				return
+			}
+			lastProofProgress = time.Now()
+			row = map[string]any{"kind": "proof-progress", "phase": "transport-proof-recording", "completed": recorder.total, "unit": "proof records", "total_known": false}
 		}
 		row["utc"] = time.Now().UTC().Format(time.RFC3339Nano)
 		row["rank"] = w.Rank
@@ -319,6 +335,18 @@ func withRankGPUStages(t *testing.T, output string, ranks int, body func(*mpi.Wo
 			panic(e)
 		}
 	}
+	defer func() {
+		// A footer write/resource failure must still abort peers,not enter finalize.
+		complete := success
+		success = false
+		mu.Lock()
+		summaries := recorder.Summaries(complete)
+		mu.Unlock()
+		for _, row := range summaries {
+			emit(row)
+		}
+		success = complete
+	}()
 	host, e := os.Hostname()
 	if e != nil {
 		t.Fatal(e)

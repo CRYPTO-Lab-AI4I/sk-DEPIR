@@ -161,6 +161,9 @@ template <class Word> class Resident {
   size_t maximum_;
   uint64_t cap_;
   bool local_vectors_ = false;
+  bool bounded_taylor_progress_ = false, taylor_failed_ = false;
+  uint64_t taylor_calls_ = 0, taylor_coefficients_ = 0;
+  std::chrono::steady_clock::time_point taylor_began_{};
   size_t encoding_k_ = 0, encoding_l_ = 0;
   size_t spectrum_ready_ = 0;
   // Member destruction frees buffers before releasing their peer-access leases.
@@ -561,6 +564,9 @@ public:
       throw std::runtime_error(
           "GPU preprocessing vector layout must be peer or local");
     local_vectors_ = layout && !std::strcmp(layout, "local");
+    const char *window_log = std::getenv("LIFTRS_GPU_TAYLOR_PROGRESS");
+    if (window_log && std::strcmp(window_log,"full") && std::strcmp(window_log,"bounded")) throw std::runtime_error("GPU Taylor progress mode");
+    bounded_taylor_progress_ = window_log && !std::strcmp(window_log,"bounded");
     liftrs::FieldT<Word> field;
     liftrs::preparation::set_field(field, s, polynomial, delta);
     if (s > 18 || !logs || !powers || lc != (size_t(1) << s) ||
@@ -627,6 +633,16 @@ public:
         jumps[j] = field.mul(jumps[j - 1], step);
       check(cudaMemcpy(c.jumps.data, jumps, sizeof(jumps),
                        cudaMemcpyHostToDevice));
+    }
+  }
+  // Parent rank logs retain pass/target progress. Bounded native mode records
+  // completed window/word totals at close rather than two rows per tiny launch.
+  ~Resident() {
+    if (bounded_taylor_progress_ && liftrs::execution::progress_enabled() && (taylor_calls_ || taylor_failed_)) {
+      const auto ms=std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now()-taylor_began_).count();
+      const char *status=taylor_failed_?"failed":"completed";
+      liftrs::execution::progress_record("rank-Taylor-windows-summary","gpu-preparation",status,taylor_calls_,taylor_calls_,ms,"windows");
+      liftrs::execution::progress_record("rank-Taylor-coefficients-summary","gpu-preparation",status,taylor_coefficients_,taylor_coefficients_,ms,"coefficients");
     }
   }
   void apply(Word *host, size_t n, bool inverse) {

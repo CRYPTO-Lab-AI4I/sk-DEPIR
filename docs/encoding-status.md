@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-Newton prefix-input views (submitted **81729**) following the full-size allocation/ownership audit and passed discovery tiles **81454**,then scalable fullsize ownership/working-set admission and
+bounded proof/native recording following passed Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1208,7 +1208,7 @@ prototype explicit Newton root-prefix input views;fulls18 remains unrun.
 array payloads,host inventories/GC uncertainty,root-domain imbalance,persistence
 and current implementation limits. [Explicit prefix input prototype](../experiments/distributed-prefix-inputs/report.md)
 avoids Newton's whole root clone/mask and uploads only selected coefficients,
-using the same zero-reset GPU product. Dense remains default;validation submitted as **81729**.
+using the same zero-reset GPU product. Dense remains default;bounded validation passed **81729**.
 
 | s | Three-array GPU payload at16 cards | Payload-only minimum power-of-two cards at112 GiB/card | Root clone avoided per worker/step at16 workers | Full distributed feasibility |
 |---|---|---|---|---|
@@ -1227,10 +1227,42 @@ logging alone would emit440,401,920rows/worker. Native-reference/four-worker/pil
 limits,production persistence and local root counts remain separate gates.
 
 
-Newton prefix-input validation **81729** submitted,prefix-01,implementation
+Newton prefix-input validation **81729** passed,prefix-01,implementation
 2f63e9d/readiness75524c2. Genuine s8/curve5 prefix cold/fresh restart,matched dense
 input,and bounded field18 prefix/native/source checks. Other memory flags held
 constant in matched arms. Same **two HPC nodes/two H200s/four CPU cores/8 GiB
 total requested host RAM** and existing caps;estimate3–6min excluding queue.
 [Exact preflight,scope and trade-offs](../experiments/distributed-prefix-inputs/report.md).
-Results pending;dense default retained. Fulls18 remains unrun/unadmitted.
+Dense default retained. Fulls18 remains unrun/unadmitted.
+
+
+### Newton prefix-input measurements81729
+
+| Genuine s8/curve5 mode | Status/runtime | Allocation/transfer evidence | HPC resources |
+|---|---|---|---|
+| Prefix input cold | Passed;11.328589 seconds |0root clone words;161,392Newton input upload words aggregate;RSS377.789 MiB/worker |Two nodes/two H200s/four workers/four CPU cores/8 GiB requested host RAM |
+| Prefix input fresh-prefix8 restart | Passed;8.994542 seconds |0root clone words;161,367upload words;RSS379.551 MiB/worker |Same allocation |
+| Dense input cold | Passed;11.652888 seconds |16,384clone words/worker/step;2,097,152upload words aggregate;RSS380.027 MiB/worker |Same allocation |
+
+All native/canonical/restart outputs match. Prefix cold was2.783%faster in one
+fixed-order sample,not a fullsize speedup estimate. Owned GPU0.244MiB/worker,
+context/driver extra. Bounded field18 prefix/native checks pass6.687571s with
+RSS379.930MiB/worker and ownedGPU3.125MiB/worker. Controller3min11.051s;cache37.509MiB.
+[Exact evidence](../experiments/distributed-prefix-inputs/report.md#verified-result81729).
+Dense remains default. Next bounded proof/native recording must preserve all
+runtime verification/resource guards;fulls18 production/admission remain unresolved.
+
+
+### Prepared bounded proof/native recording
+
+[Implementation and paired validation plan](../experiments/distributed-proof-recording/report.md)
+retain all runtime descriptor/payload/peer/field/identity checks and per-proof RSS
+guards while optionally storing fixed per-kind ordered digest/count/byte summaries.
+Full/default behavior remains;trace mode additionally hashes full small baselines.
+Native window totals replace optional per-window starts/completions while parent
+pass/target progress and errors remain. GPU validation pending.
+
+This addresses the audit's recording growth,not GPU payload,fullsize rank support
+or production persistence. Summary serialization/hashing overhead and fullsize
+latency remain unknown. Six paired cold/restart/field18 arms use existing two-node/
+two-H200 caps;no fulls18 or larger allocation is authorized.
