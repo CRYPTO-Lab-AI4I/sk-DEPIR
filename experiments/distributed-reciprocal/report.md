@@ -1,6 +1,6 @@
 # Shared sharded reciprocal orchestration
 
-Status: prepared; GPU integration not yet submitted. Parent revision9922a8a.
+Status: prepared; GPU integration not yet submitted. Implementation **46404c6** (parent9922a8a).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [arm regression](test_review.py), [readiness](readiness/).
 Planned results `runs/reciprocal-01/`; immutable source, binaries, native references
@@ -115,3 +115,13 @@ python3 -B experiments/distributed-reciprocal/analyze.py reciprocal-01
 After validation update the main scaling reference and continue production discovery/
 root/phase ownership and parameter admission, non-oracle end-to-end entry, bounded
 retention and coordinated final publication. Full s18 remains unrun/unadmitted.
+
+### Immutable-source readiness
+
+Implementation **46404c6** is frozen into **878 build inputs**;all **392**
+Go/C/C++/CUDA source hashes match the compiled readiness tree. All **18 frozen
+reviewer suites** pass. CPU-only native preflight reproduces **108014 historical
+reference bytes** and validates actual s8/curve5 root/leaf/stage/canonical inputs.
+[Source checks](readiness/source-checks.json), [frozen reviewers](readiness/frozen-reviewers.json),
+[native preflight](readiness/native-preflight.log). No local CUDA/MPI initialization.
+The admitted allocation rebuilds committed source and checks every node before GPU phases.
