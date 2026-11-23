@@ -1,0 +1,236 @@
+[
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-coordinator-stream/test_review.py"
+    ],
+    "status": "passed",
+    "output": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.005s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-discovery-hierarchy/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-discovery-results/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-owned-roots/test_review.py"
+    ],
+    "status": "passed",
+    "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.008s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-pipeline-four/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.032s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-pipeline-scaling/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.004s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-pipeline-wide/test_review.py"
+    ],
+    "status": "passed",
+    "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-prefix-checkpoints/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.035s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-prefix-inputs/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-preprocessing-pilot/test_review.py"
+    ],
+    "status": "passed",
+    "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.008s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-restart-pilot/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.028s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-root-hierarchy/test_review.py"
+    ],
+    "status": "passed",
+    "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.038s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-spectrum-publication/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-proof-recording/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.001s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-diagnostic-writes/test_review.py"
+    ],
+    "status": "passed",
+    "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.121s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-restart-binding/test_review.py"
+    ],
+    "status": "passed",
+    "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.005s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-runtime/test_review.py"
+    ],
+    "status": "passed",
+    "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-reciprocal/test_review.py"
+    ],
+    "status": "passed",
+    "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-root-runtime/test_review.py"
+    ],
+    "status": "passed",
+    "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.002s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-discovery-runtime/test_review.py"
+    ],
+    "status": "passed",
+    "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-discovery-loop/test_review.py"
+    ],
+    "status": "passed",
+    "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-workflow/test_review.py"
+    ],
+    "status": "passed",
+    "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-publication-commit/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.001s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-workflow-checkpoints/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.008s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-workflow-resume/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-command/readiness/source/experiments/distributed-command/test_review.py"
+    ],
+    "status": "passed",
+    "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.036s\n\nOK\n"
+  }
+]

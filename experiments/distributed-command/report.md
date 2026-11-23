@@ -107,3 +107,15 @@ python3 -B experiments/distributed-command/analyze.py command-01
 Next: complete phase host/GC/native working-set admission with real local counts,
 representative larger rank/topology validation and fulls18 resource agreement.
 **Full s18 preprocessing remains unrun/unadmitted.**
+
+### Frozen-source readiness
+
+Implementation **84df606** freezes **931 build inputs**; all **412** compiled code
+hashes and every selected build input match the readiness tree. All **26 frozen
+reviewer suites** pass, including the executed rank-wrapper quoting/profile check.
+Actual tagged command/reference binaries, CPU/race/admission tests and real
+`--check-config` smoke pass without MPI/GPU initialization. Native preflight matches
+**108014 historical bytes** plus actual s8/curve5 inputs/root geometry.
+[Source checks](readiness/source-checks.json), [reviewers](readiness/frozen-reviewers.json),
+[native preflight](readiness/native-preflight.log). Fresh frozen builds and each-node
+path/config/environment checks remain inside the job.
