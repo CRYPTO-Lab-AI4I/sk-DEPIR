@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-workflow-checkpoints/readiness/source/experiments/distributed-pipeline-scaling/preflight.py", line 32, in <module>
+    H=runpy.run_path(str(HERE/'run.py'));manifest=H['reference_manifest'](dest/'native',root)
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-workflow-checkpoints/readiness/source/experiments/distributed-pipeline-scaling/run.py", line 25, in reference_manifest
+    files[name]=dict(source=str(path.relative_to(root)),bytes=len(data),sha256=hashlib.sha256(data).hexdigest())
+                                ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: '/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-workflow-checkpoints/readiness/native-checked/native/s8-rank-0-leaf.bin' is not in the subpath of '/hpc/home/crypto/tmour/sk-DEPIR/.cache/liftrs/distributed-workflow-checkpoints/readiness/source'

@@ -118,3 +118,19 @@ python3 -B experiments/distributed-workflow-checkpoints/analyze.py checkpoints-0
 Next: assembled arithmetic resume with coordinated source verification, parameterized
 command and full phase/working-set admission, then representative larger topology
 and complete fulls18 budget approval. **Full s18 preprocessing remains unrun.**
+
+### Frozen-source readiness
+
+Implementation **ce295e2** is frozen into **915 build inputs**; all **405**
+Go/C/C++/CUDA code hashes match the compiled readiness tree. All **24 frozen
+reviewer suites** pass. CPU/race and tagged CPU admission tests pass without local
+CUDA/MPI initialization. CPU native preflight reproduces **108014 historical bytes**
+and the actual s8/curve5 native/root input geometry. [Source checks](readiness/source-checks.json),
+[reviewers](readiness/frozen-reviewers.json), [native preflight](readiness/native-preflight.log).
+
+An initial manual preflight passed both native exports but used the frozen source
+subdirectory as provenance root while generated files were its siblings, causing
+its final relative-path inventory to fail. [Original log](readiness/native-preflight-path-error.log)
+is retained. The corrected invocation uses the repository root containing both
+paths and passes. This was a local inventory-command error; no GPU allocation
+was consumed and the job's existing source/cache layout is unchanged.
