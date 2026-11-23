@@ -1,6 +1,6 @@
 # Durable assembled workflow checkpoints
 
-Status: **submitted job82101**, checkpoints-01; integration results pending. SCALING-191 follows
+Status: **passed job82101**, checkpoints-01; all three arms and fresh-process loader verified. SCALING-191 follows
 [passed publication82100](../distributed-publication-commit/report.md#verified-outcome82100).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [reviewer tests](test_review.py), [readiness](readiness/).
@@ -141,3 +141,25 @@ Submitted from **28c37c7**, implementation **ce295e2**. [Receipt](submission.jso
 Results `runs/checkpoints-01/`, Slurm log `slurm-82101.log`, retained cache above.
 Same admitted limits; estimate **3–6 minutes excluding queue**. Submission is not
 validation success. No agent polling; hand off until the terminal notice.
+
+### Verified outcome82101
+
+Producing revision **28c37c7**. [Analysis](runs/checkpoints-01/analysis.json),
+[raw results](runs/checkpoints-01/results.json), [Slurm log](slurm-82101.log).
+Receipt and all **915 source /87 evidence /390 cache** file seals reconcile.
+Controller runtime **2 min41.494 s**, retained logical cache **36.387 MiB**.
+HPC allocation above:2nodes/2H200/4cores/8GiB requested RAM,4workers.
+
+| Arm | Launcher runtime | Peak host RSS per worker | Outcome |
+|---|---|---|---|
+| Pilot cold | 10.400 s | 377.277 MiB | Passed |
+| Pilot fresh-process restart | 7.532 s | 379.125 MiB | Passed |
+| Assembled durable commits | 9.893 s | 380.570 MiB | Passed |
+
+Owned GPU about **0.244 MiB/worker**, excluding driver/context/MPI. All17commit
+manifests/68rank shards,source header/hash/raw archive alias,76baseline comparison
+files, ordered proof summaries, native roots/Taylor work, entropy/count/ownership
+and all three final payloads match. Fresh-process loader passed all four root and
+prefix8 shards; its CPU profile is retained. This is file reload, not arithmetic
+restart. Controller and launcher boundaries are described above; no direct speedup
+or fullsize peak/runtime inference. Next: [assembled arithmetic resume](../distributed-workflow-resume/report.md).

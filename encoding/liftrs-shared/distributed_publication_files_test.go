@@ -179,3 +179,64 @@ func TestWorkflowPublicationManifestFailure(t *testing.T) {
 		t.Fatal("completed payload lost", err)
 	}
 }
+
+func TestWorkflowPublicationArchiveReuse(t *testing.T) {
+	source := t.TempDir()
+	data := make([]byte, 8*97)
+	path := filepath.Join(source, "support.bin")
+	if err := os.WriteFile(path, data, 0600); err != nil {
+		t.Fatal(err)
+	}
+	digest := fmt.Sprintf("%x", sha256.Sum256(data))
+	directory := t.TempDir()
+	p, err := newWorkflowPublication(directory, "s4")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer p.Close()
+	if err = p.ReuseVerifiedArchive(path, uint64(len(data)), digest); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = p.Archive.Write([]byte{1}); err == nil {
+		t.Fatal("reused archive writable")
+	}
+	if _, err = p.SealArchive(uint64(len(data))); err == nil {
+		t.Fatal("resealed reused archive")
+	}
+	h, _, err := canonicalScalingCodeHeader(4, 2, 97, 256)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = writeScalingCodeHeader(p.Code, h); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = p.Code.Write(make([]byte, int(h.Bytes-h.POffset))); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = p.Generator.Write(make([]byte, 4*(h.N-h.K))); err != nil {
+		t.Fatal(err)
+	}
+	record, err := p.Commit(h, true, 2)
+	if err != nil {
+		t.Fatal(err)
+	}
+	a, err := os.Stat(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	b, err := os.Stat(filepath.Join(directory, "s4-archive.raw"))
+	if err != nil || !os.SameFile(a, b) || record.Files[2].SHA256 != digest {
+		t.Fatal("reused archive copied or misbound", err)
+	}
+	bad, err := newWorkflowPublication(t.TempDir(), "s4")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer bad.Close()
+	if err = bad.ReuseVerifiedArchive(path, uint64(len(data)+1), digest); err == nil {
+		t.Fatal("bad archive extent")
+	}
+	if _, err = bad.Archive.Write([]byte{1}); err == nil {
+		t.Fatal("failed reuse writer not poisoned")
+	}
+}

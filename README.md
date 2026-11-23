@@ -32,7 +32,8 @@ passed through **81744 partial results plus81746 wide validation**;
 [explicit-policy discovery runtime](experiments/distributed-discovery-loop/report.md) passed **82097**;
 [reference-independent runtime workflow](experiments/distributed-workflow/report.md) has **verified82099 execution results** after a controller-review correction (original job status remains failed);
 [final publication commit](experiments/distributed-publication-commit/report.md) passed **82100**;
-[durable assembled prefix commits](experiments/distributed-workflow-checkpoints/report.md) are submitted as **82101** under the same budget;
+[durable assembled prefix commits and fresh-process file reload](experiments/distributed-workflow-checkpoints/report.md) passed **82101**;
+[assembled arithmetic resume](experiments/distributed-workflow-resume/report.md) is prepared for same-budget validation;
 full s18 preprocessing remains unrun.
 
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)

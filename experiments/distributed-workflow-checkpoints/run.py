@@ -12,9 +12,9 @@ WORKFLOW=PUBLICATION['WORKFLOW'];BIND=PUBLICATION['BIND'];SCALE=PUBLICATION['SCA
 assembled_review=PUBLICATION['assembled_review']
 
 
-def checkpoint_review(rows,directory):
+def checkpoint_review(rows,directory,known=1):
     """Check actual persisted bytes, every rank's commit, and the no-copy alias."""
-    assert {r.get('checkpoint_mode')for r in WORKFLOW['workflow_claims'](rows)}=={'commit'}
+    assert {r.get('checkpoint_mode')for r in WORKFLOW['workflow_claims'](rows,known=known)}=={'commit'}
     source_bytes=(directory/'s8-checkpoint-source.json').read_bytes()
     source=json.loads(source_bytes);source_sha=hashlib.sha256(source_bytes).hexdigest()
     publication=json.loads((directory/'s8-publication.json').read_text())
@@ -25,7 +25,7 @@ def checkpoint_review(rows,directory):
     assert source['SupportBytes']==len(archive)==8*7381
     assert source['SupportSHA']==hashlib.sha256(archive).hexdigest()
     assert os.path.samefile(directory/'s8-support.bin',directory/'s8-archive.raw')
-    stages=[('root',7382)]+[(f'newton-{v}',v)for v in WORKFLOW['OWN']['PILOT']['prefixes'](65536-7381)]
+    stages=[('root',7382)]+[(f'newton-{v}',v)for v in WORKFLOW['OWN']['PILOT']['prefixes'](65536-7381)if v>=known]
     events=[r for r in rows if r.get('kind')=='workflow-checkpoint']
     assert len(events)==4*len(stages)
     records=[]
@@ -46,7 +46,7 @@ def checkpoint_review(rows,directory):
     return dict(source=source,source_sha256=source_sha,commits=records,support_alias='same inode;no payload copy',scope='Durable files and fresh-process loader;not arithmetic resume')
 
 
-def suite(c):
+def suite(c,extra_arms=None):
     c['run']('checkpoint-review-tests',['python3','-B','experiments/distributed-workflow-checkpoints/test_review.py'],30)
     # Exercise required shared-filesystem semantics before any GPU work.
     c['run']('checkpoint-link-preflight',['python3','-B','-c','import os,pathlib,tempfile;\nwith tempfile.TemporaryDirectory(dir="'+str(c['cache'])+'") as d:\n p=pathlib.Path(d);(p/"a").write_bytes(b"link");os.link(p/"a",p/"b");assert os.path.samefile(p/"a",p/"b");f=os.open(d,os.O_RDONLY);os.fsync(f);os.close(f)'],10)
@@ -54,7 +54,7 @@ def suite(c):
     c['env'].update(CGO_ENABLED='1',CC='mpicc',CXX='mpicxx')
     for label,race in (('checkpoint-cpu',[]),('checkpoint-race',['-race'])):
         c['run'](label,[c['go'],'test',*race,'./encoding/liftrs-shared','-run','^TestWorkflowCheckpoint|^TestRankPrefix|^TestRankSupport','-count=1','-timeout=20s'],60)
-    result=PUBLICATION['suite'](c)
+    result=PUBLICATION['suite'](c)if extra_arms is None else PUBLICATION['suite'](c,extra_arms=extra_arms)
     rows=VECTORS['BASE']['parse_rank_logs'](c['out']/'assembled.log',ranks=4)
     result['workflow_checkpoints']=checkpoint_review(rows,c['cache']/'assembled')
     c['env']['PIR_WORKFLOW_RELOAD_SOURCE']=str(c['cache']/'assembled')

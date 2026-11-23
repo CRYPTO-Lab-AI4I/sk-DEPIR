@@ -131,9 +131,6 @@ func prepareRankWorkflow[Word transposeWord](w *mpi.World, o rankWorkflowOptions
 	link := operandMPI{world: w, record: func(direction string, p operandPacket, data []uint32, own, remote [64]byte) {
 		emit(map[string]any{"kind": "operand-proof", "case": label, "direction": direction, "packet": p, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
 	}}
-	wideLink := typedOperandMPI[Word]{world: w, record: func(direction string, p operandPacket, data []Word, own, remote [64]byte) {
-		emit(map[string]any{"kind": "operand-proof", "case": label, "direction": direction, "packet": p, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
-	}}
 	inputs := [2][]uint32{compact, nil}
 	if w.Rank == 0 {
 		inputs[1] = []uint32{1}
@@ -145,6 +142,23 @@ func prepareRankWorkflow[Word transposeWord](w *mpi.World, o rankWorkflowOptions
 	}
 	e.Plan.Operation = 2
 	root := pair[0]
+	return finishRankWorkflow(w, o, sinks, rankWorkflowResult{Header: h, DiscoverySamples: discovered.Samples, RootCounts: counts}, field, session, root, nil, 1, emit)
+}
+
+// Cold and restarted execution share every refinement, identity and publication
+// operation. The caller owns session cleanup before this function is entered.
+func finishRankWorkflow[Word transposeWord](w *mpi.World, o rankWorkflowOptions, sinks rankWorkflowSinks, result rankWorkflowResult, field orbitField, session *rankGPUSession[Word], root, g []uint32, known uint64, emit func(map[string]any)) (_ rankWorkflowResult, err error) {
+	h := result.Header
+	n, k := h.N, h.K
+	_, words := rankBand(n, w.Rank, w.Size)
+	label := fmt.Sprintf("s%d", o.Spec.FieldDegree)
+	e := &session.Executor
+	link := operandMPI{world: w, record: func(direction string, p operandPacket, data []uint32, own, remote [64]byte) {
+		emit(map[string]any{"kind": "operand-proof", "case": label, "direction": direction, "packet": p, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
+	}}
+	wideLink := typedOperandMPI[Word]{world: w, record: func(direction string, p operandPacket, data []Word, own, remote [64]byte) {
+		emit(map[string]any{"kind": "operand-proof", "case": label, "direction": direction, "packet": p, "own_proof": fmt.Sprintf("%x", own), "remote_proof": fmt.Sprintf("%x", remote)})
+	}}
 	checkpoint := func(stage string, keep uint64, values []uint32) ([]uint32, error) {
 		if sinks.Checkpoint == nil {
 			return values, nil
@@ -162,11 +176,19 @@ func prepareRankWorkflow[Word transposeWord](w *mpi.World, o rankWorkflowOptions
 	if err != nil {
 		return result, err
 	}
-	g := make([]uint32, words)
-	if w.Rank == 0 {
-		g[0] = 1
+	if g == nil {
+		g = make([]uint32, words)
+		if w.Rank == 0 {
+			g[0] = 1
+		}
 	}
-	g, stats, err := refineRankReciprocal(rankReciprocalPlan{Domain: n, RootCount: k + 1, Target: n - k, Known: 1, MaxLocalWords: o.MaxLocalWords, Rank: w.Rank, Ranks: w.Size, PrefixInputs: o.PrefixInputs}, root, g, rankReciprocalOps{
+	if known > 1 {
+		g, err = checkpoint(fmt.Sprintf("newton-%d", known), known, g)
+		if err != nil {
+			return result, err
+		}
+	}
+	g, stats, err := refineRankReciprocal(rankReciprocalPlan{Domain: n, RootCount: k + 1, Target: n - k, Known: known, MaxLocalWords: o.MaxLocalWords, Rank: w.Rank, Ranks: w.Size, PrefixInputs: o.PrefixInputs}, root, g, rankReciprocalOps{
 		Square: func(values []uint32, keep uint64) ([]uint32, error) {
 			op := e.Plan.Operation
 			e.Plan.Operation++
@@ -237,5 +259,6 @@ func prepareRankWorkflow[Word transposeWord](w *mpi.World, o rankWorkflowOptions
 		return result, err
 	}
 	w.Barrier()
-	return rankWorkflowResult{h, discovered.Samples, counts, stats, true}, nil
+	result.Refinement, result.IdentityVerified = stats, true
+	return result, nil
 }

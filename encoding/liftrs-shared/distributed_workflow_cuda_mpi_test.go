@@ -4,6 +4,7 @@ package liftrs
 
 import (
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 	"github.com/CRYPTO-Lab-AI4I/sk-DEPIR/experiments/distributed-root/mpi"
 	"io"
@@ -13,6 +14,49 @@ import (
 	"testing"
 	"time"
 )
+
+func TestRankWorkflowRecoveryAdmission(t *testing.T) {
+	w := &mpi.World{Rank: 0, Size: 4}
+	o := rankWorkflowOptions{Spec: Spec{8, 2, 5}, MaxLocalWords: 16384, Discovery: rankDiscoveryOptions{DeviceBytes: 64 << 20}}
+	r := rankWorkflowRecovery{Directory: "/trusted/cache", Label: "s8", Known: 8, SourceSHA: fmt.Sprintf("%064x", 1)}
+	sinks := rankWorkflowSinks{Code: io.Discard, Generator: io.Discard}
+	emit := func(map[string]any) {}
+	if err := admitRankWorkflowRecovery[uint32](w, o, r, sinks, emit); err != nil {
+		t.Fatal(err)
+	}
+	bad := r
+	bad.SourceSHA = "bad"
+	if err := admitRankWorkflowRecovery[uint32](w, o, bad, sinks, emit); err == nil {
+		t.Fatal("invalid source digest")
+	}
+	// Reject an intact cache for a different code before collective/GPU work.
+	directory := t.TempDir()
+	h, _, err := canonicalScalingCodeHeader(4, 2, 97, 256)
+	if err != nil {
+		t.Fatal(err)
+	}
+	source := workflowCheckpointSource{Version: 1, Header: h, Ranks: 4, Samples: 2, SupportFormat: "uint64-exponents-le", SupportSHA: fmt.Sprintf("%064x", 0), SupportBytes: 8 * h.K}
+	data, err := json.Marshal(source)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = writeWorkflowMetadata(directory, "s8-checkpoint-source.json", data); err != nil {
+		t.Fatal(err)
+	}
+	bad = r
+	bad.Directory = directory
+	bad.SourceSHA = fmt.Sprintf("%x", sha256.Sum256(data))
+	if _, err = resumeRankWorkflow[uint32](w, o, bad, sinks, emit); err == nil || err.Error() != "workflow recovery source binding" {
+		t.Fatal("wrong-code cache", err)
+	}
+	o.MaxLocalWords--
+	if _, err := resumeRankWorkflow[uint32](w, o, r, sinks, emit); err == nil {
+		t.Fatal("resident admission before reading source")
+	}
+	if err := admitRankWorkflowRecovery[uint64](w, o, r, sinks, emit); err == nil {
+		t.Fatal("wrong slot width")
+	}
+}
 
 func TestRankWorkflowAdmission(t *testing.T) {
 	w := &mpi.World{Rank: 0, Size: 4}
@@ -37,6 +81,20 @@ func TestAssembledRankWorkflow(t *testing.T) {
 	}
 	withRankGPUStages(t, directory, 4, func(w *mpi.World, emit func(map[string]any)) {
 		began := time.Now()
+		resumeFrom := os.Getenv("PIR_WORKFLOW_RESUME_FROM")
+		var recovery rankWorkflowRecovery
+		var recoveredSource workflowCheckpointSource
+		if resumeFrom != "" {
+			data, e := readBoundedPilotFile(filepath.Join(resumeFrom, "s8-checkpoint-source.json"), 65536)
+			if e != nil {
+				t.Fatal(e)
+			}
+			recovery = rankWorkflowRecovery{Directory: resumeFrom, Label: "s8", SourceSHA: fmt.Sprintf("%x", sha256.Sum256(data)), Known: 8}
+			recoveredSource, e = readWorkflowCheckpointSource(resumeFrom, "s8", recovery.SourceSHA)
+			if e != nil {
+				t.Fatal(e)
+			}
+		}
 		var code, generator, archive *os.File
 		mode := os.Getenv("PIR_WORKFLOW_PUBLICATION")
 		if mode == "" {
@@ -51,6 +109,9 @@ func TestAssembledRankWorkflow(t *testing.T) {
 		}
 		if checkpoints && mode != "commit" {
 			t.Fatal("checkpoint mode requires sealed publication archive")
+		}
+		if resumeFrom != "" && !checkpoints {
+			t.Fatal("assembled restart requires source-bound checkpoint policy")
 		}
 		var checkpointWriter *rankCheckpointWriter
 		var publication *workflowPublication
@@ -87,7 +148,12 @@ func TestAssembledRankWorkflow(t *testing.T) {
 				supportSHA := ""
 				if w.Rank == 0 {
 					var err error
-					supportSHA, err = publication.SealArchive(8 * h.K)
+					if resumeFrom == "" {
+						supportSHA, err = publication.SealArchive(8 * h.K)
+					} else {
+						supportSHA = recoveredSource.SupportSHA
+						err = publication.ReuseVerifiedArchive(filepath.Join(resumeFrom, "s8-support.bin"), 8*h.K, supportSHA)
+					}
 					if err != nil {
 						return err
 					}
@@ -125,7 +191,13 @@ func TestAssembledRankWorkflow(t *testing.T) {
 			return nil
 		}
 		options := rankWorkflowOptions{Spec: Spec{8, 2, 5}, Discovery: rankDiscoveryOptions{Library: os.Getenv("PIR_GPU_PREPARATION_LIBRARY"), ResultMode: "stream", DeviceBytes: 64 << 20, MaxLocalWords: 16384, MaxGoodWords: 65536, MaxRootWords: 65536, Random: rand.New(rand.NewSource(109))}, MaxLocalWords: 16384, PrefixInputs: true, StreamSpectrum: true}
-		result, err := prepareRankWorkflow[uint32](w, options, sinks, emit)
+		var result rankWorkflowResult
+		var err error
+		if resumeFrom == "" {
+			result, err = prepareRankWorkflow[uint32](w, options, sinks, emit)
+		} else {
+			result, err = resumeRankWorkflow[uint32](w, options, recovery, sinks, emit)
+		}
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -149,7 +221,7 @@ func TestAssembledRankWorkflow(t *testing.T) {
 			}
 		}
 		w.Barrier()
-		emit(map[string]any{"kind": "workflow-result", "case": "s8", "n": result.Header.N, "k": result.Header.K, "samples": result.DiscoverySamples, "root_counts": result.RootCounts, "refinement": result.Refinement, "identity_verified": result.IdentityVerified, "seconds": w.Max(time.Since(began).Seconds()), "reference_input": false, "publication_mode": mode, "checkpoint_mode": map[bool]string{true: "commit", false: "observer"}[checkpoints]})
+		emit(map[string]any{"kind": "workflow-result", "case": "s8", "n": result.Header.N, "k": result.Header.K, "samples": result.DiscoverySamples, "root_counts": result.RootCounts, "refinement": result.Refinement, "identity_verified": result.IdentityVerified, "seconds": w.Max(time.Since(began).Seconds()), "reference_input": false, "publication_mode": mode, "checkpoint_mode": map[bool]string{true: "commit", false: "observer"}[checkpoints], "resumed": resumeFrom != "", "initial_prefix": map[bool]int{true: 8, false: 1}[resumeFrom != ""]})
 	})
 }
 

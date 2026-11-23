@@ -36,6 +36,7 @@ type workflowPublication struct {
 	written                  [3]uint64
 	failed                   bool
 	archiveSealed            bool
+	archiveDigest            string
 	closed, committed        bool
 }
 
@@ -158,7 +159,11 @@ func (p *workflowPublication) Commit(h ScalingCodeHeader, identity bool, samples
 				return record, fmt.Errorf("publication code header mismatch")
 			}
 		}
-		record.Files = append(record.Files, workflowPublishedFile{names[i], sizes[i], fmt.Sprintf("%x", p.hashes[i].Sum(nil))})
+		digest := fmt.Sprintf("%x", p.hashes[i].Sum(nil))
+		if i == 2 && p.archiveSealed {
+			digest = p.archiveDigest
+		}
+		record.Files = append(record.Files, workflowPublishedFile{names[i], sizes[i], digest})
 	}
 	if err = p.Close(); err != nil {
 		return record, err
@@ -256,5 +261,56 @@ func (p *workflowPublication) SealArchive(expectedBytes uint64) (digest string, 
 		return "", err
 	}
 	p.archiveSealed = true
-	return fmt.Sprintf("%x", p.hashes[2].Sum(nil)), nil
+	p.archiveDigest = fmt.Sprintf("%x", p.hashes[2].Sum(nil))
+	return p.archiveDigest, nil
+}
+
+// ReuseVerifiedArchive links immutable support already checked by the recovery
+// loader. The supplied digest is trusted only after that complete verification.
+// No payload copy/reread is added; only this fresh writer's empty staging inode
+// is replaced. The old cache must stay immutable while either name exists.
+func (p *workflowPublication) ReuseVerifiedArchive(source string, size uint64, digest string) (err error) {
+	if p == nil || p.closed || p.failed || p.archiveSealed || p.written[2] != 0 {
+		return fmt.Errorf("archive reuse admission")
+	}
+	if _, err = expectedDigest(digest); err != nil {
+		return err
+	}
+	info, err := p.files[2].Stat()
+	if err != nil || info.Size() != 0 {
+		return fmt.Errorf("archive reuse staging extent")
+	}
+	p.failed = true
+	temporary := filepath.Join(p.directory, p.names()[2]+".reused")
+	if err = os.Link(source, temporary); err != nil {
+		return err
+	}
+	f, err := os.Open(temporary)
+	if err != nil {
+		return err
+	}
+	defer func() {
+		if err != nil {
+			_ = f.Close()
+		}
+	}()
+	info, err = f.Stat()
+	if err != nil || info.Size() < 0 || uint64(info.Size()) != size {
+		return fmt.Errorf("archive reuse source extent")
+	}
+	if err = p.files[2].Close(); err != nil {
+		return err
+	}
+	if err = os.Rename(temporary, filepath.Join(p.directory, p.names()[2]+".partial")); err != nil {
+		return err
+	}
+	p.files[2] = f
+	if err = os.Link(filepath.Join(p.directory, p.names()[2]+".partial"), filepath.Join(p.directory, p.label+"-support.bin")); err != nil {
+		return err
+	}
+	if err = syncWorkflowDirectory(p.directory); err != nil {
+		return err
+	}
+	p.written[2], p.archiveDigest, p.archiveSealed, p.failed = size, digest, true, false
+	return nil
 }

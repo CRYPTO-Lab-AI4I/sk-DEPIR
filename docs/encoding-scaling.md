@@ -3886,4 +3886,37 @@ resume in the assembled runtime remains next, followed by parameterized command,
 phase admission and representative topology/fulljob approval. No unchanged wide/
 dense/sanitizer repeat. Fulls18 remains unrun/unadmitted.
 
-Durable assembled checkpoint validation **82101 submitted** under unchanged caps; [receipt](../experiments/distributed-workflow-checkpoints/submission.json). Pilot cold/restart plus assembled commits and fresh-process file reload; results pending, no arithmetic-resume/full s18 claim.
+Durable assembled checkpoint validation **82101 passed** under unchanged caps;
+[verified evidence](../experiments/distributed-workflow-checkpoints/runs/checkpoints-01/analysis.json).
+Controller **2 min41.494 s**; cold **10.400 s**, pilot restart **7.532 s**, assembled
+**9.893 s**; assembled peak host RSS **380.570 MiB/worker**. All17commit manifests,
+68shards, source binding/alias, native/proof comparisons and fresh-process file
+reload pass. Arithmetic restart integration remains next; fulls18 unrun/unadmitted.
+
+
+## Assembled arithmetic resume (SCALING-192)
+
+82101passed durable source-bound prefix commits and fresh-process file reload.
+Now restore root and a completed Newton prefix before GPU allocation, with the
+existing coordinated support verifier: one full support hash on the coordinator,
+complete metadata agreement for each record, unchanged shard/hash/EOF/range/padding/
+normalization checks. Require caller-supplied trusted source digest, matching full
+code spec/rank count and checkpoint source binding. No discovery/roots are rerun.
+Cold and restarted entries share one Newton/identity/spectrum/publication tail.
+
+[Plan and implementation](../experiments/distributed-workflow-resume/report.md).
+Reuse the immutable verified support archive through same-filesystem hard links
+rather than copying a fullsize payload into the new publication. New checkpoints
+still commit per-rank shards and source metadata; final manifest binds the reused
+archive and newly computed code/generator. Source cache must remain immutable.
+No new numerical arrays/transforms/transfers; restart needs two resident shards
+and their disk reads plus one support hash. Fullsize reload/verification/runtime
+remain unknown. This explicit restart policy leaves existing defaults unchanged.
+
+Validate reviewed pilot cold/restart plus assembled cold and fresh-process prefix8
+restart under unchanged caps, with full remaining arithmetic proof/native-work,
+checkpoint and final-byte equality. Do not repeat unchanged wide/dense/sanitizer
+comparisons. Then parameterized command/full phase and working-set admission,
+representative larger topology, and complete fulls18 resource approval. Fulls18
+remains unrun/unadmitted; failure during discovery/root construction is not yet
+covered by this completed-Newton-prefix restart boundary.

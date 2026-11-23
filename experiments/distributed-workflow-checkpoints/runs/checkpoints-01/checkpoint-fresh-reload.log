@@ -1,0 +1,11 @@
+=== RUN   TestReloadWorkflowCheckpoints
+    distributed_workflow_cuda_mpi_test.go:178: verified rank=0 stage=root words=16384 source=47e6b1965de81f4dc733ced82b8747d74020e31a106a1a1f50f97826ea9367da
+    distributed_workflow_cuda_mpi_test.go:178: verified rank=0 stage=newton-8 words=16384 source=47e6b1965de81f4dc733ced82b8747d74020e31a106a1a1f50f97826ea9367da
+    distributed_workflow_cuda_mpi_test.go:178: verified rank=1 stage=root words=16384 source=47e6b1965de81f4dc733ced82b8747d74020e31a106a1a1f50f97826ea9367da
+    distributed_workflow_cuda_mpi_test.go:178: verified rank=1 stage=newton-8 words=16384 source=47e6b1965de81f4dc733ced82b8747d74020e31a106a1a1f50f97826ea9367da
+    distributed_workflow_cuda_mpi_test.go:178: verified rank=2 stage=root words=16384 source=47e6b1965de81f4dc733ced82b8747d74020e31a106a1a1f50f97826ea9367da
+    distributed_workflow_cuda_mpi_test.go:178: verified rank=2 stage=newton-8 words=16384 source=47e6b1965de81f4dc733ced82b8747d74020e31a106a1a1f50f97826ea9367da
+    distributed_workflow_cuda_mpi_test.go:178: verified rank=3 stage=root words=16384 source=47e6b1965de81f4dc733ced82b8747d74020e31a106a1a1f50f97826ea9367da
+    distributed_workflow_cuda_mpi_test.go:178: verified rank=3 stage=newton-8 words=16384 source=47e6b1965de81f4dc733ced82b8747d74020e31a106a1a1f50f97826ea9367da
+--- PASS: TestReloadWorkflowCheckpoints (0.01s)
+PASS
