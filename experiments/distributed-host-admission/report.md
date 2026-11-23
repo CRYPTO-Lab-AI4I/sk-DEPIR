@@ -130,3 +130,15 @@ profiles remain on later failure. Full s18 remains **unrun/unadmitted**; next us
 representative measurements to select fullsize host reserve, node/GPU layout and
 complete storage/time/headroom budget. This eight-worker correctness test alone
 cannot establish multi-card bandwidth or fullsize GC/RSS behavior.
+
+### Frozen-source readiness
+
+Implementation **aff14a1** freezes **939 build inputs**; all **414** compiled code
+hashes and selected inputs match the readiness tree. All **27 frozen reviewer
+suites** pass. Ordinary CPU/race, tagged command/reference builds and admission
+checks pass without local GPU/MPI initialization. Native preflight reproduces
+**108014 historical bytes** and actual s8/curve5 reference/root geometry.
+Saved82181evidence also passes the generalized reviewer's default four-worker path.
+[Source checks](readiness/source-checks.json), [reviewers](readiness/frozen-reviewers.json),
+[native preflight](readiness/native-preflight.log). No job submitted; CPU/RAM
+resource agreement is the remaining requirement before this prepared test launches.
