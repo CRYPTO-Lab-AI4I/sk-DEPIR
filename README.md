@@ -22,7 +22,7 @@ passed **81365**,including a matched resident-default comparison;
 [bounded discovery-result consumption](experiments/distributed-discovery-results/report.md)
 passed **81454**; the [full-size allocation audit](experiments/distributed-fullsize-audit/report.md)
 records remaining limits,with [Newton prefix-input validation](experiments/distributed-prefix-inputs/report.md)
-passed **81729**; [bounded proof/native progress recording](experiments/distributed-proof-recording/report.md) is next;
+passed **81729**; [bounded proof/native progress recording](experiments/distributed-proof-recording/report.md) is submitted as **81738**;
 full s18 preprocessing remains unrun.
 
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)

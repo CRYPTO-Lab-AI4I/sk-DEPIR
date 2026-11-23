@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-bounded proof/native recording following passed Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+bounded proof/native recording **submitted 81738** following passed Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1253,14 +1253,14 @@ Dense remains default. Next bounded proof/native recording must preserve all
 runtime verification/resource guards;fulls18 production/admission remain unresolved.
 
 
-### Prepared bounded proof/native recording
+### Bounded proof/native recording — submitted81738
 
 [Implementation and paired validation plan](../experiments/distributed-proof-recording/report.md)
 retain all runtime descriptor/payload/peer/field/identity checks and per-proof RSS
 guards while optionally storing fixed per-kind ordered digest/count/byte summaries.
 Full/default behavior remains;trace mode additionally hashes full small baselines.
 Native window totals replace optional per-window starts/completions while parent
-pass/target progress and errors remain. GPU validation pending.
+pass/target progress and errors remain. GPU validation **submitted81738**, six paired arms; results pending.
 
 This addresses the audit's recording growth,not GPU payload,fullsize rank support
 or production persistence. Summary serialization/hashing overhead and fullsize

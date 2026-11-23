@@ -1,0 +1,16 @@
+{
+  "job_id": "81738",
+  "name": "recording-01",
+  "implementation_revision": "08f1100",
+  "submission_revision": "cd681de438917baf9a6efccf387c9beacf2e1b0d",
+  "recorded_utc": "2026-11-23T00:28:53.526934+00:00",
+  "command": "sbatch --parsable --output=experiments/distributed-proof-recording/slurm-%j.log experiments/distributed-proof-recording/run.sbatch recording-01",
+  "results": "experiments/distributed-proof-recording/runs/recording-01",
+  "log": "experiments/distributed-proof-recording/slurm-81738.log",
+  "cache": ".cache/liftrs/distributed-proof-recording/recording-01/",
+  "resources": "2 HPC nodes / 2 H200 / 4 CPU cores / 8 GiB requested host RAM; 4 workers, 64 MiB owned GPU per worker = 128 MiB/card; 1 GiB RSS per worker; zero CUDA-pinned; 128 MiB retained cache / 2 GiB scratch / 32 MiB per file; 720-second controller / 15-minute Slurm limit; exclude gnode03",
+  "scope": "Six paired full-trace/summary genuine s8 cold/restart and bounded field18 arms; all runtime checks retained; not full s18",
+  "estimated_controller_minutes": "4\u20137 excluding queue; fullsize costs remain unmeasured",
+  "monitoring": "Receipt-bound local completion notification; no model polling",
+  "note": "851 frozen build inputs, 383 compiled source hashes match, 14 frozen reviewers and 108014 historical native reference bytes passed preflight. Default full recording unchanged; no resource increase."
+}

@@ -176,3 +176,5 @@ bounded totals with parent pass/target progress and errors retained. Full traces
 remain the default and small reference for paired validation;this changes stored
 evidence,not mathematical checks. Production parameters/ranks/non-oracle/persistence
 remain separate work before fulls18 admission.
+
+Bounded proof/native recording comparison **81738** is submitted under the existing two-node/two-H200 budget; [receipt](../experiments/distributed-proof-recording/submission.json). Results pending.

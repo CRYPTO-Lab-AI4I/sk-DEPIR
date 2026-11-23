@@ -1,6 +1,6 @@
 # Bounded protocol proof and native window recording
 
-Status: prepared; GPU validation not yet submitted. Implementation revision **08f1100** (parent 8a9b915).
+Status: **submitted job 81738**, recording-01; GPU results pending. Implementation revision **08f1100** (parent 8a9b915).
 [Runner](run.py),[Slurm entry](run.sbatch),[analyzer](analyze.py),
 [reviewer tests](test_review.py),[readiness](readiness/). Planned results:
 `runs/recording-01/`;immutable source,binaries,native references,profiles and
@@ -160,3 +160,9 @@ no local GPU/MPI work was executed. The admitted allocation rebuilds committed
 source and checks paths/environment on every participating node before GPU phases.
 Raw retained MPI/tool outputs are preserved verbatim, including whitespace;
 authored source/documentation whitespace checks passed.
+
+### Submission
+
+Job **81738** submitted from **cd681de** with unchanged resources above.
+[Receipt](submission.json); results will be `runs/recording-01/`, Slurm log
+`slurm-81738.log`. No scheduler polling or result claim follows submission.

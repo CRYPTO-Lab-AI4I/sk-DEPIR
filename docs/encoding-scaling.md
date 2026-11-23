@@ -3670,3 +3670,5 @@ checks precede allocation. Same two-node/two-H200 caps;no extra resource admissi
 After recording validation,proceed to production parameter/rank/lifecycle,non-oracle
 verification and bounded persistence/restart ownership from the audit. Fulls18
 remains unrun/unadmitted;small paired timings do not establish fullsize costs.
+
+Bounded proof/native recording validation **81738** is submitted (six paired cold/restart/field18 arms, unchanged two-node/two-H200 budget); [receipt](../experiments/distributed-proof-recording/submission.json). Results pending; no full s18 admission.
