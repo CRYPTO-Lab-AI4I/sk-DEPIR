@@ -22,7 +22,7 @@ iteration,the complete identity and spectrum,plus fresh-process restart and
 streamed publication on four workers. **Bounded canonical s18 FFT/products passed78917, and streamed coordinator
 diagnostics/restart passed79213. Four-worker FFT/products passed79239 on two
 GPUs. Hierarchical sharded roots passed79376. Genuine discovery-to-hierarchy passed79541. Complete four-worker cold/restart passed79983. Wide adapters passed80962 on bounded canonical field18 components. Owned-root execution passed81079 at both field widths. Compact checkpoint cold/restart passed81190. Current focus:
-shared MPI/GPU runtime extraction **submitted81763** following passed restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
+shared reciprocal/non-oracle generator runtime following passed MPI/GPU integration **81763** and restart binding **81750** and bounded diagnostic validation (**81744 partial passes +81746 passed**) following passed proof/native recording **81738** and Newton prefix-input views **81729** and the full-size allocation/ownership audit,then scalable fullsize ownership/working-set admission and
 representative scaling.** Steps1–4 have
 small-case correctness evidence through four workers;fullsize scaling remains unvalidated.
 These results are separate from the full s17 runs and fulls18 projections below.
@@ -1367,7 +1367,7 @@ hash bytes are not physical disk metrics or full-size latency estimates. Full s1
 remains unrun/unadmitted. Runtime rows precede deferred GPU close;launcher timing
 includes it.
 
-### Shared MPI/GPU runtime extraction — submitted81763
+### Shared MPI/GPU runtime extraction — passed81763
 
 [Plan](../experiments/distributed-runtime/report.md): unchanged validated transport
 moves from test-only files into internal MPI runtime,with one error-returning GPU
@@ -1377,4 +1377,30 @@ builds stay explicit;no public production CLI/rank expansion/fulls18 claim. Reso
 payloads/layouts/defaults unchanged;bounded cold/restart/wide integration uses the
 existing two-node/two-H200 budget,not repeated verification-mode timing/sanitizers.
 
-Shared-runtime integration **81763 submitted**: [receipt](../experiments/distributed-runtime/submission.json). Three cold/coordinated-restart/wide arms under unchanged two-node/two-H200 caps;results pending. Internal runtime only;no production/full s18 claim.
+Shared-runtime integration **81763 passed**: [receipt](../experiments/distributed-runtime/submission.json). All three cold/coordinated-restart/wide arms passed under unchanged two-node/two-H200 caps. Internal runtime only;no production/full s18 claim.
+
+
+### Shared runtime measurements81763
+
+| Mode on HPC | Result/runtime | Peak host RSS | Owned GPU memory |
+|---|---|---|---|
+| Genuine s8/curve5 cold | Passed;9.105248 seconds |378.125 MiB/worker |0.244 MiB/worker |
+| Fresh coordinated prefix8 restart | Passed;6.962673 seconds |379.320 MiB/worker |0.244 MiB/worker |
+| Bounded field18 d5/d12 workflow | Passed;4.758988 seconds cumulative |381.219 MiB/worker |3.125 MiB/worker |
+
+Two nodes/two H200s/four MPI workers/four CPU cores/8 GiB requested host RAM;
+context/MPI/driver memory additional. Controller2min40.959s;cache34.725MiB.
+[Exact methods/evidence](../experiments/distributed-runtime/report.md#verified-result81763).
+No fullsize or production-entry claim. Rows precede deferred GPU close;launcher
+includes it. Native/proof/canonical/checkpoint/diagnostic checks all passed.
+
+### Prepared shared reciprocal orchestration
+
+[Plan](../experiments/distributed-reciprocal/report.md): one backend-independent
+error-returning Newton loop for cold/resumed/narrow/wide workflows, retaining the
+existing square/product kernels, explicit dense/prefix semantics, counters and
+checkpoint/reload sequence. Full code identity scan also moves to runtime; all
+native/canonical observers remain independent. No additional intended coefficient
+arrays/transforms/I/O or default change;full-size GC/latency/RSS remain unmeasured.
+Same-budget cold/restart/dense-preservation/wide validation;not production entry,
+larger-rank support or full s18 admission.

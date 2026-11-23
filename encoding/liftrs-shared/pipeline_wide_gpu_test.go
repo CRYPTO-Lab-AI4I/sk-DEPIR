@@ -38,8 +38,6 @@ func checkWidePipelineTail(t *testing.T, w *mpi.World, output string, dim int, e
 	if inputErr != nil {
 		t.Fatal(inputErr)
 	}
-	newtonUploads, newtonCloneWords := uint64(0), uint64(0)
-	newtonSteps := 0
 	count, target := 17, 64
 	if dim == 5 {
 		count, target = 9, 16
@@ -118,36 +116,27 @@ func checkWidePipelineTail(t *testing.T, w *mpi.World, output string, dim int, e
 	}
 	root := own(p)
 	g := own([]uint32{1})
-	known := 1
-	err = reciprocalSchedule(1, target, func(size int) error {
-		op := e.Plan.Operation
-		e.Plan.Operation++
-		squared, err := squarePolynomialShard(rankSquarePlan{op, n, 4096, 1 << s, uint64(size), words, w.Rank, w.Size}, g, func(v uint32) uint32 { return base.Mul(v, v) }, link, nil)
-		if err != nil {
-			return err
-		}
-		ac := min(count, size)
-		left := root
-		if inputMode == "dense" {
-			left = append([]uint32(nil), root...)
-			newtonCloneWords = uint64(len(left))
-			for j := range left {
-				if first+uint64(j) >= uint64(ac) {
-					left[j] = 0
-				}
+	var refinement rankReciprocalStats
+	g, refinement, err = refineRankReciprocal(rankReciprocalPlan{Domain: n, RootCount: uint64(count), Target: uint64(target), Known: 1, MaxLocalWords: words, Rank: w.Rank, Ranks: w.Size, PrefixInputs: inputMode == "prefix"}, root, g, rankReciprocalOps{
+		Square: func(values []uint32, keep uint64) ([]uint32, error) {
+			op := e.Plan.Operation
+			e.Plan.Operation++
+			return squarePolynomialShard(rankSquarePlan{op, n, 4096, 1 << s, keep, words, w.Rank, w.Size}, values, func(v uint32) uint32 { return base.Mul(v, v) }, link, nil)
+		},
+		Product: func(name string, a, b []uint32, ac, bc, keep uint64, prefix bool) ([]uint32, uint64, error) {
+			before := e.UploadedInputWords
+			out, err := session.product(name, a, b, ac, bc, keep, prefix)
+			return out, e.UploadedInputWords - before, err
+		},
+		Checkpoint: func(size uint64, values []uint32) ([]uint32, error) {
+			if !reflect.DeepEqual(values, own(expected[:size])) {
+				return nil, fmt.Errorf("wide independent reciprocal prefix")
 			}
-		}
-		before := e.UploadedInputWords
-		g = product(fmt.Sprintf("newton-%d", size), left, squared, uint64(ac), uint64(min(2*known-1, size)), uint64(size), inputMode == "prefix")
-		newtonUploads += e.UploadedInputWords - before
-		newtonSteps++
-		if !reflect.DeepEqual(g, own(expected[:size])) {
-			return fmt.Errorf("wide independent reciprocal prefix")
-		}
-		saveMatrixStageWords(t, filepath.Join(output, fmt.Sprintf("%s-rank-%d-prefix-%d.bin", label, w.Rank, size)), g)
-		known = size
-		return nil
+			saveMatrixStageWords(t, filepath.Join(output, fmt.Sprintf("%s-rank-%d-prefix-%d.bin", label, w.Rank, size)), values)
+			return values, nil
+		},
 	})
+	newtonUploads, newtonCloneWords, newtonSteps := refinement.UploadedWords, refinement.RootCloneWordsPerStep, refinement.Steps
 	if err != nil {
 		t.Fatal(err)
 	}

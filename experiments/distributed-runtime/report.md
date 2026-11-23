@@ -1,6 +1,6 @@
 # Shared MPI/GPU preprocessing runtime
 
-Status: **submitted job81763**, runtime-01; GPU integration results pending. Implementation **c4685d4** (parent830433c).
+Status: **passed job81763**, all three runtime-01 arms independently verified. Implementation **c4685d4** (parent830433c).
 [Runner](run.py), [Slurm entry](run.sbatch), [analyzer](analyze.py),
 [configuration regression](test_review.py), [readiness](readiness/).
 Planned results `runs/runtime-01/`. Immutable source, binaries, native references
@@ -139,3 +139,30 @@ The admitted allocation rebuilds this committed source and preflights every node
 Job **81763** submitted from **742dbc7**, implementation **c4685d4**.
 [Receipt](submission.json);results `runs/runtime-01/`,Slurm log `slurm-81763.log`.
 Unchanged resources above;estimate3–6minutes excluding queue. No polling or GPU result claim.
+
+## Verified result81763
+
+All **872 source /82 evidence /368 cache files** reconcile to producing revision
+**742dbc7** and the submitted receipt. [Analysis](runs/runtime-01/analysis.json),
+[raw results](runs/runtime-01/results.json), [Slurm log](slurm-81763.log),
+[receipt](submission.json). All independent native/canonical/packet/digest checks,
+actual Taylor window totals, checkpoint recovery metadata frames and bounded
+diagnostic byte/progress checks passed. Optional build variants and pure session
+admission/terminal-state tests also passed in the allocation.
+
+| Mode | Result/runtime | Peak host RSS | Owned GPU memory |
+|---|---|---|---|
+| Genuine s8/curve5 cold | Passed;9.105248 seconds |378.125 MiB/worker |0.244 MiB/worker |
+| Fresh coordinated prefix8 restart | Passed;6.962673 seconds |379.320 MiB/worker |0.244 MiB/worker |
+| Bounded field18 d5/d12 shared session | Passed;4.758988 seconds cumulative |381.219 MiB/worker |3.125 MiB/worker |
+
+HPC two nodes/two H200s/four workers/four CPU cores/8 GiB requested host RAM,under
+unchanged caps above;CUDA/MPI/context memory additional. Controller **2 min40.959
+seconds**;retained cache **34.725 MiB**. Runtime rows precede deferred GPU close;
+launcher/controller times include it. These small cases establish shared runtime
+integration,not full-size speedup,peak-memory bounds or a public production entry.
+
+Next consolidate sharded generator refinement and full identity verification into
+reusable runtime while preserving independent test/native observers, then finish
+production ownership/phase admission,non-oracle entry and bounded publication.
+Full s18 remains unrun/unadmitted.

@@ -661,40 +661,26 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 		g[0] = 1
 	}
 	initialPrefix := known
-	newtonUploads := uint64(0)
-	newtonCloneWords := uint64(0)
-	newtonSteps := 0
-	err = reciprocalSchedule(known, n-k, func(size int) error {
-		squareOp := executor.Plan.Operation
-		executor.Plan.Operation++
-		squared, e := squarePolynomialShard(rankSquarePlan{squareOp, uint64(n), 4096, q, uint64(size), words, w.Rank, w.Size}, g, func(v uint32) uint32 { return fixture.base.mul(v, v) }, link, func(done, total uint64) { notice("newton-square", done, total) })
-		if e != nil {
-			return e
-		}
-		aCount := min(k+1, size)
-		a := root
-		multiply := driver.ProductPrefixInputs
-		if inputMode == "dense" {
-			a = append([]uint32(nil), root...)
-			newtonCloneWords = uint64(len(a))
-			for j := range a {
-				if first+uint64(j) >= uint64(aCount) {
-					a[j] = 0
-				}
-			}
-			multiply = product
-		}
-		squareCount := min(2*known-1, size)
-		before := executor.UploadedInputWords
-		g = multiply(fmt.Sprintf("newton-%d", size), a, squared, uint64(aCount), uint64(squareCount), uint64(size))
-		newtonUploads += executor.UploadedInputWords - before
-		newtonSteps++
-		reload := !reloaded && size >= 8 && size < n-k
-		g = persist(fmt.Sprintf("newton-%d", size), g, size, reload)
-		reloaded = reloaded || reload
-		known = size
-		return nil
+	var refinement rankReciprocalStats
+	g, refinement, err = refineRankReciprocal(rankReciprocalPlan{Domain: uint64(n), RootCount: uint64(k + 1), Target: uint64(n - k), Known: uint64(known), MaxLocalWords: words, Rank: w.Rank, Ranks: w.Size, PrefixInputs: inputMode == "prefix"}, root, g, rankReciprocalOps{
+		Square: func(values []uint32, keep uint64) ([]uint32, error) {
+			op := executor.Plan.Operation
+			executor.Plan.Operation++
+			return squarePolynomialShard(rankSquarePlan{op, uint64(n), 4096, q, keep, words, w.Rank, w.Size}, values, func(v uint32) uint32 { return fixture.base.mul(v, v) }, link, func(done, total uint64) { notice("newton-square", done, total) })
+		},
+		Product: func(name string, a, b []uint32, ac, bc, keep uint64, prefix bool) ([]uint32, uint64, error) {
+			before := executor.UploadedInputWords
+			out, e := driver.rankGPUSession.product(name, a, b, ac, bc, keep, prefix)
+			return out, executor.UploadedInputWords - before, e
+		},
+		Checkpoint: func(size uint64, values []uint32) ([]uint32, error) {
+			reload := !reloaded && size >= 8 && size < uint64(n-k)
+			values = persist(fmt.Sprintf("newton-%d", size), values, int(size), reload)
+			reloaded = reloaded || reload
+			return values, nil
+		},
 	})
+	newtonUploads, newtonCloneWords, newtonSteps := refinement.UploadedWords, refinement.RootCloneWordsPerStep, refinement.Steps
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -702,14 +688,8 @@ func runDistributedPilot[Word transposeWord](t *testing.T, w *mpi.World, directo
 		t.Fatal("missing interior prefix reload")
 	}
 	identity := product("identity", root, g, uint64(k+1), uint64(n-k), uint64(n))
-	for j, v := range identity {
-		var want uint32
-		if index := first + uint64(j); index == 0 || index == uint64(n-1) {
-			want = 1
-		}
-		if v != want {
-			t.Fatal("full P*G identity")
-		}
+	if err := verifyRankCodeIdentity(uint64(n), w.Rank, w.Size, identity); err != nil {
+		t.Fatal(err)
 	}
 	save("g", g)
 	save("identity", identity)

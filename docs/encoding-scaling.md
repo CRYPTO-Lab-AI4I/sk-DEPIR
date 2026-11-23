@@ -3742,4 +3742,23 @@ and one existing-budget cold/coordinated-restart/wide composition. No repeated
 local-vs-coordinator or unchanged sanitizer arm. Then continue production parameter/
 ownership/phase admission,non-oracle entry and bounded retention/publication.
 
-Shared MPI/GPU runtime validation **81763 submitted** under unchanged caps; [receipt](../experiments/distributed-runtime/submission.json). Cold/coordinated-restart/bounded field18 arms;results pending,no public production/full s18 admission.
+Shared MPI/GPU runtime validation **81763 passed** under unchanged caps; [receipt](../experiments/distributed-runtime/submission.json). All cold/coordinated-restart/bounded field18 arms passed;no public production/full s18 admission.
+
+
+## Shared reciprocal and full-identity runtime (SCALING-185)
+
+81763 passed the extracted MPI/GPU runtime on genuine s8cold/restart and bounded
+field18. Next deduplicate the remaining main/wide Newton loop into one backend-
+independent function with parameterized ownership/counts and error-returning
+square/product/checkpoint callbacks. Keep all arithmetic, counts, dense/prefix
+selection, checkpoint/reload order and native/full-identity checks. Move the
+identical full code identity scan to runtime; do not treat inverse refinement alone
+as verified code preparation. No oracle input or test framework enters the runtime.
+
+No extra intended arrays/transfers/transforms/storage; dense default and explicit
+prefix savings stay unchanged. Single-shard admission is not a whole-process memory
+bound, and full-size GC/runtime effects remain unmeasured. [Exact plan](../experiments/distributed-reciprocal/report.md).
+Use CPU cold/warm/failure references and one existing-budget cold/restart/default-
+dense-preservation/wide integration; no unchanged sanitizer. Then continue production
+discovery/root/phase ownership, parameter admission, non-oracle end-to-end entry and
+bounded final publication. Full s18 remains unrun/unadmitted.

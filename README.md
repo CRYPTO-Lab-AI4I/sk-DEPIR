@@ -25,7 +25,8 @@ records remaining limits,with [Newton prefix-input validation](experiments/distr
 passed **81729**; [bounded proof/native progress recording](experiments/distributed-proof-recording/report.md) passed **81738**; explicit [bounded diagnostic serialization](experiments/distributed-diagnostic-writes/report.md)
 passed through **81744 partial results plus81746 wide validation**;
 [coordinated restart support verification](experiments/distributed-restart-binding/report.md) passed **81750**;
-[shared MPI/GPU runtime extraction](experiments/distributed-runtime/report.md) is submitted as **81763**;
+[shared MPI/GPU runtime extraction](experiments/distributed-runtime/report.md) passed **81763**;
+[shared reciprocal orchestration](experiments/distributed-reciprocal/report.md) is next;
 full s18 preprocessing remains unrun.
 
 **Encoding scaling:** the [maintained results and capacity tables](docs/encoding-status.md)

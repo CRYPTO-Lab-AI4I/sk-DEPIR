@@ -1,0 +1,31 @@
+{
+  "status": "CPU/race/tagged native/reviewer checks passed;GPU integration pending",
+  "utc": "2026-11-23T01:55:10.437460+00:00",
+  "parent_revision": "9922a8a",
+  "source_sha256": {
+    "encoding/liftrs-shared/distributed_reciprocal.go": "ae8bc161d8f5a2f43250613a0180eb5fe7b0bb6036b7d51185e8654be8c1a166",
+    "encoding/liftrs-shared/distributed_reciprocal_test.go": "a8182ca59a7d783ffc5378888eefc7fa983733e96c69e562062645f704a0d415",
+    "encoding/liftrs-shared/distributed_pipeline_gpu_test.go": "b670d92cbdc6291580f8fb86df5fbf61c52a7188ea1b5ccef4f3bab4cbab8f95",
+    "encoding/liftrs-shared/pipeline_wide_gpu_test.go": "ab980d75a2e6d41da63c986a29217579c18a7e60926c9ba8cab73f78150ffc80",
+    "experiments/distributed-reciprocal/run.py": "0814d88952453a5fc8bc525827350d22dde98e7e5a248b5af884e677af989ea7",
+    "experiments/distributed-reciprocal/analyze.py": "c2ee6bffae9ed43c123667e7ee887124bf20c03e3ed5aa036539f8175d84cd3b",
+    "experiments/distributed-reciprocal/test_review.py": "a65283fe80ef57f71b58298c6ddf0d3caea1756753d42182a12ff87297df7a39"
+  },
+  "checks": {
+    "build.log": "",
+    "cpu.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t0.007s\n",
+    "native-tests.log": "=== RUN   TestRankPrefixInputView\n--- PASS: TestRankPrefixInputView (0.01s)\n=== RUN   TestRankPrefixInputWideBounds\n--- PASS: TestRankPrefixInputWideBounds (0.00s)\n=== RUN   TestRankReciprocalColdWarmModes\n--- PASS: TestRankReciprocalColdWarmModes (0.01s)\n=== RUN   TestRankReciprocalRejectsFailures\n--- PASS: TestRankReciprocalRejectsFailures (0.00s)\n=== RUN   TestRankFullCodeIdentity\n--- PASS: TestRankFullCodeIdentity (0.00s)\n=== RUN   TestRankPrefixResumeAdmission\n--- PASS: TestRankPrefixResumeAdmission (0.00s)\n=== RUN   TestRankPrefixCompactRoundTrip\n--- PASS: TestRankPrefixCompactRoundTrip (0.00s)\n=== RUN   TestRankPrefixCompactBoundsAndCanonicalValues\n--- PASS: TestRankPrefixCompactBoundsAndCanonicalValues (0.00s)\n=== RUN   TestRankPrefixWideExtents\n--- PASS: TestRankPrefixWideExtents (0.00s)\n=== RUN   TestRankGPUSessionAdmission\n--- PASS: TestRankGPUSessionAdmission (0.00s)\n=== RUN   TestRankGPUSessionFailureAndClose\n--- PASS: TestRankGPUSessionFailureAndClose (0.00s)\n=== RUN   TestRankSupportAgreement\n--- PASS: TestRankSupportAgreement (0.00s)\n=== RUN   TestRankSupportMetadataGolden\n--- PASS: TestRankSupportMetadataGolden (0.00s)\nPASS\n",
+    "race.log": "ok  \tgithub.com/CRYPTO-Lab-AI4I/sk-DEPIR/encoding/liftrs-shared\t1.038s\n",
+    "review.log": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n"
+  },
+  "commands": {
+    "cpu": "CGO_ENABLED=0 go test ./encoding/liftrs-shared -run '^TestRankReciprocal|^TestRankFullCodeIdentity|^TestReciprocal' -count=1 -timeout=20s",
+    "race": "CGO_ENABLED=1 go test -race ./encoding/liftrs-shared -run '^TestRankReciprocal|^TestRankFullCodeIdentity|^TestReciprocal' -count=1 -timeout=20s",
+    "build": "CGO_ENABLED=1 CC=mpicc CXX=mpicxx go test -c -tags liftrs_cpp,liftrs_cuda,liftrs_mpi -o .cache/liftrs/distributed-reciprocal-readiness.test ./encoding/liftrs-shared"
+  },
+  "limitations": [
+    "No local GPU/MPI initialization.",
+    "Single-shard admission is not total memory bound;fullsize GC/liveness/latency remain unmeasured.",
+    "Refinement requires normalized source/verified initial prefix;full identity/native/canonical checks remain,not replaced by callback success."
+  ]
+}
